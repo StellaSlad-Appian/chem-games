@@ -86,27 +86,35 @@ export default function ClassificationGame() {
 
     // 2. Delay the logic progression so the user can see the animation
     setTimeout(() => {
-      setFeedback({ status: null, selected: null });
-      
-      // Advance logic after feedback
-      if (isCorrect) {
-        if (poolIndex + 1 >= currentLevelChemicals.length) {
-          if (currentLevel >= MAX_LEVEL) {
-            setGameState('victory');
-          } else {
-            setCurrentLevel((prev) => prev + 1);
-            setPoolIndex(0);
-            setTimeLeft(BASE_TIME_SECONDS - (currentLevel * 5)); 
+          setFeedback({ status: null, selected: null });
+          if (isCorrect) {
+            if (poolIndex + 1 >= currentLevelChemicals.length) {
+              if (currentLevel >= MAX_LEVEL) {
+                setGameState('victory');
+              } else {
+                // INSTEAD OF CHANGING THE LEVEL HERE, JUST PAUSE THE GAME
+                setGameState('levelUp');
+              }
+            } else {
+              setPoolIndex((prev) => prev + 1);
+            }
           }
-        } else {
-          setPoolIndex((prev) => prev + 1);
-        }
-      }
-    }, 1200);
+        }, 1200);
   };
 
   const togglePause = () => {
     if (gameState === 'failed' || gameState === 'victory') return;
+    
+    // If they are clicking "Begin Next Level" from the level up screen:
+    if (gameState === 'levelUp') {
+      setCurrentLevel((prev) => prev + 1);
+      setPoolIndex(0);
+      setTimeLeft(BASE_TIME_SECONDS - (currentLevel * 5)); 
+      setGameState('playing');
+      return;
+    }
+
+    // Otherwise, handle standard pausing
     setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
   };
 

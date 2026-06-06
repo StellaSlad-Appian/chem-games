@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Home, RefreshCw, Play, LogOut } from "lucide-react";
 
 interface GameOverlayProps {
-  gameState: 'playing' | 'paused' | 'failed' | 'victory';
+  gameState: 'playing' | 'paused' | 'failed' | 'victory' | 'levelUp';
   score: number;
   onResume: () => void;
   onRestart: () => void;
@@ -70,6 +70,25 @@ export default function GameOverlay({ gameState, score, onResume, onRestart }: G
               <Home className="w-5 h-5" /> Hub Menu
             </Link>
           </div>
+        </>
+      )}
+
+      {/* CASE C: LEVEL UP INTERSTITIAL */}
+      {gameState === 'levelUp' && (
+        <>
+          <h2 className="text-4xl md:text-5xl font-black text-blue-500 mb-2 tracking-wide">
+            LEVEL CLEARED!
+          </h2>
+          <p className="text-slate-500 mb-8 text-lg font-medium">
+            Complexity increasing. Prepare for the next phase.
+          </p>
+          
+          <button 
+            onClick={onResume} // We can reuse the onResume function to start the next level
+            className="w-full max-w-sm bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all"
+          >
+            <Play className="w-5 h-5 fill-current" /> Begin Next Level
+          </button>
         </>
       )}
     </div>
