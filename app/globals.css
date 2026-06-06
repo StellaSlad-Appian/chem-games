@@ -1,21 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc; /* A clean, lab-white background */
+  --foreground: #0f172a; /* Dark text for readability */
+  --chem-acid: #ef4444;  /* Red for acids */
+  --chem-base: #3b82f6;  /* Blue for bases */
+  --chem-neon: #10b981;  /* Toxic/Neon green for game UI highlights */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* This exposes your custom colors to Tailwind */
+  --color-acid: var(--chem-acid);
+  --color-base: var(--chem-base);
+  --color-neon: var(--chem-neon);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #09090b; /* Deep dark background for dark mode */
+    --foreground: #fafafa;
   }
 }
 
