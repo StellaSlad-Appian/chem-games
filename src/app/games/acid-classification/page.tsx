@@ -21,6 +21,8 @@ export default function ClassificationGame() {
   const [timeLeft, setTimeLeft] = useState<number>(BASE_TIME_SECONDS);
   const [gameState, setGameState] =useState<GameState>('playing');
   const [poolIndex, setPoolIndex] = useState<number>(0);
+ //-- DON'T SHOW CHEMICAL NAME, UNLESS ASKED --
+  const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
 
   // --- UI ANIMATION STATE ---
   const [feedback, setFeedback] = useState<{ status: 'correct' | 'wrong' | null; selected: string | null }>({
@@ -30,9 +32,11 @@ export default function ClassificationGame() {
 
   // Database filtering logic
   const currentLevelChemicals = useMemo(() => {
-    if (!chemicalsDB) return [];
-    return chemicalsDB.filter(chem => chem.difficulty === currentLevel);
-  }, [currentLevel]);
+  if (!chemicalsDB) return [];
+  // Filter by level, then shuffle the array
+  const filtered = chemicalsDB.filter(chem => chem.difficulty === currentLevel);
+  return [...filtered].sort(() => Math.random() - 0.5); 
+}, [currentLevel]);
 
   const currentChemical = currentLevelChemicals[poolIndex];
 
@@ -66,43 +70,42 @@ export default function ClassificationGame() {
 
   // Merged Selection Logic with Visual Delays
   const handleSelection = (selectedType: ChemicalClassification) => {
-    if (gameState !== 'playing' || !currentChemical || feedback.status !== null) return;
+  if (gameState !== 'playing' || !currentChemical || feedback.status !== null) return;
 
-    const expectedType = evaluateChemical(currentChemical);
-    const isCorrect = selectedType === expectedType;
+  const expectedType = evaluateChemical(currentChemical);
+  const isCorrect = selectedType === expectedType;
 
-    // 1. Trigger Visual Feedback Immediately
-    if (isCorrect) {
-      setScore((prev) => prev + (100 * currentLevel));
-      setFeedback({ status: 'correct', selected: selectedType });
-    } else {
-      const newMistakes = mistakes + 1;
-      setMistakes(newMistakes);
-      setFeedback({ status: 'wrong', selected: selectedType });
-      
-      if (newMistakes >= MAX_MISTAKES) {
-        setTimeout(() => setGameState('failed'), 800); // Wait for the red flash, then end game
-        return;
-      }
-    }
-
-    // 2. Delay the logic progression so the user can see the animation
+  if (isCorrect) {
+    setScore((prev) => prev + (100 * currentLevel));
+    setFeedback({ status: 'correct', selected: selectedType });
+    
+    // Logic: If correct, wait, then check if we finished the level
     setTimeout(() => {
-          setFeedback({ status: null, selected: null });
-          if (isCorrect) {
-            if (poolIndex + 1 >= currentLevelChemicals.length) {
-              if (currentLevel >= MAX_LEVEL) {
-                setGameState('victory');
-              } else {
-                // INSTEAD OF CHANGING THE LEVEL HERE, JUST PAUSE THE GAME
-                setGameState('levelUp');
-              }
-            } else {
-              setPoolIndex((prev) => prev + 1);
-            }
-          }
-        }, 1200);
-  };
+      setFeedback({ status: null, selected: null });
+      
+      if (poolIndex + 1 >= currentLevelChemicals.length) {
+        if (currentLevel >= MAX_LEVEL) {
+          setGameState('victory');
+        } else {
+          setGameState('levelUp'); // Successfully triggers the level up screen!
+        }
+      } else {
+        setPoolIndex((prev) => prev + 1);
+      }
+    }, 1200);
+  } else {
+    // Incorrect answer
+    const newMistakes = mistakes + 1;
+    setMistakes(newMistakes);
+    setFeedback({ status: 'wrong', selected: selectedType });
+    
+    if (newMistakes >= MAX_MISTAKES) {
+      setTimeout(() => setGameState('failed'), 800);
+    } else {
+      setTimeout(() => setFeedback({ status: null, selected: null }), 1200);
+    }
+  }
+};
 
   const togglePause = () => {
     if (gameState === 'failed' || gameState === 'victory') return;
@@ -169,7 +172,21 @@ export default function ClassificationGame() {
       {/* CENTRAL DISPLAY PORT & OVERLAYS */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-6 relative max-w-3xl z-0">
         
-        {/* Game State Overlays */}
+          {/* Game State Overlays */}
+
+        {gameState === 'levelUp' && (
+          <div className="absolute inset-0 bg-blue-500/90 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl p-8 text-center text-white">
+            <h2 className="text-5xl font-black mb-4">LEVEL CLEARED!</h2>
+            <p className="text-xl mb-8 opacity-90">Prepare for higher complexity.</p>
+            <button 
+              onClick={togglePause} 
+              className="bg-white text-blue-600 font-bold py-4 px-12 rounded-xl text-xl hover:scale-105 transition-transform"
+            >
+              Next Level
+            </button>
+          </div>
+        )}
+
         {gameState !== 'playing' && (
           <div className="absolute inset-0 bg-slate-50/80 dark:bg-zinc-950/80 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl border-2 border-slate-200 dark:border-zinc-800 shadow-xl p-8 text-center">
             {gameState === 'paused' && <h2 className="text-4xl md:text-5xl font-black text-blue-500 mb-4">PROTOCOL PAUSED</h2>}
@@ -215,7 +232,9 @@ export default function ClassificationGame() {
                 <h2 className="text-5xl md:text-7xl font-black tracking-tight font-serif text-slate-800 dark:text-white">
                   {renderFormula(currentChemical.formula)}
                 </h2>
+                {showChemicalName && (
                 <p className="text-xs md:text-sm text-slate-400 mt-2 font-medium opacity-80">{currentChemical.name}</p>
+                )}
               </>
             )}
             
