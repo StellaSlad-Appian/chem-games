@@ -4,8 +4,10 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from "next/link";
 import { Heart, Home, RefreshCw, Beaker, Flame, Droplet, Atom, Pause, Play } from "lucide-react";
 import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
+import { GameState } from '../../../core-engine/types/general';
 import { evaluateChemical } from '../../../lib/chemical-utils';
 import { chemicalsDB } from '../../../core-engine/db';
+
 
 const BASE_TIME_SECONDS = 60; 
 const MAX_MISTAKES = 3;
@@ -17,7 +19,7 @@ export default function ClassificationGame() {
   const [score, setScore] = useState<number>(0);
   const [mistakes, setMistakes] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(BASE_TIME_SECONDS);
-  const [gameState, setGameState] = useState<'playing' | 'paused' | 'failed' | 'victory'>('playing');
+  const [gameState, setGameState] =useState<GameState>('playing');
   const [poolIndex, setPoolIndex] = useState<number>(0);
 
   // --- UI ANIMATION STATE ---

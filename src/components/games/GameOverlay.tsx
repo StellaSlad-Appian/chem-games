@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Home, RefreshCw, Play, LogOut } from "lucide-react";
+import { GameState } from '../../core-engine/types/general';
 
 interface GameOverlayProps {
-  gameState: 'playing' | 'paused' | 'failed' | 'victory' | 'levelUp';
+  gameState: GameState;
   score: number;
   onResume: () => void;
   onRestart: () => void;
