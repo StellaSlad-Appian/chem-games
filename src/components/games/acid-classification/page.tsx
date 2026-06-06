@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { Chemical, ChemicalClassification } from '../../core-engine/types/chemistry';
-import { evaluateChemical } from '../../lib/chemical-utils';
-import { chemicalsDB } from '../../core-engine/db';
+import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
+import { evaluateChemical } from '../../../lib/chemical-utils';
+import { chemicalsDB } from '../../../core-engine/db';
 
 const BASE_TIME_SECONDS = 60; 
 const MAX_MISTAKES = 3;
