@@ -14,60 +14,64 @@ export default function GameOverlay({ gameState, score, onResume, onRestart }: G
   if (gameState === 'playing') return null;
 
   return (
-    <div className="absolute inset-0 bg-slate-50/80 dark:bg-zinc-950/80 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl border-2 border-slate-200 dark:border-zinc-800 shadow-xl p-8 text-center transition-all duration-300">
-      
+    <div
+      className="absolute inset-0 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl border-2 shadow-xl p-8 text-center transition-all duration-300"
+      style={{ background: 'color-mix(in srgb, var(--background) 85%, transparent)', borderColor: 'var(--border)' }}
+    >
       {/* CASE A: GAME IS PAUSED */}
       {gameState === 'paused' && (
         <>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-zinc-100 mb-2 tracking-wide">
+          <h2 className="text-4xl md:text-5xl mb-2" style={{ color: 'var(--foreground)' }}>
             GAME PAUSED
           </h2>
-          <p className="text-slate-400 dark:text-zinc-500 mb-8 text-sm md:text-base font-medium">
+          <p className="mb-8 text-sm md:text-base font-medium" style={{ color: 'var(--muted)' }}>
             Your research progress is temporarily frozen.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
-            <button 
-              onClick={onResume} 
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md hover:shadow-blue-500/20 active:scale-95 transition-all"
-            >
+            <button onClick={onResume} className="flex-1 btn-primary">
               <Play className="w-5 h-5 fill-current" /> Resume Game
             </button>
-            <Link 
-              href="/" 
-              className="flex-1 border-2 border-red-200 dark:border-red-900/50 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 font-extrabold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all"
-            >
+            <Link href="/" className="flex-1 btn-danger-ghost">
               <LogOut className="w-5 h-5" /> Quit Game
             </Link>
           </div>
         </>
       )}
 
-      {/* CASE B: GAME OVER (VICTORY OR FAILURE) */}
+      {/* CASE B: GAME OVER — victory or failure */}
       {(gameState === 'failed' || gameState === 'victory') && (
         <>
-          {gameState === 'failed' && <h2 className="text-4xl md:text-5xl font-black text-red-500 mb-4">💥 LAB MELTDOWN</h2>}
-          {gameState === 'victory' && <h2 className="text-4xl md:text-5xl font-black text-emerald-500 mb-4">🧪 RESEARCH COMPLETE!</h2>}
-          
-          <p className="text-slate-500 mb-6 text-lg">
-            {gameState === 'victory' ? "You successfully classified all chemicals." : "Critical life support failure."}
+          {gameState === 'failed' && (
+            <h2 className="text-4xl md:text-5xl mb-4 text-correct" style={{ color: 'var(--wrong)' }}>
+              💥 LAB MELTDOWN
+            </h2>
+          )}
+          {gameState === 'victory' && (
+            <h2 className="text-4xl md:text-5xl mb-4" style={{ color: 'var(--correct)' }}>
+              🧪 RESEARCH COMPLETE!
+            </h2>
+          )}
+
+          <p className="mb-6 text-lg" style={{ color: 'var(--muted)' }}>
+            {gameState === 'victory'
+              ? 'You successfully classified all chemicals.'
+              : 'Critical life support failure.'}
           </p>
-          
-          <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl font-bold text-xl mb-8 border-2 border-slate-100 dark:border-zinc-800">
+
+          {/* Final score card */}
+          <div
+            className="game-card px-8 py-4 font-bold text-xl mb-8"
+            style={{ color: 'var(--foreground)' }}
+          >
             Final Score: {score}
           </div>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
-            <button 
-              onClick={onRestart} 
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all"
-            >
+            <button onClick={onRestart} className="flex-1 btn-primary">
               <RefreshCw className="w-5 h-5" /> Restart Protocol
             </button>
-            <Link 
-              href="/" 
-              className="flex-1 border-2 border-slate-200 dark:border-zinc-700 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-50 dark:hover:bg-zinc-800 active:scale-95 transition-all"
-            >
+            <Link href="/" className="flex-1 btn-ghost">
               <Home className="w-5 h-5" /> Hub Menu
             </Link>
           </div>
@@ -77,17 +81,15 @@ export default function GameOverlay({ gameState, score, onResume, onRestart }: G
       {/* CASE C: LEVEL UP INTERSTITIAL */}
       {gameState === 'levelUp' && (
         <>
-          <h2 className="text-4xl md:text-5xl font-black text-blue-500 mb-2 tracking-wide">
+          <h2 className="text-4xl md:text-5xl mb-2 text-blue-500">
             LEVEL CLEARED!
           </h2>
-          <p className="text-slate-500 mb-8 text-lg font-medium">
+          <p className="mb-8 text-lg font-medium" style={{ color: 'var(--muted)' }}>
             Complexity increasing. Prepare for the next phase.
           </p>
-          
-          <button 
-            onClick={onResume} // We can reuse the onResume function to start the next level
-            className="w-full max-w-sm bg-blue-600 hover:bg-blue-700 text-white font-extrabold py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all"
-          >
+
+          {/* onResume is reused here — in the parent it handles advancing to the next level */}
+          <button onClick={onResume} className="w-full max-w-sm btn-primary py-4">
             <Play className="w-5 h-5 fill-current" /> Begin Next Level
           </button>
         </>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
 import { Heart, Home, RefreshCw, Beaker, Flame, Droplet, Atom, Pause, Play } from "lucide-react";
 import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
@@ -12,7 +12,7 @@ import { chemicalsDB } from '../../../core-engine/db';
 const BASE_TIME_SECONDS = 50; 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
-const QUOTA = 3; // The minimum needed to pass the level
+const QUOTA = 6; // The minimum needed to pass the level
 
 export default function ClassificationGame() {
   // --- USER'S GAME ENGINE STATE ---
@@ -22,9 +22,15 @@ export default function ClassificationGame() {
   const [timeLeft, setTimeLeft] = useState<number>(BASE_TIME_SECONDS);
   const [gameState, setGameState] =useState<GameState>('playing');
   const [poolIndex, setPoolIndex] = useState<number>(0);
+  // Tracks correct answers in the current level — must reach QUOTA to pass when time runs out
   const [correctInRound, setCorrectInRound] = useState<number>(0);
  //-- DON'T SHOW CHEMICAL NAME, UNLESS ASKED --
   const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
+  
+  // Mirror poolIndex in a ref so setTimeout callbacks always read the latest value.
+  // Without this, closures inside setTimeout would capture a stale poolIndex.
+  const poolIndexRef = useRef(poolIndex);
+  useEffect(() => { poolIndexRef.current = poolIndex; }, [poolIndex]);
 
   // --- UI ANIMATION STATE ---
   const [feedback, setFeedback] = useState<{ status: 'correct' | 'wrong' | null; selected: string | null }>({
@@ -49,7 +55,8 @@ export default function ClassificationGame() {
     if (gameState !== 'playing') return;
     
     if (timeLeft <= 0) {
-      // NEW QUOTA LOGIC: Check if they met the minimum requirement
+      // Time's up — pass the level if QUOTA was met, otherwise fail.
+      // Note: finishing the pool early bypasses this and triggers levelUp/victory directly in handleSelection.
       if (correctInRound >= QUOTA) {
         if (currentLevel >= MAX_LEVEL) {
           setGameState('victory');
@@ -97,13 +104,14 @@ export default function ClassificationGame() {
       
       setTimeout(() => {
         setFeedback({ status: null, selected: null });
-        
-        // Check if we finished the whole pool early
-        if (poolIndex + 1 >= currentLevelChemicals.length) {
+
+        // Read from ref, not state — state would be stale here since this runs inside a setTimeout.
+        const currentIndex = poolIndexRef.current;
+        if (currentIndex + 1 >= currentLevelChemicals.length) {
           if (currentLevel >= MAX_LEVEL) {
             setGameState('victory');
           } else {
-            setGameState('levelUp'); 
+            setGameState('levelUp');
           }
         } else {
           setPoolIndex((prev) => prev + 1);

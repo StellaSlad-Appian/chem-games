@@ -1,25 +1,180 @@
 @import "tailwindcss";
-
 @import "tailwindcss/preflight";
 @import "tailwindcss/utilities";
 
-:root {
-  --background: #f8fafc; /* A clean, lab-white background */
-  --foreground: #0f172a; /* Dark text for readability */
-  --chem-acid: #ef4444;  /* Red for acids */
-  --chem-base: #3b82f6;  /* Blue for bases */
-  --chem-neon: #10b981;  /* Toxic/Neon green for game UI highlights */
-}
+/* Display font for game headings + clean body font */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,800;1,9..40,400&display=swap');
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #09090b; /* Deep dark background for dark mode */
-    --foreground: #fafafa;
+    /* --- Surfaces --- */
+    --background: #f8fafc;
+    --surface:    #ffffff;
+    --surface-2:  #f1f5f9;
+    --border:     #e2e8f0;
+
+    /* --- Typography --- */
+    --foreground: #0f172a;
+    --muted:      #64748b;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* --- Game: Acid --- */
+    --chem-acid:    #ef4444;
+    --chem-acid-bg: #fef2f2;
+
+    /* --- Game: Base --- */
+    --chem-base:    #3b82f6;
+    --chem-base-bg: #eff6ff;
+
+    /* --- Game: Neutral --- */
+    --chem-neutral:    #10b981;
+    --chem-neutral-bg: #f0fdf4;
+
+    /* --- Game: Amphoteric --- */
+    --chem-amphoteric:    #a855f7;
+    --chem-amphoteric-bg: #faf5ff;
+
+    /* --- Feedback states --- */
+    --correct: #10b981;
+    --wrong:   #ef4444;
+
+    /* --- Elevation --- */
+    --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.07);
+    --shadow-lg:   0 8px 40px 0 rgb(0 0 0 / 0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* --- Surfaces --- */
+      --background: #09090b;
+      --surface:    #18181b;
+      --surface-2:  #27272a;
+      --border:     #3f3f46;
+
+      /* --- Typography --- */
+      --foreground: #fafafa;
+      --muted:      #a1a1aa;
+
+      /* --- Game: Acid --- */
+      --chem-acid-bg: #450a0a;
+
+      /* --- Game: Base --- */
+      --chem-base-bg: #172554;
+
+      /* --- Game: Neutral --- */
+      --chem-neutral-bg: #052e16;
+
+      /* --- Game: Amphoteric --- */
+      --chem-amphoteric-bg: #3b0764;
+
+      /* --- Elevation --- */
+      --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.4);
+      --shadow-lg:   0 8px 40px 0 rgb(0 0 0 / 0.6);
+    }
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Apply display font to all headings by default */
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.05em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* --- Buttons --- */
+  .btn-primary {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-extrabold
+           py-3.5 px-6 rounded-xl flex items-center justify-center gap-2
+           shadow-md active:scale-95 transition-all duration-150 cursor-pointer;
+  }
+
+  .btn-ghost {
+    @apply border-2 font-extrabold py-3.5 px-6 rounded-xl
+           flex items-center justify-center gap-2
+           active:scale-95 transition-all duration-150 cursor-pointer;
+    border-color: var(--border);
+    color: var(--foreground);
+  }
+  .btn-ghost:hover {
+    background: var(--surface-2);
+  }
+
+  .btn-danger-ghost {
+    @apply border-2 border-red-200 hover:bg-red-50 text-red-600
+           dark:border-red-900/50 dark:hover:bg-red-950/20 dark:text-red-400
+           font-extrabold py-3.5 px-6 rounded-xl
+           flex items-center justify-center gap-2
+           active:scale-95 transition-all duration-150 cursor-pointer;
+  }
+
+  /* --- Cards / Panels --- */
+  .game-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* --- Classification buttons --- */
+  .chem-btn {
+    @apply flex flex-col items-center p-4 rounded-2xl border-2
+           transition-all duration-150 group
+           active:scale-95 cursor-pointer;
+    background: var(--surface);
+    border-color: var(--border);
+  }
+  .chem-btn:hover {
+    box-shadow: var(--shadow-card);
+  }
+  .chem-btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+  .chem-btn-label {
+    @apply font-extrabold text-xs md:text-sm tracking-wider uppercase mt-2;
+  }
+
+  /* --- Feedback states on chem-btn --- */
+  .chem-btn-correct {
+    background: var(--chem-neutral-bg);
+    border-color: var(--correct);
+  }
+  .chem-btn-wrong {
+    background: #fef2f2;
+    border-color: var(--wrong);
+  }
+}
+
+@layer utilities {
+  /* Shake animation for wrong answers */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60%  { transform: translateX(-8px) rotate(-1deg); }
+    40%, 80%  { transform: translateX(8px) rotate(1deg); }
+  }
+  .shake-animation {
+    animation: shake 0.4s ease-in-out;
+  }
+
+  /* Subtle pulse for the molecule glow */
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50%       { opacity: 0.35; transform: scale(1.06); }
+  }
+  .glow-pulse {
+    animation: glow-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* Text color helpers using design tokens */
+  .text-muted  { color: var(--muted); }
+  .text-correct { color: var(--correct); }
+  .text-wrong   { color: var(--wrong); }
 }
