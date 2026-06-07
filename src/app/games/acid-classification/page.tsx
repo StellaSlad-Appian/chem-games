@@ -33,12 +33,14 @@ export default function ClassificationGame() {
   });
 
   // Database filtering logic
-  const currentLevelChemicals = useMemo(() => {
-  if (!chemicalsDB) return [];
-  // Filter by level, then shuffle the array
-  const filtered = chemicalsDB.filter(chem => chem.difficulty === currentLevel);
-  return [...filtered].sort(() => Math.random() - 0.5); 
-}, [currentLevel]);
+  const [currentLevelChemicals, setCurrentLevelChemicals] = useState<Chemical[]>([]);
+
+  useEffect(() => {
+    if (!chemicalsDB) return;
+    // Filter by level, then shuffle the array ONLY on the client side
+    const filtered = chemicalsDB.filter(chem => chem.difficulty === currentLevel);
+    setCurrentLevelChemicals([...filtered].sort(() => Math.random() - 0.5));
+  }, [currentLevel]);
 
   const currentChemical = currentLevelChemicals[poolIndex];
 
@@ -127,10 +129,11 @@ export default function ClassificationGame() {
     
     // If they are clicking "Begin Next Level" from the level up screen:
     if (gameState === 'levelUp') {
-      setCurrentLevel((prev) => prev + 1);
+      const nextLevel = currentLevel + 1; 
+      setCurrentLevel(nextLevel); 
+      setTimeLeft(BASE_TIME_SECONDS); // this could be reduced for higher levels if desired
       setPoolIndex(0);
       setCorrectInRound(0);
-      setTimeLeft(BASE_TIME_SECONDS - (currentLevel * 5)); 
       setGameState('playing');
       return;
     }
@@ -275,20 +278,20 @@ export default function ClassificationGame() {
           <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Acidic</span>
         </button>
 
-        <button onClick={() => handleSelection("Basic")} disabled={gameState !== "playing" || feedback.status !== null}
-          className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Basic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Basic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-blue-400 hover:shadow-md active:scale-98"}`}>
-          <div className="p-3 bg-blue-50 dark:bg-blue-950/40 rounded-xl text-blue-500 mb-2 group-hover:scale-110 transition-transform">
-            <Beaker className="w-8 h-8 md:w-10 md:h-10" />
-          </div>
-          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Basic</span>
-        </button>
-
         <button onClick={() => handleSelection("Neutral")} disabled={gameState !== "playing" || feedback.status !== null}
           className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Neutral" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Neutral" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-emerald-400 hover:shadow-md active:scale-98"}`}>
           <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-emerald-500 mb-2 group-hover:scale-110 transition-transform">
             <Droplet className="w-8 h-8 md:w-10 md:h-10" />
           </div>
           <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Neutral</span>
+        </button>
+
+        <button onClick={() => handleSelection("Basic")} disabled={gameState !== "playing" || feedback.status !== null}
+          className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Basic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Basic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-blue-400 hover:shadow-md active:scale-98"}`}>
+          <div className="p-3 bg-blue-50 dark:bg-blue-950/40 rounded-xl text-blue-500 mb-2 group-hover:scale-110 transition-transform">
+            <Beaker className="w-8 h-8 md:w-10 md:h-10" />
+          </div>
+          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Basic</span>
         </button>
 
         {currentLevel >= 3 && (
