@@ -33,24 +33,32 @@ export default function Vessel({ type, label, colorClass, bgHoverClass, status, 
   const { path, viewBox } = VESSELS[type];
 
   // Determine dynamic styling based on feedback status
-  let containerStyle = "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 " + bgHoverClass;
-  if (status === 'correct') containerStyle = "bg-emerald-50 border-emerald-500";
-  if (status === 'wrong') containerStyle = "bg-red-50 border-red-500";
+  let containerStyle = bgHoverClass;
+  if (status === 'correct') containerStyle = "border-[var(--correct)]";
+  if (status === 'wrong')   containerStyle = "border-[var(--wrong)]";
 
   return (
-    <button 
-      onClick={onClick} 
+    <button
+      onClick={onClick}
       disabled={disabled}
-      className={`flex flex-col items-center p-6 md:p-8 rounded-3xl border-2 transition-all group ${containerStyle} ${disabled ? "opacity-90 cursor-default" : "cursor-pointer active:scale-95 shadow-sm hover:shadow-md"}`}
+      className={`flex flex-col items-center p-6 md:p-8 rounded-3xl border-2 transition-all group ${status === 'idle' ? bgHoverClass : ''} ${disabled ? 'opacity-90 cursor-default' : 'cursor-pointer active:scale-95 shadow-sm hover:shadow-md'}`}
+      style={{
+        background: status === 'correct' ? 'var(--chem-neutral-bg)'
+                  : status === 'wrong'   ? 'var(--chem-acid-bg)'
+                  : 'var(--surface)',
+        borderColor: status === 'correct' ? 'var(--correct)'
+                  : status === 'wrong'   ? 'var(--wrong)'
+                  : undefined
+      }}
     >
-      <div className={`p-4 md:p-6 rounded-2xl mb-4 transition-transform ${status === 'idle' && !disabled ? "group-hover:scale-110 group-hover:-translate-y-2" : ""} ${colorClass}`}>
+      <div className={`p-4 md:p-6 rounded-2xl mb-4 transition-transform ${status === 'idle' && !disabled ? 'group-hover:scale-110 group-hover:-translate-y-2' : ''} ${colorClass}`}>
         {/* INCREASED SIZE: from w-8 to w-16 on mobile, and w-24 on desktop */}
         <svg viewBox={viewBox} className="w-16 h-16 md:w-24 md:h-24">
-          <path 
-            d={path} 
-            className="fill-current opacity-80 stroke-current stroke-[3px]" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
+          <path
+            d={path}
+            className="fill-current opacity-80 stroke-current stroke-[3px]"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </div>
