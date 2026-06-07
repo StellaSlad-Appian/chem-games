@@ -215,7 +215,7 @@ export default function ClassificationGame() {
           </div>
         )}
 
-        {gameState !== 'playing' && (
+        {gameState !== 'playing' && gameState !== 'levelUp' && (
           <div className="absolute inset-0 bg-slate-50/80 dark:bg-zinc-950/80 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl border-2 border-slate-200 dark:border-zinc-800 shadow-xl p-8 text-center">
             {gameState === 'paused' && <h2 className="text-4xl md:text-5xl font-black text-blue-500 mb-4">PROTOCOL PAUSED</h2>}
             {gameState === 'failed' && <h2 className="text-4xl md:text-5xl font-black text-red-500 mb-4">💥 LAB MELTDOWN</h2>}
