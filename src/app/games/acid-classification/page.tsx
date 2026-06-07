@@ -9,9 +9,10 @@ import { evaluateChemical } from '../../../lib/chemical-utils';
 import { chemicalsDB } from '../../../core-engine/db';
 
 
-const BASE_TIME_SECONDS = 60; 
+const BASE_TIME_SECONDS = 50; 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
+const QUOTA = 3; // The minimum needed to pass the level
 
 export default function ClassificationGame() {
   // --- USER'S GAME ENGINE STATE ---
@@ -21,6 +22,7 @@ export default function ClassificationGame() {
   const [timeLeft, setTimeLeft] = useState<number>(BASE_TIME_SECONDS);
   const [gameState, setGameState] =useState<GameState>('playing');
   const [poolIndex, setPoolIndex] = useState<number>(0);
+  const [correctInRound, setCorrectInRound] = useState<number>(0);
  //-- DON'T SHOW CHEMICAL NAME, UNLESS ASKED --
   const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
 
@@ -43,13 +45,24 @@ export default function ClassificationGame() {
   // Timer Effect
   useEffect(() => {
     if (gameState !== 'playing') return;
+    
     if (timeLeft <= 0) {
-      setGameState('failed');
+      // NEW QUOTA LOGIC: Check if they met the minimum requirement
+      if (correctInRound >= QUOTA) {
+        if (currentLevel >= MAX_LEVEL) {
+          setGameState('victory');
+        } else {
+          setGameState('levelUp');
+        }
+      } else {
+        setGameState('failed'); // Failed to meet the quota
+      }
       return;
     }
+    
     const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
-  }, [timeLeft, gameState]);
+  }, [timeLeft, gameState, correctInRound, currentLevel]);
 
   // Format seconds into MM:SS for clean UI
   const formatTime = (seconds: number) => {
@@ -70,42 +83,44 @@ export default function ClassificationGame() {
 
   // Merged Selection Logic with Visual Delays
   const handleSelection = (selectedType: ChemicalClassification) => {
-  if (gameState !== 'playing' || !currentChemical || feedback.status !== null) return;
+    if (gameState !== 'playing' || !currentChemical || feedback.status !== null) return;
 
-  const expectedType = evaluateChemical(currentChemical);
-  const isCorrect = selectedType === expectedType;
+    const expectedType = evaluateChemical(currentChemical);
+    const isCorrect = selectedType === expectedType;
 
-  if (isCorrect) {
-    setScore((prev) => prev + (100 * currentLevel));
-    setFeedback({ status: 'correct', selected: selectedType });
-    
-    // Logic: If correct, wait, then check if we finished the level
-    setTimeout(() => {
-      setFeedback({ status: null, selected: null });
+    if (isCorrect) {
+      setScore((prev) => prev + (100 * currentLevel));
+      setCorrectInRound((prev) => prev + 1); // <-- TRACK THE QUOTA HERE
+      setFeedback({ status: 'correct', selected: selectedType });
       
-      if (poolIndex + 1 >= currentLevelChemicals.length) {
-        if (currentLevel >= MAX_LEVEL) {
-          setGameState('victory');
+      setTimeout(() => {
+        setFeedback({ status: null, selected: null });
+        
+        // Check if we finished the whole pool early
+        if (poolIndex + 1 >= currentLevelChemicals.length) {
+          if (currentLevel >= MAX_LEVEL) {
+            setGameState('victory');
+          } else {
+            setGameState('levelUp'); 
+          }
         } else {
-          setGameState('levelUp'); // Successfully triggers the level up screen!
+          setPoolIndex((prev) => prev + 1);
         }
-      } else {
-        setPoolIndex((prev) => prev + 1);
-      }
-    }, 1200);
-  } else {
-    // Incorrect answer
-    const newMistakes = mistakes + 1;
-    setMistakes(newMistakes);
-    setFeedback({ status: 'wrong', selected: selectedType });
-    
-    if (newMistakes >= MAX_MISTAKES) {
-      setTimeout(() => setGameState('failed'), 800);
+      }, 1200);
+
     } else {
-      setTimeout(() => setFeedback({ status: null, selected: null }), 1200);
+      // Incorrect answer
+      const newMistakes = mistakes + 1;
+      setMistakes(newMistakes);
+      setFeedback({ status: 'wrong', selected: selectedType });
+      
+      if (newMistakes >= MAX_MISTAKES) {
+        setTimeout(() => setGameState('failed'), 800);
+      } else {
+        setTimeout(() => setFeedback({ status: null, selected: null }), 1200);
+      }
     }
-  }
-};
+  };
 
   const togglePause = () => {
     if (gameState === 'failed' || gameState === 'victory') return;
@@ -114,6 +129,7 @@ export default function ClassificationGame() {
     if (gameState === 'levelUp') {
       setCurrentLevel((prev) => prev + 1);
       setPoolIndex(0);
+      setCorrectInRound(0);
       setTimeLeft(BASE_TIME_SECONDS - (currentLevel * 5)); 
       setGameState('playing');
       return;
@@ -129,6 +145,7 @@ export default function ClassificationGame() {
     setMistakes(0);
     setTimeLeft(BASE_TIME_SECONDS);
     setPoolIndex(0);
+    setCorrectInRound(0);
     setGameState('playing');
     setFeedback({ status: null, selected: null });
   };
