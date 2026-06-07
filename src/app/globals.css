@@ -127,7 +127,7 @@
   /* --- Classification buttons --- */
   .chem-btn {
     @apply flex flex-col items-center p-4 rounded-2xl border-2
-           transition-all duration-150
+           transition-all duration-150 group
            active:scale-95 cursor-pointer;
     background: var(--surface);
     border-color: var(--border);
@@ -177,4 +177,13 @@
   .text-muted  { color: var(--muted); }
   .text-correct { color: var(--correct); }
   .text-wrong   { color: var(--wrong); }
+
+  /* Overlay entrance — fade in + subtle scale up */
+  @keyframes overlay-enter {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .overlay-enter {
+    animation: overlay-enter 0.2s ease-out forwards;
+  }
 }

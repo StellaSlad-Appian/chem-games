@@ -7,12 +7,13 @@ import { Chemical, ChemicalClassification } from '../../../core-engine/types/che
 import { GameState } from '../../../core-engine/types/general';
 import { evaluateChemical } from '../../../lib/chemical-utils';
 import { chemicalsDB } from '../../../core-engine/db';
-
+import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
 
 const BASE_TIME_SECONDS = 50; 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
-const QUOTA = 6; // The minimum needed to pass the level
+const QUOTA = 4; // The minimum needed to pass the level. 
+// suggestion: calculate dynamically based on number of chemicals for that level - 3
 
 export default function ClassificationGame() {
   // --- USER'S GAME ENGINE STATE ---
@@ -24,6 +25,9 @@ export default function ClassificationGame() {
   const [poolIndex, setPoolIndex] = useState<number>(0);
   // Tracks correct answers in the current level — must reach QUOTA to pass when time runs out
   const [correctInRound, setCorrectInRound] = useState<number>(0);
+    // reason why game failed
+  const [failReason, setFailReason] = useState<FailReason>(null);
+
  //-- DON'T SHOW CHEMICAL NAME, UNLESS ASKED --
   const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
   
@@ -64,7 +68,8 @@ export default function ClassificationGame() {
           setGameState('levelUp');
         }
       } else {
-        setGameState('failed'); // Failed to meet the quota
+        setFailReason('timeout');
+        setGameState('failed');
       }
       return;
     }
@@ -125,7 +130,10 @@ export default function ClassificationGame() {
       setFeedback({ status: 'wrong', selected: selectedType });
       
       if (newMistakes >= MAX_MISTAKES) {
-        setTimeout(() => setGameState('failed'), 800);
+        setTimeout(() => {
+          setFailReason('mistakes');
+          setGameState('failed');
+        }, 800);
       } else {
         setTimeout(() => setFeedback({ status: null, selected: null }), 1200);
       }
@@ -142,6 +150,7 @@ export default function ClassificationGame() {
       setTimeLeft(BASE_TIME_SECONDS); // this could be reduced for higher levels if desired
       setPoolIndex(0);
       setCorrectInRound(0);
+      setFailReason(null);
       setGameState('playing');
       return;
     }
@@ -157,6 +166,7 @@ export default function ClassificationGame() {
     setTimeLeft(BASE_TIME_SECONDS);
     setPoolIndex(0);
     setCorrectInRound(0);
+    setFailReason(null);
     setGameState('playing');
     setFeedback({ status: null, selected: null });
   };
@@ -199,50 +209,18 @@ export default function ClassificationGame() {
 
       {/* CENTRAL DISPLAY PORT & OVERLAYS */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-6 relative max-w-3xl z-0">
-        
-          {/* Game State Overlays */}
 
-        {gameState === 'levelUp' && (
-          <div className="absolute inset-0 bg-blue-500/90 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl p-8 text-center text-white">
-            <h2 className="text-5xl font-black mb-4">LEVEL CLEARED!</h2>
-            <p className="text-xl mb-8 opacity-90">Prepare for higher complexity.</p>
-            <button 
-              onClick={togglePause} 
-              className="bg-white text-blue-600 font-bold py-4 px-12 rounded-xl text-xl hover:scale-105 transition-transform"
-            >
-              Next Level
-            </button>
-          </div>
-        )}
-
-        {gameState !== 'playing' && gameState !== 'levelUp' && (
-          <div className="absolute inset-0 bg-slate-50/80 dark:bg-zinc-950/80 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl border-2 border-slate-200 dark:border-zinc-800 shadow-xl p-8 text-center">
-            {gameState === 'paused' && <h2 className="text-4xl md:text-5xl font-black text-blue-500 mb-4">PROTOCOL PAUSED</h2>}
-            {gameState === 'failed' && <h2 className="text-4xl md:text-5xl font-black text-red-500 mb-4">💥 LAB MELTDOWN</h2>}
-            {gameState === 'victory' && <h2 className="text-4xl md:text-5xl font-black text-emerald-500 mb-4">🧪 RESEARCH COMPLETE!</h2>}
-            
-            {gameState !== 'paused' && (
-              <>
-                <p className="text-slate-500 mb-6 text-lg">{gameState === 'victory' ? "You successfully classified all chemicals." : "Too many structural errors detected."}</p>
-                <div className="bg-white dark:bg-zinc-900 p-4 rounded-xl font-bold text-xl mb-8 border-2 border-slate-100 dark:border-zinc-800">Final Score: {score}</div>
-                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-sm">
-                  <button onClick={resetGame} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md active:scale-95 transition-all">
-                    <RefreshCw className="w-5 h-5" /> Restart Protocol
-                  </button>
-                  <Link href="/" className="flex-1 border-2 border-slate-200 dark:border-zinc-700 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-50 dark:hover:bg-zinc-800 active:scale-95 transition-all">
-                    <Home className="w-5 h-5" /> Hub Menu
-                  </Link>
-                </div>
-              </>
-            )}
-            
-            {gameState === 'paused' && (
-              <button onClick={togglePause} className="mt-4 px-8 py-3 bg-blue-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-95 transition-all">
-                <Play className="w-5 h-5" /> Resume
-              </button>
-            )}
-          </div>
-        )}
+        {/* Game State Overlays */}
+        <GameOverlay
+          gameState={gameState}
+          score={score}
+          correctInRound={correctInRound}
+          currentLevel={currentLevel}
+          maxLevel={MAX_LEVEL}
+          failReason={failReason}
+          onResume={togglePause}
+          onRestart={resetGame}
+        />
 
         {/* The Molecule Bubble */}
         <div className="relative flex flex-col items-center justify-center">
