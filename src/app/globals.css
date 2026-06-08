@@ -186,4 +186,37 @@
   .overlay-enter {
     animation: overlay-enter 0.2s ease-out forwards;
   }
+
+  /* Bubble Blaster */
+  @keyframes floatUp {
+    0% {
+      transform: translateY(100%) scale(0.9);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-105vh) scale(1);
+      opacity: 0;
+    }
+  }
+
+  /* 🔔 ADD 2: Error Banner Notification Entrance Dropdown */
+  @keyframes slideIn {
+    from {
+      transform: translate(-50%, -20px);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+  .animate-slide-in {
+    animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
 }
