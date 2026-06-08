@@ -7,99 +7,149 @@ import GameOverlay from '../../../components/games/GameOverlay';
 import BlasterBubble from '../../../components/games/BlasterBubble';
 import ErrorBanner from '../../../components/games/ErrorBanner';
 import { GameState } from '../../../core-engine/types/general';
+import { Chemical } from '../../../core-engine/types/chemistry';
+import { chemicalsDB } from '../../../core-engine/db';
+// 🔄 Reusing only GameStats and GameTimer as requested
+import GameStats from '../../../components/games/GameStats'; 
+import GameTimer from '../../../components/games/GameTimer';
 
 interface BubbleData {
   id: string;
   formula: string;
   chemicalName: string;
   hint: string;
-  xPos: number; // percentage 0-100
-  speed: number; // duration in seconds
+  xPos: number; 
+  speed: number; 
   isCorrect: boolean;
 }
 
-// Mock compound database entry matching schema requirements
-const COMPOUND_DB = [
-  { name: 'Water', formula: 'H2O', hint: 'An oxide of hydrogen that is essential for life.' },
-  { name: 'Carbon Dioxide', formula: 'CO2', hint: 'Product of respiration, contains two oxygen atoms.' },
-  { name: 'Table Salt', formula: 'NaCl', hint: 'An ionic compound composed of sodium and chlorine.' },
-  { name: 'Methane', formula: 'CH4', hint: 'The simplest alkane, main component of natural gas.' },
-];
+// 🔤 AC 1.4: Formats flat database text formulas to use authentic subscript typography characters
+const formatFormulaToSubscript = (formula: string): string => {
+  const subscripts: Record<string, string> = {
+    '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
+    '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉'
+  };
+  return formula.split('').map(char => subscripts[char] || char).join('');
+};
+
+// 🧠 AC 4.2: Fallback reader parsing provided chemistry fields into clean educational error strings
+const generateChemicalHint = (chem: Chemical): string => {
+  const hazards = chem.hazardClasses.filter(h => h !== 'None');
+  const hazardText = hazards.length > 0 ? `Hazards: ${hazards.join(', ')}.` : 'Chemically stable compound.';
+  return `Contains ions: ${chem.ions.join(' & ')} | Molar Mass: ${chem.molarMass} g/mol | ${hazardText}`;
+};
 
 export default function FormulaBlasterPage() {
   const [gameState, setGameState] = useState<GameState>('playing');
   const [score, setScore] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(1);
   const [correctInRound, setCorrectInRound] = useState(0);
-  const [targetQuota, setTargetQuota] = useState(3);
   
-  // Game states specific to active target wave
-  const [currentTarget, setCurrentTarget] = useState(COMPOUND_DB[0]);
+  // ⏱️ Wave countdown clock configuration (Resets to 45 seconds each time a target switches)
+  const [timeLeft, setTimeLeft] = useState(45);
+
+  const [currentTarget, setCurrentTarget] = useState<Chemical | null>(null);
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
   const [activeHint, setActiveHint] = useState<string | null>(null);
 
   const maxLevel = 5;
-  const canvasRef = useRef<HTMLDivElement>(null);
   const spawnIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [targetQuota, setTargetQuota] = useState(3); 
 
-  // 1. Initialize or Transition Waves (AC 3.1, AC 3.2)
-  const startNewWave = () => {
-    const randomTarget = COMPOUND_DB[Math.floor(Math.random() * COMPOUND_DB.length)];
-    const randomQuota = Math.floor(Math.random() * 3) + 3; // Random quota 3 to 5 (AC 3.2)
+  // Adjusts bubble speed coefficients based on active level tier
+  const getRandomSpeedForLevel = (level: number): number => {
+    const baseSpeed = Math.max(8.5 - level * 1.1, 3.2);
+    const variance = Math.max(2.2 - level * 0.15, 1.2);
+    return Math.random() * variance + baseSpeed;
+  };
+
+  // ⏰ Per-Wave Countdown Clock Loop
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    const clockInterval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(clockInterval);
+          setGameState('failed'); // Triggers failure overlay cleanly on timeout
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(clockInterval);
+  }, [gameState]);
+
+  // 🎯 AC 3.1 & AC 3.2: Initiating a fresh wave objective targeting system
+  const startNewWave = (level: number) => {
+    if (!chemicalsDB || chemicalsDB.length === 0) return;
     
+    const levelPool = chemicalsDB.filter(chem => chem.difficulty === level);
+    if (levelPool.length === 0) return;
+
+    const randomTarget = levelPool[Math.floor(Math.random() * levelPool.length)];
+    
+    setTargetQuota(Math.floor(Math.random() * 3) + 3); // Randomizes quota cleanly between 3 and 5 [cite: 14]
     setCurrentTarget(randomTarget);
-    setTargetQuota(randomQuota);
     setCorrectInRound(0);
     setBubbles([]);
     setActiveHint(null);
+    setTimeLeft(45); // Fully tops up countdown budget for the new assignment loop
   };
 
   useEffect(() => {
-    startNewWave();
+    startNewWave(currentLevel);
   }, [currentLevel]);
 
-  // 2. Continuous Wave Generator Engine (AC 2.1, AC 2.3)
+  // 🚀 Continuous Wave Generator Loop (AC 2.1 - AC 2.3)
   useEffect(() => {
-    if (gameState !== 'playing') {
+    if (gameState !== 'playing' || !currentTarget) {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
       return;
     }
 
+    const currentLevelPool = chemicalsDB.filter(chem => chem.difficulty === currentLevel);
+
     spawnIntervalRef.current = setInterval(() => {
-      // Determine if this bubble should carry the correct formula target (AC 2.3)
-      const shouldBeCorrect = Math.random() > 0.6 || bubbles.filter(b => b.isCorrect).length === 0;
-      const compoundSource = shouldBeCorrect 
-        ? currentTarget 
-        : COMPOUND_DB.filter(c => c.name !== currentTarget.name)[Math.floor(Math.random() * (COMPOUND_DB.length - 1))];
+      const shouldBeCorrect = Math.random() > 0.65 || bubbles.filter(b => b.isCorrect).length === 0;
+      let sourceChemical: Chemical;
+
+      if (shouldBeCorrect) {
+        sourceChemical = currentTarget;
+      } else {
+        const distractors = currentLevelPool.filter(c => c.id !== currentTarget.id);
+        sourceChemical = distractors.length > 0 
+          ? distractors[Math.floor(Math.random() * distractors.length)]
+          : chemicalsDB[Math.floor(Math.random() * chemicalsDB.length)];
+      }
 
       const newBubble: BubbleData = {
         id: crypto.randomUUID(),
-        formula: compoundSource.formula,
-        chemicalName: compoundSource.name,
-        hint: compoundSource.hint,
-        xPos: Math.random() * 85 + 5, // Keep within canvas padding boundaries (AC 2.2)
-        speed: Math.random() * 3 + 4, // 4-7 seconds float time
-        isCorrect: compoundSource.name === currentTarget.name,
+        formula: sourceChemical.formula,
+        chemicalName: sourceChemical.name,
+        hint: generateChemicalHint(sourceChemical), // Safe custom data bridge to comply with AC 4.2 [cite: 20]
+        xPos: Math.random() * 80 + 10, // Avoids overlapping edge clippings [cite: 9]
+        speed: getRandomSpeedForLevel(currentLevel),
+        isCorrect: sourceChemical.id === currentTarget.id,
       };
 
       setBubbles((prev) => [...prev, newBubble]);
-    }, 1200);
+    }, Math.max(1500 - currentLevel * 120, 850));
 
     return () => {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
     };
-  }, [gameState, currentTarget, bubbles]);
+  }, [gameState, currentTarget, bubbles, currentLevel]);
 
-  // 3. Handle Bubble Interactivity (AC 3.3, AC 4.1)
+  // 💥 Interactive Bubble Interaction Handling (AC 3.3, AC 3.4 & AC 4.1)
   const handleBubbleClick = (id: string, isCorrect: boolean, hint: string) => {
     if (gameState !== 'playing') return;
 
     if (isCorrect) {
-      // Successful Target Match
-      setScore((prev) => prev + 100);
+      setScore((prev) => prev + (100 * currentLevel)); // AC 1.3 instantaneous updates [cite: 5]
       setCorrectInRound((prev) => {
         const nextCorrect = prev + 1;
-        // Check if round target quota met (AC 3.4)
         if (nextCorrect >= targetQuota) {
           if (currentLevel >= maxLevel) {
             setGameState('victory');
@@ -109,62 +159,85 @@ export default function FormulaBlasterPage() {
         }
         return nextCorrect;
       });
-      // Pop bubble & Clear active errors
       setBubbles((prev) => prev.filter((b) => b.id !== id));
-      setActiveHint(null);
+      setActiveHint(null); // AC 4.4: Immediately clear error banner upon hitting the objective [cite: 22]
     } else {
-      // Incorrect interaction -> Read error logic property (AC 4.2, AC 4.3)
-      setActiveHint(hint);
+      setActiveHint(hint); // AC 4.1 & AC 4.3: Localized shake feedback alongside hint banner projections [cite: 18, 21]
     }
   };
 
-  // 4. Memory Optimization: Sweep nodes passing top edge boundary (AC 2.4)
+  // 🗑️ AC 2.4 Escape Boundary Handling
   const handleAnimationEnd = (id: string) => {
-    setBubbles((prev) => prev.filter((b) => b.id !== id));
+    // Component unmount logic safely fires without any life point deduction tracking
+    setBubbles((prev) => prev.filter((b) => b.id !== id)); 
+  };
+
+  const togglePause = () => {
+    if (gameState === 'failed' || gameState === 'victory' || gameState === 'levelUp') return;
+    setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
+  };
+
+  const handleOverlayAdvance = () => {
+    if (gameState === 'levelUp') {
+      setCurrentLevel((prev) => prev + 1);
+      setGameState('playing');
+    } else {
+      setGameState('playing');
+    }
+  };
+
+  const handleFullReset = () => {
+    setScore(0);
+    setCurrentLevel(1);
+    setGameState('playing');
+    startNewWave(1);
   };
 
   return (
     <main className="relative w-full h-screen bg-gradient-to-b from-slate-900 to-slate-950 overflow-hidden select-none flex flex-col p-6">
       
-      {/* HUD LAYER (AC 1.1, AC 1.2, AC 1.3) */}
-      <header className="w-full bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-4 flex items-center justify-between shadow-2xl z-40">
+      {/* 🛡️ HUD HEADER PANEL (AC 1.1 Fixed Layout Positioning) */}
+      <header className="w-full bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl z-40">
+        
+        {/* AC 1.2 Target Assignment String Format */}
         <div>
-          <span className="text-xs uppercase tracking-widest text-blue-400 font-bold block mb-0.5">Active Objective</span>
+          <span className="text-xs uppercase tracking-widest text-blue-400 font-bold block mb-0.5">Active Target</span>
           <h1 className="text-xl md:text-2xl font-black text-white tracking-wide">
-            Find: <span className="text-yellow-400 underline decoration-2">{currentTarget.name}</span>
+            Find: <span className="text-yellow-400 underline decoration-2">{currentTarget?.name || 'Loading...'}</span>
           </h1>
         </div>
 
-        <div className="flex items-center gap-6">
-          <div className="text-center bg-slate-950/50 px-4 py-2 rounded-xl border border-slate-800/60">
-            <span className="text-[10px] uppercase text-slate-400 font-bold block">Progress</span>
-            <span className="text-sm font-black text-emerald-400">{correctInRound} / {targetQuota}</span>
+        {/* Modular Layout Integration Framework */}
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          
+          {/* Wave Progression Quota Counter Chip */}
+          <div className="text-center bg-slate-950/50 px-4 py-1 rounded-xl border border-slate-800/60 h-11 flex flex-col justify-center">
+            <span className="text-[9px] uppercase text-slate-400 font-bold block leading-none mb-0.5">Progress</span>
+            <span className="text-xs font-black text-emerald-400 leading-none">{correctInRound} / {targetQuota}</span>
           </div>
-          <div className="text-center bg-slate-950/50 px-4 py-2 rounded-xl border border-slate-800/60">
-            <span className="text-[10px] uppercase text-slate-400 font-bold block">Score</span>
-            <span className="text-sm font-black text-blue-400">{score}</span>
-          </div>
-          <button 
-            onClick={() => setGameState('paused')}
-            className="p-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl transition-all active:scale-95 border border-slate-700"
-          >
-            <Pause className="w-5 h-5 fill-current" />
-          </button>
+
+          {/* ⏱️ Clean context routing for your custom resetting shared timer component */}
+          <GameTimer timeLeft={timeLeft} />
+
+          {/* 📊 Clean integration of your shared game loop metrics dashboard */}
+          <GameStats 
+            level={currentLevel}
+            score={score}
+            isPaused={gameState === 'paused'}
+            onTogglePause={togglePause}
+          />
         </div>
       </header>
 
-      {/* FLOAT CANVAS FIELD AREA (AC 2.1) */}
-      <div ref={canvasRef} className="flex-1 relative w-full h-full mt-4 rounded-2xl bg-slate-950/30 border border-slate-900/50 overflow-hidden">
-        
-        {/* Interactive Error Feedback Toast Banner (AC 4.3, AC 4.4) */}
+      {/* FLOAT CANVAS FIELD AREA */}
+      <div className="flex-1 relative w-full h-full mt-4 rounded-2xl bg-slate-950/30 border border-slate-900/50 overflow-hidden">
         <ErrorBanner hint={activeHint} onTimeout={() => setActiveHint(null)} />
 
-        {/* Dynamic Bubble Streams */}
         {gameState === 'playing' && bubbles.map((bubble) => (
           <BlasterBubble
             key={bubble.id}
             id={bubble.id}
-            formula={bubble.formula}
+            formula={formatFormulaToSubscript(bubble.formula)} // Safely maps clean string typographic formatting 
             xPos={bubble.xPos}
             speed={bubble.speed}
             isCorrect={bubble.isCorrect}
@@ -175,21 +248,15 @@ export default function FormulaBlasterPage() {
         ))}
       </div>
 
-      {/* GLOBAL CENTRALIZED OVERLAY CONTROL */}
       <GameOverlay
         gameState={gameState}
         score={score}
         correctInRound={correctInRound}
         currentLevel={currentLevel}
         maxLevel={maxLevel}
-        failReason="timeout"
-        onResume={() => setGameState('playing')}
-        onRestart={() => {
-          setScore(0);
-          setCurrentLevel(1);
-          setGameState('playing');
-          startNewWave();
-        }}
+        failReason="timeout" // Game 2 failure triggers strictly due to running out of wave clock time budget
+        onResume={handleOverlayAdvance} 
+        onRestart={handleFullReset}
       />
     </main>
   );

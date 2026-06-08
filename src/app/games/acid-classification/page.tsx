@@ -9,11 +9,20 @@ import { evaluateChemical } from '../../../lib/chemical-utils';
 import { chemicalsDB } from '../../../core-engine/db';
 import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
 
+// src/app/games/acid-classification/page.tsx
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { Heart, Beaker, Flame, Droplet, Atom, Pause, Play } from "lucide-react";
+import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
+import { GameState } from '../../../core-engine/types/general';
+import { evaluateChemical } from '../../../lib/chemical-utils';
+import { chemicalsDB } from '../../../core-engine/db';
+import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
+
 const BASE_TIME_SECONDS = 50; 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
-const QUOTA = 4; // The minimum needed to pass the level. 
-// suggestion: calculate dynamically based on number of chemicals for that level - 3
 
 export default function ClassificationGame() {
   // --- USER'S GAME ENGINE STATE ---
@@ -21,18 +30,12 @@ export default function ClassificationGame() {
   const [score, setScore] = useState<number>(0);
   const [mistakes, setMistakes] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(BASE_TIME_SECONDS);
-  const [gameState, setGameState] =useState<GameState>('playing');
+  const [gameState, setGameState] = useState<GameState>('playing');
   const [poolIndex, setPoolIndex] = useState<number>(0);
-  // Tracks correct answers in the current level — must reach QUOTA to pass when time runs out
   const [correctInRound, setCorrectInRound] = useState<number>(0);
-    // reason why game failed
   const [failReason, setFailReason] = useState<FailReason>(null);
-
- //-- DON'T SHOW CHEMICAL NAME, UNLESS ASKED --
   const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
   
-  // Mirror poolIndex in a ref so setTimeout callbacks always read the latest value.
-  // Without this, closures inside setTimeout would capture a stale poolIndex.
   const poolIndexRef = useRef(poolIndex);
   useEffect(() => { poolIndexRef.current = poolIndex; }, [poolIndex]);
 
@@ -42,26 +45,25 @@ export default function ClassificationGame() {
     selected: null,
   });
 
-  // Database filtering logic
   const [currentLevelChemicals, setCurrentLevelChemicals] = useState<Chemical[]>([]);
+
+  // 🧪 Dynamic Quota Hook: Calculate passing bar safely based on active pool size
+  const targetQuota = Math.max(3, currentLevelChemicals.length - 2);
 
   useEffect(() => {
     if (!chemicalsDB) return;
-    // Filter by level, then shuffle the array ONLY on the client side
     const filtered = chemicalsDB.filter(chem => chem.difficulty === currentLevel);
     setCurrentLevelChemicals([...filtered].sort(() => Math.random() - 0.5));
   }, [currentLevel]);
 
   const currentChemical = currentLevelChemicals[poolIndex];
 
-  // Timer Effect
+  // Timer Effect Engine Loop
   useEffect(() => {
     if (gameState !== 'playing') return;
     
     if (timeLeft <= 0) {
-      // Time's up — pass the level if QUOTA was met, otherwise fail.
-      // Note: finishing the pool early bypasses this and triggers levelUp/victory directly in handleSelection.
-      if (correctInRound >= QUOTA) {
+      if (correctInRound >= targetQuota) {
         if (currentLevel >= MAX_LEVEL) {
           setGameState('victory');
         } else {
@@ -76,26 +78,28 @@ export default function ClassificationGame() {
     
     const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
     return () => clearInterval(timer);
-  }, [timeLeft, gameState, correctInRound, currentLevel]);
+  }, [timeLeft, gameState, correctInRound, currentLevel, targetQuota]);
 
-  // Format seconds into MM:SS for clean UI
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Safe formula renderer (Adapted to fit mobile UI scaling)
+  // Synchronized Formula Rendering logic matching Formula Blaster scaling
   const renderFormula = (formula: string) => {
     return formula.split(/(\d+)/).map((part, index) => {
-      if (!isNaN(Number(part)) && part !== "") {
-        return <sub key={index} className="text-3xl md:text-5xl">{part}</sub>;
+      if (/\d+/.test(part)) {
+        return (
+          <sub key={index} className="bottom-[-0.1em] text-[0.65em] leading-none font-bold opacity-90">
+            {part}
+          </sub>
+        );
       }
       return <span key={index}>{part}</span>;
     });
   };
 
-  // Merged Selection Logic with Visual Delays
   const handleSelection = (selectedType: ChemicalClassification) => {
     if (gameState !== 'playing' || !currentChemical || feedback.status !== null) return;
 
@@ -104,13 +108,12 @@ export default function ClassificationGame() {
 
     if (isCorrect) {
       setScore((prev) => prev + (100 * currentLevel));
-      setCorrectInRound((prev) => prev + 1); // <-- TRACK THE QUOTA HERE
+      setCorrectInRound((prev) => prev + 1);
       setFeedback({ status: 'correct', selected: selectedType });
       
       setTimeout(() => {
         setFeedback({ status: null, selected: null });
 
-        // Read from ref, not state — state would be stale here since this runs inside a setTimeout.
         const currentIndex = poolIndexRef.current;
         if (currentIndex + 1 >= currentLevelChemicals.length) {
           if (currentLevel >= MAX_LEVEL) {
@@ -124,7 +127,6 @@ export default function ClassificationGame() {
       }, 1200);
 
     } else {
-      // Incorrect answer
       const newMistakes = mistakes + 1;
       setMistakes(newMistakes);
       setFeedback({ status: 'wrong', selected: selectedType });
@@ -141,22 +143,22 @@ export default function ClassificationGame() {
   };
 
   const togglePause = () => {
-    if (gameState === 'failed' || gameState === 'victory') return;
-    
-    // If they are clicking "Begin Next Level" from the level up screen:
+    if (gameState === 'failed' || gameState === 'victory' || gameState === 'levelUp') return;
+    setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
+  };
+
+  // 🚀 Clear Interface Transition router block mirroring Game 2 setups
+  const handleOverlayAdvance = () => {
     if (gameState === 'levelUp') {
-      const nextLevel = currentLevel + 1; 
-      setCurrentLevel(nextLevel); 
-      setTimeLeft(BASE_TIME_SECONDS); // this could be reduced for higher levels if desired
+      setCurrentLevel((prev) => prev + 1);
+      setTimeLeft(BASE_TIME_SECONDS);
       setPoolIndex(0);
       setCorrectInRound(0);
       setFailReason(null);
       setGameState('playing');
-      return;
+    } else {
+      togglePause();
     }
-
-    // Otherwise, handle standard pausing
-    setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
   };
 
   const resetGame = () => {
@@ -190,7 +192,7 @@ export default function ClassificationGame() {
         </div>
 
         <div className="text-center">
-          <div className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-0.5">Game ends at {MAX_MISTAKES} mistakes</div>
+          <div className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-0.5">Quota: {correctInRound}/{targetQuota} to clear</div>
           <div className={`text-3xl md:text-4xl font-black font-mono transition-colors ${timeLeft < 10 ? 'text-red-500 animate-pulse' : 'text-slate-700 dark:text-zinc-200'}`}>
             TIMER: {formatTime(timeLeft)}
           </div>
@@ -209,8 +211,8 @@ export default function ClassificationGame() {
 
       {/* CENTRAL DISPLAY PORT & OVERLAYS */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-6 relative max-w-3xl z-0">
-
-        {/* Game State Overlays */}
+        
+        {/* Connected to centralized overlay engine smoothly */}
         <GameOverlay
           gameState={gameState}
           score={score}
@@ -218,28 +220,28 @@ export default function ClassificationGame() {
           currentLevel={currentLevel}
           maxLevel={MAX_LEVEL}
           failReason={failReason}
-          onResume={togglePause}
+          onResume={handleOverlayAdvance} 
           onRestart={resetGame}
         />
 
-        {/* The Molecule Bubble */}
         <div className="relative flex flex-col items-center justify-center">
           <div className={`absolute w-64 h-64 md:w-80 md:h-80 rounded-full blur-2xl opacity-20 dark:opacity-30 transition-all duration-500 ${
             feedback.status === "correct" ? "bg-emerald-500 scale-110" : 
-            feedback.status === "wrong" ? "bg-red-500 scale-110" : "bg-purple-500 animate-pulse"
+            feedback.status === "wrong" ? "bg-red-500 scale-110" : "bg-purple-500 glow-pulse"
           }`} />
 
+          {/* Uses your global shake-animation token automatically from globals.css */}
           <div className={`w-56 h-56 md:w-72 md:h-72 rounded-full border-4 flex flex-col items-center justify-center shadow-2xl relative bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md transform transition-all duration-300 ${
             feedback.status === "correct" ? "border-emerald-500 scale-95" : 
             feedback.status === "wrong" ? "border-red-500 scale-95 shake-animation" : "border-purple-300 dark:border-purple-900 hover:scale-105"
           }`}>
             {currentChemical && (
               <>
-                <h2 className="text-5xl md:text-7xl font-black tracking-tight font-serif text-slate-800 dark:text-white">
+                <h2 className="text-5xl md:text-7xl font-black tracking-tight font-serif text-slate-800 dark:text-white flex items-baseline">
                   {renderFormula(currentChemical.formula)}
                 </h2>
                 {showChemicalName && (
-                <p className="text-xs md:text-sm text-slate-400 mt-2 font-medium opacity-80">{currentChemical.name}</p>
+                  <p className="text-xs md:text-sm text-slate-400 mt-2 font-medium opacity-80">{currentChemical.name}</p>
                 )}
               </>
             )}
@@ -253,9 +255,8 @@ export default function ClassificationGame() {
         </div>
       </div>
 
-      {/* LOWER NAVIGATION PLATFORM (Dynamic Grid based on level) */}
+      {/* LOWER NAVIGATION PLATFORM */}
       <div className={`w-full max-w-4xl grid gap-3 md:gap-6 mb-4 z-10 ${currentLevel >= 3 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
-        
         <button onClick={() => handleSelection("Acidic")} disabled={gameState !== "playing" || feedback.status !== null}
           className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Acidic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Acidic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-red-400 hover:shadow-md active:scale-98"}`}>
           <div className="p-3 bg-red-50 dark:bg-red-950/40 rounded-xl text-red-500 mb-2 group-hover:scale-110 transition-transform">
@@ -290,17 +291,6 @@ export default function ClassificationGame() {
           </button>
         )}
       </div>
-
-      <style jsx global>{`
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          20%, 60% { transform: translateX(-8px) rotate(-1deg); }
-          40%, 80% { transform: translateX(8px) rotate(1deg); }
-        }
-        .shake-animation {
-          animation: shake 0.4s ease-in-out;
-        }
-      `}</style>
     </main>
   );
 }
