@@ -18,9 +18,13 @@ interface BlasterBubbleProps {
 const renderSubscripts = (formulaStr: string) => {
   return formulaStr.split(/(\d+)/).map((part, index) => {
     if (/\d+/.test(part)) {
-      return <sub key={index} className="bottom-[-0.2em] text-[0.75em] leading-none font-bold">{part}</sub>;
+      return (
+        <sub key={index} className="bottom-[-0.2em] text-[0.75em] leading-none font-bold">
+          {part}
+        </sub>
+      );
     }
-Part return part;
+    return part;
   });
 };
 
