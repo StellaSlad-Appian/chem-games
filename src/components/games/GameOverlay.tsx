@@ -136,7 +136,7 @@ export default function GameOverlay({
             </button>
             <Link
               href="/"
-              className="flex-1 flex items-center justify-center gap-2 font-extrabold py-3.5 px-4 rounded-xl transition-all active:scale-95 border-2 hover:bg-[var(--surface-2)]"
+              className="flex-1 flex items-center justify-center gap-2 font-extrabold py-3.5 px-4 rounded-xl transition-all active:scale-95 border-2 hover:bg-(--surface-2)"
               style={{ borderColor: 'var(--border)', color: 'var(--foreground)' }}
             >
               <Home className="w-5 h-5" /> Hub Menu
@@ -175,7 +175,7 @@ export default function GameOverlay({
             </button>
             <Link
               href="/"
-              className="flex-1 flex items-center justify-center gap-2 font-extrabold py-3.5 px-4 rounded-xl transition-all active:scale-95 border-2 hover:bg-[var(--surface-2)]"
+              className="flex-1 flex items-center justify-center gap-2 font-extrabold py-3.5 px-4 rounded-xl transition-all active:scale-95 border-2 hover:bg-(--surface-2)"
               style={{ borderColor: 'var(--border)', color: 'var(--foreground)' }}
             >
               <Home className="w-5 h-5" /> Hub Menu

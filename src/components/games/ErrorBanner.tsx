@@ -25,9 +25,8 @@ export default function ErrorBanner({ hint, onTimeout }: ErrorBannerProps) {
 
   return (
     <div className="absolute top-4 left-1/2 -translate-x-1/2 w-full max-w-md px-4 z-40 animate-slide-in">
-      {/* Swapped from Red to a beautiful scientific Amber/Yellow color palette */}
       <div className="bg-amber-950/90 border-2 border-amber-500/60 shadow-2xl backdrop-blur-md rounded-xl p-3.5 flex items-start gap-3 text-left">
-        <HelpCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+        <HelpCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
         <div>
           <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-0.5">
             Chemical Composition Review

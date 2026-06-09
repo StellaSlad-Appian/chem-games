@@ -2,15 +2,17 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+
+// Shared Components
+import Header from '../../../components/games/GamesHeader';
 import GameOverlay from '../../../components/games/GameOverlay';
 import BlasterBubble from '../../../components/games/BlasterBubble';
-import ErrorBanner from '../../../components/games/ErrorBanner'; // Ensure this matches your folder layout
+import ErrorBanner from '../../../components/games/ErrorBanner';
+
+// Core Engine
 import { GameState } from '../../../core-engine/types/general';
 import { Chemical } from '../../../core-engine/types/chemistry';
 import { chemicalsDB } from '../../../core-engine/db';
-
-import GameStats from '../../../components/games/GameStats'; 
-import GameTimer from '../../../components/games/GameTimer';
 
 interface BubbleData {
   id: string;
@@ -30,7 +32,6 @@ const formatFormulaToSubscript = (formula: string): string => {
   return formula.split('').map(char => subscripts[char] || char).join('');
 };
 
-// AC 4.2: This hint generates dynamically for whatever chemical is clicked
 const generateChemicalHint = (chem: Chemical): string => {
   return `${chem.name} (${formatFormulaToSubscript(chem.formula)}) consists of ${chem.ions.join(' & ')} ions. Molar Mass: ${chem.molarMass} g/mol.`;
 };
@@ -40,14 +41,13 @@ export default function FormulaBlasterPage() {
   const [score, setScore] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(1);
   
-  // Quota progress for the CURRENT molecule target
+  // Intra-level Objective Tracking
   const [correctInRound, setCorrectInRound] = useState(0);
   const [targetQuota, setTargetQuota] = useState(3); 
-
-  // 🎯 New Progression Trackers: 3 different molecules needed per level
   const [completedTargetIds, setCompletedTargetIds] = useState<string[]>([]);
   const targetsRequiredPerLevel = 3;
   
+  // Timers & Targets
   const [timeLeft, setTimeLeft] = useState(45);
   const [currentTarget, setCurrentTarget] = useState<Chemical | null>(null);
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
@@ -62,7 +62,7 @@ export default function FormulaBlasterPage() {
     return Math.random() * variance + baseSpeed;
   };
 
-  // Countdown Clock Loop
+  // 1. WAVE COUNTDOWN ENGINE
   useEffect(() => {
     if (gameState !== 'playing') return;
 
@@ -80,15 +80,13 @@ export default function FormulaBlasterPage() {
     return () => clearInterval(clockInterval);
   }, [gameState]);
 
-  // AC 3.1 & AC 3.2: Pulls a random molecule, ensuring it hasn't been completed in this level yet
+  // 2. MOLECULE TARGETING SYSTEM
   const startNewMoleculeWave = (level: number, currentCompleted: string[]) => {
     if (!chemicalsDB || chemicalsDB.length === 0) return;
     
-    // Filter by difficulty level
     let levelPool = chemicalsDB.filter(chem => chem.difficulty === level);
-    
-    // Try to exclude molecules already finished in this round so they get a fresh one
     const uncompletedPool = levelPool.filter(chem => !currentCompleted.includes(chem.id));
+    
     if (uncompletedPool.length > 0) {
       levelPool = uncompletedPool;
     }
@@ -97,21 +95,20 @@ export default function FormulaBlasterPage() {
 
     const randomTarget = levelPool[Math.floor(Math.random() * levelPool.length)];
     
-    setTargetQuota(Math.floor(Math.random() * 3) + 3); // Randomizes quota between 3 and 5 [cite: 14]
+    setTargetQuota(Math.floor(Math.random() * 3) + 3); 
     setCurrentTarget(randomTarget);
     setCorrectInRound(0);
     setBubbles([]);
     setActiveHint(null);
-    setTimeLeft(45); // Give fresh time for the new molecule round
+    setTimeLeft(45); 
   };
 
-  // Run once when level mounts/changes
   useEffect(() => {
     startNewMoleculeWave(currentLevel, []);
     setCompletedTargetIds([]);
   }, [currentLevel]);
 
-  // Bubble Spawning Wave Loop (AC 2.1 - AC 2.3)
+  // 3. BUBBLE SPAWN ENGINE
   useEffect(() => {
     if (gameState !== 'playing' || !currentTarget) {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
@@ -151,24 +148,22 @@ export default function FormulaBlasterPage() {
     };
   }, [gameState, currentTarget, bubbles, currentLevel]);
 
-  // Interactive Bubble Click Manager
+  // 4. INTERACTION SYSTEM
   const handleBubbleClick = (id: string, isCorrect: boolean, hint: string) => {
     if (gameState !== 'playing') return;
 
     if (isCorrect) {
-      setScore((prev) => prev + (100 * currentLevel)); // Instantaneous score updates [cite: 5, 15]
-      setActiveHint(null); // Clear hint box automatically [cite: 22]
+      setScore((prev) => prev + (100 * currentLevel)); 
+      setActiveHint(null); 
       setBubbles((prev) => prev.filter((b) => b.id !== id));
 
       setCorrectInRound((prevCorrect) => {
         const nextCorrect = prevCorrect + 1;
         
-        // Did they clear the quota for this specific molecule? [cite: 16]
         if (nextCorrect >= targetQuota) {
           const updatedCompleted = [...completedTargetIds, currentTarget!.id];
           setCompletedTargetIds(updatedCompleted);
 
-          // Check if they have cleared 3 distinct molecules total for this level
           if (updatedCompleted.length >= targetsRequiredPerLevel) {
             if (currentLevel >= maxLevel) {
               setGameState('victory');
@@ -176,7 +171,6 @@ export default function FormulaBlasterPage() {
               setGameState('levelUp');
             }
           } else {
-            // Quota reached for this molecule, but need more! Clean transition to next molecule [cite: 16]
             if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
             startNewMoleculeWave(currentLevel, updatedCompleted);
           }
@@ -184,12 +178,12 @@ export default function FormulaBlasterPage() {
         return nextCorrect;
       });
     } else {
-      setActiveHint(hint); // AC 4.1 & AC 4.3: Displays the incorrect bubble's identity string [cite: 18, 21]
+      setActiveHint(hint); 
     }
   };
 
   const handleAnimationEnd = (id: string) => {
-    setBubbles((prev) => prev.filter((b) => b.id !== id)); // Prevent memory leaks [cite: 11]
+    setBubbles((prev) => prev.filter((b) => b.id !== id)); 
   };
 
   const togglePause = () => {
@@ -211,36 +205,27 @@ export default function FormulaBlasterPage() {
     setCurrentLevel(1);
     setCompletedTargetIds([]);
     setGameState('playing');
-    startNewWave(1);
+    startNewMoleculeWave(1, []);
   };
 
   return (
-    <main className="relative w-full h-screen bg-gradient-to-b from-slate-900 to-slate-950 overflow-hidden select-none flex flex-col p-6">
+    <main className="relative w-full h-screen bg-linear-to-b from-slate-900 to-slate-950 overflow-hidden select-none flex flex-col p-6">
       
-      {/* HUD HEADER PANEL (AC 1.1) */}
-      <header className="w-full bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl z-40">
+      {/* IMPLEMENTING THE NEW UNIFIED HEADER */}
+      <Header
+        gameTitle="Formula Blaster"
+        gameSubtitle="TARGET MOLECULE OBJECTIVE"
+        targetName={currentTarget?.name}
+        progressText={`${completedTargetIds.length} / 3 Molecules`}
+        currentLevel={currentLevel}
+        score={score}
+        gameState={gameState}
+        onTogglePause={togglePause}
         
-        {/* AC 1.2 Display Format */}
-        <div>
-          <span className="text-xs uppercase tracking-widest text-blue-400 font-bold block mb-0.5">
-            Molecules Cleared: {completedTargetIds.length} / {targetsRequiredPerLevel}
-          </span>
-          <h1 className="text-xl md:text-2xl font-black text-white tracking-wide">
-            Find: <span className="text-yellow-400 underline decoration-2">{currentTarget?.name || 'Loading...'}</span>
-          </h1>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-6">
-          {/* Objective Progress Counter for current molecule */}
-          <div className="text-center bg-slate-950/50 px-4 py-1 rounded-xl border border-slate-800/60 h-11 flex flex-col justify-center">
-            <span className="text-[9px] uppercase text-slate-400 font-bold block leading-none mb-0.5">Current Target</span>
-            <span className="text-xs font-black text-emerald-400 leading-none">{correctInRound} / {targetQuota}</span>
-          </div>
-
-          <GameTimer timeLeft={timeLeft} />
-          <GameStats level={currentLevel} score={score} isPaused={gameState === 'paused'} onTogglePause={togglePause} />
-        </div>
-      </header>
+        showTimer={true}
+        timeLeft={timeLeft}
+        showLives={false} // Game 2 has no lives
+      />
 
       {/* FLOAT CANVAS FIELD AREA */}
       <div className="flex-1 relative w-full h-full mt-4 rounded-2xl bg-slate-950/30 border border-slate-900/50 overflow-hidden">
@@ -250,7 +235,7 @@ export default function FormulaBlasterPage() {
           <BlasterBubble
             key={bubble.id}
             id={bubble.id}
-            formula={formatFormulaToSubscript(bubble.formula)} // AC 1.4 Formatting Subscripts
+            formula={formatFormulaToSubscript(bubble.formula)}
             xPos={bubble.xPos}
             speed={bubble.speed}
             isCorrect={bubble.isCorrect}
@@ -264,7 +249,7 @@ export default function FormulaBlasterPage() {
       <GameOverlay
         gameState={gameState}
         score={score}
-        correctInRound={correctInRound}
+        correctInRound={completedTargetIds.length}
         currentLevel={currentLevel}
         maxLevel={maxLevel}
         failReason="timeout"
