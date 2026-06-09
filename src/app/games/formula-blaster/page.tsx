@@ -44,7 +44,7 @@ const formatFormulaToSubscript = (formula: string): string => {
 };
 
 const generateChemicalHint = (chem: Chemical): string => {
-  return `${chem.name} (${formatFormulaToSubscript(chem.formula)}) consists of ${chem.ions.join(' & ')} ions. Molar Mass: ${chem.molarMass} g/mol.`;
+  return `${chem.name} consists of ${chem.ions.join(' & ')} ions.`;
 };
 
 export default function FormulaBlasterPage() {
@@ -211,7 +211,7 @@ export default function FormulaBlasterPage() {
 
   const handleTriggerManualHint = () => {
     if (gameState !== 'playing' || !currentTarget) return;
-    setActiveHint(`Objective Target: ${generateChemicalHint(currentTarget)}`);
+    setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
   };
 
   const handleExitGame = () => {
@@ -255,7 +255,7 @@ export default function FormulaBlasterPage() {
       
       <Header
         gameTitle="Formula Blaster"
-        gameSubtitle="TARGET MOLECULE OBJECTIVE"
+        gameSubtitle="TARGET MOLECULE"
         targetName={currentTarget?.name}
         progressText={`Target ${currentTargetPhase}/3 • Hits: ${correctInRound}/${targetQuota}`}
         currentLevel={currentLevel}

@@ -179,7 +179,7 @@ export default function ClassificationGame() {
           onTriggerHint={handleTriggerManualHint}
           
 
-          customTaskDescription="Classify the molecule: Acid, Base or Neutral?"          
+          customTaskDescription="Acid, Base or Neutral?"          
           showTimer={false} 
           showLives={true}  
           lives={currentLives}

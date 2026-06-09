@@ -29,7 +29,7 @@ export default function ErrorBanner({ hint, onTimeout }: ErrorBannerProps) {
         <HelpCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
         <div>
           <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-0.5">
-            Chemical Composition Review
+            Hint
           </h5>
           <p className="text-sm font-medium text-amber-100 leading-relaxed">{hint}</p>
         </div>
