@@ -1,26 +1,18 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Link from "next/link";
-import { Heart, Home, RefreshCw, Beaker, Flame, Droplet, Atom, Pause, Play } from "lucide-react";
+import { Beaker, Flame, Droplet, Atom } from "lucide-react";
+
+// Shared Components
+import Header from '../../../components/games/GamesHeader';
+import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
+
+// Core Engine
 import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
 import { GameState } from '../../../core-engine/types/general';
 import { evaluateChemical } from '../../../lib/chemical-utils';
 import { chemicalsDB } from '../../../core-engine/db';
-import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
 
-// src/app/games/acid-classification/page.tsx
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
-import { Heart, Beaker, Flame, Droplet, Atom, Pause, Play } from "lucide-react";
-import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
-import { GameState } from '../../../core-engine/types/general';
-import { evaluateChemical } from '../../../lib/chemical-utils';
-import { chemicalsDB } from '../../../core-engine/db';
-import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
-
-const BASE_TIME_SECONDS = 50; 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
 
@@ -29,7 +21,6 @@ export default function ClassificationGame() {
   const [currentLevel, setCurrentLevel] = useState<number>(1);
   const [score, setScore] = useState<number>(0);
   const [mistakes, setMistakes] = useState<number>(0);
-  const [timeLeft, setTimeLeft] = useState<number>(BASE_TIME_SECONDS);
   const [gameState, setGameState] = useState<GameState>('playing');
   const [poolIndex, setPoolIndex] = useState<number>(0);
   const [correctInRound, setCorrectInRound] = useState<number>(0);
@@ -58,35 +49,7 @@ export default function ClassificationGame() {
 
   const currentChemical = currentLevelChemicals[poolIndex];
 
-  // Timer Effect Engine Loop
-  useEffect(() => {
-    if (gameState !== 'playing') return;
-    
-    if (timeLeft <= 0) {
-      if (correctInRound >= targetQuota) {
-        if (currentLevel >= MAX_LEVEL) {
-          setGameState('victory');
-        } else {
-          setGameState('levelUp');
-        }
-      } else {
-        setFailReason('timeout');
-        setGameState('failed');
-      }
-      return;
-    }
-    
-    const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
-    return () => clearInterval(timer);
-  }, [timeLeft, gameState, correctInRound, currentLevel, targetQuota]);
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  // Synchronized Formula Rendering logic matching Formula Blaster scaling
+  // Synchronized Formula Rendering logic
   const renderFormula = (formula: string) => {
     return formula.split(/(\d+)/).map((part, index) => {
       if (/\d+/.test(part)) {
@@ -107,15 +70,17 @@ export default function ClassificationGame() {
     const isCorrect = selectedType === expectedType;
 
     if (isCorrect) {
-      setScore((prev) => prev + (100 * currentLevel));
-      setCorrectInRound((prev) => prev + 1);
       setFeedback({ status: 'correct', selected: selectedType });
       
+      // Wait for animation to finish before updating score and advancing
       setTimeout(() => {
+        setScore((prev) => prev + (100 * currentLevel));
+        const newCorrect = correctInRound + 1;
+        setCorrectInRound(newCorrect);
         setFeedback({ status: null, selected: null });
 
-        const currentIndex = poolIndexRef.current;
-        if (currentIndex + 1 >= currentLevelChemicals.length) {
+        // Quota-Based Progression Check
+        if (newCorrect >= targetQuota) {
           if (currentLevel >= MAX_LEVEL) {
             setGameState('victory');
           } else {
@@ -147,11 +112,9 @@ export default function ClassificationGame() {
     setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
   };
 
-  // 🚀 Clear Interface Transition router block mirroring Game 2 setups
   const handleOverlayAdvance = () => {
     if (gameState === 'levelUp') {
       setCurrentLevel((prev) => prev + 1);
-      setTimeLeft(BASE_TIME_SECONDS);
       setPoolIndex(0);
       setCorrectInRound(0);
       setFailReason(null);
@@ -165,7 +128,6 @@ export default function ClassificationGame() {
     setCurrentLevel(1);
     setScore(0);
     setMistakes(0);
-    setTimeLeft(BASE_TIME_SECONDS);
     setPoolIndex(0);
     setCorrectInRound(0);
     setFailReason(null);
@@ -177,42 +139,34 @@ export default function ClassificationGame() {
     return <div className="min-h-screen flex items-center justify-center text-red-500 font-bold">Error: Chemical DB not found.</div>;
   }
 
+  // Calculate remaining lives for the Header
+  const currentLives = MAX_MISTAKES - mistakes;
+
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 flex flex-col items-center justify-between p-4 md:p-6 select-none relative overflow-hidden">
       
-      {/* TOP HEADER PANEL */}
-      <div className="w-full max-w-5xl bg-white dark:bg-zinc-900 border-2 border-slate-200/80 dark:border-zinc-800 shadow-sm rounded-2xl p-4 flex flex-wrap gap-4 items-center justify-between text-sm md:text-base font-bold tracking-wide z-10">
-        <div className="flex items-center gap-4 md:gap-6">
-          <span className="text-slate-400">LEVEL <span className="text-slate-800 dark:text-white font-black">{currentLevel.toString().padStart(2, "0")}</span></span>
-          <span className="text-slate-400">SCORE: <span className="font-black text-emerald-500">{score.toString().padStart(4, "0")}</span></span>
+      {/* 🛡️ THE NEW UNIFIED HEADER COMPONENT */}
+      <div className="w-full max-w-5xl z-10">
+        <Header
+          gameTitle="Chemical Classifier"
+          gameSubtitle="CLASSIFY MOLECULE"
+          targetName={currentChemical?.name || "Loading..."}
+          progressText={`${correctInRound} / ${targetQuota} Sorted`}
+          currentLevel={currentLevel}
+          score={score}
+          gameState={gameState}
+          onTogglePause={togglePause}
           
-          <button onClick={togglePause} className="ml-2 p-2 bg-slate-100 dark:bg-zinc-800 rounded-lg hover:bg-slate-200 dark:hover:bg-zinc-700 transition-colors">
-            {gameState === 'paused' ? <Play className="w-5 h-5 text-blue-500" /> : <Pause className="w-5 h-5 text-slate-500" />}
-          </button>
-        </div>
-
-        <div className="text-center">
-          <div className="text-xs uppercase tracking-widest text-slate-400 font-medium mb-0.5">Quota: {correctInRound}/{targetQuota} to clear</div>
-          <div className={`text-3xl md:text-4xl font-black font-mono transition-colors ${timeLeft < 10 ? 'text-red-500 animate-pulse' : 'text-slate-700 dark:text-zinc-200'}`}>
-            TIMER: {formatTime(timeLeft)}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-xs uppercase text-slate-400 font-medium mr-2">Mistakes: {mistakes}/{MAX_MISTAKES}</span>
-          {[...Array(MAX_MISTAKES)].map((_, i) => (
-            <Heart 
-              key={i} 
-              className={`w-6 h-6 transition-all duration-300 ${i < mistakes ? "text-slate-200 dark:text-zinc-800 fill-transparent scale-90" : "text-red-500 fill-red-500 scale-100"}`} 
-            />
-          ))}
-        </div>
+          showTimer={false} // Timer disabled!
+          showLives={true}  // Lives enabled!
+          lives={currentLives}
+          maxLives={MAX_MISTAKES}
+        />
       </div>
 
       {/* CENTRAL DISPLAY PORT & OVERLAYS */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-6 relative max-w-3xl z-0">
         
-        {/* Connected to centralized overlay engine smoothly */}
         <GameOverlay
           gameState={gameState}
           score={score}
@@ -230,7 +184,6 @@ export default function ClassificationGame() {
             feedback.status === "wrong" ? "bg-red-500 scale-110" : "bg-purple-500 glow-pulse"
           }`} />
 
-          {/* Uses your global shake-animation token automatically from globals.css */}
           <div className={`w-56 h-56 md:w-72 md:h-72 rounded-full border-4 flex flex-col items-center justify-center shadow-2xl relative bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md transform transition-all duration-300 ${
             feedback.status === "correct" ? "border-emerald-500 scale-95" : 
             feedback.status === "wrong" ? "border-red-500 scale-95 shake-animation" : "border-purple-300 dark:border-purple-900 hover:scale-105"

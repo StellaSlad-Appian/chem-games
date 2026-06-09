@@ -20,7 +20,7 @@ export default function Home() {
           <div className="relative w-16 h-16 mx-auto mb-3 flex items-center justify-center bg-blue-950/40 rounded-2xl border border-blue-500/30 glow-pulse">
             <Atom className="w-9 h-9 text-blue-400 animate-[spin_12s_linear_infinite]" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-2 bg-gradient-to-r from-blue-400 via-indigo-300 to-emerald-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-2 bg-linear-to-r from-blue-400 via-indigo-300 to-emerald-400 bg-clip-text text-transparent">
             ChemGames
           </h1>
           <p className="text-xs md:text-sm text-slate-400 leading-relaxed font-medium">

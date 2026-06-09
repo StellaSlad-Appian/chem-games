@@ -55,6 +55,11 @@ export default function GameOverlay({
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.code !== 'Space' && e.code !== 'Enter') return;
+      // prevent double-firing
+      if (document.activeElement?.tagName === 'BUTTON' || document.activeElement?.tagName === 'A') {
+        return; 
+      }
+
       e.preventDefault();
       if (gameState === 'paused' || gameState === 'levelUp') {
         onResume();

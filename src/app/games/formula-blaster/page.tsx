@@ -95,18 +95,37 @@ export default function FormulaBlasterPage() {
 
     const randomTarget = levelPool[Math.floor(Math.random() * levelPool.length)];
     
+    setCompletedTargetIds(currentCompleted); // Force sync here
     setTargetQuota(Math.floor(Math.random() * 3) + 3); 
     setCurrentTarget(randomTarget);
     setCorrectInRound(0);
-    setBubbles([]);
+    setBubbles([]); // Screen wipe
     setActiveHint(null);
     setTimeLeft(45); 
   };
 
   useEffect(() => {
     startNewMoleculeWave(currentLevel, []);
-    setCompletedTargetIds([]);
   }, [currentLevel]);
+
+  // 🛡️ THE FIX: PROGRESSION WATCHER MOVED TO A SAFE USE-EFFECT
+  useEffect(() => {
+    if (gameState === 'playing' && correctInRound > 0 && correctInRound >= targetQuota && currentTarget) {
+      const updatedCompleted = [...completedTargetIds, currentTarget.id];
+
+      if (updatedCompleted.length >= targetsRequiredPerLevel) {
+        setCompletedTargetIds(updatedCompleted);
+        if (currentLevel >= maxLevel) {
+          setGameState('victory');
+        } else {
+          setGameState('levelUp');
+        }
+      } else {
+        if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
+        startNewMoleculeWave(currentLevel, updatedCompleted);
+      }
+    }
+  }, [correctInRound, targetQuota, gameState, currentTarget, currentLevel, completedTargetIds, maxLevel, targetsRequiredPerLevel]);
 
   // 3. BUBBLE SPAWN ENGINE
   useEffect(() => {
@@ -156,27 +175,9 @@ export default function FormulaBlasterPage() {
       setScore((prev) => prev + (100 * currentLevel)); 
       setActiveHint(null); 
       setBubbles((prev) => prev.filter((b) => b.id !== id));
-
-      setCorrectInRound((prevCorrect) => {
-        const nextCorrect = prevCorrect + 1;
-        
-        if (nextCorrect >= targetQuota) {
-          const updatedCompleted = [...completedTargetIds, currentTarget!.id];
-          setCompletedTargetIds(updatedCompleted);
-
-          if (updatedCompleted.length >= targetsRequiredPerLevel) {
-            if (currentLevel >= maxLevel) {
-              setGameState('victory');
-            } else {
-              setGameState('levelUp');
-            }
-          } else {
-            if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
-            startNewMoleculeWave(currentLevel, updatedCompleted);
-          }
-        }
-        return nextCorrect;
-      });
+      
+      // 🛡️ THE FIX: Only increment state here. No wave logic!
+      setCorrectInRound((prev) => prev + 1); 
     } else {
       setActiveHint(hint); 
     }
@@ -193,6 +194,16 @@ export default function FormulaBlasterPage() {
 
   const handleOverlayAdvance = () => {
     if (gameState === 'levelUp') {
+      // 1. Reset Game Logic (Prevents level-skipping)
+      setCorrectInRound(0);
+      setCompletedTargetIds([]);
+      
+      // 2. Reset Visuals & Timers (Prevents UI flashing)
+      setBubbles([]);
+      setActiveHint(null);
+      setTimeLeft(45);
+      
+      // 3. Trigger the next phase
       setCurrentLevel((prev) => prev + 1);
       setGameState('playing');
     } else {
@@ -203,20 +214,22 @@ export default function FormulaBlasterPage() {
   const handleFullReset = () => {
     setScore(0);
     setCurrentLevel(1);
-    setCompletedTargetIds([]);
     setGameState('playing');
     startNewMoleculeWave(1, []);
   };
 
+  // Safe display for progress text
+  const currentTargetPhase = Math.min(completedTargetIds.length + 1, targetsRequiredPerLevel);
+
   return (
     <main className="relative w-full h-screen bg-linear-to-b from-slate-900 to-slate-950 overflow-hidden select-none flex flex-col p-6">
       
-      {/* IMPLEMENTING THE NEW UNIFIED HEADER */}
       <Header
         gameTitle="Formula Blaster"
         gameSubtitle="TARGET MOLECULE OBJECTIVE"
         targetName={currentTarget?.name}
-        progressText={`${completedTargetIds.length} / 3 Molecules`}
+        // 🛡️ THE FIX: Restored UI visibility so you know exactly how many hits you need
+        progressText={`Target ${currentTargetPhase}/3 • Hits: ${correctInRound}/${targetQuota}`}
         currentLevel={currentLevel}
         score={score}
         gameState={gameState}
@@ -224,7 +237,7 @@ export default function FormulaBlasterPage() {
         
         showTimer={true}
         timeLeft={timeLeft}
-        showLives={false} // Game 2 has no lives
+        showLives={false}
       />
 
       {/* FLOAT CANVAS FIELD AREA */}
