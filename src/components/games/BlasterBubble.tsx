@@ -10,11 +10,11 @@ interface BlasterBubbleProps {
   speed: number;
   isCorrect: boolean;
   hint: string;
+  colorClass: string; // 🧪 Accept the permanent color stamp passed from the generator
   onClick: (id: string, isCorrect: boolean, hint: string) => void;
   onExpired: (id: string) => void;
 }
 
-// Safe Typographic parsing for subscripts without inline styling overhead (AC 1.4)
 const renderSubscripts = (formulaStr: string) => {
   return formulaStr.split(/(\d+)/).map((part, index) => {
     if (/\d+/.test(part)) {
@@ -35,6 +35,7 @@ export default function BlasterBubble({
   speed,
   isCorrect,
   hint,
+  colorClass, 
   onClick,
   onExpired,
 }: BlasterBubbleProps) {
@@ -44,7 +45,6 @@ export default function BlasterBubble({
     e.preventDefault();
     if (!isCorrect) {
       setHasError(true);
-      // Automatically snap shake state off after animation finishes cycles (AC 4.1)
       setTimeout(() => setHasError(false), 500);
     }
     onClick(id, isCorrect, hint);
@@ -54,7 +54,6 @@ export default function BlasterBubble({
     <div
       onClick={handleInteraction}
       onAnimationEnd={(e) => {
-        // Only trigger boundary cleanups on the vertical floating animation channel
         if (e.animationName.includes('floatUp')) {
           onExpired(id);
         }
@@ -67,25 +66,12 @@ export default function BlasterBubble({
         animation: `floatUp ${speed}s linear forwards`,
       }}
     >
-      {/* 🚀 Dynamic Scoped Style block to smoothly cycle line colors without causing re-renders */}
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes borderLineCycle {
-          0% { border-color: #22d3ee; color: #22d3ee; box-shadow: 0 0 12px rgba(34,211,238,0.3); }
-          33% { border-color: #ec4899; color: #ec4899; box-shadow: 0 0 12px rgba(236,72,153,0.3); }
-          66% { border-color: #3b82f6; color: #3b82f6; box-shadow: 0 0 12px rgba(59,130,246,0.3); }
-          100% { border-color: #22d3ee; color: #22d3ee; box-shadow: 0 0 12px rgba(34,211,238,0.3); }
-        }
-        .animate-bubble-line {
-          animation: borderLineCycle 4s linear infinite;
-        }
-      `}} />
-
-      {/* Visual Inner Circular Bubble Component - Updated with solid bg-slate-800 to prevent transparency blending */}
+      {/* Visual Inner Circular Bubble Component - Locks style variant safely inside the template */}
       <div
-        className={`w-[72px] h-[72px] rounded-full flex items-center justify-center border-2 shadow-xl transition-all duration-150
+        className={`w-18 h-18 rounded-full flex items-center justify-center border-2 shadow-xl transition-all duration-150
           ${hasError 
             ? 'shake-animation border-red-500 bg-red-950 text-red-100 shadow-[0_0_15px_rgba(239,68,68,0.4)]' 
-            : 'animate-bubble-line bg-slate-800 hover:scale-110 hover:border-cyan-300 hover:text-cyan-100 active:scale-95'
+            : `bg-slate-800/95 hover:scale-110 hover:text-white active:scale-95 ${colorClass}`
           }
         `}
       >

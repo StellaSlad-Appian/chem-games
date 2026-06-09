@@ -9,7 +9,7 @@ import GameLives from './GameLives';
 interface HeaderProps {
   gameTitle: string;
   gameSubtitle: string;
-  targetName?: string | undefined; // Made optional to prevent strict typing errors
+  targetName?: string | undefined;
   
   // Progress indicators
   progressText: string; 
@@ -31,9 +31,9 @@ interface HeaderProps {
   lives?: number;
   maxLives?: number;
 
-  // 🌟 NEW: Optional Parameters for Configuration Flexibility
-  showCenterTask?: boolean;        // Allows hiding the center banner completely
-  customTaskDescription?: string;  // Overrides the "Find: XYZ" phrase with custom text
+  // Configuration Flexibility
+  showCenterTask?: boolean;        
+  customTaskDescription?: string;  
 }
 
 export default function Header({
@@ -52,7 +52,7 @@ export default function Header({
   showLives = false,
   lives = 3,
   maxLives = 3,
-  showCenterTask = true,         // Default to visible for backward compatibility
+  showCenterTask = true,         
   customTaskDescription
 }: HeaderProps) {
   return (
@@ -93,10 +93,8 @@ export default function Header({
           </span>
           <h1 className="text-xl md:text-2xl font-black text-white tracking-wide drop-shadow-md leading-snug">
             {customTaskDescription ? (
-              // If a custom label description is passed, use it directly
               <span className="text-yellow-300">{customTaskDescription}</span>
             ) : (
-              // Fallback to traditional target mode configuration
               <>
                 Find: <span className="text-yellow-300 underline decoration-2 decoration-amber-400">{targetName || 'Loading...'}</span>
               </>
@@ -104,34 +102,39 @@ export default function Header({
           </h1>
         </div>
       ) : (
-        /* Empty Spacer to maintain 3-column balance alignment if the center task is disabled entirely */
         <div className="hidden md:block" />
       )}
 
-      {/* RIGHT SLOT: FIXED STATS PANEL & NAVIGATION ACTION CONTROLS */}
-      <div className="flex flex-wrap items-center justify-center md:justify-end gap-3">
-        {onTriggerHint && (
-          <button
-            onClick={onTriggerHint}
-            disabled={gameState !== 'playing'}
-            className="bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:pointer-events-none active:scale-95 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer select-none"
-            title="Get Target Molecule Hint"
-          >
-            <span>💡</span> Hint
-          </button>
-        )}
+      {/* RIGHT SLOT: VISUALLY DISTANCED ACTIONS PANEL & GAME STATS CONTROLS */}
+      {/* 🚀 Changed overall layout gap to gap-6 (mobile) and md:gap-8 (desktop) */}
+      <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 md:gap-8">
         
-        {onExit && (
-          <button
-            onClick={onExit}
-            className="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer select-none"
-            title="Exit Game Session"
-          >
-            <LogOut className="w-4 h-4 text-white! stroke-[2.5]" stroke="#ffffff" /> 
-            <span className="text-white font-black">Exit</span>
-          </button>
-        )}
+        {/* 🛠️ Isolated Action Buttons wrapper ensures Hint and Exit stay close together */}
+        <div className="flex items-center gap-3">
+          {onTriggerHint && (
+            <button
+              onClick={onTriggerHint}
+              disabled={gameState !== 'playing'}
+              className="bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:pointer-events-none active:scale-95 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer select-none"
+              title="Get Target Molecule Hint"
+            >
+              <span>💡</span> Hint
+            </button>
+          )}
+          
+          {onExit && (
+            <button
+              onClick={onExit}
+              className="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer select-none"
+              title="Exit Game Session"
+            >
+              <LogOut className="w-4 h-4 text-white! stroke-[2.5]" stroke="#ffffff" /> 
+              <span className="text-white font-black">Exit</span>
+            </button>
+          )}
+        </div>
 
+        {/* This component will now sit visibly apart due to the outer container spacing rules */}
         <GameStats 
           level={currentLevel}
           score={score}

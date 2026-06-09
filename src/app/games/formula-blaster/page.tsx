@@ -23,7 +23,17 @@ interface BubbleData {
   xPos: number; 
   speed: number; 
   isCorrect: boolean;
+  colorClass: string; // 🌈 Stored color signature ensuring object appearance permanence
 }
+
+// Global Neon Color Rotation Array Parameters
+const SPAWN_COLOR_POOL = [
+  'border-cyan-400 text-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.25)] hover:border-cyan-300',
+  'border-pink-500 text-pink-400 shadow-[0_0_12px_rgba(236,72,153,0.25)] hover:border-pink-400',
+  'border-amber-400 text-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.25)] hover:border-amber-300',
+  'border-emerald-400 text-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.25)] hover:border-emerald-300',
+  'border-blue-500 text-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.25)] hover:border-blue-400'
+];
 
 const formatFormulaToSubscript = (formula: string): string => {
   const subscripts: Record<string, string> = {
@@ -49,8 +59,9 @@ export default function FormulaBlasterPage() {
   const [completedTargetIds, setCompletedTargetIds] = useState<string[]>([]);
   const targetsRequiredPerLevel = 3;
   
-  // Timers & Targets
+  // Timers, Colors & Targets
   const [timeLeft, setTimeLeft] = useState(45);
+  const [currentColorIndex, setCurrentColorIndex] = useState(0); // 🕒 Tracks active generation color state
   const [currentTarget, setCurrentTarget] = useState<Chemical | null>(null);
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
   const [activeHint, setActiveHint] = useState<string | null>(null);
@@ -82,6 +93,17 @@ export default function FormulaBlasterPage() {
     return () => clearInterval(clockInterval);
   }, [gameState]);
 
+  // 🟢 UX ADDITION: SPAWN COLOR ROTATOR ENGINE (Fires every 2 seconds)
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    const colorClock = setInterval(() => {
+      setCurrentColorIndex((prevIndex) => (prevIndex + 1) % SPAWN_COLOR_POOL.length);
+    }, 2000);
+
+    return () => clearInterval(colorClock);
+  }, [gameState]);
+
   // 2. MOLECULE TARGETING SYSTEM
   const startNewMoleculeWave = (level: number, currentCompleted: string[]) => {
     if (!chemicalsDB || chemicalsDB.length === 0) return;
@@ -97,11 +119,11 @@ export default function FormulaBlasterPage() {
 
     const randomTarget = levelPool[Math.floor(Math.random() * levelPool.length)];
     
-    setCompletedTargetIds(currentCompleted); // Force sync here
+    setCompletedTargetIds(currentCompleted); 
     setTargetQuota(Math.floor(Math.random() * 3) + 3); 
     setCurrentTarget(randomTarget);
     setCorrectInRound(0);
-    setBubbles([]); // Screen wipe
+    setBubbles([]); 
     setActiveHint(null);
     setTimeLeft(45); 
   };
@@ -110,7 +132,7 @@ export default function FormulaBlasterPage() {
     startNewMoleculeWave(currentLevel, []);
   }, [currentLevel]);
 
-  // 🛡️ THE FIX: PROGRESSION WATCHER MOVED TO A SAFE USE-EFFECT
+  // PROGRESSION WATCHER
   useEffect(() => {
     if (gameState === 'playing' && correctInRound > 0 && correctInRound >= targetQuota && currentTarget) {
       const updatedCompleted = [...completedTargetIds, currentTarget.id];
@@ -151,6 +173,7 @@ export default function FormulaBlasterPage() {
           : chemicalsDB[Math.floor(Math.random() * chemicalsDB.length)];
       }
 
+      // Stamping the active color right at the moment of creation
       const newBubble: BubbleData = {
         id: crypto.randomUUID(),
         formula: sourceChemical.formula,
@@ -159,6 +182,7 @@ export default function FormulaBlasterPage() {
         xPos: Math.random() * 80 + 10, 
         speed: getRandomSpeedForLevel(currentLevel),
         isCorrect: sourceChemical.id === currentTarget.id,
+        colorClass: SPAWN_COLOR_POOL[currentColorIndex] 
       };
 
       setBubbles((prev) => [...prev, newBubble]);
@@ -167,7 +191,7 @@ export default function FormulaBlasterPage() {
     return () => {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
     };
-  }, [gameState, currentTarget, bubbles, currentLevel]);
+  }, [gameState, currentTarget, bubbles, currentLevel, currentColorIndex]); // Added color tracking dependency channel
 
   // 4. INTERACTION SYSTEM
   const handleBubbleClick = (id: string, isCorrect: boolean, hint: string) => {
@@ -177,10 +201,8 @@ export default function FormulaBlasterPage() {
       setScore((prev) => prev + (100 * currentLevel)); 
       setActiveHint(null); 
       setBubbles((prev) => prev.filter((b) => b.id !== id));
-      
       setCorrectInRound((prev) => prev + 1); 
     } else {
-      // hint on the molecule we are looking for
       if (currentTarget) {
         setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
       }
@@ -189,7 +211,6 @@ export default function FormulaBlasterPage() {
 
   const handleTriggerManualHint = () => {
     if (gameState !== 'playing' || !currentTarget) return;
-    // Displays the hint for the molecule they are actively looking for
     setActiveHint(`Objective Target: ${generateChemicalHint(currentTarget)}`);
   };
 
@@ -208,16 +229,11 @@ export default function FormulaBlasterPage() {
 
   const handleOverlayAdvance = () => {
     if (gameState === 'levelUp') {
-      // 1. Reset Game Logic (Prevents level-skipping)
       setCorrectInRound(0);
       setCompletedTargetIds([]);
-      
-      // 2. Reset Visuals & Timers (Prevents UI flashing)
       setBubbles([]);
       setActiveHint(null);
       setTimeLeft(45);
-      
-      // 3. Trigger the next phase
       setCurrentLevel((prev) => prev + 1);
       setGameState('playing');
     } else {
@@ -232,7 +248,6 @@ export default function FormulaBlasterPage() {
     startNewMoleculeWave(1, []);
   };
 
-  // Safe display for progress text
   const currentTargetPhase = Math.min(completedTargetIds.length + 1, targetsRequiredPerLevel);
 
   return (
@@ -268,6 +283,7 @@ export default function FormulaBlasterPage() {
             speed={bubble.speed}
             isCorrect={bubble.isCorrect}
             hint={bubble.hint}
+            colorClass={bubble.colorClass} 
             onClick={handleBubbleClick}
             onExpired={handleAnimationEnd}
           />
