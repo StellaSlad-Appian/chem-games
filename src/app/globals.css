@@ -22,8 +22,10 @@
       --game-glow: #8b5cf6;
 
     /* reserved for important elements */
-      --game-highlight-surface: #334155;
-      --game-highlight-border: #64748b;
+      --game-highlight-surface: #374151;
+      --game-highlight-border: #6b7280;
+      --game-panel-text: #fde68a;
+      --game-panel-muted: #71653e;
 
     /*  --game-highlight-surface: #1e293b;
       --game-highlight-border: #475569; */

@@ -12,7 +12,7 @@ export default function MoleculeBubble({ formula, name, feedbackStatus, showName
   const renderFormula = (formulaStr: string) => {
     return formulaStr.split(/(\d+)/).map((part, index) => {
       if (!isNaN(Number(part)) && part !== "") {
-        return <sub key={index} className="text-3xl md:text-5xl">{part}</sub>;
+        return <sub key={index} className="text-5xl md:text-7xl">{part}</sub>;
       }
       return <span key={index}>{part}</span>;
     });
@@ -22,8 +22,8 @@ export default function MoleculeBubble({ formula, name, feedbackStatus, showName
     <div className="relative flex flex-col items-center justify-center">
       {/* Background Glow Ring */}
       <div
-        className={`absolute w-64 h-64 md:w-80 md:h-80 rounded-full blur-2xl opacity-20 dark:opacity-30 transition-all duration-500 ${
-          feedbackStatus ? "scale-110" : "animate-pulse"
+        className={`absolute w-64 h-64 md:w-80 md:h-80 rounded-full blur-2xl transition-all duration-500 ${
+          feedbackStatus ? "opacity-30 scale-110" : "opacity-0"
         }`}
         style={{
           backgroundColor:
@@ -59,7 +59,7 @@ export default function MoleculeBubble({ formula, name, feedbackStatus, showName
         {formula && (
           <>
             <h2
-              className="text-5xl md:text-7xl font-black tracking-tight font-serif"
+              className="text-8xl md:text-[10rem] font-black tracking-tight"
               style={{
                 color: "var(--game-panel-text)",
               }}
@@ -82,7 +82,7 @@ export default function MoleculeBubble({ formula, name, feedbackStatus, showName
 
         {feedbackStatus && (
           <div
-            className="absolute top-4 font-bold text-sm uppercase px-3 py-1 rounded-full"
+            className="absolute top-4 font-bold text-sm uppercase px-3 py-1 rounded-md"
             style={{
               backgroundColor:
                 feedbackStatus === "correct"
