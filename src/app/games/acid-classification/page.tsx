@@ -1,6 +1,8 @@
+// src/app/games/chemical-classifier/page.tsx
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Beaker, Flame, Droplet, Atom } from "lucide-react";
 
 // Shared Components
@@ -17,6 +19,8 @@ const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
 
 export default function ClassificationGame() {
+  const router = useRouter();
+
   // --- USER'S GAME ENGINE STATE ---
   const [currentLevel, setCurrentLevel] = useState<number>(1);
   const [score, setScore] = useState<number>(0);
@@ -49,6 +53,11 @@ export default function ClassificationGame() {
 
   const currentChemical = currentLevelChemicals[poolIndex];
 
+  // 🔄 Automatically hide the hint when transitioning to a new chemical card
+  useEffect(() => {
+    setShowChemicalName(false);
+  }, [currentChemical]);
+
   // Synchronized Formula Rendering logic
   const renderFormula = (formula: string) => {
     return formula.split(/(\d+)/).map((part, index) => {
@@ -61,6 +70,17 @@ export default function ClassificationGame() {
       }
       return <span key={index}>{part}</span>;
     });
+  };
+
+  // --- NEW ACTIONS HANDLERS FOR THE UNIFIED HEADER COMPONENT ---
+  const handleTriggerManualHint = () => {
+    if (gameState !== 'playing' || !currentChemical) return;
+    // Uses the existing boolean flag to reveal the IUPAC / common name under the formula
+    setShowChemicalName(true);
+  };
+
+  const handleExitGame = () => {
+    router.push('/');
   };
 
   const handleSelection = (selectedType: ChemicalClassification) => {
@@ -150,15 +170,18 @@ export default function ClassificationGame() {
         <Header
           gameTitle="Chemical Classifier"
           gameSubtitle="CLASSIFY MOLECULE"
-          targetName={currentChemical?.name || "Loading..."}
           progressText={`${correctInRound} / ${targetQuota} Sorted`}
           currentLevel={currentLevel}
           score={score}
           gameState={gameState}
           onTogglePause={togglePause}
+          onExit={handleExitGame}
+          onTriggerHint={handleTriggerManualHint}
           
-          showTimer={false} // Timer disabled!
-          showLives={true}  // Lives enabled!
+
+          customTaskDescription="Classify the molecule: Acid, Base or Neutral?"          
+          showTimer={false} 
+          showLives={true}  
           lives={currentLives}
           maxLives={MAX_MISTAKES}
         />
@@ -194,7 +217,9 @@ export default function ClassificationGame() {
                   {renderFormula(currentChemical.formula)}
                 </h2>
                 {showChemicalName && (
-                  <p className="text-xs md:text-sm text-slate-400 mt-2 font-medium opacity-80">{currentChemical.name}</p>
+                  <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-2 font-bold opacity-100 tracking-wide uppercase bg-slate-100 dark:bg-zinc-800 px-3 py-1 rounded-md animate-fade-in">
+                    {currentChemical.name}
+                  </p>
                 )}
               </>
             )}

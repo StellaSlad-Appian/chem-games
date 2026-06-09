@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 // Shared Components
 import Header from '../../../components/games/GamesHeader';
@@ -37,6 +38,7 @@ const generateChemicalHint = (chem: Chemical): string => {
 };
 
 export default function FormulaBlasterPage() {
+  const router = useRouter();
   const [gameState, setGameState] = useState<GameState>('playing');
   const [score, setScore] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(1);
@@ -176,11 +178,23 @@ export default function FormulaBlasterPage() {
       setActiveHint(null); 
       setBubbles((prev) => prev.filter((b) => b.id !== id));
       
-      // 🛡️ THE FIX: Only increment state here. No wave logic!
       setCorrectInRound((prev) => prev + 1); 
     } else {
-      setActiveHint(hint); 
+      // hint on the molecule we are looking for
+      if (currentTarget) {
+        setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
+      }
     }
+  };
+
+  const handleTriggerManualHint = () => {
+    if (gameState !== 'playing' || !currentTarget) return;
+    // Displays the hint for the molecule they are actively looking for
+    setActiveHint(`Objective Target: ${generateChemicalHint(currentTarget)}`);
+  };
+
+  const handleExitGame = () => {
+    router.push('/');
   };
 
   const handleAnimationEnd = (id: string) => {
@@ -228,12 +242,13 @@ export default function FormulaBlasterPage() {
         gameTitle="Formula Blaster"
         gameSubtitle="TARGET MOLECULE OBJECTIVE"
         targetName={currentTarget?.name}
-        // 🛡️ THE FIX: Restored UI visibility so you know exactly how many hits you need
         progressText={`Target ${currentTargetPhase}/3 • Hits: ${correctInRound}/${targetQuota}`}
         currentLevel={currentLevel}
         score={score}
         gameState={gameState}
         onTogglePause={togglePause}
+        onExit={handleExitGame}
+        onTriggerHint={handleTriggerManualHint}
         
         showTimer={true}
         timeLeft={timeLeft}

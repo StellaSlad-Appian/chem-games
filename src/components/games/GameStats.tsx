@@ -14,7 +14,7 @@ export default function GameStats({ level, score, isPaused, onTogglePause }: Gam
       {/* Level indicator */}
       <span className="text-sm font-bold tracking-wider uppercase" style={{ color: 'var(--muted)' }}>
         LEVEL{' '}
-        <span className="font-black" style={{ color: 'var(--foreground)' }}>
+        <span className="font-black text-blue-400"> {/* matches the Play icon's blue-500 */}
           {level.toString().padStart(2, '0')}
         </span>
       </span>
@@ -22,7 +22,7 @@ export default function GameStats({ level, score, isPaused, onTogglePause }: Gam
       {/* Score */}
       <span className="text-sm font-bold tracking-wider uppercase" style={{ color: 'var(--muted)' }}>
         SCORE{' '}
-        <span className="font-black" style={{ color: 'var(--correct)' }}>
+        <span className="font-black" style={{ color: 'var(--correct)' }}> {/* stays green */}
           {score.toString().padStart(4, '0')}
         </span>
       </span>
