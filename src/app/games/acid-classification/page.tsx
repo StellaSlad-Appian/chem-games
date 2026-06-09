@@ -2,6 +2,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import GameShell from '../../../components/games/GameShell';
+import { useGameState } from '../../../hooks/useGameState';
 import { useRouter } from 'next/navigation';
 import { Beaker, Flame, Droplet, Atom } from "lucide-react";
 
@@ -22,10 +24,18 @@ export default function ClassificationGame() {
   const router = useRouter();
 
   // --- USER'S GAME ENGINE STATE ---
-  const [currentLevel, setCurrentLevel] = useState<number>(1);
-  const [score, setScore] = useState<number>(0);
+  const {
+    gameState,
+    setGameState,
+    score,
+    setScore,
+    currentLevel,
+    setCurrentLevel,
+    togglePause,
+    resetBase,
+  } = useGameState();
+
   const [mistakes, setMistakes] = useState<number>(0);
-  const [gameState, setGameState] = useState<GameState>('playing');
   const [poolIndex, setPoolIndex] = useState<number>(0);
   const [correctInRound, setCorrectInRound] = useState<number>(0);
   const [failReason, setFailReason] = useState<FailReason>(null);
@@ -127,11 +137,6 @@ export default function ClassificationGame() {
     }
   };
 
-  const togglePause = () => {
-    if (gameState === 'failed' || gameState === 'victory' || gameState === 'levelUp') return;
-    setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
-  };
-
   const handleOverlayAdvance = () => {
     if (gameState === 'levelUp') {
       setCurrentLevel((prev) => prev + 1);
@@ -145,15 +150,14 @@ export default function ClassificationGame() {
   };
 
   const resetGame = () => {
-    setCurrentLevel(1);
-    setScore(0);
-    setMistakes(0);
-    setPoolIndex(0);
-    setCorrectInRound(0);
-    setFailReason(null);
-    setGameState('playing');
-    setFeedback({ status: null, selected: null });
-  };
+  resetBase();
+
+  setMistakes(0);
+  setPoolIndex(0);
+  setCorrectInRound(0);
+  setFailReason(null);
+  setFeedback({ status: null, selected: null });
+};
 
   if (!chemicalsDB || chemicalsDB.length === 0) {
     return <div className="min-h-screen flex items-center justify-center text-red-500 font-bold">Error: Chemical DB not found.</div>;
@@ -163,7 +167,7 @@ export default function ClassificationGame() {
   const currentLives = MAX_MISTAKES - mistakes;
 
   return (
-    <main className="min-h-screen bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 flex flex-col items-center justify-between p-4 md:p-6 select-none relative overflow-hidden">
+    <GameShell>
       
       {/* 🛡️ THE NEW UNIFIED HEADER COMPONENT */}
       <div className="w-full max-w-5xl z-10">
@@ -269,6 +273,6 @@ export default function ClassificationGame() {
           </button>
         )}
       </div>
-    </main>
+    </GameShell>
   );
 }

@@ -52,20 +52,23 @@
       --surface-2:  #27272a;
       --border:     #3f3f46;
 
+      /* --- Main Colour Pallette ---*/
+      --game-bg-start: #0f172a;
+      --game-bg-end: #020617;
+      --game-panel: #111827;
+      --game-panel-border: #1f2937;
+      --game-success: #10b981;
+      --game-error: #ef4444;
+      --game-glow: #8b5cf6;
+
       /* --- Typography --- */
       --foreground: #fafafa;
       --muted:      #a1a1aa;
 
-      /* --- Game: Acid --- */
+      /* --- Acid classifier game --- */
       --chem-acid-bg: #450a0a;
-
-      /* --- Game: Base --- */
       --chem-base-bg: #172554;
-
-      /* --- Game: Neutral --- */
       --chem-neutral-bg: #052e16;
-
-      /* --- Game: Amphoteric --- */
       --chem-amphoteric-bg: #3b0764;
 
       /* --- Elevation --- */

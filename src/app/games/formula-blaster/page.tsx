@@ -2,6 +2,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useGameState } from '../../../hooks/useGameState';
+import GameShell from '../../../components/games/GameShell';
 import { useRouter } from 'next/navigation';
 
 // Shared Components
@@ -49,9 +51,17 @@ const generateChemicalHint = (chem: Chemical): string => {
 
 export default function FormulaBlasterPage() {
   const router = useRouter();
-  const [gameState, setGameState] = useState<GameState>('playing');
-  const [score, setScore] = useState(0);
-  const [currentLevel, setCurrentLevel] = useState(1);
+
+  const {
+    gameState,
+    setGameState,
+    score,
+    setScore,
+    currentLevel,
+    setCurrentLevel,
+    togglePause,
+    resetBase,
+  } = useGameState();
   
   // Intra-level Objective Tracking
   const [correctInRound, setCorrectInRound] = useState(0);
@@ -222,11 +232,6 @@ export default function FormulaBlasterPage() {
     setBubbles((prev) => prev.filter((b) => b.id !== id)); 
   };
 
-  const togglePause = () => {
-    if (gameState === 'failed' || gameState === 'victory' || gameState === 'levelUp') return;
-    setGameState((prev) => (prev === 'playing' ? 'paused' : 'playing'));
-  };
-
   const handleOverlayAdvance = () => {
     if (gameState === 'levelUp') {
       setCorrectInRound(0);
@@ -242,33 +247,40 @@ export default function FormulaBlasterPage() {
   };
 
   const handleFullReset = () => {
-    setScore(0);
-    setCurrentLevel(1);
-    setGameState('playing');
+    resetBase();
+
+    setCorrectInRound(0);
+    setCompletedTargetIds([]);
+    setBubbles([]);
+    setActiveHint(null);
+    setTimeLeft(45);
+
     startNewMoleculeWave(1, []);
   };
 
   const currentTargetPhase = Math.min(completedTargetIds.length + 1, targetsRequiredPerLevel);
 
   return (
-    <main className="relative w-full h-screen bg-linear-to-b from-slate-900 to-slate-950 overflow-hidden select-none flex flex-col p-6">
+    <GameShell fullBleed>
       
-      <Header
-        gameTitle="Formula Blaster"
-        gameSubtitle="TARGET MOLECULE"
-        targetName={currentTarget?.name}
-        progressText={`Target ${currentTargetPhase}/3 • Hits: ${correctInRound}/${targetQuota}`}
-        currentLevel={currentLevel}
-        score={score}
-        gameState={gameState}
-        onTogglePause={togglePause}
-        onExit={handleExitGame}
-        onTriggerHint={handleTriggerManualHint}
-        
-        showTimer={true}
-        timeLeft={timeLeft}
-        showLives={false}
-      />
+      <div className="w-full max-w-5xl z-10">
+        <Header
+          gameTitle="Formula Blaster"
+          gameSubtitle="TARGET MOLECULE"
+          targetName={currentTarget?.name}
+          progressText={`Target ${currentTargetPhase}/3 • Hits: ${correctInRound}/${targetQuota}`}
+          currentLevel={currentLevel}
+          score={score}
+          gameState={gameState}
+          onTogglePause={togglePause}
+          onExit={handleExitGame}
+          onTriggerHint={handleTriggerManualHint}
+          
+          showTimer={true}
+          timeLeft={timeLeft}
+          showLives={false}
+        />
+      </div>
 
       {/* FLOAT CANVAS FIELD AREA */}
       <div className="flex-1 relative w-full h-full mt-4 rounded-2xl bg-slate-950/30 border border-slate-900/50 overflow-hidden">
@@ -300,6 +312,6 @@ export default function FormulaBlasterPage() {
         onResume={handleOverlayAdvance} 
         onRestart={handleFullReset}
       />
-    </main>
+    </GameShell>
   );
 }
