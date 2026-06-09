@@ -31,7 +31,7 @@ const SPACING = {
 
 
 const STATE_STYLES: Record<string, { bg: string; border: string }> = {
-  paused:  { bg: 'color-mix(in srgb, var(--background) 88%, transparent)',       border: 'var(--border)' },
+  paused:  { bg: 'color-mix(in srgb, #3b82f6 12%, var(--background) 88%)',       border: '#3b82f6' },
   failed:  { bg: 'color-mix(in srgb, #ef4444 12%, var(--background) 88%)',       border: '#ef4444' },
   victory: { bg: 'color-mix(in srgb, #10b981 12%, var(--background) 88%)',       border: '#10b981' },
   levelUp: { bg: 'color-mix(in srgb, #3b82f6 12%, var(--background) 88%)',       border: '#3b82f6' },

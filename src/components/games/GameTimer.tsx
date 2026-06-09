@@ -15,8 +15,14 @@ export default function GameTimer({ timeLeft }: GameTimerProps) {
   return (
     <div className="text-center">
       <div
-        className={`text-3xl md:text-4xl font-black font-mono transition-colors ${isUrgent ? 'text-red-500 animate-pulse' : ''}`}
-        style={isUrgent ? undefined : { color: 'var(--foreground)' }}
+        className={`text-3xl md:text-4xl font-black font-mono transition-colors ${
+          isUrgent ? 'animate-pulse' : ''
+        }`}
+        style={{
+          color: isUrgent
+            ? 'var(--game-error)'
+            : 'var(--game-highlight-border)',
+        }}
       >
         {formatTime(timeLeft)}
       </div>

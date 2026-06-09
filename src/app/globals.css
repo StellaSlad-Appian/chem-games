@@ -31,8 +31,8 @@
       --game-highlight-border: #475569; */
 
     /* --- Typography --- */
-    --foreground: #0f172a;
-    --muted:      #64748b;
+    --muted: #0f172a;
+    --foreground:  #64748b;
     --font-display: 'Bebas Neue', sans-serif;
     --font-body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;
 

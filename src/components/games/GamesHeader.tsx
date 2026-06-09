@@ -80,7 +80,7 @@ export default function Header({
 
         {/* Render Lives conditionally if requested */}
         {showLives && (
-          <div className="bg-slate-950/60 px-3 rounded-xl border border-slate-800 h-11 flex items-center">
+          <div className="bg-slate-950/60 px-3 rounded-xl border border-slate-400 h-11 flex items-center">
             <GameLives lives={lives} maxLives={maxLives} />
           </div>
         )}

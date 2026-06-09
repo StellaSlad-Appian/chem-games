@@ -8,7 +8,7 @@ interface GameLivesProps {
 export default function GameLives({ lives, maxLives }: GameLivesProps) {
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs uppercase font-medium mr-2" style={{ color: 'var(--muted)' }}>
+      <span className="text-xs uppercase font-medium mr-2" style={{ color: 'var(--game-highlight-border)' }}>
         LIVES: {lives}/{maxLives}
       </span>
       {[...Array(maxLives)].map((_, i) => {
