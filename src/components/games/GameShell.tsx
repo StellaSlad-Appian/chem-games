@@ -16,8 +16,8 @@ export default function GameShell({
   return (
     <main
       className={`
+        game-shell
         relative w-full min-h-screen flex flex-col overflow-hidden select-none
-        bg-linear-to-b from-slate-900 to-slate-950 text-zinc-100
         ${fullBleed
           ? 'p-6'
           : 'p-4 md:p-6 items-center justify-between'}
