@@ -42,7 +42,7 @@ To remove the limitation of forcing players to restart at Level 1 on every sessi
 ### 2. Upcoming Game Modes
 The modular codebase allows new educational engines to plug directly into the shared state architecture:
 * **Valence Matcher:** A card-matching or drag-and-drop puzzle pairing ions to build structurally stable neutral compounds.
-* **Stoichiometry Tycoon:** A balance-driven game where users manipulate coefficients to satisfy conservation of mass laws.
+* **Stoichiometry Balance:** A balance-driven game where users manipulate coefficients to satisfy conservation of mass laws.
 
 ---
 
@@ -54,12 +54,10 @@ Ensure you have **Node.js (v18+)** installed.
    ```bash
    git clone [https://github.com/your-username/chem-games.git](https://github.com/your-username/chem-games.git)
    cd chem-games
-Install dependencies:
-
-Bash
-npm install
-Run the local development server:
-
-Bash
-npm run dev
-Open http://localhost:3000 in your browser to run the application.
+2. **Install dependencies:**
+   ```bash
+   npm install
+3. **Run the local development server:**
+   ```bash
+   npm run dev
+4. **Open** http://localhost:3000 **in your browser to run the application.**
