@@ -170,7 +170,6 @@ export default function ClassificationGame() {
     <GameShell>
       
       {/* 🛡️ THE NEW UNIFIED HEADER COMPONENT */}
-      <div className="w-full max-w-5xl z-10">
         <Header
           gameTitle="Chemical Classifier"
           gameSubtitle="CLASSIFY MOLECULE"
@@ -181,15 +180,12 @@ export default function ClassificationGame() {
           onTogglePause={togglePause}
           onExit={handleExitGame}
           onTriggerHint={handleTriggerManualHint}
-          
-
           customTaskDescription="Acid, Base or Neutral?"          
           showTimer={false} 
           showLives={true}  
           lives={currentLives}
           maxLives={MAX_MISTAKES}
         />
-      </div>
 
       {/* CENTRAL DISPLAY PORT & OVERLAYS */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-6 relative max-w-3xl z-0">

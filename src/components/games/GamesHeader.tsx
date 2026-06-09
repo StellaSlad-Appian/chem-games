@@ -56,7 +56,8 @@ export default function Header({
   customTaskDescription
 }: HeaderProps) {
   return (
-    <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl p-4 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
+    <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl px-6 py-4
+    md:px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
       
       {/* LEFT SLOT: CONDITIONAL PROGRESS PANEL (TRACKERS, TIMERS, LIVES) */}
       <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
