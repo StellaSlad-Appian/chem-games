@@ -5,7 +5,6 @@
 @import "tailwindcss/preflight";
 @import "tailwindcss/utilities";
 
-@layer base {
   :root {
     /* --- Surfaces --- */
     --background: #f8fafc;
@@ -22,27 +21,35 @@
       --game-error: #ef4444;
       --game-glow: #8b5cf6;
 
+    /* reserved for important elements */
+      --game-highlight-surface: #334155;
+      --game-highlight-border: #64748b;
+
     /* --- Typography --- */
     --foreground: #0f172a;
     --muted:      #64748b;
     --font-display: 'Bebas Neue', sans-serif;
     --font-body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;
 
-    /* --- Game: Acid --- */
-    --chem-acid:    #ef4444;
-    --chem-acid-bg: #fef2f2;
+    /* Acid */
+    --chem-acid-accent: #ef4444;
+    --chem-acid-text: #fef2f2;
+    --chem-acid-surface: #450a0a;
 
-    /* --- Game: Base --- */
-    --chem-base:    #3b82f6;
-    --chem-base-bg: #eff6ff;
+    /* Base */
+    --chem-base-accent: #3b82f6;
+    --chem-base-text: #eff6ff;
+    --chem-base-surface: #172554;
 
-    /* --- Game: Neutral --- */
-    --chem-neutral:    #10b981;
-    --chem-neutral-bg: #f0fdf4;
+    /* Neutral */
+    --chem-neutral-accent: #10b981;
+    --chem-neutral-text: #f0fdf4;
+    --chem-neutral-surface: #052e16;
 
-    /* --- Game: Amphoteric --- */
-    --chem-amphoteric:    #a855f7;
-    --chem-amphoteric-bg: #faf5ff;
+    /* Amphoteric */
+    --chem-amphoteric-accent: #a855f7;
+    --chem-amphoteric-text: #faf5ff;
+    --chem-amphoteric-surface: #3b0764;
 
     /* --- Feedback states --- */
     --correct: #10b981;
@@ -52,6 +59,8 @@
     --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.07);
     --shadow-lg:   0 8px 40px 0 rgb(0 0 0 / 0.12);
   }
+
+@layer base {
 
   @media (prefers-color-scheme: dark) {
     :root {

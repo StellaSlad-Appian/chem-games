@@ -170,6 +170,7 @@ export default function ClassificationGame() {
     <GameShell>
       
       {/* 🛡️ THE NEW UNIFIED HEADER COMPONENT */}
+      <div className="px-4 md:px-6 lg:px-8">
         <Header
           gameTitle="Chemical Classifier"
           gameSubtitle="CLASSIFY MOLECULE"
@@ -186,6 +187,7 @@ export default function ClassificationGame() {
           lives={currentLives}
           maxLives={MAX_MISTAKES}
         />
+      </div>
 
       {/* CENTRAL DISPLAY PORT & OVERLAYS */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-6 relative max-w-3xl z-0">
@@ -237,35 +239,86 @@ export default function ClassificationGame() {
       <div className={`w-full max-w-4xl grid gap-3 md:gap-6 mb-4 z-10 ${currentLevel >= 3 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
         <button onClick={() => handleSelection("Acidic")} disabled={gameState !== "playing" || feedback.status !== null}
           className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Acidic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Acidic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-red-400 hover:shadow-md active:scale-98"}`}>
-          <div className="p-3 bg-red-50 dark:bg-red-950/40 rounded-xl text-red-500 mb-2 group-hover:scale-110 transition-transform">
+          <div
+            className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
+            style={{
+              backgroundColor: 'var(--chem-acid-surface)',
+              color: 'var(--chem-acid-accent)',
+            }}
+          >
             <Flame className="w-8 h-8 md:w-10 md:h-10" />
           </div>
-          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Acidic</span>
+
+          <span
+            className="font-extrabold text-xs md:text-sm tracking-wider uppercase"
+            style={{
+              color: 'var(--chem-acid-accent)',
+            }}
+          >
+            Acidic
+          </span>
         </button>
 
         <button onClick={() => handleSelection("Neutral")} disabled={gameState !== "playing" || feedback.status !== null}
           className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Neutral" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Neutral" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-emerald-400 hover:shadow-md active:scale-98"}`}>
-          <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-emerald-500 mb-2 group-hover:scale-110 transition-transform">
+          <div
+            className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
+            style={{
+              backgroundColor: "var(--chem-neutral-surface)",
+              color: "var(--chem-neutral-accent)",
+            }}
+          >
             <Droplet className="w-8 h-8 md:w-10 md:h-10" />
           </div>
-          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Neutral</span>
+          <span
+            className="font-extrabold text-xs md:text-sm tracking-wider uppercase"
+            style={{
+              color: "var(--chem-neutral-accent)",
+            }}
+          >
+            Neutral
+          </span>
         </button>
 
         <button onClick={() => handleSelection("Basic")} disabled={gameState !== "playing" || feedback.status !== null}
           className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Basic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Basic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-blue-400 hover:shadow-md active:scale-98"}`}>
-          <div className="p-3 bg-blue-50 dark:bg-blue-950/40 rounded-xl text-blue-500 mb-2 group-hover:scale-110 transition-transform">
+          <div
+            className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
+            style={{
+              backgroundColor: "var(--chem-base-surface)",
+              color: "var(--chem-base-accent)",
+            }}
+          >
             <Beaker className="w-8 h-8 md:w-10 md:h-10" />
           </div>
-          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Basic</span>
+          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase"
+          style={{
+            color: "var(--chem-base-accent)",
+          }}
+          >Basic</span>
         </button>
 
         {currentLevel >= 3 && (
           <button onClick={() => handleSelection("Amphoteric")} disabled={gameState !== "playing" || feedback.status !== null}
             className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Amphoteric" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Amphoteric" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-purple-400 hover:shadow-md active:scale-98"}`}>
-            <div className="p-3 bg-purple-50 dark:bg-purple-950/40 rounded-xl text-purple-500 mb-2 group-hover:scale-110 transition-transform">
+            <div
+              className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
+              style={{
+                backgroundColor: "var(--chem-amphoteric-surface)",
+                color: "var(--chem-amphoteric-accent)",
+              }}
+            >
               <Atom className="w-8 h-8 md:w-10 md:h-10" />
             </div>
-            <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">Amphoteric</span>
+
+            <span
+              className="font-extrabold text-xs md:text-sm tracking-wider uppercase"
+              style={{
+                color: "var(--chem-amphoteric-accent)",
+              }}
+            >
+              Amphoteric
+            </span>
           </button>
         )}
       </div>

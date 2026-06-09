@@ -262,6 +262,7 @@ export default function FormulaBlasterPage() {
 
   return (
     <GameShell fullBleed>
+      <div className="px-4 md:px-6 lg:px-8">
         <Header
           gameTitle="Formula Blaster"
           gameSubtitle="TARGET MOLECULE"
@@ -277,6 +278,7 @@ export default function FormulaBlasterPage() {
           timeLeft={timeLeft}
           showLives={false}
         />
+      </div>
 
       {/* FLOAT CANVAS FIELD AREA */}
       <div className="flex-1 relative w-full h-full mt-4 rounded-2xl bg-slate-950/30 border border-slate-900/50 overflow-hidden">
