@@ -2,18 +2,18 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import GameShell from '../../../components/games/GameShell';
 import { useGameState } from '../../../hooks/useGameState';
 import { useRouter } from 'next/navigation';
 import { Beaker, Flame, Droplet, Atom } from "lucide-react";
 
 // Shared Components
+import MoleculeBubble from '../../../components/games/MoleculeBubble';
 import Header from '../../../components/games/GamesHeader';
+import GameShell from '../../../components/games/GameShell';
 import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
 
 // Core Engine
 import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
-import { GameState } from '../../../core-engine/types/general';
 import { evaluateChemical } from '../../../lib/chemical-utils';
 import { chemicalsDB } from '../../../core-engine/db';
 
@@ -203,42 +203,18 @@ export default function ClassificationGame() {
           onRestart={resetGame}
         />
 
-        <div className="relative flex flex-col items-center justify-center">
-          <div className={`absolute w-64 h-64 md:w-80 md:h-80 rounded-full blur-2xl opacity-20 dark:opacity-30 transition-all duration-500 ${
-            feedback.status === "correct" ? "bg-emerald-500 scale-110" : 
-            feedback.status === "wrong" ? "bg-red-500 scale-110" : "bg-purple-500 glow-pulse"
-          }`} />
-
-          <div className={`w-56 h-56 md:w-72 md:h-72 rounded-full border-4 flex flex-col items-center justify-center shadow-2xl relative bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md transform transition-all duration-300 ${
-            feedback.status === "correct" ? "border-emerald-500 scale-95" : 
-            feedback.status === "wrong" ? "border-red-500 scale-95 shake-animation" : "border-purple-300 dark:border-purple-900 hover:scale-105"
-          }`}>
-            {currentChemical && (
-              <>
-                <h2 className="text-5xl md:text-7xl font-black tracking-tight font-serif text-slate-800 dark:text-white flex items-baseline">
-                  {renderFormula(currentChemical.formula)}
-                </h2>
-                {showChemicalName && (
-                  <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 mt-2 font-bold opacity-100 tracking-wide uppercase bg-slate-100 dark:bg-zinc-800 px-3 py-1 rounded-md animate-fade-in">
-                    {currentChemical.name}
-                  </p>
-                )}
-              </>
-            )}
-            
-            {feedback.status && (
-              <div className={`absolute top-4 font-bold text-sm uppercase px-3 py-1 rounded-full ${feedback.status === "correct" ? "bg-emerald-100 text-emerald-700" : "bg-red-100 text-red-700"}`}>
-                {feedback.status}
-              </div>
-            )}
-          </div>
-        </div>
+        <MoleculeBubble
+          formula={currentChemical?.formula}
+          name={currentChemical?.name}
+          feedbackStatus={feedback.status}
+          showName={showChemicalName}
+        />
       </div>
 
       {/* LOWER NAVIGATION PLATFORM */}
       <div className={`w-full max-w-4xl grid gap-3 md:gap-6 mb-4 z-10 ${currentLevel >= 3 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
         <button onClick={() => handleSelection("Acidic")} disabled={gameState !== "playing" || feedback.status !== null}
-          className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Acidic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Acidic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-red-400 hover:shadow-md active:scale-98"}`}>
+          className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Acidic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Acidic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-red-400 hover:shadow-md active:scale-98"}`}>
           <div
             className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
             style={{
@@ -260,7 +236,7 @@ export default function ClassificationGame() {
         </button>
 
         <button onClick={() => handleSelection("Neutral")} disabled={gameState !== "playing" || feedback.status !== null}
-          className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Neutral" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Neutral" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-emerald-400 hover:shadow-md active:scale-98"}`}>
+          className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Neutral" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Neutral" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-emerald-400 hover:shadow-md active:scale-98"}`}>
           <div
             className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
             style={{
@@ -281,7 +257,7 @@ export default function ClassificationGame() {
         </button>
 
         <button onClick={() => handleSelection("Basic")} disabled={gameState !== "playing" || feedback.status !== null}
-          className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Basic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Basic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-blue-400 hover:shadow-md active:scale-98"}`}>
+          className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Basic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Basic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-blue-400 hover:shadow-md active:scale-98"}`}>
           <div
             className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
             style={{
@@ -300,7 +276,7 @@ export default function ClassificationGame() {
 
         {currentLevel >= 3 && (
           <button onClick={() => handleSelection("Amphoteric")} disabled={gameState !== "playing" || feedback.status !== null}
-            className={`flex flex-col items-center p-4 rounded-2xl border-2 transition-all group ${feedback.selected === "Amphoteric" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Amphoteric" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-purple-400 hover:shadow-md active:scale-98"}`}>
+            className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Amphoteric" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Amphoteric" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-purple-400 hover:shadow-md active:scale-98"}`}>
             <div
               className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
               style={{

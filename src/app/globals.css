@@ -25,6 +25,9 @@
       --game-highlight-surface: #334155;
       --game-highlight-border: #64748b;
 
+    /*  --game-highlight-surface: #1e293b;
+      --game-highlight-border: #475569; */
+
     /* --- Typography --- */
     --foreground: #0f172a;
     --muted:      #64748b;
