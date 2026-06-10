@@ -47,8 +47,6 @@ export default function GameOverlay({
   onResume,
   onRestart,
 }: GameOverlayProps) {
-  // If the game is actively playing, don't show any overlay
-  if (gameState === 'playing') return null;
 
   const stateStyle = STATE_STYLES[gameState] ?? STATE_STYLES.paused;
 
@@ -70,6 +68,11 @@ export default function GameOverlay({
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [gameState, onResume, onRestart]);
+
+  if (gameState === 'playing') {
+    return null;
+  }
+
 // modified 
   return (
     <div
