@@ -15,7 +15,7 @@ import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
 // Core Engine
 import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
 import { evaluateChemical } from '../../../lib/chemical-utils';
-import { chemicalsDB } from '../../../core-engine/db';
+import { chemicalsDB } from '../../../core-engine/data/compounds';
 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;

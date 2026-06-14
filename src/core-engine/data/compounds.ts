@@ -1,4 +1,5 @@
-import { Chemical } from './types/chemistry';
+import { Chemical } from '../types/chemistry';
+// everything needs to be updated!!
 
 export const chemicalsDB: Chemical[] = [
   // ==========================================
@@ -7,7 +8,7 @@ export const chemicalsDB: Chemical[] = [
   { 
     id: '1', formula: 'HCl', name: 'Hydrochloric Acid', pKa: -6.3, 
     difficulty: 1, molarMass: 36.46, stateAtRoomTemp: 'gas', 
-    ions: ['H+', 'Cl-'], hazardClasses: ['Corrosive', 'Toxic'] 
+    ions: ['H+', 'Cl-'], hazardClasses: ['Corrosive']
   },
   { 
     id: '2', formula: 'H2SO4', name: 'Sulfuric Acid', pKa: -3.0, 

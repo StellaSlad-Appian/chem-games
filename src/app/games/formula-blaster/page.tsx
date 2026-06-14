@@ -15,7 +15,7 @@ import ErrorBanner from '../../../components/games/ErrorBanner';
 // Core Engine
 import { GameState } from '../../../core-engine/types/general';
 import { Chemical } from '../../../core-engine/types/chemistry';
-import { chemicalsDB } from '../../../core-engine/db';
+import { chemicalsDB } from '../../../core-engine/data/compounds';
 
 interface BubbleData {
   id: string;
