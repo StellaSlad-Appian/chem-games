@@ -81,6 +81,7 @@ export default function FormulaBlasterPage() {
 
   const maxLevel = 5;
   const spawnIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const consecutiveDistractors = useRef(0);
 
   const getRandomSpeedForLevel = (level: number): number => {
     const baseSpeed = Math.max(8.5 - level * 1.1, 3.2);
@@ -177,12 +178,21 @@ export default function FormulaBlasterPage() {
     const currentLevelPool = COMPOUNDS_REGISTRY.filter(chem => chem.difficulty === currentLevel);
 
     spawnIntervalRef.current = setInterval(() => {
-      const shouldBeCorrect = Math.random() > 0.65 || bubbles.filter(b => b.isCorrect).length === 0;
+      const PITY_THRESHOLD = 5; 
+      let shouldBeCorrect = Math.random() > 0.85 || bubbles.filter(b => b.isCorrect).length === 0;
+
+      // Enforce Pity Logic
+      if (consecutiveDistractors.current >= PITY_THRESHOLD) {
+        shouldBeCorrect = true;
+      }
+
       let sourceChemical: CompoundData;
 
       if (shouldBeCorrect) {
         sourceChemical = currentTarget;
+        consecutiveDistractors.current = 0; // Reset counter on success
       } else {
+        consecutiveDistractors.current += 1; // Increment on failure
         const distractors = currentLevelPool.filter(c => c.id !== currentTarget.id);
         sourceChemical = distractors.length > 0 
           ? distractors[Math.floor(Math.random() * distractors.length)]
