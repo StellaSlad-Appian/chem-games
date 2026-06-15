@@ -8,7 +8,7 @@ export interface ElementData{
   atomicNumber: number;
   mass: number;
   valenceElectrons: number;
-  atomicRadius: number;
+  atomicRadius?: number;
   // optional property for more complex/specific games - redox reactions
   variableValenceStates?: number[];
 }
