@@ -15,7 +15,7 @@ export interface ElementData{
 
 export interface MonoatomicIonData {
   type: 'monoatomic-ion';
-  id: number;
+  id: string;
   symbol: string;
   charge: number;
   name: string;
@@ -23,7 +23,7 @@ export interface MonoatomicIonData {
 
 export interface PolyatomicIonData {
   type: 'polyatomic-ion';
-  id: number;
+  id: string;
   formula: string;
   charge: number;
   name: string;
@@ -31,34 +31,14 @@ export interface PolyatomicIonData {
 }
 
 export interface IonReference{
-  ionId: number;
+  ionId: string;
   count: number;
-}
-
-// old version - delete after updating compounds.ts
-export interface Chemical {
-  id: string;
-  formula: string;
-  name: string;
-  pKa?: number;
-  pKb?: number;
-  // Tracks level progression. replace in future, sincethis can be different for different games
-  difficulty: 1 | 2 | 3 | 4 | 5;             
-  // For future stoichiometry games (g/mol), possibly not needed since we could derive from elements
-  molarMass: number;                          
-  stateAtRoomTemp: PhysicalState;            // For visual synthesis simulations
-
-  // to do:
-  // 1. add elements (array of type element)
-  // 2. change ions to a more complex type as well
-  ions: string[];                            // For ionic equation/solubility games
-  hazardClasses: string[];                  // For lab safety mini-games
 }
 
 // new version
 export interface CompoundData {
   type: 'compound';
-  id: number;
+  id: string;
   formula: string;
   name: string;
   pKa?: number;
@@ -82,7 +62,7 @@ export type GameParticle =
 | ElementData
 | MonoatomicIonData
 | PolyatomicIonData
-| Chemical
+| CompoundData
 
 // replace Chemical with CompoundData
 

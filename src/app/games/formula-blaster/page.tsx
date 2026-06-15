@@ -13,9 +13,9 @@ import BlasterBubble from '../../../components/games/BlasterBubble';
 import ErrorBanner from '../../../components/games/ErrorBanner';
 
 // Core Engine
-import { GameState } from '../../../core-engine/types/general';
-import { Chemical } from '../../../core-engine/types/chemistry';
-import { chemicalsDB } from '../../../core-engine/data/compounds';
+// import { GameState } from '../../../core-engine/types/general';
+import { CompoundData } from '../../../core-engine/types/chemistry';
+import { COMPOUNDS_REGISTRY } from '../../../core-engine/data/compounds';
 
 interface BubbleData {
   id: string;
@@ -45,8 +45,10 @@ const formatFormulaToSubscript = (formula: string): string => {
   return formula.split('').map(char => subscripts[char] || char).join('');
 };
 
-const generateChemicalHint = (chem: Chemical): string => {
-  return `${chem.name} consists of ${chem.ions.join(' & ')} ions.`;
+// 🧪 Refactored Hint Generator to map elements from CompoundData
+const generateChemicalHint = (chem: CompoundData): string => {
+  const elementSymbols = chem.elements.map(e => e.symbol).join(' & ');
+  return `${chem.name} consists of the elements: ${elementSymbols}.`;
 };
 
 export default function FormulaBlasterPage() {
@@ -66,13 +68,14 @@ export default function FormulaBlasterPage() {
   // Intra-level Objective Tracking
   const [correctInRound, setCorrectInRound] = useState(0);
   const [targetQuota, setTargetQuota] = useState(3); 
+
   const [completedTargetIds, setCompletedTargetIds] = useState<string[]>([]);
   const targetsRequiredPerLevel = 3;
   
   // Timers, Colors & Targets
   const [timeLeft, setTimeLeft] = useState(45);
   const [currentColorIndex, setCurrentColorIndex] = useState(0); // 🕒 Tracks active generation color state
-  const [currentTarget, setCurrentTarget] = useState<Chemical | null>(null);
+  const [currentTarget, setCurrentTarget] = useState<CompoundData | null>(null);
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
   const [activeHint, setActiveHint] = useState<string | null>(null);
 
@@ -116,10 +119,13 @@ export default function FormulaBlasterPage() {
 
   // 2. MOLECULE TARGETING SYSTEM
   const startNewMoleculeWave = (level: number, currentCompleted: string[]) => {
-    if (!chemicalsDB || chemicalsDB.length === 0) return;
+    if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) return;
     
-    let levelPool = chemicalsDB.filter(chem => chem.difficulty === level);
-    const uncompletedPool = levelPool.filter(chem => !currentCompleted.includes(chem.id));
+    let levelPool = COMPOUNDS_REGISTRY.filter(chem => chem.difficulty === level);
+
+    const uncompletedPool = levelPool.filter(chem => 
+      !currentCompleted.includes(chem.id)
+    );
     
     if (uncompletedPool.length > 0) {
       levelPool = uncompletedPool;
@@ -168,11 +174,11 @@ export default function FormulaBlasterPage() {
       return;
     }
 
-    const currentLevelPool = chemicalsDB.filter(chem => chem.difficulty === currentLevel);
+    const currentLevelPool = COMPOUNDS_REGISTRY.filter(chem => chem.difficulty === currentLevel);
 
     spawnIntervalRef.current = setInterval(() => {
       const shouldBeCorrect = Math.random() > 0.65 || bubbles.filter(b => b.isCorrect).length === 0;
-      let sourceChemical: Chemical;
+      let sourceChemical: CompoundData;
 
       if (shouldBeCorrect) {
         sourceChemical = currentTarget;
@@ -180,7 +186,7 @@ export default function FormulaBlasterPage() {
         const distractors = currentLevelPool.filter(c => c.id !== currentTarget.id);
         sourceChemical = distractors.length > 0 
           ? distractors[Math.floor(Math.random() * distractors.length)]
-          : chemicalsDB[Math.floor(Math.random() * chemicalsDB.length)];
+          : COMPOUNDS_REGISTRY[Math.floor(Math.random() * COMPOUNDS_REGISTRY.length)];
       }
 
       // Stamping the active color right at the moment of creation
@@ -201,7 +207,7 @@ export default function FormulaBlasterPage() {
     return () => {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
     };
-  }, [gameState, currentTarget, bubbles, currentLevel, currentColorIndex]); // Added color tracking dependency channel
+  }, [gameState, currentTarget, bubbles, currentLevel, currentColorIndex]); 
 
   // 4. INTERACTION SYSTEM
   const handleBubbleClick = (id: string, isCorrect: boolean, hint: string) => {

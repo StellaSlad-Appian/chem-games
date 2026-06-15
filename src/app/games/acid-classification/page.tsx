@@ -13,9 +13,9 @@ import GameShell from '../../../components/games/GameShell';
 import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
 
 // Core Engine
-import { Chemical, ChemicalClassification } from '../../../core-engine/types/chemistry';
-import { evaluateChemical } from '../../../lib/chemical-utils';
-import { chemicalsDB } from '../../../core-engine/data/compounds';
+import { CompoundData, ChemicalClassification } from '@/src/core-engine/types/chemistry';
+import { evaluateChemical } from '@/src/lib/chemical-utils';
+import { COMPOUNDS_REGISTRY } from '@/src/core-engine/data/compounds';
 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
@@ -50,14 +50,14 @@ export default function ClassificationGame() {
     selected: null,
   });
 
-  const [currentLevelChemicals, setCurrentLevelChemicals] = useState<Chemical[]>([]);
+  const [currentLevelChemicals, setCurrentLevelChemicals] = useState<CompoundData[]>([]);
 
   // 🧪 Dynamic Quota Hook: Calculate passing bar safely based on active pool size
   const targetQuota = Math.max(3, currentLevelChemicals.length - 2);
 
   useEffect(() => {
-    if (!chemicalsDB) return;
-    const filtered = chemicalsDB.filter(chem => chem.difficulty === currentLevel);
+    if (!COMPOUNDS_REGISTRY) return;
+    const filtered = COMPOUNDS_REGISTRY.filter(chem => chem.difficulty === currentLevel);
     setCurrentLevelChemicals([...filtered].sort(() => Math.random() - 0.5));
   }, [currentLevel]);
 
@@ -159,8 +159,8 @@ export default function ClassificationGame() {
   setFeedback({ status: null, selected: null });
 };
 
-  if (!chemicalsDB || chemicalsDB.length === 0) {
-    return <div className="min-h-screen flex items-center justify-center text-red-500 font-bold">Error: Chemical DB not found.</div>;
+  if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
+    return <div className="min-h-screen flex items-center justify-center text-red-500 font-bold">Error: Compounds Registry not found.</div>;
   }
 
   // Calculate remaining lives for the Header
