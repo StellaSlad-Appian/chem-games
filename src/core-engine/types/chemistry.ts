@@ -58,7 +58,7 @@ export interface Chemical {
 // new version
 export interface CompoundData {
   type: 'compound';
-  id: string;
+  id: number;
   formula: string;
   name: string;
   pKa?: number;
