@@ -7,8 +7,10 @@ import { useCallback } from 'react';
 type SoundEffect = 'success-synthesis' | 'explosion' | 'click' | 'lock-element';
 
 const SOUND_PATHS: Record<SoundEffect, string> = {
-  'success-synthesis': '/audio/sfx/success-synthesis.mp3',
-  'explosion': '/audio/sfx/explosion.mp3',
+     // placeholder sound until I find something better
+  'success-synthesis': '/audio/sfx/confirmation-002.mp3',
+  // placeholder sound until I find something better
+  'explosion': '/audio/sfx/impactBell_heavy_000.mp3',
   'click': '/audio/sfx/click.mp3',
   'lock-element': '/audio/sfx/lock-element.mp3',
 };
