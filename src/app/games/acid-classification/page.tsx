@@ -7,14 +7,14 @@ import { useRouter } from 'next/navigation';
 import { Beaker, Flame, Droplet, Atom } from "lucide-react";
 
 // Shared Components
-import MoleculeBubble from '../../../components/games/MoleculeBubble';
-import Header from '../../../components/games/GamesHeader';
-import GameShell from '../../../components/games/GameShell';
-import GameOverlay, { FailReason } from '../../../components/games/GameOverlay';
+import MoleculeBubble from '../../../components/games/acid-classification/MoleculeBubble';
+import Header from '../../../components/games/shared/GamesHeader';
+import GameShell from '../../../components/games/shared/GameShell';
+import GameOverlay, { FailReason } from '../../../components/games/shared/GameOverlay';
 
 // Core Engine
 import { CompoundData, ChemicalClassification } from '@/src/core-engine/types/chemistry';
-import { evaluateChemical } from '@/src/lib/chemical-utils';
+import { evaluateChemical } from '@/src/core-engine/utils/chemical-utils';
 import { COMPOUNDS_REGISTRY } from '@/src/core-engine/data/compounds';
 
 const MAX_MISTAKES = 3;

@@ -3,14 +3,15 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useGameState } from '../../../hooks/useGameState';
-import GameShell from '../../../components/games/GameShell';
+import { useSound } from '../../../hooks/useSound';
+import GameShell from '../../../components/games/shared/GameShell';
 import { useRouter } from 'next/navigation';
 
 // Shared Components
-import Header from '../../../components/games/GamesHeader';
-import GameOverlay from '../../../components/games/GameOverlay';
-import BlasterBubble from '../../../components/games/BlasterBubble';
-import ErrorBanner from '../../../components/games/ErrorBanner';
+import Header from '../../../components/games/shared/GamesHeader';
+import GameOverlay from '../../../components/games/shared/GameOverlay';
+import BlasterBubble from '../../../components/games/formula-blaster/BlasterBubble';
+import ErrorBanner from '../../../components/games/shared/ErrorBanner';
 
 // Core Engine
 // import { GameState } from '../../../core-engine/types/general';
@@ -53,6 +54,8 @@ const generateChemicalHint = (chem: CompoundData): string => {
 
 export default function FormulaBlasterPage() {
   const router = useRouter();
+
+  const { playSound } = useSound();
 
   const {
     gameState,
@@ -97,6 +100,8 @@ export default function FormulaBlasterPage() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(clockInterval);
+          // Play explosion sound on timeout failure
+          playSound('explosion');
           setGameState('failed');
           return 0;
         }
@@ -157,8 +162,10 @@ export default function FormulaBlasterPage() {
       if (updatedCompleted.length >= targetsRequiredPerLevel) {
         setCompletedTargetIds(updatedCompleted);
         if (currentLevel >= maxLevel) {
+          playSound('success-synthesis'); // Play big success on victory
           setGameState('victory');
         } else {
+          playSound('lock-element'); //Play lock sound on level up
           setGameState('levelUp');
         }
       } else {
@@ -224,11 +231,13 @@ export default function FormulaBlasterPage() {
     if (gameState !== 'playing') return;
 
     if (isCorrect) {
+      playSound('success-synthesis'); // Play success pop when hitting correct target
       setScore((prev) => prev + (100 * currentLevel)); 
       setActiveHint(null); 
       setBubbles((prev) => prev.filter((b) => b.id !== id));
       setCorrectInRound((prev) => prev + 1); 
     } else {
+      playSound('explosion'); // Play error/explosion when hitting wrong target
       if (currentTarget) {
         setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
       }
@@ -237,10 +246,12 @@ export default function FormulaBlasterPage() {
 
   const handleTriggerManualHint = () => {
     if (gameState !== 'playing' || !currentTarget) return;
+    playSound('click'); // UI sound for triggering a hint
     setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
   };
 
   const handleExitGame = () => {
+    playSound('click'); // UI sound for exiting
     router.push('/');
   };
 
