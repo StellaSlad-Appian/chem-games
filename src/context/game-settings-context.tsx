@@ -14,7 +14,9 @@ const SettingsContext = createContext<SettingsState | undefined>(undefined);
 
 export function GameSettingsProvider({ children }: { children: React.ReactNode }) {
   const [isMuted, setIsMuted] = useState<boolean>(false);
-  const [volume, setVolumeState] = useState<number>(0.5);
+
+  // default volume level: 20%
+  const [volume, setVolumeState] = useState<number>(0.2);
 
   // Sync state from localStorage on mount safely
   useEffect(() => {

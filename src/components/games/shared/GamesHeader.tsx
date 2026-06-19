@@ -1,7 +1,7 @@
 // src/components/games/GamesHeader.tsx
 'use client';
 
-import { LogOut } from 'lucide-react'; 
+import { LogOut, Settings } from 'lucide-react'; // ⚙️ ADDED: Settings icon
 import GameStats from './GameStats'; 
 import GameTimer from './GameTimer';
 import GameLives from './GameLives';
@@ -23,6 +23,7 @@ interface HeaderProps {
   // Action Handlers
   onExit?: () => void;
   onTriggerHint?: () => void;
+  onOpenSettings?: () => void; // ⚙️ ADDED: Settings action handler
   
   // Conditional Component Flag Injectors
   showTimer?: boolean;
@@ -47,6 +48,7 @@ export default function Header({
   onTogglePause,
   onExit,
   onTriggerHint,
+  onOpenSettings, // ⚙️ ADDED
   showTimer = false,
   timeLeft = 0,
   showLives = false,
@@ -107,10 +109,9 @@ export default function Header({
       )}
 
       {/* RIGHT SLOT: VISUALLY DISTANCED ACTIONS PANEL & GAME STATS CONTROLS */}
-      {/* 🚀 Changed overall layout gap to gap-6 (mobile) and md:gap-8 (desktop) */}
       <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 md:gap-8">
         
-        {/* 🛠️ Isolated Action Buttons wrapper ensures Hint and Exit stay close together */}
+        {/* Isolated Action Buttons wrapper */}
         <div className="flex items-center gap-3">
           {onTriggerHint && (
             <button
@@ -120,6 +121,17 @@ export default function Header({
               title="Get Target Molecule Hint"
             >
               <span>💡</span> Hint
+            </button>
+          )}
+
+          {/* ⚙️ ADDED: Settings Gear Icon Button nestled safely right next to Hint */}
+          {onOpenSettings && (
+            <button
+              onClick={onOpenSettings}
+              className="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 active:scale-95 p-2 rounded-xl transition-all shadow-md flex items-center justify-center cursor-pointer select-none"
+              title="Open Game Settings"
+            >
+              <Settings className="w-4 h-4 stroke-[2.5]" />
             </button>
           )}
           
@@ -135,7 +147,6 @@ export default function Header({
           )}
         </div>
 
-        {/* This component will now sit visibly apart due to the outer container spacing rules */}
         <GameStats 
           level={currentLevel}
           score={score}

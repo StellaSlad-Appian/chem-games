@@ -1,15 +1,13 @@
-// src/hooks/use-sound.ts
+// src/hooks/useSound.ts
 'use client';
 
 import { useGameSettings } from '../context/game-settings-context';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
-type SoundEffect = 'success-synthesis' | 'explosion' | 'click' | 'lock-element';
+export type SoundEffect = 'success-synthesis' | 'explosion' | 'click' | 'lock-element';
 
 const SOUND_PATHS: Record<SoundEffect, string> = {
-     // placeholder sound until I find something better
-  'success-synthesis': '/audio/sfx/confirmation-002.mp3',
-  // placeholder sound until I find something better
+  'success-synthesis': '/audio/sfx/confirmation_002.mp3',
   'explosion': '/audio/sfx/impactBell_heavy_000.mp3',
   'click': '/audio/sfx/click.mp3',
   'lock-element': '/audio/sfx/lock-element.mp3',
@@ -17,16 +15,55 @@ const SOUND_PATHS: Record<SoundEffect, string> = {
 
 export function useSound() {
   const { isMuted, volume } = useGameSettings();
+  
+  // Track pools of audio instances for each sound effect to support clean polyphonic overlapping
+  const poolRef = useRef<Record<string, HTMLAudioElement[]>>({});
+
+  // Pre-load audio assets into client memory when hook initializes
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    (Object.keys(SOUND_PATHS) as SoundEffect[]).forEach((effect) => {
+      const audio = new Audio(SOUND_PATHS[effect]);
+      audio.preload = 'auto';
+      poolRef.current[effect] = [audio];
+    });
+  }, []);
 
   const playSound = useCallback((effect: SoundEffect) => {
-    if (isMuted) return;
+    if (isMuted || typeof window === 'undefined') return;
 
-    // Standard Browser Audio execution
-    const audio = new Audio(SOUND_PATHS[effect]);
+    const path = SOUND_PATHS[effect];
+    if (!path) return;
+
+    if (!poolRef.current[effect]) {
+      poolRef.current[effect] = [];
+    }
+
+    const pool = poolRef.current[effect];
+
+    // Look for an existing instance that is currently paused or finished playing
+    let audio = pool.find((a) => a.paused || a.ended);
+
+    // If all channels are busy, spawn an extra concurrent instance up to a limit of 5
+    if (!audio) {
+      if (pool.length < 5) {
+        audio = new Audio(path);
+        audio.preload = 'auto';
+        pool.push(audio);
+      } else {
+        // Rotational queue fallback: grab the oldest instance and reset it to zero
+        audio = pool[0];
+        audio.currentTime = 0;
+      }
+    }
+
+    // Apply real-time volume parameters from context
     audio.volume = volume;
+    audio.currentTime = 0;
+
     audio.play().catch((err) => {
-      // Catching autoplay blockages silently or handling gracefully
-      console.warn(`Audio play blocked for action: ${effect}`, err);
+      console.warn(`Audio playback interrupted or blocked for effect "${effect}":`, err);
     });
   }, [isMuted, volume]);
 

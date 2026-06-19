@@ -12,9 +12,9 @@ import Header from '../../../components/games/shared/GamesHeader';
 import GameOverlay from '../../../components/games/shared/GameOverlay';
 import BlasterBubble from '../../../components/games/formula-blaster/BlasterBubble';
 import ErrorBanner from '../../../components/games/shared/ErrorBanner';
+import GameSettingsModal from '../../../components/games/shared/GameSettingsModal';
 
 // Core Engine
-// import { GameState } from '../../../core-engine/types/general';
 import { CompoundData } from '../../../core-engine/types/chemistry';
 import { COMPOUNDS_REGISTRY } from '../../../core-engine/data/compounds';
 
@@ -26,10 +26,9 @@ interface BubbleData {
   xPos: number; 
   speed: number; 
   isCorrect: boolean;
-  colorClass: string; // 🌈 Stored color signature ensuring object appearance permanence
+  colorClass: string; 
 }
 
-// Global Neon Color Rotation Array Parameters
 const SPAWN_COLOR_POOL = [
   'border-cyan-400 text-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.25)] hover:border-cyan-300',
   'border-pink-500 text-pink-400 shadow-[0_0_12px_rgba(236,72,153,0.25)] hover:border-pink-400',
@@ -46,7 +45,6 @@ const formatFormulaToSubscript = (formula: string): string => {
   return formula.split('').map(char => subscripts[char] || char).join('');
 };
 
-// 🧪 Refactored Hint Generator to map elements from CompoundData
 const generateChemicalHint = (chem: CompoundData): string => {
   const elementSymbols = chem.elements.map(e => e.symbol).join(' & ');
   return `${chem.name} consists of the elements: ${elementSymbols}.`;
@@ -54,7 +52,6 @@ const generateChemicalHint = (chem: CompoundData): string => {
 
 export default function FormulaBlasterPage() {
   const router = useRouter();
-
   const { playSound } = useSound();
 
   const {
@@ -77,10 +74,12 @@ export default function FormulaBlasterPage() {
   
   // Timers, Colors & Targets
   const [timeLeft, setTimeLeft] = useState(45);
-  const [currentColorIndex, setCurrentColorIndex] = useState(0); // 🕒 Tracks active generation color state
+  const [currentColorIndex, setCurrentColorIndex] = useState(0); 
   const [currentTarget, setCurrentTarget] = useState<CompoundData | null>(null);
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
   const [activeHint, setActiveHint] = useState<string | null>(null);
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
 
   const maxLevel = 5;
   const spawnIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -100,7 +99,6 @@ export default function FormulaBlasterPage() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(clockInterval);
-          // Play explosion sound on timeout failure
           playSound('explosion');
           setGameState('failed');
           return 0;
@@ -110,9 +108,9 @@ export default function FormulaBlasterPage() {
     }, 1000);
 
     return () => clearInterval(clockInterval);
-  }, [gameState]);
+  }, [gameState, playSound, setGameState]);
 
-  // 🟢 UX ADDITION: SPAWN COLOR ROTATOR ENGINE (Fires every 2 seconds)
+  // 2. UX ADDITION: SPAWN COLOR ROTATOR ENGINE (Fires every 2 seconds)
   useEffect(() => {
     if (gameState !== 'playing') return;
 
@@ -123,7 +121,7 @@ export default function FormulaBlasterPage() {
     return () => clearInterval(colorClock);
   }, [gameState]);
 
-  // 2. MOLECULE TARGETING SYSTEM
+  // 3. MOLECULE TARGETING SYSTEM
   const startNewMoleculeWave = (level: number, currentCompleted: string[]) => {
     if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) return;
     
@@ -162,10 +160,10 @@ export default function FormulaBlasterPage() {
       if (updatedCompleted.length >= targetsRequiredPerLevel) {
         setCompletedTargetIds(updatedCompleted);
         if (currentLevel >= maxLevel) {
-          playSound('success-synthesis'); // Play big success on victory
+          playSound('success-synthesis');
           setGameState('victory');
         } else {
-          playSound('lock-element'); //Play lock sound on level up
+          playSound('lock-element'); 
           setGameState('levelUp');
         }
       } else {
@@ -173,9 +171,9 @@ export default function FormulaBlasterPage() {
         startNewMoleculeWave(currentLevel, updatedCompleted);
       }
     }
-  }, [correctInRound, targetQuota, gameState, currentTarget, currentLevel, completedTargetIds, maxLevel, targetsRequiredPerLevel]);
+  }, [correctInRound, targetQuota, gameState, currentTarget, currentLevel, completedTargetIds, maxLevel, targetsRequiredPerLevel, playSound, setGameState]);
 
-  // 3. BUBBLE SPAWN ENGINE
+  // 4. BUBBLE SPAWN ENGINE
   useEffect(() => {
     if (gameState !== 'playing' || !currentTarget) {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
@@ -197,16 +195,15 @@ export default function FormulaBlasterPage() {
 
       if (shouldBeCorrect) {
         sourceChemical = currentTarget;
-        consecutiveDistractors.current = 0; // Reset counter on success
+        consecutiveDistractors.current = 0; 
       } else {
-        consecutiveDistractors.current += 1; // Increment on failure
+        consecutiveDistractors.current += 1; 
         const distractors = currentLevelPool.filter(c => c.id !== currentTarget.id);
         sourceChemical = distractors.length > 0 
           ? distractors[Math.floor(Math.random() * distractors.length)]
           : COMPOUNDS_REGISTRY[Math.floor(Math.random() * COMPOUNDS_REGISTRY.length)];
       }
 
-      // Stamping the active color right at the moment of creation
       const newBubble: BubbleData = {
         id: crypto.randomUUID(),
         formula: sourceChemical.formula,
@@ -226,18 +223,18 @@ export default function FormulaBlasterPage() {
     };
   }, [gameState, currentTarget, bubbles, currentLevel, currentColorIndex]); 
 
-  // 4. INTERACTION SYSTEM
+  // 5. INTERACTION SYSTEM
   const handleBubbleClick = (id: string, isCorrect: boolean, hint: string) => {
     if (gameState !== 'playing') return;
 
     if (isCorrect) {
-      playSound('success-synthesis'); // Play success pop when hitting correct target
+      playSound('success-synthesis'); 
       setScore((prev) => prev + (100 * currentLevel)); 
       setActiveHint(null); 
       setBubbles((prev) => prev.filter((b) => b.id !== id));
       setCorrectInRound((prev) => prev + 1); 
     } else {
-      playSound('explosion'); // Play error/explosion when hitting wrong target
+      playSound('explosion'); 
       if (currentTarget) {
         setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
       }
@@ -246,13 +243,21 @@ export default function FormulaBlasterPage() {
 
   const handleTriggerManualHint = () => {
     if (gameState !== 'playing' || !currentTarget) return;
-    playSound('click'); // UI sound for triggering a hint
+    playSound('click'); 
     setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
   };
 
   const handleExitGame = () => {
-    playSound('click'); // UI sound for exiting
+    playSound('click'); 
     router.push('/');
+  };
+
+  const handleOpenSettings = () => {
+    playSound('click');
+    if (gameState === 'playing') {
+      togglePause();
+    }
+    setIsSettingsOpen(true);
   };
 
   const handleAnimationEnd = (id: string) => {
@@ -289,6 +294,8 @@ export default function FormulaBlasterPage() {
 
   return (
     <GameShell fullBleed>
+      
+      {/* 🛡️ UNIFIED HEADER HOOK */}
       <div className="px-4 md:px-6 lg:px-8">
         <Header
           gameTitle="Formula Blaster"
@@ -301,6 +308,7 @@ export default function FormulaBlasterPage() {
           onTogglePause={togglePause}
           onExit={handleExitGame}
           onTriggerHint={handleTriggerManualHint}
+          onOpenSettings={handleOpenSettings}
           showTimer={true}
           timeLeft={timeLeft}
           showLives={false}
@@ -326,6 +334,11 @@ export default function FormulaBlasterPage() {
           />
         ))}
       </div>
+
+      <GameSettingsModal 
+        isOpen={isSettingsOpen} 
+        onClose={() => setIsSettingsOpen(false)} 
+      />
 
       <GameOverlay
         gameState={gameState}

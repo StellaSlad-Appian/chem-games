@@ -1,4 +1,4 @@
-// src/app/games/chemical-classifier/page.tsx
+// src/app/games/acid-classification/page.tsx
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -11,17 +11,22 @@ import MoleculeBubble from '../../../components/games/acid-classification/Molecu
 import Header from '../../../components/games/shared/GamesHeader';
 import GameShell from '../../../components/games/shared/GameShell';
 import GameOverlay, { FailReason } from '../../../components/games/shared/GameOverlay';
+import GameSettingsModal from '../../../components/games/shared/GameSettingsModal'; 
 
 // Core Engine
 import { CompoundData, ChemicalClassification } from '@/src/core-engine/types/chemistry';
 import { evaluateChemical } from '@/src/core-engine/utils/chemical-utils';
 import { COMPOUNDS_REGISTRY } from '@/src/core-engine/data/compounds';
+import { useSound } from '../../../hooks/useSound';
 
 const MAX_MISTAKES = 3;
 const MAX_LEVEL = 5;
 
 export default function ClassificationGame() {
   const router = useRouter();
+  
+  // --- AUDIO SYSTEM INTEGRATION ---
+  const { playSound } = useSound();
 
   // --- USER'S GAME ENGINE STATE ---
   const {
@@ -40,6 +45,9 @@ export default function ClassificationGame() {
   const [correctInRound, setCorrectInRound] = useState<number>(0);
   const [failReason, setFailReason] = useState<FailReason>(null);
   const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
+  
+  // ⚙️ Wires up visibility tracker state for the settings overlay module
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   
   const poolIndexRef = useRef(poolIndex);
   useEffect(() => { poolIndexRef.current = poolIndex; }, [poolIndex]);
@@ -85,12 +93,23 @@ export default function ClassificationGame() {
   // --- NEW ACTIONS HANDLERS FOR THE UNIFIED HEADER COMPONENT ---
   const handleTriggerManualHint = () => {
     if (gameState !== 'playing' || !currentChemical) return;
+    playSound('click');
     // Uses the existing boolean flag to reveal the IUPAC / common name under the formula
     setShowChemicalName(true);
   };
 
   const handleExitGame = () => {
+    playSound('click');
     router.push('/');
+  };
+
+  // ⚙️ Clean Action Handler: Pauses gameplay safely if configuration deck is requested
+  const handleOpenSettings = () => {
+    playSound('click');
+    if (gameState === 'playing') {
+      togglePause();
+    }
+    setIsSettingsOpen(true);
   };
 
   const handleSelection = (selectedType: ChemicalClassification) => {
@@ -101,6 +120,7 @@ export default function ClassificationGame() {
 
     if (isCorrect) {
       setFeedback({ status: 'correct', selected: selectedType });
+      playSound('success-synthesis');
       
       // Wait for animation to finish before updating score and advancing
       setTimeout(() => {
@@ -113,8 +133,10 @@ export default function ClassificationGame() {
         if (newCorrect >= targetQuota) {
           if (currentLevel >= MAX_LEVEL) {
             setGameState('victory');
+            playSound('success-synthesis');
           } else {
             setGameState('levelUp');
+            playSound('lock-element');
           }
         } else {
           setPoolIndex((prev) => prev + 1);
@@ -125,11 +147,13 @@ export default function ClassificationGame() {
       const newMistakes = mistakes + 1;
       setMistakes(newMistakes);
       setFeedback({ status: 'wrong', selected: selectedType });
+      playSound('explosion');
       
       if (newMistakes >= MAX_MISTAKES) {
         setTimeout(() => {
           setFailReason('mistakes');
           setGameState('failed');
+          playSound('explosion');
         }, 800);
       } else {
         setTimeout(() => setFeedback({ status: null, selected: null }), 1200);
@@ -150,14 +174,13 @@ export default function ClassificationGame() {
   };
 
   const resetGame = () => {
-  resetBase();
-
-  setMistakes(0);
-  setPoolIndex(0);
-  setCorrectInRound(0);
-  setFailReason(null);
-  setFeedback({ status: null, selected: null });
-};
+    resetBase();
+    setMistakes(0);
+    setPoolIndex(0);
+    setCorrectInRound(0);
+    setFailReason(null);
+    setFeedback({ status: null, selected: null });
+  };
 
   if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
     return <div className="min-h-screen flex items-center justify-center text-red-500 font-bold">Error: Compounds Registry not found.</div>;
@@ -181,6 +204,7 @@ export default function ClassificationGame() {
           onTogglePause={togglePause}
           onExit={handleExitGame}
           onTriggerHint={handleTriggerManualHint}
+          onOpenSettings={handleOpenSettings} 
           customTaskDescription="Acid, Base or Neutral?"          
           showTimer={false} 
           showLives={true}  
@@ -201,6 +225,12 @@ export default function ClassificationGame() {
           failReason={failReason}
           onResume={handleOverlayAdvance} 
           onRestart={resetGame}
+        />
+
+        {/* ⚙️ Mount settings modal layer directly within safe tracking dimensions */}
+        <GameSettingsModal 
+          isOpen={isSettingsOpen} 
+          onClose={() => setIsSettingsOpen(false)} 
         />
 
         <MoleculeBubble

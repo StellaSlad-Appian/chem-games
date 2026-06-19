@@ -1,26 +1,16 @@
-// src/app/[locale]/layout.tsx
+// src/app/layout.tsx
 import { ReactNode } from 'react';
-import { notFound } from 'next/navigation';
 import { GameSettingsProvider } from '../context/game-settings-context';
+import './globals.css'; 
 
 type Props = {
   children: ReactNode;
-  params: Promise<{ locale: string }>;
 };
 
-export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = await params;
-  
-  // Validate that the incoming locale is supported
-  const supportedLocales = ['en', 'de'];
-  if (!supportedLocales.includes(locale)) {
-    notFound();
-  }
-
+export default function RootLayout({ children }: Props) {
   return (
-    <html lang={locale}>
-      <body>
-        {/* Wrap game interactive state cleanly inside the localized layout */}
+    <html lang="en">
+      <body className="bg-slate-950 text-slate-100 antialiased">
         <GameSettingsProvider>
           {children}
         </GameSettingsProvider>
