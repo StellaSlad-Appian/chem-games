@@ -10,10 +10,10 @@ export default function Home() {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-25 pointer-events-none" />
 
       {/* 🧪 CENTRAL REACTOR WORKBENCH ORBIT */}
-      <div className="relative w-full max-w-3xl h-[620px] md:h-[550px] flex items-center justify-center mt-6">
+      <div className="relative w-full max-w-3xl h-155 md:h-137.5 flex items-center justify-center mt-6">
         
         {/* Decorative Ring Tracker */}
-        <div className="absolute w-[340px] h-[340px] md:w-[460px] md:h-[460px] rounded-full border-2 border-dashed border-slate-800/80 animate-[spin_120s_linear_infinite] pointer-events-none hidden sm:block" />
+        <div className="absolute w-85 h-85 md:w-115 md:h-115 rounded-full border-2 border-dashed border-slate-800/80 animate-[spin_120s_linear_infinite] pointer-events-none hidden sm:block" />
 
         {/* 1. CENTRAL HUB: CORE LOGO & HEADER */}
         <div className="z-10 text-center max-w-xs md:max-w-sm px-4 bg-slate-950/80 p-6 rounded-full border border-slate-900/40 backdrop-blur-md shadow-2xl">
@@ -34,8 +34,8 @@ export default function Home() {
         <LabVesselCard
           href="/games/acid-classification"
           title="Acid or Base?"
-          description="Classify materials under fluid workspace timers."
-          liquidLabel="pH Scale"
+          description="Classify materials based on their properties."
+          liquidLabel="Classifier"
           shape="beaker"
           color="purple"
           icon={Beaker}

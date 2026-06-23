@@ -194,7 +194,7 @@ export default function ClassificationGame() {
   return (
     <GameShell>
       
-      {/* 🛡️ THE NEW UNIFIED HEADER COMPONENT */}
+      {/* HEADER COMPONENT */}
       <div className="px-4 md:px-6 lg:px-8">
         <Header
           gameTitle="Chemical Classifier"
@@ -218,6 +218,7 @@ export default function ClassificationGame() {
       {/* CENTRAL DISPLAY PORT & OVERLAYS */}
       <div className="flex-1 w-full flex flex-col items-center justify-center my-6 relative max-w-3xl z-0">
         
+        {/* Underlay / Game States Screen Layer */}
         <GameOverlay
           gameState={gameState}
           score={score}
@@ -229,10 +230,16 @@ export default function ClassificationGame() {
           onRestart={resetGame}
         />
 
-        {/* ⚙️ Mount settings modal layer directly within safe tracking dimensions */}
+        {/* ⚙️ Top Layer: Handles automatic game session resumption */}
         <GameSettingsModal 
           isOpen={isSettingsOpen} 
-          onClose={() => setIsSettingsOpen(false)} 
+          onClose={() => {
+            setIsSettingsOpen(false);
+            // Auto-resume gameplay loop if the modal was closed directly
+            if (gameState === 'paused') {
+              togglePause();
+            }
+          }} 
         />
 
         <MoleculeBubble

@@ -335,11 +335,7 @@ export default function FormulaBlasterPage() {
         ))}
       </div>
 
-      <GameSettingsModal 
-        isOpen={isSettingsOpen} 
-        onClose={() => setIsSettingsOpen(false)} 
-      />
-
+      {/* RENDER OVERLAY FIRST: It acts as the darkened background/underlay */}
       <GameOverlay
         gameState={gameState}
         score={score}
@@ -350,6 +346,20 @@ export default function FormulaBlasterPage() {
         onResume={handleOverlayAdvance} 
         onRestart={handleFullReset}
       />
+
+      {/* RENDER SETTINGS LAST: Ensures it stacks on top of the GameOverlay via the DOM tree */}
+      <GameSettingsModal 
+        isOpen={isSettingsOpen} 
+        onClose={() => {
+          setIsSettingsOpen(false);
+          // UX Fix: Auto-resume the game when closing the settings modal 
+          // if we were the ones who paused it.
+          if (gameState === 'paused') {
+            togglePause(); 
+          }
+        }} 
+      />
+
     </GameShell>
   );
 }
