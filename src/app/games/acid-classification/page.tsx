@@ -147,15 +147,17 @@ export default function ClassificationGame() {
       const newMistakes = mistakes + 1;
       setMistakes(newMistakes);
       setFeedback({ status: 'wrong', selected: selectedType });
-      playSound('explosion');
       
+      // Check if this mistake ends the game
       if (newMistakes >= MAX_MISTAKES) {
+        playSound('fizzle'); // Play mistake sound instantly
         setTimeout(() => {
           setFailReason('mistakes');
           setGameState('failed');
-          playSound('explosion');
+          playSound('explosion'); // Terminal failure gets the loud explosion
         }, 800);
       } else {
+        playSound('fizzle'); // Gentle reaction fizzle for non-terminal mistake
         setTimeout(() => setFeedback({ status: null, selected: null }), 1200);
       }
     }
