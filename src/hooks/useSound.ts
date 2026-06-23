@@ -4,13 +4,21 @@
 import { useGameSettings } from '../context/game-settings-context';
 import { useCallback, useEffect, useRef } from 'react';
 
-export type SoundEffect = 'success-synthesis' | 'explosion' | 'click' | 'lock-element';
+export type SoundEffect = 
+  | 'explosion' 
+  | 'click' 
+  | 'success-synthesis' 
+  | 'lock-element'
+  | 'pop_01'   // Added for bubble popping
+  | 'fizzle';;
 
 const SOUND_PATHS: Record<SoundEffect, string> = {
   'success-synthesis': '/audio/sfx/confirmation_002.mp3',
   'explosion': '/audio/sfx/impactBell_heavy_000.mp3',
   'click': '/audio/sfx/click.mp3',
   'lock-element': '/audio/sfx/lock-element.mp3',
+  'pop_01': '/audio/sfx/pop_01.mp3',
+  'fizzle': '/audio/sfx/fizzle.mp3'
 };
 
 export function useSound() {

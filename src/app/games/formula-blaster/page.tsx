@@ -99,7 +99,7 @@ export default function FormulaBlasterPage() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(clockInterval);
-          playSound('explosion');
+          playSound('explosion'); // Keeps explosion purely for catastrophic Game Over
           setGameState('failed');
           return 0;
         }
@@ -228,13 +228,13 @@ export default function FormulaBlasterPage() {
     if (gameState !== 'playing') return;
 
     if (isCorrect) {
-      playSound('success-synthesis'); 
+      playSound('pop_01'); // Changed from 'success-synthesis' for snappy, playful feedback
       setScore((prev) => prev + (100 * currentLevel)); 
       setActiveHint(null); 
       setBubbles((prev) => prev.filter((b) => b.id !== id));
       setCorrectInRound((prev) => prev + 1); 
     } else {
-      playSound('explosion'); 
+      playSound('fizzle'); // Changed from 'explosion' to protect UX audio hierarchy
       if (currentTarget) {
         setActiveHint(`Looking for: ${generateChemicalHint(currentTarget)}`);
       }
