@@ -76,20 +76,6 @@ export default function ClassificationGame() {
     setShowChemicalName(false);
   }, [currentChemical]);
 
-  // Synchronized Formula Rendering logic
-  const renderFormula = (formula: string) => {
-    return formula.split(/(\d+)/).map((part, index) => {
-      if (/\d+/.test(part)) {
-        return (
-          <sub key={index} className="bottom-[-0.1em] text-[0.65em] leading-none font-bold opacity-90">
-            {part}
-          </sub>
-        );
-      }
-      return <span key={index}>{part}</span>;
-    });
-  };
-
   // --- NEW ACTIONS HANDLERS FOR THE UNIFIED HEADER COMPONENT ---
   const handleTriggerManualHint = () => {
     if (gameState !== 'playing' || !currentChemical) return;

@@ -37,14 +37,6 @@ const SPAWN_COLOR_POOL = [
   'border-blue-500 text-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.25)] hover:border-blue-400'
 ];
 
-const formatFormulaToSubscript = (formula: string): string => {
-  const subscripts: Record<string, string> = {
-    '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
-    '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉'
-  };
-  return formula.split('').map(char => subscripts[char] || char).join('');
-};
-
 const generateChemicalHint = (chem: CompoundData): string => {
   const elementSymbols = chem.elements.map(e => e.symbol).join(' & ');
   return `${chem.name} consists of the elements: ${elementSymbols}.`;
@@ -323,7 +315,8 @@ export default function FormulaBlasterPage() {
           <BlasterBubble
             key={bubble.id}
             id={bubble.id}
-            formula={formatFormulaToSubscript(bubble.formula)}
+            // Just pass the raw formula string here now!
+            formula={bubble.formula} 
             xPos={bubble.xPos}
             speed={bubble.speed}
             isCorrect={bubble.isCorrect}

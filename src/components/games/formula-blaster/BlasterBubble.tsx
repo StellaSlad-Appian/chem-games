@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import MoleculeText from '../../ui/MoleculeText';
 
 interface BlasterBubbleProps {
   id: string;
@@ -10,23 +11,10 @@ interface BlasterBubbleProps {
   speed: number;
   isCorrect: boolean;
   hint: string;
-  colorClass: string; // 🧪 Accept the permanent color stamp passed from the generator
+  colorClass: string; 
   onClick: (id: string, isCorrect: boolean, hint: string) => void;
   onExpired: (id: string) => void;
 }
-
-const renderSubscripts = (formulaStr: string) => {
-  return formulaStr.split(/(\d+)/).map((part, index) => {
-    if (/\d+/.test(part)) {
-      return (
-        <sub key={index} className="bottom-[-0.2em] text-[0.75em] leading-none font-bold">
-          {part}
-        </sub>
-      );
-    }
-    return part;
-  });
-};
 
 export default function BlasterBubble({
   id,
@@ -61,23 +49,27 @@ export default function BlasterBubble({
       className="absolute bottom-0 cursor-pointer select-none touch-none will-change-transform flex items-center justify-center z-10"
       style={{
         left: `${xPos}%`,
-        width: '96px',
-        height: '96px',
+        // Responsive dimensions: Base 20 (80px), MD 28 (112px)
+        width: '80px',
+        height: '80px',
         animation: `floatUp ${speed}s linear forwards`,
       }}
     >
-      {/* Visual Inner Circular Bubble Component - Locks style variant safely inside the template */}
+      {/* SIZING UPGRADE: Increased to md:w-28 md:h-28 to ensure targets are 
+        comfortable for mouse/thumb interactions.
+      */}
       <div
-        className={`w-18 h-18 rounded-full flex items-center justify-center border-2 shadow-xl transition-all duration-150
+        className={`w-full h-full md:w-28 md:h-28 rounded-full flex items-center justify-center border-2 shadow-xl transition-all duration-150
           ${hasError 
             ? 'shake-animation border-red-500 bg-red-950 text-red-100 shadow-[0_0_15px_rgba(239,68,68,0.4)]' 
             : `bg-slate-800/95 hover:scale-110 hover:text-white active:scale-95 ${colorClass}`
           }
         `}
       >
-        <span className="text-sm font-black tracking-wide select-none">
-          {renderSubscripts(formula)}
-        </span>
+        <MoleculeText 
+          formula={formula} 
+          className="text-sm md:text-xl font-black tracking-wide select-none"
+        />
       </div>
     </div>
   );
