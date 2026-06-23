@@ -49,17 +49,14 @@ export default function BlasterBubble({
       className="absolute bottom-0 cursor-pointer select-none touch-none will-change-transform flex items-center justify-center z-10"
       style={{
         left: `${xPos}%`,
-        // Responsive dimensions: Base 20 (80px), MD 28 (112px)
-        width: '80px',
-        height: '80px',
         animation: `floatUp ${speed}s linear forwards`,
       }}
     >
-      {/* SIZING UPGRADE: Increased to md:w-28 md:h-28 to ensure targets are 
-        comfortable for mouse/thumb interactions.
+      {/* FIXED: Moved responsive sizing (w-20 h-20 md:w-28 md:h-28) 
+        directly to this div so the container is a perfect square.
       */}
       <div
-        className={`w-full h-full md:w-28 md:h-28 rounded-full flex items-center justify-center border-2 shadow-xl transition-all duration-150
+        className={`w-20 h-20 md:w-28 md:h-28 rounded-full flex items-center justify-center border-2 shadow-xl transition-all duration-150
           ${hasError 
             ? 'shake-animation border-red-500 bg-red-950 text-red-100 shadow-[0_0_15px_rgba(239,68,68,0.4)]' 
             : `bg-slate-800/95 hover:scale-110 hover:text-white active:scale-95 ${colorClass}`
