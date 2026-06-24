@@ -1,48 +1,39 @@
-# 🧪 ChemGames
+## 🧪 ChemGames
 
-ChemGames is a highly interactive suite of gamified web applications built with Next.js and TypeScript. The games are designed to transform foundational chemistry concepts into engaging, arcade-style user experiences.
+​ChemGames is a collection of interactive, web-based chemistry games. The goal of this project is to turn foundational chemistry concepts into fun, fast-paced, arcade-style games with immediate visual and sound feedback.
 
-## 🏗️ Architecture & Core Design
+## ​🏗️ How the Project is Structured
 
-ChemGames is engineered around a **Strict Separation of Concerns (SoC)** framework, decoupling game state machines and core chemical data layers from presentation layouts.
+​The code is built to keep the look and design of the games separate from the scientific logic and data.
+​Centralized Chemical Database (src/core-engine/db.ts): All scientific data—like chemical formulas, acids, bases, and molecular information—is kept in one central file. This ensures every game uses the exact same correct scientific data.
+​Level Settings: Note: Right now, the levels, game speeds, and scoring rules are still mixed directly into the game code. Moving these into a separate, easy-to-edit configuration file is planned for a future update.
+​Shared Layouts: The game headers, stats tracking, and navigation panels use a shared design so the user experience feels identical across different games.
 
-* **Centralized Chemical Database:** All chemical formulas, ion configurations, molar masses, and difficulty structures are managed within an immutable data layer (`src/core-engine/db.ts`). This allows all current and future mini-games to share a single scientific source of truth.
-* **Unified Layout Strategy:** A shared, responsive 3-column `GamesHeader` layout guarantees UI, performance stats, and tracking metrics remain perfectly aligned across diverse gameplay environments.
-* **Performance-First Animations:** Interactive visual assets utilize Tailwind properties combined with hardware-accelerated transitions (`will-change-transform`) to deliver fluid, sub-frame rendering without layout shifts or dropped frames.
+## ​🎮 Current Mini-Games
 
----
+​1. Formula Blaster 🚀
+​An arcade game where floating elements move up the screen, and players must quickly identify and click the correct chemical formulas before time runs out.
+If you make a mistake, a review screen pops up to show you the correct answer so you can learn from it immediately.
 
-## 🎮 Current Mini-Games
+​2. Acid-Base Classification 🧪
+​A fast-paced sorting game focused on identifying whether chemical compounds are acids, bases, or neutral.
+​Category Sorting: Randomized compounds appear, and players must instantly sort them into the correct column (Acid, Base, Neutral, or Amphoteric).
+​Input Protection: The game blocks double-clicking or rapid accidental inputs to keep scores and game tracking accurate.
 
-### 1. Formula Blaster 🚀
-An action-arcade challenge where users identify and capture target molecular formulas under tight time constraints.
+## ​🚀 Future Upgrades & Roadmap
 
-* **Object-Permanence Color Model:** Implements an advanced color-generation mechanic where floating elements capture a shifting neon border style at spawn. They lock this style permanently during their lifecycle, preventing visual distraction and preserving color-based tracking.
-* **Inline Subscript Parsing:** Features an automated typographic parser that handles raw chemical formula strings and safely formats subscripts inline without runtime rendering bottlenecks.
-* **Contextual Feedback Banner:** Tracks incorrect inputs to provide a real-time chemical review overlay, offering immediate educational scaffolding.
+​1. Clean Up Game Settings (Near Term)
+​Move all level speeds, point thresholds, and progression settings out of the main game files into a simple, dedicated settings folder so they are easier to tweak.
 
-### 2. Acid-Base Classification 🧪
-A fast-paced, matrix-sorting game focused on identifying compound acidity properties.
+​2. Saving Player Progress (Next Phase)
+​Right now, players have to restart at Level 1 every time they open the game. The next step is adding a save system to:
+​Allow players to create an account and log in securely.
+​Save the highest level reached and lifetime high score to a database.
+​Automatically restore the player's progress whenever they return to the site.
 
-* **Categorical Matrix Sorting:** Demands quick identification of random compounds, requiring users to sort them instantly into Acid, Base, or Neutral categories.
-* **State Safety Management:** Utilizes strict interaction handlers to prevent duplicate input submissions and maintain clean execution cycles.
-
----
-
-## 🚀 Future Roadmap & Extension Scope
-
-ChemGames is architected to scale seamlessly from a frontend game collection into a full-featured educational platform.
-
-### 1. User Database & State Persistence (Next Phase)
-To remove the limitation of forcing players to restart at Level 1 on every session, a backend persistence layer is planned:
-* **Authentication:** NextAuth.js or Clerk integration for secure user sign-ins.
-* **Data Storage:** Prisma ORM paired with a PostgreSQL database to manage user progress profiles.
-* **State Restoring:** A relational tracking schema will store metrics like `highest_level_reached` and `lifetime_high_score`, enabling the game engine to dynamically restore an individual's earned difficulty level upon launch.
-
-### 2. Upcoming Game Modes
-The modular codebase allows new educational engines to plug directly into the shared state architecture:
-* **Valence Matcher:** A card-matching or drag-and-drop puzzle pairing ions to build structurally stable neutral compounds.
-* **Stoichiometry Balance:** A balance-driven game where users manipulate coefficients to satisfy conservation of mass laws.
+​3. New Game Modes
+​Valence Matcher: A drag-and-drop puzzle where players pair matching positive and negative ions together to build balanced, stable compounds.
+​Stoichiometry Balance: A balancing game where users change molecules' numbers to make sure both sides of a chemical equation are perfectly equal.
 
 ---
 
