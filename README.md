@@ -1,11 +1,11 @@
-## 🧪 ChemGames
+## 🧪 chem-games
 
-​ChemGames is a collection of interactive, web-based chemistry games. The goal of this project is to turn foundational chemistry concepts into fun, fast-paced, arcade-style games with immediate visual and sound feedback.
+​chem-games is a collection of interactive, web-based chemistry games. The goal of this project is to turn foundational chemistry concepts into fun, fast-paced, arcade-style games with immediate visual and sound feedback.
 
 ## ​🏗️ How the Project is Structured
 
 ​The code is built to keep the look and design of the games separate from the scientific logic and data.
-​Centralized Chemical Database (src/core-engine/db.ts): All scientific data—like chemical formulas, acids, bases, and molecular information—is kept in one central file. This ensures every game uses the exact same correct scientific data.
+​- Ref Data: All scientific data, like properties of atoms and molecules is kept in the folder src/core-engine/data. This ensures every game uses the exact same correct scientific data.
 - ​Level Settings: Note: Right now, the levels, game speeds, and scoring rules are still mixed directly into the game code. Moving these into a separate, easy-to-edit configuration file is planned for a future update.
 - ​Shared Layouts: The game headers, stats tracking, and navigation panels use a shared design so the user experience feels identical across different games.
 
