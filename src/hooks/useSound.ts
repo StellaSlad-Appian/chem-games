@@ -9,8 +9,13 @@ export type SoundEffect =
   | 'click' 
   | 'success-synthesis' 
   | 'lock-element'
-  | 'pop_01'   // Added for bubble popping
-  | 'fizzle';;
+  | 'pop_01'
+  | 'fizzle'
+  | 'laser-pew'       // <-- NEW
+  | 'hit-enemy'       // <-- NEW
+  | 'metal-deflect'   // <-- NEW
+  | 'splash-defeat';  // <-- NEW
+  // add a switch sound??
 
 const SOUND_PATHS: Record<SoundEffect, string> = {
   'success-synthesis': '/audio/sfx/confirmation_002.mp3',
@@ -18,7 +23,11 @@ const SOUND_PATHS: Record<SoundEffect, string> = {
   'click': '/audio/sfx/click.mp3',
   'lock-element': '/audio/sfx/lock-element.mp3',
   'pop_01': '/audio/sfx/pop_01.mp3',
-  'fizzle': '/audio/sfx/fizzle.mp3'
+  'fizzle': '/audio/sfx/fizzle.mp3',
+  'laser-pew': '/audio/sfx/mixkit-laser-gun-shot-3110.mp3',
+  'hit-enemy': '/audio/sfx/impactGlass_medium_003.mp3', // enemy get hit
+  'metal-deflect': '/audio/sfx/impactMetal_medium_001.mp3', // we get hit
+  'splash-defeat': '/audio/sfx/splash-defeat.mp3'
 };
 
 export function useSound() {

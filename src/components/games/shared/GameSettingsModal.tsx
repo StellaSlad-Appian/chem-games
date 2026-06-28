@@ -107,8 +107,8 @@ export default function GameSettingsModal({
                     style={{ width: '48px', minWidth: '48px', maxWidth: '48px', height: '28px' }}
                     className={`relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors p-1 outline-none border focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                       isSoundEnabled 
-                        ? 'bg-[var(--game-success)] border-emerald-600' 
-                        : 'bg-[var(--game-highlight-surface)] border-[var(--game-highlight-border)]'
+                        ? 'bg-(--game-success) border-emerald-600' 
+                        : 'bg-(--game-highlight-surface) border-(--game-highlight-border)'
                     }`}
                   >
                     <span
