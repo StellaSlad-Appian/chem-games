@@ -1,4 +1,4 @@
-// src/components/games/neutralise/molecule-invader.tsx
+// src/components/games/neutralise/MoleculeInvader.tsx
 'use client';
 
 import { MoleculeInvader } from '../../../core-engine/types/molecular-combat';
@@ -9,11 +9,14 @@ interface MoleculeParticleProps {
 }
 
 export function MoleculeParticle({ data }: MoleculeParticleProps) {
+  // Clamp the health percentage between 0 and 100 to prevent overflow/negative bars
+  const healthPercentage = Math.max(0, Math.min(100, (data.currentHealth / data.maxHealth) * 100));
+
   return (
     <div
       style={{
         transform: `translate(${data.x}px, ${data.y}px)`,
-        transition: 'transform 0.05s linear' // Smooth movement
+        transition: 'transform 0.05s linear'
       }}
       className="absolute top-0 left-0 w-16 h-16 flex items-center justify-center rounded-2xl bg-slate-800 border-2 border-slate-600 shadow-xl"
     >
@@ -21,11 +24,12 @@ export function MoleculeParticle({ data }: MoleculeParticleProps) {
         formula={data.formula} 
         className="text-xl font-bold text-white tracking-tight"
       />
-      {/* Optional: Add a simple health bar below the text */}
+      
+      {/* Health Bar Container */}
       <div className="absolute -bottom-2 w-10 h-1 bg-slate-900 rounded-full overflow-hidden">
         <div 
-          className="h-full bg-emerald-500 transition-all duration-300"
-          style={{ width: `${(data.currentHealth / data.maxHealth) * 100}%` }}
+          className="h-full bg-emerald-500 transition-all duration-300 ease-out"
+          style={{ width: `${healthPercentage}%` }}
         />
       </div>
     </div>

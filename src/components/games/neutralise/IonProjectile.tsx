@@ -13,8 +13,7 @@ export function IonProjectile({ projectile }: IonProjectileProps) {
   // Mapping the damage type to the display formula
   const formulaMap: Record<Projectile['damageType'], string> = {
     'H-ion': 'H+',
-    'OH-ion': 'OH-',
-    'radical': 'e-'
+    'OH-ion': 'OH-'
   };
 
   return (

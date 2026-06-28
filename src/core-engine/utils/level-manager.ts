@@ -1,35 +1,39 @@
 import { MoleculeInvader } from '../types/molecular-combat';
 import { COMPOUNDS_REGISTRY } from '../data/compounds';
+import { calculateMoleculeHealth } from './chemical-utils';
 
-export const getLevelSpawns = (level: number): MoleculeInvader[] => {
-  // 1. Get compounds that match the current level difficulty
-  // Cap at 5 for levels > 5
-  const targetDifficulty = Math.min(level, 5);
-  const pool = COMPOUNDS_REGISTRY.filter(c => c.difficulty === targetDifficulty);
+/**
+ * Generalized Level Generator
+ * @param count Number of invaders to spawn
+ * @param compoundIds Array of IDs permitted for this level/wave
+ */
+export const getLevelSpawns = (count: number, compoundIds: string[]): MoleculeInvader[] => {
+  
+  // 1. Filter registry based on the permitted IDs for the current level
+  const spawnPool = COMPOUNDS_REGISTRY.filter(c => compoundIds.includes(c.id));
 
-  // Fallback if no compounds match
-  const spawnPool = pool.length > 0 ? pool : COMPOUNDS_REGISTRY;
+  // Fallback: If no IDs match, default to a safe set of compounds
+  const finalPool = spawnPool.length > 0 ? spawnPool : COMPOUNDS_REGISTRY.slice(0, 3);
 
-  const numEnemies = 3 + Math.floor(level / 2);
   const invaders: MoleculeInvader[] = [];
-
-  // Pick one random compound from the pool for this specific wave
-  const randomCompound = spawnPool[Math.floor(Math.random() * spawnPool.length)];
-
-  for (let i = 0; i < numEnemies; i++) {
+  
+  for (let i = 0; i < count; i++) {
+    const randomCompound = finalPool[Math.floor(Math.random() * finalPool.length)];
+    const health = calculateMoleculeHealth(randomCompound);
+    
     invaders.push({
       id: `${randomCompound.id}-${i}-${Date.now()}`,
       formula: randomCompound.formula,
-      x: 100 + (i * 150),
-      y: 50 + (Math.random() * 50),
-      // Use the registry data to determine type
-      type: randomCompound.pKa !== undefined ? 'acid' : (randomCompound.pKb !== undefined ? 'base' : 'neutral'),
-      maxHealth: Math.ceil(level / 2),
-      currentHealth: Math.ceil(level / 2),
+      x: 50 + Math.random() * 700, 
+      y: -50 - (Math.random() * 200), 
+      // Ensure type mapping is consistent
+      type: randomCompound.pKa !== undefined ? 'acid' : 'base',
+      maxHealth: health,
+      currentHealth: health,
       isAlive: true,
       lastFired: Date.now(),
     });
   }
-
+  
   return invaders;
 };

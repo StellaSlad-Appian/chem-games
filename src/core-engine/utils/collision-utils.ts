@@ -30,7 +30,9 @@ export const getCollisionResult = (
   invader: MoleculeInvader, 
   damage: number
 ): { isDefeated: boolean; remainingHealth: number } => {
-  const newHealth = Math.max(0, invader.currentHealth - damage);
+  // We use Math.floor to ensure health is always an integer
+  const newHealth = Math.max(0, Math.floor(invader.currentHealth - damage));
+  
   return {
     isDefeated: newHealth <= 0,
     remainingHealth: newHealth

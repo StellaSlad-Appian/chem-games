@@ -1,7 +1,7 @@
 // src/app/games/neutralize/page.tsx
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGameState } from '../../../hooks/useGameState';
 import GameShell from '../../../components/games/shared/GameShell';
@@ -11,6 +11,7 @@ import GameOverlay from '../../../components/games/shared/GameOverlay';
 import GameSettingsModal from '../../../components/games/shared/GameSettingsModal';
 import GameInstructionsModal from '../../../components/games/shared/GameInstructionsModal';
 import NeutralizeArena from '../../../components/games/neutralise/GameArena';
+import { NEUTRALISE_CONFIG } from '../../../core-engine/config/games/neutralise-config';
 
 export default function NeutralizePage() {
   const router = useRouter();
@@ -27,11 +28,12 @@ export default function NeutralizePage() {
   
   const [lives, setLives] = useState(3);
   const [enemiesDefeated, setEnemiesDefeated] = useState(0);
+  const [currentWave, setCurrentWave] = useState(1);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
 
-  // Calculate total enemies needed to clear the current level
-  const enemiesToWin = 5 + ((currentLevel - 1) * 2); 
+  // Calculate enemies per wave (Level 1 starts with 1, caps at a maximum of 5)
+  const enemiesPerWave = NEUTRALISE_CONFIG.waves.maxEnemiesPerWave;
 
   const handlePlayerHit = useCallback(() => {
     setLives(prev => {
@@ -43,14 +45,19 @@ export default function NeutralizePage() {
 
   const handleEnemyDefeated = useCallback((points: number) => {
     setScore(prev => prev + points);
-    setEnemiesDefeated(prev => {
-      const newCount = prev + 1;
-      if (newCount >= enemiesToWin) {
-        setGameState('levelUp'); 
-      }
-      return newCount;
-    });
-  }, [enemiesToWin, setGameState, setScore]);
+    const newDefeatedCount = enemiesDefeated + 1;
+    setEnemiesDefeated(newDefeatedCount);
+
+    // Use config-driven constants
+    if (newDefeatedCount >= enemiesPerWave) {
+        if (currentWave < NEUTRALISE_CONFIG.waves.maxWavesPerLevel) {
+        setCurrentWave(prev => prev + 1);
+        setEnemiesDefeated(0);
+        } else {
+        setGameState('levelUp');
+        }
+    }
+    }, [enemiesDefeated, enemiesPerWave, currentWave, setGameState, setScore]);
 
   const handleExit = useCallback(() => {
     router.push('/games'); 
@@ -59,6 +66,7 @@ export default function NeutralizePage() {
   const handleResume = useCallback(() => {
     if (gameState === 'levelUp') {
       setCurrentLevel(prev => prev + 1);
+      setCurrentWave(1); // Reset waves on level up
       setEnemiesDefeated(0);
     }
     setGameState('playing');
@@ -67,6 +75,7 @@ export default function NeutralizePage() {
   const handleRestart = useCallback(() => {
     setLives(3);
     setEnemiesDefeated(0);
+    setCurrentWave(1); // Reset waves on restart
     resetBase();
   }, [resetBase]);
 
@@ -83,7 +92,7 @@ export default function NeutralizePage() {
         <Header
           gameTitle="Neutralize!"
           gameSubtitle="DEFEND THE LAB"
-          progressText={`Defeated ${enemiesDefeated}/${enemiesToWin}`}
+          progressText={`Wave ${currentWave}/3 | Defeated ${enemiesDefeated}/${enemiesPerWave}`}
           currentLevel={currentLevel}
           score={score}
           gameState={gameState}
@@ -132,9 +141,11 @@ export default function NeutralizePage() {
 
         <NeutralizeArena 
           level={currentLevel} 
+          wave={currentWave}
+          enemyCount={enemiesPerWave}
           onEnemyDefeated={handleEnemyDefeated}
           onPlayerHit={handlePlayerHit}
-          isPaused={gameState !== 'playing' || isSettingsOpen || isInstructionsOpen} 
+          isPaused={gameState !== 'playing' || isSettingsOpen} 
         />
       </div>
 

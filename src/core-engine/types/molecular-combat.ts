@@ -18,7 +18,7 @@ export interface Projectile {
   id: string;
   x: number;
   y: number;
-  damageType: 'H-ion' | 'OH-ion' | 'radical';
+  damageType: 'H-ion' | 'OH-ion';
   speed: number;
   isPlayerOwned: boolean; // Added: Differentiates who fired it
 }

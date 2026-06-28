@@ -27,7 +27,7 @@ const SOUND_PATHS: Record<SoundEffect, string> = {
   'laser-pew': '/audio/sfx/mixkit-laser-gun-shot-3110.mp3',
   'hit-enemy': '/audio/sfx/impactGlass_medium_003.mp3', // enemy get hit
   'metal-deflect': '/audio/sfx/impactMetal_medium_001.mp3', // we get hit
-  'splash-defeat': '/audio/sfx/splash-defeat.mp3'
+  'splash-defeat': '/audio/sfx/explode.mp3'
 };
 
 export function useSound() {
