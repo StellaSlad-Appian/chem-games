@@ -32,7 +32,6 @@ export default function NeutralizePage() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
 
-  // Calculate enemies per wave (Level 1 starts with 1, caps at a maximum of 5)
   const enemiesPerWave = NEUTRALISE_CONFIG.waves.maxEnemiesPerWave;
 
   const handlePlayerHit = useCallback(() => {
@@ -43,21 +42,23 @@ export default function NeutralizePage() {
     });
   }, [setGameState]);
 
+  // FIX 2: Simplified point gathering to prevent closure bugs
   const handleEnemyDefeated = useCallback((points: number) => {
     setScore(prev => prev + points);
-    const newDefeatedCount = enemiesDefeated + 1;
-    setEnemiesDefeated(newDefeatedCount);
+    setEnemiesDefeated(prev => prev + 1);
+  }, [setScore]);
 
-    // Use config-driven constants
-    if (newDefeatedCount >= enemiesPerWave) {
-        if (currentWave < NEUTRALISE_CONFIG.waves.maxWavesPerLevel) {
+  // FIX 2: Dedicated effect to safely watch for wave/level transitions
+  useEffect(() => {
+    if (enemiesDefeated >= enemiesPerWave) {
+      if (currentWave < NEUTRALISE_CONFIG.waves.maxWavesPerLevel) {
         setCurrentWave(prev => prev + 1);
         setEnemiesDefeated(0);
-        } else {
+      } else {
         setGameState('levelUp');
-        }
+      }
     }
-    }, [enemiesDefeated, enemiesPerWave, currentWave, setGameState, setScore]);
+  }, [enemiesDefeated, enemiesPerWave, currentWave, setGameState]);
 
   const handleExit = useCallback(() => {
     router.push('/games'); 
@@ -66,7 +67,7 @@ export default function NeutralizePage() {
   const handleResume = useCallback(() => {
     if (gameState === 'levelUp') {
       setCurrentLevel(prev => prev + 1);
-      setCurrentWave(1); // Reset waves on level up
+      setCurrentWave(1); 
       setEnemiesDefeated(0);
     }
     setGameState('playing');
@@ -75,7 +76,7 @@ export default function NeutralizePage() {
   const handleRestart = useCallback(() => {
     setLives(3);
     setEnemiesDefeated(0);
-    setCurrentWave(1); // Reset waves on restart
+    setCurrentWave(1); 
     resetBase();
   }, [resetBase]);
 
@@ -152,6 +153,8 @@ export default function NeutralizePage() {
       <GameFooter 
         onOpenSettings={handleOpenSettings}
         onOpenInstructions={() => setIsInstructionsOpen(true)}
+        isPaused={gameState !== 'playing'}
+        onTogglePause={togglePause}
       />
     </GameShell>
   );

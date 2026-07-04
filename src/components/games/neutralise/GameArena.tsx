@@ -1,4 +1,4 @@
-// src/components/games/neutralise/neutralize-arena.tsx
+// src/components/games/neutralise/GameArena.tsx
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -31,38 +31,39 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
   const [invaders, setInvaders] = useState<MoleculeInvader[]>([]);
 
-  // Refs for Game Loop & Event Listeners to prevent dependency thrashing
   const invadersRef = useRef(invaders);
   const projectilesRef = useRef(projectiles);
   const playerXRef = useRef(playerX);
   const activeMissileRef = useRef(activeMissile);
   const lastFiredRef = useRef(0);
   
-  // FIX: Store latest callbacks in a ref to avoid stale closures in the interval
   const callbacksRef = useRef({ onEnemyDefeated, onPlayerHit });
   useEffect(() => {
     callbacksRef.current = { onEnemyDefeated, onPlayerHit };
   }, [onEnemyDefeated, onPlayerHit]);
   
-  const FIRE_COOLDOWN = 250; // Milliseconds between shots
+  const FIRE_COOLDOWN = 250; 
 
-  // Keep refs in sync with state
   useEffect(() => { invadersRef.current = invaders; }, [invaders]);
   useEffect(() => { projectilesRef.current = projectiles; }, [projectiles]);
   useEffect(() => { playerXRef.current = playerX; }, [playerX]);
   useEffect(() => { activeMissileRef.current = activeMissile; }, [activeMissile]);
 
-  // Spawn logic
+  // FIX 1: Sync refs instantly to prevent the game loop from wiping out new spawns
   useEffect(() => {
     const levelConfig = NEUTRALISE_LEVEL_DATA.find(l => l.level === level) || NEUTRALISE_LEVEL_DATA[0];
-    setInvaders(getLevelSpawns(enemyCount, levelConfig.compoundPoolIds));
+    const newSpawns = getLevelSpawns(enemyCount, levelConfig.compoundPoolIds);
+    
+    setInvaders(newSpawns);
+    invadersRef.current = newSpawns; // Instantly sync!
+    
     setProjectiles([]);
+    projectilesRef.current = []; // Instantly sync!
   }, [level, wave, enemyCount]);
 
   const fireProjectile = useCallback(() => {
     if (isPaused) return;
     
-    // Cooldown check
     const now = Date.now();
     if (now - lastFiredRef.current < FIRE_COOLDOWN) return;
     lastFiredRef.current = now;
@@ -71,9 +72,8 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
     
     setProjectiles(prev => [...prev, {
       id: crypto.randomUUID(),
-      // FIX: Subtracting 16px (half of the 32px w-8 class) to visually center the projectile
       x: playerXRef.current - 16, 
-      y: 500, // Starting at the bottom of the arena
+      y: 500,
       damageType: activeMissileRef.current,
       speed: NEUTRALISE_CONFIG.player.projectileSpeed,
       isPlayerOwned: true
@@ -85,20 +85,14 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
     setActiveMissile(prev => (prev === 'H-ion' ? 'OH-ion' : 'H-ion'));
   }, [playSound]);
 
-  // Keyboard Controls for Movement and Weapons
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isPaused) return;
-      
-      if (e.key === 'ArrowLeft') {
-        setPlayerX(prev => Math.max(20, prev - 20));
-      }
-      
+      if (e.key === 'ArrowLeft') setPlayerX(prev => Math.max(20, prev - 20));
       if (e.key === 'ArrowRight') {
         const maxRight = arenaRef.current ? arenaRef.current.clientWidth - 20 : 800;
         setPlayerX(prev => Math.min(maxRight, prev + 20));
       }
-      
       if (e.key === '1' && activeMissileRef.current !== 'H-ion') toggleWeapon();
       if (e.key === '2' && activeMissileRef.current !== 'OH-ion') toggleWeapon();
       if (e.key === ' ') fireProjectile();
@@ -108,23 +102,19 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [toggleWeapon, fireProjectile, isPaused]);
 
-  // Main Game Loop Logic
   useEffect(() => {
     if (isPaused) return;
 
     const gameLoop = setInterval(() => {
       let currentInvaders = [...invadersRef.current];
       
-      // Move Projectiles up and filter off-screen ones
       let currentProjectiles = projectilesRef.current
         .map(p => ({ ...p, y: p.y + p.speed }))
         .filter(p => p.y > -50);
 
-      // Move Invaders down
       const dropSpeed = NEUTRALISE_CONFIG.invaders.baseDropSpeed + (level * NEUTRALISE_CONFIG.invaders.speedMultiplierPerLevel);
       currentInvaders = currentInvaders.map(inv => ({ ...inv, y: inv.y + dropSpeed }));
 
-      // Process Collisions
       const survivingProjectiles: Projectile[] = [];
 
       currentProjectiles.forEach(p => {
@@ -148,7 +138,6 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
             
             if (isDefeated) {
               playSound('splash-defeat');
-              // Using callbacksRef instead of putting onEnemyDefeated in the dependency array
               setTimeout(() => callbacksRef.current.onEnemyDefeated(100), 0);
             } else {
               playSound('hit-enemy');
@@ -161,7 +150,6 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
         }
       });
 
-      // Check for Game Over
       currentInvaders.forEach(inv => {
         if (inv.y > NEUTRALISE_CONFIG.arena.height - 50 && inv.isAlive) {
           callbacksRef.current.onPlayerHit();
@@ -169,13 +157,11 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
         }
       });
 
-      // Update React State ONCE at the end of the tick
       setProjectiles(survivingProjectiles);
       setInvaders(currentInvaders.filter(i => i.isAlive));
 
     }, NEUTRALISE_CONFIG.engine.tickRate);
     
-    // Removed external dependencies from array to prevent thrashing
     return () => clearInterval(gameLoop);
   }, [playSound, isPaused, level]);
 
