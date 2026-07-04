@@ -16,8 +16,14 @@ export default function GameFooter({
   isPaused, 
   onTogglePause 
 }: FooterProps) {
+
+  // FIXED WIDTH LOGIC: 
+  // w-full: Takes up 100% width on mobile screens for easy thumb tapping.
+  // max-w-3xl: Stops growing once it hits 768px wide.
+  // mx-auto: Keeps it perfectly centered on large desktop monitors.
+  
   return (
-    <footer className="w-full grid grid-cols-3 items-center p-4 mt-auto shrink-0 z-50">
+    <footer className="w-full max-w-3xl mx-auto grid grid-cols-3 items-center p-4 mt-auto shrink-0 z-50">
       
       {/* LEFT: Instructions */}
       <div className="flex justify-start">

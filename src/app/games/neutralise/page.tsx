@@ -1,20 +1,25 @@
-// src/app/games/neutralize/page.tsx
+// src/app/games/neutralise/page.tsx
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGameState } from '../../../hooks/useGameState';
+
+// Shared Layout & Overlays
 import GameShell from '../../../components/games/shared/GameShell';
-import Header from '../../../components/games/shared/GamesHeader';
+import GamesHeader from '../../../components/games/shared/GamesHeader';
 import GameFooter from '../../../components/games/shared/GameFooter';
 import GameOverlay from '../../../components/games/shared/GameOverlay';
 import GameSettingsModal from '../../../components/games/shared/GameSettingsModal';
 import GameInstructionsModal from '../../../components/games/shared/GameInstructionsModal';
+
+// Neutralize Specific
 import NeutralizeArena from '../../../components/games/neutralise/GameArena';
 import { NEUTRALISE_CONFIG } from '../../../core-engine/config/games/neutralise-config';
 
 export default function NeutralizePage() {
   const router = useRouter();
+  
   const { 
     gameState, 
     setGameState, 
@@ -27,8 +32,11 @@ export default function NeutralizePage() {
   } = useGameState();
   
   const [lives, setLives] = useState(3);
-  const [enemiesDefeated, setEnemiesDefeated] = useState(0);
+  
+  // FIX: Using enemiesCleared to track both defeated and missed enemies
+  const [enemiesCleared, setEnemiesCleared] = useState(0);
   const [currentWave, setCurrentWave] = useState(1);
+  
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
 
@@ -40,25 +48,26 @@ export default function NeutralizePage() {
       if (newLives <= 0) setGameState('failed');
       return newLives;
     });
+    // Record that an enemy left the board, even if it wasn't defeated
+    setEnemiesCleared(prev => prev + 1);
   }, [setGameState]);
 
-  // FIX 2: Simplified point gathering to prevent closure bugs
   const handleEnemyDefeated = useCallback((points: number) => {
     setScore(prev => prev + points);
-    setEnemiesDefeated(prev => prev + 1);
+    setEnemiesCleared(prev => prev + 1);
   }, [setScore]);
 
-  // FIX 2: Dedicated effect to safely watch for wave/level transitions
+  // Wave Transition Logic
   useEffect(() => {
-    if (enemiesDefeated >= enemiesPerWave) {
+    if (enemiesCleared >= enemiesPerWave) {
       if (currentWave < NEUTRALISE_CONFIG.waves.maxWavesPerLevel) {
         setCurrentWave(prev => prev + 1);
-        setEnemiesDefeated(0);
+        setEnemiesCleared(0); // Reset for the new wave
       } else {
         setGameState('levelUp');
       }
     }
-  }, [enemiesDefeated, enemiesPerWave, currentWave, setGameState]);
+  }, [enemiesCleared, enemiesPerWave, currentWave, setGameState]);
 
   const handleExit = useCallback(() => {
     router.push('/games'); 
@@ -68,14 +77,14 @@ export default function NeutralizePage() {
     if (gameState === 'levelUp') {
       setCurrentLevel(prev => prev + 1);
       setCurrentWave(1); 
-      setEnemiesDefeated(0);
+      setEnemiesCleared(0);
     }
     setGameState('playing');
   }, [gameState, setCurrentLevel, setGameState]);
 
   const handleRestart = useCallback(() => {
     setLives(3);
-    setEnemiesDefeated(0);
+    setEnemiesCleared(0);
     setCurrentWave(1); 
     resetBase();
   }, [resetBase]);
@@ -89,21 +98,22 @@ export default function NeutralizePage() {
 
   return (
     <GameShell fullBleed>
+      
       <div className="px-4 md:px-6 lg:px-8">
-        <Header
+        <GamesHeader
           gameTitle="Neutralize!"
           gameSubtitle="DEFEND THE LAB"
-          progressText={`Wave ${currentWave}/3 | Defeated ${enemiesDefeated}/${enemiesPerWave}`}
+          progressText={`Wave ${currentWave}/3 | Cleared ${enemiesCleared}/${enemiesPerWave}`}
           currentLevel={currentLevel}
           score={score}
           gameState={gameState}
-          onTogglePause={togglePause}
           onExit={handleExit} 
           showLives={true}
           lives={lives}
           maxLives={3}
           showTimer={false}
           showCenterTask={false}
+          showPauseButton={false} // Pause is handled in the footer for this game
         />
       </div>
 
@@ -128,11 +138,12 @@ export default function NeutralizePage() {
         </div>
       </GameInstructionsModal>
 
-      <div className="relative flex-1 w-full max-w-5xl mx-auto mt-4 px-4">
+      {/* FIXED WRAPPER: min-h-0 strictly enforces flex containment */}
+      <div className="relative flex-1 min-h-0 w-full max-w-5xl mx-auto my-2 px-4 flex flex-col justify-center">
         <GameOverlay
           gameState={isSettingsOpen || isInstructionsOpen ? 'playing' : gameState}
           score={score}
-          correctInRound={enemiesDefeated}
+          correctInRound={enemiesCleared}
           currentLevel={currentLevel}
           maxLevel={10}
           failReason={lives <= 0 ? 'mistakes' : 'timeout'}
@@ -156,6 +167,7 @@ export default function NeutralizePage() {
         isPaused={gameState !== 'playing'}
         onTogglePause={togglePause}
       />
+      
     </GameShell>
   );
 }

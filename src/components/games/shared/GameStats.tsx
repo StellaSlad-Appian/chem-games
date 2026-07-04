@@ -1,45 +1,51 @@
-import { Play, Pause } from "lucide-react";
+// src/components/games/shared/GameStats.tsx
+'use client';
+
+import { Pause, Play } from 'lucide-react';
 
 interface GameStatsProps {
   level: number;
   score: number;
   isPaused: boolean;
-  onTogglePause: () => void;
+  // Add the '?' to make this prop optional
+  onTogglePause?: () => void; 
 }
 
-export default function GameStats({ level, score, isPaused, onTogglePause }: GameStatsProps) {
+export default function GameStats({ 
+  level, 
+  score, 
+  isPaused, 
+  onTogglePause 
+}: GameStatsProps) {
   return (
-    <div className="flex items-center gap-4 md:gap-6">
-
-      {/* Level indicator */}
-      <span className="text-sm font-bold tracking-wider uppercase" style={{ color: 'var(--game-highlight-border)' }}>
-        LEVEL{' '}
-        <span className="font-black text-blue-400"> {/* matches the Play icon's blue-500 */}
-          {level.toString().padStart(2, '0')}
+    <div className="flex flex-wrap items-center justify-end gap-3">
+      
+      {/* SCORE & LEVEL DISPLAY */}
+      <div className="bg-slate-950/60 px-4 py-2 rounded-xl border border-slate-800 text-right min-w-30">
+        <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-0.5">
+          Level {level.toString().padStart(2, '0')}
         </span>
-      </span>
-
-      {/* Score */}
-      <span className="text-sm font-bold tracking-wider uppercase" style={{ color: 'var(--game-highlight-border)' }}>
-        SCORE{' '}
-        <span className="font-black" style={{ color: 'var(--correct)' }}> {/* stays green */}
-          {score.toString().padStart(4, '0')}
+        <span className="text-sm font-black text-amber-400">
+          Score {score}
         </span>
-      </span>
+      </div>
 
-      {/* Pause / resume toggle */}
-      <button
-        onClick={onTogglePause}
-        className="ml-1 p-2 rounded-lg transition-colors"
-        style={{ background: 'var(--surface-2)' }}
-        aria-label={isPaused ? 'Resume game' : 'Pause game'}
-      >
-        {isPaused
-          ? <Play  className="w-5 h-5 text-blue-500" />
-          : <Pause className="w-5 h-5" style={{ color: 'var(--muted)' }} />
-        }
-      </button>
-
+      {/* CONDITIONAL PAUSE BUTTON */}
+      {/* Only render this if onTogglePause is provided by the parent */}
+      {onTogglePause && (
+        <button
+          onClick={onTogglePause}
+          className="bg-slate-800 hover:bg-slate-700 text-white p-2.5 rounded-xl transition-all shadow-md active:scale-95 border-2 border-slate-700 cursor-pointer flex items-center justify-center"
+          title={isPaused ? "Resume Game" : "Pause Game"}
+        >
+          {isPaused ? (
+            <Play className="w-5 h-5 fill-emerald-400 text-emerald-400" />
+          ) : (
+            <Pause className="w-5 h-5 fill-amber-400 text-amber-400" />
+          )}
+        </button>
+      )}
+      
     </div>
   );
 }

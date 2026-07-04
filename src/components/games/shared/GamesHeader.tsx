@@ -1,4 +1,4 @@
-// src/components/games/GamesHeader.tsx
+// src/components/games/shared/GamesHeader.tsx
 'use client';
 
 import { LogOut, Settings } from 'lucide-react';
@@ -9,22 +9,28 @@ import GameLives from './GameLives';
 interface HeaderProps {
   gameTitle: string;
   gameSubtitle: string;
-  targetName?: string | undefined;
+  targetName?: string;
+  
   progressText: string; 
   currentLevel: number;
   score: number;
+  
   gameState: string;
-  onTogglePause: () => void;
+  onTogglePause?: () => void;
+  
   onExit?: () => void;
   onTriggerHint?: () => void;
   onOpenSettings?: () => void;
+  
   showTimer?: boolean;
   timeLeft?: number;
   showLives?: boolean;
   lives?: number;
   maxLives?: number;
+
   showCenterTask?: boolean;        
-  customTaskDescription?: string;  
+  customTaskDescription?: string;
+  showPauseButton?: boolean; // ⚙️ ADDED: Optional pause toggle
 }
 
 export default function GamesHeader({
@@ -45,7 +51,8 @@ export default function GamesHeader({
   lives = 3,
   maxLives = 3,
   showCenterTask = true,         
-  customTaskDescription
+  customTaskDescription,
+  showPauseButton = false // Defaults to false
 }: HeaderProps) {
   return (
     <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl px-6 py-4 md:px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
@@ -97,7 +104,6 @@ export default function GamesHeader({
       {/* RIGHT SLOT: GAME STATS & ACTIONS PANEL */}
       <div className="flex flex-wrap items-center justify-center md:justify-end gap-4 md:gap-6">
         
-        {/* Tools (Hint & Settings) */}
         <div className="flex items-center gap-3">
           {onTriggerHint && (
             <button
@@ -121,15 +127,14 @@ export default function GamesHeader({
           )}
         </div>
 
-        {/* Game Stats (Score & Pause) */}
+        {/* Game Stats - Only passes onTogglePause if showPauseButton is true */}
         <GameStats 
           level={currentLevel}
           score={score}
           isPaused={gameState === 'paused'}
-          onTogglePause={onTogglePause}
+          onTogglePause={showPauseButton ? onTogglePause : undefined}
         />
 
-        {/* Exit Button (Now on the far right) */}
         {onExit && (
           <button
             onClick={onExit}
