@@ -60,8 +60,8 @@ export default function ClassificationGame() {
 
   // --- UI ANIMATION STATE ---
   const [feedback, setFeedback] = useState<{ status: AnswerStatus; selected: string | null }>({
-    status: null,
-    selected: null,
+      status: ANSWER_STATUS.IDLE, // CHANGE THIS FROM null TO ANSWER_STATUS.IDLE
+      selected: null,
   });
 
   const [currentLevelChemicals, setCurrentLevelChemicals] = useState<CompoundData[]>([]);
@@ -103,7 +103,7 @@ export default function ClassificationGame() {
 
   const handleSelection = (selectedType: ChemicalClassification) => {
   // Use GAME_STATE constant
-    if (gameState !== GAME_STATE.PLAYING || !currentChemical || feedback.status !== null) return;
+    if (gameState !== GAME_STATE.PLAYING || !currentChemical || feedback.status !== ANSWER_STATUS.IDLE) return;
 
     const expectedType = evaluateChemical(currentChemical);
     const isCorrect = selectedType === expectedType;
@@ -247,7 +247,7 @@ export default function ClassificationGame() {
 
       {/* LOWER NAVIGATION PLATFORM */}
       <div className={`w-full max-w-4xl grid gap-3 md:gap-6 mb-4 z-10 mx-auto px-4 md:px-0 ${currentLevel >= 3 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
-        {CLASSIFICATION_OPTIONS.map((option) => {
+        {CLASSIFICATION_OPTIONS.map((option: { label: string; icon: any; colorVar: string }) => {
           // Hide Amphoteric before level 3
           if (option.label === PH_CLASSIFICATIONS.AMPHOTERIC && currentLevel < 3) return null;
 
@@ -256,10 +256,10 @@ export default function ClassificationGame() {
               key={option.label}
               label={option.label}
               icon={option.icon}
-              accentColor={option.color}
+              colorVar={option.colorVar} // Use colorVar instead of accentColor
               status={feedback.selected === option.label ? feedback.status : ANSWER_STATUS.IDLE}
               onClick={() => handleSelection(option.label as any)}
-              disabled={gameState !== GAME_STATE.PLAYING || feedback.status !== null}
+              disabled={gameState !== GAME_STATE.PLAYING || feedback.status !== ANSWER_STATUS.IDLE} // Updated guard
             />
           );
         })}

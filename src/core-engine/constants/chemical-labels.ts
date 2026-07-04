@@ -12,8 +12,8 @@ export const PH_CLASSIFICATIONS = {
 export type PHClassification = typeof PH_CLASSIFICATIONS[keyof typeof PH_CLASSIFICATIONS];
 
 export const CLASSIFICATION_OPTIONS = [
-  { label: PH_CLASSIFICATIONS.ACIDIC, icon: Flame, color: 'rose-400' },
-  { label: PH_CLASSIFICATIONS.NEUTRAL, icon: Droplet, color: 'emerald-400' },
-  { label: PH_CLASSIFICATIONS.BASIC, icon: Beaker, color: 'blue-400' },
-  { label: PH_CLASSIFICATIONS.AMPHOTERIC, icon: Atom, color: 'purple-400' },
+  { label: PH_CLASSIFICATIONS.ACIDIC, icon: Flame, colorVar: '--acid-color' },
+  { label: PH_CLASSIFICATIONS.NEUTRAL, icon: Droplet, colorVar: '--neutral-color' },
+  { label: PH_CLASSIFICATIONS.BASIC, icon: Beaker, colorVar: '--base-color' },
+  { label: PH_CLASSIFICATIONS.AMPHOTERIC, icon: Atom, colorVar: '--amphoteric-color' },
 ] as const;

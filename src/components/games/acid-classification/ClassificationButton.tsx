@@ -6,36 +6,38 @@ import { ANSWER_STATUS, AnswerStatus } from '@/src/core-engine/constants/ui-cons
 
 interface Props {
   label: string;
-  icon: LucideIcon;
-  accentColor: string; 
+  icon: any;
+  colorVar: string;
   status: AnswerStatus;
   onClick: () => void;
   disabled: boolean;
 }
 
 export default function ClassificationButton({ 
-  label, icon: Icon, accentColor, status, onClick, disabled 
+  label, icon: Icon, colorVar, status, onClick, disabled 
 }: Props) {
   
-  // Logic based strictly on ANSWER_STATUS constants
+  // Logic for border color based on status
   const getBorderColor = () => {
-    switch (status) {
-      case ANSWER_STATUS.CORRECT: return 'border-emerald-500';
-      case ANSWER_STATUS.WRONG: return 'border-red-500';
-      default: return 'border-slate-700';
-    }
+    if (status === ANSWER_STATUS.CORRECT) return 'var(--correct)';
+    if (status === ANSWER_STATUS.WRONG) return 'var(--wrong)';
+    return `var(${colorVar})`; // Default state uses the specific chem color
   };
 
   return (
     <button 
       onClick={onClick}
       disabled={disabled}
-      className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group bg-transparent hover:border-${accentColor} ${getBorderColor()} active:scale-98`}
+      className="flex flex-col items-center p-6 rounded-2xl border-2 transition-all duration-300 group bg-transparent active:scale-95"
+      style={{ 
+        borderColor: getBorderColor(),
+        color: `var(${colorVar})`
+      }}
     >
-      <div className={`p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform text-${accentColor}`}>
+      <div className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform">
         <Icon className="w-8 h-8 md:w-10 md:h-10" />
       </div>
-      <span className={`font-extrabold text-xs md:text-sm tracking-wider uppercase text-${accentColor}`}>
+      <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase">
         {label}
       </span>
     </button>
