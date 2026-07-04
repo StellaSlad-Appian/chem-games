@@ -16,24 +16,18 @@ export default function GameFooter({
   isPaused, 
   onTogglePause 
 }: FooterProps) {
-
-  // FIXED WIDTH LOGIC: 
-  // w-full: Takes up 100% width on mobile screens for easy thumb tapping.
-  // max-w-3xl: Stops growing once it hits 768px wide.
-  // mx-auto: Keeps it perfectly centered on large desktop monitors.
-  
   return (
     <footer className="w-full max-w-3xl mx-auto grid grid-cols-3 items-center p-4 mt-auto shrink-0 z-50">
       
-      {/* LEFT: Instructions */}
+      {/* LEFT: Instructions (Icon Only) */}
       <div className="flex justify-start">
         {onOpenInstructions && (
           <button 
             onClick={onOpenInstructions}
-            className="flex items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+            className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
+            title="How to Play"
           >
-            <HelpCircle className="w-4 h-4" />
-            <span className="text-xs font-mono font-bold tracking-wider">INSTRUCTIONS</span>
+            <HelpCircle className="w-6 h-6" />
           </button>
         )}
       </div>
@@ -55,15 +49,15 @@ export default function GameFooter({
         )}
       </div>
 
-      {/* RIGHT: Settings */}
+      {/* RIGHT: Settings (Icon Only) */}
       <div className="flex justify-end">
         {onOpenSettings && (
           <button 
             onClick={onOpenSettings}
-            className="flex items-center gap-1.5 text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+            className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
+            title="Settings"
           >
-            <span className="text-xs font-mono font-bold tracking-wider">SETTINGS</span>
-            <Settings className="w-4 h-4" />
+            <Settings className="w-6 h-6" />
           </button>
         )}
       </div>

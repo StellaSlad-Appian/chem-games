@@ -1,7 +1,7 @@
 // src/components/games/shared/GamesHeader.tsx
 'use client';
 
-import { LogOut, Settings } from 'lucide-react';
+import { LogOut, Settings, Lightbulb } from 'lucide-react';
 import GameStats from './GameStats'; 
 import GameTimer from './GameTimer';
 import GameLives from './GameLives';
@@ -108,11 +108,10 @@ export default function GamesHeader({
           {onTriggerHint && (
             <button
               onClick={onTriggerHint}
-              disabled={gameState !== 'playing'}
-              className="bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:pointer-events-none active:scale-95 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer select-none"
-              title="Get Target Molecule Hint"
+              className="p-2 text-amber-400/80 hover:text-amber-300 hover:bg-amber-400/10 active:scale-95 rounded-full transition-all flex items-center justify-center cursor-pointer select-none"
+              title="Get Hint"
             >
-              <span>💡</span> Hint
+              <Lightbulb className="w-6 h-6" />
             </button>
           )}
 
