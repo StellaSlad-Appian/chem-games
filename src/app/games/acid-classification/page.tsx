@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Beaker, Flame, Droplet, Atom } from "lucide-react";
 
 // Shared Components
+import ClassificationButton from '../../..//components/games/acid-classification/ClassificationButton';
 import MoleculeBubble from '../../../components/games/acid-classification/MoleculeBubble';
 import Header from '../../../components/games/shared/GamesHeader';
 import GameShell from '../../../components/games/shared/GameShell';
@@ -16,6 +17,8 @@ import GameFooter from '../../../components/games/shared/GameFooter';
 import GameInstructionsModal from '../../../components/games/shared/GameInstructionsModal';
 
 // Core Engine
+import { PH_CLASSIFICATIONS, CLASSIFICATION_OPTIONS } from '@/src/core-engine/constants/chemical-labels';
+import { ANSWER_STATUS, GAME_STATE, AnswerStatus } from '@/src/core-engine/constants/ui-constants';
 import { CompoundData, ChemicalClassification } from '@/src/core-engine/types/chemistry';
 import { evaluateChemical } from '@/src/core-engine/utils/chemical-utils';
 import { COMPOUNDS_REGISTRY } from '@/src/core-engine/data/compounds';
@@ -56,7 +59,7 @@ export default function ClassificationGame() {
   useEffect(() => { poolIndexRef.current = poolIndex; }, [poolIndex]);
 
   // --- UI ANIMATION STATE ---
-  const [feedback, setFeedback] = useState<{ status: 'correct' | 'wrong' | null; selected: string | null }>({
+  const [feedback, setFeedback] = useState<{ status: AnswerStatus; selected: string | null }>({
     status: null,
     selected: null,
   });
@@ -99,27 +102,30 @@ export default function ClassificationGame() {
   };
 
   const handleSelection = (selectedType: ChemicalClassification) => {
-    if (gameState !== 'playing' || !currentChemical || feedback.status !== null) return;
+  // Use GAME_STATE constant
+    if (gameState !== GAME_STATE.PLAYING || !currentChemical || feedback.status !== null) return;
 
     const expectedType = evaluateChemical(currentChemical);
     const isCorrect = selectedType === expectedType;
 
     if (isCorrect) {
-      setFeedback({ status: 'correct', selected: selectedType });
+      // Use ANSWER_STATUS constant
+      setFeedback({ status: ANSWER_STATUS.CORRECT, selected: selectedType });
       playSound('success-synthesis');
       
       setTimeout(() => {
         setScore((prev) => prev + (100 * currentLevel));
         const newCorrect = correctInRound + 1;
         setCorrectInRound(newCorrect);
-        setFeedback({ status: null, selected: null });
+        // Use ANSWER_STATUS.IDLE for resetting
+        setFeedback({ status: ANSWER_STATUS.IDLE, selected: null });
 
         if (newCorrect >= targetQuota) {
           if (currentLevel >= MAX_LEVEL) {
-            setGameState('victory');
+            setGameState(GAME_STATE.VICTORY);
             playSound('success-synthesis');
           } else {
-            setGameState('levelUp');
+            setGameState(GAME_STATE.LEVEL_UP);
             playSound('lock-element');
           }
         } else {
@@ -130,18 +136,19 @@ export default function ClassificationGame() {
     } else {
       const newMistakes = mistakes + 1;
       setMistakes(newMistakes);
-      setFeedback({ status: 'wrong', selected: selectedType });
+      // Use ANSWER_STATUS constant
+      setFeedback({ status: ANSWER_STATUS.WRONG, selected: selectedType });
       
       if (newMistakes >= MAX_MISTAKES) {
         playSound('fizzle'); 
         setTimeout(() => {
           setFailReason('mistakes');
-          setGameState('failed');
+          setGameState(GAME_STATE.FAILED);
           playSound('explosion'); 
         }, 800);
       } else {
         playSound('fizzle'); 
-        setTimeout(() => setFeedback({ status: null, selected: null }), 1200);
+        setTimeout(() => setFeedback({ status: ANSWER_STATUS.IDLE, selected: null }), 1200);
       }
     }
   };
@@ -240,60 +247,22 @@ export default function ClassificationGame() {
 
       {/* LOWER NAVIGATION PLATFORM */}
       <div className={`w-full max-w-4xl grid gap-3 md:gap-6 mb-4 z-10 mx-auto px-4 md:px-0 ${currentLevel >= 3 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
-        {/* Buttons logic remains unchanged */}
-        <button onClick={() => handleSelection("Acidic")} disabled={gameState !== "playing" || feedback.status !== null}
-          className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Acidic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Acidic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-red-400 hover:shadow-md active:scale-98"}`}>
-          <div
-            className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
-            style={{ backgroundColor: 'var(--chem-acid-surface)', color: 'var(--chem-acid-accent)' }}
-          >
-            <Flame className="w-8 h-8 md:w-10 md:h-10" />
-          </div>
-          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase" style={{ color: 'var(--chem-acid-accent)' }}>
-            Acidic
-          </span>
-        </button>
+        {CLASSIFICATION_OPTIONS.map((option) => {
+          // Hide Amphoteric before level 3
+          if (option.label === PH_CLASSIFICATIONS.AMPHOTERIC && currentLevel < 3) return null;
 
-        <button onClick={() => handleSelection("Neutral")} disabled={gameState !== "playing" || feedback.status !== null}
-          className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Neutral" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Neutral" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-emerald-400 hover:shadow-md active:scale-98"}`}>
-          <div
-            className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
-            style={{ backgroundColor: "var(--chem-neutral-surface)", color: "var(--chem-neutral-accent)" }}
-          >
-            <Droplet className="w-8 h-8 md:w-10 md:h-10" />
-          </div>
-          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase" style={{ color: "var(--chem-neutral-accent)" }}>
-            Neutral
-          </span>
-        </button>
-
-        <button onClick={() => handleSelection("Basic")} disabled={gameState !== "playing" || feedback.status !== null}
-          className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Basic" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Basic" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-blue-400 hover:shadow-md active:scale-98"}`}>
-          <div
-            className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
-            style={{ backgroundColor: "var(--chem-base-surface)", color: "var(--chem-base-accent)" }}
-          >
-            <Beaker className="w-8 h-8 md:w-10 md:h-10" />
-          </div>
-          <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase" style={{ color: "var(--chem-base-accent)" }}>
-            Basic
-          </span>
-        </button>
-
-        {currentLevel >= 3 && (
-          <button onClick={() => handleSelection("Amphoteric")} disabled={gameState !== "playing" || feedback.status !== null}
-            className={`flex flex-col items-center p-6 rounded-2xl border-2 transition-all group ${feedback.selected === "Amphoteric" && feedback.status === "correct" ? "bg-emerald-50 border-emerald-500" : feedback.selected === "Amphoteric" && feedback.status === "wrong" ? "bg-red-50 border-red-500" : "bg-white dark:bg-zinc-900 border-slate-200 dark:border-zinc-800 hover:border-purple-400 hover:shadow-md active:scale-98"}`}>
-            <div
-              className="p-3 rounded-xl mb-2 group-hover:scale-110 transition-transform"
-              style={{ backgroundColor: "var(--chem-amphoteric-surface)", color: "var(--chem-amphoteric-accent)" }}
-            >
-              <Atom className="w-8 h-8 md:w-10 md:h-10" />
-            </div>
-            <span className="font-extrabold text-xs md:text-sm tracking-wider uppercase" style={{ color: "var(--chem-amphoteric-accent)" }}>
-              Amphoteric
-            </span>
-          </button>
-        )}
+          return (
+            <ClassificationButton
+              key={option.label}
+              label={option.label}
+              icon={option.icon}
+              accentColor={option.color}
+              status={feedback.selected === option.label ? feedback.status : ANSWER_STATUS.IDLE}
+              onClick={() => handleSelection(option.label as any)}
+              disabled={gameState !== GAME_STATE.PLAYING || feedback.status !== null}
+            />
+          );
+        })}
       </div>
 
       {/* FOOTER COMPONENT */}

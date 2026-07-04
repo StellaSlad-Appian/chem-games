@@ -3,17 +3,17 @@
 
 import React from 'react';
 import MoleculeText from '../../ui/MoleculeText';
+import { ANSWER_STATUS, AnswerStatus } from '@/src/core-engine/constants/ui-constants';
 
 interface MoleculeBubbleProps {
   formula?: string;
   name?: string;
-  feedbackStatus: 'correct' | 'wrong' | null;
+  feedbackStatus: AnswerStatus; // Now accepts 'correct' | 'wrong' | 'idle' | null
   showName?: boolean;
 }
 
 export default function MoleculeBubble({ formula, name, feedbackStatus, showName = false }: MoleculeBubbleProps) {
   
-  // Logic for dynamic font sizes remains here to preserve the "Classifier" feel
   const isLongFormula = formula ? formula.length > 5 : false;
   const formulaFontSizeClass = isLongFormula 
     ? "text-3xl md:text-4xl font-black tracking-normal px-4 break-all" 
@@ -21,45 +21,44 @@ export default function MoleculeBubble({ formula, name, feedbackStatus, showName
 
   return (
     <div className="relative flex flex-col items-center justify-center">
-      {/* Background Glow Ring - EXACTLY UNCHANGED */}
+      {/* Background Glow Ring */}
       <div
         className={`absolute w-64 h-64 md:w-80 md:h-80 rounded-full blur-2xl transition-all duration-500 ${
-          feedbackStatus ? "opacity-30 scale-110" : "opacity-0"
+          feedbackStatus !== ANSWER_STATUS.IDLE && feedbackStatus !== null ? "opacity-30 scale-110" : "opacity-0"
         }`}
         style={{
           backgroundColor:
-            feedbackStatus === "correct"
+            feedbackStatus === ANSWER_STATUS.CORRECT
               ? "var(--game-success)"
-              : feedbackStatus === "wrong"
+              : feedbackStatus === ANSWER_STATUS.WRONG
               ? "var(--game-error)"
               : "var(--game-glow)",
         }}
       />
 
-      {/* Main Orb - EXACTLY UNCHANGED */}
+      {/* Main Orb */}
       <div
         className={`w-56 h-56 md:w-72 md:h-72 rounded-full border-4 flex flex-col items-center justify-center shadow-2xl relative backdrop-blur-md transform transition-all duration-300 ${
-          feedbackStatus
+          feedbackStatus !== ANSWER_STATUS.IDLE && feedbackStatus !== null
             ? "scale-95"
             : "hover:scale-105"
         } ${
-          feedbackStatus === "wrong"
+          feedbackStatus === ANSWER_STATUS.WRONG
             ? "shake-animation"
             : ""
         }`}
         style={{
           backgroundColor: "var(--game-highlight-surface)",
           borderColor:
-            feedbackStatus === "correct"
+            feedbackStatus === ANSWER_STATUS.CORRECT
               ? "var(--game-success)"
-              : feedbackStatus === "wrong"
+              : feedbackStatus === ANSWER_STATUS.WRONG
               ? "var(--game-error)"
               : "var(--game-highlight-border)",
         }}
       >
         {formula && (
           <>
-            {/* Swapped renderFormula(formula) for the reusable MoleculeText component */}
             <h2
               className={formulaFontSizeClass}
               style={{
@@ -85,12 +84,13 @@ export default function MoleculeBubble({ formula, name, feedbackStatus, showName
           </>
         )}
 
-        {feedbackStatus && (
+        {/* Status Label (Only shows if feedback is provided) */}
+        {(feedbackStatus === ANSWER_STATUS.CORRECT || feedbackStatus === ANSWER_STATUS.WRONG) && (
           <div
             className="absolute top-4 font-bold text-sm uppercase px-3 py-1 rounded-md"
             style={{
               backgroundColor:
-                feedbackStatus === "correct"
+                feedbackStatus === ANSWER_STATUS.CORRECT
                   ? "var(--game-success)"
                   : "var(--game-error)",
               color: "white",
