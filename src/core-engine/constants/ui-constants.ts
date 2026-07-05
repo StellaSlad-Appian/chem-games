@@ -7,12 +7,12 @@ export const UI_LABELS = {
   HINT: "Get Hint",
 } as const;
 
-export const ROUTES = {
-  HOME: '/',
-  ACID_GAME: '/games/acid-classification',
-  NEUTRALIZE: '/games/neutralize',
-  FORMULA_BLASTER: '/games/formula-blaster',
-} as const;
+// export const ROUTES = {
+//   HOME: '/',
+//   ACID_GAME: '/games/acid-classification',
+//   NEUTRALIZE: '/games/neutralise',
+//   FORMULA_BLASTER: '/games/formula-blaster',
+// } as const;
 
 export const GAME_CONTROLS = {
   PAUSE: 'p',
