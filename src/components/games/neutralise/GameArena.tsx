@@ -1,3 +1,4 @@
+// src/components/games/neutralise/GameArena.tsx
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -37,6 +38,11 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
   const activeMissileRef = useRef(activeMissile);
   const lastFiredRef = useRef(0);
   
+  const callbacksRef = useRef({ onEnemyDefeated, onPlayerHit });
+  useEffect(() => {
+    callbacksRef.current = { onEnemyDefeated, onPlayerHit };
+  }, [onEnemyDefeated, onPlayerHit]);
+  
   const FIRE_COOLDOWN = 250; // Milliseconds between shots
 
   // Keep refs in sync with state
@@ -45,11 +51,16 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
   useEffect(() => { playerXRef.current = playerX; }, [playerX]);
   useEffect(() => { activeMissileRef.current = activeMissile; }, [activeMissile]);
 
-  // Spawn logic
+  // FIX 1: Sync refs instantly to prevent the game loop from wiping out new spawns
   useEffect(() => {
     const levelConfig = NEUTRALISE_LEVEL_DATA.find(l => l.level === level) || NEUTRALISE_LEVEL_DATA[0];
-    setInvaders(getLevelSpawns(enemyCount, levelConfig.compoundPoolIds));
+    const newSpawns = getLevelSpawns(enemyCount, levelConfig.compoundPoolIds);
+    
+    setInvaders(newSpawns);
+    invadersRef.current = newSpawns; // Instantly sync!
+    
     setProjectiles([]);
+    projectilesRef.current = []; // Instantly sync!
   }, [level, wave, enemyCount]);
 
   const fireProjectile = useCallback(() => {
@@ -64,8 +75,8 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
     
     setProjectiles(prev => [...prev, {
       id: crypto.randomUUID(),
-      x: playerXRef.current,
-      y: 500, // Starting at the bottom of the arena
+      x: playerXRef.current - 16, 
+      y: 500,
       damageType: activeMissileRef.current,
       speed: NEUTRALISE_CONFIG.player.projectileSpeed,
       isPlayerOwned: true
@@ -77,25 +88,16 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
     setActiveMissile(prev => (prev === 'H-ion' ? 'OH-ion' : 'H-ion'));
   }, [playSound]);
 
-  // Keyboard Controls for Movement and Weapons
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isPaused) return;
-      
-      if (e.key === 'ArrowLeft') {
-        setPlayerX(prev => Math.max(20, prev - 20));
-      }
-      
+      if (e.key === 'ArrowLeft') setPlayerX(prev => Math.max(20, prev - 20));
       if (e.key === 'ArrowRight') {
-        // Dynamically calculate the right boundary based on the DOM element
         const maxRight = arenaRef.current ? arenaRef.current.clientWidth - 20 : 800;
         setPlayerX(prev => Math.min(maxRight, prev + 20));
       }
-      
-      // Weapon switching logic using refs
       if (e.key === '1' && activeMissileRef.current !== 'H-ion') toggleWeapon();
       if (e.key === '2' && activeMissileRef.current !== 'OH-ion') toggleWeapon();
-      
       if (e.key === ' ') fireProjectile();
     };
     
@@ -108,7 +110,6 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
     if (isPaused) return;
 
     const gameLoop = setInterval(() => {
-      // 1. Grab current state from refs
       let currentInvaders = [...invadersRef.current];
       
       // Move Projectiles up and filter off-screen ones
@@ -116,7 +117,6 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
         .map(p => ({ ...p, y: p.y + p.speed }))
         .filter(p => p.y > -50);
 
-      // Move Invaders down
       const dropSpeed = NEUTRALISE_CONFIG.invaders.baseDropSpeed + (level * NEUTRALISE_CONFIG.invaders.speedMultiplierPerLevel);
       currentInvaders = currentInvaders.map(inv => ({ ...inv, y: inv.y + dropSpeed }));
 
@@ -145,7 +145,7 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
             
             if (isDefeated) {
               playSound('splash-defeat');
-              setTimeout(() => onEnemyDefeated(100), 0);
+              setTimeout(() => callbacksRef.current.onEnemyDefeated(100), 0);
             } else {
               playSound('hit-enemy');
             }
@@ -158,10 +158,9 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
         }
       });
 
-      // 3. Check for Game Over (Invaders reaching the bottom)
       currentInvaders.forEach(inv => {
         if (inv.y > NEUTRALISE_CONFIG.arena.height - 50 && inv.isAlive) {
-          onPlayerHit();
+          callbacksRef.current.onPlayerHit();
           inv.isAlive = false;
         }
       });
@@ -173,7 +172,7 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
     }, NEUTRALISE_CONFIG.engine.tickRate);
     
     return () => clearInterval(gameLoop);
-  }, [playSound, isPaused, onEnemyDefeated, onPlayerHit, level]);
+  }, [playSound, isPaused, level]);
 
   return (
     <div 

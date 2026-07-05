@@ -1,7 +1,7 @@
-// src/components/games/GamesHeader.tsx
+// src/components/games/shared/GamesHeader.tsx
 'use client';
 
-import { LogOut, Settings } from 'lucide-react'; // ⚙️ ADDED: Settings icon
+import { LogOut, Settings, Lightbulb } from 'lucide-react';
 import GameStats from './GameStats'; 
 import GameTimer from './GameTimer';
 import GameLives from './GameLives';
@@ -9,35 +9,31 @@ import GameLives from './GameLives';
 interface HeaderProps {
   gameTitle: string;
   gameSubtitle: string;
-  targetName?: string | undefined;
+  targetName?: string;
   
-  // Progress indicators
   progressText: string; 
   currentLevel: number;
   score: number;
   
-  // State Toggles
   gameState: string;
-  onTogglePause: () => void;
+  onTogglePause?: () => void;
   
-  // Action Handlers
   onExit?: () => void;
   onTriggerHint?: () => void;
-  onOpenSettings?: () => void; // ⚙️ ADDED: Settings action handler
+  onOpenSettings?: () => void;
   
-  // Conditional Component Flag Injectors
   showTimer?: boolean;
   timeLeft?: number;
   showLives?: boolean;
   lives?: number;
   maxLives?: number;
 
-  // Configuration Flexibility
   showCenterTask?: boolean;        
-  customTaskDescription?: string;  
+  customTaskDescription?: string;
+  showPauseButton?: boolean; // ⚙️ ADDED: Optional pause toggle
 }
 
-export default function Header({
+export default function GamesHeader({
   gameTitle,
   gameSubtitle,
   targetName,
@@ -48,22 +44,21 @@ export default function Header({
   onTogglePause,
   onExit,
   onTriggerHint,
-  onOpenSettings, // ⚙️ ADDED
+  onOpenSettings,
   showTimer = false,
   timeLeft = 0,
   showLives = false,
   lives = 3,
   maxLives = 3,
   showCenterTask = true,         
-  customTaskDescription
+  customTaskDescription,
+  showPauseButton = false // Defaults to false
 }: HeaderProps) {
   return (
-    <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl px-6 py-4
-    md:px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
+    <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl px-6 py-4 md:px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
       
-      {/* LEFT SLOT: CONDITIONAL PROGRESS PANEL (TRACKERS, TIMERS, LIVES) */}
+      {/* LEFT SLOT: CONDITIONAL PROGRESS PANEL */}
       <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
-        {/* Dynamic Progress Indicator */}
         <div className="bg-slate-950/60 px-4 py-2 rounded-xl border border-slate-800 text-left min-w-30">
           <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-0.5">
             Progress
@@ -73,14 +68,12 @@ export default function Header({
           </span>
         </div>
         
-        {/* Render Timer conditionally if requested */}
         {showTimer && (
           <div className="bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-white font-bold h-11 flex items-center">
             <GameTimer timeLeft={timeLeft} />
           </div>
         )}
 
-        {/* Render Lives conditionally if requested */}
         {showLives && (
           <div className="bg-slate-950/60 px-3 rounded-xl border border-slate-400 h-11 flex items-center">
             <GameLives lives={lives} maxLives={maxLives} />
@@ -108,23 +101,20 @@ export default function Header({
         <div className="hidden md:block" />
       )}
 
-      {/* RIGHT SLOT: VISUALLY DISTANCED ACTIONS PANEL & GAME STATS CONTROLS */}
-      <div className="flex flex-wrap items-center justify-center md:justify-end gap-6 md:gap-8">
+      {/* RIGHT SLOT: GAME STATS & ACTIONS PANEL */}
+      <div className="flex flex-wrap items-center justify-center md:justify-end gap-4 md:gap-6">
         
-        {/* Isolated Action Buttons wrapper */}
         <div className="flex items-center gap-3">
           {onTriggerHint && (
             <button
               onClick={onTriggerHint}
-              disabled={gameState !== 'playing'}
-              className="bg-amber-500 hover:bg-amber-400 disabled:opacity-40 disabled:pointer-events-none active:scale-95 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer select-none"
-              title="Get Target Molecule Hint"
+              className="p-2 text-amber-400/80 hover:text-amber-300 hover:bg-amber-400/10 active:scale-95 rounded-full transition-all flex items-center justify-center cursor-pointer select-none"
+              title="Get Hint"
             >
-              <span>💡</span> Hint
+              <Lightbulb className="w-6 h-6" />
             </button>
           )}
 
-          {/* ⚙️ ADDED: Settings Gear Icon Button nestled safely right next to Hint */}
           {onOpenSettings && (
             <button
               onClick={onOpenSettings}
@@ -134,25 +124,26 @@ export default function Header({
               <Settings className="w-4 h-4 stroke-[2.5]" />
             </button>
           )}
-          
-          {onExit && (
-            <button
-              onClick={onExit}
-              className="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer select-none"
-              title="Exit Game Session"
-            >
-              <LogOut className="w-4 h-4 text-white! stroke-[2.5]" stroke="#ffffff" /> 
-              <span className="text-white font-black">Exit</span>
-            </button>
-          )}
         </div>
 
+        {/* Game Stats - Only passes onTogglePause if showPauseButton is true */}
         <GameStats 
           level={currentLevel}
           score={score}
           isPaused={gameState === 'paused'}
-          onTogglePause={onTogglePause}
+          onTogglePause={showPauseButton ? onTogglePause : undefined}
         />
+
+        {onExit && (
+          <button
+            onClick={onExit}
+            className="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer select-none ml-2"
+            title="Exit Game Session"
+          >
+            <LogOut className="w-4 h-4 text-white! stroke-[2.5]" stroke="#ffffff" /> 
+            <span className="text-white font-black">Exit</span>
+          </button>
+        )}
       </div>
     </header>
   );

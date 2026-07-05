@@ -38,25 +38,11 @@
     --font-display: 'Bebas Neue', sans-serif;
     --font-body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;
 
-    /* Acid */
-    --chem-acid-accent: #ef4444;
-    --chem-acid-text: #fef2f2;
-    --chem-acid-surface: #450a0a;
-
-    /* Base */
-    --chem-base-accent: #3b82f6;
-    --chem-base-text: #eff6ff;
-    --chem-base-surface: #172554;
-
-    /* Neutral */
-    --chem-neutral-accent: #10b981;
-    --chem-neutral-text: #f0fdf4;
-    --chem-neutral-surface: #052e16;
-
-    /* Amphoteric */
-    --chem-amphoteric-accent: #a855f7;
-    --chem-amphoteric-text: #faf5ff;
-    --chem-amphoteric-surface: #3b0764;
+    /* acid classification */
+    --acid-color: #ef4444;    /* rose-500 */
+    --base-color: #3b82f6;    /* blue-500 */
+    --neutral-color: #10b981; /* emerald-500 */
+    --amphoteric-color: #a855f7; /* purple-500 */
 
     /* --- Feedback states --- */
     --correct: #10b981;
