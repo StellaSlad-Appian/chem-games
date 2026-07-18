@@ -73,14 +73,20 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
 
     playSound('laser-pew');
     
-    setProjectiles(prev => [...prev, {
+    const projectile: Projectile = {
       id: crypto.randomUUID(),
       x: playerXRef.current - 16, 
       y: 500,
       damageType: activeMissileRef.current,
       speed: NEUTRALISE_CONFIG.player.projectileSpeed,
       isPlayerOwned: true
-    }]);
+    };
+
+    // The game loop reads this ref every frame. Update it in the same event
+    // as React state so the next tick cannot erase a just-fired shot.
+    const nextProjectiles = [...projectilesRef.current, projectile];
+    projectilesRef.current = nextProjectiles;
+    setProjectiles(nextProjectiles);
   }, [playSound, isPaused]);
 
   const toggleWeapon = useCallback(() => {
@@ -166,8 +172,14 @@ export default function NeutralizeArena({ level, wave, enemyCount, onEnemyDefeat
       });
 
       // 4. Update React State ONCE at the end of the tick
+      const survivingInvaders = currentInvaders.filter(i => i.isAlive);
+
+      // Keep refs and visible state in lockstep. Effects run after render,
+      // which is too late for a 60fps loop that also writes state.
+      projectilesRef.current = survivingProjectiles;
+      invadersRef.current = survivingInvaders;
       setProjectiles(survivingProjectiles);
-      setInvaders(currentInvaders.filter(i => i.isAlive));
+      setInvaders(survivingInvaders);
 
     }, NEUTRALISE_CONFIG.engine.tickRate);
     

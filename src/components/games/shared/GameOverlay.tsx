@@ -22,9 +22,9 @@ interface GameOverlayProps {
 }
 
 const SPACING = {
-  title: "text-4xl md:text-5xl font-black mb-16 tracking-wide",
+  title: "text-3xl sm:text-4xl md:text-5xl font-black mb-8 md:mb-16 tracking-wide",
   subtitle: "text-base font-semibold mb-2",
-  metaText: "text-sm mb-12 opacity-80",
+  metaText: "text-sm mb-6 md:mb-12 opacity-80",
   actionGroup: "w-full max-w-sm flex flex-col items-center mt-4",
   keyHint: "text-xs mb-3 opacity-60 tracking-wide",
 };
@@ -87,7 +87,7 @@ export default function GameOverlay({
 
   return (
     <div
-      className="absolute inset-0 backdrop-blur-md flex flex-col items-center justify-center z-50 rounded-3xl border-2 shadow-xl p-8 text-center overlay-enter"
+      className="fixed inset-0 z-[100] flex min-h-screen items-center justify-center overflow-y-auto backdrop-blur-md p-4 text-center overlay-enter sm:p-8"
       style={{ background: stateStyle.bg, borderColor: stateStyle.border }}
     >
       {/* CASE A: GAME IS PAUSED */}
