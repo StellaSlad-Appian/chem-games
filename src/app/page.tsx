@@ -1,5 +1,6 @@
 // src/app/page.tsx
 import { Beaker, FlaskConical, TestTube, Atom } from 'lucide-react';
+import Link from 'next/link';
 import LabVesselCard from '../components/ui/LabVesselCard';
 import { GlobalSettingsButton } from '../components/ui/GlobalSettingsButton';
 
@@ -8,6 +9,9 @@ export default function Home() {
     <main className="min-h-screen w-full bg-slate-950 text-white flex flex-col items-center justify-center p-4 md:p-8 overflow-hidden relative selection:bg-blue-500/30">
 
       <GlobalSettingsButton />
+      <Link href="/auth" className="absolute right-4 top-4 z-30 rounded-lg border border-slate-700 bg-slate-900/80 px-4 py-2 text-sm font-bold text-slate-200 backdrop-blur transition hover:border-blue-400 hover:text-white md:right-8 md:top-8">
+        Log in / Register
+      </Link>
 
       {/* Subtle background lab grid matrix */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-size-[4rem_4rem] mask-[radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-25 pointer-events-none" />
