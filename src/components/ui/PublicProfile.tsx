@@ -40,14 +40,14 @@ export function PublicProfile({ profile }: PublicProfileProps) {
           <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">
             Registered Scientist
           </p>
-          <div className="mt-3 inline-block px-3 py-1 bg-indigo-100 border-2 border-indigo-900 rounded-lg text-indigo-900 font-bold text-sm">
+          {profile.privacy.showTotalSyntheses && <div className="mt-3 inline-block px-3 py-1 bg-indigo-100 border-2 border-indigo-900 rounded-lg text-indigo-900 font-bold text-sm">
             Total Syntheses: {profile.totalSyntheses}
-          </div>
+          </div>}
         </div>
       </div>
 
       {/* Lab Notes (Bio) */}
-      <div className="pt-6">
+      {profile.privacy.showLabNotes && <div className="pt-6">
         <h2 className="text-xl font-black text-slate-900 uppercase mb-3 flex items-center gap-2">
           <span className="bg-amber-400 text-slate-900 px-2 py-1 rounded-md border-2 border-slate-900 text-sm">📝</span>
           Lab Notes
@@ -57,7 +57,7 @@ export function PublicProfile({ profile }: PublicProfileProps) {
             {profile.labNotes || "This scientist is currently observing reactions in silence."}
           </p>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
