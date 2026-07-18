@@ -1,60 +1,8 @@
-// src/components/dashboard/personal-score-summary.tsx
-import type { PersonalScore } from '../../core-engine/types/general';
+import { Medal, Play, Trophy } from 'lucide-react';
+import type { PersonalScore } from '@/core-engine/types/general';
 
-interface PersonalScoreSummaryProps {
-  scores: PersonalScore[];
-}
+interface PersonalScoreSummaryProps { scores: PersonalScore[]; }
 
 export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
-  return (
-    <section className="w-full max-w-5xl mx-auto p-4">
-      <h2 className="text-3xl font-black text-slate-800 uppercase tracking-widest mb-6 drop-shadow-sm">
-        My Lab Results
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {scores.map((score) => (
-          <div
-            key={score.gameId}
-            className={`flex flex-col p-5 bg-white border-4 border-slate-800 rounded-2xl shadow-[6px_6px_0px_0px_rgba(30,41,59,1)] transition-transform hover:-translate-y-1 hover:shadow-[6px_10px_0px_0px_rgba(30,41,59,1)]`}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-4xl">{score.icon}</span>
-              <span
-                className="text-xs font-bold px-3 py-1 rounded-full border-2 border-slate-800 uppercase"
-                style={{ backgroundColor: score.themeColor }}
-              >
-                {score.gameId.replace('-', ' ')}
-              </span>
-            </div>
-
-            <h3 className="text-xl font-bold text-slate-800 mb-2 leading-tight">
-              {score.gameTitle}
-            </h3>
-
-            <div className="mt-auto pt-4 border-t-4 border-dashed border-slate-200">
-              {score.highestScore !== null ? (
-                <div className="flex justify-between items-end">
-                  <div>
-                    <p className="text-sm font-bold text-slate-500 uppercase">High Score</p>
-                    <p className="text-3xl font-black text-slate-800">{score.highestScore}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-bold text-slate-500 uppercase">Rank</p>
-                    <p className="text-xl font-black text-indigo-600">{score.globalRank === null ? '—' : `#${score.globalRank}`}</p>
-                  </div>
-                </div>
-              ) : (
-                <div className="py-2 text-center bg-slate-100 rounded-xl border-2 border-slate-200">
-                  <p className="text-sm font-bold text-slate-500">Ready to synthesize?</p>
-                  <button type="button" className="mt-2 text-sm font-black text-indigo-600 hover:text-indigo-800 uppercase">
-                    Play Now ▶
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+  return <section className="w-full"><div className="mb-5 flex items-center gap-2"><Trophy className="h-5 w-5 text-amber-500" /><h2 className="text-3xl font-black">My lab results</h2></div><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{scores.map((score) => <article key={score.gameId} className="game-card flex min-h-55 flex-col p-5 transition hover:-translate-y-1 hover:border-amber-400"><div className="flex items-start justify-between gap-3"><span className="text-3xl" aria-hidden="true">{score.icon}</span><span className="rounded-full px-2.5 py-1 text-xs font-black text-slate-950" style={{ backgroundColor: score.themeColor }}>{score.gameId.replace('-', ' ')}</span></div><h3 className="mt-4 text-xl font-black">{score.gameTitle}</h3>{score.highestScore !== null ? <div className="mt-auto flex items-end justify-between border-t border-[var(--border)] pt-4"><div><p className="text-xs font-bold uppercase tracking-wide text-muted">High score</p><p className="text-3xl font-black">{score.highestScore}</p></div><div className="text-right"><p className="flex items-center justify-end gap-1 text-xs font-bold uppercase tracking-wide text-muted"><Medal className="h-3.5 w-3.5" />Rank</p><p className="text-xl font-black text-amber-500">{score.globalRank === null ? 'Unranked' : `#${score.globalRank}`}</p></div></div> : <div className="mt-auto rounded-xl border border-dashed border-[var(--border)] bg-[var(--surface-2)] p-3 text-sm"><p className="font-bold">Ready for your first result?</p><p className="mt-1 text-muted">Play a round to set a high score.</p><span className="mt-3 inline-flex items-center gap-1 font-bold text-blue-500"><Play className="h-3.5 w-3.5" />Play now</span></div>}</article>)}</div></section>;
 }

@@ -1,63 +1,29 @@
-// src/components/profile/PublicProfile.tsx
-import type { UserProfile } from '../../core-engine/types/general';
+import { Atom, CalendarDays, NotebookPen, UserRound } from 'lucide-react';
+import type { UserProfile } from '@/core-engine/types/general';
 
-interface PublicProfileProps {
-  profile: UserProfile;
-}
+interface PublicProfileProps { profile: UserProfile; }
+
+const elementColors: Record<string, string> = {
+  alkali: 'border-red-400 bg-red-500/15 text-red-500',
+  'noble-gas': 'border-purple-400 bg-purple-500/15 text-purple-500',
+  'transition-metal': 'border-blue-400 bg-blue-500/15 text-blue-500',
+  halogen: 'border-emerald-400 bg-emerald-500/15 text-emerald-500',
+  nonmetal: 'border-amber-400 bg-amber-500/15 text-amber-500',
+};
 
 export function PublicProfile({ profile }: PublicProfileProps) {
-  // Determine border color based on element group, defaulting to slate
-  const elementColors: Record<string, string> = {
-    'alkali': 'border-red-400 bg-red-100',
-    'noble-gas': 'border-purple-400 bg-purple-100',
-    'transition-metal': 'border-blue-400 bg-blue-100',
-    'halogen': 'border-green-400 bg-green-100',
-    'nonmetal': 'border-amber-400 bg-amber-100',
-  };
-
-  const badgeStyle = profile.favoriteElement 
-    ? elementColors[profile.favoriteElement.group] 
-    : 'border-slate-400 bg-slate-100';
-
-  return (
-    <div className="w-full max-w-2xl mx-auto p-6 bg-white border-4 border-slate-900 rounded-3xl shadow-[8px_8px_0px_0px_rgba(15,23,42,1)]">
-      
-      {/* Header / ID Badge Section */}
-      <div className="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b-4 border-dashed border-slate-200">
-        <div className={`flex flex-col items-center justify-center w-32 h-32 rounded-2xl border-4 ${badgeStyle} shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] rotate-3`}>
-          {profile.favoriteElement ? (
-            <>
-              <span className="text-sm font-black text-slate-700">{profile.favoriteElement.atomicNumber}</span>
-              <span className="text-5xl font-black text-slate-900 leading-none">{profile.favoriteElement.symbol}</span>
-            </>
-          ) : (
-            <span className="text-5xl font-black text-slate-400">?</span>
-          )}
+  const elementStyle = profile.favoriteElement ? elementColors[profile.favoriteElement.group] : 'border-violet-400 bg-violet-500/15 text-violet-500';
+  return <article className="game-card mx-auto w-full max-w-2xl overflow-hidden">
+    <div className="border-b border-[var(--border)] bg-[linear-gradient(135deg,rgba(139,92,246,0.18),transparent_60%)] p-6">
+      <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-start">
+        <div className={`flex h-28 w-28 shrink-0 flex-col items-center justify-center rounded-2xl border ${elementStyle}`}>
+          {profile.favoriteElement ? <><span className="text-xs font-bold">{profile.favoriteElement.atomicNumber}</span><span className="text-4xl font-black leading-none">{profile.favoriteElement.symbol}</span></> : <Atom className="h-11 w-11" />}
         </div>
-
-        <div className="flex-1 text-center sm:text-left">
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight">{profile.alias}</h1>
-          <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mt-1">
-            Registered Scientist
-          </p>
-          {profile.privacy.showTotalSyntheses && <div className="mt-3 inline-block px-3 py-1 bg-indigo-100 border-2 border-indigo-900 rounded-lg text-indigo-900 font-bold text-sm">
-            Total Syntheses: {profile.totalSyntheses}
-          </div>}
-        </div>
+        <div className="min-w-0 flex-1 text-center sm:text-left"><div className="flex items-center justify-center gap-2 sm:justify-start"><UserRound className="h-5 w-5 text-violet-500" /><h1 className="text-4xl font-black">{profile.alias}</h1></div><p className="mt-1 text-sm font-bold uppercase tracking-widest text-muted">Registered scientist</p><div className="mt-4 flex flex-wrap justify-center gap-2 sm:justify-start">{profile.privacy.showTotalSyntheses && <StatChip label="Experiments" value={profile.totalSyntheses} />} {profile.privacy.showJoinedDate && <span className="inline-flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1 text-xs font-bold text-muted"><CalendarDays className="h-3.5 w-3.5" />Lab member</span>}</div></div>
       </div>
-
-      {/* Lab Notes (Bio) */}
-      {profile.privacy.showLabNotes && <div className="pt-6">
-        <h2 className="text-xl font-black text-slate-900 uppercase mb-3 flex items-center gap-2">
-          <span className="bg-amber-400 text-slate-900 px-2 py-1 rounded-md border-2 border-slate-900 text-sm">📝</span>
-          Lab Notes
-        </h2>
-        <div className="p-4 bg-slate-50 border-4 border-slate-200 rounded-2xl min-h-25">
-          <p className="text-slate-700 font-semibold whitespace-pre-wrap">
-            {profile.labNotes || "This scientist is currently observing reactions in silence."}
-          </p>
-        </div>
-      </div>}
     </div>
-  );
+    {profile.privacy.showLabNotes && <div className="p-6"><div className="flex items-center gap-2"><NotebookPen className="h-5 w-5 text-violet-500" /><h2 className="text-xl font-black">Lab notes</h2></div><p className="mt-3 rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4 leading-relaxed text-muted">{profile.labNotes || 'This scientist is currently observing reactions in silence.'}</p></div>}
+  </article>;
 }
+
+function StatChip({ label, value }: { label: string; value: number }) { return <span className="rounded-full bg-violet-500 px-3 py-1 text-xs font-black text-white">{value} {label}</span>; }
