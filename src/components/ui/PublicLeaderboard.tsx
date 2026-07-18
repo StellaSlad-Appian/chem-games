@@ -16,5 +16,10 @@ export function PublicLeaderboard({ leaderboards }: PublicLeaderboardProps) {
 
 function LeaderboardRow({ entry }: { entry: { id: string; alias: string; score: number; timestamp: string; rank: number } }) {
   const accent = entry.rank === 1 ? 'border-amber-400 bg-amber-500/10' : entry.rank === 2 ? 'border-slate-400 bg-slate-500/10' : entry.rank === 3 ? 'border-orange-400 bg-orange-500/10' : 'border-[var(--border)] bg-[var(--surface-2)]';
-  return <li className={`flex items-center gap-3 rounded-xl border p-3 ${accent}`}><span className="flex h-10 w-10 shrink-0 items-center justify-center gap-0.5 rounded-lg border border-current font-black"><Medal className="h-4 w-4" aria-hidden="true" /><span className="sr-only">Rank </span>{entry.rank}</span><div className="min-w-0 flex-1"><p className="truncate font-black">{entry.alias}</p><p className="text-xs text-muted">Recorded {new Date(entry.timestamp).toLocaleDateString()}</p></div><div className="text-right"><p className="text-xl font-black">{entry.score}</p><p className="text-xs font-bold uppercase tracking-wide text-muted">Points</p></div></li>;
+  return <li className={`flex items-center gap-3 rounded-xl border p-3 ${accent}`}><span className="flex h-10 w-10 shrink-0 items-center justify-center gap-0.5 rounded-lg border border-current font-black"><Medal className="h-4 w-4" aria-hidden="true" /><span className="sr-only">Rank </span>{entry.rank}</span><div className="min-w-0 flex-1"><p className="truncate font-black">{entry.alias}</p><p className="text-xs text-muted">Recorded {formatLeaderboardDate(entry.timestamp)}</p></div><div className="text-right"><p className="text-xl font-black">{entry.score}</p><p className="text-xs font-bold uppercase tracking-wide text-muted">Points</p></div></li>;
+}
+
+function formatLeaderboardDate(timestamp: string) {
+  const [year, month, day] = timestamp.slice(0, 10).split('-');
+  return year && month && day ? `${day} ${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][Number(month) - 1]} ${year}` : timestamp;
 }

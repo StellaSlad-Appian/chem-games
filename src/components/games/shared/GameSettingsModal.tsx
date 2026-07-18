@@ -58,7 +58,7 @@ export default function GameSettingsModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 select-none">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:items-center sm:p-6 select-none">
       
       {/* Backdrop */}
       <div
@@ -67,16 +67,17 @@ export default function GameSettingsModal({
       />
 
       {/* Modal Shell */}
-      <div className="relative w-full max-w-lg rounded-3xl border-2 border-[var(--game-panel-border)] bg-[var(--game-panel)] shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative my-auto w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-3xl border-2 border-[var(--game-panel-border)] bg-[var(--game-panel)] shadow-2xl animate-in fade-in zoom-in-95 duration-200 sm:max-h-[calc(100dvh-3rem)]">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[var(--game-panel-border)] bg-[var(--game-modal-header)] px-6 py-4">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--game-panel-border)] bg-[var(--game-modal-header)] px-6 py-4 backdrop-blur">
           <h2 className="flex items-center gap-2 text-xl font-black tracking-wide text-[var(--foreground)]">
             ⚙️ Game Settings
           </h2>
 
           <button
             onClick={onClose}
+            aria-label="Close settings"
             className="shrink-0 rounded-xl bg-[var(--game-modal-control)] p-2 text-[var(--muted)] transition-colors hover:brightness-90 hover:text-[var(--foreground)] active:scale-95"
           >
             <X className="h-5 w-5" strokeWidth={3} />
