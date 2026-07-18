@@ -1,13 +1,12 @@
 // src/components/games/shared/GamesHeader.tsx
 'use client';
 
-import { LogOut, Settings, Lightbulb } from 'lucide-react';
+import { LogOut, Lightbulb } from 'lucide-react';
 import GameStats from './GameStats'; 
 import GameTimer from './GameTimer';
 import GameLives from './GameLives';
 
 interface HeaderProps {
-  gameTitle: string;
   gameSubtitle: string;
   targetName?: string;
   
@@ -15,12 +14,9 @@ interface HeaderProps {
   currentLevel: number;
   score: number;
   
-  gameState: string;
-  onTogglePause?: () => void;
   
   onExit?: () => void;
   onTriggerHint?: () => void;
-  onOpenSettings?: () => void;
   
   showTimer?: boolean;
   timeLeft?: number;
@@ -30,21 +26,16 @@ interface HeaderProps {
 
   showCenterTask?: boolean;        
   customTaskDescription?: string;
-  showPauseButton?: boolean; // ⚙️ ADDED: Optional pause toggle
 }
 
 export default function GamesHeader({
-  gameTitle,
   gameSubtitle,
   targetName,
   progressText,
   currentLevel,
   score,
-  gameState,
-  onTogglePause,
   onExit,
   onTriggerHint,
-  onOpenSettings,
   showTimer = false,
   timeLeft = 0,
   showLives = false,
@@ -52,7 +43,6 @@ export default function GamesHeader({
   maxLives = 3,
   showCenterTask = true,         
   customTaskDescription,
-  showPauseButton = false // Defaults to false
 }: HeaderProps) {
   return (
     <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl px-6 py-4 md:px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
@@ -115,23 +105,12 @@ export default function GamesHeader({
             </button>
           )}
 
-          {onOpenSettings && (
-            <button
-              onClick={onOpenSettings}
-              className="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 active:scale-95 p-2 rounded-xl transition-all shadow-md flex items-center justify-center cursor-pointer select-none"
-              title="Open Game Settings"
-            >
-              <Settings className="w-4 h-4 stroke-[2.5]" />
-            </button>
-          )}
         </div>
 
-        {/* Game Stats - Only passes onTogglePause if showPauseButton is true */}
+        {/* Pause, instructions, and settings are grouped in the shared game footer. */}
         <GameStats 
           level={currentLevel}
           score={score}
-          isPaused={gameState === 'paused'}
-          onTogglePause={showPauseButton ? onTogglePause : undefined}
         />
 
         {onExit && (

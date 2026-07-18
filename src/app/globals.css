@@ -7,14 +7,20 @@
 /* --- @import "tailwindcss/preflight";  --- */
 /* ---  @import "tailwindcss/utilities"; --- */
 
-  :root {
-    /* --- Surfaces --- */
-    --background: #f8fafc;
-    --surface:    #ffffff;
-    --surface-2:  #f1f5f9;
-    --border:     #e2e8f0;
+  :root,
+  [data-theme='dark'] {
+    /* Dark is the default and preserves the existing game appearance. */
+    --background: #09090b;
+    --surface: #18181b;
+    --surface-2: #27272a;
+    --border: #3f3f46;
+    --foreground: #fafafa;
+    --muted: #a1a1aa;
+    --game-modal-header: rgb(30 41 59 / 0.55);
+    --game-modal-row: rgb(2 6 23 / 0.4);
+    --game-modal-control: #334155;
 
-    /* --- Main Colour Pallette ---*/
+    /* --- Main Colour Palette --- */
       --game-bg-start: #0f172a;
       --game-bg-end: #020617;
       --game-panel: #111827;
@@ -32,13 +38,10 @@
     /*  --game-highlight-surface: #1e293b;
       --game-highlight-border: #475569; */
 
-    /* --- Typography --- */
-    --muted: #0f172a;
-    --foreground:  #64748b;
     --font-display: 'Bebas Neue', sans-serif;
     --font-body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;
 
-    /* acid classification */
+    /* Theme-neutral elements: game meaning never changes with appearance. */
     --acid-color: #ef4444;    /* rose-500 */
     --base-color: #3b82f6;    /* blue-500 */
     --neutral-color: #10b981; /* emerald-500 */
@@ -48,35 +51,53 @@
     --correct: #10b981;
     --wrong:   #ef4444;
 
-    /* --- Elevation --- */
-    --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.07);
-    --shadow-lg:   0 8px 40px 0 rgb(0 0 0 / 0.12);
+    --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 8px 40px 0 rgb(0 0 0 / 0.6);
+  }
+
+  [data-theme='light'] {
+    --background: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #f1f5f9;
+    --border: #cbd5e1;
+    --foreground: #0f172a;
+    --muted: #475569;
+    --game-bg-start: #e0f2fe;
+    --game-bg-end: #f8fafc;
+    --game-panel: #ffffff;
+    --game-panel-border: #94a3b8;
+    --game-highlight-surface: #e2e8f0;
+    --game-highlight-border: #64748b;
+    --game-panel-text: #0f172a;
+    --game-panel-muted: #475569;
+    --game-modal-header: rgb(226 232 240 / 0.75);
+    --game-modal-row: rgb(241 245 249 / 0.9);
+    --game-modal-control: #cbd5e1;
+    --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
+    --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);
+
+    /* Theme-neutral game semantics remain intentionally unchanged. */
+    --acid-color: #ef4444;
+    --base-color: #3b82f6;
+    --neutral-color: #10b981;
+    --amphoteric-color: #a855f7;
+    --correct: #10b981;
+    --wrong: #ef4444;
+    --game-success: #10b981;
+    --game-error: #ef4444;
+    --game-glow: #8b5cf6;
+    --chem-acid-bg: #450a0a;
+    --chem-base-bg: #172554;
+    --chem-neutral-bg: #052e16;
+    --chem-amphoteric-bg: #3b0764;
   }
 
 @layer base {
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      /* --- Surfaces --- */
-      --background: #09090b;
-      --surface:    #18181b;
-      --surface-2:  #27272a;
-      --border:     #3f3f46;
-
-      /* --- Typography --- */
-      --foreground: #fafafa;
-      --muted:      #a1a1aa;
-
-      /* --- Acid classifier game --- */
-      --chem-acid-bg: #450a0a;
-      --chem-base-bg: #172554;
-      --chem-neutral-bg: #052e16;
-      --chem-amphoteric-bg: #3b0764;
-
-      /* --- Elevation --- */
-      --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.4);
-      --shadow-lg:   0 8px 40px 0 rgb(0 0 0 / 0.6);
-    }
+  :root {
+    --chem-acid-bg: #450a0a;
+    --chem-base-bg: #172554;
+    --chem-neutral-bg: #052e16;
+    --chem-amphoteric-bg: #3b0764;
   }
 
   body {

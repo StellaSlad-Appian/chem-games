@@ -97,29 +97,27 @@ export default function NeutralizePage() {
   }, [gameState, togglePause]);
 
   return (
-    <GameShell fullBleed>
+    <GameShell fullBleed themeScope="neutralise">
       
       <div className="px-4 md:px-6 lg:px-8">
         <GamesHeader
-          gameTitle="Neutralize!"
           gameSubtitle="DEFEND THE LAB"
           progressText={`Wave ${currentWave}/3 | Cleared ${enemiesCleared}/${enemiesPerWave}`}
           currentLevel={currentLevel}
           score={score}
-          gameState={gameState}
           onExit={handleExit} 
           showLives={true}
           lives={lives}
           maxLives={3}
           showTimer={false}
           showCenterTask={false}
-          showPauseButton={false} // Pause is handled in the footer for this game
         />
       </div>
 
       <GameSettingsModal 
         isOpen={isSettingsOpen} 
-        onClose={() => setIsSettingsOpen(false)} 
+        onClose={() => setIsSettingsOpen(false)}
+        gameId="neutralise"
       />
 
       <GameInstructionsModal 

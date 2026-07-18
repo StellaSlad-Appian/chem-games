@@ -1,8 +1,11 @@
-// src/components/games/GameShell.tsx
+'use client';
+
+import { GameThemeScope, useGameTheme } from '../../../context/game-settings-context';
 
 interface GameShellProps {
   children: React.ReactNode;
   fullBleed?: boolean;
+  themeScope?: GameThemeScope;
 }
 
 /**
@@ -12,7 +15,9 @@ interface GameShellProps {
 export default function GameShell({
   children,
   fullBleed = false,
+  themeScope,
 }: GameShellProps) {
+  useGameTheme(themeScope);
   return (
     <main
       className={`

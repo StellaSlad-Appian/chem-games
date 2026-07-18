@@ -13,6 +13,8 @@ import GameOverlay from '../../../components/games/shared/GameOverlay';
 import BlasterBubble from '../../../components/games/formula-blaster/BlasterBubble';
 import ErrorBanner from '../../../components/games/shared/ErrorBanner';
 import GameSettingsModal from '../../../components/games/shared/GameSettingsModal';
+import GameFooter from '../../../components/games/shared/GameFooter';
+import GameInstructionsModal from '../../../components/games/shared/GameInstructionsModal';
 
 // Core Engine
 import { CompoundData } from '../../../core-engine/types/chemistry';
@@ -72,6 +74,7 @@ export default function FormulaBlasterPage() {
   const [activeHint, setActiveHint] = useState<string | null>(null);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
 
   const maxLevel = 5;
   const spawnIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -285,22 +288,18 @@ export default function FormulaBlasterPage() {
   const currentTargetPhase = Math.min(completedTargetIds.length + 1, targetsRequiredPerLevel);
 
   return (
-    <GameShell fullBleed>
+    <GameShell fullBleed themeScope="formula-blaster">
       
       {/* 🛡️ UNIFIED HEADER HOOK */}
       <div className="px-4 md:px-6 lg:px-8">
         <Header
-          gameTitle="Formula Blaster"
           gameSubtitle="TARGET MOLECULE"
           targetName={currentTarget?.name}
           progressText={`Target ${currentTargetPhase}/3 • Hits: ${correctInRound}/${targetQuota}`}
           currentLevel={currentLevel}
           score={score}
-          gameState={gameState}
-          onTogglePause={togglePause}
           onExit={handleExitGame}
           onTriggerHint={handleTriggerManualHint}
-          onOpenSettings={handleOpenSettings}
           showTimer={true}
           timeLeft={timeLeft}
           showLives={false}
@@ -328,6 +327,13 @@ export default function FormulaBlasterPage() {
         ))}
       </div>
 
+      <GameFooter
+        onOpenSettings={handleOpenSettings}
+        onOpenInstructions={() => setIsInstructionsOpen(true)}
+        isPaused={gameState !== 'playing'}
+        onTogglePause={togglePause}
+      />
+
       {/* RENDER OVERLAY FIRST: It acts as the darkened background/underlay */}
       <GameOverlay
         gameState={gameState}
@@ -350,8 +356,24 @@ export default function FormulaBlasterPage() {
           if (gameState === 'paused') {
             togglePause(); 
           }
-        }} 
+        }}
+        gameId="formula-blaster"
       />
+
+      <GameInstructionsModal
+        isOpen={isInstructionsOpen}
+        onClose={() => setIsInstructionsOpen(false)}
+        title="How to Play: Formula Blaster"
+      >
+        <div className="space-y-4 text-slate-300">
+          <p>Find and pop bubbles matching the target molecule shown in the header.</p>
+          <ul className="list-disc space-y-2 pl-5">
+            <li>Click the correct formula to add a hit toward the current target.</li>
+            <li>Use the lightbulb in the header if you need a clue.</li>
+            <li>Finish each target before the timer expires to progress through the level.</li>
+          </ul>
+        </div>
+      </GameInstructionsModal>
 
     </GameShell>
   );

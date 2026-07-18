@@ -181,17 +181,15 @@ export default function ClassificationGame() {
   const currentLives = MAX_MISTAKES - mistakes;
 
   return (
-    <GameShell>
+    <GameShell themeScope="acid-classification">
       
       {/* HEADER COMPONENT (Pause logic removed, shifted to Footer) */}
       <div className="px-4 md:px-6 lg:px-8 w-full max-w-5xl mx-auto">
         <Header
-          gameTitle="Chemical Classifier"
           gameSubtitle="CLASSIFY MOLECULE"
           progressText={`${correctInRound} / ${targetQuota} Sorted`}
           currentLevel={currentLevel}
           score={score}
-          gameState={gameState}
           onExit={handleExitGame}
           onTriggerHint={handleTriggerManualHint}
           customTaskDescription="Acid, Base or Neutral?"          
@@ -204,7 +202,8 @@ export default function ClassificationGame() {
 
       <GameSettingsModal 
         isOpen={isSettingsOpen} 
-        onClose={() => setIsSettingsOpen(false)} 
+        onClose={() => setIsSettingsOpen(false)}
+        gameId="acid-classification"
       />
 
       <GameInstructionsModal 
