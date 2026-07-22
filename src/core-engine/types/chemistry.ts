@@ -14,6 +14,20 @@ export type ElementCategory =
   | 'transition-metal'
   | 'post-transition-metal';
 
+export type FormulaTokenType =
+  | 'text'
+  | 'coefficient'
+  | 'symbol'
+  | 'subscript'
+  | 'superscript'
+  | 'operator'
+  | 'state';
+
+export interface FormulaToken {
+  type: FormulaTokenType;
+  value: string;
+}
+
 export interface ChemicalComposition {
   symbol: string;
   count: number;
@@ -71,9 +85,6 @@ export interface CompoundData {
   isHazardous: boolean;
 }
 
-/**
- * Master particle union for chemistry engines and drag-and-drop game canvases.
- */
 export type GameParticle =
   | ElementData
   | MonoatomicIonData

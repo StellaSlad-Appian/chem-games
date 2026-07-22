@@ -1,12 +1,91 @@
 // src/components/ui/MoleculeText.tsx
 
 import React from 'react';
+import type { FormulaToken } from '@/core-engine/types/chemistry';
 
 interface MoleculeTextProps {
   formula: string;
   className?: string;
   subscriptClassName?: string;
   superscriptClassName?: string;
+}
+
+/**
+ * Deterministically parses a chemical equation/formula string into typed tokens.
+ */
+function parseFormula(input: string): FormulaToken[] {
+  if (!input) return [];
+
+  const tokens: FormulaToken[] = [];
+  const terms = input.trim().split(/\s+/);
+
+  terms.forEach((term, index) => {
+    if (index > 0) {
+      tokens.push({ type: 'text', value: ' ' });
+    }
+
+    // Reaction arrows & addition operators
+    if (term === '+' || term === '->' || term === '→') {
+      tokens.push({
+        type: 'operator',
+        value: term === '->' ? '→' : term,
+      });
+      return;
+    }
+
+    let i = 0;
+
+    // 1. Extract Leading Stoichiometric Coefficient (e.g., '2' in '2H2O')
+    const coeffMatch = term.match(/^(\d+)(?=[A-Za-z\(])/);
+    if (coeffMatch) {
+      tokens.push({ type: 'coefficient', value: coeffMatch[1] });
+      i += coeffMatch[1].length;
+    }
+
+    // 2. Parse chemical symbols, states, ionic charges, and subscripts
+    while (i < term.length) {
+      // Physical state indicators: (s), (l), (g), (aq)
+      const stateMatch = term.slice(i).match(/^\((s|l|g|aq)\)/);
+      if (stateMatch) {
+        tokens.push({ type: 'state', value: stateMatch[0] });
+        i += stateMatch[0].length;
+        continue;
+      }
+
+      // Ionic Charges: e.g., 2+, +, -
+      const chargeMatch = term.slice(i).match(/^(\d*[+-])/);
+      if (
+        chargeMatch &&
+        (i + chargeMatch[0].length === term.length ||
+          term[i + chargeMatch[0].length] === '(')
+      ) {
+        tokens.push({ type: 'superscript', value: chargeMatch[0] });
+        i += chargeMatch[0].length;
+        continue;
+      }
+
+      // Atomic Symbols or Brackets: e.g., H, O, Fe, (, )
+      const symbolMatch = term.slice(i).match(/^([A-Z][a-z]?|\(|\))/);
+      if (symbolMatch) {
+        tokens.push({ type: 'symbol', value: symbolMatch[0] });
+        i += symbolMatch[0].length;
+
+        // Subscripts following element or bracket: e.g., H2, (SO4)3
+        const subMatch = term.slice(i).match(/^(\d+)/);
+        if (subMatch) {
+          tokens.push({ type: 'subscript', value: subMatch[1] });
+          i += subMatch[1].length;
+        }
+        continue;
+      }
+
+      // Fallback safety
+      tokens.push({ type: 'text', value: term[i] });
+      i++;
+    }
+  });
+
+  return tokens;
 }
 
 export default function MoleculeText({
@@ -17,68 +96,50 @@ export default function MoleculeText({
 }: MoleculeTextProps) {
   if (!formula) return null;
 
-  // Pattern breaks tokens into:
-  // 1. Reaction symbols: -> or → or " + "
-  // 2. State indicators: (s), (l), (g), (aq)
-  // 3. Ionic charges: e.g. +, -, 2+, 3-
-  // 4. Stoichiometric coefficients (leading numbers before atoms): e.g. '2' in '2H2O'
-  // 5. Chemical subscripts: e.g. '2' in 'O2' or '(SO4)2'
-  const tokens = formula.split(
-    /(->|→|\s+\+\s+|\((?:s|l|g|aq)\)|(?<=[A-Za-z\)])\d*[+-]|^ \d+|^[0-9]+(?=[A-Za-z\(])|(?<=\s)[0-9]+(?=[A-Za-z\(])|\d+)/g
-  );
+  const parsedTokens = parseFormula(formula);
 
   return (
     <span className={`inline-flex flex-wrap items-baseline font-mono ${className}`}>
-      {tokens.map((token, index) => {
-        if (!token) return null;
+      {parsedTokens.map((token, index) => {
+        switch (token.type) {
+          case 'coefficient':
+            return (
+              <span key={index} className="font-bold">
+                {token.value}
+              </span>
+            );
 
-        // Reaction Arrow
-        if (token === '->' || token === '→') {
-          return (
-            <span key={index} className="mx-1.5 font-sans font-black opacity-80">
-              →
-            </span>
-          );
+          case 'operator':
+            return (
+              <span key={index} className="mx-1 font-sans font-black opacity-80">
+                {token.value}
+              </span>
+            );
+
+          case 'subscript':
+            return (
+              <sub key={index} className={subscriptClassName}>
+                {token.value}
+              </sub>
+            );
+
+          case 'superscript':
+            return (
+              <sup key={index} className={superscriptClassName}>
+                {token.value}
+              </sup>
+            );
+
+          case 'state':
+            return (
+              <span key={index} className="ml-0.5 text-[0.8em] font-normal text-(--muted)">
+                {token.value}
+              </span>
+            );
+
+          default:
+            return <span key={index}>{token.value}</span>;
         }
-
-        // Reaction Plus Sign
-        if (token.trim() === '+') {
-          return (
-            <span key={index} className="mx-1 font-sans font-bold opacity-75">
-              +
-            </span>
-          );
-        }
-
-        // State Symbols: (s), (l), (g), (aq)
-        if (/^\((?:s|l|g|aq)\)$/.test(token)) {
-          return (
-            <span key={index} className="ml-0.5 text-[0.8em] font-normal opacity-70">
-              {token}
-            </span>
-          );
-        }
-
-        // Ionic Charges / Superscripts (e.g., +, -, 2+)
-        if (/^\d*[+-]$/.test(token)) {
-          return (
-            <sup key={index} className={superscriptClassName}>
-              {token}
-            </sup>
-          );
-        }
-
-        // Subscript Numbers (e.g., the '2' in 'H2O' or '(SO4)2')
-        if (/^\d+$/.test(token)) {
-          return (
-            <sub key={index} className={subscriptClassName}>
-              {token}
-            </sub>
-          );
-        }
-
-        // Standard text, atomic symbols, and leading coefficients (e.g. '2' in '2H2O')
-        return <span key={index}>{token}</span>;
       })}
     </span>
   );
