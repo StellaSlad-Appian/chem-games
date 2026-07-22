@@ -1,64 +1,116 @@
-// src/app/actions/feedback.ts
+// src/lib/actions/feedback.ts
 'use server';
 
 import { Resend } from 'resend';
 import { createClient } from '@/lib/supabase/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export type FeedbackType = 'bug' | 'chemistry' | 'feature';
 
-export interface SubmitFeedbackPayload {
+export interface SubmitFeedbackInput {
   type: FeedbackType;
   message: string;
   pageUrl?: string;
 }
 
-export async function submitFeedbackAction(payload: SubmitFeedbackPayload) {
+export interface FeedbackActionResult {
+  success: boolean;
+  error?: string;
+  warning?: string;
+}
+
+/**
+ * Server Action to log user feedback to Supabase and dispatch an email via Resend.
+ */
+export async function submitFeedbackAction(
+  input: SubmitFeedbackInput
+): Promise<FeedbackActionResult> {
+  const apiKey = process.env.RESEND_API_KEY;
+  // Fall back to your account email in sandbox mode to avoid Resend verification errors
+  const recipientEmail = process.env.FEEDBACK_RECIPIENT_EMAIL || 'stella.slad@gmail.com';
+
+  let dbSuccess = false;
+
+  // 1. Attempt Supabase Persistence
   try {
     const supabase = await createClient();
 
-    // 1. Get optional logged-in user context
-    const { data: { user } } = await supabase.auth.getUser();
+    if (supabase) {
+      const { error: dbError } = await supabase.from('feedback').insert({
+        type: input.type,
+        message: input.message,
+        page_url: input.pageUrl || '/',
+        created_at: new Date().toISOString(),
+      });
 
-    // 2. Insert into Supabase
-    const { error: dbError } = await supabase.from('feedback').insert({
-      type: payload.type,
-      message: payload.message,
-      user_id: user?.id ?? null,
-      page_url: payload.pageUrl ?? 'Unknown',
-    });
+      if (dbError) {
+        console.warn('⚠️ [ChemGames DB Warning]:', dbError.message, dbError.code);
+      } else {
+        dbSuccess = true;
+      }
+    }
+  } catch (err) {
+    console.warn('⚠️ Supabase client initialization skipped or failed:', err);
+  }
 
-    if (dbError) {
-      console.error('Database Error:', dbError);
-      return { success: false, error: 'Failed to record feedback in database.' };
+  // 2. Email Dispatch Layer via Resend
+  if (!apiKey) {
+    console.warn('⚠️ [ChemGames] RESEND_API_KEY is not defined in environment variables.');
+
+    if (dbSuccess) {
+      return {
+        success: true,
+        warning: 'Feedback recorded in database, but email dispatch was skipped (unconfigured API key).',
+      };
     }
 
-    // 3. Send notification email to Stella via Resend
-    const { error: emailError } = await resend.emails.send({
-      from: 'ChemGames Feedback <onboarding@resend.dev>', // Replace with your verified domain in production
-      to: 'stella.slad@gmail.com',
-      subject: `🧪 ChemGames [${payload.type.toUpperCase()}]: New Feedback Received`,
+    return {
+      success: false,
+      error: 'Feedback service is not currently configured in this environment.',
+    };
+  }
+
+  try {
+    const resend = new Resend(apiKey);
+
+    const { error: resendError } = await resend.emails.send({
+      from: 'ChemGames Feedback <onboarding@resend.dev>',
+      to: [recipientEmail],
+      subject: `[ChemGames ${input.type.toUpperCase()}] New Feedback Submission`,
       html: `
-        <div style="font-family: sans-serif; padding: 20px; color: #1e293b;">
-          <h2 style="color: #2563eb;">New ChemGames Feedback Submitted</h2>
-          <p><strong>Type:</strong> ${payload.type.toUpperCase()}</p>
-          <p><strong>Page URL:</strong> ${payload.pageUrl || 'N/A'}</p>
-          <p><strong>User ID:</strong> ${user?.id || 'Anonymous'}</p>
-          <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
-          <p style="white-space: pre-wrap; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0;">${payload.message}</p>
+        <div style="font-family: Arial, sans-serif; padding: 24px; background-color: #f8fafc; color: #0f172a; border-radius: 12px; max-width: 600px;">
+          <h2 style="color: #3b82f6; margin-top: 0; font-weight: 800;">New ChemGames Feedback</h2>
+          <p style="font-size: 14px; margin: 6px 0;"><strong>Category:</strong> ${input.type}</p>
+          <p style="font-size: 14px; margin: 6px 0;"><strong>Page URL:</strong> ${input.pageUrl || '/'}</p>
+          <div style="margin-top: 16px; padding: 16px; background-color: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <p style="font-size: 14px; white-space: pre-wrap; margin: 0; color: #334155;">${input.message}</p>
+          </div>
         </div>
       `,
     });
 
-    if (emailError) {
-      console.error('Email Error:', emailError);
-      // We don't fail the whole action if only the email fails, as DB insert succeeded.
+    if (resendError) {
+      console.error('⚠️ Resend delivery failed:', resendError.message);
+      
+      if (dbSuccess) {
+        return {
+          success: true,
+          warning: 'Saved to database, but email dispatch failed.',
+        };
+      }
+
+      return {
+        success: false,
+        error: resendError.message,
+      };
     }
 
     return { success: true };
-  } catch (error) {
-    console.error('Server Action Error:', error);
-    return { success: false, error: 'An unexpected error occurred.' };
+  } catch (err) {
+    console.error('Failed to submit feedback action:', err);
+
+    return {
+      success: dbSuccess,
+      error: dbSuccess ? undefined : 'An unexpected error occurred while processing feedback.',
+    };
   }
 }
