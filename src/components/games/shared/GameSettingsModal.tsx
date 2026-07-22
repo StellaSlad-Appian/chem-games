@@ -9,12 +9,14 @@ interface GameSettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
   gameId?: GameThemeScope;
+  variant?: 'modal' | 'popover'; // <-- Added variant
 }
 
 export default function GameSettingsModal({
   isOpen,
   onClose,
   gameId,
+  variant = 'modal', // Default to modal for existing game pages
 }: GameSettingsModalProps) {
   const {
     isMuted,
@@ -28,24 +30,23 @@ export default function GameSettingsModal({
   } = useGameSettings();
 
   const isSoundEnabled = !isMuted;
+  const isModal = variant === 'modal';
 
   // Escape key support
   useEffect(() => {
     if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+      if (e.key === 'Escape') onClose();
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Lock background scroll
+  // Lock background scroll (ONLY for modal variant)
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || !isModal) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -53,77 +54,106 @@ export default function GameSettingsModal({
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, [isOpen]);
+  }, [isOpen, isModal]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 sm:items-center sm:p-6 select-none">
-      
-      {/* Backdrop */}
+    <>
+      {/* Backdrop: Dark and blurry for modal, invisible click-catcher for popover */}
       <div
-        className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+        className={
+          isModal
+            ? "fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm"
+            : "fixed inset-0 z-40"
+        }
         onClick={onClose}
+        aria-hidden="true"
       />
 
-      {/* Modal Shell */}
-      <div className="relative my-auto w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-3xl border-2 border-[var(--game-panel-border)] bg-[var(--game-panel)] shadow-2xl animate-in fade-in zoom-in-95 duration-200 sm:max-h-[calc(100dvh-3rem)]">
-        
-        {/* Header */}
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--game-panel-border)] bg-[var(--game-modal-header)] px-6 py-4 backdrop-blur">
-          <h2 className="flex items-center gap-2 text-xl font-black tracking-wide text-[var(--foreground)]">
-            ⚙️ Game Settings
-          </h2>
+      {/* Positioning Wrapper */}
+      <div
+        className={
+          isModal
+            ? "fixed inset-0 z-50 flex pointer-events-none items-start justify-center overflow-y-auto p-4 sm:items-center sm:p-6 select-none"
+            : "absolute right-0 top-[calc(100%+0.5rem)] z-50 w-[26rem] pointer-events-none select-none"
+        }
+      >
+        {/* Shell Container */}
+        <div
+          className={`relative pointer-events-auto rounded-3xl border-2 border-[var(--game-panel-border)] bg-[var(--game-panel)] shadow-2xl animate-in fade-in zoom-in-95 duration-200 ${
+            isModal
+              ? "my-auto w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-h-[calc(100dvh-3rem)]"
+              : "w-full max-h-[80vh] overflow-y-auto"
+          }`}
+        >
+          {/* Header */}
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--game-panel-border)] bg-[var(--game-modal-header)] px-6 py-4 backdrop-blur">
+            <h2 className="flex items-center gap-2 text-xl font-black tracking-wide text-[var(--foreground)]">
+              ⚙️ {isModal ? 'Game Settings' : 'Settings'}
+            </h2>
 
-          <button
-            onClick={onClose}
-            aria-label="Close settings"
-            className="shrink-0 rounded-xl bg-[var(--game-modal-control)] p-2 text-[var(--muted)] transition-colors hover:brightness-90 hover:text-[var(--foreground)] active:scale-95"
-          >
-            <X className="h-5 w-5" strokeWidth={3} />
-          </button>
-        </div>
+            <button
+              onClick={onClose}
+              aria-label="Close settings"
+              className="shrink-0 rounded-xl bg-[var(--game-modal-control)] p-2 text-[var(--muted)] transition-colors hover:brightness-90 hover:text-[var(--foreground)] active:scale-95"
+            >
+              <X className="h-5 w-5" strokeWidth={3} />
+            </button>
+          </div>
 
-        {/* Content Wrapper */}
-        <div className="p-8">
-          <div className="mx-auto flex w-full max-w-md flex-col gap-8">
+          {/* Content Wrapper */}
+          <div className="p-8">
+            <div className="mx-auto flex w-full max-w-md flex-col gap-8">
+              
+              {/* APPEARANCE SECTION */}
+              <section className="flex flex-col gap-4">
+                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                  <Sun className="h-4 w-4" />Appearance
+                </h3>
+                {gameId && (
+                  <ThemeSelector 
+                    label="This game" 
+                    value={gameThemes[gameId] ?? 'global'} 
+                    onChange={(theme) => setGameTheme(gameId, theme)} 
+                    includeGlobal 
+                  />
+                )}
+                <ThemeSelector 
+                  label={gameId ? 'All games default' : 'All games'} 
+                  value={globalTheme} 
+                  onChange={(theme) => { if (theme !== 'global') setGlobalTheme(theme); }} 
+                />
+                {gameId && (
+                  <p className="text-xs leading-relaxed text-[var(--muted)]">
+                    A game-specific choice overrides the all-games default. Choose “Use global” to follow it again.
+                  </p>
+                )}
+              </section>
 
-            {/* APPEARANCE SECTION */}
-            <section className="flex flex-col gap-4">
-              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]"><Sun className="h-4 w-4" />Appearance</h3>
-              {gameId && <ThemeSelector label="This game" value={gameThemes[gameId] ?? 'global'} onChange={(theme) => setGameTheme(gameId, theme)} includeGlobal />}
-              <ThemeSelector label={gameId ? 'All games default' : 'All games'} value={globalTheme} onChange={(theme) => { if (theme !== 'global') setGlobalTheme(theme); }} />
-              {gameId && <p className="text-xs leading-relaxed text-[var(--muted)]">A game-specific choice overrides the all-games default. Choose “Use global” to follow it again.</p>}
-            </section>
+              {/* AUDIO SECTION */}
+              <section className="flex flex-col gap-4">
+                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                  <Volume2 className="h-4 w-4" />
+                  Audio
+                </h3>
 
-            {/* AUDIO SECTION */}
-            <section className="flex flex-col gap-4">
-
-              <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
-                <Volume2 className="h-4 w-4" />
-                Audio
-              </h3>
-
-              {/* Toggle Row */}
-              <div className="flex flex-row items-center justify-between w-full rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
-                  
-                  {/* Left Side: Label Text */}
+                {/* Toggle Row */}
+                <div className="flex flex-row items-center justify-between w-full rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
                   <span className="text-sm font-semibold text-[var(--foreground)] select-none">
                     Sound Effects
                   </span>
 
-                  {/* Right Side: Small, Pinned Pill Toggle */}
                   <button
                     type="button"
                     role="switch"
                     aria-checked={isSoundEnabled}
                     onClick={toggleMute}
-                    // Hardcoded safety styles override any broken CSS compiler or global broad resets
                     style={{ width: '48px', minWidth: '48px', maxWidth: '48px', height: '28px' }}
                     className={`relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors p-1 outline-none border focus-visible:ring-2 focus-visible:ring-emerald-500 ${
                       isSoundEnabled 
-                        ? 'bg-(--game-success) border-emerald-600' 
-                        : 'bg-(--game-highlight-surface) border-(--game-highlight-border)'
+                        ? 'bg-[var(--game-success)] border-emerald-600' 
+                        : 'bg-[var(--game-highlight-surface)] border-[var(--game-highlight-border)]'
                     }`}
                   >
                     <span
@@ -134,43 +164,42 @@ export default function GameSettingsModal({
                       }`}
                     />
                   </button>
-                  
                 </div>
 
-              {/* Volume Row */}
-              <div className="flex items-center gap-4 rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
+                {/* Volume Row */}
+                <div className="flex items-center gap-4 rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
+                  <div className="shrink-0">
+                    {isMuted || volume === 0 ? (
+                      <VolumeX className="h-5 w-5 text-[var(--muted)]" />
+                    ) : (
+                      <Volume2 className="h-5 w-5 text-emerald-400" />
+                    )}
+                  </div>
 
-                <div className="shrink-0">
-                  {isMuted || volume === 0 ? (
-                    <VolumeX className="h-5 w-5 text-[var(--muted)]" />
-                  ) : (
-                    <Volume2 className="h-5 w-5 text-emerald-400" />
-                  )}
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value={isMuted ? 0 : volume}
+                    onChange={(e) => setVolume(parseFloat(e.target.value))}
+                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[var(--game-modal-control)] accent-emerald-500"
+                  />
+
+                  <span className="w-10 shrink-0 text-right text-xs font-bold text-[var(--muted)]">
+                    {isMuted ? 0 : Math.round(volume * 100)}%
+                  </span>
                 </div>
+              </section>
 
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.05"
-                  value={isMuted ? 0 : volume}
-                  onChange={(e) => setVolume(parseFloat(e.target.value))}
-                  className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[var(--game-modal-control)] accent-emerald-500"
-                />
-
-                <span className="w-10 shrink-0 text-right text-xs font-bold text-[var(--muted)]">
-                  {isMuted ? 0 : Math.round(volume * 100)}%
-                </span>
-              </div>
-
-            </section>
-
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
+
 
 function ThemeSelector({ label, value, onChange, includeGlobal = false }: { label: string; value: Theme | 'global'; onChange: (theme: Theme | 'global') => void; includeGlobal?: boolean }) {
   const choices: Array<{ value: Theme | 'global'; label: string; icon?: typeof Sun }> = [

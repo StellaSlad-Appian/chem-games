@@ -10,7 +10,7 @@ export function AuthButton({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [isPending, setIsPending] = useState(false);
 
   if (!isAuthenticated) {
-    return <Link href="/auth" className="rounded-lg border border-[var(--border)] bg-[var(--surface)]/90 px-4 py-2 text-sm font-bold text-[var(--foreground)] shadow-sm backdrop-blur transition hover:border-blue-400">Log in / Register</Link>;
+    return <Link href="/auth" className="rounded-lg border border-(--border) bg-[var(--surface)]/90 px-4 py-2 text-sm font-bold text-[var(--foreground)] shadow-sm backdrop-blur transition hover:border-blue-400">Log in / Register</Link>;
   }
 
   async function signOut() {
@@ -24,5 +24,5 @@ export function AuthButton({ isAuthenticated }: { isAuthenticated: boolean }) {
     }
   }
 
-  return <button type="button" onClick={signOut} disabled={isPending} className="rounded-lg border border-[var(--border)] bg-[var(--surface)]/90 px-4 py-2 text-sm font-bold text-[var(--foreground)] shadow-sm backdrop-blur transition hover:border-red-400 disabled:opacity-60">{isPending ? 'Logging out…' : 'Log out'}</button>;
+  return <button type="button" onClick={signOut} disabled={isPending} className="rounded-lg border border-(--border) bg-(--surface)/90 px-4 py-2 text-sm font-bold text-(--foreground) shadow-sm backdrop-blur transition hover:border-red-400 disabled:opacity-60">{isPending ? 'Logging out…' : 'Log out'}</button>;
 }
