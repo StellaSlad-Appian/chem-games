@@ -2,30 +2,28 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useGameState } from '../../../hooks/useGameState';
+import { useGameState } from '@/hooks/useGameState';
 import { useRouter } from 'next/navigation';
 import { Beaker, Flame, Droplet, Atom } from "lucide-react";
 
 // Shared Components
-import ClassificationButton from '../../..//components/games/acid-classification/ClassificationButton';
-import MoleculeBubble from '../../../components/games/acid-classification/MoleculeBubble';
-import Header from '../../../components/games/shared/GamesHeader';
-import GameShell from '../../../components/games/shared/GameShell';
-import GameOverlay, { FailReason } from '../../../components/games/shared/GameOverlay';
-import GameSettingsModal from '../../../components/games/shared/GameSettingsModal'; 
-import GameFooter from '../../../components/games/shared/GameFooter';
-import GameInstructionsModal from '../../../components/games/shared/GameInstructionsModal';
+import ClassificationButton from '@/components/games/acid-classification/ClassificationButton';
+import MoleculeBubble from '@/components/games/acid-classification/MoleculeBubble';
+import Header from '@/components/games/shared/GamesHeader';
+import GameShell from '@/components/games/shared/GameShell';
+import GameOverlay, { FailReason } from '@/components/games/shared/GameOverlay';
+import GameSettingsModal from '@/components/games/shared/GameSettingsModal'; 
+import GameFooter from '@/components/games/shared/GameFooter';
+import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
 
-// Core Engine
-import { PH_CLASSIFICATIONS, CLASSIFICATION_OPTIONS } from '@/src/core-engine/constants/chemical-labels';
-import { ANSWER_STATUS, GAME_STATE, AnswerStatus } from '@/src/core-engine/constants/ui-constants';
-import { CompoundData, ChemicalClassification } from '@/src/core-engine/types/chemistry';
-import { evaluateChemical } from '@/src/core-engine/utils/chemical-utils';
-import { COMPOUNDS_REGISTRY } from '@/src/core-engine/data/compounds';
-import { useSound } from '../../../hooks/useSound';
-
-const MAX_MISTAKES = 3;
-const MAX_LEVEL = 5;
+// Core Engine & Config
+import { PH_CLASSIFICATIONS, CLASSIFICATION_OPTIONS } from '@/core-engine/constants/chemical-labels';
+import { ANSWER_STATUS, GAME_STATE, AnswerStatus } from '@/core-engine/constants/ui-constants';
+import { CompoundData, ChemicalClassification } from '@/core-engine/types/chemistry';
+import { evaluateChemical } from '@/core-engine/utils/chemical-utils';
+import { COMPOUNDS_REGISTRY } from '@/core-engine/data/compounds';
+import { ACID_CLASSIFICATION_CONFIG } from '@/core-engine/config/games/acid-classification-config';
+import { useSound } from '@/hooks/useSound';
 
 export default function ClassificationGame() {
   const router = useRouter();
@@ -60,14 +58,14 @@ export default function ClassificationGame() {
 
   // --- UI ANIMATION STATE ---
   const [feedback, setFeedback] = useState<{ status: AnswerStatus; selected: string | null }>({
-      status: ANSWER_STATUS.IDLE, // CHANGE THIS FROM null TO ANSWER_STATUS.IDLE
+      status: ANSWER_STATUS.IDLE,
       selected: null,
   });
 
   const [currentLevelChemicals, setCurrentLevelChemicals] = useState<CompoundData[]>([]);
 
   // 🧪 Dynamic Quota Hook: Calculate passing bar safely based on active pool size
-  const targetQuota = Math.max(3, currentLevelChemicals.length - 2);
+  const targetQuota = Math.max(ACID_CLASSIFICATION_CONFIG.levels.minPassingItems, currentLevelChemicals.length - 2);
 
   useEffect(() => {
     if (!COMPOUNDS_REGISTRY) return;
@@ -83,7 +81,7 @@ export default function ClassificationGame() {
   }, [currentChemical]);
 
   const handleTriggerManualHint = () => {
-    if (gameState !== 'playing' || !currentChemical) return;
+    if (gameState !== GAME_STATE.PLAYING || !currentChemical) return;
     playSound('click');
     setShowChemicalName(true);
   };
@@ -95,33 +93,30 @@ export default function ClassificationGame() {
 
   const handleOpenSettings = () => {
     playSound('click');
-    if (gameState === 'playing') {
+    if (gameState === GAME_STATE.PLAYING) {
       togglePause();
     }
     setIsSettingsOpen(true);
   };
 
   const handleSelection = (selectedType: ChemicalClassification) => {
-  // Use GAME_STATE constant
     if (gameState !== GAME_STATE.PLAYING || !currentChemical || feedback.status !== ANSWER_STATUS.IDLE) return;
 
     const expectedType = evaluateChemical(currentChemical);
     const isCorrect = selectedType === expectedType;
 
     if (isCorrect) {
-      // Use ANSWER_STATUS constant
       setFeedback({ status: ANSWER_STATUS.CORRECT, selected: selectedType });
       playSound('success-synthesis');
       
       setTimeout(() => {
-        setScore((prev) => prev + (100 * currentLevel));
+        setScore((prev) => prev + (ACID_CLASSIFICATION_CONFIG.mechanics.pointsPerLevelMultiplier * currentLevel));
         const newCorrect = correctInRound + 1;
         setCorrectInRound(newCorrect);
-        // Use ANSWER_STATUS.IDLE for resetting
         setFeedback({ status: ANSWER_STATUS.IDLE, selected: null });
 
         if (newCorrect >= targetQuota) {
-          if (currentLevel >= MAX_LEVEL) {
+          if (currentLevel >= ACID_CLASSIFICATION_CONFIG.levels.maxLevel) {
             setGameState(GAME_STATE.VICTORY);
             playSound('success-synthesis');
           } else {
@@ -131,35 +126,34 @@ export default function ClassificationGame() {
         } else {
           setPoolIndex((prev) => prev + 1);
         }
-      }, 1200);
+      }, ACID_CLASSIFICATION_CONFIG.timing.successTransitionMs);
 
     } else {
       const newMistakes = mistakes + 1;
       setMistakes(newMistakes);
-      // Use ANSWER_STATUS constant
       setFeedback({ status: ANSWER_STATUS.WRONG, selected: selectedType });
       
-      if (newMistakes >= MAX_MISTAKES) {
+      if (newMistakes >= ACID_CLASSIFICATION_CONFIG.mechanics.maxMistakes) {
         playSound('fizzle'); 
         setTimeout(() => {
           setFailReason('mistakes');
           setGameState(GAME_STATE.FAILED);
           playSound('explosion'); 
-        }, 800);
+        }, ACID_CLASSIFICATION_CONFIG.timing.failStateDelayMs);
       } else {
         playSound('fizzle'); 
-        setTimeout(() => setFeedback({ status: ANSWER_STATUS.IDLE, selected: null }), 1200);
+        setTimeout(() => setFeedback({ status: ANSWER_STATUS.IDLE, selected: null }), ACID_CLASSIFICATION_CONFIG.timing.mistakeTransitionMs);
       }
     }
   };
 
   const handleOverlayAdvance = () => {
-    if (gameState === 'levelUp') {
+    if (gameState === GAME_STATE.LEVEL_UP) {
       setCurrentLevel((prev) => prev + 1);
       setPoolIndex(0);
       setCorrectInRound(0);
       setFailReason(null);
-      setGameState('playing');
+      setGameState(GAME_STATE.PLAYING);
     } else {
       togglePause();
     }
@@ -171,19 +165,18 @@ export default function ClassificationGame() {
     setPoolIndex(0);
     setCorrectInRound(0);
     setFailReason(null);
-    setFeedback({ status: null, selected: null });
+    setFeedback({ status: ANSWER_STATUS.IDLE, selected: null });
   };
 
   if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
     return <div className="min-h-screen flex items-center justify-center text-red-500 font-bold">Error: Compounds Registry not found.</div>;
   }
 
-  const currentLives = MAX_MISTAKES - mistakes;
+  const currentLives = ACID_CLASSIFICATION_CONFIG.mechanics.maxMistakes - mistakes;
 
   return (
     <GameShell themeScope="acid-classification">
       
-      {/* HEADER COMPONENT (Pause logic removed, shifted to Footer) */}
       <div className="px-4 md:px-6 lg:px-8 w-full max-w-5xl mx-auto">
         <Header
           gameSubtitle="CLASSIFY MOLECULE"
@@ -196,7 +189,7 @@ export default function ClassificationGame() {
           showTimer={false} 
           showLives={true}  
           lives={currentLives}
-          maxLives={MAX_MISTAKES}
+          maxLives={ACID_CLASSIFICATION_CONFIG.mechanics.maxMistakes}
         />
       </div>
 
@@ -222,15 +215,14 @@ export default function ClassificationGame() {
         </div>
       </GameInstructionsModal>
 
-      {/* CENTRAL DISPLAY PORT & OVERLAYS - Added min-h-0 to prevent flex overflow */}
       <div className="flex-1 min-h-0 w-full flex flex-col items-center justify-center my-4 relative max-w-3xl z-0 mx-auto">
         
         <GameOverlay
-          gameState={isSettingsOpen || isInstructionsOpen ? 'playing' : gameState}
+          gameState={isSettingsOpen || isInstructionsOpen ? GAME_STATE.PLAYING : gameState}
           score={score}
           correctInRound={correctInRound}
           currentLevel={currentLevel}
-          maxLevel={MAX_LEVEL}
+          maxLevel={ACID_CLASSIFICATION_CONFIG.levels.maxLevel}
           failReason={failReason}
           onResume={handleOverlayAdvance} 
           onRestart={resetGame}
@@ -244,10 +236,8 @@ export default function ClassificationGame() {
         />
       </div>
 
-      {/* LOWER NAVIGATION PLATFORM */}
       <div className={`w-full max-w-4xl grid gap-3 md:gap-6 mb-4 z-10 mx-auto px-4 md:px-0 ${currentLevel >= 3 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
         {CLASSIFICATION_OPTIONS.map((option: { label: string; icon: any; colorVar: string }) => {
-          // Hide Amphoteric before level 3
           if (option.label === PH_CLASSIFICATIONS.AMPHOTERIC && currentLevel < 3) return null;
 
           return (
@@ -255,20 +245,19 @@ export default function ClassificationGame() {
               key={option.label}
               label={option.label}
               icon={option.icon}
-              colorVar={option.colorVar} // Use colorVar instead of accentColor
+              colorVar={option.colorVar}
               status={feedback.selected === option.label ? feedback.status : ANSWER_STATUS.IDLE}
               onClick={() => handleSelection(option.label as any)}
-              disabled={gameState !== GAME_STATE.PLAYING || feedback.status !== ANSWER_STATUS.IDLE} // Updated guard
+              disabled={gameState !== GAME_STATE.PLAYING || feedback.status !== ANSWER_STATUS.IDLE}
             />
           );
         })}
       </div>
 
-      {/* FOOTER COMPONENT */}
       <GameFooter 
         onOpenSettings={handleOpenSettings}
         onOpenInstructions={() => setIsInstructionsOpen(true)}
-        isPaused={gameState !== 'playing'}
+        isPaused={gameState !== GAME_STATE.PLAYING}
         onTogglePause={togglePause}
       />
       
