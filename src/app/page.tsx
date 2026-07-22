@@ -1,6 +1,6 @@
 // src/app/page.tsx
 import Link from 'next/link';
-import { Beaker, ChartNoAxesCombined, Gamepad2, UserRound } from 'lucide-react';
+import { Beaker, BookMarked, ChartNoAxesCombined, Gamepad2, UserRound } from 'lucide-react';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { GlobalSettingsButton } from '@/components/ui/GlobalSettingsButton';
 import { PersonalScoreSummary } from '@/components/ui/PersonalScoreSummary';
@@ -27,6 +27,7 @@ const sections = [
   { href: '#profile', label: 'Profile', Icon: UserRound },
   { href: '#leaderboards', label: 'Leaderboards', Icon: ChartNoAxesCombined },
   { href: '#games', label: 'Games', Icon: Gamepad2 },
+  { href: '/cheat-sheets', label: 'Cheat Sheets', Icon: BookMarked }
 ];
 
 export default async function Home() {

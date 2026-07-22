@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MessageSquarePlus, X, Send, AlertTriangle, Lightbulb, Bug } from 'lucide-react';
-import { submitFeedbackAction, type FeedbackType } from '@/app/actions/feedback';
+import { submitFeedbackAction, type FeedbackType } from '@/lib/actions/feedback';
 
 export function FeedbackWidget() {
   const pathname = usePathname();
