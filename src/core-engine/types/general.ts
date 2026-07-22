@@ -122,3 +122,14 @@ export interface CheatSheetTopic {
   sections: CheatSheetSection[];
   reactionType?: ReactionType;
 }
+
+// Game Feedback - hints and errors
+
+export type FeedbackSeverity = 'error' | 'hint';
+
+export interface GameFeedback {
+  type: FeedbackSeverity;
+  message: string;
+  /** Optional custom display duration in ms (default: 4000) */
+  duration?: number;
+}

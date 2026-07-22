@@ -30,6 +30,7 @@ export interface FormulaToken {
 
 export interface ChemicalComposition {
   symbol: string;
+  name?: string; // e.g. "Carbon", "Hydrogen", "Oxygen"
   count: number;
 }
 

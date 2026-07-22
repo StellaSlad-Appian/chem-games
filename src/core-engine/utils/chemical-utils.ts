@@ -67,3 +67,38 @@ export const isNeutralizationCompatible = (
   if (compoundType === 'base' && projectileType === 'H-ion') return true;
   return false;
 };
+
+// Formula Blaster
+
+/**
+ * Generates dynamic comparative error feedback when a student clicks an incorrect compound.
+ * Compares the clicked distractor against the current target compound to highlight missing elements.
+ */
+export function generateComparativeError(
+  clickedChem: CompoundData,
+  targetChem: CompoundData | null
+): string {
+  if (!targetChem) {
+    return `That's ${clickedChem.name} (${clickedChem.formula})!`;
+  }
+
+  const clickedSymbols = new Set(clickedChem.elements.map((e) => e.symbol));
+  const missingInClicked = targetChem.elements.filter(
+    (e) => !clickedSymbols.has(e.symbol)
+  );
+
+  if (missingInClicked.length > 0) {
+    const keyElement = missingInClicked[0];
+    return `That's ${clickedChem.name} (${clickedChem.formula})! Look for ${keyElement.name} (${keyElement.symbol}) atoms instead.`;
+  }
+
+  return `That's ${clickedChem.name} (${clickedChem.formula})! Check the atom counts for ${targetChem.name}.`;
+}
+
+/**
+ * Generates a general hint describing the elemental makeup of a compound.
+ */
+export function generateChemicalHint(chem: CompoundData): string {
+  const elementSymbols = chem.elements.map((e) => e.symbol).join(' & ');
+  return `${chem.name} consists of the elements: ${elementSymbols}.`;
+}
