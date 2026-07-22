@@ -56,3 +56,17 @@ export interface ProfileActionState {
   error?: string;
   message?: string;
 }
+
+export type FeedbackType = 'bug' | 'chemistry' | 'feature';
+
+export interface SubmitFeedbackPayload {
+  type: FeedbackType;
+  message: string;
+  pageUrl?: string;
+}
+
+export interface FeedbackRecord extends SubmitFeedbackPayload {
+  id: string;
+  created_at: string;
+  user_id: string | null;
+}
