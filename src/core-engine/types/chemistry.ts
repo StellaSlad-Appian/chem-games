@@ -1,15 +1,33 @@
+// src/core-engine/types/chemistry.ts
+
 export type ChemicalClassification = 'Acidic' | 'Basic' | 'Neutral' | 'Amphoteric';
 export type PhysicalState = 'solid' | 'liquid' | 'gas';
+export type ShortPhysicalState = 's' | 'l' | 'g' | 'aq';
 
-export interface ElementData{
+export type ElementCategory =
+  | 'nonmetal'
+  | 'noble-gas'
+  | 'alkali-metal'
+  | 'alkaline-earth'
+  | 'metalloid'
+  | 'halogen'
+  | 'transition-metal'
+  | 'post-transition-metal';
+
+export interface ChemicalComposition {
+  symbol: string;
+  count: number;
+}
+
+export interface ElementData {
   type: 'element';
   symbol: string;
   name: string;
   atomicNumber: number;
   mass: number;
   valenceElectrons: number;
+  category?: ElementCategory;
   atomicRadius?: number;
-  // optional property for more complex/specific games - redox reactions
   variableValenceStates?: number[];
 }
 
@@ -27,15 +45,14 @@ export interface PolyatomicIonData {
   formula: string;
   charge: number;
   name: string;
-  elements: {symbol: string; count: number}[];
+  elements: ChemicalComposition[];
 }
 
-export interface IonReference{
+export interface IonReference {
   ionId: string;
   count: number;
 }
 
-// new version
 export interface CompoundData {
   type: 'compound';
   id: string;
@@ -43,26 +60,40 @@ export interface CompoundData {
   name: string;
   pKa?: number;
   pKb?: number;
-  // Tracks level progression. replace in future, sincethis can be different for different games
-  difficulty: 1 | 2 | 3 | 4 | 5;             
-  // For future stoichiometry games (g/mol), possibly not needed since we could derive from elements
-  molarMass: number;                          
-  stateAtRoomTemp: PhysicalState;            // For visual synthesis simulations
-  elements: {symbol: string; count: number}[];
-  // optional, only presentif the compound is ionic and can dissociate
+  difficulty: 1 | 2 | 3 | 4 | 5;
+  molarMass: number;
+  stateAtRoomTemp: PhysicalState;
+  elements: ChemicalComposition[];
   ionicComponents?: {
     cations: IonReference[];
     anions: IonReference[];
-  }
-  isHazardous: boolean;                   // For lab safety mini-games
+  };
+  isHazardous: boolean;
 }
 
-// Master Union Type
+/**
+ * Master particle union for chemistry engines and drag-and-drop game canvases.
+ */
 export type GameParticle =
-| ElementData
-| MonoatomicIonData
-| PolyatomicIonData
-| CompoundData
+  | ElementData
+  | MonoatomicIonData
+  | PolyatomicIonData
+  | CompoundData;
 
-// replace Chemical with CompoundData
+export type ReactionType =
+  | 'synthesis'
+  | 'decomposition'
+  | 'combustion'
+  | 'single-replacement'
+  | 'double-replacement'
+  | 'neutralisation';
 
+export interface ChemicalReaction {
+  id: string;
+  type: ReactionType;
+  reactants: { particle: GameParticle; count: number }[];
+  products: { particle: GameParticle; count: number }[];
+  isBalanced: boolean;
+  unbalancedFormula: string;
+  balancedFormula: string;
+}

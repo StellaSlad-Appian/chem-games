@@ -1,4 +1,5 @@
 // src/app/cheat-sheets/[slug]/page.tsx
+
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, Sparkles } from 'lucide-react';
@@ -12,18 +13,12 @@ interface CheatSheetPageProps {
   }>;
 }
 
-/**
- * Pre-generates static routes for all cheat sheets at build time.
- */
 export async function generateStaticParams() {
   return CHEAT_SHEETS.map((sheet) => ({
     slug: sheet.slug,
   }));
 }
 
-/**
- * Dynamic metadata generator for SEO and tab titles.
- */
 export async function generateMetadata({ params }: CheatSheetPageProps) {
   const { slug } = await params;
   const sheet = getCheatSheetBySlug(slug);
@@ -39,7 +34,6 @@ export async function generateMetadata({ params }: CheatSheetPageProps) {
 }
 
 export default async function CheatSheetDetailPage({ params }: CheatSheetPageProps) {
-  // In Next.js 15, params is a Promise that must be awaited
   const { slug } = await params;
   const sheet = getCheatSheetBySlug(slug);
 
@@ -48,23 +42,23 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
   }
 
   return (
-    <main className="container mx-auto min-h-screen px-4 py-8 max-w-4xl">
+    <main className="container mx-auto min-h-screen max-w-4xl px-4 py-8 bg-[var(--background)] text-[var(--foreground)]">
       {/* Back Navigation */}
       <Link
         href="/cheat-sheets"
-        className="inline-flex items-center gap-2 text-sm font-bold text-(--muted) hover:text-blue-500 transition mb-6"
+        className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-[var(--muted)] transition hover:text-blue-500"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Cheat Sheets
       </Link>
 
       {/* Header Banner */}
-      <header className="rounded-3xl border-2 border-(--border) bg-(--surface) p-6 md:p-8 shadow-xl">
+      <header className="rounded-3xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-xl md:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <span className={`rounded-full border px-4 py-1 text-xs font-black uppercase tracking-wider ${sheet.colorTheme}`}>
             {sheet.yearLevel}
           </span>
-          <span className="text-xs font-bold text-(--muted)">{sheet.category}</span>
+          <span className="text-xs font-bold text-[var(--muted)]">{sheet.category}</span>
         </div>
 
         <div className="mt-6 flex items-center gap-4">
@@ -72,22 +66,22 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
             <ChemIcon name={sheet.iconName} className="h-8 w-8" />
           </div>
           <div>
-            <h1 className="text-3xl md:text-4xl font-black text-(--foreground)">{sheet.title}</h1>
-            <p className="mt-1 text-sm md:text-base text-(--muted)">{sheet.summary}</p>
+            <h1 className="text-3xl font-black text-[var(--foreground)] md:text-4xl">{sheet.title}</h1>
+            <p className="mt-1 text-sm font-medium text-[var(--muted)] md:text-base">{sheet.summary}</p>
           </div>
         </div>
       </header>
 
       {/* Key Takeaways Section */}
-      <section className="mt-8 rounded-3xl border-2 border-(--border) bg-(--surface) p-6 md:p-8 shadow-md">
-        <div className="flex items-center gap-2 text-lg font-black text-(--foreground) mb-4">
+      <section className="mt-8 rounded-3xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8">
+        <div className="mb-4 flex items-center gap-2 text-lg font-black text-[var(--foreground)]">
           <Sparkles className="h-5 w-5 text-amber-400" />
           <h2>Key Concepts</h2>
         </div>
         <ul className="space-y-3">
           {sheet.keyTakeaways.map((takeaway, index) => (
-            <li key={index} className="flex items-start gap-3 text-sm md:text-base font-medium">
-              <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0 mt-0.5" />
+            <li key={index} className="flex items-start gap-3 text-sm font-semibold text-[var(--foreground)] md:text-base">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
               <span>{takeaway}</span>
             </li>
           ))}
@@ -96,16 +90,16 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
 
       {/* Formulas & Reaction Examples */}
       {sheet.formulaExamples && sheet.formulaExamples.length > 0 && (
-        <section className="mt-8 rounded-3xl border-2 border-(--border) bg-(--surface) p-6 md:p-8 shadow-md">
-          <h2 className="text-lg font-black text-(--foreground) mb-4">Example Formulas & Reactions</h2>
+        <section className="mt-8 rounded-3xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8">
+          <h2 className="mb-4 text-lg font-black text-[var(--foreground)]">Example Formulas & Reactions</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {sheet.formulaExamples.map((item, index) => (
               <div
                 key={index}
-                className="rounded-2xl border border-(--border) bg-(--background) p-4 flex flex-col justify-between"
+                className="flex flex-col justify-between rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4"
               >
-                <span className="text-xs font-bold text-(--muted)">{item.name}</span>
-                <MoleculeText formula={item.formula} className="mt-2 text-lg font-bold text-blue-500" />
+                <span className="text-xs font-bold text-[var(--muted)]">{item.name}</span>
+                <MoleculeText formula={item.formula} className="mt-2 text-base font-bold text-blue-500 md:text-lg" />
               </div>
             ))}
           </div>

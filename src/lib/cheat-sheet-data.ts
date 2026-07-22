@@ -1,4 +1,5 @@
 // src/lib/cheat-sheet-data.ts
+
 import type { CheatSheetTopic } from '@/core-engine/types/general';
 
 export const CHEAT_SHEETS: CheatSheetTopic[] = [
@@ -20,6 +21,17 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       { name: 'Ice (Solid)', formula: 'H2O (s)' },
       { name: 'Steam (Gas)', formula: 'H2O (g)' },
     ],
+    sections: [
+      {
+        heading: 'Phase Changes & States',
+        content: 'Matter transitions between solid, liquid, and gas phases when kinetic energy (temperature) changes.',
+        examples: [
+          { name: 'Water (Liquid)', formula: 'H2O (l)' },
+          { name: 'Ice (Solid)', formula: 'H2O (s)' },
+          { name: 'Steam (Gas)', formula: 'H2O (g)' },
+        ],
+      },
+    ],
   },
   {
     slug: 'acids-and-bases',
@@ -39,6 +51,17 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       { name: 'Sodium Hydroxide', formula: 'NaOH' },
       { name: 'Sulfuric Acid', formula: 'H2SO4' },
     ],
+    sections: [
+      {
+        heading: 'Common Acids and Bases',
+        content: 'Acids dissociate to produce H+ ions, while bases dissociate to yield OH- ions in water.',
+        examples: [
+          { name: 'Hydrochloric Acid', formula: 'HCl' },
+          { name: 'Sodium Hydroxide', formula: 'NaOH' },
+          { name: 'Sulfuric Acid', formula: 'H2SO4' },
+        ],
+      },
+    ],
   },
   {
     slug: 'balancing-equations',
@@ -56,6 +79,16 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     formulaExamples: [
       { name: 'Unbalanced', formula: 'H2 + O2 -> H2O' },
       { name: 'Balanced', formula: '2H2 + O2 -> 2H2O' },
+    ],
+    sections: [
+      {
+        heading: 'Conservation of Mass',
+        content: 'Both sides of a chemical equation must contain equal counts of every element.',
+        examples: [
+          { name: 'Unbalanced', formula: 'H2 + O2 -> H2O' },
+          { name: 'Balanced', formula: '2H2 + O2 -> 2H2O' },
+        ],
+      },
     ],
   },
   {
@@ -75,6 +108,16 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     formulaExamples: [
       { name: 'Neutralisation', formula: 'HCl + NaOH -> NaCl + H2O' },
       { name: 'Combustion', formula: 'CH4 + 2O2 -> CO2 + 2H2O' },
+    ],
+    sections: [
+      {
+        heading: 'Reaction Examples',
+        content: 'Chemical reactions fall into standard predictable patterns like synthesis or neutralisation.',
+        examples: [
+          { name: 'Neutralisation', formula: 'HCl + NaOH -> NaCl + H2O' },
+          { name: 'Combustion', formula: 'CH4 + 2O2 -> CO2 + 2H2O' },
+        ],
+      },
     ],
   },
 ];

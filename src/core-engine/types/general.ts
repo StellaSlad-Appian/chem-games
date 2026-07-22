@@ -1,3 +1,13 @@
+// src/core-engine/types/general.ts
+
+import type { ChemIconName } from '@/components/ui/ChemIcon';
+import type { ReactionType } from './chemistry';
+
+// Re-export ChemIconName so other modules can import it directly from general.ts
+export type { ChemIconName };
+
+// --- Game Engine & Session Types ---
+
 export type GameState = 'playing' | 'paused' | 'failed' | 'victory' | 'levelUp';
 
 export type GameName =
@@ -5,22 +15,6 @@ export type GameName =
   | 'covalent-builder'
   | 'isotope-invaders'
   | 'reaction-balancer';
-
-export type ChemIconName =
-  | 'Shapes'        // States of matter
-  | 'TestTube'      // Lab basics & solutions
-  | 'TestTubes'     // Reactions & mixing
-  | 'Scale'         // Balancing equations / stoichiometry
-  | 'Flame'         // Combustion & thermodynamics
-  | 'Atom'          // Atomic structure & isotopes
-  | 'Zap'           // Electrochemistry & redox
-  | 'FlaskConical'  // Titration & volumetric analysis
-  | 'Gauge'         // Gas laws & pressure
-  | 'Dna'           // Organic chemistry / biochemistry
-  | 'Orbit'         // Electron configuration
-  | 'ShieldAlert'   // Lab safety & hazards
-  | 'Sparkles'      // General interactive games
-  | 'Timer';        // Speed challenges
 
 export interface PersonalScore {
   gameId: GameName;
@@ -43,6 +37,8 @@ export interface GameLeaderboard {
   gameTitle: string;
   entries: LeaderboardEntry[];
 }
+
+// --- User Profile & Account Types ---
 
 export interface ChemicalTypeUserProfile {
   symbol: string;
@@ -73,6 +69,8 @@ export interface ProfileActionState {
   message?: string;
 }
 
+// --- Feedback & Telemetry Types ---
+
 export type FeedbackType = 'bug' | 'chemistry' | 'feature';
 
 export interface SubmitFeedbackPayload {
@@ -91,7 +89,13 @@ export interface FeedbackRecord extends SubmitFeedbackPayload {
 
 export type YearLevel = 'Year 7' | 'Year 8' | 'Year 9' | 'Year 10' | 'Senior';
 
-export type CheatSheetCategory = 'Fundamentals' | 'Reactions' | 'Acids & Bases' | 'Equations' | 'Thermodynamics' | 'Organic';
+export type CheatSheetCategory =
+  | 'Fundamentals'
+  | 'Reactions'
+  | 'Acids & Bases'
+  | 'Equations'
+  | 'Thermodynamics'
+  | 'Organic';
 
 export interface FormulaExample {
   name: string;
@@ -111,9 +115,10 @@ export interface CheatSheetTopic {
   yearLevel: YearLevel;
   category: CheatSheetCategory;
   summary: string;
-  iconName: 'Shapes' | 'TestTube' | 'Scale' | 'Flame' | 'Atom' | 'Zap' | 'FlaskConical';
+  iconName: ChemIconName;
   colorTheme: string;
   keyTakeaways: string[];
   formulaExamples?: FormulaExample[];
-  sections?: CheatSheetSection[];
+  sections: CheatSheetSection[];
+  reactionType?: ReactionType;
 }

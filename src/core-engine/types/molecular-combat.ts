@@ -1,5 +1,3 @@
-// src/types/molecular-combat.ts
-
 // src/core-engine/types/molecular-combat.ts
 
 export interface MoleculeInvader {

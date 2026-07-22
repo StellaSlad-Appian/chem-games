@@ -1,4 +1,5 @@
 // src/components/shared/ChemIcon.tsx
+
 import {
   Shapes,
   TestTube,
@@ -18,9 +19,8 @@ import {
   type LucideIcon,
   type LucideProps,
 } from 'lucide-react';
-import type { ChemIconName } from '@/core-engine/types/general';
 
-const ICON_REGISTRY: Record<ChemIconName, LucideIcon> = {
+const ICON_REGISTRY = {
   Shapes,
   TestTube,
   TestTubes,
@@ -35,7 +35,13 @@ const ICON_REGISTRY: Record<ChemIconName, LucideIcon> = {
   ShieldAlert,
   Sparkles,
   Timer,
-};
+} satisfies Record<string, LucideIcon>;
+
+/**
+ * Dynamically inferred from ICON_REGISTRY keys.
+ * Adding an icon to ICON_REGISTRY automatically updates this type across the app.
+ */
+export type ChemIconName = keyof typeof ICON_REGISTRY;
 
 interface ChemIconProps extends Omit<LucideProps, 'ref'> {
   name: ChemIconName;
