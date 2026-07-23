@@ -3,66 +3,81 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useGameState } from '../../../hooks/useGameState';
+import { useGameState } from '@/hooks/useGameState';
 
 // Shared Layout & Overlays
-import GameShell from '../../../components/games/shared/GameShell';
-import GamesHeader from '../../../components/games/shared/GamesHeader';
-import GameFooter from '../../../components/games/shared/GameFooter';
-import GameOverlay from '../../../components/games/shared/GameOverlay';
-import GameSettingsModal from '../../../components/games/shared/GameSettingsModal';
-import GameInstructionsModal from '../../../components/games/shared/GameInstructionsModal';
+import GameShell from '@/components/games/shared/GameShell';
+import GamesHeader from '@/components/games/shared/GamesHeader';
+import GameFooter from '@/components/games/shared/GameFooter';
+import GameOverlay from '@/components/games/shared/GameOverlay';
+import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
+import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
 
 // Neutralize Specific
-import NeutralizeArena from '../../../components/games/neutralise/GameArena';
-import { NEUTRALISE_CONFIG } from '../../../core-engine/config/games/neutralise-config';
+import NeutralizeArena from '@/components/games/neutralise/GameArena';
+import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
 
 export default function NeutralizePage() {
   const router = useRouter();
-  
-  const { 
-    gameState, 
-    setGameState, 
-    score, 
-    setScore, 
-    currentLevel, 
+
+  const {
+    gameState,
+    setGameState,
+    score,
+    setScore,
+    currentLevel,
     setCurrentLevel,
-    togglePause, 
-    resetBase 
+    togglePause,
+    resetBase,
   } = useGameState();
-  
-  const [lives, setLives] = useState(3);
-  
-  // FIX: Using enemiesCleared to track both defeated and missed enemies
-  const [enemiesCleared, setEnemiesCleared] = useState(0);
-  const [currentWave, setCurrentWave] = useState(1);
-  
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
+
+  const [lives, setLives] = useState<number>(3);
+  const [enemiesCleared, setEnemiesCleared] = useState<number>(0);
+  const [currentWave, setCurrentWave] = useState<number>(1);
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
 
   const enemiesPerWave = NEUTRALISE_CONFIG.waves.maxEnemiesPerWave;
 
+  // UX Decision: Auto-show instructions on first visit
+  useEffect(() => {
+    const hasSeenInstructions = localStorage.getItem('hasSeenNeutraliseInstructions');
+    if (!hasSeenInstructions) {
+      setIsInstructionsOpen(true);
+      if (gameState === 'playing') togglePause();
+    }
+  }, [gameState, togglePause]);
+
+  const handleCloseInstructions = useCallback(() => {
+    setIsInstructionsOpen(false);
+    localStorage.setItem('hasSeenNeutraliseInstructions', 'true');
+    if (gameState !== 'playing') togglePause();
+  }, [gameState, togglePause]);
+
   const handlePlayerHit = useCallback(() => {
-    setLives(prev => {
+    setLives((prev) => {
       const newLives = prev - 1;
       if (newLives <= 0) setGameState('failed');
       return newLives;
     });
-    // Record that an enemy left the board, even if it wasn't defeated
-    setEnemiesCleared(prev => prev + 1);
+    setEnemiesCleared((prev) => prev + 1);
   }, [setGameState]);
 
-  const handleEnemyDefeated = useCallback((points: number) => {
-    setScore(prev => prev + points);
-    setEnemiesCleared(prev => prev + 1);
-  }, [setScore]);
+  const handleEnemyDefeated = useCallback(
+    (points: number) => {
+      setScore((prev) => prev + points);
+      setEnemiesCleared((prev) => prev + 1);
+    },
+    [setScore]
+  );
 
   // Wave Transition Logic
   useEffect(() => {
     if (enemiesCleared >= enemiesPerWave) {
       if (currentWave < NEUTRALISE_CONFIG.waves.maxWavesPerLevel) {
-        setCurrentWave(prev => prev + 1);
-        setEnemiesCleared(0); // Reset for the new wave
+        setCurrentWave((prev) => prev + 1);
+        setEnemiesCleared(0);
       } else {
         setGameState('levelUp');
       }
@@ -70,13 +85,13 @@ export default function NeutralizePage() {
   }, [enemiesCleared, enemiesPerWave, currentWave, setGameState]);
 
   const handleExit = useCallback(() => {
-    router.push('/games'); 
+    router.push('/games');
   }, [router]);
 
   const handleResume = useCallback(() => {
     if (gameState === 'levelUp') {
-      setCurrentLevel(prev => prev + 1);
-      setCurrentWave(1); 
+      setCurrentLevel((prev) => prev + 1);
+      setCurrentWave(1);
       setEnemiesCleared(0);
     }
     setGameState('playing');
@@ -85,7 +100,7 @@ export default function NeutralizePage() {
   const handleRestart = useCallback(() => {
     setLives(3);
     setEnemiesCleared(0);
-    setCurrentWave(1); 
+    setCurrentWave(1);
     resetBase();
   }, [resetBase]);
 
@@ -98,46 +113,70 @@ export default function NeutralizePage() {
 
   return (
     <GameShell fullBleed themeScope="neutralise">
-      
       <div className="px-4 md:px-6 lg:px-8">
-        <GamesHeader
-          gameSubtitle="DEFEND THE LAB"
-          progressText={`Wave ${currentWave}/3 | Cleared ${enemiesCleared}/${enemiesPerWave}`}
-          currentLevel={currentLevel}
-          score={score}
-          onExit={handleExit} 
-          showLives={true}
-          lives={lives}
-          maxLives={3}
-          showTimer={false}
-          showCenterTask={false}
-        />
+        {/* Responsive Header: Objective text hides on mobile viewports to prevent overflow */}
+        <div className="hidden md:block">
+          <GamesHeader
+            gameSubtitle="OBJECTIVE: Neutralize acids with OH⁻ and bases with H⁺"
+            progressText={`Wave ${currentWave}/3 | Cleared ${enemiesCleared}/${enemiesPerWave}`}
+            currentLevel={currentLevel}
+            score={score}
+            onExit={handleExit}
+            showLives={true}
+            lives={lives}
+            maxLives={3}
+            showTimer={false}
+            showCenterTask={false}
+          />
+        </div>
+        {/* Compact Header for mobile viewports */}
+        <div className="block md:hidden">
+          <GamesHeader
+            gameSubtitle="NEUTRALIZE"
+            progressText={`Wave ${currentWave}/3`}
+            currentLevel={currentLevel}
+            score={score}
+            onExit={handleExit}
+            showLives={true}
+            lives={lives}
+            maxLives={3}
+            showTimer={false}
+            showCenterTask={false}
+          />
+        </div>
       </div>
 
-      <GameSettingsModal 
-        isOpen={isSettingsOpen} 
+      <GameSettingsModal
+        isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
         gameId="neutralise"
       />
 
-      <GameInstructionsModal 
-        isOpen={isInstructionsOpen} 
-        onClose={() => setIsInstructionsOpen(false)}
+      <GameInstructionsModal
+        isOpen={isInstructionsOpen}
+        onClose={handleCloseInstructions}
         title="How to Play: Neutralize!"
       >
-        <div className="space-y-4 font-mono text-slate-300">
-          <p>Defend the lab from incoming chemical compounds!</p>
-          <ul className="list-disc pl-4 space-y-2">
-            <li><strong>Switch Ammo:</strong> Right-click or press 1/2 to toggle between Acid (H⁺) and Base (OH⁻) cannons.</li>
-            <li><strong>Neutralize:</strong> Match your ammo type to the chemical's property (e.g., use OH⁻ to neutralize an acid).</li>
-            <li><strong>Fire:</strong> Use Left-Click, Tap, or Spacebar to launch ions.</li>
-            <li><strong>Stay Alert:</strong> Some compounds are hazardous—don't let them hit the barrier!</li>
+        <div className="space-y-4 text-sm font-medium text-(--muted)">
+          <p className="font-bold text-(--foreground)">Defend the lab from incoming chemical hazards!</p>
+          <ul className="space-y-3">
+            <li className="flex items-center gap-3">
+              <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">1</kbd>
+              <span>Load <strong className="text-blue-500">H⁺ (Acid)</strong> to neutralize Bases.</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">2</kbd>
+              <span>Load <strong className="text-rose-500">OH⁻ (Base)</strong> to neutralize Acids.</span>
+            </li>
+            <li className="flex items-center gap-3">
+              <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Space</kbd>
+              <span>Fire your ion cannon! (Or tap/click the arena).</span>
+            </li>
           </ul>
         </div>
       </GameInstructionsModal>
 
-      {/* FIXED WRAPPER: min-h-0 strictly enforces flex containment */}
-      <div className="relative flex-1 min-h-0 w-full max-w-5xl mx-auto my-2 px-4 flex flex-col justify-center">
+      <div className="relative mx-auto my-2 flex w-full max-w-5xl flex-1 min-h-0 flex-col justify-center px-4">
         <GameOverlay
           gameState={isSettingsOpen || isInstructionsOpen ? 'playing' : gameState}
           score={score}
@@ -149,23 +188,22 @@ export default function NeutralizePage() {
           onRestart={handleRestart}
         />
 
-        <NeutralizeArena 
-          level={currentLevel} 
+        <NeutralizeArena
+          level={currentLevel}
           wave={currentWave}
           enemyCount={enemiesPerWave}
           onEnemyDefeated={handleEnemyDefeated}
           onPlayerHit={handlePlayerHit}
-          isPaused={gameState !== 'playing' || isSettingsOpen} 
+          isPaused={gameState !== 'playing' || isSettingsOpen || isInstructionsOpen}
         />
       </div>
 
-      <GameFooter 
+      <GameFooter
         onOpenSettings={handleOpenSettings}
         onOpenInstructions={() => setIsInstructionsOpen(true)}
         isPaused={gameState !== 'playing'}
         onTogglePause={togglePause}
       />
-      
     </GameShell>
   );
 }
