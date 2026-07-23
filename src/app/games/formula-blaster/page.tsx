@@ -16,9 +16,10 @@ import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
 import GameFooter from '@/components/games/shared/GameFooter';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
 
-// Core Engine & Utilities
+// Core Engine, Config & Utilities
 import type { CompoundData } from '@/core-engine/types/chemistry';
 import { COMPOUNDS_REGISTRY } from '@/core-engine/data/compounds';
+import { FORMULA_BLASTER_CONFIG } from '@/core-engine/config/games/formula-blaster-config';
 import {
   generateComparativeError,
   generateChemicalHint,
@@ -41,14 +42,6 @@ interface PositionedError {
   y: number;
 }
 
-const SPAWN_COLOR_POOL = [
-  'border-cyan-400 text-cyan-400 hover:border-cyan-300',
-  'border-pink-500 text-pink-400 hover:border-pink-400',
-  'border-amber-400 text-amber-400 hover:border-amber-300',
-  'border-emerald-400 text-emerald-400 hover:border-emerald-300',
-  'border-blue-500 text-blue-400 hover:border-blue-400',
-];
-
 export default function FormulaBlasterPage() {
   const router = useRouter();
   const { playSound } = useSound();
@@ -64,33 +57,44 @@ export default function FormulaBlasterPage() {
     resetBase,
   } = useGameState();
 
-  // Intra-level Objective Tracking
-  const [correctInRound, setCorrectInRound] = useState(0);
-  const [targetQuota, setTargetQuota] = useState(3);
-  const [completedTargetIds, setCompletedTargetIds] = useState<string[]>([]);
-  const targetsRequiredPerLevel = 3;
+  // Typed numbers with explicit generics to prevent TS literal inference locks
+  const [correctInRound, setCorrectInRound] = useState<number>(0);
+  const [targetQuota, setTargetQuota] = useState<number>(3);
+  const [timeLeft, setTimeLeft] = useState<number>(
+    FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds
+  );
 
-  // Timers, Colors & Targets
-  const [timeLeft, setTimeLeft] = useState(45);
-  const [currentColorIndex, setCurrentColorIndex] = useState(0);
+  const [completedTargetIds, setCompletedTargetIds] = useState<string[]>([]);
+  const targetsRequiredPerLevel = FORMULA_BLASTER_CONFIG.levels.targetsRequiredPerLevel;
+
   const [currentTarget, setCurrentTarget] = useState<CompoundData | null>(null);
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
 
-  // Separated Feedback States
   const [activeHint, setActiveHint] = useState<string | null>(null);
   const [activeError, setActiveError] = useState<PositionedError | null>(null);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
 
-  const maxLevel = 5;
+  const maxLevel = FORMULA_BLASTER_CONFIG.levels.maxLevel;
   const spawnIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const consecutiveDistractors = useRef(0);
+  const consecutiveDistractors = useRef<number>(0);
 
+  // Derive movement speed using central config physics values
   const getRandomSpeedForLevel = (level: number): number => {
-    const baseSpeed = Math.max(8.5 - level * 1.1, 3.2);
-    const variance = Math.max(2.2 - level * 0.15, 1.2);
-    return Math.random() * variance + baseSpeed;
+    const {
+      baseSpeed,
+      speedLevelDecrement,
+      minSpeed,
+      baseVariance,
+      varianceLevelDecrement,
+      minVariance,
+    } = FORMULA_BLASTER_CONFIG.physics;
+
+    const speed = Math.max(baseSpeed - level * speedLevelDecrement, minSpeed);
+    const variance = Math.max(baseVariance - level * varianceLevelDecrement, minVariance);
+
+    return Math.random() * variance + speed;
   };
 
   // 1. WAVE COUNTDOWN ENGINE
@@ -98,7 +102,7 @@ export default function FormulaBlasterPage() {
     if (gameState !== 'playing') return;
 
     const clockInterval = setInterval(() => {
-      setTimeLeft((prev) => {
+      setTimeLeft((prev: number) => {
         if (prev <= 1) {
           clearInterval(clockInterval);
           playSound('explosion');
@@ -112,18 +116,7 @@ export default function FormulaBlasterPage() {
     return () => clearInterval(clockInterval);
   }, [gameState, playSound, setGameState]);
 
-  // 2. SPAWN COLOR ROTATOR ENGINE
-  useEffect(() => {
-    if (gameState !== 'playing') return;
-
-    const colorClock = setInterval(() => {
-      setCurrentColorIndex((prev) => (prev + 1) % SPAWN_COLOR_POOL.length);
-    }, 2000);
-
-    return () => clearInterval(colorClock);
-  }, [gameState]);
-
-  // 3. MOLECULE TARGETING SYSTEM
+  // 2. MOLECULE TARGETING SYSTEM
   const startNewMoleculeWave = (level: number, currentCompleted: string[]) => {
     if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) return;
 
@@ -147,7 +140,7 @@ export default function FormulaBlasterPage() {
     setBubbles([]);
     setActiveHint(null);
     setActiveError(null);
-    setTimeLeft(45);
+    setTimeLeft(FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds);
   };
 
   useEffect(() => {
@@ -191,7 +184,7 @@ export default function FormulaBlasterPage() {
     setGameState,
   ]);
 
-  // 4. BUBBLE SPAWN ENGINE
+  // 3. BUBBLE SPAWN ENGINE
   useEffect(() => {
     if (gameState !== 'playing' || !currentTarget) {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
@@ -202,14 +195,10 @@ export default function FormulaBlasterPage() {
       (chem) => chem.difficulty === currentLevel
     );
 
-    spawnIntervalRef.current = setInterval(() => {
-      const PITY_THRESHOLD = 5;
-      let shouldBeCorrect =
-        Math.random() > 0.85 || bubbles.filter((b) => b.isCorrect).length === 0;
-
-      if (consecutiveDistractors.current >= PITY_THRESHOLD) {
-        shouldBeCorrect = true;
-      }
+    const spawnBubble = () => {
+      const PITY_THRESHOLD = FORMULA_BLASTER_CONFIG.mechanics.pityThreshold;
+      const shouldBeCorrect =
+        Math.random() > 0.8 || consecutiveDistractors.current >= PITY_THRESHOLD;
 
       let sourceChemical: CompoundData;
 
@@ -218,14 +207,17 @@ export default function FormulaBlasterPage() {
         consecutiveDistractors.current = 0;
       } else {
         consecutiveDistractors.current += 1;
-        const distractors = currentLevelPool.filter(
-          (c) => c.id !== currentTarget.id
-        );
+        const distractors = currentLevelPool.filter((c) => c.id !== currentTarget.id);
         sourceChemical =
           distractors.length > 0
             ? distractors[Math.floor(Math.random() * distractors.length)]
             : COMPOUNDS_REGISTRY[Math.floor(Math.random() * COMPOUNDS_REGISTRY.length)];
       }
+
+      const randomColor =
+        FORMULA_BLASTER_CONFIG.visuals.spawnColorPool[
+          Math.floor(Math.random() * FORMULA_BLASTER_CONFIG.visuals.spawnColorPool.length)
+        ];
 
       const newBubble: BubbleData = {
         id: crypto.randomUUID(),
@@ -235,25 +227,42 @@ export default function FormulaBlasterPage() {
         xPos: Math.random() * 80 + 10,
         speed: getRandomSpeedForLevel(currentLevel),
         isCorrect: sourceChemical.id === currentTarget.id,
-        colorClass: SPAWN_COLOR_POOL[currentColorIndex],
+        colorClass: randomColor,
       };
 
       setBubbles((prev) => [...prev, newBubble]);
-    }, Math.max(1500 - currentLevel * 120, 850));
+    };
+
+    // Instant initial wave burst so screen starts active
+    for (let i = 0; i < FORMULA_BLASTER_CONFIG.mechanics.initialBurstCount; i++) {
+      spawnBubble();
+    }
+
+    // Dynamic interval calculation from config values
+    const currentSpawnInterval = Math.max(
+      FORMULA_BLASTER_CONFIG.timing.baseSpawnIntervalMs -
+        currentLevel * FORMULA_BLASTER_CONFIG.timing.spawnIntervalLevelDecrement,
+      FORMULA_BLASTER_CONFIG.timing.minSpawnIntervalMs
+    );
+
+    spawnIntervalRef.current = setInterval(spawnBubble, currentSpawnInterval);
 
     return () => {
       if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
     };
-  }, [gameState, currentTarget, bubbles, currentLevel, currentColorIndex]);
+  }, [gameState, currentTarget, currentLevel]);
 
-  // Auto-dismiss positioned error banner after 3 seconds
+  // Auto-dismiss positioned error banner
   useEffect(() => {
     if (!activeError) return;
-    const timer = setTimeout(() => setActiveError(null), 3000);
+    const timer = setTimeout(
+      () => setActiveError(null),
+      FORMULA_BLASTER_CONFIG.timing.errorTooltipDurationMs
+    );
     return () => clearTimeout(timer);
   }, [activeError]);
 
-  // 5. INTERACTION SYSTEM
+  // 4. INTERACTION SYSTEM
   const handleBubbleClick = (
     id: string,
     isCorrect: boolean,
@@ -264,19 +273,18 @@ export default function FormulaBlasterPage() {
 
     if (isCorrect) {
       playSound('pop_01');
-      setScore((prev) => prev + 100 * currentLevel);
+      setScore(
+        (prev) => prev + FORMULA_BLASTER_CONFIG.mechanics.pointsPerLevelMultiplier * currentLevel
+      );
       setBubbles((prev) => prev.filter((b) => b.id !== id));
       setCorrectInRound((prev) => prev + 1);
       setActiveError(null);
     } else {
       playSound('fizzle');
-
-      // Retrieve full clicked compound object from registry
       const clickedChem = COMPOUNDS_REGISTRY.find((c) => c.id === compoundId);
 
       if (clickedChem) {
         const errorMsg = generateComparativeError(clickedChem, currentTarget);
-
         setActiveError({
           message: errorMsg,
           x: clickCoords.x,
@@ -316,7 +324,7 @@ export default function FormulaBlasterPage() {
       setBubbles([]);
       setActiveHint(null);
       setActiveError(null);
-      setTimeLeft(45);
+      setTimeLeft(FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds);
       setCurrentLevel((prev) => prev + 1);
       setGameState('playing');
     } else {
@@ -331,7 +339,7 @@ export default function FormulaBlasterPage() {
     setBubbles([]);
     setActiveHint(null);
     setActiveError(null);
-    setTimeLeft(45);
+    setTimeLeft(FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds);
     startNewMoleculeWave(1, []);
   };
 
@@ -342,7 +350,6 @@ export default function FormulaBlasterPage() {
 
   return (
     <GameShell fullBleed themeScope="formula-blaster">
-      {/* Header Container */}
       <div className="px-4 md:px-6 lg:px-8">
         <Header
           gameSubtitle="TARGET MOLECULE"
@@ -358,11 +365,9 @@ export default function FormulaBlasterPage() {
         />
       </div>
 
-      {/* Playfield Canvas */}
       <div className="relative mt-4 flex-1 w-full h-full rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]/30 overflow-hidden">
-        {/* MANUAL HINT BANNER (Top Center) */}
         {activeHint && (
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 w-full max-w-md px-4">
+          <div className="absolute top-4 left-1/2 z-40 w-full max-w-md -translate-x-1/2 px-4">
             <div className="flex items-start justify-between gap-3 rounded-2xl border-2 border-blue-500/40 bg-[var(--surface)] p-4 shadow-xl backdrop-blur-md">
               <div className="flex items-start gap-3">
                 <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
@@ -386,10 +391,9 @@ export default function FormulaBlasterPage() {
           </div>
         )}
 
-        {/* CLICKED BUBBLE COMPARATIVE ERROR BANNER */}
         {activeError && (
           <div
-            className="fixed z-50 -translate-x-1/2 pointer-events-none transition-all duration-200"
+            className="pointer-events-none fixed z-50 -translate-x-1/2 transition-all duration-200"
             style={{ left: `${activeError.x}px`, top: `${activeError.y}px` }}
           >
             <div className="flex items-center gap-2 rounded-xl border-2 border-rose-500/60 bg-[var(--surface)] px-3 py-2 text-xs font-black text-rose-500 shadow-xl backdrop-blur-md">
@@ -399,7 +403,6 @@ export default function FormulaBlasterPage() {
           </div>
         )}
 
-        {/* Floating Molecule Bubbles */}
         {gameState === 'playing' &&
           bubbles.map((bubble) => (
             <BlasterBubble
