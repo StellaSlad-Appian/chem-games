@@ -24,6 +24,7 @@ import {
   generateComparativeError,
   generateChemicalHint,
 } from '@/core-engine/utils/chemical-utils';
+import { getValidXPosition } from '@/core-engine/utils/spawn-manager';
 
 interface BubbleData {
   id: string;
@@ -224,7 +225,10 @@ export default function FormulaBlasterPage() {
         compoundId: sourceChemical.id,
         formula: sourceChemical.formula,
         chemicalName: sourceChemical.name,
-        xPos: Math.random() * 80 + 10,
+        xPos: getValidXPosition(
+          FORMULA_BLASTER_CONFIG.lanes,
+          FORMULA_BLASTER_CONFIG.timing.laneCooldownMs
+        ),
         speed: getRandomSpeedForLevel(currentLevel),
         isCorrect: sourceChemical.id === currentTarget.id,
         colorClass: randomColor,
