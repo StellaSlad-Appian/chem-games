@@ -27,6 +27,77 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         </p>
       </div>
 
+      {/* Identity Block */}
+      <div className="flex flex-col gap-4 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
+        <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">
+          Scientist Identity
+        </h3>
+        
+        <div>
+          <label htmlFor="title" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
+            Custom Title
+          </label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            defaultValue={initialData.title || ''}
+            placeholder="e.g. Research Chemist"
+            maxLength={30}
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="country" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
+            Country / Region
+          </label>
+          <input
+            id="country"
+            name="country"
+            type="text"
+            defaultValue={initialData.country || ''}
+            placeholder="e.g. Australia"
+            maxLength={30}
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+          />
+          <div className="mt-4">
+            <BlockToggle
+              name="showCountry"
+              label="Show Country on Profile"
+              defaultChecked={initialData.privacy.showCountry}
+            />
+          </div>
+        </div>
+
+        <div className="border-t border-[var(--border)] pt-4 mt-2">
+          <label htmlFor="yearLevel" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
+            Academic Level
+          </label>
+          <select
+            id="yearLevel"
+            name="yearLevel"
+            defaultValue={initialData.yearLevel || ''}
+            className="w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+          >
+            <option value="">Select your year level...</option>
+            <option value="Year 7">Year 7</option>
+            <option value="Year 8">Year 8</option>
+            <option value="Year 9">Year 9</option>
+            <option value="Year 10">Year 10</option>
+            <option value="Senior">Senior</option>
+          </select>
+          
+          <div className="mt-4">
+            <BlockToggle
+              name="showYearLevel"
+              label="Make Academic Level Public"
+              defaultChecked={initialData.privacy.showYearLevel}
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Lab Notes Block */}
       <div className="flex flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
         <label htmlFor="labNotes" className="text-xs font-black uppercase tracking-wider text-(--foreground)">
@@ -40,7 +111,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
           maxLength={500}
           className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
         />
-        <div className="mt-2">
+        <div className="mt-4">
           <BlockToggle
             name="showLabNotes"
             label="Make Lab Notes Public"
@@ -50,12 +121,25 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
       </div>
 
       {/* Game Stats Block */}
-      <div className="flex flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
-        <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">Game Stats</h3>
+      <div className="flex flex-col gap-4 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
+        <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">Game Stats Visibility</h3>
+        
         <BlockToggle
           name="showTotalSyntheses"
           label="Show Total Syntheses Count"
           defaultChecked={initialData.privacy.showTotalSyntheses}
+        />
+        
+        <BlockToggle
+          name="showAccuracy"
+          label="Show Answer Accuracy %"
+          defaultChecked={initialData.privacy.showAccuracy}
+        />
+        
+        <BlockToggle
+          name="showCurrentStreak"
+          label="Show Daily Play Streak"
+          defaultChecked={initialData.privacy.showCurrentStreak}
         />
       </div>
 
@@ -64,7 +148,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         <p
           role="status"
           className={`rounded-xl border p-3 text-xs font-bold ${
-            state.status === 'success'
+            state.success
               ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
               : 'border-rose-500/20 bg-rose-500/10 text-rose-500'
           }`}
