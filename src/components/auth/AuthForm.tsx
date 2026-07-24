@@ -26,7 +26,6 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
       ? ''
       : `${window.location.origin}/auth/callback`;
 
-  // Uses React.FormEvent to eliminate React 19 deprecated type import warnings
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!configured) return;
@@ -52,11 +51,14 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
 
     setPending(false);
 
-    if (result.error) return setMessage(result.error.message);
+    if (result.error) {
+      setMessage(result.error.message);
+      return;
+    }
+
     if (mode === 'register') {
-      return setMessage(
-        'Check your inbox to activate your ChemGames account.'
-      );
+      setMessage('Check your inbox to activate your ChemGames account.');
+      return;
     }
 
     window.location.assign('/');
@@ -77,7 +79,13 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: returnUrl },
+      options: {
+        redirectTo: returnUrl,
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      },
     });
 
     if (error) {
@@ -92,16 +100,16 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
   };
 
   return (
-    <div className="w-full max-w-md rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-xl md:p-8">
+    <div className="w-full max-w-md rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
       {/* Header */}
       <div className="mb-6 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-500">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-500">
           <Atom className="h-6 w-6" />
         </div>
         <h1 className="text-2xl font-black text-(--foreground)">
           {mode === 'login' ? 'Welcome back' : 'Join ChemGames'}
         </h1>
-        <p className="mt-1 text-xs font-medium text-(--muted)">
+        <p className="mt-1 text-xs font-bold text-(--muted)">
           {mode === 'login'
             ? 'Pick up where your experiments left off.'
             : 'Create an account to save your progress.'}
@@ -113,16 +121,16 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
         type="button"
         onClick={signInWithGoogle}
         disabled={!configured || pending}
-        className="flex w-full items-center justify-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-3 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <GoogleMark /> Continue with Google
       </button>
 
       {/* Divider */}
       <div className="my-6 flex items-center gap-3 text-xs font-black uppercase tracking-wider text-(--muted)">
-        <span className="h-px flex-1 bg-[var(--border)]" />
+        <span className="h-px flex-1 bg-(--border)" />
         or
-        <span className="h-px flex-1 bg-[var(--border)]" />
+        <span className="h-px flex-1 bg-(--border)" />
       </div>
 
       {/* Form */}
@@ -137,7 +145,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
             placeholder="you@example.com"
           />
         </div>
@@ -153,7 +161,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-[var(--background)] px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
             placeholder="At least 6 characters"
           />
         </div>
@@ -185,12 +193,12 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
       )}
 
       {/* Switch Mode Toggle */}
-      <p className="mt-6 text-center text-xs font-medium text-(--muted)">
+      <p className="mt-6 text-center text-xs font-bold text-(--muted)">
         {mode === 'login' ? 'New to ChemGames?' : 'Already have an account?'}{' '}
         <button
           type="button"
           onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}
-          className="font-bold text-blue-500 hover:underline"
+          className="font-black text-blue-500 hover:underline"
         >
           {mode === 'login' ? 'Register' : 'Log in'}
         </button>
@@ -200,11 +208,9 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
 }
 
 function errorMessage(error: string) {
-  return error === 'verification'
-    ? 'We could not verify that link. Please try again.'
-    : error === 'configuration'
-    ? 'Authentication is not configured yet.'
-    : '';
+  if (error === 'verification') return 'We could not verify that link. Please try again.';
+  if (error === 'configuration') return 'Authentication is not configured yet.';
+  return '';
 }
 
 function GoogleMark() {
