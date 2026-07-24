@@ -69,6 +69,8 @@ export interface ProfilePrivacySettings {
   showCurrentStreak: boolean;
 }
 
+export type AccountType = 'student' | 'teacher' | 'admin';
+
 export interface UserProfile {
   id: string;
   alias: string;
@@ -82,6 +84,12 @@ export interface UserProfile {
   currentStreak?: number;
   accuracy?: number;
   joinedDate: string;
+  
+  // NEW FIELDS HERE
+  updatedAt?: string;
+  isActive: boolean;
+  accountType: AccountType;
+
   totalSyntheses: number;
   privacy: ProfilePrivacySettings;
 }
