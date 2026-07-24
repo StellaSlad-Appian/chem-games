@@ -41,7 +41,6 @@ export async function recordGameSession(input: RecordSessionInput) {
     }
 
     // 2. Upsert cumulative progress for this specific game
-    // (Fetches existing record to compute updated high score & totals)
     const { data: existingProgress } = await supabase
       .from('game_progress')
       .select('*')
@@ -67,12 +66,13 @@ export async function recordGameSession(input: RecordSessionInput) {
       console.error('Error upserting game_progress:', progressError);
     }
 
-    // 3. Optional: Increment profile-level aggregate (total_syntheses)
+    // 3. Increment profile-level aggregate (total_syntheses) safely
     if (input.outcome === 'victory') {
-      await supabase.rpc('increment_total_syntheses', { user_id_param: user.id })
-        .catch(() => {
-          // Fallback if SQL function isn't created yet
-        });
+      try {
+        await supabase.rpc('increment_total_syntheses', { user_id_param: user.id });
+      } catch {
+        // Fallback gracefully if SQL RPC function isn't defined yet
+      }
     }
 
     return { success: true, highScore: newHighScore };
