@@ -11,10 +11,11 @@ export type { ChemIconName };
 export type GameState = 'playing' | 'paused' | 'failed' | 'victory' | 'levelUp';
 
 export type GameName =
-  | 'titration-station'
-  | 'covalent-builder'
-  | 'isotope-invaders'
-  | 'reaction-balancer';
+  | 'acid-classification'
+  | 'formula-blaster'
+  | 'neutralise';
+  
+ // to be added soon | 'reaction-balancer';
 
 export interface PersonalScore {
   gameId: GameName;
