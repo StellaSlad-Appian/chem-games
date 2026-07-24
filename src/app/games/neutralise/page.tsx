@@ -1,7 +1,7 @@
 // src/app/games/neutralise/page.tsx
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGameState } from '@/hooks/useGameState';
 
@@ -16,6 +16,7 @@ import GameInstructionsModal from '@/components/games/shared/GameInstructionsMod
 // Neutralize Specific
 import NeutralizeArena from '@/components/games/neutralise/GameArena';
 import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
+import { recordGameSession } from '@/lib/actions/game-actions';
 
 export default function NeutralizePage() {
   const router = useRouter();
@@ -39,6 +40,7 @@ export default function NeutralizePage() {
   const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
 
   const enemiesPerWave = NEUTRALISE_CONFIG.waves.maxEnemiesPerWave;
+  const startTimeRef = useRef<number>(Date.now());
 
   // UX Decision: Auto-show instructions on first visit
   useEffect(() => {
@@ -55,14 +57,31 @@ export default function NeutralizePage() {
     if (gameState !== 'playing') togglePause();
   }, [gameState, togglePause]);
 
+  // Record session helper
+  const handleSaveSession = useCallback(
+    async (finalScore: number, outcome: 'victory' | 'defeat') => {
+      const timeSpentSeconds = Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000));
+      await recordGameSession({
+        gameId: 'neutralise',
+        score: finalScore,
+        timeSpentSeconds,
+        outcome,
+      });
+    },
+    []
+  );
+
   const handlePlayerHit = useCallback(() => {
     setLives((prev) => {
       const newLives = prev - 1;
-      if (newLives <= 0) setGameState('failed');
+      if (newLives <= 0) {
+        setGameState('failed');
+        handleSaveSession(score, 'defeat');
+      }
       return newLives;
     });
     setEnemiesCleared((prev) => prev + 1);
-  }, [setGameState]);
+  }, [setGameState, handleSaveSession, score]);
 
   const handleEnemyDefeated = useCallback(
     (points: number) => {
@@ -72,7 +91,7 @@ export default function NeutralizePage() {
     [setScore]
   );
 
-  // Wave Transition Logic
+  // Wave Transition & Game End Logic
   useEffect(() => {
     if (enemiesCleared >= enemiesPerWave) {
       if (currentWave < NEUTRALISE_CONFIG.waves.maxWavesPerLevel) {
@@ -80,9 +99,10 @@ export default function NeutralizePage() {
         setEnemiesCleared(0);
       } else {
         setGameState('levelUp');
+        handleSaveSession(score, 'victory');
       }
     }
-  }, [enemiesCleared, enemiesPerWave, currentWave, setGameState]);
+  }, [enemiesCleared, enemiesPerWave, currentWave, setGameState, handleSaveSession, score]);
 
   const handleExit = useCallback(() => {
     router.push('/games');
@@ -94,6 +114,7 @@ export default function NeutralizePage() {
       setCurrentWave(1);
       setEnemiesCleared(0);
     }
+    startTimeRef.current = Date.now();
     setGameState('playing');
   }, [gameState, setCurrentLevel, setGameState]);
 
@@ -101,6 +122,7 @@ export default function NeutralizePage() {
     setLives(3);
     setEnemiesCleared(0);
     setCurrentWave(1);
+    startTimeRef.current = Date.now();
     resetBase();
   }, [resetBase]);
 
@@ -114,7 +136,7 @@ export default function NeutralizePage() {
   return (
     <GameShell fullBleed themeScope="neutralise">
       <div className="px-4 md:px-6 lg:px-8">
-        {/* Responsive Header: Objective text hides on mobile viewports to prevent overflow */}
+        {/* Responsive Header */}
         <div className="hidden md:block">
           <GamesHeader
             gameSubtitle="OBJECTIVE: Neutralize acids with OH⁻ and bases with H⁺"
@@ -129,7 +151,6 @@ export default function NeutralizePage() {
             showCenterTask={false}
           />
         </div>
-        {/* Compact Header for mobile viewports */}
         <div className="block md:hidden">
           <GamesHeader
             gameSubtitle="NEUTRALIZE"
