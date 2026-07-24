@@ -47,17 +47,40 @@ export interface ChemicalTypeUserProfile {
   group: 'alkali' | 'noble-gas' | 'transition-metal' | 'halogen' | 'nonmetal';
 }
 
+export interface ChemicalCompoundProfile {
+  name: string;
+  formula: string; 
+}
+
+export interface AchievementBadge {
+  id: string;
+  name: string;
+  iconName: string;
+  description: string;
+}
+
 export interface ProfilePrivacySettings {
   showLabNotes: boolean;
   showTotalSyntheses: boolean;
   showJoinedDate: boolean;
+  showYearLevel: boolean;
+  showCountry: boolean;
+  showAccuracy: boolean;
+  showCurrentStreak: boolean;
 }
 
 export interface UserProfile {
   id: string;
   alias: string;
+  title?: string;
+  country?: string; 
+  yearLevel?: YearLevel;
   labNotes: string;
   favoriteElement: ChemicalTypeUserProfile | null;
+  favoriteCompound?: ChemicalCompoundProfile | null;
+  badges?: AchievementBadge[];
+  currentStreak?: number;
+  accuracy?: number;
   joinedDate: string;
   totalSyntheses: number;
   privacy: ProfilePrivacySettings;
