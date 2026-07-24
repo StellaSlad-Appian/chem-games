@@ -7,9 +7,10 @@ import type { GameName } from '@/core-engine/types/general';
 export interface RecordSessionInput {
   gameId: GameName;
   score: number;
+  levelReached?: number;
   accuracy?: number; // e.g. 85 for 85%
   timeSpentSeconds: number;
-  outcome: 'victory' | 'defeat' | 'abandoned';
+  outcome: 'victory' | 'failed' | 'abandoned'; // Matched schema check!
 }
 
 export async function recordGameSession(input: RecordSessionInput) {
@@ -22,16 +23,20 @@ export async function recordGameSession(input: RecordSessionInput) {
       return { success: false, error: 'User must be authenticated to save scores' };
     }
 
-    // 1. Save individual game session event
+    // Sanitize score to ensure check constraint score >= 0
+    const sanitizedScore = Math.max(0, Math.floor(input.score));
+    const levelReached = Math.max(1, input.levelReached ?? 1);
+
+    // 1. Save individual game session
     const { error: sessionError } = await supabase
       .from('game_sessions')
       .insert({
         user_id: user.id,
         game_id: input.gameId,
-        score: input.score,
-        accuracy: input.accuracy ?? null,
-        time_spent_seconds: input.timeSpentSeconds,
-        outcome: input.outcome,
+        score: sanitizedScore,
+        level_reached: levelReached,
+        outcome: input.outcome, // Must be 'victory', 'failed', or 'abandoned'
+        duration_seconds: Math.max(0, input.timeSpentSeconds),
         completed_at: new Date().toISOString(),
       });
 
@@ -40,27 +45,34 @@ export async function recordGameSession(input: RecordSessionInput) {
       return { success: false, error: sessionError.message };
     }
 
-    // 2. Upsert cumulative per-game progress
+    // 2. Upsert per-game progress
     const { data: existingProgress } = await supabase
       .from('game_progress')
-      .select('*')
+      .select('highest_score, highest_level')
       .eq('user_id', user.id)
       .eq('game_id', input.gameId)
       .maybeSingle();
 
-    const previousHighScore = existingProgress?.high_score ?? 0;
-    const previousTotalPlayed = existingProgress?.total_played ?? 0;
-    const newHighScore = Math.max(previousHighScore, input.score);
+    const previousHighestScore = existingProgress?.highest_score ?? 0;
+    const previousHighestLevel = existingProgress?.highest_level ?? 1;
 
-    await supabase
+    const newHighestScore = Math.max(previousHighestScore, sanitizedScore);
+    const newHighestLevel = Math.max(previousHighestLevel, levelReached);
+
+    const { error: progressError } = await supabase
       .from('game_progress')
       .upsert({
         user_id: user.id,
         game_id: input.gameId,
-        high_score: newHighScore,
-        total_played: previousTotalPlayed + 1,
+        highest_score: newHighestScore,
+        highest_level: newHighestLevel,
         last_played_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       }, { onConflict: 'user_id,game_id' });
+
+    if (progressError) {
+      console.error('Error upserting game_progress:', progressError);
+    }
 
     // 3. Update User Profile Aggregates (Streak, Accuracy, Syntheses)
     const { data: profile } = await supabase
@@ -82,23 +94,18 @@ export async function recordGameSession(input: RecordSessionInput) {
         const isSameDay = now.toDateString() === lastPlayed.toDateString();
 
         if (isSameDay) {
-          // Played again today, streak stays the same
           newStreak = profile.current_streak || 1;
         } else if (diffInDays === 1) {
-          // Played yesterday, increment streak
           newStreak = (profile.current_streak || 0) + 1;
         } else {
-          // Missed a day or more, reset streak
           newStreak = 1;
         }
       }
 
       const newMaxStreak = Math.max(profile.max_streak || 0, newStreak);
 
-      // Recalculate average overall accuracy if provided
       let updatedAccuracy = profile.accuracy;
       if (input.accuracy !== undefined) {
-        // Simple rolling weighted average or smoothed update
         updatedAccuracy = profile.accuracy === 0 || profile.accuracy === null
           ? input.accuracy
           : Math.round((profile.accuracy + input.accuracy) / 2);
@@ -121,7 +128,7 @@ export async function recordGameSession(input: RecordSessionInput) {
         .eq('id', user.id);
     }
 
-    return { success: true, highScore: newHighScore };
+    return { success: true, highestScore: newHighestScore };
   } catch (err) {
     console.error('Unexpected game action error:', err);
     return { success: false, error: 'Unexpected server error' };
