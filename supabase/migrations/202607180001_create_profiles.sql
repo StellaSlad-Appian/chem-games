@@ -1,12 +1,26 @@
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   alias text not null check (char_length(alias) between 1 and 40),
+  title text check (char_length(title) <= 30),
+  country text check (char_length(country) <= 30),
+  year_level text,
   lab_notes text not null default '' check (char_length(lab_notes) <= 500),
   favorite_element jsonb,
+  favorite_compound jsonb,
+  badges jsonb default '[]'::jsonb,
+  current_streak integer not null default 0 check (current_streak >= 0),
+  accuracy integer check (accuracy >= 0 and accuracy <= 100),
   total_syntheses integer not null default 0 check (total_syntheses >= 0),
+  
+  -- Privacy Toggles
   show_lab_notes boolean not null default false,
   show_total_syntheses boolean not null default false,
   show_joined_date boolean not null default true,
+  show_year_level boolean not null default false,
+  show_country boolean not null default false,
+  show_accuracy boolean not null default false,
+  show_current_streak boolean not null default false,
+  
   created_at timestamptz not null default now()
 );
 
