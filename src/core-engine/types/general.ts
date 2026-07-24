@@ -86,11 +86,10 @@ export interface UserProfile {
   privacy: ProfilePrivacySettings;
 }
 
-export interface ProfileActionState {
-  success?: boolean;
-  error?: string;
-  message?: string;
-}
+export type ProfileActionState = {
+  status: 'success' | 'error';
+  message: string;
+} | null;
 
 // --- Feedback & Telemetry Types ---
 
