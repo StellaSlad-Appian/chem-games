@@ -41,9 +41,18 @@ export async function updateProfileAction(
     const { error: updateError } = await supabase
       .from('profiles')
       .update({
+        title: title || null,
+        country: country || null,
+        year_level: yearLevel || null,
         lab_notes: labNotes,
+        show_country: showCountry,
+        show_year_level: showYearLevel,
         show_lab_notes: showLabNotes,
         show_total_syntheses: showTotalSyntheses,
+        show_accuracy: showAccuracy,
+        show_current_streak: showCurrentStreak,
+        
+        // NEW: Automatically stamp the update time
         updated_at: new Date().toISOString(),
       })
       .eq('id', user.id);
