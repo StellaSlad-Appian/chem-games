@@ -67,7 +67,7 @@ export default async function ProfilePage() {
             href="/profile/edit"
             className="flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 hover:scale-105"
           >
-            <Settings className="h-4 w-4" /> Edit Configuration
+            <Settings className="h-4 w-4" /> Edit Profile
           </Link>
         </div>
 
