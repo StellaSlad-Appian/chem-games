@@ -1,7 +1,14 @@
 // src/app/page.tsx
 
 import Link from 'next/link';
-import { Beaker, BookMarked, ChartNoAxesCombined, Gamepad2, UserRound, ArrowRight } from 'lucide-react';
+import { 
+  Beaker, 
+  FileText, 
+  Trophy, 
+  Gamepad2, 
+  User, 
+  ArrowRight 
+} from 'lucide-react';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { GlobalSettingsButton } from '@/components/ui/GlobalSettingsButton';
 import { PersonalScoreSummary } from '@/components/ui/PersonalScoreSummary';
@@ -60,10 +67,10 @@ async function getDashboardProfile(): Promise<DashboardProfileResult> {
 }
 
 const sections = [
-  { href: '#profile', label: 'Profile', Icon: UserRound },
-  { href: '#leaderboards', label: 'Leaderboards', Icon: ChartNoAxesCombined },
+  { href: '#profile', label: 'Profile', Icon: User },
+  { href: '#leaderboards', label: 'Leaderboards', Icon: Trophy },
   { href: '#games', label: 'Games', Icon: Gamepad2 },
-  { href: '/cheat-sheets', label: 'Cheat Sheets', Icon: BookMarked },
+  { href: '/cheat-sheets', label: 'Cheat Sheets', Icon: FileText },
 ];
 
 export default async function Home() {
@@ -82,12 +89,13 @@ export default async function Home() {
           </Link>
 
           <nav aria-label="Dashboard sections" className="hidden items-center gap-1 md:flex">
-            {sections.map(({ href, label }) => (
+            {sections.map(({ href, label, Icon }) => (
               <a
                 key={href}
                 href={href}
-                className="rounded-xl px-3 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-blue-500"
+                className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-blue-500"
               >
+                <Icon className="h-4 w-4" />
                 {label}
               </a>
             ))}
@@ -134,7 +142,7 @@ export default async function Home() {
         {/* Profile Section */}
         <section id="profile" className="scroll-mt-24">
           <SectionHeading
-            icon={UserRound}
+            icon={User}
             title="Profile"
             description="Your laboratory identity and personal experiment progress."
             link={isAuthenticated ? '/profile' : '/auth'}
@@ -149,7 +157,7 @@ export default async function Home() {
         {/* Leaderboards Section */}
         <section id="leaderboards" className="scroll-mt-24">
           <SectionHeading
-            icon={ChartNoAxesCombined}
+            icon={Trophy}
             title="Leaderboards"
             description="Top scientists across all interactive chemistry experiments."
             link="/leaderboards"
@@ -220,7 +228,7 @@ function SectionHeading({
   link,
   linkLabel,
 }: {
-  icon: typeof UserRound;
+  icon: React.ElementType; // Updated typing to support generic lucide icons
   title: string;
   description: string;
   link: string;
@@ -245,11 +253,12 @@ function SectionHeading({
 
 function EmptyProfile({ isAuthenticated }: { isAuthenticated: boolean }) {
   return (
-    <div className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md">
+    <div className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md flex flex-col items-center justify-center text-center py-12">
+      <User className="h-12 w-12 text-(--muted) mb-4 opacity-50" />
       <h3 className="text-2xl font-black text-(--foreground)">
         {isAuthenticated ? 'Profile setup in progress' : 'Your profile starts here'}
       </h3>
-      <p className="mt-2 text-sm text-(--muted)">
+      <p className="mt-2 text-sm text-(--muted) max-w-md">
         {isAuthenticated
           ? 'Your profile will be available after the database profile migration has run.'
           : 'Log in to save your progress, manage your lab notes, and build your scientist profile.'}
@@ -257,7 +266,7 @@ function EmptyProfile({ isAuthenticated }: { isAuthenticated: boolean }) {
       {!isAuthenticated && (
         <Link
           href="/auth"
-          className="mt-5 inline-block rounded-xl bg-blue-500 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white transition hover:bg-blue-600"
+          className="mt-5 inline-flex items-center justify-center rounded-xl bg-blue-500 px-6 py-3 text-sm font-black uppercase tracking-wider text-white transition hover:bg-blue-600 hover:scale-105"
         >
           Log in / Register
         </Link>
