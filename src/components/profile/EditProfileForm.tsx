@@ -2,6 +2,7 @@
 'use client';
 
 import { useActionState } from 'react';
+import Link from 'next/link';
 import { updateProfileAction, type ProfileActionState } from '@/lib/actions/profile-actions';
 import { BlockToggle } from '@/components/ui/BlockToggle';
 import type { UserProfile } from '@/core-engine/types/general';
@@ -148,7 +149,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         <p
           role="status"
           className={`rounded-xl border p-3 text-xs font-bold ${
-            state.status === 'success' // <--- FIXED
+            state.status === 'success'
               ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
               : 'border-rose-500/20 bg-rose-500/10 text-rose-500'
           }`}
@@ -157,14 +158,22 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         </p>
       )}
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isPending}
-        className="mt-2 rounded-xl bg-blue-500 p-4 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 disabled:opacity-60"
-      >
-        {isPending ? 'Saving...' : 'Save Configuration'}
-      </button>
+      {/* Form Action Buttons */}
+      <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
+        <Link
+          href="/profile"
+          className="flex items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:bg-[var(--background)]"
+        >
+          Cancel
+        </Link>
+        <button
+          type="submit"
+          disabled={isPending}
+          className="rounded-xl bg-blue-500 px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 disabled:opacity-60"
+        >
+          {isPending ? 'Saving...' : 'Save Configuration'}
+        </button>
+      </div>
     </form>
   );
 }
