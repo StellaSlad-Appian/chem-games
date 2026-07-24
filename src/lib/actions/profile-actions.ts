@@ -34,10 +34,21 @@ export async function updateProfileAction(
       };
     }
 
-    const labNotes = formData.get('labNotes') as string;
+    // 1. Extract string fields (THIS IS THE MISSING BLOCK)
+    const title = formData.get('title') as string;
+    const country = formData.get('country') as string;
+    const yearLevel = formData.get('yearLevel') as string;
+    const labNotes = (formData.get('labNotes') as string) || '';
+
+    // 2. Extract boolean privacy toggles
+    const showCountry = formData.get('showCountry') === 'on';
+    const showYearLevel = formData.get('showYearLevel') === 'on';
     const showLabNotes = formData.get('showLabNotes') === 'on';
     const showTotalSyntheses = formData.get('showTotalSyntheses') === 'on';
+    const showAccuracy = formData.get('showAccuracy') === 'on';
+    const showCurrentStreak = formData.get('showCurrentStreak') === 'on';
 
+    // 3. Send the properly formatted data to Supabase
     const { error: updateError } = await supabase
       .from('profiles')
       .update({
@@ -51,13 +62,12 @@ export async function updateProfileAction(
         show_total_syntheses: showTotalSyntheses,
         show_accuracy: showAccuracy,
         show_current_streak: showCurrentStreak,
-        
-        // NEW: Automatically stamp the update time
         updated_at: new Date().toISOString(),
       })
       .eq('id', user.id);
 
     if (updateError) {
+      console.error('Database update error:', updateError);
       return {
         status: 'error',
         message: 'Failed to update lab configuration. Please try again.',
