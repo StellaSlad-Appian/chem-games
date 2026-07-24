@@ -59,29 +59,30 @@ export default function NeutralizePage() {
 
   // Record session helper
   const handleSaveSession = useCallback(
-    async (finalScore: number, outcome: 'victory' | 'defeat') => {
-      const timeSpentSeconds = Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000));
-      await recordGameSession({
-        gameId: 'neutralise',
-        score: finalScore,
-        timeSpentSeconds,
-        outcome,
-      });
-    },
-    []
-  );
-
-  const handlePlayerHit = useCallback(() => {
-    setLives((prev) => {
-      const newLives = prev - 1;
-      if (newLives <= 0) {
-        setGameState('failed');
-        handleSaveSession(score, 'defeat');
-      }
-      return newLives;
+  async (finalScore: number, outcome: 'victory' | 'failed') => {
+    const timeSpentSeconds = Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000));
+    await recordGameSession({
+      gameId: 'neutralise',
+      score: finalScore,
+      levelReached: currentLevel,
+      timeSpentSeconds,
+      outcome, // Sends 'failed' or 'victory'
     });
-    setEnemiesCleared((prev) => prev + 1);
-  }, [setGameState, handleSaveSession, score]);
+  },
+  [currentLevel]
+);
+
+const handlePlayerHit = useCallback(() => {
+  setLives((prev) => {
+    const newLives = prev - 1;
+    if (newLives <= 0) {
+      setGameState('failed');
+      handleSaveSession(score, 'failed'); // 👈 Fixed from 'defeat'
+    }
+    return newLives;
+  });
+  setEnemiesCleared((prev) => prev + 1);
+}, [setGameState, handleSaveSession, score]);
 
   const handleEnemyDefeated = useCallback(
     (points: number) => {
