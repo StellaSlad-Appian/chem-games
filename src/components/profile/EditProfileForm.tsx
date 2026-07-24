@@ -148,7 +148,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         <p
           role="status"
           className={`rounded-xl border p-3 text-xs font-bold ${
-            state.success
+            state.status === 'success' // <--- FIXED
               ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
               : 'border-rose-500/20 bg-rose-500/10 text-rose-500'
           }`}
