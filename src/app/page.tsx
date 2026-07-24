@@ -15,7 +15,7 @@ import { PersonalScoreSummary } from '@/components/ui/PersonalScoreSummary';
 import { PublicLeaderboard } from '@/components/ui/PublicLeaderboard';
 import { PublicProfile } from '@/components/ui/PublicProfile';
 import type { UserProfile } from '@/core-engine/types/general';
-import { personalScores, publicLeaderboards } from '@/lib/dashboard-data';
+import { getPersonalScores, publicLeaderboards } from '@/lib/dashboard-data';
 import { toUserProfile } from '@/lib/profile';
 import { createClient } from '@/lib/supabase/server';
 
@@ -75,6 +75,9 @@ const sections = [
 
 export default async function Home() {
   const { isAuthenticated, profile } = await getDashboardProfile();
+
+  // Dynamically fetch personal scores if authenticated, otherwise empty array
+  const personalScores = profile ? await getPersonalScores(profile.id) : [];
 
   return (
     <main className="min-h-screen bg-(--background) text-(--foreground)">
@@ -149,9 +152,11 @@ export default async function Home() {
             linkLabel={isAuthenticated ? 'Open profile' : 'Log in to save progress'}
           />
           {profile ? <PublicProfile profile={profile} /> : <EmptyProfile isAuthenticated={isAuthenticated} />}
-          <div className="mt-6">
-            <PersonalScoreSummary scores={personalScores} />
-          </div>
+          {isAuthenticated && (
+            <div className="mt-6">
+              <PersonalScoreSummary scores={personalScores} />
+            </div>
+          )}
         </section>
 
         {/* Leaderboards Section */}
@@ -228,7 +233,7 @@ function SectionHeading({
   link,
   linkLabel,
 }: {
-  icon: React.ElementType; // Updated typing to support generic lucide icons
+  icon: React.ElementType;
   title: string;
   description: string;
   link: string;
