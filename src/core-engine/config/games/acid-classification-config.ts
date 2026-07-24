@@ -20,5 +20,17 @@ export const ACID_CLASSIFICATION_CONFIG = {
     mistakeTransitionMs: 1200,
     // Delay in milliseconds before triggering the game over screen on max mistakes
     failStateDelayMs: 800,
+  },
+
+  // 🎯 Modal Instructions Copy
+  instructions: {
+    title: 'How to Play: Chemical Classifier',
+    subtitle: 'Analyze the chemical formula and identify its properties!',
+    steps: [
+      { highlight: 'Identify:', text: 'Look at the compound shown in the center bubble.' },
+      { highlight: 'Classify:', text: 'Select whether it is an Acid, Base, Neutral, or Amphoteric substance.' },
+      { highlight: 'Need a Hint?', text: 'Click the lightbulb icon in the header to reveal the chemical name.' },
+      { highlight: 'Careful:', text: '3 mistakes and the beaker breaks!' },
+    ],
   }
-} as const;
+}

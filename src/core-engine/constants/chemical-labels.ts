@@ -1,19 +1,29 @@
 // src/core-engine/constants/chemical-labels.ts
 
-import { Flame, Droplet, Beaker, Atom } from 'lucide-react';
-
 export const PH_CLASSIFICATIONS = {
-  ACIDIC: "Acidic",
-  NEUTRAL: "Neutral",
-  BASIC: "Basic",
-  AMPHOTERIC: "Amphoteric",
+  ACID: 'Acid',
+  BASE: 'Base',
+  NEUTRAL: 'Neutral',
+  // Amphoteric is completely gone
 } as const;
 
-export type PHClassification = typeof PH_CLASSIFICATIONS[keyof typeof PH_CLASSIFICATIONS];
-
 export const CLASSIFICATION_OPTIONS = [
-  { label: PH_CLASSIFICATIONS.ACIDIC, icon: Flame, colorVar: '--acid-color' },
-  { label: PH_CLASSIFICATIONS.NEUTRAL, icon: Droplet, colorVar: '--neutral-color' },
-  { label: PH_CLASSIFICATIONS.BASIC, icon: Beaker, colorVar: '--base-color' },
-  { label: PH_CLASSIFICATIONS.AMPHOTERIC, icon: Atom, colorVar: '--amphoteric-color' },
-] as const;
+  {
+    label: PH_CLASSIFICATIONS.ACID,
+    iconType: 'droplet', 
+    colorClass: 'text-rose-500',
+    bgHoverClass: 'hover:bg-rose-950/30',
+  },
+  {
+    label: PH_CLASSIFICATIONS.BASE,
+    iconType: 'flask',
+    colorClass: 'text-blue-500',
+    bgHoverClass: 'hover:bg-blue-950/30',
+  },
+  {
+    label: PH_CLASSIFICATIONS.NEUTRAL,
+    iconType: 'beaker',
+    colorClass: 'text-emerald-500',
+    bgHoverClass: 'hover:bg-emerald-950/30',
+  }
+];

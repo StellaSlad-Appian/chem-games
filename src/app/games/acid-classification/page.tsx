@@ -4,20 +4,17 @@
 import { useState, useEffect, useRef } from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import { useRouter } from 'next/navigation';
-import { Beaker, Flame, Droplet, Atom } from "lucide-react";
 
 // Shared Components
-import ClassificationButton from '@/components/games/acid-classification/ClassificationButton';
-import MoleculeBubble from '@/components/games/acid-classification/MoleculeBubble';
 import Header from '@/components/games/shared/GamesHeader';
 import GameShell from '@/components/games/shared/GameShell';
 import GameOverlay, { FailReason } from '@/components/games/shared/GameOverlay';
 import GameSettingsModal from '@/components/games/shared/GameSettingsModal'; 
 import GameFooter from '@/components/games/shared/GameFooter';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
+import GameArena from '@/components/games/acid-classification/GameArena';
 
 // Core Engine & Config
-import { PH_CLASSIFICATIONS, CLASSIFICATION_OPTIONS } from '@/core-engine/constants/chemical-labels';
 import { ANSWER_STATUS, GAME_STATE, AnswerStatus } from '@/core-engine/constants/ui-constants';
 import { CompoundData, ChemicalClassification } from '@/core-engine/types/chemistry';
 import { evaluateChemical } from '@/core-engine/utils/chemical-utils';
@@ -27,11 +24,8 @@ import { useSound } from '@/hooks/useSound';
 
 export default function ClassificationGame() {
   const router = useRouter();
-  
-  // --- AUDIO SYSTEM INTEGRATION ---
   const { playSound } = useSound();
 
-  // --- USER'S GAME ENGINE STATE ---
   const {
     gameState,
     setGameState,
@@ -49,14 +43,9 @@ export default function ClassificationGame() {
   const [failReason, setFailReason] = useState<FailReason>(null);
   const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
   
-  // ⚙️ UI Modals State
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
   
-  const poolIndexRef = useRef(poolIndex);
-  useEffect(() => { poolIndexRef.current = poolIndex; }, [poolIndex]);
-
-  // --- UI ANIMATION STATE ---
   const [feedback, setFeedback] = useState<{ status: AnswerStatus; selected: string | null }>({
       status: ANSWER_STATUS.IDLE,
       selected: null,
@@ -64,7 +53,6 @@ export default function ClassificationGame() {
 
   const [currentLevelChemicals, setCurrentLevelChemicals] = useState<CompoundData[]>([]);
 
-  // 🧪 Dynamic Quota Hook: Calculate passing bar safely based on active pool size
   const targetQuota = Math.max(ACID_CLASSIFICATION_CONFIG.levels.minPassingItems, currentLevelChemicals.length - 2);
 
   useEffect(() => {
@@ -75,7 +63,6 @@ export default function ClassificationGame() {
 
   const currentChemical = currentLevelChemicals[poolIndex];
 
-  // 🔄 Automatically hide the hint when transitioning to a new chemical card
   useEffect(() => {
     setShowChemicalName(false);
   }, [currentChemical]);
@@ -169,7 +156,7 @@ export default function ClassificationGame() {
   };
 
   if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
-    return <div className="min-h-screen flex items-center justify-center text-red-500 font-bold">Error: Compounds Registry not found.</div>;
+    return <div className="flex min-h-screen items-center justify-center font-bold text-red-500">Error: Compounds Registry not found.</div>;
   }
 
   const currentLives = ACID_CLASSIFICATION_CONFIG.mechanics.maxMistakes - mistakes;
@@ -177,7 +164,19 @@ export default function ClassificationGame() {
   return (
     <GameShell themeScope="acid-classification">
       
-      <div className="px-4 md:px-6 lg:px-8 w-full max-w-5xl mx-auto">
+      {/* Overlay is now at the top of the shell to prevent being trapped under sibling z-indexes */}
+      <GameOverlay
+        gameState={isSettingsOpen || isInstructionsOpen ? GAME_STATE.PLAYING : gameState}
+        score={score}
+        correctInRound={correctInRound}
+        currentLevel={currentLevel}
+        maxLevel={ACID_CLASSIFICATION_CONFIG.levels.maxLevel}
+        failReason={failReason}
+        onResume={handleOverlayAdvance} 
+        onRestart={resetGame}
+      />
+
+      <div className="mx-auto w-full max-w-5xl px-4 md:px-6 lg:px-8">
         <Header
           gameSubtitle="CLASSIFY MOLECULE"
           progressText={`${correctInRound} / ${targetQuota} Sorted`}
@@ -202,56 +201,30 @@ export default function ClassificationGame() {
       <GameInstructionsModal 
         isOpen={isInstructionsOpen} 
         onClose={() => setIsInstructionsOpen(false)}
-        title="How to Play: Chemical Classifier"
+        title={ACID_CLASSIFICATION_CONFIG.instructions.title}
       >
-        <div className="space-y-4 font-mono text-slate-300">
-          <p>Analyze the chemical formula and identify its properties!</p>
-          <ul className="list-disc pl-4 space-y-2">
-            <li><strong>Identify:</strong> Look at the compound shown in the center bubble.</li>
-            <li><strong>Classify:</strong> Select whether it is an Acid, Base, Neutral, or Amphoteric substance.</li>
-            <li><strong>Need a Hint?</strong> Click the lightbulb icon in the header to reveal the chemical's name.</li>
-            <li><strong>Careful:</strong> 3 mistakes and the beaker breaks!</li>
+        <div className="space-y-4 font-mono text-(--muted)">
+          <p>{ACID_CLASSIFICATION_CONFIG.instructions.subtitle}</p>
+          <ul className="list-disc space-y-2 pl-4">
+            {ACID_CLASSIFICATION_CONFIG.instructions.steps.map((step, idx) => (
+              <li key={idx}>
+                <strong className="text-(--foreground)">{step.highlight}</strong> {step.text}
+              </li>
+            ))}
           </ul>
         </div>
       </GameInstructionsModal>
 
-      <div className="flex-1 min-h-0 w-full flex flex-col items-center justify-center my-4 relative max-w-3xl z-0 mx-auto">
-        
-        <GameOverlay
-          gameState={isSettingsOpen || isInstructionsOpen ? GAME_STATE.PLAYING : gameState}
-          score={score}
-          correctInRound={correctInRound}
+      {/* Extracted GameArena Component */}
+      <div className="relative mx-auto my-8 flex min-h-0 w-full max-w-3xl flex-1 flex-col items-center justify-center">
+        <GameArena 
+          currentChemical={currentChemical}
           currentLevel={currentLevel}
-          maxLevel={ACID_CLASSIFICATION_CONFIG.levels.maxLevel}
-          failReason={failReason}
-          onResume={handleOverlayAdvance} 
-          onRestart={resetGame}
+          gameState={gameState}
+          feedback={feedback}
+          showChemicalName={showChemicalName}
+          onSelection={handleSelection}
         />
-
-        <MoleculeBubble
-          formula={currentChemical?.formula}
-          name={currentChemical?.name}
-          feedbackStatus={feedback.status}
-          showName={showChemicalName}
-        />
-      </div>
-
-      <div className={`w-full max-w-4xl grid gap-3 md:gap-6 mb-4 z-10 mx-auto px-4 md:px-0 ${currentLevel >= 3 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-3'}`}>
-        {CLASSIFICATION_OPTIONS.map((option: { label: string; icon: any; colorVar: string }) => {
-          if (option.label === PH_CLASSIFICATIONS.AMPHOTERIC && currentLevel < 3) return null;
-
-          return (
-            <ClassificationButton
-              key={option.label}
-              label={option.label}
-              icon={option.icon}
-              colorVar={option.colorVar}
-              status={feedback.selected === option.label ? feedback.status : ANSWER_STATUS.IDLE}
-              onClick={() => handleSelection(option.label as any)}
-              disabled={gameState !== GAME_STATE.PLAYING || feedback.status !== ANSWER_STATUS.IDLE}
-            />
-          );
-        })}
       </div>
 
       <GameFooter 

@@ -1,12 +1,14 @@
+// src/components/games/shared/GameOverlay.tsx
 'use client';
 
 import { useCallback, useEffect, useRef, type KeyboardEvent as ReactKeyboardEvent, type RefObject } from 'react';
 import Link from 'next/link';
 import { FlaskConical, LogOut, Pause, Play, RefreshCw, Trophy } from 'lucide-react';
-import { GameState } from '../../../core-engine/types/general';
-import { ScoreBadge } from '../../ui/ScoreBadge';
-import { LevelProgress } from '../../ui/LevelProgress';
-import { useSound } from '../../../hooks/useSound';
+import { GameState } from '@/core-engine/types/general';
+import { ScoreBadge } from '@/components/ui/ScoreBadge';
+import { LevelProgress } from '@/components/ui/LevelProgress';
+import { useSound } from '@/hooks/useSound';
+import { DEFAULT_OVERLAY_MESSAGES, OverlayMessageConfig } from '@/core-engine/constants/ui-constants';
 
 export type FailReason = 'mistakes' | 'timeout' | null;
 
@@ -19,13 +21,14 @@ interface GameOverlayProps {
   failReason: FailReason;
   onResume: () => void;
   onRestart: () => void;
+  customMessages?: Partial<Record<string, OverlayMessageConfig>>;
 }
 
-const STATE_STYLES: Record<Exclude<GameState, 'playing'>, { accent: string; label: string }> = {
-  paused: { accent: 'text-blue-300', label: 'Game paused' },
-  failed: { accent: 'text-rose-300', label: 'Game over' },
-  victory: { accent: 'text-emerald-300', label: 'Research complete' },
-  levelUp: { accent: 'text-blue-300', label: 'Level cleared' },
+const STATE_STYLES: Record<Exclude<GameState, 'playing'>, { accent: string }> = {
+  paused: { accent: 'text-blue-500' },
+  failed: { accent: 'text-rose-500' },
+  victory: { accent: 'text-emerald-500' },
+  levelUp: { accent: 'text-amber-500' },
 };
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -39,11 +42,13 @@ export default function GameOverlay({
   failReason,
   onResume,
   onRestart,
+  customMessages,
 }: GameOverlayProps) {
   const { playSound } = useSound();
   const dialogRef = useRef<HTMLDivElement>(null);
   const primaryActionRef = useRef<HTMLButtonElement>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
+
   const stateStyle = gameState === 'playing' ? null : STATE_STYLES[gameState];
 
   useEffect(() => {
@@ -125,12 +130,14 @@ export default function GameOverlay({
     }
   };
 
+  const textConfig = customMessages?.[gameState] ?? DEFAULT_OVERLAY_MESSAGES[gameState];
+
   const keyHint = gameState === 'paused' || gameState === 'levelUp'
     ? 'Press Escape, Space, or Enter to continue'
     : 'Press Space or Enter to try again';
 
   return (
-    <div className="fixed inset-0 z-[100] grid place-items-center overflow-y-auto bg-slate-950/70 p-4 backdrop-blur-sm sm:p-6">
+    <div className="fixed inset-0 z-100 grid place-items-center overflow-y-auto bg-slate-950/80 p-4 backdrop-blur-md sm:p-6">
       <div
         ref={dialogRef}
         role="dialog"
@@ -138,70 +145,75 @@ export default function GameOverlay({
         aria-labelledby="game-overlay-title"
         aria-describedby="game-overlay-description"
         onKeyDown={handleTabKey}
-        className="overlay-enter w-full max-w-lg rounded-3xl border border-white/15 bg-slate-900/95 p-6 text-center shadow-2xl shadow-black/50 sm:p-8"
+        className="w-full max-w-md rounded-2xl border-2 border-(--border) bg-(--surface) p-6 text-center shadow-xl md:p-8"
       >
-        <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-(--border) bg-(--background)">
           {gameState === 'paused' && <Pause className={`h-7 w-7 ${stateStyle.accent}`} aria-hidden="true" />}
           {gameState === 'failed' && <FlaskConical className={`h-7 w-7 ${stateStyle.accent}`} aria-hidden="true" />}
           {gameState === 'victory' && <Trophy className={`h-7 w-7 ${stateStyle.accent}`} aria-hidden="true" />}
           {gameState === 'levelUp' && <Trophy className={`h-7 w-7 ${stateStyle.accent}`} aria-hidden="true" />}
         </div>
 
+        <p className={`mb-1 text-xs font-black uppercase tracking-wider ${stateStyle.accent}`}>
+          {textConfig?.badge}
+        </p>
+
+        <h2 id="game-overlay-title" className="text-3xl font-black tracking-tight text-(--foreground) sm:text-4xl">
+          {textConfig?.title}
+        </h2>
+
+        <p className="mt-1 text-sm font-black text-blue-500 uppercase tracking-wide">
+          {textConfig?.subtitle}
+        </p>
+
+        <p id="game-overlay-description" className="mt-2 text-xs font-bold text-(--muted) leading-relaxed">
+          {gameState === 'failed' && failReason === 'timeout'
+            ? 'Time ran out before reaching the quota.'
+            : textConfig?.description}
+        </p>
+
         {gameState === 'paused' && (
-          <>
-            <p className={`mb-2 text-xs font-black uppercase tracking-[0.2em] ${stateStyle.accent}`}>Session on hold</p>
-            <h2 id="game-overlay-title" className="text-4xl font-black text-white sm:text-5xl">Game paused</h2>
-            <p id="game-overlay-description" className="mx-auto mt-3 max-w-sm text-sm leading-6 text-slate-300">
-              Your experiment is frozen exactly where you left it.
+          <div className="my-6 grid grid-cols-3 gap-2 rounded-xl border border-(--border) bg-(--background) p-3 text-left">
+            <OverlayStat label="Level" value={`${currentLevel} / ${maxLevel}`} />
+            <OverlayStat label="Score" value={score.toLocaleString()} />
+            <OverlayStat label="Round" value={`${correctInRound} correct`} />
+          </div>
+        )}
+
+        {(gameState === 'failed' || gameState === 'victory') && (
+          <div className="my-6 rounded-xl border border-(--border) bg-(--background) p-4 text-center">
+            <p className="text-xs font-bold text-(--muted) uppercase tracking-wider">
+              Level {currentLevel} of {maxLevel} • {correctInRound} correct
             </p>
-            <div className="my-6 grid grid-cols-3 gap-2 rounded-2xl border border-slate-700 bg-slate-950/60 p-3 text-left">
-              <OverlayStat label="Level" value={`${currentLevel} / ${maxLevel}`} />
-              <OverlayStat label="Score" value={score.toLocaleString()} />
-              <OverlayStat label="Round" value={`${correctInRound} correct`} />
+            <div className="mt-2 flex justify-center">
+              <ScoreBadge score={score} />
             </div>
-            <ActionButtons primaryRef={primaryActionRef} primaryLabel="Resume game" onPrimary={resume} />
-          </>
-        )}
-
-        {gameState === 'failed' && (
-          <>
-            <p className={`mb-2 text-xs font-black uppercase tracking-[0.2em] ${stateStyle.accent}`}>Experiment ended</p>
-            <h2 id="game-overlay-title" className="text-4xl font-black text-white sm:text-5xl">Lab meltdown</h2>
-            <p id="game-overlay-description" className="mt-3 text-sm leading-6 text-slate-300">
-              {failReason === 'mistakes' ? 'Too many classification errors.' : 'Time ran out before reaching the quota.'}
-            </p>
-            <p className="mt-3 text-sm text-slate-400">Level {currentLevel} of {maxLevel} · {correctInRound} correct this round</p>
-            <div className="my-6"><ScoreBadge score={score} /></div>
-            <ActionButtons primaryRef={primaryActionRef} primaryLabel="Try again" onPrimary={restart} />
-          </>
-        )}
-
-        {gameState === 'victory' && (
-          <>
-            <p className={`mb-2 text-xs font-black uppercase tracking-[0.2em] ${stateStyle.accent}`}>All objectives complete</p>
-            <h2 id="game-overlay-title" className="text-4xl font-black text-white sm:text-5xl">Research complete</h2>
-            <p id="game-overlay-description" className="mt-3 text-sm leading-6 text-slate-300">Splendid sorting, Researcher!</p>
-            <p className="mt-3 text-sm text-slate-400">All {maxLevel} levels cleared · {correctInRound} correct in the final round</p>
-            <div className="my-6"><ScoreBadge score={score} /></div>
-            <ActionButtons primaryRef={primaryActionRef} primaryLabel="Play again" onPrimary={restart} />
-          </>
+          </div>
         )}
 
         {gameState === 'levelUp' && (
-          <>
-            <p className={`mb-2 text-xs font-black uppercase tracking-[0.2em] ${stateStyle.accent}`}>Objective secured</p>
-            <h2 id="game-overlay-title" className="text-4xl font-black text-white sm:text-5xl">Level cleared</h2>
-            <div className="my-6"><LevelProgress currentLevel={currentLevel} maxLevel={maxLevel} /></div>
-            <p id="game-overlay-description" className="text-sm leading-6 text-slate-300">Level {currentLevel} → {currentLevel + 1} · {correctInRound} correct</p>
-            <div className="mt-6">
-              <button ref={primaryActionRef} onClick={resume} className="btn-primary w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">
-                <Play className="h-5 w-5 fill-current" /> Begin level {currentLevel + 1}
-              </button>
-            </div>
-          </>
+          <div className="my-6 rounded-xl border border-(--border) bg-(--background) p-4 text-center">
+            <LevelProgress currentLevel={currentLevel} maxLevel={maxLevel} />
+            <p className="mt-3 text-xs font-bold text-(--muted)">
+              Level {currentLevel} → {currentLevel + 1} • {correctInRound} sorted
+            </p>
+          </div>
         )}
 
-        <p className="mt-5 text-xs font-medium text-slate-500">{keyHint}</p>
+        <ActionButtons
+          gameState={gameState}
+          primaryRef={primaryActionRef}
+          primaryLabel={
+            gameState === 'paused'
+              ? 'Resume Game'
+              : gameState === 'levelUp'
+              ? `Begin Level ${currentLevel + 1}`
+              : 'Try Again'
+          }
+          onPrimary={gameState === 'failed' || gameState === 'victory' ? restart : resume}
+        />
+
+        <p className="mt-4 text-xs font-medium text-(--muted)">{keyHint}</p>
       </div>
     </div>
   );
@@ -209,29 +221,44 @@ export default function GameOverlay({
 
 function OverlayStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="min-w-0 rounded-xl bg-slate-900 px-2 py-2">
-      <span className="block text-[10px] font-bold uppercase tracking-wider text-slate-500">{label}</span>
-      <span className="mt-0.5 block truncate text-sm font-black text-slate-100" title={value}>{value}</span>
+    <div className="min-w-0 rounded-lg bg-[var(--surface)] p-2">
+      <span className="block text-[10px] font-bold uppercase tracking-wider text-(--muted)">{label}</span>
+      <span className="mt-0.5 block truncate text-sm font-black text-(--foreground)" title={value}>{value}</span>
     </div>
   );
 }
 
 function ActionButtons({
+  gameState,
   primaryRef,
   primaryLabel,
   onPrimary,
 }: {
+  gameState: GameState;
   primaryRef: RefObject<HTMLButtonElement | null>;
   primaryLabel: string;
   onPrimary: () => void;
 }) {
   return (
-    <div className="flex flex-col gap-3 sm:flex-row">
-      <button ref={primaryRef} onClick={onPrimary} className="btn-primary flex-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-300">
-        {primaryLabel === 'Resume game' ? <Play className="h-5 w-5 fill-current" /> : <RefreshCw className="h-5 w-5" />} {primaryLabel}
+    <div className="flex flex-col gap-2 sm:flex-row">
+      <button
+        ref={primaryRef}
+        onClick={onPrimary}
+        className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+      >
+        {gameState === 'paused' || gameState === 'levelUp' ? (
+          <Play className="h-4 w-4 fill-current" />
+        ) : (
+          <RefreshCw className="h-4 w-4" />
+        )}
+        {primaryLabel}
       </button>
-      <Link href="/" className="btn-danger-ghost flex-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-300">
-        <LogOut className="h-5 w-5" /> Quit to hub
+
+      <Link
+        href="/"
+        className="flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+      >
+        <LogOut className="h-4 w-4" /> Quit to Hub
       </Link>
     </div>
   );
