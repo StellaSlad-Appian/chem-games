@@ -1,6 +1,5 @@
 // src/lib/profile.ts
-
-import type { UserProfile, YearLevel } from '@/core-engine/types/general';
+import type { UserProfile, YearLevel, AccountType } from '@/core-engine/types/general';
 
 type ProfileRow = {
   id: string; 
@@ -23,6 +22,11 @@ type ProfileRow = {
   show_country: boolean;
   show_accuracy: boolean;
   show_current_streak: boolean;
+  
+  // NEW DB COLUMNS
+  updated_at?: string;
+  is_active: boolean;
+  account_type: AccountType;
 };
 
 export function toUserProfile(profile: ProfileRow): UserProfile {
@@ -39,6 +43,12 @@ export function toUserProfile(profile: ProfileRow): UserProfile {
     currentStreak: profile.current_streak,
     accuracy: profile.accuracy,
     joinedDate: profile.created_at, 
+    
+    // MAPPED NEW FIELDS
+    updatedAt: profile.updated_at,
+    isActive: profile.is_active,
+    accountType: profile.account_type,
+    
     totalSyntheses: profile.total_syntheses,
     privacy: { 
       showLabNotes: profile.show_lab_notes, 
