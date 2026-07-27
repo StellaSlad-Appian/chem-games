@@ -26,7 +26,9 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
   const [isMuted, setIsMuted] = useState<boolean>(false);
   // Default volume level: 20%
   const [volume, setVolumeState] = useState<number>(0.2);
-  const [globalTheme, setGlobalThemeState] = useState<Theme>('dark');
+  // Light mode is the default for first-time / unregistered visitors,
+  // unless overridden by a saved preference below.
+  const [globalTheme, setGlobalThemeState] = useState<Theme>('light');
   const [gameThemes, setGameThemes] = useState<GameThemePreferences>({});
   const [activeGame, setActiveGame] = useState<GameThemeScope | undefined>();
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
@@ -103,10 +105,14 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
 
   return (
     <SettingsContext.Provider value={{ isMuted, volume, toggleMute, setVolume, globalTheme, gameThemes, setGlobalTheme, setGameTheme, setActiveGame }}>
-      {/* Optional: Prevent audio elements from attempting to play 
-        until we know the user's actual saved preferences.
-      */}
-      {isInitialized ? children : <div className="invisible">{children}</div>}
+      {/* Keep `children` mounted at a stable position the whole time — toggle
+        visibility with CSS instead of swapping the wrapping element type.
+        Swapping <div>{children}</div> in for {children} once isInitialized
+        flips would force React to unmount/remount the entire subtree
+        (including hooks like useSound) right after settings finish loading. */}
+      <div className={isInitialized ? undefined : 'invisible'}>
+        {children}
+      </div>
     </SettingsContext.Provider>
   );
 }

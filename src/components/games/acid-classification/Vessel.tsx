@@ -28,7 +28,6 @@ interface VesselProps {
 export default function Vessel({ type, label, colorClass, status, onClick, disabled }: VesselProps) {
   const { path, viewBox } = VESSELS[type];
 
-  // Map the status to your predefined globals.css classes
   let statusClass = '';
   if (status === 'correct') statusClass = 'chem-btn-correct';
   if (status === 'wrong') statusClass = 'chem-btn-wrong';
@@ -37,7 +36,7 @@ export default function Vessel({ type, label, colorClass, status, onClick, disab
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`chem-btn group ${statusClass}`}
+      className={`chem-btn group disabled:cursor-default ${statusClass}`}
     >
       <div className={`mb-2 p-2 transition-transform duration-300 md:mb-4 ${status === 'idle' && !disabled ? 'group-hover:-translate-y-1 group-hover:scale-110' : ''} ${colorClass}`}>
         <svg viewBox={viewBox} className="h-16 w-16 md:h-24 md:w-24">

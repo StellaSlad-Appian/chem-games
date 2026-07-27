@@ -46,9 +46,9 @@ export default function ClassificationGame() {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
   
-  const [feedback, setFeedback] = useState<{ status: AnswerStatus; selected: string | null }>({
-      status: ANSWER_STATUS.IDLE,
-      selected: null,
+  const [feedback, setFeedback] = useState<{ status: AnswerStatus; selected: ChemicalClassification | null }>({
+    status: ANSWER_STATUS.IDLE,
+    selected: null,
   });
 
   const [currentLevelChemicals, setCurrentLevelChemicals] = useState<CompoundData[]>([]);
