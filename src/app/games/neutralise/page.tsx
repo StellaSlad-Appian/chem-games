@@ -39,7 +39,9 @@ export default function NeutralizePage() {
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
 
-  const enemiesPerWave = NEUTRALISE_CONFIG.waves.maxEnemiesPerWave;
+  const enemiesPerWave = 
+  NEUTRALISE_CONFIG.waves.baseEnemiesPerWave + 
+  (currentLevel - 1) * NEUTRALISE_CONFIG.waves.enemyScalingPerLevel;
   const startTimeRef = useRef<number>(Date.now());
 
   // UX Decision: Auto-show instructions on first visit

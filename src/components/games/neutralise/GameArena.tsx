@@ -12,7 +12,7 @@ import { getLevelSpawns } from '@/core-engine/utils/level-manager';
 import { NEUTRALISE_LEVEL_DATA } from '@/core-engine/data/games/neutralise-levels';
 import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
 import { isNeutralizationCompatible } from '@/core-engine/utils/chemical-utils';
-import { getValidXPosition } from '@/core-engine/utils/spawn-manager';
+import { assignSpawnSlots } from '@/core-engine/utils/spawn-manager';
 
 interface NeutralizeArenaProps {
   level: number;
@@ -39,7 +39,6 @@ export default function NeutralizeArena({
   const [projectiles, setProjectiles] = useState<Projectile[]>([]);
   const [invaders, setInvaders] = useState<MoleculeInvader[]>([]);
 
-  // Refs for Game Loop & Event Listeners to prevent dependency thrashing
   const invadersRef = useRef(invaders);
   const projectilesRef = useRef(projectiles);
   const playerXRef = useRef(playerX);
@@ -53,7 +52,6 @@ export default function NeutralizeArena({
 
   const FIRE_COOLDOWN = 250; // Milliseconds between shots
 
-  // Keep refs in sync with state
   useEffect(() => {
     invadersRef.current = invaders;
   }, [invaders]);
@@ -73,14 +71,23 @@ export default function NeutralizeArena({
       NEUTRALISE_LEVEL_DATA.find((l) => l.level === level) || NEUTRALISE_LEVEL_DATA[0];
     const rawSpawns = getLevelSpawns(enemyCount, levelConfig.compoundPoolIds);
 
-    // Apply collision-free x-positioning algorithm to incoming spawns
-    const positionedSpawns = rawSpawns.map((invader) => ({
-      ...invader,
-      x: getValidXPosition(
-        NEUTRALISE_CONFIG.lanes,
-        NEUTRALISE_CONFIG.timing.laneCooldownMs
-      ),
-    }));
+    // Convert to real pixel bounds so invaders are placed — and stay —
+    // fully inside the visible arena: never off either side, never above it.
+    const arenaWidth = arenaRef.current?.clientWidth || NEUTRALISE_CONFIG.arena.width;
+    const invaderW = NEUTRALISE_CONFIG.invaders.dimensions.width;
+    const maxX = Math.max(0, arenaWidth - invaderW);
+    const topPadding = NEUTRALISE_CONFIG.arena.padding;
+
+    const slots = assignSpawnSlots(rawSpawns.length, NEUTRALISE_CONFIG.lanes);
+
+    const positionedSpawns = rawSpawns.map((invader, i) => {
+      const slot = slots[i];
+      return {
+        ...invader,
+        x: (slot.xPercent / 100) * maxX,
+        y: topPadding + slot.row * NEUTRALISE_CONFIG.invaders.verticalGap,
+      };
+    });
 
     setInvaders(positionedSpawns);
     invadersRef.current = positionedSpawns; // Instantly sync!
@@ -92,7 +99,6 @@ export default function NeutralizeArena({
   const fireProjectile = useCallback(() => {
     if (isPaused) return;
 
-    // Cooldown check
     const now = Date.now();
     if (now - lastFiredRef.current < FIRE_COOLDOWN) return;
     lastFiredRef.current = now;
@@ -135,14 +141,12 @@ export default function NeutralizeArena({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [toggleWeapon, fireProjectile, isPaused]);
 
-  // Main Game Loop Logic
   useEffect(() => {
     if (isPaused) return;
 
     const gameLoop = setInterval(() => {
       let currentInvaders = [...invadersRef.current];
 
-      // 1. Move Projectiles up and filter off-screen ones
       let currentProjectiles = projectilesRef.current
         .map((p) => ({ ...p, y: p.y + p.speed }))
         .filter((p) => p.y > -50);
@@ -155,11 +159,9 @@ export default function NeutralizeArena({
         y: inv.y + dropSpeed,
       }));
 
-      // 2. Process Collisions (Pure Logic + Side Effects)
       const survivingProjectiles: Projectile[] = [];
 
       currentProjectiles.forEach((p) => {
-        // Find the first ALIVE invader this projectile hits
         const hitIndex = currentInvaders.findIndex(
           (inv) =>
             inv.isAlive &&
@@ -209,15 +211,18 @@ export default function NeutralizeArena({
         }
       });
 
-      // 3. Process Player Boundary Hits
+      // Boundary check now uses actual invader height instead of a magic
+      // number, so it stays correct if invaders.dimensions.height ever changes.
       currentInvaders.forEach((inv) => {
-        if (inv.y > NEUTRALISE_CONFIG.arena.height - 50 && inv.isAlive) {
+        if (
+          inv.y > NEUTRALISE_CONFIG.arena.height - NEUTRALISE_CONFIG.invaders.dimensions.height &&
+          inv.isAlive
+        ) {
           callbacksRef.current.onPlayerHit();
           inv.isAlive = false;
         }
       });
 
-      // 4. Update React State ONCE at the end of the tick
       const survivingInvaders = currentInvaders.filter((i) => i.isAlive);
 
       projectilesRef.current = survivingProjectiles;

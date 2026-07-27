@@ -24,7 +24,7 @@ import {
   generateComparativeError,
   generateChemicalHint,
 } from '@/core-engine/utils/chemical-utils';
-import { getValidXPosition } from '@/core-engine/utils/spawn-manager';
+import { getValidXPosition, resetSpawnManager } from '@/core-engine/utils/spawn-manager';
 
 interface BubbleData {
   id: string;
@@ -134,6 +134,7 @@ export default function FormulaBlasterPage() {
 
     const randomTarget = levelPool[Math.floor(Math.random() * levelPool.length)];
 
+    resetSpawnManager(); // clear lane cooldowns from the previous wave/target
     setCompletedTargetIds(currentCompleted);
     setTargetQuota(Math.floor(Math.random() * 3) + 3);
     setCurrentTarget(randomTarget);
@@ -338,6 +339,7 @@ export default function FormulaBlasterPage() {
 
   const handleFullReset = () => {
     resetBase();
+    resetSpawnManager(); // clear lane cooldowns from the previous playthrough
     setCorrectInRound(0);
     setCompletedTargetIds([]);
     setBubbles([]);

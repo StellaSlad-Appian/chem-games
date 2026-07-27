@@ -10,6 +10,19 @@ export function evaluateChemical(chemical: CompoundData): ChemicalClassification
   const hasAcidProps = chemical.pKa !== undefined && chemical.pKa <= 14;
   const hasBaseProps = chemical.pKb !== undefined && chemical.pKb <= 14;
 
+  // Amphoteric compounds carry both pKa and pKb — the SMALLER of the two
+  // indicates which tendency actually dominates (lower pKa = stronger
+  // acid, lower pKb = stronger base). A fixed cutoff like "pKa < 7" is
+  // just a rough proxy for this comparison and gets it wrong whenever
+  // both values sit on the same side of the cutoff.
+  if (hasAcidProps && hasBaseProps) {
+    if (chemical.pKa! < chemical.pKb!) return 'Acidic';
+    if (chemical.pKb! < chemical.pKa!) return 'Basic';
+    return 'Neutral'; // genuine tie, e.g. water (pKa = pKb = 14.0) — treated
+                       // as neutral rather than a separate Amphoteric bucket,
+                       // since neither game's UI currently supports that case
+  }
+
   if (hasAcidProps) {
     return 'Acidic';
   }

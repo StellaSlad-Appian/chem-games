@@ -70,14 +70,14 @@ export const COMPOUNDS_REGISTRY: CompoundData[] = [
     type: 'compound', id: '9', formula: 'H2CO3', name: 'Carbonic Acid', 
     pKa: 6.35, difficulty: 2, molarMass: 62.03, stateAtRoomTemp: 'liquid', 
     elements: [{ symbol: 'H', count: 2 }, { symbol: 'C', count: 1 }, { symbol: 'O', count: 3 }],
-    ionicComponents: { cations: [{ ionId: '1', count: 1 }], anions: [{ ionId: '9', count: 1 }] },
+    ionicComponents: { cations: [{ ionId: '1', count: 2 }], anions: [{ ionId: '9', count: 1 }] },
     isHazardous: false 
   },
   { 
     type: 'compound', id: '10', formula: 'H3PO4', name: 'Phosphoric Acid', 
     pKa: 2.15, difficulty: 2, molarMass: 98.00, stateAtRoomTemp: 'solid', 
     elements: [{ symbol: 'H', count: 3 }, { symbol: 'P', count: 1 }, { symbol: 'O', count: 4 }],
-    ionicComponents: { cations: [{ ionId: '1', count: 1 }], anions: [{ ionId: '10', count: 1 }] },
+    ionicComponents: { cations: [{ ionId: '1', count: 3 }], anions: [{ ionId: '10', count: 1 }] },
     isHazardous: true 
   },
   { 
@@ -167,7 +167,7 @@ export const COMPOUNDS_REGISTRY: CompoundData[] = [
     type: 'compound', id: '22', formula: 'H2SO3', name: 'Sulfurous Acid', 
     pKa: 1.85, difficulty: 4, molarMass: 82.07, stateAtRoomTemp: 'liquid', 
     elements: [{ symbol: 'H', count: 2 }, { symbol: 'S', count: 1 }, { symbol: 'O', count: 3 }],
-    ionicComponents: { cations: [{ ionId: '1', count: 1 }], anions: [{ ionId: '16', count: 1 }] },
+    ionicComponents: { cations: [{ ionId: '1', count: 2 }], anions: [{ ionId: '16', count: 1 }] },
     isHazardous: true 
   },
   { 
