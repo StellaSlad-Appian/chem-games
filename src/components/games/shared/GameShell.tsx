@@ -1,8 +1,9 @@
+// src/components/games/shared/GameShell.tsx
 'use client';
 
 import { GameThemeScope, useGameTheme } from '../../../context/game-settings-context';
 
-interface GameShellProps {
+interface GamesShellProps {
   children: React.ReactNode;
   fullBleed?: boolean;
   themeScope?: GameThemeScope;
@@ -10,24 +11,25 @@ interface GameShellProps {
 
 /**
  * Canonical layout wrapper for all mini-games.
- * Owns background, padding and base flex direction.
+ * Establishes root z-index to prevent interactive elements bleeding through overlays.
  */
-export default function GameShell({
+export default function GamesShell({
   children,
   fullBleed = false,
   themeScope,
-}: GameShellProps) {
+}: GamesShellProps) {
   useGameTheme(themeScope);
   return (
     <main
       className={`
         game-shell
-        relative w-full min-h-screen flex flex-col overflow-hidden select-none
-        ${fullBleed
-          ? 'p-6'
-          : 'p-4 md:p-6 items-center justify-between'}
+        relative w-full min-h-screen flex flex-col overflow-hidden select-none z-0
+        ${fullBleed ? 'p-6' : 'p-4 md:p-6 items-center justify-between'}
       `}
     >
+      {/* Explicitly pushes the background down to allow sibling overlays to sit at z-50 */}
+      <div className="absolute inset-0 pointer-events-none bg-[var(--background,theme(colors.slate.950))] -z-10" />
+      
       {children}
     </main>
   );
