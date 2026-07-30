@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PublicLeaderboard } from '@/components/ui/PublicLeaderboard';
+import { PublicLeaderboard } from '@/components/social/PublicLeaderboard';
 import { publicLeaderboards } from '@/lib/dashboard-data';
 
 export default function LeaderboardsPage() {

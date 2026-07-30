@@ -1,19 +1,15 @@
-// src/app/page.tsx
+// src/app/(main)/page.tsx
 
 import Link from 'next/link';
 import { 
-  Beaker, 
-  FileText, 
   Trophy, 
   Gamepad2, 
   User, 
   ArrowRight 
 } from 'lucide-react';
-import { AuthButton } from '@/components/auth/AuthButton';
-import { GlobalSettingsButton } from '@/components/ui/GlobalSettingsButton';
-import { PersonalScoreSummary } from '@/components/ui/PersonalScoreSummary';
-import { PublicLeaderboard } from '@/components/ui/PublicLeaderboard';
-import { PublicProfile } from '@/components/ui/PublicProfile';
+import { PersonalScoreSummary } from '@/components/social/PersonalScoreSummary';
+import { PublicLeaderboard } from '@/components/social/PublicLeaderboard';
+import { PublicProfile } from '@/components/social/PublicProfile';
 import type { UserProfile } from '@/core-engine/types/general';
 import { getPersonalScores, publicLeaderboards } from '@/lib/dashboard-data';
 import { toUserProfile } from '@/lib/profile';
@@ -66,13 +62,6 @@ async function getDashboardProfile(): Promise<DashboardProfileResult> {
   }
 }
 
-const sections = [
-  { href: '#profile', label: 'Profile', Icon: User },
-  { href: '#leaderboards', label: 'Leaderboards', Icon: Trophy },
-  { href: '#games', label: 'Games', Icon: Gamepad2 },
-  { href: '/cheat-sheets', label: 'Cheat Sheets', Icon: FileText },
-];
-
 export default async function Home() {
   const { isAuthenticated, profile } = await getDashboardProfile();
 
@@ -81,36 +70,6 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen bg-(--background) text-(--foreground)">
-      {/* Header Navigation */}
-      <header className="sticky top-0 z-40 border-b border-(--border) bg-(--surface)/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
-          <Link href="/" className="flex items-center gap-2 font-black text-xl">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500 text-white shadow-md">
-              <Beaker className="h-5 w-5" />
-            </span>
-            Chem<span className="text-blue-500">Games</span>
-          </Link>
-
-          <nav aria-label="Dashboard sections" className="hidden items-center gap-1 md:flex">
-            {sections.map(({ href, label, Icon }) => (
-              <a
-                key={href}
-                href={href}
-                className="flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-blue-500"
-              >
-                <Icon className="h-4 w-4" />
-                {label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <GlobalSettingsButton />
-            <AuthButton isAuthenticated={isAuthenticated} />
-          </div>
-        </div>
-      </header>
-
       {/* Hero Banner */}
       <section className="border-b border-(--border) bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_40%)] px-4 py-16 md:px-8">
         <div className="mx-auto max-w-6xl">

@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { User, Settings, ArrowLeft } from 'lucide-react';
-import { PublicProfile } from '@/components/ui/PublicProfile';
+import { PublicProfile } from '@/components/social/PublicProfile';
 import { toUserProfile } from '@/lib/profile';
 import { createClient } from '@/lib/supabase/server';
 
