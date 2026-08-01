@@ -183,20 +183,46 @@ const handlePlayerHit = useCallback(() => {
       >
         <div className="space-y-4 text-sm font-medium text-(--muted)">
           <p className="font-bold text-(--foreground)">Defend the lab from incoming chemical hazards!</p>
-          <ul className="space-y-3">
-            <li className="flex items-center gap-3">
-              <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">1</kbd>
-              <span>Load <strong className="text-blue-500">H⁺ (Acid)</strong> to neutralize Bases.</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">2</kbd>
-              <span>Load <strong className="text-rose-500">OH⁻ (Base)</strong> to neutralize Acids.</span>
-            </li>
-            <li className="flex items-center gap-3">
-              <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Space</kbd>
-              <span>Fire your ion cannon! (Or tap/click the arena).</span>
-            </li>
-          </ul>
+
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-wide text-(--foreground)">Keyboard &amp; mouse</p>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-3">
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">1</kbd>
+                <span>Load <strong className="text-blue-500">H⁺ (Acid)</strong> to neutralize Bases.</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">2</kbd>
+                <span>Load <strong className="text-rose-500">OH⁻ (Base)</strong> to neutralize Acids.</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Space</kbd>
+                <span>Fire your ion cannon! (Or click the arena).</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">←/→</kbd>
+                <span>Move the cannon (or move your mouse).</span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-wide text-(--foreground)">Touchscreen</p>
+            <ul className="space-y-3">
+              <li className="flex items-center gap-3">
+                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Drag</span>
+                <span>Slide your finger on the arena to aim the cannon.</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Fire</span>
+                <span>Tap the <strong>Fire</strong> button below the arena.</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Switch</span>
+                <span>Tap the ion button to toggle between H⁺ and OH⁻.</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </GameInstructionsModal>
 
