@@ -4,6 +4,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGameState } from '@/hooks/useGameState';
+import { useInputMethod } from '@/hooks/useInputMethod';
 
 // Shared Layout & Overlays
 import GameShell from '@/components/games/shared/GameShell';
@@ -38,6 +39,17 @@ export default function NeutralizePage() {
 
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
+
+  // Which control scheme to show in the instructions modal. Defaults to
+  // whatever's detected (touch vs mouse/keyboard); `null` means "follow
+  // detection", a non-null value means the person manually picked a tab —
+  // covers edge cases like a tablet with a keyboard case, where detection
+  // alone can't know which controls the person actually wants to read.
+  const detectedInputMethod = useInputMethod();
+  const [instructionsTabOverride, setInstructionsTabOverride] = useState<
+    'touch' | 'pointer' | null
+  >(null);
+  const instructionsTab = instructionsTabOverride ?? detectedInputMethod;
 
   const enemiesPerWave = 
   NEUTRALISE_CONFIG.waves.baseEnemiesPerWave + 
@@ -184,8 +196,34 @@ const handlePlayerHit = useCallback(() => {
         <div className="space-y-4 text-sm font-medium text-(--muted)">
           <p className="font-bold text-(--foreground)">Defend the lab from incoming chemical hazards!</p>
 
-          <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wide text-(--foreground)">Keyboard &amp; mouse</p>
+          {/* Manual override — detection covers the common cases, but this
+              lets anyone switch if it guesses wrong (e.g. tablet + keyboard). */}
+          <div className="flex gap-2 rounded-lg bg-(--background) p-1 border border-(--border) w-fit">
+            <button
+              type="button"
+              onClick={() => setInstructionsTabOverride('pointer')}
+              className={`rounded-md px-3 py-1.5 text-xs font-bold transition-colors ${
+                instructionsTab === 'pointer'
+                  ? 'bg-(--surface) text-(--foreground) shadow-sm'
+                  : 'text-(--muted)'
+              }`}
+            >
+              Keyboard &amp; mouse
+            </button>
+            <button
+              type="button"
+              onClick={() => setInstructionsTabOverride('touch')}
+              className={`rounded-md px-3 py-1.5 text-xs font-bold transition-colors ${
+                instructionsTab === 'touch'
+                  ? 'bg-(--surface) text-(--foreground) shadow-sm'
+                  : 'text-(--muted)'
+              }`}
+            >
+              Touchscreen
+            </button>
+          </div>
+
+          {instructionsTab === 'pointer' ? (
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
                 <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">1</kbd>
@@ -204,10 +242,7 @@ const handlePlayerHit = useCallback(() => {
                 <span>Move the cannon (or move your mouse).</span>
               </li>
             </ul>
-          </div>
-
-          <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-wide text-(--foreground)">Touchscreen</p>
+          ) : (
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
                 <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Drag</span>
@@ -222,7 +257,7 @@ const handlePlayerHit = useCallback(() => {
                 <span>Tap the ion button to toggle between H⁺ and OH⁻.</span>
               </li>
             </ul>
-          </div>
+          )}
         </div>
       </GameInstructionsModal>
 
