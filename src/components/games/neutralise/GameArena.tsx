@@ -235,11 +235,16 @@ export default function NeutralizeArena({
         }
       });
 
-      // Boundary check now uses actual invader height instead of a magic
-      // number, so it stays correct if invaders.dimensions.height ever changes.
+      // Boundary check uses the arena's ACTUAL rendered height, not the
+      // fixed config constant: the arena now flexes to fit the viewport
+      // (see the className below), so on a shrunk mobile arena the fixed
+      // config height would no longer match what's on screen, and invaders
+      // would visually vanish off the bottom before this ever registered a
+      // hit. Falls back to the config value only if the ref isn't ready yet.
+      const renderedArenaHeight = arenaRef.current?.clientHeight ?? NEUTRALISE_CONFIG.arena.height;
       currentInvaders.forEach((inv) => {
         if (
-          inv.y > NEUTRALISE_CONFIG.arena.height - NEUTRALISE_CONFIG.invaders.dimensions.height &&
+          inv.y > renderedArenaHeight - NEUTRALISE_CONFIG.invaders.dimensions.height &&
           inv.isAlive
         ) {
           callbacksRef.current.onPlayerHit();
@@ -261,7 +266,9 @@ export default function NeutralizeArena({
   const isAcid = activeMissile === 'H-ion';
 
   return (
-    <div className="flex flex-col gap-3">
+    // flex-1 + min-h-0 lets this whole block shrink to whatever space the
+    // page actually has, instead of assuming a fixed viewport height.
+    <div className="flex flex-1 min-h-0 flex-col gap-3">
       <div
         ref={arenaRef}
         onMouseMove={(e) => {
@@ -282,7 +289,13 @@ export default function NeutralizeArena({
         // Prevents the browser from treating the drag as a page-scroll or
         // pinch-zoom gesture, which would otherwise fight with aiming.
         style={{ touchAction: 'none' }}
-        className="relative h-125 w-full cursor-crosshair overflow-hidden rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]"
+        // No more fixed h-125 (500px): that ignored how much vertical space
+        // was actually left on short phone screens, which is what pushed
+        // the Fire/switch buttons below the fold. flex-1 lets it take
+        // whatever room the page gives it; min-h keeps it from collapsing
+        // too small to play; md:max-h caps it back to the original size on
+        // roomier screens.
+        className="relative w-full flex-1 min-h-[240px] md:max-h-125 cursor-crosshair overflow-hidden rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]"
       >
         {invaders.map((invader) => (
           <MoleculeParticle key={invader.id} data={invader} />
@@ -298,13 +311,13 @@ export default function NeutralizeArena({
           doesn't reliably register as a "tap" on every mobile browser, and
           there's no touch equivalent of right-click for switching ions —
           so both actions get an explicit, always-visible button here. */}
-      <div className="flex md:hidden items-center justify-center gap-4 px-2">
+      <div className="flex md:hidden shrink-0 items-center justify-center gap-3 px-2 pb-[env(safe-area-inset-bottom)]">
         <button
           type="button"
           onClick={toggleWeapon}
           disabled={isPaused}
           aria-label={`Switch ion, currently ${isAcid ? 'H+ acid' : 'OH- base'}`}
-          className={`flex-1 max-w-40 rounded-xl border-2 py-3 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform ${
+          className={`flex-1 max-w-40 rounded-xl border-2 py-2 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform ${
             isAcid
               ? 'bg-rose-500/80 border-rose-400'
               : 'bg-indigo-500/80 border-indigo-400'
@@ -317,7 +330,7 @@ export default function NeutralizeArena({
           onClick={fireProjectile}
           disabled={isPaused}
           aria-label="Fire"
-          className="flex-1 max-w-40 rounded-xl border-2 border-slate-500 bg-slate-800 py-3 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform"
+          className="flex-1 max-w-40 rounded-xl border-2 border-slate-500 bg-slate-800 py-2 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform"
         >
           Fire
         </button>
