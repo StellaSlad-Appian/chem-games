@@ -124,6 +124,30 @@ export default function NeutralizeArena({
     setActiveMissile((prev) => (prev === 'H-ion' ? 'OH-ion' : 'H-ion'));
   }, [playSound]);
 
+  // Shared by mouse (desktop) and touch (mobile/tablet) input so both
+  // pointer types drive the cannon the same way: position it directly
+  // under the pointer/finger, relative to the arena's own bounding box.
+  const movePlayerToClientX = useCallback(
+    (clientX: number) => {
+      if (isPaused || !arenaRef.current) return;
+      const rect = arenaRef.current.getBoundingClientRect();
+      setPlayerX(clientX - rect.left);
+    },
+    [isPaused]
+  );
+
+  // Touch equivalent of onMouseMove: a finger drag across the arena has no
+  // native mousemove counterpart, so without this handler touch/tablet
+  // users have no way to aim the cannon at all.
+  const handleArenaTouch = useCallback(
+    (e: React.TouchEvent<HTMLDivElement>) => {
+      const touch = e.touches[0];
+      if (!touch) return;
+      movePlayerToClientX(touch.clientX);
+    },
+    [movePlayerToClientX]
+  );
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (isPaused) return;
@@ -234,30 +258,70 @@ export default function NeutralizeArena({
     return () => clearInterval(gameLoop);
   }, [playSound, isPaused, level]);
 
+  const isAcid = activeMissile === 'H-ion';
+
   return (
-    <div
-      ref={arenaRef}
-      onMouseMove={(e) => {
-        if (!isPaused && arenaRef.current) {
-          setPlayerX(
-            e.clientX - arenaRef.current.getBoundingClientRect().left
-          );
-        }
-      }}
-      onClick={fireProjectile}
-      onContextMenu={(e) => {
-        e.preventDefault();
-        if (!isPaused) toggleWeapon();
-      }}
-      className="relative h-125 w-full cursor-crosshair overflow-hidden rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]"
-    >
-      {invaders.map((invader) => (
-        <MoleculeParticle key={invader.id} data={invader} />
-      ))}
-      {projectiles.map((proj) => (
-        <IonProjectile key={proj.id} projectile={proj as any} />
-      ))}
-      <PlayerCannon x={playerX} activeMissile={activeMissile} />
+    <div className="flex flex-col gap-3">
+      <div
+        ref={arenaRef}
+        onMouseMove={(e) => {
+          if (!isPaused && arenaRef.current) {
+            setPlayerX(
+              e.clientX - arenaRef.current.getBoundingClientRect().left
+            );
+          }
+        }}
+        onClick={fireProjectile}
+        onContextMenu={(e) => {
+          e.preventDefault();
+          if (!isPaused) toggleWeapon();
+        }}
+        // Dragging a finger aims the cannon, same as mouse-move on desktop.
+        onTouchStart={handleArenaTouch}
+        onTouchMove={handleArenaTouch}
+        // Prevents the browser from treating the drag as a page-scroll or
+        // pinch-zoom gesture, which would otherwise fight with aiming.
+        style={{ touchAction: 'none' }}
+        className="relative h-125 w-full cursor-crosshair overflow-hidden rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]"
+      >
+        {invaders.map((invader) => (
+          <MoleculeParticle key={invader.id} data={invader} />
+        ))}
+        {projectiles.map((proj) => (
+          <IonProjectile key={proj.id} projectile={proj as any} />
+        ))}
+        <PlayerCannon x={playerX} activeMissile={activeMissile} />
+      </div>
+
+      {/* Touch/tablet control bar. Tapping the arena still fires (kept for
+          consistency with desktop click-to-fire), but a drag-then-release
+          doesn't reliably register as a "tap" on every mobile browser, and
+          there's no touch equivalent of right-click for switching ions —
+          so both actions get an explicit, always-visible button here. */}
+      <div className="flex md:hidden items-center justify-center gap-4 px-2">
+        <button
+          type="button"
+          onClick={toggleWeapon}
+          disabled={isPaused}
+          aria-label={`Switch ion, currently ${isAcid ? 'H+ acid' : 'OH- base'}`}
+          className={`flex-1 max-w-40 rounded-xl border-2 py-3 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform ${
+            isAcid
+              ? 'bg-rose-500/80 border-rose-400'
+              : 'bg-indigo-500/80 border-indigo-400'
+          }`}
+        >
+          Switch to {isAcid ? 'OH⁻' : 'H⁺'}
+        </button>
+        <button
+          type="button"
+          onClick={fireProjectile}
+          disabled={isPaused}
+          aria-label="Fire"
+          className="flex-1 max-w-40 rounded-xl border-2 border-slate-500 bg-slate-800 py-3 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform"
+        >
+          Fire
+        </button>
+      </div>
     </div>
   );
 }
