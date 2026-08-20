@@ -11,13 +11,17 @@ export type SoundEffect =
   | 'lock-element'
   | 'pop_01'
   | 'fizzle'
-  | 'laser-pew'       // <-- NEW
-  | 'hit-enemy'       // <-- NEW
-  | 'metal-deflect'   // <-- NEW
-  | 'splash-defeat';  // <-- NEW
-  // add a switch sound??
+  | 'laser-pew'       
+  | 'hit-enemy'       
+  | 'metal-deflect'   
+  | 'splash-defeat'
+  // --- NEW MISSING SOUNDS ---
+  | 'equation-balanced'
+  | 'equation-error'
+  | 'switch-sound'; 
 
-const SOUND_PATHS: Record<SoundEffect, string> = {
+// Added Partial<> so TypeScript allows us to omit the missing file paths for now
+const SOUND_PATHS: Partial<Record<SoundEffect, string>> = {
   'success-synthesis': '/audio/sfx/confirmation_002.mp3',
   'explosion': '/audio/sfx/impactBell_heavy_000.mp3',
   'click': '/audio/sfx/click.mp3',
@@ -25,9 +29,17 @@ const SOUND_PATHS: Record<SoundEffect, string> = {
   'pop_01': '/audio/sfx/pop_01.mp3',
   'fizzle': '/audio/sfx/fizzle.mp3',
   'laser-pew': '/audio/sfx/mixkit-laser-gun-shot-3110.mp3',
-  'hit-enemy': '/audio/sfx/impactGlass_medium_003.mp3', // enemy get hit
-  'metal-deflect': '/audio/sfx/impactMetal_medium_001.mp3', // we get hit
+  'hit-enemy': '/audio/sfx/impactGlass_medium_003.mp3', 
+  'metal-deflect': '/audio/sfx/impactMetal_medium_001.mp3', 
   'splash-defeat': '/audio/sfx/explode.mp3'
+};
+
+// Map missing sounds to existing sounds. 
+// Delete lines from here as you get the real audio files and add them to SOUND_PATHS above!
+const SOUND_FALLBACK_MAP: Partial<Record<SoundEffect, SoundEffect>> = {
+  'equation-balanced': 'success-synthesis',
+  'equation-error': 'fizzle',
+  'switch-sound': 'click'
 };
 
 export function useSound() {
@@ -41,17 +53,29 @@ export function useSound() {
     if (typeof window === 'undefined') return;
 
     (Object.keys(SOUND_PATHS) as SoundEffect[]).forEach((effect) => {
-      const audio = new Audio(SOUND_PATHS[effect]);
-      audio.preload = 'auto';
-      poolRef.current[effect] = [audio];
+      const path = SOUND_PATHS[effect];
+      // Only attempt to preload if a file path actually exists
+      if (path) {
+        const audio = new Audio(path);
+        audio.preload = 'auto';
+        poolRef.current[effect] = [audio];
+      }
     });
   }, []);
 
-  const playSound = useCallback((effect: SoundEffect) => {
+  const playSound = useCallback((requestedEffect: SoundEffect) => {
     if (isMuted || typeof window === 'undefined') return;
 
+    // Intercept missing sounds and reroute them to the mapped fallback
+    const effect = SOUND_FALLBACK_MAP[requestedEffect] || requestedEffect;
+
     const path = SOUND_PATHS[effect];
-    if (!path) return;
+    
+    // Safety net in case you request a sound that has no path AND no fallback
+    if (!path) {
+      console.warn(`[Sound Mock] Missing file and no fallback for: ${requestedEffect}`);
+      return;
+    }
 
     if (!poolRef.current[effect]) {
       poolRef.current[effect] = [];
