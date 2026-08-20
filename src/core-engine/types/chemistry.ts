@@ -109,3 +109,35 @@ export interface ChemicalReaction {
   unbalancedFormula: string;
   balancedFormula: string;
 }
+
+// --- Reaction Balancer Types ---
+export interface ReactionParticipant {
+  compoundId: string;
+  defaultCoefficient?: number; // Starting state on UI (usually 1 or 0)
+  targetCoefficient: number;   // Correct stoichiometric coefficient
+}
+
+export interface BalancerReaction {
+  id: string;
+  title: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  reactants: ReactionParticipant[];
+  products: ReactionParticipant[];
+  description?: string;
+}
+
+// --- Bond Builder Types ---
+export type BondOrder = 1 | 2 | 3; // Single, Double, Triple bond
+
+export interface ValenceConfig {
+  valenceElectrons: number;
+  maxBonds: number;
+  preferredGeometry?: 'linear' | 'bent' | 'trigonal-planar' | 'tetrahedral';
+}
+
+export interface BondConnection {
+  id: string;
+  sourceNodeId: string;
+  targetNodeId: string;
+  order: BondOrder;
+}
