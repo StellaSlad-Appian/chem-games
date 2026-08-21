@@ -104,3 +104,99 @@ export function generateChemicalHint(chem: CompoundData): string {
   const elementSymbols = chem.elements.map((e) => e.symbol).join(' & ');
   return `${chem.name} consists of the elements: ${elementSymbols}.`;
 }
+
+// Reaction Balancer
+
+/**
+ * Parses a chemical formula into an atom inventory.
+ *
+ * Examples:
+ *   H2O  -> { H: 2, O: 1 }
+ *   CO2  -> { C: 1, O: 2 }
+ *   NaCl -> { Na: 1, Cl: 1 }
+ *
+ * State symbols such as (s), (l), (g) and (aq)
+ * are ignored because they are not elements.
+ */
+export function parseFormulaAtoms(
+  formula: string
+): Record<string, number> {
+  const cleanFormula = formula.replace(/\([a-z]{1,2}\)/g, '');
+
+  const regex = /([A-Z][a-z]*)(\d*)/g;
+  const counts: Record<string, number> = {};
+
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(cleanFormula)) !== null) {
+    const element = match[1];
+    const quantity = match[2]
+      ? parseInt(match[2], 10)
+      : 1;
+
+    counts[element] =
+      (counts[element] || 0) + quantity;
+  }
+
+  return counts;
+}
+
+/**
+ * Calculates the total number of atoms of each element
+ * across a collection of compounds.
+ *
+ * An empty coefficient is treated as 1, matching the
+ * Reaction Balancer input behaviour.
+ */
+export function calculateAtomInventory(
+  compounds: { compoundId: string }[],
+  coefficients: (number | '')[]
+): Record<string, number> {
+  const inventory: Record<string, number> = {};
+
+  compounds.forEach((compound, index) => {
+    const coefficient =
+      typeof coefficients[index] === 'number'
+        ? coefficients[index]
+        : 1;
+
+    const atoms = parseFormulaAtoms(
+      compound.compoundId
+    );
+
+    Object.entries(atoms).forEach(
+      ([element, count]) => {
+        inventory[element] =
+          (inventory[element] || 0) +
+          count * coefficient;
+      }
+    );
+  });
+
+  return inventory;
+}
+
+/**
+ * Determines whether two atom inventories are balanced.
+ */
+export function areAtomInventoriesBalanced(
+  left: Record<string, number>,
+  right: Record<string, number>
+): boolean {
+  const elements = Array.from(
+    new Set([
+      ...Object.keys(left),
+      ...Object.keys(right),
+    ])
+  );
+
+  if (elements.length === 0) {
+    return false;
+  }
+
+  return elements.every(
+    (element) =>
+      (left[element] || 0) ===
+      (right[element] || 0)
+  );
+}

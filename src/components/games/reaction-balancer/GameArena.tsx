@@ -1,9 +1,16 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+
 import { reactions } from '@/core-engine/data/reactions';
 import { useSound } from '@/hooks/useSound';
-import CoefficientInput from './CoefficientInput';
+
+import ReactionMoleculeCard from './ReactionMoleculeCard';
 import AtomInventory from './AtomInventory';
 
 interface ReactionBalancerArenaProps {
@@ -12,189 +19,379 @@ interface ReactionBalancerArenaProps {
   isPaused: boolean;
 }
 
-// Utility to parse strings like "H2O" into { H: 2, O: 1 }
-function parseFormulaAtoms(formula: string): Record<string, number> {
-  const cleanFormula = formula.replace(/\([a-z]{1,2}\)/g, '');
-  const regex = /([A-Z][a-z]*)(\d*)/g;
-  let match;
-  const counts: Record<string, number> = {};
-  
-  while ((match = regex.exec(cleanFormula)) !== null) {
-    const elem = match[1];
-    const qty = match[2] ? parseInt(match[2], 10) : 1;
-    counts[elem] = (counts[elem] || 0) + qty;
-  }
-  return counts;
-}
-
 export default function ReactionBalancerArena({
   level,
   onReactionComplete,
   isPaused,
 }: ReactionBalancerArenaProps) {
   const { playSound } = useSound();
-  
+
+  /*
+   * ---------------------------------------------------------
+   * Reaction selection
+   * ---------------------------------------------------------
+   *
+   * Keep the current level-selection behaviour for now.
+   */
   const currentReactionData = useMemo(() => {
-    return reactions[(level - 1) % reactions.length];
+    return reactions[
+      (level - 1) % reactions.length
+    ];
   }, [level]);
+
+  /*
+   * ---------------------------------------------------------
+   * Parse equation
+   * ---------------------------------------------------------
+   */
 
   const parsedReaction = useMemo(() => {
     const parseCompound = (raw: string) => {
-      const match = raw.trim().match(/^(\d*)(.*)$/);
-      const coeffStr = match?.[1];
-      const compoundId = match?.[2] || raw.trim();
+      const match = raw
+        .trim()
+        .match(/^(\d*)(.*)$/);
+
+      const coefficientString =
+        match?.[1] ?? '';
+
+      const compoundId =
+        match?.[2]?.trim() ||
+        raw.trim();
+
       return {
         compoundId,
-        targetCoefficient: coeffStr ? parseInt(coeffStr, 10) : 1,
+        targetCoefficient:
+          coefficientString !== ''
+            ? parseInt(
+                coefficientString,
+                10
+              )
+            : 1,
       };
     };
 
-    const [reactantsStr, productsStr] = currentReactionData.equation.split('->');
-    
+    const [
+      reactantsString,
+      productsString,
+    ] =
+      currentReactionData.equation.split(
+        '->'
+      );
+
     return {
-      reactants: reactantsStr.split('+').map(parseCompound),
-      products: productsStr.split('+').map(parseCompound),
+      reactants: reactantsString
+        .split('+')
+        .map(parseCompound),
+
+      products: productsString
+        .split('+')
+        .map(parseCompound),
     };
   }, [currentReactionData.equation]);
 
-  const [reactantCoeffs, setReactantCoeffs] = useState<(number | '')[]>([]);
-  const [productCoeffs, setProductCoeffs] = useState<(number | '')[]>([]);
+  /*
+   * ---------------------------------------------------------
+   * Coefficient state
+   * ---------------------------------------------------------
+   */
+
+  const [reactantCoeffs, setReactantCoeffs] =
+    useState<(number | '')[]>([]);
+
+  const [productCoeffs, setProductCoeffs] =
+    useState<(number | '')[]>([]);
+
+  /*
+   * Controls whether the Atom Balance scaffold
+   * is visible.
+   */
+  const [showBalance, setShowBalance] =
+    useState(false);
 
   useEffect(() => {
-    setReactantCoeffs(parsedReaction.reactants.map(() => ''));
-    setProductCoeffs(parsedReaction.products.map(() => ''));
+    setReactantCoeffs(
+      parsedReaction.reactants.map(() => '')
+    );
+
+    setProductCoeffs(
+      parsedReaction.products.map(() => '')
+    );
+
+    // Every new reaction starts with the
+    // balance scaffold hidden.
+    setShowBalance(false);
   }, [parsedReaction]);
 
-  const updateReactant = (index: number, val: number | '') => {
-    if (isPaused) return;
-    playSound('click');
-    setReactantCoeffs((prev) => {
-      const next = [...prev];
-      next[index] = val;
-      return next;
-    });
-  };
+  /*
+   * ---------------------------------------------------------
+   * Input handlers
+   * ---------------------------------------------------------
+   */
 
-  const updateProduct = (index: number, val: number | '') => {
-    if (isPaused) return;
-    playSound('click');
-    setProductCoeffs((prev) => {
-      const next = [...prev];
-      next[index] = val;
-      return next;
-    });
-  };
+  const updateReactant = useCallback(
+    (index: number, value: number | '') => {
+      if (isPaused) {
+        return;
+      }
 
-  // Compute if the equation is currently balanced to dynamically update button style
-  const isCurrentlyBalanced = useMemo(() => {
-    const left: Record<string, number> = {};
-    const right: Record<string, number> = {};
+      playSound('click');
 
-    parsedReaction.reactants.forEach((r, i) => {
-      const coeff = typeof reactantCoeffs[i] === 'number' ? (reactantCoeffs[i] as number) : 1;
-      const atoms = parseFormulaAtoms(r.compoundId);
-      Object.entries(atoms).forEach(([elem, count]) => {
-        left[elem] = (left[elem] || 0) + (count * coeff);
+      setReactantCoeffs((previous) => {
+        const next = [...previous];
+        next[index] = value;
+        return next;
       });
-    });
+    },
+    [isPaused, playSound]
+  );
 
-    parsedReaction.products.forEach((p, i) => {
-      const coeff = typeof productCoeffs[i] === 'number' ? (productCoeffs[i] as number) : 1;
-      const atoms = parseFormulaAtoms(p.compoundId);
-      Object.entries(atoms).forEach(([elem, count]) => {
-        right[elem] = (right[elem] || 0) + (count * coeff);
+  const updateProduct = useCallback(
+    (index: number, value: number | '') => {
+      if (isPaused) {
+        return;
+      }
+
+      playSound('click');
+
+      setProductCoeffs((previous) => {
+        const next = [...previous];
+        next[index] = value;
+        return next;
       });
-    });
+    },
+    [isPaused, playSound]
+  );
 
-    const allElements = Array.from(new Set([...Object.keys(left), ...Object.keys(right)]));
-    if (allElements.length === 0) return false;
-
-    return allElements.every(elem => left[elem] === right[elem]);
-  }, [parsedReaction, reactantCoeffs, productCoeffs]);
+  /*
+   * ---------------------------------------------------------
+   * Answer validation
+   * ---------------------------------------------------------
+   */
 
   const checkBalance = useCallback(() => {
-    const reactantsCorrect = reactantCoeffs.every(
-      (val, idx) => (val === '' ? 1 : val) === parsedReaction.reactants[idx].targetCoefficient
-    );
-    const productsCorrect = productCoeffs.every(
-      (val, idx) => (val === '' ? 1 : val) === parsedReaction.products[idx].targetCoefficient
-    );
+    const reactantsCorrect =
+      reactantCoeffs.every(
+        (value, index) =>
+          (value === ''
+            ? 1
+            : value) ===
+          parsedReaction.reactants[index]
+            .targetCoefficient
+      );
 
-    if (reactantsCorrect && productsCorrect) {
+    const productsCorrect =
+      productCoeffs.every(
+        (value, index) =>
+          (value === ''
+            ? 1
+            : value) ===
+          parsedReaction.products[index]
+            .targetCoefficient
+      );
+
+    if (
+      reactantsCorrect &&
+      productsCorrect
+    ) {
       playSound('equation-balanced');
       onReactionComplete(150);
-    } else {
-      playSound('equation-error');
+      return;
     }
-  }, [reactantCoeffs, productCoeffs, parsedReaction, playSound, onReactionComplete]);
+
+    playSound('equation-error');
+  }, [
+    reactantCoeffs,
+    productCoeffs,
+    parsedReaction,
+    playSound,
+    onReactionComplete,
+  ]);
+
+  /*
+   * ---------------------------------------------------------
+   * Render
+   * ---------------------------------------------------------
+   */
 
   return (
-    <div className="flex min-h-[350px] flex-1 flex-col items-center justify-center rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-4 sm:p-6 shadow-xl">
-      
-      <div className="mb-2 text-center">
-        <span className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-500">
+    <div className="flex min-h-[350px] flex-1 flex-col items-center rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-4 shadow-xl sm:p-6">
+
+      {/* Header */}
+      <div className="mb-4 text-center">
+        <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-blue-400">
           {currentReactionData.type}
         </span>
-      </div>
-      
-      <h2 className="mb-2 text-xl font-bold text-[var(--foreground)]">{currentReactionData.name}</h2>
-      <p className="mb-8 text-center text-sm text-[var(--muted)]">{currentReactionData.description}</p>
 
-      {/* Interactive Chemical Equation Row */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 w-full text-2xl font-black">
-        
-        {/* Reactants */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
-          {parsedReaction.reactants.map((r, i) => (
-            <div key={`r-${r.compoundId}-${i}`} className="flex items-center gap-2 sm:gap-4">
-              {i > 0 && <span className="text-3xl text-[var(--muted)]">+</span>}
-              <CoefficientInput 
-                formula={r.compoundId} 
-                value={reactantCoeffs[i] ?? ''} 
-                onChange={(val) => updateReactant(i, val)}
-                disabled={isPaused}
-              />
-            </div>
-          ))}
-        </div>
+        <h2 className="mt-3 text-2xl font-black text-[var(--foreground)] sm:text-3xl">
+          {currentReactionData.name}
+        </h2>
 
-        <span className="mx-2 text-3xl font-extrabold text-blue-500 md:rotate-0 rotate-90 my-2 md:my-0">➔</span>
-
-        {/* Products */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
-          {parsedReaction.products.map((p, i) => (
-            <div key={`p-${p.compoundId}-${i}`} className="flex items-center gap-2 sm:gap-4">
-              {i > 0 && <span className="text-3xl text-[var(--muted)]">+</span>}
-              <CoefficientInput 
-                formula={p.compoundId} 
-                value={productCoeffs[i] ?? ''} 
-                onChange={(val) => updateProduct(i, val)}
-                disabled={isPaused}
-              />
-            </div>
-          ))}
-        </div>
+        <p className="mx-auto mt-1 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
+          {currentReactionData.description}
+        </p>
       </div>
 
-      <AtomInventory 
-        reactants={parsedReaction.reactants}
-        products={parsedReaction.products}
-        reactantCoeffs={reactantCoeffs}
-        productCoeffs={productCoeffs}
-      />
+      {/* Compact instruction */}
+      <p className="mb-6 text-center text-sm font-bold text-blue-300">
+        Change the coefficients to conserve every atom.
+      </p>
 
-      <button
-        type="button"
-        onClick={checkBalance}
-        disabled={isPaused}
-        className={`mt-8 rounded-xl px-8 py-3 font-mono text-lg font-bold text-white shadow-lg transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100 ${
-          isCurrentlyBalanced 
-            ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/20 animate-pulse' 
-            : 'bg-blue-600 hover:bg-blue-500'
-        }`}
-      >
-        Check Balance
-      </button>
+      {/* Reaction */}
+      <div className="w-full max-w-5xl">
+        <div className="relative grid grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-12">
+
+          {/* Reactants */}
+          <section className="min-w-0">
+            <div className="mb-3 text-center">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted)]">
+                Reactants
+              </span>
+            </div>
+
+            <div className="flex min-h-[220px] flex-wrap items-center justify-center gap-2">
+              {parsedReaction.reactants.map(
+                (reactant, index) => (
+                  <div
+                    key={`reactant-${reactant.compoundId}-${index}`}
+                    className="flex items-center gap-2"
+                  >
+                    {index > 0 && (
+                      <span
+                        className="text-2xl font-black text-[var(--muted)]"
+                        aria-hidden="true"
+                      >
+                        +
+                      </span>
+                    )}
+
+                    <ReactionMoleculeCard
+                      formula={
+                        reactant.compoundId
+                      }
+                      coefficient={
+                        reactantCoeffs[index] ??
+                        ''
+                      }
+                      onChange={(value) =>
+                        updateReactant(
+                          index,
+                          value
+                        )
+                      }
+                      disabled={isPaused}
+                    />
+                  </div>
+                )
+              )}
+            </div>
+          </section>
+
+          {/* Products */}
+          <section className="min-w-0">
+            <div className="mb-3 text-center">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted)]">
+                Products
+              </span>
+            </div>
+
+            <div className="flex min-h-[220px] flex-wrap items-center justify-center gap-2">
+              {parsedReaction.products.map(
+                (product, index) => (
+                  <div
+                    key={`product-${product.compoundId}-${index}`}
+                    className="flex items-center gap-2"
+                  >
+                    {index > 0 && (
+                      <span
+                        className="text-2xl font-black text-[var(--muted)]"
+                        aria-hidden="true"
+                      >
+                        +
+                      </span>
+                    )}
+
+                    <ReactionMoleculeCard
+                      formula={
+                        product.compoundId
+                      }
+                      coefficient={
+                        productCoeffs[index] ??
+                        ''
+                      }
+                      onChange={(value) =>
+                        updateProduct(
+                          index,
+                          value
+                        )
+                      }
+                      disabled={isPaused}
+                    />
+                  </div>
+                )
+              )}
+            </div>
+          </section>
+
+          {/* Reaction arrow */}
+          <div
+            className="
+              pointer-events-none
+              flex items-center justify-center
+              md:absolute
+              md:left-1/2
+              md:top-[calc(50%+12px)]
+              md:-translate-x-1/2
+              md:-translate-y-1/2
+            "
+            aria-hidden="true"
+          >
+            <span className="text-4xl font-light text-blue-400">
+              →
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Optional atom-balance scaffold */}
+      {showBalance && (
+        <AtomInventory
+          reactants={parsedReaction.reactants}
+          products={parsedReaction.products}
+          reactantCoeffs={reactantCoeffs}
+          productCoeffs={productCoeffs}
+        />
+      )}
+
+      {/* Controls */}
+      <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <button
+          type="button"
+          onClick={() =>
+            setShowBalance(
+              (visible) => !visible
+            )
+          }
+          disabled={isPaused}
+          className="rounded-xl border border-slate-600 bg-slate-900 px-5 py-3 text-sm font-bold text-slate-200 shadow-lg transition-all hover:border-slate-500 hover:bg-slate-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {showBalance
+            ? 'Hide Atom Balance'
+            : 'Show Atom Balance'}
+        </button>
+
+        <button
+          type="button"
+          onClick={checkBalance}
+          disabled={isPaused}
+          className="rounded-xl bg-blue-600 px-8 py-3 font-mono text-lg font-bold text-white shadow-lg shadow-blue-500/10 transition-all hover:bg-blue-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Check Answer
+        </button>
+      </div>
+
+      <p className="mt-3 text-center text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">
+        You can change your coefficients at any time.
+      </p>
     </div>
   );
 }
