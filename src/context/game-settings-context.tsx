@@ -4,7 +4,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type Theme = 'dark' | 'light';
-export type GameThemeScope = 'acid-classification' | 'formula-blaster' | 'neutralise';
+
+export type GameThemeScope =
+  | 'acid-classification'
+  | 'formula-blaster'
+  | 'neutralise'
+  | 'reaction-balancer'
+  | 'bond-builder';
+  
 type GameThemePreferences = Partial<Record<GameThemeScope, Theme>>;
 
 type SettingsState = {

@@ -22,8 +22,7 @@ export default function ReactionMoleculeCard({
       : 1;
 
   return (
-    <div className="flex h-[220px] w-32 flex-col rounded-2xl border border-slate-700 bg-slate-900/75 p-3 shadow-lg shadow-black/10 transition-all duration-200 hover:border-slate-600 hover:bg-slate-900 sm:w-36 sm:p-3.5">
-
+    <div className="flex h-[220px] w-32 flex-col rounded-2xl border border-blue-900/60 bg-gradient-to-b from-slate-800 to-blue-950 p-3 shadow-lg shadow-blue-950/15 transition-all duration-200 hover:border-blue-700/70 hover:from-slate-700 hover:to-blue-900 sm:w-36 sm:p-3.5">
       {/* Coefficient area */}
       <div className="shrink-0">
         <CoefficientInput

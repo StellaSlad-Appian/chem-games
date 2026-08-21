@@ -38,76 +38,91 @@ const elementStyles: Record<
     text: '#0f172a',
     stroke: '#cbd5e1',
   },
+
   C: {
     fill: '#475569',
     text: '#ffffff',
     stroke: '#94a3b8',
   },
+
   N: {
     fill: '#3b82f6',
     text: '#ffffff',
     stroke: '#93c5fd',
   },
+
   O: {
     fill: '#ef4444',
     text: '#ffffff',
     stroke: '#fca5a5',
   },
+
   S: {
     fill: '#facc15',
     text: '#0f172a',
     stroke: '#fde68a',
   },
+
   Cl: {
     fill: '#22c55e',
     text: '#ffffff',
     stroke: '#86efac',
   },
+
   Na: {
     fill: '#a855f7',
     text: '#ffffff',
     stroke: '#d8b4fe',
   },
+
   K: {
     fill: '#9333ea',
     text: '#ffffff',
     stroke: '#c084fc',
   },
+
   Mg: {
     fill: '#10b981',
     text: '#ffffff',
     stroke: '#6ee7b7',
   },
+
   Ca: {
     fill: '#f97316',
     text: '#ffffff',
     stroke: '#fdba74',
   },
+
   Al: {
     fill: '#94a3b8',
     text: '#0f172a',
     stroke: '#e2e8f0',
   },
+
   Fe: {
     fill: '#ea580c',
     text: '#ffffff',
     stroke: '#fdba74',
   },
+
   Cu: {
     fill: '#c2410c',
     text: '#ffffff',
     stroke: '#fb923c',
   },
+
   Ag: {
     fill: '#cbd5e1',
     text: '#0f172a',
     stroke: '#f8fafc',
   },
+
   I: {
     fill: '#8b5cf6',
     text: '#ffffff',
     stroke: '#c4b5fd',
   },
+
   Pb: {
     fill: '#64748b',
     text: '#ffffff',
@@ -121,6 +136,13 @@ const FALLBACK_STYLE = {
   stroke: '#67e8f9',
 };
 
+/*
+ * Explicit structures for common molecules.
+ *
+ * These are intentionally simplified 2D structures:
+ * they communicate connectivity rather than attempting
+ * to represent true 3D molecular geometry.
+ */
 const MOLECULE_STRUCTURES: Record<
   string,
   MoleculeStructure
@@ -293,6 +315,7 @@ function BondLine({
 }) {
   const dx = to.x - from.x;
   const dy = to.y - from.y;
+
   const length = Math.sqrt(
     dx * dx + dy * dy
   );
@@ -405,7 +428,7 @@ function MoleculeDiagram({
 
   if (!structure) {
     return (
-      <div className="flex h-12 w-14 items-center justify-center rounded-lg border border-slate-700 bg-slate-950/50">
+      <div className="flex h-12 w-14 items-center justify-center rounded-lg border border-blue-900/70 bg-blue-950/60">
         <span className="text-xs font-black text-[var(--foreground)]">
           {formula}
         </span>
@@ -414,7 +437,7 @@ function MoleculeDiagram({
   }
 
   return (
-    <div className="flex h-12 w-14 items-center justify-center rounded-lg border border-slate-700 bg-slate-950/50">
+    <div className="flex h-12 w-14 items-center justify-center rounded-lg border border-blue-900/70 bg-blue-950/60">
       <svg
         width={54}
         height={42}
@@ -455,11 +478,10 @@ export default function MoleculePreview({
     3
   );
 
-  const remainingCount =
-    Math.max(
-      count - visibleCount,
-      0
-    );
+  const remainingCount = Math.max(
+    count - visibleCount,
+    0
+  );
 
   return (
     <div className="w-full">
