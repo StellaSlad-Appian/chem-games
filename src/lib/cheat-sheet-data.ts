@@ -6,7 +6,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
   {
     slug: 'states-of-matter',
     title: 'States of Matter',
-    yearLevel: 'Year 7',
+    yearLevel: 'Year 9', // Adjusted per request, though typically Levels 5-8 in Vic Curriculum
     category: 'Fundamentals',
     summary: 'Particle arrangement, energy levels, and phase changes in solids, liquids, and gases.',
     iconName: 'Shapes',
@@ -36,7 +36,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
   {
     slug: 'acids-and-bases',
     title: 'Acids & Bases',
-    yearLevel: 'Year 8',
+    yearLevel: 'Year 9',
     category: 'Acids & Bases',
     summary: 'Understanding the pH scale, proton donors (acids), and hydroxide release (bases).',
     iconName: 'TestTube',
@@ -66,7 +66,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
   {
     slug: 'balancing-equations',
     title: 'Balancing Chemical Equations',
-    yearLevel: 'Year 9',
+    yearLevel: 'Year 10',
     category: 'Equations',
     summary: 'Applying the Law of Conservation of Mass so atom counts match on both sides.',
     iconName: 'Scale',
@@ -120,6 +120,63 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
     ],
   },
+  // --- NEW CHEAT SHEETS BELOW ---
+  {
+    slug: 'chemical-bonds',
+    title: 'Chemical Bonds & Structure',
+    yearLevel: 'Year 9',
+    category: 'Fundamentals', // Assumes 'Fundamentals' is valid for Bond Builder
+    summary: 'Understanding how atoms share or transfer electrons to form stable compounds.',
+    iconName: 'Atom', 
+    colorTheme: 'border-cyan-500 text-cyan-500',
+    keyTakeaways: [
+      'Covalent Bonds: Non-metals share electrons to achieve a full outer shell.',
+      'Ionic Bonds: Metals transfer electrons to non-metals, creating oppositely charged ions.',
+      'Valence electrons determine an element’s reactivity and bonding capacity.',
+    ],
+    formulaExamples: [
+      { name: 'Covalent Compound', formula: 'CO2 (Carbon Dioxide)' },
+      { name: 'Ionic Compound', formula: 'NaCl (Sodium Chloride)' },
+    ],
+    sections: [
+      {
+        heading: 'Achieving Stability',
+        content: 'Atoms bond to reach a stable, noble-gas electron configuration. The periodic table group indicates the number of valence electrons available for bonding.',
+        examples: [
+          { name: 'Water (Covalent)', formula: 'H2O' },
+          { name: 'Magnesium Oxide (Ionic)', formula: 'MgO' },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'chemical-formulas',
+    title: 'Writing Chemical Formulas',
+    yearLevel: 'Year 10',
+    category: 'Equations',
+    summary: 'Translating chemical names into standardized symbolic formulas.',
+    iconName: 'Zap', // Used Zap for 'Blaster', update to matching ChemIconName if needed
+    colorTheme: 'border-rose-500 text-rose-500',
+    keyTakeaways: [
+      'The symbol of the metal (cation) is always written before the non-metal (anion).',
+      'Use subscripts to indicate the number of atoms (e.g., the 2 in H2O).',
+      'Polyatomic ions act as a single unit and need brackets if there is more than one (e.g., Ca(OH)2).',
+    ],
+    formulaExamples: [
+      { name: 'Calcium Carbonate', formula: 'CaCO3' },
+      { name: 'Aluminium Oxide', formula: 'Al2O3' },
+    ],
+    sections: [
+      {
+        heading: 'Balancing Charges',
+        content: 'In an ionic compound, the total positive charge must perfectly balance the total negative charge to create a neutral molecule.',
+        examples: [
+          { name: 'Copper(II) Sulfate', formula: 'CuSO4' },
+          { name: 'Iron(III) Chloride', formula: 'FeCl3' },
+        ],
+      },
+    ],
+  }
 ];
 
 /** Helper query functions for App Router pages & tests */

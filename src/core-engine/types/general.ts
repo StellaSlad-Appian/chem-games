@@ -10,10 +10,12 @@ export type { ChemIconName };
 
 export type GameState = 'playing' | 'paused' | 'failed' | 'victory' | 'levelUp';
 
-export type GameName =
-  | 'acid-classification'
-  | 'formula-blaster'
-  | 'neutralise';
+export type GameName = 
+  | 'neutralise' 
+  | 'formula-blaster' 
+  | 'acid-classification' 
+  | 'reaction-balancer'  
+  | 'bond-builder';        
   
  // to be added soon | 'reaction-balancer';
 

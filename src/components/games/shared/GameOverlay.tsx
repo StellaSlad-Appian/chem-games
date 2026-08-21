@@ -18,7 +18,7 @@ interface GameOverlayProps {
   correctInRound: number;
   currentLevel: number;
   maxLevel: number;
-  failReason: FailReason;
+  failReason?: FailReason;
   onResume: () => void;
   onRestart: () => void;
   customMessages?: Partial<Record<string, OverlayMessageConfig>>;
