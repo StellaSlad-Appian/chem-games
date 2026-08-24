@@ -1,9 +1,48 @@
 // src/core-engine/data/games/neutralise-levels.ts
 
 export const NEUTRALISE_LEVEL_DATA = [
-  { level: 1, compoundPoolIds: ['1', '2', '3'] },
-  { level: 2, compoundPoolIds: ['1', '2', '3', '4'] },
-  { level: 3, compoundPoolIds: ['2', '4', '5', '9'] },   // swapped '6' (NaCl, neutral) → '9' (H2CO3, acidic)
-  { level: 4, compoundPoolIds: ['3', '5', '10', '11'] }, // swapped '6','7' (neutral) → '10' (H3PO4, acidic), '11' (NH3, basic)
-  { level: 5, compoundPoolIds: ['1', '2', '3', '4', '5', '9', '10'] }, // dropped '6','7', added '9','10' to keep 7 total
+  {
+    level: 1,
+    // 2 Strong Acids (HCl, H2SO4) | 2 Strong Bases (NaOH, KOH)
+    compoundPoolIds: ['1', '2', '4', '5'],
+  },
+  {
+    level: 2,
+    // 2 Acids (HCl, HF) | 2 Bases (NaOH, NH3) | 1 Weak Acid (H2CO3)
+    compoundPoolIds: ['1', '8', '9', '4', '11'],
+  },
+  {
+    level: 3,
+    // 2 Acids (H2SO4, H3PO4) | 3 Bases/Amphoterics (KOH, NH3, NaHCO3, Ba(OH)2)
+    // removed Ba(OH)2 temporarily due to formatting issue - 19
+    compoundPoolIds: ['2', '10', '5', '11', '16'],
+  },
+  {
+    level: 4,
+    // 3 Acids (HNO2, H2SO3, HBr) | 3 Bases/Amphoterics (N2H4, LiOH, Na2HPO4)
+    compoundPoolIds: ['18', '22', '25', '23', '24', '28'],
+  },
+  {
+    level: 5,
+    // 5 Acids (HCl, H3PO4, H2SO3, HClO4, H3BO3) | 5 Bases (NaOH, N2H4, CsOH, NaHS)
+    // add 19 again - Ba(OH)2 
+    compoundPoolIds: ['1', '10', '22', '29', '32', '4', '23', '31', '34'],
+  },
+  {
+    level: 6,
+    // 2 Acids (H2SO4, H3PO4) | 3 Bases/Amphoterics (KOH, NH3, NaHCO3, Ba(OH)2)
+   // add 19 again - Ba(OH)2 
+    compoundPoolIds: ['2', '10', '5', '11', '16'],
+  },
+  {
+    level: 7,
+    // 5 Acids (HCl, H3PO4, H2SO3, HClO4, H3BO3) | 5 Bases (NaOH, Ba(OH)2, N2H4, CsOH, NaHS)
+    // add 19 again - Ba(OH)2 
+    compoundPoolIds: ['1', '10', '22', '29', '32', '4', '23', '31', '34'],
+  },
+  {
+    level: 8,
+    // 3 Acids (HNO2, H2SO3, HBr) | 3 Bases/Amphoterics (N2H4, LiOH, Na2HPO4)
+    compoundPoolIds: ['18', '22', '25', '23', '24', '28'],
+  }
 ];

@@ -1,4 +1,5 @@
 // src/core-engine/utils/level-manager.ts
+// just for neutralise game
 
 import { MoleculeInvader } from '../types/molecular-combat';
 import { COMPOUNDS_REGISTRY } from '../data/compounds';

@@ -14,7 +14,7 @@ import GameOverlay from '@/components/games/shared/GameOverlay';
 import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
 
-// Neutralize Specific
+// Neutralise Specific
 import NeutralizeArena from '@/components/games/neutralise/GameArena';
 import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
 import { recordGameSession } from '@/lib/actions/game-actions';
@@ -34,124 +34,320 @@ export default function NeutralizePage() {
   } = useGameState();
 
   const [lives, setLives] = useState<number>(3);
+
+  // Number of enemies successfully neutralised.
   const [enemiesCleared, setEnemiesCleared] = useState<number>(0);
+
+  // Number of enemies that reached the ground.
+  const [enemiesMissed, setEnemiesMissed] = useState<number>(0);
+
   const [currentWave, setCurrentWave] = useState<number>(1);
 
-  const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-  const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
+  const [isSettingsOpen, setIsSettingsOpen] =
+    useState<boolean>(false);
 
-  // Which control scheme to show in the instructions modal. Defaults to
-  // whatever's detected (touch vs mouse/keyboard); `null` means "follow
-  // detection", a non-null value means the person manually picked a tab —
-  // covers edge cases like a tablet with a keyboard case, where detection
-  // alone can't know which controls the person actually wants to read.
+  const [isInstructionsOpen, setIsInstructionsOpen] =
+    useState<boolean>(false);
+
+  // Tracks whether a modal caused the game to pause.
+  // This prevents closing a modal from accidentally resuming
+  // a game that was already paused before the modal opened.
+  const pausedByModalRef = useRef(false);
+
+  // Prevents the same game session from being saved more than once
+  // when multiple state changes happen around game-over.
+  const sessionSavedRef = useRef(false);
+
+  // ------------------------------------------------------------
+  // INPUT METHOD / INSTRUCTIONS
+  // ------------------------------------------------------------
+
   const detectedInputMethod = useInputMethod();
-  const [instructionsTabOverride, setInstructionsTabOverride] = useState<
-    'touch' | 'pointer' | null
-  >(null);
-  const instructionsTab = instructionsTabOverride ?? detectedInputMethod;
 
-  const enemiesPerWave = 
-  NEUTRALISE_CONFIG.waves.baseEnemiesPerWave + 
-  (currentLevel - 1) * NEUTRALISE_CONFIG.waves.enemyScalingPerLevel;
+  const [instructionsTabOverride, setInstructionsTabOverride] =
+    useState<'touch' | 'pointer' | null>(null);
+
+  const instructionsTab =
+    instructionsTabOverride ?? detectedInputMethod;
+
+  // ------------------------------------------------------------
+  // GAME CONFIGURATION
+  // ------------------------------------------------------------
+
+  const enemiesPerWave =
+    NEUTRALISE_CONFIG.waves.baseEnemiesPerWave +
+    (currentLevel - 1) *
+      NEUTRALISE_CONFIG.waves.enemyScalingPerLevel;
+
+  const enemiesProcessed =
+    enemiesCleared + enemiesMissed;
+
   const startTimeRef = useRef<number>(Date.now());
 
-  // UX Decision: Auto-show instructions on first visit
+  // ------------------------------------------------------------
+  // FIRST-VISIT INSTRUCTIONS
+  // ------------------------------------------------------------
+
   useEffect(() => {
-    const hasSeenInstructions = localStorage.getItem('hasSeenNeutraliseInstructions');
+    const hasSeenInstructions = localStorage.getItem(
+      'hasSeenNeutraliseInstructions'
+    );
+
     if (!hasSeenInstructions) {
       setIsInstructionsOpen(true);
-      if (gameState === 'playing') togglePause();
+
+      if (gameState === 'playing') {
+        pausedByModalRef.current = true;
+        togglePause();
+      }
     }
+  }, [gameState, togglePause]);
+
+  // ------------------------------------------------------------
+  // INSTRUCTIONS MODAL
+  // ------------------------------------------------------------
+
+  const handleOpenInstructions = useCallback(() => {
+    if (gameState === 'playing') {
+      pausedByModalRef.current = true;
+      togglePause();
+    }
+
+    setIsInstructionsOpen(true);
   }, [gameState, togglePause]);
 
   const handleCloseInstructions = useCallback(() => {
     setIsInstructionsOpen(false);
-    localStorage.setItem('hasSeenNeutraliseInstructions', 'true');
-    if (gameState !== 'playing') togglePause();
+
+    localStorage.setItem(
+      'hasSeenNeutraliseInstructions',
+      'true'
+    );
+
+    if (pausedByModalRef.current) {
+      pausedByModalRef.current = false;
+      togglePause();
+    }
+  }, [togglePause]);
+
+  // ------------------------------------------------------------
+  // SETTINGS MODAL
+  // ------------------------------------------------------------
+
+  const handleOpenSettings = useCallback(() => {
+    if (gameState === 'playing') {
+      pausedByModalRef.current = true;
+      togglePause();
+    }
+
+    setIsSettingsOpen(true);
   }, [gameState, togglePause]);
 
-  // Record session helper
-  const handleSaveSession = useCallback(
-  async (finalScore: number, outcome: 'victory' | 'failed') => {
-    const timeSpentSeconds = Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000));
-    await recordGameSession({
-      gameId: 'neutralise',
-      score: finalScore,
-      levelReached: currentLevel,
-      timeSpentSeconds,
-      outcome, // Sends 'failed' or 'victory'
-    });
-  },
-  [currentLevel]
-);
+  const handleCloseSettings = useCallback(() => {
+    setIsSettingsOpen(false);
 
-const handlePlayerHit = useCallback(() => {
-  setLives((prev) => {
-    const newLives = prev - 1;
-    if (newLives <= 0) {
-      setGameState('failed');
-      handleSaveSession(score, 'failed'); // 👈 Fixed from 'defeat'
+    if (pausedByModalRef.current) {
+      pausedByModalRef.current = false;
+      togglePause();
     }
-    return newLives;
-  });
-  setEnemiesCleared((prev) => prev + 1);
-}, [setGameState, handleSaveSession, score]);
+  }, [togglePause]);
+
+  // ------------------------------------------------------------
+  // RECORD SESSION
+  // ------------------------------------------------------------
+
+  const handleSaveSession = useCallback(
+    async (
+      finalScore: number,
+      outcome: 'victory' | 'failed'
+    ) => {
+      const timeSpentSeconds = Math.max(
+        1,
+        Math.floor(
+          (Date.now() - startTimeRef.current) / 1000
+        )
+      );
+
+      await recordGameSession({
+        gameId: 'neutralise',
+        score: finalScore,
+        levelReached: currentLevel,
+        timeSpentSeconds,
+        outcome,
+      });
+    },
+    [currentLevel]
+  );
+
+  // ------------------------------------------------------------
+  // ENEMY REACHES GROUND
+  // ------------------------------------------------------------
+
+  const handlePlayerHit = useCallback(() => {
+    // A missed enemy costs one life.
+    //
+    // IMPORTANT:
+    // Do not call setGameState() or handleSaveSession() inside
+    // this state updater. React state updater functions must stay
+    // pure.
+    setLives((prev) => Math.max(0, prev - 1));
+
+    setEnemiesMissed((prev) => prev + 1);
+  }, []);
+
+  // ------------------------------------------------------------
+  // HANDLE SECOND MISS / GAME OVER
+  // ------------------------------------------------------------
+
+  useEffect(() => {
+    if (gameState !== 'playing') return;
+
+    if (
+      (enemiesMissed >= 2 || lives <= 0) &&
+      !sessionSavedRef.current
+    ) {
+      sessionSavedRef.current = true;
+
+      setGameState('failed');
+
+      handleSaveSession(score, 'failed');
+    }
+  }, [
+    enemiesMissed,
+    lives,
+    gameState,
+    setGameState,
+    handleSaveSession,
+    score,
+  ]);
+
+  // ------------------------------------------------------------
+  // ENEMY SUCCESSFULLY DEFEATED
+  // ------------------------------------------------------------
 
   const handleEnemyDefeated = useCallback(
     (points: number) => {
       setScore((prev) => prev + points);
+
       setEnemiesCleared((prev) => prev + 1);
     },
     [setScore]
   );
 
-  // Wave Transition & Game End Logic
+  // ------------------------------------------------------------
+  // WAVE TRANSITION
+  // ------------------------------------------------------------
+
   useEffect(() => {
-    if (enemiesCleared >= enemiesPerWave) {
-      if (currentWave < NEUTRALISE_CONFIG.waves.maxWavesPerLevel) {
+    // Never advance a wave after the game has failed.
+    if (gameState !== 'playing') return;
+
+    // The wave is complete once every enemy has either:
+    // - been successfully neutralised, or
+    // - reached the ground.
+    //
+    // One miss is allowed.
+    // The second miss is handled separately above and immediately
+    // changes the game state to "failed".
+    if (
+      enemiesProcessed >= enemiesPerWave &&
+      enemiesMissed < 2
+    ) {
+      if (
+        currentWave <
+        NEUTRALISE_CONFIG.waves.maxWavesPerLevel
+      ) {
         setCurrentWave((prev) => prev + 1);
+
+        // Reset wave-specific counters.
         setEnemiesCleared(0);
+        setEnemiesMissed(0);
       } else {
+        // Final wave completed successfully.
         setGameState('levelUp');
-        handleSaveSession(score, 'victory');
+
+        if (!sessionSavedRef.current) {
+          sessionSavedRef.current = true;
+          handleSaveSession(score, 'victory');
+        }
       }
     }
-  }, [enemiesCleared, enemiesPerWave, currentWave, setGameState, handleSaveSession, score]);
+  }, [
+    enemiesProcessed,
+    enemiesPerWave,
+    enemiesMissed,
+    currentWave,
+    gameState,
+    setGameState,
+    handleSaveSession,
+    score,
+  ]);
+
+  // ------------------------------------------------------------
+  // EXIT
+  // ------------------------------------------------------------
 
   const handleExit = useCallback(() => {
     router.push('/games');
   }, [router]);
+
+  // ------------------------------------------------------------
+  // OVERLAY RESUME
+  // ------------------------------------------------------------
 
   const handleResume = useCallback(() => {
     if (gameState === 'levelUp') {
       setCurrentLevel((prev) => prev + 1);
       setCurrentWave(1);
       setEnemiesCleared(0);
+      setEnemiesMissed(0);
     }
+
     startTimeRef.current = Date.now();
+
     setGameState('playing');
-  }, [gameState, setCurrentLevel, setGameState]);
+  }, [
+    gameState,
+    setCurrentLevel,
+    setGameState,
+  ]);
+
+  // ------------------------------------------------------------
+  // RESTART
+  // ------------------------------------------------------------
 
   const handleRestart = useCallback(() => {
+    // This is a new game session, so allow a new session record.
+    sessionSavedRef.current = false;
+
     setLives(3);
     setEnemiesCleared(0);
+    setEnemiesMissed(0);
     setCurrentWave(1);
+
     startTimeRef.current = Date.now();
+
     resetBase();
   }, [resetBase]);
 
-  const handleOpenSettings = useCallback(() => {
-    if (gameState === 'playing') {
-      togglePause();
-    }
-    setIsSettingsOpen(true);
-  }, [gameState, togglePause]);
+  // ------------------------------------------------------------
+  // MODAL STATE
+  // ------------------------------------------------------------
+
+  const isModalOpen =
+    isSettingsOpen || isInstructionsOpen;
+
+  // ------------------------------------------------------------
+  // RENDER
+  // ------------------------------------------------------------
 
   return (
-    <GameShell fullBleed themeScope="neutralise">
+    <GameShell
+      fullBleed
+      themeScope="neutralise"
+    >
       <div className="px-4 md:px-6 lg:px-8">
-        {/* Responsive Header */}
+        {/* Desktop Header */}
         <div className="hidden md:block">
           <GamesHeader
             gameSubtitle="OBJECTIVE: Neutralize acids with OH⁻ and bases with H⁺"
@@ -166,6 +362,8 @@ const handlePlayerHit = useCallback(() => {
             showCenterTask={false}
           />
         </div>
+
+        {/* Mobile Header */}
         <div className="block md:hidden">
           <GamesHeader
             gameSubtitle="NEUTRALIZE"
@@ -182,26 +380,31 @@ const handlePlayerHit = useCallback(() => {
         </div>
       </div>
 
+      {/* Settings */}
       <GameSettingsModal
         isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
+        onClose={handleCloseSettings}
         gameId="neutralise"
       />
 
+      {/* Instructions */}
       <GameInstructionsModal
         isOpen={isInstructionsOpen}
         onClose={handleCloseInstructions}
         title="How to Play: Neutralize!"
       >
         <div className="space-y-4 text-sm font-medium text-(--muted)">
-          <p className="font-bold text-(--foreground)">Defend the lab from incoming chemical hazards!</p>
+          <p className="font-bold text-(--foreground)">
+            Defend the lab from incoming chemical hazards!
+          </p>
 
-          {/* Manual override — detection covers the common cases, but this
-              lets anyone switch if it guesses wrong (e.g. tablet + keyboard). */}
+          {/* Control method selector */}
           <div className="flex gap-2 rounded-lg bg-(--background) p-1 border border-(--border) w-fit">
             <button
               type="button"
-              onClick={() => setInstructionsTabOverride('pointer')}
+              onClick={() =>
+                setInstructionsTabOverride('pointer')
+              }
               className={`rounded-md px-3 py-1.5 text-xs font-bold transition-colors ${
                 instructionsTab === 'pointer'
                   ? 'bg-(--surface) text-(--foreground) shadow-sm'
@@ -210,9 +413,12 @@ const handlePlayerHit = useCallback(() => {
             >
               Keyboard &amp; mouse
             </button>
+
             <button
               type="button"
-              onClick={() => setInstructionsTabOverride('touch')}
+              onClick={() =>
+                setInstructionsTabOverride('touch')
+              }
               className={`rounded-md px-3 py-1.5 text-xs font-bold transition-colors ${
                 instructionsTab === 'touch'
                   ? 'bg-(--surface) text-(--foreground) shadow-sm'
@@ -226,52 +432,113 @@ const handlePlayerHit = useCallback(() => {
           {instructionsTab === 'pointer' ? (
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">1</kbd>
-                <span>Load <strong className="text-blue-500">H⁺ (Acid)</strong> to neutralize Bases.</span>
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  1
+                </kbd>
+
+                <span>
+                  Load{' '}
+                  <strong className="text-blue-500">
+                    H⁺ (Acid)
+                  </strong>{' '}
+                  to neutralize Bases.
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">2</kbd>
-                <span>Load <strong className="text-rose-500">OH⁻ (Base)</strong> to neutralize Acids.</span>
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  2
+                </kbd>
+
+                <span>
+                  Load{' '}
+                  <strong className="text-rose-500">
+                    OH⁻ (Base)
+                  </strong>{' '}
+                  to neutralize Acids.
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Space</kbd>
-                <span>Fire your ion cannon! (Or click the arena).</span>
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  Space
+                </kbd>
+
+                <span>
+                  Fire your ion cannon! (Or click the arena).
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">←/→</kbd>
-                <span>Move the cannon (or move your mouse).</span>
+                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  ←/→
+                </kbd>
+
+                <span>
+                  Move the cannon (or move your mouse).
+                </span>
               </li>
             </ul>
           ) : (
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
-                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Drag</span>
-                <span>Slide your finger on the arena to aim the cannon.</span>
+                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  Drag
+                </span>
+
+                <span>
+                  Slide your finger on the arena to aim the
+                  cannon.
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
-                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Fire</span>
-                <span>Tap the <strong>Fire</strong> button below the arena.</span>
+                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  Fire
+                </span>
+
+                <span>
+                  Tap the <strong>Fire</strong> button below the
+                  arena.
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
-                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">Switch</span>
-                <span>Tap the ion button to toggle between H⁺ and OH⁻.</span>
+                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  Switch
+                </span>
+
+                <span>
+                  Tap the ion button to toggle between H⁺ and
+                  OH⁻.
+                </span>
               </li>
             </ul>
           )}
         </div>
       </GameInstructionsModal>
 
+      {/* Game area */}
       <div className="relative mx-auto my-2 flex w-full max-w-5xl flex-1 min-h-0 flex-col justify-center px-4">
-        <GameOverlay
-          gameState={isSettingsOpen || isInstructionsOpen ? 'playing' : gameState}
-          score={score}
-          correctInRound={enemiesCleared}
-          currentLevel={currentLevel}
-          maxLevel={10}
-          failReason={lives <= 0 ? 'mistakes' : 'timeout'}
-          onResume={handleResume}
-          onRestart={handleRestart}
-        />
+        {/* Don't show the generic pause/game-over overlay while
+            Settings or Instructions are open. The actual gameState
+            remains "paused" underneath the modal. */}
+        {!isModalOpen && (
+          <GameOverlay
+            gameState={gameState}
+            score={score}
+            correctInRound={enemiesCleared}
+            currentLevel={currentLevel}
+            maxLevel={10}
+            failReason={
+              enemiesMissed >= 2 || lives <= 0
+                ? 'mistakes'
+                : 'timeout'
+            }
+            onResume={handleResume}
+            onRestart={handleRestart}
+          />
+        )}
 
         <NeutralizeArena
           level={currentLevel}
@@ -279,13 +546,18 @@ const handlePlayerHit = useCallback(() => {
           enemyCount={enemiesPerWave}
           onEnemyDefeated={handleEnemyDefeated}
           onPlayerHit={handlePlayerHit}
-          isPaused={gameState !== 'playing' || isSettingsOpen || isInstructionsOpen}
+          isPaused={
+            gameState !== 'playing' ||
+            isSettingsOpen ||
+            isInstructionsOpen
+          }
         />
       </div>
 
+      {/* Footer */}
       <GameFooter
         onOpenSettings={handleOpenSettings}
-        onOpenInstructions={() => setIsInstructionsOpen(true)}
+        onOpenInstructions={handleOpenInstructions}
         isPaused={gameState !== 'playing'}
         onTogglePause={togglePause}
       />
