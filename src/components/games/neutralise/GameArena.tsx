@@ -9,8 +9,8 @@ import { PlayerCannon } from './PlayerCannon';
 import { useSound } from '@/hooks/useSound';
 import { isColliding, getCollisionResult } from '@/core-engine/utils/collision-utils';
 import { getLevelSpawns } from '@/core-engine/utils/level-manager';
-import { NEUTRALISE_LEVEL_DATA } from '@/core-engine/data/games/neutralise-levels';
-import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
+// Centralized imports from the single config file
+import { NEUTRALISE_LEVEL_DATA, NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
 import { isNeutralizationCompatible } from '@/core-engine/utils/chemical-utils';
 import { assignSpawnSlots } from '@/core-engine/utils/spawn-manager';
 
@@ -69,7 +69,9 @@ export default function NeutralizeArena({
   useEffect(() => {
     const levelConfig =
       NEUTRALISE_LEVEL_DATA.find((l) => l.level === level) || NEUTRALISE_LEVEL_DATA[0];
-    const rawSpawns = getLevelSpawns(enemyCount, levelConfig.compoundPoolIds);
+      
+    // Added level argument to enforce maxEnemies via level-manager
+    const rawSpawns = getLevelSpawns(enemyCount, levelConfig.compoundPoolIds, level);
 
     // Convert to real pixel bounds so invaders are placed — and stay —
     // fully inside the visible arena: never off either side, never above it.

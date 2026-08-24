@@ -4,38 +4,36 @@
 import { MoleculeInvader } from '../types/molecular-combat';
 import { COMPOUNDS_REGISTRY } from '../data/compounds';
 import { calculateMoleculeHealth, evaluateChemical } from './chemical-utils';
+import { NEUTRALISE_LEVEL_DATA } from '../config/games/neutralise-config';
 
 /**
- * Generalized Level Generator
- * @param count Number of invaders to spawn
- * @param compoundIds Array of IDs permitted for this level/wave
+ * Generates initial spawn data for a wave of invaders based on level rules.
  */
-export const getLevelSpawns = (count: number, compoundIds: string[]): MoleculeInvader[] => {
+export const getLevelSpawns = (
+  count: number,
+  compoundIds: string[],
+  level: number = 1
+): MoleculeInvader[] => {
+  const levelConfig =
+    NEUTRALISE_LEVEL_DATA.find((l) => l.level === level) || NEUTRALISE_LEVEL_DATA[0];
 
-  // Neutral compounds are excluded up front: isNeutralizationCompatible()
-  // always returns false for 'neutral', so a neutral invader can never be
-  // defeated by any projectile — spawning one would create an unwinnable
-  // wave, not just an easier/harder one.
+  // Restrict count according to central level maxEnemies setting
+  const actualCount = Math.min(count, levelConfig.maxEnemies);
+
   const nonNeutralRegistry = COMPOUNDS_REGISTRY.filter(
     (c) => evaluateChemical(c) !== 'Neutral'
   );
 
-  const spawnPool = nonNeutralRegistry.filter(c => compoundIds.includes(c.id));
-
-  // Fallback: if this level's configured pool has no non-neutral
-  // compounds, fall back to the FULL non-neutral registry.
+  const spawnPool = nonNeutralRegistry.filter((c) => compoundIds.includes(c.id));
   const finalPool = spawnPool.length > 0 ? spawnPool : nonNeutralRegistry;
 
   if (finalPool.length === 0) {
-    throw new Error(
-      'getLevelSpawns: no non-neutral compounds available in COMPOUNDS_REGISTRY. ' +
-      'Neutralise cannot spawn any defeatable invaders.'
-    );
+    throw new Error('getLevelSpawns: no non-neutral compounds available in COMPOUNDS_REGISTRY.');
   }
 
   const invaders: MoleculeInvader[] = [];
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < actualCount; i++) {
     const randomCompound = finalPool[Math.floor(Math.random() * finalPool.length)];
     const health = calculateMoleculeHealth(randomCompound);
 
