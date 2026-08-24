@@ -255,7 +255,7 @@ function ActionButtons({
       </button>
 
       <Link
-        href="/(main)/games"
+        href="/games"
         className="flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
       >
         <LogOut className="h-4 w-4" /> Quit to Hub
