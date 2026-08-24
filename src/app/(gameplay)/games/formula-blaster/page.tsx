@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { AlertCircle, Lightbulb, X } from 'lucide-react';
+
 import { useGameState } from '@/hooks/useGameState';
 import { useSound } from '@/hooks/useSound';
 import GameShell from '@/components/games/shared/GameShell';
@@ -11,10 +11,15 @@ import GameShell from '@/components/games/shared/GameShell';
 // Shared Components
 import Header from '@/components/games/shared/GamesHeader';
 import GameOverlay from '@/components/games/shared/GameOverlay';
-import BlasterBubble from '@/components/games/formula-blaster/BlasterBubble';
 import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
 import GameFooter from '@/components/games/shared/GameFooter';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
+
+// Formula Blaster
+import GameArena, {
+  BubbleData,
+  PositionedError,
+} from '@/components/games/formula-blaster/GameArena';
 
 // Core Engine, Config & Utilities
 import type { CompoundData } from '@/core-engine/types/chemistry';
@@ -24,24 +29,10 @@ import {
   generateComparativeError,
   generateChemicalHint,
 } from '@/core-engine/utils/chemical-utils';
-import { getValidXPosition, resetSpawnManager } from '@/core-engine/utils/spawn-manager';
-
-interface BubbleData {
-  id: string;
-  compoundId: string;
-  formula: string;
-  chemicalName: string;
-  xPos: number;
-  speed: number;
-  isCorrect: boolean;
-  colorClass: string;
-}
-
-interface PositionedError {
-  message: string;
-  x: number;
-  y: number;
-}
+import {
+  getValidXPosition,
+  resetSpawnManager,
+} from '@/core-engine/utils/spawn-manager';
 
 export default function FormulaBlasterPage() {
   const router = useRouter();
@@ -58,30 +49,49 @@ export default function FormulaBlasterPage() {
     resetBase,
   } = useGameState();
 
-  // Typed numbers with explicit generics to prevent TS literal inference locks
   const [correctInRound, setCorrectInRound] = useState<number>(0);
+
   const [targetQuota, setTargetQuota] = useState<number>(3);
+
   const [timeLeft, setTimeLeft] = useState<number>(
     FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds
   );
 
   const [completedTargetIds, setCompletedTargetIds] = useState<string[]>([]);
-  const targetsRequiredPerLevel = FORMULA_BLASTER_CONFIG.levels.targetsRequiredPerLevel;
 
-  const [currentTarget, setCurrentTarget] = useState<CompoundData | null>(null);
+  const targetsRequiredPerLevel =
+    FORMULA_BLASTER_CONFIG.levels.targetsRequiredPerLevel;
+
+  const [currentTarget, setCurrentTarget] =
+    useState<CompoundData | null>(null);
+
   const [bubbles, setBubbles] = useState<BubbleData[]>([]);
 
   const [activeHint, setActiveHint] = useState<string | null>(null);
-  const [activeError, setActiveError] = useState<PositionedError | null>(null);
+
+  const [activeError, setActiveError] =
+    useState<PositionedError | null>(null);
 
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
-  const [isInstructionsOpen, setIsInstructionsOpen] = useState<boolean>(false);
+
+  const [isInstructionsOpen, setIsInstructionsOpen] =
+    useState<boolean>(false);
 
   const maxLevel = FORMULA_BLASTER_CONFIG.levels.maxLevel;
+
   const spawnIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
   const consecutiveDistractors = useRef<number>(0);
 
-  // Derive movement speed using central config physics values
+  // Tracks whether the currently open modal caused the pause.
+  // This prevents closing a modal from accidentally resuming
+  // a game that was already paused before the modal opened.
+  const pausedByModalRef = useRef(false);
+
+  // ------------------------------------------------------------
+  // MOVEMENT SPEED
+  // ------------------------------------------------------------
+
   const getRandomSpeedForLevel = (level: number): number => {
     const {
       baseSpeed,
@@ -92,13 +102,23 @@ export default function FormulaBlasterPage() {
       minVariance,
     } = FORMULA_BLASTER_CONFIG.physics;
 
-    const speed = Math.max(baseSpeed - level * speedLevelDecrement, minSpeed);
-    const variance = Math.max(baseVariance - level * varianceLevelDecrement, minVariance);
+    const speed = Math.max(
+      baseSpeed - level * speedLevelDecrement,
+      minSpeed
+    );
+
+    const variance = Math.max(
+      baseVariance - level * varianceLevelDecrement,
+      minVariance
+    );
 
     return Math.random() * variance + speed;
   };
 
+  // ------------------------------------------------------------
   // 1. WAVE COUNTDOWN ENGINE
+  // ------------------------------------------------------------
+
   useEffect(() => {
     if (gameState !== 'playing') return;
 
@@ -110,6 +130,7 @@ export default function FormulaBlasterPage() {
           setGameState('failed');
           return 0;
         }
+
         return prev - 1;
       });
     }, 1000);
@@ -117,11 +138,22 @@ export default function FormulaBlasterPage() {
     return () => clearInterval(clockInterval);
   }, [gameState, playSound, setGameState]);
 
+  // ------------------------------------------------------------
   // 2. MOLECULE TARGETING SYSTEM
-  const startNewMoleculeWave = (level: number, currentCompleted: string[]) => {
-    if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) return;
+  // ------------------------------------------------------------
 
-    let levelPool = COMPOUNDS_REGISTRY.filter((chem) => chem.difficulty === level);
+  const startNewMoleculeWave = (
+    level: number,
+    currentCompleted: string[]
+  ) => {
+    if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
+      return;
+    }
+
+    let levelPool = COMPOUNDS_REGISTRY.filter(
+      (chem) => chem.difficulty === level
+    );
+
     const uncompletedPool = levelPool.filter(
       (chem) => !currentCompleted.includes(chem.id)
     );
@@ -132,9 +164,11 @@ export default function FormulaBlasterPage() {
 
     if (levelPool.length === 0) return;
 
-    const randomTarget = levelPool[Math.floor(Math.random() * levelPool.length)];
+    const randomTarget =
+      levelPool[Math.floor(Math.random() * levelPool.length)];
 
-    resetSpawnManager(); // clear lane cooldowns from the previous wave/target
+    resetSpawnManager();
+
     setCompletedTargetIds(currentCompleted);
     setTargetQuota(Math.floor(Math.random() * 3) + 3);
     setCurrentTarget(randomTarget);
@@ -142,14 +176,20 @@ export default function FormulaBlasterPage() {
     setBubbles([]);
     setActiveHint(null);
     setActiveError(null);
-    setTimeLeft(FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds);
+
+    setTimeLeft(
+      FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds
+    );
   };
 
   useEffect(() => {
     startNewMoleculeWave(currentLevel, []);
   }, [currentLevel]);
 
+  // ------------------------------------------------------------
   // PROGRESSION WATCHER
+  // ------------------------------------------------------------
+
   useEffect(() => {
     if (
       gameState === 'playing' &&
@@ -157,10 +197,14 @@ export default function FormulaBlasterPage() {
       correctInRound >= targetQuota &&
       currentTarget
     ) {
-      const updatedCompleted = [...completedTargetIds, currentTarget.id];
+      const updatedCompleted = [
+        ...completedTargetIds,
+        currentTarget.id,
+      ];
 
       if (updatedCompleted.length >= targetsRequiredPerLevel) {
         setCompletedTargetIds(updatedCompleted);
+
         if (currentLevel >= maxLevel) {
           playSound('success-synthesis');
           setGameState('victory');
@@ -169,8 +213,14 @@ export default function FormulaBlasterPage() {
           setGameState('levelUp');
         }
       } else {
-        if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
-        startNewMoleculeWave(currentLevel, updatedCompleted);
+        if (spawnIntervalRef.current) {
+          clearInterval(spawnIntervalRef.current);
+        }
+
+        startNewMoleculeWave(
+          currentLevel,
+          updatedCompleted
+        );
       }
     }
   }, [
@@ -186,10 +236,16 @@ export default function FormulaBlasterPage() {
     setGameState,
   ]);
 
+  // ------------------------------------------------------------
   // 3. BUBBLE SPAWN ENGINE
+  // ------------------------------------------------------------
+
   useEffect(() => {
     if (gameState !== 'playing' || !currentTarget) {
-      if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
+      if (spawnIntervalRef.current) {
+        clearInterval(spawnIntervalRef.current);
+      }
+
       return;
     }
 
@@ -198,9 +254,12 @@ export default function FormulaBlasterPage() {
     );
 
     const spawnBubble = () => {
-      const PITY_THRESHOLD = FORMULA_BLASTER_CONFIG.mechanics.pityThreshold;
+      const PITY_THRESHOLD =
+        FORMULA_BLASTER_CONFIG.mechanics.pityThreshold;
+
       const shouldBeCorrect =
-        Math.random() > 0.8 || consecutiveDistractors.current >= PITY_THRESHOLD;
+        Math.random() > 0.8 ||
+        consecutiveDistractors.current >= PITY_THRESHOLD;
 
       let sourceChemical: CompoundData;
 
@@ -209,16 +268,27 @@ export default function FormulaBlasterPage() {
         consecutiveDistractors.current = 0;
       } else {
         consecutiveDistractors.current += 1;
-        const distractors = currentLevelPool.filter((c) => c.id !== currentTarget.id);
+
+        const distractors = currentLevelPool.filter(
+          (c) => c.id !== currentTarget.id
+        );
+
         sourceChemical =
           distractors.length > 0
-            ? distractors[Math.floor(Math.random() * distractors.length)]
-            : COMPOUNDS_REGISTRY[Math.floor(Math.random() * COMPOUNDS_REGISTRY.length)];
+            ? distractors[
+                Math.floor(Math.random() * distractors.length)
+              ]
+            : COMPOUNDS_REGISTRY[
+                Math.floor(Math.random() * COMPOUNDS_REGISTRY.length)
+              ];
       }
 
       const randomColor =
         FORMULA_BLASTER_CONFIG.visuals.spawnColorPool[
-          Math.floor(Math.random() * FORMULA_BLASTER_CONFIG.visuals.spawnColorPool.length)
+          Math.floor(
+            Math.random() *
+              FORMULA_BLASTER_CONFIG.visuals.spawnColorPool.length
+          )
         ];
 
       const newBubble: BubbleData = {
@@ -238,36 +308,53 @@ export default function FormulaBlasterPage() {
       setBubbles((prev) => [...prev, newBubble]);
     };
 
-    // Instant initial wave burst so screen starts active
-    for (let i = 0; i < FORMULA_BLASTER_CONFIG.mechanics.initialBurstCount; i++) {
+    // Initial burst
+    for (
+      let i = 0;
+      i < FORMULA_BLASTER_CONFIG.mechanics.initialBurstCount;
+      i++
+    ) {
       spawnBubble();
     }
 
-    // Dynamic interval calculation from config values
     const currentSpawnInterval = Math.max(
       FORMULA_BLASTER_CONFIG.timing.baseSpawnIntervalMs -
-        currentLevel * FORMULA_BLASTER_CONFIG.timing.spawnIntervalLevelDecrement,
+        currentLevel *
+          FORMULA_BLASTER_CONFIG.timing.spawnIntervalLevelDecrement,
       FORMULA_BLASTER_CONFIG.timing.minSpawnIntervalMs
     );
 
-    spawnIntervalRef.current = setInterval(spawnBubble, currentSpawnInterval);
+    spawnIntervalRef.current = setInterval(
+      spawnBubble,
+      currentSpawnInterval
+    );
 
     return () => {
-      if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
+      if (spawnIntervalRef.current) {
+        clearInterval(spawnIntervalRef.current);
+      }
     };
   }, [gameState, currentTarget, currentLevel]);
 
-  // Auto-dismiss positioned error banner
+  // ------------------------------------------------------------
+  // 4. AUTO-DISMISS ERROR
+  // ------------------------------------------------------------
+
   useEffect(() => {
     if (!activeError) return;
+
     const timer = setTimeout(
       () => setActiveError(null),
       FORMULA_BLASTER_CONFIG.timing.errorTooltipDurationMs
     );
+
     return () => clearTimeout(timer);
   }, [activeError]);
 
-  // 4. INTERACTION SYSTEM
+  // ------------------------------------------------------------
+  // 5. INTERACTION SYSTEM
+  // ------------------------------------------------------------
+
   const handleBubbleClick = (
     id: string,
     isCorrect: boolean,
@@ -278,18 +365,33 @@ export default function FormulaBlasterPage() {
 
     if (isCorrect) {
       playSound('pop_01');
+
       setScore(
-        (prev) => prev + FORMULA_BLASTER_CONFIG.mechanics.pointsPerLevelMultiplier * currentLevel
+        (prev) =>
+          prev +
+          FORMULA_BLASTER_CONFIG.mechanics.pointsPerLevelMultiplier *
+            currentLevel
       );
-      setBubbles((prev) => prev.filter((b) => b.id !== id));
+
+      setBubbles((prev) =>
+        prev.filter((b) => b.id !== id)
+      );
+
       setCorrectInRound((prev) => prev + 1);
       setActiveError(null);
     } else {
       playSound('fizzle');
-      const clickedChem = COMPOUNDS_REGISTRY.find((c) => c.id === compoundId);
+
+      const clickedChem = COMPOUNDS_REGISTRY.find(
+        (c) => c.id === compoundId
+      );
 
       if (clickedChem) {
-        const errorMsg = generateComparativeError(clickedChem, currentTarget);
+        const errorMsg = generateComparativeError(
+          clickedChem,
+          currentTarget
+        );
+
         setActiveError({
           message: errorMsg,
           x: clickCoords.x,
@@ -301,8 +403,12 @@ export default function FormulaBlasterPage() {
 
   const handleTriggerManualHint = () => {
     if (gameState !== 'playing' || !currentTarget) return;
+
     playSound('click');
-    setActiveHint(generateChemicalHint(currentTarget));
+
+    setActiveHint(
+      generateChemicalHint(currentTarget)
+    );
   };
 
   const handleExitGame = () => {
@@ -310,17 +416,63 @@ export default function FormulaBlasterPage() {
     router.push('/');
   };
 
+  // ------------------------------------------------------------
+  // MODAL PAUSE HANDLERS
+  // ------------------------------------------------------------
+
   const handleOpenSettings = () => {
     playSound('click');
+
     if (gameState === 'playing') {
+      pausedByModalRef.current = true;
       togglePause();
     }
+
     setIsSettingsOpen(true);
   };
 
-  const handleAnimationEnd = (id: string) => {
-    setBubbles((prev) => prev.filter((b) => b.id !== id));
+  const handleCloseSettings = () => {
+    setIsSettingsOpen(false);
+
+    if (pausedByModalRef.current) {
+      pausedByModalRef.current = false;
+      togglePause();
+    }
   };
+
+  const handleOpenInstructions = () => {
+    playSound('click');
+
+    if (gameState === 'playing') {
+      pausedByModalRef.current = true;
+      togglePause();
+    }
+
+    setIsInstructionsOpen(true);
+  };
+
+  const handleCloseInstructions = () => {
+    setIsInstructionsOpen(false);
+
+    if (pausedByModalRef.current) {
+      pausedByModalRef.current = false;
+      togglePause();
+    }
+  };
+
+  // ------------------------------------------------------------
+  // BUBBLE LIFECYCLE
+  // ------------------------------------------------------------
+
+  const handleAnimationEnd = (id: string) => {
+    setBubbles((prev) =>
+      prev.filter((b) => b.id !== id)
+    );
+  };
+
+  // ------------------------------------------------------------
+  // OVERLAY / LEVEL PROGRESSION
+  // ------------------------------------------------------------
 
   const handleOverlayAdvance = () => {
     if (gameState === 'levelUp') {
@@ -329,7 +481,11 @@ export default function FormulaBlasterPage() {
       setBubbles([]);
       setActiveHint(null);
       setActiveError(null);
-      setTimeLeft(FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds);
+
+      setTimeLeft(
+        FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds
+      );
+
       setCurrentLevel((prev) => prev + 1);
       setGameState('playing');
     } else {
@@ -339,13 +495,18 @@ export default function FormulaBlasterPage() {
 
   const handleFullReset = () => {
     resetBase();
-    resetSpawnManager(); // clear lane cooldowns from the previous playthrough
+    resetSpawnManager();
+
     setCorrectInRound(0);
     setCompletedTargetIds([]);
     setBubbles([]);
     setActiveHint(null);
     setActiveError(null);
-    setTimeLeft(FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds);
+
+    setTimeLeft(
+      FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds
+    );
+
     startNewMoleculeWave(1, []);
   };
 
@@ -354,8 +515,14 @@ export default function FormulaBlasterPage() {
     targetsRequiredPerLevel
   );
 
+  const isModalOpen =
+    isSettingsOpen || isInstructionsOpen;
+
   return (
-    <GameShell fullBleed themeScope="formula-blaster">
+    <GameShell
+      fullBleed
+      themeScope="formula-blaster"
+    >
       <div className="px-4 md:px-6 lg:px-8">
         <Header
           gameSubtitle="TARGET MOLECULE"
@@ -371,101 +538,66 @@ export default function FormulaBlasterPage() {
         />
       </div>
 
-      <div className="relative mt-4 flex-1 w-full h-full rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]/30 overflow-hidden">
-        {activeHint && (
-          <div className="absolute top-4 left-1/2 z-40 w-full max-w-md -translate-x-1/2 px-4">
-            <div className="flex items-start justify-between gap-3 rounded-2xl border-2 border-blue-500/40 bg-[var(--surface)] p-4 shadow-xl backdrop-blur-md">
-              <div className="flex items-start gap-3">
-                <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
-                <div className="space-y-1">
-                  <h5 className="text-xs font-black uppercase tracking-wider text-blue-500">
-                    Target Molecule Hint
-                  </h5>
-                  <p className="text-sm font-bold text-(--foreground)">
-                    {activeHint}
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => setActiveHint(null)}
-                className="rounded-lg p-1 text-(--muted) hover:text-(--foreground)"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-        )}
-
-        {activeError && (
-          <div
-            className="pointer-events-none fixed z-50 -translate-x-1/2 transition-all duration-200"
-            style={{ left: `${activeError.x}px`, top: `${activeError.y}px` }}
-          >
-            <div className="flex items-center gap-2 rounded-xl border-2 border-rose-500/60 bg-[var(--surface)] px-3 py-2 text-xs font-black text-rose-500 shadow-xl backdrop-blur-md">
-              <AlertCircle className="h-4 w-4 shrink-0 text-rose-500" />
-              <span>{activeError.message}</span>
-            </div>
-          </div>
-        )}
-
-        {gameState === 'playing' &&
-          bubbles.map((bubble) => (
-            <BlasterBubble
-              key={bubble.id}
-              id={bubble.id}
-              formula={bubble.formula}
-              compoundId={bubble.compoundId}
-              xPos={bubble.xPos}
-              speed={bubble.speed}
-              isCorrect={bubble.isCorrect}
-              colorClass={bubble.colorClass}
-              onClick={handleBubbleClick}
-              onExpired={handleAnimationEnd}
-            />
-          ))}
-      </div>
+      <GameArena
+        bubbles={bubbles}
+        activeHint={activeHint}
+        activeError={activeError}
+        isPaused={gameState !== 'playing'}
+        onDismissHint={() => setActiveHint(null)}
+        onBubbleClick={handleBubbleClick}
+        onBubbleExpired={handleAnimationEnd}
+      />
 
       <GameFooter
         onOpenSettings={handleOpenSettings}
-        onOpenInstructions={() => setIsInstructionsOpen(true)}
+        onOpenInstructions={handleOpenInstructions}
         isPaused={gameState !== 'playing'}
         onTogglePause={togglePause}
       />
 
-      <GameOverlay
-        gameState={gameState}
-        score={score}
-        correctInRound={completedTargetIds.length}
-        currentLevel={currentLevel}
-        maxLevel={maxLevel}
-        failReason="timeout"
-        onResume={handleOverlayAdvance}
-        onRestart={handleFullReset}
-      />
+      {!isModalOpen && (
+        <GameOverlay
+          gameState={gameState}
+          score={score}
+          correctInRound={completedTargetIds.length}
+          currentLevel={currentLevel}
+          maxLevel={maxLevel}
+          failReason="timeout"
+          onResume={handleOverlayAdvance}
+          onRestart={handleFullReset}
+        />
+      )}
 
       <GameSettingsModal
         isOpen={isSettingsOpen}
-        onClose={() => {
-          setIsSettingsOpen(false);
-          if (gameState === 'paused') {
-            togglePause();
-          }
-        }}
+        onClose={handleCloseSettings}
         gameId="formula-blaster"
       />
 
       <GameInstructionsModal
         isOpen={isInstructionsOpen}
-        onClose={() => setIsInstructionsOpen(false)}
+        onClose={handleCloseInstructions}
         title="How to Play: Formula Blaster"
       >
         <div className="space-y-4 text-sm font-medium text-(--muted)">
-          <p>Find and pop bubbles matching the target molecule shown in the header.</p>
+          <p>
+            Find and pop bubbles matching the target molecule
+            shown in the header.
+          </p>
+
           <ul className="list-disc space-y-2 pl-5">
-            <li>Click the correct formula to add a hit toward the current target.</li>
-            <li>Use the lightbulb in the header if you need a clue about elemental breakdown.</li>
-            <li>Tapping an incorrect molecule reveals what element you should look for instead.</li>
+            <li>
+              Click the correct formula to add a hit toward the
+              current target.
+            </li>
+            <li>
+              Use the lightbulb in the header if you need a clue
+              about elemental breakdown.
+            </li>
+            <li>
+              Tapping an incorrect molecule reveals what element
+              you should look for instead.
+            </li>
           </ul>
         </div>
       </GameInstructionsModal>

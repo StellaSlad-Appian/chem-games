@@ -12,6 +12,7 @@ interface BlasterBubbleProps {
   speed: number;
   isCorrect: boolean;
   colorClass: string;
+  isPaused: boolean;
   onClick: (
     id: string,
     isCorrect: boolean,
@@ -29,16 +30,20 @@ export default function BlasterBubble({
   speed,
   isCorrect,
   colorClass,
+  isPaused,
   onClick,
   onExpired,
 }: BlasterBubbleProps) {
   const [hasError, setHasError] = useState(false);
 
-  const handleInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleInteraction = (
+    e: React.MouseEvent<HTMLDivElement>
+  ) => {
     e.preventDefault();
 
     // Capture click coordinates relative to viewport
     const rect = e.currentTarget.getBoundingClientRect();
+
     const clickCoords = {
       x: rect.left + rect.width / 2,
       y: rect.top,
@@ -46,10 +51,16 @@ export default function BlasterBubble({
 
     if (!isCorrect) {
       setHasError(true);
+
       setTimeout(() => setHasError(false), 500);
     }
 
-    onClick(id, isCorrect, compoundId, clickCoords);
+    onClick(
+      id,
+      isCorrect,
+      compoundId,
+      clickCoords
+    );
   };
 
   return (
@@ -64,6 +75,7 @@ export default function BlasterBubble({
       style={{
         left: `${xPos}%`,
         animation: `floatUp ${speed}s linear forwards`,
+        animationPlayState: isPaused ? 'paused' : 'running',
       }}
     >
       <div

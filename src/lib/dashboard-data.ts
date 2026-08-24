@@ -3,10 +3,39 @@
 import { createClient } from '@/lib/supabase/server';
 import type { PersonalScore, GameLeaderboard, GameName } from '@/core-engine/types/general';
 
-const GAME_METADATA: Record<GameName, { title: string; color: string; icon: string }> = {
-  'acid-classification': { title: 'Acid or Base?', color: '#a855f7', icon: '🧪' },
-  'formula-blaster': { title: 'Formula Blaster', color: '#3b82f6', icon: '💥' },
-  'neutralise': { title: 'Neutralise!', color: '#10b981', icon: '⚡' },
+const GAME_METADATA: Record<
+  GameName,
+  { title: string; color: string; icon: string }
+> = {
+  'acid-classification': {
+    title: 'Acid or Base?',
+    color: '#a855f7',
+    icon: '🧪',
+  },
+
+  'formula-blaster': {
+    title: 'Formula Blaster',
+    color: '#3b82f6',
+    icon: '💥',
+  },
+
+  'neutralise': {
+    title: 'Neutralise!',
+    color: '#10b981',
+    icon: '⚡',
+  },
+
+  'reaction-balancer': {
+    title: 'Reaction Balancer',
+    color: '#f59e0b',
+    icon: '⚖️',
+  },
+
+  'bond-builder': {
+    title: 'Bond Builder',
+    color: '#ec4899',
+    icon: '🔗',
+  },
 };
 
 /**
