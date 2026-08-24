@@ -2,29 +2,29 @@
 'use client';
 
 import { LogOut, Lightbulb } from 'lucide-react';
-import GameStats from './GameStats'; 
+import { useRouter } from 'next/navigation';
+import GameStats from './GameStats';
 import GameTimer from './GameTimer';
 import GameLives from './GameLives';
 
 interface HeaderProps {
   gameSubtitle: string;
   targetName?: string;
-  
-  progressText: string; 
+
+  progressText: string;
   currentLevel: number;
   score: number;
-  
-  
+
   onExit?: () => void;
   onTriggerHint?: () => void;
-  
+
   showTimer?: boolean;
   timeLeft?: number;
   showLives?: boolean;
   lives?: number;
   maxLives?: number;
 
-  showCenterTask?: boolean;        
+  showCenterTask?: boolean;
   customTaskDescription?: string;
 }
 
@@ -41,12 +41,18 @@ export default function GamesHeader({
   showLives = false,
   lives = 3,
   maxLives = 3,
-  showCenterTask = true,         
+  showCenterTask = true,
   customTaskDescription,
 }: HeaderProps) {
+  const router = useRouter();
+
+  // Use the game's custom exit behaviour if provided.
+  // Otherwise, return to the Games Hub.
+  const handleExit = onExit ?? (() => router.push('/games'));
+
   return (
     <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl px-6 py-4 md:px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
-      
+
       {/* LEFT SLOT: CONDITIONAL PROGRESS PANEL */}
       <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
         <div className="bg-slate-950/60 px-4 py-2 rounded-xl border border-slate-800 text-left min-w-30">
@@ -57,7 +63,7 @@ export default function GamesHeader({
             {progressText}
           </span>
         </div>
-        
+
         {showTimer && (
           <div className="bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-white font-bold h-11 flex items-center">
             <GameTimer timeLeft={timeLeft} />
@@ -82,7 +88,10 @@ export default function GamesHeader({
               <span className="text-yellow-300">{customTaskDescription}</span>
             ) : (
               <>
-                Find: <span className="text-yellow-300 underline decoration-2 decoration-amber-400">{targetName || 'Loading...'}</span>
+                Find:{' '}
+                <span className="text-yellow-300 underline decoration-2 decoration-amber-400">
+                  {targetName || 'Loading...'}
+                </span>
               </>
             )}
           </h1>
@@ -93,7 +102,7 @@ export default function GamesHeader({
 
       {/* RIGHT SLOT: GAME STATS & ACTIONS PANEL */}
       <div className="flex flex-wrap items-center justify-center md:justify-end gap-4 md:gap-6">
-        
+
         <div className="flex items-center gap-3">
           {onTriggerHint && (
             <button
@@ -104,25 +113,25 @@ export default function GamesHeader({
               <Lightbulb className="w-6 h-6" />
             </button>
           )}
-
         </div>
 
         {/* Pause, instructions, and settings are grouped in the shared game footer. */}
-        <GameStats 
+        <GameStats
           level={currentLevel}
           score={score}
         />
 
-        {onExit && (
-          <button
-            onClick={onExit}
-            className="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer select-none ml-2"
-            title="Exit Game Session"
-          >
-            <LogOut className="w-4 h-4 text-white! stroke-[2.5]" stroke="#ffffff" /> 
-            <span className="text-white font-black">Exit</span>
-          </button>
-        )}
+        <button
+          onClick={handleExit}
+          className="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer select-none ml-2"
+          title="Exit Game Session"
+        >
+          <LogOut
+            className="w-4 h-4 text-white! stroke-[2.5]"
+            stroke="#ffffff"
+          />
+          <span className="text-white font-black">Exit</span>
+        </button>
       </div>
     </header>
   );
