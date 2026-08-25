@@ -8,17 +8,13 @@ The project is organised to keep **chemistry data, game configuration, gameplay 
 
 ### Core Chemistry Data
 
-Scientific data is stored centrally under:
-
-`src/core-engine/data`
+Scientific data is stored centrally under: `src/core-engine/data`
 
 This includes chemistry-related information such as elements, compounds and other shared scientific data. Games can reuse the same underlying data rather than maintaining separate copies.
 
 ### Game Configuration
 
-Game-specific settings are stored under:
-
-`src/core-engine/config/games`
+Game-specific settings are stored under: `src/core-engine/config/games`
 
 These configuration files contain gameplay parameters such as level progression, speeds, scoring and other tuning values. This allows gameplay to be adjusted without mixing all of the configuration directly into the game components.
 
@@ -70,7 +66,6 @@ Acid-Base Classification is a sorting game focused on identifying whether chemic
 - Acid
 - Base
 - Neutral
-- Amphoteric
 
 Compounds are presented in a randomised sequence and players must quickly sort them into the correct category.
 
@@ -92,21 +87,6 @@ The core chemistry interaction is:
 - Use **OH⁻** to neutralise an acid.
 
 The game combines chemical reasoning with action-game mechanics. Players need to identify the type of incoming chemical, select the appropriate ion and react quickly.
-
-**Current gameplay features include:**
-- Multiple waves of incoming chemical hazards
-- H⁺ / OH⁻ selection
-- Player movement and firing
-- Collision detection
-- Lives
-- Scoring
-- Level and wave progression
-- Immediate game feedback
-- Pause functionality
-- Instructions and settings
-- Failure when too many enemies reach the ground
-
-The game also uses a dedicated `GameArena` component for its real-time game loop and interaction logic.
 
 ---
 
@@ -138,11 +118,7 @@ This game is also a potential early use case for richer molecular visualisation,
 
 Continue development of Reaction Balancer and Bond Builder, with particular attention to making their interactions meaningfully connected to the underlying chemistry concepts.
 
-### 2. Improve the Shared Game Architecture
-
-Continue extracting common functionality from individual games into reusable components and systems. The goal is to make new games faster to build while keeping behaviour such as pause/resume, settings, instructions, scoring and feedback consistent.
-
-### 3. Player Progress & Analytics
+### 2. Player Progress & Analytics
 
 Expand the existing game-session tracking to support more comprehensive player progress.
 
@@ -155,13 +131,13 @@ Potential functionality includes:
 - Game history
 - Progress and performance information
 
-### 4. Expand the Game Library
+### 3. Expand the Game Library
 
 Add games covering a broader range of chemistry concepts and learning interactions.
 
 The longer-term goal is not simply to create more games, but to provide different types of interactions for different kinds of chemistry thinking, including recognition, classification, balancing, construction, prediction and problem solving.
 
-### 5. Interactive Chemistry Visualisation
+### 4. Interactive Chemistry Visualisation
 
 Introduce richer molecular representations where they provide meaningful educational value.
 
@@ -175,7 +151,7 @@ Potential applications include:
 - Constructing molecules
 - Connecting molecular structures with chemical equations
 
-### 6. Broader Platform Features
+### 5. Broader Platform Features
 
 As the game library develops, additional platform-level features can be considered, including improved progress tracking, teacher-facing information and tools that make it easier to use the games across different learning contexts.
 
