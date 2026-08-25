@@ -1,45 +1,183 @@
-## 🧪 chem-games
+# 🧪 Chemistry Games (chem-games)
 
-​chem-games is a collection of interactive, web-based chemistry games. The goal of this project is to turn foundational chemistry concepts into fun, fast-paced, arcade-style games with immediate visual and sound feedback.
+Chemistry Games is a collection of interactive, web-based chemistry games. The project aims to turn foundational chemistry concepts into engaging, fast-paced experiences with immediate visual and sound feedback. Each game focuses on a specific chemistry skill while using game mechanics to encourage active thinking rather than simply presenting information.
 
-## ​🏗️ How the Project is Structured
+## 🏗️ Architecture Overview
 
-​The code is built to keep the look and design of the games separate from the scientific logic and data.
+The project is organised to keep **chemistry data, game configuration, gameplay logic and shared UI** as separate as practical. This makes it easier to build new games without duplicating the same systems.
 
-​- **Ref Data:** All scientific data, like properties of atoms and molecules, is kept in the folder `src/core-engine/data`. This ensures every game uses the exact same correct scientific data.
-- **Level Settings:** Note: Right now, the levels, game speeds, and scoring rules are still mixed directly into the game code. Moving these into a separate, easy-to-edit configuration file is planned for a future update.
-- **Shared Layouts:** The game headers, stats tracking, and navigation panels use a shared design so the user experience feels identical across different games.
+### Core Chemistry Data
 
-## ​🎮 Current Mini-Games
+Scientific data is stored centrally under:
 
-​1. Formula Blaster 🚀
+`src/core-engine/data`
 
-​An arcade game where floating elements move up the screen, and players must quickly identify and click the correct chemical formulas before time runs out.
-If you make a mistake, a review screen pops up to show you the correct answer so you can learn from it immediately.
+This includes chemistry-related information such as elements, compounds and other shared scientific data. Games can reuse the same underlying data rather than maintaining separate copies.
 
-​2. Acid-Base Classification 🧪
+### Game Configuration
 
-​A fast-paced sorting game focused on identifying whether chemical compounds are acids, bases, or neutral.
-​Category Sorting: Randomized compounds appear, and players must instantly sort them into the correct column (Acid, Base, Neutral, or Amphoteric).
-​Input Protection: The game blocks double-clicking or rapid accidental inputs to keep scores and game tracking accurate.
+Game-specific settings are stored under:
 
-## ​🚀 Future Upgrades & Roadmap
+`src/core-engine/config/games`
 
-​1. Clean Up Game Settings (Near Term)
+These configuration files contain gameplay parameters such as level progression, speeds, scoring and other tuning values. This allows gameplay to be adjusted without mixing all of the configuration directly into the game components.
 
-​Move all level speeds, point thresholds, and progression settings out of the main game files into a simple, dedicated settings folder so they are easier to tweak.
+### Shared Game Systems
 
-​2. Saving Player Progress (Next Phase)
+Common gameplay and interface functionality is implemented through shared components and hooks. These include:
 
-​Right now, players have to restart at Level 1 every time they open the game. The next step is adding a save system to:
-​Allow players to create an account and log in securely.
-​Save the highest level reached and lifetime high score to a database.
-​Automatically restore the player's progress whenever they return to the site.
+- Game state and pause/resume behaviour
+- Shared headers and game statistics
+- Game overlays for pause, failure and progression states
+- Instructions and settings modals
+- Shared game footer/navigation
+- Sound and feedback systems
+- Game-session recording
 
-​3. New Game Modes
+The goal is for individual games to focus primarily on their own chemistry mechanics while reusing these common systems.
 
-​- **Valence Matcher:** A drag-and-drop puzzle where players pair matching positive and negative ions together to build balanced, stable compounds.
-​- **Stoichiometry Balance:** A balancing game where users change molecules' numbers to make sure both sides of a chemical equation are perfectly equal.
+### Game-Specific Components
+
+Each game has its own page and components under the games area. More complex games can separate their main arena/game loop into a dedicated `GameArena` component.
+
+This keeps the page responsible for coordinating game state, configuration and shared UI, while the arena handles the game-specific interactive mechanics.
+
+### Technology
+
+The project is built with **Next.js, React, TypeScript and Tailwind CSS**, with additional libraries and browser APIs used where appropriate for game interaction, audio and chemistry functionality.
+
+---
+
+## 🎮 Current Mini-Games
+
+### 1. Formula Blaster 🚀
+
+Formula Blaster is a fast-paced recognition game where chemical formulas move through the play area and players must identify the correct formula before time runs out.
+
+The game is designed to practise rapid recognition of chemical notation while providing immediate feedback when the player makes an incorrect selection.
+
+**Core interaction:**
+- Identify the target chemical formula.
+- Select the correct moving formula.
+- Respond quickly as difficulty increases.
+
+The game uses arcade-style movement, scoring and feedback to turn formula recognition into an active task rather than passive recall.
+
+### 2. Acid-Base Classification 🧪
+
+Acid-Base Classification is a sorting game focused on identifying whether chemical compounds are:
+
+- Acid
+- Base
+- Neutral
+- Amphoteric
+
+Compounds are presented in a randomised sequence and players must quickly sort them into the correct category.
+
+The game also includes input protection to prevent accidental double-clicks or rapid repeated inputs from corrupting scoring and game tracking.
+
+**Core interaction:**
+- Examine a compound.
+- Determine its acid/base classification.
+- Sort it into the appropriate category.
+- Receive immediate feedback.
+
+### 3. Neutralise ⚡
+
+Neutralise is an arcade-style chemistry game in which incoming acids and bases approach the player's laboratory. The player must select the appropriate ion and fire it to neutralise the incoming chemical.
+
+The core chemistry interaction is:
+
+- Use **H⁺** to neutralise a base.
+- Use **OH⁻** to neutralise an acid.
+
+The game combines chemical reasoning with action-game mechanics. Players need to identify the type of incoming chemical, select the appropriate ion and react quickly.
+
+**Current gameplay features include:**
+- Multiple waves of incoming chemical hazards
+- H⁺ / OH⁻ selection
+- Player movement and firing
+- Collision detection
+- Lives
+- Scoring
+- Level and wave progression
+- Immediate game feedback
+- Pause functionality
+- Instructions and settings
+- Failure when too many enemies reach the ground
+
+The game also uses a dedicated `GameArena` component for its real-time game loop and interaction logic.
+
+---
+
+## 🚧 Games in Development
+
+### 4. Reaction Balancer ⚖️
+
+Reaction Balancer is being developed as a chemistry game focused on balancing chemical equations.
+
+Players will adjust the coefficients of reactants and products so that the number of atoms of each element is equal on both sides of the equation.
+
+The goal is to turn equation balancing into an interactive problem-solving task rather than a worksheet-style exercise.
+
+The game is intended to complement the faster recognition-based games with a more deliberate reasoning activity.
+
+### 5. Bond Builder 🔗
+
+Bond Builder is being developed as an interactive game focused on constructing molecules and understanding chemical bonding.
+
+The game will explore interactions with atoms and bonds rather than relying only on text-based chemical formulas.
+
+This game is also a potential early use case for richer molecular visualisation, allowing chemical structures to become interactive objects rather than static images.
+
+---
+
+## 🚀 Roadmap
+
+### 1. Complete the New Games
+
+Continue development of Reaction Balancer and Bond Builder, with particular attention to making their interactions meaningfully connected to the underlying chemistry concepts.
+
+### 2. Improve the Shared Game Architecture
+
+Continue extracting common functionality from individual games into reusable components and systems. The goal is to make new games faster to build while keeping behaviour such as pause/resume, settings, instructions, scoring and feedback consistent.
+
+### 3. Player Progress & Analytics
+
+Expand the existing game-session tracking to support more comprehensive player progress.
+
+Potential functionality includes:
+
+- Persistent player profiles
+- Saved progress
+- Highest level reached
+- High scores
+- Game history
+- Progress and performance information
+
+### 4. Expand the Game Library
+
+Add games covering a broader range of chemistry concepts and learning interactions.
+
+The longer-term goal is not simply to create more games, but to provide different types of interactions for different kinds of chemistry thinking, including recognition, classification, balancing, construction, prediction and problem solving.
+
+### 5. Interactive Chemistry Visualisation
+
+Introduce richer molecular representations where they provide meaningful educational value.
+
+A planned direction is to use a shared molecular visualisation component so that molecules can eventually be displayed and interacted with consistently across multiple games.
+
+Potential applications include:
+
+- Displaying molecular structures alongside formulas
+- Highlighting atoms or bonds
+- Identifying functional groups
+- Constructing molecules
+- Connecting molecular structures with chemical equations
+
+### 6. Broader Platform Features
+
+As the game library develops, additional platform-level features can be considered, including improved progress tracking, teacher-facing information and tools that make it easier to use the games across different learning contexts.
 
 ---
 
@@ -47,14 +185,24 @@ If you make a mistake, a review screen pops up to show you the correct answer so
 
 Ensure you have **Node.js (v18+)** installed.
 
-1. **Clone the repository:**
+1. Clone the repository:
+
    ```bash
-   git clone [https://github.com/your-username/chem-games.git](https://github.com/your-username/chem-games.git)
+   git clone <repository-url>
    cd chem-games
-2. **Install dependencies:**
+   ```
+
+2. Install dependencies:
+
    ```bash
    npm install
-3. **Run the local development server:**
+   ```
+
+3. Run the local development server:
+
    ```bash
    npm run dev
-4. **Open** http://localhost:3000 **in your browser to run the application.**
+   ```
+
+4. Open `http://localhost:3000` in your browser.
+
