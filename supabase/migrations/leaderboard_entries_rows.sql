@@ -1,0 +1,1 @@
+INSERT INTO "public"."leaderboard_entries" ("game_id", "alias", "score", "completed_at", "global_rank") VALUES ('neutralise', 'jonaswunsch', 19400, '2026-07-29 10:07:35.929+00', 1), ('neutralise', 'stella.slad', 1500, '2026-08-01 01:26:07.703+00', 2), ('neutralise', 'Paul Pallaghy', 1300, '2026-08-12 05:08:26.814+00', 3);

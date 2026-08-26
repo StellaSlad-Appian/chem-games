@@ -10,38 +10,68 @@ interface CoefficientInputProps {
   disabled?: boolean;
 }
 
-export default function CoefficientInput({ formula, value, onChange, disabled }: CoefficientInputProps) {
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (disabled) return;
-    
-    const val = e.target.value;
-    
-    // Allow clearing the input (treated as 1 mathematically in the parent)
-    if (val === '') {
+export default function CoefficientInput({
+  formula,
+  value,
+  onChange,
+  disabled,
+}: CoefficientInputProps) {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (disabled) {
+      return;
+    }
+
+    const rawValue = event.target.value;
+
+    // Allow the student to temporarily clear
+    // the field while typing.
+    if (rawValue === '') {
       onChange('');
       return;
     }
 
-    const num = parseInt(val, 10);
-    // Prevent negative values or excessively large numbers
-    if (!isNaN(num) && num >= 1 && num <= 99) {
-      onChange(num);
+    const numericValue = parseInt(
+      rawValue,
+      10
+    );
+
+    // Coefficients must be whole numbers
+    // between 1 and 99.
+    if (
+      !Number.isNaN(numericValue) &&
+      numericValue >= 1 &&
+      numericValue <= 99
+    ) {
+      onChange(numericValue);
     }
   };
 
   return (
-    <div className="flex flex-col sm:flex-row items-center gap-2 rounded-xl border border-[var(--border)] bg-slate-800/20 p-2 sm:p-3 shadow-inner">
-      <input
-        type="text"
-        inputMode="numeric"
-        pattern="[0-9]*"
-        value={value}
-        onChange={handleChange}
-        disabled={disabled}
-        placeholder="1"
-        className="h-10 w-12 sm:h-12 sm:w-14 rounded-lg border-2 border-slate-600 bg-slate-900 text-center text-lg sm:text-xl font-black text-amber-400 placeholder-slate-600 transition-all focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
-      />
-      <MoleculeText formula={formula} className="text-xl sm:text-2xl text-[var(--foreground)]" />
+    <div className="flex flex-col items-center gap-1.5">
+      <span className="text-[9px] font-black uppercase tracking-[0.18em] text-[var(--muted)]">
+        Molecules
+      </span>
+
+      <div className="flex w-full items-center justify-center gap-2">
+        <input
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          value={value}
+          onChange={handleChange}
+          disabled={disabled}
+          placeholder="1"
+          aria-label={`Coefficient for ${formula}`}
+          className="h-10 w-12 rounded-lg border-2 border-slate-600 bg-slate-950 text-center text-lg font-black text-amber-400 placeholder-slate-600 transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-50 sm:h-11 sm:w-14 sm:text-xl"
+        />
+
+        <MoleculeText
+          formula={formula}
+          className="text-xl text-[var(--foreground)] sm:text-2xl"
+        />
+      </div>
     </div>
   );
 }
