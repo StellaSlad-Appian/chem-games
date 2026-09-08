@@ -1,0 +1,554 @@
+family,entity,keyword,volume,slug,entity_count,data_source,source
+chemical_formula_for,(FAMILY TOTAL),Chemical Formula for {Compound},78500,/guides/chemical-formula/[compound],122,Site's own compound library (35 named compounds with formulas),stage4+stage6
+chemical_formula_for,acetic acid,chemical formula for acetic acid,36200,/guides/chemical-formula/acetic-acid,,,stage4
+chemical_formula_for,glucose,chemical formula for glucose,27100,/guides/chemical-formula/glucose,,,stage4
+chemical_formula_for,nh3,ammonia chemical formula,27100,/guides/chemical-formula/nh3,,,stage6
+chemical_formula_for,nh4,ammonium chemical formula,27100,/guides/chemical-formula/nh4,,,stage6
+chemical_formula_for,c6h12o6,chemical formula for glucose,27100,/guides/chemical-formula/c6h12o6,,,stage6
+chemical_formula_for,ch3cooh,acetic acid chemical formula,18100,/guides/chemical-formula/ch3cooh,,,stage6
+chemical_formula_for,ch4,chemical formula ch4,14800,/guides/chemical-formula/ch4,,,stage6
+chemical_formula_for,c2h5oh,chemical formula ethanol,14800,/guides/chemical-formula/c2h5oh,,,stage6
+chemical_formula_for,h2o2,chemical formula for hydrogen peroxide,14800,/guides/chemical-formula/h2o2,,,stage6
+chemical_formula_for,c2h3o2,acetate chemical formula,9900,/guides/chemical-formula/c2h3o2,,,stage6
+chemical_formula_for,c3h6o,acetone chemical formula,9900,/guides/chemical-formula/c3h6o,,,stage6
+chemical_formula_for,nahco3,baking soda chemical formula,9900,/guides/chemical-formula/nahco3,,,stage6
+chemical_formula_for,co,c o chemical formula,9900,/guides/chemical-formula/co,,,stage6
+chemical_formula_for,co2,carbon dioxide chemical formula,9900,/guides/chemical-formula/co2,,,stage6
+chemical_formula_for,co3,carbonate chemical formula,9900,/guides/chemical-formula/co3,,,stage6
+chemical_formula_for,titin,chemical formula for titin,9900,/guides/chemical-formula/titin,,,stage6
+chemical_formula_for,propanone,chemical formula of propanone,9900,/guides/chemical-formula/propanone,,,stage6
+chemical_formula_for,na2co3,soda chemical formula,9900,/guides/chemical-formula/na2co3,,,stage6
+chemical_formula_for,vinegar,chemical formula for vinegar,8100,/guides/chemical-formula/vinegar,,,stage4
+chemical_formula_for,caco3,calcium carbonate chemical formula,8100,/guides/chemical-formula/caco3,,,stage6
+chemical_formula_for,cacl2,calcium chloride chemical formula,8100,/guides/chemical-formula/cacl2,,,stage6
+chemical_formula_for,no3,chemical formula for nitrate,8100,/guides/chemical-formula/no3,,,stage6
+chemical_formula_for,nacl,chemical formula for salt,8100,/guides/chemical-formula/nacl,,,stage6
+chemical_formula_for,c12h22o11,chemical formula for sugar,8100,/guides/chemical-formula/c12h22o11,,,stage6
+chemical_formula_for,salts,chemical formula of salts,8100,/guides/chemical-formula/salts,,,stage6
+chemical_formula_for,h2o,chemical formula for water,6600,/guides/chemical-formula/h2o,,,stage6
+chemical_formula_for,hco3,bicarbonate chemical formula,5400,/guides/chemical-formula/hco3,,,stage6
+chemical_formula_for,naclo,bleach chemical formula,5400,/guides/chemical-formula/naclo,,,stage6
+chemical_formula_for,caoh2,calcium hydroxide chemical formula,5400,/guides/chemical-formula/caoh2,,,stage6
+chemical_formula_for,c6h8o7,chemical formula citric acid,5400,/guides/chemical-formula/c6h8o7,,,stage6
+chemical_formula_for,agno3,chemical formula of silver nitrate,5400,/guides/chemical-formula/agno3,,,stage6
+chemical_formula_for,mgo,magnesium oxide chemical formula,5400,/guides/chemical-formula/mgo,,,stage6
+chemical_formula_for,c4h10,butane chemical formula,4400,/guides/chemical-formula/c4h10,,,stage6
+chemical_formula_for,cl2,chemical formula chlorine gas,4400,/guides/chemical-formula/cl2,,,stage6
+chemical_formula_for,cl,chemical formula for chlorine,4400,/guides/chemical-formula/cl,,,stage6
+chemical_formula_for,c3h8,chemical formula for propane,4400,/guides/chemical-formula/c3h8,,,stage6
+chemical_formula_for,ch3oh,chemical formula methanol,4400,/guides/chemical-formula/ch3oh,,,stage6
+chemical_formula_for,ch4o,chemical formula of methyl alcohol,4400,/guides/chemical-formula/ch4o,,,stage6
+chemical_formula_for,c10h15n,meth chemical formula,4400,/guides/chemical-formula/c10h15n,,,stage6
+chemical_formula_for,na2so4,sodium sulfate chemical formula,4400,/guides/chemical-formula/na2so4,,,stage6
+chemical_formula_for,dihydrogen monoxide,chemical formula for dihydrogen monoxide,3600,/guides/chemical-formula/dihydrogen-monoxide,,,stage4
+chemical_formula_for,c8h10n4o2,chemical formula caffeine,3600,/guides/chemical-formula/c8h10n4o2,,,stage6
+chemical_formula_for,c2h6,chemical formula ethane,3600,/guides/chemical-formula/c2h6,,,stage6
+chemical_formula_for,h,chemical formula for hydrogen,3600,/guides/chemical-formula/h,,,stage6
+chemical_formula_for,h2,chemical formula for hydrogen gas,3600,/guides/chemical-formula/h2,,,stage6
+chemical_formula_for,fe2o3,chemical formula for iron iii oxide,3600,/guides/chemical-formula/fe2o3,,,stage6
+chemical_formula_for,no2,chemical formula for nitrite,3600,/guides/chemical-formula/no2,,,stage6
+chemical_formula_for,hclo4,chemical formula for perchloric acid,3600,/guides/chemical-formula/hclo4,,,stage6
+chemical_formula_for,kno3,chemical formula for potassium nitrate,3600,/guides/chemical-formula/kno3,,,stage6
+chemical_formula_for,c3h8o,chemical formula for rubbing alcohol,3600,/guides/chemical-formula/c3h8o,,,stage6
+chemical_formula_for,so3,chemical formula for sulfite ion,3600,/guides/chemical-formula/so3,,,stage6
+chemical_formula_for,c2h3nao2,chemical formula of sodium acetate,3600,/guides/chemical-formula/c2h3nao2,,,stage6
+chemical_formula_for,ipa,ipa chemical formula,3600,/guides/chemical-formula/ipa,,,stage6
+chemical_formula_for,o2,peroxide chemical formula,3600,/guides/chemical-formula/o2,,,stage6
+chemical_formula_for,al2s3,aluminium sulfide chemical formula,2900,/guides/chemical-formula/al2s3,,,stage6
+chemical_formula_for,nh4oh,ammonium hydroxide chemical formula,2900,/guides/chemical-formula/nh4oh,,,stage6
+chemical_formula_for,ccl4,ccl4 chemical formula,2900,/guides/chemical-formula/ccl4,,,stage6
+chemical_formula_for,chcl3,chemical formula chloroform,2900,/guides/chemical-formula/chcl3,,,stage6
+chemical_formula_for,cro4,chemical formula for chromate,2900,/guides/chemical-formula/cro4,,,stage6
+chemical_formula_for,c,chemical formula for graphite,2900,/guides/chemical-formula/c,,,stage6
+chemical_formula_for,n2o,chemical formula for nitrous oxide,2900,/guides/chemical-formula/n2o,,,stage6
+chemical_formula_for,o,chemical formula for oxygen,2900,/guides/chemical-formula/o,,,stage6
+chemical_formula_for,po4,chemical formula for phosphate,2900,/guides/chemical-formula/po4,,,stage6
+chemical_formula_for,ch4n2o,chemical formula for urea,2900,/guides/chemical-formula/ch4n2o,,,stage6
+chemical_formula_for,c6h14,chemical formula hexane,2900,/guides/chemical-formula/c6h14,,,stage6
+chemical_formula_for,cuo,copper oxide chemical formula,2900,/guides/chemical-formula/cuo,,,stage6
+chemical_formula_for,p2o7,polyphosphate chemical formula,2900,/guides/chemical-formula/p2o7,,,stage6
+chemical_formula_for,s,sulphide chemical formula,2900,/guides/chemical-formula/s,,,stage6
+chemical_formula_for,magnesium oxide,chemical formula for magnesium oxide,2620,/guides/chemical-formula/magnesium-oxide,,,stage4
+chemical_formula_for,c9h8o4,acetylsalicylic acid chemical formula,2400,/guides/chemical-formula/c9h8o4,,,stage6
+chemical_formula_for,c9h13n,adderall chemical formula,2400,/guides/chemical-formula/c9h13n,,,stage6
+chemical_formula_for,c9h9no3,adrenochrome chemical formula,2400,/guides/chemical-formula/c9h9no3,,,stage6
+chemical_formula_for,hclo3,chemical formula for chloric acid,2400,/guides/chemical-formula/hclo3,,,stage6
+chemical_formula_for,clo2,chemical formula for chlorite,2400,/guides/chemical-formula/clo2,,,stage6
+chemical_formula_for,p2o5,chemical formula for diphosphorus pentoxide,2400,/guides/chemical-formula/p2o5,,,stage6
+chemical_formula_for,f,chemical formula for fluoride,2400,/guides/chemical-formula/f,,,stage6
+chemical_formula_for,h2s,chemical formula for hydrogen sulfide,2400,/guides/chemical-formula/h2s,,,stage6
+chemical_formula_for,mgno3,chemical formula for magnesium nitrate,2400,/guides/chemical-formula/mgno3,,,stage6
+chemical_formula_for,mg3po4,chemical formula for magnesium phosphate,2400,/guides/chemical-formula/mg3po4,,,stage6
+chemical_formula_for,octane,chemical formula for octane,2400,/guides/chemical-formula/octane,,,stage6
+chemical_formula_for,sio2,chemical formula for silicon dioxide,2400,/guides/chemical-formula/sio2,,,stage6
+chemical_formula_for,h2so4,chemical formula for sulfuric acid,2400,/guides/chemical-formula/h2so4,,,stage6
+chemical_formula_for,c7h6o2,benzoic acid chemical formula,1900,/guides/chemical-formula/c7h6o2,,,stage6
+chemical_formula_for,gasoline,chemical formula for gasoline,1900,/guides/chemical-formula/gasoline,,,stage6
+chemical_formula_for,hcl,chemical formula for hydrochloric acid,1900,/guides/chemical-formula/hcl,,,stage6
+chemical_formula_for,i,chemical formula for iodine,1900,/guides/chemical-formula/i,,,stage6
+chemical_formula_for,o3,chemical formula for ozone,1900,/guides/chemical-formula/o3,,,stage6
+chemical_formula_for,k2s,chemical formula for potassium sulfide,1900,/guides/chemical-formula/k2s,,,stage6
+chemical_formula_for,nabr,chemical formula for sodium bromide,1900,/guides/chemical-formula/nabr,,,stage6
+chemical_formula_for,ibuprofen,chemical formula ibuprofen,1900,/guides/chemical-formula/ibuprofen,,,stage6
+chemical_formula_for,c6h8o6,chemical formula of ascorbic acid,1900,/guides/chemical-formula/c6h8o6,,,stage6
+chemical_formula_for,c20h25n3o,lysergic acid diethylamide chemical formula,1900,/guides/chemical-formula/c20h25n3o,,,stage6
+chemical_formula_for,c2h2o4,oxalic acid chemical formula,1900,/guides/chemical-formula/c2h2o4,,,stage6
+chemical_formula_for,clo4,perchlorate chemical formula,1900,/guides/chemical-formula/clo4,,,stage6
+chemical_formula_for,c8h9no2,acetaminophen chemical formula,1600,/guides/chemical-formula/c8h9no2,,,stage6
+chemical_formula_for,na2b4o7,borax chemical formula,1600,/guides/chemical-formula/na2b4o7,,,stage6
+chemical_formula_for,cs2,carbon disulfide chemical formula,1600,/guides/chemical-formula/cs2,,,stage6
+chemical_formula_for,n2o5,chemical formula for dinitrogen pentoxide,1600,/guides/chemical-formula/n2o5,,,stage6
+chemical_formula_for,c3h8o3,chemical formula for glycerol,1600,/guides/chemical-formula/c3h8o3,,,stage6
+chemical_formula_for,n,chemical formula for nitrogen,1600,/guides/chemical-formula/n,,,stage6
+chemical_formula_for,n2,chemical formula for nitrogen gas,1600,/guides/chemical-formula/n2,,,stage6
+chemical_formula_for,pcl3,chemical formula for phosphorus trichloride,1600,/guides/chemical-formula/pcl3,,,stage6
+chemical_formula_for,agcl,chemical formula for silver chloride,1600,/guides/chemical-formula/agcl,,,stage6
+chemical_formula_for,thc,chemical formula for thc,1600,/guides/chemical-formula/thc,,,stage6
+chemical_formula_for,c7h8,chemical formula for toluene,1600,/guides/chemical-formula/c7h8,,,stage6
+chemical_formula_for,c4h8o2,chemical formula of ethyl acetate,1600,/guides/chemical-formula/c4h8o2,,,stage6
+chemical_formula_for,pbno32,chemical formula of lead nitrate,1600,/guides/chemical-formula/pbno32,,,stage6
+chemical_formula_for,ch2o,formaldehyde chemical formula,1600,/guides/chemical-formula/ch2o,,,stage6
+chemical_formula_for,clo,hypochlorite chemical formula,1600,/guides/chemical-formula/clo,,,stage6
+chemical_formula_for,feo,iron 2 oxide chemical formula,1600,/guides/chemical-formula/feo,,,stage6
+chemical_formula_for,cao,lime chemical formula,1600,/guides/chemical-formula/cao,,,stage6
+chemical_formula_for,so4,sulfate ion chemical formula,1600,/guides/chemical-formula/so4,,,stage6
+chemical_formula_for,sf6,sulfur hexafluoride chemical formula,1600,/guides/chemical-formula/sf6,,,stage6
+chemical_formula_for,cas,chemical formula for calcium and sulfur,1300,/guides/chemical-formula/cas,,,stage6
+chemical_formula_for,c18h24o2,chemical formula for estrogen,1300,/guides/chemical-formula/c18h24o2,,,stage6
+chemical_formula_for,li3n,chemical formula for lithium nitride,1300,/guides/chemical-formula/li3n,,,stage6
+chemical_formula_for,mgbr2,chemical formula for magnesium bromide,1300,/guides/chemical-formula/mgbr2,,,stage6
+chemical_formula_for,mgs,chemical formula for magnesium sulfide,1300,/guides/chemical-formula/mgs,,,stage6
+chemical_formula_for,c5h12,chemical formula for pentane,1300,/guides/chemical-formula/c5h12,,,stage6
+chemical_formula_for,na,chemical formula for sodium,1300,/guides/chemical-formula/na,,,stage6
+chemical_formula_for,c25h52,chemical formula of paraffin wax,1300,/guides/chemical-formula/c25h52,,,stage6
+chemical_formula_for,water,molecular formula of heavy water,880,/guides/chemical-formula/water,,,stage4
+electron_configuration,(FAMILY TOTAL),Electron Configuration of {Element} - Full & Noble Gas Notation,745540,/guides/electron-configuration/[element],38,Derive from atomic number; no external data needed,stage4
+electron_configuration,calcium,ca electron configuration,72600,/guides/electron-configuration/calcium,,,stage4
+electron_configuration,bromine,br electron config,65060,/guides/electron-configuration/bromine,,,stage4
+electron_configuration,magnesium,electron configuration for magnesium,48600,/guides/electron-configuration/magnesium,,,stage4
+electron_configuration,silver,ag electron configuration,43200,/guides/electron-configuration/silver,,,stage4
+electron_configuration,lead,lead electron configuration,37700,/guides/electron-configuration/lead,,,stage4
+electron_configuration,krypton,electron configuration for kr,34800,/guides/electron-configuration/krypton,,,stage4
+electron_configuration,strontium,electron configuration for sr,34800,/guides/electron-configuration/strontium,,,stage4
+electron_configuration,chlorine,electron configuration chlorine,32400,/guides/electron-configuration/chlorine,,,stage4
+electron_configuration,barium,ba electron configuration,29000,/guides/electron-configuration/barium,,,stage4
+electron_configuration,potassium,electron configuration for potassium,27000,/guides/electron-configuration/potassium,,,stage4
+electron_configuration,germanium,electron configuration for ge,26400,/guides/electron-configuration/germanium,,,stage4
+electron_configuration,manganese,electron configuration for manganese,26400,/guides/electron-configuration/manganese,,,stage4
+electron_configuration,zinc,electron configuration for zinc,26100,/guides/electron-configuration/zinc,,,stage4
+electron_configuration,nickel,electron configuration for ni,23200,/guides/electron-configuration/nickel,,,stage4
+electron_configuration,phosphorus,electron configuration for phosphorus,22000,/guides/electron-configuration/phosphorus,,,stage4
+element_page,(FAMILY TOTAL),"{Element} - Symbol, Atomic Number, Mass & Facts",7209900,/elements/[element],88,"Site's own compound library + a public element dataset (symbol, Z, mass, group, config)",stage4
+element_page,carbon,atomic number carbon,448870,/elements/carbon,,,stage4
+element_page,iron,periodic table of elements iron,411920,/elements/iron,,,stage4
+element_page,bromine,element br,366380,/elements/bromine,,,stage4
+element_page,tin,element tin periodic table,351680,/elements/tin,,,stage4
+element_page,potassium,chemical symbol for potassium,307300,/elements/potassium,,,stage4
+element_page,lead,element lead,303230,/elements/lead,,,stage4
+element_page,protactinium,chemical element pa,270000,/elements/protactinium,,,stage4
+element_page,chlorine,chlorine element,261960,/elements/chlorine,,,stage4
+element_page,copper,copper table of elements,218910,/elements/copper,,,stage4
+element_page,phosphorus,p in periodic table,208300,/elements/phosphorus,,,stage4
+element_page,hydrogen,hydrogen element,207400,/elements/hydrogen,,,stage4
+element_page,argon,ar element,191400,/elements/argon,,,stage4
+element_page,sodium,table of elements sodium,181800,/elements/sodium,,,stage4
+element_page,barium,element ba,171900,/elements/barium,,,stage4
+element_page,mercury,hg element,165420,/elements/mercury,,,stage4
+lewis_structure,(FAMILY TOTAL),{Compound} Lewis Structure - How to Draw It,178680,/guides/lewis-structure/[compound],114,"Site's own molecular-geometry bundle data (atoms/bonds/order for H2, O2, N2, Cl2, H2O, HCl, CO2, CH4, NH3, O3, SO2, H2O2)",stage4+stage6
+lewis_structure,ch2o,ch2o lewis dot structure,74000,/guides/lewis-structure/ch2o,,,stage4
+lewis_structure,co2,co2 lewis dot structure,60500,/guides/lewis-structure/co2,,,stage6
+lewis_structure,so2,lewis dot structure for so2,40500,/guides/lewis-structure/so2,,,stage6
+lewis_structure,s,lewis structure s,40500,/guides/lewis-structure/s,,,stage6
+lewis_structure,hcn,h c n lewis structure,33100,/guides/lewis-structure/hcn,,,stage6
+lewis_structure,h2o,h2o lewis dot structure,33100,/guides/lewis-structure/h2o,,,stage6
+lewis_structure,no2,lewis dot structure for no2,33100,/guides/lewis-structure/no2,,,stage6
+lewis_structure,co,c o lewis structure,27100,/guides/lewis-structure/co,,,stage6
+lewis_structure,ch4,ch4 lewis dot structure,27100,/guides/lewis-structure/ch4,,,stage6
+lewis_structure,n2,lewis dot structure for n2,27100,/guides/lewis-structure/n2,,,stage6
+lewis_structure,nh3,lewis dot structure for nh3,27100,/guides/lewis-structure/nh3,,,stage6
+lewis_structure,o3,lewis dot structure for o3,27100,/guides/lewis-structure/o3,,,stage6
+lewis_structure,o2,02 lewis dot structure,22200,/guides/lewis-structure/o2,,,stage6
+lewis_structure,no3,lewis dot structure for no3,22200,/guides/lewis-structure/no3,,,stage6
+lewis_structure,so3,lewis dot structure for so3,22200,/guides/lewis-structure/so3,,,stage6
+lewis_structure,o,lewis structure for oxygen,22200,/guides/lewis-structure/o,,,stage6
+lewis_structure,nocl,lewis dot structure for nocl,22000,/guides/lewis-structure/nocl,,,stage4
+lewis_structure,bf3,lewis dot structure for bf3,18100,/guides/lewis-structure/bf3,,,stage4
+lewis_structure,c2h2,acetylene lewis structure,18100,/guides/lewis-structure/c2h2,,,stage6
+lewis_structure,c2h4,c2h4 lewis dot structure,18100,/guides/lewis-structure/c2h4,,,stage6
+lewis_structure,h2c2,h2c2 lewis structure,18100,/guides/lewis-structure/h2c2,,,stage6
+lewis_structure,co3,lewis dot structure of co3 2,18100,/guides/lewis-structure/co3,,,stage6
+lewis_structure,co32,lewis dot structure of co32,18100,/guides/lewis-structure/co32,,,stage6
+lewis_structure,nh4,ammonium lewis structure,14800,/guides/lewis-structure/nh4,,,stage6
+lewis_structure,c03,c03 2 lewis structure,14800,/guides/lewis-structure/c03,,,stage6
+lewis_structure,h2s,h2s lewis dot structure,14800,/guides/lewis-structure/h2s,,,stage6
+lewis_structure,xef4,lewis dot structure for xef4,14800,/guides/lewis-structure/xef4,,,stage6
+lewis_structure,so42,lewis dot structure of so42,14800,/guides/lewis-structure/so42,,,stage6
+lewis_structure,so4,lewis dot structure so4 2,14800,/guides/lewis-structure/so4,,,stage6
+lewis_structure,ch3,ch3 oh lewis structure,12100,/guides/lewis-structure/ch3,,,stage4
+lewis_structure,cs2,carbon disulfide lewis dot structure,12100,/guides/lewis-structure/cs2,,,stage6
+lewis_structure,ccl4,ccl4 lewis dot structure,12100,/guides/lewis-structure/ccl4,,,stage6
+lewis_structure,ch3oh,ch3oh lewis structure,12100,/guides/lewis-structure/ch3oh,,,stage6
+lewis_structure,h20,h20 lewis dot structure,12100,/guides/lewis-structure/h20,,,stage6
+lewis_structure,of2,lewis dot structure for of2,12100,/guides/lewis-structure/of2,,,stage6
+lewis_structure,pcl3,lewis dot structure for pcl3,12100,/guides/lewis-structure/pcl3,,,stage6
+lewis_structure,sf6,lewis dot structure for sf6,12100,/guides/lewis-structure/sf6,,,stage6
+lewis_structure,xef2,lewis dot structure for xef2,12100,/guides/lewis-structure/xef2,,,stage6
+lewis_structure,sf4,lewis dot structure of sf4,12100,/guides/lewis-structure/sf4,,,stage6
+lewis_structure,sicl4,lewis structure for sicl4,11600,/guides/lewis-structure/sicl4,,,stage4
+lewis_structure,ch3f,ch3f lewis dot structure,10800,/guides/lewis-structure/ch3f,,,stage4
+lewis_structure,clf3,chlorine trifluoride lewis structure,9900,/guides/lewis-structure/clf3,,,stage6
+lewis_structure,cl02,cl02 lewis structure,9900,/guides/lewis-structure/cl02,,,stage6
+lewis_structure,cl03,cl03 lewis structure,9900,/guides/lewis-structure/cl03,,,stage6
+lewis_structure,clo2,clo2 ion lewis structure,9900,/guides/lewis-structure/clo2,,,stage6
+lewis_structure,h2co,h2co lewis dot structure,9900,/guides/lewis-structure/h2co,,,stage6
+lewis_structure,pcl5,lewis dot structure for pcl5,9900,/guides/lewis-structure/pcl5,,,stage6
+lewis_structure,ph3,lewis dot structure for ph3,9900,/guides/lewis-structure/ph3,,,stage6
+lewis_structure,n2o,lewis dot structure n2o,9900,/guides/lewis-structure/n2o,,,stage6
+lewis_structure,po43,lewis dot structure of po43,9900,/guides/lewis-structure/po43,,,stage6
+lewis_structure,cif3,lewis structure for cif3,9900,/guides/lewis-structure/cif3,,,stage6
+lewis_structure,nf3,lewis structure for nf3,9900,/guides/lewis-structure/nf3,,,stage6
+lewis_structure,po4,lewis structure for phosphate ion,9900,/guides/lewis-structure/po4,,,stage6
+lewis_structure,bcl3,bcl3 lewis dot structure,8100,/guides/lewis-structure/bcl3,,,stage6
+lewis_structure,c2h6,c2h6 lewis dot structure,8100,/guides/lewis-structure/c2h6,,,stage6
+lewis_structure,ch2cl2,ch2cl2 lewis structure,8100,/guides/lewis-structure/ch2cl2,,,stage6
+lewis_structure,h2o2,h2o2 lewis dot structure,8100,/guides/lewis-structure/h2o2,,,stage6
+lewis_structure,hcl,hydrogen chloride lewis structure,8100,/guides/lewis-structure/hcl,,,stage6
+lewis_structure,i3,i3 ion lewis structure,8100,/guides/lewis-structure/i3,,,stage6
+lewis_structure,no,nitric oxide lewis structure,8100,/guides/lewis-structure/no,,,stage6
+lewis_structure,cacl2,cacl2 lewis dot structure,7600,/guides/lewis-structure/cacl2,,,stage4
+lewis_structure,c2h5oh,c2h5oh lewis structure,6600,/guides/lewis-structure/c2h5oh,,,stage4
+lewis_structure,nitric acid,lewis structure of nitric acid,6600,/guides/lewis-structure/nitric-acid,,,stage4
+lewis_structure,bh3,bh3 lewis dot structure,6600,/guides/lewis-structure/bh3,,,stage6
+lewis_structure,brf5,brf5 lewis structure,6600,/guides/lewis-structure/brf5,,,stage6
+lewis_structure,cn,c n lewis structure,6600,/guides/lewis-structure/cn,,,stage6
+lewis_structure,cf4,cf4 lewis dot structure,6600,/guides/lewis-structure/cf4,,,stage6
+lewis_structure,chcl3,chcl3 lewis dot structure,6600,/guides/lewis-structure/chcl3,,,stage6
+lewis_structure,ci2,ci2 lewis structure,6600,/guides/lewis-structure/ci2,,,stage6
+lewis_structure,cl2,cl2 lewis structure,6600,/guides/lewis-structure/cl2,,,stage6
+lewis_structure,cocl2,cocl2 lewis structure,6600,/guides/lewis-structure/cocl2,,,stage6
+lewis_structure,f2,f2 lewis structure,6600,/guides/lewis-structure/f2,,,stage6
+lewis_structure,hf,h f lewis structure,6600,/guides/lewis-structure/hf,,,stage6
+lewis_structure,hn03,hn03 lewis structure,6600,/guides/lewis-structure/hn03,,,stage6
+lewis_structure,hno3,hno3 lewis dot structure,6600,/guides/lewis-structure/hno3,,,stage6
+lewis_structure,n3,lewis dot structure for n 3,6600,/guides/lewis-structure/n3,,,stage6
+lewis_structure,pf3,lewis structure for pf3,6600,/guides/lewis-structure/pf3,,,stage6
+lewis_structure,sf2,lewis structure for sf2,6600,/guides/lewis-structure/sf2,,,stage6
+lewis_structure,nho3,nho3 lewis structure,6600,/guides/lewis-structure/nho3,,,stage6
+lewis_structure,no3h,no3h lewis structure,6600,/guides/lewis-structure/no3h,,,stage6
+lewis_structure,c2h6o,c2h6o lewis dot structure,6400,/guides/lewis-structure/c2h6o,,,stage4
+lewis_structure,becl2,becl2 lewis structure,5400,/guides/lewis-structure/becl2,,,stage6
+lewis_structure,brf3,brf3 lewis structure,5400,/guides/lewis-structure/brf3,,,stage6
+lewis_structure,c,c lewis dot structure,5400,/guides/lewis-structure/c,,,stage6
+lewis_structure,cl2s,cl2s lewis structure,5400,/guides/lewis-structure/cl2s,,,stage6
+lewis_structure,h2,h2 lewis structure,5400,/guides/lewis-structure/h2,,,stage6
+lewis_structure,oh,hydroxide ion lewis structure,5400,/guides/lewis-structure/oh,,,stage6
+lewis_structure,if5,if5 lewis structure,5400,/guides/lewis-structure/if5,,,stage6
+lewis_structure,pbr3,lewis dot structure for pbr3,5400,/guides/lewis-structure/pbr3,,,stage6
+lewis_structure,scl2,lewis dot structure for scl2,5400,/guides/lewis-structure/scl2,,,stage6
+lewis_structure,na,lewis dot structure for sodium,5400,/guides/lewis-structure/na,,,stage6
+lewis_structure,n,lewis dot structure n,5400,/guides/lewis-structure/n,,,stage6
+lewis_structure,ncl3,lewis structure for ncl3,5400,/guides/lewis-structure/ncl3,,,stage6
+lewis_structure,pf5,lewis structure for pf5,5400,/guides/lewis-structure/pf5,,,stage6
+lewis_structure,h2so4,lewis structure of h2so4,5400,/guides/lewis-structure/h2so4,,,stage6
+lewis_structure,bef2,bef2 lewis structure,4400,/guides/lewis-structure/bef2,,,stage6
+lewis_structure,br2,br2 lewis dot structure,4400,/guides/lewis-structure/br2,,,stage6
+lewis_structure,ch2o2,ch2o2 lewis structure,4400,/guides/lewis-structure/ch2o2,,,stage6
+lewis_structure,ch3cl,ch3cl lewis structure,4400,/guides/lewis-structure/ch3cl,,,stage6
+lewis_structure,ch3cooh,ch3cooh lewis structure,4400,/guides/lewis-structure/ch3cooh,,,stage6
+lewis_structure,clo,clo ion lewis structure,4400,/guides/lewis-structure/clo,,,stage6
+lewis_structure,clo4,clo4 lewis structure,4400,/guides/lewis-structure/clo4,,,stage6
+lewis_structure,hbr,hbr lewis structure,4400,/guides/lewis-structure/hbr,,,stage6
+lewis_structure,hcooh,hcooh lewis structure,4400,/guides/lewis-structure/hcooh,,,stage6
+lewis_structure,c3h6o,lewis dot structure for acetone,4400,/guides/lewis-structure/c3h6o,,,stage6
+lewis_structure,n2h2,lewis dot structure for n2h2,4400,/guides/lewis-structure/n2h2,,,stage6
+lewis_structure,n2h4,lewis dot structure n2h4,4400,/guides/lewis-structure/n2h4,,,stage6
+lewis_structure,scn,lewis dot structure of scn,4400,/guides/lewis-structure/scn,,,stage6
+lewis_structure,sio2,lewis structure for sio2,4400,/guides/lewis-structure/sio2,,,stage6
+lewis_structure,so32,lewis structure of so32,4400,/guides/lewis-structure/so32,,,stage6
+lewis_structure,propanone,propanone lewis structure,4400,/guides/lewis-structure/propanone,,,stage6
+lewis_structure,s03,s03 2 lewis structure,4400,/guides/lewis-structure/s03,,,stage6
+lewis_structure,h2co3,lewis structure of h2co3,2400,/guides/lewis-structure/h2co3,,,stage4
+lewis_structure,clo3,lewis dot structure for clo3 1,480,/guides/lewis-structure/clo3,,,stage4
+molar_mass,(FAMILY TOTAL),Molar Mass of {Compound} - Molecular Weight Calculator,885000,/tools/molar-mass/[compound],115,Site's own ~35-compound library (already carries molarMass) + formula parser,stage4+stage6
+molar_mass,naoh,molar mass for naoh,76700,/tools/molar-mass/naoh,,,stage4
+molar_mass,co2,molecular weight co2,66200,/tools/molar-mass/co2,,,stage4
+molar_mass,n2,molar mass n2,60500,/tools/molar-mass/n2,,,stage4
+molar_mass,h2so4,h2so4 molar mass,56700,/tools/molar-mass/h2so4,,,stage4
+molar_mass,iron,molar mass fe,45600,/tools/molar-mass/iron,,,stage4
+molar_mass,h2o,h2o molar mass,39800,/tools/molar-mass/h2o,,,stage4
+molar_mass,zinc,molar mass zinc,37800,/tools/molar-mass/zinc,,,stage4
+molar_mass,o2,molar mass for o2,36300,/tools/molar-mass/o2,,,stage4
+molar_mass,cacl2,cacl2 molar mass,29700,/tools/molar-mass/cacl2,,,stage4
+molar_mass,nitrogen,molar mass for nitrogen,29700,/tools/molar-mass/nitrogen,,,stage4
+molar_mass,aluminum,al molar mass,25600,/tools/molar-mass/aluminum,,,stage4
+molar_mass,water,molar mass for water,24200,/tools/molar-mass/water,,,stage4
+molar_mass,magnesium,magnesium molar mass,23300,/tools/molar-mass/magnesium,,,stage4
+molar_mass,hydrogen,molar mass of n a o h,22200,/tools/molar-mass/hydrogen,,,stage4
+molar_mass,agno3,agno3 molar mass,21600,/tools/molar-mass/agno3,,,stage4
+molar_mass,nacl,nacl molar mass,18100,/tools/molar-mass/nacl,,,stage6
+molar_mass,nh3,molar mass nh3,14800,/tools/molar-mass/nh3,,,stage6
+molar_mass,c,carbon molar mass,12100,/tools/molar-mass/c,,,stage6
+molar_mass,caco3,caco3 molar mass,9900,/tools/molar-mass/caco3,,,stage6
+molar_mass,h,hydrogen molar mass,9900,/tools/molar-mass/h,,,stage6
+molar_mass,kcl,kcl molar mass,9900,/tools/molar-mass/kcl,,,stage6
+molar_mass,n,molar mass for nitrogen,9900,/tools/molar-mass/n,,,stage6
+molar_mass,h2,molar mass of hydrogen gas,9900,/tools/molar-mass/h2,,,stage6
+molar_mass,o,molar mass of oxygen,9900,/tools/molar-mass/o,,,stage6
+molar_mass,cl,cl molar mass,8100,/tools/molar-mass/cl,,,stage6
+molar_mass,hcl,hcl molar mass,8100,/tools/molar-mass/hcl,,,stage6
+molar_mass,mg,magnesium molar mass,8100,/tools/molar-mass/mg,,,stage6
+molar_mass,mgs,mgs molar mass,8100,/tools/molar-mass/mgs,,,stage6
+molar_mass,fe,molar mass fe,8100,/tools/molar-mass/fe,,,stage6
+molar_mass,ch4,molar mass of ch4,8100,/tools/molar-mass/ch4,,,stage6
+molar_mass,ch3cooh,acetic acid molar mass,6600,/tools/molar-mass/ch3cooh,,,stage6
+molar_mass,cl2,cl2 molar mass,6600,/tools/molar-mass/cl2,,,stage6
+molar_mass,c2h5oh,ethanol molar mass,6600,/tools/molar-mass/c2h5oh,,,stage6
+molar_mass,he,he molar mass,6600,/tools/molar-mass/he,,,stage6
+molar_mass,na2co3,molar mass na2co3,6600,/tools/molar-mass/na2co3,,,stage6
+molar_mass,fe2o3,fe2o3 molar mass,5400,/tools/molar-mass/fe2o3,,,stage6
+molar_mass,koh,koh molar mass,5400,/tools/molar-mass/koh,,,stage6
+molar_mass,c6h12o6,molar mass glucose,5400,/tools/molar-mass/c6h12o6,,,stage6
+molar_mass,h20,molar mass h20,5400,/tools/molar-mass/h20,,,stage6
+molar_mass,nahco3,molar mass of nahco3,5400,/tools/molar-mass/nahco3,,,stage6
+molar_mass,zn,molar mass of zinc,5400,/tools/molar-mass/zn,,,stage6
+molar_mass,c3h6o,acetone molar mass,4400,/tools/molar-mass/c3h6o,,,stage6
+molar_mass,agcl,agcl molar mass,4400,/tools/molar-mass/agcl,,,stage6
+molar_mass,al,al molar mass,4400,/tools/molar-mass/al,,,stage6
+molar_mass,al2o3,alumina molar mass,4400,/tools/molar-mass/al2o3,,,stage6
+molar_mass,c3h8,c3h8 molar mass,4400,/tools/molar-mass/c3h8,,,stage6
+molar_mass,co,carbon monoxide molar mass,4400,/tools/molar-mass/co,,,stage6
+molar_mass,cuso4,cuso4 molar mass,4400,/tools/molar-mass/cuso4,,,stage6
+molar_mass,kclo3,kclo3 molar mass,4400,/tools/molar-mass/kclo3,,,stage6
+molar_mass,ch3oh,methanol molar mass,4400,/tools/molar-mass/ch3oh,,,stage6
+molar_mass,mgcl2,mgcl2 molar mass,4400,/tools/molar-mass/mgcl2,,,stage6
+molar_mass,cu,molar mass copper,4400,/tools/molar-mass/cu,,,stage6
+molar_mass,na,molar mass of sodium,4400,/tools/molar-mass/na,,,stage6
+molar_mass,s,molar mass of sulphur,4400,/tools/molar-mass/s,,,stage6
+molar_mass,c9h8o4,acetylsalicylic acid molar mass,3600,/tools/molar-mass/c9h8o4,,,stage6
+molar_mass,ag,ag molar mass,3600,/tools/molar-mass/ag,,,stage6
+molar_mass,c7h6o2,benzoic acid molar mass,3600,/tools/molar-mass/c7h6o2,,,stage6
+molar_mass,c4h10,butane molar mass,3600,/tools/molar-mass/c4h10,,,stage6
+molar_mass,ca,calcium molar mass,3600,/tools/molar-mass/ca,,,stage6
+molar_mass,kno3,kno3 molar mass,3600,/tools/molar-mass/kno3,,,stage6
+molar_mass,mgo,mgo molar mass,3600,/tools/molar-mass/mgo,,,stage6
+molar_mass,nh4cl,molar mass of nh4cl,3600,/tools/molar-mass/nh4cl,,,stage6
+molar_mass,c12h22o11,molar mass sucrose,3600,/tools/molar-mass/c12h22o11,,,stage6
+molar_mass,nano3,nano3 molar mass,3600,/tools/molar-mass/nano3,,,stage6
+molar_mass,ar,argon molar mass,2900,/tools/molar-mass/ar,,,stage6
+molar_mass,cano32,cano32 molar mass,2900,/tools/molar-mass/cano32,,,stage6
+molar_mass,c4h8o2,ethyl acetate molar mass,2900,/tools/molar-mass/c4h8o2,,,stage6
+molar_mass,h3po4,h3po4 molar mass,2900,/tools/molar-mass/h3po4,,,stage6
+molar_mass,k,k molar mass,2900,/tools/molar-mass/k,,,stage6
+molar_mass,khp,khp molar mass,2900,/tools/molar-mass/khp,,,stage6
+molar_mass,mgso4,mgso4 molar mass,2900,/tools/molar-mass/mgso4,,,stage6
+molar_mass,nh4no3,molar mass nh4no3,2900,/tools/molar-mass/nh4no3,,,stage6
+molar_mass,no3,molar mass of pb no3 2,2900,/tools/molar-mass/no3,,,stage6
+molar_mass,c7h6o3,molar mass of salicylic acid,2900,/tools/molar-mass/c7h6o3,,,stage6
+molar_mass,so2,molar mass of sulfur dioxide,2900,/tools/molar-mass/so2,,,stage6
+molar_mass,nh4,ammonium molar mass,2400,/tools/molar-mass/nh4,,,stage6
+molar_mass,c6h6,benzene molar mass,2400,/tools/molar-mass/c6h6,,,stage6
+molar_mass,br,bromine molar mass,2400,/tools/molar-mass/br,,,stage6
+molar_mass,c6,c6 h12 o6 molar mass,2400,/tools/molar-mass/c6,,,stage6
+molar_mass,caoh2,ca oh 2 molar mass,2400,/tools/molar-mass/caoh2,,,stage6
+molar_mass,f,fluorine molar mass,2400,/tools/molar-mass/f,,,stage6
+molar_mass,hno3,hno3 molar mass,2400,/tools/molar-mass/hno3,,,stage6
+molar_mass,i2,i2 molar mass,2400,/tools/molar-mass/i2,,,stage6
+molar_mass,ki,ki molar mass,2400,/tools/molar-mass/ki,,,stage6
+molar_mass,ch4n2o,urea molar mass,2400,/tools/molar-mass/ch4n2o,,,stage6
+molar_mass,baso4,baso4 molar mass,1900,/tools/molar-mass/baso4,,,stage6
+molar_mass,br2,br2 molar mass,1900,/tools/molar-mass/br2,,,stage6
+molar_mass,c2h6,c2h6 molar mass,1900,/tools/molar-mass/c2h6,,,stage6
+molar_mass,cao,cao molar mass,1900,/tools/molar-mass/cao,,,stage6
+molar_mass,c2h6o2,ethylene glycol molar mass,1900,/tools/molar-mass/c2h6o2,,,stage6
+molar_mass,f2,f2 molar mass,1900,/tools/molar-mass/f2,,,stage6
+molar_mass,h2o2,h2o2 molar mass,1900,/tools/molar-mass/h2o2,,,stage6
+molar_mass,hf,hf molar mass,1900,/tools/molar-mass/hf,,,stage6
+molar_mass,kbr,kbr molar mass,1900,/tools/molar-mass/kbr,,,stage6
+molar_mass,pb,lead molar mass,1900,/tools/molar-mass/pb,,,stage6
+molar_mass,na3po4,molar mass for na3po4,1900,/tools/molar-mass/na3po4,,,stage6
+molar_mass,no,molar mass no,1900,/tools/molar-mass/no,,,stage6
+molar_mass,no2,molar mass no2,1900,/tools/molar-mass/no2,,,stage6
+molar_mass,na2so4,molar mass of sodium sulfate,1900,/tools/molar-mass/na2so4,,,stage6
+molar_mass,c6h14,n hexane molar mass,1900,/tools/molar-mass/c6h14,,,stage6
+molar_mass,c4h6o3,acetic anhydride molar mass,1600,/tools/molar-mass/c4h6o3,,,stage6
+molar_mass,al2,al2 so4 3 molar mass,1600,/tools/molar-mass/al2,,,stage6
+molar_mass,alcl3,alcl3 molar mass,1600,/tools/molar-mass/alcl3,,,stage6
+molar_mass,ba,ba molar mass,1600,/tools/molar-mass/ba,,,stage6
+molar_mass,baoh2,ba oh 2 molar mass,1600,/tools/molar-mass/baoh2,,,stage6
+molar_mass,cr,chromium molar mass,1600,/tools/molar-mass/cr,,,stage6
+molar_mass,fecl3,fecl3 molar mass,1600,/tools/molar-mass/fecl3,,,stage6
+molar_mass,kmno4,kmno4 molar mass,1600,/tools/molar-mass/kmno4,,,stage6
+molar_mass,li,li molar mass,1600,/tools/molar-mass/li,,,stage6
+molar_mass,mgoh2,mg oh 2 molar mass,1600,/tools/molar-mass/mgoh2,,,stage6
+molar_mass,nan3,molar mass nan3,1600,/tools/molar-mass/nan3,,,stage6
+molar_mass,c10h8,molar mass naphthalene,1600,/tools/molar-mass/c10h8,,,stage6
+molar_mass,p,molar mass of p,1600,/tools/molar-mass/p,,,stage6
+molar_mass,xe,molar mass of xe,1600,/tools/molar-mass/xe,,,stage6
+molar_mass,nh42so4,nh42so4 molar mass,1600,/tools/molar-mass/nh42so4,,,stage6
+named_reaction,(FAMILY TOTAL),{Reaction} - Balanced Equation & Explanation,26000,/reactions/[reaction],30,Site's OWN 34-reaction Reaction Balancer library (currently trapped in a JS bundle),stage4
+named_reaction,photosynthesis,balance the equation for photosynthesis,26000,/reactions/photosynthesis,,,stage4
+named_reaction,water synthesis,"water synthesis (site library, no keyword data)",0,/reactions/water-synthesis,,,stage4
+named_reaction,hydrogen chloride synthesis,"hydrogen chloride synthesis (site library, no keyword data)",0,/reactions/hydrogen-chloride-synthesis,,,stage4
+named_reaction,aluminum chloride synthesis,"aluminum chloride synthesis (site library, no keyword data)",0,/reactions/aluminum-chloride-synthesis,,,stage4
+named_reaction,ammonium chloride formation,"ammonium chloride formation (site library, no keyword data)",0,/reactions/ammonium-chloride-formation,,,stage4
+named_reaction,bleach synthesis,"bleach synthesis (site library, no keyword data)",0,/reactions/bleach-synthesis,,,stage4
+named_reaction,ozone formation,"ozone formation (site library, no keyword data)",0,/reactions/ozone-formation,,,stage4
+named_reaction,limestone decomposition,"limestone decomposition (site library, no keyword data)",0,/reactions/limestone-decomposition,,,stage4
+named_reaction,carbonic acid decomposition,"carbonic acid decomposition (site library, no keyword data)",0,/reactions/carbonic-acid-decomposition,,,stage4
+named_reaction,hydrogen peroxide decomposition,"hydrogen peroxide decomposition (site library, no keyword data)",0,/reactions/hydrogen-peroxide-decomposition,,,stage4
+named_reaction,water electrolysis,"water electrolysis (site library, no keyword data)",0,/reactions/water-electrolysis,,,stage4
+named_reaction,methane combustion,"methane combustion (site library, no keyword data)",0,/reactions/methane-combustion,,,stage4
+named_reaction,propane combustion,"propane combustion (site library, no keyword data)",0,/reactions/propane-combustion,,,stage4
+named_reaction,octane combustion,"octane combustion (site library, no keyword data)",0,/reactions/octane-combustion,,,stage4
+named_reaction,ethanol combustion,"ethanol combustion (site library, no keyword data)",0,/reactions/ethanol-combustion,,,stage4
+oxidation_number,(FAMILY TOTAL),Oxidation Number of {Element} - Common States,23370,/guides/oxidation-number/[element],94,Derive from group/periodic position,stage4+stage6
+oxidation_number,s,oxidation number s,27100,/guides/oxidation-number/sulfur,,,stage6
+oxidation_number,chlorine,cl oxidation number,12000,/guides/oxidation-number/chlorine,,,stage4
+oxidation_number,o2,o2 oxidation number,4400,/guides/oxidation-number/o2,,,stage6
+oxidation_number,o,oxidation number for o,4400,/guides/oxidation-number/oxygen,,,stage6
+oxidation_number,aluminum,al oxidation state,3990,/guides/oxidation-number/aluminum,,,stage4
+oxidation_number,c,c oxidation number,2400,/guides/oxidation-number/carbon,,,stage6
+oxidation_number,cl2,chlorine gas oxidation number,2400,/guides/oxidation-number/cl2,,,stage6
+oxidation_number,cl,chlorine oxidation number,2400,/guides/oxidation-number/chlorine,,,stage6
+oxidation_number,hydrogen,oxidation number of h,1900,/guides/oxidation-number/hydrogen,,,stage4
+oxidation_number,h,h oxidation number,1900,/guides/oxidation-number/hydrogen,,,stage6
+oxidation_number,h2,hydrogen gas oxidation number,1900,/guides/oxidation-number/h2,,,stage6
+oxidation_number,n,n oxidation number,1900,/guides/oxidation-number/nitrogen,,,stage6
+oxidation_number,na,na oxidation number,1300,/guides/oxidation-number/sodium,,,stage6
+oxidation_number,magnesium,magnesium oxidation number,1200,/guides/oxidation-number/magnesium,,,stage4
+oxidation_number,al,aluminum oxidation number,1000,/guides/oxidation-number/aluminium,,,stage6
+oxidation_number,cu,copper oxidation number,1000,/guides/oxidation-number/copper,,,stage6
+oxidation_number,zn,oxidation number of zinc,1000,/guides/oxidation-number/zinc,,,stage6
+oxidation_number,nh3,ammonia oxidation number,880,/guides/oxidation-number/nh3,,,stage6
+oxidation_number,nh4,ammonium oxidation number,880,/guides/oxidation-number/nh4,,,stage6
+oxidation_number,f,fluoride oxidation number,880,/guides/oxidation-number/fluorine,,,stage6
+oxidation_number,h2o2,h2o2 oxidation number,880,/guides/oxidation-number/h2o2,,,stage6
+oxidation_number,fe,iron oxidation number,880,/guides/oxidation-number/iron,,,stage6
+oxidation_number,no3,no3 oxidation number,880,/guides/oxidation-number/no3,,,stage6
+oxidation_number,beryllium,beryllium oxidation number,800,/guides/oxidation-number/beryllium,,,stage4
+oxidation_number,chromium,chromium oxidation numbers,720,/guides/oxidation-number/chromium,,,stage4
+oxidation_number,br,br oxidation number,720,/guides/oxidation-number/bromine,,,stage6
+oxidation_number,cr,chromium oxidation number,720,/guides/oxidation-number/chromium,,,stage6
+oxidation_number,li,li oxidation number,720,/guides/oxidation-number/lithium,,,stage6
+oxidation_number,mg,magnesium oxidation number,720,/guides/oxidation-number/magnesium,,,stage6
+oxidation_number,boron,boron oxidation number,640,/guides/oxidation-number/boron,,,stage4
+oxidation_number,helium,helium oxidation number,630,/guides/oxidation-number/helium,,,stage4
+oxidation_number,co2,co2 oxidation number,590,/guides/oxidation-number/co2,,,stage6
+oxidation_number,k2,k2 cr2 o7 oxidation number,590,/guides/oxidation-number/k2,,,stage6
+oxidation_number,k2cr2o7,k2cr2o7 oxidation number,590,/guides/oxidation-number/k2cr2o7,,,stage6
+oxidation_number,mn,manganese oxidation number,590,/guides/oxidation-number/manganese,,,stage6
+oxidation_number,no2,no2 oxidation number,590,/guides/oxidation-number/no2,,,stage6
+oxidation_number,charts,oxidation number charts,590,/guides/oxidation-number/charts,,,stage6
+oxidation_number,p,oxidation number for phosphorus,590,/guides/oxidation-number/phosphorus,,,stage6
+oxidation_number,ag,oxidation number of silver,590,/guides/oxidation-number/silver,,,stage6
+oxidation_number,pb,oxidation number pb,590,/guides/oxidation-number/lead,,,stage6
+oxidation_number,h2o,h2o oxidation number,480,/guides/oxidation-number/h2o,,,stage6
+oxidation_number,haucl4,haucl4 oxidation number,480,/guides/oxidation-number/haucl4,,,stage6
+oxidation_number,ko2,ko2 oxidation number,480,/guides/oxidation-number/ko2,,,stage6
+oxidation_number,mno4,mno4 oxidation number,480,/guides/oxidation-number/mno4,,,stage6
+oxidation_number,no,nitric oxide oxidation number,480,/guides/oxidation-number/nobelium,,,stage6
+oxidation_number,nos,nos oxidation number,480,/guides/oxidation-number/nos,,,stage6
+oxidation_number,k,oxidation number for potassium,480,/guides/oxidation-number/potassium,,,stage6
+oxidation_number,practice,oxidation number practice,480,/guides/oxidation-number/practice,,,stage6
+oxidation_number,co,c o oxidation number,390,/guides/oxidation-number/cobalt,,,stage6
+oxidation_number,ch4,ch4 oxidation number,390,/guides/oxidation-number/ch4,,,stage6
+oxidation_number,h2so4,h2so4 oxidation number,390,/guides/oxidation-number/h2so4,,,stage6
+oxidation_number,n2,n2 oxidation number,390,/guides/oxidation-number/n2,,,stage6
+oxidation_number,oh,oh oxidation number,390,/guides/oxidation-number/oh,,,stage6
+oxidation_number,mercury,mercury oxidation number,340,/guides/oxidation-number/mercury,,,stage4
+oxidation_number,b,boron oxidation number,320,/guides/oxidation-number/boron,,,stage6
+oxidation_number,ca,ca oxidation number,320,/guides/oxidation-number/calcium,,,stage6
+oxidation_number,hso4,hso4 oxidation number,320,/guides/oxidation-number/hso4,,,stage6
+oxidation_number,i,iodine oxidation number,320,/guides/oxidation-number/iodine,,,stage6
+oxidation_number,so2,oxidation number for so2,320,/guides/oxidation-number/so2,,,stage6
+oxidation_number,so4,oxidation number for sulfate,320,/guides/oxidation-number/so4,,,stage6
+oxidation_number,so3,oxidation number of so3,320,/guides/oxidation-number/so3,,,stage6
+oxidation_number,calcium,calcium oxidation number,260,/guides/oxidation-number/calcium,,,stage4
+oxidation_number,sodium,what is the oxidation number of sodium,260,/guides/oxidation-number/sodium,,,stage4
+oxidation_number,be,beryllium oxidation number,260,/guides/oxidation-number/beryllium,,,stage6
+oxidation_number,cn,cn oxidation number,260,/guides/oxidation-number/copernicium,,,stage6
+oxidation_number,cr2o7,cr2o7 2 oxidation number,260,/guides/oxidation-number/cr2o7,,,stage6
+oxidation_number,cr2o72,cr2o72 oxidation number,260,/guides/oxidation-number/cr2o72,,,stage6
+oxidation_number,fe2o3,fe2o3 oxidation number,260,/guides/oxidation-number/fe2o3,,,stage6
+oxidation_number,hno3,hno3 oxidation number,260,/guides/oxidation-number/hno3,,,stage6
+oxidation_number,know,how to know oxidation number,260,/guides/oxidation-number/know,,,stage6
+oxidation_number,i2,i2 oxidation number,260,/guides/oxidation-number/i2,,,stage6
+oxidation_number,kmno4,kmno4 oxidation number,260,/guides/oxidation-number/kmno4,,,stage6
+oxidation_number,mno2,mno2 oxidation number,260,/guides/oxidation-number/mno2,,,stage6
+oxidation_number,v,oxidation number for vanadium,260,/guides/oxidation-number/vanadium,,,stage6
+oxidation_number,caocl2,oxidation number of chlorine in caocl2,260,/guides/oxidation-number/caocl2,,,stage6
+oxidation_number,so42,oxidation number of so42,260,/guides/oxidation-number/so42,,,stage6
+oxidation_number,ti,oxidation number of ti,260,/guides/oxidation-number/titanium,,,stage6
+oxidation_number,sn,oxidation number of tin,260,/guides/oxidation-number/tin,,,stage6
+oxidation_number,silicon,oxidation number of silicon,210,/guides/oxidation-number/silicon,,,stage4
+oxidation_number,br2,br2 oxidation number,210,/guides/oxidation-number/br2,,,stage6
+oxidation_number,cr2,cr2 oxidation number,210,/guides/oxidation-number/cr2,,,stage6
+oxidation_number,au,gold oxidation number,210,/guides/oxidation-number/gold,,,stage6
+oxidation_number,h2s,h2s oxidation number,210,/guides/oxidation-number/h2s,,,stage6
+oxidation_number,he,helium oxidation number,210,/guides/oxidation-number/helium,,,stage6
+oxidation_number,ni,nickel oxidation number,210,/guides/oxidation-number/nickel,,,stage6
+oxidation_number,c3o2,oxidation number of carbon in carbon suboxide,210,/guides/oxidation-number/c3o2,,,stage6
+oxidation_number,p4,oxidation number of p4,210,/guides/oxidation-number/p4,,,stage6
+oxidation_number,si,oxidation number of silicon,210,/guides/oxidation-number/silicon,,,stage6
+oxidation_number,neon,oxidation number of neon,170,/guides/oxidation-number/neon,,,stage4
+oxidation_number,cbr4,cbr4 oxidation number,170,/guides/oxidation-number/cbr4,,,stage6
+oxidation_number,cuso4,cuso4 oxidation number,170,/guides/oxidation-number/cuso4,,,stage6
+oxidation_number,kclo3,kclo3 oxidation number,170,/guides/oxidation-number/kclo3,,,stage6
+oxidation_number,barium,barium oxidation number,140,/guides/oxidation-number/barium,,,stage4
+oxidation_number,cadmium,cadmium oxidation number,110,/guides/oxidation-number/cadmium,,,stage4
+polyatomic_ions,(FAMILY TOTAL),"{Ion} Ion - Formula, Charge & Naming",28340,/guides/polyatomic-ions/[ion],55,Standard polyatomic ion table; site's Writing Chemical Formulas cheat sheet already lists several,stage4+stage6
+polyatomic_ions,ammonium,equation for ammonium nitrate,11000,/guides/polyatomic-ions/ammonium,,,stage4
+polyatomic_ions,phosphate,potassium phosphate equation,5680,/guides/polyatomic-ions/phosphate,,,stage4
+polyatomic_ions,sulfite,sulfite ion formula,3600,/guides/polyatomic-ions/sulfite,,,stage4
+polyatomic_ions,nitrate,aluminium nitrate equation,3520,/guides/polyatomic-ions/nitrate,,,stage4
+polyatomic_ions,permanganate,potassium permanganate equation,2400,/guides/polyatomic-ions/permanganate,,,stage4
+polyatomic_ions,srco3,enter the formula for the polyatomic ion in srco3,1300,/guides/polyatomic-ions/srco3,,,stage6
+polyatomic_ions,sulfate,sulfate polyatomic,1180,/guides/polyatomic-ions/sulfate,,,stage4
+polyatomic_ions,so4,so4 polyatomic ion,590,/guides/polyatomic-ions/so4,,,stage6
+polyatomic_ions,carbonate,carbonate polyatomic ion,480,/guides/polyatomic-ions/carbonate,,,stage4
+polyatomic_ions,co3,carbonate polyatomic ion,480,/guides/polyatomic-ions/co3,,,stage6
+polyatomic_ions,cn,cn polyatomic ion,480,/guides/polyatomic-ions/cn,,,stage6
+polyatomic_ions,oh,oh polyatomic ion,390,/guides/polyatomic-ions/oh,,,stage6
+polyatomic_ions,po4,phosphate polyatomic ion,390,/guides/polyatomic-ions/po4,,,stage6
+polyatomic_ions,acetate,acetate polyatomic ion,320,/guides/polyatomic-ions/acetate,,,stage4
+polyatomic_ions,c2h3o2,acetate polyatomic ion,320,/guides/polyatomic-ions/c2h3o2,,,stage6
+polyatomic_ions,no3,nitrate polyatomic ion,320,/guides/polyatomic-ions/no3,,,stage6
+polyatomic_ions,clo,clo polyatomic ion,260,/guides/polyatomic-ions/clo,,,stage6
+polyatomic_ions,nh4,ammonium polyatomic ion,210,/guides/polyatomic-ions/nh4,,,stage6
+polyatomic_ions,no2,no2 polyatomic ion,210,/guides/polyatomic-ions/no2,,,stage6
+polyatomic_ions,pdf,polyatomic ion list pdf,210,/guides/polyatomic-ions/pdf,,,stage6
+polyatomic_ions,so3,so3 polyatomic ion,210,/guides/polyatomic-ions/so3,,,stage6
+polyatomic_ions,clo3,chlorate polyatomic ion,170,/guides/polyatomic-ions/clo3,,,stage6
+polyatomic_ions,io3,io3 polyatomic ion,170,/guides/polyatomic-ions/io3,,,stage6
+polyatomic_ions,nh3,is ammonia a polyatomic ion,170,/guides/polyatomic-ions/nh3,,,stage6
+polyatomic_ions,s,sulfide polyatomic ion,170,/guides/polyatomic-ions/s,,,stage6
+polyatomic_ions,hydroxide,compound that produces hydroxide ions in solution,160,/guides/polyatomic-ions/hydroxide,,,stage4
+polyatomic_ions,cro4,chromate polyatomic ion,140,/guides/polyatomic-ions/cro4,,,stage6
+polyatomic_ions,clo2,clo2 polyatomic ion,140,/guides/polyatomic-ions/clo2,,,stage6
+polyatomic_ions,io,io polyatomic ion,140,/guides/polyatomic-ions/io,,,stage6
+polyatomic_ions,o2,peroxide polyatomic ion,140,/guides/polyatomic-ions/o2,,,stage6
+polyatomic_ions,bro,bro polyatomic ion,110,/guides/polyatomic-ions/bro,,,stage6
+polyatomic_ions,co2,is co2 a polyatomic ion,110,/guides/polyatomic-ions/co2,,,stage6
+polyatomic_ions,c2o4,oxalate polyatomic ion,110,/guides/polyatomic-ions/c2o4,,,stage6
+polyatomic_ions,po3,po3 polyatomic ion,110,/guides/polyatomic-ions/po3,,,stage6
+polyatomic_ions,hco3,bicarbonate polyatomic ion,90,/guides/polyatomic-ions/hco3,,,stage6
+polyatomic_ions,cl,chloride polyatomic ion,90,/guides/polyatomic-ions/cl,,,stage6
+polyatomic_ions,hcl,is hcl a polyatomic ion,90,/guides/polyatomic-ions/hcl,,,stage6
+polyatomic_ions,bro3,bro3 polyatomic ion,70,/guides/polyatomic-ions/bro3,,,stage6
+polyatomic_ions,clo4,clo4 polyatomic ion,70,/guides/polyatomic-ions/clo4,,,stage6
+polyatomic_ions,io4,io4 polyatomic ion,70,/guides/polyatomic-ions/io4,,,stage6
+polyatomic_ions,ch3,is ch3 a polyatomic ion,70,/guides/polyatomic-ions/ch3,,,stage6
+polyatomic_ions,no,no polyatomic ion,70,/guides/polyatomic-ions/no,,,stage6
+polyatomic_ions,o,oxide polyatomic ion,70,/guides/polyatomic-ions/o,,,stage6
+polyatomic_ions,mno4,permanganate polyatomic ion,70,/guides/polyatomic-ions/mno4,,,stage6
+polyatomic_ions,bro2,bro2 polyatomic ion,50,/guides/polyatomic-ions/bro2,,,stage6
+polyatomic_ions,bro4,bro4 polyatomic ion,50,/guides/polyatomic-ions/bro4,,,stage6
+polyatomic_ions,co,co polyatomic ion,50,/guides/polyatomic-ions/co,,,stage6
+polyatomic_ions,cr2o7,dichromate polyatomic ion,50,/guides/polyatomic-ions/cr2o7,,,stage6
+polyatomic_ions,know,how to know the charge of a polyatomic ion,50,/guides/polyatomic-ions/know,,,stage6
+polyatomic_ions,h2o,is h2o a polyatomic ion,50,/guides/polyatomic-ions/h2o,,,stage6
+polyatomic_ions,ch4,is methane a polyatomic ion,50,/guides/polyatomic-ions/ch4,,,stage6
+polyatomic_ions,nacl,is nacl a polyatomic ion,50,/guides/polyatomic-ions/nacl,,,stage6
+polyatomic_ions,so2,is so2 a polyatomic ion,50,/guides/polyatomic-ions/so2,,,stage6
+polyatomic_ions,sentence,polyatomic ion in a sentence,50,/guides/polyatomic-ions/sentence,,,stage6
+polyatomic_ions,sio3,silicate polyatomic ion,50,/guides/polyatomic-ions/sio3,,,stage6
