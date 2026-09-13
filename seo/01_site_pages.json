@@ -1,0 +1,461 @@
+[
+  {
+    "url": "https://chem-games-seven.vercel.app/",
+    "path": "/",
+    "http_status": 200,
+    "page_type": "homepage",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Learn chemistry by playing."
+    ],
+    "h2": [
+      "Profile",
+      "Leaderboards",
+      "Top scientists",
+      "Interactive Mini-Games"
+    ],
+    "h3": [
+      "Your profile starts here",
+      "Acid or Base?",
+      "Acid or Base?",
+      "Formula Blaster",
+      "Neutralise!"
+    ],
+    "chemistry_topic": "Chemistry games hub / dashboard",
+    "notes": "Landing + dashboard: profile, leaderboards, 3 featured game cards",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 1250,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets",
+      "/games",
+      "/games/acid-classification",
+      "/games/formula-blaster",
+      "/games/neutralise",
+      "/leaderboards"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Interactive Chemistry Laboratory Learn chemistry by playing. Explore interactive experiments, track your personal best scores, master formulas, and see how your lab results compare. Explore Games View Leaderboards Profile Your laboratory identity and personal experiment progress. Log in to save progress Your profile starts here Log in to save your progress, manage your lab notes, and build your scientist profile. Log in / Register Leaderboards Top scientists across all interactive chemistry experiments. Open full leaderboards Top scientists Global network Acid or Base? Formula Blaster Neutralise! Reaction Balancer Bond Builder Acid or Base? Rank 1 A. Curie Recorded 17 Jul 2026 1280 Points Rank 2 Molecule Maven Recorded 16 Jul 2026 1120 Points Rank 3 Ion Pilot Recorded 15 Jul 2026 980 Points Interactive Mini-Games Select an experiment to master chemical reactions and formulas. Browse all games Acid or Base? Classify materials & pH levels Play now Formula Blaster Pop compounds & balance ions Play now Neutralise! Defend the lab from runaway reactions Play now ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/home.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/games",
+    "path": "/games",
+    "http_status": 200,
+    "page_type": "game-category",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Games"
+    ],
+    "h2": [
+      "Acid or Base?",
+      "Formula Blaster",
+      "Neutralise!",
+      "Reaction Balancer",
+      "Chemical Bonds"
+    ],
+    "h3": [],
+    "chemistry_topic": "All games index",
+    "notes": "Hub listing all 5 games with one-line descriptions",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 582,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets",
+      "/games/acid-classification",
+      "/games/chemical-bonds",
+      "/games/formula-blaster",
+      "/games/neutralise",
+      "/games/reaction-balancer"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register \u2190 Dashboard Games Choose an experiment to begin. Acid or Base? Classify materials by their properties. Play now \u2192 Formula Blaster Pop target compounds before they escape. Play now \u2192 Neutralise! Defend the lab from molecule invaders. Play now \u2192 Reaction Balancer Adjust stoichiometric coefficients to balance equations. Play now \u2192 Chemical Bonds Explore molecular structures and atomic bonding. Play now \u2192 ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/games.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/games/acid-classification",
+    "path": "/games/acid-classification",
+    "http_status": 200,
+    "page_type": "game",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Acid, Base or Neutral?"
+    ],
+    "h2": [],
+    "h3": [],
+    "chemistry_topic": "Acids, bases, pH, compound classification",
+    "notes": "Client-rendered game: classify compound as Acid/Base/Neutral, 3 lives, hint lightbulb",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 124,
+    "internal_links_out": [],
+    "body_text_excerpt": "Progress 0 / 3 Sorted LIVES: 3 / 3 CLASSIFY MOLECULE Acid, Base or Neutral? Level 01 Score 0 Exit Acid Neutral Base Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/games__acid-classification.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/games/formula-blaster",
+    "path": "/games/formula-blaster",
+    "http_status": 200,
+    "page_type": "game",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Find: Loading..."
+    ],
+    "h2": [],
+    "h3": [],
+    "chemistry_topic": "Chemical formulas, compound recognition",
+    "notes": "Client-rendered arcade: pop bubbles matching target molecule formula, 45s timer",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 101,
+    "internal_links_out": [],
+    "body_text_excerpt": "Progress Target 1/3 \u2022 Hits: 0/3 00:45 TARGET MOLECULE Find: Loading... Level 01 Score 0 Exit Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/games__formula-blaster.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/games/neutralise",
+    "path": "/games/neutralise",
+    "http_status": 200,
+    "page_type": "game",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [],
+    "h2": [],
+    "h3": [],
+    "chemistry_topic": "Acid-base neutralisation, ions",
+    "notes": "Client-rendered tower-defense: fire H+/OH- ion cannon at incoming molecules, waves + lives",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 150,
+    "internal_links_out": [],
+    "body_text_excerpt": "Progress Wave 1/3 | Cleared 0/2 LIVES: 3 / 3 Level 01 Score 0 Exit Progress Wave 1/3 LIVES: 3 / 3 Level 01 Score 0 Exit H\u207a Switch to OH\u207b Fire Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/games__neutralise.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/games/reaction-balancer",
+    "path": "/games/reaction-balancer",
+    "http_status": 200,
+    "page_type": "game",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [],
+    "h2": [
+      "Water Synthesis"
+    ],
+    "h3": [],
+    "chemistry_topic": "Balancing equations, stoichiometry, reaction types",
+    "notes": "Client-rendered puzzle: adjust stoichiometric coefficients; 34 named real reactions",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 375,
+    "internal_links_out": [],
+    "body_text_excerpt": "Progress Level 1 Level 01 Score 0 Exit Synthesis Water Synthesis The combination of hydrogen and oxygen to form water. Change the coefficients to conserve every atom. Reactants Molecules H 2 Molecule view H H + Molecules O 2 Molecule view O O Products Molecules H 2 O Molecule view H O H \u2192 Show Atom Balance Check Answer You can change your coefficients at any time. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/games__reaction-balancer.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/games/chemical-bonds",
+    "path": "/games/chemical-bonds",
+    "http_status": 404,
+    "page_type": "game",
+    "title": null,
+    "meta_description": null,
+    "h1": [],
+    "h2": [],
+    "h3": [],
+    "chemistry_topic": "Chemical bonding, molecular structure",
+    "notes": "BROKEN: linked from /games and leaderboards ('Bond Builder') but returns 404",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": null,
+    "internal_links_out": [],
+    "body_text_excerpt": "",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/games__chemical-bonds.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/cheat-sheets",
+    "path": "/cheat-sheets",
+    "http_status": 200,
+    "page_type": "guide",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Lab Cheat Sheets"
+    ],
+    "h2": [],
+    "h3": [
+      "States of Matter",
+      "Acids & Bases",
+      "Balancing Chemical Equations",
+      "Types of Chemical Reactions",
+      "Chemical Bonds & Structure",
+      "Writing Chemical Formulas"
+    ],
+    "chemistry_topic": "Reference hub by year level",
+    "notes": "Index of 6 cheat sheets tagged Year 9 / Year 10 with example formulas",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 1422,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets",
+      "/cheat-sheets/acids-and-bases",
+      "/cheat-sheets/balancing-equations",
+      "/cheat-sheets/chemical-bonds",
+      "/cheat-sheets/chemical-formulas",
+      "/cheat-sheets/reaction-types",
+      "/cheat-sheets/states-of-matter"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Back to Dashboard Lab Cheat Sheets Quick chemical formulas, reaction rules, and equation references grouped by year level. Year 9 Fundamentals States of Matter Particle arrangement, energy levels, and phase changes in solids, liquids, and gases. Example Formula Water (Liquid) : H 2 O (l) Read reference Year 9 Acids & Bases Acids & Bases Understanding the pH scale, proton donors (acids), and hydroxide release (bases). Example Formula Hydrochloric Acid : H Cl Read reference Year 10 Equations Balancing Chemical Equations Applying the Law of Conservation of Mass so atom counts match on both sides. Example Formula Unbalanced : H 2 + O 2 \u2192 H 2 O Read reference Year 10 Reactions Types of Chemical Reactions Identifying Synthesis, Decomposition, Combustion, and Neutralisation reactions. Example Formula Neutralisation : H Cl + Na O H \u2192 Na Cl + H 2 O Read reference Year 9 Fundamentals Chemical Bonds & Structure Understanding how atoms share or transfer electrons to form stable compounds. Example Formula Covalent Compound : C O 2 ( Ca r b o n Di o x i d e ) Read reference Year 10 Equations Writing Chemical Formulas Translating chemical names into standardized symbolic formulas. Example Formula Calcium Carbonate : Ca C O 3 Read reference ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/cheat-sheets.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/cheat-sheets/states-of-matter",
+    "path": "/cheat-sheets/states-of-matter",
+    "http_status": 200,
+    "page_type": "guide",
+    "title": "States of Matter Cheat Sheet | ChemGames",
+    "meta_description": "Particle arrangement, energy levels, and phase changes in solids, liquids, and gases.",
+    "h1": [
+      "States of Matter"
+    ],
+    "h2": [
+      "Key Concepts",
+      "Example Formulas & Reactions"
+    ],
+    "h3": [],
+    "chemistry_topic": "States of matter, phase changes",
+    "notes": "Year 9 Fundamentals; 3 key concepts + H2O(l)/(s)/(g) examples",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 631,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Back to Cheat Sheets Year 9 Fundamentals States of Matter Particle arrangement, energy levels, and phase changes in solids, liquids, and gases. Key Concepts Solids have fixed volume and shape with tightly packed particles. Liquids take the shape of their container but maintain fixed volume. Gases expand to fill any container with high particle movement. Example Formulas & Reactions Water (Liquid) H 2 O (l) Ice (Solid) H 2 O (s) Steam (Gas) H 2 O (g) ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/cheat-sheets__states-of-matter.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/cheat-sheets/acids-and-bases",
+    "path": "/cheat-sheets/acids-and-bases",
+    "http_status": 200,
+    "page_type": "guide",
+    "title": "Acids & Bases Cheat Sheet | ChemGames",
+    "meta_description": "Understanding the pH scale, proton donors (acids), and hydroxide release (bases).",
+    "h1": [
+      "Acids & Bases"
+    ],
+    "h2": [
+      "Key Concepts",
+      "Example Formulas & Reactions"
+    ],
+    "h3": [],
+    "chemistry_topic": "Acids, bases, pH scale",
+    "notes": "Year 9 Acids & Bases; pH<7/pH>7, H+/OH-, HCl/NaOH/H2SO4",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 575,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Back to Cheat Sheets Year 9 Acids & Bases Acids & Bases Understanding the pH scale, proton donors (acids), and hydroxide release (bases). Key Concepts Acids have pH < 7 and release Hydrogen ions (H+). Bases have pH > 7 and release Hydroxide ions (OH-). Neutral substances (pure water) sit at pH 7. Example Formulas & Reactions Hydrochloric Acid H Cl Sodium Hydroxide Na O H Sulfuric Acid H 2 S O 4 ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/cheat-sheets__acids-and-bases.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/cheat-sheets/balancing-equations",
+    "path": "/cheat-sheets/balancing-equations",
+    "http_status": 200,
+    "page_type": "guide",
+    "title": "Balancing Chemical Equations Cheat Sheet | ChemGames",
+    "meta_description": "Applying the Law of Conservation of Mass so atom counts match on both sides.",
+    "h1": [
+      "Balancing Chemical Equations"
+    ],
+    "h2": [
+      "Key Concepts",
+      "Example Formulas & Reactions"
+    ],
+    "h3": [],
+    "chemistry_topic": "Balancing equations, conservation of mass",
+    "notes": "Year 10 Equations; coefficients not subscripts; H2+O2->H2O",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 611,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Back to Cheat Sheets Year 10 Equations Balancing Chemical Equations Applying the Law of Conservation of Mass so atom counts match on both sides. Key Concepts Matter cannot be created or destroyed in a chemical reaction. Adjust coefficients (big numbers in front), NEVER subscripts. Count atoms of each element on Reactant side vs. Product side. Example Formulas & Reactions Unbalanced H 2 + O 2 \u2192 H 2 O Balanced 2 H 2 + O 2 \u2192 2 H 2 O ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/cheat-sheets__balancing-equations.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/cheat-sheets/reaction-types",
+    "path": "/cheat-sheets/reaction-types",
+    "http_status": 200,
+    "page_type": "guide",
+    "title": "Types of Chemical Reactions Cheat Sheet | ChemGames",
+    "meta_description": "Identifying Synthesis, Decomposition, Combustion, and Neutralisation reactions.",
+    "h1": [
+      "Types of Chemical Reactions"
+    ],
+    "h2": [
+      "Key Concepts",
+      "Example Formulas & Reactions"
+    ],
+    "h3": [],
+    "chemistry_topic": "Reaction types",
+    "notes": "Year 10 Reactions; synthesis/decomposition/neutralisation/combustion",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 590,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Back to Cheat Sheets Year 10 Reactions Types of Chemical Reactions Identifying Synthesis, Decomposition, Combustion, and Neutralisation reactions. Key Concepts Synthesis: A + B -> AB Decomposition: AB -> A + B Neutralisation: Acid + Base -> Salt + Water Combustion: Hydrocarbon + O2 -> CO2 + H2O Example Formulas & Reactions Neutralisation H Cl + Na O H \u2192 Na Cl + H 2 O Combustion C H 4 + 2 O 2 \u2192 C O 2 + 2 H 2 O ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/cheat-sheets__reaction-types.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/cheat-sheets/chemical-bonds",
+    "path": "/cheat-sheets/chemical-bonds",
+    "http_status": 200,
+    "page_type": "guide",
+    "title": "Chemical Bonds & Structure Cheat Sheet | ChemGames",
+    "meta_description": "Understanding how atoms share or transfer electrons to form stable compounds.",
+    "h1": [
+      "Chemical Bonds & Structure"
+    ],
+    "h2": [
+      "Key Concepts",
+      "Example Formulas & Reactions"
+    ],
+    "h3": [],
+    "chemistry_topic": "Ionic vs covalent bonding, valence electrons",
+    "notes": "Year 9 Fundamentals; CO2 covalent, NaCl ionic",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 704,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Back to Cheat Sheets Year 9 Fundamentals Chemical Bonds & Structure Understanding how atoms share or transfer electrons to form stable compounds. Key Concepts Covalent Bonds: Non-metals share electrons to achieve a full outer shell. Ionic Bonds: Metals transfer electrons to non-metals, creating oppositely charged ions. Valence electrons determine an element\u2019s reactivity and bonding capacity. Example Formulas & Reactions Covalent Compound C O 2 ( Ca r b o n Di o x i d e ) Ionic Compound Na Cl ( So d i u m Ch l o r i d e ) ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/cheat-sheets__chemical-bonds.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/cheat-sheets/chemical-formulas",
+    "path": "/cheat-sheets/chemical-formulas",
+    "http_status": 200,
+    "page_type": "guide",
+    "title": "Writing Chemical Formulas Cheat Sheet | ChemGames",
+    "meta_description": "Translating chemical names into standardized symbolic formulas.",
+    "h1": [
+      "Writing Chemical Formulas"
+    ],
+    "h2": [
+      "Key Concepts",
+      "Example Formulas & Reactions"
+    ],
+    "h3": [],
+    "chemistry_topic": "Writing chemical formulas, polyatomic ions",
+    "notes": "Year 10 Equations; cation-before-anion, subscripts, brackets",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 648,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register Back to Cheat Sheets Year 10 Equations Writing Chemical Formulas Translating chemical names into standardized symbolic formulas. Key Concepts The symbol of the metal (cation) is always written before the non-metal (anion). Use subscripts to indicate the number of atoms (e.g., the 2 in H2O). Polyatomic ions act as a single unit and need brackets if there is more than one (e.g., Ca(OH)2). Example Formulas & Reactions Calcium Carbonate Ca C O 3 Aluminium Oxide Al 2 O 3 ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/cheat-sheets__chemical-formulas.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/leaderboards",
+    "path": "/leaderboards",
+    "http_status": 200,
+    "page_type": "other",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Leaderboards"
+    ],
+    "h2": [
+      "Top scientists"
+    ],
+    "h3": [
+      "Acid or Base?"
+    ],
+    "chemistry_topic": "High scores",
+    "notes": "Global leaderboard, tabs per game incl. 'Bond Builder'; demo/seed data",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 517,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register \u2190 Dashboard Leaderboards Compare high scores across every experiment. Top scientists Global network Acid or Base? Formula Blaster Neutralise! Reaction Balancer Bond Builder Acid or Base? Rank 1 A. Curie Recorded 17 Jul 2026 1280 Points Rank 2 Molecule Maven Recorded 16 Jul 2026 1120 Points Rank 3 Ion Pilot Recorded 15 Jul 2026 980 Points ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/leaderboards.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/auth",
+    "path": "/auth",
+    "http_status": 200,
+    "page_type": "other",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Welcome back"
+    ],
+    "h2": [],
+    "h3": [],
+    "chemistry_topic": "Login / register",
+    "notes": "Supabase auth (Google OAuth + email/password); currently unconfigured per JS strings",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": 320,
+    "internal_links_out": [
+      "/",
+      "/auth",
+      "/cheat-sheets"
+    ],
+    "body_text_excerpt": "Chem Games Profile Leaderboards Games Cheat Sheets Log in / Register \u2190 Back to games Welcome back Pick up where your experiments left off. Continue with Google or Email Password Log in New to ChemGames? Register ChemGames \u2014 Making chemistry visual, playful, and intuitive. \u00a9 2026 ChemGames. All rights reserved. Feedback",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/auth.html"
+  },
+  {
+    "url": "https://chem-games-seven.vercel.app/profile",
+    "path": "/profile",
+    "http_status": 200,
+    "page_type": "other",
+    "title": "ChemGames | Interactive Chemistry Learning",
+    "meta_description": "Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.",
+    "h1": [
+      "Welcome back"
+    ],
+    "h2": [],
+    "h3": [],
+    "chemistry_topic": "User profile (auth-gated)",
+    "notes": "Returns the login form when logged out",
+    "canonical": null,
+    "json_ld": [],
+    "ssr_body_chars": null,
+    "internal_links_out": [],
+    "body_text_excerpt": "",
+    "raw_html_file": "/Users/jasper/Desktop/chem-games/seo/raw/profile.html"
+  }
+]
