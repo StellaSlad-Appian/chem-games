@@ -11,7 +11,7 @@ import { PersonalScoreSummary } from '@/components/social/PersonalScoreSummary';
 import { PublicLeaderboard } from '@/components/social/PublicLeaderboard';
 import { PublicProfile } from '@/components/social/PublicProfile';
 import type { UserProfile } from '@/core-engine/types/general';
-import { getPersonalScores, publicLeaderboards } from '@/lib/dashboard-data';
+import { getPersonalScores, getPublicLeaderboards } from '@/lib/dashboard-data';
 import { toUserProfile } from '@/lib/profile';
 import { createClient } from '@/lib/supabase/server';
 
@@ -65,8 +65,10 @@ async function getDashboardProfile(): Promise<DashboardProfileResult> {
 export default async function Home() {
   const { isAuthenticated, profile } = await getDashboardProfile();
 
-  // Dynamically fetch personal scores if authenticated, otherwise empty array
-  const personalScores = profile ? await getPersonalScores(profile.id) : [];
+  const [personalScores, publicLeaderboards] = await Promise.all([
+    profile ? getPersonalScores(profile.id) : Promise.resolve([]),
+    getPublicLeaderboards(),
+  ]);
 
   return (
     <main className="min-h-screen bg-(--background) text-(--foreground)">

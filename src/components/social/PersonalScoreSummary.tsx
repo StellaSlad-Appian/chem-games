@@ -1,15 +1,8 @@
 import { Medal, Play, Trophy } from 'lucide-react';
 import type { PersonalScore } from '@/core-engine/types/general';
-import Link from 'next/link'; // 1. Added Link import
+import Link from 'next/link';
 
 interface PersonalScoreSummaryProps { scores: PersonalScore[]; }
-
-// 2. Added a mapping object for your hard-coded concepts
-const conceptMap: Record<string, string> = {
-  'acid-classification': 'Acids and Bases',
-  'formula-blaster': 'Nomenclature',
-  'neutralise': 'Acids and Bases',
-};
 
 export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
   return (
@@ -27,8 +20,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
                 className="rounded-full px-2.5 py-1 text-xs font-black text-slate-950 uppercase tracking-wider" 
                 style={{ backgroundColor: score.themeColor }}
               >
-                {/* 3. Replaced standard gameId string with our concept mapping (with a fallback just in case) */}
-                {conceptMap[score.gameId] || score.gameId.replace('-', ' ')}
+                {score.conceptTitle ?? score.gameId.replace(/-/g, ' ')}
               </span>
             </div>
             <h3 className="mt-4 text-xl font-black">{score.gameTitle}</h3>
@@ -51,8 +43,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
               <div className="mt-auto rounded-xl border border-dashed border-[var(--border)] bg-[var(--surface-2)] p-3 text-sm">
                 <p className="font-bold">Ready for your first result?</p>
                 <p className="mt-1 text-muted">Play a round to set a high score.</p>
-                {/* 4. Converted span to Link and dynamically routed to the specific game path */}
-                <Link 
+                <Link
                   href={`/games/${score.gameId}`}
                   className="mt-3 inline-flex items-center gap-1 font-bold text-blue-500 hover:underline"
                 >

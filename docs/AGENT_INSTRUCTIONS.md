@@ -241,11 +241,15 @@ export const <GAME>_CONFIG = OPTION_1_DEFAULT;
   Write new specs with Vitest's `describe/it/expect` (Jest-compatible) co-located with the code
   (`Foo.test.tsx`) or in `src/core-engine/tests/` for data-integrity checks. Don't add a second
   runner.
-- **`npm run build` currently fails on master** because
-  `src/core-engine/data/games/neutralise-levels_BACKUP_2307.ts` contains unresolved merge-conflict
-  markers (`<<<<<<< HEAD`). The `_BASE_2307` / `_LOCAL_2307` / `_REMOTE_2307` / `_BACKUP_2307`
-  files are mergetool leftovers; only `neutralise-levels.ts` is real. Until they are deleted,
-  verify your work with `npx tsc --noEmit` filtered to your files and `npm run dev`, not `build`.
+- **Mergetool leftovers break the build if they reappear.** Files named
+  `neutralise-levels_{BASE,LOCAL,REMOTE,BACKUP}_2307.ts` (unresolved `<<<<<<< HEAD` markers) were
+  removed on 2026-09-13; only `src/core-engine/data/games/neutralise-levels.ts` is real. Never
+  commit `*_BASE_*`/`*_LOCAL_*`/`*_REMOTE_*`/`*_BACKUP_*` files from `git mergetool`.
+- **Dashboard and leaderboard data come from Supabase, never from fixtures.**
+  `src/lib/dashboard-data.ts` reads `games` (active), the `leaderboard_entries` view,
+  `game_sessions` (the user's victories) and `concept_games → concepts`; when Supabase is
+  unconfigured it returns empty arrays and pages show their empty states. Don't reintroduce
+  mock score arrays into that file — put test fixtures in specs.
 - **Duplicate/competing type shapes for reaction data:** `src/core-engine/types/chemistry.ts`
   defines `BalancerReaction`/`ReactionParticipant` for the balancer, `src/core-engine/data/reactions.ts`
   defines its own separate `ChemicalReaction` (different from the one also named

@@ -26,6 +26,8 @@ export interface PersonalScore {
   globalRank: number | null;
   themeColor: string;
   icon: string;
+  /** Title of the concept this game is primary for (from concept_games), if known. */
+  conceptTitle?: string | null;
 }
 
 export interface LeaderboardEntry {
@@ -33,6 +35,8 @@ export interface LeaderboardEntry {
   alias: string;
   score: number;
   timestamp: string;
+  /** Rank from the leaderboard_entries view (ties share a rank). */
+  rank?: number;
 }
 
 export interface GameLeaderboard {

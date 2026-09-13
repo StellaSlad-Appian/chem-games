@@ -1,238 +1,179 @@
 // src/lib/dashboard-data.ts
+//
+// Server-side reads for the dashboard and leaderboards. Every function degrades
+// to empty data when Supabase is unconfigured or a query fails, so pages still
+// render (with their empty states) instead of crashing.
 
 import { createClient } from '@/lib/supabase/server';
 import type {
-  PersonalScore,
   GameLeaderboard,
   GameName,
+  LeaderboardEntry,
+  PersonalScore,
 } from '@/core-engine/types/general';
 
-const GAME_METADATA: Record<
-  GameName,
-  {
-    title: string;
-    color: string;
-    icon: string;
-  }
-> = {
-  'acid-classification': {
-    title: 'Acid or Base?',
-    color: '#a855f7',
-    icon: '🧪',
-  },
+type SupabaseServerClient = NonNullable<Awaited<ReturnType<typeof createClient>>>;
 
-  'formula-blaster': {
-    title: 'Formula Blaster',
-    color: '#3b82f6',
-    icon: '💥',
-  },
+interface GameRow {
+  id: GameName;
+  title: string;
+  icon: string;
+  theme_color: string;
+}
 
-  neutralise: {
-    title: 'Neutralise!',
-    color: '#10b981',
-    icon: '⚡',
-  },
+interface LeaderboardRow {
+  game_id: GameName;
+  alias: string;
+  score: number;
+  completed_at: string;
+  global_rank: number;
+}
 
-  'reaction-balancer': {
-    title: 'Reaction Balancer',
-    color: '#f59e0b',
-    icon: '⚖️',
-  },
+const DEFAULT_LEADERBOARD_SIZE = 10;
 
-  'bond-builder': {
-    title: 'Bond Builder',
-    color: '#ec4899',
-    icon: '🔗',
-  },
-};
-
-/**
- * All games currently exposed in the dashboard.
- *
- * Keeping this in one place means the dashboard,
- * metadata and fallback data stay in sync.
- */
-const ACTIVE_GAMES: GameName[] = [
-  'acid-classification',
-  'formula-blaster',
-  'neutralise',
-  'reaction-balancer',
-  'bond-builder',
-];
-
-/**
- * Fetches the user's highest score for every active game from Supabase.
- */
-export async function getPersonalScores(
-  userId: string
-): Promise<PersonalScore[]> {
-  const supabase = await createClient();
-
-  if (!supabase) {
-    return [];
-  }
-
-  // Fetch all victory scores for the user.
+/** Active games from the catalogue, in display order. */
+async function getActiveGames(supabase: SupabaseServerClient): Promise<GameRow[]> {
   const { data, error } = await supabase
-    .from('game_sessions')
-    .select('game_id, score')
-    .eq('user_id', userId)
-    .eq('outcome', 'victory')
-    .order('score', { ascending: false });
+    .from('games')
+    .select('id, title, icon, theme_color')
+    .eq('is_active', true)
+    .order('display_order', { ascending: true });
 
   if (error || !data) {
+    console.error('Error loading games catalogue:', error);
     return [];
   }
 
-  return ACTIVE_GAMES.map((gameId) => {
-    const meta = GAME_METADATA[gameId];
-
-    const userScoresForGame = data.filter(
-      (score) => score.game_id === gameId
-    );
-
-    const highestScore =
-      userScoresForGame.length > 0
-        ? userScoresForGame[0].score
-        : null;
-
-    return {
-      gameId,
-      gameTitle: meta.title,
-      highestScore,
-      globalRank: null,
-      themeColor: meta.color,
-      icon: meta.icon,
-    };
-  });
+  return data as GameRow[];
 }
 
 /**
- * Fallback / mock personal score data.
+ * Primary concept title per game, from concept_games -> concepts.
+ * Returns an empty map if the concepts migration has not been applied yet.
  */
-export const personalScores: PersonalScore[] = [
-  {
-    gameId: 'acid-classification',
-    gameTitle: 'Acid or Base?',
-    highestScore: 820,
-    globalRank: 14,
-    themeColor: '#a855f7',
-    icon: '🧪',
-  },
+async function getPrimaryConceptTitles(
+  supabase: SupabaseServerClient
+): Promise<Partial<Record<GameName, string>>> {
+  const { data, error } = await supabase
+    .from('concept_games')
+    .select('game_id, concepts ( title )')
+    .eq('role', 'primary');
 
-  {
-    gameId: 'formula-blaster',
-    gameTitle: 'Formula Blaster',
-    highestScore: 640,
-    globalRank: 27,
-    themeColor: '#3b82f6',
-    icon: '💥',
-  },
+  if (error || !data) {
+    return {};
+  }
 
-  {
-    gameId: 'neutralise',
-    gameTitle: 'Neutralise!',
-    highestScore: null,
-    globalRank: null,
-    themeColor: '#10b981',
-    icon: '⚡',
-  },
-
-  {
-    gameId: 'reaction-balancer',
-    gameTitle: 'Reaction Balancer',
-    highestScore: null,
-    globalRank: null,
-    themeColor: '#f59e0b',
-    icon: '⚖️',
-  },
-
-  {
-    gameId: 'bond-builder',
-    gameTitle: 'Bond Builder',
-    highestScore: null,
-    globalRank: null,
-    themeColor: '#ec4899',
-    icon: '🔗',
-  },
-];
+  const titles: Partial<Record<GameName, string>> = {};
+  for (const row of data as unknown as { game_id: GameName; concepts: { title: string } | null }[]) {
+    if (row.concepts?.title && !titles[row.game_id]) {
+      titles[row.game_id] = row.concepts.title;
+    }
+  }
+  return titles;
+}
 
 /**
- * Fallback / mock public leaderboard data.
+ * Public leaderboards for every active game, read from the `leaderboard_entries`
+ * view (best victory score per player, ranked with ties). Games with no
+ * victories yet are included with an empty list so their tab still appears.
  */
-export const publicLeaderboards: GameLeaderboard[] = [
-  {
-    gameId: 'acid-classification',
-    gameTitle: 'Acid or Base?',
-    entries: [
-      {
-        id: '1',
-        alias: 'A. Curie',
-        score: 1280,
-        timestamp: '2026-07-17',
-      },
-      {
-        id: '2',
-        alias: 'Molecule Maven',
-        score: 1120,
-        timestamp: '2026-07-16',
-      },
-      {
-        id: '3',
-        alias: 'Ion Pilot',
-        score: 980,
-        timestamp: '2026-07-15',
-      },
-    ],
-  },
+export async function getPublicLeaderboards(
+  entriesPerGame: number = DEFAULT_LEADERBOARD_SIZE
+): Promise<GameLeaderboard[]> {
+  const supabase = await createClient();
+  if (!supabase) return [];
 
-  {
-    gameId: 'formula-blaster',
-    gameTitle: 'Formula Blaster',
-    entries: [
-      {
-        id: '4',
-        alias: 'Formula Fox',
-        score: 940,
-        timestamp: '2026-07-17',
-      },
-      {
-        id: '5',
-        alias: 'Lab Rat',
-        score: 860,
-        timestamp: '2026-07-16',
-      },
-    ],
-  },
+  const games = await getActiveGames(supabase);
+  if (games.length === 0) return [];
 
-  {
-    gameId: 'neutralise',
-    gameTitle: 'Neutralise!',
-    entries: [
-      {
-        id: '6',
-        alias: 'Base Defender',
-        score: 760,
-        timestamp: '2026-07-16',
-      },
-      {
-        id: '7',
-        alias: 'pH Pro',
-        score: 715,
-        timestamp: '2026-07-14',
-      },
-    ],
-  },
+  const { data, error } = await supabase
+    .from('leaderboard_entries')
+    .select('game_id, alias, score, completed_at, global_rank')
+    .in('game_id', games.map((game) => game.id))
+    .lte('global_rank', entriesPerGame)
+    .order('game_id', { ascending: true })
+    .order('global_rank', { ascending: true });
 
-  {
-    gameId: 'reaction-balancer',
-    gameTitle: 'Reaction Balancer',
-    entries: [],
-  },
+  if (error) {
+    console.error('Error loading leaderboard entries:', error);
+  }
 
-  {
-    gameId: 'bond-builder',
-    gameTitle: 'Bond Builder',
-    entries: [],
-  },
-];
+  const entriesByGame = new Map<GameName, LeaderboardEntry[]>();
+  for (const row of (data ?? []) as LeaderboardRow[]) {
+    const entry: LeaderboardEntry = {
+      id: `${row.game_id}-${row.global_rank}-${row.alias}`,
+      alias: row.alias,
+      score: row.score,
+      timestamp: row.completed_at,
+      rank: row.global_rank,
+    };
+    const list = entriesByGame.get(row.game_id) ?? [];
+    list.push(entry);
+    entriesByGame.set(row.game_id, list);
+  }
+
+  return games.map((game) => ({
+    gameId: game.id,
+    gameTitle: game.title,
+    entries: entriesByGame.get(game.id) ?? [],
+  }));
+}
+
+/**
+ * The signed-in user's best victory score and global rank for every active game.
+ * Rank is computed the same way as the leaderboard view: 1 + number of players
+ * whose best score is higher (so ties share a rank).
+ */
+export async function getPersonalScores(userId: string): Promise<PersonalScore[]> {
+  const supabase = await createClient();
+  if (!supabase) return [];
+
+  const [games, conceptTitles, sessionsResult] = await Promise.all([
+    getActiveGames(supabase),
+    getPrimaryConceptTitles(supabase),
+    supabase
+      .from('game_sessions')
+      .select('game_id, score')
+      .eq('user_id', userId)
+      .eq('outcome', 'victory')
+      .order('score', { ascending: false }),
+  ]);
+
+  if (sessionsResult.error) {
+    console.error('Error loading personal game sessions:', sessionsResult.error);
+  }
+
+  const bestByGame = new Map<GameName, number>();
+  for (const row of (sessionsResult.data ?? []) as { game_id: GameName; score: number }[]) {
+    if (!bestByGame.has(row.game_id)) bestByGame.set(row.game_id, row.score);
+  }
+
+  return Promise.all(
+    games.map(async (game): Promise<PersonalScore> => {
+      const highestScore = bestByGame.get(game.id) ?? null;
+      let globalRank: number | null = null;
+
+      if (highestScore !== null) {
+        const { count, error } = await supabase
+          .from('leaderboard_entries')
+          .select('*', { count: 'exact', head: true })
+          .eq('game_id', game.id)
+          .gt('score', highestScore);
+
+        if (!error && count !== null) {
+          globalRank = count + 1;
+        }
+      }
+
+      return {
+        gameId: game.id,
+        gameTitle: game.title,
+        highestScore,
+        globalRank,
+        themeColor: game.theme_color,
+        icon: game.icon,
+        conceptTitle: conceptTitles[game.id] ?? null,
+      };
+    })
+  );
+}
