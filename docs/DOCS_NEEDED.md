@@ -9,6 +9,9 @@ misdirect the work.
 
 ## 1. Game Concept Brief (highest priority — build this per new game, not once)
 
+> **Status: drafts exist.** See [`game-briefs/`](./game-briefs/) — one draft per planned topic,
+> each with `YOU DECIDE` callouts to resolve before marking it `Approved`.
+
 Without this, an agent will either stall asking clarifying questions or — worse — invent a
 plausible-looking mechanic that fails the "intrinsic mechanic" test in the checklist (a
 generic shooter/sorter with chemistry skin bolted on). This is the one document that has to
@@ -61,6 +64,9 @@ or auth-gated behavior — which the Definition of Done in `AGENT_INSTRUCTIONS.m
 
 ## 4. Visual/brand style reference
 
+> **Status: done** — see [`STYLE_GUIDE.md`](./STYLE_GUIDE.md). Review its §9 "known
+> inconsistencies" and decide on the `tailwind.config.ts` question.
+
 `globals.css` has a real but implicit design system (the `--game-*` custom properties, the
 `Bebas Neue` + `DM Sans` font pairing, per-chemistry-class colors for acid/base/neutral/
 amphoteric). There's no written style guide. A short one — even just "here are the tokens, here's
@@ -69,6 +75,9 @@ what a new game's accent color should and shouldn't clash with, here's the icon 
 pulling in a second icon library.
 
 ## 5. Accessibility target
+
+> **Status: done** — see [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) (WCAG 2.2 AA, tiered
+> MUST/SHOULD/COULD, plus a prioritised list of platform-level gaps to fix).
 
 `GameOverlay.tsx` already implements a real focus trap, `aria-modal`, and keyboard shortcuts —
 someone clearly cares about this, but there's no written bar (WCAG 2.1 AA? color-contrast

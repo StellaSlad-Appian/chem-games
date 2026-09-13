@@ -1,8 +1,9 @@
 # Agent Instructions: Building a New Chemistry Game
 
-Give this file (plus [`GAME_DESIGN_CHECKLIST.md`](./GAME_DESIGN_CHECKLIST.md), and a filled-in
-copy of the brief template in [`DOCS_NEEDED.md`](./DOCS_NEEDED.md)) to any agent — human or AI —
-tasked with adding a new mini-game to chem-games. It has two halves:
+Give this file (plus [`GAME_DESIGN_CHECKLIST.md`](./GAME_DESIGN_CHECKLIST.md),
+[`STYLE_GUIDE.md`](./STYLE_GUIDE.md), [`ACCESSIBILITY.md`](./ACCESSIBILITY.md), and the
+**approved** brief for the game from [`game-briefs/`](./game-briefs/)) to any agent — human or
+AI — tasked with adding a new mini-game to chem-games. It has two halves:
 
 1. **Part A — pedagogical contract.** What makes a chem-games mini-game "good" and not
    chocolate-covered broccoli. Non-negotiable.
