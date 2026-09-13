@@ -31,8 +31,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": [
-    "node_modules",
-    "src/core-engine/data/games/neutralise-levels_*_2307.ts"
-  ]
+  "exclude": ["node_modules"]
 }

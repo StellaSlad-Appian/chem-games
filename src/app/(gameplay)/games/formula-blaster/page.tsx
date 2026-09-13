@@ -33,6 +33,7 @@ import {
   getValidXPosition,
   resetSpawnManager,
 } from '@/core-engine/utils/spawn-manager';
+import { recordGameSession } from '@/lib/actions/game-actions';
 
 export default function FormulaBlasterPage() {
   const router = useRouter();
@@ -87,6 +88,18 @@ export default function FormulaBlasterPage() {
   // This prevents closing a modal from accidentally resuming
   // a game that was already paused before the modal opened.
   const pausedByModalRef = useRef(false);
+
+  // Session recording: when the run started, whether it has been saved,
+  // and the hit / miss tally behind the accuracy figure.
+  const startTimeRef = useRef<number>(0);
+  const sessionSavedRef = useRef(false);
+  const totalHitsRef = useRef(0);
+  const wrongClicksRef = useRef(0);
+
+  // The clock starts when the page mounts (set in an effect: render must stay pure).
+  useEffect(() => {
+    startTimeRef.current = Date.now();
+  }, []);
 
   // ------------------------------------------------------------
   // MOVEMENT SPEED
@@ -352,6 +365,32 @@ export default function FormulaBlasterPage() {
   }, [activeError]);
 
   // ------------------------------------------------------------
+  // 4b. RECORD THE RUN (once, when it ends)
+  // ------------------------------------------------------------
+
+  useEffect(() => {
+    if (gameState !== 'failed' && gameState !== 'victory') return;
+    if (sessionSavedRef.current) return;
+    sessionSavedRef.current = true;
+
+    const answered = totalHitsRef.current + wrongClicksRef.current;
+    void recordGameSession({
+      gameId: 'formula-blaster',
+      score,
+      levelReached: currentLevel,
+      accuracy:
+        answered > 0
+          ? Math.round((totalHitsRef.current / answered) * 100)
+          : undefined,
+      timeSpentSeconds: Math.max(
+        1,
+        Math.floor((Date.now() - startTimeRef.current) / 1000)
+      ),
+      outcome: gameState,
+    });
+  }, [gameState, score, currentLevel]);
+
+  // ------------------------------------------------------------
   // 5. INTERACTION SYSTEM
   // ------------------------------------------------------------
 
@@ -365,6 +404,7 @@ export default function FormulaBlasterPage() {
 
     if (isCorrect) {
       playSound('pop_01');
+      totalHitsRef.current += 1;
 
       setScore(
         (prev) =>
@@ -381,6 +421,7 @@ export default function FormulaBlasterPage() {
       setActiveError(null);
     } else {
       playSound('fizzle');
+      wrongClicksRef.current += 1;
 
       const clickedChem = COMPOUNDS_REGISTRY.find(
         (c) => c.id === compoundId
@@ -496,6 +537,12 @@ export default function FormulaBlasterPage() {
   const handleFullReset = () => {
     resetBase();
     resetSpawnManager();
+
+    // A new run gets its own session record and a fresh tally.
+    sessionSavedRef.current = false;
+    startTimeRef.current = Date.now();
+    totalHitsRef.current = 0;
+    wrongClicksRef.current = 0;
 
     setCorrectInRound(0);
     setCompletedTargetIds([]);

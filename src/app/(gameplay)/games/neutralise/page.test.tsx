@@ -9,6 +9,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import NeutralizePage from './page';
 import { renderWithProviders } from '@/test-utils/render';
 import { NEUTRALISE_CONFIG as CFG } from '@/core-engine/config/games/neutralise-config';
+import { getEnemiesPerWave } from '@/core-engine/utils/level-manager';
 
 const { pushMock, recordGameSessionMock } = vi.hoisted(() => ({
   pushMock: vi.fn(),
@@ -46,8 +47,8 @@ vi.mock('@/components/games/neutralise/GameArena', () => ({
   ),
 }));
 
-const enemiesAt = (level: number) =>
-  CFG.waves.baseEnemiesPerWave + (level - 1) * CFG.waves.enemyScalingPerLevel;
+// Same helper the page uses: the config ramp capped by the level's maxEnemies.
+const enemiesAt = (level: number) => getEnemiesPerWave(level);
 const POINTS = CFG.mechanics.basePointsPerDefeat;
 
 const arena = () => screen.getByTestId('mock-arena');
@@ -115,6 +116,37 @@ describe('Neutralise page (game flow)', () => {
     expect(screen.getByText(`Wave 1/3 | Cleared 0/${enemiesAt(2)}`)).toBeInTheDocument();
     expect(arena()).toHaveAttribute('data-level', '2');
     expect(arena()).toHaveAttribute('data-enemies', String(enemiesAt(2)));
+  });
+
+  it('keeps recording after a level-up: the next level can still end and be saved', () => {
+    markIntroSeen();
+    renderWithProviders(<NeutralizePage />);
+    const level1Score = enemiesAt(1) * POINTS * CFG.waves.maxWavesPerLevel;
+
+    for (let i = 0; i < enemiesAt(1) * CFG.waves.maxWavesPerLevel; i++) defeat();
+    expect(screen.getByRole('dialog', { name: 'Level Cleared' })).toBeInTheDocument();
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByRole('button', { name: 'Begin Level 2' }));
+
+    // Two misses on level 2 must still end the game and record it.
+    miss();
+    miss();
+    expect(screen.getByRole('dialog', { name: 'Game Over' })).toBeInTheDocument();
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(2);
+    expect(recordGameSessionMock).toHaveBeenLastCalledWith(
+      expect.objectContaining({ gameId: 'neutralise', outcome: 'failed', score: level1Score, levelReached: 2 })
+    );
+
+    // And a second cleared level is recorded as its own victory.
+    fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
+    for (let i = 0; i < enemiesAt(1) * CFG.waves.maxWavesPerLevel; i++) defeat();
+    fireEvent.click(screen.getByRole('button', { name: 'Begin Level 2' }));
+    for (let i = 0; i < enemiesAt(2) * CFG.waves.maxWavesPerLevel; i++) defeat();
+    expect(screen.getByRole('dialog', { name: 'Level Cleared' })).toBeInTheDocument();
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(4);
+    expect(recordGameSessionMock).toHaveBeenLastCalledWith(
+      expect.objectContaining({ outcome: 'victory', levelReached: 2 })
+    );
   });
 
   it('tolerates one miss per wave but ends the game on the second; Try Again resets', () => {

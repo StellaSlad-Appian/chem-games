@@ -55,7 +55,8 @@ First-time setup on a new machine: `npm install` then `npx playwright install ch
 | Game flows | `src/app/(gameplay)/games/<game>/page.test.tsx` | Whole game with a fake clock and a deterministic `Math.random`: scoring, quotas, level-up, game-over, pause, modals, session recording. |
 | End-to-end | `e2e/<game>.spec.ts`, `e2e/hub.spec.ts` | The same journeys in a real browser against the running app. No Supabase credentials needed. |
 
-Known bugs are pinned in `src/core-engine/tests/known-issues.test.ts` (see below).
+The bugs this suite surfaced when it was first written have been fixed; their regression
+tests live in the files above (see "Bugs the suite found" below).
 
 ## Adding tests
 
@@ -103,19 +104,24 @@ Known bugs are pinned in `src/core-engine/tests/known-issues.test.ts` (see below
   (`correctVesselFor(formula)`, `ionKeyFor(formula)`, `hitsNeededFor(formula)`).
 - Long timers: install `page.clock` before navigating and `page.clock.runFor(ms)` instead of
   waiting (see the timeout and game-over tests).
-- Moving targets (Formula Blaster bubbles): click with `{ force: true }` and re-check, as in
-  `clickUntil()`.
-- The config reuses a dev server already listening on port 3000 if `/games` answers, and
-  starts `npm run dev` otherwise. Set `PLAYWRIGHT_BASE_URL` to test another server (for
-  example a production build started with `npx next start -p 3100`). In CI it builds and
-  runs `next start`.
+- Moving targets (Formula Blaster bubbles): a coordinate click can miss an element that is
+  still animating, so `clickUntil()` dispatches the click to the element and re-checks.
+- `e2e/warm-up.setup.ts` runs first and visits every game route, so `next dev` compiles them
+  before any timed test starts. Add new game slugs to `GAME_SLUGS` in `e2e/helpers.ts`.
+- The config starts its own `next dev` on port 3210 (`PLAYWRIGHT_PORT` to change it), so it
+  never collides with a dev server of this or another project on 3000. If something already
+  answers `/games` on that port it is reused. To test a server you are already running (for
+  example `npm run dev` on 3000, or a production build started with `npx next start -p 3100`),
+  set `PLAYWRIGHT_BASE_URL`. In CI it builds and runs `next start`.
 
 ### Pinning a bug you cannot fix right now
 
-Add an `it.fails(...)` test to `src/core-engine/tests/known-issues.test.ts` with a comment
-explaining the wrong behaviour. It passes while the bug exists and fails with
+Create `src/core-engine/tests/known-issues.test.ts` (it only exists while there are open
+issues, because Vitest fails on a test file with no tests) and add an `it.fails(...)` test
+with a comment explaining the wrong behaviour. It passes while the bug exists and fails with
 "Expected test to fail" the moment someone fixes it, which is the cue to turn it into a
-normal test in the proper file.
+normal test in the proper file. Keep the rest of the suite green by excluding the known-bad
+case there, never by loosening the assertion.
 
 ## Scenario catalog
 
@@ -133,6 +139,7 @@ normal test in the proper file.
 | Pause from the footer, resume from the overlay or Escape | "pauses from the footer…" | "pause and resume from the footer…" |
 | Settings opens and pauses; instructions open and close | "opening the settings…", "the instructions modal…" | "instructions and settings modals…" |
 | Exit leaves the game | "Exit leaves the game" | — |
+| Game over and victory each record one session (score, level, accuracy); level-ups do not | "loses a life per wrong answer…", "records a victory once…" | — (needs Supabase) |
 | Every registry compound has a vessel; enough compounds per level for the quota | `game-configs.test.ts`, `compounds-registry.test.ts` | — |
 
 ### Formula Blaster (`/games/formula-blaster`)
@@ -145,6 +152,7 @@ normal test in the proper file.
 | Quota met → next target; three targets → level cleared → level 2 | "after the quota the next target starts…" | — (too long for a browser run) |
 | Wrong bubble shows a comparative error, no score, tooltip disappears | "a wrong bubble shows…" | "popping a wrong bubble…" |
 | Timer runs out → Game Over with timeout message; Try Again restarts | "ends the game when the wave timer runs out…" | "running out of time ends the game" (uses `page.clock`) |
+| Game over and victory each record one session with hit accuracy; level-ups do not | "ends the game when the wave timer runs out…", "records a victory once…" | — (needs Supabase) |
 | Pause freezes countdown and spawner; resume continues | "pausing freezes…" | "pausing freezes the countdown" |
 | Hint lists the target's elements and can be dismissed | "the hint names the elements…" | "the hint describes the elements…" |
 | Instructions pause the game and closing resumes it | "opening the instructions…" | — |
@@ -159,6 +167,7 @@ normal test in the proper file.
 | Header shows wave, cleared count and lives; arena gets the enemy count | "shows the wave…" | "shows wave, lives and an H+ cannon…" |
 | Wave advances when every enemy is processed; level-up after wave 3 records a victory | "advances waves…" | — |
 | One miss per wave tolerated; second miss ends the game and records a failure; Try Again resets | "tolerates one miss…" | "two invaders reaching the floor end the game…" (uses `page.clock`) |
+| After a level-up the next level can still be lost or cleared, and each outcome is recorded | "keeps recording after a level-up…" | — |
 | Settings/instructions pause the arena and closing resumes; a manual pause is not undone | "opening the settings…", "closing a modal does not resume…" | — |
 | Invaders spawn from the level pool inside the arena | `GameArena.test.tsx` "spawns the requested invaders…" | "shows wave…" (count) |
 | Keys 1/2 (and the touch button) switch H+ / OH-; Space (and the Fire button) fires with a cooldown | "loads H+ by default…", "fires with Space…", "the touch controls…" | "…the 1 and 2 keys switch the ion", "Space fires a projectile" |
@@ -194,38 +203,49 @@ normal test in the proper file.
 | Pause/reset state machine | `useGameState.test.ts` |
 | Touch vs pointer detection | `useInputMethod.test.ts` |
 
-## Known issues
+## Bugs the suite found
 
-Found while writing these tests; each is pinned with `it.fails` in
-`src/core-engine/tests/known-issues.test.ts`:
+All six were found by the first run of this suite and fixed on 2026-09-13. Each has a
+regression test now:
 
-1. **Three compounds have inconsistent ionic components.** `H2CO3`, `H3PO4` and `H2SO3` list
-   every proton as `H+` but pair it with an anion that still carries hydrogen
-   (`HCO3-`, `H2PO4-`, `HSO3-`), so the ions add up to extra hydrogen and a positive net
-   charge. Fix: add `CO3 2-`, `PO4 3-` and `SO3 2-` to `ions.ts` and reference them. Until
-   then those three are excluded from the two data-integrity checks via
-   `KNOWN_INCONSISTENT_IONIC_FORMULAS` in `src/core-engine/tests/helpers/formula.ts`.
-2. **`parseFormulaAtoms` ignores parentheses.** `Ba(OH)2` parses as one O and one H. The
-   balancer's "Show Atom Balance" scaffold is therefore wrong for the reactions with
-   `Cu(NO3)2` and `Pb(NO3)2` (answers are still checked by coefficient, so the level is
-   winnable).
-3. **Formula Blaster error tooltip prints "undefined".** `generateComparativeError` uses
-   `element.name`, but registry elements only carry `symbol`. Players see
-   "Look for undefined (K) atoms instead."
-4. **Neutralise waves cannot complete from level 5.** The page waits for
-   `baseEnemiesPerWave + (level − 1) × scaling` enemies, but `getLevelSpawns` caps the wave
-   at `NEUTRALISE_LEVEL_DATA[level].maxEnemies` (5), so from level 5 the wave never ends.
-5. **Neutralise types amphoteric compounds as acids.** `level-manager` marks an invader as an
-   acid whenever `pKa` is defined, so `NaHCO3`, `Na2HPO4` and `NaHS` (bases per
-   `evaluateChemical`, and taught as such in the classifier) must be shot with OH⁻.
-6. **`MoleculeText` renders `Ca2+` as Ca₂⁺.** Digits after a symbol are taken as a subscript
-   before the charge is considered. Only single-character charges (`H+`, `OH-`) render
-   correctly; the games currently only use those.
+1. **`H2CO3`, `H3PO4` and `H2SO3` had inconsistent ionic components** (every proton listed as
+   `H+` plus a still-protonated anion). The three acids now reference the carbonate (id 27),
+   sulfite (28) and phosphate (29) ions in `ions.ts`. Guarded by the charge-neutrality and
+   element-count checks in `compounds-registry.test.ts` and `compounds.test.ts`.
+2. **`parseFormulaAtoms` ignored parentheses**, so the balancer's atom-balance scaffold was
+   wrong for `Cu(NO3)2` and `Pb(NO3)2`. It now expands bracketed groups; `chemical-utils.test.ts`
+   checks every formula in `reactions.ts` against the independent test parser.
+3. **Formula Blaster's error tooltip printed "undefined"** because registry elements have no
+   `name`. The name is now resolved from `ELEMENTS_REGISTRY`; the test asserts no pair of
+   registry compounds ever produces "undefined".
+4. **Neutralise waves could not complete from level 5**: the page expected more enemies than
+   the level's `maxEnemies` cap allowed the spawner to create. Both now use
+   `getEnemiesPerWave()` from `level-manager.ts`; `level-manager.test.ts` proves the spawner can
+   always supply what the page waits for.
+5. **Neutralise typed amphoteric bases as acids.** Invader type now comes from
+   `evaluateChemical`, matching the classifier game; `level-manager.test.ts` checks every level
+   pool.
+6. **`MoleculeText` rendered `Ca2+` as Ca₂⁺.** A monatomic ion written as symbol + digits +
+   sign is now a charge. Convention: `Ca2+`, `NH4+` and `SO4 2-` (space before a charge with
+   digits) all render correctly; `MoleculeText.test.tsx` covers each.
 
-Other observations (not pinned as tests):
+Fixed on 2026-09-14, after the suite was in place:
 
-- Acid classification and Formula Blaster never call `recordGameSession`, so their scores
-  are not saved; Neutralise and Reaction Balancer do.
+7. **Acid classification and Formula Blaster never saved a session.** Both pages now call
+   `recordGameSession` once when a run ends (game over or victory) with score, level,
+   accuracy and time; the page tests assert the exact payload for both outcomes and that a
+   level-up does not record.
+8. **Reaction Balancer sessions were rejected by the database.** `game_sessions.game_id`
+   references `public.games`, which only seeded the three original games, so every insert
+   failed the foreign key. Migration `20260914_add_reaction_balancer_game.sql` adds the row
+   (apply it to your Supabase project).
+9. **Neutralise stopped recording, and stopped ending, after the first level-up.** The
+   game-over check was skipped whenever the run had already been saved by a level-up. The
+   save guard now resets when a new level starts and no longer gates the game-over
+   transition; the page test plays level 1, loses on level 2 and checks both records.
+
+Other observations (not fixed):
+
 - In Acid classification, opening Settings pauses the game but closing it does not resume
   (the other games restore the previous state via `pausedByModalRef`).
 - Seven balancer reactions are already balanced with every coefficient at 1 (Limestone
@@ -303,8 +323,10 @@ unit-test steps still gate), and remove it once lint is clean.
 4. A failing Vitest test prints the assertion diff and the test file location. A failing
    Playwright test writes a trace under `test-results/`; inspect it with
    `npx playwright show-trace test-results/<test-folder>/trace.zip`.
-5. If Playwright cannot start the server: a dev server already running on port 3000 is only
-   reused when `http://localhost:3000/games` answers. A crashed one has to be stopped, or
-   point the tests elsewhere with `PLAYWRIGHT_BASE_URL`.
-6. A test in `known-issues.test.ts` failing with "Expected test to fail" means you fixed a
-   bug: promote that test to a normal `it` in the right spec file.
+5. If Playwright cannot start the server: something else is listening on port 3210 (set
+   `PLAYWRIGHT_PORT`), or the dev server crashed on start (Turbopack occasionally does on
+   Windows; just re-run). To bypass the managed server entirely, point the tests at a
+   server you started yourself with `PLAYWRIGHT_BASE_URL`.
+6. If a `known-issues.test.ts` exists and one of its tests fails with "Expected test to
+   fail", you fixed a bug: promote that test to a normal `it` in the right spec file, and
+   delete the known-issues file once it is empty.

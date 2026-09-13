@@ -74,11 +74,11 @@ export function wrongVesselFor(formula: string): string {
 }
 
 /**
- * Neutralise types an invader as an acid whenever the compound has a pKa
- * (see level-manager.ts). Acids are neutralised by OH- (key 2), bases by H+ (key 1).
+ * Neutralise types an invader by evaluateChemical (see level-manager.ts).
+ * Acids are neutralised by OH- (key 2), bases by H+ (key 1).
  */
 export const ionKeyFor = (formula: string): '1' | '2' =>
-  compoundByFormula(formula).pKa !== undefined ? '2' : '1';
+  evaluateChemical(compoundByFormula(formula)) === 'Acidic' ? '2' : '1';
 
 export const hitsNeededFor = (formula: string): number =>
   calculateMoleculeHealth(compoundByFormula(formula));

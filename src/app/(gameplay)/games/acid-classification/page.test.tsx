@@ -11,9 +11,15 @@ import { ACID_CLASSIFICATION_CONFIG as CFG } from '@/core-engine/config/games/ac
 import { evaluateChemical } from '@/core-engine/utils/chemical-utils';
 import { compoundByFormula, compoundsAtDifficulty } from '@/test-utils/registry';
 
-const { pushMock } = vi.hoisted(() => ({ pushMock: vi.fn() }));
+const { pushMock, recordGameSessionMock } = vi.hoisted(() => ({
+  pushMock: vi.fn(),
+  recordGameSessionMock: vi.fn(async () => ({ success: true, highestScore: 0 })),
+}));
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: pushMock, replace: vi.fn(), back: vi.fn() }),
+}));
+vi.mock('@/lib/actions/game-actions', () => ({
+  recordGameSession: recordGameSessionMock,
 }));
 
 type VesselLabel = 'Acid' | 'Neutral' | 'Base';
@@ -91,6 +97,33 @@ describe('Acid classification page (game flow)', () => {
     expect(screen.getByText('Level 02')).toBeInTheDocument();
     expect(screen.getByText(`0 / ${quotaFor(2)} Sorted`)).toBeInTheDocument();
     expect(screen.getByText('LIVES: 3/3')).toBeInTheDocument();
+    expect(recordGameSessionMock).not.toHaveBeenCalled(); // only terminal states are recorded
+  });
+
+  it('records a victory once after clearing the final level', () => {
+    let expectedScore = 0;
+    for (let level = 1; level <= CFG.levels.maxLevel; level++) {
+      const quota = quotaFor(level);
+      for (let i = 0; i < quota; i++) answerCorrectly();
+      expectedScore += quota * CFG.mechanics.pointsPerLevelMultiplier * level;
+      if (level < CFG.levels.maxLevel) {
+        fireEvent.click(screen.getByRole('button', { name: `Begin Level ${level + 1}` }));
+      }
+    }
+
+    expect(screen.getByRole('dialog', { name: 'Research Complete' })).toBeInTheDocument();
+    expect(screen.getByText(`Score ${expectedScore}`)).toBeInTheDocument();
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
+    expect(recordGameSessionMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        gameId: 'acid-classification',
+        outcome: 'victory',
+        score: expectedScore,
+        levelReached: CFG.levels.maxLevel,
+        accuracy: 100,
+        timeSpentSeconds: expect.any(Number),
+      })
+    );
   });
 
   it('loses a life per wrong answer and ends the game after three; Try Again resets', () => {
@@ -103,6 +136,16 @@ describe('Acid classification page (game flow)', () => {
     advance(CFG.timing.failStateDelayMs + 10);
     expect(screen.getByRole('dialog', { name: 'Game Over' })).toBeInTheDocument();
     expect(screen.getByText('LIVES: 0/3')).toBeInTheDocument();
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
+    expect(recordGameSessionMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        gameId: 'acid-classification',
+        outcome: 'failed',
+        score: 0,
+        levelReached: 1,
+        accuracy: 0,
+      })
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -110,6 +153,20 @@ describe('Acid classification page (game flow)', () => {
     expect(screen.getByText('Score 0')).toBeInTheDocument();
     expect(screen.getByText('Level 01')).toBeInTheDocument();
     expect(screen.getByText(`0 / ${quotaFor(1)} Sorted`)).toBeInTheDocument();
+
+    // The new run is recorded separately: one correct answer, then three mistakes.
+    answerCorrectly();
+    for (let i = 0; i < CFG.mechanics.maxMistakes - 1; i++) answerWrongly();
+    fireEvent.click(vessel(wrongLabel()));
+    advance(CFG.timing.failStateDelayMs + 10);
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(2);
+    expect(recordGameSessionMock).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        outcome: 'failed',
+        score: CFG.mechanics.pointsPerLevelMultiplier,
+        accuracy: 25,
+      })
+    );
   });
 
   it('ignores extra clicks while the feedback animation is showing', () => {

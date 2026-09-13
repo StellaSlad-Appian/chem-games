@@ -17,6 +17,7 @@ import GameInstructionsModal from '@/components/games/shared/GameInstructionsMod
 // Neutralise Specific
 import NeutralizeArena from '@/components/games/neutralise/GameArena';
 import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
+import { getEnemiesPerWave } from '@/core-engine/utils/level-manager';
 import { recordGameSession } from '@/lib/actions/game-actions';
 
 export default function NeutralizePage() {
@@ -74,10 +75,8 @@ export default function NeutralizePage() {
   // GAME CONFIGURATION
   // ------------------------------------------------------------
 
-  const enemiesPerWave =
-    NEUTRALISE_CONFIG.waves.baseEnemiesPerWave +
-    (currentLevel - 1) *
-      NEUTRALISE_CONFIG.waves.enemyScalingPerLevel;
+  // Capped by the level's maxEnemies, exactly like the arena's spawner.
+  const enemiesPerWave = getEnemiesPerWave(currentLevel);
 
   const enemiesProcessed =
     enemiesCleared + enemiesMissed;
@@ -202,15 +201,15 @@ export default function NeutralizePage() {
   useEffect(() => {
     if (gameState !== 'playing') return;
 
-    if (
-      (enemiesMissed >= 2 || lives <= 0) &&
-      !sessionSavedRef.current
-    ) {
-      sessionSavedRef.current = true;
-
+    if (enemiesMissed >= 2 || lives <= 0) {
+      // Always end the game; only the save is guarded, so a level-up that
+      // already recorded this run cannot stop the game from ending.
       setGameState('failed');
 
-      handleSaveSession(score, 'failed');
+      if (!sessionSavedRef.current) {
+        sessionSavedRef.current = true;
+        handleSaveSession(score, 'failed');
+      }
     }
   }, [
     enemiesMissed,
@@ -301,6 +300,10 @@ export default function NeutralizePage() {
       setCurrentWave(1);
       setEnemiesCleared(0);
       setEnemiesMissed(0);
+
+      // The cleared level has been recorded; the next level's outcome
+      // (another level-up or a game over) must be recorded as well.
+      sessionSavedRef.current = false;
     }
 
     startTimeRef.current = Date.now();

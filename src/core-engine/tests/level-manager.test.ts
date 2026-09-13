@@ -1,10 +1,43 @@
 import { describe, expect, it, vi } from 'vitest';
-import { getLevelSpawns } from '../utils/level-manager';
-import { NEUTRALISE_LEVEL_DATA } from '../config/games/neutralise-config';
+import { getEnemiesPerWave, getLevelSpawns, resolveLevelConfig } from '../utils/level-manager';
+import { NEUTRALISE_CONFIG, NEUTRALISE_LEVEL_DATA } from '../config/games/neutralise-config';
 import { calculateMoleculeHealth, evaluateChemical } from '../utils/chemical-utils';
 import { compoundByFormula, compoundById } from '@/test-utils/registry';
 
 const LEVEL_1 = NEUTRALISE_LEVEL_DATA[0];
+
+describe('resolveLevelConfig', () => {
+  it('returns the rules for a known level', () => {
+    expect(resolveLevelConfig(3)).toBe(NEUTRALISE_LEVEL_DATA[2]);
+  });
+
+  it('falls back to the level-1 rules for an unknown level', () => {
+    expect(resolveLevelConfig(999)).toBe(LEVEL_1);
+  });
+});
+
+describe('getEnemiesPerWave', () => {
+  it('follows the config ramp while it stays under the level cap', () => {
+    const { baseEnemiesPerWave, enemyScalingPerLevel } = NEUTRALISE_CONFIG.waves;
+    expect(getEnemiesPerWave(1)).toBe(Math.min(baseEnemiesPerWave, LEVEL_1.maxEnemies));
+    expect(getEnemiesPerWave(2)).toBe(
+      Math.min(baseEnemiesPerWave + enemyScalingPerLevel, resolveLevelConfig(2).maxEnemies)
+    );
+  });
+
+  it("never asks for more enemies than the level's spawner can provide", () => {
+    for (let level = 1; level <= 12; level++) {
+      const config = resolveLevelConfig(level);
+      const expected = getEnemiesPerWave(level);
+      expect(expected, `level ${level}`).toBeLessThanOrEqual(config.maxEnemies);
+      expect(getLevelSpawns(expected, config.compoundPoolIds, level), `level ${level}`).toHaveLength(expected);
+    }
+  });
+
+  it('always spawns at least one enemy', () => {
+    expect(getEnemiesPerWave(1)).toBeGreaterThanOrEqual(1);
+  });
+});
 
 describe('getLevelSpawns', () => {
   it("caps the wave at the level's maxEnemies", () => {
@@ -69,5 +102,25 @@ describe('getLevelSpawns', () => {
     const [base] = getLevelSpawns(1, [compoundByFormula('NaOH').id], 1);
     expect(base.formula).toBe('NaOH');
     expect(base.type).toBe('base');
+  });
+
+  it('types amphoteric compounds the way the classifier game does', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    for (const formula of ['NaHCO3', 'Na2HPO4', 'NaHS']) {
+      const compound = compoundByFormula(formula);
+      expect(evaluateChemical(compound), formula).toBe('Basic');
+      const [invader] = getLevelSpawns(1, [compound.id], 3);
+      expect(invader.formula).toBe(formula);
+      expect(invader.type, formula).toBe('base');
+    }
+  });
+
+  it('invader type always agrees with evaluateChemical across every level pool', () => {
+    NEUTRALISE_LEVEL_DATA.forEach((level) => {
+      getLevelSpawns(level.maxEnemies, level.compoundPoolIds, level.level).forEach((invader) => {
+        const expected = evaluateChemical(compoundByFormula(invader.formula)) === 'Acidic' ? 'acid' : 'base';
+        expect(invader.type, `${invader.formula} at level ${level.level}`).toBe(expected);
+      });
+    });
   });
 });

@@ -69,12 +69,6 @@ export function tallySide(terms: EquationTerm[]): Record<string, number> {
   return totals;
 }
 
-// Compounds whose ionic breakdown is known to disagree with their formula
-// (all protons listed as H+ AND a still-protonated anion). Excluded here so
-// the check keeps guarding every other compound; the bug itself is pinned in
-// src/core-engine/tests/known-issues.test.ts.
-export const KNOWN_INCONSISTENT_IONIC_FORMULAS = new Set(['H2CO3', 'H3PO4', 'H2SO3']);
-
 export function gcd(a: number, b: number): number {
   return b === 0 ? a : gcd(b, a % b);
 }

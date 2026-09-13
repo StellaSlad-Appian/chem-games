@@ -4,7 +4,7 @@ import { ELEMENTS_REGISTRY } from '../data/elements';
 import { MONOATOMIC_IONS, POLYATOMIC_IONS } from '../data/ions';
 import { ACID_CLASSIFICATION_CONFIG } from '../config/games/acid-classification-config';
 import type { ChemicalComposition } from '../types/chemistry';
-import { KNOWN_INCONSISTENT_IONIC_FORMULAS, parseFormulaWithGroups } from './helpers/formula';
+import { parseFormulaWithGroups } from './helpers/formula';
 
 const toDict = (elements: ChemicalComposition[]) =>
   elements.reduce<Record<string, number>>((acc, { symbol, count }) => {
@@ -60,9 +60,7 @@ describe('COMPOUNDS_REGISTRY integrity', () => {
     };
 
     const unbalanced: string[] = [];
-    COMPOUNDS_REGISTRY.filter(
-      (c) => c.ionicComponents && !KNOWN_INCONSISTENT_IONIC_FORMULAS.has(c.formula)
-    ).forEach((c) => {
+    COMPOUNDS_REGISTRY.filter((c) => c.ionicComponents).forEach((c) => {
       const { cations, anions } = c.ionicComponents!;
       const net =
         cations.reduce((sum, ref) => sum + chargeOf(ref.ionId) * ref.count, 0) +

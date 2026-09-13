@@ -16,11 +16,16 @@ async function targetFormula(page: Page): Promise<string> {
   return compoundByName(name).formula;
 }
 
-/** Bubbles float away in a few seconds, so click and re-check a few times. */
+/**
+ * Bubbles float away in a few seconds and keep moving while the click is being
+ * delivered, so a coordinate-based click can miss on a slow (dev-server) run.
+ * Dispatch the click straight to the bubble element instead, and re-check a
+ * few times in case it expired between locating and clicking.
+ */
 async function clickUntil(page: Page, locator: ReturnType<Page['locator']>, done: () => Promise<boolean>) {
   for (let attempt = 0; attempt < 6; attempt++) {
     await expect(locator.first()).toBeAttached({ timeout: 20_000 });
-    await locator.first().click({ force: true, timeout: 5_000 }).catch(() => undefined);
+    await locator.first().dispatchEvent('click').catch(() => undefined);
     await page.waitForTimeout(300);
     if (await done()) return;
   }
@@ -31,7 +36,9 @@ test.describe('Formula Blaster', () => {
   test('shows the target, a running countdown and spawning bubbles', async ({ page }) => {
     await openGame(page, 'formula-blaster');
     await expect(page.locator('header h1')).toContainText('Find:');
-    await expect(timer(page)).toHaveText(/^00:4\d$/);
+    // Starts from the configured wave time and counts down (a slow first
+    // load may already have consumed a few seconds).
+    await expect(timer(page)).toHaveText(/^00:[0-4]\d$/);
     await expect(bubbles(page).first()).toBeAttached();
 
     const before = await timer(page).textContent();

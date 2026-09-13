@@ -10,7 +10,10 @@ import {
   parseFormulaAtoms,
 } from '../utils/chemical-utils';
 import type { CompoundData } from '../types/chemistry';
+import { COMPOUNDS_REGISTRY } from '../data/compounds';
+import { reactions } from '../data/reactions';
 import { compoundByFormula } from '@/test-utils/registry';
+import { parseEquationSide, parseFormulaWithGroups } from './helpers/formula';
 
 const stub = (overrides: Partial<CompoundData>): CompoundData => ({
   type: 'compound',
@@ -103,10 +106,18 @@ describe('generateComparativeError', () => {
     );
   });
 
-  it('points to an element the clicked compound is missing', () => {
-    const msg = generateComparativeError(compoundByFormula('HCl'), compoundByFormula('KCl'));
-    expect(msg).toContain("That's Hydrochloric Acid (HCl)!");
-    expect(msg).toContain('(K) atoms instead');
+  it('points to an element the clicked compound is missing, by name', () => {
+    expect(generateComparativeError(compoundByFormula('HCl'), compoundByFormula('KCl'))).toBe(
+      "That's Hydrochloric Acid (HCl)! Look for Potassium (K) atoms instead."
+    );
+  });
+
+  it('never prints "undefined" for any pair of registry compounds', () => {
+    COMPOUNDS_REGISTRY.forEach((clicked) => {
+      COMPOUNDS_REGISTRY.forEach((target) => {
+        expect(generateComparativeError(clicked, target)).not.toContain('undefined');
+      });
+    });
   });
 
   it('asks to check atom counts when the elements match', () => {
@@ -154,6 +165,27 @@ describe('parseFormulaAtoms', () => {
   it('ignores state symbols', () => {
     expect(parseFormulaAtoms('H2O(l)')).toEqual({ H: 2, O: 1 });
     expect(parseFormulaAtoms('NH3(aq)')).toEqual({ N: 1, H: 3 });
+  });
+
+  it.each([
+    ['Ba(OH)2', { Ba: 1, O: 2, H: 2 }],
+    ['Cu(NO3)2', { Cu: 1, N: 2, O: 6 }],
+    ['Pb(NO3)2', { Pb: 1, N: 2, O: 6 }],
+    ['Ca3(PO4)2', { Ca: 3, P: 2, O: 8 }],
+    ['Mg(OH)2(s)', { Mg: 1, O: 2, H: 2 }],
+  ])('expands bracketed groups: %s', (formula, expected) => {
+    expect(parseFormulaAtoms(formula)).toEqual(expected);
+  });
+
+  it('agrees with the test parser for every balancer reaction', () => {
+    reactions.forEach((reaction) => {
+      reaction.equation
+        .split('->')
+        .flatMap((side) => parseEquationSide(side))
+        .forEach(({ formula }) => {
+          expect(parseFormulaAtoms(formula), formula).toEqual(parseFormulaWithGroups(formula));
+        });
+    });
   });
 
   it('returns an empty inventory for an empty string', () => {

@@ -8,9 +8,9 @@ import { IonProjectile } from './IonProjectile';
 import { PlayerCannon } from './PlayerCannon';
 import { useSound } from '@/hooks/useSound';
 import { isColliding, getCollisionResult } from '@/core-engine/utils/collision-utils';
-import { getLevelSpawns } from '@/core-engine/utils/level-manager';
+import { getLevelSpawns, resolveLevelConfig } from '@/core-engine/utils/level-manager';
 // Centralized imports from the single config file
-import { NEUTRALISE_LEVEL_DATA, NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
+import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
 import { isNeutralizationCompatible } from '@/core-engine/utils/chemical-utils';
 import { assignSpawnSlots } from '@/core-engine/utils/spawn-manager';
 
@@ -67,8 +67,7 @@ export default function NeutralizeArena({
 
   // Sync refs instantly to prevent the game loop from wiping out new spawns
   useEffect(() => {
-    const levelConfig =
-      NEUTRALISE_LEVEL_DATA.find((l) => l.level === level) || NEUTRALISE_LEVEL_DATA[0];
+    const levelConfig = resolveLevelConfig(level);
       
     // Added level argument to enforce maxEnemies via level-manager
     const rawSpawns = getLevelSpawns(enemyCount, levelConfig.compoundPoolIds, level);

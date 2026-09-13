@@ -4,7 +4,6 @@ import { COMPOUNDS_REGISTRY } from '../data/compounds';
 // You MUST create this file and export your ion arrays for this test to work!
 import { MONOATOMIC_IONS, POLYATOMIC_IONS } from '../data/ions'; 
 import { CompoundData } from '../types/chemistry';
-import { KNOWN_INCONSISTENT_IONIC_FORMULAS } from './helpers/formula';
 
 // Extracted the inline type from CompoundData for clean typing in our helper
 type CompoundElement = { symbol: string; count: number };
@@ -32,9 +31,7 @@ describe('Compounds Registry Data Integrity', () => {
 
     // 2. Loop through each ionic compound to verify its data
     const mismatches: string[] = [];
-    ionicCompounds
-      .filter((compound) => !KNOWN_INCONSISTENT_IONIC_FORMULAS.has(compound.formula))
-      .forEach((compound) => {
+    ionicCompounds.forEach((compound) => {
       const derivedAtomCounts: Record<string, number> = {};
       
       const allIonsInCompound = [

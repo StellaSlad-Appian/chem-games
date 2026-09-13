@@ -70,6 +70,16 @@ function parseFormula(input: string): FormulaToken[] {
         tokens.push({ type: 'symbol', value: symbolMatch[0] });
         i += symbolMatch[0].length;
 
+        // A monatomic ion written as "Ca2+" or "O2-" is one symbol followed by
+        // its charge, so the digits are the charge, not a subscript. Polyatomic
+        // ions keep their subscripts (NH4+); put a space before a charge that
+        // has digits (SO4 2-) so it is not read as a count.
+        const symbolStart = i - symbolMatch[0].length;
+        const afterCoefficient = coeffMatch ? coeffMatch[1].length : 0;
+        if (symbolStart === afterCoefficient && /^\d*[+-]$/.test(term.slice(i))) {
+          continue;
+        }
+
         // Subscripts following element or bracket: e.g., H2, (SO4)3
         const subMatch = term.slice(i).match(/^(\d+)/);
         if (subMatch) {

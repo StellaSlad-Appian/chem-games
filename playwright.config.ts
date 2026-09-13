@@ -1,9 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
 // End-to-end tests. Run with `npm run e2e` (headless) or `npm run e2e:ui`.
-// The config boots the Next.js app itself; locally it reuses a dev server
-// that is already running on the same port.
-const PORT = Number(process.env.PORT ?? 3000);
+// The config boots the Next.js app itself on a dedicated port, so it never
+// collides with a dev server of this or another project on :3000. To test an
+// app you already have running, point PLAYWRIGHT_BASE_URL at it.
+const PORT = Number(process.env.PLAYWRIGHT_PORT ?? 3210);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL ?? `http://localhost:${PORT}`;
 const isCI = Boolean(process.env.CI);
 
@@ -29,12 +30,22 @@ export default defineConfig({
     screenshot: 'only-on-failure',
     video: 'off',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    // Compiles every game route once (matters for `next dev`) before the tests run.
+    { name: 'warm-up', testMatch: /warm-up\.setup\.ts/ },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      testIgnore: /\.setup\.ts$/,
+      dependencies: ['warm-up'],
+    },
+  ],
   webServer: {
-    command: isCI ? 'npm run build && npm run start' : 'npm run dev',
-    // Health-check a page that needs no Supabase credentials, so an already
-    // running dev server is detected and reused instead of a second one
-    // being launched (Next refuses to start twice in the same directory).
+    command: isCI
+      ? `npm run build && npx next start -p ${PORT}`
+      : `npx next dev -p ${PORT}`,
+    // Health-check a page that needs no Supabase credentials, so a server
+    // already running at baseURL is detected and reused.
     url: `${baseURL}/games`,
     reuseExistingServer: !isCI,
     timeout: 180_000,

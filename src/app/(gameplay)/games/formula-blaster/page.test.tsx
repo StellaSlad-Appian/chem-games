@@ -11,9 +11,15 @@ import { renderWithProviders } from '@/test-utils/render';
 import { FORMULA_BLASTER_CONFIG as CFG } from '@/core-engine/config/games/formula-blaster-config';
 import { compoundByName } from '@/test-utils/registry';
 
-const { pushMock } = vi.hoisted(() => ({ pushMock: vi.fn() }));
+const { pushMock, recordGameSessionMock } = vi.hoisted(() => ({
+  pushMock: vi.fn(),
+  recordGameSessionMock: vi.fn(async () => ({ success: true, highestScore: 0 })),
+}));
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: pushMock, replace: vi.fn(), back: vi.fn() }),
+}));
+vi.mock('@/lib/actions/game-actions', () => ({
+  recordGameSession: recordGameSessionMock,
 }));
 
 const LEVEL_1_SPAWN_INTERVAL = Math.max(
@@ -110,6 +116,33 @@ describe('Formula Blaster page (game flow)', () => {
     expect(screen.getByText('Level 02')).toBeInTheDocument();
     expect(screen.getByText(FULL_TIMER)).toBeInTheDocument();
     expect(progress()).toMatchObject({ target: 1, hits: 0 });
+    expect(recordGameSessionMock).not.toHaveBeenCalled(); // only terminal states are recorded
+  });
+
+  it('records a victory once after clearing every level', () => {
+    let expectedScore = 0;
+    for (let level = 1; level <= CFG.levels.maxLevel; level++) {
+      for (let target = 0; target < CFG.levels.targetsRequiredPerLevel; target++) {
+        expectedScore += progress().quota * CFG.mechanics.pointsPerLevelMultiplier * level;
+        completeCurrentTarget();
+      }
+      if (level < CFG.levels.maxLevel) {
+        fireEvent.click(screen.getByRole('button', { name: `Begin Level ${level + 1}` }));
+      }
+    }
+
+    expect(screen.getByRole('dialog', { name: 'Research Complete' })).toBeInTheDocument();
+    expect(screen.getByText(`Score ${expectedScore}`)).toBeInTheDocument();
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
+    expect(recordGameSessionMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        gameId: 'formula-blaster',
+        outcome: 'victory',
+        score: expectedScore,
+        levelReached: CFG.levels.maxLevel,
+        accuracy: 100,
+      })
+    );
   });
 
   it('a wrong bubble shows a comparative error and does not score', () => {
@@ -128,16 +161,40 @@ describe('Formula Blaster page (game flow)', () => {
     expect(screen.queryByTestId('blaster-error')).not.toBeInTheDocument();
   });
 
-  it('ends the game when the wave timer runs out; Try Again restarts', () => {
+  it('ends the game when the wave timer runs out and records the failed run; Try Again restarts', () => {
+    popTarget(); // one hit, so the run has a score and an accuracy
+    vi.spyOn(Math, 'random').mockReturnValue(0.1);
+    advance(LEVEL_1_SPAWN_INTERVAL);
+    const distractor = bubbles().find((b) => b.getAttribute('data-formula') !== targetFormula());
+    if (!distractor) throw new Error('No distractor bubble spawned');
+    fireEvent.click(distractor); // one miss
+
     advance(CFG.mechanics.baseWaveTimeSeconds * 1000 + 10);
     expect(screen.getByRole('dialog', { name: 'Game Over' })).toBeInTheDocument();
     expect(screen.getByText('Time ran out before reaching the quota.')).toBeInTheDocument();
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
+    expect(recordGameSessionMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        gameId: 'formula-blaster',
+        outcome: 'failed',
+        score: CFG.mechanics.pointsPerLevelMultiplier,
+        levelReached: 1,
+        accuracy: 50,
+      })
+    );
 
     fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.getByText(FULL_TIMER)).toBeInTheDocument();
     expect(screen.getByText('Score 0')).toBeInTheDocument();
     expect(screen.getByText('Level 01')).toBeInTheDocument();
+
+    // A second run that times out with no answers is recorded separately.
+    advance(CFG.mechanics.baseWaveTimeSeconds * 1000 + 10);
+    expect(recordGameSessionMock).toHaveBeenCalledTimes(2);
+    expect(recordGameSessionMock).toHaveBeenLastCalledWith(
+      expect.objectContaining({ outcome: 'failed', score: 0, accuracy: undefined })
+    );
   });
 
   it('pausing freezes the countdown and the spawner', () => {

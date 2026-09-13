@@ -1,5 +1,6 @@
 // src/lib/chemical-utils.ts
 import { CompoundData, ChemicalClassification } from '@/core-engine/types/chemistry';
+import { ELEMENTS_REGISTRY } from '../data/elements';
 
 /**
  * Evaluates the classification of a chemical based on its dissociation constants.
@@ -73,6 +74,14 @@ export const isNeutralizationCompatible = (
 // Formula Blaster
 
 /**
+ * Registry compositions only carry a symbol; resolve the readable element
+ * name from ELEMENTS_REGISTRY (falls back to the symbol for unknown ones).
+ */
+function elementName(element: { symbol: string; name?: string }): string {
+  return element.name ?? ELEMENTS_REGISTRY.find((e) => e.symbol === element.symbol)?.name ?? element.symbol;
+}
+
+/**
  * Generates dynamic comparative error feedback when a student clicks an incorrect compound.
  * Compares the clicked distractor against the current target compound to highlight missing elements.
  */
@@ -91,7 +100,7 @@ export function generateComparativeError(
 
   if (missingInClicked.length > 0) {
     const keyElement = missingInClicked[0];
-    return `That's ${clickedChem.name} (${clickedChem.formula})! Look for ${keyElement.name} (${keyElement.symbol}) atoms instead.`;
+    return `That's ${clickedChem.name} (${clickedChem.formula})! Look for ${elementName(keyElement)} (${keyElement.symbol}) atoms instead.`;
   }
 
   return `That's ${clickedChem.name} (${clickedChem.formula})! Check the atom counts for ${targetChem.name}.`;
@@ -122,23 +131,46 @@ export function parseFormulaAtoms(
   formula: string
 ): Record<string, number> {
   const cleanFormula = formula.replace(/\([a-z]{1,2}\)/g, '');
+  let i = 0;
 
-  const regex = /([A-Z][a-z]*)(\d*)/g;
-  const counts: Record<string, number> = {};
+  const readCount = (): number => {
+    const digits = cleanFormula.slice(i).match(/^\d+/);
+    if (!digits) return 1;
+    i += digits[0].length;
+    return parseInt(digits[0], 10);
+  };
 
-  let match: RegExpExecArray | null;
+  // Parses up to the end of the string or a closing bracket and returns the
+  // atoms of that group, so bracketed groups such as (OH)2 or (NO3)2 can be
+  // multiplied by the count that follows them.
+  const parseGroup = (): Record<string, number> => {
+    const group: Record<string, number> = {};
+    while (i < cleanFormula.length) {
+      const char = cleanFormula[i];
+      if (char === '(') {
+        i += 1;
+        const inner = parseGroup();
+        const multiplier = readCount();
+        Object.entries(inner).forEach(([element, count]) => {
+          group[element] = (group[element] || 0) + count * multiplier;
+        });
+      } else if (char === ')') {
+        i += 1;
+        return group;
+      } else {
+        const symbol = cleanFormula.slice(i).match(/^[A-Z][a-z]*/);
+        if (!symbol) {
+          i += 1; // not an element symbol (e.g. a stray charge sign): skip it
+          continue;
+        }
+        i += symbol[0].length;
+        group[symbol[0]] = (group[symbol[0]] || 0) + readCount();
+      }
+    }
+    return group;
+  };
 
-  while ((match = regex.exec(cleanFormula)) !== null) {
-    const element = match[1];
-    const quantity = match[2]
-      ? parseInt(match[2], 10)
-      : 1;
-
-    counts[element] =
-      (counts[element] || 0) + quantity;
-  }
-
-  return counts;
+  return parseGroup();
 }
 
 /**

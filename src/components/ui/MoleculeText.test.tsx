@@ -10,12 +10,17 @@ describe('MoleculeText', () => {
     expect(subs).toEqual(['2']);
   });
 
-  it('renders ionic charges as superscripts', () => {
-    const { container } = render(<MoleculeText formula="H+" />);
-    expect(container.querySelector('sup')?.textContent).toBe('+');
-
-    const hydroxide = render(<MoleculeText formula="OH-" />);
-    expect(hydroxide.container.querySelector('sup')?.textContent).toBe('-');
+  it.each([
+    ['H+', [], ['+']],
+    ['OH-', [], ['-']],
+    ['Ca2+', [], ['2+']],
+    ['O2-', [], ['2-']],
+    ['NH4+', ['4'], ['+']],
+    ['SO4 2-', ['4'], ['2-']],
+  ])('renders %s with subscripts %j and superscripts %j', (formula, subs, sups) => {
+    const { container } = render(<MoleculeText formula={formula} />);
+    expect(Array.from(container.querySelectorAll('sub')).map((s) => s.textContent)).toEqual(subs);
+    expect(Array.from(container.querySelectorAll('sup')).map((s) => s.textContent)).toEqual(sups);
   });
 
   it('keeps a leading stoichiometric coefficient out of the subscripts', () => {

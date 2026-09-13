@@ -21,6 +21,7 @@ import { evaluateChemical } from '@/core-engine/utils/chemical-utils';
 import { COMPOUNDS_REGISTRY } from '@/core-engine/data/compounds';
 import { ACID_CLASSIFICATION_CONFIG } from '@/core-engine/config/games/acid-classification-config';
 import { useSound } from '@/hooks/useSound';
+import { recordGameSession } from '@/lib/actions/game-actions';
 
 export default function ClassificationGame() {
   const router = useRouter();
@@ -53,6 +54,18 @@ export default function ClassificationGame() {
 
   const [currentLevelChemicals, setCurrentLevelChemicals] = useState<CompoundData[]>([]);
 
+  // Correct answers across the whole run (correctInRound resets per level);
+  // together with `mistakes` this gives the accuracy saved with the session.
+  const [totalCorrect, setTotalCorrect] = useState<number>(0);
+  const startTimeRef = useRef<number>(0);
+  // Prevents the same run from being recorded twice.
+  const sessionSavedRef = useRef(false);
+
+  // The clock starts when the page mounts (set in an effect: render must stay pure).
+  useEffect(() => {
+    startTimeRef.current = Date.now();
+  }, []);
+
   const targetQuota = Math.max(ACID_CLASSIFICATION_CONFIG.levels.minPassingItems, currentLevelChemicals.length - 2);
 
   useEffect(() => {
@@ -66,6 +79,24 @@ export default function ClassificationGame() {
   useEffect(() => {
     setShowChemicalName(false);
   }, [currentChemical]);
+
+  // Record the run once it reaches a terminal state. By then `score`,
+  // `totalCorrect` and `mistakes` hold their final values.
+  useEffect(() => {
+    if (gameState !== GAME_STATE.FAILED && gameState !== GAME_STATE.VICTORY) return;
+    if (sessionSavedRef.current) return;
+    sessionSavedRef.current = true;
+
+    const answered = totalCorrect + mistakes;
+    void recordGameSession({
+      gameId: 'acid-classification',
+      score,
+      levelReached: currentLevel,
+      accuracy: answered > 0 ? Math.round((totalCorrect / answered) * 100) : undefined,
+      timeSpentSeconds: Math.max(1, Math.floor((Date.now() - startTimeRef.current) / 1000)),
+      outcome: gameState === GAME_STATE.VICTORY ? 'victory' : 'failed',
+    });
+  }, [gameState, score, currentLevel, totalCorrect, mistakes]);
 
   const handleTriggerManualHint = () => {
     if (gameState !== GAME_STATE.PLAYING || !currentChemical) return;
@@ -100,6 +131,7 @@ export default function ClassificationGame() {
         setScore((prev) => prev + (ACID_CLASSIFICATION_CONFIG.mechanics.pointsPerLevelMultiplier * currentLevel));
         const newCorrect = correctInRound + 1;
         setCorrectInRound(newCorrect);
+        setTotalCorrect((prev) => prev + 1);
         setFeedback({ status: ANSWER_STATUS.IDLE, selected: null });
 
         if (newCorrect >= targetQuota) {
@@ -151,8 +183,12 @@ export default function ClassificationGame() {
     setMistakes(0);
     setPoolIndex(0);
     setCorrectInRound(0);
+    setTotalCorrect(0);
     setFailReason(null);
     setFeedback({ status: ANSWER_STATUS.IDLE, selected: null });
+    // A new run gets its own session record.
+    sessionSavedRef.current = false;
+    startTimeRef.current = Date.now();
   };
 
   if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
