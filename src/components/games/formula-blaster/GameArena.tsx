@@ -45,9 +45,9 @@ export default function GameArena({
   onBubbleExpired,
 }: GameArenaProps) {
   return (
-    <div className="relative mt-4 flex-1 w-full h-full rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]/30 overflow-hidden">
+    <div data-testid="blaster-arena" className="relative mt-4 flex-1 w-full h-full rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]/30 overflow-hidden">
       {activeHint && (
-        <div className="absolute top-4 left-1/2 z-40 w-full max-w-md -translate-x-1/2 px-4">
+        <div data-testid="blaster-hint" className="absolute top-4 left-1/2 z-40 w-full max-w-md -translate-x-1/2 px-4">
           <div className="flex items-start justify-between gap-3 rounded-2xl border-2 border-blue-500/40 bg-[var(--surface)] p-4 shadow-xl backdrop-blur-md">
             <div className="flex items-start gap-3">
               <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
@@ -77,6 +77,7 @@ export default function GameArena({
 
       {activeError && (
         <div
+          data-testid="blaster-error"
           className="pointer-events-none fixed z-50 -translate-x-1/2 transition-all duration-200"
           style={{
             left: `${activeError.x}px`,

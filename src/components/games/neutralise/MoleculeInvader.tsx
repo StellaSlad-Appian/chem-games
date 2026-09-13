@@ -18,6 +18,9 @@ export function MoleculeParticle({ data }: MoleculeParticleProps) {
         transform: `translate(${data.x}px, ${data.y}px)`,
         transition: 'transform 0.05s linear'
       }}
+      data-testid="invader"
+      data-formula={data.formula}
+      data-health={data.currentHealth}
       className="absolute top-0 left-0 w-16 h-16 flex items-center justify-center rounded-2xl bg-slate-800 border-2 border-slate-600 shadow-xl"
     >
       <MoleculeText 

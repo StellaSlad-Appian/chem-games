@@ -21,6 +21,8 @@ export function IonProjectile({ projectile }: IonProjectileProps) {
       style={{
         transform: `translate(${projectile.x}px, ${projectile.y}px)`,
       }}
+      data-testid="projectile"
+      data-ion={projectile.damageType}
       className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center rounded-full border-2 bg-slate-900 shadow-md animate-pulse"
     >
       <MoleculeText 

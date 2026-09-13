@@ -273,6 +273,7 @@ export default function NeutralizeArena({
     <div className="flex flex-1 min-h-0 flex-col gap-3">
       <div
         ref={arenaRef}
+        data-testid="neutralise-arena"
         onMouseMove={(e) => {
           if (!isPaused && arenaRef.current) {
             setPlayerX(

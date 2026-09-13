@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*", "./*"]
     },
-    "types": ["jest"]
+    "types": ["vitest/globals"]
   },
   "include": [
     "next-env.d.ts",
@@ -31,5 +31,8 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "src/core-engine/data/games/neutralise-levels_*_2307.ts"
+  ]
 }

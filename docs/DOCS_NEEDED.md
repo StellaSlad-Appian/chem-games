@@ -97,8 +97,9 @@ categories you've seen before, instead of guessing generic ones.
 
 > **Status: decided — Vitest + Playwright.** As of 2026-09-13 the working tree contains
 > `vitest.config.mts`, `vitest.setup.ts`, `playwright.config.ts`, `src/test-utils/` and ~25 spec
-> files (uncommitted at time of writing). Remaining: commit it, add `"test"`/`"test:e2e"` scripts
-> to `package.json` if not already there, and wire it into CI.
+> files (uncommitted at time of writing). `package.json` now has `test`, `test:watch`, `e2e`,
+> `e2e:ui`, `typecheck` and `check` scripts, and `.github/workflows/test.yml` runs unit and e2e
+> on every push. How to run and extend it: `docs/TESTING.md`. Remaining: commit it.
 
 Decide (and document) whether the project standardizes on Jest, Vitest, or Next's built-in test
 runner support, so agents stop guessing and don't each install a different one.

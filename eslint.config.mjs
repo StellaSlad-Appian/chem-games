@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // mergetool leftovers with unresolved conflict markers (see docs/TESTING.md)
+    "src/core-engine/data/games/neutralise-levels_*_2307.ts",
+    "playwright-report/**",
+    "test-results/**",
   ]),
 ]);
 

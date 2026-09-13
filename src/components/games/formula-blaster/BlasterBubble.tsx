@@ -65,6 +65,8 @@ export default function BlasterBubble({
 
   return (
     <div
+      data-testid="blaster-bubble"
+      data-formula={formula}
       onClick={handleInteraction}
       onAnimationEnd={(e) => {
         if (e.animationName.includes('floatUp')) {

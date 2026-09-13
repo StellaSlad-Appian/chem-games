@@ -269,6 +269,9 @@ export const <GAME>_CONFIG = OPTION_1_DEFAULT;
 
 - [ ] `npm run lint` passes.
 - [ ] `npm run build` passes.
+- [ ] `npm test` passes and your game has a `page.test.tsx` flow test plus an `e2e/<slug>.spec.ts`
+      journey that both pass (`npm run e2e`). Conventions, helpers and the scenario catalog are in
+      `docs/TESTING.md`.
 - [ ] Game reachable from `/games` hub and playable start-to-finish (win path and lose path) via
       `npm run dev` in an actual browser — type-checking is not a substitute for playing it.
 - [ ] Pause, Settings, and Instructions modals all open/close correctly and don't double-pause or

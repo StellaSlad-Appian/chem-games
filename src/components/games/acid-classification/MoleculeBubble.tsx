@@ -20,7 +20,7 @@ export default function MoleculeBubble({ formula, name, feedbackStatus, showName
     : "text-5xl md:text-6xl font-black tracking-tight px-2";
 
   return (
-    <div className="relative flex flex-col items-center justify-center">
+    <div data-testid="molecule-bubble" data-formula={formula} className="relative flex flex-col items-center justify-center">
       {/* Background Glow Ring */}
       <div
         className={`absolute w-64 h-64 md:w-80 md:h-80 rounded-full blur-2xl transition-all duration-500 ${

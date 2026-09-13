@@ -13,6 +13,8 @@ export function PlayerCannon({ x, activeMissile }: PlayerCannonProps) {
 
   return (
     <div
+      data-testid="player-cannon"
+      data-ion={activeMissile}
       className="absolute bottom-4 w-12 h-16 flex flex-col items-center justify-end transition-transform duration-75"
       style={{ transform: `translateX(${x}px) translateX(-50%)`, left: 0 }}
     >
