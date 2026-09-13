@@ -234,13 +234,58 @@ Other observations (not pinned as tests):
   Decomposition): clicking "Check Answer" immediately clears them.
 - `src/hooks/useReactionBalancer.ts` and `src/core-engine/data/games/neutralise-levels.ts` are
   not imported anywhere.
-- `src/core-engine/data/games/neutralise-levels_{BASE,LOCAL,REMOTE,BACKUP}_2307.ts` and
-  `neutralise-levels.ts.master-backup` are mergetool leftovers; the `_BACKUP_` file still
-  contains conflict markers and breaks `tsc`/`next build`, so they are excluded in
-  `tsconfig.json` and `eslint.config.mjs`. Deleting them is the real fix.
-- `npm run lint` currently reports 21 errors in existing app code (React Compiler rules such
-  as `react-hooks/set-state-in-effect`, a few `any`s, unescaped quotes). The new test files
-  are lint-clean.
+- `npm run lint` currently reports 21 errors and 7 warnings in existing app code — see
+  [Known lint findings](#known-lint-findings) below. The test files are lint-clean, so
+  `npm run check` stops at the lint step until those are addressed; run
+  `npm run typecheck && npm test && npm run e2e` in the meantime.
+
+## Known lint findings
+
+Inventory as of 2026-09-13 (`eslint-config-next` 16 with the React Compiler `react-hooks`
+rules). None of these break the app; they are deferred deliberately. Fix them when you are
+already editing the file, not in a sweep — several of the `set-state-in-effect` cases are game
+loops where the "fix" is a refactor that needs play-testing, not a mechanical change.
+
+| Rule | Count | Kind | Effort |
+|---|---|---|---|
+| `react-hooks/set-state-in-effect` | 9 errors | React Compiler: `setState` called synchronously inside `useEffect` (state-sync effects, timers, wave setup) | Per-case refactor; test the game after |
+| `@typescript-eslint/no-explicit-any` | 4 errors | Untyped props/params | Trivial (`LucideIcon`, a proper event type) |
+| `react-hooks/purity` | 2 errors | `Date.now()`/`Math.random()` during render | Move into `useState` initialiser / `useMemo` / event handler |
+| `react/no-unescaped-entities` | 2 errors | `'` in JSX text | Trivial (`&apos;`) |
+| `react-hooks/static-components` | 2 errors | Components defined inside render (`LabVesselCard`) | Hoist to module scope |
+| `react-hooks/immutability` | 1 error | Mutating `audio.volume` on a pooled element held in a ref (`useSound`) | Deliberate; wrap in an `// eslint-disable-next-line` with a comment, or restructure the pool |
+| `prefer-const` | 1 error | | Trivial |
+| `@typescript-eslint/no-unused-vars` | 7 warnings | Unused imports, and the unexported alternative config presets (`OPTION_*`) | Presets are intentional: export them or prefix `_`; delete the dead imports |
+
+By file:
+
+- `src/app/(gameplay)/games/acid-classification/page.tsx` — L61, L67 `set-state-in-effect`; L4 unused `useRef`
+- `src/app/(gameplay)/games/formula-blaster/page.tsx` — L186, L206 `set-state-in-effect`
+- `src/app/(gameplay)/games/neutralise/page.tsx` — L85 `purity`; L97, L260 `set-state-in-effect`
+- `src/app/(gameplay)/games/reaction-balancer/page.tsx` — L20 `purity`; L60 `no-explicit-any`
+- `src/components/games/reaction-balancer/GameArena.tsx` — L112 `set-state-in-effect`
+- `src/components/games/neutralise/GameArena.tsx` — L176 `prefer-const`; L307 `no-explicit-any`
+- `src/components/games/acid-classification/ClassificationButton.tsx` — L9 `no-explicit-any` (`icon: any` → `LucideIcon`, which is already imported and flagged unused on L4)
+- `src/components/games/acid-classification/GameArena.tsx` — L31 unused `currentLevel`
+- `src/components/ui/LabVesselCard.tsx` — L119, L124 `static-components`
+- `src/components/social/PublicProfile.tsx` — L157 `no-explicit-any`
+- `src/context/game-settings-context.tsx` — L51 `set-state-in-effect` (localStorage hydration; a `useSyncExternalStore` or lazy initialiser is the idiomatic fix)
+- `src/hooks/useInputMethod.ts` — L29 `set-state-in-effect` (`matchMedia` sync; same fix as above)
+- `src/hooks/useSound.ts` — L103 `immutability`
+- `src/app/(main)/profile/page.tsx` L40, `src/app/(main)/profile/edit/page.tsx` L38 — `no-unescaped-entities`
+- `src/core-engine/config/games/classifier-games-config.ts` L29, L35 and
+  `formula-blaster-config.ts` L36, L56 — unused alternative presets (intentional; see the UAT
+  tuning-guide convention in `docs/AGENT_INSTRUCTIONS.md`)
+
+Quick wins if someone has 20 minutes: the 4 `any`s, 2 unescaped quotes, `prefer-const`, the
+dead imports, and exporting the `OPTION_*` presets remove 14 of the 28 findings without
+touching behaviour. The 9 `set-state-in-effect` and 2 `purity` cases are the ones to leave for
+when each game is next worked on.
+
+**CI impact:** the `unit` job in `.github/workflows/test.yml` runs `npm run lint` as a hard
+step, so it fails on every push until the errors above reach zero. If a red job is not
+acceptable in the meantime, add `continue-on-error: true` to that one step (the typecheck and
+unit-test steps still gate), and remove it once lint is clean.
 
 ## Continuous integration
 
