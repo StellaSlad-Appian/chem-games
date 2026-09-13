@@ -234,11 +234,18 @@ export const <GAME>_CONFIG = OPTION_1_DEFAULT;
 
 ### Gotchas found while reading this codebase (fix opportunistically, don't silently work around)
 
-- **No test runner is actually installed.** `package.json` has `@types/jest` and a real spec at
-  `src/core-engine/tests/compounds.test.ts`, but `jest` itself isn't a dependency and there's no
-  `test` script. If your game needs data-integrity tests, either install `jest`
-  (`npm install -D jest ts-jest @types/jest` or `next test`'s Vitest wiring — pick one and add a
-  `"test"` script) or flag this gap explicitly rather than assuming CI runs these specs today.
+- **Test runner is Vitest (+ Playwright for e2e), landing as of 2026-09-13.** The working tree
+  gained `vitest.config.mts`, `vitest.setup.ts`, `playwright.config.ts`, `src/test-utils/`, and
+  `*.test.ts(x)` files next to components and under `src/core-engine/tests/`, plus the matching
+  `package.json` devDependencies — check `git log` to see whether that has been committed yet.
+  Write new specs with Vitest's `describe/it/expect` (Jest-compatible) co-located with the code
+  (`Foo.test.tsx`) or in `src/core-engine/tests/` for data-integrity checks. Don't add a second
+  runner.
+- **`npm run build` currently fails on master** because
+  `src/core-engine/data/games/neutralise-levels_BACKUP_2307.ts` contains unresolved merge-conflict
+  markers (`<<<<<<< HEAD`). The `_BASE_2307` / `_LOCAL_2307` / `_REMOTE_2307` / `_BACKUP_2307`
+  files are mergetool leftovers; only `neutralise-levels.ts` is real. Until they are deleted,
+  verify your work with `npx tsc --noEmit` filtered to your files and `npm run dev`, not `build`.
 - **Duplicate/competing type shapes for reaction data:** `src/core-engine/types/chemistry.ts`
   defines `BalancerReaction`/`ReactionParticipant` for the balancer, `src/core-engine/data/reactions.ts`
   defines its own separate `ChemicalReaction` (different from the one also named

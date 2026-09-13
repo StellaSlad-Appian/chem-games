@@ -1,11 +1,20 @@
-// src/app/cheat-sheets/[slug]/page.tsx
+// src/app/(main)/cheat-sheets/[slug]/page.tsx
 
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, Sparkles } from 'lucide-react';
-import { CHEAT_SHEETS, getCheatSheetBySlug } from '@/lib/cheat-sheet-data';
+import {
+  AlertTriangle,
+  ArrowLeft,
+  BookOpen,
+  CheckCircle2,
+  ExternalLink,
+  Gamepad2,
+  Sparkles,
+} from 'lucide-react';
+import { CHEAT_SHEETS, GAME_LINKS, GLOBAL_TEACHER_RESOURCES, getCheatSheetBySlug } from '@/lib/cheat-sheet-data';
 import { ChemIcon } from '@/components/ui/ChemIcon';
 import MoleculeText from '@/components/ui/MoleculeText';
+import type { CheatSheetResource, CheatSheetTable } from '@/core-engine/types/general';
 
 interface CheatSheetPageProps {
   params: Promise<{
@@ -33,6 +42,84 @@ export async function generateMetadata({ params }: CheatSheetPageProps) {
   };
 }
 
+const panelClass =
+  'mt-8 rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8';
+
+function PanelHeading({ icon, children }: { icon?: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <h2 className="mb-4 flex items-center gap-2 text-lg font-black text-(--foreground)">
+      {icon}
+      {children}
+    </h2>
+  );
+}
+
+function LookupTable({ table }: { table: CheatSheetTable }) {
+  const formulaColumns = new Set(table.formulaColumns ?? []);
+  return (
+    <div className="mt-6 first:mt-0">
+      <h3 className="text-sm font-black uppercase tracking-wider text-(--muted)">{table.heading}</h3>
+      {table.caption && <p className="mt-1 text-xs text-(--muted)">{table.caption}</p>}
+      <div className="mt-3 overflow-x-auto rounded-2xl border border-(--border)">
+        <table className="w-full min-w-[28rem] text-left text-sm">
+          <thead className="bg-(--background) text-[10px] font-black uppercase tracking-wider text-(--muted)">
+            <tr>
+              {table.columns.map((column) => (
+                <th key={column} scope="col" className="px-4 py-3">
+                  {column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {table.rows.map((row, rowIndex) => (
+              <tr key={rowIndex} className="border-t border-(--border) odd:bg-(--surface) even:bg-(--background)">
+                {row.map((cell, cellIndex) => (
+                  <td key={cellIndex} className="px-4 py-2.5 font-semibold text-(--foreground)">
+                    {formulaColumns.has(cellIndex) ? (
+                      <MoleculeText formula={cell} className="text-base text-blue-500" />
+                    ) : (
+                      cell
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function ResourceList({ heading, resources }: { heading: string; resources: CheatSheetResource[] }) {
+  if (resources.length === 0) return null;
+  return (
+    <div className="mt-6 first:mt-0">
+      <h3 className="text-sm font-black uppercase tracking-wider text-(--muted)">{heading}</h3>
+      <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+        {resources.map((resource) => (
+          <li key={resource.url}>
+            <a
+              href={resource.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex h-full flex-col rounded-2xl border border-(--border) bg-(--background) p-4 transition hover:border-blue-500"
+            >
+              <span className="flex items-center gap-2 text-sm font-black text-blue-500">
+                {resource.label}
+                <ExternalLink className="h-3.5 w-3.5 opacity-60 transition group-hover:opacity-100" aria-hidden="true" />
+                <span className="sr-only">(opens in a new tab)</span>
+              </span>
+              <span className="mt-1 text-xs text-(--muted)">{resource.description}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default async function CheatSheetDetailPage({ params }: CheatSheetPageProps) {
   const { slug } = await params;
   const sheet = getCheatSheetBySlug(slug);
@@ -41,69 +128,145 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
     notFound();
   }
 
+  const studentResources = (sheet.resources ?? []).filter((r) => r.audience !== 'teacher');
+  const teacherResources = [
+    ...(sheet.resources ?? []).filter((r) => r.audience === 'teacher'),
+    ...GLOBAL_TEACHER_RESOURCES,
+  ];
+  const relatedGames = (sheet.relatedGames ?? [])
+    .map((gameId) => GAME_LINKS[gameId])
+    .filter((game): game is { title: string; href: string } => Boolean(game));
+
   return (
-    <main className="container mx-auto min-h-screen max-w-4xl px-4 py-8 bg-[var(--background)] text-[var(--foreground)]">
-      {/* Back Navigation */}
+    <main className="container mx-auto min-h-screen max-w-4xl px-4 py-8 bg-(--background) text-(--foreground)">
       <Link
         href="/cheat-sheets"
-        className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-[var(--muted)] transition hover:text-blue-500"
+        className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-blue-500"
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
         Back to Cheat Sheets
       </Link>
 
-      {/* Header Banner */}
-      <header className="rounded-3xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-xl md:p-8">
+      <header className="rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-xl md:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <span className={`rounded-full border px-4 py-1 text-xs font-black uppercase tracking-wider ${sheet.colorTheme}`}>
             {sheet.yearLevel}
           </span>
-          <span className="text-xs font-bold text-[var(--muted)]">{sheet.category}</span>
+          <span className="text-xs font-bold text-(--muted)">{sheet.category}</span>
         </div>
 
         <div className="mt-6 flex items-center gap-4">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-500">
-            <ChemIcon name={sheet.iconName} className="h-8 w-8" />
+            <ChemIcon name={sheet.iconName} className="h-8 w-8" aria-hidden="true" />
           </div>
           <div>
-            <h1 className="text-3xl font-black text-[var(--foreground)] md:text-4xl">{sheet.title}</h1>
-            <p className="mt-1 text-sm font-medium text-[var(--muted)] md:text-base">{sheet.summary}</p>
+            <h1 className="text-3xl font-black text-(--foreground) md:text-4xl">{sheet.title}</h1>
+            <p className="mt-1 text-sm font-medium text-(--muted) md:text-base">{sheet.summary}</p>
           </div>
         </div>
+
+        {relatedGames.length > 0 && (
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <span className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-(--muted)">
+              <Gamepad2 className="h-4 w-4" aria-hidden="true" /> Practise this
+            </span>
+            {relatedGames.map((game) => (
+              <Link
+                key={game.href}
+                href={game.href}
+                className="rounded-xl bg-blue-500 px-3 py-1.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600"
+              >
+                {game.title}
+              </Link>
+            ))}
+          </div>
+        )}
       </header>
 
-      {/* Key Takeaways Section */}
-      <section className="mt-8 rounded-3xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8">
-        <div className="mb-4 flex items-center gap-2 text-lg font-black text-[var(--foreground)]">
-          <Sparkles className="h-5 w-5 text-amber-400" />
-          <h2>Key Concepts</h2>
-        </div>
+      <section className={panelClass}>
+        <PanelHeading icon={<Sparkles className="h-5 w-5 text-amber-400" aria-hidden="true" />}>Key Concepts</PanelHeading>
         <ul className="space-y-3">
           {sheet.keyTakeaways.map((takeaway, index) => (
-            <li key={index} className="flex items-start gap-3 text-sm font-semibold text-[var(--foreground)] md:text-base">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" />
+            <li key={index} className="flex items-start gap-3 text-sm font-semibold text-(--foreground) md:text-base">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" aria-hidden="true" />
               <span>{takeaway}</span>
             </li>
           ))}
         </ul>
       </section>
 
-      {/* Formulas & Reaction Examples */}
       {sheet.formulaExamples && sheet.formulaExamples.length > 0 && (
-        <section className="mt-8 rounded-3xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8">
-          <h2 className="mb-4 text-lg font-black text-[var(--foreground)]">Example Formulas & Reactions</h2>
+        <section className={panelClass}>
+          <PanelHeading>Example Formulas & Reactions</PanelHeading>
           <div className="grid gap-4 sm:grid-cols-2">
             {sheet.formulaExamples.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col justify-between rounded-2xl border border-[var(--border)] bg-[var(--background)] p-4"
-              >
-                <span className="text-xs font-bold text-[var(--muted)]">{item.name}</span>
+              <div key={index} className="flex flex-col justify-between rounded-2xl border border-(--border) bg-(--background) p-4">
+                <span className="text-xs font-bold text-(--muted)">{item.name}</span>
                 <MoleculeText formula={item.formula} className="mt-2 text-base font-bold text-blue-500 md:text-lg" />
               </div>
             ))}
           </div>
         </section>
+      )}
+
+      {sheet.tables && sheet.tables.length > 0 && (
+        <section className={panelClass}>
+          <PanelHeading>Lookup Tables</PanelHeading>
+          {sheet.tables.map((table) => (
+            <LookupTable key={table.heading} table={table} />
+          ))}
+        </section>
+      )}
+
+      {sheet.sections.length > 0 && (
+        <section className={panelClass}>
+          <PanelHeading>Going Deeper</PanelHeading>
+          <div className="space-y-6">
+            {sheet.sections.map((section) => (
+              <article key={section.heading}>
+                <h3 className="text-base font-black text-(--foreground)">{section.heading}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
+                {section.examples && section.examples.length > 0 && (
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    {section.examples.map((example) => (
+                      <div key={example.name} className="rounded-2xl border border-(--border) bg-(--background) p-3">
+                        <span className="text-xs font-bold text-(--muted)">{example.name}</span>
+                        <MoleculeText formula={example.formula} className="mt-1 text-sm font-bold text-blue-500" />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {sheet.commonMistakes && sheet.commonMistakes.length > 0 && (
+        <section className={panelClass}>
+          <PanelHeading icon={<AlertTriangle className="h-5 w-5 text-rose-500" aria-hidden="true" />}>Watch Out For</PanelHeading>
+          <ul className="space-y-3">
+            {sheet.commonMistakes.map((mistake, index) => (
+              <li key={index} className="flex items-start gap-3 text-sm text-(--foreground)">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500" aria-hidden="true" />
+                <span>{mistake}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section className={panelClass}>
+        <PanelHeading icon={<BookOpen className="h-5 w-5 text-blue-500" aria-hidden="true" />}>Learn More</PanelHeading>
+        <ResourceList heading="For students" resources={studentResources} />
+        <ResourceList heading="For teachers" resources={teacherResources} />
+      </section>
+
+      {sheet.curriculumRef && (
+        <p className="mt-6 text-xs text-(--muted)">
+          <span className="font-black uppercase tracking-wider">Curriculum: </span>
+          {sheet.curriculumRef}
+        </p>
       )}
     </main>
   );

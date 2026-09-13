@@ -95,11 +95,13 @@ categories you've seen before, instead of guessing generic ones.
 
 ## 7. Test strategy decision
 
-Right now `@types/jest` and one spec file exist, but `jest` itself isn't installed and there's no
-`test` script — meaning the existing data-integrity test can't currently be run. Decide (and
-document) whether the project standardizes on Jest, Vitest (already a transitive dependency via
-`@supabase/ssr`), or Next's built-in test runner support, so agents stop guessing and don't each
-install a different one.
+> **Status: decided — Vitest + Playwright.** As of 2026-09-13 the working tree contains
+> `vitest.config.mts`, `vitest.setup.ts`, `playwright.config.ts`, `src/test-utils/` and ~25 spec
+> files (uncommitted at time of writing). Remaining: commit it, add `"test"`/`"test:e2e"` scripts
+> to `package.json` if not already there, and wire it into CI.
+
+Decide (and document) whether the project standardizes on Jest, Vitest, or Next's built-in test
+runner support, so agents stop guessing and don't each install a different one.
 
 ## 8. Analytics/telemetry beyond `game_sessions`
 

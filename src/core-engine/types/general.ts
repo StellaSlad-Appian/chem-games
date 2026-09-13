@@ -128,7 +128,10 @@ export type CheatSheetCategory =
   | 'Acids & Bases'
   | 'Equations'
   | 'Thermodynamics'
-  | 'Organic';
+  | 'Organic'
+  | 'Bonding'
+  | 'Nomenclature'
+  | 'Stoichiometry';
 
 export interface FormulaExample {
   name: string;
@@ -142,6 +145,23 @@ export interface CheatSheetSection {
   examples?: FormulaExample[];
 }
 
+/** A lookup table. Cells in `formulaColumns` are rendered with MoleculeText. */
+export interface CheatSheetTable {
+  heading: string;
+  caption?: string;
+  columns: string[];
+  rows: string[][];
+  formulaColumns?: number[];
+}
+
+export interface CheatSheetResource {
+  label: string;
+  url: string;
+  description: string;
+  /** Who it's for — lets the UI group "for students" vs "for teachers". */
+  audience?: 'student' | 'teacher';
+}
+
 export interface CheatSheetTopic {
   slug: string;
   title: string;
@@ -153,6 +173,13 @@ export interface CheatSheetTopic {
   keyTakeaways: string[];
   formulaExamples?: FormulaExample[];
   sections: CheatSheetSection[];
+  tables?: CheatSheetTable[];
+  /** Common mistakes, rendered as a distinct "watch out" list. */
+  commonMistakes?: string[];
+  resources?: CheatSheetResource[];
+  relatedGames?: GameName[];
+  /** VCAA study design / Victorian Curriculum reference, shown as a small footnote. */
+  curriculumRef?: string;
   reactionType?: ReactionType;
 }
 

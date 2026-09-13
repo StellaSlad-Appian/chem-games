@@ -1,6 +1,13 @@
 # Game Concept Brief: Reagent Bench (Functional Groups)
 
-**Status:** Draft — needs your review
+> **Superseded.** The chosen flagship for functional groups is
+> [Synthesis Router](./synthesis-router.md) (reaction pathways — the strongest VCE Unit 4 fit).
+> This file is kept as the record of the alternatives assessed: Reagent Bench (below),
+> Spectrum Detective (IR/NMR peak assignment), Group Hunter (find groups in real drug
+> molecules), and Property Lab (group → intermolecular force → boiling point). Spectrum Detective
+> remains the recommended *second* organic game.
+
+**Status:** Options record — not for build
 **Proposed slug:** `reagent-bench` (MVP classifier could ship as `functional-groups`)
 **Target concept(s):** Identifying organic functional groups (alkane/alkene/alkyne, alcohol,
 aldehyde, ketone, carboxylic acid, ester, amine, haloalkane) from structure and from their

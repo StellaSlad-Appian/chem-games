@@ -73,8 +73,69 @@ export const POLYATOMIC_IONS: PolyatomicIonData[] = [
     type: 'polyatomic-ion', id: '24', formula: 'HS', charge: -1, name: 'Hydrosulfide', 
     elements: [{ symbol: 'H', count: 1 }, { symbol: 'S', count: 1 }] 
   },
-  { 
-    type: 'polyatomic-ion', id: '25', formula: 'HSO4', charge: -1, name: 'Bisulfate', 
-    elements: [{ symbol: 'H', count: 1 }, { symbol: 'S', count: 1 }, { symbol: 'O', count: 4 }] 
+  {
+    type: 'polyatomic-ion', id: '25', formula: 'HSO4', charge: -1, name: 'Bisulfate',
+    elements: [{ symbol: 'H', count: 1 }, { symbol: 'S', count: 1 }, { symbol: 'O', count: 4 }]
+  },
+  // --- Remaining ions from the VCAA VCE Chemistry Data Book polyatomic ion table ---
+  {
+    type: 'polyatomic-ion', id: '26', formula: 'NH4', charge: 1, name: 'Ammonium',
+    elements: [{ symbol: 'N', count: 1 }, { symbol: 'H', count: 4 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '27', formula: 'CO3', charge: -2, name: 'Carbonate',
+    elements: [{ symbol: 'C', count: 1 }, { symbol: 'O', count: 3 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '28', formula: 'SO3', charge: -2, name: 'Sulfite',
+    elements: [{ symbol: 'S', count: 1 }, { symbol: 'O', count: 3 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '29', formula: 'PO4', charge: -3, name: 'Phosphate',
+    elements: [{ symbol: 'P', count: 1 }, { symbol: 'O', count: 4 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '30', formula: 'CH3COO', charge: -1, name: 'Ethanoate (acetate)',
+    elements: [{ symbol: 'C', count: 2 }, { symbol: 'H', count: 3 }, { symbol: 'O', count: 2 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '31', formula: 'CN', charge: -1, name: 'Cyanide',
+    elements: [{ symbol: 'C', count: 1 }, { symbol: 'N', count: 1 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '32', formula: 'ClO', charge: -1, name: 'Hypochlorite',
+    elements: [{ symbol: 'Cl', count: 1 }, { symbol: 'O', count: 1 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '33', formula: 'ClO2', charge: -1, name: 'Chlorite',
+    elements: [{ symbol: 'Cl', count: 1 }, { symbol: 'O', count: 2 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '34', formula: 'ClO3', charge: -1, name: 'Chlorate',
+    elements: [{ symbol: 'Cl', count: 1 }, { symbol: 'O', count: 3 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '35', formula: 'MnO4', charge: -1, name: 'Permanganate',
+    elements: [{ symbol: 'Mn', count: 1 }, { symbol: 'O', count: 4 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '36', formula: 'CrO4', charge: -2, name: 'Chromate',
+    elements: [{ symbol: 'Cr', count: 1 }, { symbol: 'O', count: 4 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '37', formula: 'Cr2O7', charge: -2, name: 'Dichromate',
+    elements: [{ symbol: 'Cr', count: 2 }, { symbol: 'O', count: 7 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '38', formula: 'S2O3', charge: -2, name: 'Thiosulfate',
+    elements: [{ symbol: 'S', count: 2 }, { symbol: 'O', count: 3 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '39', formula: 'O2', charge: -2, name: 'Peroxide',
+    elements: [{ symbol: 'O', count: 2 }]
+  },
+  {
+    type: 'polyatomic-ion', id: '40', formula: 'C2O4', charge: -2, name: 'Oxalate',
+    elements: [{ symbol: 'C', count: 2 }, { symbol: 'O', count: 4 }]
   }
 ];

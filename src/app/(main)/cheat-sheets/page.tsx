@@ -1,7 +1,7 @@
 // src/app/cheat-sheets/page.tsx
 import Link from 'next/link';
 import { ArrowLeft, BookMarked } from 'lucide-react';
-import { CheatSheetCard } from '@/components/cheat-sheets/CheatSheetCard';
+import { CheatSheetGrid } from '@/components/cheat-sheets/CheatSheetGrid';
 import { CHEAT_SHEETS } from '@/lib/cheat-sheet-data';
 
 export default function CheatSheetsPage() {
@@ -31,12 +31,7 @@ export default function CheatSheetsPage() {
           </div>
         </div>
 
-        {/* Grid of Cheat Sheets */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {CHEAT_SHEETS.map((topic) => (
-            <CheatSheetCard key={topic.slug} topic={topic} />
-          ))}
-        </div>
+        <CheatSheetGrid sheets={CHEAT_SHEETS} />
       </div>
     </main>
   );
