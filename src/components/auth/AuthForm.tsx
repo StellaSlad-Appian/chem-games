@@ -77,14 +77,11 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
       return;
     }
 
+    // Only sign-in identity is needed, so no offline access (refresh token) or forced consent is requested.
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: returnUrl,
-        queryParams: {
-          access_type: 'offline',
-          prompt: 'consent',
-        },
       },
     });
 
