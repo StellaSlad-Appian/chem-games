@@ -3,6 +3,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import type { GameName } from '@/core-engine/types/general';
+import { validateSessionInput } from '@/core-engine/utils/session-validation';
 
 export interface RecordSessionInput {
   gameId: GameName;
@@ -13,8 +14,17 @@ export interface RecordSessionInput {
   outcome: 'victory' | 'failed' | 'abandoned'; // Matched schema check!
 }
 
-export async function recordGameSession(input: RecordSessionInput) {
+export async function recordGameSession(rawInput: RecordSessionInput) {
   try {
+    // The browser reports its own numbers, so check them against the game's
+    // score / level / duration ceilings before anything else happens.
+    const validation = validateSessionInput(rawInput);
+    if (!validation.ok) {
+      console.error('Rejected game session:', validation.reason);
+      return { success: false, error: 'Invalid session data' };
+    }
+    const input = validation.value;
+
     const supabase = await createClient();
     if (!supabase) return { success: false, error: 'Database unconfigured' };
 
@@ -23,9 +33,10 @@ export async function recordGameSession(input: RecordSessionInput) {
       return { success: false, error: 'User must be authenticated to save scores' };
     }
 
-    // Sanitize score to ensure check constraint score >= 0
-    const sanitizedScore = Math.max(0, Math.floor(input.score));
-    const levelReached = Math.max(1, input.levelReached ?? 1);
+    // Already validated: a non-negative integer score within the game's
+    // ceiling, and a level of at least 1.
+    const sanitizedScore = input.score;
+    const levelReached = input.levelReached;
 
     // 1. Save individual game session
     const { error: sessionError } = await supabase
@@ -42,7 +53,7 @@ export async function recordGameSession(input: RecordSessionInput) {
 
     if (sessionError) {
       console.error('Error inserting game_session:', sessionError);
-      return { success: false, error: sessionError.message };
+      return { success: false, error: 'Could not save the game session' };
     }
 
     // 2. Upsert per-game progress
