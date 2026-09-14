@@ -100,7 +100,8 @@ export default function PrivacyPage() {
               <Link href="/profile/edit" className="font-bold text-blue-500 hover:underline">
                 /profile/edit
               </Link>
-              . Every toggle is off by default.
+              . All toggles except the joined date are off by default. Your title, favourite
+              element and compound, and any badges are always shown with your alias.
             </p>
           </Section>
 
