@@ -174,11 +174,23 @@ Ensure you have **Node.js (v18+)** installed.
    npm install
    ```
 
-3. Run the local development server:
+3. Configure environment variables. Create a `.env.local` file in the project root (it is git-ignored) with the values below. Variables prefixed `NEXT_PUBLIC_` are bundled into the browser and are safe to expose; everything else is a server-side secret and must never be committed or prefixed `NEXT_PUBLIC_`.
+
+   | Variable | Visibility | Purpose |
+   | --- | --- | --- |
+   | `NEXT_PUBLIC_SUPABASE_URL` | Public | Your Supabase project URL. |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public | The Supabase anon/publishable key. Row Level Security protects the data, not this key. |
+   | `RESEND_API_KEY` | **Secret** | Resend API key used to email new feedback to the maintainer. If unset, feedback is still stored in Supabase but no email is sent. |
+   | `FEEDBACK_RECIPIENT_EMAIL` | **Secret** | Address that receives feedback emails. There is no fallback: if unset, the email step is skipped. |
+   | `FEEDBACK_HASH_SALT` | **Secret** | Random string (e.g. `openssl rand -hex 32`) used to salt the SHA-256 hash of the submitter's IP for feedback rate limiting. Raw IPs are never stored. If unset, a fallback salt is derived from the Supabase URL and a warning is logged; set a real value in production and keep it stable, otherwise existing hashes stop matching and limits reset. |
+
+   Database migrations under `supabase/migrations/` are applied by hand in the Supabase SQL editor; run them in filename order when setting up a new project.
+
+4. Run the local development server:
 
    ```bash
    npm run dev
    ```
 
-4. Open `http://localhost:3000` in your browser.
+5. Open `http://localhost:3000` in your browser.
 
