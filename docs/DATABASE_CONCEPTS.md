@@ -6,10 +6,10 @@ Migration: [`supabase/migrations/20260913_create_concepts.sql`](../supabase/migr
 
 | Table | Purpose | Notes |
 |---|---|---|
-| `profiles` | One row per auth user: alias, year level, streaks, privacy toggles | `year_level` is free text (no check) |
+| `profiles` | One row per auth user: alias, year level, streaks, privacy toggles | Readable only by its owner (RLS); other users read the `public_profiles` view, which applies the `show_*` toggles in SQL; stats are written by the `game_sessions` trigger; `authenticated` holds column-level `update` on the editable columns only. See [Profiles and privacy](#profiles-and-privacy). `year_level` is free text in the DB (validated in the app) |
 | `games` | Game catalogue: id (slug), title, icon, theme colour, `is_active`, order | Only the 3 launched games are seeded |
 | `game_progress` | Per user × game best score/level, `last_played_at` | FK → `games.id` |
-| `game_sessions` | One row per completed run: score, level, outcome, duration | FK → `games.id`; powers the `leaderboard_entries` view |
+| `game_sessions` | One row per completed run: score, level, outcome, duration, accuracy | FK → `games.id`; powers the `leaderboard_entries` view and the profile stats trigger |
 | `feedback` | Bug/chemistry/feature reports | Insert-only policy |
 
 There was no notion of a *concept*, and cheat sheets existed only in code.
@@ -61,14 +61,52 @@ to a `concept_tags` table.
 the code (`GameName`, cheat-sheet `slug`). Keep it that way — it makes seeds readable and lets
 the app link without lookups.
 
+## Profiles and privacy
+
+Migration: [`supabase/migrations/20260914_profile_privacy.sql`](../supabase/migrations/20260914_profile_privacy.sql),
+followed once by the one-off
+[`supabase/scripts/reset_existing_aliases.sql`](../supabase/scripts/reset_existing_aliases.sql).
+
+The audience is Year 7–10 students, so privacy is enforced in the database rather than only in
+the UI:
+
+- **`profiles` is readable only by its owner** (`select` policy `auth.uid() = id`). The previous
+  "publicly readable" policy let the anon key read every column of every profile, including lab
+  notes, country, year level and account type, whatever the `show_*` toggles said. The home page,
+  `/profile` and `/profile/edit` all read the signed-in user's own row, which still works.
+- **`public_profiles` is the view to use for any future public profile page** (a
+  `/scientists/[id]` route, friend lists, and so on). It runs as its owner
+  (`security_invoker = false`, the same pattern as `leaderboard_entries`) and applies the toggles
+  in SQL: `country`, `year_level`, `lab_notes`, `total_syntheses`, `accuracy`, `current_streak`
+  and `created_at` come back `null` when the owner has them switched off. It only lists
+  `is_active` rows and never exposes `account_type`, `is_active`, `updated_at` or the toggles
+  themselves. Read it with the normal client, for example
+  `supabase.from('public_profiles').select('*').eq('id', id).maybeSingle()`. Never query
+  `profiles` for another user: RLS returns no row.
+- **Aliases are neutral by default.** The signup trigger now generates "Adjective Element 1234"
+  (`generate_profile_alias()`) instead of the Google display name or the email prefix, and the
+  edit form lets the user change it. A check constraint (2–40 characters, no `@`, no surrounding
+  whitespace) was added `not valid`; run the reset script and then
+  `alter table public.profiles validate constraint profiles_alias_format;` once.
+- **Column-level `update` grants.** `authenticated` can update only alias, title, country, year
+  level, lab notes, the favourites, the `show_*` toggles and `updated_at`. `account_type`,
+  `is_active`, `badges` and every stat column are read-only over the API.
+- **Stats are maintained by a trigger.** `game_sessions_apply_to_profile` (after insert on
+  `game_sessions`) updates `current_streak` and `max_streak` (UTC calendar days), `accuracy`
+  (running average of the session's `accuracy` column), `total_syntheses` (+1 per victory),
+  `last_played_at` and `updated_at`. `recordGameSession()` only inserts the session and upserts
+  `game_progress`.
+
 ## Suggested changes to the existing schema (not in this migration)
 
-1. **`game_sessions.accuracy`** — `recordGameSession()` accepts `accuracy` but only folds it into
-   a running average on `profiles`. Storing it per session enables per-concept accuracy in the
-   view above. `alter table game_sessions add column accuracy integer check (accuracy between 0 and 100);`
+1. ~~**`game_sessions.accuracy`**~~ — done in `20260914_profile_privacy.sql`: each session stores
+   its accuracy and the profile trigger folds it into the running average, so per-concept
+   accuracy can now be computed from `game_sessions`.
 2. **`game_sessions.time_scale`** — the accessibility doc requires an adjustable/disabled timer.
    Record it (`numeric default 1`) so leaderboards can filter or label relaxed runs.
-3. **`profiles.year_level` check constraint** to the same five values used here.
+3. **`profiles.year_level` check constraint** to the same five values used here. The edit action
+   already validates against them (`src/lib/validation/profile.ts`); the column itself is still
+   unconstrained.
 4. **`games.concept_id`** is deliberately *not* added — use `concept_games` so the many-to-many
    cases work.
 5. **Slug hygiene**: `classifier-games-config.ts` uses ids like `acid-base-classifier` that don't

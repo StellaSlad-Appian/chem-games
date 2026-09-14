@@ -37,6 +37,11 @@ export async function recordGameSession(input: RecordSessionInput) {
         level_reached: levelReached,
         outcome: input.outcome, // Must be 'victory', 'failed', or 'abandoned'
         duration_seconds: Math.max(0, input.timeSpentSeconds),
+        // Integer 0-100 or null; the game_sessions trigger folds it into the profile's running average.
+        accuracy:
+          typeof input.accuracy === 'number' && Number.isFinite(input.accuracy)
+            ? Math.min(100, Math.max(0, Math.round(input.accuracy)))
+            : null,
         completed_at: new Date().toISOString(),
       });
 
@@ -74,59 +79,8 @@ export async function recordGameSession(input: RecordSessionInput) {
       console.error('Error upserting game_progress:', progressError);
     }
 
-    // 3. Update User Profile Aggregates (Streak, Accuracy, Syntheses)
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('current_streak, max_streak, accuracy, total_syntheses, last_played_at')
-      .eq('id', user.id)
-      .single();
-
-    if (profile) {
-      const now = new Date();
-      const lastPlayed = profile.last_played_at ? new Date(profile.last_played_at) : null;
-      
-      let newStreak = profile.current_streak || 0;
-      
-      if (!lastPlayed) {
-        newStreak = 1;
-      } else {
-        const diffInDays = Math.floor((now.getTime() - lastPlayed.getTime()) / (1000 * 3600 * 24));
-        const isSameDay = now.toDateString() === lastPlayed.toDateString();
-
-        if (isSameDay) {
-          newStreak = profile.current_streak || 1;
-        } else if (diffInDays === 1) {
-          newStreak = (profile.current_streak || 0) + 1;
-        } else {
-          newStreak = 1;
-        }
-      }
-
-      const newMaxStreak = Math.max(profile.max_streak || 0, newStreak);
-
-      let updatedAccuracy = profile.accuracy;
-      if (input.accuracy !== undefined) {
-        updatedAccuracy = profile.accuracy === 0 || profile.accuracy === null
-          ? input.accuracy
-          : Math.round((profile.accuracy + input.accuracy) / 2);
-      }
-
-      const updatedSyntheses = input.outcome === 'victory'
-        ? (profile.total_syntheses || 0) + 1
-        : (profile.total_syntheses || 0);
-
-      await supabase
-        .from('profiles')
-        .update({
-          current_streak: newStreak,
-          max_streak: newMaxStreak,
-          accuracy: updatedAccuracy,
-          total_syntheses: updatedSyntheses,
-          last_played_at: now.toISOString(),
-          updated_at: now.toISOString(),
-        })
-        .eq('id', user.id);
-    }
+    // Profile aggregates (streak, max streak, accuracy, syntheses, last played) are
+    // maintained by the game_sessions trigger; see supabase/migrations/20260914_profile_privacy.sql.
 
     return { success: true, highestScore: newHighestScore };
   } catch (err) {
