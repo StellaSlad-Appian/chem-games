@@ -21,9 +21,11 @@
 --       - refuses score / level_reached above the game's ceiling.
 --
 -- Notes
---   * The function is not security definer, so the games lookup runs under the
---     caller's RLS. "Active games are publicly readable" hides inactive rows,
---     which means a session for an inactive (unlaunched) game is rejected too.
+--   * The function is security definer so the games lookup is not subject to
+--     the caller's RLS: "Active games are publicly readable" would otherwise
+--     hide inactive (unlaunched) games such as reaction-balancer and reject
+--     their sessions, which the foreign key alone allows today. It reads only
+--     games and the caller's own sessions, and writes nothing.
 --   * Missing limits fail closed: a new game needs values here AND an entry in
 --     GAME_SESSION_LIMITS before its sessions are accepted.
 --   * Re-importing historical rows (e.g. game_sessions_rows.sql) through the
@@ -53,6 +55,7 @@ where g.id = v.id;
 create or replace function public.guard_game_session_insert()
 returns trigger
 language plpgsql
+security definer
 set search_path = public
 as $$
 declare
