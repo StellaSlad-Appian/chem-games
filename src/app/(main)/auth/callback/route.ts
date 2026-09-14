@@ -1,6 +1,7 @@
 // src/app/auth/callback/route.ts
 
 import { NextResponse } from 'next/server';
+import { safeRedirectPath } from '@/lib/auth/safe-redirect';
 import { isSupabaseConfigured } from '@/lib/supabase/config';
 import { createClient } from '@/lib/supabase/server';
 
@@ -29,8 +30,9 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      // Prevent open-redirect vulnerabilities by validating path format
-      const safeNext = next.startsWith('/') ? next : '/';
+      // Prevent open redirects: only a same-origin path is accepted, so
+      // '//evil.example' and '/\evil.example' fall back to '/'.
+      const safeNext = safeRedirectPath(next, requestUrl.origin);
       return NextResponse.redirect(new URL(safeNext, requestUrl.origin));
     }
   }
