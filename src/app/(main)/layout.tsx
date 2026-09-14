@@ -1,4 +1,5 @@
 // src/app/(main)/layout.tsx
+import Link from 'next/link';
 import { Sparkles } from 'lucide-react';
 import { NavBar } from '@/components/layout/NavBar';
 import { createClient } from '@/lib/supabase/server';
@@ -31,9 +32,13 @@ export default async function MainLayout({ children }: { children: React.ReactNo
               ChemGames — Making chemistry visual, playful, and intuitive.
             </p>
           </div>
-          <p className="text-xs font-medium text-(--muted)">
-            &copy; {new Date().getFullYear()} ChemGames. All rights reserved.
-          </p>
+          <div className="flex items-center gap-3 text-xs font-medium text-(--muted)">
+            <p>&copy; {new Date().getFullYear()} ChemGames. All rights reserved.</p>
+            <span aria-hidden="true">&middot;</span>
+            <Link href="/privacy" className="font-bold transition hover:text-blue-500">
+              Privacy
+            </Link>
+          </div>
         </div>
       </footer>
     </>

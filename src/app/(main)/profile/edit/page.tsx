@@ -1,6 +1,7 @@
 // src/app/profile/edit/page.tsx
 
 import { redirect } from 'next/navigation';
+import { AccountDangerZone } from '@/components/profile/AccountDangerZone';
 import { EditProfileForm } from '@/components/profile/EditProfileForm';
 import { toUserProfile } from '@/lib/profile';
 import { createClient } from '@/lib/supabase/server';
@@ -35,7 +36,7 @@ export default async function EditProfilePage() {
         <div className="mx-auto max-w-xl rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md">
           <h1 className="text-xl font-black text-rose-500">Laboratory Record Not Found</h1>
           <p className="mt-2 text-sm font-medium text-(--muted)">
-            We couldn't load your profile setup. Please try signing in again.
+            We couldn&apos;t load your profile setup. Please try signing in again.
           </p>
         </div>
       </main>
@@ -46,8 +47,9 @@ export default async function EditProfilePage() {
 
   return (
     <main className="min-h-screen bg-(--background) px-4 py-12 text-(--foreground) md:px-8">
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl space-y-8">
         <EditProfileForm initialData={userProfile} />
+        <AccountDangerZone />
       </div>
     </main>
   );
