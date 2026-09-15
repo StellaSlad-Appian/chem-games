@@ -2,6 +2,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import { validateProfileForm } from '@/lib/validation/profile';
 
 export type ProfileActionState = {
   status: 'success' | 'error';
@@ -34,11 +35,22 @@ export async function updateProfileAction(
       };
     }
 
-    // 1. Extract string fields (THIS IS THE MISSING BLOCK)
-    const title = formData.get('title') as string;
-    const country = formData.get('country') as string;
-    const yearLevel = formData.get('yearLevel') as string;
-    const labNotes = (formData.get('labNotes') as string) || '';
+    // 1. Validate and normalise the text fields (pure, unit-tested in
+    //    src/lib/validation/profile.ts). The alias is public, so it must never
+    //    look like an email address; year level must be one of the form options.
+    const validation = validateProfileForm({
+      alias: formData.get('alias'),
+      title: formData.get('title'),
+      country: formData.get('country'),
+      yearLevel: formData.get('yearLevel'),
+      labNotes: formData.get('labNotes'),
+    });
+
+    if (!validation.ok) {
+      return { status: 'error', message: validation.message };
+    }
+
+    const { alias, title, country, yearLevel, labNotes } = validation.value;
 
     // 2. Extract boolean privacy toggles
     const showCountry = formData.get('showCountry') === 'on';
@@ -52,9 +64,10 @@ export async function updateProfileAction(
     const { error: updateError } = await supabase
       .from('profiles')
       .update({
-        title: title || null,
-        country: country || null,
-        year_level: yearLevel || null,
+        alias,
+        title,
+        country,
+        year_level: yearLevel,
         lab_notes: labNotes,
         show_country: showCountry,
         show_year_level: showYearLevel,
