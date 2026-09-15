@@ -4,13 +4,16 @@
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MessageSquarePlus, X, Send, AlertTriangle, Lightbulb, Bug } from 'lucide-react';
-import { submitFeedbackAction, type FeedbackType } from '@/lib/actions/feedback';
+import { submitFeedbackAction } from '@/lib/actions/feedback';
+import { FEEDBACK_MESSAGE_MAX_LENGTH, type FeedbackType } from '@/lib/validation/feedback';
 
 export function FeedbackWidget() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState<FeedbackType>('bug');
   const [message, setMessage] = useState('');
+  // Honeypot: people never see or fill this field, bots do.
+  const [website, setWebsite] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -26,6 +29,7 @@ export function FeedbackWidget() {
       type,
       message,
       pageUrl: pathname,
+      website,
     });
 
     setIsSubmitting(false);
@@ -118,7 +122,24 @@ export function FeedbackWidget() {
                 }
                 rows={3}
                 required
+                maxLength={FEEDBACK_MESSAGE_MAX_LENGTH}
                 className="w-full resize-none rounded-xl border border-(--border) bg-(--background) p-3 text-xs text-(--foreground) outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              />
+
+              {/*
+                Honeypot. Kept in the DOM (no display:none) so automated
+                submitters fill it, but moved off-screen, skipped by the tab
+                order and hidden from assistive technology.
+              */}
+              <input
+                type="text"
+                name="website"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                autoComplete="off"
+                tabIndex={-1}
+                aria-hidden="true"
+                className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden opacity-0"
               />
 
               {errorMessage && (

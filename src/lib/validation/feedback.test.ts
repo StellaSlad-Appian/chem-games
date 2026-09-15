@@ -1,0 +1,162 @@
+import { describe, expect, it } from 'vitest';
+import {
+  FEEDBACK_MESSAGE_MAX_LENGTH,
+  FEEDBACK_PAGE_URL_MAX_LENGTH,
+  isFeedbackType,
+  isHoneypotFilled,
+  normalisePageUrl,
+  validateFeedback,
+} from './feedback';
+
+// Control characters are built at runtime so this file stays plain text.
+const NUL = String.fromCharCode(0);
+const TAB = String.fromCharCode(9);
+const ESC = String.fromCharCode(27);
+const DEL = String.fromCharCode(127);
+
+describe('isFeedbackType', () => {
+  it('accepts exactly the three known categories', () => {
+    expect(isFeedbackType('bug')).toBe(true);
+    expect(isFeedbackType('chemistry')).toBe(true);
+    expect(isFeedbackType('feature')).toBe(true);
+  });
+
+  it('rejects anything else, including near-misses and non-strings', () => {
+    expect(isFeedbackType('Bug')).toBe(false);
+    expect(isFeedbackType('bugs')).toBe(false);
+    expect(isFeedbackType('')).toBe(false);
+    expect(isFeedbackType(undefined)).toBe(false);
+    expect(isFeedbackType(null)).toBe(false);
+    expect(isFeedbackType(1)).toBe(false);
+    expect(isFeedbackType(['bug'])).toBe(false);
+  });
+});
+
+describe('normalisePageUrl', () => {
+  it('keeps site-relative paths', () => {
+    expect(normalisePageUrl('/')).toBe('/');
+    expect(normalisePageUrl('/games/formula-blaster')).toBe('/games/formula-blaster');
+    expect(normalisePageUrl('/games/neutralise?level=2#top')).toBe('/games/neutralise?level=2#top');
+  });
+
+  it('falls back to "/" for missing or non-string values', () => {
+    expect(normalisePageUrl(undefined)).toBe('/');
+    expect(normalisePageUrl(null)).toBe('/');
+    expect(normalisePageUrl(42)).toBe('/');
+    expect(normalisePageUrl({ href: '/x' })).toBe('/');
+    expect(normalisePageUrl('')).toBe('/');
+  });
+
+  it('rejects absolute, protocol-relative and backslash URLs', () => {
+    expect(normalisePageUrl('https://evil.example/phish')).toBe('/');
+    expect(normalisePageUrl('//evil.example/phish')).toBe('/');
+    expect(normalisePageUrl('/\\evil.example')).toBe('/');
+    expect(normalisePageUrl('games/formula-blaster')).toBe('/');
+    expect(normalisePageUrl('javascript:alert(1)')).toBe('/');
+  });
+
+  it('rejects whitespace', () => {
+    expect(normalisePageUrl('/games/formula blaster')).toBe('/');
+    expect(normalisePageUrl('/games\n/neutralise')).toBe('/');
+    expect(normalisePageUrl('/games' + TAB + 'x')).toBe('/');
+    expect(normalisePageUrl('/games ')).toBe('/');
+  });
+
+  it('rejects control characters', () => {
+    expect(normalisePageUrl('/games' + NUL)).toBe('/');
+    expect(normalisePageUrl('/games' + ESC + '[31m')).toBe('/');
+    expect(normalisePageUrl('/games' + DEL)).toBe('/');
+  });
+
+  it('enforces the maximum length', () => {
+    const atLimit = '/' + 'a'.repeat(FEEDBACK_PAGE_URL_MAX_LENGTH - 1);
+    expect(normalisePageUrl(atLimit)).toBe(atLimit);
+    expect(normalisePageUrl(atLimit + 'a')).toBe('/');
+  });
+});
+
+describe('isHoneypotFilled', () => {
+  it('is false when the field is absent or empty', () => {
+    expect(isHoneypotFilled(undefined)).toBe(false);
+    expect(isHoneypotFilled(null)).toBe(false);
+    expect(isHoneypotFilled('')).toBe(false);
+  });
+
+  it('is true for any content, including whitespace or a non-string', () => {
+    expect(isHoneypotFilled('http://spam.example')).toBe(true);
+    expect(isHoneypotFilled(' ')).toBe(true);
+    expect(isHoneypotFilled(0)).toBe(true);
+    expect(isHoneypotFilled({})).toBe(true);
+  });
+});
+
+describe('validateFeedback', () => {
+  it('returns a trimmed, normalised value for valid input', () => {
+    const result = validateFeedback({
+      type: 'chemistry',
+      message: '  NaCl is listed as an acid  \n',
+      pageUrl: '/games/acid-classification',
+    });
+    expect(result).toEqual({
+      ok: true,
+      value: {
+        type: 'chemistry',
+        message: 'NaCl is listed as an acid',
+        pageUrl: '/games/acid-classification',
+      },
+    });
+  });
+
+  it('defaults the page URL to "/" when it is missing or unsafe', () => {
+    expect(validateFeedback({ type: 'bug', message: 'hi' })).toMatchObject({
+      ok: true,
+      value: { pageUrl: '/' },
+    });
+    expect(
+      validateFeedback({ type: 'bug', message: 'hi', pageUrl: 'https://evil.example' })
+    ).toMatchObject({ ok: true, value: { pageUrl: '/' } });
+  });
+
+  it('rejects non-object input', () => {
+    expect(validateFeedback(null)).toMatchObject({ ok: false });
+    expect(validateFeedback('bug')).toMatchObject({ ok: false });
+    expect(validateFeedback(undefined)).toMatchObject({ ok: false });
+  });
+
+  it('rejects an unknown type', () => {
+    const result = validateFeedback({ type: 'spam', message: 'hello' });
+    expect(result).toEqual({ ok: false, error: 'Please choose a valid feedback category.' });
+  });
+
+  it('rejects a missing, non-string or blank message', () => {
+    expect(validateFeedback({ type: 'bug' })).toEqual({ ok: false, error: 'Please enter a message.' });
+    expect(validateFeedback({ type: 'bug', message: 123 })).toEqual({
+      ok: false,
+      error: 'Please enter a message.',
+    });
+    expect(validateFeedback({ type: 'bug', message: '   \n' + TAB + ' ' })).toEqual({
+      ok: false,
+      error: 'Please enter a message.',
+    });
+  });
+
+  it('accepts a message at the limit and rejects one over it', () => {
+    const atLimit = 'x'.repeat(FEEDBACK_MESSAGE_MAX_LENGTH);
+    expect(validateFeedback({ type: 'feature', message: atLimit })).toMatchObject({ ok: true });
+
+    const overLimit = validateFeedback({ type: 'feature', message: atLimit + 'x' });
+    expect(overLimit.ok).toBe(false);
+    if (!overLimit.ok) expect(overLimit.error).toMatch(/too long/i);
+  });
+
+  it('measures the length after trimming', () => {
+    const padded = '   ' + 'x'.repeat(FEEDBACK_MESSAGE_MAX_LENGTH) + '   ';
+    expect(validateFeedback({ type: 'feature', message: padded })).toMatchObject({ ok: true });
+  });
+
+  it('ignores extra properties rather than failing on them', () => {
+    expect(
+      validateFeedback({ type: 'bug', message: 'hi', website: 'spam', user_id: 'x' })
+    ).toEqual({ ok: true, value: { type: 'bug', message: 'hi', pageUrl: '/' } });
+  });
+});
