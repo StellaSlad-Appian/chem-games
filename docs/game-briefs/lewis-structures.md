@@ -1,7 +1,9 @@
 # Game Concept Brief: Share to Fill (Lewis Structures)
 
-**Status:** Draft rev 2, 2026-09-16 — scope decided with the pedagogy owner (Year 10, covalent
-only, "interpret" = spot and fix errors); remaining `YOU DECIDE` items are marked
+**Status:** Approved — rev 3, 2026-09-16 (scope: Year 10, covalent only, "interpret" = spot
+and fix errors; molecule list, Marking-mode counting questions and title decided — see
+"Decisions" at the end)
+**Hub title / description:** Share to Fill — "Pair up the loners to build a molecule."
 **Slug (everywhere):** `lewis-structures` — add to `GameName`, `GameThemeScope`, route,
 `games.id`, `concept_games`
 **Concept:** `lewis-structures` (primary; currently seeded under `chemical-bonding` with
@@ -46,9 +48,9 @@ than it has unpaired electrons, so the valence of C/N/O/halogens is discovered r
 memorised, and the octet is visible as "no unpaired dots left, eight around the atom". C uses
 the same objects to teach reading, which is what exams and lab reports actually ask for.
 
-**Scope note on the sharing rule:** pairing unpaired electrons reproduces every Year 10 molecule
-(H₂, halogens, HX, H₂O, H₂S, NH₃, PH₃, CH₄, CCl₄, O₂, N₂, CO₂, CH₂O, C₂H₄, C₂H₂, C₂H₆, CH₃OH,
-CH₃Cl, H₂O₂, OF₂, HCN). It does **not** cover dative bonds (CO, NH₄⁺) or octet exceptions —
+**Scope note on the sharing rule:** pairing unpaired electrons reproduces all 18 molecules in
+the list below (H₂, Cl₂, HCl, H₂O, NH₃, CH₄, H₂S, PH₃, O₂, N₂, CO₂, C₂H₄, C₂H₂, C₂H₆, CCl₄,
+CH₃Cl, H₂O₂, C₂H₅OH). It does **not** cover dative bonds (CO, NH₄⁺) or octet exceptions —
 correctly, those are not Year 10 content and must stay out of the molecule list.
 
 ## Johnstone's Triplet mapping
@@ -77,6 +79,13 @@ electrons around this atom* · *too few — a lone pair is missing* · *hydrogen
 one pair* · *these atoms need to share twice (a double bond)* · *an unpaired electron was left
 over* · *no error*.
 
+Once the structure is correct (repaired, or confirmed correct), Mode B asks the two questions a
+mark scheme asks — **"How many bonds?"** and **"How many lone pairs?"** — answered by tapping
+the shared pairs / lone pairs on the structure itself (each tap counts and highlights; the
+count is shown as text). This reads the diagram in the other direction (dot structure → bond
+count) without turning it into typing. No bond-line typing: it breaks for branched molecules
+and tests spelling, not chemistry.
+
 Mode B rounds are interleaved from Level 2 (every third round) and are the whole of Level 5.
 
 ## Support for struggling students (text-first)
@@ -100,10 +109,13 @@ Mode B rounds are interleaved from Level 2 (every third round) and are the whole
 - **Mode A round win:** every atom full (H = 2, others = 8), zero unpaired dots, every atom
   connected. Bonus for no tier-3 hint. Pairing two dots on the *same* atom is not possible (they
   are already a pair); dragging onto a full atom snaps back with `error.atomFull`.
-- **Mode B round win:** correct atom (or "correct") + correct diagnosis, then a valid repair.
-  A wrong diagnosis shows why in words and lets the player try again; a wrong atom highlights
-  the counts on the tapped atom ("Carbon has 8 — that one's fine. Check the atoms with fewer.")
-- **Level pass:** `roundsPerLevel` (default 4). **Victory** after Level 5.
+- **Mode B round win:** correct atom (or "correct") + correct diagnosis, a valid repair, then
+  both counting questions answered (bonds, lone pairs). A wrong diagnosis shows why in words
+  and lets the player try again; a wrong atom highlights the counts on the tapped atom
+  ("Carbon has 8 — that one's fine. Check the atoms with fewer."); a wrong count highlights
+  the pairs that were missed or double-counted.
+- **Level pass:** `roundsByLevel` (default `[3, 5, 5, 5, 6]` — one round per molecule at
+  Levels 1–4, six classmate drawings at Level 5). **Victory** after Level 5.
 - **No lives, no timer.** `coachAfterSeconds` (30) opens the coach with tier 1;
   `stuckAfterSeconds` (90) offers tier 2.
 - **Session recording:** one `recordGameSession` at victory or exit (`'abandoned'`), with
@@ -111,22 +123,25 @@ Mode B rounds are interleaved from Level 2 (every third round) and are the whole
 
 ## Difficulty progression
 
-| Level | Molecules | Mode | Scaffolding |
-|---|---|---|---|
-| 1 | H₂ (guided), Cl₂, F₂, Br₂, HCl, HF | A | Coach on; loners pulse and are labelled "loner"; ring counters; bond line drawn as you pair |
-| 2 | H₂O (guided), NH₃, CH₄, H₂S, PH₃, CCl₄ | A, with a Mode B round every third | Coach on; loner labels off; counters on |
-| 3 | O₂, CO₂, N₂, CH₂O, C₂H₄, HCN | A + B | Coach on request; the "share again" affordance (second pairing between the same atoms draws a double bond) is introduced by the coach on O₂ |
-| 4 | C₂H₆, CH₃OH, CH₃Cl, C₂H₂, H₂O₂, OF₂ | A + B | Counters on hover only; atoms start unplaced (player also chooses which atom is central — the coach explains "the atom with the most loners usually goes in the middle") |
-| 5 — Marking mode | All of the above as classmate drawings, one in six correct | B only | No coach; hint ladder only; ends with a "marking sheet" summary of every diagnosis |
+Molecules are ordered by familiarity, not by bond type: every one is something a Year 10
+student has met by name in the periodic-table or reactions unit, and the two "same group, same
+structure" rounds (H₂S after H₂O, PH₃ after NH₃) make the periodic-table point explicitly.
 
-Config: `src/core-engine/config/games/lewis-structures-config.ts` — `levels.roundsPerLevel`,
+| Level | Molecules (in order) | Mode | Scaffolding |
+|---|---|---|---|
+| 1 | H₂ (guided), Cl₂, HCl | A | Coach on; loners pulse and are labelled "loner"; ring counters; bond line drawn as you pair |
+| 2 | H₂O (guided), NH₃, CH₄, then H₂S ("same as water?") and PH₃ ("same as ammonia?") | A, with a Mode B round every third | Coach on; loner labels off; counters on; the two same-group rounds open with `coach.sameGroup` |
+| 3 | O₂, CO₂, N₂, C₂H₄, C₂H₂ | A + B | Coach on request; the "share again" affordance (second pairing between the same atoms draws a double bond) is introduced by the coach on O₂ |
+| 4 | C₂H₆, CCl₄, CH₃Cl, H₂O₂, C₂H₅OH (ethanol) | A + B | Counters on hover only; atoms start unplaced (player also chooses which atom is central — the coach explains "the atom with the most loners usually goes in the middle") |
+| 5 — Marking mode | Six classmate drawings drawn from all 18 molecules, one in six correct; each ends with the two counting questions | B only | No coach; hint ladder only; ends with a "marking sheet" summary of every diagnosis and count |
+
+Config: `src/core-engine/config/games/lewis-structures-config.ts` — `levels.roundsByLevel`,
 `levels.maxLevel`, `levels.inspectEveryNRounds`, `mechanics.pointsPerLevelMultiplier`,
 `mechanics.noHintBonus`, `mechanics.coachAfterSeconds`, `mechanics.stuckAfterSeconds`,
 `mechanics.correctStructureRatio` (1 in 6), `visuals.pulseUnpairedUntilLevel`,
-`visuals.showCountersUntilLevel`, named presets + UAT tuning guide.
-
-> **YOU DECIDE:** is `PH3`/`H2S`/`OF2` in your Year 10 scheme, or keep Level 2/4 to the
-> textbook six (H₂O, NH₃, CH₄, HCl, CO₂, O₂/N₂)?
+`visuals.showCountersUntilLevel`, named presets + UAT tuning guide. The molecule order per
+level lives in `lewis-molecules.ts` (`level`, `order` fields), not in the config, so a teacher
+can swap a molecule without touching tuning numbers.
 
 ## Instructions (auto-open on first play, paused; `hasSeenLewisStructuresInstructions`)
 
@@ -182,6 +197,10 @@ Config: `src/core-engine/config/games/lewis-structures-config.ts` — `levels.ro
 | `inspect.wrongDiagnosis` | | "Not quite. Count the dots around {atom}: {count}. {Explanation of the actual error}." |
 | `inspect.correctStructure` | player says "correct" and it is | "Right — every atom is full and nothing is left over." |
 | `inspect.missedCorrect` | player tapped an atom on a correct structure | "This one is actually correct: every atom is full. Not every drawing has a mistake." |
+| `inspect.countBonds` | after repair / confirm | "How many bonds are there? Tap each shared pair." |
+| `inspect.countLonePairs` | | "How many lone pairs? Tap each pair that isn't shared." |
+| `inspect.countWrong` | count off | "You counted {given}; there are {actual}. The ones you missed are highlighted — a double bond counts as one bond but two shared pairs." *(second sentence only when relevant)* |
+| `coach.sameGroup` | H₂S / PH₃ rounds | "{Element} is in the same group as {analogue}, so it has the same number of outer electrons. Expect the same structure as {analogueMolecule}." |
 | `success.round` | | "{Name} complete — {bondLine}." |
 | `overlay.levelUp` | `customMessages.levelUp` | badge "All atoms full" · title "Level cleared" · subtitle "Every loner paired" · description "Level {n}: {what changes}." |
 | `overlay.victory` | | badge "All objectives complete" · title "Lewis structures mastered" · description "Open your marking sheet, or try Bond Builder next." |
@@ -216,9 +235,10 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
 - `elements.ts` `valenceElectrons` (present for every element). Unpaired count for Year 10
   main-group non-metals is derived: `unpaired = v < 4 ? v : 8 − v` (H 1, C 4, N 3, O 2,
   halogens 1). Put `getUnpairedElectrons()` in `core-engine/utils/lewis-utils.ts`.
-- New data: `src/core-engine/data/lewis-molecules.ts` — for each molecule: `id`, `name`,
-  `formula`, `atoms` (element symbols), `bonds` (`BondConnection[]` using the existing
-  `BondOrder` type), `centralAtomIndex`, `tier2Hint`, `propertyLine`. Mode B drawings are
+- New data: `src/core-engine/data/lewis-molecules.ts` — for each of the 18 molecules: `id`,
+  `name`, `formula`, `atoms` (element symbols), `bonds` (`BondConnection[]` using the existing
+  `BondOrder` type), `centralAtomIndex`, `level`, `order`, `tier2Hint`, `propertyLine`,
+  optional `sameGroupAs` (molecule id, drives `coach.sameGroup`). Mode B drawings are
   **generated** from the correct graph by mutation (remove a lone pair, add an electron, give
   H two bonds, downgrade a double bond, misplace H as central) — so every wrong drawing has a
   known diagnosis and the generator is unit-tested (`every mutation is detectable`, `no
@@ -250,9 +270,10 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
 
 ## Definition of done (beyond the generic checklist)
 
-- [ ] `npx vitest run lewis` green: every molecule in the dataset completes under
-      `isComplete`; every generated flawed drawing is diagnosed correctly and is not `none`;
-      derived unpaired counts match a hand table for H, C, N, O, F, Cl, Br, S, P.
+- [ ] `npx vitest run lewis` green: all 18 molecules complete under `isComplete`; every
+      generated flawed drawing is diagnosed correctly and is not `none`; derived unpaired
+      counts match a hand table for H, C, N, O, Cl, S, P; bond and lone-pair counts per
+      molecule match a hand table (a double bond counts once).
 - [ ] Every message key exists in `lewis-structures-messages.ts`; instructions auto-open on
       first play; both guided molecules run once and never again; Support mode persists.
 - [ ] Keyboard-only and touch-only playthroughs to victory; reduced-motion playthrough of
@@ -261,10 +282,19 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
       Year 10 essentials section; `games.is_active = true` in a new migration; one
       `game_sessions` row per full run.
 
-## Open questions for you
+## Decisions (rev 3, 2026-09-16 — science-teacher call)
 
-1. Molecule list (see `YOU DECIDE` above).
-2. Should Level 5 "Marking mode" also ask the student to write the *bond-line* formula from
-   the dot structure (typing `H-O-H`)? Cheap to add; tests reading in the other direction.
-3. Name: "Share to Fill" is descriptive; "Octet Architect" was the old working title. Either
-   works with the `lewis-structures` slug.
+1. **Molecule list: 18, ordered by familiarity.** Kept the molecules students meet by name
+   (H₂, Cl₂, HCl, H₂O, NH₃, CH₄, CO₂, O₂, N₂, C₂H₆, C₂H₄, ethanol) plus H₂S and PH₃ placed
+   *after* their Group 16/15 analogues as deliberate "periodic table predicts bonding" rounds.
+   Cut OF₂ and HCN (never met at Year 10; OF₂'s central-atom question is a trap with no
+   payoff; C₂H₂ and N₂ already cover triple bonds), F₂ and Br₂ (add nothing Cl₂ doesn't) and
+   CH₂O (not in common Year 10 texts); swapped methanol for ethanol (familiar). Every remaining
+   molecule is something the student could be asked about in class.
+2. **Reading in the other direction — counting, not typing.** Marking mode ends with "how
+   many bonds / how many lone pairs", tapped on the structure — exactly what a mark scheme
+   checks. Typing `H-O-H` was rejected: it breaks for branched molecules and tests spelling.
+   A "draw it as lines" toggle is a possible later feature, not part of this brief.
+3. **Title: Share to Fill.** Students remember a game whose name is the rule; "Octet
+   Architect" uses a word they haven't learned yet and hides what you do, and the hub uses
+   plain titles. *Octet* is still taught — in the glossary and the "8 of 8" counter.
