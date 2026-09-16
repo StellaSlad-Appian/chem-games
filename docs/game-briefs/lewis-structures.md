@@ -1,82 +1,270 @@
-# Game Concept Brief: Octet Architect (Lewis Structures)
+# Game Concept Brief: Share to Fill (Lewis Structures)
 
-**Status:** Draft — needs your review. **Resolve the Bond Builder overlap first.**
-**Proposed slug:** `octet-architect` (or fold into `bond-builder`)
-**Target concept(s):** Counting valence electrons; drawing Lewis (electron-dot) structures;
-single/double/triple bonds; lone pairs; octet/duet rule; formal charge; polyatomic ions;
-(Senior) octet exceptions.
-**Target year level:** Year 10 → Senior
-> YOU DECIDE: README says Bond Builder is in development and `chemistry.ts` already defines
-> `BondOrder`, `ValenceConfig`, `BondConnection`. Is Lewis Structures a *mode* of Bond Builder,
-> a replacement, or a separate game? Building both separately would duplicate the atom/bond canvas.
-**Curriculum reference:** _TBD_
+**Status:** Draft rev 2, 2026-09-16 — scope decided with the pedagogy owner (Year 10, covalent
+only, "interpret" = spot and fix errors); remaining `YOU DECIDE` items are marked
+**Slug (everywhere):** `lewis-structures` — add to `GameName`, `GameThemeScope`, route,
+`games.id`, `concept_games`
+**Concept:** `lewis-structures` (primary; currently seeded under `chemical-bonding` with
+`year_level = 'Senior'` — change the seed to `'Year 10'`)
+**Cheat sheets:** `lewis-structures` (primary — its formal-charge and VSEPR sections are
+Senior content; add a "Year 10 essentials" section at the top or the game's help link lands
+students in material they haven't met), `chemical-bonds`
+**Target year level:** Year 10
+**Curriculum reference:** Victorian Curriculum Science Level 10 — "the atomic structure and
+properties of elements are used to organise them in the periodic table"; "chemical bonding
+(ionic and covalent) … electron dot diagrams for simple molecules". Supersedes the earlier
+Senior-level "Octet Architect" draft (formal charge, resonance, expanded octets are out of
+scope).
+**Relationship to Bond Builder:** separate games. Bond Builder answers *which* bonding type and
+why (ionic/covalent/metallic, electron transfer); this game builds and reads *covalent*
+structures. They share `core-engine` types (`BondOrder`, `BondConnection`,
+`ElementData.valenceElectrons`) and one shared atom/bond canvas component.
+
+## Learning goals
+
+By the end, a Year 10 student can:
+
+1. State how many valence electrons an atom has from its group, and how many it can share.
+2. Draw a correct electron-dot (Lewis) structure for a simple covalent molecule: every shared
+   pair as a bond, every unshared pair as a lone pair, hydrogen with 2, everything else with 8.
+3. Read a given structure and check it: count electrons around each atom, spot too many / too
+   few / a lone pair on hydrogen / a missing double bond, and fix it.
+
+## Mechanics considered
+
+| # | Mechanic | Intrinsic? | Triplet | Struggling students | Verdict |
+|---|---|---|---|---|---|
+| A | **Electron budget** — count total valence electrons, then place bonds and lone pairs until the budget is spent and octets satisfied (the earlier Octet Architect draft) | Yes | Sub + sym | Two abstractions at once (a global budget *and* per-atom octets); the budget number is an exam trick, not a Year 10 idea | Too much cognitive load for Year 10; keep for a Senior mode later |
+| B | **Share to Fill** — each atom arrives with its own valence electrons drawn as dots; unpaired dots are the only ones that can be shared; drag (or tap-tap) an unpaired dot onto another atom's unpaired dot to make a shared pair. An atom is "full" at 8 (H at 2). Double/triple bonds are just two/three shared pairs | Yes — valence *emerges* from the dot count (O has two unpaired dots, so O makes two bonds); there is no separate rule to remember | Sub (dots, sharing) + sym (formula, bond lines drawn as the pairs form) | Concrete: you move *things*; one idea (pair up the loners) | **Chosen for build mode** |
+| C | **Fix the structure** — a structure "drawn by another student" is shown; tap where the error is, choose the diagnosis, then repair it with the same tools as B. One in six is actually correct | Yes — the check *is* the octet rule applied | Sub + sym | Reading is easier than producing; good entry point and the requested interpretation skill | **Chosen for inspect mode** |
+| D | **Pick the correct diagram** (three drawn options, choose one) | No — recognition quiz | Sym only | Guessable | Rejected (anti-pattern) |
+| E | **Molecule race** — build structures against a countdown | Mechanic B with a timer | — | Anxiety, no gain | Rejected (anti-pattern) |
+| F | **Electron marketplace** — atoms trade electrons to "buy" stability | No — a metaphor for the wrong thing (transfer, not sharing) and it embeds the misconception that shared electrons are given away | — | Misleading | Rejected |
+
+**Why B + C:** B makes the chemistry the physics — an atom physically cannot form more bonds
+than it has unpaired electrons, so the valence of C/N/O/halogens is discovered rather than
+memorised, and the octet is visible as "no unpaired dots left, eight around the atom". C uses
+the same objects to teach reading, which is what exams and lab reports actually ask for.
+
+**Scope note on the sharing rule:** pairing unpaired electrons reproduces every Year 10 molecule
+(H₂, halogens, HX, H₂O, H₂S, NH₃, PH₃, CH₄, CCl₄, O₂, N₂, CO₂, CH₂O, C₂H₄, C₂H₂, C₂H₆, CH₃OH,
+CH₃Cl, H₂O₂, OF₂, HCN). It does **not** cover dative bonds (CO, NH₄⁺) or octet exceptions —
+correctly, those are not Year 10 content and must stay out of the molecule list.
 
 ## Johnstone's Triplet mapping
 
-- **Submicroscopic (primary):** atoms with valence electrons as dots in an electron-cloud style
-  halo (not planetary orbits — see anti-patterns). The player drags electrons between atoms to
-  form shared pairs, or converts lone pairs into bonds.
-- **Symbolic (live):** the structure's formula, total electron count used/available
-  (`used 8 / 8`), bond orders, and per-atom formal charge update on every move. For ions the
-  overall charge is shown in square brackets.
-- **Macroscopic:** a "stability" meter — the molecule visibly relaxes/glows steady when every
-  atom satisfies its octet (duet for H) with the correct total electron count; unsatisfied atoms
-  jitter. The meter is a metaphor for energy, labelled as such.
+| Level | In the game |
+|---|---|
+| Submicroscopic (primary) | Atoms as symbols with their valence electrons as dots on four sides (the Lewis convention). Unpaired dots pulse gently; lone pairs sit still. Dragging pairs two unpaired dots into a **shared pair** drawn between the atoms; the atoms slide together. A fill ring around each atom shows its electron count (2/8 for H, n/8 for others) and closes when full |
+| Symbolic (live) | The molecular formula builds as atoms are added; the **bond-line structure** (H–O–H, O=C=O) is drawn alongside the dot structure and updates as pairs form — students see that a line *is* a shared pair. Bond count and lone-pair count per atom are shown as text |
+| Macroscopic | Light touch, name and one property line when a molecule completes ("Water — a liquid at room temperature; the bent shape you'll meet next year comes from those two lone pairs"). No macroscopic simulation: the concept is particulate |
+
+The scale disclaimer required by the design framework sits in the instructions and the
+glossary entry for *dot*: "dots show *how many* outer electrons an atom has, not where they are."
 
 ## Core loop
 
-Target: "Build CO₂." The player is given the atoms and an electron budget equal to the total
-valence electrons (from `elements.ts`). They place bonds and lone pairs. The rules *are* the
-physics: you cannot exceed the electron budget, and the molecule doesn't stabilise until every
-atom's octet is satisfied and formal charges are minimised. Wrong-but-legal structures (e.g.
-C=O with a lone pair on C) don't crash — they show a non-zero formal charge and a hint.
+**Build mode (Mode A):** the target molecule's name and formula appear with its atoms scattered
+on the canvas, each with its own dots. The player pairs unpaired dots between atoms. The round
+completes when every atom's ring is full and no unpaired dots remain. The formula, bond-line
+drawing and per-atom counts update on every pairing. There is no "check" button: the structure
+locks itself when it is complete.
+
+**Inspect mode (Mode B):** a completed structure is shown as "drawn by a classmate". The player
+taps the atom they think is wrong (or "This one is correct"), picks the diagnosis from a short
+list written in chemistry terms, then repairs it with the Mode A tools. Diagnoses: *too many
+electrons around this atom* · *too few — a lone pair is missing* · *hydrogen can only share
+one pair* · *these atoms need to share twice (a double bond)* · *an unpaired electron was left
+over* · *no error*.
+
+Mode B rounds are interleaved from Level 2 (every third round) and are the whole of Level 5.
+
+## Support for struggling students (text-first)
+
+1. **Coach panel** under the canvas, always on at Levels 1–2, on request from Level 3, pinnable
+   with **Support mode** (Settings; never lowers `accuracy`). It names the next thing to look at
+   in words: "Oxygen has 6 outer electrons — 2 pairs and 2 loners. Each loner can pair with a
+   loner on another atom."
+2. **Hint ladder** (lightbulb / `H`): tier 1 *what to look at* ("Which atoms still have loners?
+   They pulse."), tier 2 *the strategy* ("Carbon has four loners, so it will share with all four
+   hydrogens."), tier 3 *one move* ("Pair the loner on the left oxygen with a loner on carbon."
+   — the two dots glow). Tier 1 free; tiers 2–3 cost the no-hint bonus; `accuracy` = rounds
+   completed without tier 3 ÷ rounds played.
+3. **Tap-to-explain glossary**: *valence (outer) electron*, *unpaired electron / "loner"*,
+   *lone pair*, *shared pair / bond*, *single / double / triple bond*, *octet*, *duet*, *dot*.
+4. **Guided first molecule** — `H2` then `H2O`, four scripted steps each, skippable, shown once.
+5. **Ring counters are text as well as rings** ("O: 8 of 8") so the octet is never colour-only.
 
 ## Win / lose conditions
 
-- Round win: valid structure (electron count exact, octets satisfied, minimal formal charges).
-  Where resonance exists, any valid resonance form wins and the others are shown afterwards.
-- No hard fail. Mistake feedback is diagnostic ("Oxygen has 6 electrons — it needs 2 more. Try
-  converting a lone pair on carbon into a second bond").
+- **Mode A round win:** every atom full (H = 2, others = 8), zero unpaired dots, every atom
+  connected. Bonus for no tier-3 hint. Pairing two dots on the *same* atom is not possible (they
+  are already a pair); dragging onto a full atom snaps back with `error.atomFull`.
+- **Mode B round win:** correct atom (or "correct") + correct diagnosis, then a valid repair.
+  A wrong diagnosis shows why in words and lets the player try again; a wrong atom highlights
+  the counts on the tapped atom ("Carbon has 8 — that one's fine. Check the atoms with fewer.")
+- **Level pass:** `roundsPerLevel` (default 4). **Victory** after Level 5.
+- **No lives, no timer.** `coachAfterSeconds` (30) opens the coach with tier 1;
+  `stuckAfterSeconds` (90) offers tier 2.
+- **Session recording:** one `recordGameSession` at victory or exit (`'abandoned'`), with
+  `levelReached` and `accuracy` (null in Support mode).
 
 ## Difficulty progression
 
-| Level | Content | Scaffolding |
+| Level | Molecules | Mode | Scaffolding |
+|---|---|---|---|
+| 1 | H₂ (guided), Cl₂, F₂, Br₂, HCl, HF | A | Coach on; loners pulse and are labelled "loner"; ring counters; bond line drawn as you pair |
+| 2 | H₂O (guided), NH₃, CH₄, H₂S, PH₃, CCl₄ | A, with a Mode B round every third | Coach on; loner labels off; counters on |
+| 3 | O₂, CO₂, N₂, CH₂O, C₂H₄, HCN | A + B | Coach on request; the "share again" affordance (second pairing between the same atoms draws a double bond) is introduced by the coach on O₂ |
+| 4 | C₂H₆, CH₃OH, CH₃Cl, C₂H₂, H₂O₂, OF₂ | A + B | Counters on hover only; atoms start unplaced (player also chooses which atom is central — the coach explains "the atom with the most loners usually goes in the middle") |
+| 5 — Marking mode | All of the above as classmate drawings, one in six correct | B only | No coach; hint ladder only; ends with a "marking sheet" summary of every diagnosis |
+
+Config: `src/core-engine/config/games/lewis-structures-config.ts` — `levels.roundsPerLevel`,
+`levels.maxLevel`, `levels.inspectEveryNRounds`, `mechanics.pointsPerLevelMultiplier`,
+`mechanics.noHintBonus`, `mechanics.coachAfterSeconds`, `mechanics.stuckAfterSeconds`,
+`mechanics.correctStructureRatio` (1 in 6), `visuals.pulseUnpairedUntilLevel`,
+`visuals.showCountersUntilLevel`, named presets + UAT tuning guide.
+
+> **YOU DECIDE:** is `PH3`/`H2S`/`OF2` in your Year 10 scheme, or keep Level 2/4 to the
+> textbook six (H₂O, NH₃, CH₄, HCl, CO₂, O₂/N₂)?
+
+## Instructions (auto-open on first play, paused; `hasSeenLewisStructuresInstructions`)
+
+**Title:** How to Play: Share to Fill
+
+> **Pair up the loners.** Every atom brings its outer electrons as dots. A dot on its own is a
+> *loner* — it wants a partner. Two loners from two different atoms make a **shared pair**,
+> which is a bond.
+>
+> - Drag a pulsing dot onto a pulsing dot on another atom (or tap one, then the other).
+> - An atom is full when it has **8** dots around it — hydrogen is full at **2**.
+> - Share twice between the same two atoms and you've made a double bond.
+> - The structure locks itself when every atom is full and no loners are left. No button needed.
+> - Stuck? Press the **lightbulb** (or `H`). The first hint is always free.
+>
+> The dots show *how many* outer electrons an atom has — not where they really are.
+>
+> *Keyboard & mouse:* `Tab` selects an atom · `←` `→` picks one of its loners · `Enter` starts
+> a pair, `Tab` + `Enter` on another atom finishes it · `Esc` cancels · `H` hint · `P` pause.
+> *Touchscreen:* tap a loner, then tap a loner on another atom. Tap a shared pair to undo it.
+
+## Guided first molecules
+
+**H₂ (Level 1, round 1):**
+1. "Two hydrogen atoms. Each has 1 outer electron — a loner. Drag one onto the other."
+2. "They now share a pair. Count around each H: 2. Hydrogen is full at 2 — that's a single
+   bond, H–H." *(lock)*
+
+**H₂O (Level 2, round 1):**
+1. "Oxygen has 6 outer electrons: two pairs (they stay put) and two loners (they pulse)."
+2. "Pair one oxygen loner with a hydrogen loner." *(waits)* "Oxygen now has 7 around it — one
+   more to go."
+3. "Pair the other oxygen loner with the other hydrogen." *(waits)*
+4. "Oxygen: 8. Each hydrogen: 2. Two shared pairs and two lone pairs — that's water, H–O–H."
+   *(lock)*
+
+## Message catalogue (`src/core-engine/config/games/lewis-structures-messages.ts`)
+
+| Key | When | Text |
 |---|---|---|
-| 1 | Diatomics & simple singles: H₂, Cl₂, HCl, H₂O, NH₃, CH₄ | Electron budget shown; octet counter per atom visible |
-| 2 | Double & triple bonds: O₂, CO₂, N₂, HCN, C₂H₄ | Budget shown; octet counters visible |
-| 3 | Polyatomic ions: OH⁻, NH₄⁺, NO₃⁻ (resonance), CO₃²⁻, SO₄²⁻ | Budget adjusted for charge (explained once); counters on hover |
-| 4 | Formal charge decides: CO, N₂O, SCN⁻ | No counters; formal charge readout only |
-| 5 (Senior) | Exceptions: BF₃ (incomplete), PCl₅/SF₆ (expanded), NO (odd electron) | Explicit "exceptions" banner — see misconceptions |
+| `coach.loners` | unpaired dots remain | "{Atom} still has {n} loner(s). Loners pair with loners on *another* atom." |
+| `coach.needsMore` | atom below full, no loners left elsewhere nearby | "{Atom} has {count} of 8. It needs another shared pair — which atom still has a loner?" |
+| `coach.shareAgain` | two bonded atoms both still have loners | "{Atom1} and {Atom2} both still have a loner. They can share again — that makes a double bond." |
+| `coach.complete` | lock | "Every atom is full and no loners are left. This is {name}: {bonds} shared pair(s), {lonePairs} lone pair(s)." |
+| `hint.tier1` | | "Look for the atoms that still have pulsing dots." |
+| `hint.tier2` | | per-molecule text from the dataset, e.g. "Carbon has four loners, so it will share with all four hydrogens." |
+| `hint.tier3` | | "Pair the loner on {atom1} with the loner on {atom2}." (dots glow) |
+| `error.atomFull` | drop on a full atom | "{Atom} already has 8 — it can't share any more. Try an atom that still has a loner." |
+| `error.hydrogenFull` | second pair onto H | "Hydrogen is full at 2. It can only share one pair." |
+| `error.sameAtom` | drag within one atom | "Those two dots are on the same atom — they're already a pair. A bond needs two different atoms." |
+| `error.pairedDot` | drag a lone-pair dot | "That dot is already part of a pair. Only loners (the pulsing ones) can be shared." |
+| `inspect.wrongAtom` | Mode B, tapped a correct atom | "{Atom} has {count} — that one's fine. Check an atom with too few or too many." |
+| `inspect.wrongDiagnosis` | | "Not quite. Count the dots around {atom}: {count}. {Explanation of the actual error}." |
+| `inspect.correctStructure` | player says "correct" and it is | "Right — every atom is full and nothing is left over." |
+| `inspect.missedCorrect` | player tapped an atom on a correct structure | "This one is actually correct: every atom is full. Not every drawing has a mistake." |
+| `success.round` | | "{Name} complete — {bondLine}." |
+| `overlay.levelUp` | `customMessages.levelUp` | badge "All atoms full" · title "Level cleared" · subtitle "Every loner paired" · description "Level {n}: {what changes}." |
+| `overlay.victory` | | badge "All objectives complete" · title "Lewis structures mastered" · description "Open your marking sheet, or try Bond Builder next." |
+| `notebook.header` | end summary | "Your structures" (each molecule: dot structure, bond-line, bonds / lone pairs, hint tier) |
+
+Glossary: **outer (valence) electron** "an electron in the outside shell — the ones an atom
+shares" · **loner (unpaired electron)** "an outer electron without a partner; only loners can be
+shared" · **lone pair** "two outer electrons that stay on one atom and are not shared" ·
+**shared pair / bond** "two electrons, one from each atom, shared between them — drawn as a
+line" · **single / double / triple bond** "one, two or three shared pairs between the same two
+atoms" · **octet** "eight outer electrons around an atom — full" · **duet** "two outer electrons
+around hydrogen — full" · **dot** "shows how many outer electrons, not where they are".
 
 ## Known misconceptions to guard against
 
-- **Planetary orbits** — render electrons as dots in a soft cloud, never on rings. Add the scale
-  disclaimer ("dots show valence electrons, not positions").
-- "Octet is a law" — Level 5 exists to show it's a rule of thumb; don't teach exceptions before
-  the rule is solid.
-- Formal charge ≠ oxidation state — label carefully; keep oxidation state out of this game.
-- Lone pairs "don't count" — the electron budget makes them count.
-- Equating bond count with stability — the stability meter must reflect octet + formal charge,
-  not "more bonds = better".
+- **Planetary orbits / dots as positions** — dots sit on the four sides of the symbol, never on
+  rings; disclaimer in instructions and glossary.
+- **Shared electrons "belong" to one atom** — the shared pair is drawn *between* the atoms and
+  counts toward *both* rings (the counters visibly both go up by 2 on pairing).
+- **Hydrogen with 8 / lone pairs on H** — impossible in Mode A (H has one loner), diagnosed in
+  Mode B (`hydrogenFull`).
+- **Lone pairs are optional / forgotten** — atoms arrive with all their electrons; you can't
+  delete them; Mode B's most common injected error is a missing lone pair.
+- **"More bonds is always better"** — a full atom refuses further pairs; the coach explains.
+- **Any atom can be central** — Level 4 makes the choice explicit with the loner-count heuristic
+  (and H is never central because it has one loner).
+- **Line drawings and dot drawings are different things** — both are shown side by side and
+  update together.
 
 ## Platform reuse
 
-- `elements.ts` has `valenceElectrons` for every element; `ValenceConfig.maxBonds` and
-  `preferredGeometry` exist in `chemistry.ts` (unused so far).
-- `BondConnection`/`BondOrder` types — use them; this is the intended data model for Bond Builder.
-- Validation is a pure function `validateLewis(structure)` → unit-test heavily (octet, duet,
-  budget, formal charge = V − N − B/2).
-- Geometry (VSEPR) is out of scope here; leave a hook for a later "Shape" game.
+- `elements.ts` `valenceElectrons` (present for every element). Unpaired count for Year 10
+  main-group non-metals is derived: `unpaired = v < 4 ? v : 8 − v` (H 1, C 4, N 3, O 2,
+  halogens 1). Put `getUnpairedElectrons()` in `core-engine/utils/lewis-utils.ts`.
+- New data: `src/core-engine/data/lewis-molecules.ts` — for each molecule: `id`, `name`,
+  `formula`, `atoms` (element symbols), `bonds` (`BondConnection[]` using the existing
+  `BondOrder` type), `centralAtomIndex`, `tier2Hint`, `propertyLine`. Mode B drawings are
+  **generated** from the correct graph by mutation (remove a lone pair, add an electron, give
+  H two bonds, downgrade a double bond, misplace H as central) — so every wrong drawing has a
+  known diagnosis and the generator is unit-tested (`every mutation is detectable`, `no
+  mutation is accidentally valid`).
+- Pure functions, all tested: `isComplete(structure)`, `countAround(atom)`, `diagnose(structure)`
+  (returns the error type or `none`), `generateFlawedStructure(molecule, errorType)`.
+- **Shared canvas**: `components/games/shared/AtomCanvas/` (atoms, dots, pairing gesture,
+  tap-tap + keyboard) — build it here first; Bond Builder reuses it for ionic transfer later.
+  `BondOrder`/`BondConnection`/`ValenceConfig` in `chemistry.ts` are the data model.
+- Shared support components from the Reaction Balancer brief: `CoachPanel`, `GlossaryTerm`,
+  Support-mode toggle in `game-settings-context`.
+- Shared UI: `GameShell` (`themeScope="lewis-structures"`), `GamesHeader`
+  (`progressText="Molecule 2/4"`, `customTaskDescription="Build: water (H2O)"`), `GameOverlay`
+  `customMessages`, `GameFooter`, both modals. Sounds: `pair-formed` → fallback `pop_01`,
+  `structure-complete` → `success-synthesis`, `pair-rejected` → `fizzle`.
+- Registrations: `GameName`, `GameThemeScope`, hub `games` array, `public.games` row
+  (`'lewis-structures'`, inactive until done), `concept_games` (`lewis-structures`, primary),
+  `GAME_LINKS` + `relatedGames` on the `lewis-structures` and `chemical-bonds` cheat sheets.
 
-## Accessibility notes
+## Accessibility (from `ACCESSIBILITY.md`)
 
-Drag electrons must have a click/keyboard alternative: select atom → choose "add bond to…" /
-"add lone pair" from a small menu. Announce per-atom electron counts via live region.
-The stability meter needs a text state ("stable" / "2 atoms need electrons").
+- Drag has tap-tap and full keyboard equivalents (above); every dot is a focusable button
+  with a name ("oxygen, loner 1 of 2").
+- Pulsing marks loners but so does the label/pattern (open dot vs filled pair) and the text
+  counter; under `prefers-reduced-motion` loners are outlined instead of pulsing.
+- Ring counters have text; coach and hints in an `aria-live="polite"` region; lock is assertive.
+- Colour never carries meaning: element identity is the symbol, not the colour.
+- No timer. Targets ≥ 44 px on touch (`useInputMethod`), dots enlarged on touch.
+
+## Definition of done (beyond the generic checklist)
+
+- [ ] `npx vitest run lewis` green: every molecule in the dataset completes under
+      `isComplete`; every generated flawed drawing is diagnosed correctly and is not `none`;
+      derived unpaired counts match a hand table for H, C, N, O, F, Cl, Br, S, P.
+- [ ] Every message key exists in `lewis-structures-messages.ts`; instructions auto-open on
+      first play; both guided molecules run once and never again; Support mode persists.
+- [ ] Keyboard-only and touch-only playthroughs to victory; reduced-motion playthrough of
+      Level 1.
+- [ ] Concept seed year level changed to `Year 10`; cheat sheet `lewis-structures` gains a
+      Year 10 essentials section; `games.is_active = true` in a new migration; one
+      `game_sessions` row per full run.
 
 ## Open questions for you
 
-1. Merge with Bond Builder? (Recommendation: yes — Lewis structures *are* the bonding canvas; add
-   ionic transfer as a separate mode later.)
-2. Resonance: show all forms, or accept one and move on?
-3. Level 5 exceptions — in scope for your Senior course?
+1. Molecule list (see `YOU DECIDE` above).
+2. Should Level 5 "Marking mode" also ask the student to write the *bond-line* formula from
+   the dot structure (typing `H-O-H`)? Cheap to add; tests reading in the other direction.
+3. Name: "Share to Fill" is descriptive; "Octet Architect" was the old working title. Either
+   works with the `lewis-structures` slug.
