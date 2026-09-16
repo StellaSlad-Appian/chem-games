@@ -170,8 +170,23 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    `GameShell` (root layout + theme scope) → `GamesHeader` → `<GameArena />` → `GameFooter` →
    `GameOverlay` (only rendered when no modal is open) → `GameSettingsModal` →
    `GameInstructionsModal`. Pass `themeScope="<game-slug>"` to `GameShell` so the per-game theme
-   override in Settings works. Write real, specific instructions text — the existing
-   `GameInstructionsModal` bodies are short, concrete bullet lists, not generic copy.
+   override in Settings works.
+
+   **Instructions must open automatically on first play** (copy the Neutralise pattern: a
+   `localStorage` flag named `hasSeen<GameName>Instructions`, the game paused via
+   `pausedByModalRef` while open, keyboard-and-mouse / touchscreen tabs, reopenable from the
+   footer). The instruction text comes from the brief, verbatim — see "Text content every game
+   must ship" below. Never write the copy yourself in JSX.
+
+7b. **Ship the message catalogue.** Every string a player reads lives in
+   `src/core-engine/config/games/<game>-messages.ts` (keys from the brief's message catalogue),
+   not inline in components, so a teacher can edit wording without touching JSX. Required
+   keys for every game: instructions (title + body + keyboard/touch controls), a hint ladder
+   (at least two tiers: *what to look at*, then *what to do*), a diagnostic message for every
+   wrong move that says what was wrong **and what to try** (never a bare "Wrong!"), success /
+   level-up / victory copy (as `GameOverlay` `customMessages`), and any glossary terms the game
+   introduces. Reading age ~12, one idea per sentence. If the brief's catalogue is missing a
+   situation the game can produce, add the key to the brief first, then implement.
 
 8. **Sound:** add any new effect names to the `SoundEffect` union and `SOUND_PATHS` in
    `src/hooks/useSound.ts`. If you don't have the actual audio file yet, add an entry to
@@ -210,6 +225,25 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
     `src/core-engine/tests/compounds.test.ts` — assert that any denormalized/derived data (e.g.
     hardcoded element counts) actually matches what the underlying ion/element registries say,
     so a future data edit can't silently desync the chemistry.
+
+### Text content every game must ship
+
+Chemistry games fail struggling students when the only feedback is visual (a colour, a meter, a
+shake). Every game therefore ships, and every brief specifies, the following text layers — all
+rendered through an `aria-live` region so screen readers get them too:
+
+| Layer | Purpose | Where it lives |
+|---|---|---|
+| Instructions | Auto-opens on first play; what the goal is, what the controls do, what the two or three key words mean | Brief → `<game>-messages.ts` → `GameInstructionsModal` |
+| Coach / diagnostic messages | After every wrong or unproductive move: what is wrong, in chemistry terms, and what kind of move fixes it | Brief's message catalogue → `<game>-messages.ts` |
+| Hint ladder | Tier 1 *what to look at*, tier 2 *the strategy*, tier 3 *one concrete step*; tier 1 always free | Same |
+| Success / progression | Round, level-up, victory copy that names the chemistry achieved ("Mass conserved"), not just "Level 2!" | Same, passed as `GameOverlay` `customMessages` |
+| Glossary | Tap-to-explain definitions for the terms the game uses (e.g. coefficient vs subscript) | Same; shared `GlossaryTerm` component once it exists |
+
+Rules: never the words "wrong" or "incorrect" as the whole message; never reveal the full answer
+below tier 3; never punish reading (opening help does not cost points or lives). The
+Reaction Balancer brief (`docs/game-briefs/reaction-balancer.md`) is the reference example of a
+complete catalogue.
 
 ### Config file convention (copy this shape)
 

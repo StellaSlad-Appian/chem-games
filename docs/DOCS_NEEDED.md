@@ -36,6 +36,11 @@ exist *before* any code gets written. Template:
 **Known misconceptions to guard against:** (e.g. "electrons don't orbit like planets")
 **Relationship to existing games:** does this overlap with Formula Blaster / Acid-Base /
 Neutralise / Reaction Balancer / Bond Builder? Should it reuse any of their data or mechanics?
+
+**Instructions text (shown on first play):** title, 3–5 bullets, keyboard and touch controls
+**Message catalogue:** a table of key → when → text for coach/diagnostic messages, the hint
+ladder (tiers 1–3), success/level-up/victory copy, and glossary terms. Reading age ~12.
+See `docs/game-briefs/reaction-balancer.md` for a complete example.
 ```
 
 Keep a folder of these (e.g. `docs/game-briefs/`) — one per shipped or planned game — so future

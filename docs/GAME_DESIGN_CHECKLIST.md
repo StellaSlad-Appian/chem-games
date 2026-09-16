@@ -52,6 +52,18 @@ built. A game should pass both sections, not just compile and run.
 - [ ] A student who has never seen the game can understand the controls in under 30 seconds
       without reading the instructions modal (though the modal should still exist and be good).
 
+### Text & support (struggling students)
+- [ ] Instructions open automatically on first play, pause the game, and state the goal, the
+      controls (keyboard and touch), and the two or three key terms — text taken from the brief.
+- [ ] Every wrong or unproductive move produces a message that says *what* is wrong in chemistry
+      terms and *what kind of move* fixes it. Read three of them aloud: none is a bare "Wrong!".
+- [ ] A hint ladder exists (what to look at → strategy → one concrete step); the first tier is
+      free and asking for help never costs lives.
+- [ ] The words the game relies on (e.g. coefficient, subscript, cation) are defined in-game
+      (glossary or instructions), not assumed.
+- [ ] A student who only reads the text panels — never the colours or meters — can still
+      finish Level 1.
+
 ### Transferability
 - [ ] Winning a round in the game corresponds to correctly solving the equivalent standard
       classroom problem (e.g. successfully balancing an equation in-game = the student could
@@ -68,6 +80,9 @@ built. A game should pass both sections, not just compile and run.
       no shared UI was reimplemented from scratch.
 - [ ] `themeScope` passed to `GameShell` matches the `GameThemeScope` entry, and the game looks
       correct in both light and dark theme.
+- [ ] All player-facing copy lives in `src/core-engine/config/games/<game>-messages.ts` with the
+      keys from the brief; nothing is hard-coded in JSX. Instructions use the first-visit
+      `localStorage` pattern from Neutralise.
 - [ ] New sound effects are registered in `useSound.ts`'s `SoundEffect` union and `SOUND_PATHS`
       (or `SOUND_FALLBACK_MAP` if the asset isn't ready yet).
 - [ ] All game colors reference the shared CSS custom properties in `globals.css`, not new
