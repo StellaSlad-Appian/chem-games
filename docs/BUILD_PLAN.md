@@ -1,6 +1,7 @@
 # Build Plan: Implementing the Game Briefs
 
-**Audience:** a cloud coding agent (Claude Code or equivalent) starting from a fresh clone.
+**Audience:** a coding agent (Claude Code CLI on a server, or equivalent) starting from a fresh
+clone of `https://github.com/StellaSlad/chem-games.git` (`origin`).
 **Owner / reviewer:** Stella (pedagogy owner). The agent builds; Stella approves briefs and
 reviews milestones.
 **Last updated:** 2026-09-16
@@ -35,9 +36,9 @@ in the documents listed under "Read first".
 ## 1. Setup
 
 ```bash
-git clone https://github.com/StellaSlad-Appian/chem-games.git
+git clone https://github.com/StellaSlad/chem-games.git
 cd chem-games
-git remote add upstream https://github.com/StellaSlad/chem-games.git   # read-only sync
+git remote add fork https://github.com/StellaSlad-Appian/chem-games.git   # optional: Stella's review fork, read-only for you
 node --version        # CI uses Node 24 (.github/workflows/test.yml); use 22+ locally
 npm ci
 git checkout -b build/game-briefs origin/master
@@ -138,7 +139,8 @@ whichever of 3–7 has become `Approved`, in listed order).
 ## 6. Review gates and how to ask
 
 All communication happens on the single PR `build/game-briefs → master` on
-`StellaSlad-Appian/chem-games`. Open it as a **draft** right after Foundations are pushed,
+`StellaSlad/chem-games` (the repo you cloned; `origin`). Open it as a **draft** right after
+Foundations are pushed,
 with the PR body listing the milestones as a checklist.
 
 **Milestone report** (post as a PR comment, then wait — do not start the next game until
