@@ -19,6 +19,7 @@ record of *why* the game works the way it does.
 
 | Brief | Working title | Status | Effort | Concept (DB) | Reuses |
 |---|---|---|---|---|---|
+| [reaction-balancer.md](./reaction-balancer.md) | Reaction Balancer — redesign of the existing game | **Approved (example of a finalised brief)** | Medium | `balancing-equations` | `reactions.ts`, `compounds.ts`, existing arena components |
 | [ion-forge.md](./ion-forge.md) | Ion Forge — formulas & names of ionic compounds (polyatomic ions are Levels 2–5 content) | Draft | Low–Med | `ionic-compounds`, `inorganic-nomenclature`, `polyatomic-ions` | `ions.ts` (now the full VCE set), `compounds.ts` ionicComponents, `compounds.test.ts` |
 | [stoichiometry.md](./stoichiometry.md) | Mole Foundry | Draft | Medium | `stoichiometry` | `reactions.ts`, `molarMass`, Reaction Balancer as prerequisite |
 | [lewis-structures.md](./lewis-structures.md) | Octet Architect | Draft | Med–High | `lewis-structures` | `elements.ts` valenceElectrons; shares types **and the atom/bond canvas** with Bond Builder (separate games) |
