@@ -3,31 +3,54 @@ import { COMPOUNDS_REGISTRY } from '../src/core-engine/data/compounds';
 import { calculateMoleculeHealth, evaluateChemical } from '../src/core-engine/utils/chemical-utils';
 import type { ChemicalClassification, CompoundData } from '../src/core-engine/types/chemistry';
 
-export type GameSlug = 'acid-classification' | 'formula-blaster' | 'neutralise' | 'reaction-balancer';
+export type GameSlug =
+  | 'acid-classification'
+  | 'formula-blaster'
+  | 'neutralise'
+  | 'reaction-balancer'
+  | 'lewis-structures';
 
 export const GAME_SLUGS: GameSlug[] = [
   'acid-classification',
   'formula-blaster',
   'neutralise',
   'reaction-balancer',
+  'lewis-structures',
 ];
 
 /**
- * Navigates to a game and waits for its shell. Neutralise shows a first-visit
- * instructions modal; it is skipped unless `showNeutraliseIntro` is set.
+ * Navigates to a game and waits for its shell. Neutralise and Share to Fill
+ * show a first-visit instructions modal; it is skipped unless
+ * `showNeutraliseIntro` / `showLewisIntro` is set. Share to Fill's guided
+ * first molecules are skipped too unless `showLewisGuide` is set.
  */
 export async function openGame(
   page: Page,
   slug: GameSlug,
-  options: { showNeutraliseIntro?: boolean } = {}
+  options: { showNeutraliseIntro?: boolean; showLewisIntro?: boolean; showLewisGuide?: boolean } = {}
 ): Promise<void> {
   if (slug === 'neutralise' && !options.showNeutraliseIntro) {
     await page.addInitScript(() => {
       window.localStorage.setItem('hasSeenNeutraliseInstructions', 'true');
     });
   }
+  if (slug === 'lewis-structures') {
+    const { showLewisIntro = false, showLewisGuide = false } = options;
+    await page.addInitScript(
+      ({ intro, guide }) => {
+        if (!intro) window.localStorage.setItem('hasSeenLewisStructuresInstructions', 'true');
+        if (!guide) window.localStorage.setItem('lewisStructuresGuidedSeen', JSON.stringify(['h2', 'h2o']));
+      },
+      { intro: showLewisIntro, guide: showLewisGuide }
+    );
+  }
   await page.goto(`/games/${slug}`);
   await expect(page.locator('main.game-shell')).toBeVisible();
+  if (slug === 'lewis-structures') {
+    // The `.atom-move` class is added in a client-side effect, so its presence
+    // means the canvas has hydrated and its buttons have handlers.
+    await page.locator('[data-testid="atom"].atom-move').first().waitFor({ state: 'attached' });
+  }
 }
 
 /** The pause / level-up / game-over card (role="dialog", labelled by its title). */

@@ -90,6 +90,7 @@ tests live in the files above (see "Bugs the suite found" below).
 | `molecule-bubble` | Acid classification compound bubble | `data-formula` |
 | `blaster-arena`, `blaster-bubble`, `blaster-hint`, `blaster-error` | Formula Blaster arena, floating bubble, hint banner, error tooltip | bubble: `data-formula` |
 | `neutralise-arena`, `invader`, `projectile`, `player-cannon` | Neutralise arena and entities | invader: `data-formula`, `data-health`; projectile and cannon: `data-ion` |
+| `lewis-arena`, `atom-canvas`, `atom`, `loner`, `lone-pair`, `bond-line` (SVG glyph), `bond-button`, `coach-panel`, `lewis-hint`, `round-complete`, `diagnosis-picker`, `count-readout`, `lewis-notebook`, `notebook-entry` | Share to Fill arena, canvas and panels | arena: `data-phase`, `data-molecule`; atom: `data-atom-id`, `data-element`, `data-count`; bond-line: `data-bond-id`, `data-order`; hint: `data-tier`. Dots and bonds are buttons named "Oxygen, loner 1 of 2", "Oxygen, lone pair 1 of 2", "Single bond between oxygen and hydrogen — press to undo / press to count" |
 
   The overlay card is `role="dialog"` named by its title (`Game Paused`, `Level Cleared`,
   `Game Over`, `Research Complete`). Footer buttons are found by title (`Pause Game`,
@@ -190,11 +191,35 @@ case there, never by loosening the assertion.
 | Level N loads reaction N and wraps around the list | `GameArena.test.tsx` | — |
 | Every equation in `reactions.ts` is balanced, in lowest terms, uses known elements, has a hint | `reactions.test.ts` | — |
 
+### Share to Fill (`/games/lewis-structures`)
+
+| Scenario | Unit / page test | End-to-end |
+| --- | --- | --- |
+| First visit shows the instructions and freezes the canvas until "GOT IT"; later visits skip them | `page.test.tsx` "opens the instructions…", "skips the instructions…" | `lewis-structures.spec.ts` "first visit shows the instructions…" |
+| Level 1 opens with hydrogen; header shows Molecule 1/3, "Build: hydrogen (H2)", Level 01, Score 0 | "skips the instructions once seen…" | "level 1 opens with hydrogen…" |
+| Tap loner, tap loner (or drag) makes a shared pair; the structure locks itself; the bond line and counters update | "runs the guided H2 script…" | "…locks the structure", "dragging a loner…" |
+| Guided H₂ / H₂O scripts run once, advance on pairs, end on the lock line, then never reappear | "runs the guided H2 script…", "clears Level 1…" | — |
+| Lone-pair dot / same-atom / full-atom moves get a diagnostic that says what to try | "shows the paired-dot and same-atom diagnostics…" | "a lone-pair dot is refused…" |
+| Hint ladder: H key or lightbulb, tier 1 free, tier 2 = molecule strategy, tier 3 names the pair (dots glow); tier 2+ forfeits the bonus | "offers three hint tiers…" | "…the hint ladder climbs…" |
+| Keyboard-only: Tab to an atom's loner, Enter, Tab, Enter | `AtomCanvas.test.tsx` "supports the keyboard map…" | "…built with the keyboard alone" |
+| Level cleared → overlay with the next level's "what changes"; Begin Level 2 → guided water | "clears Level 1 into the level-up overlay…" | "clearing level 1 shows the level-up overlay…" |
+| Classmate drawing (every 3rd round from Level 2): wrong atom / "correct" on a flawed drawing / wrong diagnosis / wrong count each explained; repair by pairing; count bonds then lone pairs | "interleaves a classmate drawing…", "plays through to victory…" | — |
+| Same-group rounds (H₂S, PH₃) open with the periodic-table line | "opens the same-group rounds…" | — |
+| Coach always on at Levels 1–2, on request from Level 3, pinned by Support mode; "share again" on O₂ | "without Support mode…", "Support mode keeps the coach on…" | "settings offers Support mode…" |
+| Level 4 starts with the central-atom line and unplaced atoms | "starts Level 4…" | — |
+| Level 5 marking mode: six drawings, one correct; victory records one session (score, level 5, accuracy = rounds without tier 3 ÷ rounds) and opens the marking sheet; Play again resets | "plays through to victory…" | `lewis-structures-journey.spec.ts` "plays every level to victory…" (seeds `Math.random`; saves overlay / marking-sheet screenshots under `test-results/`); the session write itself needs Supabase |
+| Reduced motion (no pulse, still playable), dark theme, phone viewport with touch (no horizontal scroll, ≥ 44 px dots, tap-tap) | — | `lewis-structures-journey.spec.ts` |
+| Exit after ≥ 1 round records an abandoned session; Support mode records no accuracy | "records an abandoned session…", "Support mode keeps…" | — |
+| Pause (footer or P) freezes the canvas; Settings/Instructions never un-pause a paused game | "pauses from the footer or the P key…" | "pausing from the footer…" |
+| Every generated classmate drawing is diagnosed correctly, is never valid, and is repairable by pairing; all 18 molecules complete; hand-checked bond / lone-pair / unpaired tables | `src/core-engine/tests/lewis-utils.test.ts`, `lewis-molecules.test.ts`, `src/hooks/useLewisStructures.test.ts` | — |
+| Canvas geometry: no overlapping atoms, chains continue straight, tray for unplaced atoms | `AtomCanvas/layout.test.ts` | — |
+| Coach panel live region, glossary pop-overs, hint ladder state | `CoachPanel.test.tsx`, `GlossaryTerm.test.tsx`, `useHintLadder.test.ts` | — |
+
 ### Cross-cutting
 
 | Scenario | Test |
 | --- | --- |
-| Games hub lists the four games and each page renders header + footer controls | `e2e/hub.spec.ts` |
+| Games hub lists the five games and each page renders header + footer controls | `e2e/hub.spec.ts` |
 | Overlay copy, stats, keyboard shortcuts, custom messages | `GameOverlay.test.tsx` |
 | Header progress/level/score, hint button, exit fallback | `GamesHeader.test.tsx` |
 | Timer formatting and urgency, lives hearts | `GameTimer.test.tsx` |

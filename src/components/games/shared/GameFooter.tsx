@@ -26,6 +26,8 @@ export default function GameFooter({
             onClick={onOpenInstructions}
             className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
             title="How to Play"
+            aria-label="How to Play"
+            type="button"
           >
             <HelpCircle className="w-6 h-6" />
           </button>
@@ -39,6 +41,8 @@ export default function GameFooter({
             onClick={onTogglePause}
             className="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-2xl transition-all shadow-md active:scale-95 border-2 border-slate-700 cursor-pointer"
             title={isPaused ? "Resume Game" : "Pause Game"}
+            aria-label={isPaused ? "Resume Game" : "Pause Game"}
+            type="button"
           >
             {isPaused ? (
               <Play className="w-5 h-5 fill-emerald-400 text-emerald-400" />
@@ -56,6 +60,8 @@ export default function GameFooter({
             onClick={onOpenSettings}
             className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
             title="Settings"
+            aria-label="Settings"
+            type="button"
           >
             <Settings className="w-6 h-6" />
           </button>

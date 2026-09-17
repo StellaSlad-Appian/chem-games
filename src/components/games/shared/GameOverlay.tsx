@@ -22,6 +22,8 @@ interface GameOverlayProps {
   onResume: () => void;
   onRestart: () => void;
   customMessages?: Partial<Record<string, OverlayMessageConfig>>;
+  /** An optional third button (e.g. "Open marking sheet") shown on the victory card. */
+  extraAction?: { label: string; onClick: () => void };
 }
 
 const STATE_STYLES: Record<Exclude<GameState, 'playing'>, { accent: string }> = {
@@ -43,6 +45,7 @@ export default function GameOverlay({
   onResume,
   onRestart,
   customMessages,
+  extraAction,
 }: GameOverlayProps) {
   const { playSound } = useSound();
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -212,6 +215,16 @@ export default function GameOverlay({
           }
           onPrimary={gameState === 'failed' || gameState === 'victory' ? restart : resume}
         />
+
+        {extraAction && (
+          <button
+            type="button"
+            onClick={extraAction.onClick}
+            className="mt-2 w-full cursor-pointer rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+          >
+            {extraAction.label}
+          </button>
+        )}
 
         <p className="mt-4 text-xs font-medium text-(--muted)">{keyHint}</p>
       </div>

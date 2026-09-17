@@ -13,7 +13,10 @@ import {
   type ValidatedFeedback,
 } from '@/lib/validation/feedback';
 
-export type { FeedbackType };
+// No `export type` re-exports here: Next's server-actions loader re-exports every
+// name of a 'use server' module at runtime, so a type-only export becomes
+// `ReferenceError: FeedbackType is not defined` and takes recordGameSession
+// down with it. Import FeedbackType from '@/lib/validation/feedback' instead.
 
 export interface SubmitFeedbackInput {
   type: FeedbackType;

@@ -6,6 +6,7 @@ const HUB_CARDS: Array<[RegExp, string]> = [
   [/Formula Blaster/, '/games/formula-blaster'],
   [/Neutralise!/, '/games/neutralise'],
   [/Reaction Balancer/, '/games/reaction-balancer'],
+  [/Share to Fill/, '/games/lewis-structures'],
 ];
 
 test.describe('Games hub', () => {

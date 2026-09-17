@@ -106,9 +106,11 @@ export default function GamesHeader({
         <div className="flex items-center gap-3">
           {onTriggerHint && (
             <button
+              type="button"
               onClick={onTriggerHint}
-              className="p-2 text-amber-400/80 hover:text-amber-300 hover:bg-amber-400/10 active:scale-95 rounded-full transition-all flex items-center justify-center cursor-pointer select-none"
+              className="p-2 text-amber-400/80 hover:text-amber-300 hover:bg-amber-400/10 active:scale-95 rounded-full transition-all flex items-center justify-center cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
               title="Get Hint"
+              aria-label="Get Hint"
             >
               <Lightbulb className="w-6 h-6" />
             </button>

@@ -8,7 +8,8 @@
 // }
 
 import Link from 'next/link';
-import { Beaker, FlaskConical, TestTube, Atom, Scale } from 'lucide-react';
+import { Beaker, FlaskConical, TestTube, Atom, Scale, Orbit } from 'lucide-react';
+import { LEWIS_MESSAGES } from '@/core-engine/config/games/lewis-structures-messages';
 
 const games = [
   { 
@@ -35,7 +36,13 @@ const games = [
     description: 'Adjust stoichiometric coefficients to balance equations.', 
     Icon: Scale 
   },
-  { 
+  {
+    href: '/games/lewis-structures',
+    title: LEWIS_MESSAGES.hub.title,
+    description: LEWIS_MESSAGES.hub.description,
+    Icon: Orbit
+  },
+  {
     href: '/games/chemical-bonds', 
     title: 'Chemical Bonds', 
     description: 'Explore molecular structures and atomic bonding.', 
