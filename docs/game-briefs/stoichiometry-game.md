@@ -331,3 +331,31 @@ mole in grams".
   policing at Year 10.
 - **Dropped the sandwich analogy.** Year 10 students have usually seen it; the factory is
   already concrete and stays chemistry from the first second.
+
+## Languages
+
+Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
+above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
+The table below must be resolved before the status line reads `Approved`.
+
+| Locale | Title | Kind | Hub description | Notes / alternative |
+|---|---|---|---|---|
+| en | Reaction Factory | — | Fill the orders: the balanced equation is the recipe. | Proposal; the brief has no hub line yet. > YOU DECIDE |
+| de | Reaktionsfabrik | translation | Erfülle die Aufträge: die ausgeglichene Gleichung ist das Rezept. | A natural German compound; reads as a game, not an instruction. Alternative: *Reaktions-Fabrik* (hyphenated, matches *Formel-Blaster*). > YOU DECIDE |
+| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+
+**Terms to fix in each glossary before translating:** the coined **hopper**, **batch**, **order**
+and **production log** (de: *Trichter*, *Ansatz* — the review rates *Charge* low for teenagers —
+*Auftrag*, *Produktionsprotokoll*; decide), ratio (*Verhältnis*), limiting reagent
+(*begrenzendes Edukt*), excess (*im Überschuss*), relative atomic mass Ar (*relative Atommasse*),
+relative formula mass Mr (*relative Formelmasse* — German textbooks also say *Molekülmasse*;
+decide, and keep the symbols Ar / Mr untranslated), "relative means compared with hydrogen",
+subscript (*Index*), bracket, mass balance / mass ledger, mole / molar mass / amount of substance
+(*Mol* / *molare Masse* / *Stoffmenge*, Level 9 only), *Senior preview*.
+**Chemistry names the game introduces:** the ten reactions' species (all in `reactions.ts` →
+chemistry-name overlay by id); the Year 10 Ar table is numbers and symbols, not translated.
+**Dataset prose to overlay:** the order texts ("Make 6 NH3" — the number and formula stay,
+the verb is translated), the per-level `hint.tier1`/`tier2` variants, the reaction `name` and
+`description`, and the Level 9 mole-shortcut copy.
+**Count-dependent strings:** "{batches} batches", "{left} left over", "Order {n}/{total}",
+the hopper counts — Russian will need the three-form shape for each.

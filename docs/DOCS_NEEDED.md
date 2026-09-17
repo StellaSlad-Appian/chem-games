@@ -41,6 +41,12 @@ Neutralise / Reaction Balancer / Bond Builder? Should it reuse any of their data
 **Message catalogue:** a table of key → when → text for coach/diagnostic messages, the hint
 ladder (tiers 1–3), success/level-up/victory copy, and glossary terms. Reading age ~12.
 See `docs/game-briefs/reaction-balancer.md` for a complete example.
+**Languages:** the game ships in every locale in `LOCALES`. A table with, per locale, the
+title (translated / adapted / kept English, with the reason and one alternative) and the hub
+description; the chemistry terms and coined game words each glossary must fix before
+translating; the chemistry names the game introduces and any naming rule it teaches; the
+dataset prose to overlay; the count-dependent strings. Template and the four language checks
+in `docs/i18n/GAMES.md`.
 ```
 
 Keep a folder of these (e.g. `docs/game-briefs/`) — one per shipped or planned game — so future

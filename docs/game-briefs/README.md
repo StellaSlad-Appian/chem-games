@@ -15,15 +15,36 @@ to `Approved` and the brief becomes the agent's spec.
 Workflow: draft → you review/edit → `Approved` → agent builds → brief stays in this folder as the
 record of *why* the game works the way it does.
 
+## Every game in every language
+
+The site ships in every locale in `LOCALES` (`src/i18n/config.ts`: English and German today;
+French, Spanish, Italian and Russian planned), and **a game is built in all of them from the
+same brief, in the same milestone**. So every brief carries a **"Languages" section**
+(template in [`../i18n/GAMES.md`](../i18n/GAMES.md)): a title and hub description per locale
+— translated, adapted or kept in English, your decision, with the agent's proposal and one
+alternative — plus the glossary terms, chemistry names, dataset prose and count-dependent
+strings the translation will need. The English text in the brief is canonical; each other
+locale is a translation of it against `docs/i18n/glossary-<locale>.md`.
+
+Testing a game includes testing it in each locale. The agent checks, per locale, that the
+text is correct (nothing missing, no English leaking, formulae untouched), that it is
+understandable at reading age ~12 in that language, that the chemical names are right for that
+language's naming system, and that the game's name sounds right in that culture — and reports
+all four in the milestone (`GAME_DESIGN_CHECKLIST.md` §3, `BUILD_PLAN.md` §6). A brief
+whose "Languages" table is missing or unresolved is not buildable, like one with a `YOU DECIDE`.
+
+When a locale is added, every brief's table gets a row and every built game gets that
+language (`docs/i18n/README.md` § Adding a locale).
+
 ## Index
 
 | Brief | Working title | Status | Effort | Concept (DB) | Reuses |
 |---|---|---|---|---|---|
-| [reaction-balancer.md](./reaction-balancer.md) | Reaction Balancer — redesign of the existing game | **Approved (example of a finalised brief)** — **built** 2026-09-18 (`/games/reaction-balancer`; see the brief's "Catalogue additions" and "Build notes") | Medium | `balancing-equations` | `reactions.ts` (now with state symbols and species names), `CoachPanel`, `GlossaryTerm`, `useHintLadder`, new shared `RichMessage` |
+| [reaction-balancer.md](./reaction-balancer.md) | Reaction Balancer — redesign of the existing game | **Approved (example of a finalised brief)** — **built** 2026-09-18 (`/games/reaction-balancer`; see the brief's "Catalogue additions" and "Build notes"); **English only — catalogue translation and the language checks outstanding**, German title to decide (see "Languages") | Medium | `balancing-equations` | `reactions.ts` (now with state symbols and species names), `CoachPanel`, `GlossaryTerm`, `useHintLadder`, new shared `RichMessage` |
 | [ion-forge.md](./ion-forge.md) | Ion Forge — formulas & names of ionic compounds (polyatomic ions are Levels 2–5 content) | Draft | Low–Med | `ionic-compounds`, `inorganic-nomenclature`, `polyatomic-ions` | `ions.ts` (now the full VCE set), `compounds.ts` ionicComponents, `compounds.test.ts` |
-| [stoichiometry-game.md](./stoichiometry-game.md) | Reaction Factory — Year 9–10 reacting quantities in 8 levels, one new idea each (ratios → limiting reagent → what Ar is → Mr → subscripts/brackets → mass ledger → proportion → limiting in grams); the mole is Level 9, a badged bonus. Rename to `reaction-factory.md` on approval | Draft rev 2 (teacher-reviewed, no open decisions) | Medium–High | new `reacting-quantities` | `reactions.ts`, Year 10 Ar table, Reaction Balancer as prerequisite; feeds Mole Foundry |
+| [stoichiometry-game.md](./stoichiometry-game.md) | Reaction Factory — Year 9–10 reacting quantities in 8 levels, one new idea each (ratios → limiting reagent → what Ar is → Mr → subscripts/brackets → mass ledger → proportion → limiting in grams); the mole is Level 9, a badged bonus. Rename to `reaction-factory.md` on approval | Draft rev 2 (teacher-reviewed; titles per locale to decide in "Languages") | Medium–High | new `reacting-quantities` | `reactions.ts`, Year 10 Ar table, Reaction Balancer as prerequisite; feeds Mole Foundry |
 | [stoichiometry.md](./stoichiometry.md) | Mole Foundry (Senior) | Draft | Medium | `stoichiometry` | `reactions.ts`, `molarMass`, Reaction Factory as prerequisite |
-| [lewis-structures.md](./lewis-structures.md) | Share to Fill — build (pair the loners) + inspect (fix a classmate's drawing); Year 10, covalent only, 18 molecules | **Approved** (rev 3) — **built** 2026-09-17 (`/games/lewis-structures`, catalogue row inactive until the milestone is approved; see the brief's "Catalogue additions") |Medium | `lewis-structures` | `elements.ts` valenceElectrons; builds the shared `AtomCanvas` that Bond Builder reuses (separate games) |
+| [lewis-structures.md](./lewis-structures.md) | Share to Fill — build (pair the loners) + inspect (fix a classmate's drawing); Year 10, covalent only, 18 molecules | **Approved** (rev 3) — **built** 2026-09-17 (`/games/lewis-structures`, catalogue row inactive until the milestone is approved; see the brief's "Catalogue additions"); **English only — catalogue translation and the language checks outstanding**, German title to decide (see "Languages") |Medium | `lewis-structures` | `elements.ts` valenceElectrons; builds the shared `AtomCanvas` that Bond Builder reuses (separate games) |
 | [synthesis-router.md](./synthesis-router.md) | Synthesis Router — organic reaction pathways | **Planned** (full plan) | Medium–High | `reaction-pathways` | New shared `organic-molecules.ts`; `functional-groups` cheat sheet |
 | [functional-groups.md](./functional-groups.md) | Reagent Bench + the four alternatives considered | Options record | — | `functional-groups` | Kept as the record of why Synthesis Router was chosen |
 | [organic-naming.md](./organic-naming.md) | Carbon Chain Namer | Draft | High | `organic-nomenclature` | Same organic dataset as Synthesis Router |
@@ -49,6 +70,9 @@ record of *why* the game works the way it does.
 - **Lewis Structures and Bond Builder are separate games** with shared `core-engine` types
   (`BondOrder`, `BondConnection`, `ValenceConfig`, `valenceElectrons`), a shared
   `validateStructure()` util, and one shared atom/bond canvas in `components/games/shared/`.
+- **Games ship in every locale, never English-first.** Titles are decided per game per locale
+  in the brief; formulae, symbols and slugs are never translated; chemistry names come from
+  the `chemistry-names` overlays, not from the catalogue. See `docs/i18n/GAMES.md`.
 
 ## Overlaps to keep resolved
 

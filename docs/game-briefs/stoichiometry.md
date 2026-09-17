@@ -75,3 +75,27 @@ No timer.
 1. Significant figures: enforce 3 s.f. or accept any precision within tolerance?
 2. Include gas volumes at STP/SLC (22.4/24.8 L/mol) as a Level 6? Region-dependent.
 3. Which reactions matter most for your exams (combustion, thermal decomposition, metal + acid)?
+
+## Languages
+
+Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
+above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
+Resolve the table before `Approved`.
+
+| Locale | Title | Kind | Hub description | Notes / alternative |
+|---|---|---|---|---|
+| en | Mole Foundry | — | Turn grams into moles, moles into product — and see what limits the yield. | Proposal. > YOU DECIDE |
+| de | Mol-Gießerei | translation | Rechne Gramm in Mol um, Mol in Produkt – und sieh, was die Ausbeute begrenzt. | *Gießerei* keeps the foundry image but is an unfamiliar word for a 16-year-old; alternative *Molwerk*. > YOU DECIDE |
+| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+
+**Terms to fix in each glossary before translating:** amount of substance / mole / molar mass
+(de: *Stoffmenge* / *Mol* / *molare Masse* — already fixed), Avogadro's number (de:
+*Avogadro-Konstante*), limiting reagent / excess, theoretical / actual / percentage yield
+(*theoretische / tatsächliche / prozentuale Ausbeute*), significant figures, gas volume at
+STP/SLC if Level 6 is kept (the conditions and the 22.4 / 24.8 L/mol values are region-dependent
+in *content*, not only in language — decide per locale with the open question above).
+**Chemistry names the game introduces:** none beyond `reactions.ts` and `compounds.ts` — overlay
+any new species by id.
+**Dataset prose to overlay:** reaction names and the per-reaction hint text.
+**Count-dependent strings:** "{n} mol", "{n} g of {compound}" (units stay, the sentence around
+them is per locale; decimal comma in every planned locale except possibly `es`).

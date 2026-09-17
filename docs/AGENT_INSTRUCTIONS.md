@@ -1,7 +1,8 @@
 # Agent Instructions: Building a New Chemistry Game
 
 Give this file (plus [`GAME_DESIGN_CHECKLIST.md`](./GAME_DESIGN_CHECKLIST.md),
-[`STYLE_GUIDE.md`](./STYLE_GUIDE.md), [`ACCESSIBILITY.md`](./ACCESSIBILITY.md), and the
+[`STYLE_GUIDE.md`](./STYLE_GUIDE.md), [`ACCESSIBILITY.md`](./ACCESSIBILITY.md),
+[`i18n/GAMES.md`](./i18n/GAMES.md), and the
 **approved** brief for the game from [`game-briefs/`](./game-briefs/)) to any agent — human or
 AI — tasked with adding a new mini-game to chem-games. It has two halves:
 
@@ -86,11 +87,19 @@ low-stakes "Try Again" framing for the tone to match.
 ```
 src/
   app/
-    (main)/...              marketing/dashboard pages, layout has NavBar
-    (gameplay)/
-      layout.tsx             gameplay-only layout (no NavBar chrome)
-      games/<game-slug>/
-        page.tsx              THE game's entry point — composes shared UI + GameArena
+    [lang]/                  every page is locale-prefixed (/en/games, /de/games)
+      (main)/...             marketing/dashboard pages, layout has NavBar
+      (gameplay)/
+        layout.tsx           gameplay-only layout (no NavBar chrome)
+        games/<game-slug>/
+          page.tsx           THE game's entry point — composes shared UI + GameArena
+  i18n/
+    config.ts                LOCALES — the one list of languages the site ships
+    dictionaries/<locale>.ts UI strings incl. gamesHub titles/descriptions (en is canonical)
+    game-messages/<game>/    the game's catalogue in every non-English locale
+    chemistry-names/         element/compound/ion names per locale (overlay on the registries)
+    game-titles.ts           GAME_TITLE_KEYS — every GameName needs a dictionary title
+    client.tsx / server.ts   useI18n() / getDictionary(); see docs/i18n/README.md
   components/
     games/
       shared/                 GameShell, GamesHeader, GameFooter, GameOverlay,
@@ -136,12 +145,20 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    - Grep for every other place `GameName` or the theme scope union is switched over
      exhaustively (e.g. `LeaderBoard.tsx`, `PublicLeaderboard.tsx`) — TypeScript will not
      always catch a missing case in a plain `Record`, so check `DEFAULT_OVERLAY_MESSAGES` too.
+   - Add the slug to `GAME_TITLE_KEYS` in `src/i18n/game-titles.ts` and to `EXPECTED_GAMES`
+     in its test, pointing at `gamesHub.<key>Title` — which must exist in **every**
+     dictionary (step 7c). Leaderboards fall back to the English `games.title` column for
+     any slug the dictionary does not know.
 
 3. **Add or extend chemistry data** in `src/core-engine/data/` rather than inlining chemical
    facts inside components. If the game needs a data shape that doesn't exist yet (e.g. bond
    geometries, activation energies), add types to `src/core-engine/types/chemistry.ts` —
    **first grep for an existing type that already covers it.** This codebase currently has at
    least one case of a duplicate/competing shape (see Gotchas) — don't add a second one.
+   Any **prose** field in a dataset (a species name, a per-item hint, an observation, a word
+   equation) is keyed by the item's id and gets a per-locale overlay next to
+   `src/i18n/chemistry-names/`, resolved with a registry fallback the way `chemistry-names.ts`
+   does — never a second copy of the dataset per language. Formulae are never in an overlay.
 
 4. **Create the config file** at `src/core-engine/config/games/<game>-config.ts`. Follow the
    established convention exactly (see `formula-blaster-config.ts`):
@@ -169,7 +186,7 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    game-specific nuance (e.g. `failReason`) as extra props alongside it, the way
    `GameOverlay`'s `failReason` prop does.
 
-7. **Compose the page** (`src/app/(gameplay)/games/<game-slug>/page.tsx`) using, in this order:
+7. **Compose the page** (`src/app/[lang]/(gameplay)/games/<game-slug>/page.tsx`) using, in this order:
    `GameShell` (root layout + theme scope) → `GamesHeader` → `<GameArena />` → `GameFooter` →
    `GameOverlay` (only rendered when no modal is open) → `GameSettingsModal` →
    `GameInstructionsModal`. Pass `themeScope="<game-slug>"` to `GameShell` so the per-game theme
@@ -181,8 +198,11 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    footer). `lewis-structures/page.tsx` shows the effect-free variant: read the flag with
    `useStoredValue()` so the modal is open on the first render, and freeze the arena with an
    `isPaused` prop derived from `gameState !== 'playing' || isModalOpen` instead of toggling
-   `gameState` — a paused game then can never be un-paused by closing a modal.The instruction text comes from the brief, verbatim — see "Text content every game
-   must ship" below. Never write the copy yourself in JSX.
+   `gameState` — a paused game then can never be un-paused by closing a modal. The
+   instruction text comes from the brief, verbatim — see "Text content every game must ship"
+   below. Never write the copy yourself in JSX. Every internal link on the page (Quit to Hub,
+   the cheat-sheet link) goes through `LocaleLink` or `useI18n().href()` so it keeps the
+   reader's language.
 
 7b. **Ship the message catalogue.** Every string a player reads lives in
    `src/core-engine/config/games/<game>-messages.ts` (keys from the brief's message catalogue),
@@ -196,6 +216,24 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    Shared building blocks: `CoachPanel` (polite live region + tone), `GlossaryTerm` /
    `GlossaryText` (tap-to-explain words in any message), `useHintLadder` (tier state, bonus
    and accuracy flags). `lewis-structures-messages.ts` is the reference catalogue in code.
+
+   **The catalogue exists in every locale.** The English file is canonical; every other
+   locale in `LOCALES` gets `src/i18n/game-messages/<game>/<locale>.ts` that `satisfies` the
+   English type, and the page picks the catalogue for `useI18n().locale`. Write placeholders
+   as `{name}` strings (not arrow functions) so the parity, empty-value and placeholder gates
+   can check every locale. Layout, conventions and the tests are in `docs/i18n/GAMES.md`;
+   the terms come from `docs/i18n/glossary-<locale>.md`, and any term the glossary lacks
+   (including coined game words such as *loner* or *hopper*) is added there **before** the
+   catalogue is translated. A game whose catalogue is English-only is not done.
+
+7c. **Title, names and review notes in every locale.** Add `gamesHub.<key>Title` and
+   `<key>Description` to every dictionary (`src/i18n/dictionaries/<locale>.ts`) using the
+   titles from the brief's "Languages" table — a title is translated, adapted or kept in
+   English per locale by the owner's decision, never by default. Add every element, compound
+   and ion the game introduces to the registries **and** to `chemistry-names/<locale>.ts`;
+   overlay any dataset prose (step 3). Add `review-notes.ts` entries for the new namespace
+   and run `npm run i18n:review`. Then do the four language checks in `docs/i18n/GAMES.md`
+   in every locale and report them in the milestone.
 
 8. **Sound:** add any new effect names to the `SoundEffect` union and `SOUND_PATHS` in
    `src/hooks/useSound.ts`. If you don't have the actual audio file yet, add an entry to
@@ -219,11 +257,12 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
     existing seed insert. Do not edit old migration files — add a new one.
 
 11. **Add the game to the hub:** append an entry (`href`, `title`, `description`, `Icon` from
-    `lucide-react`) to the `games` array in `src/app/(main)/games/page.tsx`. Check this array
-    first — it may already contain a placeholder entry for your game slug (it currently lists
-    `reaction-balancer` and `chemical-bonds`, the latter of which doesn't match the
-    `bond-builder` slug used elsewhere — verify slug consistency before trusting this file as a
-    source of truth).
+    `lucide-react`) to the `games` array in `src/app/[lang]/(main)/games/page.tsx`. The title
+    and description are read from the dictionary (`t.gamesHub.<key>Title`), never written
+    here — step 7c puts them in every locale. Check this array first — it may already contain
+    a placeholder entry for your game slug (it currently lists `reaction-balancer` and
+    `chemical-bonds`, the latter of which doesn't match the `bond-builder` slug used
+    elsewhere — verify slug consistency before trusting this file as a source of truth).
 
 12. **Session recording:** call `recordGameSession()` from `src/lib/actions/game-actions.ts` on
     game-over/victory with `gameId`, `score`, `levelReached`, `accuracy` (0–100), `timeSpentSeconds`,
@@ -253,6 +292,13 @@ Rules: never the words "wrong" or "incorrect" as the whole message; never reveal
 below tier 3; never punish reading (opening help does not cost points or lives). The
 Reaction Balancer brief (`docs/game-briefs/reaction-balancer.md`) is the reference example of a
 complete catalogue.
+
+**Every layer above exists in every locale in `LOCALES`**, translated from the brief's English
+against `docs/i18n/glossary-<locale>.md`, and is checked in every locale before the milestone:
+is the text correct, is it understandable at reading age ~12 in that language, are the
+chemical names right for that language's naming system, and does the game's title sound
+right in that culture. The checks, the per-language pitfalls and the e2e pattern are in
+`docs/i18n/GAMES.md`.
 
 ### Config file convention (copy this shape)
 
@@ -315,6 +361,11 @@ export const <GAME>_CONFIG = OPTION_1_DEFAULT;
 - [ ] `npm test` passes and your game has a `page.test.tsx` flow test plus an `e2e/<slug>.spec.ts`
       journey that both pass (`npm run e2e`). Conventions, helpers and the scenario catalog are in
       `docs/TESTING.md`.
+- [ ] The game plays in **every locale in `LOCALES`**: the catalogue, title, hub description,
+      chemistry names and any dataset prose exist in each (typecheck and the i18n gates are
+      green), the e2e locale block passes, and the four language checks in
+      `docs/i18n/GAMES.md` were done per locale and reported — including the title proposal
+      per locale for the owner to decide.
 - [ ] Game reachable from `/games` hub and playable start-to-finish (win path and lose path) via
       `npm run dev` in an actual browser — type-checking is not a substitute for playing it.
 - [ ] Pause, Settings, and Instructions modals all open/close correctly and don't double-pause or

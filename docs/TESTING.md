@@ -110,6 +110,13 @@ tests live in the files above (see "Bugs the suite found" below).
   still animating, so `clickUntil()` dispatches the click to the element and re-checks.
 - `e2e/warm-up.setup.ts` runs first and visits every game route, so `next dev` compiles them
   before any timed test starts. Add new game slugs to `GAME_SLUGS` in `e2e/helpers.ts`.
+- Every game spec has a locale block: `for (const locale of LOCALES)` opening the game with
+  `openGame(page, slug, { locale })`, asserting the instructions title, a coach message, hint
+  tier 1 and the pause overlay in that locale (titles read from the dictionaries, never
+  literals) and that the English instructions title is *not* visible outside `en`. The full
+  journey stays English-only; the unit gates prove completeness, the locale block proves the
+  page is wired to the right catalogue. Pattern and the manual per-locale checks:
+  `docs/i18n/GAMES.md` § Testing.
 - The config starts its own `next dev` on port 3210 (`PLAYWRIGHT_PORT` to change it), so it
   never collides with a dev server of this or another project on 3000. If something already
   answers `/games` on that port it is reused. To test a server you are already running (for

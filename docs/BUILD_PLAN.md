@@ -4,7 +4,7 @@
 clone of `https://github.com/StellaSlad/chem-games.git` (`origin`).
 **Owner / reviewer:** Stella (pedagogy owner). The agent builds; Stella approves briefs and
 reviews milestones.
-**Last updated:** 2026-09-16
+**Last updated:** 2026-09-18 (languages: every game ships in every locale)
 
 This plan tells the agent what to build, in what order, how to know a brief is buildable, how
 to verify work, and where to stop and wait for a human. It does not repeat the how-to: that is
@@ -27,9 +27,13 @@ in the documents listed under "Read first".
 4. **Do not touch** `.claude/`, `supabase/migrations/*_rows.sql` (data dumps), or any
    `neutralise-levels*` file other than `neutralise-levels.ts`. Do not add a second test
    runner, icon library, or state library.
-5. **Every game ships its text.** Instructions that auto-open on first play and a
-   `<game>-messages.ts` catalogue are mandatory (`AGENT_INSTRUCTIONS.md` steps 7 and 7b). No
-   copy in JSX.
+5. **Every game ships its text — in every language.** Instructions that auto-open on first
+   play and a `<game>-messages.ts` catalogue are mandatory (`AGENT_INSTRUCTIONS.md` steps 7
+   and 7b). No copy in JSX. The catalogue, the title and hub description, the chemistry
+   names and any dataset prose exist in **every locale in `LOCALES`**
+   (`src/i18n/config.ts`) before the milestone is reported, and the four language checks in
+   `docs/i18n/GAMES.md` are done per locale. A brief without a resolved "Languages" table is
+   treated like a brief with a `YOU DECIDE`: not buildable.
 6. **Secrets never enter git.** `.env.local` is gitignored; if credentials are supplied, they
    go there and nowhere else.
 
@@ -67,6 +71,8 @@ Windows, that is a process-spawn issue, not code — restart. Never run `npm run
 | `docs/GAME_DESIGN_CHECKLIST.md` | What "done" means, pedagogically and technically |
 | `docs/STYLE_GUIDE.md`, `docs/ACCESSIBILITY.md` | Tokens, z-index ladder, motion, WCAG 2.2 AA requirements |
 | `docs/TESTING.md` | Vitest/Playwright layout, known issues (several are fixed by this plan), lint status |
+| `docs/i18n/GAMES.md` | What "in every language" means for a game, the catalogue layout per locale, the four language checks and the e2e pattern |
+| `docs/i18n/README.md`, `docs/i18n/glossary-<locale>.md` | How the i18n system works; the agreed chemistry terms per language — read the glossary *before* translating a catalogue (both on the `i18n` branch until it merges) |
 | `docs/DATABASE_CONCEPTS.md` | `concepts` / `concept_games` / `cheat_sheets` schema and seeds |
 | `docs/game-briefs/README.md` | Index, status of every brief, decisions already made |
 | The brief you are about to build | The spec |
@@ -79,9 +85,9 @@ this table, which is a snapshot.
 | Order | Brief | Slug | Status (2026-09-16) | Buildable? | Blocks on |
 |---|---|---|---|---|---|
 | F | *Foundations* (§4) | — | — | **Yes** | — |
-| 1 | `reaction-balancer.md` | `reaction-balancer` | Approved rev 2 | **Yes** | F |
-| 2 | `lewis-structures.md` | `lewis-structures` | Approved rev 3 | **Yes** | F (`AtomCanvas` is built *inside* this game and promoted to shared) |
-| 3 | `stoichiometry-game.md` | `reaction-factory` | Draft rev 2, no open items | **No — needs `Approved`** | F, Stella's approval; reuses the bracket-aware parser from 1 |
+| 1 | `reaction-balancer.md` | `reaction-balancer` | Approved rev 2 — built, English only | **Yes** (remaining: every locale + the language checks) | F; German title decision in the brief's "Languages" table |
+| 2 | `lewis-structures.md` | `lewis-structures` | Approved rev 3 — built, English only | **Yes** (remaining: every locale + the language checks) | F (`AtomCanvas` is built *inside* this game and promoted to shared); German title decision |
+| 3 | `stoichiometry-game.md` | `reaction-factory` | Draft rev 2, titles per locale to decide | **No — needs `Approved`** | F, Stella's approval incl. the "Languages" table; reuses the bracket-aware parser from 1 |
 | 4 | `ion-forge.md` | `ion-forge` | Draft, 3 `YOU DECIDE` | No | Stella resolves tray size, hydrates, molecular/acid naming placement |
 | 5 | `stoichiometry.md` (Mole Foundry) | `mole-foundry` | Draft, open questions | No | Stella; should be re-aligned with Reaction Factory Level 9 first |
 | 6 | `synthesis-router.md` | `synthesis-router` | Planned, 4 open questions | No | Stella confirms R15/R16, Markovnikov, exam-mode placement |
@@ -91,6 +97,13 @@ this table, which is a snapshot.
 **Rule:** build in order among the buildable briefs. When you reach a non-buildable brief,
 post its open items (§6, "approval request"), then continue with the next buildable one. If
 nothing is buildable, finish the current milestone, post the report, and stop.
+
+**Languages catch-up (2026-09-18):** Reaction Balancer and Share to Fill were built before the
+every-locale rule and ship English-only catalogues. Before any new game, bring both up to the
+rule as one milestone: catalogues in every locale in the layout of `docs/i18n/GAMES.md`
+(converting arrow-function templates to `{placeholder}` strings), titles from each brief's
+"Languages" table once Stella has decided them, dataset prose overlaid, review notes added, the
+locale block in each e2e spec, and the four language checks reported per locale.
 
 ## 4. Phase F — Foundations (build once, before any game)
 
@@ -121,12 +134,17 @@ For each buildable brief, in order:
    "Registrations" and "Definition of done" sections tell you which files, slugs, migrations,
    cheat-sheet links and tests this game needs beyond the generic steps.
 3. Slug everywhere: `GameName`, `GameThemeScope`, route folder, `games.id`, `concept_games`,
-   config `gameId`, `GAME_LINKS`, the brief. Reaction Factory's brief file is named
-   `stoichiometry-game.md` on purpose; its slug is still `reaction-factory`.
+   config `gameId`, `GAME_LINKS`, `GAME_TITLE_KEYS`, `e2e/helpers.ts` `GAME_SLUGS`, the brief.
+   Reaction Factory's brief file is named `stoichiometry-game.md` on purpose; its slug is
+   still `reaction-factory`.
 4. Data and rules first, UI second: the brief's pure functions and datasets with their unit
    tests before any component.
 5. Text: `<game>-messages.ts` with every key from the brief's message catalogue; instructions
-   verbatim from the brief; guided rounds as scripted in the brief.
+   verbatim from the brief; guided rounds as scripted in the brief. Then the same catalogue in
+   every other locale (`src/i18n/game-messages/<game>/<locale>.ts`), the title and hub
+   description from the brief's "Languages" table in every dictionary, new species in
+   `chemistry-names/<locale>.ts`, dataset prose overlaid, review notes added — glossary terms
+   first, translation second (`docs/i18n/GAMES.md`).
 6. Database: a new migration (never edit old ones) inserting the `games` row **inactive**, the
    concept / `concept_games` / `concept_cheat_sheets` rows the brief names, and any new cheat
    sheet registry row. Flip `is_active` to `true` in the same migration only after the
@@ -162,11 +180,22 @@ Commits: <first>..<last>
   reduced-motion; light + dark theme
 - Live database: <verified | NOT verified — no credentials; what remains unverified>
 
+### Languages
+- Locales shipped: <every locale in LOCALES at this date, e.g. en, de>
+- Gates: typecheck / catalogue parity / chemistry-names / game-titles: <green>
+- e2e locale block: <green>; page test in a non-English locale: <green>
+- Check 1 (text correct): <per locale — what was played through; any leaked English found and fixed>
+- Check 2 (understandable): <per locale — read-aloud pass by whom; strings rated low in review-notes>
+- Check 3 (chemical names): <names introduced; who checked them; naming rules taught and how they were localised>
+- Check 4 (title): <per locale — proposed title, kind, alternative; for Stella's decision>
+- Native-speaker / teacher review: <done by … | NOT done — listed for review>
+
 ### Deviations from the brief
 <none, or each one with the reason and the doc updated>
 
 ### Screenshots
-<instructions modal, Level 1, a coach message, a hint tier 3, victory overlay>
+<instructions modal, Level 1, a coach message, a hint tier 3, victory overlay — in English,
+then instructions, a coach message, a hint and the victory overlay in each other locale>
 ```
 
 **Approval request** (for a non-buildable brief; post once per brief, as a PR comment):
@@ -198,7 +227,15 @@ npm run lint        # report the count; pre-existing findings are documented in 
 Manual, in a real browser via `npm run dev`: golden path to victory, a loss/abandon path,
 pause/settings/instructions interplay (`pausedByModalRef` — no double pause), every hint tier,
 Support mode on, keyboard-only, touch preset, `prefers-reduced-motion`, light and dark theme.
-Then the per-game checklist in `ACCESSIBILITY.md` §8.
+Then the per-game checklist in `ACCESSIBILITY.md` §8. Then, **in every other locale**
+(switch with the language selector in Settings, or open `/<locale>/games/<slug>`): the four
+language checks in `GAME_DESIGN_CHECKLIST.md` §3 — text correct with no English leaking,
+understandable at reading age ~12 in that language, chemical names right for that language,
+title reads well — and the layout at 375 px in the longest locale.
+
+Language gates (all part of `npm test`): the catalogue parity tests, `chemistry-names.test.ts`,
+`cheat-sheets.test.ts`, `game-titles.test.ts`; plus the locale block in `e2e/<slug>.spec.ts`
+(`docs/i18n/GAMES.md` § Testing).
 
 Data integrity: any new chemistry data gets a spec in `src/core-engine/tests/` in the style of
 `compounds.test.ts`; the brief's Definition of done names the specific assertions.
@@ -223,6 +260,8 @@ Data integrity: any new chemistry data gets a spec in `src/core-engine/tests/` i
 - Every non-buildable brief has an approval-request comment listing its open items.
 - Foundations F1–F9 merged and used by every new game (no private copies of
   `CoachPanel`/`GlossaryTerm`/parser/`MassBalance`).
+- Every built game plays in every locale in `LOCALES`, with its four language checks reported
+  per locale and its title per locale decided in the brief.
 - `TESTING.md` known issues fixed by this work are removed and their `it.fails` tests promoted.
 - `docs/game-briefs/README.md` index updated with each game's real status and slug;
   `AGENT_INSTRUCTIONS.md` updated wherever the code and the doc drifted during the build.

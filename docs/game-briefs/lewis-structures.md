@@ -355,3 +355,35 @@ Build decisions that touch the pedagogy (also for review):
 - `{n} loner(s)` is rendered with real plurals ("1 loner", "2 loners").
 - **Molecule `tier2Hint`, `propertyLine` and `bondLine` text** was written during the build
   (the brief specifies the fields, with one example each) — see `lewis-molecules.ts`.
+
+## Languages
+
+Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
+above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
+
+**Status (2026-09-18):** built in English only. `lewis-structures-messages.ts` has no German
+(or other) counterpart yet; the `i18n` branch lists this game under "Known gaps" and notes
+the German glossary already fixes its terms (*Lewis-Formel*, *freies Elektronenpaar*,
+*Atombindung*, *Valenzelektronen*, *Oktettregel*). Translating the catalogue into every locale
+is the open item; the four language checks have not been run.
+
+| Locale | Title | Kind | Hub description | Notes / alternative |
+|---|---|---|---|---|
+| en | Share to Fill | — | Pair up the loners to build a molecule. | The title is the rule (rev 3 decision). |
+| de | Schalen füllen | adaptation | Bring die Einzelgänger zusammen und baue ein Molekül. | Proposal: names the rule (fill the shells) in the imperative pattern the German hub already uses (*Neutralisieren!*). A literal *Teilen* is avoided because it also means *divide*. Alternative: *Volle Schale*. Check it does not read as a chore. > YOU DECIDE |
+| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+
+**Terms to fix in each glossary before translating:** the coined **loner** (unpaired electron —
+de candidates: *Einzelgänger* as the game word, glossed as *ungepaartes Elektron*; decide one),
+lone pair (*freies Elektronenpaar*), shared pair / bond (*bindendes Elektronenpaar* /
+*Atombindung*), single / double / triple bond, octet and **duet** (de: *Oktettregel*; the
+hydrogen "full at 2" rule — *Duett-Regel* or *Edelgasregel*, decide), outer / valence electron
+(*Valenzelektronen* — the game says *outer electron* at Year 10; keep that register),
+Lewis structure (*Lewis-Formel*), the *marking sheet* of inspect mode, *Support mode*.
+**Chemistry names the game introduces:** the 18 molecules in `lewis-molecules.ts` — those not in
+`compounds.ts` need a name in `chemistry-names/<locale>.ts` keyed by molecule id (H₂, Cl₂, N₂,
+O₂ and the hydrides are element names plus a molecular name, e.g. de *Wasserstoff* for H₂).
+**Dataset prose to overlay:** `lewis-molecules.ts` `name`, `tier2Hint`, `propertyLine`,
+`bondLine` is notation and stays.
+**Count-dependent strings:** "{n} loner(s)", the bond and lone-pair counts in `coach.complete`,
+`success.round` and the counting questions, "{count} of 8".

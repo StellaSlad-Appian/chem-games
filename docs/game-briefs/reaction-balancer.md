@@ -310,3 +310,34 @@ taken where the brief and the dataset disagreed — flagged for review, not sile
   "take it back to n" (`hint.tier3Lower`) rather than pushing towards a larger multiple.
 - The `balancing-equations` concept was already Year 10 in the seed; the migration only
   refreshes its description and activates the game.
+
+## Languages
+
+Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
+above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
+
+**Status (2026-09-18):** built in English only. The German dictionary's
+`games.reactionBalancer` namespace (on the `i18n` branch) covers the *old* arena's strings,
+not this redesign's `reaction-balancer-messages.ts`; translating that catalogue into every
+locale (and converting its arrow-function templates to `{placeholder}` strings) is the open
+item before the game meets the rule. The four language checks have not been run.
+
+| Locale | Title | Kind | Hub description | Notes / alternative |
+|---|---|---|---|---|
+| en | Reaction Balancer | — | Make the atoms match on both sides of the arrow. | — |
+| de | Gleichungs-Werkstatt | adaptation | Die Atome müssen auf beiden Seiten des Pfeils übereinstimmen. | Proposal. The dictionary currently says *Reaktions-Balancer*, which the German review rates *low* as a clunky coinage and suggests this alternative. Alternative: keep *Reaction Balancer* as a product name. Do **not** describe the goal with *Gleichgewicht* — that is chemical *equilibrium*, a different concept. > YOU DECIDE |
+| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+
+**Terms to fix in each glossary before translating:** coefficient / subscript (de: *Koeffizient*
+/ *Index* — the distinction the whole game turns on), reactant / product (*Edukt* / *Produkt*),
+conserved / conservation of mass (*Massenerhaltung*), balanced equation, lowest whole-number
+ratio, the *atom ledger* (de dictionary: *Atombilanz*), the *mass beam*, *lab notebook*,
+*Challenge* level, *word equation*, *Support mode*, the state symbols (kept as `(s) (l) (g) (aq)`,
+explained in the glossary in that language).
+**Chemistry names the game introduces:** every species `name` in `reactions.ts` (rendered on
+cards, in the ledger's accessible text and in the Challenge picker) — overlay by species id;
+the reaction names ("Water Synthesis") shown in the header and notebook — overlay by reaction id.
+**Dataset prose to overlay:** `reactions.ts` `name`, `description` (the observation line),
+`hint` (hint tier 2) and `prompt` (the Challenge word equation) per reaction.
+**Count-dependent strings:** the ledger row readouts ("1 more needed on the right"), the
+particle-cluster accessible counts, "Reaction {n}/{total}".

@@ -184,3 +184,28 @@ functional-groups and organic-nomenclature sheets.
 4. Structure display: condensed formulas via `MoleculeText` for the MVP, or wait for the shared
    skeletal SVG renderer? (Recommendation: ship condensed, upgrade later — the renderer is a
    platform component, not a game feature.)
+
+## 12. Languages
+
+Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
+above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
+Resolve the table before `Approved`.
+
+| Locale | Title | Kind | Hub description | Notes / alternative |
+|---|---|---|---|---|
+| en | Synthesis Router | — | Route a starting molecule to the target with the right reagents in the fewest steps. | Proposal. > YOU DECIDE |
+| de | Syntheseplaner | adaptation | Führe das Ausgangsmolekül mit den richtigen Reagenzien in möglichst wenigen Schritten zum Ziel. | *Router* is a network device in German and *Route* reads as travel; *Syntheseplaner* (synthesis planner) says what the player does. Alternative: *Synthese-Route*. > YOU DECIDE |
+| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+
+**Terms to fix in each glossary before translating:** reaction pathway (de: *Syntheseweg* /
+*Reaktionsweg*), reagent (*Reagenz*), catalyst, functional group and the group names (already
+in the glossary), addition / substitution / oxidation / esterification / hydrolysis
+(*Veresterung*, *Hydrolyse*), primary / secondary / tertiary alcohol, yield and **atom economy**
+(*Atomökonomie*), the coined **reagent shelf**, **track** and **order**, *exam mode*.
+**Chemistry names the game introduces:** every molecule in the new `organic-molecules.ts` —
+name per locale by molecule id, following that language's IUPAC conventions (de esters are
+*…säure…ester*, not *-oat*; see the glossary's naming table). The observation texts ("bromine
+water: orange → colourless") name reagents and colours — both translated, the formulae not.
+**Dataset prose to overlay:** molecule `name`, per-reaction `observation` and explanation, the
+order descriptions, the pathway text export.
+**Count-dependent strings:** "{n} steps", "{n} of {budget}".
