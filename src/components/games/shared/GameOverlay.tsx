@@ -24,6 +24,8 @@ interface GameOverlayProps {
   customMessages?: Partial<Record<string, OverlayMessageConfig>>;
   /** An optional third button (e.g. "Open marking sheet") shown on the victory card. */
   extraAction?: { label: string; onClick: () => void };
+  /** Several extra buttons (e.g. "Try the Challenge level" and "Open lab notebook"). */
+  extraActions?: { label: string; onClick: () => void }[];
 }
 
 const STATE_STYLES: Record<Exclude<GameState, 'playing'>, { accent: string }> = {
@@ -46,6 +48,7 @@ export default function GameOverlay({
   onRestart,
   customMessages,
   extraAction,
+  extraActions,
 }: GameOverlayProps) {
   const { playSound } = useSound();
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -216,15 +219,16 @@ export default function GameOverlay({
           onPrimary={gameState === 'failed' || gameState === 'victory' ? restart : resume}
         />
 
-        {extraAction && (
+        {[...(extraAction ? [extraAction] : []), ...(extraActions ?? [])].map((action) => (
           <button
+            key={action.label}
             type="button"
-            onClick={extraAction.onClick}
+            onClick={action.onClick}
             className="mt-2 w-full cursor-pointer rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
           >
-            {extraAction.label}
+            {action.label}
           </button>
-        )}
+        ))}
 
         <p className="mt-4 text-xs font-medium text-(--muted)">{keyHint}</p>
       </div>

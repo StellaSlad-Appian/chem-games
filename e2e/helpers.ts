@@ -19,20 +19,37 @@ export const GAME_SLUGS: GameSlug[] = [
 ];
 
 /**
- * Navigates to a game and waits for its shell. Neutralise and Share to Fill
- * show a first-visit instructions modal; it is skipped unless
- * `showNeutraliseIntro` / `showLewisIntro` is set. Share to Fill's guided
- * first molecules are skipped too unless `showLewisGuide` is set.
+ * Navigates to a game and waits for its shell. Neutralise, Share to Fill and
+ * Reaction Balancer show a first-visit instructions modal; it is skipped
+ * unless `showNeutraliseIntro` / `showLewisIntro` / `showBalancerIntro` is
+ * set. The guided first rounds of Share to Fill and Reaction Balancer are
+ * skipped too unless `showLewisGuide` / `showBalancerGuide` is set.
  */
 export async function openGame(
   page: Page,
   slug: GameSlug,
-  options: { showNeutraliseIntro?: boolean; showLewisIntro?: boolean; showLewisGuide?: boolean } = {}
+  options: {
+    showNeutraliseIntro?: boolean;
+    showLewisIntro?: boolean;
+    showLewisGuide?: boolean;
+    showBalancerIntro?: boolean;
+    showBalancerGuide?: boolean;
+  } = {}
 ): Promise<void> {
   if (slug === 'neutralise' && !options.showNeutraliseIntro) {
     await page.addInitScript(() => {
       window.localStorage.setItem('hasSeenNeutraliseInstructions', 'true');
     });
+  }
+  if (slug === 'reaction-balancer') {
+    const { showBalancerIntro = false, showBalancerGuide = false } = options;
+    await page.addInitScript(
+      ({ intro, guide }) => {
+        if (!intro) window.localStorage.setItem('hasSeenReactionBalancerInstructions', 'true');
+        if (!guide) window.localStorage.setItem('reactionBalancerGuidedSeen', 'true');
+      },
+      { intro: showBalancerIntro, guide: showBalancerGuide }
+    );
   }
   if (slug === 'lewis-structures') {
     const { showLewisIntro = false, showLewisGuide = false } = options;

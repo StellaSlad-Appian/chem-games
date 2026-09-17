@@ -4,7 +4,7 @@ import { ELEMENTS_REGISTRY } from '../data/elements';
 import { gcd, parseEquationSide, tallySide } from './helpers/formula';
 
 const KNOWN_SYMBOLS = new Set(ELEMENTS_REGISTRY.map((e) => e.symbol));
-const DIFFICULTIES = ['intro', 'beginner', 'intermediate', 'advanced'];
+const BALANCER_MAX_LEVEL = 4;
 
 const sides = (equation: string) => {
   const parts = equation.split('->');
@@ -61,16 +61,28 @@ describe('Reaction Balancer answer key (reactions.ts)', () => {
     });
   });
 
-  it('provides a hint, description and a known difficulty for every reaction', () => {
+  it('provides a hint, a description and an explicit Reaction Balancer level (0-4) for every reaction', () => {
     reactions.forEach((r) => {
       expect(r.hint, r.id).toBeTruthy();
       expect(r.description, r.id).toBeTruthy();
-      expect(DIFFICULTIES, r.id).toContain(r.difficulty);
+      const level = r.levels['reaction-balancer'];
+      expect(Number.isInteger(level), `${r.id} level`).toBe(true);
+      expect(level, `${r.id} level`).toBeGreaterThanOrEqual(0);
+      expect(level, `${r.id} level`).toBeLessThanOrEqual(BALANCER_MAX_LEVEL);
     });
   });
 
-  it('opens with the water synthesis reaction (level 1 of the game)', () => {
+  it('opens with the water synthesis reaction (level 1 of the game), written with state symbols', () => {
     expect(reactions[0].name).toBe('Water Synthesis');
-    expect(reactions[0].equation).toBe('2H2 + O2 -> 2H2O');
+    expect(reactions[0].equation).toBe('2H2(g) + O2(g) -> 2H2O(l)');
+  });
+
+  it('writes a state symbol on every species', () => {
+    reactions.forEach((r) => {
+      const { left, right } = sides(r.equation);
+      [...left, ...right].forEach(({ formula }) => {
+        expect(formula, `${r.id}: ${formula}`).toMatch(/\((s|l|g|aq)\)$/);
+      });
+    });
   });
 });

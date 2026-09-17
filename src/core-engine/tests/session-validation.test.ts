@@ -18,7 +18,7 @@ import { ACID_CLASSIFICATION_CONFIG } from '../config/games/acid-classification-
 import { FORMULA_BLASTER_CONFIG } from '../config/games/formula-blaster-config';
 import { NEUTRALISE_CONFIG, NEUTRALISE_LEVEL_DATA } from '../config/games/neutralise-config';
 import { getEnemiesPerWave } from '../utils/level-manager';
-import { reactions } from '../data/reactions';
+import { REACTION_BALANCER_CONFIG } from '../config/games/reaction-balancer-config';
 import { LEWIS_STRUCTURES_CONFIG } from '../config/games/lewis-structures-config';
 import { compoundsAtDifficulty } from '@/test-utils/registry';
 
@@ -40,6 +40,7 @@ const catalogueIsExhaustive: MissingFromCatalogue extends never ? true : false =
 const MIGRATIONS = [
   'supabase/migrations/20260914_game_session_guards.sql',
   'supabase/migrations/20260917_add_lewis_structures_game.sql',
+  'supabase/migrations/20260918_activate_reaction_balancer.sql',
 ].map((file) => resolve(process.cwd(), file));
 
 /** The (id, max_score, max_level) rows seeded by the migrations. */
@@ -158,11 +159,13 @@ describe('GAME_SESSION_LIMITS', () => {
     );
   });
 
-  it('reaction-balancer: 150 per balanced equation, two passes through the reactions', () => {
-    // The arena calls onReactionComplete(150) once per level.
-    const POINTS_PER_EQUATION = 150;
-    expect(GAME_SESSION_LIMITS['reaction-balancer'].maxLevel).toBe(reactions.length * 2);
-    expectDerivedFrom('reaction-balancer', () => POINTS_PER_EQUATION);
+  it('reaction-balancer: reactions x (100 x level + lowest-terms bonus) per level, Challenge included', () => {
+    const { levels, mechanics } = REACTION_BALANCER_CONFIG;
+    expect(GAME_SESSION_LIMITS['reaction-balancer'].maxLevel).toBe(levels.challengeLevel);
+    expectDerivedFrom(
+      'reaction-balancer',
+      (level) => levels.reactionsPerLevel * (mechanics.pointsPerLevelMultiplier * level + mechanics.lowestTermsBonus)
+    );
   });
 });
 
