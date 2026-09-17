@@ -33,7 +33,6 @@ test.describe('Share to Fill (Lewis structures)', () => {
 
     await expect(page.getByTestId('round-complete')).toContainText(M.success.round('Hydrogen', 'H-H'));
     await expect(page.getByText('H: 2 of 2').first()).toBeVisible();
-    await expect(page.getByTestId('bond-line-readout')).toHaveText('H-H');
     await expect(page.getByText(`Score ${100 + 50}`)).toBeVisible();
     await expect(arena(page)).toHaveAttribute('data-phase', 'done');
   });

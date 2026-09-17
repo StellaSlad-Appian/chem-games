@@ -265,15 +265,6 @@ export const LEWIS_MESSAGES = {
     hintButton: 'Get Hint',
     coachRegion: 'Coach messages',
     canvasLabel: (name: string) => `Dot structure of ${name.toLowerCase()}`,
-    symbolic: {
-      title: 'Symbols',
-      formula: 'Formula',
-      bondLine: 'Bond-line',
-      noBonds: 'no shared pairs yet',
-      perAtom: 'Around each atom',
-      atomRow: (element: string, count: number, full: number, bonds: number, lonePairs: number) =>
-        `${element}: ${count} of ${full} · ${plural(bonds, 'bond', 'bonds')} · ${plural(lonePairs, 'lone pair', 'lone pairs')}`,
-    },
     atom: {
       name: (elementName: string, count: number, full: number) => `${elementName}: ${count} of ${full}`,
       counter: (symbol: string, count: number, full: number) => `${symbol}: ${count} of ${full}`,

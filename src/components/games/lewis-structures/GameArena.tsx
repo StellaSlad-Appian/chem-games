@@ -6,7 +6,6 @@ import { Lightbulb, X } from 'lucide-react';
 import AtomCanvas, { type AtomCanvasLabels } from '@/components/games/shared/AtomCanvas';
 import CoachPanel from '@/components/games/shared/CoachPanel';
 import { GlossaryText, type GlossaryEntry } from '@/components/games/shared/GlossaryTerm';
-import MoleculeText from '@/components/ui/MoleculeText';
 import { LEWIS_STRUCTURES_CONFIG } from '@/core-engine/config/games/lewis-structures-config';
 import { LEWIS_MESSAGES } from '@/core-engine/config/games/lewis-structures-messages';
 import type { LewisErrorType } from '@/core-engine/types/chemistry';
@@ -52,7 +51,7 @@ const ghostClass =
 
 export default function LewisStructuresArena({ game, level, isPaused }: GameArenaProps) {
   const { playSound } = useSound();
-  const { round, structure, phase, canvasMode, coach, hint, symbolic, actions } = game;
+  const { round, structure, phase, canvasMode, coach, hint, actions } = game;
   const molecule = round.molecule;
   const glossaryText = useCallback((text: string) => <GlossaryText text={text} glossary={LEWIS_GLOSSARY} />, []);
 
@@ -157,8 +156,7 @@ export default function LewisStructuresArena({ game, level, isPaused }: GameAren
         pulseLoners={level <= CFG.visuals.pulseUnpairedUntilLevel}
       />
 
-      <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_16rem]">
-        <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3">
           {phase === 'done' ? (
             <section
               data-testid="round-complete"
@@ -251,28 +249,6 @@ export default function LewisStructuresArena({ game, level, isPaused }: GameAren
           {inspecting && phase === 'pickDiagnosis' && (
             <p className="sr-only">{coach.message}</p>
           )}
-        </div>
-
-        {/* Symbolic panel: formula and bond-line update with every pairing. */}
-        <aside aria-label={M.ui.symbolic.title} className="rounded-2xl border-2 border-(--border) bg-(--surface) p-4 text-left" data-testid="symbolic-panel">
-          <p className="text-[10px] font-black uppercase tracking-wider text-(--muted)">{M.ui.symbolic.formula}</p>
-          <p className="mt-1 text-2xl font-black text-(--foreground)">
-            <MoleculeText formula={molecule.formula} />
-            <span className="ml-2 text-sm font-bold text-(--muted)">{molecule.name}</span>
-          </p>
-          <p className="mt-3 text-[10px] font-black uppercase tracking-wider text-(--muted)">{M.ui.symbolic.bondLine}</p>
-          <p className="mt-1 font-mono text-sm font-bold text-(--foreground)" data-testid="bond-line-readout">
-            {symbolic.bondLines.length ? symbolic.bondLines.join(' · ') : <span className="text-(--muted)">{M.ui.symbolic.noBonds}</span>}
-          </p>
-          <p className="mt-3 text-[10px] font-black uppercase tracking-wider text-(--muted)">{M.ui.symbolic.perAtom}</p>
-          <ul className="mt-1 space-y-1 text-xs font-bold text-(--foreground)">
-            {symbolic.atoms.map((a) => (
-              <li key={a.id} data-testid="atom-row">
-                {M.ui.symbolic.atomRow(a.element, a.count, a.full, a.bonds, a.lonePairs)}
-              </li>
-            ))}
-          </ul>
-        </aside>
       </div>
     </div>
   );

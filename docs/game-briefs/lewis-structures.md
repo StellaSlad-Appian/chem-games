@@ -1,8 +1,8 @@
 # Game Concept Brief: Share to Fill (Lewis Structures)
 
-**Status:** Approved — rev 3, 2026-09-16 (scope: Year 10, covalent only, "interpret" = spot
-and fix errors; molecule list, Marking-mode counting questions and title decided — see
-"Decisions" at the end)
+**Status:** Approved — rev 4, 2026-09-17 (rev 3 scope unchanged: Year 10, covalent only,
+"interpret" = spot and fix errors; rev 4 removes the symbolic side panel — see "Decisions"
+at the end)
 **Hub title / description:** Share to Fill — "Pair up the loners to build a molecule."
 **Slug (everywhere):** `lewis-structures` — add to `GameName`, `GameThemeScope`, route,
 `games.id`, `concept_games`
@@ -58,7 +58,7 @@ correctly, those are not Year 10 content and must stay out of the molecule list.
 | Level | In the game |
 |---|---|
 | Submicroscopic (primary) | Atoms as symbols with their valence electrons as dots on four sides (the Lewis convention). Unpaired dots pulse gently; lone pairs sit still. Dragging pairs two unpaired dots into a **shared pair** drawn between the atoms; the atoms slide together. A fill ring around each atom shows its electron count (2/8 for H, n/8 for others) and closes when full |
-| Symbolic (live) | The molecular formula builds as atoms are added; the **bond-line structure** (H–O–H, O=C=O) is drawn alongside the dot structure and updates as pairs form — students see that a line *is* a shared pair. Bond count and lone-pair count per atom are shown as text |
+| Symbolic (live) | The name and formula sit in the header task line ("Build: water (H2O)"). Every shared pair is drawn as a **bond line** between the atoms the moment it forms, so students see that a line *is* a shared pair; the completion message gives the bond-line structure (H–O–H, O=C=O) and the bond / lone-pair counts. Per-atom counts are the text counters under each atom ("O: 8 of 8"). *(Rev 4: no separate formula / bond-line / per-atom text panel beside the canvas.)* |
 | Macroscopic | Light touch, name and one property line when a molecule completes ("Water — a liquid at room temperature; the bent shape you'll meet next year comes from those two lone pairs"). No macroscopic simulation: the concept is particulate |
 
 The scale disclaimer required by the design framework sits in the instructions and the
@@ -298,6 +298,15 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
 3. **Title: Share to Fill.** Students remember a game whose name is the rule; "Octet
    Architect" uses a word they haven't learned yet and hides what you do, and the hub uses
    plain titles. *Octet* is still taught — in the glossary and the "8 of 8" counter.
+
+### Rev 4 (2026-09-17 — Stella)
+
+4. **No symbolic side panel.** The card beside the canvas that repeated the formula (already
+   in the header), listed the bonds as text ("O-H · O-H") and gave per-atom rows was removed:
+   it added no value over the bond lines drawn on the canvas, the text counters under each
+   atom, and the completion message's bond-line and counts. The symbolic layer is now those
+   three things. (`ui.symbolic.*` keys removed from the catalogue; the marking sheet still
+   shows each molecule's formula, bond-line and counts.)
 
 ## Catalogue additions (build, 2026-09-17 — for Stella's review)
 

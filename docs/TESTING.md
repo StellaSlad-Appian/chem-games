@@ -90,7 +90,7 @@ tests live in the files above (see "Bugs the suite found" below).
 | `molecule-bubble` | Acid classification compound bubble | `data-formula` |
 | `blaster-arena`, `blaster-bubble`, `blaster-hint`, `blaster-error` | Formula Blaster arena, floating bubble, hint banner, error tooltip | bubble: `data-formula` |
 | `neutralise-arena`, `invader`, `projectile`, `player-cannon` | Neutralise arena and entities | invader: `data-formula`, `data-health`; projectile and cannon: `data-ion` |
-| `lewis-arena`, `atom-canvas`, `atom`, `loner`, `lone-pair`, `bond-line` (SVG glyph), `bond-button`, `coach-panel`, `lewis-hint`, `round-complete`, `diagnosis-picker`, `count-readout`, `symbolic-panel`, `bond-line-readout`, `lewis-notebook`, `notebook-entry` | Share to Fill arena, canvas and panels | arena: `data-phase`, `data-molecule`; atom: `data-atom-id`, `data-element`, `data-count`; bond-line: `data-bond-id`, `data-order`; hint: `data-tier`. Dots and bonds are buttons named "Oxygen, loner 1 of 2", "Oxygen, lone pair 1 of 2", "Single bond between oxygen and hydrogen — press to undo / press to count" |
+| `lewis-arena`, `atom-canvas`, `atom`, `loner`, `lone-pair`, `bond-line` (SVG glyph), `bond-button`, `coach-panel`, `lewis-hint`, `round-complete`, `diagnosis-picker`, `count-readout`, `lewis-notebook`, `notebook-entry` | Share to Fill arena, canvas and panels | arena: `data-phase`, `data-molecule`; atom: `data-atom-id`, `data-element`, `data-count`; bond-line: `data-bond-id`, `data-order`; hint: `data-tier`. Dots and bonds are buttons named "Oxygen, loner 1 of 2", "Oxygen, lone pair 1 of 2", "Single bond between oxygen and hydrogen — press to undo / press to count" |
 
   The overlay card is `role="dialog"` named by its title (`Game Paused`, `Level Cleared`,
   `Game Over`, `Research Complete`). Footer buttons are found by title (`Pause Game`,
@@ -197,7 +197,7 @@ case there, never by loosening the assertion.
 | --- | --- | --- |
 | First visit shows the instructions and freezes the canvas until "GOT IT"; later visits skip them | `page.test.tsx` "opens the instructions…", "skips the instructions…" | `lewis-structures.spec.ts` "first visit shows the instructions…" |
 | Level 1 opens with hydrogen; header shows Molecule 1/3, "Build: hydrogen (H2)", Level 01, Score 0 | "skips the instructions once seen…" | "level 1 opens with hydrogen…" |
-| Tap loner, tap loner (or drag) makes a shared pair; the structure locks itself; bond-line and counters update | "runs the guided H2 script…" | "…locks the structure", "dragging a loner…" |
+| Tap loner, tap loner (or drag) makes a shared pair; the structure locks itself; the bond line and counters update | "runs the guided H2 script…" | "…locks the structure", "dragging a loner…" |
 | Guided H₂ / H₂O scripts run once, advance on pairs, end on the lock line, then never reappear | "runs the guided H2 script…", "clears Level 1…" | — |
 | Lone-pair dot / same-atom / full-atom moves get a diagnostic that says what to try | "shows the paired-dot and same-atom diagnostics…" | "a lone-pair dot is refused…" |
 | Hint ladder: H key or lightbulb, tier 1 free, tier 2 = molecule strategy, tier 3 names the pair (dots glow); tier 2+ forfeits the bonus | "offers three hint tiers…" | "…the hint ladder climbs…" |

@@ -14,7 +14,6 @@ import { LEWIS_MOLECULES, atomId as makeAtomId, getLewisMolecule, moleculesForLe
 import type { LewisDiagnosis, LewisErrorType, LewisMoleculeData, LewisStructure } from '@/core-engine/types/chemistry';
 import {
   applicableMutations,
-  bondLineText,
   countAround,
   countBonds,
   countLonePairs,
@@ -708,21 +707,6 @@ export function useLewisStructures({
 
   const accuracy = supportMode || roundsPlayed === 0 ? null : Math.round((roundsWithoutTier3 / roundsPlayed) * 100);
 
-  const symbolic = useMemo(() => {
-    const { structure } = roundState;
-    return {
-      bondLines: bondLineText(structure),
-      atoms: structure.atoms.map((a) => ({
-        id: a.id,
-        element: a.element,
-        count: countAround(structure, a.id),
-        full: fullCount(a.element),
-        bonds: structure.bonds.filter((b) => b.sourceNodeId === a.id || b.targetNodeId === a.id).length,
-        lonePairs: a.lonePairs,
-      })),
-    };
-  }, [roundState]);
-
   return {
     level: plan.level,
     round,
@@ -744,7 +728,6 @@ export function useLewisStructures({
     coach,
     hint,
     hintsUsed: hints.highestTierUsed,
-    symbolic,
     results,
     roundsPlayed,
     accuracy,
