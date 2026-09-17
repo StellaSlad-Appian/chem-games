@@ -85,22 +85,37 @@ export const GAME_SESSION_LIMITS: Record<GameName, GameSessionLimits> = {
     minDurationSeconds: 5,
   },
 
-  // The arena awards a flat 150 per balanced equation, one equation per
-  // level, and records the cumulative score after every level. There are 30
-  // reactions; the page cycles through them ((level - 1) % 30) and never
-  // ends, so the cap allows two full passes.
-  //   largest single level: 150       -> maxScorePerLevel 300
-  //   cumulative through level 60: 9000 -> maxScore 18000
-  // Level 1 (H2 + O2 -> H2O) can honestly be balanced in a second or two.
+  // REACTION_BALANCER_CONFIG: 4 levels plus the optional Challenge level 5,
+  // reactionsPerLevel 3. A locked equation awards pointsPerLevelMultiplier
+  // 100 x level plus the lowestTermsBonus 50, so a level awards at most
+  // 3 x (100 x level + 50):
+  //   450, 750, 1050, 1350, 1650 -> largest single level 1650 -> maxScorePerLevel 3300
+  //   best full run incl. Challenge: 5250                      -> maxScore 10500
+  // A run is recorded at victory (12 locked equations), after the Challenge,
+  // or on exit (abandoned); the guided first reaction alone takes a few seconds.
   'reaction-balancer': {
-    maxLevel: 60,
-    maxScorePerLevel: 300,
+    maxLevel: 5,
+    maxScorePerLevel: 3300,
+    maxScore: 10500,
+    minDurationSeconds: 5,
+  },
+
+  // LEWIS_STRUCTURES_CONFIG: 5 levels with roundsByLevel [3, 5, 5, 5, 6]. A
+  // round awards pointsPerLevelMultiplier 100 x level plus the noHintBonus 50,
+  // so a level awards at most rounds x (100 x level + 50):
+  //   450, 1250, 1750, 2250, 3300 -> largest single level 3300 -> maxScorePerLevel 6600
+  //   best full run: 9000                                      -> maxScore 18000
+  // A run is recorded only at victory (29 rounds) or on exit (abandoned), so
+  // a non-abandoned session cannot honestly be shorter than a few seconds.
+  'lewis-structures': {
+    maxLevel: 5,
+    maxScorePerLevel: 6600,
     maxScore: 18000,
-    minDurationSeconds: 1,
+    minDurationSeconds: 5,
   },
 
   // Not built yet (the catalogue row is inactive and there is no page), so
-  // these are placeholders. Revisit them, and the migration seed, when the
+  // these are placeholders.Revisit them, and the migration seed, when the
   // game ships.
   'bond-builder': {
     maxLevel: 10,

@@ -1,399 +1,255 @@
+// src/components/games/reaction-balancer/GameArena.tsx
 'use client';
 
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-
-import { reactions } from '@/core-engine/data/reactions';
+import { useCallback, useEffect, useRef } from 'react';
+import { Lightbulb, X } from 'lucide-react';
+import CoachPanel from '@/components/games/shared/CoachPanel';
+import RichMessage from '@/components/games/shared/RichMessage';
+import MoleculeText from '@/components/ui/MoleculeText';
+import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
+import { REACTION_BALANCER_CONFIG } from '@/core-engine/config/games/reaction-balancer-config';
+import type { ReactionBalancerGame } from '@/hooks/useReactionBalancer';
+import { useInputMethod } from '@/hooks/useInputMethod';
 import { useSound } from '@/hooks/useSound';
+import AtomLedger from './AtomLedger';
+import ChallengeBuilder from './ChallengeBuilder';
+import CompoundCard from './CompoundCard';
+import { BALANCER_GLOSSARY } from './Instructions';
+import MassBeam from './MassBeam';
 
-import ReactionMoleculeCard from './ReactionMoleculeCard';
-import AtomInventory from './AtomInventory';
-import { useI18n } from '@/i18n/client';
+const M = REACTION_BALANCER_MESSAGES;
+const CFG = REACTION_BALANCER_CONFIG;
 
-interface ReactionBalancerArenaProps {
-  level: number;
-  onReactionComplete: (points: number) => void;
+interface GameArenaProps {
+  game: ReactionBalancerGame;
   isPaused: boolean;
 }
 
-export default function ReactionBalancerArena({
-  level,
-  onReactionComplete,
-  isPaused,
-}: ReactionBalancerArenaProps) {
-  const { t } = useI18n();
+const buttonClass =
+  'cursor-pointer rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-blue-600 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50';
+const ghostClass =
+  'cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-blue-500 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50';
+
+/**
+ * Presentational: the equation as cards, the ledger, the mass beam, the
+ * coach strip and the hint ladder. All rules live in useReactionBalancer.
+ */
+export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps) {
   const { playSound } = useSound();
+  const touch = useInputMethod() === 'touch';
+  const { round, parsed, coefficients, phase, coach, hint, actions, scaffold } = game;
+  const disabled = isPaused || phase === 'done';
+  const richText = useCallback((text: string) => <RichMessage text={text} glossary={BALANCER_GLOSSARY} />, []);
 
-  /*
-   * ---------------------------------------------------------
-   * Reaction selection
-   * ---------------------------------------------------------
-   *
-   * Keep the current level-selection behaviour for now.
-   */
-  const currentReactionData = useMemo(() => {
-    return reactions[
-      (level - 1) % reactions.length
-    ];
-  }, [level]);
-
-  /*
-   * ---------------------------------------------------------
-   * Parse equation
-   * ---------------------------------------------------------
-   */
-
-  const parsedReaction = useMemo(() => {
-    const parseCompound = (raw: string) => {
-      const match = raw
-        .trim()
-        .match(/^(\d*)(.*)$/);
-
-      const coefficientString =
-        match?.[1] ?? '';
-
-      const compoundId =
-        match?.[2]?.trim() ||
-        raw.trim();
-
-      return {
-        compoundId,
-        targetCoefficient:
-          coefficientString !== ''
-            ? parseInt(
-                coefficientString,
-                10
-              )
-            : 1,
-      };
-    };
-
-    const [
-      reactantsString,
-      productsString,
-    ] =
-      currentReactionData.equation.split(
-        '->'
-      );
-
-    return {
-      reactants: reactantsString
-        .split('+')
-        .map(parseCompound),
-
-      products: productsString
-        .split('+')
-        .map(parseCompound),
-    };
-  }, [currentReactionData.equation]);
-
-  /*
-   * ---------------------------------------------------------
-   * Coefficient state
-   * ---------------------------------------------------------
-   */
-
-  const [reactantCoeffs, setReactantCoeffs] =
-    useState<(number | '')[]>([]);
-
-  const [productCoeffs, setProductCoeffs] =
-    useState<(number | '')[]>([]);
-
-  /*
-   * Controls whether the Atom Balance scaffold
-   * is visible.
-   */
-  const [showBalance, setShowBalance] =
-    useState(false);
-
-  useEffect(() => {
-    setReactantCoeffs(
-      parsedReaction.reactants.map(() => '')
-    );
-
-    setProductCoeffs(
-      parsedReaction.products.map(() => '')
-    );
-
-    // Every new reaction starts with the
-    // balance scaffold hidden.
-    setShowBalance(false);
-  }, [parsedReaction]);
-
-  /*
-   * ---------------------------------------------------------
-   * Input handlers
-   * ---------------------------------------------------------
-   */
-
-  const updateReactant = useCallback(
+  const onSet = useCallback(
     (index: number, value: number | '') => {
-      if (isPaused) {
-        return;
+      const result = actions.setCoefficient(index, value);
+      if (!result.ok) {
+        if (result.reason !== 'paused') playSound('equation-error');
+        return { ok: false };
       }
-
-      playSound('click');
-
-      setReactantCoeffs((previous) => {
-        const next = [...previous];
-        next[index] = value;
-        return next;
-      });
+      playSound(result.locked ? 'equation-balanced' : 'coefficient-tick');
+      return { ok: true };
     },
-    [isPaused, playSound]
+    [actions, playSound]
   );
-
-  const updateProduct = useCallback(
-    (index: number, value: number | '') => {
-      if (isPaused) {
-        return;
-      }
-
-      playSound('click');
-
-      setProductCoeffs((previous) => {
-        const next = [...previous];
-        next[index] = value;
-        return next;
-      });
-    },
-    [isPaused, playSound]
-  );
-
-  /*
-   * ---------------------------------------------------------
-   * Answer validation
-   * ---------------------------------------------------------
-   */
-
-  const checkBalance = useCallback(() => {
-    const reactantsCorrect =
-      reactantCoeffs.every(
-        (value, index) =>
-          (value === ''
-            ? 1
-            : value) ===
-          parsedReaction.reactants[index]
-            .targetCoefficient
-      );
-
-    const productsCorrect =
-      productCoeffs.every(
-        (value, index) =>
-          (value === ''
-            ? 1
-            : value) ===
-          parsedReaction.products[index]
-            .targetCoefficient
-      );
-
-    if (
-      reactantsCorrect &&
-      productsCorrect
-    ) {
-      playSound('equation-balanced');
-      onReactionComplete(150);
-      return;
-    }
-
+  const onIncrement = useCallback((index: number) => onSet(index, (coefficients[index] ?? 1) + 1), [onSet, coefficients]);
+  const onDecrement = useCallback((index: number) => onSet(index, (coefficients[index] ?? 1) - 1), [onSet, coefficients]);
+  const onTapSubscript = useCallback(() => {
+    actions.tapSubscript();
     playSound('equation-error');
-  }, [
-    reactantCoeffs,
-    productCoeffs,
-    parsedReaction,
-    playSound,
-    onReactionComplete,
-  ]);
+  }, [actions, playSound]);
+  const onAddSpecies = useCallback(
+    (bare: string) => {
+      const result = actions.addSpecies(bare);
+      if (!result.ok) playSound('equation-error');
+      else playSound(result.built ? 'equation-balanced' : 'coefficient-tick');
+    },
+    [actions, playSound]
+  );
 
-  /*
-   * ---------------------------------------------------------
-   * Render
-   * ---------------------------------------------------------
-   */
+  // Move focus to "Next" when a round locks, without scrolling.
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (phase === 'done') nextButtonRef.current?.focus({ preventScroll: true });
+  }, [phase]);
+
+  const nextLabel = game.isLastRound ? M.ui.finishLevel : M.ui.nextReaction;
+  const card = (index: number) => {
+    const species = parsed.species[index];
+    return (
+      <CompoundCard
+        key={`${species.side}-${species.bare}-${index}`}
+        species={species}
+        coefficient={coefficients[index]}
+        disabled={disabled}
+        showClusters={scaffold.clusters}
+        pulse={hint.cardIndex === index}
+        touch={touch}
+        onSet={(value) => onSet(index, value)}
+        onIncrement={() => onIncrement(index)}
+        onDecrement={() => onDecrement(index)}
+        onTapSubscript={onTapSubscript}
+      />
+    );
+  };
+  const plus = (key: string) => (
+    <span key={key} className="text-2xl font-black text-(--muted)" aria-hidden="true">
+      +
+    </span>
+  );
 
   return (
-    <div className="flex min-h-[350px] flex-1 flex-col items-center rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-4 shadow-xl sm:p-6">
-
-      {/* Header */}
-      <div className="mb-4 text-center">
-        <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-blue-400">
-          {currentReactionData.type}
-        </span>
-
-        <h2 className="mt-3 text-2xl font-black text-[var(--foreground)] sm:text-3xl">
-          {currentReactionData.name}
-        </h2>
-
-        <p className="mx-auto mt-1 max-w-xl text-sm leading-relaxed text-[var(--muted)]">
-          {currentReactionData.description}
-        </p>
+    <div className="flex w-full flex-col gap-4" data-testid="balancer-arena" data-phase={phase} data-reaction={round.reaction.id}>
+      {/* Screen-reader announcements: changes are polite, the lock is assertive. */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {game.announcement}
+      </div>
+      <div className="sr-only" role="alert">
+        {game.lockAnnouncement}
       </div>
 
-      {/* Compact instruction */}
-      <p className="mb-6 text-center text-sm font-bold text-blue-300">
-        {t.games.reactionBalancer.prompt}
-      </p>
-
-      {/* Reaction */}
-      <div className="w-full max-w-5xl">
-        <div className="relative grid grid-cols-1 items-start gap-6 md:grid-cols-2 md:gap-12">
-
-          {/* Reactants */}
-          <section className="min-w-0">
-            <div className="mb-3 text-center">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted)]">
-                {t.games.reactionBalancer.reactants}
-              </span>
-            </div>
-
-            <div className="flex min-h-[220px] flex-wrap items-center justify-center gap-2">
-              {parsedReaction.reactants.map(
-                (reactant, index) => (
-                  <div
-                    key={`reactant-${reactant.compoundId}-${index}`}
-                    className="flex items-center gap-2"
-                  >
-                    {index > 0 && (
-                      <span
-                        className="text-2xl font-black text-[var(--muted)]"
-                        aria-hidden="true"
-                      >
-                        +
-                      </span>
-                    )}
-
-                    <ReactionMoleculeCard
-                      formula={
-                        reactant.compoundId
-                      }
-                      coefficient={
-                        reactantCoeffs[index] ??
-                        ''
-                      }
-                      onChange={(value) =>
-                        updateReactant(
-                          index,
-                          value
-                        )
-                      }
-                      disabled={isPaused}
-                    />
-                  </div>
-                )
-              )}
-            </div>
-          </section>
-
-          {/* Products */}
-          <section className="min-w-0">
-            <div className="mb-3 text-center">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted)]">
-                {t.games.reactionBalancer.products}
-              </span>
-            </div>
-
-            <div className="flex min-h-[220px] flex-wrap items-center justify-center gap-2">
-              {parsedReaction.products.map(
-                (product, index) => (
-                  <div
-                    key={`product-${product.compoundId}-${index}`}
-                    className="flex items-center gap-2"
-                  >
-                    {index > 0 && (
-                      <span
-                        className="text-2xl font-black text-[var(--muted)]"
-                        aria-hidden="true"
-                      >
-                        +
-                      </span>
-                    )}
-
-                    <ReactionMoleculeCard
-                      formula={
-                        product.compoundId
-                      }
-                      coefficient={
-                        productCoeffs[index] ??
-                        ''
-                      }
-                      onChange={(value) =>
-                        updateProduct(
-                          index,
-                          value
-                        )
-                      }
-                      disabled={isPaused}
-                    />
-                  </div>
-                )
-              )}
-            </div>
-          </section>
-
-          {/* Reaction arrow */}
-          <div
-            className="
-              pointer-events-none
-              flex items-center justify-center
-              md:absolute
-              md:left-1/2
-              md:top-[calc(50%+12px)]
-              md:-translate-x-1/2
-              md:-translate-y-1/2
-            "
-            aria-hidden="true"
-          >
-            <span className="text-4xl font-light text-blue-400">
-              →
-            </span>
+      {/* Hint ladder */}
+      {hint.text && (
+        <div
+          role="status"
+          data-testid="balancer-hint"
+          data-tier={hint.tier}
+          className="flex items-start gap-3 rounded-2xl border-2 border-amber-500/60 bg-(--surface) p-4 shadow-md"
+        >
+          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-black uppercase tracking-wider text-amber-500">{M.hint.tierLabel(hint.tier)}</p>
+            <p className="mt-1 text-sm font-bold leading-relaxed text-(--foreground)">{richText(hint.text)}</p>
           </div>
+          <button
+            type="button"
+            onClick={actions.dismissHint}
+            aria-label={M.ui.dismissHint}
+            className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--background) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+          >
+            <X className="h-4 w-4" aria-hidden="true" />
+          </button>
         </div>
-      </div>
-
-      {/* Optional atom-balance scaffold */}
-      {showBalance && (
-        <AtomInventory
-          reactants={parsedReaction.reactants}
-          products={parsedReaction.products}
-          reactantCoeffs={reactantCoeffs}
-          productCoeffs={productCoeffs}
-        />
+      )}
+      {game.offerTier2 && !hint.text && (
+        <button type="button" onClick={actions.requestHint} className={`${ghostClass} flex items-center justify-center gap-2 normal-case tracking-normal`}>
+          <Lightbulb className="h-4 w-4 text-amber-500" aria-hidden="true" />
+          {M.stuck.offer}
+        </button>
       )}
 
-      {/* Controls */}
-      <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <button
-          type="button"
-          onClick={() =>
-            setShowBalance(
-              (visible) => !visible
-            )
-          }
-          disabled={isPaused}
-          className="rounded-xl border border-slate-600 bg-slate-900 px-5 py-3 text-sm font-bold text-slate-200 shadow-lg transition-all hover:border-slate-500 hover:bg-slate-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {showBalance
-            ? t.games.reactionBalancer.hideAtomBalance
-            : t.games.reactionBalancer.showAtomBalance}
-        </button>
+      {/* The reaction */}
+      <section
+        aria-label={M.ui.equationLabel(round.reaction.name)}
+        className="flex w-full flex-col items-center gap-4 rounded-2xl border-2 border-(--border) bg-(--surface) p-4 shadow-xl sm:p-6"
+      >
+        <div className="text-center">
+          <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-blue-500">
+            {round.reaction.type}
+          </span>
+          <h2 className="mt-2 text-2xl font-black text-(--foreground) sm:text-3xl">{round.reaction.name}</h2>
+        </div>
 
-        <button
-          type="button"
-          onClick={checkBalance}
-          disabled={isPaused}
-          className="rounded-xl bg-blue-600 px-8 py-3 font-mono text-lg font-bold text-white shadow-lg shadow-blue-500/10 transition-all hover:bg-blue-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {t.games.reactionBalancer.checkAnswer}
-        </button>
-      </div>
+        {phase === 'build' ? (
+          <ChallengeBuilder game={game} disabled={isPaused} touch={touch} onAdd={onAddSpecies} />
+        ) : (
+          <>
+            <div className="flex w-full flex-wrap items-center justify-center gap-2 sm:gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-2" data-testid="reactants">
+                {parsed.reactants.flatMap((_, i) => (i > 0 ? [plus(`plus-r-${i}`), card(i)] : [card(i)]))}
+              </div>
+              <span className="text-3xl font-black text-blue-500" aria-hidden="true">
+                →
+              </span>
+              <div className="flex flex-wrap items-center justify-center gap-2" data-testid="products">
+                {parsed.products.flatMap((_, i) => {
+                  const index = parsed.reactants.length + i;
+                  return i > 0 ? [plus(`plus-p-${i}`), card(index)] : [card(index)];
+                })}
+              </div>
+            </div>
+            {/* The symbolic object, re-rendered on every change. */}
+            <p className="text-center text-lg font-black text-(--foreground) sm:text-xl" data-testid="equation-text">
+              <MoleculeText formula={game.equation} />
+            </p>
+          </>
+        )}
 
-      <p className="mt-3 text-center text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">
-        {t.games.reactionBalancer.editableHint}
-      </p>
+        {game.observation && (
+          <p className="text-center text-sm font-medium leading-relaxed text-(--muted)" data-testid="observation">
+            <span className="text-[10px] font-black uppercase tracking-wider">{M.ui.observation}: </span>
+            {game.observation}
+          </p>
+        )}
+      </section>
+
+      {/* Ledger and beam */}
+      {phase !== 'build' && (
+        <>
+          {!scaffold.ledgerByDefault && (
+            <div className="flex flex-wrap items-center gap-3">
+              <button type="button" onClick={actions.toggleLedger} disabled={isPaused} className={ghostClass} aria-pressed={game.ledgerOpened}>
+                {game.ledgerOpened ? M.ledger.hide : M.ledger.show}
+              </button>
+              {!game.ledgerOpened && phase !== 'done' && <span className="text-xs font-bold text-(--muted)">{M.ledger.showCost}</span>}
+            </div>
+          )}
+          {game.ledgerShown && (
+            <div className="grid gap-4 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+              <AtomLedger rows={game.rows} highlightElement={game.highlightElement} />
+              <MassBeam left={game.massLeft} right={game.massRight} />
+            </div>
+          )}
+        </>
+      )}
+
+      {/* Coach or round-complete */}
+      {phase === 'done' ? (
+        <section
+          data-testid="round-complete"
+          aria-labelledby="balancer-round-complete-title"
+          className="rounded-2xl border-2 border-(--correct) bg-(--surface) p-4 shadow-md"
+        >
+          <p className="text-[10px] font-black uppercase tracking-wider text-(--correct)">{M.success.label}</p>
+          <h2 id="balancer-round-complete-title" className="mt-1 text-2xl font-black text-(--foreground)">
+            {richText(M.success.round(game.equation))}
+          </h2>
+          {coach.message && <p className="mt-2 text-sm font-bold leading-relaxed text-(--foreground)">{richText(coach.message)}</p>}
+          <div className="mt-3 flex flex-wrap items-center gap-3">
+            <span className="rounded-full border border-(--border) bg-(--background) px-3 py-1 text-xs font-black text-(--foreground)">
+              {M.success.points(game.lastPoints)}
+            </span>
+            {game.lastPoints > CFG.mechanics.pointsPerLevelMultiplier * game.level && (
+              <span className="text-xs font-bold text-(--muted)">{M.success.bonus(CFG.mechanics.lowestTermsBonus)}</span>
+            )}
+            <button ref={nextButtonRef} type="button" onClick={actions.next} className={`${buttonClass} ml-auto`}>
+              {nextLabel}
+            </button>
+          </div>
+        </section>
+      ) : (
+        <CoachPanel
+          message={coach.visible ? coach.message : null}
+          label={coach.label}
+          tone={coach.tone}
+          renderText={richText}
+          regionLabel={M.ui.coachRegion}
+        >
+          {game.guided && coach.tone === 'guide' && (
+            <>
+              {game.guideStep === 0 && (
+                <button type="button" onClick={actions.nextGuideStep} className={buttonClass}>
+                  {M.ui.nextStep}
+                </button>
+              )}
+              <button type="button" onClick={actions.skipGuide} className={ghostClass}>
+                {M.ui.skipGuide}
+              </button>
+            </>
+          )}
+        </CoachPanel>
+      )}
     </div>
   );
 }

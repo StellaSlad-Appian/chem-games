@@ -256,4 +256,63 @@
   .animate-slide-in {
     animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+
+  /* Share to Fill: unpaired electrons ("loners") breathe gently so they read as
+     "wants a partner". They are also drawn hollow, so the pulse is never the
+     only cue. */
+  @keyframes loner-pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--game-glow) 55%, transparent); }
+    50%      { transform: scale(1.18); box-shadow: 0 0 0 6px color-mix(in srgb, var(--game-glow) 0%, transparent); }
+  }
+  .loner-pulse {
+    animation: loner-pulse 1.6s ease-in-out infinite;
+  }
+
+  /* Atoms slide to their new place when a shared pair forms. */
+  .atom-move {
+    transition: left 300ms ease-out, top 300ms ease-out;
+  }
+
+  /* Reaction Balancer: the card a tier-3 hint names breathes so the eye finds
+     it; the hint text names it too, so the pulse is never the only cue. */
+  @keyframes card-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, #f59e0b 60%, transparent); }
+    50%      { box-shadow: 0 0 0 8px color-mix(in srgb, #f59e0b 0%, transparent); }
+  }
+  .card-pulse {
+    animation: card-pulse 1.4s ease-in-out infinite;
+  }
+
+  /* A ledger count that just changed ticks up in size, then settles. */
+  @keyframes ledger-tick {
+    0%   { transform: scale(1.35); }
+    100% { transform: scale(1); }
+  }
+  .ledger-tick {
+    display: inline-block;
+    animation: ledger-tick 250ms ease-out;
+  }
+
+  /* The mass beam tips towards the heavier side. */
+  .beam-tilt {
+    transition: transform 300ms ease-out;
+  }
+
+  /* Motion is never the only carrier of meaning; honour the OS setting
+     (docs/ACCESSIBILITY.md §4). Game-specific motion degrades to a static state. */
+  @media (prefers-reduced-motion: reduce) {
+    .shake-animation,
+    .glow-pulse,
+    .animate-slide-in,
+    .overlay-enter,
+    .loner-pulse,
+    .card-pulse,
+    .ledger-tick {
+      animation: none;
+    }
+    .atom-move,
+    .beam-tilt {
+      transition: none;
+    }
+  }
 }

@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { X, Volume2, VolumeX, Moon, Sun } from 'lucide-react';
+import { X, Volume2, VolumeX, Moon, Sun, LifeBuoy } from 'lucide-react';
 import { GameThemeScope, Theme, useGameSettings } from '../../../context/game-settings-context';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { useI18n } from '@/i18n/client';
@@ -13,6 +13,11 @@ interface GameSettingsModalProps {
   onClose: () => void;
   gameId?: GameThemeScope;
   variant?: 'modal' | 'popover'; // <-- Added variant
+  /**
+   * Shows the per-game Support mode switch (coach panel pinned on at every
+   * level). Pass the copy from the game's messages catalogue.
+   */
+  supportMode?: { label: string; description: string };
 }
 
 export default function GameSettingsModal({
@@ -20,6 +25,7 @@ export default function GameSettingsModal({
   onClose,
   gameId,
   variant = 'modal', // Default to modal for existing game pages
+  supportMode,
 }: GameSettingsModalProps) {
   const { t } = useI18n();
   const {
@@ -31,7 +37,10 @@ export default function GameSettingsModal({
     gameThemes,
     setGlobalTheme,
     setGameTheme,
+    supportModes,
+    setSupportMode,
   } = useGameSettings();
+  const isSupportOn = gameId ? supportModes[gameId] === true : false;
 
   const isSoundEnabled = !isMuted;
   const isModal = variant === 'modal';
@@ -143,6 +152,45 @@ export default function GameSettingsModal({
               <section className="flex flex-col gap-4">
                 <LanguageSwitcher variant="panel" />
               </section>
+
+              {/* SUPPORT SECTION (games that opt in) */}
+              {gameId && supportMode && (
+                <section className="flex flex-col gap-4">
+                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                    <LifeBuoy className="h-4 w-4" aria-hidden="true" />
+                    {t.settings.support}
+                  </h3>
+                  <div className="flex flex-row items-center justify-between gap-4 w-full rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
+                    <div>
+                      <span id="support-mode-label" className="block text-sm font-semibold text-[var(--foreground)] select-none">
+                        {supportMode.label}
+                      </span>
+                      <span className="mt-1 block text-xs leading-relaxed text-[var(--muted)]">
+                        {supportMode.description}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={isSupportOn}
+                      aria-labelledby="support-mode-label"
+                      onClick={() => setSupportMode(gameId, !isSupportOn)}
+                      style={{ width: '48px', minWidth: '48px', maxWidth: '48px', height: '28px' }}
+                      className={`relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors p-1 outline-none border focus-visible:ring-2 focus-visible:ring-emerald-500 ${
+                        isSupportOn
+                          ? 'bg-[var(--game-success)] border-emerald-600'
+                          : 'bg-[var(--game-highlight-surface)] border-[var(--game-highlight-border)]'
+                      }`}
+                    >
+                      <span
+                        className={`pointer-events-none inline-block h-5 w-5 rounded-full transition-all duration-200 ${
+                          isSupportOn ? 'translate-x-5 bg-white shadow-md' : 'translate-x-0 bg-slate-400'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </section>
+              )}
 
               {/* AUDIO SECTION */}
               <section className="flex flex-col gap-4">

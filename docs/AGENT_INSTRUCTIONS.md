@@ -78,8 +78,8 @@ low-stakes "Try Again" framing for the tone to match.
 ## Part B — Platform Contract (chem-games specifics)
 
 **Stack:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, Supabase
-(auth + Postgres), no external state-management library. No test runner is currently installed
-(see Gotchas).
+(auth + Postgres), no external state-management library. Tests: Vitest + Playwright (see
+`TESTING.md`).
 
 ### Where things live
 
@@ -95,7 +95,8 @@ src/
     games/
       shared/                 GameShell, GamesHeader, GameFooter, GameOverlay,
                                GameSettingsModal, GameInstructionsModal, GameStats,
-                               GameTimer, GameLives, ErrorBanner, FeedbackBanner
+                               GameTimer, GameLives, ErrorBanner, FeedbackBanner,
+                               CoachPanel, GlossaryTerm (+ GlossaryText), AtomCanvas/
       <game-slug>/             game-specific components (GameArena.tsx + smaller pieces)
     ui/                        generic widgets (ScoreBadge, LevelProgress, ChemIcon, ...)
     social/                    LeaderBoard, PublicLeaderboard, PublicProfile
@@ -107,7 +108,9 @@ src/
     constants/                 chemical-classifications.ts, chemical-labels.ts, ui-constants.ts
     utils/                     spawn-manager.ts, collision-utils.ts, level-manager.ts, etc.
     tests/                     Jest-style specs validating data integrity (see Gotchas)
-  hooks/                       useGameState, useSound, useInputMethod, and any game-specific hook
+  hooks/                       useGameState, useSound, useInputMethod, useHintLadder,
+                               useStoredValue (localStorage via useSyncExternalStore), and any
+                               game-specific hook (useLewisStructures)
   context/
     game-settings-context.tsx  mute/volume + per-game theme override (GameThemeScope)
   lib/
@@ -175,7 +178,10 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    **Instructions must open automatically on first play** (copy the Neutralise pattern: a
    `localStorage` flag named `hasSeen<GameName>Instructions`, the game paused via
    `pausedByModalRef` while open, keyboard-and-mouse / touchscreen tabs, reopenable from the
-   footer). The instruction text comes from the brief, verbatim — see "Text content every game
+   footer). `lewis-structures/page.tsx` shows the effect-free variant: read the flag with
+   `useStoredValue()` so the modal is open on the first render, and freeze the arena with an
+   `isPaused` prop derived from `gameState !== 'playing' || isModalOpen` instead of toggling
+   `gameState` — a paused game then can never be un-paused by closing a modal.The instruction text comes from the brief, verbatim — see "Text content every game
    must ship" below. Never write the copy yourself in JSX.
 
 7b. **Ship the message catalogue.** Every string a player reads lives in
@@ -187,6 +193,9 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    level-up / victory copy (as `GameOverlay` `customMessages`), and any glossary terms the game
    introduces. Reading age ~12, one idea per sentence. If the brief's catalogue is missing a
    situation the game can produce, add the key to the brief first, then implement.
+   Shared building blocks: `CoachPanel` (polite live region + tone), `GlossaryTerm` /
+   `GlossaryText` (tap-to-explain words in any message), `useHintLadder` (tier state, bonus
+   and accuracy flags). `lewis-structures-messages.ts` is the reference catalogue in code.
 
 8. **Sound:** add any new effect names to the `SoundEffect` union and `SOUND_PATHS` in
    `src/hooks/useSound.ts`. If you don't have the actual audio file yet, add an entry to
@@ -238,7 +247,7 @@ rendered through an `aria-live` region so screen readers get them too:
 | Coach / diagnostic messages | After every wrong or unproductive move: what is wrong, in chemistry terms, and what kind of move fixes it | Brief's message catalogue → `<game>-messages.ts` |
 | Hint ladder | Tier 1 *what to look at*, tier 2 *the strategy*, tier 3 *one concrete step*; tier 1 always free | Same |
 | Success / progression | Round, level-up, victory copy that names the chemistry achieved ("Mass conserved"), not just "Level 2!" | Same, passed as `GameOverlay` `customMessages` |
-| Glossary | Tap-to-explain definitions for the terms the game uses (e.g. coefficient vs subscript) | Same; shared `GlossaryTerm` component once it exists |
+| Glossary | Tap-to-explain definitions for the terms the game uses (e.g. coefficient vs subscript) | Same; shared `GlossaryTerm` component (`GlossaryText` auto-links terms in running text) |
 
 Rules: never the words "wrong" or "incorrect" as the whole message; never reveal the full answer
 below tier 3; never punish reading (opening help does not cost points or lives). The

@@ -10,9 +10,12 @@ export type GameThemeScope =
   | 'formula-blaster'
   | 'neutralise'
   | 'reaction-balancer'
-  | 'bond-builder';
-  
+  | 'bond-builder'
+  | 'lewis-structures';
+
 type GameThemePreferences = Partial<Record<GameThemeScope, Theme>>;
+/** Per-game "Support mode": pins the coach panel on at every level. Never lowers accuracy. */
+type GameSupportPreferences = Partial<Record<GameThemeScope, boolean>>;
 
 type SettingsState = {
   isMuted: boolean;
@@ -24,6 +27,8 @@ type SettingsState = {
   setGlobalTheme: (theme: Theme) => void;
   setGameTheme: (game: GameThemeScope, theme: Theme | 'global') => void;
   setActiveGame: (game?: GameThemeScope) => void;
+  supportModes: GameSupportPreferences;
+  setSupportMode: (game: GameThemeScope, enabled: boolean) => void;
 };
 
 const SettingsContext = createContext<SettingsState | undefined>(undefined);
@@ -37,6 +42,7 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
   // unless overridden by a saved preference below.
   const [globalTheme, setGlobalThemeState] = useState<Theme>('light');
   const [gameThemes, setGameThemes] = useState<GameThemePreferences>({});
+  const [supportModes, setSupportModes] = useState<GameSupportPreferences>({});
   const [activeGame, setActiveGame] = useState<GameThemeScope | undefined>();
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
 
@@ -46,6 +52,7 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
     const savedVolume = localStorage.getItem('chem-games-volume');
     const savedTheme = localStorage.getItem('chem-games-theme');
     const savedGameThemes = localStorage.getItem('chem-games-game-themes');
+    const savedSupportModes = localStorage.getItem('chem-games-support-modes');
 
     if (savedMute !== null) {
       setIsMuted(savedMute === 'true');
@@ -63,7 +70,14 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
         localStorage.removeItem('chem-games-game-themes');
       }
     }
-    
+    if (savedSupportModes) {
+      try {
+        setSupportModes(JSON.parse(savedSupportModes) as GameSupportPreferences);
+      } catch {
+        localStorage.removeItem('chem-games-support-modes');
+      }
+    }
+
     setIsInitialized(true);
   }, []);
 
@@ -110,8 +124,18 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
     });
   };
 
+  const setSupportMode = (game: GameThemeScope, enabled: boolean) => {
+    setSupportModes((current) => {
+      const next = { ...current };
+      if (enabled) next[game] = true;
+      else delete next[game];
+      localStorage.setItem('chem-games-support-modes', JSON.stringify(next));
+      return next;
+    });
+  };
+
   return (
-    <SettingsContext.Provider value={{ isMuted, volume, toggleMute, setVolume, globalTheme, gameThemes, setGlobalTheme, setGameTheme, setActiveGame }}>
+    <SettingsContext.Provider value={{ isMuted, volume, toggleMute, setVolume, globalTheme, gameThemes, setGlobalTheme, setGameTheme, setActiveGame, supportModes, setSupportMode }}>
       {/* Keep `children` mounted at a stable position the whole time — toggle
         visibility with CSS instead of swapping the wrapping element type.
         Swapping <div>{children}</div> in for {children} once isInitialized
@@ -130,6 +154,12 @@ export function useGameSettings() {
     throw new Error('useGameSettings must be used within a GameSettingsProvider');
   }
   return context;
+}
+
+/** Whether Support mode is pinned on for a game (false when unset). */
+export function useSupportMode(game: GameThemeScope): [boolean, (enabled: boolean) => void] {
+  const { supportModes, setSupportMode } = useGameSettings();
+  return [supportModes[game] === true, (enabled: boolean) => setSupportMode(game, enabled)];
 }
 
 export function useGameTheme(game?: GameThemeScope) {

@@ -1,5 +1,5 @@
 // src/app/[lang]/(main)/games/page.tsx
-import { Beaker, FlaskConical, TestTube, Atom, Scale } from 'lucide-react';
+import { Beaker, FlaskConical, TestTube, Atom, Scale, Orbit } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { getDictionary } from '@/i18n/dictionaries';
 
@@ -31,6 +31,12 @@ export default async function GamesPage(props: PageProps<'/[lang]'>) {
       title: t.gamesHub.balancerTitle,
       description: t.gamesHub.balancerDescription,
       Icon: Scale,
+    },
+    {
+      href: '/games/lewis-structures',
+      title: t.gamesHub.lewisTitle,
+      description: t.gamesHub.lewisDescription,
+      Icon: Orbit,
     },
     {
       href: '/games/chemical-bonds',

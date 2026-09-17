@@ -22,10 +22,11 @@ written reason), **COULD** (nice to have).
 
 ## 2. Gaps found in the current codebase (platform-level TODOs, in priority order)
 
-1. **No `prefers-reduced-motion` support anywhere** — shake, glow-pulse, floatUp, slide-in all run
-   unconditionally. (Cheap fix: §4 Motion.)
-2. **Icon-only buttons rely on `title`** (`GameFooter` help/pause/settings, header hint button).
-   `title` is not announced reliably; add `aria-label`.
+1. ~~No `prefers-reduced-motion` support~~ — `globals.css` now disables shake, glow-pulse,
+   slide-in, overlay-enter and the Share to Fill loner pulse / atom slide under the media query.
+   `floatUp` (Formula Blaster) is still unconditional.
+2. ~~Icon-only buttons rely on `title`~~ — the footer help/pause/settings buttons and the header
+   hint button now carry `aria-label`s too.
 3. **Timers cannot be extended or disabled** (Formula Blaster/Neutralise wave timers). WCAG 2.2.1.
 4. **No live regions**: score changes, hints, and error banners are not announced to screen readers.
 5. **Contrast**: `text-slate-500` on the dark game background is ~4:1 — below 4.5:1 for small

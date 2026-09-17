@@ -18,7 +18,8 @@ import { ACID_CLASSIFICATION_CONFIG } from '../config/games/acid-classification-
 import { FORMULA_BLASTER_CONFIG } from '../config/games/formula-blaster-config';
 import { NEUTRALISE_CONFIG, NEUTRALISE_LEVEL_DATA } from '../config/games/neutralise-config';
 import { getEnemiesPerWave } from '../utils/level-manager';
-import { reactions } from '../data/reactions';
+import { REACTION_BALANCER_CONFIG } from '../config/games/reaction-balancer-config';
+import { LEWIS_STRUCTURES_CONFIG } from '../config/games/lewis-structures-config';
 import { compoundsAtDifficulty } from '@/test-utils/registry';
 
 // Every id in the GameName union. The Exhaustive check fails to compile when
@@ -29,18 +30,27 @@ const GAME_CATALOGUE = [
   'acid-classification',
   'reaction-balancer',
   'bond-builder',
+  'lewis-structures',
 ] as const satisfies readonly GameName[];
 type MissingFromCatalogue = Exclude<GameName, (typeof GAME_CATALOGUE)[number]>;
 const catalogueIsExhaustive: MissingFromCatalogue extends never ? true : false = true;
 
-const MIGRATION = resolve(process.cwd(), 'supabase/migrations/20260914_game_session_guards.sql');
+// The guards migration seeds the original games; each later game adds its own
+// row in the migration that registers it (never by editing an old migration).
+const MIGRATIONS = [
+  'supabase/migrations/20260914_game_session_guards.sql',
+  'supabase/migrations/20260917_add_lewis_structures_game.sql',
+  'supabase/migrations/20260918_activate_reaction_balancer.sql',
+].map((file) => resolve(process.cwd(), file));
 
-/** The (id, max_score, max_level) rows seeded by the migration. */
+/** The (id, max_score, max_level) rows seeded by the migrations. */
 const seededLimits = () => {
-  const sql = readFileSync(MIGRATION, 'utf8');
   const seeded: Record<string, { maxScore: number; maxLevel: number }> = {};
-  for (const match of sql.matchAll(/\('([a-z0-9-]+)',\s*(\d+),\s*(\d+)\)/g)) {
-    seeded[match[1]] = { maxScore: Number(match[2]), maxLevel: Number(match[3]) };
+  for (const migration of MIGRATIONS) {
+    const sql = readFileSync(migration, 'utf8');
+    for (const match of sql.matchAll(/\('([a-z0-9-]+)',\s*(\d+),\s*(\d+)\)/g)) {
+      seeded[match[1]] = { maxScore: Number(match[2]), maxLevel: Number(match[3]) };
+    }
   }
   return seeded;
 };
@@ -140,11 +150,22 @@ describe('GAME_SESSION_LIMITS', () => {
     );
   });
 
-  it('reaction-balancer: 150 per balanced equation, two passes through the reactions', () => {
-    // The arena calls onReactionComplete(150) once per level.
-    const POINTS_PER_EQUATION = 150;
-    expect(GAME_SESSION_LIMITS['reaction-balancer'].maxLevel).toBe(reactions.length * 2);
-    expectDerivedFrom('reaction-balancer', () => POINTS_PER_EQUATION);
+  it('lewis-structures: rounds x (100 x level + no-hint bonus) per level', () => {
+    const { levels, mechanics } = LEWIS_STRUCTURES_CONFIG;
+    expect(GAME_SESSION_LIMITS['lewis-structures'].maxLevel).toBe(levels.maxLevel);
+    expectDerivedFrom(
+      'lewis-structures',
+      (level) => levels.roundsByLevel[level - 1] * (mechanics.pointsPerLevelMultiplier * level + mechanics.noHintBonus)
+    );
+  });
+
+  it('reaction-balancer: reactions x (100 x level + lowest-terms bonus) per level, Challenge included', () => {
+    const { levels, mechanics } = REACTION_BALANCER_CONFIG;
+    expect(GAME_SESSION_LIMITS['reaction-balancer'].maxLevel).toBe(levels.challengeLevel);
+    expectDerivedFrom(
+      'reaction-balancer',
+      (level) => levels.reactionsPerLevel * (mechanics.pointsPerLevelMultiplier * level + mechanics.lowestTermsBonus)
+    );
   });
 });
 

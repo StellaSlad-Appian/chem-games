@@ -13,6 +13,7 @@ const EXPECTED_GAMES = [
   'formula-blaster',
   'neutralise',
   'reaction-balancer',
+  'lewis-structures',
   'bond-builder',
 ] as const;
 

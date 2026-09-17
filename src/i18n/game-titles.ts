@@ -29,6 +29,7 @@ const TITLE_KEYS: Record<GameName, TitleKey> = {
   'formula-blaster': 'blasterTitle',
   neutralise: 'neutraliseTitle',
   'reaction-balancer': 'balancerTitle',
+  'lewis-structures': 'lewisTitle',
   'bond-builder': 'bondsTitle',
 };
 

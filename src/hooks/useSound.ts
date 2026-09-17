@@ -18,7 +18,12 @@ export type SoundEffect =
   // --- NEW MISSING SOUNDS ---
   | 'equation-balanced'
   | 'equation-error'
-  | 'switch-sound'; 
+  | 'coefficient-tick'
+  | 'switch-sound'
+  // --- Share to Fill (Lewis structures) ---
+  | 'pair-formed'
+  | 'structure-complete'
+  | 'pair-rejected';
 
 // Added Partial<> so TypeScript allows us to omit the missing file paths for now
 const SOUND_PATHS: Partial<Record<SoundEffect, string>> = {
@@ -39,7 +44,11 @@ const SOUND_PATHS: Partial<Record<SoundEffect, string>> = {
 const SOUND_FALLBACK_MAP: Partial<Record<SoundEffect, SoundEffect>> = {
   'equation-balanced': 'success-synthesis',
   'equation-error': 'fizzle',
-  'switch-sound': 'click'
+  'coefficient-tick': 'click',
+  'switch-sound': 'click',
+  'pair-formed': 'pop_01',
+  'structure-complete': 'success-synthesis',
+  'pair-rejected': 'fizzle',
 };
 
 export function useSound() {

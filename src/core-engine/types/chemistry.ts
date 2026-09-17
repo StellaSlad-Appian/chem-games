@@ -141,3 +141,68 @@ export interface BondConnection {
   targetNodeId: string;
   order: BondOrder;
 }
+// --- Lewis Structures (Share to Fill) Types ---
+// Shared with Bond Builder through AtomCanvas: an atom carries its own outer
+// electrons as lone pairs and unpaired electrons ("loners"); every shared
+// pair is one unit of a BondConnection's order.
+
+/** One atom as drawn on the canvas, with its outer electrons. */
+export interface LewisAtomState {
+  id: string;
+  /** Element symbol, e.g. 'O'. */
+  element: string;
+  /** Outer (valence) electrons the element brings — from ELEMENTS_REGISTRY. */
+  valence: number;
+  /** Pairs of electrons that stay on this atom. */
+  lonePairs: number;
+  /** Unpaired electrons ("loners") — the only ones that can be shared. */
+  unpaired: number;
+}
+
+/** The live state of a dot structure: atoms plus the shared pairs between them. */
+export interface LewisStructure {
+  atoms: LewisAtomState[];
+  bonds: BondConnection[];
+}
+
+/**
+ * A covalent molecule the game can ask for. `atoms` are element symbols in
+ * canvas order; `bonds` reference atom ids of the form `a<index>`.
+ */
+export interface LewisMoleculeData {
+  id: string;
+  name: string;
+  /** Plain ASCII formula for MoleculeText, e.g. 'C2H5OH'. */
+  formula: string;
+  atoms: string[];
+  bonds: BondConnection[];
+  /** Index into `atoms` of the atom the drawing is built around. */
+  centralAtomIndex: number;
+  /** Game level (1-4) the molecule is first built in; Level 5 draws from all. */
+  level: number;
+  /** Position within the level, 1-based. */
+  order: number;
+  /** Hint tier 2: the strategy for this molecule, in words. */
+  tier2Hint: string;
+  /** Canonical bond-line drawing, e.g. 'H-O-H' or 'O=C=O'. */
+  bondLine: string;
+  /** One macroscopic sentence shown when the molecule completes. */
+  propertyLine: string;
+  /** Molecule id whose structure this one mirrors (drives coach.sameGroup). */
+  sameGroupAs?: string;
+}
+
+/** What is wrong with a classmate's drawing (inspect mode). */
+export type LewisErrorType =
+  | 'tooMany'
+  | 'tooFew'
+  | 'hydrogenFull'
+  | 'needsDouble'
+  | 'leftover'
+  | 'none';
+
+export interface LewisDiagnosis {
+  type: LewisErrorType;
+  /** Ids of the atoms the error sits on (empty for 'none'). */
+  atomIds: string[];
+}

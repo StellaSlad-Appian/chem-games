@@ -90,6 +90,8 @@ tests live in the files above (see "Bugs the suite found" below).
 | `molecule-bubble` | Acid classification compound bubble | `data-formula` |
 | `blaster-arena`, `blaster-bubble`, `blaster-hint`, `blaster-error` | Formula Blaster arena, floating bubble, hint banner, error tooltip | bubble: `data-formula` |
 | `neutralise-arena`, `invader`, `projectile`, `player-cannon` | Neutralise arena and entities | invader: `data-formula`, `data-health`; projectile and cannon: `data-ion` |
+| `lewis-arena`, `atom-canvas`, `atom`, `loner`, `lone-pair`, `bond-line` (SVG glyph), `bond-button`, `coach-panel`, `lewis-hint`, `round-complete`, `diagnosis-picker`, `count-readout`, `lewis-notebook`, `notebook-entry` | Share to Fill arena, canvas and panels | arena: `data-phase`, `data-molecule`; atom: `data-atom-id`, `data-element`, `data-count`; bond-line: `data-bond-id`, `data-order`; hint: `data-tier`. Dots and bonds are buttons named "Oxygen, loner 1 of 2", "Oxygen, lone pair 1 of 2", "Single bond between oxygen and hydrogen — press to undo / press to count" |
+| `balancer-arena`, `compound-card`, `particle-clusters`, `equation-text`, `atom-ledger`, `ledger-row`, `ledger-all-balanced`, `mass-beam`, `observation`, `coach-panel`, `balancer-hint`, `round-complete`, `challenge-builder`, `challenge-prompt`, `built-equation`, `placed-species`, `compound-picker`, `compound-tile`, `balancer-notebook`, `notebook-entry` | Reaction Balancer arena, cards, ledger, beam, Challenge picker and notebook | arena: `data-phase` (`build` / `balance` / `done`), `data-reaction`; card: `data-formula`, `data-coefficient`; clusters: `data-count`; ledger-row: `data-element`, `data-balanced`; beam: `data-level`; hint: `data-tier`; tile: `data-formula`. Controls are named "Coefficient for water, H2O" (the input), "Add one water" / "Remove one water" (▲ / ▼, not tab stops: ↑ / ↓ on the input do the same), "water — the subscripts are locked" (the formula), "Add water, H2O, as a reactant" (picker tiles) |
 
   The overlay card is `role="dialog"` named by its title (`Game Paused`, `Level Cleared`,
   `Game Over`, `Research Complete`). Footer buttons are found by title (`Pause Game`,
@@ -181,20 +183,52 @@ case there, never by loosening the assertion.
 
 | Scenario | Unit / page test | End-to-end |
 | --- | --- | --- |
-| Level 1 shows Water Synthesis with one input per compound | `GameArena.test.tsx`, `page.test.tsx` "starts at level 1…" | `reaction-balancer.spec.ts` "level 1 presents…" |
-| Correct coefficients (blank = 1) score 150, record a victory, clear the level; next reaction loads with empty inputs | "balancing the equation scores 150…" | "entering the balanced coefficients…" |
-| Unbalanced attempt keeps playing, records nothing | "an unbalanced attempt…" | "an unbalanced attempt does not clear the level" |
-| Inputs accept only whole numbers 1–99 | `GameArena.test.tsx` "only accepts whole numbers…" | "coefficient inputs only accept…" |
-| Atom balance scaffold toggles and reports "All atoms are balanced" | `GameArena.test.tsx` | "the atom balance scaffold…" |
-| Pause and instructions disable the controls | "pausing disables…", "the instructions modal…" | "pausing disables the controls…" |
-| Level N loads reaction N and wraps around the list | `GameArena.test.tsx` | — |
-| Every equation in `reactions.ts` is balanced, in lowest terms, uses known elements, has a hint | `reactions.test.ts` | — |
+| First visit shows the instructions and freezes the cards until "GOT IT"; later visits skip them | `page.test.tsx` "opens the instructions…", "skips the instructions…" | `reaction-balancer.spec.ts` "first visit shows the instructions…" |
+| Level 1 opens with Water Synthesis: three cards, the ledger in words ("Oxygen: 2 left, 1 right, 1 more needed on the right"), the next row highlighted, the mass beam readout | `GameArena.test.tsx` "shows water synthesis…" | "level 1 opens with water synthesis…" |
+| ▲ / ▼, typing and ↑ / ↓ update the ledger, clusters, equation and coach in the same render; the equation locks itself when every row matches (no check button) | `GameArena.test.tsx` "▲ / ▼ and typing…", "locks the equation…" | "…locks the equation", "typing and the keyboard alone…" |
+| Any valid multiple locks; it is simplified and the common factor explained; no lowest-terms bonus | `GameArena.test.tsx` "simplifies a multiple…", `useReactionBalancer.test.ts` | — |
+| A zero, a number above `maxCoefficient`, a stray letter and a subscript tap each get a diagnostic (never a bare "wrong") | `GameArena.test.tsx` "explains a zero…", `useReactionBalancer.test.ts` | "a zero, a huge number and a subscript tap…" |
+| Guided first reaction (four steps, Next / "I've done this before"), shown once | `page.test.tsx` "walks the guided first reaction…", "the guide can be skipped…" | "the guided first reaction walks four steps…" |
+| Hint ladder: H key or lightbulb, tier 1 = which element (free), tier 2 = the reaction's strategy, tier 3 = one coefficient (card pulses); tier 2+ forfeits the bonus, tier 3 the accuracy | `page.test.tsx` "offers three hint tiers…", `useReactionBalancer.test.ts` | "the hint ladder climbs…" |
+| Idle: coach opens itself with tier 1 after `coachAfterSeconds`; tier 2 offered after `stuckAfterSeconds`; never while paused | `useReactionBalancer.test.ts` "idle timers" | — |
+| Level cleared → overlay with "Mass conserved" and what Level 2 adds; Level 2 has no row highlight; Level 3 hides the clusters, shows the observation and the coach waits to be asked; Level 4 hides the ledger behind a toggle that costs the bonus | `page.test.tsx`, `GameArena.test.tsx`, `useReactionBalancer.test.ts` "scaffolding by level" | "clearing level 1 shows the level-up overlay…" |
+| Victory after Level 4 records one session (score, level 4, accuracy = rounds without tier 3 ÷ rounds); "Try the Challenge level" starts Level 5 as a second session; the notebook lists every locked equation with its hint tier; Play again resets | `page.test.tsx` "plays to victory…" | `reaction-balancer-journey.spec.ts` "plays every level to victory…" (saves overlay / notebook screenshots under `test-results/`); the session write itself needs Supabase |
+| Challenge: word equation + compound picker; a wrong compound and a wrong side are explained; the built equation is then balanced | `page.test.tsx` "plays to victory…", `useReactionBalancer.test.ts` "Challenge level" | journey spec |
+| Exit after ≥ 1 round records an abandoned session; Support mode pins the coach, ledger and clusters on at every level and records no accuracy | `page.test.tsx` "records an abandoned session…", "Support mode keeps…" | "settings offers Support mode…" |
+| Pause (footer or P) freezes the cards; Settings/Instructions never un-pause a paused game | `page.test.tsx` "pauses from the footer…" | "pausing from the footer…" |
+| Reduced motion (no card pulse, still playable), dark theme, phone viewport with touch (no horizontal scroll, ≥ 44 px arrows, tap) | — | `reaction-balancer-journey.spec.ts` |
+| Every reaction's stored answer balances; the all-1 state does not for any reaction on a level; every reaction carries an explicit `levels['reaction-balancer']` (0–4), level-1+ reactions need balancing and fit the coefficient cap, level-0 reactions are excluded only for one of those reasons, every level has ≥ `reactionsPerLevel`; scalar multiples balance and simplify; the tier-3 hint always reaches a balanced lowest-terms equation; every species has a state symbol and a name; the Challenge pool is level-1+ with a prompt and every prompt names every species | `src/core-engine/tests/balancer-utils.test.ts`, `reactions.test.ts`, `chemical-utils.test.ts` (bracket parser) | — |
+| Session limits derive from the config (3 × (100 × level + 50) per level, Challenge included) and match the activation migration | `session-validation.test.ts` | — |
+
+### Share to Fill (`/games/lewis-structures`)
+
+| Scenario | Unit / page test | End-to-end |
+| --- | --- | --- |
+| First visit shows the instructions and freezes the canvas until "GOT IT"; later visits skip them | `page.test.tsx` "opens the instructions…", "skips the instructions…" | `lewis-structures.spec.ts` "first visit shows the instructions…" |
+| Level 1 opens with hydrogen; header shows Molecule 1/3, "Build: hydrogen (H2)", Level 01, Score 0 | "skips the instructions once seen…" | "level 1 opens with hydrogen…" |
+| Tap loner, tap loner (or drag) makes a shared pair; the structure locks itself; the bond line and counters update | "runs the guided H2 script…" | "…locks the structure", "dragging a loner…" |
+| Guided H₂ / H₂O scripts run once, advance on pairs, end on the lock line, then never reappear | "runs the guided H2 script…", "clears Level 1…" | — |
+| Lone-pair dot / same-atom / full-atom moves get a diagnostic that says what to try | "shows the paired-dot and same-atom diagnostics…" | "a lone-pair dot is refused…" |
+| Hint ladder: H key or lightbulb, tier 1 free, tier 2 = molecule strategy, tier 3 names the pair (dots glow); tier 2+ forfeits the bonus | "offers three hint tiers…" | "…the hint ladder climbs…" |
+| Keyboard-only: Tab to an atom's loner, Enter, Tab, Enter | `AtomCanvas.test.tsx` "supports the keyboard map…" | "…built with the keyboard alone" |
+| Level cleared → overlay with the next level's "what changes"; Begin Level 2 → guided water | "clears Level 1 into the level-up overlay…" | "clearing level 1 shows the level-up overlay…" |
+| Classmate drawing (every 3rd round from Level 2): wrong atom / "correct" on a flawed drawing / wrong diagnosis / wrong count each explained; repair by pairing; count bonds then lone pairs | "interleaves a classmate drawing…", "plays through to victory…" | — |
+| Same-group rounds (H₂S, PH₃) open with the periodic-table line | "opens the same-group rounds…" | — |
+| Coach always on at Levels 1–2, on request from Level 3, pinned by Support mode; "share again" on O₂ | "without Support mode…", "Support mode keeps the coach on…" | "settings offers Support mode…" |
+| Level 4 starts with the central-atom line and unplaced atoms | "starts Level 4…" | — |
+| Level 5 marking mode: six drawings, one correct; victory records one session (score, level 5, accuracy = rounds without tier 3 ÷ rounds) and opens the marking sheet; Play again resets | "plays through to victory…" | `lewis-structures-journey.spec.ts` "plays every level to victory…" (seeds `Math.random`; saves overlay / marking-sheet screenshots under `test-results/`); the session write itself needs Supabase |
+| Reduced motion (no pulse, still playable), dark theme, phone viewport with touch (no horizontal scroll, ≥ 44 px dots, tap-tap) | — | `lewis-structures-journey.spec.ts` |
+| Exit after ≥ 1 round records an abandoned session; Support mode records no accuracy | "records an abandoned session…", "Support mode keeps…" | — |
+| Pause (footer or P) freezes the canvas; Settings/Instructions never un-pause a paused game | "pauses from the footer or the P key…" | "pausing from the footer…" |
+| Every generated classmate drawing is diagnosed correctly, is never valid, and is repairable by pairing; all 18 molecules complete; hand-checked bond / lone-pair / unpaired tables | `src/core-engine/tests/lewis-utils.test.ts`, `lewis-molecules.test.ts`, `src/hooks/useLewisStructures.test.ts` | — |
+| Canvas geometry: no overlapping atoms, chains continue straight, tray for unplaced atoms | `AtomCanvas/layout.test.ts` | — |
+| Coach panel live region, glossary pop-overs, hint ladder state | `CoachPanel.test.tsx`, `GlossaryTerm.test.tsx`, `useHintLadder.test.ts` | — |
 
 ### Cross-cutting
 
 | Scenario | Test |
 | --- | --- |
-| Games hub lists the four games and each page renders header + footer controls | `e2e/hub.spec.ts` |
+| Games hub lists the five games and each page renders header + footer controls | `e2e/hub.spec.ts` |
 | Overlay copy, stats, keyboard shortcuts, custom messages | `GameOverlay.test.tsx` |
 | Header progress/level/score, hint button, exit fallback | `GamesHeader.test.tsx` |
 | Timer formatting and urgency, lives hearts | `GameTimer.test.tsx` |
@@ -273,13 +307,12 @@ Other observations (not fixed):
 
 - In Acid classification, opening Settings pauses the game but closing it does not resume
   (the other games restore the previous state via `pausedByModalRef`).
-- Seven balancer reactions are already balanced with every coefficient at 1 (Limestone
-  Decomposition, Magnesium in Sulfuric Acid, Hydrochloric Acid Neutralization, Silver Chloride
-  Precipitation, Baking Soda and Vinegar, Ammonium Chloride Formation, Carbonic Acid
-  Decomposition): clicking "Check Answer" immediately clears them.
-- `src/hooks/useReactionBalancer.ts` and `src/core-engine/data/games/neutralise-levels.ts` are
-  not imported anywhere.
-- `npm run lint` currently reports 21 errors and 7 warnings in existing app code — see
+- ~~Seven balancer reactions are already balanced with every coefficient at 1 …~~ Resolved by
+  the 2026-09-18 redesign: there is no check button any more, and `needsBalancing()` keeps
+  those seven out of the balancing levels (`balancer-utils.test.ts` lists them).
+- ~~`src/hooks/useReactionBalancer.ts` and `neutralise-levels.ts` are not imported anywhere.~~
+  The hook is now the balancer's rules engine; the unused level file was deleted.
+- `npm run lint` currently reports 18 errors and 7 warnings in existing app code — see
   [Known lint findings](#known-lint-findings) below. The test files are lint-clean, so
   `npm run check` stops at the lint step until those are addressed; run
   `npm run typecheck && npm test && npm run e2e` in the meantime.
@@ -293,9 +326,9 @@ loops where the "fix" is a refactor that needs play-testing, not a mechanical ch
 
 | Rule | Count | Kind | Effort |
 |---|---|---|---|
-| `react-hooks/set-state-in-effect` | 9 errors | React Compiler: `setState` called synchronously inside `useEffect` (state-sync effects, timers, wave setup) | Per-case refactor; test the game after |
-| `@typescript-eslint/no-explicit-any` | 4 errors | Untyped props/params | Trivial (`LucideIcon`, a proper event type) |
-| `react-hooks/purity` | 2 errors | `Date.now()`/`Math.random()` during render | Move into `useState` initialiser / `useMemo` / event handler |
+| `react-hooks/set-state-in-effect` | 8 errors | React Compiler: `setState` called synchronously inside `useEffect` (state-sync effects, timers, wave setup) | Per-case refactor; test the game after |
+| `@typescript-eslint/no-explicit-any` | 3 errors | Untyped props/params | Trivial (`LucideIcon`, a proper event type) |
+| `react-hooks/purity` | 1 error | `Date.now()`/`Math.random()` during render | Move into `useState` initialiser / `useMemo` / event handler |
 | `react/no-unescaped-entities` | 2 errors | `'` in JSX text | Trivial (`&apos;`) |
 | `react-hooks/static-components` | 2 errors | Components defined inside render (`LabVesselCard`) | Hoist to module scope |
 | `react-hooks/immutability` | 1 error | Mutating `audio.volume` on a pooled element held in a ref (`useSound`) | Deliberate; wrap in an `// eslint-disable-next-line` with a comment, or restructure the pool |
@@ -307,8 +340,6 @@ By file:
 - `src/app/(gameplay)/games/acid-classification/page.tsx` — L61, L67 `set-state-in-effect`; L4 unused `useRef`
 - `src/app/(gameplay)/games/formula-blaster/page.tsx` — L186, L206 `set-state-in-effect`
 - `src/app/(gameplay)/games/neutralise/page.tsx` — L85 `purity`; L97, L260 `set-state-in-effect`
-- `src/app/(gameplay)/games/reaction-balancer/page.tsx` — L20 `purity`; L60 `no-explicit-any`
-- `src/components/games/reaction-balancer/GameArena.tsx` — L112 `set-state-in-effect`
 - `src/components/games/neutralise/GameArena.tsx` — L176 `prefer-const`; L307 `no-explicit-any`
 - `src/components/games/acid-classification/ClassificationButton.tsx` — L9 `no-explicit-any` (`icon: any` → `LucideIcon`, which is already imported and flagged unused on L4)
 - `src/components/games/acid-classification/GameArena.tsx` — L31 unused `currentLevel`
@@ -322,10 +353,12 @@ By file:
   `formula-blaster-config.ts` L36, L56 — unused alternative presets (intentional; see the UAT
   tuning-guide convention in `docs/AGENT_INSTRUCTIONS.md`)
 
-Quick wins if someone has 20 minutes: the 4 `any`s, 2 unescaped quotes, `prefer-const`, the
-dead imports, and exporting the `OPTION_*` presets remove 14 of the 28 findings without
-touching behaviour. The 9 `set-state-in-effect` and 2 `purity` cases are the ones to leave for
-when each game is next worked on.
+Quick wins if someone has 20 minutes: the 3 `any`s, 2 unescaped quotes, `prefer-const`, the
+dead imports, and exporting the `OPTION_*` presets remove 13 of the 25 findings without
+touching behaviour. The 8 `set-state-in-effect` and 1 `purity` cases are the ones to leave for
+when each game is next worked on. (The Reaction Balancer's three findings went with its
+2026-09-18 rewrite; `npm run lint` from the repo root also picks up other sessions' build
+output under `.claude/worktrees/` — lint `src e2e` to see only real findings.)
 
 **CI impact:** the `unit` job in `.github/workflows/test.yml` runs `npm run lint` as a hard
 step, so it fails on every push until the errors above reach zero. If a red job is not

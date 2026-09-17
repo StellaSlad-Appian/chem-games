@@ -29,6 +29,7 @@ export default function GameFooter({
             className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
             title={t.games.shared.howToPlay}
             aria-label={t.games.shared.howToPlay}
+            type="button"
           >
             <HelpCircle className="w-6 h-6" aria-hidden="true" />
           </button>
@@ -43,6 +44,7 @@ export default function GameFooter({
             className="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-2xl transition-all shadow-md active:scale-95 border-2 border-slate-700 cursor-pointer"
             title={isPaused ? t.games.shared.resume : t.games.shared.pause}
             aria-label={isPaused ? t.games.shared.resume : t.games.shared.pause}
+            type="button"
           >
             {isPaused ? (
               <Play className="w-5 h-5 fill-emerald-400 text-emerald-400" aria-hidden="true" />
@@ -61,6 +63,7 @@ export default function GameFooter({
             className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
             title={t.games.shared.settings}
             aria-label={t.games.shared.settings}
+            type="button"
           >
             <Settings className="w-6 h-6" aria-hidden="true" />
           </button>

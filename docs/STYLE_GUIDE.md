@@ -131,9 +131,10 @@ Available in `globals.css`: `.shake-animation` (wrong answer, 0.4s), `.glow-puls
 2.4s loop), `floatUp` (Formula Blaster bubbles), `.animate-slide-in` (banners), `.overlay-enter`.
 Conventions: micro-interactions 150–300ms, entrances ≤ 400ms, `ease-out` for entrances.
 
-There is currently **no `prefers-reduced-motion` handling anywhere**. New animations must be
-wrapped so they can be disabled — see `ACCESSIBILITY.md` §Motion for the required media query and
-the planned in-app toggle. Never convey information *only* through motion.
+`globals.css` ends with a `prefers-reduced-motion: reduce` block that switches off
+`.shake-animation`, `.glow-pulse`, `.animate-slide-in`, `.overlay-enter`, `.loner-pulse` and the
+`.atom-move` slide. Add every new animation class to that block. Never convey information *only*
+through motion (loners are hollow dots as well as pulsing ones).
 
 ## 7. Layout
 

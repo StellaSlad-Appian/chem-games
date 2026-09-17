@@ -14,10 +14,9 @@ export type GameName =
   | 'neutralise' 
   | 'formula-blaster' 
   | 'acid-classification' 
-  | 'reaction-balancer'  
-  | 'bond-builder';        
-  
- // to be added soon | 'reaction-balancer';
+  | 'reaction-balancer'
+  | 'bond-builder'
+  | 'lewis-structures';
 
 export interface PersonalScore {
   gameId: GameName;
