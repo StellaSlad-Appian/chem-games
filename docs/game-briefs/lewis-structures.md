@@ -298,3 +298,51 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
 3. **Title: Share to Fill.** Students remember a game whose name is the rule; "Octet
    Architect" uses a word they haven't learned yet and hides what you do, and the hub uses
    plain titles. *Octet* is still taught — in the glossary and the "8 of 8" counter.
+
+## Catalogue additions (build, 2026-09-17 — for Stella's review)
+
+`AGENT_INSTRUCTIONS.md` step 7b: "If the brief's catalogue is missing a situation the game can
+produce, add the key to the brief first, then implement." The build reached the situations
+below that rev 3 did not name. All copy lives in `lewis-structures-messages.ts`; none of the
+rev 3 keys or wording changed. Please approve or reword.
+
+| Key | When | Text |
+|---|---|---|
+| `coach.deadEnd` | the only loners left are on one atom (or none), so a shared pair must be undone — e.g. O–O paired first in CO₂ | "{Atom} has {count} of 8, but no other atom has a loner left to share. Tap a shared pair to undo it, then try a different partner." |
+| `coach.isomer` | every atom is full but the atoms are joined differently from the target (only ethanol can reach this: dimethyl ether) | "Every atom is full, but the atoms are joined up differently from {name}. Tap a shared pair to undo it and try another arrangement." |
+| `coach.central` | Level 4 round start (the brief's "the atom with the most loners usually goes in the middle") | "The atom with the most loners usually goes in the middle." |
+| `hint.tier3Undo` | tier 3 when the drawing has wandered off the target | "Tap the shared pair between {atom1} and {atom2} to undo it." |
+| `hint.offerTier2` | after `stuckAfterSeconds` | "Still stuck? Press the lightbulb again for the strategy." |
+| `hint.noMoreHints` | tier 3 requested on a finished structure | "That was the last hint. Every atom is full — press Next." |
+| `hint.inspect.tier1/2/3`, `tier3Correct`, `tier3Count` | the hint ladder in Mode B (Level 5 is "hint ladder only", so the ladder needs Mode B text) | tier 1 "Count the dots around each atom. Every atom should have 8 — hydrogen 2." · tier 2 "Check the atoms with the most bonds first. That is where extra or missing pairs hide." · tier 3 "{Atom} has {count}. Tap it, then choose what is wrong." / "Every atom is full and nothing is left over — press 'This one is correct'." / counting: "Every line between two atoms is one bond. There are {n}." |
+| `inspect.classmate`, `inspect.prompt` | Mode B round start | "Drawn by a classmate: {name}." "Tap the atom you think is wrong — or say the drawing is correct." |
+| `inspect.diagnosisPrompt` | after tapping an atom | "What is wrong with {atom}?" |
+| `inspect.explain.*` | the "{Explanation of the actual error}" slot in `inspect.wrongDiagnosis` | tooMany "{Atom} has more than {full} — an extra lone pair was drawn." · tooFew "{Atom} has fewer than 8 — a lone pair is missing." · hydrogenFull "Hydrogen has 4 — it can only share one pair." · needsDouble "{A} and {B} each still have a loner — they need to share twice." · leftover "{Atom} has a loner left over — an extra electron was drawn." |
+| `inspect.notCorrect` | "This one is correct" pressed on a flawed drawing | "Not quite — one atom isn't right. Count the dots around each atom and tap the one that's off." |
+| `inspect.repair`, `inspect.repaired` | after the right diagnosis / once repaired | "Now fix it: pair up the loners until every atom is full." "Fixed — every atom is full again." |
+| `inspect.countRight`, `inspect.countLabel` | a correct count / the live tally | "Yes — 4 bonds." · "Counted: 4 bonds" |
+| `overlay.levelChanges[n]` | the "{what changes}" slot of `overlay.levelUp` | 2 "oxygen, nitrogen and carbon bring lone pairs that stay put, and every third molecule is a classmate's drawing to check." · 3 "some atoms need to share twice — a double bond. The coach now waits until you ask." · 4 "atoms start unplaced. You choose which one goes in the middle." · 5 "marking mode — six classmate drawings, no coach, hint ladder only." |
+| `ui.*` | button labels and accessible names | Next molecule · Next drawing · Finish level · Skip guide · Next · This one is correct · Done counting · Open marking sheet · Back · Play again · Support mode (+ help text) · per-dot names ("Oxygen, loner 1 of 2", "Oxygen, lone pair 1 of 2"), bond names ("Single bond between oxygen and hydrogen — press to undo"), live announcements |
+
+Build decisions that touch the pedagogy (also for review):
+
+- **"Misplace H as central" is folded into "give H two bonds".** A bridging-H drawing (X–H–Y)
+  leaves *two* atoms wrong (H has 4; X or Y lost a pair), which does not fit the tap-one-atom
+  flow. The `hydrogenFull` drawing instead turns a lone pair on hydrogen's partner into a
+  second shared pair with that hydrogen (H=X), so hydrogen alone is wrong and the repair is
+  local. The diagnosis text is unchanged.
+- **Repair = reset the wrong atom, then pair.** Adding or deleting electrons is not a Mode A
+  tool, so after a correct diagnosis the wrong atom is reset to its own electrons (partners
+  keep theirs as loners) and the player finishes with pairing. `needsDouble` needs no reset.
+  `prepareRepair()` is unit-tested: every generated drawing is repairable by pairing alone.
+- **"How many bonds?" counts bonds, not shared pairs.** Tapping either line of a double bond
+  selects the whole bond, so a double bond can only ever be counted once; the "a double bond
+  counts as one bond but two shared pairs" sentence appears when the molecule has one.
+- **Rings follow the counters.** The fill ring is the same scaffold as the "O: 6 of 8" text:
+  shown while counters are always on (Levels 1–3), hidden with them from Level 4 so marking
+  mode is about counting dots.
+- `coach.needsMore` is kept in the catalogue but cannot occur in a valence-consistent
+  drawing (an atom with no loner is always full), so the dead-end message covers that case.
+- `{n} loner(s)` is rendered with real plurals ("1 loner", "2 loners").
+- **Molecule `tier2Hint`, `propertyLine` and `bondLine` text** was written during the build
+  (the brief specifies the fields, with one example each) — see `lewis-molecules.ts`.

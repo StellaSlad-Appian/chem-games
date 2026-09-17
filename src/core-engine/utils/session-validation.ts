@@ -99,8 +99,22 @@ export const GAME_SESSION_LIMITS: Record<GameName, GameSessionLimits> = {
     minDurationSeconds: 1,
   },
 
+  // LEWIS_STRUCTURES_CONFIG: 5 levels with roundsByLevel [3, 5, 5, 5, 6]. A
+  // round awards pointsPerLevelMultiplier 100 x level plus the noHintBonus 50,
+  // so a level awards at most rounds x (100 x level + 50):
+  //   450, 1250, 1750, 2250, 3300 -> largest single level 3300 -> maxScorePerLevel 6600
+  //   best full run: 9000                                      -> maxScore 18000
+  // A run is recorded only at victory (29 rounds) or on exit (abandoned), so
+  // a non-abandoned session cannot honestly be shorter than a few seconds.
+  'lewis-structures': {
+    maxLevel: 5,
+    maxScorePerLevel: 6600,
+    maxScore: 18000,
+    minDurationSeconds: 5,
+  },
+
   // Not built yet (the catalogue row is inactive and there is no page), so
-  // these are placeholders. Revisit them, and the migration seed, when the
+  // these are placeholders.Revisit them, and the migration seed, when the
   // game ships.
   'bond-builder': {
     maxLevel: 10,

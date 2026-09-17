@@ -141,6 +141,7 @@ export const GAME_LINKS: Partial<Record<GameName, { title: string; href: string 
   'formula-blaster': { title: 'Formula Blaster', href: '/games/formula-blaster' },
   neutralise: { title: 'Neutralise!', href: '/games/neutralise' },
   'reaction-balancer': { title: 'Reaction Balancer', href: '/games/reaction-balancer' },
+  'lewis-structures': { title: 'Share to Fill', href: '/games/lewis-structures' },
 };
 
 // ---------------------------------------------------------------------------
@@ -413,6 +414,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       PTABLE,
       CHEMGUIDE,
     ],
+    relatedGames: ['lewis-structures'],
   },
   {
     slug: 'chemical-formulas',
@@ -639,6 +641,16 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     ],
     sections: [
       {
+        heading: 'Year 10 essentials',
+        content:
+          'Every atom brings its outer electrons as dots. A dot on its own is a loner; two loners from two different atoms make a shared pair, which is one bond (drawn as a line). Pairs that stay on one atom are lone pairs. An atom is full at 8 dots around it (an octet) — hydrogen is full at 2 (a duet). Share twice between the same two atoms for a double bond, three times for a triple. The number of loners tells you how many bonds an atom makes: H 1, C 4, N 3, O 2, Cl 1. Sulfur behaves like oxygen and phosphorus like nitrogen because they are in the same groups. Everything below this section (formal charge, VSEPR shapes, octet exceptions) is Senior content.',
+        examples: [
+          { name: 'Water — oxygen shares twice, keeps 2 lone pairs', formula: 'H2O' },
+          { name: 'Methane — carbon shares all four loners', formula: 'CH4' },
+          { name: 'Oxygen — two shared pairs make a double bond', formula: 'O2' },
+        ],
+      },
+      {
         heading: 'The five steps',
         content: '1. Count total valence electrons (adjust for charge). 2. Put the least electronegative atom in the centre (never H). 3. Join every outer atom to the centre with a single bond. 4. Place remaining electrons as lone pairs on outer atoms first, then the centre. 5. If the centre lacks an octet, make double/triple bonds. Check the total electron count matches step 1.',
       },
@@ -677,6 +689,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       MOLVIEW,
       CHEMGUIDE,
     ],
+    relatedGames: ['lewis-structures'],
   },
   {
     slug: 'organic-nomenclature',
