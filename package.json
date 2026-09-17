@@ -14,6 +14,7 @@
     "e2e:ui": "playwright test --ui",
     "e2e:headed": "playwright test --headed",
     "e2e:report": "playwright show-report",
+    "i18n:review": "node scripts/i18n-review.mts",
     "check": "npm run lint && npm run typecheck && npm run test && npm run e2e"
   },
   "dependencies": {
