@@ -18,6 +18,7 @@ export type SoundEffect =
   // --- NEW MISSING SOUNDS ---
   | 'equation-balanced'
   | 'equation-error'
+  | 'coefficient-tick'
   | 'switch-sound'
   // --- Share to Fill (Lewis structures) ---
   | 'pair-formed'
@@ -43,6 +44,7 @@ const SOUND_PATHS: Partial<Record<SoundEffect, string>> = {
 const SOUND_FALLBACK_MAP: Partial<Record<SoundEffect, SoundEffect>> = {
   'equation-balanced': 'success-synthesis',
   'equation-error': 'fizzle',
+  'coefficient-tick': 'click',
   'switch-sound': 'click',
   'pair-formed': 'pop_01',
   'structure-complete': 'success-synthesis',

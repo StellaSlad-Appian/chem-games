@@ -255,3 +255,50 @@ accepted, misconception list. What it was missing, now added in rev 2:
   need it would be penalised on their profile.
 - Added the **lab notebook** end summary so the balanced equations can be copied into revision
   notes and a teacher can see which hint tier was used.
+
+## Catalogue additions (build, 2026-09-18)
+
+Situations the build can reach that the catalogue above did not name. Each key exists in
+`reaction-balancer-messages.ts`; wording is a teacher's to edit.
+
+| Key | When | Text |
+|---|---|---|
+| `hint.tier3Lower` | tier 3 when the player's coefficient is above the answer | "Take {formula} back to {n}. Then check {element} again." |
+| `hint.tier3Balanced` | tier 3 asked for while every row already matches | "Every row already matches — the equation is balanced." |
+| `hint.tier1Build` / `tier2Build` / `tier3Build` | the Challenge picker (before the equation is built) | "Read the description again …" · "Substances before 'reacts', 'burns' or 'decomposes' are reactants …" · "Add {name} ({formula}) as a {side}." |
+| `error.notANumber` | a letter typed into a coefficient | "Coefficients are whole numbers from 1 upwards. Type a number, or use ▲ and ▼." |
+| `challenge.intro` / `notInReaction` / `wrongSide` / `built` | Level 5 compound picker | "Read the description, then build the equation before you balance it." · "{Name} is not part of this reaction. Read the description again — which substances does it name?" · "{Name} is made in this reaction, so it belongs on the right of the arrow — it is a product." (and the reactant mirror) · "That is the equation. Now balance it." |
+| `overlay.levelChanges` | `overlay.levelUp` description | 2: "reactions with three elements, and the next-row highlight is gone" · 3: "combustion and displacement reactions; the coach waits until you ask and the clusters give way to formulas" · 4: "brackets, polyatomic ions and four-compound reactions; the ledger stays hidden until you open it" |
+| `overlay.victory.subtitle` | `GameOverlay` needs one | "Every atom accounted for" |
+| `overlay.challengeComplete` | victory card after Level 5 | badge "Challenge complete" · title "Equations built and balanced" · description "Open your lab notebook to see every equation you balanced." |
+| `ledger.*`, `beam.*`, `card.*` | accessible text for the ledger rows ("Oxygen: 2 left, 1 right, 1 more needed on the right"), the beam readout and the card controls ("Coefficient for water, H2O", "Add one water") | see the file |
+| `ui.supportModeHelp` | Settings | "Keeps the coach strip and the ledger on at every level. Never lowers your accuracy." |
+
+Conventions in the catalogue: a formula inside `backticks` is typeset by `MoleculeText`
+(so `error.subscriptTap` writes `` `H2O2` ``, never Unicode subscripts); `**double stars**`
+are bold; glossary words are linked automatically.
+
+## Build notes (2026-09-18)
+
+Built on branch `feature/reaction-balancer-redesign` (`/games/reaction-balancer`). Decisions
+taken where the brief and the dataset disagreed — flagged for review, not silently changed:
+
+- **Level pools follow the `difficulty` tags** in `reactions.ts`, as the table says, so the
+  parenthetical examples are not all where the table places them: `CH4 + O2` and `Fe + O2` are
+  tagged `intermediate` (Level 3), brackets (`Cu(NO3)2`, `Pb(NO3)2`) are `advanced` (Level 4),
+  and `Na + Cl2` / `Ca(OH)2 + HCl` / `Al2(SO4)3` are not in the dataset. Retagging is a data
+  edit, not a code change.
+- **The seven already-balanced reactions** (Limestone Decomposition, Magnesium in Sulfuric
+  Acid, Hydrochloric Acid Neutralization, Silver Chloride Precipitation, Baking Soda and
+  Vinegar, Ammonium Chloride Formation, Carbonic Acid Decomposition) stay in the dataset for
+  the cheat sheets and the Challenge word equations, but `needsBalancing()` keeps them out of
+  the balancing levels. This means `CaCO3 →` is not a Level 1 reaction; the intro pool is
+  exactly `H2 + O2`, `H2 + Cl2` and `3O2 → 2O3`.
+- **Octane Combustion** needs a coefficient of 25, above `maxCoefficient` (12), so the plan
+  skips it (and any reaction whose answer exceeds the cap).
+- **Challenge sessions** record the cumulative score (Levels 1–4 plus the Challenge) with
+  `levelReached = 5`, matching what the header shows; the session limits allow for it.
+- **Tier 3 aims at the stored lowest-terms answer.** When a coefficient overshoots it says
+  "take it back to n" (`hint.tier3Lower`) rather than pushing towards a larger multiple.
+- The `balancing-equations` concept was already Year 10 in the seed; the migration only
+  refreshes its description and activates the game.

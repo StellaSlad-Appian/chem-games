@@ -69,8 +69,17 @@ describe('Reaction Balancer answer key (reactions.ts)', () => {
     });
   });
 
-  it('opens with the water synthesis reaction (level 1 of the game)', () => {
+  it('opens with the water synthesis reaction (level 1 of the game), written with state symbols', () => {
     expect(reactions[0].name).toBe('Water Synthesis');
-    expect(reactions[0].equation).toBe('2H2 + O2 -> 2H2O');
+    expect(reactions[0].equation).toBe('2H2(g) + O2(g) -> 2H2O(l)');
+  });
+
+  it('writes a state symbol on every species', () => {
+    reactions.forEach((r) => {
+      const { left, right } = sides(r.equation);
+      [...left, ...right].forEach(({ formula }) => {
+        expect(formula, `${r.id}: ${formula}`).toMatch(/\((s|l|g|aq)\)$/);
+      });
+    });
   });
 });
