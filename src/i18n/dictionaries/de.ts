@@ -55,9 +55,8 @@ export const de = {
   },
 
   language: {
+    /** Labels the switcher; visible in the settings panel, sr-only in the nav. */
     label: 'Sprache',
-    switcherA11y: 'Sprache auswählen',
-    changedA11y: 'Sprache auf {language} umgestellt.',
   },
 
   nav: {

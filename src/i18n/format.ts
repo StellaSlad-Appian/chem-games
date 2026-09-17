@@ -27,18 +27,15 @@ export function format(
   );
 }
 
-/**
- * Chooses between a singular and a plural form.
- *
- * English and German share the same two-form rule (one vs. everything else), so
- * a pair of strings is enough for Phase 1. It deliberately is *not* enough for
- * Phase 2: Russian needs three forms (one / few / many) and picks between them
- * with a rule on the last one and two digits. When Russian lands, replace the
- * call sites with `Intl.PluralRules(locale).select(count)` over a
- * `Record<Intl.LDMLPluralRule, string>` shaped dictionary entry — see
- * `docs/i18n/README.md` § Plurals. Every current call site is listed there so
- * the migration is mechanical.
- */
-export function plural(count: number, forms: { one: string; other: string }): string {
-  return count === 1 ? forms.one : forms.other;
-}
+// There is deliberately no plural() helper here.
+//
+// The two count-dependent strings on the site pick their form with a ternary at
+// the call site over a `…One` / `…Other` key pair, which is correct for English
+// and German and wrong for Russian — Russian has three forms chosen by a rule on
+// the last one and two digits. A helper here would only hard-code the two-form
+// assumption in one more place and make it look solved.
+//
+// When Russian lands, those entries become a record keyed by CLDR plural
+// category and the call sites use `Intl.PluralRules`. Both call sites are listed
+// in docs/i18n/README.md § Plurals so the change is mechanical — and it has to
+// happen before the Russian dictionary is written, not after.

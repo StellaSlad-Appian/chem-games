@@ -101,7 +101,7 @@ export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel
         >
           {LOCALES.map((option) => (
             <option key={option} value={option}>
-              {LOCALE_LABELS[option].native}
+              {LOCALE_LABELS[option]}
             </option>
           ))}
         </select>

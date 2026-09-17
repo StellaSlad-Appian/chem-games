@@ -43,6 +43,25 @@ export async function openGame(
   await expect(page.locator('main.game-shell')).toBeVisible();
 }
 
+/**
+ * Waits until React has hydrated and the client providers have run.
+ *
+ * `GameSettingsProvider` renders its children inside a wrapper that carries
+ * `invisible` until its mount effect has read the stored preferences, so the
+ * class disappearing is a real signal that client code is running — and until
+ * it does, the page is literally invisible, so waiting for it is what a reader
+ * experiences anyway.
+ *
+ * This matters for anything that drives a control whose only behaviour is a
+ * React handler: Playwright dispatches a DOM event, and if React has not
+ * attached its listener yet the event goes nowhere and the test fails with no
+ * visible cause. The language switcher is exactly that, and it failed this way
+ * only under parallel load.
+ */
+export async function waitForHydration(page: Page): Promise<void> {
+  await expect(page.locator('div.invisible')).toHaveCount(0);
+}
+
 /** The pause / level-up / game-over card (role="dialog", labelled by its title). */
 export const overlay = (page: Page, name?: string): Locator =>
   name ? page.getByRole('dialog', { name }) : page.getByRole('dialog');

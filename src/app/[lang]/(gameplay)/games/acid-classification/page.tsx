@@ -1,7 +1,7 @@
 // src/app/games/acid-classification/page.tsx
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import { useRouter } from 'next/navigation';
 
@@ -32,24 +32,27 @@ export default function ClassificationGame() {
 
   // The tuning numbers stay in the config; only the copy moved to the
   // dictionary, so a teacher still edits wording in one place per locale.
-  const instructionSteps = [
-    {
-      highlight: t.games.acidClassification.stepIdentifyLabel,
-      text: t.games.acidClassification.stepIdentifyText,
-    },
-    {
-      highlight: t.games.acidClassification.stepClassifyLabel,
-      text: t.games.acidClassification.stepClassifyText,
-    },
-    {
-      highlight: t.games.acidClassification.stepHintLabel,
-      text: t.games.acidClassification.stepHintText,
-    },
-    {
-      highlight: t.games.acidClassification.stepCarefulLabel,
-      text: t.games.acidClassification.stepCarefulText,
-    },
-  ];
+  const instructionSteps = useMemo(
+    () => [
+      {
+        highlight: t.games.acidClassification.stepIdentifyLabel,
+        text: t.games.acidClassification.stepIdentifyText,
+      },
+      {
+        highlight: t.games.acidClassification.stepClassifyLabel,
+        text: t.games.acidClassification.stepClassifyText,
+      },
+      {
+        highlight: t.games.acidClassification.stepHintLabel,
+        text: t.games.acidClassification.stepHintText,
+      },
+      {
+        highlight: t.games.acidClassification.stepCarefulLabel,
+        text: t.games.acidClassification.stepCarefulText,
+      },
+    ],
+    [t]
+  );
 
   const {
     gameState,

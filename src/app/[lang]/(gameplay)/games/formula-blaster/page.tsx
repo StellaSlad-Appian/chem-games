@@ -1,7 +1,7 @@
 // src/app/games/formula-blaster/page.tsx
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useGameState } from '@/hooks/useGameState';
@@ -46,14 +46,18 @@ export default function FormulaBlasterPage() {
 
   // Templates plus the name lookups the engine needs. Formulae and element
   // symbols are passed through untranslated; only the names are localized.
-  const feedbackCopy: ChemicalFeedbackCopy = {
-    hint: t.games.formulaBlaster.hintTemplate,
-    wrongPick: t.games.formulaBlaster.wrongPick,
-    wrongPickLookFor: t.games.formulaBlaster.wrongPickLookFor,
-    wrongPickCheckCounts: t.games.formulaBlaster.wrongPickCheckCounts,
-    compoundName: (compound) => compoundName(locale, compound),
-    elementName: (element) => elementName(locale, element.symbol),
-  };
+  // Memoised because it is read from event handlers on a hot path.
+  const feedbackCopy: ChemicalFeedbackCopy = useMemo(
+    () => ({
+      hint: t.games.formulaBlaster.hintTemplate,
+      wrongPick: t.games.formulaBlaster.wrongPick,
+      wrongPickLookFor: t.games.formulaBlaster.wrongPickLookFor,
+      wrongPickCheckCounts: t.games.formulaBlaster.wrongPickCheckCounts,
+      compoundName: (compound) => compoundName(locale, compound),
+      elementName: (element) => elementName(locale, element.symbol),
+    }),
+    [t, locale]
+  );
 
   const {
     gameState,

@@ -30,14 +30,14 @@ export const LOCALE_COOKIE = 'NEXT_LOCALE';
 export const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 /**
- * How each language is offered in the switcher. `native` is what the reader
- * sees (a German speaker looking for German looks for "Deutsch", not
- * "German"); `english` is the accessible-name fallback used in the
- * screen-reader description so the control is understandable from any locale.
+ * How each language is named in the switcher: in its own language, always. A
+ * reader looking for German scans for "Deutsch", not for "German" — which they
+ * may not be able to read, since the whole reason they are reaching for the
+ * switcher is that the current language is wrong for them.
  */
-export const LOCALE_LABELS: Record<Locale, { native: string; english: string }> = {
-  en: { native: 'English', english: 'English' },
-  de: { native: 'Deutsch', english: 'German' },
+export const LOCALE_LABELS: Record<Locale, string> = {
+  en: 'English',
+  de: 'Deutsch',
 };
 
 export function isLocale(value: unknown): value is Locale {

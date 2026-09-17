@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**426 strings** — 214 high confidence,
+**424 strings** — 212 high confidence,
 151 medium, 61 low.
 
 The confidence column is a judgement about *this* translation, not about German
@@ -72,8 +72,6 @@ invisible here.
 | Key | English | German | Confidence | Notes |
 |---|---|---|---|---|
 | `language.label` | Language | Sprache | high | Switcher labels; short and unambiguous. |
-| `language.switcherA11y` | Choose a language | Sprache auswählen | high | Switcher labels; short and unambiguous. |
-| `language.changedA11y` | Language changed to {language}. | Sprache auf {language} umgestellt. | high | Switcher labels; short and unambiguous. |
 
 ### `nav`
 

@@ -46,12 +46,8 @@ export const en = {
   },
 
   language: {
-    /** Visible label above the switcher. */
+    /** Labels the switcher; visible in the settings panel, sr-only in the nav. */
     label: 'Language',
-    /** Accessible name for the control itself. */
-    switcherA11y: 'Choose a language',
-    /** Announced after the choice takes effect. */
-    changedA11y: 'Language changed to {language}.',
   },
 
   nav: {

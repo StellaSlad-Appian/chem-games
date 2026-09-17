@@ -8,6 +8,12 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: 'jsdom',
+    // The game-flow tests play a whole game through under fake timers — the
+    // Formula Blaster and Acid Classification victory runs drive every level —
+    // and were already close to Vitest's 5s default before this change. Raised
+    // rather than split, because the value of those tests is that they cover a
+    // full playthrough in one go. Still short enough to catch a genuine hang.
+    testTimeout: 20_000,
     environmentOptions: { jsdom: { pretendToBeVisual: true } },
     globals: true,
     setupFiles: ['./vitest.setup.ts'],

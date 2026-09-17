@@ -34,7 +34,7 @@ src/i18n/
   config.ts              the locale list; the one place a language is declared
   locale-match.ts        Accept-Language parsing and matching (no dependencies)
   routing.ts             localizePath / stripLocale / which paths stay unprefixed
-  format.ts              {placeholder} interpolation and the plural helper
+  format.ts              {placeholder} interpolation
   dictionaries.ts        getDictionary(lang) — server side
   dictionaries/
     en.ts                the canonical dictionary; `Dictionary` is derived from it
@@ -236,8 +236,9 @@ Two things fall out of that, both worth keeping:
 
 Phase 1 was built so this is small. To add French:
 
-1. **`src/i18n/config.ts`** — add `'fr'` to `LOCALES` and an entry to
-   `LOCALE_LABELS` (native name first: a French reader looks for "Français").
+1. **`src/i18n/config.ts`** — add `'fr'` to `LOCALES` and to `LOCALE_LABELS`,
+   naming the language in itself: a French reader scans for "Français", not for
+   "French".
 2. **`src/i18n/dictionaries/fr.ts`** — copy `de.ts`, translate, keep
    `satisfies Dictionary`. `npm run typecheck` tells you what is missing.
 3. **`src/i18n/dictionaries.ts`** — add the loader entry.
@@ -311,8 +312,9 @@ no dependency either. Two call sites is a morning's work — but it must happen
 *before* the Russian dictionary is written, not after, or the Russian file gets
 written against the wrong shape.
 
-The same applies to the singular/plural switch in `format.ts`'s `plural()`
-helper, which is documented there as Germanic-only.
+There is deliberately no `plural()` helper in `format.ts`. One would only
+hard-code the two-form assumption in a third place and make the problem look
+solved; `format.ts` says so where someone would go looking for it.
 
 ---
 
