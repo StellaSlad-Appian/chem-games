@@ -22,15 +22,15 @@
 
  3. IF PLAYERS SAY: "Levels are too long / too short."
     Change `levels.reactionsPerLevel` (e.g. 3 -> 4 or 2)
-       Reactions to balance before the level-up card. Every difficulty pool
-       in reactions.ts has at least this many playable reactions (a unit
-       test checks).
+       Reactions to balance before the level-up card. Every level in
+       reactions.ts has at least this many reactions (a unit test checks).
 
  4. IF PLAYERS SAY: "I keep typing 20 and 30 and it still isn't balanced."
     Decrease `mechanics.maxCoefficient` (e.g. 12 -> 10)
        Above this the game refuses the number and says to aim for the
-       simplest ratio. Reactions whose answer needs a bigger coefficient
-       (Octane Combustion needs 25) are left out of the level pools.
+       simplest ratio. A reaction whose answer needs a bigger coefficient
+       must be set to level 0 in reactions.ts (Octane Combustion needs 25
+       and already is); a unit test fails if one is left on a level.
 
  5. IF PLAYERS SAY: "The particle clusters are noise / I want them for longer."
     Change `visuals.showClustersUntilLevel` (e.g. 2 -> 3)
@@ -52,10 +52,11 @@
     Change `levels.challengeDistractors` (e.g. 3 -> 2)
        Extra compounds shown in the Level 5 compound picker.
 
- Which reaction is on which level is NOT here — it follows the `difficulty`
- tag in src/core-engine/data/reactions.ts (`levels.difficultyByLevel` maps
- level -> tag), so a teacher can move a reaction without touching numbers.
- Level 1, reaction 1 is always Water Synthesis (the guided walk-through).
+ Which reaction is on which level is NOT here — it is the
+ `levels: { 'reaction-balancer': n }` entry on each reaction in
+ src/core-engine/data/reactions.ts (1-4, or 0 to keep it out of this game),
+ so a teacher can move a reaction without touching numbers. Level 1,
+ reaction 1 is always Water Synthesis (the guided walk-through).
  ==============================================================================
 */
 
@@ -71,8 +72,6 @@ const OPTION_1_CLASSROOM = {
     maxLevel: 4,
     /** The optional Challenge (word equations); offered on the victory card, never required. */
     challengeLevel: 5,
-    /** Which reactions.ts `difficulty` feeds each level (index = level - 1). */
-    difficultyByLevel: ['intro', 'beginner', 'intermediate', 'advanced'],
     /** Wrong compounds mixed into the Challenge compound picker. */
     challengeDistractors: 3,
   },
@@ -111,7 +110,6 @@ const OPTION_2_GENTLE = {
     reactionsPerLevel: 3,
     maxLevel: 4,
     challengeLevel: 5,
-    difficultyByLevel: ['intro', 'beginner', 'intermediate', 'advanced'],
     challengeDistractors: 2,
   },
   mechanics: {
@@ -139,7 +137,6 @@ const OPTION_3_EXAM_PREP = {
     reactionsPerLevel: 4,
     maxLevel: 4,
     challengeLevel: 5,
-    difficultyByLevel: ['intro', 'beginner', 'intermediate', 'advanced'],
     challengeDistractors: 4,
   },
   mechanics: {

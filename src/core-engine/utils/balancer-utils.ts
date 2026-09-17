@@ -9,12 +9,12 @@
 import type { ReactionBalancerConfig } from '../config/games/reaction-balancer-config';
 import { ELEMENTS_REGISTRY } from '../data/elements';
 import {
+  balancerLevel,
   bareFormula,
   getReaction,
   reactions,
   speciesName,
   type ChemicalReaction,
-  type ReactionDifficulty,
 } from '../data/reactions';
 import { parseFormulaAtoms } from './chemical-utils';
 
@@ -291,19 +291,23 @@ export interface BalancerRound {
   distractors: string[];
 }
 
-const answerFits = (reaction: ChemicalReaction, maxCoefficient: number) =>
+/** True when every stored coefficient is within the game's cap (`mechanics.maxCoefficient`). */
+export const fitsCoefficientCap = (reaction: ChemicalReaction, maxCoefficient: number): boolean =>
   parseReaction(reaction).species.every((s) => s.answer <= maxCoefficient);
 
-/** Reactions a balancing level may draw from: right difficulty, unbalanced at all-1, answer within reach. */
-export function reactionsForDifficulty(difficulty: ReactionDifficulty, config: ReactionBalancerConfig): ChemicalReaction[] {
-  return reactions.filter(
-    (r) => r.difficulty === difficulty && needsBalancing(r) && answerFits(r, config.mechanics.maxCoefficient)
-  );
+/**
+ * The reactions assigned to a balancing level in reactions.ts
+ * (`levels['reaction-balancer']`). The data is trusted here; the tests in
+ * balancer-utils.test.ts prove every assigned reaction needs balancing and
+ * fits the coefficient cap, and that every level has enough of them.
+ */
+export function reactionsForLevel(level: number): ChemicalReaction[] {
+  return reactions.filter((r) => balancerLevel(r) === level);
 }
 
-/** Reactions the Challenge level may draw from: those with a word equation, answer within reach. */
-export function challengePool(config: ReactionBalancerConfig): ChemicalReaction[] {
-  return reactions.filter((r) => Boolean(r.prompt) && answerFits(r, config.mechanics.maxCoefficient));
+/** Reactions the Challenge level may draw from: every level-1+ reaction with a word equation. */
+export function challengePool(): ChemicalReaction[] {
+  return reactions.filter((r) => balancerLevel(r) >= 1 && Boolean(r.prompt));
 }
 
 const shuffle = <T>(items: T[], rng: () => number): T[] => {
@@ -331,7 +335,7 @@ function allSpecies(): Species[] {
 export function planBalancerLevel(level: number, config: ReactionBalancerConfig, rng: () => number = Math.random): BalancerRound[] {
   const { levels } = config;
   if (level >= levels.challengeLevel) {
-    const pool = shuffle(challengePool(config), rng).slice(0, levels.reactionsPerLevel);
+    const pool = shuffle(challengePool(), rng).slice(0, levels.reactionsPerLevel);
     const everything = allSpecies();
     return pool.map((reaction, index) => {
       const parsed = parseReaction(reaction);
@@ -345,8 +349,7 @@ export function planBalancerLevel(level: number, config: ReactionBalancerConfig,
       return { index, reaction, parsed, mode: 'challenge' as const, distractors };
     });
   }
-  const difficulty = levels.difficultyByLevel[Math.min(level, levels.maxLevel) - 1];
-  let pool = reactionsForDifficulty(difficulty, config);
+  let pool = reactionsForLevel(Math.min(level, levels.maxLevel));
   if (level === 1) {
     const water = getReaction(WATER_REACTION_ID);
     pool = [water, ...shuffle(pool.filter((r) => r.id !== water.id), rng)];

@@ -7,7 +7,7 @@
  */
 import { describe, expect, it } from 'vitest';
 import { REACTION_BALANCER_CONFIG as CFG } from '../config/games/reaction-balancer-config';
-import { SPECIES_NAMES, getReaction, reactions, speciesName } from '../data/reactions';
+import { SPECIES_NAMES, balancerLevel, getReaction, reactions, speciesName } from '../data/reactions';
 import {
   WATER_REACTION_ID,
   allOnes,
@@ -21,6 +21,7 @@ import {
   elementPriority,
   equationText,
   findSpecies,
+  fitsCoefficientCap,
   isBalanced,
   ledger,
   lowestTerms,
@@ -28,9 +29,11 @@ import {
   nextElement,
   parseReaction,
   planBalancerLevel,
-  reactionsForDifficulty,
+  reactionsForLevel,
   relativeMass,
 } from '../utils/balancer-utils';
+
+const BALANCER_LEVELS = [1, 2, 3, 4] as const;
 import { parseEquationSide, parseFormulaWithGroups } from './helpers/formula';
 
 const water = parseReaction(getReaction(WATER_REACTION_ID));
@@ -207,10 +210,7 @@ describe('coefficientHint (tier 3)', () => {
   });
 
   it('leads from all-1 to a balanced equation for every playable reaction', () => {
-    const playable = [
-      ...CFG.levels.difficultyByLevel.flatMap((d) => reactionsForDifficulty(d, CFG)),
-      ...challengePool(CFG),
-    ];
+    const playable = [...BALANCER_LEVELS.flatMap((level) => reactionsForLevel(level)), ...challengePool()];
     playable.forEach((r) => {
       const parsed = parseReaction(r);
       let coefficients = allOnes(parsed);
@@ -266,30 +266,64 @@ describe('buildReaction (Challenge)', () => {
   });
 });
 
-describe('level plans', () => {
-  it('every balancing level has at least reactionsPerLevel playable reactions', () => {
-    CFG.levels.difficultyByLevel.forEach((difficulty) => {
-      const pool = reactionsForDifficulty(difficulty, CFG);
-      expect(pool.length, difficulty).toBeGreaterThanOrEqual(CFG.levels.reactionsPerLevel);
-      pool.forEach((r) => {
-        expect(needsBalancing(r), r.id).toBe(true);
-        parseReaction(r).species.forEach((s) => expect(s.answer, `${r.id} ${s.bare}`).toBeLessThanOrEqual(CFG.mechanics.maxCoefficient));
+describe('reaction levels (reactions.ts `levels.reaction-balancer`)', () => {
+  it('every reaction carries an explicit level from 0 to maxLevel', () => {
+    reactions.forEach((r) => {
+      const level = balancerLevel(r);
+      expect(Number.isInteger(level) && level >= 0 && level <= CFG.levels.maxLevel, `${r.id}: ${level}`).toBe(true);
+    });
+  });
+
+  it('every reaction on a level needs balancing and fits the coefficient cap', () => {
+    BALANCER_LEVELS.forEach((level) => {
+      reactionsForLevel(level).forEach((r) => {
+        expect(needsBalancing(r), `${r.id} on level ${level} is already balanced`).toBe(true);
+        expect(fitsCoefficientCap(r, CFG.mechanics.maxCoefficient), `${r.id} on level ${level} needs a coefficient above ${CFG.mechanics.maxCoefficient}`).toBe(true);
       });
     });
   });
 
-  it('leaves out reactions whose answer needs a coefficient above maxCoefficient (octane needs 25)', () => {
-    expect(reactionsForDifficulty('advanced', CFG).map((r) => r.id)).not.toContain('rxn_27');
+  it('a reaction is left out of the game only because it needs no balancing or exceeds the cap', () => {
+    const excluded = reactionsForLevel(0);
+    expect(excluded.map((r) => r.name).sort()).toEqual([...TRIVIAL, 'Octane Combustion'].sort());
+    excluded.forEach((r) => {
+      expect(!needsBalancing(r) || !fitsCoefficientCap(r, CFG.mechanics.maxCoefficient), r.id).toBe(true);
+    });
   });
 
-  it('the Challenge pool has a word equation for every reaction and enough of them', () => {
-    const pool = challengePool(CFG);
+  it('every balancing level has at least reactionsPerLevel reactions', () => {
+    BALANCER_LEVELS.forEach((level) => {
+      expect(reactionsForLevel(level).length, `level ${level}`).toBeGreaterThanOrEqual(CFG.levels.reactionsPerLevel);
+    });
+  });
+
+  it('places the brief\'s examples where its level table says', () => {
+    const levelOf = (name: string) => balancerLevel(reactions.find((r) => r.name === name)!);
+    expect(levelOf('Water Synthesis')).toBe(1);
+    expect(levelOf('Sodium Chloride Synthesis')).toBe(1);
+    expect(levelOf('Methane Combustion')).toBe(2);
+    expect(levelOf('Iron Rusting')).toBe(2);
+    expect(levelOf('Calcium Hydroxide Neutralisation')).toBe(3);
+    expect(levelOf('Copper and Silver Nitrate')).toBe(3);
+    expect(levelOf('Propane Combustion')).toBe(4);
+    expect(levelOf('Golden Rain Reaction')).toBe(4);
+    expect(levelOf('Aluminium in Sulfuric Acid')).toBe(4);
+  });
+});
+
+describe('level plans', () => {
+  it('the Challenge pool is every level-1+ reaction with a word equation, and there are enough of them', () => {
+    const pool = challengePool();
     expect(pool.length).toBeGreaterThanOrEqual(CFG.levels.reactionsPerLevel);
-    pool.forEach((r) => expect(r.prompt, r.id).toBeTruthy());
+    pool.forEach((r) => {
+      expect(r.prompt, r.id).toBeTruthy();
+      expect(balancerLevel(r), r.id).toBeGreaterThanOrEqual(1);
+    });
+    reactions.filter((r) => balancerLevel(r) === 0).forEach((r) => expect(pool).not.toContain(r));
   });
 
   it('every Challenge prompt names every reactant and product', () => {
-    challengePool(CFG).forEach((r) => {
+    challengePool().forEach((r) => {
       const prompt = (r.prompt ?? '').toLowerCase();
       parseReaction(r).species.forEach((s) => {
         // "hydrogen gas" names H2; "water" or "water vapour" names H2O; salts by their full name.
@@ -312,11 +346,11 @@ describe('level plans', () => {
     expect(new Set(plan.map((r) => r.reaction.id)).size).toBe(plan.length);
   });
 
-  it('Levels 2-4 draw from their difficulty pools without repeats', () => {
+  it('Levels 2-4 draw from their own level without repeats', () => {
     [2, 3, 4].forEach((level) => {
       const plan = planBalancerLevel(level, CFG, () => 0.3);
       expect(plan).toHaveLength(CFG.levels.reactionsPerLevel);
-      plan.forEach((round) => expect(round.reaction.difficulty).toBe(CFG.levels.difficultyByLevel[level - 1]));
+      plan.forEach((round) => expect(balancerLevel(round.reaction)).toBe(level));
       expect(new Set(plan.map((r) => r.reaction.id)).size).toBe(plan.length);
     });
   });

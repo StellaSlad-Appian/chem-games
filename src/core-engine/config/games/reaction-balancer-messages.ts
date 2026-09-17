@@ -155,11 +155,11 @@ export const REACTION_BALANCER_MESSAGES = {
       subtitle: 'Every atom accounted for',
       description: (nextLevel: number, whatChanges: string) => `Level ${nextLevel} adds ${whatChanges}.`,
     },
-    // Catalogue additions: what each level adds, following the reactions.ts difficulty tags.
+    // Catalogue additions: what each level adds, following the reaction levels in reactions.ts.
     levelChanges: {
-      2: 'reactions with three elements, and the next-row highlight is gone',
-      3: 'combustion and displacement reactions; the coach waits until you ask and the clusters give way to formulas',
-      4: 'brackets, polyatomic ions and four-compound reactions; the ledger stays hidden until you open it',
+      2: 'reactions where fixing one element unbalances another, and the next-row highlight is gone',
+      3: 'polyatomic ions, the first brackets and four-compound reactions; the coach waits until you ask and the clusters give way to formulas',
+      4: 'bigger hydrocarbons and four-compound double displacements; the ledger stays hidden until you open it',
     } as Record<number, string>,
     victory: {
       badge: 'All objectives complete',

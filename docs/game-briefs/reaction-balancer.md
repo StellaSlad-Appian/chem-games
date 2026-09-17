@@ -96,13 +96,20 @@ this before") and never shown again once completed.
 
 ## Difficulty progression
 
-| Level | Reactions (from `reactions.ts` `difficulty`) | Scaffolding |
+Each reaction in `reactions.ts` carries `levels: { 'reaction-balancer': n }` — its level in *this*
+game (other games add their own key, because a reaction that is trivial to balance can still be
+a good stoichiometry problem). `0` means the reaction never appears here: it is already balanced
+with every coefficient at 1, or its answer needs a coefficient above `maxCoefficient`. A unit
+test enforces both rules and that every level has at least `reactionsPerLevel` reactions.
+
+| Level | Reactions (`levels['reaction-balancer']`) | Scaffolding |
 |---|---|---|
-| 1 | `intro` — two-element synthesis/decomposition (`H2 + O2`, `Na + Cl2`, `CaCO3 →`); reaction 1 is the guided walk-through | Coach panel on; ledger, particle clusters and mass beam visible; the element to balance next is highlighted |
-| 2 | `beginner` — three elements, no brackets (`CH4 + O2`, `Fe + O2`) | Coach panel on; ledger and clusters visible; no next-element highlight |
-| 3 | `intermediate` — polyatomic ions as units, brackets (`Ca(OH)2 + HCl`, `Al2(SO4)3`) | Coach on request; ledger visible; clusters collapse to formula only; observation line appears |
-| 4 | `advanced` — combustion of larger hydrocarbons, double displacement with 4 compounds | Ledger hidden by default (toggle available; using it removes the lowest-terms bonus) |
-| 5 — Challenge (optional) | Mixed review; equations built by the player from a description ("solid calcium carbonate decomposes on heating") with a compound picker, then balanced | Hint ladder only |
+| 1 | Two-element synthesis/decomposition with coefficients of 2 or 3: `H2 + O2` (always first — the guided walk-through), `H2 + Cl2`, `Na + Cl2`, `Mg + O2`, `C + O2`, `Al + Cl2`, `O2 → O3` | Coach panel on; ledger, particle clusters and mass beam visible; the element to balance next is highlighted |
+| 2 | Fixing one element unbalances another; first three-element reactions, no brackets: `N2 + H2`, `H2O →`, `H2O2 →`, `Fe + O2`, `CH4 + O2`, `SO2 + O2` | Coach panel on; ledger and clusters visible; no next-element highlight |
+| 3 | Polyatomic ions as units, the first brackets, four compounds: `Na + H2O`, `Ca(OH)2 + HCl`, `C2H5OH + O2`, `Fe2O3 + Al`, `NH3 + O2`, `Cu + AgNO3`, `Cl2 + NaOH` | Coach on request; ledger visible; clusters collapse to formula only; observation line appears |
+| 4 | Larger hydrocarbons, brackets with a subscript outside, four-compound double displacement: `C3H8 + O2`, `Pb(NO3)2 + KI`, `Al + H2SO4 → Al2(SO4)3`, respiration, photosynthesis | Ledger hidden by default (toggle available; using it removes the lowest-terms bonus) |
+| 5 — Challenge (optional) | Mixed review over every level-1+ reaction with a word equation; the player builds the equation from a description ("Sodium metal reacts with liquid water to produce…") with a compound picker, then balances it | Hint ladder only |
+| 0 — not in this game | `CaCO3 →`, `Mg + H2SO4`, `HCl + NaOH`, `AgNO3 + NaCl`, `NaHCO3 + CH3COOH`, `NH3 + HCl`, `H2CO3 →` (already balanced) and octane combustion (needs 25) | — |
 
 Support mode (Settings) forces Level 1–2 scaffolding at every level with no score penalty; the
 session is recorded normally but `accuracy` is not written (null), so it never lowers a
@@ -283,19 +290,20 @@ are bold; glossary words are linked automatically.
 Built on branch `feature/reaction-balancer-redesign` (`/games/reaction-balancer`). Decisions
 taken where the brief and the dataset disagreed — flagged for review, not silently changed:
 
-- **Level pools follow the `difficulty` tags** in `reactions.ts`, as the table says, so the
-  parenthetical examples are not all where the table places them: `CH4 + O2` and `Fe + O2` are
-  tagged `intermediate` (Level 3), brackets (`Cu(NO3)2`, `Pb(NO3)2`) are `advanced` (Level 4),
-  and `Na + Cl2` / `Ca(OH)2 + HCl` / `Al2(SO4)3` are not in the dataset. Retagging is a data
-  edit, not a code change.
-- **The seven already-balanced reactions** (Limestone Decomposition, Magnesium in Sulfuric
-  Acid, Hydrochloric Acid Neutralization, Silver Chloride Precipitation, Baking Soda and
-  Vinegar, Ammonium Chloride Formation, Carbonic Acid Decomposition) stay in the dataset for
-  the cheat sheets and the Challenge word equations, but `needsBalancing()` keeps them out of
-  the balancing levels. This means `CaCO3 →` is not a Level 1 reaction; the intro pool is
-  exactly `H2 + O2`, `H2 + Cl2` and `3O2 → 2O3`.
-- **Octane Combustion** needs a coefficient of 25, above `maxCoefficient` (12), so the plan
-  skips it (and any reaction whose answer exceeds the cap).
+- **Per-game levels replaced the shared `difficulty` tag** (second commit). The old tag put
+  `CH4 + O2` and `Fe + O2` at Level 3 and brackets at Level 4, left Level 2 with no
+  three-element reaction, and three of the table's examples (`Na + Cl2`, `Ca(OH)2 + HCl`,
+  `Al2(SO4)3`) were not in the dataset. Each reaction now carries
+  `levels: { 'reaction-balancer': 0–4 }` (other games add their own key), the three missing
+  reactions were added (`2Na + Cl2 → 2NaCl`, `Ca(OH)2 + 2HCl → CaCl2 + 2H2O`,
+  `2Al + 3H2SO4 → Al2(SO4)3 + 3H2`), and the table above lists the resulting pools.
+- **Level 0 keeps a reaction out of this game entirely**, Challenge included: the seven
+  already-balanced reactions (Limestone Decomposition, Magnesium in Sulfuric Acid, Hydrochloric
+  Acid Neutralization, Silver Chloride Precipitation, Baking Soda and Vinegar, Ammonium Chloride
+  Formation, Carbonic Acid Decomposition) and Octane Combustion (needs 25, above
+  `maxCoefficient` 12). They stay in the dataset for the cheat sheets and other games. A unit
+  test fails if a level-1+ reaction is already balanced or exceeds the cap, or if a level-0
+  reaction has neither reason to be excluded.
 - **Challenge sessions** record the cumulative score (Levels 1–4 plus the Challenge) with
   `levelReached = 5`, matching what the header shows; the session limits allow for it.
 - **Tier 3 aims at the stored lowest-terms answer.** When a coefficient overshoots it says
