@@ -419,8 +419,7 @@ export const de = {
     intro:
       'Kurze Übersichten zu chemischen Formeln, Reaktionsregeln und Gleichungen – nach Klassenstufe sortiert.',
     backToList: 'Zurück zu den Spickzetteln',
-    countOne: '{count} Thema',
-    countOther: '{count} Themen',
+    count: { one: '{count} Thema', other: '{count} Themen' },
     exampleFormula: 'Beispielformel',
     readReference: 'Nachschlagen',
     practiseThis: 'Üben',

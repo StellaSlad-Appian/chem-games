@@ -19,7 +19,7 @@
 import { createContext, useContext, useMemo } from 'react';
 import type { Dictionary } from './dictionaries/en';
 import { DEFAULT_LOCALE, type Locale } from './config';
-import { format } from './format';
+import { format, formatPlural, type PluralForms } from './format';
 import { localizePath } from './routing';
 
 interface I18nValue {
@@ -28,6 +28,15 @@ interface I18nValue {
   t: Dictionary;
   /** Substitutes `{name}` placeholders: `f(t.footer.copyright, { year })`. */
   f: (template: string, values?: Record<string, string | number>) => string;
+  /**
+   * Picks the plural form for the active locale and interpolates it:
+   * `p(t.cheatSheets.count, visible.length)`. `{count}` is filled in for you.
+   *
+   * Never pick the form with a `count === 1` ternary at the call site: how many
+   * forms a string has is a property of the language, and a two-form assumption
+   * is wrong for most of the roadmap.
+   */
+  p: (forms: PluralForms, count: number, values?: Record<string, string | number>) => string;
   /** Prefixes an app-relative path with the active locale. */
   href: (path: string) => string;
 }
@@ -48,6 +57,8 @@ export function I18nProvider({
       locale,
       t: dictionary,
       f: format,
+      p: (forms: PluralForms, count: number, values?: Record<string, string | number>) =>
+        formatPlural(locale, forms, count, values),
       href: (path: string) => localizePath(path, locale),
     }),
     [locale, dictionary]

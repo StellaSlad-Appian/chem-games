@@ -27,15 +27,80 @@ export function format(
   );
 }
 
-// There is deliberately no plural() helper here.
+// ---------------------------------------------------------------------------
+// Plurals
+// ---------------------------------------------------------------------------
 //
-// The two count-dependent strings on the site pick their form with a ternary at
-// the call site over a `…One` / `…Other` key pair, which is correct for English
-// and German and wrong for Russian — Russian has three forms chosen by a rule on
-// the last one and two digits. A helper here would only hard-code the two-form
-// assumption in one more place and make it look solved.
+// A count-dependent string is a record keyed by CLDR plural category, and the
+// category is chosen by `Intl.PluralRules` for the active locale — never by a
+// `count === 1` ternary.
 //
-// When Russian lands, those entries become a record keyed by CLDR plural
-// category and the call sites use `Intl.PluralRules`. Both call sites are listed
-// in docs/i18n/README.md § Plurals so the change is mechanical — and it has to
-// happen before the Russian dictionary is written, not after.
+// This matters because the number of forms is a property of the language, not
+// of the string. English and German have two; Russian has four (1 книга,
+// 2 книги, 5 книг, 1.5 книги), Polish three, Arabic six. A `one`/`other` pair
+// is wrong roughly two thirds of the time in Russian, and the mistake is
+// invisible to every other test we have, because both forms are present and
+// neither is empty.
+//
+// A locale only supplies the categories its language actually uses: `other` is
+// required, the rest are optional, and `dictionary.test.ts` enforces exactly
+// that rather than plain key parity. `Intl.PluralRules` ships with Node and
+// every browser we support, so this needs no dependency.
+
+/** The CLDR plural categories, in the order the spec lists them. */
+export const PLURAL_CATEGORIES = ['zero', 'one', 'two', 'few', 'many', 'other'] as const;
+export type PluralCategory = (typeof PLURAL_CATEGORIES)[number];
+
+/**
+ * A count-dependent string. `other` is the only required form: it is the one
+ * every language has, and it is what a missing category falls back to.
+ */
+export type PluralForms = { other: string } & Partial<Record<PluralCategory, string>>;
+
+const isPluralCategory = (key: string): key is PluralCategory =>
+  (PLURAL_CATEGORIES as readonly string[]).includes(key);
+
+/**
+ * Whether a value is a plural record: every key is a CLDR category and `other`
+ * is present. The dictionary's `Translated<>` type applies the same rule, so a
+ * record shaped this way is automatically treated as a plural everywhere —
+ * there is no marker to remember to add.
+ */
+export function isPluralForms(value: unknown): value is PluralForms {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const keys = Object.keys(value as object);
+  return (
+    keys.length > 0 &&
+    keys.every((key) => isPluralCategory(key)) &&
+    typeof (value as Record<string, unknown>).other === 'string'
+  );
+}
+
+const rulesByLocale = new Map<string, Intl.PluralRules>();
+const rulesFor = (locale: string): Intl.PluralRules => {
+  let rules = rulesByLocale.get(locale);
+  if (!rules) {
+    rules = new Intl.PluralRules(locale);
+    rulesByLocale.set(locale, rules);
+  }
+  return rules;
+};
+
+/** The form `count` selects in `locale`, falling back to `other`. */
+export function selectPlural(locale: string, forms: PluralForms, count: number): string {
+  return forms[rulesFor(locale).select(count)] ?? forms.other;
+}
+
+/**
+ * Picks the plural form and interpolates it. `{count}` is filled in for you,
+ * because every count-dependent string wants it; pass `values` for anything
+ * else the sentence needs.
+ */
+export function formatPlural(
+  locale: string,
+  forms: PluralForms,
+  count: number,
+  values: Record<string, string | number> = {}
+): string {
+  return format(selectPlural(locale, forms, count), { count, ...values });
+}

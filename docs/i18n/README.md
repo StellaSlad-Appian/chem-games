@@ -272,49 +272,68 @@ piece of work, not a one-line change.
 
 ## Plurals
 
-**The current design handles two plural forms, which is enough for English,
-German, French, Spanish and Italian — and is not enough for Russian.**
-
-Today, a count-dependent string is a pair of keys and a ternary at the call
-site:
+**A count-dependent string is a record keyed by CLDR plural category, and the
+category is chosen by `Intl.PluralRules`.** How many forms a string has is a
+property of the language, so the call site never decides it.
 
 ```ts
-f(count === 1 ? t.cheatSheets.countOne : t.cheatSheets.countOther, { count })
-```
-
-Call sites that do this:
-
-| Key pair | Where |
-|---|---|
-| `cheatSheets.countOne` / `countOther` | `CheatSheetGrid.tsx` |
-| `games.reactionBalancer.particleCountOneA11y` / `particleCountOtherA11y` | `ParticlePreview.tsx` |
-
-Russian has three forms (one / few / many), chosen by a rule on the last one and
-two digits: 1 книга, 2 книги, 5 книг, 21 книга, 25 книг. A `one`/`other` pair
-produces text that is wrong roughly two-thirds of the time.
-
-**The fix, when Russian lands:** change those dictionary entries from two flat
-keys to a record keyed by CLDR plural category, and replace the ternary with
-`Intl.PluralRules`:
-
-```ts
-// dictionary
+// dictionaries/en.ts
+count: { one: '{count} topic', other: '{count} topics' }
+// dictionaries/de.ts
 count: { one: '{count} Thema', other: '{count} Themen' }
-// ru: { one: '…', few: '…', many: '…', other: '…' }
-
-// call site
-const rule = new Intl.PluralRules(locale).select(count);
-f(t.cheatSheets.count[rule] ?? t.cheatSheets.count.other, { count });
+// a future ru.ts — same key, four forms, nothing else changes
+count: { one: '{count} тема', few: '{count} темы', many: '{count} тем', other: '{count} темы' }
 ```
 
-`Intl.PluralRules` ships with Node and every browser we support, so this needs
-no dependency either. Two call sites is a morning's work — but it must happen
-*before* the Russian dictionary is written, not after, or the Russian file gets
-written against the wrong shape.
+```tsx
+const { t, p } = useI18n();
+<p>{p(t.cheatSheets.count, visible.length)}</p>
+```
 
-There is deliberately no `plural()` helper in `format.ts`. One would only
-hard-code the two-form assumption in a third place and make the problem look
-solved; `format.ts` says so where someone would go looking for it.
+`p()` fills `{count}` in for you; pass a third argument for anything else the
+sentence needs. Outside a client component, `formatPlural(locale, forms, count)`
+in `format.ts` is the same function without the context.
+
+### What makes a record a plural
+
+Nothing is marked. A record whose keys are *all* CLDR categories
+(`zero`/`one`/`two`/`few`/`many`/`other`) and which supplies `other` is a
+plural, everywhere: `isPluralForms()` in `format.ts` applies that rule at
+runtime and `IsPluralForms<>` in `dictionaries/en.ts` applies it in the type.
+Both have to agree, which is why they are written from the same list.
+
+### The one place locales may differ in their keys
+
+`dictionary.test.ts` normally fails a locale that has a key English does not.
+Plural forms are exempt in both directions, because the set of forms is the
+language's business:
+
+- every plural in English must be a plural in every locale, and vice versa —
+  whether a string is count-dependent at all is *not* negotiable;
+- `other` is required, because every language has it and it is the fallback;
+- any other category may be present or absent.
+
+So a Russian dictionary adds `few` and `many` and passes. A locale that drops
+`other`, or that turns a plural into a flat string, fails.
+
+### Why this shipped before Russian did
+
+Phase 1 used a `…One` / `…Other` key pair and a `count === 1` ternary. That is
+correct for English, German, French, Spanish and Italian, and wrong for Russian
+roughly two thirds of the time (1 книга, 2 книги, 5 книг, 21 книга, 25 книг),
+and for Polish, Arabic and Welsh in their own ways. The shape had to change
+*before* the Russian dictionary was written, or the Russian file would have been
+written against it.
+
+`src/i18n/plural.test.ts` covers Russian, Welsh and Japanese — languages the
+site does not ship — precisely because English and German cannot tell a correct
+implementation from a two-form one. It includes a case no pair of forms can
+express (1, 2 and 5 all differ in Russian), so the design cannot regress into a
+ternary unnoticed.
+
+There is exactly one pluralised string in the shared UI (`cheatSheets.count`,
+rendered by `CheatSheetGrid.tsx`); the game catalogues have their own, listed
+under `games.lewisStructures` and `games.reactionBalancer`.
 
 ---
 

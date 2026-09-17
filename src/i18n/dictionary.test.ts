@@ -14,25 +14,36 @@ import { describe, expect, it } from 'vitest';
 import { en } from './dictionaries/en';
 import { de } from './dictionaries/de';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
-import { placeholdersIn } from './format';
+import { isPluralForms, placeholdersIn } from './format';
 
 const dictionaries: Record<Locale, unknown> = { en, de };
 
-type Entry = { path: string; value: string };
+type Entry = { path: string; value: string; plural?: boolean };
 
-/** Every leaf string in a dictionary, as dot-paths (arrays use [index]). */
-function flatten(value: unknown, prefix = ''): Entry[] {
-  if (typeof value === 'string') return [{ path: prefix, value }];
+/**
+ * Every leaf string in a dictionary, as dot-paths (arrays use [index]).
+ *
+ * A plural record's forms are flagged, because they are the one place where
+ * locales legitimately differ in which keys they carry: `other` is required,
+ * every other CLDR category is optional. Russian adds `few` and `many` to the
+ * same key and must not read as "extra keys".
+ */
+function flatten(value: unknown, prefix = '', inPlural = false): Entry[] {
+  if (typeof value === 'string') return [{ path: prefix, value, plural: inPlural }];
   if (Array.isArray(value)) {
-    return value.flatMap((item, index) => flatten(item, `${prefix}[${index}]`));
+    return value.flatMap((item, index) => flatten(item, `${prefix}[${index}]`, false));
   }
   if (value && typeof value === 'object') {
+    const plural = isPluralForms(value);
     return Object.entries(value).flatMap(([key, child]) =>
-      flatten(child, prefix ? `${prefix}.${key}` : key)
+      flatten(child, prefix ? `${prefix}.${key}` : key, plural)
     );
   }
   return [];
 }
+
+/** `games.x.count.one` -> `games.x.count`. */
+const pluralRoot = (path: string) => path.slice(0, path.lastIndexOf('.'));
 
 const entriesFor = (locale: Locale) => flatten(dictionaries[locale]);
 const mapFor = (locale: Locale) =>
@@ -87,10 +98,30 @@ describe.each(otherLocales)('dictionary: %s', (locale) => {
   const map = mapFor(locale);
 
   it('has exactly the keys English has — no missing, no extra', () => {
-    const missing = englishEntries.map((e) => e.path).filter((path) => !map.has(path));
-    const extra = entries.map((e) => e.path).filter((path) => !englishMap.has(path));
+    // Plural forms are exempt in both directions: a locale supplies the CLDR
+    // categories its language uses. `other` is covered by the test below.
+    const missing = englishEntries
+      .filter((entry) => !entry.plural && !map.has(entry.path))
+      .map((e) => e.path);
+    const extra = entries
+      .filter((entry) => !entry.plural && !englishMap.has(entry.path))
+      .map((e) => e.path);
 
     expect({ missing, extra }).toEqual({ missing: [], extra: [] });
+  });
+
+  it('gives every plural record an `other` form, and no form English does not have a record for', () => {
+    const englishPluralRoots = new Set(
+      englishEntries.filter((e) => e.plural).map((e) => pluralRoot(e.path))
+    );
+    const localePluralRoots = new Set(entries.filter((e) => e.plural).map((e) => pluralRoot(e.path)));
+
+    // Every plural in English is a plural here, and vice versa: only the set of
+    // forms may differ, never whether the key is count-dependent at all.
+    expect([...localePluralRoots].sort()).toEqual([...englishPluralRoots].sort());
+
+    const withoutOther = [...localePluralRoots].filter((root) => !map.has(`${root}.other`));
+    expect(withoutOther).toEqual([]);
   });
 
   it('has no empty or whitespace-only values', () => {

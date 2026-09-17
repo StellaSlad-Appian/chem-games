@@ -13,6 +13,10 @@
 //  - Chemical formulae and element symbols never appear here — they come from
 //    the core-engine registries. Element and compound *names* are translated in
 //    src/i18n/chemistry-names/, not here.
+//  - A count-dependent string is a record keyed by CLDR plural category
+//    ({ one, other }), never a `…One` / `…Other` key pair. See format.ts.
+
+import type { PluralCategory, PluralForms } from '../format';
 
 export const en = {
   meta: {
@@ -410,8 +414,7 @@ export const en = {
     intro:
       'Quick chemical formulas, reaction rules, and equation references grouped by year level.',
     backToList: 'Back to Cheat Sheets',
-    countOne: '{count} topic',
-    countOther: '{count} topics',
+    count: { one: '{count} topic', other: '{count} topics' },
     exampleFormula: 'Example Formula',
     readReference: 'Read reference',
     practiseThis: 'Practise this',
@@ -594,15 +597,34 @@ export const en = {
 } as const;
 
 /**
+ * True for a record keyed only by CLDR plural categories that supplies
+ * `other`. Mirrors `isPluralForms()` in format.ts, which is what picks the form
+ * at runtime — the two rules have to agree.
+ */
+type IsPluralForms<T> = [keyof T] extends [PluralCategory]
+  ? 'other' extends keyof T
+    ? true
+    : false
+  : false;
+
+/**
  * Widens the literal types `as const` produced back to `string`, recursively,
  * so a translation is not required to be byte-identical to the English source
  * to type-check.
+ *
+ * Plural records are the one exception to "every locale has exactly the same
+ * keys": how many forms a count-dependent string has is a property of the
+ * language, not of the string. Only `other` is required; a locale supplies the
+ * categories it actually uses. English and German need `one` and `other`;
+ * Russian will add `few` and `many` to the same keys without touching this file.
  */
 type Translated<T> = T extends string
   ? string
   : T extends readonly (infer U)[]
     ? readonly Translated<U>[]
-    : { readonly [K in keyof T]: Translated<T[K]> };
+    : IsPluralForms<T> extends true
+      ? PluralForms
+      : { readonly [K in keyof T]: Translated<T[K]> };
 
 /**
  * The shape every locale must provide. Derived from English so the two can
