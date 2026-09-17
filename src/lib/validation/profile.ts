@@ -38,6 +38,25 @@ export type ProfileValidationResult = FieldResult<ValidatedProfileFields>;
 /** FormData.get() returns string | File | null; anything but a string is treated as empty. */
 const asString = (raw: unknown): string => (typeof raw === 'string' ? raw : '');
 
+/**
+ * The messages the validators below can return. Passed in by the server action
+ * so this module stays pure; the English defaults keep every existing caller
+ * and test working unchanged.
+ */
+export interface ProfileValidationMessages {
+  /** Interpolates {min} and {max}. */
+  aliasLength: string;
+  aliasAtSign: string;
+  yearLevelInvalid: string;
+}
+
+export const DEFAULT_PROFILE_VALIDATION_MESSAGES: ProfileValidationMessages = {
+  aliasLength: 'Your alias must be between {min} and {max} characters.',
+  aliasAtSign:
+    'Your alias cannot contain an @ sign. Please choose a nickname, not an email address.',
+  yearLevelInvalid: 'Please choose a year level from the list.',
+};
+
 /** Number of Unicode code points, which is what Postgres char_length() counts. */
 const codePointLength = (value: string): number => Array.from(value).length;
 
@@ -51,33 +70,41 @@ export function capLength(value: string, max: number): string {
  * The alias is public (leaderboards), so it must never look like an email
  * address: trimmed, 2-40 characters, no '@'.
  */
-export function validateAlias(raw: unknown): FieldResult<string> {
+export function validateAlias(
+  raw: unknown,
+  messages: ProfileValidationMessages = DEFAULT_PROFILE_VALIDATION_MESSAGES
+): FieldResult<string> {
   const alias = asString(raw).trim();
   const length = codePointLength(alias);
 
   if (length < ALIAS_MIN_LENGTH || length > ALIAS_MAX_LENGTH) {
     return {
       ok: false,
-      message: `Your alias must be between ${ALIAS_MIN_LENGTH} and ${ALIAS_MAX_LENGTH} characters.`,
+      message: messages.aliasLength
+        .replace('{min}', String(ALIAS_MIN_LENGTH))
+        .replace('{max}', String(ALIAS_MAX_LENGTH)),
     };
   }
   if (alias.includes('@')) {
-    return {
-      ok: false,
-      message: 'Your alias cannot contain an @ sign. Please choose a nickname, not an email address.',
-    };
+    return { ok: false, message: messages.aliasAtSign };
   }
   return { ok: true, value: alias };
 }
 
 /** Empty means "not set"; anything else must be one of YEAR_LEVEL_OPTIONS. */
-export function validateYearLevel(raw: unknown): FieldResult<YearLevel | null> {
+export function validateYearLevel(
+  raw: unknown,
+  messages: ProfileValidationMessages = DEFAULT_PROFILE_VALIDATION_MESSAGES
+): FieldResult<YearLevel | null> {
   const value = asString(raw).trim();
   if (value === '') return { ok: true, value: null };
 
+  // The stored value stays canonical English ('Year 9'); only its label is
+  // translated, in the `yearLevels` dictionary namespace. Translating the
+  // value would break every existing row and the cheat-sheet year filter.
   const match = YEAR_LEVEL_OPTIONS.find((option) => option === value);
   if (!match) {
-    return { ok: false, message: 'Please choose a year level from the list.' };
+    return { ok: false, message: messages.yearLevelInvalid };
   }
   return { ok: true, value: match };
 }
@@ -101,11 +128,14 @@ export interface ProfileFormFields {
   labNotes: unknown;
 }
 
-export function validateProfileForm(fields: ProfileFormFields): ProfileValidationResult {
-  const alias = validateAlias(fields.alias);
+export function validateProfileForm(
+  fields: ProfileFormFields,
+  messages: ProfileValidationMessages = DEFAULT_PROFILE_VALIDATION_MESSAGES
+): ProfileValidationResult {
+  const alias = validateAlias(fields.alias, messages);
   if (!alias.ok) return alias;
 
-  const yearLevel = validateYearLevel(fields.yearLevel);
+  const yearLevel = validateYearLevel(fields.yearLevel, messages);
   if (!yearLevel.ok) return yearLevel;
 
   return {

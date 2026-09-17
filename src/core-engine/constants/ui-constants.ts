@@ -1,18 +1,12 @@
 // src/core-engine/constants/ui-constants.ts
-// Used by the Views and Controllers
-export const UI_LABELS = {
-  SETTINGS: "Settings",
-  INSTRUCTIONS: "How to Play",
-  EXIT: "Exit",
-  HINT: "Get Hint",
-} as const;
-
-// export const ROUTES = {
-//   HOME: '/',
-//   ACID_GAME: '/games/acid-classification',
-//   NEUTRALIZE: '/games/neutralise',
-//   FORMULA_BLASTER: '/games/formula-blaster',
-// } as const;
+// Used by the Views and Controllers.
+//
+// Player-facing strings are NOT defined here any more — they live in
+// src/i18n/dictionaries/<locale>.ts so every language has them. What remains is
+// the state machine's vocabulary (keys, status values), which is internal and
+// never rendered. The shared-chrome labels that used to sit in `UI_LABELS` are
+// now `games.shared.*`, and `DEFAULT_OVERLAY_MESSAGES` is now
+// `games.overlay.*`, assembled by GameOverlay itself.
 
 export const GAME_CONTROLS = {
   PAUSE: 'p',
@@ -43,30 +37,6 @@ export interface OverlayMessageConfig {
   description: string;
 }
 
-// 🎯 Shared Default Messages for Overlay States across all ChemGames
-export const DEFAULT_OVERLAY_MESSAGES: Record<string, OverlayMessageConfig> = {
-  paused: {
-    badge: 'Session on hold',
-    title: 'Game Paused',
-    subtitle: 'Take a quick lab break.',
-    description: 'Your experiment is frozen exactly where you left it.',
-  },
-  failed: {
-    badge: 'Experiment ended',
-    title: 'Game Over',
-    subtitle: 'Your reaction fizzled!',
-    description: 'Review the formulas and try the run again.',
-  },
-  victory: {
-    badge: 'All objectives complete',
-    title: 'Research Complete',
-    subtitle: 'Lab Mastered!',
-    description: 'Splendid work, Researcher! You cleared all levels.',
-  },
-  levelUp: {
-    badge: 'Objective secured',
-    title: 'Level Cleared',
-    subtitle: 'Batch complete!',
-    description: 'Ready to take on higher level challenges?',
-  },
-};
+// The default overlay copy is assembled from the active dictionary in
+// src/components/games/shared/GameOverlay.tsx. A game that wants to name the
+// chemistry it just achieved still passes `customMessages` of this shape.

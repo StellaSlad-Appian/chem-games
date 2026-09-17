@@ -4,11 +4,13 @@
 import { useActionState, useState } from 'react';
 import { AlertTriangle, Download } from 'lucide-react';
 import { deleteAccountAction, type AccountActionState } from '@/lib/actions/account-actions';
+import { useI18n } from '@/i18n/client';
 
 const CONFIRMATION_WORD = 'DELETE';
 const initialState: AccountActionState = null;
 
 export function AccountDangerZone() {
+  const { t, f } = useI18n();
   const [state, formAction, isPending] = useActionState(deleteAccountAction, initialState);
   const [confirmation, setConfirmation] = useState('');
   const isConfirmed = confirmation === CONFIRMATION_WORD;
@@ -20,22 +22,18 @@ export function AccountDangerZone() {
     >
       <div className="border-b border-(--border) pb-4">
         <h2 id="account-data-heading" className="text-2xl font-black text-(--foreground)">
-          Your Data
+          {t.profile.dataHeading}
         </h2>
-        <p className="mt-1 text-sm font-medium text-(--muted)">
-          Download a copy of what ChemGames stores about you, or delete your account.
-        </p>
+        <p className="mt-1 text-sm font-medium text-(--muted)">{t.profile.dataIntro}</p>
       </div>
 
       {/* Export block */}
       <div className="flex flex-col gap-4 rounded-xl border border-(--border) bg-(--background) p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">
-            Download my data
+            {t.profile.exportHeading}
           </h3>
-          <p className="mt-1 text-sm font-medium text-(--muted)">
-            A JSON file with your account details, profile, game sessions and progress.
-          </p>
+          <p className="mt-1 text-sm font-medium text-(--muted)">{t.profile.exportBody}</p>
         </div>
         {/* A plain anchor (not <Link>) because the target is a file download, not a page. */}
         <a
@@ -43,8 +41,8 @@ export function AccountDangerZone() {
           download="chemgames-data.json"
           className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 hover:text-blue-500"
         >
-          <Download className="h-4 w-4" aria-hidden="true" />
-          Download my data
+          <Download className="h-4 w-4 shrink-0" aria-hidden="true" />
+          {t.profile.exportAction}
         </a>
       </div>
 
@@ -57,12 +55,9 @@ export function AccountDangerZone() {
           <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-rose-500" aria-hidden="true" />
           <div>
             <h3 className="text-xs font-black uppercase tracking-wider text-rose-500">
-              Delete account
+              {t.profile.deleteHeading}
             </h3>
-            <p className="mt-1 text-sm font-medium text-(--muted)">
-              This permanently and immediately removes your account, profile, scores, progress
-              and leaderboard entries. It cannot be undone.
-            </p>
+            <p className="mt-1 text-sm font-medium text-(--muted)">{t.profile.deleteBody}</p>
           </div>
         </div>
 
@@ -71,7 +66,7 @@ export function AccountDangerZone() {
             htmlFor="delete-confirmation"
             className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)"
           >
-            Type {CONFIRMATION_WORD} to confirm
+            {f(t.profile.deleteConfirmLabel, { word: CONFIRMATION_WORD })}
           </label>
           <input
             id="delete-confirmation"
@@ -102,7 +97,7 @@ export function AccountDangerZone() {
             disabled={!isConfirmed || isPending}
             className="cursor-pointer rounded-xl bg-rose-600 px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-rose-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            {isPending ? 'Deleting...' : 'Delete my account'}
+            {isPending ? t.profile.deletePending : t.profile.deleteAction}
           </button>
         </div>
       </form>

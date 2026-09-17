@@ -1,4 +1,7 @@
-import { Heart } from "lucide-react";
+'use client';
+
+import { Heart } from 'lucide-react';
+import { useI18n } from '@/i18n/client';
 
 interface GameLivesProps {
   lives: number;
@@ -6,10 +9,14 @@ interface GameLivesProps {
 }
 
 export default function GameLives({ lives, maxLives }: GameLivesProps) {
+  const { t, f } = useI18n();
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs uppercase font-medium mr-2" style={{ color: 'var(--game-highlight-border)' }}>
-        LIVES: {lives}/{maxLives}
+      <span
+        className="text-xs uppercase font-medium mr-2 whitespace-nowrap"
+        style={{ color: 'var(--game-highlight-border)' }}
+      >
+        {f(t.games.shared.lives, { lives, max: maxLives })}
       </span>
       {[...Array(maxLives)].map((_, i) => {
         // Below remaining lives = full heart, otherwise empty shell

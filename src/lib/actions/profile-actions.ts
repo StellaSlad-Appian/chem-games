@@ -3,6 +3,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { validateProfileForm } from '@/lib/validation/profile';
+import { getRequestDictionary } from '@/i18n/server';
 
 export type ProfileActionState = {
   status: 'success' | 'error';
@@ -13,13 +14,17 @@ export async function updateProfileAction(
   _prevState: ProfileActionState,
   formData: FormData
 ): Promise<ProfileActionState> {
+  // A Server Action gets no route params, so the locale comes from the cookie
+  // the proxy keeps in step with the path (src/i18n/server.ts).
+  const t = await getRequestDictionary();
+
   try {
     const supabase = await createClient();
 
     if (!supabase) {
       return {
         status: 'error',
-        message: 'Database connection is currently unconfigured.',
+        message: t.serverMessages.profileUnconfigured,
       };
     }
 
@@ -31,20 +36,27 @@ export async function updateProfileAction(
     if (authError || !user) {
       return {
         status: 'error',
-        message: 'Please log in before editing your configuration.',
+        message: t.serverMessages.profileLoginRequired,
       };
     }
 
     // 1. Validate and normalise the text fields (pure, unit-tested in
     //    src/lib/validation/profile.ts). The alias is public, so it must never
     //    look like an email address; year level must be one of the form options.
-    const validation = validateProfileForm({
-      alias: formData.get('alias'),
-      title: formData.get('title'),
-      country: formData.get('country'),
-      yearLevel: formData.get('yearLevel'),
-      labNotes: formData.get('labNotes'),
-    });
+    const validation = validateProfileForm(
+      {
+        alias: formData.get('alias'),
+        title: formData.get('title'),
+        country: formData.get('country'),
+        yearLevel: formData.get('yearLevel'),
+        labNotes: formData.get('labNotes'),
+      },
+      {
+        aliasLength: t.serverMessages.aliasLength,
+        aliasAtSign: t.serverMessages.aliasAtSign,
+        yearLevelInvalid: t.serverMessages.yearLevelInvalid,
+      }
+    );
 
     if (!validation.ok) {
       return { status: 'error', message: validation.message };
@@ -83,19 +95,19 @@ export async function updateProfileAction(
       console.error('Database update error:', updateError);
       return {
         status: 'error',
-        message: 'Failed to update lab configuration. Please try again.',
+        message: t.serverMessages.profileSaveFailed,
       };
     }
 
     return {
       status: 'success',
-      message: 'Equipment configuration saved successfully!',
+      message: t.serverMessages.profileSaved,
     };
   } catch (err) {
     console.error('Unexpected error during profile update:', err);
     return {
       status: 'error',
-      message: 'An unexpected error occurred while saving changes.',
+      message: t.serverMessages.profileUnexpected,
     };
   }
 }

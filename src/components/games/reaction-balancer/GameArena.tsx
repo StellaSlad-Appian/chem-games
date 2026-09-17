@@ -12,6 +12,7 @@ import { useSound } from '@/hooks/useSound';
 
 import ReactionMoleculeCard from './ReactionMoleculeCard';
 import AtomInventory from './AtomInventory';
+import { useI18n } from '@/i18n/client';
 
 interface ReactionBalancerArenaProps {
   level: number;
@@ -24,6 +25,7 @@ export default function ReactionBalancerArena({
   onReactionComplete,
   isPaused,
 }: ReactionBalancerArenaProps) {
+  const { t } = useI18n();
   const { playSound } = useSound();
 
   /*
@@ -233,7 +235,7 @@ export default function ReactionBalancerArena({
 
       {/* Compact instruction */}
       <p className="mb-6 text-center text-sm font-bold text-blue-300">
-        Change the coefficients to conserve every atom.
+        {t.games.reactionBalancer.prompt}
       </p>
 
       {/* Reaction */}
@@ -244,7 +246,7 @@ export default function ReactionBalancerArena({
           <section className="min-w-0">
             <div className="mb-3 text-center">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted)]">
-                Reactants
+                {t.games.reactionBalancer.reactants}
               </span>
             </div>
 
@@ -290,7 +292,7 @@ export default function ReactionBalancerArena({
           <section className="min-w-0">
             <div className="mb-3 text-center">
               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--muted)]">
-                Products
+                {t.games.reactionBalancer.products}
               </span>
             </div>
 
@@ -375,8 +377,8 @@ export default function ReactionBalancerArena({
           className="rounded-xl border border-slate-600 bg-slate-900 px-5 py-3 text-sm font-bold text-slate-200 shadow-lg transition-all hover:border-slate-500 hover:bg-slate-800 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {showBalance
-            ? 'Hide Atom Balance'
-            : 'Show Atom Balance'}
+            ? t.games.reactionBalancer.hideAtomBalance
+            : t.games.reactionBalancer.showAtomBalance}
         </button>
 
         <button
@@ -385,12 +387,12 @@ export default function ReactionBalancerArena({
           disabled={isPaused}
           className="rounded-xl bg-blue-600 px-8 py-3 font-mono text-lg font-bold text-white shadow-lg shadow-blue-500/10 transition-all hover:bg-blue-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Check Answer
+          {t.games.reactionBalancer.checkAnswer}
         </button>
       </div>
 
       <p className="mt-3 text-center text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">
-        You can change your coefficients at any time.
+        {t.games.reactionBalancer.editableHint}
       </p>
     </div>
   );

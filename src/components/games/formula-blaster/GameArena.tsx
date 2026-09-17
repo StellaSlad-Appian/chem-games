@@ -2,6 +2,7 @@
 
 import { AlertCircle, Lightbulb, X } from 'lucide-react';
 import BlasterBubble from './BlasterBubble';
+import { useI18n } from '@/i18n/client';
 
 export interface BubbleData {
   id: string;
@@ -44,6 +45,7 @@ export default function GameArena({
   onBubbleClick,
   onBubbleExpired,
 }: GameArenaProps) {
+  const { t } = useI18n();
   return (
     <div data-testid="blaster-arena" className="relative mt-4 flex-1 w-full h-full rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]/30 overflow-hidden">
       {activeHint && (
@@ -54,7 +56,7 @@ export default function GameArena({
 
               <div className="space-y-1">
                 <h5 className="text-xs font-black uppercase tracking-wider text-blue-500">
-                  Target Molecule Hint
+                  {t.games.formulaBlaster.hintHeading}
                 </h5>
 
                 <p className="text-sm font-bold text-(--foreground)">
@@ -67,9 +69,9 @@ export default function GameArena({
               type="button"
               onClick={onDismissHint}
               className="rounded-lg p-1 text-(--muted) hover:text-(--foreground)"
-              aria-label="Dismiss hint"
+              aria-label={t.games.shared.dismissHintA11y}
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         </div>

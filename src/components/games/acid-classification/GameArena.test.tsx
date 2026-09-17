@@ -1,13 +1,14 @@
 import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import GameArena from './GameArena';
 import { compoundByFormula } from '@/test-utils/registry';
+import { renderWithProviders } from '@/test-utils/render';
 
 const idle = { status: 'idle' as const, selected: null };
 
 function renderArena(overrides: Partial<Parameters<typeof GameArena>[0]> = {}) {
   const onSelection = vi.fn();
-  render(
+  renderWithProviders(
     <GameArena
       currentChemical={compoundByFormula('HCl')}
       currentLevel={1}
@@ -37,7 +38,7 @@ describe('Acid classification GameArena', () => {
   });
 
   it('shows the formula and only reveals the name when asked', () => {
-    const { rerender } = render(
+    const { rerender } = renderWithProviders(
       <GameArena
         currentChemical={compoundByFormula('H2SO4')}
         currentLevel={1}

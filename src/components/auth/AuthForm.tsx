@@ -4,6 +4,8 @@
 import { useState } from 'react';
 import { Atom, CheckCircle2, LoaderCircle } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
+import { useI18n } from '@/i18n/client';
+import { localizePath } from '@/i18n/routing';
 
 type Mode = 'login' | 'register';
 
@@ -13,18 +15,29 @@ interface AuthFormProps {
 }
 
 export default function AuthForm({ configured, initialError }: AuthFormProps) {
+  const { t, locale } = useI18n();
   const [mode, setMode] = useState<Mode>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState(
-    initialError ? errorMessage(initialError) : ''
-  );
+  const [message, setMessage] = useState('');
   const [pending, setPending] = useState(false);
 
+  // The error arrives as a code in the query string (?error=verification), set
+  // by the OAuth callback route, so it can be translated here rather than
+  // travelling as prose through a redirect.
+  const initialMessage =
+    initialError === 'verification'
+      ? t.auth.errorVerification
+      : initialError === 'configuration'
+        ? t.auth.errorConfiguration
+        : '';
+  const visibleMessage = message || initialMessage;
+
+  // /auth/callback deliberately has no locale prefix: it is the redirect URL
+  // registered with Supabase and must stay stable. The callback reads the
+  // locale cookie and sends the reader on to a localized page.
   const returnUrl =
-    typeof window === 'undefined'
-      ? ''
-      : `${window.location.origin}/auth/callback`;
+    typeof window === 'undefined' ? '' : `${window.location.origin}/auth/callback`;
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,7 +49,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
     const supabase = createClient();
     if (!supabase) {
       setPending(false);
-      setMessage('Authentication client is currently unconfigured.');
+      setMessage(t.auth.unconfiguredClient);
       return;
     }
 
@@ -52,16 +65,19 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
     setPending(false);
 
     if (result.error) {
+      // Supabase returns its own English message here. Mapping its error codes
+      // onto translated copy is tracked as follow-up work in
+      // docs/i18n/README.md § Known gaps.
       setMessage(result.error.message);
       return;
     }
 
     if (mode === 'register') {
-      setMessage('Check your inbox to activate your ChemGames account.');
+      setMessage(t.auth.checkInbox);
       return;
     }
 
-    window.location.assign('/');
+    window.location.assign(localizePath('/', locale));
   }
 
   async function signInWithGoogle() {
@@ -73,7 +89,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
     const supabase = createClient();
     if (!supabase) {
       setPending(false);
-      setMessage('Authentication client is currently unconfigured.');
+      setMessage(t.auth.unconfiguredClient);
       return;
     }
 
@@ -101,15 +117,13 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
       {/* Header */}
       <div className="mb-6 text-center">
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-500">
-          <Atom className="h-6 w-6" />
+          <Atom className="h-6 w-6" aria-hidden="true" />
         </div>
         <h1 className="text-2xl font-black text-(--foreground)">
-          {mode === 'login' ? 'Welcome back' : 'Join ChemGames'}
+          {mode === 'login' ? t.auth.loginTitle : t.auth.registerTitle}
         </h1>
         <p className="mt-1 text-xs font-bold text-(--muted)">
-          {mode === 'login'
-            ? 'Pick up where your experiments left off.'
-            : 'Create an account to save your progress.'}
+          {mode === 'login' ? t.auth.loginSubtitle : t.auth.registerSubtitle}
         </p>
       </div>
 
@@ -120,38 +134,46 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
         disabled={!configured || pending}
         className="flex w-full items-center justify-center gap-3 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        <GoogleMark /> Continue with Google
+        <GoogleMark /> {t.auth.continueWithGoogle}
       </button>
 
       {/* Divider */}
       <div className="my-6 flex items-center gap-3 text-xs font-black uppercase tracking-wider text-(--muted)">
         <span className="h-px flex-1 bg-(--border)" />
-        or
+        {t.auth.or}
         <span className="h-px flex-1 bg-(--border)" />
       </div>
 
       {/* Form */}
       <form onSubmit={submit} className="space-y-4">
         <div>
-          <label className="block text-xs font-black uppercase tracking-wider text-(--foreground)">
-            Email
+          <label
+            htmlFor="auth-email"
+            className="block text-xs font-black uppercase tracking-wider text-(--foreground)"
+          >
+            {t.auth.email}
           </label>
           <input
+            id="auth-email"
             required
             type="email"
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
-            placeholder="you@example.com"
+            placeholder={t.auth.emailPlaceholder}
           />
         </div>
 
         <div>
-          <label className="block text-xs font-black uppercase tracking-wider text-(--foreground)">
-            Password
+          <label
+            htmlFor="auth-password"
+            className="block text-xs font-black uppercase tracking-wider text-(--foreground)"
+          >
+            {t.auth.password}
           </label>
           <input
+            id="auth-password"
             required
             minLength={6}
             type="password"
@@ -159,7 +181,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
-            placeholder="At least 6 characters"
+            placeholder={t.auth.passwordPlaceholder}
           />
         </div>
 
@@ -167,47 +189,41 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
           disabled={!configured || pending}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {pending && <LoaderCircle className="h-4 w-4 animate-spin" />}
-          {mode === 'login' ? 'Log in' : 'Create account'}
+          {pending && <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />}
+          {mode === 'login' ? t.auth.loginAction : t.auth.registerAction}
         </button>
       </form>
 
       {/* Status Feedback */}
-      {message && (
+      {visibleMessage && (
         <p
           role="status"
           className="mt-4 flex gap-2 rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-xs font-bold text-blue-500"
         >
-          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
-          {message}
+          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+          {visibleMessage}
         </p>
       )}
 
       {!configured && (
         <p className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs font-bold text-amber-500">
-          Authentication needs Supabase credentials. Copy <code>.env.example</code> to <code>.env.local</code> and fill in its values.
+          {t.auth.unconfiguredNotice}
         </p>
       )}
 
       {/* Switch Mode Toggle */}
       <p className="mt-6 text-center text-xs font-bold text-(--muted)">
-        {mode === 'login' ? 'New to ChemGames?' : 'Already have an account?'}{' '}
+        {mode === 'login' ? t.auth.switchToRegisterPrompt : t.auth.switchToLoginPrompt}{' '}
         <button
           type="button"
           onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}
           className="font-black text-blue-500 hover:underline"
         >
-          {mode === 'login' ? 'Register' : 'Log in'}
+          {mode === 'login' ? t.auth.switchToRegisterAction : t.auth.switchToLoginAction}
         </button>
       </p>
     </div>
   );
-}
-
-function errorMessage(error: string) {
-  if (error === 'verification') return 'We could not verify that link. Please try again.';
-  if (error === 'configuration') return 'Authentication is not configured yet.';
-  return '';
 }
 
 function GoogleMark() {

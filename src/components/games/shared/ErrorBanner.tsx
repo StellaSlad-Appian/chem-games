@@ -3,6 +3,7 @@
 
 import { useEffect } from 'react';
 import { HelpCircle } from 'lucide-react';
+import { useI18n } from '@/i18n/client';
 
 interface ErrorBannerProps {
   hint: string | null;
@@ -10,6 +11,8 @@ interface ErrorBannerProps {
 }
 
 export default function ErrorBanner({ hint, onTimeout }: ErrorBannerProps) {
+  const { t } = useI18n();
+
   useEffect(() => {
     if (!hint) return;
 
@@ -29,7 +32,7 @@ export default function ErrorBanner({ hint, onTimeout }: ErrorBannerProps) {
         <HelpCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
         <div>
           <h5 className="text-xs font-bold uppercase tracking-wider text-amber-400 mb-0.5">
-            Hint
+            {t.games.shared.hint}
           </h5>
           <p className="text-sm font-medium text-amber-100 leading-relaxed">{hint}</p>
         </div>

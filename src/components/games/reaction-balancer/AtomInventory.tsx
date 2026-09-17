@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import {
   calculateAtomInventory,
 } from '@/core-engine/utils/chemical-utils';
+import { useI18n } from '@/i18n/client';
 
 interface ParsedCompound {
   compoundId: string;
@@ -185,6 +186,7 @@ function BalanceScale({
   rightCount: number;
   balanced: boolean;
 }) {
+  const { t, f } = useI18n();
   const balanceState: 'left-heavy' | 'balanced' | 'right-heavy' =
     balanced
       ? 'balanced'
@@ -227,7 +229,11 @@ function BalanceScale({
         height="112"
         viewBox="0 0 260 112"
         role="img"
-        aria-label={`${element}: ${leftCount} atoms on the reactants side and ${rightCount} atoms on the products side`}
+        aria-label={f(t.games.reactionBalancer.atomBalanceA11y, {
+          element,
+          left: leftCount,
+          right: rightCount,
+        })}
       >
         {/* Element */}
         <text
@@ -361,6 +367,7 @@ export default function AtomInventory({
   reactantCoeffs,
   productCoeffs,
 }: AtomInventoryProps) {
+  const { t, f } = useI18n();
   const {
     leftAtoms,
     rightAtoms,
@@ -418,16 +425,16 @@ export default function AtomInventory({
       {/* Header */}
       <div className="mb-5 text-center">
         <h3 className="text-xs font-black uppercase tracking-[0.2em] text-[var(--muted)]">
-          Atom Balance
+          {t.games.reactionBalancer.atomBalance}
         </h3>
 
         <div className="mt-3 flex items-center justify-center gap-12 text-[9px] font-black uppercase tracking-[0.2em] text-[var(--muted)]">
-          <span>Reactants</span>
-          <span>Products</span>
+          <span>{t.games.reactionBalancer.reactants}</span>
+          <span>{t.games.reactionBalancer.products}</span>
         </div>
 
         <p className="mt-2 text-xs text-[var(--muted)]">
-          The scale tilts toward the side with more atoms.
+          {t.games.reactionBalancer.scaleHint}
         </p>
       </div>
 
@@ -458,7 +465,7 @@ export default function AtomInventory({
       {allBalanced && (
         <div className="mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-center">
           <span className="text-sm font-black text-emerald-400">
-            ✓ All atoms are balanced
+            ✓ {t.games.reactionBalancer.balanced}
           </span>
         </div>
       )}

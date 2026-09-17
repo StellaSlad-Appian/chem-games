@@ -81,7 +81,7 @@ describe('GameOverlay', () => {
 
   it('always offers a way back to the games hub', () => {
     renderOverlay('failed');
-    expect(screen.getByRole('link', { name: 'Quit to Hub' })).toHaveAttribute('href', '/games');
+    expect(screen.getByRole('link', { name: 'Quit to Hub' })).toHaveAttribute('href', '/en/games');
   });
 
   it('uses custom copy when provided', () => {

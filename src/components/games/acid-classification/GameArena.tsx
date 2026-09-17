@@ -8,6 +8,9 @@ import { CLASSIFICATION_OPTIONS } from '@/core-engine/constants/chemical-labels'
 import { GAME_STATE, ANSWER_STATUS, AnswerStatus } from '@/core-engine/constants/ui-constants';
 import type { CompoundData, ChemicalClassification } from '@/core-engine/types/chemistry';
 import { evaluateChemical } from '@/core-engine/utils/chemical-utils';
+import { useI18n } from '@/i18n/client';
+import { compoundName } from '@/i18n/chemistry-names';
+import type { Dictionary } from '@/i18n/dictionaries/en';
 
 interface GameArenaProps {
   currentChemical: CompoundData | undefined;
@@ -26,6 +29,15 @@ interface GameArenaProps {
 // the label -> ChemicalClassification mapping and on-screen ordering.
 const orderedOptions = [...CLASSIFICATION_OPTIONS].sort((a, b) => a.order - b.order);
 
+// chemical-labels.ts stays the single source of truth for ordering and for the
+// label -> ChemicalClassification mapping, so its English `label` doubles as
+// the dictionary key here rather than being replaced by one.
+const VESSEL_LABEL_KEY: Record<string, keyof Dictionary['chemistry']> = {
+  Acid: 'acid',
+  Neutral: 'neutral',
+  Base: 'base',
+};
+
 export default function GameArena({
   currentChemical,
   currentLevel,
@@ -34,6 +46,7 @@ export default function GameArena({
   showChemicalName,
   onSelection,
 }: GameArenaProps) {
+  const { t, locale } = useI18n();
   const isPlaying = gameState === GAME_STATE.PLAYING;
 
   return (
@@ -60,11 +73,11 @@ export default function GameArena({
       {currentChemical && (
         <div className="mb-12">
           <span className="mb-2 block text-center text-xs font-black uppercase tracking-widest text-[var(--muted)]">
-            Classify Compound
+            {t.games.acidClassification.arenaHeading}
           </span>
           <MoleculeBubble
             formula={currentChemical.formula}
-            name={currentChemical.name}
+            name={compoundName(locale, currentChemical)}
             feedbackStatus={feedback.status ?? ANSWER_STATUS.IDLE}
             showName={showChemicalName}
           />
@@ -83,7 +96,7 @@ export default function GameArena({
             <Vessel
               key={option.label}
               type={option.iconType as 'flask' | 'beaker' | 'droplet'}
-              label={option.label}
+              label={t.chemistry[VESSEL_LABEL_KEY[option.label] ?? 'neutral']}
               colorClass={option.colorClass}
               status={resolvedStatus}
               onClick={() => onSelection(option.classification)}

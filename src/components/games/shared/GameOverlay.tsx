@@ -2,13 +2,50 @@
 'use client';
 
 import { useCallback, useEffect, useRef, type KeyboardEvent as ReactKeyboardEvent, type RefObject } from 'react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/layout/LocaleLink';
 import { FlaskConical, LogOut, Pause, Play, RefreshCw, Trophy } from 'lucide-react';
 import { GameState } from '@/core-engine/types/general';
 import { ScoreBadge } from '@/components/ui/ScoreBadge';
 import { LevelProgress } from '@/components/ui/LevelProgress';
 import { useSound } from '@/hooks/useSound';
-import { DEFAULT_OVERLAY_MESSAGES, OverlayMessageConfig } from '@/core-engine/constants/ui-constants';
+import { OverlayMessageConfig } from '@/core-engine/constants/ui-constants';
+import { useI18n } from '@/i18n/client';
+import type { Dictionary } from '@/i18n/dictionaries/en';
+
+/**
+ * The per-state overlay copy, assembled from the dictionary. `customMessages`
+ * still wins where a game passes one, so a game can name the chemistry it just
+ * achieved ("Mass conserved") instead of a generic "Level 2!".
+ */
+function overlayMessages(t: Dictionary): Record<string, OverlayMessageConfig> {
+  const o = t.games.overlay;
+  return {
+    paused: {
+      badge: o.pausedBadge,
+      title: o.pausedTitle,
+      subtitle: o.pausedSubtitle,
+      description: o.pausedDescription,
+    },
+    failed: {
+      badge: o.failedBadge,
+      title: o.failedTitle,
+      subtitle: o.failedSubtitle,
+      description: o.failedDescription,
+    },
+    victory: {
+      badge: o.victoryBadge,
+      title: o.victoryTitle,
+      subtitle: o.victorySubtitle,
+      description: o.victoryDescription,
+    },
+    levelUp: {
+      badge: o.levelUpBadge,
+      title: o.levelUpTitle,
+      subtitle: o.levelUpSubtitle,
+      description: o.levelUpDescription,
+    },
+  };
+}
 
 export type FailReason = 'mistakes' | 'timeout' | null;
 
@@ -44,6 +81,7 @@ export default function GameOverlay({
   onRestart,
   customMessages,
 }: GameOverlayProps) {
+  const { t, f, locale } = useI18n();
   const { playSound } = useSound();
   const dialogRef = useRef<HTMLDivElement>(null);
   const primaryActionRef = useRef<HTMLButtonElement>(null);
@@ -130,11 +168,12 @@ export default function GameOverlay({
     }
   };
 
-  const textConfig = customMessages?.[gameState] ?? DEFAULT_OVERLAY_MESSAGES[gameState];
+  const textConfig = customMessages?.[gameState] ?? overlayMessages(t)[gameState];
 
-  const keyHint = gameState === 'paused' || gameState === 'levelUp'
-    ? 'Press Escape, Space, or Enter to continue'
-    : 'Press Space or Enter to try again';
+  const keyHint =
+    gameState === 'paused' || gameState === 'levelUp'
+      ? t.games.overlay.keyHintResume
+      : t.games.overlay.keyHintRetry;
 
   return (
     <div className="fixed inset-0 z-100 grid place-items-center overflow-y-auto bg-slate-950/80 p-4 backdrop-blur-md sm:p-6">
@@ -168,22 +207,29 @@ export default function GameOverlay({
 
         <p id="game-overlay-description" className="mt-2 text-xs font-bold text-(--muted) leading-relaxed">
           {gameState === 'failed' && failReason === 'timeout'
-            ? 'Time ran out before reaching the quota.'
+            ? t.games.overlay.timeoutDescription
             : textConfig?.description}
         </p>
 
         {gameState === 'paused' && (
           <div className="my-6 grid grid-cols-3 gap-2 rounded-xl border border-(--border) bg-(--background) p-3 text-left">
-            <OverlayStat label="Level" value={`${currentLevel} / ${maxLevel}`} />
-            <OverlayStat label="Score" value={score.toLocaleString()} />
-            <OverlayStat label="Round" value={`${correctInRound} correct`} />
+            <OverlayStat label={t.games.overlay.statLevel} value={`${currentLevel} / ${maxLevel}`} />
+            <OverlayStat label={t.games.overlay.statScore} value={score.toLocaleString(locale)} />
+            <OverlayStat
+              label={t.games.overlay.statRound}
+              value={f(t.games.overlay.statRoundValue, { count: correctInRound })}
+            />
           </div>
         )}
 
         {(gameState === 'failed' || gameState === 'victory') && (
           <div className="my-6 rounded-xl border border-(--border) bg-(--background) p-4 text-center">
             <p className="text-xs font-bold text-(--muted) uppercase tracking-wider">
-              Level {currentLevel} of {maxLevel} • {correctInRound} correct
+              {f(t.games.overlay.levelOfMax, {
+                level: currentLevel,
+                max: maxLevel,
+                correct: correctInRound,
+              })}
             </p>
             <div className="mt-2 flex justify-center">
               <ScoreBadge score={score} />
@@ -195,7 +241,11 @@ export default function GameOverlay({
           <div className="my-6 rounded-xl border border-(--border) bg-(--background) p-4 text-center">
             <LevelProgress currentLevel={currentLevel} maxLevel={maxLevel} />
             <p className="mt-3 text-xs font-bold text-(--muted)">
-              Level {currentLevel} → {currentLevel + 1} • {correctInRound} sorted
+              {f(t.games.overlay.levelUpProgress, {
+                level: currentLevel,
+                next: currentLevel + 1,
+                correct: correctInRound,
+              })}
             </p>
           </div>
         )}
@@ -205,11 +255,12 @@ export default function GameOverlay({
           primaryRef={primaryActionRef}
           primaryLabel={
             gameState === 'paused'
-              ? 'Resume Game'
+              ? t.games.overlay.resume
               : gameState === 'levelUp'
-              ? `Begin Level ${currentLevel + 1}`
-              : 'Try Again'
+                ? f(t.games.overlay.beginLevel, { level: currentLevel + 1 })
+                : t.games.overlay.tryAgain
           }
+          quitLabel={t.games.overlay.quitToHub}
           onPrimary={gameState === 'failed' || gameState === 'victory' ? restart : resume}
         />
 
@@ -232,11 +283,13 @@ function ActionButtons({
   gameState,
   primaryRef,
   primaryLabel,
+  quitLabel,
   onPrimary,
 }: {
   gameState: GameState;
   primaryRef: RefObject<HTMLButtonElement | null>;
   primaryLabel: string;
+  quitLabel: string;
   onPrimary: () => void;
 }) {
   return (
@@ -247,19 +300,19 @@ function ActionButtons({
         className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
       >
         {gameState === 'paused' || gameState === 'levelUp' ? (
-          <Play className="h-4 w-4 fill-current" />
+          <Play className="h-4 w-4 shrink-0 fill-current" aria-hidden="true" />
         ) : (
-          <RefreshCw className="h-4 w-4" />
+          <RefreshCw className="h-4 w-4 shrink-0" aria-hidden="true" />
         )}
         {primaryLabel}
       </button>
 
-      <Link
+      <LocaleLink
         href="/games"
         className="flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
       >
-        <LogOut className="h-4 w-4" /> Quit to Hub
-      </Link>
+        <LogOut className="h-4 w-4 shrink-0" aria-hidden="true" /> {quitLabel}
+      </LocaleLink>
     </div>
   );
 }

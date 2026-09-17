@@ -2,6 +2,7 @@
 
 import { useMemo } from 'react';
 import { parseFormulaAtoms } from '@/core-engine/utils/chemical-utils';
+import { useI18n } from '@/i18n/client';
 
 interface ParticlePreviewProps {
   formula: string;
@@ -49,6 +50,7 @@ export default function ParticlePreview({
   formula,
   coefficient,
 }: ParticlePreviewProps) {
+  const { t, f } = useI18n();
   const atoms = useMemo(() => {
     const parsed =
       parseFormulaAtoms(formula);
@@ -81,11 +83,12 @@ export default function ParticlePreview({
     <div className="mt-2 w-full">
       <div
         className="flex min-h-14 items-center justify-center rounded-lg border border-slate-700/70 bg-slate-950/50 px-2 py-2"
-        aria-label={`${moleculeCount} molecule${
+        aria-label={f(
           moleculeCount === 1
-            ? ''
-            : 's'
-        } of ${formula}`}
+            ? t.games.reactionBalancer.particleCountOneA11y
+            : t.games.reactionBalancer.particleCountOtherA11y,
+          { count: moleculeCount, formula }
+        )}
       >
         <div className="flex flex-wrap items-center justify-center gap-1.5">
           {Array.from({

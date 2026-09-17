@@ -4,6 +4,9 @@
 import { useEffect } from 'react';
 import { X, Volume2, VolumeX, Moon, Sun } from 'lucide-react';
 import { GameThemeScope, Theme, useGameSettings } from '../../../context/game-settings-context';
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+import { useI18n } from '@/i18n/client';
+import type { Dictionary } from '@/i18n/dictionaries/en';
 
 interface GameSettingsModalProps {
   isOpen: boolean;
@@ -18,6 +21,7 @@ export default function GameSettingsModal({
   gameId,
   variant = 'modal', // Default to modal for existing game pages
 }: GameSettingsModalProps) {
+  const { t } = useI18n();
   const {
     isMuted,
     volume,
@@ -90,12 +94,12 @@ export default function GameSettingsModal({
           {/* Header */}
           <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--game-panel-border)] bg-[var(--game-modal-header)] px-6 py-4 backdrop-blur">
             <h2 className="flex items-center gap-2 text-xl font-black tracking-wide text-[var(--foreground)]">
-              ⚙️ {isModal ? 'Game Settings' : 'Settings'}
+              ⚙️ {isModal ? t.settings.gameTitle : t.settings.globalTitle}
             </h2>
 
             <button
               onClick={onClose}
-              aria-label="Close settings"
+              aria-label={t.settings.closeA11y}
               className="shrink-0 rounded-xl bg-[var(--game-modal-control)] p-2 text-[var(--muted)] transition-colors hover:brightness-90 hover:text-[var(--foreground)] active:scale-95"
             >
               <X className="h-5 w-5" strokeWidth={3} />
@@ -109,39 +113,48 @@ export default function GameSettingsModal({
               {/* APPEARANCE SECTION */}
               <section className="flex flex-col gap-4">
                 <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
-                  <Sun className="h-4 w-4" />Appearance
+                  <Sun className="h-4 w-4" aria-hidden="true" />
+                  {t.settings.appearance}
                 </h3>
                 {gameId && (
-                  <ThemeSelector 
-                    label="This game" 
-                    value={gameThemes[gameId] ?? 'global'} 
-                    onChange={(theme) => setGameTheme(gameId, theme)} 
-                    includeGlobal 
+                  <ThemeSelector
+                    t={t}
+                    label={t.settings.thisGame}
+                    value={gameThemes[gameId] ?? 'global'}
+                    onChange={(theme) => setGameTheme(gameId, theme)}
+                    includeGlobal
                   />
                 )}
-                <ThemeSelector 
-                  label={gameId ? 'All games default' : 'All games'} 
-                  value={globalTheme} 
-                  onChange={(theme) => { if (theme !== 'global') setGlobalTheme(theme); }} 
+                <ThemeSelector
+                  t={t}
+                  label={gameId ? t.settings.allGamesDefault : t.settings.allGames}
+                  value={globalTheme}
+                  onChange={(theme) => { if (theme !== 'global') setGlobalTheme(theme); }}
                 />
                 {gameId && (
                   <p className="text-xs leading-relaxed text-[var(--muted)]">
-                    A game-specific choice overrides the all-games default. Choose “Use global” to follow it again.
+                    {t.settings.overrideHelp}
                   </p>
                 )}
+              </section>
+
+              {/* LANGUAGE SECTION — games have no NavBar, so this panel is the
+                  only way to change language without leaving a game. */}
+              <section className="flex flex-col gap-4">
+                <LanguageSwitcher variant="panel" />
               </section>
 
               {/* AUDIO SECTION */}
               <section className="flex flex-col gap-4">
                 <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
-                  <Volume2 className="h-4 w-4" />
-                  Audio
+                  <Volume2 className="h-4 w-4" aria-hidden="true" />
+                  {t.settings.audio}
                 </h3>
 
                 {/* Toggle Row */}
                 <div className="flex flex-row items-center justify-between w-full rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
                   <span className="text-sm font-semibold text-[var(--foreground)] select-none">
-                    Sound Effects
+                    {t.settings.soundEffects}
                   </span>
 
                   <button
@@ -183,6 +196,7 @@ export default function GameSettingsModal({
                     step="0.05"
                     value={isMuted ? 0 : volume}
                     onChange={(e) => setVolume(parseFloat(e.target.value))}
+                    aria-label={t.settings.volumeA11y}
                     className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[var(--game-modal-control)] accent-emerald-500"
                   />
 
@@ -201,11 +215,11 @@ export default function GameSettingsModal({
 }
 
 
-function ThemeSelector({ label, value, onChange, includeGlobal = false }: { label: string; value: Theme | 'global'; onChange: (theme: Theme | 'global') => void; includeGlobal?: boolean }) {
+function ThemeSelector({ t, label, value, onChange, includeGlobal = false }: { t: Dictionary; label: string; value: Theme | 'global'; onChange: (theme: Theme | 'global') => void; includeGlobal?: boolean }) {
   const choices: Array<{ value: Theme | 'global'; label: string; icon?: typeof Sun }> = [
-    ...(includeGlobal ? [{ value: 'global' as const, label: 'Use global' }] : []),
-    { value: 'dark', label: 'Dark', icon: Moon },
-    { value: 'light', label: 'Light', icon: Sun },
+    ...(includeGlobal ? [{ value: 'global' as const, label: t.settings.useGlobal }] : []),
+    { value: 'dark', label: t.settings.dark, icon: Moon },
+    { value: 'light', label: t.settings.light, icon: Sun },
   ];
 
   return <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] p-4"><p className="mb-3 text-sm font-semibold text-[var(--foreground)]">{label}</p><div className="flex flex-wrap gap-2">{choices.map((choice) => { const Icon = choice.icon; const selected = value === choice.value; return <button key={choice.value} type="button" onClick={() => onChange(choice.value)} className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-bold transition ${selected ? 'border-blue-500 bg-blue-500 text-white' : 'border-[var(--game-panel-border)] bg-[var(--surface)] text-[var(--foreground)] hover:brightness-95'}`}>{Icon && <Icon className="h-4 w-4" />}{choice.label}</button>; })}</div></div>;

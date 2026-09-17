@@ -1,17 +1,21 @@
 // src/components/cheat-sheets/CheatSheetCard.tsx
 
-import Link from 'next/link';
+'use client';
+
 import { BookOpen, Sparkles } from 'lucide-react';
 import { ChemIcon } from '@/components/ui/ChemIcon';
 import MoleculeText from '@/components/ui/MoleculeText';
+import { LocaleLink } from '@/components/layout/LocaleLink';
 import type { CheatSheetTopic } from '@/core-engine/types/general';
+import { useI18n } from '@/i18n/client';
 
 export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
+  const { t } = useI18n();
   const firstExample =
     topic.formulaExamples?.[0] ?? topic.sections?.[0]?.examples?.[0] ?? null;
 
   return (
-    <Link
+    <LocaleLink
       href={`/cheat-sheets/${topic.slug}`}
       className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl"
     >
@@ -21,7 +25,7 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
           <span
             className={`inline-block rounded-full border px-3 py-1 text-xs font-black uppercase tracking-wider ${topic.colorTheme}`}
           >
-            {topic.yearLevel}
+            {t.yearLevels[topic.yearLevel]}
           </span>
           <span className="text-xs font-bold text-(--muted)">
             {topic.category}
@@ -45,7 +49,7 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
         {firstExample && (
           <div className="mt-4 rounded-xl border border-(--border) bg-(--background) p-3">
             <p className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
-              Example Formula
+              {t.cheatSheets.exampleFormula}
             </p>
             <div className="mt-1 flex items-center gap-1.5 text-xs font-bold text-blue-500">
               <span>{firstExample.name}:</span>
@@ -61,10 +65,13 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
       {/* Footer */}
       <div className="mt-6 flex items-center justify-between border-t border-(--border) pt-4">
         <span className="flex items-center gap-1.5 text-xs font-black text-blue-500">
-          <BookOpen className="h-4 w-4" /> Read reference
+          <BookOpen className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.cheatSheets.readReference}
         </span>
-        <Sparkles className="h-4 w-4 text-(--muted) transition group-hover:rotate-12 group-hover:text-amber-400" />
+        <Sparkles
+          className="h-4 w-4 shrink-0 text-(--muted) transition group-hover:rotate-12 group-hover:text-amber-400"
+          aria-hidden="true"
+        />
       </div>
-    </Link>
+    </LocaleLink>
   );
 }

@@ -6,6 +6,7 @@ import { headers } from 'next/headers';
 import { Resend } from 'resend';
 import { createClient } from '@/lib/supabase/server';
 import { escapeHtml } from '@/lib/utils/escape-html';
+import { getRequestDictionary } from '@/i18n/server';
 import {
   isHoneypotFilled,
   validateFeedback,
@@ -34,12 +35,12 @@ const RATE_LIMIT_SQLSTATE = 'PT429';
 const RATE_LIMIT_MARKER = 'feedback_rate_limited';
 
 // Everything the browser can see. Details go to the server log only.
+//
+// The `warning` strings stay English: they are operator diagnostics that only
+// appear when Supabase or Resend is misconfigured, never on a healthy
+// deployment, and they are read by whoever is fixing the deployment rather than
+// by a student.
 const CLIENT_MESSAGES = {
-  rateLimited: 'Too many submissions, please try again later.',
-  unconfigured: 'Feedback service is not currently configured in this environment.',
-  storeFailed: 'Could not save your feedback right now. Please try again later.',
-  emailFailed: 'Could not deliver your feedback right now. Please try again later.',
-  unexpected: 'An unexpected error occurred while processing feedback.',
   emailSkipped:
     'Feedback recorded in database, but email dispatch was skipped (email delivery is not configured).',
   emailFailedAfterStore: 'Saved to database, but email dispatch failed.',
@@ -201,13 +202,23 @@ async function sendFeedbackEmail(
 export async function submitFeedbackAction(
   input: SubmitFeedbackInput
 ): Promise<FeedbackActionResult> {
+  // The locale comes from the cookie the proxy maintains; a Server Action has
+  // no route params of its own. See src/i18n/server.ts.
+  const t = await getRequestDictionary();
+  const m = t.serverMessages;
+
   try {
     // Bots fill the hidden field; pretend it worked and drop the submission.
     if (isHoneypotFilled(input?.website)) {
       return { success: true };
     }
 
-    const validation = validateFeedback(input);
+    const validation = validateFeedback(input, {
+      categoryAndMessage: m.feedbackCategoryAndMessage,
+      categoryInvalid: m.feedbackCategoryInvalid,
+      messageRequired: m.feedbackMessageRequired,
+      messageTooLong: m.feedbackMessageTooLong,
+    });
     if (!validation.ok) {
       return { success: false, error: validation.error };
     }
@@ -217,12 +228,12 @@ export async function submitFeedbackAction(
     const { outcome: stored, userId } = await storeFeedback(feedback, clientHash);
 
     if (stored === 'rate_limited') {
-      return { success: false, error: CLIENT_MESSAGES.rateLimited };
+      return { success: false, error: m.feedbackRateLimited };
     }
     // The database is the rate limiter, so a failed store must not fall
     // through to an unthrottled email.
     if (stored === 'failed') {
-      return { success: false, error: CLIENT_MESSAGES.storeFailed };
+      return { success: false, error: m.feedbackStoreFailed };
     }
 
     const emailed = await sendFeedbackEmail(feedback, userId);
@@ -242,10 +253,10 @@ export async function submitFeedbackAction(
     if (emailed === 'sent') return { success: true };
     return {
       success: false,
-      error: emailed === 'unconfigured' ? CLIENT_MESSAGES.unconfigured : CLIENT_MESSAGES.emailFailed,
+      error: emailed === 'unconfigured' ? m.feedbackUnconfigured : m.feedbackEmailFailed,
     };
   } catch (err) {
     console.error('[ChemGames] Failed to submit feedback:', err);
-    return { success: false, error: CLIENT_MESSAGES.unexpected };
+    return { success: false, error: m.feedbackUnexpected };
   }
 }

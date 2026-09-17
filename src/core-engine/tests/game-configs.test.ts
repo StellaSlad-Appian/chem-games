@@ -137,8 +137,12 @@ describe('Acid classification config', () => {
     expect(ordered).toEqual(['Acid', 'Neutral', 'Base']);
   });
 
-  it('ships instructions copy', () => {
-    expect(ACID_CLASSIFICATION_CONFIG.instructions.title).toBeTruthy();
-    expect(ACID_CLASSIFICATION_CONFIG.instructions.steps.length).toBeGreaterThan(0);
+  // The instructions copy moved out of the config and into the i18n
+  // dictionaries so it exists in every language. Its presence and parity across
+  // locales is asserted in src/i18n/dictionary.test.ts; what belongs here is
+  // that the config still carries only tuning numbers.
+  it('keeps only tuning values in the config', () => {
+    expect(ACID_CLASSIFICATION_CONFIG.levels.maxLevel).toBeGreaterThan(0);
+    expect(ACID_CLASSIFICATION_CONFIG).not.toHaveProperty('instructions');
   });
 });

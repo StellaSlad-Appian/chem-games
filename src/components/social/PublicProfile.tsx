@@ -1,4 +1,5 @@
 // src/components/ui/PublicProfile.tsx
+'use client';
 
 import { 
   Atom, 
@@ -12,7 +13,9 @@ import {
   Medal,
   GraduationCap
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import type { UserProfile } from '@/core-engine/types/general';
+import { useI18n } from '@/i18n/client';
 
 interface PublicProfileProps { 
   profile: UserProfile; 
@@ -27,6 +30,7 @@ const elementColors: Record<string, string> = {
 };
 
 export function PublicProfile({ profile }: PublicProfileProps) {
+  const { t } = useI18n();
   const elementStyle = profile.favoriteElement 
     ? elementColors[profile.favoriteElement.group] 
     : 'border-violet-400 bg-violet-500/15 text-violet-500';
@@ -63,26 +67,26 @@ export function PublicProfile({ profile }: PublicProfileProps) {
             </div>
             
             <p className="mt-1 text-sm font-bold uppercase tracking-widest text-[var(--muted)]">
-              {profile.title || 'Registered Scientist'}
+              {profile.title || t.profile.defaultTitle}
             </p>
             
             {/* Quick Stats Chips */}
             <div className="mt-4 flex flex-wrap justify-center gap-2 sm:justify-start">
               {profile.privacy.showTotalSyntheses && (
-                <StatChip label="Experiments" value={profile.totalSyntheses.toString()} icon={FlaskConical} />
+                <StatChip label={t.profile.statExperiments} value={profile.totalSyntheses.toString()} icon={FlaskConical} />
               )}
               {profile.yearLevel && profile.privacy.showYearLevel && (
-                <StatChip label="Level" value={profile.yearLevel} icon={GraduationCap} color="text-sky-500 bg-sky-500/10 border-sky-500/20" />
+                <StatChip label={t.profile.statLevel} value={t.yearLevels[profile.yearLevel]} icon={GraduationCap} color="text-sky-500 bg-sky-500/10 border-sky-500/20" />
               )}
               {profile.currentStreak !== undefined && profile.currentStreak > 0 && profile.privacy.showCurrentStreak && (
-                <StatChip label="Day Streak" value={profile.currentStreak.toString()} icon={Flame} color="text-orange-500 bg-orange-500/10 border-orange-500/20" />
+                <StatChip label={t.profile.statStreak} value={profile.currentStreak.toString()} icon={Flame} color="text-orange-500 bg-orange-500/10 border-orange-500/20" />
               )}
               {profile.accuracy !== undefined && profile.privacy.showAccuracy && (
-                <StatChip label="Accuracy" value={`${profile.accuracy}%`} icon={Target} color="text-emerald-500 bg-emerald-500/10 border-emerald-500/20" />
+                <StatChip label={t.profile.statAccuracy} value={`${profile.accuracy}%`} icon={Target} color="text-emerald-500 bg-emerald-500/10 border-emerald-500/20" />
               )}
               {profile.privacy.showJoinedDate && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-xs font-bold text-[var(--muted)]">
-                  <CalendarDays className="h-3.5 w-3.5" /> Lab member
+                  <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden="true" /> {t.profile.labMember}
                 </span>
               )}
             </div>
@@ -97,10 +101,10 @@ export function PublicProfile({ profile }: PublicProfileProps) {
           <div className="sm:col-span-2">
             <div className="flex items-center gap-2">
               <NotebookPen className="h-5 w-5 text-violet-500" />
-              <h2 className="text-xl font-black">Lab notes</h2>
+              <h2 className="text-xl font-black">{t.profile.labNotes}</h2>
             </div>
             <p className="mt-3 rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4 leading-relaxed text-[var(--muted)]">
-              {profile.labNotes || 'This scientist is currently observing reactions in silence.'}
+              {profile.labNotes || t.profile.labNotesEmpty}
             </p>
           </div>
         )}
@@ -108,7 +112,7 @@ export function PublicProfile({ profile }: PublicProfileProps) {
         {/* Favorite Compound (Optional) */}
         {profile.favoriteCompound && (
           <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--muted)]">Favorite Compound</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--muted)]">{t.profile.favouriteCompound}</h3>
             <div className="mt-2 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500">
                 <FlaskConical className="h-5 w-5" />
@@ -126,7 +130,7 @@ export function PublicProfile({ profile }: PublicProfileProps) {
           <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4 sm:col-span-2">
             <div className="flex items-center gap-2 mb-3">
               <Medal className="h-5 w-5 text-yellow-500" />
-              <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--muted)]">Achievements</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--muted)]">{t.profile.achievements}</h3>
             </div>
             <div className="flex flex-wrap gap-3">
               {profile.badges.map((badge) => (
@@ -154,7 +158,7 @@ function StatChip({
 }: { 
   label: string; 
   value: string; 
-  icon?: any;
+  icon?: LucideIcon;
   color?: string;
 }) { 
   return (

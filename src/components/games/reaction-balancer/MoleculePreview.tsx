@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/i18n/client';
+
 interface MoleculePreviewProps {
   formula: string;
   count: number;
@@ -423,6 +425,7 @@ function MoleculeDiagram({
 }: {
   formula: string;
 }) {
+  const { t, f } = useI18n();
   const structure =
     MOLECULE_STRUCTURES[formula];
 
@@ -443,7 +446,7 @@ function MoleculeDiagram({
         height={42}
         viewBox={`0 0 ${structure.width ?? 80} ${structure.height ?? 60}`}
         role="img"
-        aria-label={`${formula} molecule`}
+        aria-label={f(t.games.reactionBalancer.moleculeA11y, { formula })}
       >
         {structure.bonds.map(
           (bond, index) => (
@@ -473,6 +476,7 @@ export default function MoleculePreview({
   formula,
   count,
 }: MoleculePreviewProps) {
+  const { t } = useI18n();
   const visibleCount = Math.min(
     Math.max(count, 1),
     3
@@ -486,7 +490,7 @@ export default function MoleculePreview({
   return (
     <div className="w-full">
       <div className="mb-1 text-center text-[8px] font-black uppercase tracking-[0.14em] text-[var(--muted)]">
-        Molecule view
+        {t.games.reactionBalancer.moleculeView}
       </div>
 
       <div className="flex h-[64px] items-center justify-center gap-1">

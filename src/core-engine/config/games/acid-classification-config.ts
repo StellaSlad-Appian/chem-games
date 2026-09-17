@@ -22,15 +22,8 @@ export const ACID_CLASSIFICATION_CONFIG = {
     failStateDelayMs: 800,
   },
 
-  // 🎯 Modal Instructions Copy
-  instructions: {
-    title: 'How to Play: Chemical Classifier',
-    subtitle: 'Analyze the chemical formula and identify its properties!',
-    steps: [
-      { highlight: 'Identify:', text: 'Look at the compound shown in the center bubble.' },
-      { highlight: 'Classify:', text: 'Select whether it is an Acid, Base, Neutral, or Amphoteric substance.' },
-      { highlight: 'Need a Hint?', text: 'Click the lightbulb icon in the header to reveal the chemical name.' },
-      { highlight: 'Careful:', text: '3 mistakes and the beaker breaks!' },
-    ],
-  }
+  // The modal instructions copy used to live here. It moved to the i18n
+  // dictionaries so it exists in every language:
+  // src/i18n/dictionaries/<locale>.ts -> games.acidClassification.
+  // Tuning numbers stay here; only player-facing wording moved.
 }

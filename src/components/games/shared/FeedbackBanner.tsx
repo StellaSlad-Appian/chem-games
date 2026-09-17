@@ -4,6 +4,7 @@
 import { useEffect } from 'react';
 import { AlertCircle, Lightbulb, X } from 'lucide-react';
 import type { GameFeedback } from '@/core-engine/types/general';
+import { useI18n } from '@/i18n/client';
 
 interface FeedbackBannerProps {
   /** The current active feedback item (or null if hidden) */
@@ -19,6 +20,7 @@ export function FeedbackBanner({
   onDismiss,
   className = 'top-4 left-1/2 -translate-x-1/2',
 }: FeedbackBannerProps) {
+  const { t } = useI18n();
   const duration = feedback?.duration ?? 4000;
 
   useEffect(() => {
@@ -60,7 +62,7 @@ export function FeedbackBanner({
                 isError ? 'text-rose-500' : 'text-blue-500'
               }`}
             >
-              {isError ? 'Reaction Error' : 'Lab Hint'}
+              {isError ? t.games.shared.reactionError : t.games.shared.labHint}
             </h5>
             <p className="text-sm font-bold leading-relaxed text-(--foreground)">
               {feedback.message}
@@ -72,7 +74,7 @@ export function FeedbackBanner({
           type="button"
           onClick={onDismiss}
           className="rounded-lg p-1 text-(--muted) hover:bg-(--background) hover:text-(--foreground)"
-          aria-label="Dismiss feedback"
+          aria-label={t.games.shared.dismissFeedbackA11y}
         >
           <X className="h-4 w-4" />
         </button>

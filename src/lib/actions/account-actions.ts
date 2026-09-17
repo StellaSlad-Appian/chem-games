@@ -3,6 +3,8 @@
 
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { getRequestDictionary, getRequestLocale } from '@/i18n/server';
+import { localizePath } from '@/i18n/routing';
 
 export type AccountActionState = {
   status: 'error';
@@ -24,10 +26,16 @@ export async function deleteAccountAction(
   _prevState: AccountActionState,
   formData: FormData
 ): Promise<AccountActionState> {
+  const t = await getRequestDictionary();
+
+  // CONFIRMATION_WORD stays 'DELETE' in every locale: it is a literal the
+  // reader types and this action compares byte for byte. Translating it would
+  // mean the word shown and the word checked could drift apart on a
+  // destructive, irreversible action.
   if (formData.get('confirmation') !== CONFIRMATION_WORD) {
     return {
       status: 'error',
-      message: `Type ${CONFIRMATION_WORD} to confirm you want to delete your account.`,
+      message: t.serverMessages.deleteConfirmRequired.replace('{word}', CONFIRMATION_WORD),
     };
   }
 
@@ -37,7 +45,7 @@ export async function deleteAccountAction(
     if (!supabase) {
       return {
         status: 'error',
-        message: 'Account deletion is not available right now. Please try again later.',
+        message: t.serverMessages.deleteUnavailable,
       };
     }
 
@@ -49,7 +57,7 @@ export async function deleteAccountAction(
     if (authError || !user) {
       return {
         status: 'error',
-        message: 'Please log in again before deleting your account.',
+        message: t.serverMessages.deleteLoginRequired,
       };
     }
 
@@ -59,7 +67,7 @@ export async function deleteAccountAction(
       console.error('Account deletion failed:', deleteError);
       return {
         status: 'error',
-        message: 'We could not delete your account. Please try again later.',
+        message: t.serverMessages.deleteFailed,
       };
     }
 
@@ -74,10 +82,10 @@ export async function deleteAccountAction(
     console.error('Unexpected error during account deletion:', err);
     return {
       status: 'error',
-      message: 'We could not delete your account. Please try again later.',
+      message: t.serverMessages.deleteFailed,
     };
   }
 
   // redirect() throws by design, so it must stay outside the try/catch above.
-  redirect('/?account=deleted');
+  redirect(`${localizePath('/', await getRequestLocale())}?account=deleted`);
 }

@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import GameArena, { type BubbleData } from './GameArena';
+import { renderWithProviders } from '@/test-utils/render';
 
 const bubble = (overrides: Partial<BubbleData> = {}): BubbleData => ({
   id: 'b1',
@@ -18,7 +19,7 @@ function renderArena(overrides: Partial<Parameters<typeof GameArena>[0]> = {}) {
   const onBubbleClick = vi.fn();
   const onDismissHint = vi.fn();
   const onBubbleExpired = vi.fn();
-  render(
+  renderWithProviders(
     <GameArena
       bubbles={[bubble()]}
       activeHint={null}

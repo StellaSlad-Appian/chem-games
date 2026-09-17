@@ -1,23 +1,25 @@
 // src/components/auth/AuthButton.tsx
 'use client';
 
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { LocaleLink } from '@/components/layout/LocaleLink';
+import { useI18n } from '@/i18n/client';
 
 export function AuthButton({ isAuthenticated }: { isAuthenticated: boolean }) {
   const router = useRouter();
+  const { t, href } = useI18n();
   const [isPending, setIsPending] = useState(false);
 
   if (!isAuthenticated) {
     return (
-      <Link
+      <LocaleLink
         href="/auth"
-        className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-wider text-[var(--foreground)] shadow-sm transition hover:border-blue-500 hover:text-blue-500"
+        className="whitespace-nowrap rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-wider text-[var(--foreground)] shadow-sm transition hover:border-blue-500 hover:text-blue-500"
       >
-        Log in / Register
-      </Link>
+        {t.nav.login}
+      </LocaleLink>
     );
   }
 
@@ -32,7 +34,7 @@ export function AuthButton({ isAuthenticated }: { isAuthenticated: boolean }) {
 
       await supabase.auth.signOut();
       router.refresh();
-      router.push('/');
+      router.push(href('/'));
     } catch (err) {
       console.error('Unexpected error signing out:', err);
     } finally {
@@ -45,9 +47,9 @@ export function AuthButton({ isAuthenticated }: { isAuthenticated: boolean }) {
       type="button"
       onClick={signOut}
       disabled={isPending}
-      className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-wider text-[var(--foreground)] shadow-sm transition hover:border-rose-500 hover:text-rose-500 disabled:opacity-60"
+      className="whitespace-nowrap rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-wider text-[var(--foreground)] shadow-sm transition hover:border-rose-500 hover:text-rose-500 disabled:opacity-60"
     >
-      {isPending ? 'Logging out...' : 'Log out'}
+      {isPending ? t.nav.loggingOut : t.nav.logout}
     </button>
   );
 }

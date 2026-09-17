@@ -3,8 +3,9 @@
  * test can assert what the form sends, including the honeypot field.
  */
 import { describe, expect, it, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { FeedbackWidget } from './FeedbackWidget';
+import { renderWithProviders } from '@/test-utils/render';
 
 const { submitFeedbackActionMock } = vi.hoisted(() => ({
   submitFeedbackActionMock: vi.fn(async () => ({ success: true })),
@@ -38,7 +39,7 @@ function honeypot(container: HTMLElement): HTMLInputElement {
 
 describe('FeedbackWidget', () => {
   it('submits the category, message, current path and an empty honeypot', async () => {
-    render(<FeedbackWidget />);
+    renderWithProviders(<FeedbackWidget />);
     openWidget();
     typeMessage('The timer froze at level 3');
     submit();
@@ -55,7 +56,7 @@ describe('FeedbackWidget', () => {
   });
 
   it('renders the honeypot off-screen, unfocusable and hidden from assistive tech', () => {
-    const { container } = render(<FeedbackWidget />);
+    const { container } = renderWithProviders(<FeedbackWidget />);
     openWidget();
 
     const input = honeypot(container);
@@ -69,7 +70,7 @@ describe('FeedbackWidget', () => {
   });
 
   it('forwards whatever a bot puts in the honeypot to the action', async () => {
-    const { container } = render(<FeedbackWidget />);
+    const { container } = renderWithProviders(<FeedbackWidget />);
     openWidget();
     typeMessage('Buy cheap reagents');
     fireEvent.change(honeypot(container), { target: { value: 'http://spam.example' } });
@@ -88,7 +89,7 @@ describe('FeedbackWidget', () => {
       error: 'Too many submissions, please try again later.',
     } as never);
 
-    render(<FeedbackWidget />);
+    renderWithProviders(<FeedbackWidget />);
     openWidget();
     typeMessage('Another one');
     submit();
@@ -98,7 +99,7 @@ describe('FeedbackWidget', () => {
   });
 
   it('caps the message length at the shared validation limit', () => {
-    render(<FeedbackWidget />);
+    renderWithProviders(<FeedbackWidget />);
     openWidget();
     expect(screen.getByPlaceholderText('What went wrong on this page?')).toHaveAttribute('maxlength', '2000');
   });

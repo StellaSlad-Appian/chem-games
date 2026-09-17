@@ -13,6 +13,7 @@ import { getLevelSpawns, resolveLevelConfig } from '@/core-engine/utils/level-ma
 import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
 import { isNeutralizationCompatible } from '@/core-engine/utils/chemical-utils';
 import { assignSpawnSlots } from '@/core-engine/utils/spawn-manager';
+import { useI18n } from '@/i18n/client';
 
 interface NeutralizeArenaProps {
   level: number;
@@ -31,6 +32,7 @@ export default function NeutralizeArena({
   onPlayerHit,
   isPaused,
 }: NeutralizeArenaProps) {
+  const { t } = useI18n();
   const { playSound } = useSound();
   const arenaRef = useRef<HTMLDivElement>(null);
 
@@ -318,7 +320,9 @@ export default function NeutralizeArena({
           type="button"
           onClick={toggleWeapon}
           disabled={isPaused}
-          aria-label={`Switch ion, currently ${isAcid ? 'H+ acid' : 'OH- base'}`}
+          aria-label={
+            isAcid ? t.games.neutralise.switchIonA11yAcid : t.games.neutralise.switchIonA11yBase
+          }
           className={`flex-1 max-w-40 rounded-xl border-2 py-2 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform ${
             isAcid
               ? 'bg-rose-500/80 border-rose-400'
@@ -331,10 +335,10 @@ export default function NeutralizeArena({
           type="button"
           onClick={fireProjectile}
           disabled={isPaused}
-          aria-label="Fire"
+          aria-label={t.games.neutralise.fireA11y}
           className="flex-1 max-w-40 rounded-xl border-2 border-slate-500 bg-slate-800 py-2 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform"
         >
-          Fire
+          {t.games.neutralise.fire}
         </button>
       </div>
     </div>

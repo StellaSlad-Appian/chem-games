@@ -5,9 +5,11 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { MessageSquarePlus, X, Send, AlertTriangle, Lightbulb, Bug } from 'lucide-react';
 import { submitFeedbackAction } from '@/lib/actions/feedback';
+import { useI18n } from '@/i18n/client';
 import { FEEDBACK_MESSAGE_MAX_LENGTH, type FeedbackType } from '@/lib/validation/feedback';
 
 export function FeedbackWidget() {
+  const { t } = useI18n();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [type, setType] = useState<FeedbackType>('bug');
@@ -42,7 +44,7 @@ export function FeedbackWidget() {
         setIsOpen(false);
       }, 2000);
     } else {
-      setErrorMessage(result.error || 'Failed to send feedback.');
+      setErrorMessage(result.error || t.feedback.genericError);
     }
   };
 
@@ -54,10 +56,10 @@ export function FeedbackWidget() {
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
           className="flex items-center gap-2 rounded-full border border-(--border) bg-(--surface) px-4 py-2.5 text-sm font-bold text-(--foreground) shadow-lg backdrop-blur transition hover:scale-105 hover:border-blue-500 active:scale-95"
-          aria-label="Open feedback menu"
+          aria-label={t.feedback.openA11y}
         >
-          <MessageSquarePlus className="h-4 w-4 text-blue-500" />
-          <span className="hidden sm:inline">Feedback</span>
+          <MessageSquarePlus className="h-4 w-4 text-blue-500" aria-hidden="true" />
+          <span className="hidden sm:inline">{t.feedback.trigger}</span>
         </button>
       </div>
 
@@ -67,31 +69,32 @@ export function FeedbackWidget() {
           {/* Header */}
           <div className="flex items-center justify-between border-b border-(--border) pb-3">
             <h3 className="flex items-center gap-2 text-base font-black text-(--foreground)">
-              🧪 ChemGames Feedback
+              🧪 {t.feedback.heading}
             </h3>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
+              aria-label={t.feedback.closeA11y}
               className="rounded-lg p-1 text-muted hover:bg-(--surface-2) hover:text-(--foreground)"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
 
           {submitted ? (
             <div className="py-8 text-center">
               <span className="inline-block text-3xl">🎉</span>
-              <p className="mt-2 text-sm font-bold text-emerald-500">Feedback sent!</p>
-              <p className="text-xs text-muted">Thank you for helping us refine ChemGames.</p>
+              <p className="mt-2 text-sm font-bold text-emerald-500">{t.feedback.sentTitle}</p>
+              <p className="text-xs text-muted">{t.feedback.sentBody}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-4">
               {/* Category Selector */}
               <div className="grid grid-cols-3 gap-1.5 rounded-xl border border-(--border) bg-(--surface-2) p-1">
                 {[
-                  { id: 'bug', label: 'Bug', Icon: Bug },
-                  { id: 'chemistry', label: 'Data', Icon: AlertTriangle },
-                  { id: 'feature', label: 'Idea', Icon: Lightbulb },
+                  { id: 'bug', label: t.feedback.categoryBug, Icon: Bug },
+                  { id: 'chemistry', label: t.feedback.categoryChemistry, Icon: AlertTriangle },
+                  { id: 'feature', label: t.feedback.categoryFeature, Icon: Lightbulb },
                 ].map(({ id, label, Icon }) => (
                   <button
                     key={id}
@@ -115,10 +118,10 @@ export function FeedbackWidget() {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={
                   type === 'chemistry'
-                    ? 'Spot an incorrect valency or formula?'
+                    ? t.feedback.placeholderChemistry
                     : type === 'bug'
-                    ? 'What went wrong on this page?'
-                    : 'What feature would make this game better?'
+                      ? t.feedback.placeholderBug
+                      : t.feedback.placeholderFeature
                 }
                 rows={3}
                 required
@@ -153,10 +156,10 @@ export function FeedbackWidget() {
                 className="btn-primary flex items-center justify-center gap-2 text-xs disabled:opacity-50"
               >
                 {isSubmitting ? (
-                  'Submitting...'
+                  t.feedback.submitting
                 ) : (
                   <>
-                    <Send className="h-3.5 w-3.5" /> Send Feedback
+                    <Send className="h-3.5 w-3.5" aria-hidden="true" /> {t.feedback.submit}
                   </>
                 )}
               </button>

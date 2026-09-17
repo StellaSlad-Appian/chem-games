@@ -21,6 +21,27 @@ export type FeedbackValidationResult =
   | { ok: true; value: ValidatedFeedback }
   | { ok: false; error: string };
 
+/**
+ * The messages this validator can return. Passing them in keeps the module
+ * pure and framework-free — it still has no idea locales exist — while letting
+ * the server action hand it translated copy. The English defaults mean every
+ * existing caller and test keeps working unchanged.
+ */
+export interface FeedbackValidationMessages {
+  categoryAndMessage: string;
+  categoryInvalid: string;
+  messageRequired: string;
+  /** Interpolates {max}. */
+  messageTooLong: string;
+}
+
+export const DEFAULT_FEEDBACK_VALIDATION_MESSAGES: FeedbackValidationMessages = {
+  categoryAndMessage: 'Please choose a category and enter a message.',
+  categoryInvalid: 'Please choose a valid feedback category.',
+  messageRequired: 'Please enter a message.',
+  messageTooLong: 'Message is too long (maximum {max} characters).',
+};
+
 export function isFeedbackType(value: unknown): value is FeedbackType {
   return typeof value === 'string' && (FEEDBACK_TYPES as readonly string[]).includes(value);
 }
@@ -58,29 +79,32 @@ export function isHoneypotFilled(value: unknown): boolean {
   return true;
 }
 
-export function validateFeedback(input: unknown): FeedbackValidationResult {
+export function validateFeedback(
+  input: unknown,
+  messages: FeedbackValidationMessages = DEFAULT_FEEDBACK_VALIDATION_MESSAGES
+): FeedbackValidationResult {
   if (typeof input !== 'object' || input === null) {
-    return { ok: false, error: 'Please choose a category and enter a message.' };
+    return { ok: false, error: messages.categoryAndMessage };
   }
 
   const { type, message, pageUrl } = input as Record<string, unknown>;
 
   if (!isFeedbackType(type)) {
-    return { ok: false, error: 'Please choose a valid feedback category.' };
+    return { ok: false, error: messages.categoryInvalid };
   }
 
   if (typeof message !== 'string') {
-    return { ok: false, error: 'Please enter a message.' };
+    return { ok: false, error: messages.messageRequired };
   }
 
   const trimmedMessage = message.trim();
   if (trimmedMessage.length === 0) {
-    return { ok: false, error: 'Please enter a message.' };
+    return { ok: false, error: messages.messageRequired };
   }
   if (trimmedMessage.length > FEEDBACK_MESSAGE_MAX_LENGTH) {
     return {
       ok: false,
-      error: `Message is too long (maximum ${FEEDBACK_MESSAGE_MAX_LENGTH} characters).`,
+      error: messages.messageTooLong.replace('{max}', String(FEEDBACK_MESSAGE_MAX_LENGTH)),
     };
   }
 

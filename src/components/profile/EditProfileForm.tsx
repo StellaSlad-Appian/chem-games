@@ -2,7 +2,8 @@
 'use client';
 
 import { useActionState } from 'react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/layout/LocaleLink';
+import { useI18n } from '@/i18n/client';
 import { updateProfileAction, type ProfileActionState } from '@/lib/actions/profile-actions';
 import { BlockToggle } from '@/components/ui/BlockToggle';
 import { ALIAS_MAX_LENGTH, ALIAS_MIN_LENGTH } from '@/lib/validation/profile';
@@ -15,7 +16,12 @@ interface EditProfileFormProps {
 const initialState: ProfileActionState = null;
 
 export function EditProfileForm({ initialData }: EditProfileFormProps) {
+  const { t } = useI18n();
   const [state, formAction, isPending] = useActionState(updateProfileAction, initialState);
+
+  // The stored value stays canonical English ('Year 9'); only the label is
+  // translated, so existing rows and the cheat-sheet year filter keep working.
+  const yearLevels = ['Year 7', 'Year 8', 'Year 9', 'Year 10', 'Senior'] as const;
 
   return (
     <form
@@ -23,28 +29,26 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
       className="mx-auto flex w-full max-w-2xl flex-col gap-6 rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8"
     >
       <div className="border-b border-[var(--border)] pb-4">
-        <h2 className="text-2xl font-black text-(--foreground)">Configure Equipment</h2>
-        <p className="mt-1 text-sm font-medium text-(--muted)">
-          Customize your laboratory preferences and public stats visibility.
-        </p>
+        <h2 className="text-2xl font-black text-(--foreground)">{t.profile.editHeading}</h2>
+        <p className="mt-1 text-sm font-medium text-(--muted)">{t.profile.editIntro}</p>
       </div>
 
       {/* Identity Block */}
       <div className="flex flex-col gap-4 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
         <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">
-          Scientist Identity
+          {t.profile.identityHeading}
         </h3>
 
         <div>
           <label htmlFor="alias" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
-            Alias
+            {t.profile.alias}
           </label>
           <input
             id="alias"
             name="alias"
             type="text"
             defaultValue={initialData.alias}
-            placeholder="e.g. Curious Argon 4821"
+            placeholder={t.profile.aliasPlaceholder}
             minLength={ALIAS_MIN_LENGTH}
             maxLength={ALIAS_MAX_LENGTH}
             required
@@ -53,20 +57,20 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
           />
           <p id="alias-hint" className="mt-2 text-xs font-medium text-(--muted)">
-            Shown publicly on the leaderboards. Choose a nickname, not your real name or email address.
+            {t.profile.aliasHelp}
           </p>
         </div>
 
         <div>
           <label htmlFor="title" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
-            Custom Title
+            {t.profile.customTitle}
           </label>
           <input
             id="title"
             name="title"
             type="text"
             defaultValue={initialData.title || ''}
-            placeholder="e.g. Research Chemist"
+            placeholder={t.profile.customTitlePlaceholder}
             maxLength={30}
             className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
           />
@@ -74,21 +78,21 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
 
         <div>
           <label htmlFor="country" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
-            Country / Region
+            {t.profile.country}
           </label>
           <input
             id="country"
             name="country"
             type="text"
             defaultValue={initialData.country || ''}
-            placeholder="e.g. Australia"
+            placeholder={t.profile.countryPlaceholder}
             maxLength={30}
             className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
           />
           <div className="mt-4">
             <BlockToggle
               name="showCountry"
-              label="Show Country on Profile"
+              label={t.profileToggles.showCountry}
               defaultChecked={initialData.privacy.showCountry}
             />
           </div>
@@ -96,7 +100,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
 
         <div className="border-t border-[var(--border)] pt-4 mt-2">
           <label htmlFor="yearLevel" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
-            Academic Level
+            {t.profile.academicLevel}
           </label>
           <select
             id="yearLevel"
@@ -104,18 +108,18 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             defaultValue={initialData.yearLevel || ''}
             className="w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
           >
-            <option value="">Select your year level...</option>
-            <option value="Year 7">Year 7</option>
-            <option value="Year 8">Year 8</option>
-            <option value="Year 9">Year 9</option>
-            <option value="Year 10">Year 10</option>
-            <option value="Senior">Senior</option>
+            <option value="">{t.profile.academicLevelPlaceholder}</option>
+            {yearLevels.map((level) => (
+              <option key={level} value={level}>
+                {t.yearLevels[level]}
+              </option>
+            ))}
           </select>
           
           <div className="mt-4">
             <BlockToggle
               name="showYearLevel"
-              label="Make Academic Level Public"
+              label={t.profileToggles.showYearLevel}
               defaultChecked={initialData.privacy.showYearLevel}
             />
           </div>
@@ -125,7 +129,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
       {/* Lab Notes Block */}
       <div className="flex flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
         <label htmlFor="labNotes" className="text-xs font-black uppercase tracking-wider text-(--foreground)">
-          Lab Notes (Bio)
+          {t.profile.labNotesField}
         </label>
         <textarea
           id="labNotes"
@@ -138,7 +142,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         <div className="mt-4">
           <BlockToggle
             name="showLabNotes"
-            label="Make Lab Notes Public"
+            label={t.profileToggles.showLabNotes}
             defaultChecked={initialData.privacy.showLabNotes}
           />
         </div>
@@ -146,23 +150,25 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
 
       {/* Game Stats Block */}
       <div className="flex flex-col gap-4 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
-        <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">Game Stats Visibility</h3>
+        <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">
+          {t.profile.visibilityHeading}
+        </h3>
         
         <BlockToggle
           name="showTotalSyntheses"
-          label="Show Total Syntheses Count"
+          label={t.profileToggles.showTotalSyntheses}
           defaultChecked={initialData.privacy.showTotalSyntheses}
         />
         
         <BlockToggle
           name="showAccuracy"
-          label="Show Answer Accuracy %"
+          label={t.profileToggles.showAccuracy}
           defaultChecked={initialData.privacy.showAccuracy}
         />
         
         <BlockToggle
           name="showCurrentStreak"
-          label="Show Daily Play Streak"
+          label={t.profileToggles.showCurrentStreak}
           defaultChecked={initialData.privacy.showCurrentStreak}
         />
       </div>
@@ -183,18 +189,18 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
 
       {/* Form Action Buttons */}
       <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
-        <Link
+        <LocaleLink
           href="/profile"
           className="flex items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:bg-[var(--background)]"
         >
-          Cancel
-        </Link>
+          {t.common.cancel}
+        </LocaleLink>
         <button
           type="submit"
           disabled={isPending}
           className="rounded-xl bg-blue-500 px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 disabled:opacity-60"
         >
-          {isPending ? 'Saving...' : 'Save Configuration'}
+          {isPending ? t.profile.saving : t.profile.save}
         </button>
       </div>
     </form>
