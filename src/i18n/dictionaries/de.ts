@@ -66,7 +66,11 @@ export const de = {
     leaderboards: 'Bestenlisten',
     games: 'Spiele',
     cheatSheets: 'Spickzettel',
-    login: 'Anmelden / Registrieren',
+    // Deliberately shorter than the English "Log in / Register": the German
+    // pair runs 215px against 150px and was the single widest thing in the
+    // header. The sign-in page itself offers both actions, so the nav button
+    // only has to get the reader there.
+    login: 'Anmelden',
     logout: 'Abmelden',
     loggingOut: 'Wird abgemeldet …',
     settingsA11y: 'Allgemeine Einstellungen öffnen',
@@ -331,6 +335,18 @@ export const de = {
     changesHeading: 'Änderungen an dieser Seite',
     changesBody:
       'Wenn sich unsere Abläufe ändern, aktualisieren wir diese Seite und das Datum oben.',
+  },
+
+  cheatSheetCategories: {
+    Fundamentals: 'Grundlagen',
+    Reactions: 'Reaktionen',
+    'Acids & Bases': 'Säuren und Basen',
+    Equations: 'Gleichungen',
+    Thermodynamics: 'Thermodynamik',
+    Organic: 'Organische Chemie',
+    Bonding: 'Bindungslehre',
+    Nomenclature: 'Nomenklatur',
+    Stoichiometry: 'Stöchiometrie',
   },
 
   yearLevels: {

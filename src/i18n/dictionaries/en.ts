@@ -325,6 +325,23 @@ export const en = {
       'If our practices change, we will update this page and the effective date at the top.',
   },
 
+  /**
+   * Cheat-sheet categories. Like the year levels, the stored value stays the
+   * canonical English one (it is a `CheatSheetCategory` union member used as
+   * data); only the label is translated.
+   */
+  cheatSheetCategories: {
+    Fundamentals: 'Fundamentals',
+    Reactions: 'Reactions',
+    'Acids & Bases': 'Acids & Bases',
+    Equations: 'Equations',
+    Thermodynamics: 'Thermodynamics',
+    Organic: 'Organic',
+    Bonding: 'Bonding',
+    Nomenclature: 'Nomenclature',
+    Stoichiometry: 'Stoichiometry',
+  },
+
   yearLevels: {
     all: 'All',
     'Year 7': 'Year 7',

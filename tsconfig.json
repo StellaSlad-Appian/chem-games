@@ -10,6 +10,10 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    // scripts/i18n-review.mts runs on Node's built-in TypeScript type stripping,
+    // which requires the .ts extension on relative imports. Nothing under src/
+    // uses it; this only stops tsc rejecting that script.
+    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,

@@ -49,7 +49,7 @@ export default async function GamesPage(props: PageProps<'/[lang]'>) {
         <h1 className="mt-5 text-4xl font-black">{t.gamesHub.heading}</h1>
         <p className="mt-2 text-muted">{t.gamesHub.intro}</p>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-3">
           {games.map(({ href, title, description, Icon }) => (
             <LocaleLink
               key={href}

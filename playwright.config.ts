@@ -45,8 +45,9 @@ export default defineConfig({
       ? `npm run build && npx next start -p ${PORT}`
       : `npx next dev -p ${PORT}`,
     // Health-check a page that needs no Supabase credentials, so a server
-    // already running at baseURL is detected and reused.
-    url: `${baseURL}/games`,
+    // already running at baseURL is detected and reused. The locale prefix is
+    // explicit so the check hits the page rather than the proxy's redirect.
+    url: `${baseURL}/en/games`,
     reuseExistingServer: !isCI,
     timeout: 180_000,
     stdout: 'ignore',

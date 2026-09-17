@@ -88,8 +88,15 @@ export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel
           value={locale}
           disabled={isPending}
           onChange={(event) => handleChange(event.target.value)}
-          className={`cursor-pointer appearance-none rounded-lg border border-(--border) bg-(--surface) py-2 pr-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:opacity-60 ${
-            isPanel ? 'w-full px-4 py-3 text-sm normal-case tracking-normal' : 'pl-8'
+          // In the nav the control is deliberately narrow on a phone: the
+          // browser ellipsises the selected option rather than pushing the
+          // header past the viewport. It relaxes to its natural width at sm,
+          // and the panel variant (inside the game settings modal) is always
+          // full width.
+          className={`cursor-pointer appearance-none truncate rounded-lg border border-(--border) bg-(--surface) py-2 pr-2 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:opacity-60 ${
+            isPanel
+              ? 'w-full px-4 py-3 text-sm normal-case tracking-normal'
+              : 'w-[4.5rem] pl-8 sm:w-auto sm:pr-3'
           }`}
         >
           {LOCALES.map((option) => (

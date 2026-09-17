@@ -11,6 +11,7 @@ import {
   overlay,
   wrongVesselFor,
 } from './helpers';
+import { en } from '../src/i18n/dictionaries/en';
 
 const bubble = (page: Page) => page.getByTestId('molecule-bubble');
 const vessel = (page: Page, label: string) => page.getByRole('button', { name: label, exact: true });
@@ -100,9 +101,13 @@ test.describe('Acid classification', () => {
 
   test('instructions and settings modals open and close', async ({ page }) => {
     await footerButton(page, 'How to Play').click();
-    await expect(page.getByRole('heading', { name: CFG.instructions.title })).toBeVisible();
-    await page.getByRole('button', { name: 'GOT IT' }).click();
-    await expect(page.getByRole('heading', { name: CFG.instructions.title })).toBeHidden();
+    await expect(
+      page.getByRole('heading', { name: en.games.acidClassification.instructionsTitle })
+    ).toBeVisible();
+    await page.getByRole('button', { name: en.games.shared.gotIt }).click();
+    await expect(
+      page.getByRole('heading', { name: en.games.acidClassification.instructionsTitle })
+    ).toBeHidden();
 
     await footerButton(page, 'Settings').click();
     await expect(page.getByRole('heading', { name: /Game Settings/ })).toBeVisible();

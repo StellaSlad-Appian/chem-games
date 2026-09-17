@@ -1,16 +1,16 @@
 import { expect, test } from '@playwright/test';
-import { GAME_SLUGS, openGame } from './helpers';
+import { GAME_SLUGS, openGame, path } from './helpers';
 
 const HUB_CARDS: Array<[RegExp, string]> = [
-  [/Acid or Base\?/, '/games/acid-classification'],
-  [/Formula Blaster/, '/games/formula-blaster'],
-  [/Neutralise!/, '/games/neutralise'],
-  [/Reaction Balancer/, '/games/reaction-balancer'],
+  [/Acid or Base\?/, '/en/games/acid-classification'],
+  [/Formula Blaster/, '/en/games/formula-blaster'],
+  [/Neutralise!/, '/en/games/neutralise'],
+  [/Reaction Balancer/, '/en/games/reaction-balancer'],
 ];
 
 test.describe('Games hub', () => {
   test('lists every playable game with a link to it', async ({ page }) => {
-    await page.goto('/games');
+    await page.goto(path('/games'));
     await expect(page.getByRole('heading', { level: 1, name: 'Games' })).toBeVisible();
     for (const [title, href] of HUB_CARDS) {
       await expect(page.getByRole('link', { name: title })).toHaveAttribute('href', href);

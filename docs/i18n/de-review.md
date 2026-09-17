@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**417 strings** — 214 high confidence,
-142 medium, 61 low.
+**426 strings** — 214 high confidence,
+151 medium, 61 low.
 
 The confidence column is a judgement about *this* translation, not about German
 in general:
@@ -84,7 +84,7 @@ invisible here.
 | `nav.leaderboards` | Leaderboards | Bestenlisten | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.games` | Games | Spiele | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.cheatSheets` | Cheat Sheets | Spickzettel | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
-| `nav.login` | Log in / Register | Anmelden / Registrieren | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
+| `nav.login` | Log in / Register | Anmelden | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.logout` | Log out | Abmelden | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.loggingOut` | Logging out... | Wird abgemeldet … | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.settingsA11y` | Open general settings | Allgemeine Einstellungen öffnen | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
@@ -311,6 +311,20 @@ invisible here.
 | `privacy.legalBody2` | If you have a complaint, please contact us first. If you are not satisfied with our response, you can complain to the Office of the Australian Information Commissioner at {link}. | Wenn du eine Beschwerde hast, wende dich bitte zuerst an uns. Bist du mit unserer Antwort nicht zufrieden, kannst du dich beim Office of the Australian Information Commissioner unter {link} beschweren. | low | Privacy-policy prose. I am not a lawyer and this is not legal review: the German says what the English says, but the phrasing has not been checked against German data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) — those names deliberately stay English inside German sentences, which is correct but reads oddly. If the site is ever actually offered to German or EU students, this page needs a GDPR/DSGVO review that is out of scope for a translation pass. |
 | `privacy.changesHeading` | Changes to this page | Änderungen an dieser Seite | low | Privacy-policy prose. I am not a lawyer and this is not legal review: the German says what the English says, but the phrasing has not been checked against German data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) — those names deliberately stay English inside German sentences, which is correct but reads oddly. If the site is ever actually offered to German or EU students, this page needs a GDPR/DSGVO review that is out of scope for a translation pass. |
 | `privacy.changesBody` | If our practices change, we will update this page and the effective date at the top. | Wenn sich unsere Abläufe ändern, aktualisieren wir diese Seite und das Datum oben. | low | Privacy-policy prose. I am not a lawyer and this is not legal review: the German says what the English says, but the phrasing has not been checked against German data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) — those names deliberately stay English inside German sentences, which is correct but reads oddly. If the site is ever actually offered to German or EU students, this page needs a GDPR/DSGVO review that is out of scope for a translation pass. |
+
+### `cheatSheetCategories`
+
+| Key | English | German | Confidence | Notes |
+|---|---|---|---|---|
+| `cheatSheetCategories.Fundamentals` | Fundamentals | Grundlagen | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Reactions` | Reactions | Reaktionen | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Acids & Bases` | Acids & Bases | Säuren und Basen | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Equations` | Equations | Gleichungen | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Thermodynamics` | Thermodynamics | Thermodynamik | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Organic` | Organic | Organische Chemie | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Bonding` | Bonding | Bindungslehre | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Nomenclature` | Nomenclature | Nomenklatur | medium | No specific note; reviewed as ordinary UI copy. |
+| `cheatSheetCategories.Stoichiometry` | Stoichiometry | Stöchiometrie | medium | No specific note; reviewed as ordinary UI copy. |
 
 ### `yearLevels`
 

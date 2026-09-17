@@ -18,7 +18,7 @@ const EXPECTED_HEADERS: Record<string, string> = {
 
 test.describe('Security headers', () => {
   test('every page response carries the hardening headers', async ({ page }) => {
-    const response = await page.request.get('/games');
+    const response = await page.request.get('/en/games');
     expect(response.ok()).toBe(true);
 
     const headers = response.headers();
@@ -28,8 +28,21 @@ test.describe('Security headers', () => {
   });
 
   test('does not advertise the framework through x-powered-by', async ({ page }) => {
-    const response = await page.request.get('/games');
+    const response = await page.request.get('/en/games');
     expect(response.ok()).toBe(true);
     expect(response.headers()['x-powered-by']).toBeUndefined();
+  });
+
+  // The locale redirect is produced by the proxy, not by the filesystem route,
+  // so it is worth checking separately that next.config's headers() still
+  // attaches to it — a redirect without HSTS or nosniff is a real gap.
+  test('the locale redirect itself carries the hardening headers', async ({ page }) => {
+    const response = await page.request.get('/games', { maxRedirects: 0 });
+    expect(response.status()).toBe(307);
+
+    const headers = response.headers();
+    for (const [name, value] of Object.entries(EXPECTED_HEADERS)) {
+      expect.soft(headers[name], `${name} header on the redirect`).toBe(value);
+    }
   });
 });

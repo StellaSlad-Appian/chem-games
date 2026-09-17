@@ -115,7 +115,7 @@ function ResourceList({
   return (
     <div className="mt-6 first:mt-0">
       <h3 className="text-sm font-black uppercase tracking-wider text-(--muted)">{heading}</h3>
-      <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+      <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {resources.map((resource) => (
           <li key={resource.url}>
             <a
@@ -177,7 +177,9 @@ export default async function CheatSheetDetailPage(
           <span className={`rounded-full border px-4 py-1 text-xs font-black uppercase tracking-wider ${sheet.colorTheme}`}>
             {t.yearLevels[sheet.yearLevel]}
           </span>
-          <span className="text-xs font-bold text-(--muted)">{sheet.category}</span>
+          <span className="text-xs font-bold text-(--muted)">
+            {t.cheatSheetCategories[sheet.category]}
+          </span>
         </div>
 
         <div className="mt-6 flex items-center gap-4">
@@ -223,7 +225,7 @@ export default async function CheatSheetDetailPage(
       {sheet.formulaExamples && sheet.formulaExamples.length > 0 && (
         <section className={panelClass}>
           <PanelHeading>{t.cheatSheets.exampleFormulas}</PanelHeading>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {sheet.formulaExamples.map((item, index) => (
               <div key={index} className="flex flex-col justify-between rounded-2xl border border-(--border) bg-(--background) p-4">
                 <span className="text-xs font-bold text-(--muted)">{item.name}</span>
@@ -252,7 +254,7 @@ export default async function CheatSheetDetailPage(
                 <h3 className="text-base font-black text-(--foreground)">{section.heading}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
                 {section.examples && section.examples.length > 0 && (
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                  <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {section.examples.map((example) => (
                       <div key={example.name} className="rounded-2xl border border-(--border) bg-(--background) p-3">
                         <span className="text-xs font-bold text-(--muted)">{example.name}</span>

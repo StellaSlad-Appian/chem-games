@@ -367,7 +367,7 @@ export default function AtomInventory({
   reactantCoeffs,
   productCoeffs,
 }: AtomInventoryProps) {
-  const { t, f } = useI18n();
+  const { t } = useI18n();
   const {
     leftAtoms,
     rightAtoms,

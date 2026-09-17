@@ -27,14 +27,32 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
   return (
     <header className="sticky top-0 z-40 border-b border-(--border) bg-(--surface)/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+        {/*
+          Below sm the wordmark collapses to the beaker mark. At 360px the row
+          was 492px wide in German — brand 173 + controls 271 + gaps — against a
+          360px viewport, so the header scrolled sideways, which docs/ACCESSIBILITY.md
+          forbids (1.4.10). English overflowed here too, just less; the language
+          switcher made it impossible to ignore. The link keeps its accessible
+          name through the sr-only span.
+        */}
         <LocaleLink href="/" className="flex shrink-0 items-center gap-2 font-black text-xl">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500 text-white shadow-md">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-500 text-white shadow-md">
             <Beaker className="h-5 w-5" aria-hidden="true" />
           </span>
-          Chem<span className="text-blue-500">Games</span>
+          <span className="sr-only sm:hidden">{t.meta.siteName}</span>
+          <span aria-hidden="true" className="hidden sm:inline">
+            Chem<span className="text-blue-500">Games</span>
+          </span>
         </LocaleLink>
 
-        <nav aria-label={t.nav.sectionsA11y} className="hidden items-center gap-1 md:flex">
+        {/*
+          The horizontal nav appears at lg, not md. Measured in German at 1280px:
+          brand 173px + nav 463px + controls 378px is already 1014px of content
+          before gaps and padding, so between 768px and roughly 1100px the header
+          overflowed. English fits at md; German does not, and the breakpoint has
+          to suit the widest language rather than the narrowest.
+        */}
+        <nav aria-label={t.nav.sectionsA11y} className="hidden items-center gap-1 lg:flex">
           {sections.map(({ href, label, Icon }) => (
             <LocaleLink
               key={href}

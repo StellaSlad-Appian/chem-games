@@ -1,9 +1,22 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import { COMPOUNDS_REGISTRY } from '../src/core-engine/data/compounds';
+import { DEFAULT_LOCALE, type Locale } from '../src/i18n/config';
+import { localizePath } from '../src/i18n/routing';
 import { calculateMoleculeHealth, evaluateChemical } from '../src/core-engine/utils/chemical-utils';
 import type { ChemicalClassification, CompoundData } from '../src/core-engine/types/chemistry';
 
 export type GameSlug = 'acid-classification' | 'formula-blaster' | 'neutralise' | 'reaction-balancer';
+
+/**
+ * Every route is locale-prefixed now, so the specs navigate to explicit
+ * prefixed URLs rather than relying on the proxy's redirect. Going through
+ * `/games` would work — the proxy sends it to `/en/games` — but it costs an
+ * extra request per navigation and makes a failure ambiguous between "the
+ * redirect broke" and "the page broke". `e2e/i18n.spec.ts` is where the
+ * redirect itself is tested.
+ */
+export const path = (appPath: string, locale: Locale = DEFAULT_LOCALE): string =>
+  localizePath(appPath, locale);
 
 export const GAME_SLUGS: GameSlug[] = [
   'acid-classification',
@@ -19,14 +32,14 @@ export const GAME_SLUGS: GameSlug[] = [
 export async function openGame(
   page: Page,
   slug: GameSlug,
-  options: { showNeutraliseIntro?: boolean } = {}
+  options: { showNeutraliseIntro?: boolean; locale?: Locale } = {}
 ): Promise<void> {
   if (slug === 'neutralise' && !options.showNeutraliseIntro) {
     await page.addInitScript(() => {
       window.localStorage.setItem('hasSeenNeutraliseInstructions', 'true');
     });
   }
-  await page.goto(`/games/${slug}`);
+  await page.goto(path(`/games/${slug}`, options.locale));
   await expect(page.locator('main.game-shell')).toBeVisible();
 }
 

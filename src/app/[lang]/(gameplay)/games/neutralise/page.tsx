@@ -291,7 +291,7 @@ export default function NeutralizePage() {
 
   const handleExit = useCallback(() => {
     router.push(localizePath('/games', locale));
-  }, [router]);
+  }, [router, locale]);
 
   // ------------------------------------------------------------
   // OVERLAY RESUME

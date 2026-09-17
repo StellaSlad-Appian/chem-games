@@ -4,7 +4,8 @@ How the multi-language setup works, how to add a language, and how to add a
 string. Written for whoever adds French next.
 
 Currently shipping: **English** (default) and **German**.
-Planned: French, Spanish, Italian, Russian — see [Phase 2](#phase-2-the-remaining-languages).
+Planned: French, Spanish, Italian, Russian — see [Adding a locale](#adding-a-locale)
+and [Plurals](#plurals), which is the one thing Russian will break.
 
 ---
 
@@ -412,6 +413,19 @@ Note that the `lewis-structures` **cheat sheet** already exists on `master` and
 The app generates neither, so there was nothing to make locale-aware. If one is
 added, it should list every locale's URL and set the `alternates` — the helper
 for that is `localeAlternates()` in `routing.ts`.
+
+### Clear `.next` after moving a route
+
+Worth knowing, because it cost an hour: moving the app under `[lang]` left a
+stale Turbopack cache in `.next`, and the moved
+`/[lang]/cheat-sheets/[slug]` route then **hung at "Compiling" indefinitely**
+in `next dev` — not slow, stuck, with no error. Every other route was fine, and
+a nine-line version of the same page still hung, which makes it look convincingly
+like a code bug. `rm -rf .next` fixed it; the page then compiled in four
+seconds.
+
+If a route hangs at compile after a move, clear `.next` before debugging the
+code.
 
 ### `NEXT_PUBLIC_SITE_URL`
 

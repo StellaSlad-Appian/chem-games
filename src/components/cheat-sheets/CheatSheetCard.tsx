@@ -28,7 +28,7 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
             {t.yearLevels[topic.yearLevel]}
           </span>
           <span className="text-xs font-bold text-(--muted)">
-            {topic.category}
+            {t.cheatSheetCategories[topic.category]}
           </span>
         </div>
 
@@ -37,13 +37,13 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-500 transition group-hover:bg-blue-500 group-hover:text-white">
             <ChemIcon name={topic.iconName} className="h-5 w-5" />
           </div>
-          <h3 className="text-2xl font-black text-(--foreground) transition group-hover:text-blue-500">
+          <h3 className="hyphens-auto break-words text-xl font-black text-(--foreground) transition group-hover:text-blue-500 sm:text-2xl">
             {topic.title}
           </h3>
         </div>
 
         {/* Summary */}
-        <p className="mt-3 text-sm text-(--muted)">{topic.summary}</p>
+        <p className="mt-3 hyphens-auto text-sm text-(--muted)">{topic.summary}</p>
 
         {/* Formula Example Preview */}
         {firstExample && (

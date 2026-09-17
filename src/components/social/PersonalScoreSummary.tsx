@@ -17,7 +17,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
         <Trophy className="h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
         <h2 className="text-3xl font-black">{t.leaderboards.myResults}</h2>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {scores.map((score) => (
           <article key={score.gameId} className="game-card flex min-h-55 flex-col p-5 transition hover:-translate-y-1 hover:border-amber-400">
             <div className="flex items-start justify-between gap-3">
