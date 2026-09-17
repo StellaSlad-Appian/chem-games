@@ -203,6 +203,31 @@ case there, never by loosening the assertion.
 | Pause/reset state machine | `useGameState.test.ts` |
 | Touch vs pointer detection | `useInputMethod.test.ts` |
 
+### Internationalisation
+
+Every route is locale-prefixed (`/en/games`, `/de/games`), so e2e specs navigate through
+`path('/games')` from `e2e/helpers.ts` rather than writing the prefix by hand. `openGame()`
+takes an optional `locale`. Anything that drives a control whose only behaviour is a React
+handler — the language switcher in particular — must `await waitForHydration(page)` first,
+or Playwright's DOM event fires before React has attached its listener and the test fails
+with nothing visibly wrong.
+
+| Scenario | Test |
+| --- | --- |
+| Key parity, empty values, dropped placeholders, strings left identical to English, formulae altered in translation | `src/i18n/dictionary.test.ts` |
+| Every element, compound and ion named in every locale | `src/i18n/chemistry-names.test.ts` |
+| Cheat-sheet overlays line up with the English structure; formulae, slugs and URLs unchanged | `src/i18n/cheat-sheets.test.ts` |
+| `Accept-Language` parsing, q-values, regional fallback, cookie precedence | `src/i18n/locale-match.test.ts` |
+| Prefix/strip round-trips, the unprefixed-path list | `src/i18n/routing.test.ts` |
+| **Supabase auth cookies surviving the locale redirect**, negotiation, query preservation | `src/proxy.test.ts` |
+| Redirect, negotiation in a real browser, the switcher (including by keyboard), `<html lang>`, `hreflang`, German rendering, auth under a prefix | `e2e/i18n.spec.ts` |
+
+Component tests render in English by default — `renderWithProviders()` supplies the
+`I18nProvider` — so assertions written against the English copy keep working. Pass a
+`locale` and `dictionary` to `TestProviders` to assert on a translation.
+
+Full details in [`docs/i18n/README.md`](./i18n/README.md).
+
 ## Bugs the suite found
 
 All six were found by the first run of this suite and fixed on 2026-09-13. Each has a
@@ -325,7 +350,9 @@ unit-test steps still gate), and remove it once lint is clean.
    `npx playwright show-trace test-results/<test-folder>/trace.zip`.
 5. If Playwright cannot start the server: something else is listening on port 3210 (set
    `PLAYWRIGHT_PORT`), or the dev server crashed on start (Turbopack occasionally does on
-   Windows; just re-run). To bypass the managed server entirely, point the tests at a
+   Windows; just re-run). If a *route* hangs at "Compiling" forever after files have been
+   moved, clear `.next` — a stale Turbopack cache does this, and it looks exactly like a
+   code bug. To bypass the managed server entirely, point the tests at a
    server you started yourself with `PLAYWRIGHT_BASE_URL`.
 6. If a `known-issues.test.ts` exists and one of its tests fails with "Expected test to
    fail", you fixed a bug: promote that test to a normal `it` in the right spec file, and
