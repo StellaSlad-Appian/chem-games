@@ -11,9 +11,12 @@ import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
 import ReactionBalancerArena from '@/components/games/reaction-balancer/GameArena';
 import { recordGameSession } from '@/lib/actions/game-actions';
+import { useI18n } from '@/i18n/client';
+import { localizePath } from '@/i18n/routing';
 
 export default function ReactionBalancerPage() {
   const router = useRouter();
+  const { t, f, locale } = useI18n();
   const { gameState, setGameState, score, setScore, currentLevel, setCurrentLevel, togglePause, resetBase } = useGameState();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
@@ -46,22 +49,32 @@ export default function ReactionBalancerPage() {
     <GameShell fullBleed themeScope="neutralise">
       <div className="px-4 md:px-8">
         <GamesHeader
-          gameSubtitle="OBJECTIVE: Adjust coefficients until total atoms balance on both sides"
-          progressText={`Level ${currentLevel}`}
+          gameSubtitle={t.games.reactionBalancer.subtitle}
+          progressText={f(t.games.reactionBalancer.progress, { level: currentLevel })}
           currentLevel={currentLevel}
           score={score}
-          onExit={() => router.push('/games')}
+          onExit={() => router.push(localizePath('/games', locale))}
           showLives={false}
           showTimer={false}
           showCenterTask={false}
         />
       </div>
 
-      <GameSettingsModal isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} gameId={"reaction-balancer" as any} />
+      <GameSettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        gameId="reaction-balancer"
+      />
 
-      <GameInstructionsModal isOpen={isInstructionsOpen} onClose={() => setIsInstructionsOpen(false)} title="How to Play: Reaction Balancer">
+      <GameInstructionsModal
+        isOpen={isInstructionsOpen}
+        onClose={() => setIsInstructionsOpen(false)}
+        title={t.games.reactionBalancer.instructionsTitle}
+      >
         <p className="text-sm text-[var(--muted)]">
-          Use the <strong>▲ / ▼</strong> arrows above each compound to adjust its stoichiometric coefficient until the number of atoms for each element is equal on both sides of the arrow.
+          {t.games.reactionBalancer.instructionsBody.split('{arrows}')[0]}
+          <strong>▲ / ▼</strong>
+          {t.games.reactionBalancer.instructionsBody.split('{arrows}')[1]}
         </p>
       </GameInstructionsModal>
 

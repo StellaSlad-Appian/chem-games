@@ -10,6 +10,7 @@ import { renderWithProviders } from '@/test-utils/render';
 import { ACID_CLASSIFICATION_CONFIG as CFG } from '@/core-engine/config/games/acid-classification-config';
 import { evaluateChemical } from '@/core-engine/utils/chemical-utils';
 import { compoundByFormula, compoundsAtDifficulty } from '@/test-utils/registry';
+import { en } from '@/i18n/dictionaries/en';
 
 const { pushMock, recordGameSessionMock } = vi.hoisted(() => ({
   pushMock: vi.fn(),
@@ -17,6 +18,8 @@ const { pushMock, recordGameSessionMock } = vi.hoisted(() => ({
 }));
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: pushMock, replace: vi.fn(), back: vi.fn() }),
+  // The settings modal embeds the language switcher, which reads the path.
+  usePathname: () => '/en',
 }));
 vi.mock('@/lib/actions/game-actions', () => ({
   recordGameSession: recordGameSessionMock,
@@ -202,13 +205,17 @@ describe('Acid classification page (game flow)', () => {
 
   it('the instructions modal shows the configured steps', () => {
     fireEvent.click(screen.getByTitle('How to Play'));
-    expect(screen.getByRole('heading', { name: CFG.instructions.title })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('button', { name: 'GOT IT' }));
-    expect(screen.queryByRole('heading', { name: CFG.instructions.title })).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: en.games.acidClassification.instructionsTitle })
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: en.games.shared.gotIt }));
+    expect(
+      screen.queryByRole('heading', { name: en.games.acidClassification.instructionsTitle })
+    ).not.toBeInTheDocument();
   });
 
   it('Exit leaves the game', () => {
     fireEvent.click(screen.getByRole('button', { name: /Exit/ }));
-    expect(pushMock).toHaveBeenCalledWith('/');
+    expect(pushMock).toHaveBeenCalledWith('/en');
   });
 });

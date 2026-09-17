@@ -1,8 +1,10 @@
-// src/app/(main)/layout.tsx
-import Link from 'next/link';
+// src/app/[lang]/(main)/layout.tsx
 import { Sparkles } from 'lucide-react';
 import { NavBar } from '@/components/layout/NavBar';
+import { LocaleLink } from '@/components/layout/LocaleLink';
 import { createClient } from '@/lib/supabase/server';
+import { getDictionary } from '@/i18n/dictionaries';
+import { format } from '@/i18n/format';
 
 async function getAuthStatus() {
   try {
@@ -15,29 +17,28 @@ async function getAuthStatus() {
   }
 }
 
-export default async function MainLayout({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = await getAuthStatus();
+export default async function MainLayout(props: LayoutProps<'/[lang]'>) {
+  const { lang } = await props.params;
+  const [isAuthenticated, t] = await Promise.all([getAuthStatus(), getDictionary(lang)]);
 
   return (
     <>
       <NavBar isAuthenticated={isAuthenticated} />
-      
-      <main className="flex-1">{children}</main>
+
+      <main className="flex-1">{props.children}</main>
 
       <footer className="border-t-2 border-(--border) bg-(--surface) py-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:px-6 sm:text-left">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-amber-400" />
-            <p className="text-xs font-bold text-(--muted)">
-              ChemGames — Making chemistry visual, playful, and intuitive.
-            </p>
+            <Sparkles className="h-4 w-4 shrink-0 text-amber-400" aria-hidden="true" />
+            <p className="text-xs font-bold text-(--muted)">{t.footer.tagline}</p>
           </div>
           <div className="flex items-center gap-3 text-xs font-medium text-(--muted)">
-            <p>&copy; {new Date().getFullYear()} ChemGames. All rights reserved.</p>
+            <p>{format(t.footer.copyright, { year: new Date().getFullYear() })}</p>
             <span aria-hidden="true">&middot;</span>
-            <Link href="/privacy" className="font-bold transition hover:text-blue-500">
-              Privacy
-            </Link>
+            <LocaleLink href="/privacy" className="font-bold transition hover:text-blue-500">
+              {t.footer.privacy}
+            </LocaleLink>
           </div>
         </div>
       </footer>

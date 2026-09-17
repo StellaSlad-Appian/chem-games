@@ -1,7 +1,6 @@
-// src/app/(main)/cheat-sheets/[slug]/page.tsx
+// src/app/[lang]/(main)/cheat-sheets/[slug]/page.tsx
 
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import {
   AlertTriangle,
   ArrowLeft,
@@ -11,33 +10,44 @@ import {
   Gamepad2,
   Sparkles,
 } from 'lucide-react';
-import { CHEAT_SHEETS, GAME_LINKS, GLOBAL_TEACHER_RESOURCES, getCheatSheetBySlug } from '@/lib/cheat-sheet-data';
+import { CHEAT_SHEETS, GAME_LINKS } from '@/lib/cheat-sheet-data';
 import { ChemIcon } from '@/components/ui/ChemIcon';
 import MoleculeText from '@/components/ui/MoleculeText';
+import { LocaleLink } from '@/components/layout/LocaleLink';
 import type { CheatSheetResource, CheatSheetTable } from '@/core-engine/types/general';
+import { getCheatSheet, getGlobalTeacherResources } from '@/i18n/cheat-sheets';
+import { getDictionary, type Dictionary } from '@/i18n/dictionaries';
+import { gameTitle } from '@/i18n/game-titles';
+import { format } from '@/i18n/format';
+import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 
-interface CheatSheetPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
-}
-
+/**
+ * Only the slugs are produced here. The `lang` values come from the
+ * `generateStaticParams` on the root layout, and Next combines the two — see
+ * node_modules/next/dist/docs/01-app/03-api-reference/04-functions/generate-static-params.md
+ * ("the child generateStaticParams function is executed once for each set of
+ * params the parent generates"). Slugs are locale-independent by design: a
+ * German reader still visits /de/cheat-sheets/acids-and-bases, which keeps
+ * links shareable across languages.
+ */
 export async function generateStaticParams() {
   return CHEAT_SHEETS.map((sheet) => ({
     slug: sheet.slug,
   }));
 }
 
-export async function generateMetadata({ params }: CheatSheetPageProps) {
-  const { slug } = await params;
-  const sheet = getCheatSheetBySlug(slug);
+export async function generateMetadata(props: PageProps<'/[lang]/cheat-sheets/[slug]'>) {
+  const { lang, slug } = await props.params;
+  const locale: Locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
+  const t = await getDictionary(locale);
+  const sheet = getCheatSheet(locale, slug);
 
   if (!sheet) {
-    return { title: 'Topic Not Found - ChemGames' };
+    return { title: t.meta.cheatSheetNotFound };
   }
 
   return {
-    title: `${sheet.title} Cheat Sheet | ChemGames`,
+    title: format(t.meta.cheatSheetTitle, { title: sheet.title }),
     description: sheet.summary,
   };
 }
@@ -92,7 +102,15 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
   );
 }
 
-function ResourceList({ heading, resources }: { heading: string; resources: CheatSheetResource[] }) {
+function ResourceList({
+  heading,
+  resources,
+  t,
+}: {
+  heading: string;
+  resources: CheatSheetResource[];
+  t: Dictionary;
+}) {
   if (resources.length === 0) return null;
   return (
     <div className="mt-6 first:mt-0">
@@ -109,7 +127,7 @@ function ResourceList({ heading, resources }: { heading: string; resources: Chea
               <span className="flex items-center gap-2 text-sm font-black text-blue-500">
                 {resource.label}
                 <ExternalLink className="h-3.5 w-3.5 opacity-60 transition group-hover:opacity-100" aria-hidden="true" />
-                <span className="sr-only">(opens in a new tab)</span>
+                <span className="sr-only">{t.common.opensInNewTab}</span>
               </span>
               <span className="mt-1 text-xs text-(--muted)">{resource.description}</span>
             </a>
@@ -120,9 +138,13 @@ function ResourceList({ heading, resources }: { heading: string; resources: Chea
   );
 }
 
-export default async function CheatSheetDetailPage({ params }: CheatSheetPageProps) {
-  const { slug } = await params;
-  const sheet = getCheatSheetBySlug(slug);
+export default async function CheatSheetDetailPage(
+  props: PageProps<'/[lang]/cheat-sheets/[slug]'>
+) {
+  const { lang, slug } = await props.params;
+  const locale: Locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
+  const t = await getDictionary(locale);
+  const sheet = getCheatSheet(locale, slug);
 
   if (!sheet) {
     notFound();
@@ -131,26 +153,29 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
   const studentResources = (sheet.resources ?? []).filter((r) => r.audience !== 'teacher');
   const teacherResources = [
     ...(sheet.resources ?? []).filter((r) => r.audience === 'teacher'),
-    ...GLOBAL_TEACHER_RESOURCES,
+    ...getGlobalTeacherResources(locale),
   ];
   const relatedGames = (sheet.relatedGames ?? [])
-    .map((gameId) => GAME_LINKS[gameId])
+    .map((gameId) => {
+      const link = GAME_LINKS[gameId];
+      return link ? { ...link, title: gameTitle(t, gameId, link.title) } : undefined;
+    })
     .filter((game): game is { title: string; href: string } => Boolean(game));
 
   return (
     <main className="container mx-auto min-h-screen max-w-4xl px-4 py-8 bg-(--background) text-(--foreground)">
-      <Link
+      <LocaleLink
         href="/cheat-sheets"
         className="mb-6 inline-flex items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-blue-500"
       >
-        <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-        Back to Cheat Sheets
-      </Link>
+        <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
+        {t.cheatSheets.backToList}
+      </LocaleLink>
 
       <header className="rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-xl md:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <span className={`rounded-full border px-4 py-1 text-xs font-black uppercase tracking-wider ${sheet.colorTheme}`}>
-            {sheet.yearLevel}
+            {t.yearLevels[sheet.yearLevel]}
           </span>
           <span className="text-xs font-bold text-(--muted)">{sheet.category}</span>
         </div>
@@ -168,23 +193,23 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
         {relatedGames.length > 0 && (
           <div className="mt-6 flex flex-wrap items-center gap-2">
             <span className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-(--muted)">
-              <Gamepad2 className="h-4 w-4" aria-hidden="true" /> Practise this
+              <Gamepad2 className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.cheatSheets.practiseThis}
             </span>
             {relatedGames.map((game) => (
-              <Link
+              <LocaleLink
                 key={game.href}
                 href={game.href}
                 className="rounded-xl bg-blue-500 px-3 py-1.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600"
               >
                 {game.title}
-              </Link>
+              </LocaleLink>
             ))}
           </div>
         )}
       </header>
 
       <section className={panelClass}>
-        <PanelHeading icon={<Sparkles className="h-5 w-5 text-amber-400" aria-hidden="true" />}>Key Concepts</PanelHeading>
+        <PanelHeading icon={<Sparkles className="h-5 w-5 text-amber-400" aria-hidden="true" />}>{t.cheatSheets.keyConcepts}</PanelHeading>
         <ul className="space-y-3">
           {sheet.keyTakeaways.map((takeaway, index) => (
             <li key={index} className="flex items-start gap-3 text-sm font-semibold text-(--foreground) md:text-base">
@@ -197,7 +222,7 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
 
       {sheet.formulaExamples && sheet.formulaExamples.length > 0 && (
         <section className={panelClass}>
-          <PanelHeading>Example Formulas & Reactions</PanelHeading>
+          <PanelHeading>{t.cheatSheets.exampleFormulas}</PanelHeading>
           <div className="grid gap-4 sm:grid-cols-2">
             {sheet.formulaExamples.map((item, index) => (
               <div key={index} className="flex flex-col justify-between rounded-2xl border border-(--border) bg-(--background) p-4">
@@ -211,7 +236,7 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
 
       {sheet.tables && sheet.tables.length > 0 && (
         <section className={panelClass}>
-          <PanelHeading>Lookup Tables</PanelHeading>
+          <PanelHeading>{t.cheatSheets.lookupTables}</PanelHeading>
           {sheet.tables.map((table) => (
             <LookupTable key={table.heading} table={table} />
           ))}
@@ -220,7 +245,7 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
 
       {sheet.sections.length > 0 && (
         <section className={panelClass}>
-          <PanelHeading>Going Deeper</PanelHeading>
+          <PanelHeading>{t.cheatSheets.goingDeeper}</PanelHeading>
           <div className="space-y-6">
             {sheet.sections.map((section) => (
               <article key={section.heading}>
@@ -244,7 +269,7 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
 
       {sheet.commonMistakes && sheet.commonMistakes.length > 0 && (
         <section className={panelClass}>
-          <PanelHeading icon={<AlertTriangle className="h-5 w-5 text-rose-500" aria-hidden="true" />}>Watch Out For</PanelHeading>
+          <PanelHeading icon={<AlertTriangle className="h-5 w-5 text-rose-500" aria-hidden="true" />}>{t.cheatSheets.watchOutFor}</PanelHeading>
           <ul className="space-y-3">
             {sheet.commonMistakes.map((mistake, index) => (
               <li key={index} className="flex items-start gap-3 text-sm text-(--foreground)">
@@ -257,14 +282,14 @@ export default async function CheatSheetDetailPage({ params }: CheatSheetPagePro
       )}
 
       <section className={panelClass}>
-        <PanelHeading icon={<BookOpen className="h-5 w-5 text-blue-500" aria-hidden="true" />}>Learn More</PanelHeading>
-        <ResourceList heading="For students" resources={studentResources} />
-        <ResourceList heading="For teachers" resources={teacherResources} />
+        <PanelHeading icon={<BookOpen className="h-5 w-5 text-blue-500" aria-hidden="true" />}>{t.cheatSheets.learnMore}</PanelHeading>
+        <ResourceList heading={t.cheatSheets.forStudents} resources={studentResources} t={t} />
+        <ResourceList heading={t.cheatSheets.forTeachers} resources={teacherResources} t={t} />
       </section>
 
       {sheet.curriculumRef && (
         <p className="mt-6 text-xs text-(--muted)">
-          <span className="font-black uppercase tracking-wider">Curriculum: </span>
+          <span className="font-black uppercase tracking-wider">{t.cheatSheets.curriculum}</span>
           {sheet.curriculumRef}
         </p>
       )}

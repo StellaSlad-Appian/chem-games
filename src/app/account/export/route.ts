@@ -1,4 +1,4 @@
-// src/app/(main)/account/export/route.ts
+// src/app/account/export/route.ts
 //
 // GET /account/export
 // Returns everything ChemGames stores about the signed-in user as a JSON
@@ -6,6 +6,7 @@
 // so row level security limits the result to their own rows.
 
 import { createClient } from '@/lib/supabase/server';
+import { getRequestDictionary } from '@/i18n/server';
 
 const NO_STORE = { 'Cache-Control': 'no-store' } as const;
 
@@ -23,10 +24,13 @@ function providersOf(appMetadata: Record<string, unknown> | undefined): string[]
 }
 
 export async function GET() {
+  // Kept outside [lang] so the download URL stays stable; the locale comes from
+  // the cookie the proxy maintains.
+  const t = await getRequestDictionary();
   const supabase = await createClient();
 
   if (!supabase) {
-    return errorResponse('Data export is not available right now.', 503);
+    return errorResponse(t.serverMessages.exportUnavailable, 503);
   }
 
   const {
@@ -35,7 +39,7 @@ export async function GET() {
   } = await supabase.auth.getUser();
 
   if (authError || !user) {
-    return errorResponse('You need to be signed in to download your data.', 401);
+    return errorResponse(t.serverMessages.exportLoginRequired, 401);
   }
 
   const [profileResult, sessionsResult, progressResult] = await Promise.all([
@@ -51,7 +55,7 @@ export async function GET() {
   const failed = [profileResult, sessionsResult, progressResult].find((result) => result.error);
   if (failed?.error) {
     console.error('Data export query failed:', failed.error);
-    return errorResponse('We could not prepare your data export. Please try again later.', 500);
+    return errorResponse(t.serverMessages.exportFailed, 500);
   }
 
   const payload = {

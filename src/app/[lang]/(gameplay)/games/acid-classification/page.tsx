@@ -13,6 +13,8 @@ import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
 import GameFooter from '@/components/games/shared/GameFooter';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
 import GameArena from '@/components/games/acid-classification/GameArena';
+import { useI18n } from '@/i18n/client';
+import { localizePath } from '@/i18n/routing';
 
 // Core Engine & Config
 import { ANSWER_STATUS, GAME_STATE, AnswerStatus } from '@/core-engine/constants/ui-constants';
@@ -25,7 +27,29 @@ import { recordGameSession } from '@/lib/actions/game-actions';
 
 export default function ClassificationGame() {
   const router = useRouter();
+  const { t, f, locale } = useI18n();
   const { playSound } = useSound();
+
+  // The tuning numbers stay in the config; only the copy moved to the
+  // dictionary, so a teacher still edits wording in one place per locale.
+  const instructionSteps = [
+    {
+      highlight: t.games.acidClassification.stepIdentifyLabel,
+      text: t.games.acidClassification.stepIdentifyText,
+    },
+    {
+      highlight: t.games.acidClassification.stepClassifyLabel,
+      text: t.games.acidClassification.stepClassifyText,
+    },
+    {
+      highlight: t.games.acidClassification.stepHintLabel,
+      text: t.games.acidClassification.stepHintText,
+    },
+    {
+      highlight: t.games.acidClassification.stepCarefulLabel,
+      text: t.games.acidClassification.stepCarefulText,
+    },
+  ];
 
   const {
     gameState,
@@ -106,7 +130,7 @@ export default function ClassificationGame() {
 
   const handleExitGame = () => {
     playSound('click');
-    router.push('/');
+    router.push(localizePath('/', locale));
   };
 
   const handleOpenSettings = () => {
@@ -192,7 +216,11 @@ export default function ClassificationGame() {
   };
 
   if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
-    return <div className="flex min-h-screen items-center justify-center font-bold text-red-500">Error: Compounds Registry not found.</div>;
+    return (
+      <div className="flex min-h-screen items-center justify-center font-bold text-red-500">
+        {t.games.acidClassification.registryError}
+      </div>
+    );
   }
 
   const currentLives = ACID_CLASSIFICATION_CONFIG.mechanics.maxMistakes - mistakes;
@@ -214,13 +242,16 @@ export default function ClassificationGame() {
 
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 lg:px-8">
         <Header
-          gameSubtitle="CLASSIFY MOLECULE"
-          progressText={`${correctInRound} / ${targetQuota} Sorted`}
+          gameSubtitle={t.games.acidClassification.subtitle}
+          progressText={f(t.games.acidClassification.progress, {
+            correct: correctInRound,
+            quota: targetQuota,
+          })}
           currentLevel={currentLevel}
           score={score}
           onExit={handleExitGame}
           onTriggerHint={handleTriggerManualHint}
-          customTaskDescription="Acid, Base or Neutral?"          
+          customTaskDescription={t.games.acidClassification.task}
           showTimer={false} 
           showLives={true}  
           lives={currentLives}
@@ -237,12 +268,12 @@ export default function ClassificationGame() {
       <GameInstructionsModal 
         isOpen={isInstructionsOpen} 
         onClose={() => setIsInstructionsOpen(false)}
-        title={ACID_CLASSIFICATION_CONFIG.instructions.title}
+        title={t.games.acidClassification.instructionsTitle}
       >
         <div className="space-y-4 font-mono text-(--muted)">
-          <p>{ACID_CLASSIFICATION_CONFIG.instructions.subtitle}</p>
+          <p>{t.games.acidClassification.instructionsSubtitle}</p>
           <ul className="list-disc space-y-2 pl-4">
-            {ACID_CLASSIFICATION_CONFIG.instructions.steps.map((step, idx) => (
+            {instructionSteps.map((step, idx) => (
               <li key={idx}>
                 <strong className="text-(--foreground)">{step.highlight}</strong> {step.text}
               </li>

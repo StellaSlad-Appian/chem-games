@@ -19,9 +19,12 @@ import NeutralizeArena from '@/components/games/neutralise/GameArena';
 import { NEUTRALISE_CONFIG } from '@/core-engine/config/games/neutralise-config';
 import { getEnemiesPerWave } from '@/core-engine/utils/level-manager';
 import { recordGameSession } from '@/lib/actions/game-actions';
+import { useI18n } from '@/i18n/client';
+import { localizePath } from '@/i18n/routing';
 
 export default function NeutralizePage() {
   const router = useRouter();
+  const { t, f, locale } = useI18n();
 
   const {
     gameState,
@@ -287,7 +290,7 @@ export default function NeutralizePage() {
   // ------------------------------------------------------------
 
   const handleExit = useCallback(() => {
-    router.push('/games');
+    router.push(localizePath('/games', locale));
   }, [router]);
 
   // ------------------------------------------------------------
@@ -353,8 +356,12 @@ export default function NeutralizePage() {
         {/* Desktop Header */}
         <div className="hidden md:block">
           <GamesHeader
-            gameSubtitle="OBJECTIVE: Neutralize acids with OH⁻ and bases with H⁺"
-            progressText={`Wave ${currentWave}/3 | Cleared ${enemiesCleared}/${enemiesPerWave}`}
+            gameSubtitle={t.games.neutralise.subtitleFull}
+            progressText={f(t.games.neutralise.progressFull, {
+              wave: currentWave,
+              cleared: enemiesCleared,
+              total: enemiesPerWave,
+            })}
             currentLevel={currentLevel}
             score={score}
             onExit={handleExit}
@@ -369,8 +376,8 @@ export default function NeutralizePage() {
         {/* Mobile Header */}
         <div className="block md:hidden">
           <GamesHeader
-            gameSubtitle="NEUTRALIZE"
-            progressText={`Wave ${currentWave}/3`}
+            gameSubtitle={t.games.neutralise.subtitleShort}
+            progressText={f(t.games.neutralise.progressShort, { wave: currentWave })}
             currentLevel={currentLevel}
             score={score}
             onExit={handleExit}
@@ -394,11 +401,11 @@ export default function NeutralizePage() {
       <GameInstructionsModal
         isOpen={isInstructionsOpen}
         onClose={handleCloseInstructions}
-        title="How to Play: Neutralize!"
+        title={t.games.neutralise.instructionsTitle}
       >
         <div className="space-y-4 text-sm font-medium text-(--muted)">
           <p className="font-bold text-(--foreground)">
-            Defend the lab from incoming chemical hazards!
+            {t.games.neutralise.instructionsIntro}
           </p>
 
           {/* Control method selector */}
@@ -414,7 +421,7 @@ export default function NeutralizePage() {
                   : 'text-(--muted)'
               }`}
             >
-              Keyboard &amp; mouse
+              {t.games.shared.keyboardAndMouse}
             </button>
 
             <button
@@ -428,93 +435,67 @@ export default function NeutralizePage() {
                   : 'text-(--muted)'
               }`}
             >
-              Touchscreen
+              {t.games.shared.touchscreen}
             </button>
           </div>
 
           {instructionsTab === 'pointer' ? (
             <ul className="space-y-3">
-              <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
-                  1
-                </kbd>
+              {[
+                { key: t.games.neutralise.keyOneLabel, node: t.games.neutralise.keyOneText.split('{ion}') , ion: t.games.neutralise.keyOneIon, tone: 'text-blue-500' },
+                { key: t.games.neutralise.keyTwoLabel, node: t.games.neutralise.keyTwoText.split('{ion}'), ion: t.games.neutralise.keyTwoIon, tone: 'text-rose-500' },
+              ].map(({ key, node, ion, tone }) => (
+                <li key={key} className="flex items-center gap-3">
+                  <kbd className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                    {key}
+                  </kbd>
+                  <span>
+                    {node[0]}
+                    <strong className={tone}>{ion}</strong>
+                    {node[1]}
+                  </span>
+                </li>
+              ))}
 
-                <span>
-                  Load{' '}
-                  <strong className="text-blue-500">
-                    H⁺ (Acid)
-                  </strong>{' '}
-                  to neutralize Bases.
-                </span>
+              <li className="flex items-center gap-3">
+                <kbd className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  {t.games.neutralise.keySpaceLabel}
+                </kbd>
+                <span>{t.games.neutralise.keySpaceText}</span>
               </li>
 
               <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
-                  2
+                <kbd className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  {t.games.neutralise.keyArrowsLabel}
                 </kbd>
-
-                <span>
-                  Load{' '}
-                  <strong className="text-rose-500">
-                    OH⁻ (Base)
-                  </strong>{' '}
-                  to neutralize Acids.
-                </span>
-              </li>
-
-              <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
-                  Space
-                </kbd>
-
-                <span>
-                  Fire your ion cannon! (Or click the arena).
-                </span>
-              </li>
-
-              <li className="flex items-center gap-3">
-                <kbd className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
-                  ←/→
-                </kbd>
-
-                <span>
-                  Move the cannon (or move your mouse).
-                </span>
+                <span>{t.games.neutralise.keyArrowsText}</span>
               </li>
             </ul>
           ) : (
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
-                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
-                  Drag
+                <span className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  {t.games.neutralise.touchDragLabel}
                 </span>
+                <span>{t.games.neutralise.touchDragText}</span>
+              </li>
 
+              <li className="flex items-center gap-3">
+                <span className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  {t.games.neutralise.touchFireLabel}
+                </span>
                 <span>
-                  Slide your finger on the arena to aim the
-                  cannon.
+                  {t.games.neutralise.touchFireText.split('{button}')[0]}
+                  <strong>{t.games.neutralise.fire}</strong>
+                  {t.games.neutralise.touchFireText.split('{button}')[1]}
                 </span>
               </li>
 
               <li className="flex items-center gap-3">
-                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
-                  Fire
+                <span className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  {t.games.neutralise.touchSwitchLabel}
                 </span>
-
-                <span>
-                  Tap the <strong>Fire</strong> button below the
-                  arena.
-                </span>
-              </li>
-
-              <li className="flex items-center gap-3">
-                <span className="rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
-                  Switch
-                </span>
-
-                <span>
-                  Tap the ion button to toggle between H⁺ and
-                  OH⁻.
-                </span>
+                <span>{t.games.neutralise.touchSwitchText}</span>
               </li>
             </ul>
           )}

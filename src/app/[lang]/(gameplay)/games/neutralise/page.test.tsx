@@ -17,6 +17,8 @@ const { pushMock, recordGameSessionMock } = vi.hoisted(() => ({
 }));
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: pushMock, replace: vi.fn(), back: vi.fn() }),
+  // The settings modal embeds the language switcher, which reads the path.
+  usePathname: () => '/en',
 }));
 vi.mock('@/lib/actions/game-actions', () => ({
   recordGameSession: recordGameSessionMock,
@@ -202,6 +204,6 @@ describe('Neutralise page (game flow)', () => {
     markIntroSeen();
     renderWithProviders(<NeutralizePage />);
     fireEvent.click(screen.getAllByRole('button', { name: /Exit/ })[0]);
-    expect(pushMock).toHaveBeenCalledWith('/games');
+    expect(pushMock).toHaveBeenCalledWith('/en/games');
   });
 });

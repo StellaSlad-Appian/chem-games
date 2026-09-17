@@ -1,19 +1,15 @@
-// src/app/(main)/page.tsx
+// src/app/[lang]/(main)/page.tsx
 
-import Link from 'next/link';
-import { 
-  Trophy, 
-  Gamepad2, 
-  User, 
-  ArrowRight 
-} from 'lucide-react';
+import { Trophy, Gamepad2, User, ArrowRight } from 'lucide-react';
 import { PersonalScoreSummary } from '@/components/social/PersonalScoreSummary';
 import { PublicLeaderboard } from '@/components/social/PublicLeaderboard';
 import { PublicProfile } from '@/components/social/PublicProfile';
+import { LocaleLink } from '@/components/layout/LocaleLink';
 import type { UserProfile } from '@/core-engine/types/general';
 import { getPersonalScores, getPublicLeaderboards } from '@/lib/dashboard-data';
 import { toUserProfile } from '@/lib/profile';
 import { createClient } from '@/lib/supabase/server';
+import { getDictionary, type Dictionary } from '@/i18n/dictionaries';
 
 interface DashboardProfileResult {
   isAuthenticated: boolean;
@@ -62,7 +58,9 @@ async function getDashboardProfile(): Promise<DashboardProfileResult> {
   }
 }
 
-export default async function Home() {
+export default async function Home(props: PageProps<'/[lang]'>) {
+  const { lang } = await props.params;
+  const t = await getDictionary(lang);
   const { isAuthenticated, profile } = await getDashboardProfile();
 
   const [personalScores, publicLeaderboards] = await Promise.all([
@@ -70,32 +68,53 @@ export default async function Home() {
     getPublicLeaderboards(),
   ]);
 
+  const teasers = [
+    {
+      href: '/games/acid-classification',
+      name: t.gamesHub.acidTitle,
+      detail: t.home.teaserAcidDetail,
+      color: 'bg-purple-500',
+    },
+    {
+      href: '/games/formula-blaster',
+      name: t.gamesHub.blasterTitle,
+      detail: t.home.teaserBlasterDetail,
+      color: 'bg-blue-500',
+    },
+    {
+      href: '/games/neutralise',
+      name: t.gamesHub.neutraliseTitle,
+      detail: t.home.teaserNeutraliseDetail,
+      color: 'bg-emerald-500',
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-(--background) text-(--foreground)">
       {/* Hero Banner */}
       <section className="border-b border-(--border) bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_40%)] px-4 py-16 md:px-8">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs font-black uppercase tracking-widest text-blue-500">
-            Interactive Chemistry Laboratory
+            {t.home.eyebrow}
           </p>
           <h1 className="mt-3 max-w-3xl text-5xl font-black leading-none md:text-7xl">
-            Learn chemistry by playing.
+            {t.home.heading}
           </h1>
           <p className="mt-5 max-w-2xl text-base font-medium text-(--muted) md:text-lg">
-            Explore interactive experiments, track your personal best scores, master formulas, and see how your lab results compare.
+            {t.home.intro}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link
+            <LocaleLink
               href="/games"
               className="flex items-center gap-2 rounded-xl bg-blue-500 px-5 py-3 text-sm font-black uppercase tracking-wider text-white shadow-lg transition hover:bg-blue-600 hover:scale-105"
             >
-              <Gamepad2 className="h-4 w-4" /> Explore Games
-            </Link>
+              <Gamepad2 className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.home.exploreGames}
+            </LocaleLink>
             <a
               href="#leaderboards"
               className="flex items-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:border-blue-500 hover:text-blue-500"
             >
-              View Leaderboards
+              {t.home.viewLeaderboards}
             </a>
           </div>
         </div>
@@ -107,12 +126,18 @@ export default async function Home() {
         <section id="profile" className="scroll-mt-24">
           <SectionHeading
             icon={User}
-            title="Profile"
-            description="Your laboratory identity and personal experiment progress."
+            title={t.home.profileHeading}
+            description={t.home.profileDescription}
             link={isAuthenticated ? '/profile' : '/auth'}
-            linkLabel={isAuthenticated ? 'Open profile' : 'Log in to save progress'}
+            linkLabel={
+              isAuthenticated ? t.home.profileLinkAuthenticated : t.home.profileLinkAnonymous
+            }
           />
-          {profile ? <PublicProfile profile={profile} /> : <EmptyProfile isAuthenticated={isAuthenticated} />}
+          {profile ? (
+            <PublicProfile profile={profile} />
+          ) : (
+            <EmptyProfile isAuthenticated={isAuthenticated} t={t} />
+          )}
           {isAuthenticated && (
             <div className="mt-6">
               <PersonalScoreSummary scores={personalScores} />
@@ -124,10 +149,10 @@ export default async function Home() {
         <section id="leaderboards" className="scroll-mt-24">
           <SectionHeading
             icon={Trophy}
-            title="Leaderboards"
-            description="Top scientists across all interactive chemistry experiments."
+            title={t.home.leaderboardsHeading}
+            description={t.home.leaderboardsDescription}
             link="/leaderboards"
-            linkLabel="Open full leaderboards"
+            linkLabel={t.home.leaderboardsLink}
           />
           <PublicLeaderboard leaderboards={publicLeaderboards} />
         </section>
@@ -136,33 +161,14 @@ export default async function Home() {
         <section id="games" className="scroll-mt-24">
           <SectionHeading
             icon={Gamepad2}
-            title="Interactive Mini-Games"
-            description="Select an experiment to master chemical reactions and formulas."
+            title={t.home.gamesHeading}
+            description={t.home.gamesDescription}
             link="/games"
-            linkLabel="Browse all games"
+            linkLabel={t.home.gamesLink}
           />
           <div className="grid gap-4 sm:grid-cols-3">
-            {[
-              {
-                href: '/games/acid-classification',
-                name: 'Acid or Base?',
-                detail: 'Classify materials & pH levels',
-                color: 'bg-purple-500',
-              },
-              {
-                href: '/games/formula-blaster',
-                name: 'Formula Blaster',
-                detail: 'Pop compounds & balance ions',
-                color: 'bg-blue-500',
-              },
-              {
-                href: '/games/neutralise',
-                name: 'Neutralise!',
-                detail: 'Defend the lab from runaway reactions',
-                color: 'bg-emerald-500',
-              },
-            ].map((game) => (
-              <Link
+            {teasers.map((game) => (
+              <LocaleLink
                 key={game.href}
                 href={game.href}
                 className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl"
@@ -175,10 +181,13 @@ export default async function Home() {
                   <p className="mt-2 text-sm text-(--muted)">{game.detail}</p>
                 </div>
                 <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-blue-500">
-                  <span>Play now</span>
-                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  <span>{t.common.playNow}</span>
+                  <ArrowRight
+                    className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
                 </div>
-              </Link>
+              </LocaleLink>
             ))}
           </div>
         </section>
@@ -204,38 +213,41 @@ function SectionHeading({
     <div className="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
       <div>
         <div className="flex items-center gap-2">
-          <Icon className="h-6 w-6 text-blue-500" />
+          <Icon className="h-6 w-6 shrink-0 text-blue-500" aria-hidden="true" />
           <h2 className="text-3xl font-black text-(--foreground)">{title}</h2>
         </div>
         <p className="mt-1 text-sm font-medium text-(--muted)">{description}</p>
       </div>
-      <Link href={link} className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-blue-500 hover:underline">
+      <LocaleLink
+        href={link}
+        className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-blue-500 hover:underline"
+      >
         <span>{linkLabel}</span>
-        <ArrowRight className="h-3 w-3" />
-      </Link>
+        <ArrowRight className="h-3 w-3 shrink-0" aria-hidden="true" />
+      </LocaleLink>
     </div>
   );
 }
 
-function EmptyProfile({ isAuthenticated }: { isAuthenticated: boolean }) {
+function EmptyProfile({ isAuthenticated, t }: { isAuthenticated: boolean; t: Dictionary }) {
   return (
     <div className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md flex flex-col items-center justify-center text-center py-12">
-      <User className="h-12 w-12 text-(--muted) mb-4 opacity-50" />
+      <User className="h-12 w-12 text-(--muted) mb-4 opacity-50" aria-hidden="true" />
       <h3 className="text-2xl font-black text-(--foreground)">
-        {isAuthenticated ? 'Profile setup in progress' : 'Your profile starts here'}
+        {isAuthenticated
+          ? t.home.emptyProfileAuthenticatedTitle
+          : t.home.emptyProfileAnonymousTitle}
       </h3>
       <p className="mt-2 text-sm text-(--muted) max-w-md">
-        {isAuthenticated
-          ? 'Your profile will be available after the database profile migration has run.'
-          : 'Log in to save your progress, manage your lab notes, and build your scientist profile.'}
+        {isAuthenticated ? t.home.emptyProfileAuthenticatedBody : t.home.emptyProfileAnonymousBody}
       </p>
       {!isAuthenticated && (
-        <Link
+        <LocaleLink
           href="/auth"
           className="mt-5 inline-flex items-center justify-center rounded-xl bg-blue-500 px-6 py-3 text-sm font-black uppercase tracking-wider text-white transition hover:bg-blue-600 hover:scale-105"
         >
-          Log in / Register
-        </Link>
+          {t.home.emptyProfileCta}
+        </LocaleLink>
       )}
     </div>
   );

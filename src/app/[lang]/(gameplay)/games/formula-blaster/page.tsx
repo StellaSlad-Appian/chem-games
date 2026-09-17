@@ -34,10 +34,26 @@ import {
   resetSpawnManager,
 } from '@/core-engine/utils/spawn-manager';
 import { recordGameSession } from '@/lib/actions/game-actions';
+import { useI18n } from '@/i18n/client';
+import { compoundName, elementName } from '@/i18n/chemistry-names';
+import { localizePath } from '@/i18n/routing';
+import type { ChemicalFeedbackCopy } from '@/core-engine/utils/chemical-utils';
 
 export default function FormulaBlasterPage() {
   const router = useRouter();
+  const { t, f, locale } = useI18n();
   const { playSound } = useSound();
+
+  // Templates plus the name lookups the engine needs. Formulae and element
+  // symbols are passed through untranslated; only the names are localized.
+  const feedbackCopy: ChemicalFeedbackCopy = {
+    hint: t.games.formulaBlaster.hintTemplate,
+    wrongPick: t.games.formulaBlaster.wrongPick,
+    wrongPickLookFor: t.games.formulaBlaster.wrongPickLookFor,
+    wrongPickCheckCounts: t.games.formulaBlaster.wrongPickCheckCounts,
+    compoundName: (compound) => compoundName(locale, compound),
+    elementName: (element) => elementName(locale, element.symbol),
+  };
 
   const {
     gameState,
@@ -430,7 +446,8 @@ export default function FormulaBlasterPage() {
       if (clickedChem) {
         const errorMsg = generateComparativeError(
           clickedChem,
-          currentTarget
+          currentTarget,
+          feedbackCopy
         );
 
         setActiveError({
@@ -447,14 +464,12 @@ export default function FormulaBlasterPage() {
 
     playSound('click');
 
-    setActiveHint(
-      generateChemicalHint(currentTarget)
-    );
+    setActiveHint(generateChemicalHint(currentTarget, feedbackCopy));
   };
 
   const handleExitGame = () => {
     playSound('click');
-    router.push('/');
+    router.push(localizePath('/', locale));
   };
 
   // ------------------------------------------------------------
@@ -572,9 +587,13 @@ export default function FormulaBlasterPage() {
     >
       <div className="px-4 md:px-6 lg:px-8">
         <Header
-          gameSubtitle="TARGET MOLECULE"
-          targetName={currentTarget?.name}
-          progressText={`Target ${currentTargetPhase}/3 • Hits: ${correctInRound}/${targetQuota}`}
+          gameSubtitle={t.games.formulaBlaster.subtitle}
+          targetName={currentTarget ? compoundName(locale, currentTarget) : undefined}
+          progressText={f(t.games.formulaBlaster.progress, {
+            phase: currentTargetPhase,
+            hits: correctInRound,
+            quota: targetQuota,
+          })}
           currentLevel={currentLevel}
           score={score}
           onExit={handleExitGame}
@@ -624,27 +643,15 @@ export default function FormulaBlasterPage() {
       <GameInstructionsModal
         isOpen={isInstructionsOpen}
         onClose={handleCloseInstructions}
-        title="How to Play: Formula Blaster"
+        title={t.games.formulaBlaster.instructionsTitle}
       >
         <div className="space-y-4 text-sm font-medium text-(--muted)">
-          <p>
-            Find and pop bubbles matching the target molecule
-            shown in the header.
-          </p>
+          <p>{t.games.formulaBlaster.instructionsIntro}</p>
 
           <ul className="list-disc space-y-2 pl-5">
-            <li>
-              Click the correct formula to add a hit toward the
-              current target.
-            </li>
-            <li>
-              Use the lightbulb in the header if you need a clue
-              about elemental breakdown.
-            </li>
-            <li>
-              Tapping an incorrect molecule reveals what element
-              you should look for instead.
-            </li>
+            <li>{t.games.formulaBlaster.instructionsBullet1}</li>
+            <li>{t.games.formulaBlaster.instructionsBullet2}</li>
+            <li>{t.games.formulaBlaster.instructionsBullet3}</li>
           </ul>
         </div>
       </GameInstructionsModal>
