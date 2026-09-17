@@ -82,15 +82,55 @@ function elementName(element: { symbol: string; name?: string }): string {
 }
 
 /**
+ * Copy used by the two feedback generators below.
+ *
+ * Passing it in keeps this module pure and free of any i18n import — it still
+ * knows nothing about locales — while letting the game page hand it translated
+ * templates and translated element/compound names. The English defaults mean
+ * every existing caller and unit test works unchanged.
+ *
+ * Templates interpolate {compound}, {formula}, {element}, {symbol}, {target}
+ * and {elements}. Only the *names* are localized; {formula} and {symbol} are
+ * international notation and are passed through verbatim.
+ */
+export interface ChemicalFeedbackCopy {
+  hint: string;
+  wrongPick: string;
+  wrongPickLookFor: string;
+  wrongPickCheckCounts: string;
+  /** Localized display name for a compound; defaults to the registry name. */
+  compoundName?: (compound: CompoundData) => string;
+  /** Localized display name for an element symbol. */
+  elementName?: (element: { symbol: string; name?: string }) => string;
+}
+
+export const DEFAULT_CHEMICAL_FEEDBACK_COPY: ChemicalFeedbackCopy = {
+  hint: '{compound} consists of the elements: {elements}.',
+  wrongPick: "That's {compound} ({formula})!",
+  wrongPickLookFor:
+    "That's {compound} ({formula})! Look for {element} ({symbol}) atoms instead.",
+  wrongPickCheckCounts: "That's {compound} ({formula})! Check the atom counts for {target}.",
+};
+
+const fill = (template: string, values: Record<string, string>): string =>
+  template.replace(/\{(\w+)\}/g, (whole, key: string) => values[key] ?? whole);
+
+/**
  * Generates dynamic comparative error feedback when a student clicks an incorrect compound.
  * Compares the clicked distractor against the current target compound to highlight missing elements.
  */
 export function generateComparativeError(
   clickedChem: CompoundData,
-  targetChem: CompoundData | null
+  targetChem: CompoundData | null,
+  copy: ChemicalFeedbackCopy = DEFAULT_CHEMICAL_FEEDBACK_COPY
 ): string {
+  const nameOf = copy.compoundName ?? ((compound: CompoundData) => compound.name);
+  const elementNameOf = copy.elementName ?? elementName;
+
+  const clicked = { compound: nameOf(clickedChem), formula: clickedChem.formula };
+
   if (!targetChem) {
-    return `That's ${clickedChem.name} (${clickedChem.formula})!`;
+    return fill(copy.wrongPick, clicked);
   }
 
   const clickedSymbols = new Set(clickedChem.elements.map((e) => e.symbol));
@@ -100,18 +140,27 @@ export function generateComparativeError(
 
   if (missingInClicked.length > 0) {
     const keyElement = missingInClicked[0];
-    return `That's ${clickedChem.name} (${clickedChem.formula})! Look for ${elementName(keyElement)} (${keyElement.symbol}) atoms instead.`;
+    return fill(copy.wrongPickLookFor, {
+      ...clicked,
+      element: elementNameOf(keyElement),
+      symbol: keyElement.symbol,
+    });
   }
 
-  return `That's ${clickedChem.name} (${clickedChem.formula})! Check the atom counts for ${targetChem.name}.`;
+  return fill(copy.wrongPickCheckCounts, { ...clicked, target: nameOf(targetChem) });
 }
 
 /**
  * Generates a general hint describing the elemental makeup of a compound.
  */
-export function generateChemicalHint(chem: CompoundData): string {
+export function generateChemicalHint(
+  chem: CompoundData,
+  copy: ChemicalFeedbackCopy = DEFAULT_CHEMICAL_FEEDBACK_COPY
+): string {
+  const nameOf = copy.compoundName ?? ((compound: CompoundData) => compound.name);
+  // Element *symbols*, not names: the hint is about reading the formula.
   const elementSymbols = chem.elements.map((e) => e.symbol).join(' & ');
-  return `${chem.name} consists of the elements: ${elementSymbols}.`;
+  return fill(copy.hint, { compound: nameOf(chem), elements: elementSymbols });
 }
 
 // Reaction Balancer
