@@ -50,7 +50,7 @@ style choice when missing.
 
 ### `meta`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `meta.siteName` | ChemGames | ChemGames | medium | Page titles and descriptions. |
 | `meta.title` | ChemGames \| Interactive Chemistry Learning | ChemGames \| Aprende química jugando | medium | Page titles and descriptions. |
@@ -69,7 +69,7 @@ style choice when missing.
 
 ### `common`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `common.backToDashboard` | Back to Dashboard | Volver al panel | high | Everyday UI words with unambiguous Spanish equivalents. |
 | `common.dashboard` | Dashboard | Panel | high | Everyday UI words with unambiguous Spanish equivalents. |
@@ -80,13 +80,13 @@ style choice when missing.
 
 ### `language`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `language.label` | Language | Idioma | high | Switcher labels; short and unambiguous. |
 
 ### `nav`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `nav.sectionsA11y` | Dashboard sections | Secciones del panel | high | Standard navigation vocabulary. "Iniciar sesión" is still shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
 | `nav.profile` | Profile | Perfil | high | Standard navigation vocabulary. "Iniciar sesión" is still shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
@@ -100,7 +100,7 @@ style choice when missing.
 
 ### `footer`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `footer.tagline` | ChemGames — Making chemistry visual, playful, and intuitive. | ChemGames – la química en imágenes, jugando y sin líos. | high | Short; the tagline is a free rendering rather than word-for-word, which suits a tagline. |
 | `footer.copyright` | © {year} ChemGames. All rights reserved. | © {year} ChemGames. Todos los derechos reservados. | high | Short; the tagline is a free rendering rather than word-for-word, which suits a tagline. |
@@ -108,7 +108,7 @@ style choice when missing.
 
 ### `home`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `home.eyebrow` | Interactive Chemistry Laboratory | Laboratorio de química interactivo | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
 | `home.heading` | Learn chemistry by playing. | Aprende química jugando. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
@@ -136,7 +136,7 @@ style choice when missing.
 
 ### `gamesHub`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `gamesHub.heading` | Games | Juegos | medium | Game descriptions. The titles are rated separately below. |
 | `gamesHub.intro` | Choose an experiment to begin. | Elige un experimento para empezar. | medium | Game descriptions. The titles are rated separately below. |
@@ -156,7 +156,7 @@ style choice when missing.
 
 ### `auth`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `auth.backToGames` | ← Back to games | ← Volver a los juegos | high | Standard sign-in vocabulary. The placeholder email was localised to a .es domain. Two strings were rewritten rather than translated because Spanish adjectives agree with the reader: "Welcome back" is "¡Hola de nuevo!" (not *Bienvenido*, which addresses a boy) and "New to ChemGames?" asks about the visit rather than the person. |
 | `auth.loginTitle` | Welcome back | ¡Hola de nuevo! | high | Standard sign-in vocabulary. The placeholder email was localised to a .es domain. Two strings were rewritten rather than translated because Spanish adjectives agree with the reader: "Welcome back" is "¡Hola de nuevo!" (not *Bienvenido*, which addresses a boy) and "New to ChemGames?" asks about the visit rather than the person. |
@@ -183,7 +183,7 @@ style choice when missing.
 
 ### `profile`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `profile.heading` | Scientist Overview | Ficha científica | medium | The "scientist" framing is harder in Spanish than in French: *científico* is gendered and Spanish has no counterpart to the epicene *scientifique*. Handled with epicene and collective nouns where they exist (*miembro*, *estudiante*, *alumnado*). Also note profile.editHeading avoids "Ajustar el equipo": this site reserves *ajustar* for balancing an equation. |
 | `profile.subheading` | Laboratory identity & public achievements | Identidad de laboratorio y logros públicos | medium | The "scientist" framing is harder in Spanish than in French: *científico* is gendered and Spanish has no counterpart to the epicene *scientifique*. Handled with epicene and collective nouns where they exist (*miembro*, *estudiante*, *alumnado*). Also note profile.editHeading avoids "Ajustar el equipo": this site reserves *ajustar* for balancing an equation. |
@@ -232,7 +232,7 @@ style choice when missing.
 
 ### `profileToggles`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `profileToggles.showCountry` | Show Country on Profile | Mostrar el país en el perfil | high | Plain switch labels. |
 | `profileToggles.showYearLevel` | Make Academic Level Public | Hacer público el curso | high | Plain switch labels. |
@@ -243,7 +243,7 @@ style choice when missing.
 
 ### `serverMessages`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `serverMessages.profileUnconfigured` | Database connection is currently unconfigured. | La conexión con la base de datos no está configurada en este momento. | high | Error and confirmation messages in plain Spanish. Note the {word} placeholder stays the literal "DELETE": the action compares it byte for byte. exportLoginRequired names the action ("Tienes que iniciar sesión") rather than the state, to avoid "estar conectado", which would have to agree in gender. |
 | `serverMessages.profileLoginRequired` | Please log in before editing your configuration. | Inicia sesión antes de editar tu configuración. | high | Error and confirmation messages in plain Spanish. Note the {word} placeholder stays the literal "DELETE": the action compares it byte for byte. exportLoginRequired names the action ("Tienes que iniciar sesión") rather than the state, to avoid "estar conectado", which would have to agree in gender. |
@@ -272,7 +272,7 @@ style choice when missing.
 
 ### `privacy`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `privacy.heading` | Privacy | Privacidad | low | Privacy-policy prose. I am not a lawyer and this is not legal review: the Spanish says what the English says, but the phrasing has not been checked against Spanish data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) — those names deliberately stay English inside Spanish sentences, which is correct but reads oddly. If the site is ever actually offered to Spanish or EU students, this page needs an RGPD/LOPDGDD review that is out of scope for a translation pass. |
 | `privacy.intro` | What ChemGames stores about you, who can see it, and how to download or delete it. | Qué guarda ChemGames sobre ti, quién puede verlo y cómo descargarlo o borrarlo. | low | Privacy-policy prose. I am not a lawyer and this is not legal review: the Spanish says what the English says, but the phrasing has not been checked against Spanish data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) — those names deliberately stay English inside Spanish sentences, which is correct but reads oddly. If the site is ever actually offered to Spanish or EU students, this page needs an RGPD/LOPDGDD review that is out of scope for a translation pass. |
@@ -325,7 +325,7 @@ style choice when missing.
 
 ### `cheatSheetCategories`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `cheatSheetCategories.Fundamentals` | Fundamentals | Fundamentos | medium | No specific note; reviewed as ordinary UI copy. |
 | `cheatSheetCategories.Reactions` | Reactions | Reacciones | medium | No specific note; reviewed as ordinary UI copy. |
@@ -339,7 +339,7 @@ style choice when missing.
 
 ### `yearLevels`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `yearLevels.all` | All | Todos | high | Mapped by age onto the Spanish system: Year 7 = 1º ESO, Year 8 = 2º ESO, Year 9 = 3º ESO, Year 10 = 4º ESO, Senior = Bachillerato. The stored value stays the English "Year 9"; only the label is Spanish. The masculine ordinal indicator (º) is one character and needs no superscript font in a filter pill. |
 | `yearLevels.Year 7` | Year 7 | 1º ESO | high | Mapped by age onto the Spanish system: Year 7 = 1º ESO, Year 8 = 2º ESO, Year 9 = 3º ESO, Year 10 = 4º ESO, Senior = Bachillerato. The stored value stays the English "Year 9"; only the label is Spanish. The masculine ordinal indicator (º) is one character and needs no superscript font in a filter pill. |
@@ -350,7 +350,7 @@ style choice when missing.
 
 ### `leaderboards`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `leaderboards.heading` | Leaderboards | Clasificaciones | medium | "Clasificación" and "Mejor puntuación" are both standard; Spanish does not keep the English "high score" the way German keeps "Highscore". "Puesto" rather than "Rango" for a position in a ranking. The empty states are free renderings. |
 | `leaderboards.intro` | Compare high scores across every experiment. | Compara las mejores puntuaciones de todos los experimentos. | medium | "Clasificación" and "Mejor puntuación" are both standard; Spanish does not keep the English "high score" the way German keeps "Highscore". "Puesto" rather than "Rango" for a position in a ranking. The empty states are free renderings. |
@@ -371,7 +371,7 @@ style choice when missing.
 
 ### `feedback`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `feedback.openA11y` | Open feedback menu | Abrir el menú de comentarios | high | Like French and unlike German, Spanish does not keep the English "Feedback": "Comentarios" is the natural word. "Problema" rather than "Bug" for the same reason. Note "Idea" is genuinely the same word in both languages and is allowlisted rather than replaced. |
 | `feedback.trigger` | Feedback | Comentarios | high | Like French and unlike German, Spanish does not keep the English "Feedback": "Comentarios" is the natural word. "Problema" rather than "Bug" for the same reason. Note "Idea" is genuinely the same word in both languages and is allowlisted rather than replaced. |
@@ -391,7 +391,7 @@ style choice when missing.
 
 ### `settings`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `settings.gameTitle` | Game Settings | Opciones del juego | high | Standard settings vocabulary. |
 | `settings.globalTitle` | Settings | Opciones | medium | **"Opciones", deliberately not "Ajustes"** — and this is one of the decisions the glossary exists to catch. *Ajustes* is the ordinary Spanish for app settings, but *ajustar* is this site's verb for balancing an equation (Reaction Balancer, throughout), so a reader would meet the same root meaning two unrelated things on two screens. "Opciones" is what a game calls this panel anyway. *Configuración* was the third option and is four characters longer. |
@@ -411,7 +411,7 @@ style choice when missing.
 
 ### `cheatSheets`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `cheatSheets.heading` | Lab Cheat Sheets | Chuletas del laboratorio | high | Section headings for the reference pages. "Chuletas" follows nav.cheatSheets and would change with it. |
 | `cheatSheets.intro` | Quick chemical formulas, reaction rules, and equation references grouped by year level. | Fórmulas químicas, reglas de reacción y ecuaciones en breve, agrupadas por curso. | high | Section headings for the reference pages. "Chuletas" follows nav.cheatSheets and would change with it. |
@@ -435,7 +435,7 @@ style choice when missing.
 
 ### `chemistry`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `chemistry.acid` | Acid | Ácido | high | Fixed in docs/i18n/glossary-es.md. Ácido / base / neutro / anfótero are the Spanish school terms. Note "Base" is the same word as the English and is allowlisted, while "Neutro" is not — the same split French has, and the opposite of German. |
 | `chemistry.base` | Base | Base | high | Fixed in docs/i18n/glossary-es.md. Ácido / base / neutro / anfótero are the Spanish school terms. Note "Base" is the same word as the English and is allowlisted, while "Neutro" is not — the same split French has, and the opposite of German. |
@@ -445,7 +445,7 @@ style choice when missing.
 
 ### `games`
 
-| Key | English | French | Confidence | Notes |
+| Key | English | Spanish | Confidence | Notes |
 |---|---|---|---|---|
 | `games.shared.progress` | Progress | Progreso | high | Short game-chrome labels. "Nivel" rather than a loanword: Spanish gaming has its own word where German borrows "Level". |
 | `games.shared.level` | Level | Nivel | high | Short game-chrome labels. "Nivel" rather than a loanword: Spanish gaming has its own word where German borrows "Level". |

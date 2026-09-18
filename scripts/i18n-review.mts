@@ -41,6 +41,9 @@ import { fr as lewisFr } from '../src/i18n/game-messages/lewis-structures/fr.ts'
 import { es } from '../src/i18n/dictionaries/es.ts';
 import { es as balancerEs } from '../src/i18n/game-messages/reaction-balancer/es.ts';
 import { es as lewisEs } from '../src/i18n/game-messages/lewis-structures/es.ts';
+import { it } from '../src/i18n/dictionaries/it.ts';
+import { it as balancerIt } from '../src/i18n/game-messages/reaction-balancer/it.ts';
+import { it as lewisIt } from '../src/i18n/game-messages/lewis-structures/it.ts';
 import { REVIEW_NOTES, REVIEW_SUMMARY } from '../src/i18n/review-notes.ts';
 import type { Confidence } from '../src/i18n/review-notes.ts';
 
@@ -104,6 +107,14 @@ const CATALOGUE_SOURCES = [
 interface LocaleInput {
   dictionary: unknown;
   catalogues: readonly unknown[];
+  /**
+   * The language's name, for the third column heading. Declared per locale for
+   * the same reason the header is: a shared expression is a shared thing to get
+   * wrong. It used to be `locale === 'de' ? 'German' : 'French'`, which was
+   * correct while there were two locales and silently headed the Spanish table
+   * "French" from the day Spanish shipped.
+   */
+  columnTitle: string;
   /** Full header, so adding a locale cannot reflow another locale's file. */
   header: (total: number, counts: Record<Confidence, number>) => string;
 }
@@ -111,6 +122,7 @@ interface LocaleInput {
 const LOCALES_TO_REVIEW: Record<string, LocaleInput> = {
   de: {
     dictionary: de,
+    columnTitle: 'German',
     catalogues: [balancerDe, lewisDe],
     header: (total, counts) => `<!--
   GENERATED FILE - do not edit by hand.
@@ -155,6 +167,7 @@ invisible here.
   },
   fr: {
     dictionary: fr,
+    columnTitle: 'French',
     catalogues: [balancerFr, lewisFr],
     header: (total, counts) => `<!--
   GENERATED FILE - do not edit by hand.
@@ -204,6 +217,7 @@ one (U+00A0) before \`:\`. Both are otherwise invisible here.
   },
   es: {
     dictionary: es,
+    columnTitle: 'Spanish',
     catalogues: [balancerEs, lewisEs],
     header: (total, counts) => `<!--
   GENERATED FILE - do not edit by hand.
@@ -257,6 +271,63 @@ style choice when missing.
 
 `,
   },
+  it: {
+    dictionary: it,
+    catalogues: [balancerIt, lewisIt],
+    columnTitle: 'Italian',
+    header: (total, counts) => `<!--
+  GENERATED FILE - do not edit by hand.
+  Regenerate with:  npm run i18n:review
+  The confidence ratings, the notes and the assessment at the end come from
+  src/i18n/review-notes.ts; edit them there. Everything else is read from the
+  dictionaries, so this table cannot drift from what the site actually says.
+-->
+
+# Italian translation review
+
+Every UI string on the site, with its English source and its Italian
+translation, so a native speaker or a chemistry teacher can review the Italian
+without reading any code.
+
+**${total} strings** — ${counts.high} high confidence,
+${counts.medium} medium, ${counts.low} low.
+
+The confidence column is a judgement about *this* translation, not about Italian
+in general:
+
+- **high** — ordinary UI copy, or a term fixed in [\`glossary-it.md\`](./glossary-it.md). Low risk.
+- **medium** — correct as far as I can tell, but a native speaker may prefer a
+  different word, or the register may be slightly off for a 14-year-old. Worth a
+  read; not urgent.
+- **low** — I am genuinely unsure. Please have a native speaker or a chemistry
+  teacher check these before the Italian site goes in front of students.
+
+The chemistry names and the cheat-sheet prose are **not** in this table — they
+are keyed by registry identifier rather than by dictionary path, and they are
+assessed as bodies of work in [the section at the end](#chemistry-names--srci18nchemistry-namesitts).
+
+**The first thing to look at** is the word the whole of *Condividi e completa*
+is built on: **dispari**, for a single unpaired outer electron. Italian rules
+out three words the other locales could use — *solitario* (a lone pair is a
+*doppietto solitario*), *libero* (*doppietto libero* is also a lone pair, and
+*elettroni liberi* are the delocalised ones) and *singolo* (*legame singolo* is
+the single bond) — so the argument for *dispari* is objective. What is not
+objective is register: it is also the everyday word for an odd number. The full
+reasoning is in [\`glossary-it.md\`](./glossary-it.md).
+
+A note on reading the table: Italian needs none of the no-break-space marking
+German and French do, so a \`·\` will not appear. Two things to watch for
+instead: every apostrophe is the typographic U+2019 (’), not a straight
+quote; and every count-bearing string is deliberately **invariant**, because a
+flat string cannot agree with its number — so *risposte esatte: 1* rather than
+*1 corrette*.
+
+---
+
+## UI strings
+
+`,
+  },
 };
 
 const sourceEntries = [
@@ -283,7 +354,6 @@ for (const [locale, input] of Object.entries(LOCALES_TO_REVIEW)) {
     else byNamespace.set(namespace, [entry]);
   }
 
-  const columnTitle = locale === 'de' ? 'German' : 'French';
   const sections = [...byNamespace].map(([namespace, entries]) => {
     const rows = entries.map(([path, english]) => {
       const translated = targetMap.get(path) ?? '**(MISSING)**';
@@ -293,7 +363,7 @@ for (const [locale, input] of Object.entries(LOCALES_TO_REVIEW)) {
     return [
       `### \`${namespace}\``,
       '',
-      `| Key | English | ${columnTitle} | Confidence | Notes |`,
+      `| Key | English | ${input.columnTitle} | Confidence | Notes |`,
       '|---|---|---|---|---|',
       ...rows,
       '',

@@ -907,6 +907,354 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'The language-preference cookie this feature introduces had to be disclosed; the Spanish follows the German and French paragraphs rather than the original English.',
     },
   ],
+
+  it: [
+    // ---------------------------------------------------------------- high --
+    {
+      prefix: 'common',
+      confidence: 'high',
+      note: 'Everyday UI words with unambiguous Italian equivalents.',
+    },
+    {
+      prefix: 'nav',
+      confidence: 'high',
+      note: 'Standard navigation vocabulary. "Accedi" is much shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here.',
+    },
+    {
+      prefix: 'nav.cheatSheets',
+      confidence: 'medium',
+      note: '"Bigini". The Italian counterpart of the German "Spickzettel", the French "antiseche" and the Spanish "chuleta" - the school word for a crib, with the same cheeky edge. **Two risks:** it carries the cheating connotation, so a teacher may prefer "schede di ripasso"; and it is mildly dated, so it is worth checking with an actual fourteen-year-old that it does not read as their grandparents’ word. Changing it touches nav, cheatSheets.* and meta.cheatSheetTitle together.',
+    },
+    {
+      prefix: 'language',
+      confidence: 'high',
+      note: 'Switcher labels; short and unambiguous.',
+    },
+    {
+      prefix: 'auth',
+      confidence: 'high',
+      note: 'Standard sign-in vocabulary. The placeholder email was localised to a .it domain. Two strings were rewritten rather than translated because Italian participles agree with the reader: "Welcome back" is "Ciao di nuovo!" (not *Bentornato*, which addresses a boy) and "New to ChemGames?" asks about the visit rather than about the person. "Password" is genuinely the Italian word and is allowlisted rather than replaced by the archaic *parola d’ordine*.',
+    },
+    {
+      prefix: 'feedback',
+      confidence: 'high',
+      note: 'Italian does use the loanword *feedback*, and keeping it would have meant allowlisting the trigger and the heading the way German does. "Segnalazioni" is what an Italian site calls the button that reports a problem or sends an idea, and it covers all three categories. "Problema" rather than "Bug" for the same reason. Note "Idea" is genuinely the same word in both languages and is allowlisted rather than replaced.',
+    },
+    {
+      prefix: 'settings',
+      confidence: 'high',
+      note: 'Standard settings vocabulary. **Worth stating what Italian does not have to do here:** Spanish had to call this panel *Opciones* rather than *Ajustes*, because *ajustar* is its verb for balancing an equation. Italian balances with *bilanciare*, which shares no root with *Impostazioni*, so no dodge is needed.',
+    },
+    {
+      prefix: 'settings.useGlobal',
+      confidence: 'medium',
+      note: 'Rendered as "Valore predefinito" rather than a literal "Usa il globale". settings.overrideHelp quotes the same wording inside guillemets, so the two must change together.',
+    },
+    {
+      prefix: 'footer',
+      confidence: 'high',
+      note: 'Short; the tagline is a free rendering rather than word-for-word, which suits a tagline.',
+    },
+    {
+      prefix: 'yearLevels',
+      confidence: 'high',
+      note: 'Mapped by age onto the Italian system: Year 7 = 1a media, Year 8 = 2a media, Year 9 = 3a media, Year 10 = 1o superiore, Senior = Triennio. The stored value stays the English "Year 9"; only the label is Italian. The ordinal indicators are one character each and need no superscript font in a filter pill.',
+    },
+    {
+      prefix: 'chemistry',
+      confidence: 'high',
+      note: 'Fixed in docs/i18n/glossary-it.md. Acido / base / neutro / anfotero are the Italian school terms. Note "Base" is the same word as the English and is allowlisted, while "Neutro" is not - the same split French and Spanish have, and the opposite of German.',
+    },
+    {
+      prefix: 'games.shared',
+      confidence: 'high',
+      note: 'Short game-chrome labels. "Livello" rather than a loanword: Italian gaming has its own word where German borrows "Level". "Schermo touch" rather than the bare English "Touchscreen".',
+    },
+    {
+      prefix: 'games.shared.hint',
+      confidence: 'medium',
+      note: '**"Indizio", and Italian gets this free for a different reason than Spanish did.** The French run had to abandon the obvious word for "hint" (*indice*) because it is also the French for a formula **subscript**, in the one game whose entire teaching point is that contrast. Italian’s subscript is *pedice* (with *apice* for a superscript), so the two words do not touch at all. *Indizio* is seven characters, fits the header badge that ruled out French’s *coup de pouce*, and is what an Italian quiz, escape room or board game says for a clue. **Rejected: *suggerimento***, which is the standard Italian UI word and is twelve characters - too long for the badge and for "Indizio {tier} di 3"; ***consiglio*** (advice from a teacher, the same objection French raised); and ***aiuto***, already the word for help in general. If the badge can take twelve characters, *suggerimento* is the safer choice.',
+    },
+    {
+      prefix: 'profileToggles',
+      confidence: 'high',
+      note: 'Plain switch labels.',
+    },
+    {
+      prefix: 'serverMessages',
+      confidence: 'high',
+      note: 'Error and confirmation messages in plain Italian. Note the {word} placeholder stays the literal "DELETE": the action compares it byte for byte. exportLoginRequired names the action ("Devi accedere") rather than the state, to avoid "essere connesso", which would have to agree in gender.',
+    },
+    {
+      prefix: 'cheatSheets',
+      confidence: 'high',
+      note: 'Section headings for the reference pages. "Bigini" follows nav.cheatSheets and would change with it.',
+    },
+    {
+      prefix: 'cheatSheets.forStudents',
+      confidence: 'high',
+      note: '"Per chi studia" rather than "Per gli studenti", which would default to masculine. **This is Italian’s own device and it is better than the workaround Spanish needed:** the headless relative *chi* + verb is ordinary Italian, completely epicene, and shorter than any collective noun - Italian has no exact counterpart to *el alumnado*.',
+    },
+    {
+      prefix: 'cheatSheets.forTeachers',
+      confidence: 'high',
+      note: '"Per chi insegna", the same device as forStudents. (*Insegnante* is genuinely epicene and is used in prose; the heading uses the relative so the pair reads as one construction.)',
+    },
+    {
+      prefix: 'games.reactionBalancer',
+      confidence: 'high',
+      note: 'Uses the glossary terms reagenti / prodotti / coefficiente / pedice / conteggio degli atomi / bilanciare. There is no variety decision to make here and no collision to dodge - the namespace that was hardest in French (indice) and in Spanish (ajustar/ajustes) is the straightforward one in Italian.',
+    },
+    {
+      prefix: 'games.reactionBalancer.coach',
+      confidence: 'medium',
+      note: 'These carry the Italian article device, and Italian needs it more than either of the other two Romance locales. A name placeholder cannot take an article, because Italian picks it from gender *and* the sound the name starts with (*il carbonio*, but *lo zolfo* and *l’ossigeno*) and because every preposition contracts obligatorily (*del*, *dello*, *dell’*). The templates say "l’elemento {element}", which is **safer in Italian than the Spanish version of the same device**: *elemento* is masculine and begins with a vowel, so the article is always l’ and each preposition contracts to exactly one form. There is no branch left to get wrong. Correct and slightly more roundabout than the English; worth a native read for rhythm.',
+    },
+    {
+      prefix: 'games.reactionBalancer.card',
+      confidence: 'high',
+      note: 'Accessible names for the coefficient controls. "Add one water" cannot be translated with an article for the reason above, so these are colon labels - "Aumenta: {name}" - which are gender-free and read cleanly on a screen reader. The same solution French and Spanish reached, and German reached with a verb.',
+    },
+    {
+      prefix: 'games.reactionBalancer.challenge',
+      confidence: 'high',
+      note: '"Sfida" rather than keeping the English "Challenge" as German did: Italian has a short natural word and uses it. The wrong-side and not-in-reaction messages lead with a generic noun ("Questa sostanza ...") so the compound name can follow a colon instead of needing an article.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger',
+      confidence: 'medium',
+      note: '"Conteggio degli atomi" for the game’s own name for the table under the arrow. **Rejected: "bilancio degli atomi"** - not harmful in Italian the way *balance de atomos* was in Spanish, but it reuses the balancing root for a *different* thing (the table, not the act), and keeping one root for one idea is what this glossary is for. *Conteggio* says what the table is: a tally.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger.needsMoreLeft',
+      confidence: 'medium',
+      note: '**The string the whole handover was about, and the one Spanish only caught in a browser.** "mancano {count}" is the natural Italian and is wrong at 1 ("mancano 1"), which the ledger shows on the very first reaction of the very first level. This is a flat string, not a plural record, and dictionary.test.ts requires that whether a string is count-dependent matches the English in both directions - so the shape cannot be changed and the wording has to be invariant. "{count} da aggiungere a sinistra" is: *da* + infinitive never agrees with anything. It is also **better than the Spanish fix** ("{count} de menos"), because it says which way the shortfall runs; "{count} in meno" was rejected as ambiguous between "five short" and "five too many".',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger.needsMoreRight',
+      confidence: 'medium',
+      note: 'The same string on the other side; see needsMoreLeft.',
+    },
+    {
+      prefix: 'games.reactionBalancer.glossary',
+      confidence: 'high',
+      note: 'The pedice / coefficiente contrast is the whole teaching point of the game, and Italian makes it as cleanly as German does. Unlike French, nothing here is identical-by-design: the Italian really is *coefficiente*, not "coefficient".',
+    },
+    {
+      prefix: 'games.reactionBalancer.beam',
+      confidence: 'high',
+      note: 'The beam is *la bilancia* and "the beam is level" is "La bilancia e in equilibrio". **Where Spanish had to keep its beam word away from its balancing verb, Italian gets to share the root and it helps:** you *bilanci* the equation, and the *bilancia* on screen goes *in equilibrio*. One idea, one root.',
+    },
+    {
+      prefix: 'games.reactionBalancer.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column one is the physical key and stays as printed (Tab, H, P). Only the description of what the key does is translated.',
+    },
+    {
+      prefix: 'games.formulaBlaster',
+      confidence: 'high',
+      note: 'The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. All four were rewritten so no article ever precedes a name placeholder - "Non e quella: {compound}" rather than "E {compound}", which would need "il metano" but "l’acqua" and "lo zolfo".',
+    },
+    {
+      prefix: 'games.neutralise',
+      confidence: 'high',
+      note: 'Ion notation (H+, OH-) left as-is. "Spazio" is the Italian name for the space bar.',
+    },
+    {
+      prefix: 'games.lewisStructures',
+      confidence: 'medium',
+      note: 'A whole new game. The chemistry terms are glossary-fixed (struttura di Lewis, doppietto solitario, doppietto di legame, legame covalente, regola dell’ottetto, elettroni di valenza), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below.',
+    },
+    {
+      prefix: 'games.lewisStructures.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column one is the physical key, named the way an Italian keyboard prints it: "Invio" rather than Enter, while Tab, Esc, H and P are unchanged. The same reasoning that made German write "Leertaste" and French "Entree" - name the key the reader is looking at.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.lonePair',
+      confidence: 'high',
+      note: '"doppietto solitario" is the Italian school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it is unavailable as the game’s word for a single unpaired electron - see games.lewisStructures.glossary.loner. Note the collision does not depend on which phrasing a textbook prints: the other common one, *coppia solitaria*, uses the same adjective. *Doppietto libero* and *doppietto non condiviso* are also in circulation, and the first of those is a second reason *libero* is unavailable.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.sharedPair',
+      confidence: 'high',
+      note: '"doppietto di legame". **Rejected: "doppietto condiviso"**, which is the transparent rendering and was tempting - but the game’s own verb is *condividere* ("Condividi e completa"), so "condividi un doppietto condiviso" is tautological in a way "condividi un doppietto di legame" is not. Exactly the objection Spanish raised to *par compartido*.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.outerElectron',
+      confidence: 'high',
+      note: '**Italian gets off as lightly as Spanish here, and for a different reason worth knowing.** The tap-to-explain matcher uses a JavaScript word boundary, which only knows ASCII letters, so French had to move the chip off "electrons externes" onto a single later word because the phrase begins with an accented letter. Italian’s accents are **final** (*perche*, *citta*, *piu*), so the Italian failure mode would be a match word that *ends* in one - and none of the terms this site needs does. The full phrases therefore work, and the chip lands on the whole term as it does in English. A bonus from elision: "l’elettrone" contains a word boundary before *elettrone*, so no *l’* variant has to be listed.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.duet',
+      confidence: 'medium',
+      note: 'Italian sits with Spanish, between the other two. German had to coin "Duett" and rate it low; French already had "la regle du duet" in its national programme and rated it high. Italian has **"la regola del duetto"** in circulation in textbooks, so nothing was invented, but it is not as settled as the octet rule and plenty of teachers simply say hydrogen is full at two. **Note what was *not* available: *doppietto*.** It is the obvious word for "a pair of electrons" and it is already this glossary’s word for a lone pair, so "la regola del doppietto" would mean something else on the very sheet that defines both.',
+    },
+    {
+      prefix: 'games.lewisStructures.counts',
+      confidence: 'high',
+      note: 'Counted noun phrases with their own plural forms, so the noun and adjective agree in both ("1 doppietto solitario" / "2 doppietti solitari"). Italian takes the **plural** at zero ("0 dispari"), like Spanish and unlike French, and Intl.PluralRules already knows that. Italian also has a CLDR many category; it was measured rather than assumed and fires only at exact millions, so nothing here needs a third form.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach',
+      confidence: 'medium',
+      note: 'Almost every line here opens "{atom}: ...". That is the article device again: "L’ossigeno ha ancora 2 dispari" needs an article the placeholder cannot supply, and a bare "Ossigeno ha ancora..." is not Italian. A name followed by a colon is idiomatic in a UI and works for every substitution. Note coach.sameGroup also became a colon label for the same reason, where the Spanish version left the name as a bare subject. Worth a native read for rhythm - it is correct, but it is a repeated shape.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.classmate',
+      confidence: 'high',
+      note: 'The English says "Drawn by a classmate". Written as a noun phrase - "Disegno di qualcuno della tua classe" - for two reasons: *qualcuno* is epicene, so none of the work German needed for "Mitschuelerin oder Mitschueler" arises; and a participle ("Disegnato...") would have to agree with the thing drawn.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.countWrong',
+      confidence: 'medium',
+      note: '**A second instance of the count-agreement class, and one Spanish did not have to face.** The natural Italian is "Ne hai contati {given}", where the participle agrees with the clitic *ne* - and is wrong at 1 (*contato*). Dropping the clitic drops the agreement: "Hai contato {given}" is invariant and still idiomatic.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.countLabel',
+      confidence: 'medium',
+      note: '**A third instance.** "Contati: {counted}" would agree with whatever noun {counted} carries, and {counted} is filled from the counts.* records ("1 legame", "3 doppietti solitari"). Naming the act instead - "Conteggio: {counted}" - is invariant.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.supportMode',
+      confidence: 'medium',
+      note: '"Modalita supporto" is transparent and matches the "Supporto" heading in the settings panel, so the two read as one feature.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach.label',
+      confidence: 'medium',
+      note: '"Guida" for the coach strip. Italian does use *coach* as a loanword, but it is sport or business register; *allenatore* and *tutor* both force a gender or a register. "Guida" is short, works as a role noun for a person of any gender, and says what the panel does; it does not collide with "Skip guide", which is rendered "Salta la spiegazione". Worth a native read.',
+    },
+
+    // -------------------------------------------------------------- medium --
+    {
+      prefix: 'home',
+      confidence: 'medium',
+      note: 'Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine.',
+    },
+    {
+      prefix: 'gamesHub',
+      confidence: 'medium',
+      note: 'Game descriptions. The titles are rated separately below.',
+    },
+    {
+      prefix: 'leaderboards',
+      confidence: 'medium',
+      note: '"Classifica" and "Miglior punteggio" are both standard; Italian does not keep the English "high score" the way German keeps "Highscore", and *record* would have had to be allowlisted. "Posizione" rather than "Rango" for a place in a ranking. The empty states are free renderings.',
+    },
+    {
+      prefix: 'leaderboards.firstResultTitle',
+      confidence: 'medium',
+      note: 'Rewritten, not translated: "Ready for your first result?" has no gender-neutral Italian rendering that keeps the adjective (*Pronto?* addresses a boy, *Pronta?* a girl). It is now a statement about the result - "Il tuo primo risultato ti aspetta." - which loses the direct address and keeps the invitation. Same device as auth.loginTitle and games.overlay.levelUpDescription.',
+    },
+    {
+      prefix: 'profile',
+      confidence: 'medium',
+      note: 'The "scientist" framing is as hard in Italian as in Spanish and harder than in French: *scienziato* is gendered, Italian has no counterpart to the epicene *scientifique*, and no collective like *el alumnado*. Handled with epicene nouns where they exist (*membro*, *insegnante*, *qualcuno*) and with the headless relative (*chi studia*, *chi insegna*) where they do not.',
+    },
+    {
+      prefix: 'games.acidClassification',
+      confidence: 'medium',
+      note: 'Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine.',
+    },
+    {
+      prefix: 'games.acidClassification.instructionsTitle',
+      confidence: 'medium',
+      note: 'Like French and Spanish and unlike German, this does not coin a name for the classifier: it reuses the game’s own title ("Come si gioca: Acido o base?"), which avoids the "sounds like a machine" problem "Chemie-Sortierer" ran into.',
+    },
+    {
+      prefix: 'games.overlay',
+      confidence: 'medium',
+      note: 'Game-state copy with a lab metaphor running through it. The metaphor was kept, but Italian lab idiom is not identical to English lab idiom.',
+    },
+    {
+      prefix: 'games.overlay.statRoundValue',
+      confidence: 'medium',
+      note: '**The same count-agreement class as the ledger, in the shared UI.** "{count} corrette" agrees with its number and is wrong at 1. The colon label "risposte esatte: {count}" is invariant, and it is the same device the article problem already forces everywhere else. levelOfMax and levelUpProgress carry the same fix.',
+    },
+    {
+      prefix: 'meta',
+      confidence: 'medium',
+      note: 'Page titles and descriptions. Note privacyTitle and privacy.heading say "informativa sulla privacy", which is the standard Italian name of the document, rather than the bare loanword "Privacy" the English uses.',
+    },
+
+    // ----------------------------------------------------------------- low --
+    {
+      prefix: 'meta.keywords',
+      confidence: 'low',
+      note: 'SEO keywords are keyword research, not translation. These are plausible Italian search terms, not researched ones. The one thing deliberately got right is the age band: the site is Year 9-10, which is terza media and primo superiore in Italy, so the list says "chimica terza media" and "chimica primo superiore" and **not** "chimica liceo" - the Italian equivalent of the "Chemie Oberstufe" error Phase 1 had to correct, which named ages 16-19 for a 14-16 site.',
+    },
+    {
+      prefix: 'gamesHub.acidTitle',
+      confidence: 'low',
+      note: '"Acido o base?" - the direct question, which works as a title in Italian exactly as in English and is what the game asks. Runner-up: "Acido, base o neutro?" (truer to the four-way sort, too long for the card). Rejected: "Il rilevatore di acidi" - names a machine, the GAMES.md trap.',
+    },
+    {
+      prefix: 'gamesHub.blasterTitle',
+      confidence: 'low',
+      note: 'Coinage. "Rompiformule": *verbo + sostantivo* written as one word is how Italian builds this kind of name - *rompicapo*, *schiaccianoci*, *cavatappi*, *portacenere* - and this one lands on *rompicapo*, the Italian word for a puzzle, so it reads as a game on sight. Runner-up "Scoppiaformule" is truer to the popping mechanic (*scoppiare* is what Italian says bubbles do) and two characters heavier. Rejected: "Formula Blaster" (calque; "Blaster" reads as English filler) and "Caccia alle formule" (sounds like a worksheet).',
+    },
+    {
+      prefix: 'gamesHub.neutraliseTitle',
+      confidence: 'low',
+      note: '"Neutralizza!" mirrors the English’s deliberate imperative, and Italian imperatives do work as titles. GAMES.md’s warning is the thing to check: does it read as a name or as an order? Runner-up "Difesa ionica" reads more like a product but says "ions" without saying "neutralisation". Rejected: "Neutralizzazione" - a textbook chapter heading.',
+    },
+    {
+      prefix: 'gamesHub.balancerTitle',
+      confidence: 'low',
+      note: '"La bilancia degli atomi" names the beam the game actually shows, says the chemistry, and carries a second reading - *bilancia* is both the scales and the imperative "balance". Rejected: "Bilanciatore di reazioni" - a *bilanciatore* is a machine in Italian (a wheel balancer), precisely the "sounds like a machine for sorting chemicals" trap GAMES.md names - and, more seriously, **"Equilibrio chimico", which is a real and completely different topic** (chemical equilibrium) and would mislead any student who has met it. "Bilancia le reazioni" was dropped only because the hub would then have two imperative titles. At 22 characters it is the longest of the six; it was checked on the hub card and the game header at 360 px.',
+    },
+    {
+      prefix: 'gamesHub.lewisTitle',
+      confidence: 'low',
+      note: '"Condividi e completa" - GAMES.md asks for "a phrase that names the rule in that language", and two short imperatives do that. Runner-up "Accoppia e completa" names the *mechanic* (pairing the dispari) rather than the *rule* (sharing to fill a shell), which is a real argument for it; it was dropped because the rule is what the game teaches and the mechanic is what it shows. Rejected: "Condividi per completare" (calque; the purpose clause is clumsy) and "A due a due" (memorable, loses the filling half of the rule).',
+    },
+    {
+      prefix: 'gamesHub.bondsTitle',
+      confidence: 'low',
+      note: '"Legami chimici" is a topic name rather than a coinage, so the direct translation is right. Rated low only because every title is the owner’s call.',
+    },
+    {
+      prefix: 'profile.defaultTitle',
+      confidence: 'low',
+      note: '"Mente da laboratorio" is an invention, and the gender problem is why. "Registered Scientist" has no epicene Italian equivalent - *scienziato* is gendered, Italian has no counterpart to French’s *scientifique*, and no collective noun to fall back on - so every faithful rendering defaults to masculine on the reader’s own profile badge. This describes a mind rather than a person, which is what makes it work. The literal alternative is "Scienziato del laboratorio".',
+    },
+    {
+      prefix: 'profile.labNotesEmpty',
+      confidence: 'low',
+      note: 'Rewritten rather than translated, because the English joke ("observing reactions in silence") does not carry. Check the new one is actually charming in Italian and not just odd.',
+    },
+    {
+      prefix: 'leaderboards.noData',
+      confidence: 'low',
+      note: '"Non e stato ancora sintetizzato niente. Comincia tu!" - the English pun on "synthesized" is half-kept. May read as a non sequitur.',
+    },
+    {
+      prefix: 'games.overlay.levelUpSubtitle',
+      confidence: 'low',
+      note: '"Serie completata!" for "Batch complete!". Italian lab Italian for a batch is *lotto* or *partita*; neither is the celebratory register the English has, and *partita* is already this dictionary’s word for one run of a game. The same problem German hit with "Charge fertig!", French with "Serie terminee !" and Spanish with "Tanda completa!".',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.loner',
+      confidence: 'low',
+      note: '**Italian gets its own two-tier pair, and three options were ruled out on chemistry rather than on taste.** "elettrone spaiato" is the formal term (glossary, cheat sheet, prose), **"dispari"** is the game word (hub line, coach, hints, canvas), and *dispari* is also the label on a dot. **"solitario" - the French answer - is unavailable**, because Italian already calls a lone pair a *doppietto solitario* (and *coppia solitaria*, same adjective): in the one game that teaches the difference between one unpaired electron and two that stay together, "restano 2 solitari" and "restano 2 doppietti solitari" would be adjacent coach lines differing by one word and meaning opposite things. **"libero" is unavailable twice over** (*doppietto libero* is also a lone pair, *elettroni liberi* are the delocalised ones the bonding sheet teaches), and **"singolo" is unavailable** because *legame singolo* is the single bond, taught three lines away in this same game. *Dispari* is exactly the chemistry (*dis-* + *pari*, "not one of a pair"), it is real usage for a radical, it nominalises (*un dispari*, *i dispari*), it is entirely ASCII, and it is **invariant** - which in a language where a flat count string cannot agree with its number is worth a great deal. **Rejected: "solo"** (four characters, and it would have fixed the dot-label width - but the bare plural *i soli* is Italian for "the suns" and the coach lines need the bare noun constantly), **"spaiato" as the game word** (that is the formal term, and using it everywhere would collapse the two tiers the game is built on; it is the closest call here, and it is the word to collapse onto if the owner decides Italian does not need two tiers), **"scompagnato"** (the everyday word for an odd sock, the best of the rejected ideas, but eleven characters) and **"celibe"** (the literal analogue of French’s *celibataire*, but Italian chemistry does not use it and it would read as a joke). The risk is register, not accuracy: *dispari* is also the everyday word for an **odd number**, and in Italian that is doubly salient because *pari o dispari* is a children’s game. Check it with a real teenager. If it changes, the edit touches every line of this game.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.lonerLabel',
+      confidence: 'low',
+      note: 'The label printed on a pulsing dot at Level 1, off from Level 2 - the scaffold the brief removes on purpose. It is the **same word** as the game word, and that is a fact about Italian rather than a shortcut: German shortened the noun *Einzelelektron* to the adjective *einzeln* and French shortened *solitaire* to *seul*, but in Italian the game word already **is** the adjective (*elettrone dispari* -> *dispari*), so there is nothing to shorten to. **The honest cost is width:** seven characters, which is the German (EINZELN) end of the range the pre-existing Lewis layout note describes, where French’s SEUL clears it and Spanish’s IMPAR sits between. That was weighed rather than discovered - the only shorter Italian candidate is *solo*, rejected above - and checked on screen at 360 px.',
+    },
+    {
+      prefix: 'privacy',
+      confidence: 'low',
+      note: 'Privacy-policy prose. I am not a lawyer and this is not legal review: the Italian says what the English says, but the phrasing has not been checked against Italian data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) - those names deliberately stay English inside Italian sentences, which is correct but reads oddly. If the site is ever actually offered to Italian or EU students, this page needs a GDPR / Codice privacy review that is out of scope for a translation pass.',
+    },
+    {
+      prefix: 'privacy.cookiesBody2',
+      confidence: 'medium',
+      note: 'The language-preference cookie this feature introduces had to be disclosed; the Italian follows the German, French and Spanish paragraphs rather than the original English.',
+    },
+  ],
 };
 
 /**
@@ -1235,5 +1583,116 @@ Ranked, honestly:
 7. **The privacy page.** Legally unreviewed, and describing Australian law.
 8. **"chuleta" for cheat sheet, and "Guía" for the coach.** Both are register
    calls about school Spanish rather than chemistry.
+`,
+  it: `
+---
+
+## Chemistry names -- \`src/i18n/chemistry-names/it.ts\`
+
+Not in the table above: these are keyed by registry identifier rather than by
+dictionary path, and there are 193 of them.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Element names | 118 | **high** | Italian element names are standardised and I am confident in the table. Two things a reviewer should know. **Italian follows French here, not Spanish:** nitrogen is *azoto*, never "nitrogeno". And **Na and K really are translated** -- *sodio* and *potassio* -- so unlike French this locale needs no \`SAME_AS_ENGLISH\` exemption in \`chemistry-names.test.ts\`, and all fourteen false friends are checked. Spellings follow Italian school and IUPAC usage: **nichel** (not "nichelio"), **zolfo**, **stagno**, **rame**, **piombo**, **iodio**, **cesio**, **zirconio**, **tungsteno**, **tellurio**, **kripton**, **xeno**, **oganesson**. |
+| Compound names | 35 | **high** for the salts and hydroxides, **medium** for the acids | Italian composes them anion-first with *di*, the same way French and Spanish do and the opposite of both German's single word and English's cation-first pair: *idrossido di sodio*. The acids are the judgement calls: binary acids take **-idrico** (*acido cloridrico*, *acido iodidrico*, *acido solfidrico*) and the -ous/-ic pair becomes *-oso*/*-ico*. Note the Italian stem is **solfo-**, not "sulfo-". All 35 differ from the English, so no \`IDENTICAL_COMPOUNDS_BY_DESIGN\` entry is needed either: N2H4 is *idrazina* where French and English both say *hydrazine*. |
+| Ion names | 40 | **high** | Same modernisation German, French and Spanish made: the systematic *idrogeno-* prefix where the English source data still says *bi-*. Bicarbonate becomes *idrogenocarbonato*, bisulfate *idrogenosolfato*. *Bicarbonato* is what people actually say and is glossed in the ion table. A monoatomic cation is *ione* + the element (*ione sodio*). |
+
+**Specifically worth a second pair of eyes:** \`Ts\` (Tennessine) is given as
+"Tennesso", the Italian IUPAC form, which is rarely written; \`H4SiO4\` is "Acido
+silicico" where the fully systematic name would be "acido ortosilicico"; and
+\`Ni\` is "Nichel", which is the modern Italian form but which older tables still
+write "Nichelio".
+
+## Game data -- \`src/i18n/chemistry-names/it.ts\`
+
+Also keyed by identifier rather than by dictionary path: the prose the two new
+games read straight out of the core-engine datasets. 104 entries.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Species names (\`SPECIES_NAMES_IT\`) | 53 | **medium** | **The one decision in this file a teacher should actually rule on, and Italian lands the other way from French and Spanish.** French uses *dihydrogene* because the programme teaches it from 3e; Spanish used *dihidrogeno* and rated it medium. **Italian keeps the bare names** -- H2 *idrogeno*, O2 *ossigeno*, N2 *azoto*, Cl2 *cloro* -- because Italian textbooks overwhelmingly write plain *idrogeno* for H2 and *diidrogeno* would read as foreign to a fourteen-year-old. The cost is the cost English already pays: the Reaction Balancer's **card** (a substance) and its **atom ledger** (atoms) show the same word, and English lives with that. If the audience's textbook does teach the *di-* forms, this is a contained change. One further decision, mirroring the other three locales: HCl is **cloruro di idrogeno**, the substance, because that is what a card labels; the reaction descriptions say **acido cloridrico** where the reaction happens in water. Oxides use the Greek prefixes consistently (*monossido*, *diossido*, *triossido*) so that they agree with the naming sheet's prefix table; *anidride carbonica* (school) and *biossido di carbonio* (media) are both common Italian for CO2 and are the alternatives a teacher may prefer. |
+| Reaction prose (\`REACTION_TEXT_IT\`) | 33 x up to 4 | **medium** | Name, macroscopic observation, strategy hint and word equation for every reaction. The observations are the risk: they are short pieces of lab description ("sfreccia sfrigolando sulla superficie dell'acqua", "una pioggia di scintille") where a flat translation reads flat. The word equations deliberately use the verbs the catalogue's tier-2 build hint names -- *reagisce*, *brucia*, *si decompone*, *per formare*, *per dare*, *produce* -- so that hint is actually usable. Reaction names follow Italian convention: *processo Haber-Bosch*, *fotosintesi*, *respirazione cellulare*, *reazione alluminotermica* for the thermite reaction, *processo al contatto*. |
+| Lewis molecule prose (\`LEWIS_MOLECULE_TEXT_IT\`) | 18 x 3 | **medium** | Name, tier-2 hint and property line per molecule. Names follow Italian IUPAC: **etene** and **etino** rather than the older ethylene/acetylene, **fosfina**, **tetraclorometano**, **solfuro di idrogeno**. Those are worth a teacher's eye -- the English data uses the older or the British forms. |
+
+**Structurally out of reach of a translator, by design:** equations, formulae,
+bond lines, state symbols, atom lists and level assignments are not in the
+overlay at all, and \`chemistry-names.test.ts\` asserts they come through
+byte-identical. The same test fails the suite if a reaction gains an Italian word
+equation it does not have in English, because the game decides what to show by
+whether one exists.
+
+## Cheat sheets -- \`src/i18n/cheat-sheets/it.ts\`
+
+Twelve reference sheets, roughly 6,000 words of specialist Italian. **This is the
+highest-risk part of the translation and the part I would most want reviewed
+before students see it.**
+
+The overlay has **21 sections, counted by hand against
+\`src/lib/cheat-sheet-data.ts\`** -- four of them in \`lewis-structures\`. That count
+is also machine-checked by the overlay-shape gate.
+
+| Sheet | Confidence | What to look at |
+|---|---|---|
+| Gli stati della materia | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard Italian pairs (fusione/solidificazione, vaporizzazione/condensazione, sublimazione/brinamento). *Brinamento* for deposition is the school word and is worth confirming. |
+| Acidi e basi | **high** | Glossary-fixed throughout. **One choice to check, and Italian lands with Spanish rather than French:** H3O+ is called **ione idronio**, which is what Italian secondary textbooks print, where the French pass chose *ion oxonium* because the lycee programme prints that. *Ione ossonio* is the IUPAC form and is what a university text uses. It recurs through the sheet. |
+| Bilanciare le equazioni chimiche | **high** | Turns on the pedice/coefficiente distinction, which Italian makes as cleanly as German does, and there is no variety marker and no collision anywhere in it. |
+| Tipi di reazioni chimiche | **medium** | *Scambio semplice / doppio scambio* for the displacement pair. *Sostituzione semplice / doppia sostituzione* is the other pairing in circulation; check which matches the reader's textbook. |
+| Legami chimici e strutture | **high** | Like French and Spanish and unlike German, there is no decision here: Italian school chemistry says *legame covalente* and nothing else, so the Atombindung/kovalent problem simply does not arise. |
+| Scrivere le formule dei composti ionici | **medium** | Uses **formula minima** for the formula of an ionic solid, making the same point German's *Verhaeltnisformel*, French's *formule statistique* and Spanish's *formula empirica* do and the English title does not; *unita formula* is the more precise term and many textbooks just say "la formula del composto ionico". The cross-over method is called **il metodo dell'incrocio** -- worth confirming locally. |
+| Ioni poliatomici | **medium** | The naming-pattern bullets are the risk. They happen to work almost unchanged, because the *-ato*/*-ito* and *per-*/*ipo-* patterns are the same in Italian -- which is lucky rather than designed, and deserves a teacher's eye. |
+| Dare il nome ai composti inorganici | **low** | **The hardest sheet, and adapted rather than translated.** The English teaches the English acid system (hydro-...-ic acid, -ous acid). Italian has its own, and like Spanish an almost exact parallel: *-uro -> acido ...idrico*, *-ato -> acido ...ico*, *-ito -> acido ...oso*, so the acid-names table maps cleanly. The **molecular** rule did not: Italian names molecular compounds anion-first (*diossido di carbonio*), so "drop mono- on the first element" had to be restated as "omit it on the element named after *di*", and the Greek-prefix table's examples were rewritten accordingly (*eptaossido di dicloro*, *decaossido di tetrafosforo*, and note *esa-*/*epta-*/*otta-* rather than the Latin-looking forms). The ionic bullet also had to say explicitly that Italian puts the anion first, because the English rule ("cation name + anion name") is simply the wrong order here. **This is a content change, not just a translation, and it needs review.** |
+| La mole e la stechiometria | **medium** | Terminology is glossary-fixed. **One thing that is easier than in French:** English "yield" is both a mass and a ratio, and French *rendement* is only the ratio, which forced the French sheet to rename both masses. Italian *resa* covers both exactly as English does, so this sheet follows the English structure directly (*resa teorica / effettiva / percentuale*). Decimal commas throughout the worked examples -- check that is what you want, since the formulae around them use points. Note *la mole* is feminine, like French's *une mole* and unlike Spanish's *el mol*. |
+| Strutture di Lewis | **medium** | Uses **struttura di Lewis** and **doppietto solitario**. VSEPR is kept as the English acronym, which is what Italian textbooks print (Spanish localises it to RPECV); the shape names (tetraedrica, piramidale trigonale, angolare) are standard. This sheet has **four** sections, matching the English. Its first section is the Year 9-10 layer and is where *dispari* appears on a cheat sheet rather than in the game. |
+| Dare il nome ai composti organici | **low** | Same problem as the inorganic naming sheet. Italian names esters the other way round from English -- *etanoato di metile*, not "methyl ethanoate" -- writes carboxylic acids as *acido ...oico* and amines as *-ammina* (double m). The root table is the Italian one (*es-*, *ept-*, *ott-*), not a transliteration, and the haloalkane prefix is *iodo-*. **A chemistry teacher must check this sheet.** |
+| Gruppi funzionali | **low** | Unlike French -- whose programme insists on *groupe caracteristique* -- Italian says **gruppo funzionale** and there was no decision to make in the title. The reference table mixes structure notation (untranslated) with Italian group names and Italian reaction descriptions. The ester and amide rows in particular follow Italian naming, which is not a translation of the English pattern. |
+
+**Not translated, deliberately:** every linked resource is an English-language
+site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
+titles are left in English so they are findable, and the Italian descriptions say
+"(In inglese.)" so a reader is not surprised. **This is a genuine gap rather than
+a solved problem**: an Italian student gets Italian explanations and then English
+source material. If Italian is going to be a first-class language, the resource
+lists should get Italian equivalents (Zanichelli's Aula di Scienze, Chimica
+Online, Openfisica and the like), which is a content task rather than a
+translation task.
+
+**Also not translated:** the curriculum references. Every sheet cites the
+Victorian Curriculum or the VCE study design, which is Australian. The
+surrounding Italian is translated but the curriculum itself is not relevant to an
+Italian reader. Worth deciding whether Italian sheets should show an Italian
+*Indicazioni nazionali* reference, or none.
+
+## What I am most likely to have got wrong
+
+Ranked, honestly:
+
+1. **The two naming sheets** (\`naming-compounds\`, \`organic-nomenclature\`). I
+   changed what they teach, because teaching English naming rules in Italian
+   would be worse than useless. That is the right call but it is beyond what a
+   translator should decide alone.
+2. **"dispari".** The word Condividi e completa is built on, in every coach line,
+   every hint and on the canvas. The *reason* for it is solid and it is stronger
+   than the Spanish case: three separate words are genuinely unavailable
+   (*solitario* and *libero* are both already lone pairs, *singolo* is the single
+   bond), and shipping any of them would have been a real pedagogical bug in the
+   one game that teaches those differences. What is uncertain is register:
+   *dispari* is also the everyday word for an odd number, and *pari o dispari* is
+   a children's game, so a fourteen-year-old meeting it beside a pulsing dot may
+   hear "number 3" before "unpaired". It is also seven characters on a dot label
+   that the layout note says overlaps beyond about four.
+3. **The bare diatomic names** (*idrogeno* for H2, not *diidrogeno*). A
+   deliberate divergence from French and Spanish, made because Italian school
+   practice is what it is, and the one place a teacher's answer would change the
+   file.
+4. **Game titles.** Six coinages, no strong opinion behind any of them.
+   "Rompiformule" is the most invented and "La bilancia degli atomi" the longest.
+5. **Register in the playful copy.** Overlay messages, empty states and the
+   marketing hero are where a non-native translation reads as "correct but
+   flat". None of it is wrong; some of it may be charmless.
+6. **The privacy page.** Legally unreviewed, and describing Australian law.
+7. **"bigino" for cheat sheet, "indizio" for hint, and "Guida" for the coach.**
+   All three are register calls about school Italian rather than chemistry, and
+   *bigino* is the one a fourteen-year-old might find dated.
 `,
 };
