@@ -26,28 +26,28 @@ export const de = {
 
   instructions: {
     title: 'Spielanleitung: Teilen bis voll',
-    lead: 'Bring die Einzelgänger zu Paaren zusammen.',
+    lead: 'Bring die Einzelelektronen zu Paaren zusammen.',
     intro:
-      'Jedes Atom bringt seine Außenelektronen als Punkte mit. Ein Punkt, der allein steht, ist ein Einzelgänger – er sucht einen Partner. Zwei Einzelgänger von zwei verschiedenen Atomen ergeben ein bindendes Elektronenpaar, also eine Bindung.',
+      'Jedes Atom bringt seine Außenelektronen als Punkte mit. Ein Punkt, der allein steht, ist ein Einzelelektron – es sucht einen Partner. Zwei Einzelelektronen von zwei verschiedenen Atomen ergeben ein bindendes Elektronenpaar, also eine Bindung.',
     bullets: [
       'Zieh einen pulsierenden Punkt auf einen pulsierenden Punkt eines anderen Atoms (oder tippe erst den einen an, dann den anderen).',
       'Ein Atom ist voll, wenn 8 Punkte um es herum stehen – Wasserstoff ist schon bei 2 voll.',
       'Teilen sich dieselben zwei Atome zweimal, hast du eine Doppelbindung gebaut.',
-      'Die Formel rastet von selbst ein, sobald jedes Atom voll ist und kein Einzelgänger mehr übrig ist. Du brauchst keinen Knopf.',
+      'Die Formel rastet von selbst ein, sobald jedes Atom voll ist und kein Einzelelektron mehr übrig ist. Du brauchst keinen Knopf.',
       'Du kommst nicht weiter? Drück auf die Glühbirne (oder H). Der erste Tipp ist immer umsonst.',
     ],
     disclaimer:
       'Die Punkte zeigen, wie viele Außenelektronen ein Atom hat – nicht, wo sie wirklich sind.',
     keyboard: [
       ['Tab', 'wählt ein Atom aus'],
-      ['← →', 'gehen zu seinen Einzelgängern'],
+      ['← →', 'gehen zu seinen Einzelelektronen'],
       ['Enter', 'beginnt ein Paar; Tab + Enter auf einem anderen Atom macht es fertig'],
       ['Esc', 'bricht ab'],
       ['H', 'Tipp'],
       ['P', 'Pause'],
     ],
     touch: [
-      ['Tippen', 'auf einen Einzelgänger, dann auf einen Einzelgänger eines anderen Atoms.'],
+      ['Tippen', 'auf ein Einzelelektron, dann auf ein Einzelelektron eines anderen Atoms.'],
       ['Tippen', 'auf ein bindendes Elektronenpaar löst es wieder.'],
     ],
     glossaryTitle: 'Wörter, die im Spiel vorkommen',
@@ -56,14 +56,14 @@ export const de = {
   guided: {
     stepLabel: 'Schritt {step} von {total}',
     h2: [
-      'Zwei Wasserstoffatome. Jedes hat 1 Außenelektron – einen Einzelgänger. Zieh den einen auf den anderen.',
+      'Zwei Wasserstoffatome. Jedes hat 1 Außenelektron – ein Einzelelektron. Zieh den einen auf den anderen.',
       'Jetzt teilen sie sich ein Paar. Zähl um jedes H herum: 2. Wasserstoff ist bei 2 voll – das ist eine Einfachbindung, H–H.',
     ],
     h2oStep1:
-      'Sauerstoff hat 6 Außenelektronen: zwei Paare (die bleiben, wo sie sind) und zwei Einzelgänger (die pulsieren).',
-    h2oStep2: 'Bring einen Einzelgänger des Sauerstoffs mit einem Einzelgänger des Wasserstoffs zusammen.',
+      'Sauerstoff hat 6 Außenelektronen: zwei Paare (die bleiben, wo sie sind) und zwei Einzelelektronen (die pulsieren).',
+    h2oStep2: 'Bring ein Einzelelektron des Sauerstoffs mit einem Einzelelektron des Wasserstoffs zusammen.',
     h2oStep2After: 'Um den Sauerstoff stehen jetzt 7 – eines fehlt noch.',
-    h2oStep3: 'Bring den anderen Einzelgänger des Sauerstoffs mit dem anderen Wasserstoff zusammen.',
+    h2oStep3: 'Bring das andere Einzelelektron des Sauerstoffs mit dem anderen Wasserstoff zusammen.',
     h2oStep4:
       'Sauerstoff: 8. Jeder Wasserstoff: 2. Zwei bindende und zwei freie Elektronenpaare – das ist Wasser, H–O–H.',
   },
@@ -71,21 +71,21 @@ export const de = {
   coach: {
     label: 'Coach',
     loners: {
-      one: '{atom} hat noch {count} Einzelgänger. Einzelgänger paaren sich mit Einzelgängern eines anderen Atoms.',
+      one: '{atom} hat noch {count} Einzelelektron. Einzelelektronen paaren sich mit Einzelelektronen eines anderen Atoms.',
       other:
-        '{atom} hat noch {count} Einzelgänger. Einzelgänger paaren sich mit Einzelgängern eines anderen Atoms.',
+        '{atom} hat noch {count} Einzelelektronen. Einzelelektronen paaren sich mit Einzelelektronen eines anderen Atoms.',
     },
     needsMore:
-      '{atom} hat {count} von 8. Es braucht noch ein bindendes Elektronenpaar – welches Atom hat noch einen Einzelgänger?',
+      '{atom} hat {count} von 8. Es braucht noch ein bindendes Elektronenpaar – welches Atom hat noch ein Einzelelektron?',
     shareAgain:
-      '{atom1} und {atom2} haben beide noch einen Einzelgänger. Sie können noch einmal teilen – das ergibt eine Doppelbindung.',
+      '{atom1} und {atom2} haben beide noch ein Einzelelektron. Sie können noch einmal teilen – das ergibt eine Doppelbindung.',
     complete:
-      'Jedes Atom ist voll und kein Einzelgänger ist übrig. Das ist {name}: {bonds}, {lonePairs}.',
+      'Jedes Atom ist voll und kein Einzelelektron ist übrig. Das ist {name}: {bonds}, {lonePairs}.',
     sameGroup:
       '{element} steht in derselben Gruppe wie {analogue} und hat deshalb gleich viele Außenelektronen. Erwarte dieselbe Struktur wie bei {analogueMolecule}.',
-    central: 'Das Atom mit den meisten Einzelgängern steht meistens in der Mitte.',
+    central: 'Das Atom mit den meisten Einzelelektronen steht meistens in der Mitte.',
     deadEnd:
-      '{atom} hat {count} von 8, aber kein anderes Atom hat noch einen Einzelgänger zum Teilen. Tipp auf ein bindendes Elektronenpaar, um es zu lösen, und versuch es mit einem anderen Partner.',
+      '{atom} hat {count} von 8, aber kein anderes Atom hat noch ein Einzelelektron zum Teilen. Tipp auf ein bindendes Elektronenpaar, um es zu lösen, und versuch es mit einem anderen Partner.',
     isomer:
       'Jedes Atom ist voll, aber die Atome hängen anders zusammen als bei {name}. Tipp auf ein bindendes Elektronenpaar, um es zu lösen, und versuch eine andere Anordnung.',
   },
@@ -103,7 +103,7 @@ export const de = {
     label: 'Tipp',
     tierLabel: 'Tipp {tier} von 3',
     tier1: 'Schau, bei welchen Atomen noch Punkte pulsieren.',
-    tier3: 'Bring den Einzelgänger an {atom1} mit dem Einzelgänger an {atom2} zusammen.',
+    tier3: 'Bring das Einzelelektron an {atom1} mit dem Einzelelektron an {atom2} zusammen.',
     tier3Undo: 'Tipp auf das bindende Elektronenpaar zwischen {atom1} und {atom2}, um es zu lösen.',
     offerTier2: 'Immer noch fest? Drück noch einmal auf die Glühbirne, dann kommt die Strategie.',
     noMoreHints: 'Das war der letzte Tipp. Jedes Atom ist voll – drück auf Weiter.',
@@ -114,7 +114,7 @@ export const de = {
     inspectTier3: '{atom} hat {count}. Tipp es an und wähl dann aus, was nicht stimmt.',
     inspectTier3Correct:
       'Jedes Atom ist voll und nichts ist übrig – drück auf „Die stimmt“.',
-    inspectTier3Repair: 'Bring die Einzelgänger zu Paaren zusammen, bis jedes Atom wieder voll ist.',
+    inspectTier3Repair: 'Bring die Einzelelektronen zu Paaren zusammen, bis jedes Atom wieder voll ist.',
     inspectTier3CountBonds: {
       one: 'Jede Linie zwischen zwei Atomen ist eine Bindung. Hier ist es {count}.',
       other: 'Jede Linie zwischen zwei Atomen ist eine Bindung. Hier sind es {count}.',
@@ -129,12 +129,12 @@ export const de = {
   error: {
     label: 'So nicht',
     atomFull:
-      '{atom} hat schon 8 – mehr kann dieses Atom nicht teilen. Nimm ein Atom, das noch einen Einzelgänger hat.',
+      '{atom} hat schon 8 – mehr kann dieses Atom nicht teilen. Nimm ein Atom, das noch ein Einzelelektron hat.',
     hydrogenFull: 'Wasserstoff ist bei 2 voll. Er kann nur ein Paar teilen.',
     sameAtom:
       'Die beiden Punkte gehören zum selben Atom – sie sind schon ein Paar. Für eine Bindung braucht es zwei verschiedene Atome.',
     pairedDot:
-      'Dieser Punkt gehört schon zu einem Paar. Nur Einzelgänger (die pulsierenden) lassen sich teilen.',
+      'Dieser Punkt gehört schon zu einem Paar. Nur Einzelelektronen (die pulsierenden) lassen sich teilen.',
   },
 
   inspect: {
@@ -156,14 +156,14 @@ export const de = {
     explainTooFew: '{atom} hat weniger als 8 – ein freies Elektronenpaar fehlt.',
     explainHydrogenFull: 'Wasserstoff hat 4 – er kann nur ein Paar teilen.',
     explainNeedsDouble:
-      '{atom1} und {atom2} haben beide noch einen Einzelgänger – sie müssen zweimal teilen.',
-    explainLeftover: 'Bei {atom} ist ein Einzelgänger übrig – da wurde ein Elektron zu viel gezeichnet.',
+      '{atom1} und {atom2} haben beide noch ein Einzelelektron – sie müssen zweimal teilen.',
+    explainLeftover: 'Bei {atom} ist ein Einzelelektron übrig – da wurde ein Elektron zu viel gezeichnet.',
     correctStructure: 'Richtig – jedes Atom ist voll und nichts ist übrig.',
     missedCorrect:
       'Diese hier stimmt wirklich: Jedes Atom ist voll. Nicht in jeder Zeichnung steckt ein Fehler.',
     notCorrect:
       'Nicht ganz – bei einem Atom stimmt es nicht. Zähl die Punkte um jedes Atom und tipp das an, bei dem es nicht passt.',
-    repair: 'Jetzt reparier sie: Bring die Einzelgänger zu Paaren zusammen, bis jedes Atom voll ist.',
+    repair: 'Jetzt reparier sie: Bring die Einzelelektronen zu Paaren zusammen, bis jedes Atom voll ist.',
     repaired: 'Repariert – jedes Atom ist wieder voll.',
     countBonds: 'Wie viele Bindungen sind es? Tipp jedes bindende Elektronenpaar an.',
     countLonePairs: 'Wie viele freie Elektronenpaare sind es? Tipp jedes Paar an, das nicht geteilt wird.',
@@ -185,7 +185,7 @@ export const de = {
   overlay: {
     levelUpBadge: 'Alle Atome voll',
     levelUpTitle: 'Level geschafft',
-    levelUpSubtitle: 'Jeder Einzelgänger hat einen Partner',
+    levelUpSubtitle: 'Jedes Einzelelektron hat einen Partner',
     levelUpDescription: 'Level {level}: {changes}',
     levelChanges: {
       level2:
@@ -197,7 +197,7 @@ export const de = {
     },
     victoryBadge: 'Alle Ziele erreicht',
     victoryTitle: 'Lewis-Formeln gemeistert',
-    victorySubtitle: 'Jeder Einzelgänger hat einen Partner',
+    victorySubtitle: 'Jedes Einzelelektron hat einen Partner',
     victoryDescription: 'Öffne deinen Korrekturbogen oder probier als Nächstes Bond Builder.',
     pausedBadge: 'Sitzung angehalten',
     pausedTitle: 'Spiel pausiert',
@@ -227,9 +227,9 @@ export const de = {
       matches: ['Außenelektronen', 'Außenelektron', 'Valenzelektronen', 'Valenzelektron'],
     },
     loner: {
-      term: 'Einzelgänger (ungepaartes Elektron)',
-      definition: 'ein Außenelektron ohne Partner; nur Einzelgänger lassen sich teilen',
-      matches: ['Einzelgängern', 'Einzelgänger', 'ungepaarte Elektronen', 'ungepaartes Elektron'],
+      term: 'Einzelelektron (ungepaartes Elektron)',
+      definition: 'ein Außenelektron ohne Partner; nur Einzelelektronen lassen sich teilen',
+      matches: ['Einzelelektronen', 'Einzelelektron', 'ungepaarte Elektronen', 'ungepaartes Elektron'],
     },
     lonePair: {
       term: 'freies Elektronenpaar',
@@ -285,13 +285,13 @@ export const de = {
     canvasLabelA11y: 'Lewis-Formel von {name}',
     atomNameA11y: '{element}: {count} von {full}',
     atomCounterA11y: '{symbol}: {count} von {full}',
-    atomLonerA11y: '{element}, Einzelgänger {index} von {total}',
+    atomLonerA11y: '{element}, Einzelelektron {index} von {total}',
     atomLonePairA11y: '{element}, freies Elektronenpaar {index} von {total}',
     atomOrdinal: '{element} {ordinal}',
-    lonerLabel: 'Einzelgänger',
+    lonerLabel: 'einzeln',
     atomFull: 'voll',
     atomSelectedA11y:
-      'Einzelgänger an {element} ausgewählt. Wähl jetzt einen Einzelgänger an einem anderen Atom.',
+      'Einzelelektron an {element} ausgewählt. Wähl jetzt ein Einzelelektron an einem anderen Atom.',
     atomInspectTapA11y: '{element} – antippen, wenn bei diesem Atom etwas nicht stimmt',
     bondSingleA11y: 'Einfachbindung zwischen {atom1} und {atom2}',
     bondDoubleA11y: 'Doppelbindung zwischen {atom1} und {atom2}',

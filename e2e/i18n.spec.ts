@@ -272,7 +272,10 @@ test.describe('German rendering: Share to Fill', () => {
     // dictionary, so this is the seam between the two that has to hold.
     await expect(page.getByText(lewisDe.header.build('Wasserstoff', 'H2'))).toBeVisible();
     await expect(page.getByText(lewisDe.header.progress(1, 3))).toBeVisible();
-    await expect(page.getByTestId('coach-panel')).toContainText('Einzelgänger');
+    // The game word for an unpaired outer electron. German mirrors English's
+    // two tiers: 'Einzelelektron' here and in every hint, 'ungepaartes Elektron'
+    // as the formal gloss in the glossary, 'einzeln' on the dot itself.
+    await expect(page.getByTestId('coach-panel')).toContainText('Einzelelektron');
 
     // The formula itself is never translated.
     await expect(page.getByLabel(lewisDe.ui.canvasLabel('Wasserstoff'))).toBeVisible();
@@ -311,7 +314,7 @@ test.describe('German rendering: Share to Fill', () => {
     const loner = (atomId: string) =>
       page
         .locator(`[data-atom-id="${atomId}"]`)
-        .getByRole('button', { name: /Einzelgänger \d+ von \d+/ })
+        .getByRole('button', { name: /Einzelelektron \d+ von \d+/ })
         .first();
 
     await loner('a0').click();

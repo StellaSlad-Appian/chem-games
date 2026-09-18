@@ -538,7 +538,7 @@ export const REACTION_TEXT_DE: Record<
  * Lewis molecule prose, keyed by the id in lewis-molecules.ts. `bondLine` and
  * `formula` stay untranslated: they are notation.
  *
- * „Einzelgänger“ is the German for the game's coined "loner"; it is introduced
+ * „Einzelelektron“ is the German for the game's coined "loner"; it is introduced
  * in the instructions and defined in the glossary, exactly as the English is.
  */
 export const LEWIS_MOLECULE_TEXT_DE: Record<
@@ -548,111 +548,111 @@ export const LEWIS_MOLECULE_TEXT_DE: Record<
   h2: {
     name: 'Wasserstoff',
     tier2Hint:
-      'Jeder Wasserstoff hat einen Einzelgänger. Zwei Einzelgänger von zwei Atomen ergeben ein bindendes Elektronenpaar.',
+      'Jeder Wasserstoff hat ein Einzelelektron. Zwei Einzelelektronen von zwei Atomen ergeben ein bindendes Elektronenpaar.',
     propertyLine:
       'Wasserstoff – das leichteste Gas überhaupt. Die beiden Atome teilen sich ein Paar und sind damit beide bei 2 voll.',
   },
   cl2: {
     name: 'Chlor',
     tier2Hint:
-      'Chlor hat 7 Außenelektronen: drei Paare und einen Einzelgänger. Jedes Chlor teilt seinen einen Einzelgänger.',
+      'Chlor hat 7 Außenelektronen: drei Paare und ein Einzelelektron. Jedes Chlor teilt dieses eine Einzelelektron.',
     propertyLine:
       'Chlor – ein gelbgrünes Gas. Jedes Chlor behält drei freie Elektronenpaare und teilt eines.',
   },
   hcl: {
     name: 'Chlorwasserstoff',
     tier2Hint:
-      'Wasserstoff hat einen Einzelgänger und Chlor hat einen Einzelgänger, also teilen sie sich genau ein Paar.',
+      'Wasserstoff hat ein Einzelelektron und Chlor hat ein Einzelelektron, also teilen sie sich genau ein Paar.',
     propertyLine:
       'Chlorwasserstoff – ein Gas, das sich in Wasser löst; die Lösung heißt Salzsäure.',
   },
   h2o: {
     name: 'Wasser',
     tier2Hint:
-      'Sauerstoff hat zwei Einzelgänger und teilt deshalb mit beiden Wasserstoffatomen. Seine zwei Paare bleiben, wo sie sind.',
+      'Sauerstoff hat zwei Einzelelektronen und teilt deshalb mit beiden Wasserstoffatomen. Seine zwei Paare bleiben, wo sie sind.',
     propertyLine:
       'Wasser – bei Raumtemperatur flüssig; die gewinkelte Form, die du nächstes Jahr kennenlernst, kommt von den beiden freien Elektronenpaaren.',
   },
   nh3: {
     name: 'Ammoniak',
     tier2Hint:
-      'Stickstoff hat drei Einzelgänger und ein Paar, teilt also mit allen drei Wasserstoffatomen.',
+      'Stickstoff hat drei Einzelelektronen und ein Paar, teilt also mit allen drei Wasserstoffatomen.',
     propertyLine:
       'Ammoniak – ein stechend riechendes Gas, aus dem Dünger gemacht wird. Stickstoff behält ein freies Elektronenpaar.',
   },
   ch4: {
     name: 'Methan',
-    tier2Hint: 'Kohlenstoff hat vier Einzelgänger und teilt deshalb mit allen vier Wasserstoffatomen.',
+    tier2Hint: 'Kohlenstoff hat vier Einzelelektronen und teilt deshalb mit allen vier Wasserstoffatomen.',
     propertyLine:
       'Methan – Erdgas. Kohlenstoff hat überhaupt kein freies Elektronenpaar: Jedes Außenelektron wird geteilt.',
   },
   h2s: {
     name: 'Schwefelwasserstoff',
     tier2Hint:
-      'Schwefel steht in derselben Gruppe wie Sauerstoff und hat deshalb ebenfalls zwei Einzelgänger und zwei Paare – bau ihn wie Wasser.',
+      'Schwefel steht in derselben Gruppe wie Sauerstoff und hat deshalb ebenfalls zwei Einzelelektronen und zwei Paare – bau ihn wie Wasser.',
     propertyLine:
       'Schwefelwasserstoff – das Gas, das nach faulen Eiern riecht. Gleiche Struktur wie Wasser, weil Schwefel unter dem Sauerstoff steht.',
   },
   ph3: {
     name: 'Phosphan',
     tier2Hint:
-      'Phosphor steht in derselben Gruppe wie Stickstoff und hat deshalb drei Einzelgänger – bau ihn wie Ammoniak.',
+      'Phosphor steht in derselben Gruppe wie Stickstoff und hat deshalb drei Einzelelektronen – bau ihn wie Ammoniak.',
     propertyLine:
       'Phosphan – ein Gas, das an der Luft schwach leuchtet. Gleiche Struktur wie Ammoniak, weil Phosphor unter dem Stickstoff steht.',
   },
   o2: {
     name: 'Sauerstoff',
     tier2Hint:
-      'Jeder Sauerstoff hat zwei Einzelgänger. Nach dem ersten geteilten Paar hat jeder noch einen übrig – teil noch einmal, das gibt eine Doppelbindung.',
+      'Jeder Sauerstoff hat zwei Einzelelektronen. Nach dem ersten geteilten Paar hat jeder noch einen übrig – teil noch einmal, das gibt eine Doppelbindung.',
     propertyLine:
       'Sauerstoff – das Gas, das wir einatmen. Zwei geteilte Paare zwischen den Atomen ergeben eine Doppelbindung.',
   },
   co2: {
     name: 'Kohlenstoffdioxid',
     tier2Hint:
-      'Kohlenstoff hat vier Einzelgänger und jeder Sauerstoff zwei, also teilt der Kohlenstoff mit jedem Sauerstoff zweimal.',
+      'Kohlenstoff hat vier Einzelelektronen und jeder Sauerstoff zwei, also teilt der Kohlenstoff mit jedem Sauerstoff zweimal.',
     propertyLine:
       'Kohlenstoffdioxid – das Gas beim Verbrennen und beim Ausatmen. Zwei Doppelbindungen, und am Kohlenstoff kein freies Elektronenpaar.',
   },
   n2: {
     name: 'Stickstoff',
     tier2Hint:
-      'Jeder Stickstoff hat drei Einzelgänger. Teil alle drei zwischen denselben zwei Atomen – das gibt eine Dreifachbindung.',
+      'Jeder Stickstoff hat drei Einzelelektronen. Teil alle drei zwischen denselben zwei Atomen – das gibt eine Dreifachbindung.',
     propertyLine:
       'Stickstoff – der größte Teil der Luft. Die Dreifachbindung ist so stark, dass Stickstoff kaum reagiert.',
   },
   c2h4: {
     name: 'Ethen',
     tier2Hint:
-      'Jeder Kohlenstoff teilt mit zwei Wasserstoffatomen; danach haben die beiden Kohlenstoffatome noch je zwei Einzelgänger – teil zweimal zwischen ihnen.',
+      'Jeder Kohlenstoff teilt mit zwei Wasserstoffatomen; danach haben die beiden Kohlenstoffatome noch je zwei Einzelelektronen – teil zweimal zwischen ihnen.',
     propertyLine:
       'Ethen – das Gas, das Obst reifen lässt und aus dem Polyethylen wird. Reagieren tut die Doppelbindung zwischen den Kohlenstoffatomen.',
   },
   c2h2: {
     name: 'Ethin',
     tier2Hint:
-      'Jeder Kohlenstoff teilt ein Paar mit einem Wasserstoff; die drei Einzelgänger, die jedem Kohlenstoff bleiben, ergeben eine Dreifachbindung.',
+      'Jeder Kohlenstoff teilt ein Paar mit einem Wasserstoff; die drei Einzelelektronen, die jedem Kohlenstoff bleiben, ergeben eine Dreifachbindung.',
     propertyLine:
       'Ethin (Acetylen) – das Gas im Schweißbrenner. Zwischen den Kohlenstoffatomen sitzt eine Dreifachbindung.',
   },
   c2h6: {
     name: 'Ethan',
     tier2Hint:
-      'Die beiden Kohlenstoffatome teilen ein Paar miteinander; danach teilt jeder Kohlenstoff seine drei übrigen Einzelgänger mit drei Wasserstoffatomen.',
+      'Die beiden Kohlenstoffatome teilen ein Paar miteinander; danach teilt jeder Kohlenstoff seine drei übrigen Einzelelektronen mit drei Wasserstoffatomen.',
     propertyLine:
       'Ethan – steckt im Erdgas. Alle Bindungen sind Einfachbindungen und kein Atom hat ein freies Elektronenpaar.',
   },
   ccl4: {
     name: 'Tetrachlormethan',
     tier2Hint:
-      'Kohlenstoff hat die meisten Einzelgänger (vier), steht also in der Mitte und teilt mit jedem Chlor ein Paar.',
+      'Kohlenstoff hat die meisten Einzelelektronen (vier), steht also in der Mitte und teilt mit jedem Chlor ein Paar.',
     propertyLine:
       'Tetrachlormethan – früher ein Reinigungsmittel in der Textilreinigung. Jedes Chlor behält drei freie Elektronenpaare.',
   },
   ch3cl: {
     name: 'Chlormethan',
     tier2Hint:
-      'Kohlenstoff hat vier Einzelgänger und steht deshalb in der Mitte: drei Paare teilt er mit Wasserstoffatomen, eines mit dem Chlor.',
+      'Kohlenstoff hat vier Einzelelektronen und steht deshalb in der Mitte: drei Paare teilt er mit Wasserstoffatomen, eines mit dem Chlor.',
     propertyLine:
       'Chlormethan – Methan, bei dem ein Wasserstoff gegen ein Chlor getauscht ist. Chlor behält drei freie Elektronenpaare.',
   },

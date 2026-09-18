@@ -15,8 +15,11 @@ used in German school textbooks rather than university German.
 One constraint that is easy to miss: the tap-to-explain matcher in
 `GlossaryTerm.tsx` finds a term with a JavaScript `\b` word boundary, and `\b`
 only knows ASCII letters. **A match word must therefore start and end with an
-ASCII letter** — umlauts and `ß` inside a word are fine (*Einzelgänger*,
-*Außenelektron*), but a term that begins with *Ä*, *Ö*, *Ü* would never match.
+ASCII letter** — umlauts and `ß` inside a word are fine (*Außenelektron*,
+*Verhältnisformel*), but a term that begins with *Ä*, *Ö*, *Ü* would never
+match. `src/i18n/game-messages.test.ts` asserts this for every match word in
+every game catalogue, so a term that could never open its pop-over fails the
+suite rather than failing silently on screen.
 
 ---
 
@@ -75,7 +78,9 @@ ASCII letter** — umlauts and `ß` inside a word are fine (*Einzelgänger*,
 | valence electrons | **Valenzelektronen** | *Außenelektronen* is the other common term; Valenzelektronen matches the Lewis/VSEPR vocabulary used alongside it. |
 | lone pair | **freies Elektronenpaar** | Not *einsames Elektronenpaar*, which is a calque. |
 | bonding pair / shared pair | **bindendes Elektronenpaar** | The Share to Fill game says "shared pair" where a textbook says "bonding pair"; both are *bindendes Elektronenpaar* in German. Do not introduce a second word (*gemeinsames Elektronenpaar*) for the same thing. |
-| unpaired electron, the game's "loner" | **Einzelgänger** (defined once as *ungepaartes Elektron*) | A coinage, matching the English game's own coinage. The textbook term is *ungepaartes Elektron*, which is accurate and far too heavy to repeat in every coach line for a 14-year-old. Glossed in the game's own word list. **Rated low in `de-review.md`** — if this is rejected, it changes every line of that game. |
+| unpaired electron (formal term) | **ungepaartes Elektron** | The textbook term. Use it in the glossary, on the cheat sheets and anywhere the text is explaining rather than instructing. |
+| the game's "loner" (game word) | **Einzelelektron** | English gives this concept two names — the formal *unpaired electron* and the game's own *loner* — and teaches the pair. German mirrors that instead of collapsing it: *Einzelelektron* is a real chemistry compound noun, transparent to a 14-year-old, light enough to repeat in every coach line, and unambiguously about an electron. **Rejected: *Einzelgänger*.** It is a word for a *person* (a lone wolf), so in a chemistry sentence it reads as cute rather than chemical; German has no playful register here the way English does. Note the gender changes with the word: *das* Einzelelektron, not *der* Einzelgänger. |
+| the short label on a pulsing dot | **einzeln** | The canvas has room for one word beside a dot. *einzeln* is the adjective of the same idea; the noun is in the coach line and the glossary. Present at Level 1 and off from Level 2 — the label is a scaffold the brief removes on purpose. |
 | outer electron | **Außenelektron** | The transparent everyday word, used in the game's running text; *Valenzelektron* stays the formal term and the two are glossed together. |
 | octet (eight outer electrons) | **Oktett** | — |
 | duet (hydrogen's two) | **Duett** | German school chemistry has no settled word; it says *Edelgaskonfiguration des Heliums* or nothing at all. *Duett* mirrors the English coinage and fits a glossary chip. **Rated low.** |

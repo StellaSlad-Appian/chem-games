@@ -369,11 +369,12 @@ The four language checks are run as part of that work.
 | Locale | Title | Kind | Hub description | Notes / alternative |
 |---|---|---|---|---|
 | en | Share to Fill | — | Pair up the loners to build a molecule. | The title is the rule (rev 3 decision). |
-| de | Schalen füllen | adaptation | Bring die Einzelgänger zusammen und baue ein Molekül. | Proposal: names the rule (fill the shells) in the imperative pattern the German hub already uses (*Neutralisieren!*). A literal *Teilen* is avoided because it also means *divide*. Alternative: *Volle Schale*. Check it does not read as a chore. > YOU DECIDE |
+| de | Schalen füllen | adaptation | Verbinde die Einzelelektronen zu einem Molekül. | Proposal: names the rule (fill the shells) in the imperative pattern the German hub already uses (*Neutralisieren!*). A literal *Teilen* is avoided because it also means *divide*. Alternative: *Volle Schale*. Check it does not read as a chore. > YOU DECIDE |
 | fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
 
 **Terms to fix in each glossary before translating:** the coined **loner** (unpaired electron —
-de candidates: *Einzelgänger* as the game word, glossed as *ungepaartes Elektron*; decide one),
+de: decided — *ungepaartes Elektron* as the formal term, *Einzelelektron* as the game word,
+*einzeln* as the short canvas label; *Einzelgänger* was rejected as a word for a person),
 lone pair (*freies Elektronenpaar*), shared pair / bond (*bindendes Elektronenpaar* /
 *Atombindung*), single / double / triple bond, octet and **duet** (de: *Oktettregel*; the
 hydrogen "full at 2" rule — *Duett-Regel* or *Edelgasregel*, decide), outer / valence electron

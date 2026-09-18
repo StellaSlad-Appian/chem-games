@@ -242,8 +242,13 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     },
     {
       prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: '**"Einzelgänger" is a coinage.** The English game invents "loner" for an unpaired outer electron and glosses it; German has no such playful word, so this borrows the everyday one for a lone wolf. It is the single most-repeated word in the game — it appears in the instructions, every coach line, every hint and the canvas labels — so if a German teacher dislikes it, the change is large. The safe alternative is the textbook "ungepaartes Elektron", which is accurate and much heavier for a 14-year-old. Decide this one deliberately.',
+      confidence: 'medium',
+      note: 'German mirrors English\'s two tiers rather than picking one word: **"ungepaartes Elektron"** is the formal term (glossary, cheat sheet, prose), **"Einzelelektron"** is the game word (hub line, coach, hints, canvas), and **"einzeln"** is the short label on a dot. "Einzelelektron" is a real chemistry compound noun, transparent to a 14-year-old, and unambiguously about an electron. **It replaced "Einzelgänger", which was rejected:** that is a word for a *person* (a lone wolf), so it reads as cute rather than chemical, and German has no playful register for this the way English does for "loner". The remaining risk is register, not accuracy: a teacher may want the textbook term throughout.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.lonerLabel',
+      confidence: 'medium',
+      note: 'The label printed on a pulsing dot at Level 1 (off from Level 2 — the scaffold is meant to be removed). "einzeln" rather than the full "Einzelelektron" because it has to fit beside a dot: it is the adjective, and the noun it abbreviates is on screen in the coach line and in the glossary. Check it reads as "on its own" rather than "individually" in context.',
     },
     {
       prefix: 'games.lewisStructures.glossary.duet',
@@ -369,9 +374,13 @@ Ranked, honestly:
 2. **Register in the playful copy.** Overlay messages, empty states and the
    marketing hero are where a non-native translation reads as "correct but
    flat". None of it is wrong; some of it may be charmless.
-3. **"Einzelgänger".** The word Share to Fill is built on. It is the right
-   register and it is not a German chemistry word; if a teacher rejects it the
-   edit touches every line of that game.
+3. **"Einzelelektron" / "einzeln".** The word Share to Fill is built on, in
+   every coach line, every hint and on the canvas. It replaced "Einzelgänger",
+   which was a word for a *person* and read as cute rather than chemical. The
+   split mirrors the English: "ungepaartes Elektron" is the formal term in the
+   glossary, "Einzelelektron" is the game word, "einzeln" is the dot label.
+   Accuracy is no longer the worry; register is. If a teacher wants the
+   textbook term throughout, the edit still touches every line of that game.
 4. **Game titles.** Four coinages now, no strong opinion behind any of them.
    "Teilen bis voll" is the weakest.
 5. **The privacy page.** Legally unreviewed, and describing Australian law.
