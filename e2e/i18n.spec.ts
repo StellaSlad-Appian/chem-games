@@ -12,6 +12,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { en } from '../src/i18n/dictionaries/en';
 import { de } from '../src/i18n/dictionaries/de';
 import { fr } from '../src/i18n/dictionaries/fr';
+import { es } from '../src/i18n/dictionaries/es';
 import { LOCALE_COOKIE } from '../src/i18n/config';
 import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
 import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
@@ -109,7 +110,7 @@ test.describe('hreflang alternates', () => {
       .locator('link[rel="alternate"][hreflang]')
       .evaluateAll((links) => links.map((link) => link.getAttribute('hreflang')));
 
-    expect(hreflangs).toEqual(expect.arrayContaining(['en', 'de', 'fr', 'x-default']));
+    expect(hreflangs).toEqual(expect.arrayContaining(['en', 'de', 'fr', 'es', 'x-default']));
   });
 
   test('the canonical points at the locale being viewed', async ({ page }) => {
@@ -614,5 +615,278 @@ test.describe('French rendering: La balance des atomes', () => {
 
     await expect(page.getByTestId('round-complete')).toContainText(balancerFr.success.label);
     await expect(page.getByRole('button', { name: balancerFr.ui.nextReaction })).toBeVisible();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Spanish
+// ---------------------------------------------------------------------------
+//
+// Same shape as the French block: the redirect, Accept-Language negotiation,
+// `<html lang>`, one page of each type, and both catalogue games. The unit
+// gates prove completeness; this proves the wiring.
+//
+// Spanish needs none of French's `looseText()` tolerance — it puts no space
+// before `:` `;` `!` `?`, so a dictionary string reaches an accessible name
+// unchanged. What it does need is that the opening `¿` and `¡` survive, which
+// is why the title and question assertions below are built from the dictionary
+// rather than from string literals.
+
+test.describe('Spanish negotiation and routing', () => {
+  test('a Spanish browser is sent to the Spanish site', async ({ browser }) => {
+    const context = await browser.newContext({ locale: 'es-ES' });
+    const page = await context.newPage();
+    await page.goto('/games');
+
+    await expect(page).toHaveURL(/\/es\/games$/);
+    await expect(page.getByRole('heading', { level: 1, name: es.gamesHub.heading })).toBeVisible();
+    expect(await htmlLang(page)).toBe('es');
+
+    await context.close();
+  });
+
+  test('a Latin American variant resolves to the same base language', async ({ browser }) => {
+    // es-419 is not a separate locale here: the site ships peninsular Spanish
+    // under a plain `es` tag, and a Mexican browser gets it. That is the
+    // decision recorded at the top of docs/i18n/glossary-es.md, and this test
+    // is where it is visible as behaviour rather than as prose.
+    const context = await browser.newContext({ locale: 'es-MX' });
+    const page = await context.newPage();
+    await page.goto('/cheat-sheets');
+    await expect(page).toHaveURL(/\/es\/cheat-sheets$/);
+    await context.close();
+  });
+
+  test('an unprefixed URL redirects and the switcher remembers Spanish', async ({ page }) => {
+    await page.goto(path('/games'));
+    await (await languageSwitcher(page, en.language.label)).selectOption('es');
+    await expect(page).toHaveURL(/\/es\/games$/);
+
+    // A bookmark, a shared link, or just typing the bare domain.
+    await page.goto('/cheat-sheets');
+    await expect(page).toHaveURL(/\/es\/cheat-sheets$/);
+  });
+
+  test('html lang is set on a game page too, not just the marketing pages', async ({ page }) => {
+    await page.goto(path('/games/reaction-balancer', 'es'));
+    await expect(page.locator('main.game-shell')).toBeVisible();
+    expect(await htmlLang(page)).toBe('es');
+  });
+});
+
+test.describe('Spanish rendering', () => {
+  test('the hub', async ({ page }) => {
+    await page.goto(path('/games', 'es'));
+    await expect(page.getByRole('heading', { level: 1, name: es.gamesHub.heading })).toBeVisible();
+    await expect(page.getByText(es.gamesHub.intro)).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: new RegExp(es.gamesHub.balancerTitle) })
+    ).toBeVisible();
+  });
+
+  test('a game, including its instructions modal', async ({ page }) => {
+    await page.goto(path('/games/acid-classification', 'es'));
+    await expect(page.locator('main.game-shell')).toBeVisible();
+
+    await expect(page.getByText(es.games.acidClassification.subtitle)).toBeVisible();
+    await expect(page.getByRole('button', { name: es.chemistry.acid, exact: true })).toBeVisible();
+
+    await page.locator('footer').getByTitle(es.games.shared.howToPlay).click();
+    await expect(
+      page.getByRole('heading', { name: es.games.acidClassification.instructionsTitle })
+    ).toBeVisible();
+    await page.getByRole('button', { name: es.games.shared.gotIt }).click();
+  });
+
+  test('the cheat-sheet index, including its category and year-level labels', async ({ page }) => {
+    // Phase 1 shipped category pills still rendering in English, and looking is
+    // what caught it — so this asserts a label of each kind, not just the page.
+    await page.goto(path('/cheat-sheets', 'es'));
+    await expect(
+      page.getByRole('heading', { level: 1, name: es.cheatSheets.heading })
+    ).toBeVisible();
+    await expect(page.getByText(es.cheatSheetCategories.Fundamentals).first()).toBeVisible();
+    await expect(page.getByText(es.yearLevels['Year 9'], { exact: true }).first()).toBeVisible();
+  });
+
+  test('a cheat sheet, with its formulae left untranslated', async ({ page }) => {
+    await page.goto(path('/cheat-sheets/acids-and-bases', 'es'));
+
+    await expect(page.getByRole('heading', { level: 1, name: 'Ácidos y bases' })).toBeVisible();
+    await expect(page.getByText(es.cheatSheets.keyConcepts)).toBeVisible();
+    await expect(page.getByText(es.cheatSheets.watchOutFor)).toBeVisible();
+
+    // Compound names are translated ("Hydrochloric acid" -> "Ácido clorhídrico")…
+    await expect(page.getByText('Ácido clorhídrico (fuerte)')).toBeVisible();
+    // …while the formulae they label are not.
+    await expect(page.locator('body')).toContainText('NaOH');
+    await expect(page.locator('body')).toContainText('CH3COOH');
+  });
+
+  test('the Lewis cheat sheet keeps all four sections in step', async ({ page }) => {
+    // The German overlay shipped three section overlays against four English
+    // sections, which does not render short — it shifts every heading onto the
+    // wrong body. The unit gate now asserts the count; this checks the rendered
+    // result, because the failure mode is visual.
+    await page.goto(path('/cheat-sheets/lewis-structures', 'es'));
+
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Estructuras de Lewis' })
+    ).toBeVisible();
+    // The first section is the Year 10 layer, and its body must sit under its
+    // own heading rather than under the five steps.
+    // Headings specifically, not text: the first section's *body* names the
+    // other three ("…carga formal, geometría RPECV, excepciones al octeto…"),
+    // so a text match finds two elements. That overlap is itself the check —
+    // it can only happen when section 1 has its own prose, which is precisely
+    // what the German bug removed.
+    for (const heading of [
+      'Lo imprescindible de 4º de ESO',
+      'Los cinco pasos',
+      'De la estructura de Lewis a la geometría (RPECV)',
+      'Excepciones al octeto',
+    ]) {
+      await expect(page.getByRole('heading', { name: heading })).toBeVisible();
+    }
+    // No English left behind at the end of the run of sections.
+    await expect(page.locator('body')).not.toContainText('Exceptions to the octet');
+  });
+
+  test('the game overlay', async ({ page }) => {
+    await openGame(page, 'reaction-balancer', { locale: 'es' });
+
+    await page.locator('footer').getByTitle(es.games.shared.pause).click();
+    const dialog = page.getByRole('dialog', { name: es.games.overlay.pausedTitle });
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('link', { name: es.games.overlay.quitToHub })).toHaveAttribute(
+      'href',
+      '/es/games'
+    );
+  });
+
+  test('the sign-in page renders in Spanish and links stay prefixed', async ({ page }) => {
+    await page.goto(path('/auth', 'es'));
+
+    await expect(page.getByRole('heading', { name: es.auth.loginTitle })).toBeVisible();
+    await expect(page.getByLabel(es.auth.email)).toBeVisible();
+    await expect(page.getByRole('link', { name: es.auth.backToGames })).toHaveAttribute(
+      'href',
+      '/es'
+    );
+  });
+
+  test('the leaderboards page renders in Spanish', async ({ page }) => {
+    await page.goto(path('/leaderboards', 'es'));
+    await expect(
+      page.getByRole('heading', { level: 1, name: es.leaderboards.heading })
+    ).toBeVisible();
+  });
+});
+
+const lewisEs = lewisMessages(es, 'es');
+const balancerEs = reactionBalancerMessages(es, 'es');
+
+test.describe('Spanish rendering: Comparte y completa', () => {
+  test('the header, the coach and the canvas all name the molecule in Spanish', async ({
+    page,
+  }) => {
+    await openGame(page, 'lewis-structures', { locale: 'es' });
+    await expect(page).toHaveURL(/\/es\/games\/lewis-structures$/);
+    expect(await htmlLang(page)).toBe('es');
+
+    // Like French, Spanish names the *substance* differently from the
+    // *element*: H is hidrógeno, H2 is dihidrógeno. This is the seam between
+    // the catalogue and the chemistry-name overlay.
+    await expect(page.getByText(lewisEs.header.build('dihidrógeno', 'H2'))).toBeVisible();
+    await expect(page.getByText(lewisEs.header.progress(1, 3))).toBeVisible();
+    // The game word for an unpaired outer electron. Spanish uses 'impar' — NOT
+    // 'solitario', which is already the Spanish for a lone pair (*par
+    // solitario*), so using it here would collide with the very distinction
+    // this game teaches. See docs/i18n/glossary-es.md § El «loner».
+    await expect(page.getByTestId('coach-panel')).toContainText('impar');
+
+    await expect(page.getByLabel(lewisEs.ui.canvasLabel('dihidrógeno'))).toBeVisible();
+  });
+
+  test('the instructions modal and its glossary are Spanish', async ({ page }) => {
+    await openGame(page, 'lewis-structures', { locale: 'es', showLewisIntro: true });
+
+    await expect(page.getByRole('heading', { name: lewisEs.instructions.title })).toBeVisible();
+    await expect(page.getByText(lewisEs.instructions.lead)).toBeVisible();
+    await expect(page.getByText(lewisEs.instructions.glossaryTitle)).toBeVisible();
+
+    // Tap-to-explain is matched against Spanish word forms. Where French had to
+    // put the chip on a single later word because the ASCII \b cannot find a
+    // term starting with "é", Spanish can use the whole phrase: its accents are
+    // medial, so "par solitario" and "electrón externo" both begin and end with
+    // an ASCII letter.
+    await page.getByRole('button', { name: 'par solitario' }).first().click();
+    await expect(page.getByRole('tooltip')).toContainText('no se comparten');
+
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('tooltip')).toBeHidden();
+
+    await page.getByRole('button', { name: es.games.shared.gotIt }).click();
+    await expect(page.getByRole('heading', { name: lewisEs.instructions.title })).toBeHidden();
+  });
+
+  test('a shared pair announces itself in Spanish and the round locks', async ({ page }) => {
+    await openGame(page, 'lewis-structures', { locale: 'es' });
+    await waitForHydration(page);
+
+    const loner = (atomId: string) =>
+      page
+        .locator(`[data-atom-id="${atomId}"]`)
+        .getByRole('button', { name: /impar \d+ de \d+/ })
+        .first();
+
+    await loner('a0').click();
+    await loner('a1').click();
+
+    await expect(page.getByTestId('round-complete')).toContainText(
+      lewisEs.success.round('Dihidrógeno', 'H-H')
+    );
+    await expect(page.getByRole('button', { name: lewisEs.ui.nextMolecule })).toBeVisible();
+  });
+});
+
+test.describe('Spanish rendering: La balanza de átomos', () => {
+  test('the ledger, the cards and the coach are Spanish, and the equation is not', async ({
+    page,
+  }) => {
+    await openGame(page, 'reaction-balancer', { locale: 'es' });
+    await expect(page).toHaveURL(/\/es\/games\/reaction-balancer$/);
+
+    await expect(page.getByText(balancerEs.header.balance('Síntesis del agua'))).toBeVisible();
+
+    // Element names in the ledger come from the chemistry-names overlay.
+    const oxygenRow = page.locator('[data-testid="ledger-row"][data-element="O"]');
+    await expect(oxygenRow).toContainText('Oxígeno');
+    await expect(oxygenRow).toContainText(balancerEs.ledger.needsMore(1, 'right'));
+    await expect(page.getByTestId('coach-panel')).toContainText(
+      balancerEs.coach.imbalance('Oxígeno', 2, 1)
+    );
+
+    // Species names on the cards come from the same overlay…
+    await expect(
+      page.getByLabel(balancerEs.card.coefficient('Agua', 'H2O'), { exact: true })
+    ).toBeVisible();
+    // …and the formulae on them are international notation, untouched.
+    await expect(page.locator('[data-testid="compound-card"][data-formula="H2O"]')).toBeVisible();
+  });
+
+  test('balancing it through announces and locks in Spanish', async ({ page }) => {
+    await openGame(page, 'reaction-balancer', { locale: 'es' });
+    await waitForHydration(page);
+
+    const card = (formula: string) =>
+      page.locator(`[data-testid="compound-card"][data-formula="${formula}"]`);
+    await card('H2O').getByRole('button', { name: balancerEs.card.increase('Agua') }).click();
+    await card('H2')
+      .getByRole('button', { name: balancerEs.card.increase('Dihidrógeno') })
+      .click();
+
+    await expect(page.getByTestId('round-complete')).toContainText(balancerEs.success.label);
+    await expect(page.getByRole('button', { name: balancerEs.ui.nextReaction })).toBeVisible();
   });
 });
