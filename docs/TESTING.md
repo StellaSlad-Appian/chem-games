@@ -249,16 +249,25 @@ with nothing visibly wrong.
 | Scenario | Test |
 | --- | --- |
 | Key parity, empty values, dropped placeholders, strings left identical to English, formulae altered in translation | `src/i18n/dictionary.test.ts` |
-| Every element, compound and ion named in every locale | `src/i18n/chemistry-names.test.ts` |
+| Every element, compound, ion, species, reaction and Lewis molecule translated in every locale; equations and bond lines byte-identical | `src/i18n/chemistry-names.test.ts` |
+| Plural forms selected by CLDR category, including languages with three, four and one form | `src/i18n/plural.test.ts` |
 | Cheat-sheet overlays line up with the English structure; formulae, slugs and URLs unchanged | `src/i18n/cheat-sheets.test.ts` |
 | `Accept-Language` parsing, q-values, regional fallback, cookie precedence | `src/i18n/locale-match.test.ts` |
 | Prefix/strip round-trips, the unprefixed-path list | `src/i18n/routing.test.ts` |
 | **Supabase auth cookies surviving the locale redirect**, negotiation, query preservation | `src/proxy.test.ts` |
 | Redirect, negotiation in a real browser, the switcher (including by keyboard), `<html lang>`, `hreflang`, German rendering, auth under a prefix | `e2e/i18n.spec.ts` |
+| Share to Fill and Reaction Balancer rendered in German end to end — the catalogue copy, the names from the chemistry overlay, the glossary pop-over, and the formulae left alone | `e2e/i18n.spec.ts` "German rendering: …" |
 
 Component tests render in English by default — `renderWithProviders()` supplies the
 `I18nProvider` — so assertions written against the English copy keep working. Pass a
 `locale` and `dictionary` to `TestProviders` to assert on a translation.
+
+The two games whose copy lives in a message catalogue build it from a dictionary, so a
+test that wants to assert on the copy builds the same thing explicitly:
+`lewisMessages(en, 'en')` / `reactionBalancerMessages(en, 'en')`. There is no module-level
+`LEWIS_MESSAGES` any more — a component or hook reads `useLewisMessages()` /
+`useBalancerMessages()`, which throw outside the provider rather than falling back to
+English.
 
 Full details in [`docs/i18n/README.md`](./i18n/README.md).
 

@@ -16,8 +16,12 @@ interface CoachPanelProps {
   children?: ReactNode;
   /** Wraps the message text, e.g. to make glossary terms tappable. */
   renderText?: (text: string) => ReactNode;
-  /** Screen-reader name of the live region. */
-  regionLabel?: string;
+  /**
+   * Screen-reader name of the live region. Required, not defaulted: an English
+   * default here would be invisible on a German page, because nothing renders
+   * it and no test reads it.
+   */
+  regionLabel: string;
   className?: string;
 }
 
@@ -40,7 +44,7 @@ export default function CoachPanel({
   tone = 'coach',
   children,
   renderText,
-  regionLabel = 'Coach messages',
+  regionLabel,
   className = '',
 }: CoachPanelProps) {
   const { border, text, Icon } = TONES[tone];

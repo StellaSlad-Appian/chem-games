@@ -11,7 +11,7 @@ describe('CoachPanel', () => {
   });
 
   it('shows the label and message, carrying the tone in text and icon as well as colour', () => {
-    render(<CoachPanel message="Oxygen still has 2 loners." label="Coach" tone="error" />);
+    render(<CoachPanel message="Oxygen still has 2 loners." label="Coach" tone="error" regionLabel="Coach messages" />);
     expect(screen.getByText('Coach')).toBeInTheDocument();
     expect(screen.getByText('Oxygen still has 2 loners.')).toBeInTheDocument();
     expect(screen.getByTestId('coach-panel').querySelector('[data-tone="error"]')).not.toBeNull();
@@ -19,7 +19,12 @@ describe('CoachPanel', () => {
 
   it('renders the message through renderText and any child controls', () => {
     render(
-      <CoachPanel message="Pair the loners." label="Guide" renderText={(t) => <em>{t.toUpperCase()}</em>}>
+      <CoachPanel
+        message="Pair the loners."
+        label="Guide"
+        regionLabel="Coach messages"
+        renderText={(t) => <em>{t.toUpperCase()}</em>}
+      >
         <button type="button">Skip guide</button>
       </CoachPanel>
     );
