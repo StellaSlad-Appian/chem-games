@@ -97,3 +97,31 @@ No timer.
 2. Which functional groups are in your syllabus for naming (esters and amines are often named
    differently)?
 3. Is cis/trans (or E/Z) required?
+
+## Languages
+
+Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
+above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
+Resolve the table before `Approved`.
+
+| Locale | Title | Kind | Hub description | Notes / alternative |
+|---|---|---|---|---|
+| en | Carbon Chain Namer | — | Build the IUPAC name of a molecule from its structure — and the structure from its name. | Proposal. > YOU DECIDE |
+| de | Ketten benennen | adaptation | Baue den IUPAC-Namen eines Moleküls aus seiner Struktur – und die Struktur aus dem Namen. | The imperative pattern the German hub uses; *Namer* has no German equivalent. Alternative: *Kohlenstoff-Namer* (a coinage, like *Formel-Blaster*). > YOU DECIDE |
+| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+
+**This game *is* naming, so every locale is a content design, not a translation.** The token
+tray, the validator and the answer key are per-locale datasets keyed by molecule id: IUPAC
+roots and suffixes differ (*-oic acid* → de *-säure*, fr *acide …-oïque*, es/it *ácido/acido
+…-oico*, ru *…-овая кислота*), esters are built differently (de *Ethansäuremethylester*, fr
+*éthanoate de méthyle*), locant punctuation and alphabetical ordering of substituents follow
+that language, and Cyrillic changes the tokens entirely. A chemistry teacher who teaches in
+that language checks the rules and the answer key (`docs/i18n/GAMES.md` check 3). Budget for
+this when the locale is added: it is the largest per-locale cost of any brief.
+**Terms to fix in each glossary before translating:** longest chain / root, saturation
+(alkane / alkene / alkyne — de *Alkin*, not *Alkyn*), substituent, locant (de prose: *Nummer*),
+functional-group suffix, the coined **token tray**.
+**Chemistry names the game introduces:** every molecule in `organic-molecules.ts` (shared with
+Synthesis Router) — name per locale by id.
+**Dataset prose to overlay:** the per-molecule hints and the diagnostic explanations.
+**Count-dependent strings:** "{n} carbons", "carbons {a}–{b}".
