@@ -101,3 +101,33 @@ have text equivalents ("tetra- → 4 oxygen atoms"). No timer.
 1. Tray size per level (4? 6?) — cognitive load.
 2. Include hydrates (CuSO₄·5H₂O) as a Senior extension?
 3. Should Mode B Level 5 (molecular/acid naming) be here or deferred to a later "Covalent Namer"?
+
+## Languages
+
+Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
+above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
+Resolve the table before `Approved`.
+
+| Locale | Title | Kind | Hub description | Notes / alternative |
+|---|---|---|---|---|
+| en | Ion Forge | — | Forge formulas and names from ions that balance. | Proposal. > YOU DECIDE |
+| de | Ionenschmiede | translation | Schmiede Formeln und Namen aus Ionen, deren Ladungen sich ausgleichen. | A natural compound with the same forge image. Alternative: keep *Ion Forge*. > YOU DECIDE |
+| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+
+**Mode B is naming, so it is designed per language, not translated.** The English rules the
+game teaches (*-ide*, *-ate/-ite*, *hypo-/per-*, Roman numerals, *mono-/di-/tri-* for
+molecular compounds, hydrate prefixes) have different forms in each language (de: *-id*,
+*-at/-it*, *Kupfer(II)-sulfat*, *Pentahydrat*; the Romance languages put the anion first
+(*chlorure de sodium*, *cloruro de sodio*); Russian puts the cation in the genitive after the
+anion (*хлорид натрия*)). Each locale's token tray, answer key and diagnostics therefore come
+from a per-locale naming dataset, keyed by compound id, and the naming rules are reviewed by a
+chemistry teacher who teaches in that language (`docs/i18n/GAMES.md` check 3).
+**Terms to fix in each glossary before translating:** cation / anion, polyatomic ion (de:
+*mehratomiges Ion*), formula of an ionic compound (de: *Verhältnisformel* — not *Molekülformel*),
+charge balance, the coined **forge** and **tray**, transition-metal charge (Roman numeral),
+hydrate, net charge.
+**Chemistry names the game introduces:** none beyond `ions.ts` (already in the overlays) and
+the compounds it forms — every formed compound needs an id and a name per locale.
+**Dataset prose to overlay:** the Mode B rule explanations and diagnostic explanations per
+compound; the tray labels.
+**Count-dependent strings:** "net charge {n}", "{n} oxygen atoms".

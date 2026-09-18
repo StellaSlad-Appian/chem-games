@@ -104,8 +104,11 @@ written reason), **COULD** (nice to have).
   `generateComparativeError()` in Formula Blaster is the model.
 - **MUST** Consistent placement: header (progress/task/stats/exit) and footer (help/pause/settings)
   in every game (3.2.3). Don't move the pause button.
-- **SHOULD** `<html lang="en">` set in the root layout (verify), and chemistry terms spelled
-  consistently with the platform's convention (British: *neutralise*, *sulfur* per IUPAC).
+- **MUST** `<html lang>` matches the locale in the URL (`src/app/[lang]/layout.tsx` sets it
+  from `LOCALES`), so a screen reader picks the right voice; every game's text exists in every
+  locale (`docs/i18n/GAMES.md`). Chemistry terms are spelled consistently with the platform's
+  convention per language (English: British *neutralise*, *sulfur* per IUPAC; other locales:
+  `docs/i18n/glossary-<locale>.md`).
 - **SHOULD** Avoid long ALL-CAPS text and justified text; keep line length ≤ 75 characters.
 
 ## 6. Robust

@@ -104,3 +104,11 @@ Every test result has a text description and icon; reagent drop has a click alte
 1. Ship Tier 1 first as a quick win, or go straight to Tier 2?
 2. Which tests are in your syllabus? (Tollens'/2,4-DNP vary by curriculum.)
 3. Include esters/amines/amides at all at this level?
+
+## Languages
+
+Not for build (options record). If the Tier 1 classifier ever ships as a fluency drill it
+follows `docs/i18n/GAMES.md` like any game: a title per locale in this table (en *Reagent
+Bench*; de proposal *Reagenzientisch* — *Bank* would read as a financial bank), the test names
+and observations translated with the colours and reagents in each language, formulae untouched,
+and the functional-group names from the glossary.
