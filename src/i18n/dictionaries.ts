@@ -19,6 +19,7 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from './config';
 const loaders: Record<Locale, () => Promise<Dictionary>> = {
   en: () => import('./dictionaries/en').then((module) => module.en),
   de: () => import('./dictionaries/de').then((module) => module.de),
+  fr: () => import('./dictionaries/fr').then((module) => module.fr),
 };
 
 /**

@@ -20,6 +20,8 @@ import { gameMessages as balancerMessagesFor } from './game-messages/reaction-ba
 import { gameMessages as lewisMessagesFor } from './game-messages/lewis-structures';
 import { de as balancerDe } from './game-messages/reaction-balancer/de';
 import { de as lewisDe } from './game-messages/lewis-structures/de';
+import { fr as balancerFr } from './game-messages/reaction-balancer/fr';
+import { fr as lewisFr } from './game-messages/lewis-structures/fr';
 import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
 
 /**
@@ -44,6 +46,24 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     /^challenge\.tileA11y$/,
     /^glossary\.stateSymbols\.term$/,
   ],
+  fr: [
+    // "Coach" is an established French loanword and names a thing in the
+    // game, so it reads the same way in both languages. "Challenge" is not:
+    // French has « Défi » and uses it, so challenge.label is a real
+    // translation here where the German one was not.
+    /^coach\.label$/,
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^challenge\.tileA11y$/,
+    /^glossary\.stateSymbols\.term$/,
+    // "coefficient" is spelled identically in French and English, so the
+    // glossary term and both of its match words coincide. This is the
+    // distinction the whole game teaches, so it is worth being explicit
+    // that the French really is "coefficient" and not an oversight.
+    /^glossary\.coefficient\.(term|matches\[\d+\])$/,
+    // "Points" as a column heading.
+    /^notebook\.columnPoints$/,
+  ],
 };
 
 const LEWIS_IDENTICAL_BY_DESIGN = {
@@ -55,17 +75,29 @@ const LEWIS_IDENTICAL_BY_DESIGN = {
     /^notebook\.diagnosisRow$/,
     /^ui\.atomOrdinal$/,
   ],
+  fr: [
+    /^coach\.label$/,
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^notebook\.diagnosisRow$/,
+    /^ui\.atomOrdinal$/,
+    // "octet", "duet" and "point(s)" are the same words in French. The
+    // duet in particular is worth noting: German had to coin one, while
+    // French school chemistry already teaches « la règle du duet ».
+    /^glossary\.(octet|duet)\.(term|matches\[\d+\])$/,
+    /^glossary\.dot\.matches\[\d+\]$/,
+  ],
 };
 
 describeTranslationParity('reaction-balancer catalogue', {
   source: REACTION_BALANCER_MESSAGES,
-  translations: { de: balancerDe },
+  translations: { de: balancerDe, fr: balancerFr },
   identicalByDesign: BALANCER_IDENTICAL_BY_DESIGN,
 });
 
 describeTranslationParity('lewis-structures catalogue', {
   source: LEWIS_STRUCTURES_MESSAGES,
-  translations: { de: lewisDe },
+  translations: { de: lewisDe, fr: lewisFr },
   identicalByDesign: LEWIS_IDENTICAL_BY_DESIGN,
 });
 
@@ -109,7 +141,10 @@ describe.each(GAMES)('$slug catalogue loader', ({ load, english }) => {
 
   it('throws rather than falling back to English for a locale it has no file for', () => {
     // A silent fallback is how a half-translated game ships unnoticed.
-    expect(() => load('fr')).toThrow(/catalogue/i);
+    // 'xx' rather than a real language code: this used to say 'fr', which
+    // stopped being a locale-with-no-file the moment French shipped. A code
+    // that is not in the Phase 2 roadmap cannot be overtaken the same way.
+    expect(() => load('xx')).toThrow(/catalogue/i);
   });
 });
 

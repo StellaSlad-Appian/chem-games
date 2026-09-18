@@ -11,10 +11,11 @@
 import { describe, expect, it } from 'vitest';
 import { en } from './dictionaries/en';
 import { de } from './dictionaries/de';
+import { fr } from './dictionaries/fr';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
 import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
 
-const dictionaries: Record<Locale, unknown> = { en, de };
+const dictionaries: Record<Locale, unknown> = { en, de, fr };
 const translations = Object.fromEntries(
   LOCALES.filter((locale) => locale !== DEFAULT_LOCALE).map((locale) => [
     locale,
@@ -55,6 +56,29 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // happens to be entirely different, so nothing is exempted here — this
     // entry exists to document that `meta.keywords` is intentionally NOT
     // compared as a translation of the English list.
+  ],
+  fr: [
+    // Brand, product and company names.
+    /^meta\.siteName$/,
+    /^privacy\.processor(Supabase|Resend|Google)Label$/,
+    // Words French spells exactly as English does.
+    /^settings\.audio$/,
+    /^profile\.alias$/,
+    /^leaderboards\.points$/,
+    /^games\.(shared\.score|overlay\.statScore)$/,
+    // Chemistry terms that are the same word in both languages. Note that
+    // French, unlike German, does translate "neutral" (neutre) — only "base"
+    // coincides.
+    /^chemistry\.base$/,
+    // A category label that is the same word in both languages.
+    /^cheatSheetCategories\.Nomenclature$/,
+    // Keyboard glyphs and single digits used as <kbd> labels. The first column
+    // of an instructions key table is the physical key, so it never translates;
+    // the second column, which says what the key does, always does.
+    /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
+    // As for German, `meta.keywords` is deliberately NOT exempted: the French
+    // list is chosen for French search behaviour rather than translated, and it
+    // happens to share no entry with the English one.
   ],
 };
 

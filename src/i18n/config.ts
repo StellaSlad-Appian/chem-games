@@ -12,7 +12,7 @@
  *
  * Phase 1 ships English and German. Phase 2 adds 'fr', 'es', 'it', 'ru'.
  */
-export const LOCALES = ['en', 'de'] as const;
+export const LOCALES = ['en', 'de', 'fr'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -38,6 +38,7 @@ export const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: 'English',
   de: 'Deutsch',
+  fr: 'Français',
 };
 
 export function isLocale(value: unknown): value is Locale {

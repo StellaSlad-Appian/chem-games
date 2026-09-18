@@ -90,6 +90,13 @@ describe.each(translatedLocales)('chemistry names: %s', (locale) => {
     // Titanium/Titan aside, the whole Latin-derived tail), so a high overlap is
     // correct chemistry rather than a sign of laziness. What matters is that
     // the well-known false friends were handled.
+    //
+    // Which names count as false friends is a property of the *pair* of
+    // languages, not of translation in general. Na/Natrium and K/Kalium are the
+    // textbook examples in German and are simply not false friends in French,
+    // which says sodium and potassium exactly as English does. Listing them
+    // globally would force a French translator to invent a wrong name to pass a
+    // test, so the exemptions are per locale.
     const mustDiffer: Record<string, string> = {
       Na: 'Sodium',
       K: 'Potassium',
@@ -106,19 +113,42 @@ describe.each(translatedLocales)('chemistry names: %s', (locale) => {
       Sn: 'Tin',
       S: 'Sulfur',
     };
+    /** Symbols whose name legitimately matches the English in this locale. */
+    const SAME_AS_ENGLISH: Record<string, string[]> = {
+      fr: ['Na', 'K'],
+    };
+    const exempt = new Set(SAME_AS_ENGLISH[locale] ?? []);
     const notTranslated = Object.entries(mustDiffer)
+      .filter(([symbol]) => !exempt.has(symbol))
       .filter(([symbol, english]) => elementName(locale, symbol) === english)
       .map(([symbol]) => symbol);
 
     expect(notTranslated).toEqual([]);
 
     // The compound names, on the other hand, should differ almost everywhere,
-    // because German builds them by composition (Natriumhydroxid) where
-    // English uses two words.
+    // because German builds them by composition (Natriumhydroxid) and French
+    // inverts the order and adds "de" (hydroxyde de sodium) where English uses
+    // two words in the other order.
+    //
+    // One exception, documented the same way IDENTICAL_BY_DESIGN documents the
+    // dictionary's: N2H4 is *hydrazine* in French as well as in English. The
+    // check still runs on the other 34 compounds.
+    const IDENTICAL_COMPOUNDS_BY_DESIGN: Record<string, string[]> = {
+      fr: ['23'],
+    };
+    const allowed = new Set(IDENTICAL_COMPOUNDS_BY_DESIGN[locale] ?? []);
     const identicalCompounds = COMPOUNDS_REGISTRY.filter(
-      (compound) => compoundName(locale, compound) === compound.name
+      (compound) => !allowed.has(compound.id) && compoundName(locale, compound) === compound.name
     ).map((compound) => compound.formula);
     expect(identicalCompounds).toEqual([]);
+
+    // And the allowlist cannot rot: an entry that stops being identical is a
+    // stale exemption, so it is asserted rather than merely tolerated.
+    const staleExemptions = [...allowed].filter((id) => {
+      const compound = COMPOUNDS_REGISTRY.find((c) => c.id === id);
+      return !compound || compoundName(locale, compound) !== compound.name;
+    });
+    expect(staleExemptions).toEqual([]);
   });
 
   it('never returns an empty name', () => {
