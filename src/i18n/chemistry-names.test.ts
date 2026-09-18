@@ -125,6 +125,15 @@ describe.each(translatedLocales)('chemistry names: %s', (locale) => {
 
     expect(notTranslated).toEqual([]);
 
+    // An exemption is a positive claim — "French really does call Na *sodium*"
+    // — so it is asserted rather than merely tolerated. If the overlay ever
+    // gave one of these a different name, the entry would be silently
+    // suppressing a real check; this fails instead and says to delete it.
+    const staleElementExemptions = [...exempt].filter(
+      (symbol) => elementName(locale, symbol) !== mustDiffer[symbol]
+    );
+    expect(staleElementExemptions).toEqual([]);
+
     // The compound names, on the other hand, should differ almost everywhere,
     // because German builds them by composition (Natriumhydroxid) and French
     // inverts the order and adds "de" (hydroxyde de sodium) where English uses
