@@ -585,9 +585,13 @@ export const es = {
       statLevel: 'Nivel',
       statScore: 'Puntos',
       statRound: 'Ronda',
-      statRoundValue: '{count} correctas',
-      levelOfMax: 'Nivel {level} de {max} • {correct} correctas',
-      levelUpProgress: 'Nivel {level} → {next} • {correct} clasificadas',
+      // A Spanish participle agrees with its count, and these are flat strings
+      // rather than plural records — so "1 correctas" would be wrong and the
+      // shape cannot be changed to fix it. The colon label is invariant, and it
+      // is the same device the article problem already needs everywhere else.
+      statRoundValue: 'aciertos: {count}',
+      levelOfMax: 'Nivel {level} de {max} • aciertos: {correct}',
+      levelUpProgress: 'Nivel {level} → {next} • clasificadas: {correct}',
       resume: 'Reanudar la partida',
       beginLevel: 'Empezar el nivel {level}',
       tryAgain: 'Volver a intentarlo',

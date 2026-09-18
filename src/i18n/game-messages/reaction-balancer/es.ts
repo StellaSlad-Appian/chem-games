@@ -206,8 +206,15 @@ export const es = {
     statusA11y: 'Estado',
     row: '{element}: {left} a la izquierda, {right} a la derecha',
     balancedRow: 'ajustado',
-    needsMoreLeft: 'faltan {count} a la izquierda',
-    needsMoreRight: 'faltan {count} a la derecha',
+    // Not "faltan {count}": a Spanish verb agrees with its count, and this is a
+    // flat string rather than a plural record — the English "{count} more
+    // needed" does not inflect, and a locale may not turn a flat string into a
+    // plural (dictionary.test.ts enforces that in both directions). At count 1
+    // it would read "faltan 1", which is wrong, and the ledger shows exactly
+    // that case on the very first reaction. "{count} de menos" is idiomatic and
+    // invariant.
+    needsMoreLeft: '{count} de menos a la izquierda',
+    needsMoreRight: '{count} de menos a la derecha',
     allBalanced: 'Todas las filas coinciden.',
     show: 'Mostrar el recuento de átomos',
     hide: 'Ocultar el recuento de átomos',
