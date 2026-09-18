@@ -85,22 +85,36 @@ export async function openGame(
 }
 
 /**
- * Waits until React has hydrated and the client providers have run.
+ * Waits until `GameSettingsProvider` has read the stored preferences.
  *
- * `GameSettingsProvider` renders its children inside a wrapper that carries
- * `invisible` until its mount effect has read the stored preferences, so the
- * class disappearing is a real signal that client code is running — and until
- * it does, the page is literally invisible, so waiting for it is what a reader
- * experiences anyway.
+ * It renders its children inside a wrapper that carries `invisible` until its
+ * mount effect has run, so the class disappearing means the settings have been
+ * applied — and until it does, the page is literally invisible, so waiting for
+ * it is what a reader experiences anyway.
  *
- * This matters for anything that drives a control whose only behaviour is a
- * React handler: Playwright dispatches a DOM event, and if React has not
- * attached its listener yet the event goes nowhere and the test fails with no
- * visible cause. The language switcher is exactly that, and it failed this way
- * only under parallel load.
+ * This is a wait on *that* provider, not a general hydration barrier. A control
+ * whose only behaviour is a React handler needs a signal of its own: Playwright
+ * dispatches a DOM event, and if React has not attached the listener yet the
+ * event goes nowhere and the test fails with no visible cause. The language
+ * <select> publishes one — see `languageSwitcher()`.
  */
 export async function waitForHydration(page: Page): Promise<void> {
   await expect(page.locator('div.invisible')).toHaveCount(0);
+}
+
+/**
+ * The language <select>, once React owns it.
+ *
+ * `LanguageSwitcher` sets `data-hydrated` in the same render that attaches its
+ * `onChange`, so the attribute cannot appear before `selectOption()` would
+ * actually do anything. Waiting on anything else — a sibling component's state,
+ * a fixed delay — only correlates with that, which is why these tests used to
+ * fail under parallel load and pass on their own.
+ */
+export async function languageSwitcher(page: Page, label: string): Promise<Locator> {
+  const select = page.getByLabel(label);
+  await expect(select).toHaveAttribute('data-hydrated', 'true');
+  return select;
 }
 
 /** The pause / level-up / game-over card (role="dialog", labelled by its title). */

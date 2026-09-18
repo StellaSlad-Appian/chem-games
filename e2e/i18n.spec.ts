@@ -14,7 +14,7 @@ import { de } from '../src/i18n/dictionaries/de';
 import { LOCALE_COOKIE } from '../src/i18n/config';
 import { lewisMessages } from '../src/core-engine/config/games/lewis-structures-messages';
 import { reactionBalancerMessages } from '../src/core-engine/config/games/reaction-balancer-messages';
-import { openGame, path, waitForHydration } from './helpers';
+import { languageSwitcher, openGame, path, waitForHydration } from './helpers';
 
 const htmlLang = (page: Page) => page.locator('html').getAttribute('lang');
 
@@ -124,9 +124,9 @@ test.describe('language switcher', () => {
     await expect(
       page.getByRole('heading', { level: 1, name: en.cheatSheets.heading })
     ).toBeVisible();
-    await waitForHydration(page);
 
-    await page.getByLabel(en.language.label).selectOption('de');
+    const select = await languageSwitcher(page, en.language.label);
+    await select.selectOption('de');
 
     await expect(page).toHaveURL(/\/de\/cheat-sheets$/);
     await expect(
@@ -136,8 +136,7 @@ test.describe('language switcher', () => {
 
   test('is reachable and operable from the keyboard', async ({ page }) => {
     await page.goto(path('/games'));
-    await waitForHydration(page);
-    const select = page.getByLabel(en.language.label);
+    const select = await languageSwitcher(page, en.language.label);
 
     await select.focus();
     await expect(select).toBeFocused();
@@ -147,8 +146,7 @@ test.describe('language switcher', () => {
 
   test('remembers the choice for a later visit to an unprefixed URL', async ({ page }) => {
     await page.goto(path('/games'));
-    await waitForHydration(page);
-    await page.getByLabel(en.language.label).selectOption('de');
+    await (await languageSwitcher(page, en.language.label)).selectOption('de');
     await expect(page).toHaveURL(/\/de\/games$/);
 
     // A bookmark, a shared link, or just typing the bare domain.

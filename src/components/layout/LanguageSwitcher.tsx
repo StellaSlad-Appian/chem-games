@@ -1,7 +1,7 @@
 // src/components/layout/LanguageSwitcher.tsx
 'use client';
 
-import { useId, useTransition } from 'react';
+import { useId, useSyncExternalStore, useTransition } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Languages } from 'lucide-react';
 import {
@@ -16,6 +16,38 @@ import { localizePath } from '@/i18n/routing';
 import { useI18n } from '@/i18n/client';
 
 /**
+ * The <select> carries `data-hydrated="true"` once React has hydrated it.
+ *
+ * Driving this control from a test means dispatching a DOM `change` event, and
+ * until React has attached `onChange` that event goes nowhere — the URL simply
+ * never moves and the failure has no visible cause. `languageSwitcher()` in
+ * `e2e/helpers.ts` waits for the attribute before it selects an option.
+ *
+ * It replaced a wait on `GameSettingsProvider`'s `invisible` wrapper, which is
+ * a *different* component's state: it correlates with this one being ready,
+ * which is exactly why it failed intermittently under parallel load rather
+ * than always.
+ */
+
+/** Never fires: the value flips exactly once, when React takes over. */
+const subscribeNever = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
+/**
+ * False while server-rendering and during the hydration render, true from the
+ * first client render after hydration.
+ *
+ * `useSyncExternalStore` rather than `useEffect` + `setState`: the effect form
+ * is a `react-hooks/set-state-in-effect` error under this project's lint
+ * config, and it would flip the flag a render later than React itself
+ * considers the tree hydrated.
+ */
+function useHydrated(): boolean {
+  return useSyncExternalStore(subscribeNever, clientSnapshot, serverSnapshot);
+}
+
+/**
  * Switches the interface language and remembers the choice.
  *
  * A native <select> rather than a custom menu: it is keyboard-operable and
@@ -28,6 +60,9 @@ import { useI18n } from '@/i18n/client';
  * Each option is written in its own language ("Deutsch", not "German"), because
  * a reader looking for their language recognises it in their language, not in
  * the one they are currently stuck in.
+ *
+ * The <select> carries `data-hydrated` once React owns it — see
+ * `useHydrated()` below.
  */
 export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel' }) {
   const { locale, t } = useI18n();
@@ -35,6 +70,7 @@ export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel
   const router = useRouter();
   const selectId = useId();
   const [isPending, startTransition] = useTransition();
+  const hydrated = useHydrated();
 
   function handleChange(next: string) {
     if (!isLocale(next) || next === locale) return;
@@ -88,6 +124,10 @@ export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel
           value={locale}
           disabled={isPending}
           onChange={(event) => handleChange(event.target.value)}
+          // Set in the same render that attaches onChange, so it cannot appear
+          // before the control actually works. Undefined (not "false") while
+          // server-rendered, so the attribute is simply absent until then.
+          data-hydrated={hydrated ? 'true' : undefined}
           // In the nav the control is deliberately narrow on a phone: the
           // browser ellipsises the selected option rather than pushing the
           // header past the viewport. It relaxes to its natural width at sm,

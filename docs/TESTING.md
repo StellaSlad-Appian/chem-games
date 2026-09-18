@@ -248,10 +248,16 @@ case there, never by loosening the assertion.
 
 Every route is locale-prefixed (`/en/games`, `/de/games`), so e2e specs navigate through
 `path('/games')` from `e2e/helpers.ts` rather than writing the prefix by hand. `openGame()`
-takes an optional `locale`. Anything that drives a control whose only behaviour is a React
-handler — the language switcher in particular — must `await waitForHydration(page)` first,
-or Playwright's DOM event fires before React has attached its listener and the test fails
-with nothing visibly wrong.
+takes an optional `locale`.
+
+Anything that drives a control whose only behaviour is a React handler needs a signal that
+React has attached it, or Playwright's DOM event fires into nothing and the test fails with
+nothing visibly wrong. **The signal has to come from that control**, not from a component
+that happens to become ready at about the same time: the language-switcher specs waited on
+`GameSettingsProvider`'s `invisible` wrapper and failed only under parallel load. Use
+`languageSwitcher(page, label)`, which waits for the `data-hydrated` attribute the
+`<select>` sets in the same render that attaches its `onChange`. `waitForHydration(page)`
+remains, but it means only "the settings provider has read its stored preferences".
 
 | Scenario | Test |
 | --- | --- |
