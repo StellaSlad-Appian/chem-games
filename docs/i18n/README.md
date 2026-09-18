@@ -248,8 +248,22 @@ downloading all of it.
 
 So each of those two games now keeps its copy in a **per-game catalogue**,
 loaded by that game's page and nothing else (`GAMES.md` § Catalogue layout).
-The German dictionary is 23.1 KB as a result, and `/de/cheat-sheets` no longer
-ships a word of Share to Fill.
+The German dictionary is 23.1 KB as a result. Measured on the served HTML
+(`next dev`, so the absolute numbers include dev overhead; the delta is the
+payload):
+
+| Page | Before | After |
+|---|---|---|
+| `/de/cheat-sheets` | 174,125 B | 150,120 B |
+| `/de` | 102,034 B | 78,029 B |
+| `/en/games` | 82,075 B | 61,187 B |
+| `/de/games/lewis-structures` | 84,699 B | 60,704 B |
+
+About 24 KB off every German page. The game's *own* page drops by as much: its
+copy moved out of the RSC payload and into the route's JS chunk, which the
+browser caches. What is still on `/de/cheat-sheets` is `gamesHub.lewisTitle`
+and `lewisDescription` — one line for the hub card, which is the point of
+keeping them.
 
 What deliberately **stays** in the dictionary:
 
