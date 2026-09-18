@@ -479,6 +479,9 @@ export const fr = {
     backToList: 'Retour aux antisèches',
     count: { one: '{count} sujet', other: '{count} sujets' },
     exampleFormula: 'Formule exemple',
+    // French puts a no-break space before a colon. This is the only reason
+    // the separator is a dictionary string at all.
+    exampleLabel: '{name} :',
     readReference: 'Consulter',
     practiseThis: 'S’entraîner',
     keyConcepts: 'L’essentiel',

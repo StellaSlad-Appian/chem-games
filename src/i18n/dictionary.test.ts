@@ -48,6 +48,10 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     /^chemistry\.(base|neutral)$/,
     // "OH⁻ (Base)" — the ion notation and the word "Base" are both unchanged.
     /^games\.neutralise\.keyTwoIon$/,
+    // A placeholder and a colon: German punctuates this exactly as English
+    // does. French is why the string exists at all — it needs a no-break
+    // space before the colon.
+    /^cheatSheets\.exampleLabel$/,
     // Keyboard glyphs and single digits used as <kbd> labels. The first column
     // of an instructions key table is the physical key, so it never translates;
     // the second column, which says what the key does, always does.

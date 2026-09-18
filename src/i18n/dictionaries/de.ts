@@ -421,6 +421,9 @@ export const de = {
     backToList: 'Zurück zu den Spickzetteln',
     count: { one: '{count} Thema', other: '{count} Themen' },
     exampleFormula: 'Beispielformel',
+    // German punctuates a colon exactly as English does, so this is
+    // identical by design rather than untranslated.
+    exampleLabel: '{name}:',
     readReference: 'Nachschlagen',
     practiseThis: 'Üben',
     keyConcepts: 'Das Wichtigste',

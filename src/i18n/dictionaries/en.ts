@@ -424,6 +424,13 @@ export const en = {
     backToList: 'Back to Cheat Sheets',
     count: { one: '{count} topic', other: '{count} topics' },
     exampleFormula: 'Example Formula',
+    /**
+     * The example's name and the colon after it. One key rather than
+     * `{name}:` in JSX, because French puts a no-break space before a colon
+     * and English and German do not — the separator is part of the
+     * translation, not part of the markup.
+     */
+    exampleLabel: '{name}:',
     readReference: 'Read reference',
     practiseThis: 'Practise this',
     keyConcepts: 'Key Concepts',
