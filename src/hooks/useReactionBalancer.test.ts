@@ -6,18 +6,26 @@
 import { act, renderHook } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { REACTION_BALANCER_CONFIG as CFG } from '@/core-engine/config/games/reaction-balancer-config';
-import { REACTION_BALANCER_MESSAGES as M } from '@/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { en } from '@/i18n/dictionaries/en';
+import { TestProviders } from '@/test-utils/render';
 import { getReaction } from '@/core-engine/data/reactions';
 import { WATER_REACTION_ID, answerCoefficients, planBalancerLevel } from '@/core-engine/utils/balancer-utils';
 import { GUIDED_SEEN_KEY, guideStepFor, useReactionBalancer, type UseReactionBalancerOptions } from './useReactionBalancer';
+
+// The hook reads its copy from the i18n provider, so the assertions below are
+// against the English dictionary. German rendering is covered by the e2e suite.
+const M = reactionBalancerMessages(en, 'en');
 
 const zero = () => 0;
 
 function setup(overrides: Partial<UseReactionBalancerOptions> = {}) {
   const onRoundScored = vi.fn();
   const onLevelCleared = vi.fn();
-  const hook = renderHook(() =>
-    useReactionBalancer({ level: 1, supportMode: false, isPaused: false, rng: zero, onRoundScored, onLevelCleared, ...overrides })
+  const hook = renderHook(
+    () =>
+      useReactionBalancer({ level: 1, supportMode: false, isPaused: false, rng: zero, onRoundScored, onLevelCleared, ...overrides }),
+    { wrapper: TestProviders }
   );
   return { ...hook, onRoundScored, onLevelCleared };
 }
@@ -160,7 +168,7 @@ describe('useReactionBalancer: coefficients and diagnostics', () => {
   it('ignores moves while paused or once locked', () => {
     const { result, rerender } = renderHook(
       ({ isPaused }: { isPaused: boolean }) => useReactionBalancer({ level: 1, supportMode: false, isPaused, rng: zero }),
-      { initialProps: { isPaused: true } }
+      { initialProps: { isPaused: true }, wrapper: TestProviders }
     );
     let change: ReturnType<typeof result.current.actions.setCoefficient> | undefined;
     act(() => {

@@ -4,11 +4,10 @@
 import { useState, type ChangeEvent, type KeyboardEvent } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import MoleculeText from '@/components/ui/MoleculeText';
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
 import type { Species } from '@/core-engine/utils/balancer-utils';
 import ParticleClusters from './ParticleClusters';
 
-const M = REACTION_BALANCER_MESSAGES;
 
 interface CompoundCardProps {
   species: Species;
@@ -49,6 +48,7 @@ export default function CompoundCard({
   onDecrement,
   onTapSubscript,
 }: CompoundCardProps) {
+  const M = useBalancerMessages();
   // What the input shows while the player is typing; null = show the coefficient.
   const [draft, setDraft] = useState<string | null>(null);
   const shown = draft ?? (coefficient === 1 ? '' : String(coefficient));

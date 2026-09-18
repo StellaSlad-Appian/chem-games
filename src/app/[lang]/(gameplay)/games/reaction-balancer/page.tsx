@@ -22,19 +22,19 @@ import ReactionBalancerArena from '@/components/games/reaction-balancer/GameAren
 import BalancerInstructions from '@/components/games/reaction-balancer/Instructions';
 import BalancerNotebook from '@/components/games/reaction-balancer/Notebook';
 import { REACTION_BALANCER_CONFIG } from '@/core-engine/config/games/reaction-balancer-config';
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
 import { GAME_CONTROLS } from '@/core-engine/constants/ui-constants';
 import { recordGameSession } from '@/lib/actions/game-actions';
 import { useI18n } from '@/i18n/client';
 import { localizePath } from '@/i18n/routing';
 
-const M = REACTION_BALANCER_MESSAGES;
 const CFG = REACTION_BALANCER_CONFIG;
 const GAME_ID = 'reaction-balancer' as const;
 const INSTRUCTIONS_SEEN_KEY = 'hasSeenReactionBalancerInstructions';
 
 export default function ReactionBalancerPage() {
   const router = useRouter();
+  const M = useBalancerMessages();
   const { locale } = useI18n();
   const { gameState, setGameState, score, setScore, currentLevel, setCurrentLevel, togglePause, resetBase } = useGameState();
   const [supportMode] = useSupportMode(GAME_ID);

@@ -10,14 +10,13 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { REACTION_BALANCER_CONFIG, type ReactionBalancerConfig } from '@/core-engine/config/games/reaction-balancer-config';
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
 import {
   WATER_REACTION_ID,
   allOnes,
   buildReaction,
   coefficientHint,
   compareLedgers,
-  elementName,
   equationText,
   findSpecies,
   isBalanced,
@@ -33,10 +32,11 @@ import {
   type Side,
   type Species,
 } from '@/core-engine/utils/balancer-utils';
+import { elementName as localizedElementName } from '@/i18n/chemistry-names';
+import { useI18n } from '@/i18n/client';
+import { localizeBalancerRounds } from '@/i18n/game-data';
 import { useHintLadder } from './useHintLadder';
 import { useStoredValue } from './useStoredValue';
-
-const M = REACTION_BALANCER_MESSAGES;
 
 export const GUIDED_SEEN_KEY = 'reactionBalancerGuidedSeen';
 
@@ -150,11 +150,25 @@ export function useReactionBalancer({
   onRoundScored,
   onLevelCleared,
 }: UseReactionBalancerOptions) {
+  const M = useBalancerMessages();
+  const { locale } = useI18n();
+  // The reaction dataset is English. Translating the level plan once, here,
+  // means every message, the notebook and the compound cards all read the same
+  // names — see src/i18n/game-data.ts.
+  const planFor = useCallback(
+    (forLevel: number) => localizeBalancerRounds(planBalancerLevel(forLevel, config, rng), locale),
+    [config, rng, locale]
+  );
+  /** An element name in the reader's language, for a message or the ledger. */
+  const elementName = useCallback(
+    (symbol: string) => localizedElementName(locale, symbol),
+    [locale]
+  );
   const [guidedSeen, setGuidedSeen] = useStoredValue(GUIDED_SEEN_KEY);
 
   const [plan, setPlan] = useState<{ level: number; rounds: BalancerRound[] }>(() => ({
     level,
-    rounds: planBalancerLevel(level, config, rng),
+    rounds: localizeBalancerRounds(planBalancerLevel(level, config, rng), locale),
   }));
   const [roundIndex, setRoundIndex] = useState(0);
   const [roundState, setRoundState] = useState<RoundState>(() => freshRoundState(plan.rounds[0]));
@@ -222,7 +236,7 @@ export function useReactionBalancer({
 
   const startLevel = useCallback(
     (nextLevel: number, options: { resetRun?: boolean } = {}) => {
-      const nextPlan = { level: nextLevel, rounds: planBalancerLevel(nextLevel, config, rng) };
+      const nextPlan = { level: nextLevel, rounds: planFor(nextLevel) };
       setPlan(nextPlan);
       if (options.resetRun) {
         setResults([]);
@@ -231,7 +245,7 @@ export function useReactionBalancer({
       }
       startRound(nextPlan, 0);
     },
-    [config, rng, startRound]
+    [startRound, planFor]
   );
 
   // ---------------------------------------------------------------- scoring
@@ -258,7 +272,7 @@ export function useReactionBalancer({
       onRoundScored?.(points);
       return { points, bonusEarned };
     },
-    [config, hints, plan.level, round, scaffold.ledgerCostsBonus, onRoundScored]
+    [config, hints, plan.level, round, scaffold.ledgerCostsBonus, onRoundScored, M]
   );
 
   /** Applies a coefficient list; locks the round when it balances. */
@@ -283,7 +297,7 @@ export function useReactionBalancer({
       update(patch);
       return { ok: true, locked };
     },
-    [roundState, hints, finishRound, update]
+    [roundState, hints, finishRound, update, M, elementName]
   );
 
   // ---------------------------------------------------------------- coefficient actions
@@ -310,7 +324,7 @@ export function useReactionBalancer({
       next[index] = value;
       return applyCoefficients(next, index);
     },
-    [isPaused, roundState, touch, update, config.mechanics.maxCoefficient, applyCoefficients]
+    [isPaused, roundState, touch, update, config.mechanics.maxCoefficient, applyCoefficients, M]
   );
 
   const increment = useCallback((index: number) => setCoefficient(index, (roundState.coefficients[index] ?? 1) + 1), [setCoefficient, roundState.coefficients]);
@@ -321,7 +335,7 @@ export function useReactionBalancer({
     if (isPaused || roundState.phase === 'done') return;
     touch();
     update({ feedback: { text: M.error.subscriptTap, tone: 'error', label: M.error.label } });
-  }, [isPaused, roundState.phase, touch, update]);
+  }, [isPaused, roundState.phase, touch, update, M]);
 
   const toggleLedger = useCallback(() => {
     if (isPaused) return;
@@ -387,7 +401,7 @@ export function useReactionBalancer({
       });
       return { ok: true, built: true };
     },
-    [isPaused, roundState, touch, target, update, hints, finishRound]
+    [isPaused, roundState, touch, target, update, hints, finishRound, M]
   );
 
   const removeSpecies = useCallback(
@@ -477,7 +491,7 @@ export function useReactionBalancer({
         ? M.hint.tier3(move.n, move.formula, elementName(move.thenCheck))
         : M.hint.tier3Lower(move.n, move.formula, elementName(move.thenCheck));
     return { ...empty, tier: 3, text, cardIndex: move.index };
-  }, [hints.tier, phase, target, roundState.placedReactants, roundState.placedProducts, nextUp, parsed, coefficients, round.reaction.hint]);
+  }, [hints.tier, phase, target, roundState.placedReactants, roundState.placedProducts, nextUp, parsed, coefficients, round.reaction.hint, M, elementName]);
 
   // ---------------------------------------------------------------- coach
   const coach = useMemo(() => {
@@ -517,7 +531,7 @@ export function useReactionBalancer({
       return { message: M.coach.imbalance(elementName(nextUp), row?.left ?? 0, row?.right ?? 0), tone, label, visible };
     }
     return { message: null, tone, label, visible: false };
-  }, [roundState, phase, guided, guideStep, parsed, coefficients, scaffold.coachAlwaysOn, nextUp, rows]);
+  }, [roundState, phase, guided, guideStep, parsed, coefficients, scaffold.coachAlwaysOn, nextUp, rows, M, elementName]);
 
   // ---------------------------------------------------------------- derived
   const reactantCount = parsed.reactants.length;

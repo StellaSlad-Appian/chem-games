@@ -1,18 +1,24 @@
 // src/components/games/reaction-balancer/Instructions.tsx
 'use client';
 
+import { useMemo } from 'react';
 import { GlossaryTerm, type GlossaryEntry } from '@/components/games/shared/GlossaryTerm';
 import RichMessage from '@/components/games/shared/RichMessage';
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages, type ReactionBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
 import type { InputMethod } from '@/hooks/useInputMethod';
 
-const M = REACTION_BALANCER_MESSAGES;
+/** The tap-to-explain vocabulary, in the reader's language. */
+export const balancerGlossary = (M: ReactionBalancerMessages): GlossaryEntry[] =>
+  Object.entries(M.glossary).map(([term, definition]) => ({
+    term,
+    definition,
+    matches: M.glossaryMatches[term] ?? [term],
+  }));
 
-export const BALANCER_GLOSSARY: GlossaryEntry[] = Object.entries(M.glossary).map(([term, definition]) => ({
-  term,
-  definition,
-  matches: M.glossaryMatches[term] ?? [term],
-}));
+export function useBalancerGlossary(): { M: ReactionBalancerMessages; glossary: GlossaryEntry[] } {
+  const M = useBalancerMessages();
+  return { M, glossary: useMemo(() => balancerGlossary(M), [M]) };
+}
 
 interface InstructionsProps {
   tab: InputMethod;
@@ -21,18 +27,19 @@ interface InstructionsProps {
 
 /** The body of the "How to Play" modal — every word comes from the messages catalogue. */
 export default function BalancerInstructions({ tab, onTabChange }: InstructionsProps) {
+  const { M, glossary } = useBalancerGlossary();
   const kbd = 'rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border) text-(--foreground)';
   return (
     <div className="space-y-4 text-sm font-medium leading-relaxed text-(--muted)">
       <p>
         <strong className="text-(--foreground)">{M.instructions.lead}</strong>{' '}
-        <RichMessage text={M.instructions.intro} glossary={BALANCER_GLOSSARY} />
+        <RichMessage text={M.instructions.intro} glossary={glossary} />
       </p>
 
       <ul className="list-disc space-y-2 pl-5">
         {M.instructions.bullets.map((line) => (
           <li key={line}>
-            <RichMessage text={line} glossary={BALANCER_GLOSSARY} />
+            <RichMessage text={line} glossary={glossary} />
           </li>
         ))}
       </ul>

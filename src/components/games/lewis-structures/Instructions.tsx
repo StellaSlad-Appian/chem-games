@@ -2,10 +2,9 @@
 'use client';
 
 import { GlossaryTerm } from '@/components/games/shared/GlossaryTerm';
-import { LEWIS_MESSAGES } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
 import type { InputMethod } from '@/hooks/useInputMethod';
 
-const M = LEWIS_MESSAGES;
 
 interface InstructionsProps {
   tab: InputMethod;
@@ -14,6 +13,7 @@ interface InstructionsProps {
 
 /** The body of the "How to Play" modal — every word comes from the messages catalogue. */
 export default function LewisInstructions({ tab, onTabChange }: InstructionsProps) {
+  const M = useLewisMessages();
   const kbd = 'rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border) text-(--foreground)';
   return (
     <div className="space-y-4 text-sm font-medium leading-relaxed text-(--muted)">

@@ -12,6 +12,12 @@ is just not ours.
 Scope: German for a Year 9–10 audience, informal *du*, following the vocabulary
 used in German school textbooks rather than university German.
 
+One constraint that is easy to miss: the tap-to-explain matcher in
+`GlossaryTerm.tsx` finds a term with a JavaScript `\b` word boundary, and `\b`
+only knows ASCII letters. **A match word must therefore start and end with an
+ASCII letter** — umlauts and `ß` inside a word are fine (*Einzelgänger*,
+*Außenelektron*), but a term that begins with *Ä*, *Ö*, *Ü* would never match.
+
 ---
 
 ## Register and typography
@@ -68,7 +74,13 @@ used in German school textbooks rather than university German.
 | metallic bond | **Metallbindung** | — |
 | valence electrons | **Valenzelektronen** | *Außenelektronen* is the other common term; Valenzelektronen matches the Lewis/VSEPR vocabulary used alongside it. |
 | lone pair | **freies Elektronenpaar** | Not *einsames Elektronenpaar*, which is a calque. |
-| bonding pair | **bindendes Elektronenpaar** | — |
+| bonding pair / shared pair | **bindendes Elektronenpaar** | The Share to Fill game says "shared pair" where a textbook says "bonding pair"; both are *bindendes Elektronenpaar* in German. Do not introduce a second word (*gemeinsames Elektronenpaar*) for the same thing. |
+| unpaired electron, the game's "loner" | **Einzelgänger** (defined once as *ungepaartes Elektron*) | A coinage, matching the English game's own coinage. The textbook term is *ungepaartes Elektron*, which is accurate and far too heavy to repeat in every coach line for a 14-year-old. Glossed in the game's own word list. **Rated low in `de-review.md`** — if this is rejected, it changes every line of that game. |
+| outer electron | **Außenelektron** | The transparent everyday word, used in the game's running text; *Valenzelektron* stays the formal term and the two are glossed together. |
+| octet (eight outer electrons) | **Oktett** | — |
+| duet (hydrogen's two) | **Duett** | German school chemistry has no settled word; it says *Edelgaskonfiguration des Heliums* or nothing at all. *Duett* mirrors the English coinage and fits a glossary chip. **Rated low.** |
+| single / double / triple bond | **Einfachbindung / Doppelbindung / Dreifachbindung** | — |
+| bond-line drawing | **Strichformel** | — |
 | Lewis structure | **Lewis-Formel** | German schools also say *Valenzstrichformel* and *Elektronenformel*. Picked *Lewis-Formel* because it is transparent, matches the (upcoming) game's name, and is the term the VCE-derived source material uses. |
 | octet rule | **Oktettregel** | — |
 | formal charge | **Formalladung** | — |
@@ -90,6 +102,9 @@ used in German school textbooks rather than university German.
 | reactants | **Edukte** | *Ausgangsstoffe* is the other accepted term, common in earlier years. Picked *Edukte* because it pairs with *Produkte* and is standard from about Year 8 in German curricula. |
 | products | **Produkte** | — |
 | reaction arrow | **Reaktionspfeil** | — |
+| atom ledger (the per-element tally) | **Atombilanz** | The game's own name for the table under the arrow. Pairs with *ausgleichen*. |
+| lowest terms | **einfachste Form** | "Gekürzt" is used for the act of simplifying (*durch 3 gekürzt*); *einfachste Form* for the state. |
+| word equation | **Wortgleichung** | Used in the Challenge level; the game shows it as prose rather than naming it. |
 | state symbol | **Zustandssymbol** | — |
 | synthesis | **Synthese** | — |
 | decomposition | **Zersetzung** | *Analyse* is the classical counterpart to *Synthese* in German teaching, but *Zersetzung* is clearer and is what modern textbooks use. |
@@ -172,6 +187,11 @@ Not chemistry, but it needs to be consistent too.
 | Game Over | **Spiel vorbei** | Keeping the English is common in games, but German is clearer for this audience. |
 | pause / resume | **pausieren / weiterspielen** | — |
 | instructions | **Spielanleitung** | — |
+| coach (the in-game hint panel) | **Coach** | Established German gaming loanword, and it has to stay distinct from *Tipp*, which is the hint ladder. |
+| support mode | **Unterstützungsmodus** | Long but transparent, and matches the *Unterstützung* heading in the settings panel. *Hilfemodus* collides with *Spielanleitung*. |
+| marking sheet | **Korrekturbogen** | — |
+| lab notebook | **Laborheft** | — |
+| challenge (the bonus level) | **Challenge** | Kept as the level's name, like *Level*. |
 | settings | **Einstellungen** | — |
 | year level | **Klassenstufe**, labels **Klasse 7–10**, **Oberstufe** | The stored value stays `Year 9`; only the label is German. |
 | teacher | **Lehrkraft / Lehrkräfte** | Gender-neutral. |

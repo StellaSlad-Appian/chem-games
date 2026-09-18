@@ -41,8 +41,9 @@ src/i18n/
     de.ts                `satisfies Dictionary`
   client.tsx             I18nProvider + useI18n() — client side
   server.ts              getRequestLocale/Dictionary for Server Actions & routes
-  chemistry-names.ts     element / compound / ion names, by overlay
+  chemistry-names.ts     element / compound / ion names and game-data prose
   chemistry-names/de.ts
+  game-data.ts           applies that overlay to a level plan, once
   cheat-sheets.ts        cheat-sheet prose, by overlay
   cheat-sheets/de.ts
   game-titles.ts         reconciles dictionary titles with Supabase's `games` table
@@ -337,6 +338,52 @@ under `games.lewisStructures` and `games.reactionBalancer`.
 
 ---
 
+## Game copy and chemistry data
+
+### Message catalogues
+
+Two games — Reaction Balancer and Share to Fill — write every player-facing
+sentence through a **message catalogue** rather than in JSX:
+
+```
+src/core-engine/config/games/reaction-balancer-messages.ts
+src/core-engine/config/games/lewis-structures-messages.ts
+```
+
+The wording is in the dictionaries under `games.reactionBalancer` and
+`games.lewisStructures`, like everything else. What the catalogue file holds is
+the *shape*: which sentence takes which values, which count selects which
+plural form, and which side of an arrow picks which of two sentences. A
+component calls `useBalancerMessages()` / `useLewisMessages()` and then reads
+`M.coach.imbalance(element, left, right)` exactly as it did before.
+
+Two things that only show up once a second language exists, both handled here:
+
+- **Case inside a sentence.** English writes "then check oxygen again"; German
+  capitalises every noun, so "sauerstoff" is a spelling mistake. The catalogues
+  call `nameInSentence(locale, name)`, never `.toLowerCase()`.
+- **Which word forms open a glossary pop-over.** Each locale lists its own in
+  `glossary.<entry>.matches`, because the German copy uses German inflections.
+  The matcher uses a JavaScript `\b`, which only knows ASCII letters, so a match
+  word must start and end with one — see `docs/i18n/glossary-de.md`.
+
+### Chemistry data that is prose, not names
+
+`reactions.ts` and `lewis-molecules.ts` carry more than names: a reaction has an
+observation, a strategy hint and a word equation; a molecule has a hint and a
+property line. All of it is keyed by the dataset's own ids, so it is an
+**overlay** in `chemistry-names/<locale>.ts` next to the element and compound
+names, not dictionary copy.
+
+`src/i18n/game-data.ts` applies the overlay once, where a level plan is built,
+so the rules engines and the components go on reading `round.reaction.name`. A
+name therefore cannot be translated in one message and left English in another.
+`chemistry-names.test.ts` asserts the overlay is complete against the live
+datasets, that equations and bond lines come through byte-identical, and that a
+reaction does not gain a German word equation it has no English one for.
+
+---
+
 ## Testing
 
 ```bash
@@ -351,13 +398,15 @@ npm run i18n:review                    # regenerate the review table
 | Test | Catches |
 |---|---|
 | `dictionary.test.ts` | missing keys, extra keys, empty values, values left identical to English, dropped or renamed placeholders, formulae altered in translation, non-`{name}` placeholder syntax |
-| `chemistry-names.test.ts` | an element, compound or ion with no name in some locale; an overlay entry for something the registry does not have |
+| `chemistry-names.test.ts` | an element, compound, ion, species, reaction or Lewis molecule with no translation in some locale; an overlay entry for something the datasets do not have; an equation or bond line altered in translation |
 | `cheat-sheets.test.ts` | a sheet, section, table row, bullet or resource that does not line up with the English; a formula, slug, icon or URL that changed |
+| `plural.test.ts` | CLDR plural selection, including languages with three, four and one form |
 | `routing.test.ts` | prefix/strip round-trips, idempotence, the unprefixed-path list |
 | `locale-match.test.ts` | `Accept-Language` parsing, q-values, regional fallback, cookie precedence |
 | `proxy.test.ts` | **Supabase cookies surviving a locale redirect**, negotiation, query preservation, cookie writes |
 | `game-titles.test.ts` | a game with no translated title |
 | `e2e/i18n.spec.ts` | the redirect, negotiation in a real browser, the switcher (including by keyboard), `<html lang>`, `hreflang`, German rendering on a hub/game/cheat sheet, auth under a prefix |
+| `e2e/lewis-structures.spec.ts`, `e2e/reaction-balancer.spec.ts` | both games under a locale prefix, in English and (for the new game) in German |
 
 The "identical to English" check has an allowlist in `dictionary.test.ts` for
 words that are genuinely the same in both languages (*Feedback*, *Audio*,
@@ -368,8 +417,8 @@ the check: if a string stops being identical, the allowlist entry is flagged.
 
 ## Known gaps
 
-Things this Phase 1 does **not** solve. None of them are bugs; they are
-decisions that need making.
+Things this does **not** solve. None of them are bugs; they are decisions that
+need making.
 
 ### Game and concept titles come from the database
 
@@ -401,33 +450,6 @@ source material. German equivalents would be a content task.
 
 Every sheet cites the Victorian Curriculum or the VCE study design. Translated,
 but not relevant to a German reader.
-
-### Lewis Structures is not covered
-
-The **Lewis Structures** game is on the in-flight `feature/lewis-structures`
-branch and is not on `master`, so it was outside this pass. When that branch
-merges, these need extracting into the dictionaries:
-
-```
-src/components/games/lewis-structures/**
-src/core-engine/config/games/lewis-structures-*.ts
-src/core-engine/data/lewis-molecules.ts
-src/hooks/useLewisStructures.ts
-src/components/games/shared/CoachPanel.tsx
-src/components/games/shared/GlossaryTerm.tsx
-src/components/games/shared/AtomCanvas/
-```
-
-The dictionary is ready for it: add a `games.lewisStructures` namespace
-alongside the other four games, and molecule names go in `chemistry-names/`
-next to the compounds. The glossary already fixes the terms that game needs —
-**Lewis-Formel**, **freies Elektronenpaar**, **Atombindung**,
-**Valenzelektronen**, **Oktettregel**, **Formalladung** — so its copy can be
-translated without re-deciding any terminology. `CoachPanel` and `GlossaryTerm`
-are shared components, so translating them will also benefit any later game.
-
-Note that the `lewis-structures` **cheat sheet** already exists on `master` and
-*is* translated; only the game is outstanding.
 
 ### No `sitemap.xml` or `robots.txt`
 

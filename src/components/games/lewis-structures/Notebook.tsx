@@ -3,11 +3,9 @@
 
 import AtomCanvas from '@/components/games/shared/AtomCanvas';
 import MoleculeText from '@/components/ui/MoleculeText';
-import { LEWIS_MESSAGES } from '@/core-engine/config/games/lewis-structures-messages';
 import type { RoundResult } from '@/hooks/useLewisStructures';
-import { CANVAS_LABELS } from './GameArena';
+import { useLewisCanvas } from './GameArena';
 
-const M = LEWIS_MESSAGES;
 
 interface NotebookProps {
   results: RoundResult[];
@@ -23,6 +21,7 @@ interface NotebookProps {
  * and a teacher can read at a glance.
  */
 export default function LewisNotebook({ results, marking = false, onBack, onPlayAgain }: NotebookProps) {
+  const { M, labels } = useLewisCanvas();
   return (
     <section
       aria-labelledby="lewis-notebook-title"
@@ -72,7 +71,7 @@ export default function LewisNotebook({ results, marking = false, onBack, onPlay
                 mode="readonly"
                 compact
                 label={M.ui.canvasLabel(result.name)}
-                labels={CANVAS_LABELS}
+                labels={labels}
                 showCounters="hover"
                 pulseLoners={false}
               />

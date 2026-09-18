@@ -13,12 +13,17 @@ import { describe, expect, it } from 'vitest';
 import { COMPOUNDS_REGISTRY } from '@/core-engine/data/compounds';
 import { ELEMENTS_REGISTRY } from '@/core-engine/data/elements';
 import { MONOATOMIC_IONS, POLYATOMIC_IONS } from '@/core-engine/data/ions';
+import { LEWIS_MOLECULES } from '@/core-engine/data/lewis-molecules';
+import { SPECIES_NAMES, reactions } from '@/core-engine/data/reactions';
 import { DEFAULT_LOCALE, LOCALES } from './config';
 import {
   chemistryNameOverlay,
   compoundName,
   elementName,
   ionName,
+  localizeLewisMolecule,
+  localizeReaction,
+  speciesName,
   usesRegistryNames,
 } from './chemistry-names';
 
@@ -30,6 +35,9 @@ describe('English falls through to the registries', () => {
       elements: {},
       compounds: {},
       ions: {},
+      species: {},
+      reactions: {},
+      lewisMolecules: {},
     });
   });
 
@@ -123,6 +131,103 @@ describe.each(translatedLocales)('chemistry names: %s', (locale) => {
     for (const ion of [...MONOATOMIC_IONS, ...POLYATOMIC_IONS]) {
       expect(ionName(locale, ion).trim()).not.toBe('');
     }
+  });
+});
+
+/**
+ * The game datasets carry prose as well as names: a reaction's observation,
+ * strategy hint and word equation; a molecule's hint and property line. Same
+ * rule as above — the overlay is keyed by the dataset's own ids and has to be
+ * complete against the live data, so adding a reaction in reactions.ts fails
+ * this suite until every locale has it.
+ */
+describe.each(translatedLocales)('game data: %s', (locale) => {
+  const overlay = chemistryNameOverlay(locale);
+
+  it('names every species Reaction Balancer can put on a card', () => {
+    const missing = Object.keys(SPECIES_NAMES).filter((bare) => !overlay.species[bare]);
+    expect(missing).toEqual([]);
+    expect(Object.keys(overlay.species).filter((bare) => !(bare in SPECIES_NAMES))).toEqual([]);
+  });
+
+  it('translates every reaction, and only the fields the reaction actually has', () => {
+    const missing = reactions.filter((r) => !overlay.reactions[r.id]).map((r) => r.id);
+    expect(missing).toEqual([]);
+
+    const ids = new Set(reactions.map((r) => r.id));
+    expect(Object.keys(overlay.reactions).filter((id) => !ids.has(id))).toEqual([]);
+
+    // A reaction with no English hint or word equation must not gain one in
+    // translation: the game checks for their absence to decide what to show.
+    const shapeMismatch = reactions
+      .filter((r) => {
+        const t = overlay.reactions[r.id];
+        return Boolean(t.hint) !== Boolean(r.hint) || Boolean(t.prompt) !== Boolean(r.prompt);
+      })
+      .map((r) => r.id);
+    expect(shapeMismatch).toEqual([]);
+  });
+
+  it('translates every Lewis molecule', () => {
+    const missing = LEWIS_MOLECULES.filter((m) => !overlay.lewisMolecules[m.id]).map((m) => m.id);
+    expect(missing).toEqual([]);
+
+    const ids = new Set(LEWIS_MOLECULES.map((m) => m.id));
+    expect(Object.keys(overlay.lewisMolecules).filter((id) => !ids.has(id))).toEqual([]);
+  });
+
+  it('leaves no game-data string empty or copied from the English', () => {
+    const copied: string[] = [];
+    for (const reaction of reactions) {
+      const t = overlay.reactions[reaction.id];
+      for (const field of ['name', 'description', 'hint', 'prompt'] as const) {
+        const source = reaction[field];
+        const translated = t[field];
+        if (!source) continue;
+        expect(translated?.trim(), `${reaction.id}.${field}`).not.toBe('');
+        if (translated === source) copied.push(`${reaction.id}.${field}`);
+      }
+    }
+    for (const molecule of LEWIS_MOLECULES) {
+      const t = overlay.lewisMolecules[molecule.id];
+      for (const field of ['name', 'tier2Hint', 'propertyLine'] as const) {
+        expect(t[field].trim(), `${molecule.id}.${field}`).not.toBe('');
+        // Molecule names can legitimately match (Ethanol is Ethanol); the two
+        // prose fields cannot.
+        if (t[field] === molecule[field] && field !== 'name') copied.push(`${molecule.id}.${field}`);
+      }
+    }
+    expect(copied).toEqual([]);
+  });
+
+  it('leaves equations, formulae and bond lines exactly as the dataset has them', () => {
+    for (const reaction of reactions) {
+      const translated = localizeReaction(locale, reaction);
+      expect(translated.equation).toBe(reaction.equation);
+      expect(translated.type).toBe(reaction.type);
+      expect(translated.levels).toEqual(reaction.levels);
+    }
+    for (const molecule of LEWIS_MOLECULES) {
+      const translated = localizeLewisMolecule(locale, molecule);
+      expect(translated.formula).toBe(molecule.formula);
+      expect(translated.bondLine).toBe(molecule.bondLine);
+      expect(translated.atoms).toEqual(molecule.atoms);
+      expect(translated.bonds).toEqual(molecule.bonds);
+    }
+  });
+});
+
+describe('game data falls through to the datasets in English', () => {
+  it('returns the registry species name and leaves the reaction untouched', () => {
+    expect(speciesName(DEFAULT_LOCALE, 'H2O')).toBe('water');
+    expect(speciesName(DEFAULT_LOCALE, 'H2O(l)')).toBe('water');
+    const reaction = reactions[0];
+    expect(localizeReaction(DEFAULT_LOCALE, reaction)).toEqual(reaction);
+    expect(localizeLewisMolecule(DEFAULT_LOCALE, LEWIS_MOLECULES[0])).toEqual(LEWIS_MOLECULES[0]);
+  });
+
+  it('strips a state symbol before looking a species up in a translated locale', () => {
+    expect(speciesName('de', 'H2O(l)')).toBe(speciesName('de', 'H2O'));
   });
 });
 

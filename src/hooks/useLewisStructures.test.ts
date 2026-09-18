@@ -6,10 +6,17 @@
  */
 import { describe, expect, it } from 'vitest';
 import { LEWIS_STRUCTURES_CONFIG as CFG } from '@/core-engine/config/games/lewis-structures-config';
-import { LEWIS_MESSAGES as M } from '@/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { elementName } from '@/i18n/chemistry-names';
+import { en } from '@/i18n/dictionaries/en';
 import { getLewisMolecule, moleculesForLevel } from '@/core-engine/data/lewis-molecules';
 import { createStructure, diagnose, isComplete, pairAtoms } from '@/core-engine/utils/lewis-utils';
-import { buildCoachText, describeAtom, guideStepAfterPairs, guideTexts, guideTotal, planLevel } from './useLewisStructures';
+import { buildCoachText, describeAtom, guideStepAfterPairs, guideTexts, guideTotal, planLevel, type LewisText } from './useLewisStructures';
+
+// The helpers below take their copy explicitly, so the assertions say which
+// language they are written in. Rendering in German is covered by the e2e suite.
+const M = lewisMessages(en, 'en');
+const text: LewisText = { M, elementName: (symbol) => elementName('en', symbol) };
 
 /** A deterministic rng that walks through the unit interval. */
 const rngFrom = (seed: number) => {
@@ -68,16 +75,16 @@ describe('coach text', () => {
 
   it('names the atom with the most loners, numbering repeated elements', () => {
     const start = createStructure(water);
-    expect(buildCoachText(start, water)).toBe(M.coach.loners('Oxygen', 2));
-    expect(describeAtom(start, 'a1')).toBe('Hydrogen 1');
-    expect(describeAtom(start, 'a2')).toBe('Hydrogen 2');
+    expect(buildCoachText(start, water, text)).toBe(M.coach.loners('Oxygen', 2));
+    expect(describeAtom(start, 'a1', text)).toBe('Hydrogen 1');
+    expect(describeAtom(start, 'a2', text)).toBe('Hydrogen 2');
   });
 
   it('suggests sharing again when two bonded atoms both keep a loner', () => {
     const o2 = getLewisMolecule('o2');
     const once = pairAtoms(createStructure(o2), 'a0', 'a1');
     if (!once.ok) throw new Error(once.error);
-    expect(buildCoachText(once.structure, o2)).toBe(M.coach.shareAgain('Oxygen 1', 'Oxygen 2'));
+    expect(buildCoachText(once.structure, o2, text)).toBe(M.coach.shareAgain('Oxygen 1', 'Oxygen 2'));
   });
 
   it('explains a dead end and an isomer instead of leaving the player stuck', () => {
@@ -91,7 +98,7 @@ describe('coach text', () => {
       if (!r.ok) throw new Error(r.error);
       s = r.structure;
     }
-    expect(buildCoachText(s, co2)).toBe(M.coach.deadEnd('Carbon', 6));
+    expect(buildCoachText(s, co2, text)).toBe(M.coach.deadEnd('Carbon', 6));
 
     const ethanol = getLewisMolecule('c2h5oh');
     let ether = createStructure(ethanol);
@@ -109,7 +116,7 @@ describe('coach text', () => {
       if (!r.ok) throw new Error(r.error);
       ether = r.structure;
     }
-    expect(buildCoachText(ether, ethanol)).toBe(M.coach.isomer('Ethanol'));
+    expect(buildCoachText(ether, ethanol, text)).toBe(M.coach.isomer('Ethanol'));
   });
 
   it('announces completion with the bond and lone-pair counts', () => {
@@ -122,22 +129,22 @@ describe('coach text', () => {
       if (!r.ok) throw new Error(r.error);
       s = r.structure;
     }
-    expect(buildCoachText(s, water)).toBe(M.coach.complete('Water', 2, 2));
+    expect(buildCoachText(s, water, text)).toBe(M.coach.complete('Water', 2, 2));
   });
 });
 
 describe('guided scripts', () => {
   it('follows the brief step for step: H2 has two lines, H2O four, and pairs advance them', () => {
-    expect(guideTotal('h2')).toBe(2);
-    expect(guideTotal('h2o')).toBe(4);
-    expect(guideTotal('nh3')).toBe(0);
-    expect(guideTexts('h2', 0)).toBe(M.guided.h2[0]);
+    expect(guideTotal('h2', M)).toBe(2);
+    expect(guideTotal('h2o', M)).toBe(4);
+    expect(guideTotal('nh3', M)).toBe(0);
+    expect(guideTexts('h2', 0, M)).toBe(M.guided.h2[0]);
     expect(guideStepAfterPairs('h2', 1)).toBe(1);
-    expect(guideTexts('h2o', 1)).toBe(M.guided.h2o.step2);
+    expect(guideTexts('h2o', 1, M)).toBe(M.guided.h2o.step2);
     expect(guideStepAfterPairs('h2o', 1)).toBe(2);
-    expect(guideTexts('h2o', 2)).toBe(`${M.guided.h2o.step2After} ${M.guided.h2o.step3}`);
+    expect(guideTexts('h2o', 2, M)).toBe(`${M.guided.h2o.step2After} ${M.guided.h2o.step3}`);
     expect(guideStepAfterPairs('h2o', 2)).toBe(3);
-    expect(guideTexts('h2o', 3)).toBe(M.guided.h2o.step4);
-    expect(guideTexts('h2o', 4)).toBeNull();
+    expect(guideTexts('h2o', 3, M)).toBe(M.guided.h2o.step4);
+    expect(guideTexts('h2o', 4, M)).toBeNull();
   });
 });

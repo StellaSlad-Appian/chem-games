@@ -7,23 +7,28 @@ import AtomCanvas, { type AtomCanvasLabels } from '@/components/games/shared/Ato
 import CoachPanel from '@/components/games/shared/CoachPanel';
 import { GlossaryText, type GlossaryEntry } from '@/components/games/shared/GlossaryTerm';
 import { LEWIS_STRUCTURES_CONFIG } from '@/core-engine/config/games/lewis-structures-config';
-import { LEWIS_MESSAGES } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages, type LewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { elementName } from '@/i18n/chemistry-names';
+import { useI18n } from '@/i18n/client';
+import type { Locale } from '@/i18n/config';
 import type { LewisErrorType } from '@/core-engine/types/chemistry';
 import { centralAtomId, type useLewisStructures } from '@/hooks/useLewisStructures';
 import { useSound } from '@/hooks/useSound';
 
-const M = LEWIS_MESSAGES;
 const CFG = LEWIS_STRUCTURES_CONFIG;
 
 export type LewisGame = ReturnType<typeof useLewisStructures>;
 
-export const LEWIS_GLOSSARY: GlossaryEntry[] = Object.entries(M.glossary).map(([term, definition]) => ({
-  term,
-  definition,
-  matches: M.glossaryMatches[term] ?? [term],
-}));
+/** The tap-to-explain vocabulary, in the reader's language. */
+export const lewisGlossary = (M: LewisMessages): GlossaryEntry[] =>
+  Object.entries(M.glossary).map(([term, definition]) => ({
+    term,
+    definition,
+    matches: M.glossaryMatches[term] ?? [term],
+  }));
 
-export const CANVAS_LABELS: AtomCanvasLabels = {
+export const canvasLabels = (M: LewisMessages, locale: Locale): AtomCanvasLabels => ({
+  elementName: (symbol: string) => elementName(locale, symbol),
   atomName: M.ui.atom.name,
   counter: M.ui.atom.counter,
   loner: M.ui.atom.loner,
@@ -34,7 +39,16 @@ export const CANVAS_LABELS: AtomCanvasLabels = {
   bondCount: M.ui.bond.count,
   counted: M.ui.bond.counted,
   inspectTap: M.ui.atom.inspectTap,
-};
+});
+
+/** Both of the above for the active locale, memoised per render tree. */
+export function useLewisCanvas() {
+  const M = useLewisMessages();
+  const { locale } = useI18n();
+  const glossary = useMemo(() => lewisGlossary(M), [M]);
+  const labels = useMemo(() => canvasLabels(M, locale), [M, locale]);
+  return { M, glossary, labels };
+}
 
 const DIAGNOSES: Exclude<LewisErrorType, 'none'>[] = ['tooMany', 'tooFew', 'hydrogenFull', 'needsDouble', 'leftover'];
 
@@ -50,10 +64,14 @@ const ghostClass =
   'cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-blue-500 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50';
 
 export default function LewisStructuresArena({ game, level, isPaused }: GameArenaProps) {
+  const { M, glossary, labels } = useLewisCanvas();
   const { playSound } = useSound();
   const { round, structure, phase, canvasMode, coach, hint, actions } = game;
   const molecule = round.molecule;
-  const glossaryText = useCallback((text: string) => <GlossaryText text={text} glossary={LEWIS_GLOSSARY} />, []);
+  const glossaryText = useCallback(
+    (text: string) => <GlossaryText text={text} glossary={glossary} />,
+    [glossary]
+  );
 
   const onPair = useCallback(
     (a: string, b: string) => {
@@ -115,7 +133,7 @@ export default function LewisStructuresArena({ game, level, isPaused }: GameAren
           <button
             type="button"
             onClick={actions.dismissHint}
-            aria-label="Dismiss hint"
+            aria-label={M.ui.dismissHint}
             className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--background) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
           >
             <X className="h-4 w-4" aria-hidden="true" />
@@ -135,7 +153,7 @@ export default function LewisStructuresArena({ game, level, isPaused }: GameAren
         structure={structure}
         mode={canvasMode}
         label={M.ui.canvasLabel(molecule.name)}
-        labels={CANVAS_LABELS}
+        labels={labels}
         layoutBonds={level < CFG.visuals.unplacedFromLevel ? molecule.bonds : undefined}
         rootAtomId={centralAtomId(molecule)}
         disabled={isPaused || phase === 'done'}

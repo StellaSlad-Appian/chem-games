@@ -9,10 +9,15 @@
  */
 import { expect, test, type Page } from '@playwright/test';
 import { REACTION_BALANCER_CONFIG as CFG } from '../src/core-engine/config/games/reaction-balancer-config';
-import { REACTION_BALANCER_MESSAGES as M } from '../src/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '../src/core-engine/config/games/reaction-balancer-messages';
+import { en } from '../src/i18n/dictionaries/en';
 import { getReaction } from '../src/core-engine/data/reactions';
 import { answerCoefficients, parseReaction } from '../src/core-engine/utils/balancer-utils';
 import { openGame, overlay } from './helpers';
+
+/** These specs drive the default locale, so the copy they assert is English. */
+const M = reactionBalancerMessages(en, 'en');
+
 
 const arena = (page: Page) => page.getByTestId('balancer-arena');
 const coefficient = (page: Page, name: string, formula: string) => page.getByLabel(M.card.coefficient(name, formula), { exact: true });

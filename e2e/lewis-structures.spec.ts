@@ -1,7 +1,12 @@
 import { expect, test, type Page } from '@playwright/test';
-import { LEWIS_MESSAGES as M } from '../src/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '../src/core-engine/config/games/lewis-structures-messages';
+import { en } from '../src/i18n/dictionaries/en';
 import { getLewisMolecule } from '../src/core-engine/data/lewis-molecules';
 import { footerButton, hintButton, openGame, overlay } from './helpers';
+
+/** These specs drive the default locale, so the copy they assert is English. */
+const M = lewisMessages(en, 'en');
+
 
 /** The first loner dot on an atom, by the canvas's data-atom-id. */
 const loner = (page: Page, atomId: string) =>

@@ -72,17 +72,29 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     /^leaderboards\.highScore$/,
     /^games\.shared\.(level|levelValue)$/,
     /^games\.overlay\.statLevel$/,
-    /^games\.reactionBalancer\.progress$/,
     /^games\.shared\.touchscreen$/,
     /^profile\.alias$/,
+    // "Coach" and "Challenge" are established German gaming loanwords, and both
+    // name a thing in the game, so they read the same way in both languages.
+    /^games\.(reactionBalancer|lewisStructures)\.coach\.label$/,
+    /^games\.reactionBalancer\.(challenge\.label|header\.challengeProgress)$/,
     // Chemistry terms that are the same word in both languages.
     /^chemistry\.(base|neutral)$/,
     // "OH⁻ (Base)" — the ion notation and the word "Base" are both unchanged.
     /^games\.neutralise\.keyTwoIon$/,
-    // Keyboard glyphs and single digits used as <kbd> labels.
+    // Keyboard glyphs and single digits used as <kbd> labels. The first column
+    // of an instructions key table is the physical key, so it never translates;
+    // the second column, which says what the key does, always does.
     /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
-    // Placeholder-only strings whose visible text is a formula or a symbol.
-    /^games\.reactionBalancer\.moleculeA11y$/,
+    /^games\.(reactionBalancer|lewisStructures)\.instructions\.keyboard\[\d+\]\[0\]$/,
+    // Strings whose whole visible content is placeholders, punctuation or
+    // international notation: there is nothing in them to translate.
+    /^games\.(reactionBalancer|lewisStructures)\.success\.points$/,
+    /^games\.reactionBalancer\.challenge\.tileA11y$/,
+    /^games\.reactionBalancer\.glossary\.stateSymbols\.term$/,
+    /^games\.lewisStructures\.overlay\.levelUpDescription$/,
+    /^games\.lewisStructures\.notebook\.diagnosisRow$/,
+    /^games\.lewisStructures\.ui\.atomOrdinal$/,
     // Keyword lists are chosen per language, not translated; the German list
     // happens to be entirely different, so nothing is exempted here — this
     // entry exists to document that `meta.keywords` is intentionally NOT

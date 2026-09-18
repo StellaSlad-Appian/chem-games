@@ -9,7 +9,12 @@ import { fireEvent, screen, within } from '@testing-library/react';
 import ReactionBalancerPage from './page';
 import { renderWithProviders } from '@/test-utils/render';
 import { REACTION_BALANCER_CONFIG as CFG } from '@/core-engine/config/games/reaction-balancer-config';
-import { REACTION_BALANCER_MESSAGES as M } from '@/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { en } from '@/i18n/dictionaries/en';
+
+// Rendered in English, like every component test; the German rendering is
+// asserted in the e2e suite against a real browser.
+const M = reactionBalancerMessages(en, 'en');
 import { getReaction } from '@/core-engine/data/reactions';
 import { WATER_REACTION_ID, answerCoefficients, planBalancerLevel, type BalancerRound, type ParsedReaction } from '@/core-engine/utils/balancer-utils';
 import { GUIDED_SEEN_KEY } from '@/hooks/useReactionBalancer';

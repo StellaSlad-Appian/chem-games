@@ -2,10 +2,9 @@
 'use client';
 
 import MoleculeText from '@/components/ui/MoleculeText';
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
 import type { RoundResult } from '@/hooks/useReactionBalancer';
 
-const M = REACTION_BALANCER_MESSAGES;
 
 interface NotebookProps {
   results: RoundResult[];
@@ -19,6 +18,7 @@ interface NotebookProps {
  * where help was needed.
  */
 export default function BalancerNotebook({ results, onBack, onPlayAgain }: NotebookProps) {
+  const M = useBalancerMessages();
   return (
     <section
       aria-labelledby="balancer-notebook-title"

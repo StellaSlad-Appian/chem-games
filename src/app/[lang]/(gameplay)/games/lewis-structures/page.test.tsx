@@ -9,7 +9,12 @@ import { fireEvent, screen, within } from '@testing-library/react';
 import LewisStructuresPage from './page';
 import { renderWithProviders } from '@/test-utils/render';
 import { LEWIS_STRUCTURES_CONFIG as CFG } from '@/core-engine/config/games/lewis-structures-config';
-import { LEWIS_MESSAGES as M } from '@/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { en } from '@/i18n/dictionaries/en';
+
+// Rendered in English, like every component test; the German rendering is
+// asserted in the e2e suite against a real browser.
+const M = lewisMessages(en, 'en');
 import { getLewisMolecule, moleculesForLevel } from '@/core-engine/data/lewis-molecules';
 import type { LewisMoleculeData, LewisStructure } from '@/core-engine/types/chemistry';
 import { createStructure, matchesTarget, nextMove, pairAtoms, prepareRepair } from '@/core-engine/utils/lewis-utils';

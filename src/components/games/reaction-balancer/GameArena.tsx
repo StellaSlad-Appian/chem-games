@@ -6,7 +6,6 @@ import { Lightbulb, X } from 'lucide-react';
 import CoachPanel from '@/components/games/shared/CoachPanel';
 import RichMessage from '@/components/games/shared/RichMessage';
 import MoleculeText from '@/components/ui/MoleculeText';
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
 import { REACTION_BALANCER_CONFIG } from '@/core-engine/config/games/reaction-balancer-config';
 import type { ReactionBalancerGame } from '@/hooks/useReactionBalancer';
 import { useInputMethod } from '@/hooks/useInputMethod';
@@ -14,10 +13,9 @@ import { useSound } from '@/hooks/useSound';
 import AtomLedger from './AtomLedger';
 import ChallengeBuilder from './ChallengeBuilder';
 import CompoundCard from './CompoundCard';
-import { BALANCER_GLOSSARY } from './Instructions';
+import { useBalancerGlossary } from './Instructions';
 import MassBeam from './MassBeam';
 
-const M = REACTION_BALANCER_MESSAGES;
 const CFG = REACTION_BALANCER_CONFIG;
 
 interface GameArenaProps {
@@ -35,11 +33,12 @@ const ghostClass =
  * coach strip and the hint ladder. All rules live in useReactionBalancer.
  */
 export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps) {
+  const { M, glossary } = useBalancerGlossary();
   const { playSound } = useSound();
   const touch = useInputMethod() === 'touch';
   const { round, parsed, coefficients, phase, coach, hint, actions, scaffold } = game;
   const disabled = isPaused || phase === 'done';
-  const richText = useCallback((text: string) => <RichMessage text={text} glossary={BALANCER_GLOSSARY} />, []);
+  const richText = useCallback((text: string) => <RichMessage text={text} glossary={glossary} />, [glossary]);
 
   const onSet = useCallback(
     (index: number, value: number | '') => {

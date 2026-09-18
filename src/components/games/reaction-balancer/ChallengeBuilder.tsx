@@ -4,11 +4,12 @@
 import { useMemo } from 'react';
 import { X } from 'lucide-react';
 import MoleculeText from '@/components/ui/MoleculeText';
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useI18n } from '@/i18n/client';
+import { localizeSpecies } from '@/i18n/game-data';
 import { findSpecies, type Side, type Species } from '@/core-engine/utils/balancer-utils';
 import type { ReactionBalancerGame } from '@/hooks/useReactionBalancer';
 
-const M = REACTION_BALANCER_MESSAGES;
 
 interface ChallengeBuilderProps {
   game: ReactionBalancerGame;
@@ -28,13 +29,20 @@ const sideButton = (active: boolean) =>
  * alphabetical so the order gives nothing away). Tap-only, no drag.
  */
 export default function ChallengeBuilder({ game, disabled, touch, onAdd }: ChallengeBuilderProps) {
+  const M = useBalancerMessages();
+  const { locale } = useI18n();
   const { round, pickerSide, placedReactants, placedProducts, actions } = game;
 
   const tiles = useMemo<Species[]>(() => {
     const own = round.parsed.species;
-    const extra = round.distractors.map((bare) => findSpecies(bare)).filter((s): s is Species => Boolean(s));
-    return [...own, ...extra].sort((a, b) => a.name.localeCompare(b.name));
-  }, [round]);
+    // The distractors come straight from the dataset, so they need the same
+    // translation the round's own species already had.
+    const extra = round.distractors
+      .map((bare) => findSpecies(bare))
+      .filter((s): s is Species => Boolean(s))
+      .map((s) => localizeSpecies(s, locale));
+    return [...own, ...extra].sort((a, b) => a.name.localeCompare(b.name, locale));
+  }, [round, locale]);
 
   const placed = (bares: string[], side: Side) =>
     bares.map((bare) => {

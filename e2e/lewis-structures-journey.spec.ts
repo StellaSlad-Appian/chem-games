@@ -8,11 +8,16 @@
  */
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { LEWIS_STRUCTURES_CONFIG as CFG } from '../src/core-engine/config/games/lewis-structures-config';
-import { LEWIS_MESSAGES as M } from '../src/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '../src/core-engine/config/games/lewis-structures-messages';
+import { en } from '../src/i18n/dictionaries/en';
 import { getLewisMolecule } from '../src/core-engine/data/lewis-molecules';
 import type { BondOrder, LewisMoleculeData, LewisStructure } from '../src/core-engine/types/chemistry';
 import { createAtom, diagnose, matchesTarget, nextMove, pairAtoms } from '../src/core-engine/utils/lewis-utils';
 import { openGame, overlay } from './helpers';
+
+/** These specs drive the default locale, so the copy they assert is English. */
+const M = lewisMessages(en, 'en');
+
 
 const arena = (page: Page) => page.getByTestId('lewis-arena');
 const atom = (page: Page, id: string) => page.locator(`[data-atom-id="${id}"]`);

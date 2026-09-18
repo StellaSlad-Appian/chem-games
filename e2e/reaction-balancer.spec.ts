@@ -1,8 +1,13 @@
 import { expect, test, type Page } from '@playwright/test';
-import { REACTION_BALANCER_MESSAGES as M } from '../src/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '../src/core-engine/config/games/reaction-balancer-messages';
+import { en } from '../src/i18n/dictionaries/en';
 import { getReaction } from '../src/core-engine/data/reactions';
 import { WATER_REACTION_ID, answerCoefficients, parseReaction } from '../src/core-engine/utils/balancer-utils';
 import { footerButton, hintButton, openGame, overlay } from './helpers';
+
+/** These specs drive the default locale, so the copy they assert is English. */
+const M = reactionBalancerMessages(en, 'en');
+
 
 const coefficient = (page: Page, name: string, formula: string) => page.getByLabel(M.card.coefficient(name, formula), { exact: true });
 const card = (page: Page, formula: string) => page.locator(`[data-testid="compound-card"][data-formula="${formula}"]`);

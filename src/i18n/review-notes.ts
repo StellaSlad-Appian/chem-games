@@ -103,7 +103,17 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.reactionBalancer',
       confidence: 'high',
-      note: 'Uses the glossary terms Edukte / Produkte / Koeffizient / Atombilanz. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct.',
+      note: 'Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct.',
+    },
+    {
+      prefix: 'games.reactionBalancer.glossary',
+      confidence: 'high',
+      note: 'The Index / Koeffizient contrast is the whole teaching point of the game, and German makes it more clearly than English does. `matches` lists the German word forms that become tap-to-explain, so it is a different list from the English one rather than a translation of it.',
+    },
+    {
+      prefix: 'games.reactionBalancer.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column one is the physical key (Tab, H, P) and is deliberately identical to the English; only the description of what the key does is translated.',
     },
     {
       prefix: 'games.formulaBlaster',
@@ -114,6 +124,27 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'games.neutralise',
       confidence: 'high',
       note: 'Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar.',
+    },
+
+    {
+      prefix: 'games.lewisStructures',
+      confidence: 'medium',
+      note: 'A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below.',
+    },
+    {
+      prefix: 'games.lewisStructures.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column one is the physical key and is deliberately identical to the English.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.lonePair',
+      confidence: 'high',
+      note: '"freies Elektronenpaar" is glossary-fixed; the calque "einsames Elektronenpaar" was rejected.',
+    },
+    {
+      prefix: 'games.lewisStructures.counts',
+      confidence: 'high',
+      note: 'Counted noun phrases with their own plural forms, so the adjective ending is right in both ("1 bindendes Elektronenpaar" / "2 bindende Elektronenpaare"). They are substituted into a sentence after a colon, where the nominative is correct.',
     },
 
     // -------------------------------------------------------------- medium --
@@ -200,6 +231,31 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Chemie-Sortierer" is a coinage for "Chemical Classifier". Understandable, but check it does not sound like a machine for sorting chemicals.',
     },
     {
+      prefix: 'games.lewisStructures.glossary.loner',
+      confidence: 'low',
+      note: '**"Einzelgänger" is a coinage.** The English game invents "loner" for an unpaired outer electron and glosses it; German has no such playful word, so this borrows the everyday one for a lone wolf. It is the single most-repeated word in the game — it appears in the instructions, every coach line, every hint and the canvas labels — so if a German teacher dislikes it, the change is large. The safe alternative is the textbook "ungepaartes Elektron", which is accurate and much heavier for a 14-year-old. Decide this one deliberately.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.duet',
+      confidence: 'low',
+      note: '"Duett" for the two-electron shell of hydrogen. German school chemistry has no settled word here — it usually says "Edelgaskonfiguration des Heliums" or just "voll bei zwei". "Duett" mirrors the English coinage and is short enough for a glossary chip, but a teacher may not recognise it.',
+    },
+    {
+      prefix: 'gamesHub.lewisTitle',
+      confidence: 'low',
+      note: 'Coinage, and the weakest of the four game titles. "Teilen bis voll" is elliptical — grammatical as a headline, odd as a sentence — and loses the electron sense that "Share to Fill" carries for a reader who already knows the chemistry. Alternatives worth considering: "Teilen macht voll", "Paare bilden", or leaving the English title. Same open question as the other three: should game titles be translated at all?',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.classmate',
+      confidence: 'medium',
+      note: 'The English says "Drawn by a classmate". German has no short gender-neutral word for a classmate — "Mitschülerin oder Mitschüler" is far too long for the line — so this says "von jemandem aus deiner Klasse". Correct and neutral, slightly more roundabout than the English.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.supportMode',
+      confidence: 'medium',
+      note: '"Unterstützungsmodus" is long but transparent, and matches the "Unterstützung" heading in the settings panel. "Hilfemodus" is shorter but collides with „Spielanleitung“ in a reader’s head.',
+    },
+    {
       prefix: 'privacy',
       confidence: 'low',
       note: 'Privacy-policy prose. I am not a lawyer and this is not legal review: the German says what the English says, but the phrasing has not been checked against German data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) — those names deliberately stay English inside German sentences, which is correct but reads oddly. If the site is ever actually offered to German or EU students, this page needs a GDPR/DSGVO review that is out of scope for a translation pass.',
@@ -224,7 +280,7 @@ export const REVIEW_SUMMARY: Record<string, string> = {
 ## Chemistry names — \`src/i18n/chemistry-names/de.ts\`
 
 Not in the table above: these are keyed by registry identifier rather than by
-dictionary path, and there are 181 of them.
+dictionary path, and there are 193 of them.
 
 | Group | Count | Confidence | Notes |
 |---|---|---|---|
@@ -236,6 +292,25 @@ dictionary path, and there are 181 of them.
 "Tenness", which is the IUPAC German form but is rarely written; and
 \`H4SiO4\` is "Kieselsäure" where the fully systematic name would be
 "Orthokieselsäure".
+
+## Game data — \`src/i18n/chemistry-names/de.ts\`
+
+Also keyed by identifier rather than by dictionary path: the prose the two new
+games read straight out of the core-engine datasets. 104 entries, all new in
+this pass.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Species names (\`SPECIES_NAMES_DE\`) | 53 | **high** | Everyday names for the compounds a Reaction Balancer card can show. Composed the German way (Natriumhydrogencarbonat, Kupfer(II)-nitrat). One deliberate decision: HCl is **Chlorwasserstoff**, the substance, because that is what a card labels; the reaction descriptions say **Salzsäure** where the reaction happens in water. English uses "hydrogen chloride" for both and loses that distinction. |
+| Reaction prose (\`REACTION_TEXT_DE\`) | 33 × up to 4 | **medium** | Name, macroscopic observation, strategy hint and word equation for every reaction. The observations are the risk: they are short pieces of lab description ("zischt über die Wasseroberfläche", "ein Funkenregen") where a flat translation reads flat. The reaction *names* follow German convention — Haber-Bosch-Verfahren, not "Haber-Verfahren"; Fotosynthese with an F; Zellatmung. |
+| Lewis molecule prose (\`LEWIS_MOLECULE_TEXT_DE\`) | 18 × 3 | **medium** | Name, tier-2 hint and property line per molecule. Names follow German IUPAC: **Phosphan** (not Phosphin), **Ethin** (not Ethyn), **Tetrachlormethan**, **Chlormethan**, **Schwefelwasserstoff**. Those five are worth a teacher's eye — the English data uses the older or the British forms. |
+
+**Structurally out of reach of a translator, by design:** equations, formulae,
+bond lines, state symbols, atom lists and level assignments are not in the
+overlay at all, and \`chemistry-names.test.ts\` asserts they come through
+byte-identical. The same test fails the suite if a reaction gains a German word
+equation it does not have in English, because the game decides what to show by
+whether one exists.
 
 ## Cheat sheets — \`src/i18n/cheat-sheets/de.ts\`
 
@@ -284,9 +359,13 @@ Ranked, honestly:
 2. **Register in the playful copy.** Overlay messages, empty states and the
    marketing hero are where a non-native translation reads as "correct but
    flat". None of it is wrong; some of it may be charmless.
-3. **Game titles.** Three coinages, no strong opinion behind them.
-4. **The privacy page.** Legally unreviewed, and describing Australian law.
-5. **Compound acid names.** Salzsäure/Flusssäure is the school convention; a
+3. **"Einzelgänger".** The word Share to Fill is built on. It is the right
+   register and it is not a German chemistry word; if a teacher rejects it the
+   edit touches every line of that game.
+4. **Game titles.** Four coinages now, no strong opinion behind any of them.
+   "Teilen bis voll" is the weakest.
+5. **The privacy page.** Legally unreviewed, and describing Australian law.
+6. **Compound acid names.** Salzsäure/Flusssäure is the school convention; a
    more formal audience may expect the systematic names.
 `,
 };

@@ -1,9 +1,7 @@
 // src/components/games/reaction-balancer/MassBeam.tsx
 'use client';
 
-import { REACTION_BALANCER_MESSAGES } from '@/core-engine/config/games/reaction-balancer-messages';
-
-const M = REACTION_BALANCER_MESSAGES;
+import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
 
 interface MassBeamProps {
   left: number;
@@ -18,6 +16,7 @@ const MAX_TILT_DEGREES = 12;
  * content); the text readout carries the same information.
  */
 export default function MassBeam({ left, right }: MassBeamProps) {
+  const M = useBalancerMessages();
   const heavier = Math.max(left, right, 1);
   const tilt = Math.max(-MAX_TILT_DEGREES, Math.min(MAX_TILT_DEGREES, ((right - left) / heavier) * MAX_TILT_DEGREES));
   const level = Math.abs(right - left) < 0.05;

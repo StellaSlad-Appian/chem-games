@@ -22,19 +22,19 @@ import LewisStructuresArena from '@/components/games/lewis-structures/GameArena'
 import LewisInstructions from '@/components/games/lewis-structures/Instructions';
 import LewisNotebook from '@/components/games/lewis-structures/Notebook';
 import { LEWIS_STRUCTURES_CONFIG } from '@/core-engine/config/games/lewis-structures-config';
-import { LEWIS_MESSAGES } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
 import { GAME_CONTROLS } from '@/core-engine/constants/ui-constants';
 import { recordGameSession } from '@/lib/actions/game-actions';
 import { useI18n } from '@/i18n/client';
 import { localizePath } from '@/i18n/routing';
 
-const M = LEWIS_MESSAGES;
 const CFG = LEWIS_STRUCTURES_CONFIG;
 const GAME_ID = 'lewis-structures' as const;
 const INSTRUCTIONS_SEEN_KEY = 'hasSeenLewisStructuresInstructions';
 
 export default function LewisStructuresPage() {
   const router = useRouter();
+  const M = useLewisMessages();
   const { locale } = useI18n();
   const { gameState, setGameState, score, setScore, currentLevel, setCurrentLevel, togglePause, resetBase } = useGameState();
   const [supportMode] = useSupportMode(GAME_ID);

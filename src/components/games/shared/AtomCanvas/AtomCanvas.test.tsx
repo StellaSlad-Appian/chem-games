@@ -8,11 +8,12 @@ import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, screen } from '@testing-library/react';
 import { renderWithProviders } from '@/test-utils/render';
 import { getLewisMolecule } from '@/core-engine/data/lewis-molecules';
-import { createCompleteStructure, createStructure, pairAtoms } from '@/core-engine/utils/lewis-utils';
+import { createCompleteStructure, createStructure, getElementName, pairAtoms } from '@/core-engine/utils/lewis-utils';
 import type { LewisStructure } from '@/core-engine/types/chemistry';
 import AtomCanvas, { type AtomCanvasLabels, type AtomCanvasProps } from './AtomCanvas';
 
 const labels: AtomCanvasLabels = {
+  elementName: (symbol) => getElementName(symbol),
   atomName: (name, count, full) => `${name}: ${count} of ${full}`,
   counter: (symbol, count, full) => `${symbol}: ${count} of ${full}`,
   loner: (name, i, n) => `${name}, loner ${i} of ${n}`,

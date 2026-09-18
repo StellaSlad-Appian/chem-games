@@ -9,7 +9,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { LEWIS_STRUCTURES_CONFIG, type LewisStructuresConfig } from '@/core-engine/config/games/lewis-structures-config';
-import { LEWIS_MESSAGES, atomLabel } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages, type LewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
 import { LEWIS_MOLECULES, atomId as makeAtomId, getLewisMolecule, moleculesForLevel } from '@/core-engine/data/lewis-molecules';
 import type { LewisDiagnosis, LewisErrorType, LewisMoleculeData, LewisStructure } from '@/core-engine/types/chemistry';
 import {
@@ -32,10 +32,22 @@ import {
   unpairBond,
   type PairRejection,
 } from '@/core-engine/utils/lewis-utils';
+import { elementName as localizedElementName } from '@/i18n/chemistry-names';
+import { useI18n } from '@/i18n/client';
+import { localizeMoleculeRounds } from '@/i18n/game-data';
 import { useHintLadder } from './useHintLadder';
 import { useStoredValue } from './useStoredValue';
 
-const M = LEWIS_MESSAGES;
+/**
+ * Everything the pure helpers below need in order to speak the reader's
+ * language: the message catalogue and an element-name lookup. The hook builds
+ * one from `useI18n()`; a test builds one from whichever dictionary it wants to
+ * assert against.
+ */
+export interface LewisText {
+  M: LewisMessages;
+  elementName: (symbol: string) => string;
+}
 
 export const GUIDED_SEEN_KEY = 'lewisStructuresGuidedSeen';
 export const GUIDED_MOLECULES = ['h2', 'h2o'] as const;
@@ -173,33 +185,46 @@ const freshRoundState = (round: LewisRound): RoundState => ({
 });
 
 /** "Oxygen", or "Oxygen 2" when the molecule has more than one of that element. */
-export function describeAtom(structure: LewisStructure, id: string): string {
+export function describeAtom(structure: LewisStructure, id: string, text: LewisText): string {
   const atom = getAtom(structure, id);
   const sameElement = structure.atoms.filter((a) => a.element === atom.element);
   const ordinal = sameElement.findIndex((a) => a.id === id) + 1;
-  return atomLabel(getElementName(atom.element), sameElement.length > 1 ? ordinal : undefined);
+  return text.M.atomLabel(
+    text.elementName(atom.element),
+    sameElement.length > 1 ? ordinal : undefined
+  );
 }
 
-const explanationFor = (structure: LewisStructure, diagnosis: LewisDiagnosis): string => {
+const explanationFor = (
+  structure: LewisStructure,
+  diagnosis: LewisDiagnosis,
+  text: LewisText
+): string => {
+  const { M } = text;
   const [first, second] = diagnosis.atomIds;
   switch (diagnosis.type) {
     case 'tooMany':
-      return M.inspect.explain.tooMany(describeAtom(structure, first), fullCount(getAtom(structure, first).element));
+      return M.inspect.explain.tooMany(describeAtom(structure, first, text), fullCount(getAtom(structure, first).element));
     case 'tooFew':
-      return M.inspect.explain.tooFew(describeAtom(structure, first));
+      return M.inspect.explain.tooFew(describeAtom(structure, first, text));
     case 'hydrogenFull':
       return M.inspect.explain.hydrogenFull;
     case 'needsDouble':
-      return M.inspect.explain.needsDouble(describeAtom(structure, first), describeAtom(structure, second));
+      return M.inspect.explain.needsDouble(describeAtom(structure, first, text), describeAtom(structure, second, text));
     case 'leftover':
-      return M.inspect.explain.leftover(describeAtom(structure, first));
+      return M.inspect.explain.leftover(describeAtom(structure, first, text));
     default:
       return M.inspect.correctStructure;
   }
 };
 
 /** The coach's reading of a build-mode structure, in priority order. */
-export function buildCoachText(structure: LewisStructure, molecule: LewisMoleculeData): string | null {
+export function buildCoachText(
+  structure: LewisStructure,
+  molecule: LewisMoleculeData,
+  text: LewisText
+): string | null {
+  const { M } = text;
   if (isComplete(structure)) {
     return matchesTarget(structure, molecule)
       ? M.coach.complete(molecule.name, countBonds(structure), countLonePairs(structure))
@@ -209,7 +234,7 @@ export function buildCoachText(structure: LewisStructure, molecule: LewisMolecul
     (b) => getAtom(structure, b.sourceNodeId).unpaired > 0 && getAtom(structure, b.targetNodeId).unpaired > 0
   );
   if (shareAgain) {
-    return M.coach.shareAgain(describeAtom(structure, shareAgain.sourceNodeId), describeAtom(structure, shareAgain.targetNodeId));
+    return M.coach.shareAgain(describeAtom(structure, shareAgain.sourceNodeId, text), describeAtom(structure, shareAgain.targetNodeId, text));
   }
   const withLoners = [...structure.atoms]
     .filter((a) => a.unpaired > 0)
@@ -219,10 +244,10 @@ export function buildCoachText(structure: LewisStructure, molecule: LewisMolecul
   // loner sits on one atom (or none is left) the drawing has wandered off the
   // target and a shared pair must be undone.
   if (withLoners.length <= 1 && short) {
-    return M.coach.deadEnd(describeAtom(structure, short.id), countAround(structure, short.id));
+    return M.coach.deadEnd(describeAtom(structure, short.id, text), countAround(structure, short.id));
   }
   if (withLoners.length > 0) {
-    return M.coach.loners(describeAtom(structure, withLoners[0].id), withLoners[0].unpaired);
+    return M.coach.loners(describeAtom(structure, withLoners[0].id, text), withLoners[0].unpaired);
   }
   return null;
 }
@@ -240,6 +265,19 @@ export function useLewisStructures({
   onRoundScored,
   onLevelCleared,
 }: UseLewisStructuresOptions) {
+  const M = useLewisMessages();
+  const { locale } = useI18n();
+  const text = useMemo<LewisText>(
+    () => ({ M, elementName: (symbol: string) => localizedElementName(locale, symbol) }),
+    [M, locale]
+  );
+  // The molecule dataset is English. Translating the level plan once, here,
+  // means the header, the coach, the hints and the notebook all use the same
+  // molecule name — see src/i18n/game-data.ts.
+  const planFor = useCallback(
+    (forLevel: number) => localizeMoleculeRounds(planLevel(forLevel, config, rng), locale),
+    [config, rng, locale]
+  );
   const [guidedSeenRaw, setGuidedSeenRaw] = useStoredValue(GUIDED_SEEN_KEY);
   const guidedSeen = useMemo<string[]>(() => {
     try {
@@ -253,7 +291,7 @@ export function useLewisStructures({
   // The plan is keyed by the level it was made for; startLevel() replaces it.
   const [plan, setPlan] = useState<{ level: number; rounds: LewisRound[] }>(() => ({
     level,
-    rounds: planLevel(level, config, rng),
+    rounds: localizeMoleculeRounds(planLevel(level, config, rng), locale),
   }));
   const [roundIndex, setRoundIndex] = useState(0);
   const [roundState, setRoundState] = useState<RoundState>(() => freshRoundState(plan.rounds[0]));
@@ -299,7 +337,7 @@ export function useLewisStructures({
 
   const startLevel = useCallback(
     (nextLevel: number, options: { resetRun?: boolean } = {}) => {
-      const nextPlan = { level: nextLevel, rounds: planLevel(nextLevel, config, rng) };
+      const nextPlan = { level: nextLevel, rounds: planFor(nextLevel) };
       setPlan(nextPlan);
       if (options.resetRun) {
         setResults([]);
@@ -308,7 +346,7 @@ export function useLewisStructures({
       }
       startRound(nextPlan, 0);
     },
-    [config, rng, startRound]
+    [startRound, planFor]
   );
 
   // ---------------------------------------------------------------- scoring
@@ -337,22 +375,25 @@ export function useLewisStructures({
       onRoundScored?.(points);
       return points;
     },
-    [config, hints, plan.level, round, onRoundScored]
+    [config, hints, plan.level, round, onRoundScored, M]
   );
 
   // ---------------------------------------------------------------- build actions
-  const rejectionText = (reason: PairRejection, atomIdRejected: string, structure: LewisStructure) => {
-    switch (reason) {
-      case 'atomFull':
-        return M.error.atomFull(describeAtom(structure, atomIdRejected));
-      case 'hydrogenFull':
-        return M.error.hydrogenFull;
-      case 'sameAtom':
-        return M.error.sameAtom;
-      default:
-        return M.error.pairedDot;
-    }
-  };
+  const rejectionText = useCallback(
+    (reason: PairRejection, atomIdRejected: string, structure: LewisStructure) => {
+      switch (reason) {
+        case 'atomFull':
+          return M.error.atomFull(describeAtom(structure, atomIdRejected, text));
+        case 'hydrogenFull':
+          return M.error.hydrogenFull;
+        case 'sameAtom':
+          return M.error.sameAtom;
+        default:
+          return M.error.pairedDot;
+      }
+    },
+    [M, text]
+  );
 
   const pair = useCallback(
     (sourceId: string, targetId: string) => {
@@ -364,8 +405,8 @@ export function useLewisStructures({
         return { ok: false as const, error: result.error };
       }
       const next = result.structure;
-      const a = describeAtom(next, sourceId);
-      const b = describeAtom(next, targetId);
+      const a = describeAtom(next, sourceId, text);
+      const b = describeAtom(next, targetId, text);
       setAnnouncement(M.ui.live.paired(a, b, countAround(next, sourceId), countAround(next, targetId)));
       const complete = isComplete(next) && matchesTarget(next, round.molecule);
       const patch: Partial<RoundState> = { structure: next, feedback: null, moved: true, countFeedback: null };
@@ -386,7 +427,7 @@ export function useLewisStructures({
       update(patch);
       return { ok: true as const, complete };
     },
-    [isPaused, roundState, touch, update, round, guided, finishRound, hints]
+    [isPaused, roundState, touch, update, round, guided, finishRound, hints, M, text, rejectionText]
   );
 
   const unpair = useCallback(
@@ -396,10 +437,10 @@ export function useLewisStructures({
       const bond = roundState.structure.bonds.find((b) => b.id === bondId);
       if (!bond) return;
       const next = unpairBond(roundState.structure, bondId);
-      setAnnouncement(M.ui.live.unpaired(describeAtom(next, bond.sourceNodeId), describeAtom(next, bond.targetNodeId)));
+      setAnnouncement(M.ui.live.unpaired(describeAtom(next, bond.sourceNodeId, text), describeAtom(next, bond.targetNodeId, text)));
       update({ structure: next, feedback: null, countFeedback: null });
     },
-    [isPaused, roundState, touch, update]
+    [isPaused, roundState, touch, update, M, text]
   );
 
   const reject = useCallback(
@@ -408,7 +449,7 @@ export function useLewisStructures({
       touch();
       update({ feedback: { text: rejectionText(reason, atomIdRejected, roundState.structure), tone: 'error', label: M.error.label } });
     },
-    [isPaused, roundState.structure, touch, update]
+    [isPaused, roundState.structure, touch, update, M, rejectionText]
   );
 
   // ---------------------------------------------------------------- inspect actions
@@ -423,12 +464,12 @@ export function useLewisStructures({
         return;
       }
       if (!diagnosis.atomIds.includes(id)) {
-        update({ feedback: { text: M.inspect.wrongAtom(describeAtom(structure, id), countAround(structure, id)), tone: 'error', label: M.error.label } });
+        update({ feedback: { text: M.inspect.wrongAtom(describeAtom(structure, id, text), countAround(structure, id)), tone: 'error', label: M.error.label } });
         return;
       }
       update({ markedAtomId: id, phase: 'pickDiagnosis', feedback: null });
     },
-    [isPaused, roundState, round, touch, update]
+    [isPaused, roundState, round, touch, update, M, text]
   );
 
   const sayCorrect = useCallback(() => {
@@ -443,7 +484,7 @@ export function useLewisStructures({
       return;
     }
     update({ feedback: { text: M.inspect.notCorrect, tone: 'error', label: M.error.label }, diagnosisAttempts: roundState.diagnosisAttempts + 1 });
-  }, [isPaused, roundState, round, touch, update]);
+  }, [isPaused, roundState, round, touch, update, M]);
 
   const pickDiagnosis = useCallback(
     (type: LewisErrorType) => {
@@ -456,9 +497,9 @@ export function useLewisStructures({
           diagnosisAttempts: attempts,
           feedback: {
             text: M.inspect.wrongDiagnosis(
-              describeAtom(structure, roundState.markedAtomId),
+              describeAtom(structure, roundState.markedAtomId, text),
               countAround(structure, roundState.markedAtomId),
-              explanationFor(structure, round.diagnosis)
+              explanationFor(structure, round.diagnosis, text)
             ),
             tone: 'error',
             label: M.error.label,
@@ -474,7 +515,7 @@ export function useLewisStructures({
         markedAtomId: null,
       });
     },
-    [isPaused, roundState, round, touch, update]
+    [isPaused, roundState, round, touch, update, M, text]
   );
 
   const toggleBond = useCallback(
@@ -548,7 +589,7 @@ export function useLewisStructures({
       });
       update({ phase: 'done', countFeedback: null, feedback: null, lastPoints: points });
     }
-  }, [isPaused, roundState, round, touch, update, finishRound]);
+  }, [isPaused, roundState, round, touch, update, finishRound, M]);
 
   // ---------------------------------------------------------------- round flow
   const isLastRound = roundIndex >= plan.rounds.length - 1;
@@ -611,24 +652,24 @@ export function useLewisStructures({
     if (inspecting) {
       if (round.diagnosis.type === 'none') return { ...empty, tier: 3, text: M.hint.inspect.tier3Correct };
       const [id] = round.diagnosis.atomIds;
-      return { ...empty, tier: 3, text: M.hint.inspect.tier3(describeAtom(structure, id), countAround(structure, id)), atomIds: round.diagnosis.atomIds };
+      return { ...empty, tier: 3, text: M.hint.inspect.tier3(describeAtom(structure, id, text), countAround(structure, id)), atomIds: round.diagnosis.atomIds };
     }
     if (phase === 'countBonds') return { ...empty, tier: 3, text: M.hint.inspect.tier3Count('bonds', countBonds(structure)) };
     if (phase === 'countLonePairs') return { ...empty, tier: 3, text: M.hint.inspect.tier3Count('lonePairs', countLonePairs(structure)) };
     const move = nextMove(structure, round.molecule);
     if (!move) return { ...empty, tier: 3, text: M.hint.noMoreHints };
     if (move.kind === 'pair') {
-      return { ...empty, tier: 3, text: M.hint.tier3(describeAtom(structure, move.atomIds[0]), describeAtom(structure, move.atomIds[1])), atomIds: [...move.atomIds] };
+      return { ...empty, tier: 3, text: M.hint.tier3(describeAtom(structure, move.atomIds[0], text), describeAtom(structure, move.atomIds[1], text)), atomIds: [...move.atomIds] };
     }
     const bond = structure.bonds.find((b) => b.id === move.bondId);
     if (!bond) return { ...empty, tier: 3, text: M.hint.noMoreHints };
     return {
       ...empty,
       tier: 3,
-      text: M.hint.tier3Undo(describeAtom(structure, bond.sourceNodeId), describeAtom(structure, bond.targetNodeId)),
+      text: M.hint.tier3Undo(describeAtom(structure, bond.sourceNodeId, text), describeAtom(structure, bond.targetNodeId, text)),
       bondIds: [bond.id],
     };
-  }, [hints.tier, roundState, round]);
+  }, [hints.tier, roundState, round, M, text]);
 
   // ---------------------------------------------------------------- coach
   const coach = useMemo(() => {
@@ -640,8 +681,8 @@ export function useLewisStructures({
     if (feedback) return { message: feedback.text, tone: feedback.tone, label: feedback.label, visible: true };
 
     if (guided && guideStep >= 0 && phase !== 'done') {
-      const steps = guideTexts(molecule.id, guideStep);
-      if (steps) return { message: steps, tone: 'guide' as CoachTone, label: M.guided.stepLabel(guideStep + 1, guideTotal(molecule.id)), visible: true };
+      const steps = guideTexts(molecule.id, guideStep, M);
+      if (steps) return { message: steps, tone: 'guide' as CoachTone, label: M.guided.stepLabel(guideStep + 1, guideTotal(molecule.id, M)), visible: true };
     }
 
     switch (phase) {
@@ -649,7 +690,7 @@ export function useLewisStructures({
         return { message: `${M.inspect.classmate(molecule.name)} ${M.inspect.prompt}`, tone: 'coach' as CoachTone, label: M.coach.label, visible: true };
       case 'pickDiagnosis':
         return {
-          message: M.inspect.diagnosisPrompt(roundState.markedAtomId ? describeAtom(structure, roundState.markedAtomId) : ''),
+          message: M.inspect.diagnosisPrompt(roundState.markedAtomId ? describeAtom(structure, roundState.markedAtomId, text) : ''),
           tone: 'coach' as CoachTone,
           label: M.coach.label,
           visible: true,
@@ -661,7 +702,7 @@ export function useLewisStructures({
       case 'done':
         // A guided round ends on the script's last line ("...that's a single bond, H–H.").
         return guided
-          ? { message: guideTexts(molecule.id, guideTotal(molecule.id) - 1), tone: 'guide' as CoachTone, label: M.guided.stepLabel(guideTotal(molecule.id), guideTotal(molecule.id)), visible: true }
+          ? { message: guideTexts(molecule.id, guideTotal(molecule.id, M) - 1, M), tone: 'guide' as CoachTone, label: M.guided.stepLabel(guideTotal(molecule.id, M), guideTotal(molecule.id, M)), visible: true }
           : { message: null, tone: 'success' as CoachTone, label: M.success.label, visible: false };
       default:
         break;
@@ -671,7 +712,7 @@ export function useLewisStructures({
     const visible = !marking && (alwaysOn || roundState.coachRequested);
     if (phase === 'repair') {
       return roundState.moved
-        ? { message: buildCoachText(structure, molecule), tone: 'coach' as CoachTone, label: M.coach.label, visible: visible || supportMode }
+        ? { message: buildCoachText(structure, molecule, text), tone: 'coach' as CoachTone, label: M.coach.label, visible: visible || supportMode }
         : { message: M.inspect.repair, tone: 'coach' as CoachTone, label: M.coach.label, visible: true };
     }
     if (!roundState.moved && molecule.sameGroupAs) {
@@ -684,8 +725,8 @@ export function useLewisStructures({
       // The level's teaching point: shown even when the coach is otherwise on request.
       return { message: M.coach.central, tone: 'coach' as CoachTone, label: M.coach.label, visible: !marking };
     }
-    return { message: buildCoachText(structure, molecule), tone: 'coach' as CoachTone, label: M.coach.label, visible };
-  }, [roundState, round, supportMode, plan.level, config, guided, guideStep]);
+    return { message: buildCoachText(structure, molecule, text), tone: 'coach' as CoachTone, label: M.coach.label, visible };
+  }, [roundState, round, supportMode, plan.level, config, guided, guideStep, M, text]);
 
   // ---------------------------------------------------------------- derived
   const canvasMode = ((): 'build' | 'inspect' | 'countBonds' | 'countLonePairs' | 'readonly' => {
@@ -718,7 +759,7 @@ export function useLewisStructures({
     canvasMode,
     guided,
     guideStep,
-    guideTotal: guided ? guideTotal(round.molecule.id) : 0,
+    guideTotal: guided ? guideTotal(round.molecule.id, M) : 0,
     markedAtomId: roundState.markedAtomId,
     selectedBondIds: roundState.selectedBondIds,
     selectedLonePairs: roundState.selectedLonePairs,
@@ -759,7 +800,7 @@ export function useLewisStructures({
 // ---------------------------------------------------------------------------
 
 /** Number of displayed guide steps for a molecule. */
-export function guideTotal(moleculeId: string): number {
+export function guideTotal(moleculeId: string, M: LewisMessages): number {
   return moleculeId === 'h2' ? M.guided.h2.length : moleculeId === 'h2o' ? 4 : 0;
 }
 
@@ -771,7 +812,7 @@ export function guideStepAfterPairs(moleculeId: string, sharedPairs: number): nu
 }
 
 /** The guide text for a step, or null when the script has ended. */
-export function guideTexts(moleculeId: string, step: number): string | null {
+export function guideTexts(moleculeId: string, step: number, M: LewisMessages): string | null {
   if (moleculeId === 'h2') return M.guided.h2[step] ?? null;
   if (moleculeId === 'h2o') {
     const { step1, step2, step2After, step3, step4 } = M.guided.h2o;

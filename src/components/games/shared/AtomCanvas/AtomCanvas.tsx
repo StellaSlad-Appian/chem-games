@@ -11,13 +11,15 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from 'react';
 import type { BondConnection, LewisAtomState, LewisStructure } from '@/core-engine/types/chemistry';
-import { bondEnds, countAround, fullCount, getElementName } from '@/core-engine/utils/lewis-utils';
+import { bondEnds, countAround, fullCount } from '@/core-engine/utils/lewis-utils';
 import { useInputMethod } from '@/hooks/useInputMethod';
 import { layoutAtoms } from './layout';
 
 export type AtomCanvasMode = 'build' | 'inspect' | 'countBonds' | 'countLonePairs' | 'readonly';
 
 export interface AtomCanvasLabels {
+  /** Element name in the reader's language; the registry's names are English. */
+  elementName: (symbol: string) => string;
   atomName: (elementName: string, count: number, full: number) => string;
   counter: (symbol: string, count: number, full: number) => string;
   loner: (elementName: string, index: number, total: number) => string;
@@ -481,8 +483,8 @@ export default function AtomCanvas({
           const a = point(bond.sourceNodeId);
           const b = point(bond.targetNodeId);
           const [endA, endB] = bondEnds(structure, bond);
-          const nameA = getElementName(endA.element);
-          const nameB = getElementName(endB.element);
+          const nameA = labels.elementName(endA.element);
+          const nameB = labels.elementName(endB.element);
           const selected = selectedBondIds.includes(bond.id);
           const action = mode === 'build' ? labels.bondUndo : selected ? labels.counted : labels.bondCount;
           return (
@@ -505,7 +507,7 @@ export default function AtomCanvas({
         const { x, y } = point(atom.id);
         const count = countAround(structure, atom.id);
         const full = fullCount(atom.element);
-        const elementName = getElementName(atom.element);
+        const elementName = labels.elementName(atom.element);
         const slots = dotSlots(atom);
         const isSelected = selectedAtom === atom.id;
         const active = activeLoner[atom.id] ?? 0;
