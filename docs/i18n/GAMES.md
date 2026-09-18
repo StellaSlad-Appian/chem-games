@@ -21,7 +21,9 @@ is not done, the same way a game with no instructions modal is not done.
 | `en` | shipping (default) | The brief's text, verbatim. English is the canonical source every other locale is checked against. |
 | `de` | shipping | Required at build time. Terms come from [`glossary-de.md`](./glossary-de.md). |
 | `fr` | shipping | Required at build time. Terms come from [`glossary-fr.md`](./glossary-fr.md). |
-| `es`, `it`, `ru` | planned, in that order | Required from the day the locale is added. Adding a locale (README § Adding a locale) includes translating every existing game; adding a game includes every locale that exists. |
+| `es` | shipping | Required at build time. Terms come from [`glossary-es.md`](./glossary-es.md), which also records the es-ES / es-419 variety decision. |
+| `it` | shipping | Required at build time. Terms come from [`glossary-it.md`](./glossary-it.md). |
+| `ru` | planned | Required from the day the locale is added. Adding a locale (README § Adding a locale) includes translating every existing game; adding a game includes every locale that exists. |
 
 Two workflows meet here, and both must leave every game × locale cell filled:
 

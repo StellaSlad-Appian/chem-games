@@ -1,10 +1,10 @@
 # Internationalisation
 
 How the multi-language setup works, how to add a language, and how to add a
-string. Written for whoever adds Spanish next.
+string. Written for whoever adds Russian next.
 
-Currently shipping: **English** (default), **German** and **French**.
-Planned: Spanish, Italian, Russian — see [Adding a locale](#adding-a-locale)
+Currently shipping: **English** (default), **German**, **French**, **Spanish**
+and **Italian**. Planned: Russian — see [Adding a locale](#adding-a-locale)
 and [Plurals](#plurals), which is the one thing Russian will break.
 
 ---
