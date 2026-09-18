@@ -85,8 +85,8 @@ this table, which is a snapshot.
 | Order | Brief | Slug | Status (2026-09-16) | Buildable? | Blocks on |
 |---|---|---|---|---|---|
 | F | *Foundations* (§4) | — | — | **Yes** | — |
-| 1 | `reaction-balancer.md` | `reaction-balancer` | Approved rev 2 — built, English only | **Yes** (remaining: every locale + the language checks) | F; German title decision in the brief's "Languages" table |
-| 2 | `lewis-structures.md` | `lewis-structures` | Approved rev 3 — built, English only | **Yes** (remaining: every locale + the language checks) | F (`AtomCanvas` is built *inside* this game and promoted to shared); German title decision |
+| 1 | `reaction-balancer.md` | `reaction-balancer` | Approved rev 2 — built; translation in progress on `i18n` | **Yes** | F; German title decision in the brief's "Languages" table |
+| 2 | `lewis-structures.md` | `lewis-structures` | Approved rev 3 — built; translation in progress on `i18n` | **Yes** | F (`AtomCanvas` is built *inside* this game and promoted to shared); German title decision |
 | 3 | `stoichiometry-game.md` | `reaction-factory` | Draft rev 2, titles per locale to decide | **No — needs `Approved`** | F, Stella's approval incl. the "Languages" table; reuses the bracket-aware parser from 1 |
 | 4 | `ion-forge.md` | `ion-forge` | Draft, 3 `YOU DECIDE` | No | Stella resolves tray size, hydrates, molecular/acid naming placement |
 | 5 | `stoichiometry.md` (Mole Foundry) | `mole-foundry` | Draft, open questions | No | Stella; should be re-aligned with Reaction Factory Level 9 first |
@@ -97,13 +97,6 @@ this table, which is a snapshot.
 **Rule:** build in order among the buildable briefs. When you reach a non-buildable brief,
 post its open items (§6, "approval request"), then continue with the next buildable one. If
 nothing is buildable, finish the current milestone, post the report, and stop.
-
-**Languages catch-up (2026-09-18):** Reaction Balancer and Share to Fill were built before the
-every-locale rule and ship English-only catalogues. Before any new game, bring both up to the
-rule as one milestone: catalogues in every locale in the layout of `docs/i18n/GAMES.md`
-(converting arrow-function templates to `{placeholder}` strings), titles from each brief's
-"Languages" table once Stella has decided them, dataset prose overlaid, review notes added, the
-locale block in each e2e spec, and the four language checks reported per locale.
 
 ## 4. Phase F — Foundations (build once, before any game)
 

@@ -316,11 +316,10 @@ taken where the brief and the dataset disagreed — flagged for review, not sile
 Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
 above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
 
-**Status (2026-09-18):** built in English only. The German dictionary's
-`games.reactionBalancer` namespace (on the `i18n` branch) covers the *old* arena's strings,
-not this redesign's `reaction-balancer-messages.ts`; translating that catalogue into every
-locale (and converting its arrow-function templates to `{placeholder}` strings) is the open
-item before the game meets the rule. The four language checks have not been run.
+**Status (2026-09-18):** the redesign's catalogue is being translated on the `i18n` branch
+as part of that branch's catch-up with `master`; the German dictionary's older
+`games.reactionBalancer` namespace covered the previous arena. The four language checks are
+run as part of that work.
 
 | Locale | Title | Kind | Hub description | Notes / alternative |
 |---|---|---|---|---|

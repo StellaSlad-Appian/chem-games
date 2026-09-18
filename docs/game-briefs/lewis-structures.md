@@ -361,11 +361,10 @@ Build decisions that touch the pedagogy (also for review):
 Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
 above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
 
-**Status (2026-09-18):** built in English only. `lewis-structures-messages.ts` has no German
-(or other) counterpart yet; the `i18n` branch lists this game under "Known gaps" and notes
-the German glossary already fixes its terms (*Lewis-Formel*, *freies Elektronenpaar*,
-*Atombindung*, *Valenzelektronen*, *Oktettregel*). Translating the catalogue into every locale
-is the open item; the four language checks have not been run.
+**Status (2026-09-18):** the catalogue is being translated on the `i18n` branch as part of
+that branch's catch-up with `master`. The German glossary already fixes this game's terms
+(*Lewis-Formel*, *freies Elektronenpaar*, *Atombindung*, *Valenzelektronen*, *Oktettregel*).
+The four language checks are run as part of that work.
 
 | Locale | Title | Kind | Hub description | Notes / alternative |
 |---|---|---|---|---|

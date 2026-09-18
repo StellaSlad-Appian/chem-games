@@ -68,8 +68,8 @@ Conventions, the same as the dictionary's (README § Adding a string), plus a fe
 
 - **Placeholders are `{name}`**, not arrow functions. `f()` from `src/i18n/format.ts`
   interpolates them, and the placeholder gate can only check a string. (The two catalogues
-  built before this rule, Reaction Balancer's and Share to Fill's, use functions; convert
-  them when they are translated.)
+  built before this rule, Reaction Balancer's and Share to Fill's, use functions; their
+  translation on the `i18n` branch is where that shape is settled.)
 - **Count-dependent strings are a `one` / `other` pair** today. Keep them few, and list every
   one in the brief's "Languages" section, because Russian needs a third and fourth form and the
   README's plural fix has to find them all.
