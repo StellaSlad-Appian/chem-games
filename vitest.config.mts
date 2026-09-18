@@ -13,7 +13,13 @@ export default defineConfig({
     // and were already close to Vitest's 5s default before this change. Raised
     // rather than split, because the value of those tests is that they cover a
     // full playthrough in one go. Still short enough to catch a genuine hang.
-    testTimeout: 20_000,
+    //
+    // Raised again with Share to Fill and the redesigned Reaction Balancer:
+    // their playthroughs are longer, and every render now goes through the i18n
+    // provider. The two victory runs override this to 60s of their own; this
+    // value is the headroom for everything else. If a *new* test needs more
+    // than this, split it rather than raising this again.
+    testTimeout: 30_000,
     environmentOptions: { jsdom: { pretendToBeVisual: true } },
     globals: true,
     setupFiles: ['./vitest.setup.ts'],

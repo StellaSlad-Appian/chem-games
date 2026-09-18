@@ -324,7 +324,7 @@ describe('Share to Fill page (game flow)', () => {
     expect(screen.getByText('Score 0')).toBeInTheDocument();
     expect(screen.getByText('Level 01')).toBeInTheDocument();
     expect(arena()).toHaveAttribute('data-molecule', 'h2');
-  }, 30_000);
+  }, 60_000);
 
   it('records an abandoned session on exit after at least one round', () => {
     markIntroSeen();
