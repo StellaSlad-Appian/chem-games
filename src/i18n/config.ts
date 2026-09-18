@@ -10,7 +10,10 @@
  * and the values written into the `<html lang>` attribute, so they must be
  * valid BCP 47 tags.
  *
- * Phase 1 ships English and German. Phase 2 adds 'fr', 'es', 'it', 'ru'.
+ * Phase 1 shipped English and German; Phase 2 has added French. Still to
+ * come, in order: 'es', 'it', 'ru'. Adding a code here is deliberately a
+ * compile error in every strict `Record<Locale, …>` until the locale's files
+ * exist — see docs/i18n/README.md § Adding a locale.
  */
 export const LOCALES = ['en', 'de', 'fr'] as const;
 
