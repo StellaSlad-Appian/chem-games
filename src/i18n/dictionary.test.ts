@@ -13,10 +13,12 @@ import { en } from './dictionaries/en';
 import { de } from './dictionaries/de';
 import { fr } from './dictionaries/fr';
 import { es } from './dictionaries/es';
+// `it` is vitest's test function here, so the dictionary is aliased.
+import { it as itDictionary } from './dictionaries/it';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
 import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
 
-const dictionaries: Record<Locale, unknown> = { en, de, fr, es };
+const dictionaries: Record<Locale, unknown> = { en, de, fr, es, it: itDictionary };
 const translations = Object.fromEntries(
   LOCALES.filter((locale) => locale !== DEFAULT_LOCALE).map((locale) => [
     locale,
@@ -110,6 +112,36 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
     // As for the other two, `meta.keywords` is deliberately NOT exempted: the
     // Spanish list is chosen for Spanish search behaviour rather than
+    // translated, and it shares no entry with the English one.
+  ],
+  it: [
+    // Brand, product and company names.
+    /^meta\.siteName$/,
+    /^privacy\.processor(Supabase|Resend|Google)Label$/,
+    // Words Italian spells exactly as English does. "Idea" is the natural
+    // Italian for the feature-request category and "Password" is simply what
+    // Italian calls a password (*parola d'ordine* is archaic); reaching for
+    // *Proposta* or a paraphrase only to dodge this check is the one thing this
+    // allowlist exists to prevent.
+    /^settings\.audio$/,
+    /^profile\.alias$/,
+    /^auth\.password$/,
+    /^feedback\.categoryFeature$/,
+    /^privacy\.collectAccountLabel$/,
+    // Chemistry terms that are the same word in both languages. Note that
+    // Italian, like French and Spanish and unlike German, does translate
+    // "neutral" (neutro) — only "base" coincides.
+    /^chemistry\.base$/,
+    // A placeholder and a colon. Italian punctuates this exactly as English
+    // does — no space before the colon — so the two coincide. The key exists
+    // only because French needs a no-break space there.
+    /^cheatSheets\.exampleLabel$/,
+    // Keyboard glyphs and single digits used as <kbd> labels. The first column
+    // of an instructions key table is the physical key, so it never translates;
+    // the second column, which says what the key does, always does.
+    /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
+    // As for the other three, `meta.keywords` is deliberately NOT exempted: the
+    // Italian list is chosen for Italian search behaviour rather than
     // translated, and it shares no entry with the English one.
   ],
 };

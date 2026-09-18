@@ -46,6 +46,7 @@ import {
 import { de } from './de';
 import { fr } from './fr';
 import { es } from './es';
+import { it } from './it';
 
 export type CountKind = 'bonds' | 'lonePairs';
 
@@ -59,6 +60,7 @@ const CATALOGUES: Record<Locale, LewisStructuresMessages> = {
   de,
   fr,
   es,
+  it,
 };
 
 /** This game's copy in `locale`. Throws rather than falling back to English. */

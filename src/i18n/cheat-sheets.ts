@@ -31,6 +31,7 @@ import { DEFAULT_LOCALE, type Locale } from './config';
 import { CHEAT_SHEET_OVERLAY_DE, RESOURCE_DESCRIPTIONS_DE } from './cheat-sheets/de';
 import { CHEAT_SHEET_OVERLAY_FR, RESOURCE_DESCRIPTIONS_FR } from './cheat-sheets/fr';
 import { CHEAT_SHEET_OVERLAY_ES, RESOURCE_DESCRIPTIONS_ES } from './cheat-sheets/es';
+import { CHEAT_SHEET_OVERLAY_IT, RESOURCE_DESCRIPTIONS_IT } from './cheat-sheets/it';
 
 /** Prose for one table; `rows` must match the English table row for row. */
 export interface CheatSheetTableOverlay {
@@ -92,6 +93,10 @@ const LOCALE_CONTENT: Partial<Record<Locale, LocaleContent>> = {
   es: {
     sheets: CHEAT_SHEET_OVERLAY_ES,
     resourceDescriptions: RESOURCE_DESCRIPTIONS_ES,
+  },
+  it: {
+    sheets: CHEAT_SHEET_OVERLAY_IT,
+    resourceDescriptions: RESOURCE_DESCRIPTIONS_IT,
   },
 };
 
