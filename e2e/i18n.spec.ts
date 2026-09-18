@@ -295,13 +295,14 @@ test.describe('German rendering: Share to Fill', () => {
     await page.getByRole('button', { name: 'freies Elektronenpaar' }).first().click();
     await expect(page.getByRole('tooltip')).toContainText('nicht geteilt');
 
-    // Close the pop-over by toggling the term again, not with Escape: both
-    // GlossaryTerm and GameInstructionsModal listen for Escape on `window`, and
-    // GlossaryTerm's `stopPropagation()` does not stop a sibling listener on
-    // the same target — so Escape closes the whole modal as well. That is
-    // pre-existing behaviour from master, not something this spec should pin.
-    await page.getByRole('button', { name: 'freies Elektronenpaar' }).first().click();
+    // Escape closes the pop-over and leaves the modal open: GlossaryTerm takes
+    // the key in the capture phase and calls stopImmediatePropagation(), so the
+    // modal's own window listener never sees it.
+    await page.keyboard.press('Escape');
     await expect(page.getByRole('tooltip')).toBeHidden();
+    await expect(
+      page.getByRole('heading', { name: lewisDe.instructions.title })
+    ).toBeVisible();
 
     await page.getByRole('button', { name: de.games.shared.gotIt }).click();
     await expect(page.getByRole('heading', { name: lewisDe.instructions.title })).toBeHidden();
