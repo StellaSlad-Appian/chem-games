@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { GlossaryTerm, GlossaryText } from './GlossaryTerm';
 
@@ -21,6 +21,36 @@ describe('GlossaryTerm', () => {
 
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+  });
+
+  it('takes Escape for itself, leaving a modal that listens on window open', () => {
+    // The "How to Play" modal adds its own keydown listener on `window` while
+    // it is open — before the pop-over exists, so it is registered first.
+    // Escape must close only the pop-over.
+    //
+    // The event is dispatched on the button, not on `window`, because that is
+    // what a real keypress does: it targets the focused element and then
+    // propagates. Dispatched straight at `window` there is no capture phase to
+    // win, and listeners would simply run in registration order.
+    const modalEscape = vi.fn();
+    window.addEventListener('keydown', modalEscape);
+    try {
+      render(<GlossaryTerm term="octet" definition="eight outer electrons around an atom — full" />);
+      const trigger = screen.getByRole('button', { name: 'octet' });
+
+      fireEvent.click(trigger);
+      expect(screen.getByRole('tooltip')).toBeInTheDocument();
+
+      fireEvent.keyDown(trigger, { key: 'Escape' });
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+      expect(modalEscape).not.toHaveBeenCalled();
+
+      // With the pop-over closed, Escape belongs to the modal again.
+      fireEvent.keyDown(trigger, { key: 'Escape' });
+      expect(modalEscape).toHaveBeenCalledTimes(1);
+    } finally {
+      window.removeEventListener('keydown', modalEscape);
+    }
   });
 
   it('closes when the pointer goes down elsewhere', () => {

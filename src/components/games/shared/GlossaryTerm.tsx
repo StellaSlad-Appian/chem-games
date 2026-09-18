@@ -23,18 +23,26 @@ export function GlossaryTerm({ term, definition, children }: GlossaryTermProps) 
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        event.stopPropagation();
-        setOpen(false);
-      }
+      if (event.key !== 'Escape') return;
+      // Escape belongs to the innermost layer: a pop-over opened on top of the
+      // "How to Play" modal must close itself and leave the modal open.
+      //
+      // Both listen on `window`, and stopPropagation() does nothing to another
+      // listener on the *same* EventTarget — that needs
+      // stopImmediatePropagation(). On its own that would still come down to
+      // which listener was registered first, so this one runs in the capture
+      // phase: capture on `window` always precedes bubble on `window`,
+      // whatever order the two components mounted in.
+      event.stopImmediatePropagation();
+      setOpen(false);
     };
     const onPointer = (event: PointerEvent) => {
       if (rootRef.current && !rootRef.current.contains(event.target as Node)) setOpen(false);
     };
-    window.addEventListener('keydown', onKey);
+    window.addEventListener('keydown', onKey, true);
     window.addEventListener('pointerdown', onPointer);
     return () => {
-      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('keydown', onKey, true);
       window.removeEventListener('pointerdown', onPointer);
     };
   }, [open]);
