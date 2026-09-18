@@ -253,11 +253,27 @@ takes an optional `locale`.
 Anything that drives a control whose only behaviour is a React handler needs a signal that
 React has attached it, or Playwright's DOM event fires into nothing and the test fails with
 nothing visibly wrong. **The signal has to come from that control**, not from a component
-that happens to become ready at about the same time: the language-switcher specs waited on
-`GameSettingsProvider`'s `invisible` wrapper and failed only under parallel load. Use
-`languageSwitcher(page, label)`, which waits for the `data-hydrated` attribute the
-`<select>` sets in the same render that attaches its `onChange`. `waitForHydration(page)`
-remains, but it means only "the settings provider has read its stored preferences".
+that happens to become ready at about the same time. Use `languageSwitcher(page, label)`,
+which waits for the `data-hydrated` attribute the `<select>` sets in the same render that
+attaches its `onChange`. `waitForHydration(page)` remains, but it means only "the settings
+provider has read its stored preferences".
+
+Warm-up compiles every route **in every locale**, not just the default. `getDictionary()` is
+a dynamic import per locale, so a locale's dictionary chunk is built on that locale's first
+request; warming `/en/cheat-sheets` does nothing for `/de/cheat-sheets`.
+
+**Known flake — three language-switcher specs** (`e2e/i18n.spec.ts:122`, `:137`, `:147`).
+They fail intermittently under parallel load and pass on their own, and the hydration signal
+above does **not** fix them. Instrumented under six workers: `data-hydrated` was set, the
+handler ran, the `NEXT_LOCALE` cookie was written 372ms after `selectOption()`, and the URL
+moved 8.1s later (≈350ms once warm). `router.replace()` is a React transition and the App
+Router does not update the URL until the destination's RSC payload arrives; with no
+`loading.tsx` on these routes nothing commits early, so a 10s `toHaveURL` budget is a coin
+flip under contention. Reproduced against a production build too, so it is not only a
+`next dev` artifact. **Do not "fix" it by raising `expect.timeout`** — that hides a delay a
+reader experiences as well. The candidate fixes are a Suspense/`loading.tsx` boundary so the
+transition commits immediately, or optimistic locale state in the switcher; both are product
+decisions rather than test tweaks.
 
 | Scenario | Test |
 | --- | --- |

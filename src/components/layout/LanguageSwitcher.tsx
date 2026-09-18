@@ -19,14 +19,21 @@ import { useI18n } from '@/i18n/client';
  * The <select> carries `data-hydrated="true"` once React has hydrated it.
  *
  * Driving this control from a test means dispatching a DOM `change` event, and
- * until React has attached `onChange` that event goes nowhere — the URL simply
- * never moves and the failure has no visible cause. `languageSwitcher()` in
- * `e2e/helpers.ts` waits for the attribute before it selects an option.
+ * until React has attached `onChange` that event goes nowhere. `languageSwitcher()`
+ * in `e2e/helpers.ts` waits for this attribute rather than for
+ * `GameSettingsProvider`'s `invisible` wrapper, which is a *different*
+ * component's state and only ever correlated with this one being ready.
  *
- * It replaced a wait on `GameSettingsProvider`'s `invisible` wrapper, which is
- * a *different* component's state: it correlates with this one being ready,
- * which is exactly why it failed intermittently under parallel load rather
- * than always.
+ * **It is a better precondition, but it is not what the three flaky switcher
+ * specs were tripping over.** Measured under six parallel workers: the
+ * attribute was present, `handleChange` ran, and the NEXT_LOCALE cookie was
+ * written 372ms after `selectOption()` — and the URL then took a further 8.1s
+ * to move. `router.replace()` below is a React transition, and in the App
+ * Router the URL does not update until the destination's RSC payload has
+ * arrived and the transition commits. These routes have no `loading.tsx`, so
+ * nothing commits early: a reader on a slow connection also sees nothing
+ * happen, and the <select> even snaps back to the old language, because it is
+ * controlled by `locale` and that has not changed yet.
  */
 
 /** Never fires: the value flips exactly once, when React takes over. */

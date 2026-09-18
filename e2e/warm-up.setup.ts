@@ -1,5 +1,6 @@
 import { expect, test as setup } from '@playwright/test';
 import { GAME_SLUGS, path } from './helpers';
+import { LOCALES } from '../src/i18n/config';
 
 /**
  * Runs once before the browser tests. Against `next dev`, every route is
@@ -8,12 +9,22 @@ import { GAME_SLUGS, path } from './helpers';
  * on stale positions). Visiting each route here moves that cost out of the
  * timed tests. Against a production build this is a quick no-op.
  *
- * Note that `[lang]` is a dynamic segment, so a route compiles once for every
- * locale rather than once per locale — warming `/en/cheat-sheets` also warms
- * `/de/cheat-sheets`. What did need adding is the route *patterns* the i18n
- * spec is the first to reach: the cheat sheets, the dashboard and the auth
- * page had no browser coverage before, so their first compile landed inside a
- * timed test and made the suite flaky under parallel load.
+ * **Warm every route in every locale, not just the default.** `[lang]` is a
+ * dynamic segment, so the route itself compiles once for all locales — this
+ * file used to say that was the end of it, and it is not. `getDictionary()` is
+ * a *dynamic import per locale* (`src/i18n/dictionaries.ts`), deliberately, so
+ * that a chunk only pulls the locales it renders. That chunk is therefore
+ * compiled and loaded on that locale's **first** request, and warming
+ * `/en/cheat-sheets` does nothing for it.
+ *
+ * That cost is what made the three language-switcher tests fail under parallel
+ * load and pass on their own: they were the first tests to render a German
+ * page. `router.replace('/de/…')` is a transition, and the URL does not move
+ * until the destination's RSC payload arrives, so the German dictionary's first
+ * compile sat inside a 10s `toHaveURL` budget. Measured with six workers on a
+ * cold cache: the URL moved after 8.1s, against ~350ms once warm. The handler
+ * itself had already run both times — it had written the NEXT_LOCALE cookie
+ * within 372ms — so this was never about React not having attached `onChange`.
  */
 setup('compile every route', async ({ page }) => {
   setup.setTimeout(5 * 60_000);
@@ -28,8 +39,19 @@ setup('compile every route', async ({ page }) => {
 
   // Server-side compile only: these need no rendered assertion, and a plain
   // request cannot be aborted by a client-side navigation the way goto() can.
-  for (const route of ['/', '/cheat-sheets', '/cheat-sheets/acids-and-bases', '/auth']) {
-    const response = await page.request.get(path(route), { timeout: 120_000 });
-    expect(response.status(), `${route} should compile`).toBeLessThan(500);
+  const routes = [
+    '/',
+    '/games',
+    '/cheat-sheets',
+    '/cheat-sheets/acids-and-bases',
+    '/auth',
+    ...GAME_SLUGS.map((slug) => `/games/${slug}`),
+  ];
+
+  for (const locale of LOCALES) {
+    for (const route of routes) {
+      const response = await page.request.get(path(route, locale), { timeout: 120_000 });
+      expect(response.status(), `${route} should compile in ${locale}`).toBeLessThan(500);
+    }
   }
 });

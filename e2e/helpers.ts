@@ -107,9 +107,15 @@ export async function waitForHydration(page: Page): Promise<void> {
  *
  * `LanguageSwitcher` sets `data-hydrated` in the same render that attaches its
  * `onChange`, so the attribute cannot appear before `selectOption()` would
- * actually do anything. Waiting on anything else — a sibling component's state,
- * a fixed delay — only correlates with that, which is why these tests used to
- * fail under parallel load and pass on their own.
+ * actually do anything. That is a real precondition; the `div.invisible` wait
+ * it replaced was a sibling component's state that merely correlated with it.
+ *
+ * It is **not** why the three switcher specs are flaky under parallel load.
+ * With this wait satisfied the handler still runs — it writes the NEXT_LOCALE
+ * cookie within ~370ms — and the URL still takes seconds to follow, because
+ * `router.replace()` is a transition that does not commit, and so does not move
+ * the URL, until the destination's RSC payload arrives. See
+ * `src/components/layout/LanguageSwitcher.tsx`.
  */
 export async function languageSwitcher(page: Page, label: string): Promise<Locator> {
   const select = page.getByLabel(label);
