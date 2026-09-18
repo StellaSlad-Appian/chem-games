@@ -9,7 +9,7 @@
  */
 import { expect, test, type Page } from '@playwright/test';
 import { REACTION_BALANCER_CONFIG as CFG } from '../src/core-engine/config/games/reaction-balancer-config';
-import { reactionBalancerMessages } from '../src/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
 import { en } from '../src/i18n/dictionaries/en';
 import { getReaction } from '../src/core-engine/data/reactions';
 import { answerCoefficients, parseReaction } from '../src/core-engine/utils/balancer-utils';

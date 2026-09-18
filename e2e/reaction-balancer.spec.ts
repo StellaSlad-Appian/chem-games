@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { reactionBalancerMessages } from '../src/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
 import { en } from '../src/i18n/dictionaries/en';
 import { getReaction } from '../src/core-engine/data/reactions';
 import { WATER_REACTION_ID, answerCoefficients, parseReaction } from '../src/core-engine/utils/balancer-utils';

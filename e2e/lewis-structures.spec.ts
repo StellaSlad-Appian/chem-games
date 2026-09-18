@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
-import { lewisMessages } from '../src/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
 import { en } from '../src/i18n/dictionaries/en';
 import { getLewisMolecule } from '../src/core-engine/data/lewis-molecules';
 import { footerButton, hintButton, openGame, overlay } from './helpers';

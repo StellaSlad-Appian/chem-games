@@ -7,7 +7,7 @@ import AtomCanvas, { type AtomCanvasLabels } from '@/components/games/shared/Ato
 import CoachPanel from '@/components/games/shared/CoachPanel';
 import { GlossaryText, type GlossaryEntry } from '@/components/games/shared/GlossaryTerm';
 import { LEWIS_STRUCTURES_CONFIG } from '@/core-engine/config/games/lewis-structures-config';
-import { useLewisMessages, type LewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages, type LewisMessages } from '@/i18n/game-messages/lewis-structures';
 import { elementName } from '@/i18n/chemistry-names';
 import { useI18n } from '@/i18n/client';
 import type { Locale } from '@/i18n/config';

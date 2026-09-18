@@ -4,7 +4,7 @@
 import { useMemo } from 'react';
 import { X } from 'lucide-react';
 import MoleculeText from '@/components/ui/MoleculeText';
-import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import { useI18n } from '@/i18n/client';
 import { localizeSpecies } from '@/i18n/game-data';
 import { findSpecies, type Side, type Species } from '@/core-engine/utils/balancer-utils';

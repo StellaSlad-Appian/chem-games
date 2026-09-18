@@ -2,7 +2,7 @@
 'use client';
 
 import MoleculeText from '@/components/ui/MoleculeText';
-import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import type { RoundResult } from '@/hooks/useReactionBalancer';
 
 

@@ -2,7 +2,7 @@
 'use client';
 
 import { GlossaryTerm } from '@/components/games/shared/GlossaryTerm';
-import { useLewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages } from '@/i18n/game-messages/lewis-structures';
 import type { InputMethod } from '@/hooks/useInputMethod';
 
 

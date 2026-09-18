@@ -22,7 +22,7 @@ import ReactionBalancerArena from '@/components/games/reaction-balancer/GameAren
 import BalancerInstructions from '@/components/games/reaction-balancer/Instructions';
 import BalancerNotebook from '@/components/games/reaction-balancer/Notebook';
 import { REACTION_BALANCER_CONFIG } from '@/core-engine/config/games/reaction-balancer-config';
-import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import { GAME_CONTROLS } from '@/core-engine/constants/ui-constants';
 import { recordGameSession } from '@/lib/actions/game-actions';
 import { useI18n } from '@/i18n/client';

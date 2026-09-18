@@ -34,11 +34,14 @@ src/i18n/
   config.ts              the locale list; the one place a language is declared
   locale-match.ts        Accept-Language parsing and matching (no dependencies)
   routing.ts             localizePath / stripLocale / which paths stay unprefixed
-  format.ts              {placeholder} interpolation
+  format.ts              {placeholder} interpolation, plurals, `Translated<>`
   dictionaries.ts        getDictionary(lang) — server side
   dictionaries/
     en.ts                the canonical dictionary; `Dictionary` is derived from it
     de.ts                `satisfies Dictionary`
+  game-messages/
+    <game>/de.ts         one game's copy in one locale, `satisfies <Game>Messages`
+    <game>/index.ts      gameMessages(locale) + the shape the components call
   client.tsx             I18nProvider + useI18n() — client side
   server.ts              getRequestLocale/Dictionary for Server Actions & routes
   chemistry-names.ts     element / compound / ion names and game-data prose
@@ -49,6 +52,14 @@ src/i18n/
   game-titles.ts         reconciles dictionary titles with Supabase's `games` table
   review-notes.ts        the hand-written half of de-review.md
   *.test.ts              the quality gates
+
+src/core-engine/config/games/
+  <game>-messages.ts     a game's English copy, canonical; the type every
+                         locale's file satisfies
+
+src/test-utils/
+  i18n-parity.ts         the parity checks, shared by the dictionary and the
+                         game catalogues
 
 src/components/layout/
   LanguageSwitcher.tsx   the <select> in the nav bar and the settings panel
@@ -175,14 +186,24 @@ imperative navigation, `router.push(href('/games'))` or
 
 ## Adding a string
 
-1. Add the key to `src/i18n/dictionaries/en.ts`, in the namespace where it
-   belongs. Namespaces follow *where the string appears*, then *what it is*.
+**First, where does it go?** A sentence a *player* reads inside Reaction
+Balancer or Share to Fill belongs in that game's catalogue
+(`src/core-engine/config/games/<game>-messages.ts` and its locale files), not in
+the dictionary — see
+[What goes where](#what-goes-where-and-why-the-split-matters). The steps are the
+same either way; only the file changes.
+
+1. Add the key to `src/i18n/dictionaries/en.ts` (or the game's English
+   catalogue), in the namespace where it belongs. Namespaces follow *where the
+   string appears*, then *what it is*.
 2. Run `npm run typecheck`. Every other locale now fails to compile. That is the
    point.
 3. Translate it in each locale file.
 4. `npm test` — the parity, empty-value, placeholder and not-actually-translated
-   checks all run against the new key automatically.
-5. `npm run i18n:review` and commit the regenerated `de-review.md`.
+   checks all run against the new key automatically, in either place.
+5. `npm run i18n:review` and commit the regenerated `de-review.md`. It covers
+   the catalogues too, at the dot-paths they had when they lived in the
+   dictionary, so a reviewer never has to know where a string is stored.
 
 ### Conventions
 
@@ -205,7 +226,8 @@ imperative navigation, `router.push(href('/games'))` or
 
 | Content | Lives in | Reaches the client? |
 |---|---|---|
-| UI strings | `dictionaries/<locale>.ts` | **Yes** — serialized into the RSC payload by `I18nProvider`. Keep it to UI copy. |
+| UI strings | `dictionaries/<locale>.ts` | **Yes, on every page** — serialized into the RSC payload by `I18nProvider`. Keep it to UI copy. |
+| A game's own copy | `core-engine/config/games/<game>-messages.ts` (English) + `i18n/game-messages/<game>/<locale>.ts` | Only in that game's route chunk. |
 | Element / compound / ion names | `chemistry-names/<locale>.ts` | Only the names a page renders. |
 | Cheat-sheet prose | `cheat-sheets/<locale>.ts` | No — the cheat-sheet pages are Server Components. |
 
@@ -214,6 +236,37 @@ kept out of the dictionary deliberately so they are never shipped to the
 browser. **If you find yourself adding cheat-sheet prose to the dictionary, or
 importing `cheat-sheets/de.ts` from a client component, stop** — that is the one
 change that would make every page pay for content almost nobody reads.
+
+### The dictionary is a budget, and a game will eat it
+
+`src/app/[lang]/layout.tsx` hands the *whole* dictionary to `I18nProvider`, so
+every byte of it is serialized into the RSC payload of **every** page —
+including pages with no game on them. A game's copy is the one thing large
+enough to matter: Reaction Balancer and Share to Fill together were 22.4 KB of
+the German dictionary's 45.6 KB, and a reader on the cheat-sheet index was
+downloading all of it.
+
+So each of those two games now keeps its copy in a **per-game catalogue**,
+loaded by that game's page and nothing else (`GAMES.md` § Catalogue layout).
+The German dictionary is 23.1 KB as a result, and `/de/cheat-sheets` no longer
+ships a word of Share to Fill.
+
+What deliberately **stays** in the dictionary:
+
+- **`games.shared`** (progress, level, score, lives, exit, pause, hint) and
+  **`games.overlay`** (the paused / game-over / level-up cards). Shared
+  components that are not game-specific read them, they are about 2 KB
+  together, and a per-game copy would duplicate them five times.
+- **`gamesHub.<key>Title` / `<key>Description`**. `game-titles.ts` maps a
+  `GameName` onto a dictionary key so a game in the Supabase `games` table that
+  the dictionary does not know still shows a title (GAMES.md line 38).
+
+The older games' namespaces (`acidClassification`, `formulaBlaster`,
+`neutralise`) are still in the dictionary. They total 3.4 KB, they write their
+copy in JSX rather than through a catalogue, and moving them is **a
+follow-up**, not part of this split — it would have buried a 22 KB change under
+a 3 KB one. `dictionary.test.ts` fails if a *further* game namespace appears,
+so the list cannot quietly grow while that follow-up waits.
 
 ### Why overlays, not full copies
 
@@ -243,14 +296,20 @@ Phase 1 was built so this is small. To add French:
 2. **`src/i18n/dictionaries/fr.ts`** — copy `de.ts`, translate, keep
    `satisfies Dictionary`. `npm run typecheck` tells you what is missing.
 3. **`src/i18n/dictionaries.ts`** — add the loader entry.
-4. **`src/i18n/chemistry-names/fr.ts`** — 118 elements, 35 compounds, 40 ions.
+4. **`src/i18n/game-messages/<game>/fr.ts`** — one per game with a catalogue
+   (Reaction Balancer and Share to Fill today), each `satisfies
+   <Game>Messages`, plus its entry in that game's `CATALOGUES` map. The
+   `Record<Locale, …>` there means adding `'fr'` to `LOCALES` fails to compile
+   until every game has its file: a game that plays in English only is not
+   done (`GAMES.md` § The rule).
+5. **`src/i18n/chemistry-names/fr.ts`** — 118 elements, 35 compounds, 40 ions.
    Register it in `chemistry-names.ts`. The test tells you what is missing.
-5. **`src/i18n/cheat-sheets/fr.ts`** — the twelve sheets. Register it in
+6. **`src/i18n/cheat-sheets/fr.ts`** — the twelve sheets. Register it in
    `cheat-sheets.ts`. The test tells you what is missing and what has the wrong
    shape.
-6. **`src/i18n/review-notes.ts`** — add a `fr` entry, and extend
+7. **`src/i18n/review-notes.ts`** — add a `fr` entry, and extend
    `scripts/i18n-review.mts` to emit `fr-review.md` as well.
-7. **`docs/i18n/glossary-fr.md`** — decide the chemistry terms *before*
+8. **`docs/i18n/glossary-fr.md`** — decide the chemistry terms *before*
    translating, not during.
 
 Nothing else. The proxy, the switcher, the `hreflang` alternates,
@@ -333,8 +392,9 @@ express (1, 2 and 5 all differ in Russian), so the design cannot regress into a
 ternary unnoticed.
 
 There is exactly one pluralised string in the shared UI (`cheatSheets.count`,
-rendered by `CheatSheetGrid.tsx`); the game catalogues have their own, listed
-under `games.lewisStructures` and `games.reactionBalancer`.
+rendered by `CheatSheetGrid.tsx`); each game catalogue carries its own, and each
+brief lists them in its "Languages" section so the Russian pass can find them
+all.
 
 ---
 
@@ -343,19 +403,40 @@ under `games.lewisStructures` and `games.reactionBalancer`.
 ### Message catalogues
 
 Two games — Reaction Balancer and Share to Fill — write every player-facing
-sentence through a **message catalogue** rather than in JSX:
+sentence through a **message catalogue** rather than in JSX. A catalogue is
+three kinds of file, laid out as `GAMES.md` § Catalogue layout specifies:
 
 ```
-src/core-engine/config/games/reaction-balancer-messages.ts
-src/core-engine/config/games/lewis-structures-messages.ts
+src/core-engine/config/games/<game>-messages.ts   the English copy, canonical.
+                                                  Exports <GAME>_MESSAGES and
+                                                  `type <Game>Messages`. No
+                                                  runtime imports — the review
+                                                  script reads it under Node's
+                                                  type stripping.
+src/i18n/game-messages/<game>/de.ts               `satisfies <Game>Messages`, so
+                                                  a missing key is a compile
+                                                  error. One per locale in
+                                                  LOCALES, no exceptions.
+src/i18n/game-messages/<game>/index.ts            `gameMessages(locale)` — the
+                                                  loader, keyed by Locale,
+                                                  English for 'en', throwing
+                                                  rather than falling back —
+                                                  plus the *shape*: which
+                                                  sentence takes which values,
+                                                  which count selects which
+                                                  plural form, which side of an
+                                                  arrow picks which sentence.
 ```
 
-The wording is in the dictionaries under `games.reactionBalancer` and
-`games.lewisStructures`, like everything else. What the catalogue file holds is
-the *shape*: which sentence takes which values, which count selects which
-plural form, and which side of an arrow picks which of two sentences. A
-component calls `useBalancerMessages()` / `useLewisMessages()` and then reads
-`M.coach.imbalance(element, left, right)` exactly as it did before.
+A component calls `useBalancerMessages()` / `useLewisMessages()` and reads
+`M.coach.imbalance(element, left, right)`, exactly as when the wording lived in
+the dictionary. **Only that game's page loads its catalogue** — never the root
+layout, or the payload saving would be undone.
+
+`game-messages.test.ts` runs the same parity gates on a catalogue as
+`dictionary.test.ts` runs on the dictionary; both call
+`src/test-utils/i18n-parity.ts`, so a catalogue cannot end up with a weaker
+version of the same check.
 
 Two things that only show up once a second language exists, both handled here:
 
@@ -397,7 +478,8 @@ npm run i18n:review                    # regenerate the review table
 
 | Test | Catches |
 |---|---|
-| `dictionary.test.ts` | missing keys, extra keys, empty values, values left identical to English, dropped or renamed placeholders, formulae altered in translation, non-`{name}` placeholder syntax |
+| `dictionary.test.ts` | missing keys, extra keys, empty values, values left identical to English, dropped or renamed placeholders, formulae altered in translation, non-`{name}` placeholder syntax, **a game namespace creeping back into the dictionary** |
+| `game-messages.test.ts` | the same parity gates on each per-game catalogue, a locale with no catalogue, a glossary match word the ASCII `\b` matcher could never find, and a term linked in the English running text but not in the translation's |
 | `chemistry-names.test.ts` | an element, compound, ion, species, reaction or Lewis molecule with no translation in some locale; an overlay entry for something the datasets do not have; an equation or bond line altered in translation |
 | `cheat-sheets.test.ts` | a sheet, section, table row, bullet or resource that does not line up with the English; a formula, slug, icon or URL that changed |
 | `plural.test.ts` | CLDR plural selection, including languages with three, four and one form |

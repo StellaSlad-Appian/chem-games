@@ -1,7 +1,9 @@
 // scripts/i18n-review.ts
 //
 // Generates docs/i18n/de-review.md: every translated UI string side by side
-// with its English source, plus a confidence rating and a note.
+// with its English source, plus a confidence rating and a note. That includes
+// the two games whose copy lives in a per-game catalogue rather than in the
+// dictionary — a reviewer should not have to know where a string is stored.
 //
 //   npm run i18n:review
 //
@@ -22,6 +24,10 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { en } from '../src/i18n/dictionaries/en.ts';
 import { de } from '../src/i18n/dictionaries/de.ts';
+import { REACTION_BALANCER_MESSAGES } from '../src/core-engine/config/games/reaction-balancer-messages.ts';
+import { LEWIS_STRUCTURES_MESSAGES } from '../src/core-engine/config/games/lewis-structures-messages.ts';
+import { de as balancerDe } from '../src/i18n/game-messages/reaction-balancer/de.ts';
+import { de as lewisDe } from '../src/i18n/game-messages/lewis-structures/de.ts';
 import { REVIEW_NOTES, REVIEW_SUMMARY } from '../src/i18n/review-notes.ts';
 import type { Confidence } from '../src/i18n/review-notes.ts';
 
@@ -66,8 +72,26 @@ const cell = (value: string) =>
     // Non-breaking spaces are invisible in a table and matter to the reviewer.
     .replace(/ /g, '·');
 
-const sourceEntries = flatten(en);
-const targetMap = new Map(flatten(de));
+/**
+ * The two games whose copy lives in a per-game catalogue rather than in the
+ * dictionary (docs/i18n/GAMES.md § Catalogue layout). They are mounted back at
+ * the dot-paths they used to have, so `review-notes.ts` prefixes, this table
+ * and the links into it all keep pointing at the same keys — where a string
+ * *lives* changed; which string a reviewer is looking at did not.
+ */
+const CATALOGUES = [
+  ['games.reactionBalancer', REACTION_BALANCER_MESSAGES, balancerDe],
+  ['games.lewisStructures', LEWIS_STRUCTURES_MESSAGES, lewisDe],
+] as const;
+
+const sourceEntries = [
+  ...flatten(en),
+  ...CATALOGUES.flatMap(([prefix, english]) => flatten(english, prefix)),
+];
+const targetMap = new Map([
+  ...flatten(de),
+  ...CATALOGUES.flatMap(([prefix, , translated]) => flatten(translated, prefix)),
+]);
 
 const counts: Record<Confidence, number> = { high: 0, medium: 0, low: 0 };
 for (const [path] of sourceEntries) counts[noteFor('de', path).confidence] += 1;

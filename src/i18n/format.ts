@@ -62,9 +62,9 @@ const isPluralCategory = (key: string): key is PluralCategory =>
 
 /**
  * Whether a value is a plural record: every key is a CLDR category and `other`
- * is present. The dictionary's `Translated<>` type applies the same rule, so a
- * record shaped this way is automatically treated as a plural everywhere —
- * there is no marker to remember to add.
+ * is present. The `Translated<>` type below applies the same rule, so a record
+ * shaped this way is automatically treated as a plural everywhere — there is no
+ * marker to remember to add.
  */
 export function isPluralForms(value: unknown): value is PluralForms {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
@@ -75,6 +75,41 @@ export function isPluralForms(value: unknown): value is PluralForms {
     typeof (value as Record<string, unknown>).other === 'string'
   );
 }
+
+/**
+ * The type-level twin of `isPluralForms()` above. They live in one file because
+ * they have to agree: a record the runtime treats as a plural and the type does
+ * not would compile and then render the wrong form.
+ */
+type IsPluralForms<T> = [keyof T] extends [PluralCategory]
+  ? 'other' extends keyof T
+    ? true
+    : false
+  : false;
+
+/**
+ * Widens the literal types `as const` produced back to `string`, recursively,
+ * so a translation is not required to be byte-identical to the English source
+ * to type-check.
+ *
+ * This is what turns an English source object into the shape every other locale
+ * must satisfy — `Dictionary` in dictionaries/en.ts, and each game's
+ * `<Game>Messages` in src/core-engine/config/games/.
+ *
+ * Plural records are the one exception to "every locale has exactly the same
+ * keys": how many forms a count-dependent string has is a property of the
+ * language, not of the string. Only `other` is required; a locale supplies the
+ * categories it actually uses. English and German need `one` and `other`;
+ * Russian will add `few` and `many` to the same keys without touching the
+ * English source.
+ */
+export type Translated<T> = T extends string
+  ? string
+  : T extends readonly (infer U)[]
+    ? readonly Translated<U>[]
+    : IsPluralForms<T> extends true
+      ? PluralForms
+      : { readonly [K in keyof T]: Translated<T[K]> };
 
 const rulesByLocale = new Map<string, Intl.PluralRules>();
 const rulesFor = (locale: string): Intl.PluralRules => {

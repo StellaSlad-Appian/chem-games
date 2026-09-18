@@ -1,57 +1,26 @@
 // src/i18n/dictionary.test.ts
 //
-// The automated quality gate for translations. TypeScript already refuses to
-// compile a locale that is missing a key (`satisfies Dictionary` in de.ts), so
-// these tests cover what the type system cannot see: empty strings, strings
-// that were copied rather than translated, and interpolation placeholders that
-// were dropped or renamed.
+// The automated quality gate for the shared UI dictionary. The five parity
+// checks themselves live in src/test-utils/i18n-parity.ts, because the game
+// message catalogues need exactly the same ones — see game-messages.test.ts.
 //
-// These are the tests that make Phase 2 safe. Adding a locale means adding one
-// line to LOCALES and one entry to `dictionaries`; everything below then runs
-// against it automatically.
+// What is here is what is specific to the dictionary: the allowlist of strings
+// that are identical in both languages on purpose, the placeholder-syntax rule,
+// and the assertion that the dictionary has stayed UI-sized.
 
 import { describe, expect, it } from 'vitest';
 import { en } from './dictionaries/en';
 import { de } from './dictionaries/de';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
-import { isPluralForms, placeholdersIn } from './format';
+import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
 
 const dictionaries: Record<Locale, unknown> = { en, de };
-
-type Entry = { path: string; value: string; plural?: boolean };
-
-/**
- * Every leaf string in a dictionary, as dot-paths (arrays use [index]).
- *
- * A plural record's forms are flagged, because they are the one place where
- * locales legitimately differ in which keys they carry: `other` is required,
- * every other CLDR category is optional. Russian adds `few` and `many` to the
- * same key and must not read as "extra keys".
- */
-function flatten(value: unknown, prefix = '', inPlural = false): Entry[] {
-  if (typeof value === 'string') return [{ path: prefix, value, plural: inPlural }];
-  if (Array.isArray(value)) {
-    return value.flatMap((item, index) => flatten(item, `${prefix}[${index}]`, false));
-  }
-  if (value && typeof value === 'object') {
-    const plural = isPluralForms(value);
-    return Object.entries(value).flatMap(([key, child]) =>
-      flatten(child, prefix ? `${prefix}.${key}` : key, plural)
-    );
-  }
-  return [];
-}
-
-/** `games.x.count.one` -> `games.x.count`. */
-const pluralRoot = (path: string) => path.slice(0, path.lastIndexOf('.'));
-
-const entriesFor = (locale: Locale) => flatten(dictionaries[locale]);
-const mapFor = (locale: Locale) =>
-  new Map(entriesFor(locale).map((entry) => [entry.path, entry.value]));
-
-const englishEntries = entriesFor(DEFAULT_LOCALE);
-const englishMap = mapFor(DEFAULT_LOCALE);
-const otherLocales = LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);
+const translations = Object.fromEntries(
+  LOCALES.filter((locale) => locale !== DEFAULT_LOCALE).map((locale) => [
+    locale,
+    dictionaries[locale],
+  ])
+);
 
 /**
  * Keys whose translation is legitimately identical to the English.
@@ -74,10 +43,6 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     /^games\.overlay\.statLevel$/,
     /^games\.shared\.touchscreen$/,
     /^profile\.alias$/,
-    // "Coach" and "Challenge" are established German gaming loanwords, and both
-    // name a thing in the game, so they read the same way in both languages.
-    /^games\.(reactionBalancer|lewisStructures)\.coach\.label$/,
-    /^games\.reactionBalancer\.(challenge\.label|header\.challengeProgress)$/,
     // Chemistry terms that are the same word in both languages.
     /^chemistry\.(base|neutral)$/,
     // "OH⁻ (Base)" — the ion notation and the word "Base" are both unchanged.
@@ -86,15 +51,6 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // of an instructions key table is the physical key, so it never translates;
     // the second column, which says what the key does, always does.
     /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
-    /^games\.(reactionBalancer|lewisStructures)\.instructions\.keyboard\[\d+\]\[0\]$/,
-    // Strings whose whole visible content is placeholders, punctuation or
-    // international notation: there is nothing in them to translate.
-    /^games\.(reactionBalancer|lewisStructures)\.success\.points$/,
-    /^games\.reactionBalancer\.challenge\.tileA11y$/,
-    /^games\.reactionBalancer\.glossary\.stateSymbols\.term$/,
-    /^games\.lewisStructures\.overlay\.levelUpDescription$/,
-    /^games\.lewisStructures\.notebook\.diagnosisRow$/,
-    /^games\.lewisStructures\.ui\.atomOrdinal$/,
     // Keyword lists are chosen per language, not translated; the German list
     // happens to be entirely different, so nothing is exempted here — this
     // entry exists to document that `meta.keywords` is intentionally NOT
@@ -102,85 +58,10 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
   ],
 };
 
-const isIdenticalByDesign = (locale: Locale, path: string) =>
-  (IDENTICAL_BY_DESIGN[locale] ?? []).some((pattern) => pattern.test(path));
-
-describe.each(otherLocales)('dictionary: %s', (locale) => {
-  const entries = entriesFor(locale);
-  const map = mapFor(locale);
-
-  it('has exactly the keys English has — no missing, no extra', () => {
-    // Plural forms are exempt in both directions: a locale supplies the CLDR
-    // categories its language uses. `other` is covered by the test below.
-    const missing = englishEntries
-      .filter((entry) => !entry.plural && !map.has(entry.path))
-      .map((e) => e.path);
-    const extra = entries
-      .filter((entry) => !entry.plural && !englishMap.has(entry.path))
-      .map((e) => e.path);
-
-    expect({ missing, extra }).toEqual({ missing: [], extra: [] });
-  });
-
-  it('gives every plural record an `other` form, and no form English does not have a record for', () => {
-    const englishPluralRoots = new Set(
-      englishEntries.filter((e) => e.plural).map((e) => pluralRoot(e.path))
-    );
-    const localePluralRoots = new Set(entries.filter((e) => e.plural).map((e) => pluralRoot(e.path)));
-
-    // Every plural in English is a plural here, and vice versa: only the set of
-    // forms may differ, never whether the key is count-dependent at all.
-    expect([...localePluralRoots].sort()).toEqual([...englishPluralRoots].sort());
-
-    const withoutOther = [...localePluralRoots].filter((root) => !map.has(`${root}.other`));
-    expect(withoutOther).toEqual([]);
-  });
-
-  it('has no empty or whitespace-only values', () => {
-    const empty = entries.filter((entry) => entry.value.trim() === '').map((e) => e.path);
-    expect(empty).toEqual([]);
-  });
-
-  it('has no values left byte-identical to the English source', () => {
-    const untranslated = entries
-      .filter((entry) => englishMap.get(entry.path) === entry.value)
-      .map((entry) => entry.path)
-      .filter((path) => !isIdenticalByDesign(locale, path));
-
-    expect(untranslated).toEqual([]);
-  });
-
-  it('keeps every interpolation placeholder, with the same names', () => {
-    const mismatched = englishEntries
-      .map((entry) => {
-        const translated = map.get(entry.path);
-        if (translated === undefined) return null;
-        const source = placeholdersIn(entry.value).sort();
-        const target = placeholdersIn(translated).sort();
-        if (source.join(',') === target.join(',')) return null;
-        return { path: entry.path, expected: source, actual: target };
-      })
-      .filter(Boolean);
-
-    expect(mismatched).toEqual([]);
-  });
-
-  it('does not translate chemical formulae or element symbols into the copy', () => {
-    // A cheap smoke test for the most damaging class of mistake: a translator
-    // "helpfully" localising a formula. Any occurrence of a subscripted
-    // formula must be byte-identical to the English one at the same key.
-    const formulaLike = /\b(?:H2O|H2SO4|HNO3|NaCl|NaOH|CO2|NH3|CH4|OH-|H\+)\b/;
-    const altered = englishEntries
-      .filter((entry) => formulaLike.test(entry.value))
-      .filter((entry) => {
-        const translated = map.get(entry.path) ?? '';
-        const inSource = entry.value.match(new RegExp(formulaLike, 'g')) ?? [];
-        return inSource.some((formula) => !translated.includes(formula));
-      })
-      .map((entry) => entry.path);
-
-    expect(altered).toEqual([]);
-  });
+describeTranslationParity('dictionary', {
+  source: en,
+  translations,
+  identicalByDesign: IDENTICAL_BY_DESIGN,
 });
 
 describe('dictionary shape', () => {
@@ -190,9 +71,30 @@ describe('dictionary shape', () => {
 
   it('uses no placeholder syntax other than {name}', () => {
     // `${}` or `%s` would silently render as literal text.
-    const suspicious = englishEntries
+    const suspicious = flatten(en)
       .filter((entry) => /\$\{|%[sd]\b|\{\{/.test(entry.value))
       .map((entry) => entry.path);
     expect(suspicious).toEqual([]);
+  });
+
+  it('holds no per-game copy beyond what shared components read', () => {
+    // The root layout hands the whole dictionary to I18nProvider, so every byte
+    // here is serialized into the RSC payload of *every* page — including pages
+    // with no game on them. A game's own copy belongs in its catalogue under
+    // src/i18n/game-messages/ (docs/i18n/GAMES.md § Catalogue layout).
+    //
+    // `games.shared` and `games.overlay` stay: shared components read them and
+    // a per-game copy would duplicate them. The three older games' namespaces
+    // are a follow-up (README § What goes where), not an invitation to add a
+    // fourth.
+    const ALLOWED = new Set([
+      'shared',
+      'overlay',
+      'acidClassification',
+      'formulaBlaster',
+      'neutralise',
+    ]);
+
+    expect(Object.keys(en.games).filter((key) => !ALLOWED.has(key))).toEqual([]);
   });
 });

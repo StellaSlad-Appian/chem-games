@@ -9,7 +9,7 @@ import { fireEvent, screen, within } from '@testing-library/react';
 import LewisStructuresPage from './page';
 import { renderWithProviders } from '@/test-utils/render';
 import { LEWIS_STRUCTURES_CONFIG as CFG } from '@/core-engine/config/games/lewis-structures-config';
-import { lewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '@/i18n/game-messages/lewis-structures';
 import { en } from '@/i18n/dictionaries/en';
 
 // Rendered in English, like every component test; the German rendering is

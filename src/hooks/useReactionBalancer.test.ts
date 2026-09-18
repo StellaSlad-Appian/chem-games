@@ -6,7 +6,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { REACTION_BALANCER_CONFIG as CFG } from '@/core-engine/config/games/reaction-balancer-config';
-import { reactionBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import { en } from '@/i18n/dictionaries/en';
 import { TestProviders } from '@/test-utils/render';
 import { getReaction } from '@/core-engine/data/reactions';

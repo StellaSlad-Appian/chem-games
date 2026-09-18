@@ -10,7 +10,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { REACTION_BALANCER_CONFIG, type ReactionBalancerConfig } from '@/core-engine/config/games/reaction-balancer-config';
-import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import {
   WATER_REACTION_ID,
   allOnes,

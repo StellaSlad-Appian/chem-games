@@ -12,8 +12,8 @@ import { expect, test, type Page } from '@playwright/test';
 import { en } from '../src/i18n/dictionaries/en';
 import { de } from '../src/i18n/dictionaries/de';
 import { LOCALE_COOKIE } from '../src/i18n/config';
-import { lewisMessages } from '../src/core-engine/config/games/lewis-structures-messages';
-import { reactionBalancerMessages } from '../src/core-engine/config/games/reaction-balancer-messages';
+import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
+import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
 import { languageSwitcher, openGame, path, waitForHydration } from './helpers';
 
 const htmlLang = (page: Page) => page.locator('html').getAttribute('lang');

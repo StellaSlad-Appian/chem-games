@@ -8,7 +8,7 @@
  */
 import { expect, test, type Locator, type Page } from '@playwright/test';
 import { LEWIS_STRUCTURES_CONFIG as CFG } from '../src/core-engine/config/games/lewis-structures-config';
-import { lewisMessages } from '../src/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
 import { en } from '../src/i18n/dictionaries/en';
 import { getLewisMolecule } from '../src/core-engine/data/lewis-molecules';
 import type { BondOrder, LewisMoleculeData, LewisStructure } from '../src/core-engine/types/chemistry';

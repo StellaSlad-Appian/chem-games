@@ -9,7 +9,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { LEWIS_STRUCTURES_CONFIG, type LewisStructuresConfig } from '@/core-engine/config/games/lewis-structures-config';
-import { useLewisMessages, type LewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages, type LewisMessages } from '@/i18n/game-messages/lewis-structures';
 import { LEWIS_MOLECULES, atomId as makeAtomId, getLewisMolecule, moleculesForLevel } from '@/core-engine/data/lewis-molecules';
 import type { LewisDiagnosis, LewisErrorType, LewisMoleculeData, LewisStructure } from '@/core-engine/types/chemistry';
 import {

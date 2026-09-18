@@ -22,7 +22,7 @@ import LewisStructuresArena from '@/components/games/lewis-structures/GameArena'
 import LewisInstructions from '@/components/games/lewis-structures/Instructions';
 import LewisNotebook from '@/components/games/lewis-structures/Notebook';
 import { LEWIS_STRUCTURES_CONFIG } from '@/core-engine/config/games/lewis-structures-config';
-import { useLewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { useLewisMessages } from '@/i18n/game-messages/lewis-structures';
 import { GAME_CONTROLS } from '@/core-engine/constants/ui-constants';
 import { recordGameSession } from '@/lib/actions/game-actions';
 import { useI18n } from '@/i18n/client';

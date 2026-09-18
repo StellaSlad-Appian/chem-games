@@ -6,7 +6,7 @@
  */
 import { describe, expect, it } from 'vitest';
 import { LEWIS_STRUCTURES_CONFIG as CFG } from '@/core-engine/config/games/lewis-structures-config';
-import { lewisMessages } from '@/core-engine/config/games/lewis-structures-messages';
+import { lewisMessages } from '@/i18n/game-messages/lewis-structures';
 import { elementName } from '@/i18n/chemistry-names';
 import { en } from '@/i18n/dictionaries/en';
 import { getLewisMolecule, moleculesForLevel } from '@/core-engine/data/lewis-molecules';

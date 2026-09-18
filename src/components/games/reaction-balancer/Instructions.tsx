@@ -4,18 +4,18 @@
 import { useMemo } from 'react';
 import { GlossaryTerm, type GlossaryEntry } from '@/components/games/shared/GlossaryTerm';
 import RichMessage from '@/components/games/shared/RichMessage';
-import { useBalancerMessages, type ReactionBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages, type BalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import type { InputMethod } from '@/hooks/useInputMethod';
 
 /** The tap-to-explain vocabulary, in the reader's language. */
-export const balancerGlossary = (M: ReactionBalancerMessages): GlossaryEntry[] =>
+export const balancerGlossary = (M: BalancerMessages): GlossaryEntry[] =>
   Object.entries(M.glossary).map(([term, definition]) => ({
     term,
     definition,
     matches: M.glossaryMatches[term] ?? [term],
   }));
 
-export function useBalancerGlossary(): { M: ReactionBalancerMessages; glossary: GlossaryEntry[] } {
+export function useBalancerGlossary(): { M: BalancerMessages; glossary: GlossaryEntry[] } {
   const M = useBalancerMessages();
   return { M, glossary: useMemo(() => balancerGlossary(M), [M]) };
 }

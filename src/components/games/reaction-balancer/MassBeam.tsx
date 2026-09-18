@@ -1,7 +1,7 @@
 // src/components/games/reaction-balancer/MassBeam.tsx
 'use client';
 
-import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 
 interface MassBeamProps {
   left: number;

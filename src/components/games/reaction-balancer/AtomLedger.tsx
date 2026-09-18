@@ -2,7 +2,7 @@
 'use client';
 
 import { AlertCircle, CheckCircle2 } from 'lucide-react';
-import { useBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { useBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import { elementName } from '@/i18n/chemistry-names';
 import { useI18n } from '@/i18n/client';
 import type { LedgerRow } from '@/core-engine/utils/balancer-utils';

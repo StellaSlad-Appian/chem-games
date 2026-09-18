@@ -57,28 +57,46 @@ site-wide dictionary), loaded only by that game's page, so the shared dictionary
 
 ```
 src/core-engine/config/games/<game>-messages.ts     English, canonical; exports <GAME>_MESSAGES
-                                                    and `type <Game>Messages = typeof <GAME>_MESSAGES`
+                                                    and `type <Game>Messages`, derived from it
+                                                    with `Translated<>` so a translation need
+                                                    not be byte-identical to compile. No runtime
+                                                    imports: scripts/i18n-review.mts reads this
+                                                    file under Node's type stripping.
 src/i18n/game-messages/<game>/de.ts                 `export const de = { ... } satisfies <Game>Messages`
 src/i18n/game-messages/<game>/fr.ts                 (one per locale in LOCALES, no exceptions)
 src/i18n/game-messages/<game>/index.ts              gameMessages(locale) — a loader keyed by Locale,
                                                     English for 'en', no silent fallback for the rest
+                                                    — plus the shape the components call it through
+                                                    (`use<Game>Messages()`), which is what keeps the
+                                                    loader out of the canonical file's imports
 ```
+
+**Both games were migrated into this layout on the `i18n` branch.** Their copy was in the
+shared dictionary under `games.reactionBalancer` and `games.lewisStructures`, which was 22.4 KB
+of the German dictionary's 45.6 KB — serialized into the RSC payload of every page, including
+pages with no game on them. `games.shared`, `games.overlay` and the `gamesHub` titles stay in
+the dictionary on purpose (README § What goes where).
 
 Conventions, the same as the dictionary's (README § Adding a string), plus a few for games:
 
 - **Placeholders are `{name}`**, not arrow functions. `f()` from `src/i18n/format.ts`
-  interpolates them, and the placeholder gate can only check a string. (The two catalogues
-  built before this rule, Reaction Balancer's and Share to Fill's, use functions; their
-  translation on the `i18n` branch is where that shape is settled.)
-- **Count-dependent strings are a `one` / `other` pair** today. Keep them few, and list every
-  one in the brief's "Languages" section, because Russian needs a third and fourth form and the
-  README's plural fix has to find them all.
+  interpolates them, and the placeholder gate can only check a string. Both existing
+  catalogues follow this: the arrow functions are the *shape* in `index.ts`, and every string
+  they read is a template in the catalogue file.
+- **Count-dependent strings are a record keyed by CLDR plural category**, chosen by
+  `Intl.PluralRules` — never a `one` / `other` pair picked with a `count === 1` ternary. The
+  two existing catalogues supply `one` and `other` because that is what English and German
+  use; Russian will add `few` and `many` to the same keys and nothing else changes
+  (README § Plurals). Keep them few, and list every one in the brief's "Languages" section so
+  the Russian pass can find them all.
 - **Accessible names live next to the visible string** with an `A11y` suffix, so an
   `aria-label` cannot stay English while the label around it is translated.
 - **No sentence is built by concatenation.** Word order differs; one key holds one sentence.
 - **Glossary words are linked by `GlossaryText`** on the *translated* word, so each locale's
-  catalogue carries its own glossary keys and match list (`glossaryMatches` in the Reaction
-  Balancer catalogue is the pattern).
+  catalogue carries its own `glossary.<entry>.matches` list in that language's inflections
+  (the Reaction Balancer catalogue is the pattern). The matcher uses a JavaScript `\b`, which
+  only knows ASCII letters, so a match word must start and end with one — `glossary-de.md`
+  says so, and `game-messages.test.ts` asserts it.
 
 The locale a game page renders in comes from `useI18n().locale`; the page passes the
 matching catalogue down, and every link it renders goes through `LocaleLink` or `href()` so
@@ -206,9 +224,13 @@ The glossary for the locale is authoritative; these are reminders.
 ## Testing a game in every locale
 
 **Automatic, once the catalogue is in the layout above:** typecheck (parity), the catalogue
-parity tests (empty, identical-to-English, placeholders, formulae), `chemistry-names.test.ts`,
-`cheat-sheets.test.ts`, `game-titles.test.ts`. A new game adds its overlay test for any
-dataset prose it introduced.
+parity tests in `src/i18n/game-messages.test.ts` (empty, identical-to-English, placeholders,
+plural forms, formulae — the same implementation the dictionary uses, from
+`src/test-utils/i18n-parity.ts`), plus that game's loader covering every locale in `LOCALES`
+and its glossary match words being findable by the ASCII `\b` matcher. Then
+`chemistry-names.test.ts`, `cheat-sheets.test.ts`, `game-titles.test.ts`. A new game adds a
+`describeTranslationParity()` block for its catalogue and an overlay test for any dataset
+prose it introduced.
 
 **Page test (`page.test.tsx`):** one flow rendered with `TestProviders` given a non-English
 `locale` and `dictionary` — the instructions title, one coach message and one overlay must

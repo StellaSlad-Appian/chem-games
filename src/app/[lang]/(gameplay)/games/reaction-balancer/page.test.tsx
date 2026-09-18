@@ -9,7 +9,7 @@ import { fireEvent, screen, within } from '@testing-library/react';
 import ReactionBalancerPage from './page';
 import { renderWithProviders } from '@/test-utils/render';
 import { REACTION_BALANCER_CONFIG as CFG } from '@/core-engine/config/games/reaction-balancer-config';
-import { reactionBalancerMessages } from '@/core-engine/config/games/reaction-balancer-messages';
+import { reactionBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import { en } from '@/i18n/dictionaries/en';
 
 // Rendered in English, like every component test; the German rendering is
