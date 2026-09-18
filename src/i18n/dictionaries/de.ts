@@ -36,7 +36,7 @@ export const de = {
       'Moleküle',
       'Reaktionen',
       'Titration',
-      'Chemie Oberstufe',
+      'Chemie Klasse 9',
     ],
     privacyTitle: 'Datenschutz | ChemGames',
     privacyDescription:
@@ -117,11 +117,11 @@ export const de = {
     acidTitle: 'Säure oder Base?',
     acidDescription: 'Ordne Stoffe nach ihren Eigenschaften ein.',
     blasterTitle: 'Formel-Blaster',
-    blasterDescription: 'Zerplatze die gesuchten Verbindungen, bevor sie entkommen.',
+    blasterDescription: 'Lass die gesuchten Verbindungen zerplatzen, bevor sie entkommen.',
     neutraliseTitle: 'Neutralisieren!',
     neutraliseDescription: 'Verteidige das Labor gegen Molekül-Invasoren.',
     balancerTitle: 'Reaktions-Balancer',
-    balancerDescription: 'Gleiche die Atome auf beiden Seiten des Pfeils an.',
+    balancerDescription: 'Bring die Atome auf beiden Seiten des Pfeils ins Gleichgewicht.',
     lewisTitle: 'Teilen bis voll',
     lewisDescription: 'Bring die Einzelgänger zusammen und baue ein Molekül.',
     bondsTitle: 'Chemische Bindungen',
@@ -640,7 +640,7 @@ export const de = {
         label: 'Tipp',
         tierLabel: 'Tipp {tier} von 3',
         tier1:
-          'Fang mit dem Element an, das in den wenigsten Verbindungen vorkommt. Hier ist das {element}.',
+          'Fang mit dem Element an, das in den wenigsten Verbindungen vorkommt. Das ist hier {element}.',
         tier3: 'Schreib eine {n} vor `{formula}`. Prüf danach {element} noch einmal.',
         tier3Lower: 'Setz `{formula}` zurück auf {n}. Prüf danach {element} noch einmal.',
         tier3Balanced: 'Alle Zeilen passen schon – die Gleichung ist ausgeglichen.',
@@ -676,9 +676,9 @@ export const de = {
         notInReaction:
           '{name} kommt in dieser Reaktion nicht vor. Lies die Beschreibung noch einmal – welche Stoffe nennt sie?',
         wrongSideProduct:
-          '{name} entsteht bei dieser Reaktion und gehört deshalb rechts vom Pfeil – es ist ein Produkt.',
+          '{name} entsteht bei dieser Reaktion und gehört deshalb rechts vom Pfeil, auf die Produktseite.',
         wrongSideReactant:
-          '{name} wird bei dieser Reaktion verbraucht und gehört deshalb links vom Pfeil – es ist ein Edukt.',
+          '{name} wird bei dieser Reaktion verbraucht und gehört deshalb links vom Pfeil, auf die Eduktseite.',
         built: 'Das ist die Gleichung. Jetzt gleich sie aus.',
         addAsReactantA11y: '{name}, {formula}, als Edukt hinzufügen',
         addAsProductA11y: '{name}, {formula}, als Produkt hinzufügen',
@@ -756,8 +756,8 @@ export const de = {
       },
       card: {
         coefficientA11y: 'Koeffizient für {name}, {formula}',
-        increaseA11y: 'Ein {name} mehr',
-        decreaseA11y: 'Ein {name} weniger',
+        increaseA11y: '{name} erhöhen',
+        decreaseA11y: '{name} verringern',
         formulaTapA11y: '{name} – die Indizes sind gesperrt',
         clustersA11y: { one: '{count} Molekül {name}', other: '{count} Moleküle {name}' },
         reactants: 'Edukte',
@@ -941,7 +941,7 @@ export const de = {
       error: {
         label: 'So nicht',
         atomFull:
-          '{atom} hat schon 8 – mehr kann es nicht teilen. Nimm ein Atom, das noch einen Einzelgänger hat.',
+          '{atom} hat schon 8 – mehr kann dieses Atom nicht teilen. Nimm ein Atom, das noch einen Einzelgänger hat.',
         hydrogenFull: 'Wasserstoff ist bei 2 voll. Er kann nur ein Paar teilen.',
         sameAtom:
           'Die beiden Punkte gehören zum selben Atom – sie sind schon ein Paar. Für eine Bindung braucht es zwei verschiedene Atome.',

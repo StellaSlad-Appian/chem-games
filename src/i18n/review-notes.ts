@@ -106,6 +106,16 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct.',
     },
     {
+      prefix: 'games.reactionBalancer.card',
+      confidence: 'high',
+      note: 'Accessible names for the coefficient controls. The literal "Add one water" cannot be translated with an article, because the compound name that fills the placeholder can be any gender ("Ein Schwefelsäure mehr" is wrong). The German uses a verb instead — "{name} erhöhen" / "{name} verringern" — which is gender-free and reads better on a screen reader.',
+    },
+    {
+      prefix: 'games.reactionBalancer.challenge.wrongSide',
+      confidence: 'high',
+      note: 'Rephrased away from a pronoun for the same reason: "es ist ein Produkt" needs a gender the placeholder does not supply, so the sentence now ends "auf die Produktseite" / "auf die Eduktseite".',
+    },
+    {
       prefix: 'games.reactionBalancer.glossary',
       confidence: 'high',
       note: 'The Index / Koeffizient contrast is the whole teaching point of the game, and German makes it more clearly than English does. `matches` lists the German word forms that become tap-to-explain, so it is a different list from the English one rather than a translation of it.',
@@ -156,7 +166,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'gamesHub',
       confidence: 'medium',
-      note: 'Game descriptions. The titles are rated separately below.',
+      note: 'Game descriptions. The titles are rated separately below. Two were corrected after review: "Zerplatze die Verbindungen" used zerplatzen transitively, which standard German does not allow (things burst; you do not burst them) — it now says "Lass die … zerplatzen", which the two other blaster strings already did. And the balancer card said "angleichen", introducing a second verb for what the glossary fixes as "ausgleichen"; it now avoids the verb altogether with "ins Gleichgewicht bringen", which also matches the beam the game shows.',
     },
     {
       prefix: 'leaderboards',
@@ -188,7 +198,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'meta.keywords',
       confidence: 'low',
-      note: 'SEO keywords are keyword research, not translation. These are plausible German search terms, not researched ones. Someone should check them against actual German search volume before they matter — see the seo/ directory for how the English set was built.',
+      note: 'SEO keywords are keyword research, not translation. These are plausible German search terms, not researched ones. Someone should check them against actual German search volume before they matter — see the seo/ directory for how the English set was built. One was outright wrong and has been corrected: "Chemie Oberstufe" names Sek II (Klasse 11–13, ages 16–19), and this site is Year 9–10 — Mittelstufe / Sek I. It now says "Chemie Klasse 9", which is also a term German students actually search for.',
     },
     {
       prefix: 'gamesHub.blasterTitle',
