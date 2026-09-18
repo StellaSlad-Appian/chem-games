@@ -664,9 +664,9 @@ export const LEWIS_MOLECULE_TEXT_IT: Record<
   o2: {
     name: 'Ossigeno',
     tier2Hint:
-      'Ogni ossigeno ha due dispari. Dopo il primo doppietto condiviso ne resta uno per ciascuno: condividi di nuovo e viene un legame doppio.',
+      'Ogni ossigeno ha due dispari. Dopo il primo doppietto di legame ne resta uno per ciascuno: condividi di nuovo e viene un legame doppio.',
     propertyLine:
-      'L’ossigeno, il gas che respiriamo. Due doppietti condivisi fra gli atomi fanno un legame doppio.',
+      'L’ossigeno, il gas che respiriamo. Due doppietti di legame fra gli atomi fanno un legame doppio.',
   },
   co2: {
     name: 'Diossido di carbonio',

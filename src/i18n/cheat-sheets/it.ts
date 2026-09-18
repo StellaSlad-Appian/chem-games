@@ -344,7 +344,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). Il numero del gruppo ti dice quanti elettroni di valenza ha un elemento rappresentativo.',
       'Ionico: metallo + non metallo. Si trasferiscono elettroni e si formano ioni tenuti insieme in un reticolo tridimensionale dall’attrazione elettrostatica.',
-      'Covalente: non metallo + non metallo. Gli elettroni si condividono a coppie; ogni doppietto condiviso è un legame.',
+      'Covalente: non metallo + non metallo. Gli elettroni si condividono a due a due: ogni doppietto in comune fra due atomi è un legame.',
       'Metallico: atomi di metallo in un reticolo di cationi circondati da un «mare» di elettroni liberi.',
       'Le proprietà vengono dalla struttura: i reticoli sono duri e hanno punti di fusione alti; le molecole piccole fondono a bassa temperatura perché fra loro agiscono solo forze deboli.',
     ],
@@ -500,7 +500,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Come si ricava il numero romano',
         content:
-          'Per Fe2(SO4)3: il solfato è 2− e ce ne sono tre, quindi gli anioni fanno −6. I due ioni ferro devono fare +6, cioè +3 ciascuno → solfato di ferro(III). Il numero serve solo ai metalli con più di una carica comune (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni); il gruppo 1, il gruppo 2, l’Al, lo Zinco e l’Argento non lo portano mai.',
+          'Per Fe2(SO4)3: il solfato è 2− e ce ne sono tre, quindi gli anioni fanno −6. I due ioni ferro devono fare +6, cioè +3 ciascuno → solfato di ferro(III). Il numero serve solo ai metalli con più di una carica comune (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni); il gruppo 1, il gruppo 2, l’alluminio, lo zinco e l’argento non lo portano mai.',
       },
     ],
     tables: [
@@ -590,7 +590,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'VCE Unit 1 AoS 1 (legame covalente, strutture di Lewis, geometria VSEPR).',
     keyTakeaways: [
       'Elettroni di valenza = numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
-      'Ogni legame è un doppietto condiviso (2 elettroni). Singolo = 1 doppietto, doppio = 2, triplo = 3. Gli elettroni che non formano legami restano come doppietti solitari.',
+      'Ogni legame è un doppietto in comune fra due atomi (2 elettroni). Singolo = 1 doppietto, doppio = 2, triplo = 3. Gli elettroni che non formano legami restano come doppietti solitari.',
       'Regola dell’ottetto: quasi tutti gli atomi vogliono 8 elettroni di valenza intorno. L’idrogeno ne vuole 2 (il duetto).',
       'Se all’atomo centrale manca qualcosa per l’ottetto dopo aver distribuito tutti gli elettroni, trasforma doppietti solitari degli atomi esterni in legami aggiuntivi.',
       'Carica formale = elettroni di valenza − elettroni dei doppietti solitari − metà degli elettroni di legame. La struttura migliore è quella con le cariche formali più vicine a zero, con la carica negativa sull’atomo più elettronegativo.',
@@ -609,7 +609,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         exampleNames: [
           'Acqua: l’ossigeno condivide due volte e si tiene 2 doppietti solitari',
           'Metano: il carbonio condivide i suoi quattro dispari',
-          'Ossigeno: due doppietti condivisi fanno un legame doppio',
+          'Ossigeno: due doppietti di legame fanno un legame doppio',
         ],
       },
       {

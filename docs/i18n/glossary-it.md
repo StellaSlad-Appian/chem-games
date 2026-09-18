@@ -338,13 +338,22 @@ the game word is a noun that is too long for a canvas label and the adjective is
 shorter. In Italian the game word **is** the adjective — *elettrone dispari* →
 *dispari* — so there is nothing to shorten to, exactly as in Spanish.
 
-**The honest cost: seven characters.** The pre-existing Lewis layout note says
-the dot label overlaps the atom ring at 360 px beyond about four characters
-(German's `EINZELN` at 7 worst, French's `SEUL` at 4 clear, Spanish's `IMPAR` at
-5 between). `DISPARI` is 7, so Italian is at the German end of that range, and
-this was weighed rather than discovered: the only shorter candidates Italian
-offers are *solo* (4) and *libero* (6), and both are rejected below on meaning.
-Verified on screen at 360 px in this run; noted in the report.
+**The honest cost: seven characters, and it was measured.** The pre-existing
+Lewis layout note says the dot label overlaps the atom ring at 360 px beyond
+about four characters. Measured in a browser at 360 px, on the H₂ round where
+both labels sit between the two atoms:
+
+| Locale | Label | Label width | Overlap with the ring |
+|---|---|---|---|
+| es | `IMPAR` | 33 px | **8 px** |
+| it | `DISPARI` | 40 px | **11 px** |
+
+So Italian is three pixels worse than Spanish on a limitation Spanish already
+trips, not a new breakage — and the overlap falls on the ring stroke, not on
+the element letter, so both stay readable. It was weighed rather than
+discovered: the only shorter candidates Italian offers are *solo* (4) and
+*libero* (6), and both are rejected below on meaning. Reported as
+pre-existing-and-inherited rather than fixed.
 
 **What was rejected.**
 
