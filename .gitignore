@@ -44,3 +44,9 @@ next-env.d.ts
 /test-results
 /playwright-report
 /playwright/.cache
+
+# stray local files that have been committed by accident before
+*.lnk
+*.master-backup
+*.orig
+*.rej
