@@ -38,6 +38,9 @@ import { de as balancerDe } from '../src/i18n/game-messages/reaction-balancer/de
 import { de as lewisDe } from '../src/i18n/game-messages/lewis-structures/de.ts';
 import { fr as balancerFr } from '../src/i18n/game-messages/reaction-balancer/fr.ts';
 import { fr as lewisFr } from '../src/i18n/game-messages/lewis-structures/fr.ts';
+import { es } from '../src/i18n/dictionaries/es.ts';
+import { es as balancerEs } from '../src/i18n/game-messages/reaction-balancer/es.ts';
+import { es as lewisEs } from '../src/i18n/game-messages/lewis-structures/es.ts';
 import { REVIEW_NOTES, REVIEW_SUMMARY } from '../src/i18n/review-notes.ts';
 import type { Confidence } from '../src/i18n/review-notes.ts';
 
@@ -192,6 +195,61 @@ goes the other way, almost every imperative below changes.
 A note on reading the table: \`·\` marks a no-break space. French typography
 needs a narrow one (U+202F) before \`;\` \`!\` \`?\` and inside \`« »\`, and a full
 one (U+00A0) before \`:\`. Both are otherwise invisible here.
+
+---
+
+## UI strings
+
+`,
+  },
+  es: {
+    dictionary: es,
+    catalogues: [balancerEs, lewisEs],
+    header: (total, counts) => `<!--
+  GENERATED FILE - do not edit by hand.
+  Regenerate with:  npm run i18n:review
+  The confidence ratings, the notes and the assessment at the end come from
+  src/i18n/review-notes.ts; edit them there. Everything else is read from the
+  dictionaries, so this table cannot drift from what the site actually says.
+-->
+
+# Spanish translation review
+
+Every UI string on the site, with its English source and its Spanish
+translation, so a native speaker or a chemistry teacher can review the Spanish
+without reading any code.
+
+**${total} strings** — ${counts.high} high confidence,
+${counts.medium} medium, ${counts.low} low.
+
+The confidence column is a judgement about *this* translation, not about Spanish
+in general:
+
+- **high** — ordinary UI copy, or a term fixed in [\`glossary-es.md\`](./glossary-es.md). Low risk.
+- **medium** — correct as far as I can tell, but a native speaker may prefer a
+  different word, or the register may be slightly off for a 14-year-old. Worth a
+  read; not urgent.
+- **low** — I am genuinely unsure. Please have a native speaker or a chemistry
+  teacher check these before the Spanish site goes in front of students.
+
+The chemistry names and the cheat-sheet prose are **not** in this table — they
+are keyed by registry identifier rather than by dictionary path, and they are
+assessed as bodies of work in [the section at the end](#chemistry-names--srci18nchemistry-namesests).
+
+**The first thing to decide** is the one that touches every other row: this is
+**es-ES**, peninsular Spanish. There is no variety-neutral Spanish, so shipping
+under a plain \`es\` tag is still a choice, and roughly nine Spanish speakers in
+ten are not in Spain. The decision is argued at the top of
+[\`glossary-es.md\`](./glossary-es.md), which also lists the eight words that
+would have to change for es-419 — *ajustar* vs *balancear* for balancing an
+equation, and *chuleta* vs *acordeón* / *torpedo* / *machete* for a cheat sheet,
+being the two a reader would notice first. Everything else was deliberately
+written in wording both sides accept.
+
+A note on reading the table: Spanish needs none of the no-break-space marking
+German and French do, so a \`·\` will not appear. What to watch for instead is
+the opening \`¿\` and \`¡\` — mandatory in Spanish, and an error rather than a
+style choice when missing.
 
 ---
 

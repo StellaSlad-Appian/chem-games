@@ -579,6 +579,334 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'The language-preference cookie this feature introduces had to be disclosed; the French follows the German paragraph rather than the original English.',
     },
   ],
+
+  es: [
+    // ---------------------------------------------------------------- high --
+    {
+      prefix: 'common',
+      confidence: 'high',
+      note: 'Everyday UI words with unambiguous Spanish equivalents.',
+    },
+    {
+      prefix: 'nav',
+      confidence: 'high',
+      note: 'Standard navigation vocabulary. "Iniciar sesión" is still shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here.',
+    },
+    {
+      prefix: 'nav.cheatSheets',
+      confidence: 'medium',
+      note: '"Chuletas". The exact Spanish counterpart of the German "Spickzettel" and the French "antisèche" — the school word, with the same cheeky edge (it also means a pork chop, which is the same kind of joke "cheat sheet" is). Two risks, not one: it carries the cheating connotation, so a teacher may prefer "fichas de repaso"; and **it is the strongest es-ES marker in the whole UI** — Latin America says *acordeón* (MX), *torpedo* (CL) or *machete* (AR). Changing it touches nav, cheatSheets.* and meta.cheatSheetTitle together.',
+    },
+    {
+      prefix: 'language',
+      confidence: 'high',
+      note: 'Switcher labels; short and unambiguous.',
+    },
+    {
+      prefix: 'auth',
+      confidence: 'high',
+      note: 'Standard sign-in vocabulary. The placeholder email was localised to a .es domain. Two strings were rewritten rather than translated because Spanish adjectives agree with the reader: "Welcome back" is "¡Hola de nuevo!" (not *Bienvenido*, which addresses a boy) and "New to ChemGames?" asks about the visit rather than the person.',
+    },
+    {
+      prefix: 'feedback',
+      confidence: 'high',
+      note: 'Like French and unlike German, Spanish does not keep the English "Feedback": "Comentarios" is the natural word. "Problema" rather than "Bug" for the same reason. Note "Idea" is genuinely the same word in both languages and is allowlisted rather than replaced.',
+    },
+    {
+      prefix: 'settings',
+      confidence: 'high',
+      note: 'Standard settings vocabulary.',
+    },
+    {
+      prefix: 'settings.globalTitle',
+      confidence: 'medium',
+      note: '**"Opciones", deliberately not "Ajustes"** — and this is one of the decisions the glossary exists to catch. *Ajustes* is the ordinary Spanish for app settings, but *ajustar* is this site\'s verb for balancing an equation (Reaction Balancer, throughout), so a reader would meet the same root meaning two unrelated things on two screens. "Opciones" is what a game calls this panel anyway. *Configuración* was the third option and is four characters longer.',
+    },
+    {
+      prefix: 'settings.useGlobal',
+      confidence: 'medium',
+      note: 'Rendered as "Valor por defecto" rather than a literal "Usar el global". settings.overrideHelp quotes the same wording inside guillemets, so the two must change together.',
+    },
+    {
+      prefix: 'footer',
+      confidence: 'high',
+      note: 'Short; the tagline is a free rendering rather than word-for-word, which suits a tagline.',
+    },
+    {
+      prefix: 'yearLevels',
+      confidence: 'high',
+      note: 'Mapped by age onto the Spanish system: Year 7 = 1º ESO, Year 8 = 2º ESO, Year 9 = 3º ESO, Year 10 = 4º ESO, Senior = Bachillerato. The stored value stays the English "Year 9"; only the label is Spanish. The masculine ordinal indicator (º) is one character and needs no superscript font in a filter pill.',
+    },
+    {
+      prefix: 'chemistry',
+      confidence: 'high',
+      note: 'Fixed in docs/i18n/glossary-es.md. Ácido / base / neutro / anfótero are the Spanish school terms. Note "Base" is the same word as the English and is allowlisted, while "Neutro" is not — the same split French has, and the opposite of German.',
+    },
+    {
+      prefix: 'games.shared',
+      confidence: 'high',
+      note: 'Short game-chrome labels. "Nivel" rather than a loanword: Spanish gaming has its own word where German borrows "Level".',
+    },
+    {
+      prefix: 'games.shared.hint',
+      confidence: 'high',
+      note: '**"Pista", and this is where Spanish is in a better position than French.** The French run had to abandon the obvious word for "hint" (*indice*) because it is also the French for a formula **subscript**, in the one game whose entire teaching point is that contrast — and the handover predicted Spanish would hit the same wall. It does not: a subscript in Spanish is *subíndice* and a hint is *pista*, and the two share no word. *Pista* is five characters, so it fits the header badge that ruled out French\'s *coup de pouce*. Rejected: *indicio* (a clue in a detective sense), *consejo* (advice from a teacher) and *ayuda* (already the word for help in general).',
+    },
+    {
+      prefix: 'profileToggles',
+      confidence: 'high',
+      note: 'Plain switch labels.',
+    },
+    {
+      prefix: 'serverMessages',
+      confidence: 'high',
+      note: 'Error and confirmation messages in plain Spanish. Note the {word} placeholder stays the literal "DELETE": the action compares it byte for byte. exportLoginRequired names the action ("Tienes que iniciar sesión") rather than the state, to avoid "estar conectado", which would have to agree in gender.',
+    },
+    {
+      prefix: 'cheatSheets',
+      confidence: 'high',
+      note: 'Section headings for the reference pages. "Chuletas" follows nav.cheatSheets and would change with it.',
+    },
+    {
+      prefix: 'cheatSheets.forStudents',
+      confidence: 'high',
+      note: '"Para el alumnado" rather than "Para los alumnos", which would default to masculine. Spanish has exact collective nouns for both audiences, and using them solves the gender problem outright instead of working around it.',
+    },
+    {
+      prefix: 'cheatSheets.forTeachers',
+      confidence: 'high',
+      note: '"Para el profesorado", the same device as forStudents.',
+    },
+    {
+      prefix: 'games.reactionBalancer',
+      confidence: 'high',
+      note: 'Uses the glossary terms reactivos / productos / coeficiente / subíndice / recuento de átomos / ajustar. **The one thing to check is the variety, not the translation:** Spain says *ajustar una ecuación* and Latin America says *balancear*. It is the single most visible es-ES marker on the site, it appears in this namespace dozens of times, and the decision is argued at the top of glossary-es.md.',
+    },
+    {
+      prefix: 'games.reactionBalancer.coach',
+      confidence: 'medium',
+      note: 'These carry the Spanish article device. A name placeholder cannot take an article, because Spanish picks it from the name\'s gender (*el oxígeno* but *la glucosa*) and because *de + el* contracts obligatorily to *del* — so even "de {name}" is unsafe. The templates say "el elemento {element}", which works for **every** element including *la plata*, because the article agrees with *elemento* and the name sits in apposition. That is a stronger guarantee than the French version of the same device, which relies on every French element name being masculine.',
+    },
+    {
+      prefix: 'games.reactionBalancer.card',
+      confidence: 'high',
+      note: 'Accessible names for the coefficient controls. "Add one water" cannot be translated with an article for the reason above, so these are colon labels — "Aumentar: {name}" — which are gender-free and read cleanly on a screen reader. The same solution French reached, and German reached with a verb.',
+    },
+    {
+      prefix: 'games.reactionBalancer.challenge',
+      confidence: 'high',
+      note: '"Reto" rather than keeping the English "Challenge" as German did: Spanish has a short natural word and uses it (*Desafío* is the longer synonym). The wrong-side and not-in-reaction messages lead with a generic noun ("Esta sustancia …") so the compound name can follow a colon instead of needing an article.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger',
+      confidence: 'medium',
+      note: '"Recuento de átomos" for the game\'s own name for the table under the arrow. **Rejected: "balance de átomos"**, which is the obvious rendering and would quietly reintroduce *balance*/*balancear* right next to a deliberate *ajustar* — undercutting the variety decision one table at a time. *Recuento* says what the table is: a tally.',
+    },
+    {
+      prefix: 'games.reactionBalancer.glossary',
+      confidence: 'high',
+      note: 'The subíndice / coeficiente contrast is the whole teaching point of the game, and Spanish makes it as cleanly as German does. Unlike French, nothing here is identical-by-design: the Spanish really is *coeficiente*, not "coefficient".',
+    },
+    {
+      prefix: 'games.reactionBalancer.beam',
+      confidence: 'medium',
+      note: 'The beam is *la balanza* and "the beam is level" is "La balanza está equilibrada". That is a **different referent** from *ajustar* — a physical object on screen, not the equation — so the two do not compete, and the glossary says so explicitly. Worth a native read to confirm it does not look like a second verb for balancing.',
+    },
+    {
+      prefix: 'games.reactionBalancer.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column one is the physical key and stays as printed (Tab, H, P). Only the description of what the key does is translated.',
+    },
+    {
+      prefix: 'games.formulaBlaster',
+      confidence: 'high',
+      note: 'The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. All four were rewritten so no article ever precedes a name placeholder — "No es eso: {compound}" rather than "Es {compound}", which would need "el metano" but "el agua".',
+    },
+    {
+      prefix: 'games.neutralise',
+      confidence: 'high',
+      note: 'Ion notation (H⁺, OH⁻) left as-is. "Espacio" is the Spanish name for the space bar.',
+    },
+    {
+      prefix: 'games.lewisStructures',
+      confidence: 'medium',
+      note: 'A whole new game. The chemistry terms are glossary-fixed (estructura de Lewis, par solitario, par enlazante, enlace covalente, regla del octeto, electrones de valencia), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook\'s. Rated medium as a body of work; the specific risks are listed below.',
+    },
+    {
+      prefix: 'games.lewisStructures.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column one is the physical key, named the way a Spanish keyboard prints it: "Intro" rather than Enter, while Tab, Esc, H and P are unchanged. The same reasoning that made German write "Leertaste" and French "Entrée" — name the key the reader is looking at.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.lonePair',
+      confidence: 'high',
+      note: '"par solitario" is the Spanish school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it is unavailable as the game\'s word for a single unpaired electron — see games.lewisStructures.glossary.loner. The formal alternative *par no enlazante* is glossed once where the Lewis sheet defines the idea and is not used as a second name in running text.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.sharedPair',
+      confidence: 'high',
+      note: '"par enlazante". **Rejected: "par compartido"**, which is the transparent rendering and was tempting — but the game\'s own verb is *compartir* ("Comparte y completa"), so "comparte un par compartido" is tautological in a way "comparte un par enlazante" is not.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.outerElectron',
+      confidence: 'high',
+      note: '**Where Spanish gets off lighter than French, and the reason is worth knowing.** The tap-to-explain matcher uses a JavaScript \\b, which only knows ASCII letters, so French had to move the chip off "électrons externes" onto a single later word because the phrase begins with é. Spanish\'s accent is *medial*, not initial: *electrón* begins with e and ends with n, and the plural *electrones* has no accent at all. So the full phrases work as match words and the chip lands on the whole term, as it does in English.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.duet',
+      confidence: 'medium',
+      note: 'Spanish sits between the other two here. German had to coin "Duett" and rate it low; French already had "la règle du duet" in its national programme and rated it high. Spanish has **"la regla del dueto"** in circulation — it appears in Spanish-language textbooks, especially Latin American ones — so nothing was invented, but it is not as settled as the octet rule and plenty of teachers simply say hydrogen is full at two. The alternative is "la regla del dúo".',
+    },
+    {
+      prefix: 'games.lewisStructures.counts',
+      confidence: 'high',
+      note: 'Counted noun phrases with their own plural forms, so the adjective agrees in both ("1 par enlazante" / "2 pares enlazantes"). Note Spanish takes the **plural** at zero ("0 impares"), the opposite of French, and Intl.PluralRules already knows that — nothing special is needed.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach',
+      confidence: 'medium',
+      note: 'Almost every line here opens "{atom}: …". That is the article device again: "El oxígeno tiene 2 impares" needs an article the placeholder cannot supply, and a bare "Oxígeno tiene…" is not Spanish. A name followed by a colon is idiomatic in a UI and works for every substitution. Worth a native read for rhythm — it is correct, but it is a repeated shape.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.classmate',
+      confidence: 'high',
+      note: 'The English says "Drawn by a classmate". Written as a noun phrase — "Dibujo de alguien de tu clase" — for two reasons: *alguien* is epicene, so none of the work German needed for "Mitschülerin oder Mitschüler" arises; and a participle ("Dibujado…") would have to agree with the thing drawn.',
+    },
+
+    // -------------------------------------------------------------- medium --
+    {
+      prefix: 'home',
+      confidence: 'medium',
+      note: 'Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine.',
+    },
+    {
+      prefix: 'gamesHub',
+      confidence: 'medium',
+      note: 'Game descriptions. The titles are rated separately below.',
+    },
+    {
+      prefix: 'leaderboards',
+      confidence: 'medium',
+      note: '"Clasificación" and "Mejor puntuación" are both standard; Spanish does not keep the English "high score" the way German keeps "Highscore". "Puesto" rather than "Rango" for a position in a ranking. The empty states are free renderings.',
+    },
+    {
+      prefix: 'leaderboards.firstResultTitle',
+      confidence: 'medium',
+      note: 'Rewritten, not translated: "Ready for your first result?" has no gender-neutral Spanish rendering that keeps the adjective (*¿Listo?* addresses a boy, *¿Lista?* a girl). It is now a statement about the result — "Tu primer resultado te espera." — which loses the direct address and keeps the invitation. Same device as auth.loginTitle and games.overlay.levelUpDescription.',
+    },
+    {
+      prefix: 'profile',
+      confidence: 'medium',
+      note: 'The "scientist" framing is harder in Spanish than in French: *científico* is gendered and Spanish has no counterpart to the epicene *scientifique*. Handled with epicene and collective nouns where they exist (*miembro*, *estudiante*, *alumnado*). Also note profile.editHeading avoids "Ajustar el equipo": this site reserves *ajustar* for balancing an equation.',
+    },
+    {
+      prefix: 'games.acidClassification',
+      confidence: 'medium',
+      note: 'Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine.',
+    },
+    {
+      prefix: 'games.acidClassification.instructionsTitle',
+      confidence: 'medium',
+      note: 'Like French and unlike German, this does not coin a name for the classifier: it reuses the game\'s own title ("Cómo jugar: ¿Ácido o base?"), which avoids the "sounds like a machine" problem "Chemie-Sortierer" ran into.',
+    },
+    {
+      prefix: 'games.overlay',
+      confidence: 'medium',
+      note: 'Game-state copy with a lab metaphor running through it. The metaphor was kept, but Spanish lab idiom is not identical to English lab idiom.',
+    },
+    {
+      prefix: 'meta',
+      confidence: 'medium',
+      note: 'Page titles and descriptions.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.supportMode',
+      confidence: 'medium',
+      note: '"Modo de apoyo" is transparent and matches the "Apoyo" heading in the settings panel, so the two read as one feature.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach.label',
+      confidence: 'medium',
+      note: '"Guía" for the coach strip. Spanish does use *coach* as a loanword, but it is business register rather than the naturalised word French has, and *entrenador* and *tutor* both force a gender. "Guía" is epicene, short, and says what the panel does; it does not collide with "Skip guide", which is rendered "Saltar la explicación". Worth a native read.',
+    },
+
+    // ----------------------------------------------------------------- low --
+    {
+      prefix: 'meta.keywords',
+      confidence: 'low',
+      note: 'SEO keywords are keyword research, not translation. These are plausible Spanish search terms, not researched ones. The one thing deliberately got right is the age band: the site is Year 9-10, which is 3º/4º de ESO in Spain, so the list says "química 3º ESO" and "química 4º ESO" and **not** "química bachillerato" — the Spanish equivalent of the "Chemie Oberstufe" error Phase 1 had to correct, which named ages 16–19 for a 14–16 site.',
+    },
+    {
+      prefix: 'gamesHub.acidTitle',
+      confidence: 'low',
+      note: '"¿Ácido o base?" — the direct question, which works as a title in Spanish exactly as in English and is what the game asks. Runner-up: "¿Ácido, base o neutro?" (truer to the four-way sort, too long for the card). Rejected: "El detector de ácidos" — names a machine, the GAMES.md trap.',
+    },
+    {
+      prefix: 'gamesHub.blasterTitle',
+      confidence: 'low',
+      note: 'Coinage. "Rompefórmulas": *verbo + sustantivo* written as one word is how Spanish builds this kind of name — *rompecabezas*, *sacacorchos*, *cascanueces*, *cuentagotas* — and this one lands on *rompecabezas*, the Spanish word for a puzzle, so it reads as a game on sight. Runner-up "Revientafórmulas" is truer to the popping mechanic (*reventar* is what Spanish says bubbles do) and four characters heavier to say. Rejected: "Formula Blaster" (calque; "Blaster" reads as English filler) and "Caza de fórmulas" (sounds like a worksheet).',
+    },
+    {
+      prefix: 'gamesHub.neutraliseTitle',
+      confidence: 'low',
+      note: '"¡Neutraliza!" mirrors the English\'s deliberate imperative, and Spanish imperatives do work as titles. GAMES.md\'s warning is the thing to check: does it read as a name or as an order? Runner-up "Defensa iónica" reads more like a product but says "ions" without saying "neutralisation". Rejected: "Neutralización" — a textbook chapter heading.',
+    },
+    {
+      prefix: 'gamesHub.balancerTitle',
+      confidence: 'low',
+      note: '"La balanza de átomos" names the beam the game actually shows and says the chemistry. Rejected: "Ajustador de reacciones" — an *ajustador* is a person or a machine (a fitter, a claims adjuster), precisely the "sounds like a machine for sorting chemicals" trap GAMES.md names — and, more seriously, **"Equilibrio químico", which is a real and completely different topic** (chemical equilibrium) and would mislead any student who has met it. "Ajusta la reacción" was dropped only because the hub would then have two imperative titles.',
+    },
+    {
+      prefix: 'gamesHub.lewisTitle',
+      confidence: 'low',
+      note: '"Comparte y completa" — GAMES.md asks for "a phrase that names the rule in that language", and two short alliterative imperatives do that. Runner-up "Cada oveja con su pareja" is a real Spanish saying about pairing off and is far more memorable, but it is folksy, 23 characters, and says nothing chemical. Rejected: "Comparte para completar" (calque; the purpose clause is clumsy) and "De dos en dos" (memorable, loses the filling half of the rule).',
+    },
+    {
+      prefix: 'gamesHub.bondsTitle',
+      confidence: 'low',
+      note: '"Enlaces químicos" is a topic name rather than a coinage, so the direct translation is right. Rated low only because every title is the owner\'s call.',
+    },
+    {
+      prefix: 'profile.defaultTitle',
+      confidence: 'low',
+      note: '"Mente científica" is an invention, and the gender problem is why. "Registered Scientist" has no epicene Spanish equivalent — *científico* is gendered, and Spanish has no counterpart to French\'s *scientifique* — so every faithful rendering defaults to masculine on the reader\'s own profile badge. This describes a mind rather than a person, which is what makes it work. The literal alternative is "Científico del laboratorio".',
+    },
+    {
+      prefix: 'profile.labNotesEmpty',
+      confidence: 'low',
+      note: 'Rewritten rather than translated, because the English joke ("observing reactions in silence") does not carry. Check the new one is actually charming in Spanish and not just odd.',
+    },
+    {
+      prefix: 'leaderboards.noData',
+      confidence: 'low',
+      note: '"Todavía no se ha sintetizado nada. ¡Empieza tú!" — the English pun on "synthesized" is half-kept. May read as a non sequitur.',
+    },
+    {
+      prefix: 'games.overlay.levelUpSubtitle',
+      confidence: 'low',
+      note: '"¡Tanda completa!" for "Batch complete!". *Tanda* is the right word for a batch, but as a two-word celebration it may read as flat rather than triumphant. The same problem German hit with "Charge fertig!" and French with "Série terminée !".',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.loner',
+      confidence: 'low',
+      note: '**Spanish gets its own two-tier pair, and one option was ruled out on chemistry rather than taste.** "electrón desapareado" is the formal term (glossary, cheat sheet, prose), **"impar"** is the game word (hub line, coach, hints, canvas), and *impar* is also the label on a dot. **"solitario" — the French answer — is unavailable**, because Spanish already calls a lone pair a *par solitario*: in the one game that teaches the difference between one unpaired electron and two that stay together, "quedan 2 solitarios" and "quedan 2 pares solitarios" would be adjacent coach lines differing by one word and meaning opposite things. *Impar* is exactly the chemistry ("not one of a pair"), it nominalises (*un impar*, *los impares*), it is five ASCII characters, and it hands the game a root the other three languages do not have: *empareja los impares para formar pares*. **Rejected: "libre"** (*electrón libre* already means a delocalised electron, which the bonding sheet teaches on this same site), **"suelto"** (good, but the bare noun *los sueltos* is Spanish for loose change and the coach lines need the bare noun), **"soltero"** (the literal analogue of French\'s *célibataire*, but Spanish chemistry does not use it and it reads as a joke about bachelors) and **"desparejado"** (the best of them — the everyday word for an odd sock — but twelve characters is too long for a dot label and too heavy to repeat three times a sentence). The risk is register, not accuracy: *impar* is also the everyday word for an **odd number**, so a reader meeting it cold beside a dot may hear "number 3" rather than "unpaired". Check it with a real teenager. If it changes, the edit touches every line of this game.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.lonerLabel',
+      confidence: 'low',
+      note: 'The label printed on a pulsing dot at Level 1, off from Level 2 — the scaffold the brief removes on purpose. It is the **same word** as the game word, and that is a fact about Spanish rather than a shortcut: German shortened the noun *Einzelelektron* to the adjective *einzeln* and French shortened *solitaire* to *seul*, but in Spanish the game word already **is** the adjective (*electrón impar* → *impar*), so there is nothing to shorten to and a third word would invent a distinction Spanish does not make. Five characters. Check it reads as "odd one out" beside a single dot.',
+    },
+    {
+      prefix: 'privacy',
+      confidence: 'low',
+      note: 'Privacy-policy prose. I am not a lawyer and this is not legal review: the Spanish says what the English says, but the phrasing has not been checked against Spanish data-protection conventions. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) — those names deliberately stay English inside Spanish sentences, which is correct but reads oddly. If the site is ever actually offered to Spanish or EU students, this page needs an RGPD/LOPDGDD review that is out of scope for a translation pass.',
+    },
+    {
+      prefix: 'privacy.cookiesBody2',
+      confidence: 'medium',
+      note: 'The language-preference cookie this feature introduces had to be disclosed; the Spanish follows the German and French paragraphs rather than the original English.',
+    },
+  ],
 };
 
 /**
@@ -793,5 +1121,119 @@ Ranked, honestly:
 7. **The privacy page.** Legally unreviewed, and describing Australian law.
 8. **ion oxonium vs. ion hydronium.** Both are in circulation in French schools;
    I picked the one the programme prints.
+`,
+
+  es: `
+---
+
+## Chemistry names — \`src/i18n/chemistry-names/es.ts\`
+
+Not in the table above: these are keyed by registry identifier rather than by
+dictionary path, and there are 193 of them.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Element names | 118 | **high** | Spanish element names are standardised and I am confident in the table. Two things a reviewer should know, and both are absences. **The trap that catches French does not exist here:** nitrogen is *nitrógeno*, not *azote*. And **Na and K really are translated** — *sodio* and *potasio* — so unlike French this locale needs no \`SAME_AS_ENGLISH\` exemption in \`chemistry-names.test.ts\`, and all fourteen false friends are checked. Spellings follow RAE/RSEQ usage: **cinc** (not zinc), **yodo** (not iodo), **wolframio** (not tungsteno), **circonio**, **cesio**, **teluro**, **criptón**, **oganesón**. |
+| Compound names | 35 | **high** for the salts and hydroxides, **medium** for the acids | Spanish composes them anion-first with *de*, the same way French does and the opposite of both German's single word and English's cation-first pair: *hidróxido de sodio*. The acids are the judgement calls: binary acids take *-hídrico* (*ácido clorhídrico*, *ácido yodhídrico* — note **yod-**, not *iod-*) and the -ous/-ic pair becomes *-oso*/*-ico*. All 35 differ from the English, so no \`IDENTICAL_COMPOUNDS_BY_DESIGN\` entry is needed either: N2H4 is *hidracina* where French and English both say *hydrazine*. |
+| Ion names | 40 | **high** | Same modernisation German and French made: the systematic *hidrogeno-* prefix where the English source data still says *bi-*. Bicarbonate becomes *hidrogenocarbonato*, bisulfate *hidrogenosulfato*. *Bicarbonato* is what people actually say and is glossed in the ion table. A monoatomic cation is *ion* + the element (*ion sodio*). *Ion* is written without an accent, per current RAE practice. |
+
+**Specifically worth a second pair of eyes:** \`Ts\` (Tennessine) is given as
+"Teneso", the Spanish IUPAC form, which is rarely written; \`H4SiO4\` is "Ácido
+silícico" where the fully systematic name would be "ácido ortosilícico"; and
+\`Zn\` is "Cinc", which is RAE's preferred form but which plenty of Spanish
+chemistry texts still write "Zinc".
+
+## Game data — \`src/i18n/chemistry-names/es.ts\`
+
+Also keyed by identifier rather than by dictionary path: the prose the two new
+games read straight out of the core-engine datasets. 104 entries.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Species names (\`SPECIES_NAMES_ES\`) | 53 | **medium** | **The one decision in this file a teacher should actually rule on.** The *di-* forms are used for the diatomic elemental substances — H2 **dihidrógeno**, O2 **dioxígeno**, N2 **dinitrógeno**, Cl2 **dicloro** — because they are correct IUPAC Spanish (RSEQ) and because they preserve a distinction the Reaction Balancer is built on: a **card** names a *substance* and the **atom ledger** counts *atoms*, and writing *hidrógeno* in both places erases it. But Spanish textbooks are **not** as consistent about this as French ones, which teach *dihydrogène* explicitly from 3ᵉ; a Spanish textbook will often just write *hidrógeno* for H2. If the audience's textbook does, this is a contained change. One further decision, mirroring German and French: HCl is **cloruro de hidrógeno**, the substance, because that is what a card labels; the reaction descriptions say **ácido clorhídrico** where the reaction happens in water. English uses "hydrogen chloride" for both and loses that distinction. |
+| Reaction prose (\`REACTION_TEXT_ES\`) | 33 × up to 4 | **medium** | Name, macroscopic observation, strategy hint and word equation for every reaction. The observations are the risk: they are short pieces of lab description ("corretea chisporroteando por la superficie del agua", "una lluvia de chispas") where a flat translation reads flat. The word equations deliberately use the verbs the catalogue's tier-2 build hint names — *reacciona*, *arde*, *se descompone*, *para formar*, *produce*, *da* — so that hint is actually usable. Reaction names follow Spanish convention: *proceso Haber-Bosch*, *fotosíntesis*, *respiración celular*, *reacción aluminotérmica* for the thermite reaction. |
+| Lewis molecule prose (\`LEWIS_MOLECULE_TEXT_ES\`) | 18 × 3 | **medium** | Name, tier-2 hint and property line per molecule. Names follow Spanish IUPAC: **eteno** and **etino** rather than the older ethylene/acetylene, **fosfina**, **tetraclorometano**, **sulfuro de hidrógeno**, and the *di-* forms throughout. Those are worth a teacher's eye — the English data uses the older or the British forms. |
+
+**Structurally out of reach of a translator, by design:** equations, formulae,
+bond lines, state symbols, atom lists and level assignments are not in the
+overlay at all, and \`chemistry-names.test.ts\` asserts they come through
+byte-identical. The same test fails the suite if a reaction gains a Spanish word
+equation it does not have in English, because the game decides what to show by
+whether one exists.
+
+## Cheat sheets — \`src/i18n/cheat-sheets/es.ts\`
+
+Twelve reference sheets, roughly 6,000 words of specialist Spanish. **This is the
+highest-risk part of the translation and the part I would most want reviewed
+before students see it.**
+
+The overlay has **21 sections, counted by hand against
+\`src/lib/cheat-sheet-data.ts\`** — four of them in \`lewis-structures\`. That
+count is now also machine-checked: the overlay-shape gate added alongside the
+German Lewis fix asserts section, table, row, example and takeaway counts
+against the English for every sheet in every locale.
+
+| Sheet | Confidence | What to look at |
+|---|---|---|
+| Los estados de la materia | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard Spanish pairs (fusión/solidificación, vaporización/condensación, sublimación/sublimación inversa). |
+| Ácidos y bases | **high** | Glossary-fixed throughout. **One choice to check, and Spanish lands the opposite way from French:** H3O+ is called **ion hidronio**, which is what Spanish secondary textbooks overwhelmingly print, where the French pass chose *ion oxonium* because the lycée programme prints that. *Ion oxonio* is the IUPAC form and is what a university text uses. It recurs through the sheet. |
+| Ajustar ecuaciones químicas | **high** | Turns on the subíndice/coeficiente distinction, which Spanish makes as cleanly as German does. The variety marker *ajustar* (Spain) vs *balancear* (Latin America) is at its densest here. |
+| Tipos de reacciones químicas | **medium** | *Desplazamiento simple / doble desplazamiento* for the displacement pair. *Sustitución simple / doble sustitución* is the other taught pairing; check which matches the reader's textbook. |
+| Enlaces químicos y estructuras | **high** | Like French and unlike German, there is no decision here: Spanish school chemistry says *enlace covalente* and nothing else, so the Atombindung/kovalent problem simply does not arise. |
+| Escribir fórmulas de compuestos iónicos | **medium** | Uses **fórmula empírica** for the formula of an ionic solid, making the same point German's *Verhältnisformel* and French's *formule statistique* do and the English title does not; *unidad fórmula* is the more precise term and many textbooks just say "la fórmula del compuesto iónico". The cross-over method is called **el método del aspa**, which is the Spanish name for it — worth confirming locally. |
+| Iones poliatómicos | **medium** | The naming-pattern bullets are the risk. They happen to work almost unchanged, because the *-ato*/*-ito* and *per-*/*hipo-* patterns are the same in Spanish — which is lucky rather than designed, and deserves a teacher's eye. |
+| Nombrar compuestos inorgánicos | **low** | **The hardest sheet, and adapted rather than translated.** The English teaches the English acid system (hydro-…-ic acid, -ous acid). Spanish has its own, and unusually an almost exact parallel: *-uro → ácido …hídrico*, *-ato → ácido …ico*, *-ito → ácido …oso*, so the acid-names table maps cleanly. The **molecular** rule did not: Spanish names molecular compounds anion-first (*dióxido de carbono*), so "drop mono- on the first element" had to be restated as "omit it on the element named after *de*", and the Greek-prefix table's examples were rewritten accordingly (*heptaóxido de dicloro*, *decaóxido de tetrafósforo*). The ionic bullet also had to say explicitly that Spanish puts the anion first, because the English rule ("cation name + anion name") is simply the wrong order here. **This is a content change, not just a translation, and it needs review.** |
+| El mol y la estequiometría | **medium** | Terminology is glossary-fixed. **One thing that is easier than in French:** English "yield" is both a mass and a ratio, and French *rendement* is only the ratio, which forced the French sheet to rename both masses. Spanish *rendimiento* covers both exactly as English does, so this sheet follows the English structure directly (*rendimiento teórico / real / porcentual*). Decimal commas throughout the worked examples — check that is what you want, since the formulae around them use points. Note *el mol* is masculine, the opposite of French's *une mole*. |
+| Estructuras de Lewis | **medium** | Uses **estructura de Lewis** and **par solitario**. VSEPR is **RPECV** in Spanish and the shape names (tetraédrica, piramidal trigonal, angular) are standard. This sheet has **four** sections, matching the English — see the note above. Its first section is the Year 10 layer and is where *impar* appears on a cheat sheet rather than in the game. |
+| Nombrar compuestos orgánicos | **low** | Same problem as the inorganic naming sheet. Spanish names esters the other way round from English — *etanoato de metilo*, not "methyl ethanoate" — and writes carboxylic acids as *ácido …oico*. The suffix table teaches the Spanish affixes, and the haloalkane prefix is *yodo-*, not *iodo-*. **A chemistry teacher must check this sheet.** |
+| Grupos funcionales | **low** | Unlike French — whose programme insists on *groupe caractéristique* — Spanish says **grupo funcional** and there was no decision to make in the title. The reference table mixes structure notation (untranslated) with Spanish group names and Spanish reaction descriptions. The ester row in particular follows Spanish ester naming, which is not a translation of the English pattern. |
+
+**Not translated, deliberately:** every linked resource is an English-language
+site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
+titles are left in English so they are findable, and the Spanish descriptions say
+"(En inglés.)" so a reader is not surprised. **This is a genuine gap rather than
+a solved problem**: a Spanish student gets Spanish explanations and then English
+source material. If Spanish is going to be a first-class language, the resource
+lists should get Spanish equivalents, which is a content task rather than a
+translation task.
+
+**Also not translated:** the curriculum references. Every sheet cites the
+Victorian Curriculum or the VCE study design, which is Australian. The
+surrounding Spanish is translated but the curriculum itself is not relevant to a
+Spanish reader. Worth deciding whether Spanish sheets should show a Spanish
+currículo reference, or none.
+
+## What I am most likely to have got wrong
+
+Ranked, honestly:
+
+1. **es-ES vs es-419.** Not a word but a decision, and the only one on this list
+   that is the owner's rather than a reviewer's. Roughly nine Spanish speakers in
+   ten are not in Spain. The eight words that would actually change are listed
+   at the top of \`glossary-es.md\` so that reversing it is a day rather than a
+   rewrite; *ajustar* vs *balancear* and *chuleta* vs *acordeón/torpedo/machete*
+   are the two a reader would notice first.
+2. **The two naming sheets** (\`naming-compounds\`, \`organic-nomenclature\`). I
+   changed what they teach, because teaching English naming rules in Spanish
+   would be worse than useless. That is the right call but it is beyond what a
+   translator should decide alone.
+3. **"impar".** The word Comparte y completa is built on, in every coach line,
+   every hint and on the canvas. The *reason* for it is solid — *solitario* is
+   genuinely unavailable, because Spanish already calls a lone pair a *par
+   solitario*, and shipping both would have been a real pedagogical bug in the
+   one game that teaches the difference. What is uncertain is register: *impar*
+   is also the everyday word for an odd number, and a fourteen-year-old meeting
+   it beside a pulsing dot may hear "number 3" before "unpaired".
+4. **The *di-* forms** (*dihidrógeno*, *dioxígeno*). Correct IUPAC Spanish, and
+   they keep a distinction the balancer depends on, but Spanish school practice
+   is less settled than French practice and a teacher may find them unusual.
+5. **Game titles.** Six coinages, no strong opinion behind any of them.
+   "Rompefórmulas" is the most invented and "La balanza de átomos" the longest.
+6. **Register in the playful copy.** Overlay messages, empty states and the
+   marketing hero are where a non-native translation reads as "correct but
+   flat". None of it is wrong; some of it may be charmless.
+7. **The privacy page.** Legally unreviewed, and describing Australian law.
+8. **"chuleta" for cheat sheet, and "Guía" for the coach.** Both are register
+   calls about school Spanish rather than chemistry.
 `,
 };
