@@ -198,5 +198,7 @@ Ensure you have **Node.js (v18+)** installed.
    npm run dev
    ```
 
+   After pulling or merging a change that adds, moves or removes routes under `src/app/`, delete the `.next` folder first (`rm -rf .next`). Turbopack keeps a persistent cache there; a stale one makes the dev server panic on every hot-reload check and the page reload every second or two (see `docs/TESTING.md`, Troubleshooting).
+
 5. Open `http://localhost:3000` in your browser.
 

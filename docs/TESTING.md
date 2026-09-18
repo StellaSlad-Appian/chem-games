@@ -425,6 +425,17 @@ unit-test steps still gate), and remove it once lint is clean.
    moved, clear `.next` — a stale Turbopack cache does this, and it looks exactly like a
    code bug. To bypass the managed server entirely, point the tests at a
    server you started yourself with `PLAYWRIGHT_BASE_URL`.
+7. **The page reloads every one or two seconds under `npm run dev`**, and the terminal prints
+   `FATAL: An unexpected Turbopack error occurred` with a panic log whose entries read
+   "Failed to write app endpoint /(main)/games/page … Cell … AppPageLoaderTree … no longer
+   exists". Same cause as item 5, different symptom: Turbopack's persistent cache
+   (`.next/dev/cache/turbopack`) still describes a route tree the checkout no longer has.
+   Seen on 2026-09-18 right after `i18n` was fast-forwarded into `master`, which moved every
+   route under `[lang]`; the server started *after* the merge and still read the old cache.
+   Each HMR version check rebuilds the dead endpoint, panics, and the client reloads.
+   Fix: stop the server (every `node` process it spawned — check that port 3000 is free),
+   `rm -rf .next`, start again. Rule: clear `.next` whenever a merge, checkout or rebase adds,
+   removes or moves anything under `src/app/`, before running `next dev`.
 6. If a `known-issues.test.ts` exists and one of its tests fails with "Expected test to
    fail", you fixed a bug: promote that test to a normal `it` in the right spec file, and
    delete the known-issues file once it is empty.

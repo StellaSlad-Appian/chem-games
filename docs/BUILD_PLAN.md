@@ -61,6 +61,11 @@ then verify the session/progress rows for real.
 **Dev server:** `npm run dev` (port 3000). If Turbopack panics with exit code `0xc0000142` on
 Windows, that is a process-spawn issue, not code — restart. Never run `npm run build` while
 `npm run dev` is running in the same checkout; it corrupts the dev server's cache.
+**Clear `.next` after a merge, checkout or rebase that moves routes** (`rm -rf .next`, before
+starting the server). Turbopack keeps a persistent cache in `.next/dev/cache/turbopack` that
+outlives the process; if it describes a route tree that no longer exists, `next dev` panics
+on every HMR check ("Failed to write app endpoint … Cell … no longer exists") and the browser
+reloads every second or two. See `docs/TESTING.md` § Troubleshooting.
 
 ## 2. Read first (in this order)
 

@@ -566,6 +566,14 @@ seconds.
 If a route hangs at compile after a move, clear `.next` before debugging the
 code.
 
+The same stale cache has a second face. When `i18n` was fast-forwarded into
+`master` (2026-09-18) and `next dev` was started in a checkout whose `.next`
+predated the merge, the server panicked on every HMR check ("Failed to write app
+endpoint /(main)/games/page … Cell … no longer exists") and the browser
+**reloaded every second or two**. Anyone pulling the `[lang]` move into an
+existing checkout hits this. `rm -rf .next` before the first `npm run dev`
+after the pull; `docs/TESTING.md` § Troubleshooting item 7 has the details.
+
 ### `NEXT_PUBLIC_SITE_URL`
 
 The root layout needs an absolute base for canonical and `hreflang` URLs and
