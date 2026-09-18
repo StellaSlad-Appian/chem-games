@@ -22,6 +22,8 @@ import { de as balancerDe } from './game-messages/reaction-balancer/de';
 import { de as lewisDe } from './game-messages/lewis-structures/de';
 import { fr as balancerFr } from './game-messages/reaction-balancer/fr';
 import { fr as lewisFr } from './game-messages/lewis-structures/fr';
+import { es as balancerEs } from './game-messages/reaction-balancer/es';
+import { es as lewisEs } from './game-messages/lewis-structures/es';
 import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
 
 /**
@@ -64,6 +66,21 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     // "Points" as a column heading.
     /^notebook\.columnPoints$/,
   ],
+  es: [
+    // The first column of an instructions key table is the physical key, so it
+    // never translates; the second column, which says what the key does, always
+    // does.
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    // Strings whose whole visible content is placeholders, punctuation or
+    // international notation: there is nothing in them to translate.
+    /^success\.points$/,
+    /^challenge\.tileA11y$/,
+    /^glossary\.stateSymbols\.term$/,
+    // Note what is NOT here, because both are worth stating. "Coach" is
+    // « Guía » in Spanish, where German and French both keep the loanword; and
+    // "coefficient" is « coeficiente », where French had to allowlist the
+    // glossary term and both its match words as identical-by-design.
+  ],
 };
 
 const LEWIS_IDENTICAL_BY_DESIGN = {
@@ -87,17 +104,26 @@ const LEWIS_IDENTICAL_BY_DESIGN = {
     /^glossary\.(octet|duet)\.(term|matches\[\d+\])$/,
     /^glossary\.dot\.matches\[\d+\]$/,
   ],
+  es: [
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^notebook\.diagnosisRow$/,
+    /^ui\.atomOrdinal$/,
+    // Spanish needs none of the glossary exemptions French did: « octeto »,
+    // « dueto » and « punto » all differ from the English, and « Guía » differs
+    // from "Coach".
+  ],
 };
 
 describeTranslationParity('reaction-balancer catalogue', {
   source: REACTION_BALANCER_MESSAGES,
-  translations: { de: balancerDe, fr: balancerFr },
+  translations: { de: balancerDe, fr: balancerFr, es: balancerEs },
   identicalByDesign: BALANCER_IDENTICAL_BY_DESIGN,
 });
 
 describeTranslationParity('lewis-structures catalogue', {
   source: LEWIS_STRUCTURES_MESSAGES,
-  translations: { de: lewisDe, fr: lewisFr },
+  translations: { de: lewisDe, fr: lewisFr, es: lewisEs },
   identicalByDesign: LEWIS_IDENTICAL_BY_DESIGN,
 });
 

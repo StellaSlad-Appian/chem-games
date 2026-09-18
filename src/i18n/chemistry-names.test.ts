@@ -113,7 +113,15 @@ describe.each(translatedLocales)('chemistry names: %s', (locale) => {
       Sn: 'Tin',
       S: 'Sulfur',
     };
-    /** Symbols whose name legitimately matches the English in this locale. */
+    /**
+     * Symbols whose name legitimately matches the English in this locale.
+     *
+     * There is deliberately **no `es` entry**: Spanish calls them *sodio* and
+     * *potasio*, so all fourteen are checked for it. An absent entry is the
+     * self-maintaining state, and worth noticing rather than assuming — the
+     * French exemption exists because French really does say *sodium* and
+     * *potassium*.
+     */
     const SAME_AS_ENGLISH: Record<string, string[]> = {
       fr: ['Na', 'K'],
     };
@@ -142,6 +150,8 @@ describe.each(translatedLocales)('chemistry names: %s', (locale) => {
     // One exception, documented the same way IDENTICAL_BY_DESIGN documents the
     // dictionary's: N2H4 is *hydrazine* in French as well as in English. The
     // check still runs on the other 34 compounds.
+    // Spanish needs no entry here either: N2H4 is *hidracina*, so all 35 are
+    // checked for it.
     const IDENTICAL_COMPOUNDS_BY_DESIGN: Record<string, string[]> = {
       fr: ['23'],
     };

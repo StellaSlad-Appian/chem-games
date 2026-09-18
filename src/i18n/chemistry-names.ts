@@ -31,6 +31,14 @@ import {
   REACTION_TEXT_FR,
   SPECIES_NAMES_FR,
 } from './chemistry-names/fr';
+import {
+  COMPOUND_NAMES_ES,
+  ELEMENT_NAMES_ES,
+  ION_NAMES_ES,
+  LEWIS_MOLECULE_TEXT_ES,
+  REACTION_TEXT_ES,
+  SPECIES_NAMES_ES,
+} from './chemistry-names/es';
 
 /** The prose a reaction carries in reactions.ts, minus its formulae. */
 export interface ReactionTextOverlay {
@@ -96,6 +104,14 @@ const OVERLAYS: Partial<Record<Locale, ChemistryNameOverlay>> = {
     reactions: REACTION_TEXT_FR,
     lewisMolecules: LEWIS_MOLECULE_TEXT_FR,
   },
+  es: {
+    elements: ELEMENT_NAMES_ES,
+    compounds: COMPOUND_NAMES_ES,
+    ions: ION_NAMES_ES,
+    species: SPECIES_NAMES_ES,
+    reactions: REACTION_TEXT_ES,
+    lewisMolecules: LEWIS_MOLECULE_TEXT_ES,
+  },
 };
 
 export function chemistryNameOverlay(locale: Locale): ChemistryNameOverlay {
@@ -143,6 +159,13 @@ const LOWERCASES_NAMES_IN_SENTENCE: Record<Locale, boolean> = {
   // "fer(iii)". Species names like « nitrate de cuivre(II) » reach the screen
   // through speciesName(), which does not lowercase.
   fr: true,
+  // Spanish capitalises only proper nouns, so a chemical name mid-sentence is
+  // lower case: «dos moléculas de agua». Checked against every call site the
+  // same way French was: nameInSentence() only ever sees element and molecule
+  // names, none of which carry a Roman numeral, so the naive toLowerCase()
+  // cannot produce "hierro(iii)". Species names like «nitrato de cobre(II)»
+  // reach the screen through speciesName(), which does not lowercase.
+  es: true,
 };
 
 /** A chemistry name as it should appear mid-sentence in `locale`. */

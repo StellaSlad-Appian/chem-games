@@ -45,6 +45,7 @@ import {
 } from '@/core-engine/config/games/lewis-structures-messages';
 import { de } from './de';
 import { fr } from './fr';
+import { es } from './es';
 
 export type CountKind = 'bonds' | 'lonePairs';
 
@@ -57,6 +58,7 @@ const CATALOGUES: Record<Locale, LewisStructuresMessages> = {
   en: LEWIS_STRUCTURES_MESSAGES,
   de,
   fr,
+  es,
 };
 
 /** This game's copy in `locale`. Throws rather than falling back to English. */

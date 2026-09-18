@@ -44,6 +44,7 @@ import {
 } from '@/core-engine/config/games/reaction-balancer-messages';
 import { de } from './de';
 import { fr } from './fr';
+import { es } from './es';
 
 export type MessageSide = 'reactant' | 'product';
 
@@ -56,6 +57,7 @@ const CATALOGUES: Record<Locale, ReactionBalancerMessages> = {
   en: REACTION_BALANCER_MESSAGES,
   de,
   fr,
+  es,
 };
 
 /** This game's copy in `locale`. Throws rather than falling back to English. */
