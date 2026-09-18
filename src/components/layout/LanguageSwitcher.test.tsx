@@ -17,20 +17,28 @@ import { en } from '@/i18n/dictionaries/en';
 import { de } from '@/i18n/dictionaries/de';
 import { LOCALES, LOCALE_COOKIE, LOCALE_LABELS } from '@/i18n/config';
 
-const { replaceMock, pathnameMock } = vi.hoisted(() => ({
-  replaceMock: vi.fn(),
+const { pathnameMock } = vi.hoisted(() => ({
   pathnameMock: vi.fn(() => '/en/cheat-sheets'),
 }));
 
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({ push: vi.fn(), replace: replaceMock, back: vi.fn() }),
   usePathname: () => pathnameMock(),
 }));
+
+// The switcher does a full navigation rather than a router transition, so the
+// call to assert is window.location.replace(). jsdom refuses to let that method
+// be spied on — Location's methods are non-configurable — and calling the real
+// one raises "Not implemented: navigation", so the whole object is stood in
+// for. The component reads exactly two things off it, `search` and `replace`.
+const replaceMock = vi.fn();
+const locationStub = { search: '', replace: replaceMock };
 
 const switcher = () => screen.getByLabelText(en.language.label);
 
 beforeEach(() => {
   replaceMock.mockClear();
+  locationStub.search = '';
+  Object.defineProperty(window, 'location', { configurable: true, value: locationStub });
   pathnameMock.mockReturnValue('/en/cheat-sheets');
   document.cookie = `${LOCALE_COOKIE}=; path=/; max-age=0`;
 });
@@ -66,13 +74,12 @@ describe('LanguageSwitcher', () => {
 
   it('keeps the query string when it switches', () => {
     pathnameMock.mockReturnValue('/en/auth');
-    window.history.replaceState({}, '', '/en/auth?error=verification');
+    locationStub.search = '?error=verification';
     renderWithProviders(<LanguageSwitcher />);
 
     fireEvent.change(switcher(), { target: { value: 'de' } });
 
     expect(replaceMock).toHaveBeenCalledWith('/de/auth?error=verification');
-    window.history.replaceState({}, '', '/');
   });
 
   it('does nothing when the chosen language is already the active one', () => {

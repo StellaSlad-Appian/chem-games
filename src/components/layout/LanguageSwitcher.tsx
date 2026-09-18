@@ -1,8 +1,8 @@
 // src/components/layout/LanguageSwitcher.tsx
 'use client';
 
-import { useId, useSyncExternalStore, useTransition } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useId, useSyncExternalStore } from 'react';
+import { usePathname } from 'next/navigation';
 import { Languages } from 'lucide-react';
 import {
   isLocale,
@@ -24,16 +24,21 @@ import { useI18n } from '@/i18n/client';
  * `GameSettingsProvider`'s `invisible` wrapper, which is a *different*
  * component's state and only ever correlated with this one being ready.
  *
- * **It is a better precondition, but it is not what the three flaky switcher
- * specs were tripping over.** Measured under six parallel workers: the
- * attribute was present, `handleChange` ran, and the NEXT_LOCALE cookie was
- * written 372ms after `selectOption()` — and the URL then took a further 8.1s
- * to move. `router.replace()` below is a React transition, and in the App
- * Router the URL does not update until the destination's RSC payload has
- * arrived and the transition commits. These routes have no `loading.tsx`, so
- * nothing commits early: a reader on a slow connection also sees nothing
- * happen, and the <select> even snaps back to the old language, because it is
- * controlled by `locale` and that has not changed yet.
+ * It is a better precondition than the one it replaced, but it was never what
+ * the three flaky switcher specs were tripping over. Measured under six
+ * parallel workers: the attribute was present, `handleChange` ran, and the
+ * NEXT_LOCALE cookie was written 372ms after `selectOption()` — and the URL
+ * then took a further 8.1s to move. The cause was `router.replace()`, a React
+ * transition: the App Router holds the URL until the destination's RSC payload
+ * arrives and the transition commits, and with no `loading.tsx` on these
+ * routes nothing committed early. `handleChange` now does a full navigation
+ * instead, so the URL moves at once — see the comment there.
+ *
+ * The attribute stays because it is still the honest precondition for driving
+ * a controlled <select> from a test, and because it documents the one thing a
+ * full navigation does *not* fix: before hydration there is no `onChange` at
+ * all, so the control is inert for a reader who has not yet got JavaScript.
+ * Fixing that needs a <form> and a route that sets the cookie server-side.
  */
 
 /** Never fires: the value flips exactly once, when React takes over. */
@@ -74,9 +79,7 @@ function useHydrated(): boolean {
 export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel' }) {
   const { locale, t } = useI18n();
   const pathname = usePathname();
-  const router = useRouter();
   const selectId = useId();
-  const [isPending, startTransition] = useTransition();
   const hydrated = useHydrated();
 
   function handleChange(next: string) {
@@ -98,9 +101,17 @@ export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel
     const search = typeof window === 'undefined' ? '' : window.location.search;
     const target = `${localizePath(pathname || '/', next as Locale)}${search}`;
 
-    // replace(), not push(): flipping the language is not a step the reader
-    // wants to walk back through one locale at a time.
-    startTransition(() => router.replace(target));
+    // A full navigation, not router.replace(). Changing language swaps the
+    // whole dictionary, the <html lang> attribute and — once Russian lands —
+    // the font stack, so there is nothing of the current document worth
+    // keeping. router.replace() put this inside a React transition, where the
+    // App Router holds both the URL and the old UI until the destination's RSC
+    // payload arrives; with no loading.tsx on these routes nothing committed
+    // early, so the reader saw a dead pause and the <select> snapped back to
+    // the old language. assign() commits immediately and the browser shows its
+    // own progress. Replacing rather than pushing, so Back does not walk the
+    // reader through one locale at a time.
+    window.location.replace(target);
   }
 
   const isPanel = variant === 'panel';
@@ -129,7 +140,6 @@ export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel
         <select
           id={selectId}
           value={locale}
-          disabled={isPending}
           onChange={(event) => handleChange(event.target.value)}
           // Set in the same render that attaches onChange, so it cannot appear
           // before the control actually works. Undefined (not "false") while
