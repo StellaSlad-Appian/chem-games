@@ -4,7 +4,11 @@
 //
 //  - Address the reader with informal "du" throughout. This is the normal
 //    register for German educational software aimed at 14–16 year olds; "Sie"
-//    would read as a bank letter.
+//    would read as a bank letter. **The one exception is the `teachers`
+//    namespace**, which is the site's only adults-facing page: the glossary's
+//    "du" rule is justified by the 14–16 audience, and that audience is not
+//    who reads it. That copy now lives in src/i18n/teachers/de.ts; the
+//    reasoning is at the top of it.
 //  - Chemistry terms follow German school curriculum usage, not literal
 //    translation. Every term is fixed in docs/i18n/glossary-de.md; where German
 //    school practice offers more than one accepted word (Atombindung vs.
@@ -41,6 +45,9 @@ export const de = {
     privacyTitle: 'Datenschutz | ChemGames',
     privacyDescription:
       'Was ChemGames über dich speichert, was öffentlich ist, wer die Daten verarbeitet und wie du sie herunterlädst oder löschst.',
+    teachersTitle: 'Für Lehrkräfte | ChemGames',
+    teachersDescription:
+      'Was ChemGames ist, in welchen fünf Sprachen es erscheint, wie es mit den Daten von Lernenden umgeht, wo die Barrierefreiheit steht und wie Lehrkräfte die Beta mitgestalten können.',
     cheatSheetTitle: 'Spickzettel {title} | ChemGames',
     cheatSheetNotFound: 'Thema nicht gefunden – ChemGames',
   },
@@ -93,6 +100,7 @@ export const de = {
     tagline: 'ChemGames – Chemie sichtbar, spielerisch und verständlich.',
     copyright: '© {year} ChemGames. Alle Rechte vorbehalten.',
     privacy: 'Datenschutz',
+    teachers: 'Für Lehrkräfte',
   },
 
   home: {

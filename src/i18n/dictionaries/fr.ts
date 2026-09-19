@@ -6,7 +6,11 @@
 //    often use "vous", so this is a real decision rather than an obvious one:
 //    it is recorded at the top of docs/i18n/glossary-fr.md and flagged there
 //    for review. The site is a game, not a worksheet, and "vous" turns "Stuck?
-//    Press the lightbulb" into an invigilator.
+//    Press the lightbulb" into an invigilator. **The one exception is the
+//    `teachers` namespace**, the site's only adults-facing page, which uses
+//    "vous": the argument for "tu" is about a teenage player, and that is not
+//    who reads it. That copy now lives in src/i18n/teachers/fr.ts; the
+//    reasoning is at the top of it.
 //  - Chemistry terms follow French school curriculum usage, not literal
 //    translation. Every term is fixed in docs/i18n/glossary-fr.md; where French
 //    school practice offers more than one accepted word (ion oxonium vs. ion
@@ -53,6 +57,9 @@ export const fr = {
     privacyTitle: 'Confidentialité | ChemGames',
     privacyDescription:
       'Ce que ChemGames enregistre sur toi, ce qui est public, qui traite ces données et comment les télécharger ou les supprimer.',
+    teachersTitle: 'Pour les enseignants | ChemGames',
+    teachersDescription:
+      'Ce qu’est ChemGames, les cinq langues dans lesquelles il existe, la façon dont il traite les données des élèves, où en est l’accessibilité et comment les enseignants peuvent contribuer pendant la bêta.',
     cheatSheetTitle: 'Antisèche {title} | ChemGames',
     cheatSheetNotFound: 'Sujet introuvable – ChemGames',
   },
@@ -97,6 +104,7 @@ export const fr = {
     tagline: 'ChemGames – la chimie en images, en jeu et en clair.',
     copyright: '© {year} ChemGames. Tous droits réservés.',
     privacy: 'Confidentialité',
+    teachers: 'Pour les enseignants',
   },
 
   home: {

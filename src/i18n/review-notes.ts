@@ -315,6 +315,16 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       confidence: 'medium',
       note: 'New paragraph, not a translation: the language-preference cookie this feature introduces had to be disclosed. Review the English too.',
     },
+    {
+      prefix: 'teachers',
+      confidence: 'low',
+      note: '**The one namespace on the site that uses formal "Sie".** Everything else uses "du", and the glossary\'s reason for that is the 14–16 audience; this page is the only one written for an adult, so that reason does not reach it, and "du" to a Lehrkraft would read as presumptuous rather than friendly. It is a register decision a German teacher should confirm, and it is why the whole namespace is rated low rather than particular strings. The terminology itself is settled: Lehrkraft / Lehrkräfte (glossary); "ungepaartes Elektron" and "freies Elektronenpaar", the formal terms, correct here because this page explains rather than instructs (the game word "Einzelelektron" stays in the game); and **Klasse 9–10** for the year band, never "Oberstufe", which names Klasse 11–13, ages 16–19.',
+    },
+    {
+      prefix: 'teachers.supportBody',
+      confidence: 'low',
+      note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not a gemeinnütziger Verein. "Spende" was avoided throughout for that reason, in favour of "beisteuern" and "unterstützen". Not legal review either — whether the sentence about steuerliche Absetzbarkeit is phrased the way a German reader expects has not been checked.',
+    },
   ],
 
   fr: [
@@ -642,6 +652,16 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'privacy.cookiesBody2',
       confidence: 'medium',
       note: 'The language-preference cookie this feature introduces had to be disclosed; the French follows the German paragraph rather than the original English.',
+    },
+    {
+      prefix: 'teachers',
+      confidence: 'low',
+      note: '**The one namespace on the site that uses "vous".** The glossary fixes "tu" everywhere and already flags that call for review; its argument is about a teenage player reading "Stuck? Press the lightbulb", and this page has no teenage reader — it is written for the adult deciding whether to use the site in class. "vous" is what a French teacher would expect here, but the site now mixes the two registers on purpose, and that is the thing to confirm. Terminology is settled: enseignant (glossary); "électron célibataire" and "doublet non liant", the formal terms, correct here because this page explains rather than instructs (the game word *solitaire* stays in the game); *astuce* and never *indice* for a hint; and **3e / 2de** for the year band, never *lycée*, which names ages 16–19.',
+    },
+    {
+      prefix: 'teachers.supportBody',
+      confidence: 'low',
+      note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *association reconnue d\'utilité publique*. *Don* and *faire un don* were avoided in favour of *soutenir* and *contribuer* for exactly that reason. Not legal review either — whether the sentence about déductibilité fiscale reads the way a French reader expects has not been checked.',
     },
   ],
 
@@ -1000,6 +1020,16 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'privacy.cookiesBody2',
       confidence: 'medium',
       note: 'The language-preference cookie this feature introduces had to be disclosed; the Spanish follows the German and French paragraphs rather than the original English.',
+    },
+    {
+      prefix: 'teachers',
+      confidence: 'low',
+      note: '**The one namespace on the site that uses "usted", and the least clear-cut of the four locales.** The rest of es.ts uses "tú", and rightly: Spanish school material addresses a student that way as a matter of course. This page has no student reader, so that argument does not reach it — but unlike German "Sie" and French "vous", Spanish professional web copy very often keeps "tú" even when writing to adults, and "usted" can read as distant rather than respectful. **This is the single decision on the page most worth a peninsular Spanish speaker\'s opinion.** The terminology is settled: *el profesorado* / *el alumnado*, the collective nouns the glossary uses to stay gender-neutral; "electrón desapareado" and "par solitario", the formal terms, correct here because this page explains rather than instructs (the game word *impar* stays in the game); *ajustar* for balancing an equation; and **3º / 4º de ESO** for the year band, never *bachillerato*, which names ages 16–19.',
+    },
+    {
+      prefix: 'teachers.supportBody',
+      confidence: 'low',
+      note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *entidad benéfica registrada*. *Donar* and *donación* were avoided in favour of *apoyar* and *aportar* for exactly that reason. Not legal review either — whether the sentence about desgravación is phrased the way a Spanish reader expects has not been checked.',
     },
   ],
 
@@ -1373,6 +1403,16 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'privacy.cookiesBody2',
       confidence: 'medium',
       note: 'The language-preference cookie this feature introduces had to be disclosed; the Italian follows the German, French and Spanish paragraphs rather than the original English.',
+    },
+    {
+      prefix: 'teachers',
+      confidence: 'low',
+      note: '**The one namespace on the site that uses "Lei".** The rest of it.ts uses "tu", and rightly: Italian school material addresses a student that way. This page has no student reader — it is written for the adult deciding whether to use the site in class — so "Lei" is the register, but the site now mixes the two on purpose and that is the thing to confirm. A second thing to watch while reading it: "Lei" takes third-person verbs, so the imperatives here are *provi*, *usi*, *scelga*, *cominci*, and a single slip into *prova* or *usa* would be audible. Terminology is settled: *chi insegna* / *chi studia*, the headless relatives the glossary uses to stay gender-neutral; "elettrone spaiato" and "doppietto solitario", the formal terms, correct here because this page explains rather than instructs (the game word *dispari* stays in the game); *indizio* for a hint; and **terza media / primo superiore** for the year band, never *liceo*, which names ages 16–19.',
+    },
+    {
+      prefix: 'teachers.supportBody',
+      confidence: 'low',
+      note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *ente benefico riconosciuto*. *Donazione* and *donare* were avoided in favour of *sostenere* and *contribuire* for exactly that reason. Not legal review either — whether the sentence about detraibilità is phrased the way an Italian reader expects has not been checked.',
     },
   ],
 };

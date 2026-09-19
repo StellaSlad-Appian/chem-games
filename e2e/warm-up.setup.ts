@@ -44,6 +44,7 @@ setup('compile every route', async ({ page }) => {
     '/games',
     '/cheat-sheets',
     '/cheat-sheets/acids-and-bases',
+    '/teachers',
     '/auth',
     ...GAME_SLUGS.map((slug) => `/games/${slug}`),
   ];

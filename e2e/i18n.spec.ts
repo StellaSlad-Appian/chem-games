@@ -15,6 +15,8 @@ import { fr } from '../src/i18n/dictionaries/fr';
 import { es } from '../src/i18n/dictionaries/es';
 import { it } from '../src/i18n/dictionaries/it';
 import { LOCALE_COOKIE } from '../src/i18n/config';
+import { en as enTeachers } from '../src/i18n/teachers/en';
+import { de as deTeachers } from '../src/i18n/teachers/de';
 import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
 import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
 import { languageSwitcher, openGame, path, waitForHydration } from './helpers';
@@ -208,6 +210,35 @@ test.describe('German rendering', () => {
     // …while the formulae they label are not.
     await expect(page.locator('body')).toContainText('NaOH');
     await expect(page.locator('body')).toContainText('CH3COOH');
+  });
+
+  test('the For Teachers page, including its footer link', async ({ page }) => {
+    await page.goto(path('/teachers', 'de'));
+
+    expect(await htmlLang(page)).toBe('de');
+    await expect(
+      page.getByRole('heading', { level: 1, name: deTeachers.heading })
+    ).toBeVisible();
+    await expect(page.getByText(deTeachers.betaBody)).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 2, name: deTeachers.collaborateHeading })
+    ).toBeVisible();
+
+    // The year band is rendered in the German school system. "Oberstufe"
+    // names Klasse 11–13 (ages 16–19) and would be wrong for this site; that
+    // exact mistake was already corrected once, in meta.keywords.
+    //
+    // Asserted on <body> rather than on <main>, because the (main) layout
+    // wraps the page's own <main> in one of its own and the locator would be
+    // ambiguous. The cheat-sheet test above does the same.
+    await expect(page.locator('body')).toContainText('Klasse 9–10');
+    await expect(page.locator('body')).not.toContainText('Oberstufe');
+    await expect(page.locator('body')).not.toContainText(enTeachers.betaHeading);
+
+    // The footer link that leads here is translated too.
+    await expect(
+      page.locator('footer').getByRole('link', { name: de.footer.teachers })
+    ).toHaveAttribute('href', '/de/teachers');
   });
 
   test('the game overlay', async ({ page }) => {

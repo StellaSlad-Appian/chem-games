@@ -34,16 +34,27 @@ import { de } from '../src/i18n/dictionaries/de.ts';
 import { fr } from '../src/i18n/dictionaries/fr.ts';
 import { REACTION_BALANCER_MESSAGES } from '../src/core-engine/config/games/reaction-balancer-messages.ts';
 import { LEWIS_STRUCTURES_MESSAGES } from '../src/core-engine/config/games/lewis-structures-messages.ts';
+// The English is imported from the locale file rather than from
+// src/i18n/teachers.ts, because this script runs on Node's type stripping:
+// the loader imports './config' without a file extension, which the bundler
+// resolves and Node's ESM resolver does not. The locale files import only
+// types, which the stripper removes. Same reason the game catalogues are
+// imported per locale above.
+import { en as teachersEn } from '../src/i18n/teachers/en.ts';
 import { de as balancerDe } from '../src/i18n/game-messages/reaction-balancer/de.ts';
 import { de as lewisDe } from '../src/i18n/game-messages/lewis-structures/de.ts';
+import { de as teachersDe } from '../src/i18n/teachers/de.ts';
 import { fr as balancerFr } from '../src/i18n/game-messages/reaction-balancer/fr.ts';
 import { fr as lewisFr } from '../src/i18n/game-messages/lewis-structures/fr.ts';
+import { fr as teachersFr } from '../src/i18n/teachers/fr.ts';
 import { es } from '../src/i18n/dictionaries/es.ts';
 import { es as balancerEs } from '../src/i18n/game-messages/reaction-balancer/es.ts';
 import { es as lewisEs } from '../src/i18n/game-messages/lewis-structures/es.ts';
+import { es as teachersEs } from '../src/i18n/teachers/es.ts';
 import { it } from '../src/i18n/dictionaries/it.ts';
 import { it as balancerIt } from '../src/i18n/game-messages/reaction-balancer/it.ts';
 import { it as lewisIt } from '../src/i18n/game-messages/lewis-structures/it.ts';
+import { it as teachersIt } from '../src/i18n/teachers/it.ts';
 import { REVIEW_NOTES, REVIEW_SUMMARY } from '../src/i18n/review-notes.ts';
 import type { Confidence } from '../src/i18n/review-notes.ts';
 
@@ -93,8 +104,10 @@ const cell = (value: string) =>
     .replace(/[  ]/g, '·');
 
 /**
- * The two games whose copy lives in a per-game catalogue rather than in the
- * dictionary (docs/i18n/GAMES.md § Catalogue layout). They are mounted back at
+ * The copy that lives in a per-page or per-game catalogue rather than in the
+ * dictionary: two games (docs/i18n/GAMES.md § Catalogue layout) and the For
+ * Teachers page, all moved out for the payload budget in README § "The
+ * dictionary is a budget, and a game will eat it". They are mounted back at
  * the dot-paths they used to have, so `review-notes.ts` prefixes, this table
  * and the links into it all keep pointing at the same keys — where a string
  * *lives* changed; which string a reviewer is looking at did not.
@@ -102,6 +115,7 @@ const cell = (value: string) =>
 const CATALOGUE_SOURCES = [
   ['games.reactionBalancer', REACTION_BALANCER_MESSAGES],
   ['games.lewisStructures', LEWIS_STRUCTURES_MESSAGES],
+  ['teachers', teachersEn],
 ] as const;
 
 interface LocaleInput {
@@ -123,7 +137,7 @@ const LOCALES_TO_REVIEW: Record<string, LocaleInput> = {
   de: {
     dictionary: de,
     columnTitle: 'German',
-    catalogues: [balancerDe, lewisDe],
+    catalogues: [balancerDe, lewisDe, teachersDe],
     header: (total, counts) => `<!--
   GENERATED FILE - do not edit by hand.
   Regenerate with:  npm run i18n:review
@@ -169,7 +183,7 @@ invisible here.
   fr: {
     dictionary: fr,
     columnTitle: 'French',
-    catalogues: [balancerFr, lewisFr],
+    catalogues: [balancerFr, lewisFr, teachersFr],
     header: (total, counts) => `<!--
   GENERATED FILE - do not edit by hand.
   Regenerate with:  npm run i18n:review
@@ -220,7 +234,7 @@ one (U+00A0) before \`:\`. Both are otherwise invisible here.
   es: {
     dictionary: es,
     columnTitle: 'Spanish',
-    catalogues: [balancerEs, lewisEs],
+    catalogues: [balancerEs, lewisEs, teachersEs],
     header: (total, counts) => `<!--
   GENERATED FILE - do not edit by hand.
   Regenerate with:  npm run i18n:review
@@ -276,7 +290,7 @@ style choice when missing.
   },
   it: {
     dictionary: it,
-    catalogues: [balancerIt, lewisIt],
+    catalogues: [balancerIt, lewisIt, teachersIt],
     columnTitle: 'Italian',
     header: (total, counts) => `<!--
   GENERATED FILE - do not edit by hand.

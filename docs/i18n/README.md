@@ -275,6 +275,24 @@ What deliberately **stays** in the dictionary:
   `GameName` onto a dictionary key so a game in the Supabase `games` table that
   the dictionary does not know still shows a title (GAMES.md line 38).
 
+It is not only games. The **For Teachers** page landed its copy in the
+dictionary first, and it was 8,075 B of the German dictionary's 31,490 B — 25.7%,
+for one page that a single Server Component reads and that nobody opens
+mid-lesson. It now loads from `src/i18n/teachers/<locale>.ts` through
+`teachersCopy(locale)`, the same arrangement as the game catalogues, and the
+German dictionary is back to 23,403 B. Sizes here are `JSON.stringify` byte
+lengths, which is what the payload actually carries; source-file size counts
+comments that never ship.
+
+What stayed behind is 283 B: `footer.teachers`, because the footer link renders
+on every page, and `meta.teachersTitle` / `meta.teachersDescription`, which
+`generateMetadata` reads. That is the whole difference between the dictionary
+today and the dictionary before the page existed — a page's worth of prose cost
+the rest of the site three strings.
+
+`dictionary.test.ts` asserts the `teachers` namespace is absent and that those
+three keys are present, so the copy cannot drift back in.
+
 The older games' namespaces (`acidClassification`, `formulaBlaster`,
 `neutralise`) are still in the dictionary. They total 3.4 KB, they write their
 copy in JSX rather than through a catalogue, and moving them is **a

@@ -198,4 +198,19 @@ describe('dictionary shape', () => {
 
     expect(Object.keys(en.games).filter((key) => !ALLOWED.has(key))).toEqual([]);
   });
+
+  it('holds no whole-page copy that only one Server Component reads', () => {
+    // Same budget, different offender. The For Teachers page's prose lived
+    // here briefly and was 8 KB of the German dictionary — a quarter of it —
+    // riding along in the RSC payload of every game page for the sake of one
+    // page nobody reaches mid-lesson. It now lives in src/i18n/teachers/,
+    // loaded by that page alone (README § The dictionary is a budget).
+    //
+    // What legitimately stays behind is the site-wide part: the footer link
+    // renders everywhere, and the metadata is read by generateMetadata.
+    expect(Object.keys(en)).not.toContain('teachers');
+    expect(en.footer.teachers).toBeTruthy();
+    expect(en.meta.teachersTitle).toBeTruthy();
+    expect(en.meta.teachersDescription).toBeTruthy();
+  });
 });

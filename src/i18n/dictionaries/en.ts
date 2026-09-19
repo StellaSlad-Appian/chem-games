@@ -44,6 +44,9 @@ export const en = {
     privacyTitle: 'Privacy | ChemGames',
     privacyDescription:
       'What ChemGames stores about you, what is public, who processes it, and how to download or delete your data.',
+    teachersTitle: 'For Teachers | ChemGames',
+    teachersDescription:
+      'What ChemGames is, the five languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta.',
     cheatSheetTitle: '{title} Cheat Sheet | ChemGames',
     cheatSheetNotFound: 'Topic Not Found - ChemGames',
   },
@@ -99,6 +102,7 @@ export const en = {
     tagline: 'ChemGames — Making chemistry visual, playful, and intuitive.',
     copyright: '© {year} ChemGames. All rights reserved.',
     privacy: 'Privacy',
+    teachers: 'For Teachers',
   },
 
   home: {
