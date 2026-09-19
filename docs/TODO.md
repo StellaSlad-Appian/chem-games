@@ -53,12 +53,13 @@ Two things to settle first, because they are not the agent's to decide:
       recommendation: one-off, pay-what-you-want, 0% platform fee, AUD supported. Until
       the variable is set the support section does not render at all, which is the
       intended state — but it means the ask is currently invisible.
-- [ ] **Native-speaker review of the four For Teachers translations.** The tables are
-      generated for exactly this: [`i18n/de-review.md`](./i18n/de-review.md) and its
-      siblings. The one line most worth an outside opinion is the **Spanish `usted`** —
-      professional Spanish web copy often keeps `tú` for adults, and `usted` can read as
-      distant rather than respectful. Italian's third-person imperatives under `Lei` are
-      second.
+- [ ] **Native-speaker review of the five translated For Teachers catalogues** (de, fr,
+      es, it, ru). The tables are generated for exactly this:
+      [`i18n/de-review.md`](./i18n/de-review.md) and its siblings. The one line most
+      worth an outside opinion is the **Spanish `usted`** — professional Spanish web
+      copy often keeps `tú` for adults, and `usted` can read as distant rather than
+      respectful. Italian's third-person imperatives under `Lei` are second, and the
+      Russian catalogue is the newest and least read.
 - [ ] **A chemistry teacher reads the English For Teachers copy** and says whether the
       collaborator ask is worth answering. `TEACHERS_PAGE.md` § 8 sign-off item; only a
       teacher can judge it.
