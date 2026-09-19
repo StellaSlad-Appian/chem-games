@@ -372,9 +372,11 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 - [ ] The header is re-measured at 320px, 360px, 768px, 1024px and 1280px **in
       every locale**, signed in and signed out. Not just the "widest language" —
       English turned out to be the widest, contradicting the comment in
-      `NavBar.tsx`. No horizontal page scroll at any width — `ACCESSIBILITY.md`
-      (1.4.10) forbids it, and at 320px, not 360px. Target ≥20px spare at
-      1024px. Report the table rather than shipping an overflowing header.
+      `NavBar.tsx`. `ACCESSIBILITY.md` (1.4.10) applies at 320px, not 360px.
+      **Measure natural width (`width: max-content` on the row), not
+      `scrollWidth`** — see §0: the row compresses instead of overflowing, so the
+      `scrollWidth` check this criterion used to ask for passes while the header
+      is over-full. Target ≥20px of natural headroom at 1024px. Report the table.
 - [ ] **Below `lg`, the nav becomes a slide-out side panel** (see §8 for the
       reasoning). **This may already exist**: a separate session was started on
       2026-09-19 to build exactly this panel, as a fix for the pre-existing gap.
@@ -434,8 +436,11 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 - [ ] Page chrome strings (headings, labels, the dateline pattern, accessible
       names) go in `src/i18n/dictionaries/<locale>.ts` under a new `explore`
       namespace. **Entry prose does not** — it is loaded only by this page, the
-      way a game catalogue is, so the shared dictionary stays UI-sized and the
-      budget assertion in `dictionary.test.ts` keeps passing.
+      way a game catalogue is, so the shared dictionary stays UI-sized.
+      Note (corrected 2026-09-19): `dictionary.test.ts` has **no** size budget;
+      it asserts that no new *game* namespace appears under `en.games`. Nothing
+      automatic will catch entry prose landing in the dictionary, so this one is
+      on the reviewer.
 
 ### AC-6 — Every card links inward, and the link matches the content
 - [ ] **Every** molecule and scientist entry carries at least one link to a cheat

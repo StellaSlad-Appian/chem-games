@@ -34,7 +34,9 @@ controls + 32px gaps + 32px padding:
 Two things follow.
 
 **English already scrolls sideways at 1024px** — 1048px of content in a 1024px
-viewport, confirmed with `document.documentElement.scrollWidth > innerWidth`.
+viewport. (Measured before the nav's horizontal padding was reduced. Note the
+measurement method below is **not** the one this paragraph originally used — see
+the warning in §3, which was learned the hard way.)
 That is a live WCAG 1.4.10 failure (`docs/ACCESSIBILITY.md` § Reflow) in the
 default language, today, before this change. The comment in `NavBar.tsx` says
 "English fits at md; German does not", which is true of the nav labels in
@@ -101,11 +103,27 @@ Every change here needs:
 - any test or spec that asserts the old label updated — grep for the literal
   strings in `e2e/` and `src/**/*.test.tsx` before you start.
 
-**Then measure, do not assume.** Every estimate above is arithmetic on character
-counts. Load the real header at **320, 360, 768, 1024 and 1280px in all five
-locales**, signed out *and* signed in (the sign-out label differs), and assert
-`document.documentElement.scrollWidth <= window.innerWidth` at each. Report the
-table. The target is at least ~20px spare at 1024px in every locale, not zero.
+**Then measure, do not assume — and measure the right quantity.** Every estimate
+above is arithmetic on character counts.
+
+> ⚠ **`scrollWidth <= innerWidth` cannot detect this failure, and an earlier
+> version of this document asked for exactly that.** The header row is a flex
+> container whose `<nav>` is allowed to shrink. An over-full row therefore does
+> not overflow the page — it **compresses**, squeezing the nav while
+> `scrollWidth` stays exactly equal to the viewport and every assertion passes.
+> Found on `feature/explore-page-impl`: every locale passed the `scrollWidth`
+> check at every width while the German header genuinely needed **1033px in a
+> 1024px viewport**.
+>
+> **Measure natural width instead.** Set `width: max-content` on the header row,
+> which stops anything shrinking, read its `getBoundingClientRect().width`, and
+> compare that to the viewport. `e2e/nav.spec.ts` does this and prints the table;
+> copy it rather than writing a new check.
+
+Load the real header at **320, 360, 768, 1024 and 1280px in all five locales**,
+signed out *and* signed in (the sign-out label differs). Report the table. The
+target is at least **20px of natural-width headroom** at 1024px in every locale,
+not zero, and not merely "no scrollbar".
 
 ---
 

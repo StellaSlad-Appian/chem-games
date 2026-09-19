@@ -7,6 +7,13 @@ candidates that did not make it and why. Companion to
 
 **Status:** proposal for the owner's review. **Written:** 2026-09-19.
 
+> **✎ marks a lead corrected on 2026-09-19** after `feature/explore-page-impl`
+> checked all 104 against citable sources while writing the launch twenty.
+> Eleven were wrong or overstated; every correction below is carried by a source
+> on the shipped entry in `src/lib/explore/scientists.ts`. About one lead in ten
+> did not survive, which is roughly what the verify-before-writing rule exists
+> to catch — so the rule below still stands for the 84 not yet written.
+>
 > **This list is a curation proposal, not verified fact.** Names, dates,
 > nationalities and attributions here come from general knowledge and are
 > accurate to the best of my knowledge, but **every date and every claim must be
@@ -130,14 +137,14 @@ curriculum content regardless (§7).*
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
-| 11 | Kathleen Lonsdale | 1903–1971 | IE / UK | Proved the benzene ring is flat and hexagonal, by X-ray | W | `chemical-bonds` |
+| 11 | Kathleen Lonsdale | 1903–1971 | IE / UK | Proved the benzene ring is flat and hexagonal — by solving **hexamethylbenzene**, not benzene ✎ | W | `chemical-bonds` |
 | 12 | Dorothy Crowfoot Hodgkin | 1910–1994 | UK | Solved penicillin, vitamin B12 and insulin structures by X-ray crystallography | W | `chemical-bonds` |
 | 13 | Rosalind Franklin | 1920–1958 | UK | X-ray diffraction of DNA, coal and virus structure; Photo 51 | W | `chemical-bonds` |
 | 14 | Isabella Karle | 1921–2017 | US | Made direct methods work in practice — how structures are solved today | W | `lewis-structures` |
 | 15 | Judith Howard | b. 1945 | UK | Variable-temperature and charge-density crystallography: seeing where electrons are | W | `lewis-structures` |
 | 16 | Gilbert N. Lewis | 1875–1946 | US | The shared electron pair, the dot diagram, and a broader definition of acids | M | `lewis-structures` + game |
 | 17 | Linus Pauling | 1901–1994 | US | Electronegativity, hybridisation, resonance — the language of the bond | M | `chemical-bonds` |
-| 18 | Alfred Werner | 1866–1919 | CH | Worked out how metal complexes are arranged in 3D, with no way to see them | M | `polyatomic-ions` |
+| 18 | Alfred Werner | 1866–1919 | FR / CH ✎ | Worked out how metal complexes are arranged in 3D, with no way to see them | M | `polyatomic-ions` |
 | 19 | Harry Kroto | 1939–2016 | UK | Co-discovered C60: 60 carbons in a football, found while looking at stars | M | `chemical-bonds` |
 | 20 | Peter Debye | 1884–1966 | NL / US | Dipole moments: measuring how unevenly a molecule shares its electrons | M | `chemical-bonds` |
 
@@ -149,7 +156,7 @@ curriculum content regardless (§7).*
 | 22 | Lesley Yellowlees | b. 1953 | UK | Electrochemistry of metal complexes; solar energy conversion | W | `acids-and-bases` |
 | 23 | Esther Takeuchi | b. 1953 | US | Designed the lithium battery that powers implantable defibrillators | W | `reaction-types` |
 | 24 | Kathryn Hach-Darrow | 1922–2022 | US | Made water testing something any town could do, not just a lab | W | `acids-and-bases` + game |
-| 25 | Svante Arrhenius | 1859–1927 | SE | Salts split into ions in water — ridiculed, then proved right | M | `acid-classification` game |
+| 25 | ~~Svante Arrhenius~~ **⚠ owner decision — see §8** | 1859–1927 | SE | Salts split into ions in water. Fails this document's own century rule, and there is a second question | M | `acid-classification` game |
 | 26 | Johannes Brønsted | 1879–1947 | DK | Acids give protons away, bases take them — the definition schools still use | M | `acids-and-bases` |
 | 27 | Søren Sørensen | 1868–1939 | DK | Invented the pH scale, in a brewery laboratory | M | `neutralise` game |
 | 28 | George Olah | 1927–2017 | HU / US | Superacids: made carbocations stable enough to look at | M | `acids-and-bases` |
@@ -170,7 +177,7 @@ curriculum content regardless (§7).*
 | 36 | Ahmed Zewail | 1946–2016 | EG / US | Femtochemistry: filmed bonds breaking, at 10⁻¹⁵ s per frame | M | `reaction-types` |
 | 37 | Kenichi Fukui | 1918–1998 | JP | Frontier orbitals: only the outermost electrons decide what reacts | M | `lewis-structures` |
 | 38 | Gerhard Ertl | b. 1936 | DE | Showed, step by step, what actually happens on the catalyst in ammonia synthesis | M | `reaction-balancer` game |
-| 39 | Paul Sabatier | 1854–1941 | FR | Hydrogenation with nickel — the reaction that turns oil into margarine | M | `reaction-types` |
+| 39 | Paul Sabatier | 1854–1941 | FR | Hydrogenation over nickel (1897, with Senderens). **Not** the margarine step — that is Wilhelm Normann, 1901 ✎ | M | `reaction-types` |
 | 40 | John Polanyi | b. 1929 | CA | Read the faint infrared glow of a reaction to see where the energy goes | M | `reaction-types` |
 
 ### E. Stoichiometry, thermochemistry and measurement — 4 W / 4 M
@@ -179,7 +186,7 @@ curriculum content regardless (§7).*
 |---|---|---|---|---|---|---|
 | 41 | Ellen Gleditsch | 1879–1968 | NO | Measured radium's half-life accurately enough to settle an argument | W | `stoichiometry` |
 | 42 | Alicja Dorabialska | 1897–1975 | PL | Thermochemistry and the heat given off by radioactive decay | W | `stoichiometry` |
-| 43 | Reatha Clark King | b. 1938 | US | Burned fluorine compounds in a calorimeter to get numbers rockets depended on | W | `stoichiometry` |
+| 43 | Reatha Clark King | b. 1938 | US | Flame-calorimetry data for fluorine oxidisers the rocket programme was evaluating — they were never flown ✎ | W | `stoichiometry` |
 | 44 | Mildred Cohn | 1913–2009 | US | Used isotopes and NMR to follow individual atoms through a reaction | W | `stoichiometry` |
 | 45 | Fritz Pregl | 1869–1930 | AT / SI | Shrank analysis so a few milligrams was enough to work with | M | `stoichiometry` |
 | 46 | Jean Perrin | 1870–1942 | FR | Nailed down Avogadro's number and settled whether atoms were real | M | `stoichiometry` |
@@ -209,7 +216,7 @@ curriculum content regardless (§7).*
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
-| 61 | Stephanie Kwolek | 1923–2014 | US | Kevlar — a solution she nearly threw away because it looked wrong | W | `chemical-bonds` ‡ |
+| 61 | Stephanie Kwolek | 1923–2014 | US | Kevlar — the cloudy solution was standard to discard, and she **refused** to ✎ | W | `chemical-bonds` ‡ |
 | 62 | Ruth Benerito | 1916–2013 | US | Chemically cross-linked cotton so it stopped needing an iron | W | `functional-groups` ‡ |
 | 63 | Patsy Sherman | 1930–2008 | US | Co-invented Scotchgard after a lab spill refused to wash out | W | `chemical-bonds` ‡ |
 | 64 | Sumita Mitra | b. 1940s | IN / US | Put nanoparticles into dental filling material; it is in millions of mouths | W | `chemical-bonds` ‡ |
@@ -224,8 +231,8 @@ curriculum content regardless (§7).*
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
-| 71 | Katharine Blodgett | 1898–1979 | US | Films one molecule thick; invisible, non-reflective glass | W | `states-of-matter` |
-| 72 | Mária Telkes | 1900–1995 | HU / US | Stored solar heat in salts that melt and freeze on demand | W | `states-of-matter` |
+| 71 | Katharine Blodgett | 1898–1979 | US | Films one molecule thick. "Invisible glass" is GE's 1938 marketing; that coating never shipped ✎ | W | `states-of-matter` |
+| 72 | Mária Telkes | 1900–1995 | HU / US | Stored solar heat in salts that melt and freeze. The Dover Sun House failed in its third winter ✎ | W | `states-of-matter` |
 | 73 | Geraldine Richmond | b. 1953 | US | Worked out what water molecules do at the surface, where they behave differently | W | `states-of-matter` |
 | 74 | Edith Flanigen | b. 1929 | US | Zeolite Y and molecular sieves — solids with holes that sort molecules by size | W | `states-of-matter` |
 | 75 | Lidia Morawska | b. 1952 | PL / AU | Showed how fine particles and aerosols really move through indoor air | W | `states-of-matter` |
@@ -239,11 +246,11 @@ curriculum content regardless (§7).*
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
-| 89 | Susan Solomon | b. 1956 | US | Explained the Antarctic ozone hole and went there to prove it | W | `reaction-types` |
-| 90 | Johanna Döbereiner | 1924–2000 | CZ / BR | Bacteria that fix nitrogen for crops — Brazil grows soy without much fertiliser because of her | W | `balancing-equations` |
+| 89 | Susan Solomon | b. 1956 | US | Supplied the **mechanism** for the ozone hole (Farman et al. found it) and led expeditions to **test** the rival hypotheses ✎ | W | `reaction-types` |
+| 90 | Johanna Döbereiner | 1924–2000 | DE-speaking CZ / BR ✎ | Bacteria that fix nitrogen for crops — Brazilian soy takes its **nitrogen** from them, not its P and K ✎ | W | `balancing-equations` |
 | 91 | Veena Sahajwalla | b. 1966 | IN / AU | "Green steel": feeding old tyres and e-waste into furnaces as a reagent | W | `reaction-types` |
 | 92 | Karen Wetterhahn | 1948–1997 | US | Metal toxicology; her death from dimethylmercury rewrote laboratory glove standards | W | `reaction-types` |
-| 93 | Fritz Haber | 1868–1934 | DE | Ammonia from air — feeds half the world, and he also directed gas warfare | M | `reaction-balancer` game |
+| 93 | Fritz Haber | 1868–1934 | DE | Ammonia from air **and fossil hydrogen**; Bosch built the plant. Feeds half the world; he also directed gas warfare ✎ | M | `reaction-balancer` game |
 | 94 | Mario Molina | 1943–2020 | MX | Showed CFCs from spray cans destroy ozone, and got them banned | M | `reaction-types` |
 | 95 | Primo Levi | 1919–1987 | IT | Industrial chemist and Auschwitz survivor; wrote chemistry as a way of seeing | M | `naming-compounds` |
 | 96 | Xu Guangxian | 1920–2015 | CN | Separation theory that made rare-earth elements — in every phone — affordable | M | `reaction-types` |
@@ -255,7 +262,7 @@ curriculum content regardless (§7).*
 | 97 | Gertrude Elion | 1918–1999 | US | Designed drugs from how the disease works, not by trial and error; no doctorate | W | `functional-groups` |
 | 98 | Marie Maynard Daly | 1921–2003 | US | Linked cholesterol and diet to blocked arteries; first Black woman US chemistry PhD | W | `functional-groups` |
 | 99 | Tebello Nyokong | b. 1951 | ZA | Dye molecules that kill tumours when you shine light on them | W | `chemical-bonds` |
-| 100 | Margarita Salas | 1938–2019 | ES | The phi29 polymerase — why a speck of DNA is enough to sequence | W | `functional-groups` |
+| 100 | Margarita Salas | 1938–2019 | ES | The phi29 polymerase, which **amplifies** a speck of DNA. Sequencing is a separate step ✎ | W | `functional-groups` |
 | 101 | Frederick Sanger | 1918–2013 | UK | Read the sequence of a protein, then of DNA. Two Nobels, one bench | M | `functional-groups` |
 | 102 | Har Gobind Khorana | 1922–2011 | IN / US | Built nucleic acids chemically and cracked how codons are read | M | `functional-groups` |
 | 103 | Aziz Sancar | b. 1946 | TR / US | Mapped how cells repair DNA damaged by sunlight | M | `functional-groups` |
@@ -470,3 +477,57 @@ If it is built, three things are worth deciding up front:
 
 **Recommendation:** the sheet now, as part of unblocking theme A; the tool as its
 own piece of work, scoped from the SEO case rather than from Explore.
+
+---
+
+## 8. Arrhenius — an open decision, not a correction
+
+Entry 25 is struck through in §3 but **not removed**, because half of the case
+against him is a judgement that belongs to the owner rather than to whoever is
+writing entries.
+
+**The factual half is settled.** §1 of this document admits a scientist on the
+rule that *the work* is 20th or 21st century, and justifies Arrhenius by his
+1903 Nobel. But the electrolytic-dissociation work is his 1884 dissertation and
+the greenhouse calculation is 1896. The prize is 20th century; the work is not.
+By this document's own rule he does not qualify — the same rule that keeps
+Mendeleev, Agnes Pockels and Emil Fischer out.
+
+**The second half is yours.** Arrhenius was a leading member of the Swedish
+Society for Race Hygiene, which campaigned for the state race-biology institute
+founded in 1921 (Saura, *Hereditas*, 2020). A 150-word card for fourteen-year-olds
+cannot carry that in a clause, and a page whose subject is *who gets remembered*
+cannot leave it out either. That is a decision about what this section is for,
+and it should be made once, deliberately, rather than settled by whoever happens
+to write the entry.
+
+**What was done, pending that decision:** he was left out of the launch twenty
+and **Dan Shechtman** took the slot, paired with sodium chloride — a crystal
+whose pattern repeats against one that never does, which is a better pairing
+than the one it replaced. Nothing is lost if he comes back; nothing breaks if he
+goes.
+
+**Three ways to settle it**, in the order I would consider them:
+
+1. **Leave him out** and say so here in a line. The century rule alone is
+   sufficient and needs no argument about the man.
+2. **Keep him, with the whole story**, as a deliberate exception to the century
+   rule — the section then has to be willing to write that kind of entry, and
+   that should be a stated policy, not a one-off.
+3. **Keep him on the century rule alone** and say nothing about the rest. This
+   is the option I would not take: it is the one that requires the page to know
+   something and not say it.
+
+Whichever you choose, record it in this section. An unmarked name in a curated
+pool is an invitation to re-add him by accident in cycle 2.
+
+### A pairing correction, while here
+
+§2 suggests pairing a molecule with a thematically matching scientist. One such
+pairing in the launch set had to be rewritten rather than dropped: **limonene**
+is usually taught as the textbook enantiomer demonstration — orange smells of
+one mirror image, lemon of the other. **That contrast is wrong.** Orange and
+lemon oil both contain (R)-(+)-limonene at over 99.9% (Kvittingen et al.,
+*J. Chem. Educ.* 2021). The card now teaches the correction instead of the myth,
+which is a better card. Worth knowing before anyone writes the obvious version
+of it again.
