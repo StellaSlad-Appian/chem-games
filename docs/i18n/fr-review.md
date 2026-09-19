@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its French
 translation, so a native speaker or a chemistry teacher can review the French
 without reading any code.
 
-**785 strings** — 381 high confidence,
+**788 strings** — 384 high confidence,
 333 medium, 71 low.
 
 The confidence column is a judgement about *this* translation, not about French
@@ -91,6 +91,9 @@ one (U+00A0) before `:`. Both are otherwise invisible here.
 | `nav.logout` | Log out | Déconnexion | high | Standard navigation vocabulary. "Connexion" is deliberately shorter than the English "Log in / Register", the same trade the German nav makes: the pair was the widest thing in the header, and the sign-in page offers both actions anyway. |
 | `nav.loggingOut` | Logging out... | Déconnexion… | high | Standard navigation vocabulary. "Connexion" is deliberately shorter than the English "Log in / Register", the same trade the German nav makes: the pair was the widest thing in the header, and the sign-in page offers both actions anyway. |
 | `nav.settingsA11y` | Open general settings | Ouvrir les paramètres généraux | high | Standard navigation vocabulary. "Connexion" is deliberately shorter than the English "Log in / Register", the same trade the German nav makes: the pair was the widest thing in the header, and the sign-in page offers both actions anyway. |
+| `nav.menuOpenA11y` | Open menu | Ouvrir le menu | high | "Menu" is the same word in French, so the keys are phrased as actions ("Ouvrir le menu") and the panel is named "Menu du site" — which reads better than a bare noun and, incidentally, keeps them clear of the identical-to-English gate. |
+| `nav.menuCloseA11y` | Close menu | Fermer le menu | high | "Menu" is the same word in French, so the keys are phrased as actions ("Ouvrir le menu") and the panel is named "Menu du site" — which reads better than a bare noun and, incidentally, keeps them clear of the identical-to-English gate. |
+| `nav.menuTitleA11y` | Site menu | Menu du site | high | "Menu" is the same word in French, so the keys are phrased as actions ("Ouvrir le menu") and the panel is named "Menu du site" — which reads better than a bare noun and, incidentally, keeps them clear of the identical-to-English gate. |
 
 ### `footer`
 

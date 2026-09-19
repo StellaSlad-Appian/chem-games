@@ -72,6 +72,11 @@ export const en = {
     logout: 'Log out',
     loggingOut: 'Logging out...',
     settingsA11y: 'Open general settings',
+    // The phone navigation panel. `sectionsA11y` is reused for the <nav> inside
+    // it, so the list of destinations has one name in both places.
+    menuOpenA11y: 'Open menu',
+    menuCloseA11y: 'Close menu',
+    menuTitleA11y: 'Site menu',
   },
 
   footer: {

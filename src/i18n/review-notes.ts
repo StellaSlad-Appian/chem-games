@@ -41,6 +41,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers.',
     },
     {
+      prefix: 'nav.menu',
+      confidence: 'high',
+      note: '"Menü" is the ordinary German word and needs no gloss. "Seitenmenü" names the panel for a screen reader; "Hauptmenü" was rejected because the horizontal row above lg is equally the main menu.',
+    },
+    {
       prefix: 'language',
       confidence: 'high',
       note: 'Switcher labels; short and unambiguous.',
@@ -293,6 +298,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'nav',
       confidence: 'high',
       note: 'Standard navigation vocabulary. "Connexion" is deliberately shorter than the English "Log in / Register", the same trade the German nav makes: the pair was the widest thing in the header, and the sign-in page offers both actions anyway.',
+    },
+    {
+      prefix: 'nav.menu',
+      confidence: 'high',
+      note: '"Menu" is the same word in French, so the keys are phrased as actions ("Ouvrir le menu") and the panel is named "Menu du site" — which reads better than a bare noun and, incidentally, keeps them clear of the identical-to-English gate.',
     },
     {
       prefix: 'nav.cheatSheets',
@@ -591,6 +601,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'nav',
       confidence: 'high',
       note: 'Standard navigation vocabulary. "Iniciar sesión" is still shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here.',
+    },
+    {
+      prefix: 'nav.menu',
+      confidence: 'high',
+      note: '"Menú" takes the accent, and the article is obligatory before it in Spanish — "Abrir el menú", never "Abrir menú".',
     },
     {
       prefix: 'nav.cheatSheets',
@@ -919,6 +934,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'nav',
       confidence: 'high',
       note: 'Standard navigation vocabulary. "Accedi" is much shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here.',
+    },
+    {
+      prefix: 'nav.menu',
+      confidence: 'high',
+      note: '"Menu" is the usual Italian spelling in interfaces; "menù" exists but reads as the restaurant sense. "Menu del sito" names the panel without claiming to be the only navigation.',
     },
     {
       prefix: 'nav.cheatSheets',
