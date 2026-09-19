@@ -14,9 +14,9 @@
 // the site written for an adult, and the only place money is mentioned —
 // the players are 14 to 16 and cannot complete a payment, so the ask lives
 // on a page an adult has to go looking for and is never surfaced to a
-// student. That audience is why the four translations use the formal
-// address (Sie / vous / usted / Lei) while every other namespace uses the
-// informal one; each locale file repeats the reasoning where it starts.
+// student. That audience is why all five translations use the formal
+// address (Sie / vous / usted / Lei / вы) while every other namespace uses
+// the informal one; each locale file repeats the reasoning where it starts.
 //
 // Every factual claim here was checked against the repository when it was
 // written, and has to be re-checked when the thing it describes changes:
@@ -63,11 +63,11 @@ export const en = {
 
   languagesHeading: 'Languages',
   languagesBody1:
-    'The site ships in five languages: English, German, French, Spanish and Italian. The switcher is in the navigation bar, and the choice is remembered on that browser.',
+    'The site ships in six languages: English, German, French, Spanish, Italian and Russian. The switcher is in the navigation bar, and the choice is remembered on that browser.',
   languagesBody2:
     'Everything a student reads is translated — the interface, the coaching and hints inside the games, and the cheat sheets. Chemical formulae, element symbols and equations are never translated, so an equation looks the same in every language.',
   languagesBody3:
-    'Russian is planned but has not shipped. There is no Russian on the site today.',
+    'Two things do not change with the language: the outside links on the cheat sheets all point at English-language sites, and every sheet cites the Victorian Curriculum, which is Australian. Worth knowing if you teach to a different syllabus.',
 
   privacyHeading: 'Student privacy',
   privacyBody1:
@@ -119,6 +119,6 @@ export const en = {
 /**
  * The shape every other locale must match. Derived from the English, the same
  * way `Dictionary` is derived from the English dictionary, so adding a key
- * here is a compile error in the other four files until they carry it too.
+ * here is a compile error in the other five files until they carry it too.
  */
 export type TeachersCopy = Translated<typeof en>;

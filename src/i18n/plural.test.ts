@@ -17,6 +17,7 @@ import {
   selectPlural,
   type PluralForms,
 } from './format';
+import { requiredPluralCategories } from '@/test-utils/i18n-parity';
 import { en } from './dictionaries/en';
 import { de } from './dictionaries/de';
 
@@ -68,6 +69,21 @@ describe('selectPlural', () => {
   it('falls back to other for a category the locale has not supplied', () => {
     // A Russian dictionary part-way through translation: `many` is missing, so
     // the reader gets `other` rather than "undefined".
+    //
+    // This is deliberately NOT what the build does. `describePluralCompleteness`
+    // in src/test-utils/i18n-parity.ts fails this exact record, and the two
+    // disagree on purpose:
+    //
+    //   * At runtime a half-translated page must still render. A slightly
+    //     wrong plural is a far better outcome for the reader in front of it
+    //     than a crash or the literal word "undefined".
+    //   * At build time the same record is simply wrong, and nobody would ship
+    //     it knowingly. Left to the runtime alone it is invisible: every
+    //     parity gate passes, because no key is missing, nothing is empty,
+    //     nothing matches the English and every placeholder survives — while
+    //     the reader sees "2 книги / 5 книги / 25 книги", wrong twice.
+    //
+    // Degrade for the reader; refuse for the author.
     const partial: PluralForms = { one: '{count} книга', other: '{count} книги' };
     expect(selectPlural('ru', partial, 5)).toBe('{count} книги');
   });
@@ -120,6 +136,65 @@ describe('isPluralForms', () => {
       const seen = new Set<string>();
       for (let n = 0; n <= 120; n++) seen.add(new Intl.PluralRules(locale).select(n));
       for (const category of seen) expect(PLURAL_CATEGORIES).toContain(category);
+    }
+  });
+});
+
+describe('requiredPluralCategories', () => {
+  // The derivation the build-time gate rests on. Worth its own tests, because
+  // a gate that quietly required too little would be indistinguishable from
+  // no gate at all — which is the situation this whole exercise is fixing.
+
+  it('asks English and German for one and other', () => {
+    expect(requiredPluralCategories('en')).toEqual(['one', 'other']);
+    expect(requiredPluralCategories('de')).toEqual(['one', 'other']);
+  });
+
+  it('asks Russian for all four, which is the point', () => {
+    expect(requiredPluralCategories('ru')).toEqual(['few', 'many', 'one', 'other']);
+  });
+
+  it('does not ask the Romance locales for a millions form', () => {
+    // fr/es/it each *declare* a `many` category, so a gate reading
+    // `resolvedOptions().pluralCategories` straight off would fail all three
+    // shipped locales on day one. The smallest integer that selects it is a
+    // million — it is the compact-decimal rule ("1,5 million de livres") —
+    // and nothing on this site counts to a million.
+    for (const locale of ['fr', 'es', 'it']) {
+      expect(new Intl.PluralRules(locale).resolvedOptions().pluralCategories).toContain('many');
+      expect(new Intl.PluralRules(locale).select(1_000_000)).toBe('many');
+      expect(requiredPluralCategories(locale)).toEqual(['one', 'other']);
+    }
+  });
+
+  it('always requires other, even where no whole number selects it', () => {
+    // Russian is the example: every integer is one/few/many and only a
+    // fraction (1.5) is `other`. It is still required — it is the type's only
+    // mandatory form and the fallback selectPlural() leans on.
+    for (let n = 0; n <= 1000; n++) expect(new Intl.PluralRules('ru').select(n)).not.toBe('other');
+    expect(new Intl.PluralRules('ru').select(1.5)).toBe('other');
+    expect(requiredPluralCategories('ru')).toContain('other');
+  });
+
+  it('rejects the record the runtime fallback tolerates', () => {
+    // The two halves of the disagreement, side by side. This is the exact
+    // record `selectPlural` above is asserted to render rather than crash on,
+    // and the exact record the build-time gate must refuse.
+    const partial: PluralForms = { one: '{count} книга', other: '{count} книги' };
+    const missing = requiredPluralCategories('ru').filter((c) => !(c in partial));
+    expect(missing).toEqual(['few', 'many']);
+
+    // ...and it is not refused for German, which genuinely needs only two.
+    const german: PluralForms = { one: '{count} Thema', other: '{count} Themen' };
+    expect(requiredPluralCategories('de').filter((c) => !(c in german))).toEqual([]);
+  });
+
+  it('never asks for a category the locale does not have', () => {
+    for (const locale of ['en', 'de', 'fr', 'es', 'it', 'ru', 'cy', 'ar', 'pl', 'ja']) {
+      const declared = new Intl.PluralRules(locale).resolvedOptions().pluralCategories;
+      for (const category of requiredPluralCategories(locale)) {
+        expect(declared).toContain(category);
+      }
     }
   });
 });

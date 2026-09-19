@@ -141,6 +141,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct.',
     },
     {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every German page. Terms are taken from docs/i18n/glossary-de.md. Two calls to check: **Fällung** is the bare noun, matching the English badge\'s register, where the glossary\'s full phrase is *Fällungsreaktion*; and **Redox** is left as the international term, which is what a German textbook writes (*Redoxreaktion*). *Säure-Base* is the compact form of *Säure-Base-Reaktion*.',
+    },
+    {
       prefix: 'games.reactionBalancer.card',
       confidence: 'high',
       note: 'Accessible names for the coefficient controls. The literal "Add one water" cannot be translated with an article, because the compound name that fills the placeholder can be any gender ("Ein Schwefelsäure mehr" is wrong). The German uses a verb instead — "{name} erhöhen" / "{name} verringern" — which is gender-free and reads better on a screen reader.',
@@ -276,14 +281,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Chemie-Sortierer" is a coinage for "Chemical Classifier". Understandable, but check it does not sound like a machine for sorting chemicals.',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'medium',
-      note: 'German mirrors English\'s two tiers rather than picking one word: **"ungepaartes Elektron"** is the formal term (glossary, cheat sheet, prose), **"Einzelelektron"** is the game word (hub line, coach, hints, canvas), and **"einzeln"** is the short label on a dot. "Einzelelektron" is a real chemistry compound noun, transparent to a 14-year-old, and unambiguously about an electron. **It replaced "Einzelgänger", which was rejected:** that is a word for a *person* (a lone wolf), so it reads as cute rather than chemical, and German has no playful register for this the way English does for "loner". The remaining risk is register, not accuracy: a teacher may want the textbook term throughout.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"ungepaartes Elektron"** — the term fixed in docs/i18n/glossary-de.md, and since 2026-09-19 the *only* name the game gives the concept. The two-tier scheme is gone: the game word "Einzelelektron" and the short dot label "einzeln" were both dropped, and the textbook term now runs through the hub line, every coach line, every hint, the glossary and the canvas legend. **Re-rated low-risk from medium**, and the reason is not confidence creep: the old rating was about a *coinage* the project had invented, and there is no longer a coinage to rate — this is the phrase a German textbook prints. The rejected nickname and the argument against "Einzelgänger" are kept in docs/i18n/glossary-de.md so nobody re-proposes them. What a reviewer should check is inflection rather than vocabulary: the phrase is neuter and both words decline (ein ungepaartes Elektron / einem ungepaarten Elektron / zwei ungepaarte Elektronen), and the five forms the copy actually uses are listed in `glossary.unpairedElectron.matches`.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'medium',
-      note: 'The label printed on a pulsing dot at Level 1 (off from Level 2 — the scaffold is meant to be removed). "einzeln" rather than the full "Einzelelektron" because it has to fit beside a dot: it is the adjective, and the noun it abbreviates is on screen in the coach line and in the glossary. Check it reads as "on its own" rather than "individually" in context.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "ungepaartes Elektron", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. That is what makes the full phrase possible. Measured in the page at `text-[9px]` uppercase, "ungepaartes Elektron" is **125 px** where a per-dot label had about 44 px (the dots sit 50 px apart), so no abbreviation of it could have fitted — the longest single word, *ungepaartes*, is still 72 px. **Re-rated from medium**: it is the same glossary term as the entry above, in a position with no length limit. Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'games.lewisStructures.glossary.duet',
@@ -450,6 +455,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Uses the glossary terms réactifs / produits / coefficient / indice / bilan des atomes / équilibrer. One open question for a teacher: the current French programme prints *ajuster* where students and teachers say *équilibrer*. The glossary picked *équilibrer* because the game shows a balance beam and because it pairs with "équation équilibrée"; if the audience\'s textbook says *ajuster*, that is a one-word change across this namespace.',
     },
     {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every French page. Terms are taken from docs/i18n/glossary-fr.md, including the *déplacement* pair the glossary picked over *échange*. Two French-specific calls to check: **Oxydoréduction** rather than the clipped « rédox » — it is what a textbook names the class, and the badge has room — and **Combustion**, which is spelled exactly as the English and is therefore allowlisted as identical by design. *Précipitation* is the compact badge form of *réaction de précipitation*.',
+    },
+    {
       prefix: 'games.reactionBalancer.coach',
       confidence: 'medium',
       note: 'These carry the French article device. A name placeholder cannot take an article, because French picks it from the name\'s gender and first letter (l\'oxygène but le carbone), so the templates say "l\'élément {element}" — which is safe for every element, since every French element name is masculine. It is correct and slightly more roundabout than the English. coach.multiple also ends "À vérifier maintenant : {broken}", a colon label, for the same reason.',
@@ -517,7 +527,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.coach',
       confidence: 'medium',
-      note: 'Almost every line here opens "{atom} : …". That is the article device again: "L\'oxygène a encore 2 solitaires" needs an article the placeholder cannot supply, and a bare "Oxygène a encore…" is not French. A name followed by a colon is idiomatic in a UI and works for every substitution. Worth a native read for rhythm — it is correct, but it is a repeated shape.',
+      note: 'Almost every line here opens "{atom} : …". That is the article device again: "L\'oxygène a encore 2 électrons célibataires" needs an article the placeholder cannot supply, and a bare "Oxygène a encore…" is not French. A name followed by a colon is idiomatic in a UI and works for every substitution. Worth a native read for rhythm — it is correct, but it is a repeated shape.',
     },
 
     // -------------------------------------------------------------- medium --
@@ -634,14 +644,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Unlike German, this does not coin a name for the classifier: it reuses the game\'s own title ("Comment jouer : Acide ou base ?"), which avoids the "sounds like a machine" problem "Chemie-Sortierer" ran into.',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: 'French gets its own two-tier pair rather than calquing English or German: **"électron célibataire"** is the formal term (glossary, cheat sheet, prose), **"solitaire"** is the game word (hub line, coach, hints, canvas), and **"seul"** is the short label on a dot. The interesting difference from German is that French\'s *formal* term is already the vivid one — *célibataire* is what a French textbook says about a radical — so *solitaire* had to be the second tier rather than the first. **Rejected: "célibataire" as the game word** (collapses the two tiers the game is built on, and the scaffold stops being a scaffold), **"orphelin"** (a word for a child, cute rather than chemical — the same objection German raised against "Einzelgänger"), **"solo"** (right register, too slangy, and says nothing about pairing) and **"dépareillé"** (the best idea of the four — it is the everyday word for "not part of a matching pair" — but it does not nominalise, and the coach lines need a noun). The risk is register, not accuracy: a teacher may want *célibataire* throughout and read *solitaire* as a sloppy synonym rather than a deliberate second tier. If it changes, the edit touches every line of this game.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"électron célibataire"** — the term fixed in docs/i18n/glossary-fr.md, and since 2026-09-19 the *only* name the game gives the concept. The game word "solitaire" and the dot label "seul" were both dropped. French loses least of the six by this change and arguably gains: its formal term was always the vivid one — *célibataire* is what a French textbook says about a radical — so the second tier had been the weaker half of the pair from the start, and the register worry that held this row at **low** (a teacher reading *solitaire* as sloppiness) is now gone entirely. **Re-rated from low.** The rejected candidates (orphelin, solo, dépareillé) stay recorded in docs/i18n/glossary-fr.md. One thing that changed underfoot and is worth knowing: the tap-to-explain matcher now uses `\\p{L}` lookarounds instead of an ASCII `\\b`, so `électron célibataire` is usable as a match word in full — the constraint that once forced French phrases off *électron* onto a later word no longer applies here.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'low',
-      note: 'The label printed on a pulsing dot at Level 1 (off from Level 2 — the scaffold is meant to be removed). "seul" rather than the full "solitaire" because it has to fit beside a dot: four characters, and it is the adjective of the same idea. Check it reads as "on its own" rather than "only" in context.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "électron célibataire", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. Measured in the page at `text-[9px]` uppercase, "électron célibataire" is **116 px** where a per-dot label had about 44 px (the dots sit 50 px apart); the longest single word, *célibataire*, is 63 px, so letting it wrap would not have saved it either. **Re-rated from low.** Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'privacy',
@@ -798,6 +808,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Uses the glossary terms reactivos / productos / coeficiente / subíndice / recuento de átomos / ajustar. **The one thing to check is the variety, not the translation:** Spain says *ajustar una ecuación* and Latin America says *balancear*. It is the single most visible es-ES marker on the site, it appears in this namespace dozens of times, and the decision is argued at the top of glossary-es.md.',
     },
     {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every Spanish page. Terms are taken from docs/i18n/glossary-es.md, including the es-ES *desplazamiento* pair the glossary argues for over *sustitución*. **Rated medium** for the same reason the glossary rates that pair medium, and because *Ácido-base* and the bare *Precipitación* are the compact badge forms rather than the full *reacción ácido-base* / *reacción de precipitación*.',
+    },
+    {
       prefix: 'games.reactionBalancer.coach',
       confidence: 'medium',
       note: 'These carry the Spanish article device. A name placeholder cannot take an article, because Spanish picks it from the name\'s gender (*el oxígeno* but *la glucosa*) and because *de + el* contracts obligatorily to *del* — so even "de {name}" is unsafe. The templates say "el elemento {element}", which works for **every** element including *la plata*, because the article agrees with *elemento* and the name sits in apposition. That is a stronger guarantee than the French version of the same device, which relies on every French element name being masculine.',
@@ -855,7 +870,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.glossary.lonePair',
       confidence: 'high',
-      note: '"par solitario" is the Spanish school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it is unavailable as the game\'s word for a single unpaired electron — see games.lewisStructures.glossary.loner. The formal alternative *par no enlazante* is glossed once where the Lewis sheet defines the idea and is not used as a second name in running text.',
+      note: '"par solitario" is the Spanish school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it can never name a single unpaired electron anywhere in this game — see games.lewisStructures.glossary.unpairedElectron. That constraint outlived the game word it originally decided, and still binds any new Spanish wording near this term. The formal alternative *par no enlazante* is glossed once where the Lewis sheet defines the idea and is not used as a second name in running text.',
     },
     {
       prefix: 'games.lewisStructures.glossary.sharedPair',
@@ -1002,14 +1017,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"¡Tanda completa!" for "Batch complete!". *Tanda* is the right word for a batch, but as a two-word celebration it may read as flat rather than triumphant. The same problem German hit with "Charge fertig!" and French with "Série terminée !".',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: '**Spanish gets its own two-tier pair, and one option was ruled out on chemistry rather than taste.** "electrón desapareado" is the formal term (glossary, cheat sheet, prose), **"impar"** is the game word (hub line, coach, hints, canvas), and *impar* is also the label on a dot. **"solitario" — the French answer — is unavailable**, because Spanish already calls a lone pair a *par solitario*: in the one game that teaches the difference between one unpaired electron and two that stay together, "quedan 2 solitarios" and "quedan 2 pares solitarios" would be adjacent coach lines differing by one word and meaning opposite things. *Impar* is exactly the chemistry ("not one of a pair"), it nominalises (*un impar*, *los impares*), it is five ASCII characters, and it hands the game a root the other three languages do not have: *empareja los impares para formar pares*. **Rejected: "libre"** (*electrón libre* already means a delocalised electron, which the bonding sheet teaches on this same site), **"suelto"** (good, but the bare noun *los sueltos* is Spanish for loose change and the coach lines need the bare noun), **"soltero"** (the literal analogue of French\'s *célibataire*, but Spanish chemistry does not use it and it reads as a joke about bachelors) and **"desparejado"** (the best of them — the everyday word for an odd sock — but twelve characters is too long for a dot label and too heavy to repeat three times a sentence). The risk is register, not accuracy: *impar* is also the everyday word for an **odd number**, so a reader meeting it cold beside a dot may hear "number 3" rather than "unpaired". Check it with a real teenager. If it changes, the edit touches every line of this game.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"electrón desapareado"** — the term fixed in docs/i18n/glossary-es.md, and since 2026-09-19 the *only* name the game gives the concept. The game word "impar", which was also the dot label, was dropped. **Re-rated from low**, and this row moves further than any other: what was rated low was specifically the risk that *impar* is the everyday word for an **odd number** and that a fourteen-year-old meeting it beside a pulsing dot would hear "number 3" before "unpaired". That risk is removed rather than mitigated, because the word is gone. **The collision warning behind the original choice is still true and still binds anything written near this term:** Spanish calls a lone pair a *par solitario*, so *solitario* can never name a single unpaired electron in this game, and *electrón libre* already means a delocalised electron. Both are recorded in docs/i18n/glossary-es.md. The remaining check is length, not sense: *electrón desapareado* is the longest of the six formal terms after Russian\'s, and it now appears in coach lines that previously carried a five-letter word.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'low',
-      note: 'The label printed on a pulsing dot at Level 1, off from Level 2 — the scaffold the brief removes on purpose. It is the **same word** as the game word, and that is a fact about Spanish rather than a shortcut: German shortened the noun *Einzelelektron* to the adjective *einzeln* and French shortened *solitaire* to *seul*, but in Spanish the game word already **is** the adjective (*electrón impar* → *impar*), so there is nothing to shorten to and a third word would invent a distinction Spanish does not make. Five characters. Check it reads as "odd one out" beside a single dot.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "electrón desapareado", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. This retires the Spanish-specific argument that used to live here — that Spanish had nothing to shorten to, because its game word already *was* the adjective — since nothing needs shortening any more. Measured in the page at `text-[9px]` uppercase, "electrón desapareado" is **126 px** where a per-dot label had about 44 px (the dots sit 50 px apart); the longest single word, *desapareado*, is 73 px. **Re-rated from low.** Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'privacy',
@@ -1156,6 +1171,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Uses the glossary terms reagenti / prodotti / coefficiente / pedice / conteggio degli atomi / bilanciare. There is no variety decision to make here and no collision to dodge - the namespace that was hardest in French (indice) and in Spanish (ajustar/ajustes) is the straightforward one in Italian.',
     },
     {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every Italian page. Terms are taken from docs/i18n/glossary-it.md, including the *scambio* pair Italian school chemistry teaches in preference to *spostamento*. **Rated medium** for the same reason the glossary rates that pair medium, and because *Acido-base* and the bare *Precipitazione* are the compact badge forms rather than the full *reazione acido-base* / *reazione di precipitazione*.',
+    },
+    {
       prefix: 'games.reactionBalancer.coach',
       confidence: 'medium',
       note: 'These carry the Italian article device, and Italian needs it more than either of the other two Romance locales. A name placeholder cannot take an article, because Italian picks it from gender *and* the sound the name starts with (*il carbonio*, but *lo zolfo* and *l’ossigeno*) and because every preposition contracts obligatorily (*del*, *dello*, *dell’*). The templates say "l’elemento {element}", which is **safer in Italian than the Spanish version of the same device**: *elemento* is masculine and begins with a vowel, so the article is always l’ and each preposition contracts to exactly one form. There is no branch left to get wrong. Correct and slightly more roundabout than the English; worth a native read for rhythm.',
@@ -1223,7 +1243,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.glossary.lonePair',
       confidence: 'high',
-      note: '"doppietto solitario" is the Italian school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it is unavailable as the game’s word for a single unpaired electron - see games.lewisStructures.glossary.loner. Note the collision does not depend on which phrasing a textbook prints: the other common one, *coppia solitaria*, uses the same adjective. *Doppietto libero* and *doppietto non condiviso* are also in circulation, and the first of those is a second reason *libero* is unavailable.',
+      note: '"doppietto solitario" is the Italian school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it can never name a single unpaired electron anywhere in this game - see games.lewisStructures.glossary.unpairedElectron. That constraint outlived the game word it originally decided, and still binds any new Italian wording near this term. Note the collision does not depend on which phrasing a textbook prints: the other common one, *coppia solitaria*, uses the same adjective. *Doppietto libero* and *doppietto non condiviso* are also in circulation, and the first of those is a second reason *libero* is unavailable.',
     },
     {
       prefix: 'games.lewisStructures.glossary.sharedPair',
@@ -1248,7 +1268,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.coach',
       confidence: 'medium',
-      note: 'Almost every line here opens "{atom}: ...". That is the article device again: "L’ossigeno ha ancora 2 dispari" needs an article the placeholder cannot supply, and a bare "Ossigeno ha ancora..." is not Italian. A name followed by a colon is idiomatic in a UI and works for every substitution. Note coach.sameGroup also became a colon label for the same reason, where the Spanish version left the name as a bare subject. Worth a native read for rhythm - it is correct, but it is a repeated shape.',
+      note: 'Almost every line here opens "{atom}: ...". That is the article device again: "L’ossigeno ha ancora 2 elettroni spaiati" needs an article the placeholder cannot supply, and a bare "Ossigeno ha ancora..." is not Italian. A name followed by a colon is idiomatic in a UI and works for every substitution. Note coach.sameGroup also became a colon label for the same reason, where the Spanish version left the name as a bare subject. Worth a native read for rhythm - it is correct, but it is a repeated shape.',
     },
     {
       prefix: 'games.lewisStructures.inspect.classmate',
@@ -1357,7 +1377,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'gamesHub.lewisTitle',
       confidence: 'low',
-      note: '"Condividi e completa" - GAMES.md asks for "a phrase that names the rule in that language", and two short imperatives do that. Runner-up "Accoppia e completa" names the *mechanic* (pairing the dispari) rather than the *rule* (sharing to fill a shell), which is a real argument for it; it was dropped because the rule is what the game teaches and the mechanic is what it shows. Rejected: "Condividi per completare" (calque; the purpose clause is clumsy) and "A due a due" (memorable, loses the filling half of the rule).',
+      note: '"Condividi e completa" - GAMES.md asks for "a phrase that names the rule in that language", and two short imperatives do that. Runner-up "Accoppia e completa" names the *mechanic* (pairing the unpaired electrons) rather than the *rule* (sharing to fill a shell), which is a real argument for it; it was dropped because the rule is what the game teaches and the mechanic is what it shows. Rejected: "Condividi per completare" (calque; the purpose clause is clumsy) and "A due a due" (memorable, loses the filling half of the rule).',
     },
     {
       prefix: 'gamesHub.bondsTitle',
@@ -1385,14 +1405,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Serie completata!" for "Batch complete!". Italian lab Italian for a batch is *lotto* or *partita*; neither is the celebratory register the English has, and *partita* is already this dictionary’s word for one run of a game. The same problem German hit with "Charge fertig!", French with "Serie terminee !" and Spanish with "Tanda completa!".',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: '**Italian gets its own two-tier pair, and three options were ruled out on chemistry rather than on taste.** "elettrone spaiato" is the formal term (glossary, cheat sheet, prose), **"dispari"** is the game word (hub line, coach, hints, canvas), and *dispari* is also the label on a dot. **"solitario" - the French answer - is unavailable**, because Italian already calls a lone pair a *doppietto solitario* (and *coppia solitaria*, same adjective): in the one game that teaches the difference between one unpaired electron and two that stay together, "restano 2 solitari" and "restano 2 doppietti solitari" would be adjacent coach lines differing by one word and meaning opposite things. **"libero" is unavailable twice over** (*doppietto libero* is also a lone pair, *elettroni liberi* are the delocalised ones the bonding sheet teaches), and **"singolo" is unavailable** because *legame singolo* is the single bond, taught three lines away in this same game. *Dispari* is exactly the chemistry (*dis-* + *pari*, "not one of a pair"), it is real usage for a radical, it nominalises (*un dispari*, *i dispari*), it is entirely ASCII, and it is **invariant** - which in a language where a flat count string cannot agree with its number is worth a great deal. **Rejected: "solo"** (four characters, and it would have fixed the dot-label width - but the bare plural *i soli* is Italian for "the suns" and the coach lines need the bare noun constantly), **"spaiato" as the game word** (that is the formal term, and using it everywhere would collapse the two tiers the game is built on; it is the closest call here, and it is the word to collapse onto if the owner decides Italian does not need two tiers), **"scompagnato"** (the everyday word for an odd sock, the best of the rejected ideas, but eleven characters) and **"celibe"** (the literal analogue of French’s *celibataire*, but Italian chemistry does not use it and it would read as a joke). The risk is register, not accuracy: *dispari* is also the everyday word for an **odd number**, and in Italian that is doubly salient because *pari o dispari* is a children’s game. Check it with a real teenager. If it changes, the edit touches every line of this game.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"elettrone spaiato"** — the term fixed in docs/i18n/glossary-it.md, and since 2026-09-19 the *only* name the game gives the concept. The game word "dispari", which was also the dot label, was dropped. **Re-rated from low.** The glossary note had already called *spaiato* "the closest call here, and the word to collapse onto if the owner decides Italian does not need two tiers" — that is exactly what has happened, so this is the outcome the Italian analysis predicted rather than a new decision. The register risk that held the row at low is removed with the word: *dispari* is also the everyday term for an odd number, doubly salient in Italian because *pari o dispari* is a children\'s game. **The three collisions that ruled out the alternatives are still true and still bind anything written near this term:** *doppietto solitario* and *doppietto libero* are both lone pairs, *elettroni liberi* are the delocalised ones, and *legame singolo* is the single bond taught three lines away in this same game. All are recorded in docs/i18n/glossary-it.md.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'low',
-      note: 'The label printed on a pulsing dot at Level 1, off from Level 2 - the scaffold the brief removes on purpose. It is the **same word** as the game word, and that is a fact about Italian rather than a shortcut: German shortened the noun *Einzelelektron* to the adjective *einzeln* and French shortened *solitaire* to *seul*, but in Italian the game word already **is** the adjective (*elettrone dispari* -> *dispari*), so there is nothing to shorten to. **The honest cost is width:** seven characters, which is the German (EINZELN) end of the range the pre-existing Lewis layout note describes, where French’s SEUL clears it and Spanish’s IMPAR sits between. That was weighed rather than discovered - the only shorter Italian candidate is *solo*, rejected above - and checked on screen at 360 px.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "elettrone spaiato", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. The width cost this row used to record honestly — seven characters, at the German end of the old range — is gone with the per-dot label. Measured in the page at `text-[9px]` uppercase, "elettrone spaiato" is **102 px**, the shortest of the six formal terms, but still more than twice the ~44 px a per-dot label had (the dots sit 50 px apart). **Re-rated from low.** Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'privacy',
@@ -1413,6 +1433,378 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'teachers.supportBody',
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *ente benefico riconosciuto*. *Donazione* and *donare* were avoided in favour of *sostenere* and *contribuire* for exactly that reason. Not legal review either — whether the sentence about detraibilità is phrased the way an Italian reader expects has not been checked.',
+    },
+  ],
+  ru: [
+    // ---------------------------------------------------------------- high --
+    {
+      prefix: 'common',
+      confidence: 'high',
+      note: 'Everyday UI words with unambiguous Russian equivalents.',
+    },
+    {
+      prefix: 'nav',
+      confidence: 'high',
+      note: 'Standard navigation vocabulary. "Шпаргалки" for cheat sheets is the natural Russian school word and exactly the right register for teenagers - the same call German made with Spickzettel. "Выходим…" for "Logging out" is first person plural rather than a past tense, because a Russian past tense agrees with the reader\'s gender.',
+    },
+    {
+      prefix: 'nav.menu',
+      confidence: 'high',
+      note: '"Меню" is the ordinary Russian word. "Меню сайта" names the panel for a screen reader.',
+    },
+    {
+      prefix: 'language',
+      confidence: 'high',
+      note: 'Switcher labels; short and unambiguous. The locale names itself "Русский".',
+    },
+    {
+      prefix: 'auth',
+      confidence: 'high',
+      note: 'Standard sign-in vocabulary. "Пароль" rather than a Latin "Password" - Russian transliterates loanwords rather than keeping them, which is why this locale needs far fewer identical-by-design exemptions than Italian did. The placeholder email uses a Cyrillic .рф domain.',
+    },
+    {
+      prefix: 'feedback',
+      confidence: 'high',
+      note: '"Отзыв" for feedback; the category labels are plain nouns (Ошибка / Данные / Идея).',
+    },
+    {
+      prefix: 'settings',
+      confidence: 'high',
+      note: 'Standard settings vocabulary.',
+    },
+    {
+      prefix: 'settings.useGlobal',
+      confidence: 'medium',
+      note: 'Rendered "Как везде" rather than a literal "Использовать общие": shorter, and it says what it does. settings.overrideHelp quotes the same wording inside guillemets, so the two must change together.',
+    },
+    {
+      prefix: 'footer',
+      confidence: 'high',
+      note: 'Short; the tagline is a free rendering rather than word-for-word, which suits a tagline. "без зубрёжки" (without rote learning) is an idiom a Russian fourteen-year-old uses about school.',
+    },
+    {
+      prefix: 'yearLevels',
+      confidence: 'high',
+      note: '"7 класс" … "10 класс" and "Старшие классы" are the Russian school-year labels. Note the stored value stays the English "Year 9"; only the label is translated. The site\'s Year 9-10 audience is 8-9 класс in the Russian system, which is what the SEO keywords say.',
+    },
+    {
+      prefix: 'chemistry',
+      confidence: 'high',
+      note: 'Fixed in docs/i18n/glossary-ru.md. **"Base" is "Основание", never "база"** - "база" in Russian is a base of operations or a database. German, French, Spanish and Italian all allowlist this key as identical to the English; Russian is the one locale where it is a real translation, and getting it wrong would be the most visible chemistry error on the site.',
+    },
+    {
+      prefix: 'games.shared',
+      confidence: 'high',
+      note: 'Short in-game controls. "Уровень" rather than the gamer loan "левел"; "Счёт" for score. Every count string here is invariant by construction: the numeral follows the noun ("Уровень {level}"), so it governs nothing.',
+    },
+    {
+      prefix: 'games.shared.hint',
+      confidence: 'medium',
+      note: '"Подсказка" is the right word and it is long (10 characters) for the header badge. Check it fits at 360 px next to the level and score readouts.',
+    },
+    {
+      prefix: 'profileToggles',
+      confidence: 'high',
+      note: 'Switch labels; plain imperative-free noun phrases.',
+    },
+    {
+      prefix: 'serverMessages',
+      confidence: 'high',
+      note: 'Validation and error copy. Two of these are the hardest invariant strings on the site: aliasLength and feedbackMessageTooLong both count characters, and the natural Russian ("от 3 до 20 символов") is wrong at 21. Both were rewritten as colon labels with the numerals last.',
+    },
+    {
+      prefix: 'cheatSheets',
+      confidence: 'high',
+      note: 'Index-page furniture. cheatSheets.count is a four-form plural record (one / few / many / other), which is the shape Russian needs and the reason the whole plural system was rebuilt before this locale was written.',
+    },
+    {
+      prefix: 'cheatSheets.forStudents',
+      confidence: 'high',
+      note: '"Для школьников" - the ordinary Russian word for secondary-school pupils, and gender-neutral in the plural.',
+    },
+    {
+      prefix: 'cheatSheets.forTeachers',
+      confidence: 'high',
+      note: '"Для учителей" - the plural is gender-neutral in Russian, so this needed none of the care German took with Lehrkräfte.',
+    },
+    {
+      prefix: 'games.reactionBalancer',
+      confidence: 'high',
+      note: 'Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов.',
+    },
+    {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badges, in the names a Russian textbook prints: Соединение, Разложение, Замещение, Обмен, Горение, Кислотно-основная, Осаждение. Note that Russian does *not* build "single/double displacement" as a pair the way English does - they are замещение and обмен, two unrelated words, and inventing "одинарное замещение" would be wrong. One collision worth knowing: "Соединение" is both "synthesis" and "a compound" in Russian. One word genuinely does both jobs; the badge sits above an equation, so it is unambiguous in place.',
+    },
+    {
+      prefix: 'games.reactionBalancer.reactionType.Redox',
+      confidence: 'low',
+      note: '"Окислительно-восстановительная" is thirty characters and the badge is CSS-uppercased - by far the longest string in a fixed-width control anywhere on the site. It is the word a Russian textbook prints. "Редокс" exists and would be five characters, but it is laboratory jargon rather than school vocabulary. **Check this on the rendered card at 360 px**, and if it will not fit, the question is whether to shorten the word or widen the badge.',
+    },
+    {
+      prefix: 'games.reactionBalancer.coach',
+      confidence: 'medium',
+      note: 'The coach lines are where case government bites hardest. English\'s "Which compound with {element} could you change?" needs the instrumental in Russian, and the overlay stores nominatives only, so it became "Измени вещество, в котором есть {elementInSentence}" - a relative clause, where the name is the subject and therefore nominative. That is Russian\'s own addition to the three placeholder shapes French, Spanish and Italian invented. It reads as ordinary Russian; check it does not read as evasive.',
+    },
+    {
+      prefix: 'games.reactionBalancer.card',
+      confidence: 'high',
+      note: 'Card controls and their accessible names. clustersA11y is a four-form plural record.',
+    },
+    {
+      prefix: 'games.reactionBalancer.challenge',
+      confidence: 'high',
+      note: 'The Challenge level. The wrong-side messages use a noun predicate ("{name} - продукт: …") rather than an adjective, because an adjective would have to agree with the gender of an interpolated compound name.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger',
+      confidence: 'medium',
+      note: '"Баланс атомов" is the game\'s own name for the tally table, chosen because it pairs with "уравнять". It is also why the game is titled "Весы реакций" and not "Баланс атомов" - the title would otherwise name a component of itself.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger.needsMoreLeft',
+      confidence: 'medium',
+      note: 'Invariant by construction: "слева не хватает: {count}". The natural Russian would put the numeral first and then have to decline what follows it.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger.needsMoreRight',
+      confidence: 'medium',
+      note: 'Same shape as needsMoreLeft, for the same reason.',
+    },
+    {
+      prefix: 'games.reactionBalancer.glossary',
+      confidence: 'high',
+      note: 'Tap-to-explain vocabulary. The match lists are two to three times longer than the German ones, because the matcher does not stem and Russian has six cases - every form the copy actually uses is listed, and game-messages.test.ts asserts the running text is covered.',
+    },
+    {
+      prefix: 'games.reactionBalancer.beam',
+      confidence: 'high',
+      note: '"Коромысло" is the beam of a balance, which is what the component draws.',
+    },
+    {
+      prefix: 'games.reactionBalancer.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column 1 is the physical key and is never translated; column 2 is Russian.',
+    },
+    {
+      prefix: 'games.formulaBlaster',
+      confidence: 'high',
+      note: 'Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb\'s object, so no case agreement is needed.',
+    },
+    {
+      prefix: 'games.neutralise',
+      confidence: 'high',
+      note: 'Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does.',
+    },
+    {
+      prefix: 'games.lewisStructures',
+      confidence: 'medium',
+      note: 'The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет.',
+    },
+    {
+      prefix: 'games.lewisStructures.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column 1 is the physical key and is never translated; column 2 is Russian.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.lonePair',
+      confidence: 'high',
+      note: '"Неподелённая электронная пара" is the Russian school term, short form "неподелённая пара". Note the ё, which the typography gate enforces.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.sharedPair',
+      confidence: 'high',
+      note: '"Общая электронная пара" is the Russian school term for both "shared pair" and "bonding pair"; there is deliberately no second word for the same thing.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.outerElectron',
+      confidence: 'high',
+      note: '"Внешний электрон" in running text with "валентный электрон" as the formal term, glossed together exactly as the English does.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.duet',
+      confidence: 'low',
+      note: '**Russian sits with German here, not with French.** French school chemistry already teaches "la règle du duet"; Russian has no settled word at all - it says "завершённый внешний уровень, как у гелия" or nothing. "Дублет" is a real Russian scientific word meaning a pair, so nothing was coined, but no Russian textbook uses it for hydrogen. The rejected alternative is "дуэт", the direct calque, which in Russian reads purely musical. A teacher may well prefer to drop the word.',
+    },
+    {
+      prefix: 'games.lewisStructures.counts',
+      confidence: 'high',
+      note: 'Four-form plural records for shared pairs, lone pairs and bonds. These are the strings that make the case for the whole CLDR rebuild: 1 связь / 2 связи / 5 связей are three different words, and no two-form shape can express them.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach',
+      confidence: 'medium',
+      note: 'Every coach line names an atom, and the overlay has only the nominative, so every one of them puts the name after a dash or a colon. "{atom} - {count} из 8" rather than English\'s "{atom} has {count} of 8". Grammatical and terse; check it does not read as clipped.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach.label',
+      confidence: 'medium',
+      note: '"Наставник" for the coach panel. It has to stay distinct from "подсказка", which is the hint ladder. "Тренер" is a sports coach and names a person; "коуч" is business jargon. Spanish and Italian reached the same place with Guía / Guida; German and French kept the English loanword, which Russian cannot.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.classmate',
+      confidence: 'high',
+      note: '"Рисунок одноклассника: {name}." - the colon keeps the molecule name out of the genitive the sentence would otherwise want.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.countWrong',
+      confidence: 'medium',
+      note: 'This is the string that generalises the Italian lesson one step further. Italian\'s bug was a participle agreeing with the *count*; the Russian danger is a past tense agreeing with the **reader** - "ты насчитал" is wrong for half the readers, with no placeholder involved at all. Rewritten as a noun phrase: "Твой ответ: {given}, а на самом деле {actual}."',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.countLabel',
+      confidence: 'medium',
+      note: '"Насчитано: {counted}" - impersonal, so nothing agrees with anything. {counted} arrives already pluralised.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.supportMode',
+      confidence: 'medium',
+      note: '"Режим поддержки" is transparent and matches the "Поддержка" heading in the settings panel.',
+    },
+    // -------------------------------------------------------------- medium --
+    {
+      prefix: 'home',
+      confidence: 'medium',
+      note: 'Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands.',
+    },
+    {
+      prefix: 'gamesHub',
+      confidence: 'medium',
+      note: 'Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card.',
+    },
+    {
+      prefix: 'leaderboards',
+      confidence: 'medium',
+      note: 'Leaderboard furniture. "Таблица лидеров" is the standard Russian phrase and it is long; check the nav at 360 px.',
+    },
+    {
+      prefix: 'leaderboards.firstResultTitle',
+      confidence: 'medium',
+      note: 'English\'s "Ready for your first result?" has no Russian rendering that keeps the adjective without choosing the reader\'s gender ("готов" / "готова"). Rewritten as a statement: "Первый результат ещё впереди". Same device Italian used with the headless relative, reached independently.',
+    },
+    {
+      prefix: 'profile',
+      confidence: 'medium',
+      note: 'Profile fields and the laboratory framing. The lab metaphor travels into Russian, but a native speaker should check "Карточка исследователя" reads as a profile rather than as a library card.',
+    },
+    {
+      prefix: 'games.acidClassification',
+      confidence: 'medium',
+      note: 'Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use.',
+    },
+    {
+      prefix: 'games.acidClassification.instructionsTitle',
+      confidence: 'medium',
+      note: 'Quotes the game title, so it changes with it.',
+    },
+    {
+      prefix: 'games.overlay',
+      confidence: 'medium',
+      note: 'The paused / game-over / level-up cards. English lab idiom ("Batch complete!", "Your reaction fizzled!") is the risk, not the vocabulary. Note victoryDescription is impersonal - "Все уровни пройдены" - because "ты прошёл" would be wrong for half the readers.',
+    },
+    {
+      prefix: 'games.overlay.statRoundValue',
+      confidence: 'medium',
+      note: 'The string Italian got wrong. "{count} верных" is wrong at 1 and wrong at 2 in different ways, so this is the colon label: "Верно: {count}". Nothing in it can agree with the number.',
+    },
+    {
+      prefix: 'meta',
+      confidence: 'medium',
+      note: 'Page titles and descriptions. Fine as copy; not optimised as search text.',
+    },
+    {
+      prefix: 'privacy',
+      confidence: 'low',
+      note: 'Privacy-policy prose. I am not a lawyer and this is not legal review: the Russian says what the English says, but the phrasing has not been checked against Russian data-protection conventions, and Russian personal-data law (152-ФЗ) has requirements this page does not address at all. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) - those names deliberately stay Latin inside Russian sentences, which is correct and reads oddly. If the site is ever actually offered to students in Russia, this page needs a review that is well out of scope for a translation pass.',
+    },
+    {
+      prefix: 'privacy.cookiesBody2',
+      confidence: 'medium',
+      note: 'The language-preference cookie this feature introduces had to be disclosed; the Russian follows the German, French, Spanish and Italian paragraphs rather than the original English.',
+    },
+    // ----------------------------------------------------------------- low --
+    {
+      prefix: 'meta.keywords',
+      confidence: 'low',
+      note: 'Keyword lists are chosen per language, not translated, and this one is plausible rather than researched. The one thing it gets deliberately right is the age band: Year 9-10 is 8-9 класс in the Russian system, and the list says so rather than a bare "химия в школе". Phase 1 shipped "Chemie Oberstufe" for this audience, which names ages 16-19.',
+    },
+    {
+      prefix: 'gamesHub.acidTitle',
+      confidence: 'low',
+      note: 'Chosen: «Кислота или основание?» - the question the game actually asks. Rejected: «Кислота или щёлочь?» (shorter, but щёлочь is a *soluble* base and the game also sorts ammonia and solid hydroxides) and «Определи вещество» (reads as a worksheet instruction). A product-naming call for the owner.',
+    },
+    {
+      prefix: 'gamesHub.blasterTitle',
+      confidence: 'low',
+      note: 'Chosen: «Охота на формулы» - an ordinary Russian noun phrase for a game, and it says what you do. Rejected: «Формула-бластер» (calque; "бластер" is a sci-fi loan that reads as English filler and says nothing about chemistry), «Лопни формулу» (truer to the popping mechanic, but the hub would then carry two imperative titles) and «Формулы на мушке» (vivid, too long for the card).',
+    },
+    {
+      prefix: 'gamesHub.neutraliseTitle',
+      confidence: 'low',
+      note: 'Chosen: «Нейтрализуй!» - the English is a deliberate imperative and Russian carries it directly. Rejected: «Нейтрализация» (a textbook chapter heading, which is the trap GAMES.md names) and «Ионная оборона» (reads more like a product, but drops the word the game teaches). GAMES.md\'s warning about titles that read as orders applies; this is the title most likely to be changed.',
+    },
+    {
+      prefix: 'gamesHub.balancerTitle',
+      confidence: 'low',
+      note: 'Chosen: «Весы реакций» - it names the beam the game draws, and a student can guess the chemistry from it. Rejected: «Балансировщик реакций», because **a "балансировщик" in Russian is a machine or a job** (a wheel balancer, a load balancer) - exactly the GAMES.md trap, and the same one Italian hit with "bilanciatore". Also rejected: «Уравняй реакцию» (a second imperative in the hub) and «Баланс атомов» (already this glossary\'s name for the ledger table inside the game).',
+    },
+    {
+      prefix: 'gamesHub.lewisTitle',
+      confidence: 'low',
+      note: 'Chosen: «Делись и заполняй» - names the rule in Russian as two short imperatives. Rejected: «Поделись, чтобы заполнить» (calque; the purpose clause is heavy and does not fit the card), «Пара к паре» (memorable, loses the "fill" half of the rule) and «Общая пара» (names the mechanic, reads as a glossary entry).',
+    },
+    {
+      prefix: 'gamesHub.bondsTitle',
+      confidence: 'low',
+      note: 'Chosen: «Химические связи». A topic name is the one case where the direct translation is the right answer; «Связи» alone is ambiguous (connections, contacts) and «Мир связей» is marketing.',
+    },
+    {
+      prefix: 'profile.defaultTitle',
+      confidence: 'low',
+      note: '"Исследователь" for the default scientist title. Correct, and possibly grander than a fourteen-year-old wants.',
+    },
+    {
+      prefix: 'profile.labNotesEmpty',
+      confidence: 'low',
+      note: 'A joke in English ("observing reactions in silence"). The Russian keeps the shape; whether it is funny in Russian is a native speaker\'s call.',
+    },
+    {
+      prefix: 'leaderboards.noData',
+      confidence: 'low',
+      note: '"Здесь ещё ничего не синтезировали" keeps the lab pun. "Будь первым!" is masculine-agnostic as an imperative, which is why it was chosen over a construction with an adjective.',
+    },
+    {
+      prefix: 'games.overlay.levelUpSubtitle',
+      confidence: 'low',
+      note: '"Партия готова!" for "Batch complete!" - lab idiom, translated as lab idiom. This is the kind of line the German review rates low for exactly this reason.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"неспаренный электрон"** — the term fixed in docs/i18n/glossary-ru.md, and since 2026-09-19 the *only* name the game gives the concept. Both the game word «одиночка» and the separate canvas label «соло» were dropped, so Russian goes from three words for one idea to one. **Re-rated from low**, and this row moves the furthest of the thirty: what was rated low, and flagged for *both* a native speaker and a teacher, was whether a noun Russian also uses for a person (мать-одиночка) reads as chemical rather than cute. That question no longer exists. **The four collisions that ruled out the alternatives remain true and still bind anything written near this term:** *свободный* is taken twice over (*свободная электронная пара* is a lone pair, *свободные электроны* are the delocalised ones in a metal), *одинокая пара* circulates as a calque of *lone pair*, and *одиночный* is one suffix from *одинарная связь*, the single bond this game teaches three levels later. All are recorded in docs/i18n/glossary-ru.md. What a reviewer should check now is inflection, not vocabulary: both words decline, the count forms are 1 неспаренный электрон / 2 неспаренных электрона / 5 неспаренных электронов, and the eleven case forms the copy uses are listed in `glossary.unpairedElectron.matches` — more than any other locale carries, which is what the parity gate\'s `matches` exemption exists for.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "неспаренный электрон", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. **This retires the measurement that made Russian a special case.** The 44 px budget was real, but it was a constraint on repeating a label beside every dot 50 px from its neighbour — not a limit on how long the term may be; once the label is said once, the length stops mattering. Measured in the page at `text-[9px]` uppercase, "неспаренный электрон" is **134 px**, the widest of the six, and it now sits on a 312 px line at 360 px viewport with room to spare. Russian no longer needs a third word where the other locales have one. **Re-rated from low.** Checked on screen at 360 px and on desktop.',
+    },
+
+    // --------------------------------------------------------- teachers --
+    {
+      prefix: 'teachers',
+      confidence: 'low',
+      note: '**The one namespace on the site that uses «вы».** Everything else uses «ты», and that is no longer provisional — the owner fixed it on 2026-09-19 and docs/i18n/glossary-ru.md records the reason: the readers are 14 to 16, and вы turns «Stuck? Press the lightbulb» into an invigilator. **That reason is scoped to copy a student reads, and it does not reach this page**, which is written for the adult deciding whether to put the site in front of a class; ты to a Russian teacher is not friendly, it is rude. The four Latin locales made the same departure (Sie / vous / usted / Lei). Two things for a native reviewer, and they are why the whole namespace is rated low rather than particular strings. First, the departure itself — the site now mixes the two registers on purpose. Second, **lower-case вы rather than Вы**: the capital is for writing to one named person, and this page addresses teachers as a class on a public page, but plenty of Russian institutional copy capitalises it anyway. A slip is audible either way: вы takes second-person plural, so the imperatives here are пройдите, нажмите, выберите, напишите, начните, and a single нажми would be heard. **A third thing has no counterpart in the Latin locales:** this is the only page where the *author* speaks in the first person, and a Russian past tense agrees with its subject’s gender, so «я бы не смог» would be wrong for the site’s owner in the same way «ты насчитал» is wrong for half the readers. Every such sentence is present tense, future tense or impersonal. Terminology is settled: шпаргалка, подсказка, наставник, счёт, таблица лидеров, псевдоним (glossary); **неспаренный электрон** and **неподелённая пара**, the formal terms — correct here because this page explains rather than instructs, and since 2026-09-19 the only names the site gives those ideas anywhere; **основание**, never «база»; and **8–9 класс** for the year band, never «старшие классы», which names 10–11 класс, ages 16–18 — the same mistake German shipped once as «Oberstufe», and gated in teachers.test.ts.',
+    },
+    {
+      prefix: 'teachers.languagesBody',
+      confidence: 'medium',
+      note: '**Re-checked against the repository rather than translated from the English of the day.** `languagesBody1` says **six** languages and names Russian, which is now true; the same correction was made in the other five locale files and in `meta.teachersDescription`. `languagesBody3` used to say Russian was planned and had not shipped — false from the moment this locale landed — so the slot now carries a caveat that is true and that a teacher actually needs (docs/i18n/README.md § Known gaps): the cheat sheets’ outside links are all English-language sites, and every sheet cites the Victorian Curriculum. «Victorian Curriculum» stays Latin, like the Privacy Act and the OAIC on the privacy page — translating the name of a syllabus makes it impossible to look up. Medium rather than low: the register question that rates the rest of the namespace low applies here too, but the facts are checked.',
+    },
+    {
+      prefix: 'teachers.supportBody',
+      confidence: 'low',
+      note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person’s project and not a зарегистрированный благотворительный фонд. **Two Russian words were deliberately not used.** «Пожертвование» belongs to charities and to almsgiving and would claim a status this project does not have; «донат» is gaming slang and would sound like the games are asking, on the one page the players never see. What is left is «поддержать» and «любой посильной суммой» — an adult asking an equal. **This is the row most worth a native speaker’s ear**, because the line between a request and a pitch is finer in Russian than in English: вы-address plus an imperative («поддержите») can tip into advertising, and the sentences around it are kept flat on purpose to hold it down. Not legal review either: whether «налоговый вычет» is the phrasing a Russian reader expects for a non-deductible payment to an Australian individual has not been checked.',
     },
   ],
 };
@@ -1508,13 +1900,13 @@ Ranked, honestly:
 2. **Register in the playful copy.** Overlay messages, empty states and the
    marketing hero are where a non-native translation reads as "correct but
    flat". None of it is wrong; some of it may be charmless.
-3. **"Einzelelektron" / "einzeln".** The word Share to Fill is built on, in
-   every coach line, every hint and on the canvas. It replaced "Einzelgänger",
-   which was a word for a *person* and read as cute rather than chemical. The
-   split mirrors the English: "ungepaartes Elektron" is the formal term in the
-   glossary, "Einzelelektron" is the game word, "einzeln" is the dot label.
-   Accuracy is no longer the worry; register is. If a teacher wants the
-   textbook term throughout, the edit still touches every line of that game.
+3. **"ungepaartes Elektron".** *Closed on 2026-09-19.* Share to Fill used to
+   carry three words for one idea — the formal term, the game word
+   "Einzelelektron" and the dot label "einzeln". It now carries the textbook
+   term alone, everywhere including the canvas. The teacher question this
+   entry used to pose has been answered in the teacher's favour, so what is
+   left to review is German inflection in the coach lines rather than the
+   choice of word.
 4. **Game titles.** Four coinages now, no strong opinion behind any of them.
    "Teilen bis voll" is the weakest.
 5. **The privacy page.** Legally unreviewed, and describing Australian law.
@@ -1601,19 +1993,22 @@ programme reference, or none.
 
 Ranked, honestly:
 
-1. **tu vs. vous.** Not a word but a decision, and it is the one that touches
-   every other row. French school material often uses *vous*; I chose *tu*
-   because this is a game. If that is wrong, almost every imperative changes.
+1. **tu vs. vous.** *Closed on 2026-09-19: the owner confirmed informal **tu**.*
+   French school material often uses *vous*, so this was a real decision and
+   not an obvious one; it is settled now, and every imperative in the
+   dictionary and both catalogues is the *tu* form. No longer an open
+   question, kept here because it touches every other row.
 2. **The two naming sheets** (\`naming-compounds\`, \`organic-nomenclature\`). I
    changed what they teach, because teaching English naming rules in French
    would be worse than useless. That is the right call but it is beyond what a
    translator should decide alone.
-3. **"solitaire" / "seul".** The word Partage et complète is built on, in every
-   coach line, every hint and on the canvas. Accuracy is not the worry —
-   *électron célibataire* is genuinely the French term and *solitaire* is
-   genuinely adjacent to it. Register is: a teacher may want the textbook word
-   throughout and read the game word as sloppiness rather than as the second
-   tier the English design asks for.
+3. **"électron célibataire".** *Closed on 2026-09-19.* The game word
+   "solitaire" and the dot label "seul" are gone; the textbook term runs
+   through every coach line, every hint and the canvas legend. This is the
+   entry that asked whether a teacher would read the game word as sloppiness,
+   and the answer turned out to be that the question should not arise.
+   French loses least of the six locales here, because its formal term was
+   always the vivid one.
 4. **"astuce" for hint, and "antisèche" for cheat sheet.** Both are register
    calls about school French. *Astuce* exists because *indice* was unavailable —
    it is the French for a formula subscript, and using it for "hint" in the
@@ -1725,13 +2120,13 @@ Ranked, honestly:
    changed what they teach, because teaching English naming rules in Spanish
    would be worse than useless. That is the right call but it is beyond what a
    translator should decide alone.
-3. **"impar".** The word Comparte y completa is built on, in every coach line,
-   every hint and on the canvas. The *reason* for it is solid — *solitario* is
-   genuinely unavailable, because Spanish already calls a lone pair a *par
-   solitario*, and shipping both would have been a real pedagogical bug in the
-   one game that teaches the difference. What is uncertain is register: *impar*
-   is also the everyday word for an odd number, and a fourteen-year-old meeting
-   it beside a pulsing dot may hear "number 3" before "unpaired".
+3. **"electrón desapareado".** *Closed on 2026-09-19.* The game word "impar"
+   is gone and the textbook term runs through every coach line, every hint and
+   the canvas legend. The register doubt this entry recorded — that *impar* is
+   also the everyday word for an odd number, and a fourteen-year-old beside a
+   pulsing dot may hear "number 3" — is removed rather than mitigated. The
+   collision that made *solitario* unavailable (Spanish calls a lone pair a
+   *par solitario*) still holds for any future wording near this term.
 4. **The *di-* forms** (*dihidrógeno*, *dioxígeno*). Correct IUPAC Spanish, and
    they keep a distinction the balancer depends on, but Spanish school practice
    is less settled than French practice and a teacher may find them unusual.
@@ -1831,16 +2226,13 @@ Ranked, honestly:
    changed what they teach, because teaching English naming rules in Italian
    would be worse than useless. That is the right call but it is beyond what a
    translator should decide alone.
-2. **"dispari".** The word Condividi e completa is built on, in every coach line,
-   every hint and on the canvas. The *reason* for it is solid and it is stronger
-   than the Spanish case: three separate words are genuinely unavailable
-   (*solitario* and *libero* are both already lone pairs, *singolo* is the single
-   bond), and shipping any of them would have been a real pedagogical bug in the
-   one game that teaches those differences. What is uncertain is register:
-   *dispari* is also the everyday word for an odd number, and *pari o dispari* is
-   a children's game, so a fourteen-year-old meeting it beside a pulsing dot may
-   hear "number 3" before "unpaired". It is also seven characters on a dot label
-   that the layout note says overlaps beyond about four.
+2. **"elettrone spaiato".** *Closed on 2026-09-19.* The game word "dispari" is
+   gone and the textbook term runs through every coach line, every hint and the
+   canvas legend — which is precisely the collapse the Italian glossary note
+   named as the likely outcome. Both doubts this entry recorded are removed
+   with the word: the register risk (*pari o dispari* is a children's game) and
+   the dot-label width. The three collisions that ruled out *solitario*,
+   *libero* and *singolo* still hold for any future wording near this term.
 3. **The bare diatomic names** (*idrogeno* for H2, not *diidrogeno*). A
    deliberate divergence from French and Spanish, made because Italian school
    practice is what it is, and the one place a teacher's answer would change the
@@ -1854,5 +2246,122 @@ Ranked, honestly:
 7. **"bigino" for cheat sheet, "indizio" for hint, and "Guida" for the coach.**
    All three are register calls about school Italian rather than chemistry, and
    *bigino* is the one a fourteen-year-old might find dated.
+`,
+  ru: `
+---
+
+## Chemistry names — \`src/i18n/chemistry-names/ru.ts\`
+
+Not in the table above: these are keyed by registry identifier rather than by
+dictionary path, and there are 193 of them.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Element names | 118 | **high** | Russian element names are standardised and I am confident in the table. **The trap the brief names is real and it is the German one, not the English one:** sodium is **натрий** and potassium is **калий**, from the Latin stems, and the same is true of iron (**железо**), copper (**медь**), silver (**серебро**), tin (**олово**), lead (**свинец**), mercury (**ртуть**) and tungsten (**вольфрам**). All fourteen names the test demands differ from the English genuinely do, so this locale needs no \`SAME_AS_ENGLISH\` exemption — checked one at a time rather than inherited from the German result. Spellings follow Russian *chemical* usage rather than everyday usage: **иод** (not *йод*, which is the pharmacy word), **кремний**, **висмут**, **оганесон** with one с. |
+| Compound names | 35 | **high** for the salts and hydroxides, **medium** for the acids | Russian composes anion-first with the cation **in the genitive** — *гидроксид натрия*, *хлорид кальция*. That is the same order French, Spanish and Italian reach with a preposition, achieved with a case ending instead, and it matters for the rest of the system: the genitive is baked into the stored string, so a compound name is usable as it stands where an element name is not. The acids are the judgement calls: HCl is **соляная кислота** and HF **плавиковая кислота**, which is what a Russian school textbook prints, where the systematic names are *хлороводородная* and *фтороводородная*. All 35 differ from the English (N2H4 is *гидразин*), so no \`IDENTICAL_COMPOUNDS_BY_DESIGN\` entry either. |
+| Ion names | 40 | **high** | The same modernisation German, French, Spanish and Italian each made: Russian uses the systematic **гидро-** prefix where the English source data still says *bi-*. Bicarbonate becomes *гидрокарбонат*, bisulfate *гидросульфат*, bisulfite *гидросульфит*. A monoatomic cation is *ион* + the element in the genitive (*ион натрия*), which is why those read as two words where the anions are one. |
+
+**Specifically worth a second pair of eyes:** \`Ts\` (Tennessine) is given as
+"Теннессин", which is the Russian IUPAC form but is rarely written; and
+\`H4SiO4\` is "кремниевая кислота" where the fully systematic name would be
+"ортокремниевая кислота".
+
+## Game data — \`src/i18n/chemistry-names/ru.ts\`
+
+Also keyed by identifier rather than by dictionary path: the prose the two new
+games read straight out of the core-engine datasets. 104 entries, all new in
+this pass.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Species names (\`SPECIES_NAMES_RU\`) | 53 | **high** | Everyday names for the compounds a Reaction Balancer card can show. One deliberate decision, the same one German made and English cannot: HCl is **хлороводород**, the substance, because that is what a card labels; the reaction descriptions say **соляная кислота** where the reaction happens in water. A second: the oxides use the Stock Roman numeral (*оксид углерода(IV)*, *оксид серы(VI)*, *оксид железа(III)*) rather than the Greek prefixes, because that is what a Russian school equation uses. *Углекислый газ* is the everyday Russian for CO2 and is deliberately **not** used here — it would be right in prose and wrong on a card beside a formula. |
+| Reaction prose (\`REACTION_TEXT_RU\`) | 33 × up to 4 | **medium** | Name, macroscopic observation, strategy hint and word equation for every reaction. The observations are the risk: they are short pieces of lab description ("носится с шипением по поверхности воды", "летит сноп искр") where a flat translation reads flat. The reaction *names* follow Russian convention — *процесс Габера*, *процесс Оствальда*, *термитная реакция*, *золотой дождь*, *клеточное дыхание*, *фотосинтез*. |
+| Lewis molecule prose (\`LEWIS_MOLECULE_TEXT_RU\`) | 18 × 3 | **medium** | Name, tier-2 hint and property line per molecule. Names follow Russian IUPAC: **этен** and **этин** rather than the older этилен/ацетилен, **фосфин**, **тетрахлорметан**, **хлорметан**, **сероводород**. Those six are worth a teacher's eye — Russian school books still often print этилен and ацетилен, so the modern forms may read as unfamiliar to the audience rather than as correct. |
+
+**Structurally out of reach of a translator, by design:** equations, formulae,
+bond lines, state symbols, atom lists and level assignments are not in the
+overlay at all, and \`chemistry-names.test.ts\` asserts they come through
+byte-identical. The same test fails the suite if a reaction gains a Russian word
+equation it does not have in English, because the game decides what to show by
+whether one exists.
+
+## Cheat sheets — \`src/i18n/cheat-sheets/ru.ts\`
+
+Twelve reference sheets, roughly 6,000 words of specialist Russian. **This is the
+highest-risk part of the translation and the part I would most want reviewed
+before students see it.**
+
+| Sheet | Confidence | What to look at |
+|---|---|---|
+| States of Matter | **high** | Ordinary particle-model vocabulary. The six transitions use the standard Russian pairs (плавление/кристаллизация, испарение/конденсация, возгонка/десублимация). |
+| Acids & Bases | **high** | Glossary-fixed throughout. Two choices to check: H₃O⁺ is **ион гидроксония**, the Russian school term, where English says hydronium; and "base" is **основание** throughout, never *база*. |
+| Balancing Equations | **high** | Turns on the индекс/коэффициент distinction, which Russian makes with exactly the two words a textbook uses. "Уравнять" is the decided verb, with "расставить коэффициенты" as its fuller expansion where there is room — see the glossary. |
+| Reaction Types | **medium** | The Russian class names are **замещение** and **обмен**, which are not a "single/double" pair the way English builds them. Check they match the reader's textbook. |
+| Chemical Bonds | **medium** | Uses **ковалентная связь** directly, unlike German, which prefers *Atombindung*. **Свободные электроны** for the delocalised ones is the school phrasing; *делокализованные* is upper-secondary register. |
+| Writing Ionic Formulas | **medium** | "Перекрёстное правило" for the cross-over method. Check it is called that locally — some Russian textbooks describe the method without naming it. |
+| Polyatomic Ions | **medium** | The naming-pattern bullets are the risk: they explain *English* suffix patterns (-ate/-ite, per-/hypo-) using Russian equivalents (-ат/-ит, пер-/гипо-). A Russian reader learns the Russian pattern, so this mostly works, but the mapping deserves a teacher's eye. |
+| Naming Inorganic Compounds | **low** | The hardest sheet, and **adapted rather than translated**. English teaches "-ide → hydro-…-ic acid"; Russian has no counterpart to that shape at all. It names binary acids with **-водородная** (*сероводородная*) or by tradition (*соляная*, *плавиковая*), and the -ate/-ite contrast lands on the **acid** as **-ная / -истая** (*серная* / *сернистая*) where English's lands on the anion. The molecular-naming bullet was restated from the other end, because Russian names oxides with the Stock Roman numeral where English uses Greek prefixes. **This is a content change, not a translation, and it needs a teacher.** |
+| The Mole & Stoichiometry | **medium** | Terminology is glossary-fixed (количество вещества, молярная масса, реагент в недостатке). **Decimal commas throughout the worked examples** — 6,02 × 10²³, 8,0 г, 24,8 л/моль, 8,31 — which is correct Russian and sits next to formulae that keep their own notation. Check that is what you want. |
+| Lewis Structures | **medium** | Uses **формула Льюиса** and **неподелённая пара**. The VSEPR shape names (тетраэдр, тригональная пирамида, уголковая форма) are standard. This is the sheet the game links, so its Year 10 section repeats the game's «одиночка». |
+| Naming Organic Compounds | **low** | Same problem as the inorganic naming sheet. Russian names esters the other way round (*метилэтаноат*, not "methyl ethanoate"), writes carboxylic acids as *…овая кислота* and amines as *-амин*, and the root table is the Russian one. **A chemistry teacher must check this sheet.** |
+| Functional Groups | **low** | The reference table mixes structure notation (untranslated) with Russian group names and Russian reaction descriptions. **Сложный эфир** for ester is the row to check: it must be both words, because *эфир* alone is an ether or the airwaves. |
+
+**Not translated, deliberately:** every linked resource is an English-language
+site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
+titles are left in English so they are findable, and the Russian descriptions
+say "(На английском.)" so a reader is not surprised. **This is a genuine gap
+rather than a solved problem**: a Russian student gets Russian explanations and
+then English source material. Russian-language equivalents exist and are good
+(Фоксфорд, ХиМиК.ру, Российская электронная школа, ПостНаука), which is a
+content task rather than a translation task.
+
+**Also not translated:** the curriculum references. Every sheet cites the
+Victorian Curriculum or the VCE study design, which is Australian. Worth
+deciding whether Russian sheets should show a Russian curriculum reference
+(ФГОС / ПООП), or none.
+
+## What I am most likely to have got wrong
+
+Ranked, honestly:
+
+1. **«неспаренный электрон».** *Closed on 2026-09-19.* Russian used to carry
+   three words for one idea — the formal term, the game word «одиночка» and the
+   canvas label «соло» — and now carries one. The question this entry was
+   flagged for (whether a noun Russian also uses for a person reads as chemical
+   rather than cute) no longer exists. The four collisions that ruled out
+   *свободный*, *одинокий*, *одиночный* and *непарный* still hold for any
+   future wording near this term. What is left to review is inflection: both
+   words decline, and the coach line counts 1 / 2 / 5 through three different
+   endings.
+2. **The two naming sheets** (\`naming-compounds\`, \`organic-nomenclature\`). I changed what
+   they teach, because teaching English naming rules in Russian would be worse
+   than useless. That is the right call and it is beyond what a translator
+   should decide alone.
+3. **The canvas label.** *Closed on 2026-09-19.* «Соло» is gone with the game
+   word. The 44 px budget that forced it was a constraint on stamping a label
+   beside every dot 50 px from its neighbour, not a limit on the term's length,
+   so the label is now printed once in a legend above the board and carries the
+   full «неспаренный электрон» (134 px) in comfort. Russian is no longer the
+   locale that needs an extra word.
+4. **"Дублет"** for the duet. Russian school chemistry has no settled word at
+   all, so this is a coinage in use if not in vocabulary. A teacher may prefer
+   to drop the word and say "два электрона, как у гелия".
+5. **Register in the playful copy.** Overlay messages, empty states and the
+   marketing hero are where a non-native translation reads as "correct but
+   flat". None of it is wrong; some of it may be charmless. "Партия готова!"
+   for "Batch complete!" is the weakest line in the file.
+6. **Game titles.** Six product-naming calls, no strong opinion behind any of
+   them. «Весы реакций» and «Охота на формулы» move furthest from the English;
+   «Нейтрализуй!» is the one most likely to be judged an instruction rather
+   than a name.
+7. **"Окислительно-восстановительная"** as a reaction badge. Thirty characters,
+   CSS-uppercased, in a fixed-width control. It is the right word and it may
+   not fit.
+8. **ты vs вы.** *Closed on 2026-09-19: the owner confirmed informal **ты**.*
+   Applied to every imperative in two catalogues and the dictionary. It was
+   always less contentious than French's *tu* — Russian educational games for
+   teenagers use *ты* as a matter of course — and it is settled now.
+9. **The privacy page.** Legally unreviewed, describing Australian law, and
+   silent on Russian personal-data law, which has requirements of its own.
 `,
 };

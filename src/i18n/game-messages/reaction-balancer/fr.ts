@@ -273,6 +273,20 @@ export const fr = {
     liveLocked: 'Équilibrée. {equation}. L’équation est verrouillée.',
     liveBuilt: 'Équation construite. Maintenant, équilibre-la.',
   },
+  // The reaction-class badge. Terms from docs/i18n/glossary-fr.md § reaction
+  // types. "Oxydoréduction" rather than the clipped « rédox »: it is what a
+  // French textbook names the class, and the badge has room for it.
+  reactionType: {
+    Synthesis: 'Synthèse',
+    Decomposition: 'Décomposition',
+    'Single Replacement': 'Déplacement simple',
+    'Double Replacement': 'Double déplacement',
+    // Spelled exactly as the English; allowlisted as identical by design.
+    Combustion: 'Combustion',
+    'Acid-Base': 'Acide-base',
+    Redox: 'Oxydoréduction',
+    Precipitation: 'Précipitation',
+  },
 } satisfies ReactionBalancerMessages;
 
 export default fr;

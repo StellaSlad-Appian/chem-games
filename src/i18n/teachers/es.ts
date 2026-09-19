@@ -60,11 +60,11 @@ export const es = {
 
   languagesHeading: 'Idiomas',
   languagesBody1:
-    'El sitio existe en cinco idiomas: inglés, alemán, francés, español e italiano. El selector está en la barra de navegación y la elección se recuerda en ese navegador.',
+    'El sitio existe en seis idiomas: inglés, alemán, francés, español, italiano y ruso. El selector está en la barra de navegación y la elección se recuerda en ese navegador.',
   languagesBody2:
     'Todo lo que lee el alumnado está traducido: la interfaz, el acompañamiento y las pistas dentro de los juegos, y las chuletas. Las fórmulas químicas, los símbolos de los elementos y las ecuaciones no se traducen nunca; una ecuación se escribe igual en todos los idiomas.',
   languagesBody3:
-    'El ruso está previsto, pero todavía no ha llegado. Hoy no hay nada en ruso en el sitio.',
+    'Dos cosas no cambian con el idioma: los enlaces externos de las chuletas llevan todos a sitios en inglés, y cada chuleta cita el Victorian Curriculum, un currículo australiano. Conviene saberlo si usted sigue otro currículo.',
 
   privacyHeading: 'Privacidad del alumnado',
   privacyBody1:

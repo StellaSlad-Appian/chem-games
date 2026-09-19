@@ -282,6 +282,12 @@ decisions rather than test tweaks.
 | Key parity, empty values, dropped placeholders, strings left identical to English, formulae altered in translation | `src/i18n/dictionary.test.ts` |
 | Every element, compound, ion, species, reaction and Lewis molecule translated in every locale; equations and bond lines byte-identical | `src/i18n/chemistry-names.test.ts` |
 | Plural forms selected by CLDR category, including languages with three, four and one form | `src/i18n/plural.test.ts` |
+| **Plural completeness**: every plural record carries every CLDR category its language needs, derived from `Intl.PluralRules` | `src/test-utils/i18n-parity.ts` via `dictionary.test.ts` and `game-messages.test.ts` |
+| **Count-bearing strings**: the set of count-interpolating non-plural keys is closed at 57, so a new one has to be considered | `src/i18n/count-strings.test.ts` |
+| **Cyrillic presence and Russian typography**, dormant until `ru` ships but proven against a fixture now | `src/i18n/cyrillic.test.ts`, `src/test-utils/i18n-russian.ts` |
+| **Fonts**: no shipped locale downloads an extra stylesheet; `html[lang="ru"]` overrides both faces | `src/i18n/fonts.test.ts` |
+| **Dates, numbers, percentages**: `en` formats as en-AU, each locale gets its own separators, `%` takes a no-break space where the language wants one | `src/i18n/number-format.test.ts` |
+| **Untranslated English on a rendered page**, five page shapes in de/fr/es/it | `e2e/latin-leakage.spec.ts` |
 | Cheat-sheet overlays line up with the English structure; formulae, slugs and URLs unchanged | `src/i18n/cheat-sheets.test.ts` |
 | `Accept-Language` parsing, q-values, regional fallback, cookie precedence | `src/i18n/locale-match.test.ts` |
 | Prefix/strip round-trips, the unprefixed-path list | `src/i18n/routing.test.ts` |
@@ -299,6 +305,30 @@ test that wants to assert on the copy builds the same thing explicitly:
 `LEWIS_MESSAGES` any more — a component or hook reads `useLewisMessages()` /
 `useBalancerMessages()`, which throw outside the provider rather than falling back to
 English.
+
+### The gates added for Russian, and the bug each one catches
+
+Russian is the first non-Latin locale, and preparing for it turned up four classes of
+mistake that nothing here could see. Each gate below is named with the specific bug that
+motivated it, because a gate without one tends to be a gate nobody maintains.
+
+| Gate | The bug it would have caught |
+|---|---|
+| `e2e/latin-leakage.spec.ts` | **The `SYNTHESIS` badge.** `GameArena` rendered `{round.reaction.type}` straight from the dataset, so every non-English page showed an English reaction class above a translated equation. No gate in `src/i18n` could see it, because the string was never in a dictionary. Verified by reverting the fix: all four locales fail with `["Synthesis"]`. It also covers **the privacy effective date** (`'14 September 2026'` interpolated into a translated sentence) and **the debug panel** removed in 67cffd6 — the other two untranslated-English strings that shipped, both found by a human looking at a page. |
+| `src/i18n/cyrillic.test.ts` | **A string edited slightly and left in English.** The parity gates only catch a value left *byte-identical* to the English; `"Reaction Balancer"` becoming `"Reaction Balancer!"` passes all of them. In Cyrillic the absence of Cyrillic is decisive. The typography half catches straight quotes where Russian wants « », three-dot ellipses, ё folded to е, and a decimal point where Russian writes a comma. |
+| `describePluralCompleteness()` | **A Russian dictionary with only `one` and `other`** — the shape copying `en.ts` produces. Grammatically wrong on almost every count, and invisible: no key missing, nothing empty, nothing identical to the English, every placeholder intact. The runtime still falls back, deliberately; the build refuses. |
+| `src/i18n/count-strings.test.ts` | **The seven Italian agreement bugs.** `"{count} corrette"` agrees with its number and is wrong at 1; they compile and pass everything. The inventory turned out to be 57 strings, not seven, and the set is now closed so a new one fails the suite rather than waiting for a translator. |
+| `src/i18n/fonts.test.ts` | **Bebas Neue and DM Sans have no Cyrillic subset.** Headings would have fallen back from a condensed all-caps face to bare `sans-serif` — not a blemish but a broken layout. Also asserts no Latin locale pays for the replacement stylesheet. |
+| `src/i18n/number-format.test.ts` | **A bare `en` is en-US.** The leaderboard rendered "Sep 14, 2026" on a site that spells *neutralise* and cites the Victorian Curriculum. |
+
+Two of these found bugs in *themselves* on their first run, which is the argument for the
+fixture tests each one carries. `latin-leakage`'s formula allowlist was a shape,
+`[A-Z][a-z]?\d*`, that matches "SYNTHESIS" — so it would have exempted the exact bug it
+exists to catch; it now builds the pattern from `ELEMENTS_REGISTRY`. And its page reader
+cloned the body before calling `innerText`, which is defined in terms of layout, so on a
+detached clone it degraded to `textContent` and ran every block together: the gate reported
+the German arena clean with the untranslated badge on screen. **Assert that a new gate
+fails on a known-bad input before trusting it to pass.**
 
 Full details in [`docs/i18n/README.md`](./i18n/README.md).
 
@@ -358,6 +388,17 @@ Other observations (not fixed):
   `npm run typecheck && npm test && npm run e2e` in the meantime.
 
 ## Known lint findings
+
+`npm run lint` counts 21 problems, and that is the number to compare against.
+
+It has not always been. `eslint.config.mjs` ignored `.next/**`, which only matches at the
+repository root, and nothing ignored `.claude/**` — where finished agent worktrees live,
+each a full checkout of this project with its own build output. A bare `npm run lint` in a
+checkout with a few of those linted several copies of the codebase plus their generated
+bundles and reported roughly **15,000** problems, which is why every instruction used to
+say `npx eslint src e2e scripts` instead. `.claude/**` is now in the ignore list, verified
+with a throwaway worktree: 22 problems before, 21 after. The worktrees themselves are left
+alone — whether a finished one stays on disk is the owner's call, not lint's.
 
 Inventory as of 2026-09-13 (`eslint-config-next` 16 with the React Compiler `react-hooks`
 rules). None of these break the app; they are deferred deliberately. Fix them when you are

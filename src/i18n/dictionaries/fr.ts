@@ -59,7 +59,7 @@ export const fr = {
       'Ce que ChemGames enregistre sur toi, ce qui est public, qui traite ces données et comment les télécharger ou les supprimer.',
     teachersTitle: 'Pour les enseignants | ChemGames',
     teachersDescription:
-      'Ce qu’est ChemGames, les cinq langues dans lesquelles il existe, la façon dont il traite les données des élèves, où en est l’accessibilité et comment les enseignants peuvent contribuer pendant la bêta.',
+      'Ce qu’est ChemGames, les six langues dans lesquelles il existe, la façon dont il traite les données des élèves, où en est l’accessibilité et comment les enseignants peuvent contribuer pendant la bêta.',
     cheatSheetTitle: 'Antisèche {title} | ChemGames',
     cheatSheetNotFound: 'Sujet introuvable – ChemGames',
   },
@@ -190,7 +190,7 @@ export const fr = {
     //                            you learn it
     lewisTitle: 'Partage et complète', // chosen: names the rule in French, two short
     // imperatives, instantly readable at 14
-    lewisDescription: 'Associe les solitaires pour construire une molécule.',
+    lewisDescription: 'Associe les électrons célibataires pour construire une molécule.',
 
     // bondsTitle candidates:
     //   'Les liaisons' — too vague

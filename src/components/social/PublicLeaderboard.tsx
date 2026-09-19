@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react';
 import type { GameLeaderboard, GameName } from '@/core-engine/types/general';
 import { useI18n } from '@/i18n/client';
 import { gameTitle } from '@/i18n/game-titles';
-import type { Locale } from '@/i18n/config';
+import { formattingLocale, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries/en';
 
 interface PublicLeaderboardProps { leaderboards: GameLeaderboard[]; }
@@ -30,15 +30,20 @@ function LeaderboardRow({ entry, t, f, locale }: { entry: { id: string; alias: s
  *
  * The month names used to be a hardcoded English array. `Intl.DateTimeFormat`
  * gives the right month name and the right day/month order per locale — German
- * writes "14. Sept. 2026", English "14 Sep 2026" — for free, and for every
+ * writes "14. Sept. 2026", English "14 Sept 2026" — for free, and for every
  * Phase 2 locale too. The stored value is a plain date string, so it is parsed
  * as UTC to avoid the day shifting by one in negative-offset timezones.
+ *
+ * It formats with `formattingLocale(locale)` rather than the locale code: a
+ * bare `en` resolves to en-US and this used to render "Sep 14, 2026", which is
+ * not how the Australian English the rest of the site is written in puts a
+ * date. See src/i18n/config.ts § FORMATTING_LOCALE.
  */
 function formatLeaderboardDate(timestamp: string, locale: Locale) {
   const datePart = timestamp.slice(0, 10);
   const parsed = new Date(`${datePart}T00:00:00Z`);
   if (Number.isNaN(parsed.getTime())) return timestamp;
-  return new Intl.DateTimeFormat(locale, {
+  return new Intl.DateTimeFormat(formattingLocale(locale), {
     day: 'numeric',
     month: 'short',
     year: 'numeric',

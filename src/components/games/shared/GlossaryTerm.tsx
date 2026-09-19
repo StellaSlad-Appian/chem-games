@@ -90,7 +90,29 @@ export function GlossaryText({ text, glossary }: { text: string; glossary: Gloss
   if (patterns.length === 0) return <>{text}</>;
 
   const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const regex = new RegExp(`\\b(${patterns.map((p) => escape(p.match)).join('|')})\\b`, 'gi');
+  // Unicode word boundaries, not `\b`.
+  //
+  // JavaScript's `\b` is defined against `[A-Za-z0-9_]`, so it is blind to
+  // every alphabet but the Latin one: `/\bэлектрон\b/` does not match even the
+  // standalone word "электрон", and tap-to-explain would silently do nothing
+  // across the whole Russian site. The lookarounds below say the same thing in
+  // a script-neutral way — "not preceded or followed by a letter or a digit" —
+  // and `\p{L}` / `\p{N}` need the `u` flag to mean anything at all.
+  //
+  // Two knock-on effects, both pinned in GlossaryTerm.test.tsx:
+  //   * `u` makes escaping strict: an unnecessary escape, or an unescaped
+  //     `{`, `}`, `]`, now throws where it was tolerated before. `escape()`
+  //     above already covers every such character.
+  //   * The boundary no longer falls between a Latin letter and an accented
+  //     one, which is what let `/\bíndice\b/` match inside *subíndice*. That
+  //     near-miss — documented in glossary-es.md and glossary-it.md as the
+  //     thing to re-test if the matcher ever went Unicode — is now fixed
+  //     rather than merely unexploited.
+  //
+  // Punctuation is still a boundary, so the Italian elision *l'elettrone*
+  // keeps matching `elettrone`; glossary-it.md depends on that.
+  const alternation = patterns.map((p) => escape(p.match)).join('|');
+  const regex = new RegExp(`(?<![\\p{L}\\p{N}])(${alternation})(?![\\p{L}\\p{N}])`, 'giu');
 
   const parts: ReactNode[] = [];
   const seen = new Set<string>();

@@ -47,6 +47,14 @@ import {
   REACTION_TEXT_IT,
   SPECIES_NAMES_IT,
 } from './chemistry-names/it';
+import {
+  COMPOUND_NAMES_RU,
+  ELEMENT_NAMES_RU,
+  ION_NAMES_RU,
+  LEWIS_MOLECULE_TEXT_RU,
+  REACTION_TEXT_RU,
+  SPECIES_NAMES_RU,
+} from './chemistry-names/ru';
 
 /** The prose a reaction carries in reactions.ts, minus its formulae. */
 export interface ReactionTextOverlay {
@@ -128,6 +136,14 @@ const OVERLAYS: Partial<Record<Locale, ChemistryNameOverlay>> = {
     reactions: REACTION_TEXT_IT,
     lewisMolecules: LEWIS_MOLECULE_TEXT_IT,
   },
+  ru: {
+    elements: ELEMENT_NAMES_RU,
+    compounds: COMPOUND_NAMES_RU,
+    ions: ION_NAMES_RU,
+    species: SPECIES_NAMES_RU,
+    reactions: REACTION_TEXT_RU,
+    lewisMolecules: LEWIS_MOLECULE_TEXT_RU,
+  },
 };
 
 export function chemistryNameOverlay(locale: Locale): ChemistryNameOverlay {
@@ -189,6 +205,19 @@ const LOWERCASES_NAMES_IN_SENTENCE: Record<Locale, boolean> = {
   // toLowerCase() cannot produce "ferro(iii)". Species names like «nitrato di
   // rame(II)» reach the screen through speciesName(), which does not lowercase.
   it: true,
+  // Russian capitalises only proper nouns, so a chemical name mid-sentence is
+  // lower case: «две молекулы воды». Checked against every call site the same
+  // way French, Spanish and Italian were: nameInSentence() only ever sees
+  // element and molecule names, none of which carry a Roman numeral, so the
+  // naive toLowerCase() cannot produce «железо(iii)». Species names like
+  // «нитрат меди(II)» reach the screen through speciesName(), which does not
+  // lowercase.
+  //
+  // One extra check Russian needed and the Latin locales did not: Cyrillic
+  // case folding. `'Натрий'.toLowerCase()` is `'натрий'`, and — the part worth
+  // verifying rather than assuming — **Ё lowercases to ё, not to е**, so the
+  // yo convention this locale insists on survives the call.
+  ru: true,
 };
 
 /** A chemistry name as it should appear mid-sentence in `locale`. */

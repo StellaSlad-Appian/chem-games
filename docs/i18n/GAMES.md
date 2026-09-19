@@ -6,7 +6,7 @@ language checks that are part of testing a game. Companion to
 branch until it merges) and `glossary-<locale>.md` (the agreed chemistry terms per language).
 
 **Audience:** whoever writes a brief, builds a game from one, or reviews a milestone.
-**Owner:** Stella. **Last updated:** 2026-09-18.
+**Owner:** Stella. **Last updated:** 2026-09-19.
 
 ---
 
@@ -23,7 +23,7 @@ is not done, the same way a game with no instructions modal is not done.
 | `fr` | shipping | Required at build time. Terms come from [`glossary-fr.md`](./glossary-fr.md). |
 | `es` | shipping | Required at build time. Terms come from [`glossary-es.md`](./glossary-es.md), which also records the es-ES / es-419 variety decision. |
 | `it` | shipping | Required at build time. Terms come from [`glossary-it.md`](./glossary-it.md). |
-| `ru` | planned | Required from the day the locale is added. Adding a locale (README § Adding a locale) includes translating every existing game; adding a game includes every locale that exists. |
+| `ru` | shipping | Required at build time. Terms come from [`glossary-ru.md`](./glossary-ru.md), which also records the *ты* decision, the case-government device and the «одиночка» call. |
 
 Two workflows meet here, and both must leave every game × locale cell filled:
 
@@ -97,13 +97,93 @@ Conventions, the same as the dictionary's (README § Adding a string), plus a fe
 - **No sentence is built by concatenation.** Word order differs; one key holds one sentence.
 - **Glossary words are linked by `GlossaryText`** on the *translated* word, so each locale's
   catalogue carries its own `glossary.<entry>.matches` list in that language's inflections
-  (the Reaction Balancer catalogue is the pattern). The matcher uses a JavaScript `\b`, which
-  only knows ASCII letters, so a match word must start and end with one — `glossary-de.md`
-  says so, and `game-messages.test.ts` asserts it.
+  (the Reaction Balancer catalogue is the pattern). The matcher uses `\p{L}` lookarounds
+  under the `u` flag, so a match word must start and end with a letter **in any script** —
+  `game-messages.test.ts` asserts it. It used to use a JavaScript `\b` and require an
+  *ASCII* letter, which no Cyrillic word could ever satisfy and which cost French the use
+  of whole phrases beginning *électron*; see README § Preparing a non-Latin locale.
 
 The locale a game page renders in comes from `useI18n().locale`; the page passes the
 matching catalogue down, and every link it renders goes through `LocaleLink` or `href()` so
 "Quit to Hub" lands on `/de/games`, not `/games`.
+
+---
+
+## Count-bearing strings must be invariant
+
+**A string that interpolates a count, and is not a plural record, has to be
+phrased so that nothing in it agrees with the number.** In every locale. This
+is a rule with a test behind it, not advice.
+
+A plural record is safe: `Intl.PluralRules` picks the form, and the build
+refuses a record missing a form its language needs (README § Preparing a
+non-Latin locale). A plain string with a `{count}` in it has exactly one form,
+and that form has to be right at 1, at 2 and at 25. English gets away with it
+because almost nothing in English inflects.
+
+### What went wrong, twice
+
+**Italian.** Seven strings came out of the Italian pass where a participle or
+adjective agrees with its count while the English source does not inflect:
+
+| Key | English | The natural Italian | Wrong at |
+|---|---|---|---|
+| `games.overlay.statRoundValue` | `{count} correct` | *{count} corrette* | 1 (*corretta*) |
+| `games.lewisStructures.inspect.countWrong` | `You counted {given}` | *Ne hai contati {given}* | 1 (*contato*) |
+
+Both compile. Both pass every parity gate — no key missing, nothing empty,
+nothing identical to the English, every placeholder intact. Both are
+ungrammatical on screen, and a human reading a rendered page is the only thing
+that found them.
+
+**Spanish** hit the same class one string earlier, and reached for the same
+fix both times: **the colon label**.
+
+```
+{count} corrette          ✗ agrees with the count
+risposte esatte: {count}  ✓ nothing in it can agree
+```
+
+That is the same device French invented to keep an article away from a name
+placeholder (README § Where a placeholder may sit). It is worth noticing that
+one shape solves both problems, because it is the shape to reach for first.
+
+### Why Russian raises the stakes
+
+Russian has **three plural forms** *and* numerals that govern the case of the
+noun after them: *1 ответ, 2 ответа, 5 ответов*. There is no single phrasing
+of "{count} correct" that is right at every count. Either the string becomes
+a plural record, or the count moves somewhere that governs nothing.
+
+### The gate
+
+`src/i18n/count-strings.test.ts` asserts that the set of count-interpolating
+non-plural keys is **exactly** a list written down in the test — 57 of them
+across the dictionary and both catalogues, considerably more than anyone
+expected. Add a new one and the test fails, and whoever added it has to
+decide: rephrase it invariantly and add the key, or make it a plural record.
+
+A second assertion keeps the numeric/text placeholder split exhaustive, so a
+new placeholder called `{amount}` cannot slip past the first one unnoticed.
+
+The test does not check the *wording* — it cannot, in six languages. It makes
+the set closed, which is the part that failed with Italian: nobody knew the
+list existed until a translator hit the seventh instance.
+
+**The Russian pass worked through all 57 before translating any prose**, which
+is what the list was for. All 57 turned out to be phrasable invariantly: none
+had to become a plural record and none needed a change to the English. Four
+shapes cover the set, and the second is the one that does most of the work —
+*a Russian numeral governs the noun that follows it, so a numeral with no noun
+after it governs nothing.* «Уровень {level} из {max}» is correct at 1, at 2 and
+at 25 for free, which is why the progress readouts translated cheaply and
+«{count} correct» did not. `docs/i18n/glossary-ru.md` § Counts has the table.
+
+One thing Russian added to the rule, which no Latin locale had met: a count
+string can be wrong for a reason the count has nothing to do with. English's
+"You counted {given}" becomes a past tense in Russian, and a Russian past tense
+agrees with the **speaker's** gender — so *«ты насчитал {given}»* is wrong for
+half the readers whatever the number is.
 
 ---
 
@@ -219,8 +299,8 @@ The glossary for the locale is authoritative; these are reminders.
 | **de** | *du* | „…“ quotes, en dash, decimal comma, non-breaking space before units and in *z. B.* | Compound names are one word (*Natriumhydroxid*); *Index* vs *Koeffizient*; *Edukte* / *Produkte*; *Oxonium-Ion*; German IUPAC spellings | Text ~30% longer; long compound nouns in cards; nominalised verbs capitalised |
 | **fr** | **decided: *tu***, flagged for review at the top of `glossary-fr.md` | « … » with a **narrow** no-break space (U+202F) inside, and before `; ! ?`; a **full** no-break space (U+00A0) before `:`; decimal comma; accents on capitals (*É*) | *hydroxyde de sodium* (anion, then *de* + cation); **decided: *ion oxonium***, which is what the programme prints; *acide éthanoïque*; and the element/simple-substance split — H is *hydrogène* but H₂ is *dihydrogène* | **No article can precede a name placeholder** (*l'oxygène* but *le carbone*) — `glossary-fr.md` fixes three label shapes that avoid it. Glossary match words cannot start with *é*, so they land on *externes* / *célibataires* rather than the full phrase. Sentences run long; keep *tu* consistent between the catalogue and the UI dictionary |
 | **es** | *tú* — and decide **which Spanish** (Spain vs Latin America) before translating: it changes *vosotros/ustedes*, some vocabulary and the decimal separator | ¿…? ¡…! opening marks; decimal comma (Spain) or point (Mexico and others) | *hidróxido de sodio*; *ácido clorhídrico*; *catión / anión* | Instructions in the imperative (*Arrastra…*); accents on every syllable that needs one |
-| **it** | *tu* | «…» or “…”; decimal comma | *idrossido di sodio*; *acido cloridrico*; *legame covalente* | Elisions (*l'atomo*); gendered articles around placeholders — a `{compound}` inside a sentence may force an article, so prefer sentence shapes that do not need one |
-| **ru** | *ты* for students (decide in `glossary-ru.md`); the imperative for controls | «…» quotes; decimal comma; Cyrillic throughout, but element **symbols** stay Latin (*натрий*, but *Na*) | *гидроксид натрия* (compound word, then element in the genitive); *соляная / хлороводородная кислота* — decide | **Three plural forms** (1 атом, 2 атома, 5 атомов) — every count string needs the `Intl.PluralRules` shape (README § Plurals) *before* the `ru` files are written; numerals govern the noun's case; text width in Cyrillic |
+| **it** | *tu* | «…» or “…”; decimal comma | *idrossido di sodio*; *acido cloridrico*; *legame covalente* | Elisions (*l'atomo*); gendered articles around placeholders — a `{compound}` inside a sentence may force an article, so use the colon label rather than hunt for a sentence shape — it is required, not stylistic (README § Where a placeholder may sit). Count agreement: *{count} corrette* is wrong at 1 |
+| **ru** | **decided: *ты***, flagged at the top of `glossary-ru.md`; the imperative for controls | «…» quotes; decimal comma; Cyrillic throughout, but element **symbols** stay Latin (*натрий*, but *Na*) | *гидроксид натрия* (compound word, then element in the genitive); *соляная / хлороводородная кислота* — decide | **Three plural forms and four CLDR categories** (1 атом, 2 атома, 5 атомов, and `other` only for a fraction) — measured, not assumed. **Nothing may agree with an interpolated name**: the overlay stores nominatives only, so a name goes behind a colon, behind a dash, or as the subject of a который-clause. **Nothing may agree with the reader either** — a past tense picks their gender, so *«ты насчитал»* is wrong for half of them with no placeholder in sight. Cyrillic sets wider: check «Окислительно-восстановительная» on the reaction badge |
 
 ---
 

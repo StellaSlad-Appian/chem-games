@@ -29,11 +29,13 @@
 //     a `…One` / `…Other` pair — see src/i18n/format.ts.
 //   * Glossary words become tap-to-explain wherever they appear in running
 //     text. Each locale lists its own word forms in `glossary.<entry>.matches`.
-//     The matcher uses a JavaScript `\b`, which only knows ASCII letters, so a
-//     match word must start and end with one — see docs/i18n/glossary-de.md.
+//     The matcher uses `\p{L}` lookarounds under the `u` flag, so a match word
+//     must start and end with a letter in any script — see
+//     docs/i18n/glossary-de.md.
 //   * Terminology follows docs/i18n/glossary-<locale>.md.
 
 import type { Translated } from '@/i18n/format';
+import type { ReactionType } from '@/core-engine/data/reactions';
 
 export const REACTION_BALANCER_MESSAGES = {
   header: {
@@ -281,6 +283,33 @@ export const REACTION_BALANCER_MESSAGES = {
     liveLocked: 'Balanced. {equation}. The equation is locked.',
     liveBuilt: 'Equation built. Now balance it.',
   },
+
+  /**
+   * The reaction-class badge above the equation.
+   *
+   * Keyed by the `ReactionType` union in src/core-engine/data/reactions.ts,
+   * so adding a ninth class is a compile error in all five catalogues rather
+   * than a badge that silently renders the raw English value — which is
+   * exactly what it did before this namespace existed. GameArena rendered
+   * `{round.reaction.type}` straight from the dataset, so every non-English
+   * page read "SYNTHESIS" (the badge is CSS-uppercased) above a fully
+   * translated equation. One of three untranslated-English strings that
+   * shipped and were found only by a human looking at a rendered page.
+   *
+   * Sentence case here, uppercased by CSS: the class names are common nouns,
+   * not proper ones, and a locale that should not shout has only to change
+   * the rule.
+   */
+  reactionType: {
+    Synthesis: 'Synthesis',
+    Decomposition: 'Decomposition',
+    'Single Replacement': 'Single Replacement',
+    'Double Replacement': 'Double Replacement',
+    Combustion: 'Combustion',
+    'Acid-Base': 'Acid-Base',
+    Redox: 'Redox',
+    Precipitation: 'Precipitation',
+  },
 } as const;
 
 /**
@@ -289,3 +318,18 @@ export const REACTION_BALANCER_MESSAGES = {
  * until it is translated.
  */
 export type ReactionBalancerMessages = Translated<typeof REACTION_BALANCER_MESSAGES>;
+
+/**
+ * Ties the badge labels to the dataset's own union, in the type system rather
+ * than in a comment. A reaction class added to `ReactionType` without a label
+ * fails to compile here; a label for a class that no longer exists fails too.
+ *
+ * Written as a standalone assertion rather than by typing the object above as
+ * `Record<ReactionType, string>`, because that annotation would widen the
+ * literal types `as const` produces and `Translated<>` needs them.
+ */
+const _reactionTypeLabelsAreExhaustive: Record<
+  ReactionType,
+  string
+> = REACTION_BALANCER_MESSAGES.reactionType;
+void _reactionTypeLabelsAreExhaustive;

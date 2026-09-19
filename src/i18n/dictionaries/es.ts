@@ -69,7 +69,7 @@ export const es = {
       'Qué guarda ChemGames sobre ti, qué es público, quién lo trata y cómo descargar o borrar tus datos.',
     teachersTitle: 'Para el profesorado | ChemGames',
     teachersDescription:
-      'Qué es ChemGames, en qué cinco idiomas existe, cómo trata los datos del alumnado, en qué punto está la accesibilidad y cómo el profesorado puede ayudar a darle forma durante la beta.',
+      'Qué es ChemGames, en qué seis idiomas existe, cómo trata los datos del alumnado, en qué punto está la accesibilidad y cómo el profesorado puede ayudar a darle forma durante la beta.',
     cheatSheetTitle: 'Chuleta de {title} | ChemGames',
     cheatSheetNotFound: 'Tema no encontrado – ChemGames',
   },
@@ -209,7 +209,7 @@ export const es = {
     //                                 and it says nothing chemical
     lewisTitle: 'Comparte y completa', // chosen: names the rule in Spanish, two
     // short alliterative imperatives, instantly readable at 14
-    lewisDescription: 'Empareja los impares para construir una molécula.',
+    lewisDescription: 'Empareja los electrones desapareados para construir una molécula.',
 
     // bondsTitle candidates:
     //   'Los enlaces'  — too vague

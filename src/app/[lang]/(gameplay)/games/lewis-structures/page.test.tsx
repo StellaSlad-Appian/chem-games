@@ -42,7 +42,7 @@ const markGuidesSeen = () => localStorage.setItem(GUIDED_SEEN_KEY, JSON.stringif
 // --------------------------------------------------------------------------
 const arena = () => screen.getByTestId('lewis-arena');
 /** A loner dot button ("Oxygen, loner 1 of 2"), never a glossary word. */
-const LONER = /loner \d+ of \d+/;
+const LONER = /unpaired electron \d+ of \d+/;
 const atomEl = (id: string) => {
   const el = arena().querySelector<HTMLElement>(`[data-atom-id="${id}"]`);
   if (!el) throw new Error(`No atom ${id} on the canvas`);

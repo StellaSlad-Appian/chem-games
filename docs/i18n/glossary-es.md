@@ -75,7 +75,7 @@ setting.
 
 | Rule | Decision |
 |---|---|
-| Address | Informal **tú** throughout, as the brief fixes. Unlike the French decision this one is not contentious: Spanish school material addresses students as *tú* as a matter of course, and *usted* would read as a bank letter. All imperatives are the *tú* form: *arrastra*, *pulsa*, *toca*, *elige*, *cuenta*, *mira*. |
+| Address | Informal **tú** throughout. **Decided by the owner on 2026-09-19; no longer provisional.** Unlike the French decision this one is not contentious: Spanish school material addresses students as *tú* as a matter of course, and *usted* would read as a bank letter. All imperatives are the *tú* form: *arrastra*, *pulsa*, *toca*, *elige*, *cuenta*, *mira*. |
 | Opening `¿` and `¡` | **Mandatory, always.** A question or exclamation that opens without one is a spelling error in Spanish, not a style choice. This includes questions inside a longer sentence: *Ya está ajustada, ¿verdad?* |
 | Quotation marks | **« … »** (comillas latinas), which is the RAE's first choice, and **without** the inner spaces French requires. Nested quotes use “ … ”. |
 | Space before `: ; ! ?` | **None.** Spanish punctuates like English here, not like French. This is why `cheatSheets.exampleLabel` (`{name}:`) is identical to the English and is allowlisted — the key exists only because French needed a no-break space. |
@@ -255,8 +255,8 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | lone pair | **par solitario** | The Spanish school term, and short enough to survive the counted noun phrases (*2 pares solitarios*) and a notebook column heading. The formal alternative **par no enlazante** is genuinely used and is glossed once, where the Lewis sheet defines the idea; it is not used as a second name for the same thing in running text. **This entry is load-bearing: it is why *solitario* cannot be the game's word for a single unpaired electron — see the long note below.** |
 | bonding pair / shared pair | **par enlazante** | Share to Fill says "shared pair" where a textbook says "bonding pair"; both are *par enlazante*. **Rejected: *par compartido***, which is the transparent rendering and was tempting — but the game's own verb is *compartir* ("Comparte y completa"), so *«comparte un par compartido»* is tautological in a way *«comparte un par enlazante»* is not. Do not introduce a second word (*par de enlace*, *par compartido*) for the same thing. |
 | unpaired electron (formal term) | **electrón desapareado** | The Spanish textbook term — the one used when teaching radicals. Use it in the glossary, on the cheat sheets and anywhere the text is explaining rather than instructing. |
-| the game's "loner" (game word) | **impar** | See the long note below. |
-| the short label on a pulsing dot | **impar** | Same word, and that is a fact about Spanish rather than a shortcut — see below. |
+| ~~the game's "loner" (game word)~~ | **dropped 2026-09-19 — use *electrón desapareado*** | The game used to give this concept two names: the textbook term above and an invented game word, *impar*, with *impar* (the same word) as the short label on a pulsing dot. **That scheme was abolished on 2026-09-19.** There is now one term per language and it is the formal one, used in the hub line, every coach line, every hint, the glossary and the canvas legend. The reasoning that produced *impar* is kept in the section below so that nobody re-proposes it, and the collision warnings in that section are still true — they bind any *new* wording chosen near this term, not just the nickname they originally decided. The width argument that forced the short dot label is also retired: *electrón desapareado* renders 126 px at `text-[9px]` uppercase against the ~44 px a per-dot label had, but the label is no longer printed beside every dot — it is printed once, in a legend above the board, where length does not matter. |
+| the Level 1 canvas legend | **electrón desapareado** | The same formal term, naming the pulsing dot once beside a sample of it, above the board. Present at Level 1 and off from Level 2. |
 | octet (eight outer electrons) | **octeto** | *La regla del octeto* is standard from 3º ESO. |
 | duet (hydrogen's two) | **dueto** | **Spanish is between French and German here.** French already had *la règle du duet* in its national programme and could rate it high; German had nothing and had to coin *Duett*. Spanish has *la regla del dueto* in circulation — it appears in Spanish-language textbooks, especially Latin American ones — but it is not as settled as the octet rule, and plenty of Spanish teachers simply say hydrogen is full at two. **Rated medium.** The alternative is *la regla del dúo*. |
 | single / double / triple bond | **enlace simple / enlace doble / enlace triple** | The adjective follows the noun, so these cannot be compounded the way German's *Doppelbindung* is; the match words are three two-word phrases. |
@@ -267,7 +267,21 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | electronegativity | **electronegatividad** | — |
 | delocalised electrons | **electrones libres** | The literal *electrones deslocalizados* is correct and is upper-secondary register; *electrones libres* is the school phrasing for the "sea" in a metal. **And it is a second reason *libre* could not be the game's word for a loner** — *electrón libre* already means something else, and something a student meets on the bonding sheet. |
 
-### The "loner": Spanish's own two-tier pair, and the trap it had to avoid
+### The “loner”: Spanish's own two-tier pair, and the trap it had to avoid — historical, and why it is kept
+
+> **This scheme was abolished on 2026-09-19.** The game no longer has a game
+> word, a formal term and a dot label: it has ***electrón desapareado*** and nothing else,
+> in the hub line, every coach line, every hint, the glossary and the canvas
+> legend. Nothing below is current practice.
+>
+> It is kept for two reasons. First, so that the rejected candidates stay
+> rejected — every one of them was ruled out for a stated reason, and a future
+> pass that re-proposes one should have to answer that reason. Second, and more
+> important, because **the collisions recorded below are facts about Spanish,
+> not facts about the old nickname.** They bind any *new* wording chosen
+> anywhere near this term, which is why they are repeated in the term table
+> above rather than living only here.
+
 
 English deliberately gives an unpaired outer electron two names — the formal
 *unpaired electron* and the game's own *loner* — and teaches the pair, with the

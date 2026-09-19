@@ -22,6 +22,7 @@ const loaders: Record<Locale, () => Promise<Dictionary>> = {
   fr: () => import('./dictionaries/fr').then((module) => module.fr),
   es: () => import('./dictionaries/es').then((module) => module.es),
   it: () => import('./dictionaries/it').then((module) => module.it),
+  ru: () => import('./dictionaries/ru').then((module) => module.ru),
 };
 
 /**

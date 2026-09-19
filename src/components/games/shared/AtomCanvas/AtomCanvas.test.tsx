@@ -16,9 +16,9 @@ const labels: AtomCanvasLabels = {
   elementName: (symbol) => getElementName(symbol),
   atomName: (name, count, full) => `${name}: ${count} of ${full}`,
   counter: (symbol, count, full) => `${symbol}: ${count} of ${full}`,
-  loner: (name, i, n) => `${name}, loner ${i} of ${n}`,
+  loner: (name, i, n) => `${name}, unpaired electron ${i} of ${n}`,
   lonePair: (name, i, n) => `${name}, lone pair ${i} of ${n}`,
-  lonerLabel: 'loner',
+  lonerLabel: 'unpaired electron',
   bondName: (a, b, order) => `${order === 2 ? 'Double' : 'Single'} bond between ${a.toLowerCase()} and ${b.toLowerCase()}`,
   bondUndo: 'press to undo',
   bondCount: 'press to count',
@@ -44,7 +44,8 @@ function renderCanvas(structure: LewisStructure, props: Partial<AtomCanvasProps>
   return handlers;
 }
 
-const loner = (name: string, i: number, n: number) => screen.getByRole('button', { name: `${name}, loner ${i} of ${n}` });
+const loner = (name: string, i: number, n: number) =>
+  screen.getByRole('button', { name: `${name}, unpaired electron ${i} of ${n}` });
 
 describe('AtomCanvas (build mode)', () => {
   it('names every atom, loner and lone pair, and shows the text counters', () => {
@@ -63,12 +64,12 @@ describe('AtomCanvas (build mode)', () => {
     renderCanvas(createStructure(water));
     expect(loner('Oxygen', 1, 2)).toHaveAttribute('tabindex', '0');
     expect(loner('Oxygen', 2, 2)).toHaveAttribute('tabindex', '-1');
-    screen.getAllByRole('button', { name: 'Hydrogen, loner 1 of 1' }).forEach((b) => expect(b).toHaveAttribute('tabindex', '0'));
+    screen.getAllByRole('button', { name: 'Hydrogen, unpaired electron 1 of 1' }).forEach((b) => expect(b).toHaveAttribute('tabindex', '0'));
   });
 
   it('pairs by tapping a loner on one atom and then a loner on another', () => {
     const { onPair, onSelectLoner } = renderCanvas(createStructure(water));
-    const [h1] = screen.getAllByRole('button', { name: 'Hydrogen, loner 1 of 1' });
+    const [h1] = screen.getAllByRole('button', { name: 'Hydrogen, unpaired electron 1 of 1' });
     fireEvent.click(h1);
     expect(onSelectLoner).toHaveBeenCalledWith('a1');
     expect(h1).toHaveAttribute('aria-pressed', 'true');
@@ -104,7 +105,7 @@ describe('AtomCanvas (build mode)', () => {
     expect(loner('Oxygen', 2, 2)).toHaveAttribute('aria-pressed', 'false');
 
     fireEvent.click(loner('Oxygen', 2, 2));
-    fireEvent.click(screen.getAllByRole('button', { name: 'Hydrogen, loner 1 of 1' })[1]);
+    fireEvent.click(screen.getAllByRole('button', { name: 'Hydrogen, unpaired electron 1 of 1' })[1]);
     expect(onPair).toHaveBeenCalledWith('a0', 'a2');
   });
 
@@ -130,6 +131,25 @@ describe('AtomCanvas (build mode)', () => {
     expect(loner('Oxygen', 1, 2).querySelector('.loner-pulse')).toBeNull();
   });
 
+  // The Level 1 vocabulary scaffold. It is one legend above the board, not a
+  // label stamped beside each dot: the dots are 50 px apart and the formal term
+  // is 102-134 px wide depending on the language, so a per-dot label could not
+  // survive translation. See AtomCanvas.tsx and docs/i18n/README.md.
+  it('names the pulsing dot once in a legend, and only when asked', () => {
+    const { unmount } = renderWithProviders(
+      <AtomCanvas structure={createStructure(water)} mode="build" label="c" labels={labels} onPair={vi.fn()} lonerLabels />
+    );
+    const legend = screen.getByTestId('unpaired-legend');
+    expect(legend).toHaveTextContent('unpaired electron');
+    // Exactly one, however many unpaired dots the molecule has.
+    expect(screen.getAllByTestId('unpaired-legend')).toHaveLength(1);
+    expect(screen.getAllByTestId('loner').length).toBeGreaterThan(1);
+    unmount();
+
+    renderCanvas(createStructure(water));
+    expect(screen.queryByTestId('unpaired-legend')).not.toBeInTheDocument();
+  });
+
   it('renders nothing interactive when disabled, read-only or compact', () => {
     renderCanvas(createStructure(water), { disabled: true });
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
@@ -144,7 +164,7 @@ describe('AtomCanvas (inspect and count modes)', () => {
     expect(oxygen).toHaveAttribute('aria-pressed', 'true');
     fireEvent.click(screen.getAllByRole('button', { name: /Hydrogen: 2 of 2/ })[0]);
     expect(onAtomTap).toHaveBeenCalledWith('a1');
-    expect(screen.queryByRole('button', { name: /loner/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /unpaired electron/ })).not.toBeInTheDocument();
   });
 
   it('counts bonds by pressing each shared pair', () => {

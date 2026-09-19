@@ -27,7 +27,7 @@ way Spanish's did.
 
 | Rule | Decision |
 |---|---|
-| Address | Informal **tu** throughout, as the brief fixes. Like Spanish and unlike French, this is not contentious: Italian school material addresses students as *tu* as a matter of course, and *Lei* would read as a letter from the bank. All imperatives are the *tu* form: *trascina*, *tocca*, *premi*, *scegli*, *conta*, *guarda*. |
+| Address | Informal **tu** throughout. **Decided by the owner on 2026-09-19; no longer provisional.** Like Spanish and unlike French, this is not contentious: Italian school material addresses students as *tu* as a matter of course, and *Lei* would read as a letter from the bank. All imperatives are the *tu* form: *trascina*, *tocca*, *premi*, *scegli*, *conta*, *guarda*. |
 | Quotation marks | **« … »** (caporali), which is the Italian printing standard, and **without** the inner spaces French requires. Nested quotes use “ … ”. |
 | Space before `: ; ! ?` | **None.** Italian punctuates like English and Spanish here, not like French. This is why `cheatSheets.exampleLabel` (`{name}:`) is identical to the English and is allowlisted — the key exists only because French needs a no-break space. |
 | Apostrophe | **U+2019 (’), always** — *l’atomo*, *un’equazione*, *dell’ossigeno*. This is not only typography: elision is everywhere in Italian, the dictionaries are single-quoted TypeScript, and `'l\'atomo'` would put a backslash in front of roughly one string in six. Using the typographic apostrophe means **no Italian string ever needs an escape**, and it is what a printed Italian page uses anyway. `en.ts` already writes *browser’s* the same way. |
@@ -269,8 +269,8 @@ than failing silently on screen.
 | lone pair | **doppietto solitario** | The Italian school term. **This entry is load-bearing: it is why *solitario* cannot be the game's word for a single unpaired electron — see the long note below.** *Coppia solitaria* is the other common phrasing and uses the same adjective, so the collision holds either way; *doppietto libero* and *doppietto non condiviso* are also in circulation. *Doppietto libero* is a second reason *libero* is unavailable. |
 | bonding pair / shared pair | **doppietto di legame** | Share to Fill says "shared pair" where a textbook says "bonding pair"; both are *doppietto di legame*. **Rejected: *doppietto condiviso***, the transparent rendering — the game's own verb is *condividere* (*«Condividi e completa»*), so *«condividi un doppietto condiviso»* is tautological in a way *«condividi un doppietto di legame»* is not. Exactly the objection Spanish raised to *par compartido*. |
 | unpaired electron (formal term) | **elettrone spaiato** | The Italian textbook term — the one used when teaching radicals. Use it in the glossary, on the cheat sheets and anywhere the text is explaining rather than instructing. |
-| the game's "loner" (game word) | **dispari** | See the long note below. |
-| the short label on a pulsing dot | **dispari** | Same word; see below for why Italian has nothing shorter to shorten to. |
+| ~~the game's "loner" (game word)~~ | **dropped 2026-09-19 — use *elettrone spaiato*** | The game used to give this concept two names: the textbook term above and an invented game word, *dispari*, with *dispari* (the same word) as the short label on a pulsing dot. **That scheme was abolished on 2026-09-19.** There is now one term per language and it is the formal one, used in the hub line, every coach line, every hint, the glossary and the canvas legend. The reasoning that produced *dispari* is kept in the section below so that nobody re-proposes it, and the collision warnings in that section are still true — they bind any *new* wording chosen near this term, not just the nickname they originally decided. The width argument that forced the short dot label is also retired: *elettrone spaiato* renders 102 px at `text-[9px]` uppercase against the ~44 px a per-dot label had, but the label is no longer printed beside every dot — it is printed once, in a legend above the board, where length does not matter. |
+| the Level 1 canvas legend | **elettrone spaiato** | The same formal term, naming the pulsing dot once beside a sample of it, above the board. Present at Level 1 and off from Level 2. |
 | octet (eight outer electrons) | **ottetto** | *La regola dell’ottetto* is standard. |
 | duet (hydrogen's two) | **duetto** | **Italian sits with Spanish, between French and German.** *La regola del duetto* is in circulation in Italian textbooks, so nothing was coined, but it is not as settled as the octet rule and plenty of teachers simply say hydrogen is full at two. **Rated medium.** **Note what is *not* available: *doppietto*.** It is the obvious word for "a pair of electrons" and it is already this glossary's word for a lone pair — *la regola del doppietto* would mean something else on the very sheet that defines both. |
 | single / double / triple bond | **legame singolo / legame doppio / legame triplo** | The adjective follows the noun, so these cannot be compounded the way German's *Doppelbindung* is; the match words are three two-word phrases. **And *singolo* is therefore spoken for**, which is the third reason it could not be the game word. |
@@ -281,7 +281,21 @@ than failing silently on screen.
 | electronegativity | **elettronegatività** | Final accent — fine in prose, but **never usable as a glossary match word** (see above). |
 | delocalised electrons | **elettroni delocalizzati** | The school phrasing for the "sea" in a metal is *mare di elettroni*; *elettroni liberi* is also used, **and that is the second reason *libero* could not be the game's word for a loner** — it already means something else, and something a student meets on the bonding sheet. |
 
-### The "loner": Italian's own two-tier pair, and the three words it could not use
+### The “loner”: Italian's own two-tier pair, and the three words it could not use — historical, and why it is kept
+
+> **This scheme was abolished on 2026-09-19.** The game no longer has a game
+> word, a formal term and a dot label: it has ***elettrone spaiato*** and nothing else,
+> in the hub line, every coach line, every hint, the glossary and the canvas
+> legend. Nothing below is current practice.
+>
+> It is kept for two reasons. First, so that the rejected candidates stay
+> rejected — every one of them was ruled out for a stated reason, and a future
+> pass that re-proposes one should have to answer that reason. Second, and more
+> important, because **the collisions recorded below are facts about Italian,
+> not facts about the old nickname.** They bind any *new* wording chosen
+> anywhere near this term, which is why they are repeated in the term table
+> above rather than living only here.
+
 
 English deliberately gives an unpaired outer electron two names — the formal
 *unpaired electron* and the game's own *loner* — and teaches the pair, with the

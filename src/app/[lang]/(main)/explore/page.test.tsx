@@ -18,7 +18,7 @@ import { TestProviders } from '@/test-utils/render';
 import { en } from '@/i18n/dictionaries/en';
 import { de } from '@/i18n/dictionaries/de';
 import { getDictionary } from '@/i18n/dictionaries';
-import { DATE_LOCALES, DEFAULT_LOCALE, isLocale } from '@/i18n/config';
+import { DEFAULT_LOCALE, formattingLocale, isLocale } from '@/i18n/config';
 import type { ExplorePair } from '@/lib/explore/types';
 
 /**
@@ -119,7 +119,7 @@ describe('the Explore page', () => {
     // 21 September 2026 is the Monday of the week containing MID_WEEK. Day
     // first, because English formats through en-GB — `Intl.DateTimeFormat('en')`
     // resolves to en-US and would write "September 21, 2026" on a site that
-    // spells things *neutralise*. See DATE_LOCALES in src/i18n/config.ts.
+    // spells things *neutralise*. See FORMATTING_LOCALE in src/i18n/config.ts.
     const dateline = screen.getByText(/Week of/);
     expect(dateline).toHaveTextContent('Week of 21 September 2026');
     expect(dateline.closest('time')).toHaveAttribute('datetime', '2026-09-21');
@@ -134,7 +134,7 @@ describe('the Explore page', () => {
     // Not asserted as a literal string: the point is that Intl produced German
     // month names and German ordering, not that a particular build of ICU spells
     // it one way.
-    const expected = new Intl.DateTimeFormat(DATE_LOCALES.de, {
+    const expected = new Intl.DateTimeFormat(formattingLocale('de'), {
       day: 'numeric',
       month: 'long',
       year: 'numeric',

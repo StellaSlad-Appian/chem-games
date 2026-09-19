@@ -46,7 +46,7 @@ export const en = {
       'What ChemGames stores about you, what is public, who processes it, and how to download or delete your data.',
     teachersTitle: 'For Teachers | ChemGames',
     teachersDescription:
-      'What ChemGames is, the five languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta.',
+      'What ChemGames is, the six languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta.',
     cheatSheetTitle: '{title} Cheat Sheet | ChemGames',
     cheatSheetNotFound: 'Topic Not Found - ChemGames',
   },
@@ -156,7 +156,7 @@ export const en = {
     balancerTitle: 'Reaction Balancer',
     balancerDescription: 'Make the atoms match on both sides of the arrow.',
     lewisTitle: 'Share to Fill',
-    lewisDescription: 'Pair up the loners to build a molecule.',
+    lewisDescription: 'Pair up the unpaired electrons to build a molecule.',
     bondsTitle: 'Chemical Bonds',
     bondsDescription: 'Explore molecular structures and atomic bonding.',
   },

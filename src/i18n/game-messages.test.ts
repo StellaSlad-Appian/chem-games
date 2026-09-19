@@ -8,9 +8,10 @@
 // formulae altered in translation — from src/test-utils/i18n-parity.ts. Moving
 // the copy out of the dictionary must not move it out of the gates.
 //
-// On top of that, two things only a catalogue has: a loader that must cover
-// every locale in LOCALES, and a glossary whose match words have to be findable
-// by a JavaScript `\b`.
+// On top of that, three things only a catalogue has: a loader that must cover
+// every locale in LOCALES, a glossary whose match words have to be findable by
+// the matcher's `\p{L}` boundaries (an ASCII `\b` until Russian forced the
+// question), and plural records complete enough for the language.
 
 import { describe, expect, it } from 'vitest';
 import { LOCALES } from './config';
@@ -26,7 +27,13 @@ import { es as balancerEs } from './game-messages/reaction-balancer/es';
 import { es as lewisEs } from './game-messages/lewis-structures/es';
 import { it as balancerIt } from './game-messages/reaction-balancer/it';
 import { it as lewisIt } from './game-messages/lewis-structures/it';
-import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
+import { ru as balancerRu } from './game-messages/reaction-balancer/ru';
+import { ru as lewisRu } from './game-messages/lewis-structures/ru';
+import {
+  describePluralCompleteness,
+  describeTranslationParity,
+  flatten,
+} from '@/test-utils/i18n-parity';
 
 /**
  * Keys whose translation is legitimately identical to the English. Carried over
@@ -49,6 +56,10 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     /^success\.points$/,
     /^challenge\.tileA11y$/,
     /^glossary\.stateSymbols\.term$/,
+    // "Redox" is the international name for the reaction class and is what a
+    // German textbook writes (Redoxreaktion). The other seven badge labels
+    // are all translated.
+    /^reactionType\.Redox$/,
   ],
   fr: [
     // "Coach" is an established French loanword and names a thing in the
@@ -67,6 +78,11 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     /^glossary\.coefficient\.(term|matches\[\d+\])$/,
     // "Points" as a column heading.
     /^notebook\.columnPoints$/,
+    // "Combustion" is spelled identically in French and English. Note that
+    // French is the one locale where `reactionType.Redox` is NOT exempt: it
+    // says « Oxydoréduction » where German, Spanish and Italian all keep the
+    // international "Redox".
+    /^reactionType\.Combustion$/,
   ],
   es: [
     // The first column of an instructions key table is the physical key, so it
@@ -82,6 +98,9 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     // « Guía » in Spanish, where German and French both keep the loanword; and
     // "coefficient" is « coeficiente », where French had to allowlist the
     // glossary term and both its match words as identical-by-design.
+    // "Redox" is the international name for the reaction class; Spanish
+    // says *reacción redox* and never expands it.
+    /^reactionType\.Redox$/,
   ],
   it: [
     // The first column of an instructions key table is the physical key, so it
@@ -96,6 +115,26 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     // The same four as Spanish, and for the same reasons: "Coach" is « Guida »,
     // "Challenge" is « Sfida » and "coefficient" is « coefficiente », so none of
     // those needs an exemption here.
+    // "Redox" is the international name for the reaction class; Italian
+    // says *reazione redox* and never expands it.
+    /^reactionType\.Redox$/,
+  ],
+  ru: [
+    // The first column of an instructions key table is the physical key, so it
+    // never translates; the second column, which says what the key does, always
+    // does.
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    // Strings whose whole visible content is placeholders, punctuation or
+    // international notation: there is nothing in them to translate.
+    /^success\.points$/,
+    /^challenge\.tileA11y$/,
+    /^glossary\.stateSymbols\.term$/,
+    // **`reactionType.Redox` is deliberately NOT here**, and Russian is only
+    // the second locale after French where that is true. German, Spanish and
+    // Italian all keep the international "Redox"; Russian has *редокс* too,
+    // but it is laboratory jargon, and the word a school textbook prints is
+    // «окислительно-восстановительная». "Coach" is «Наставник» and
+    // "Challenge" is «Испытание», so neither needs an exemption either.
   ],
 };
 
@@ -137,18 +176,49 @@ const LEWIS_IDENTICAL_BY_DESIGN = {
     // Italian needs none of the glossary exemptions French did either:
     // « ottetto », « duetto » and « punto » all differ from the English.
   ],
+  ru: [
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^notebook\.diagnosisRow$/,
+    /^ui\.atomOrdinal$/,
+    // Russian needs none of the glossary exemptions French did: «октет»,
+    // «дублет» and «точка» are all Cyrillic, so nothing in this catalogue can
+    // coincide with the English by accident — which is the one respect in
+    // which a non-Latin locale is *easier* than a Latin one.
+  ],
 };
 
 describeTranslationParity('reaction-balancer catalogue', {
   source: REACTION_BALANCER_MESSAGES,
-  translations: { de: balancerDe, fr: balancerFr, es: balancerEs, it: balancerIt },
+  translations: { de: balancerDe, fr: balancerFr, es: balancerEs, it: balancerIt, ru: balancerRu },
   identicalByDesign: BALANCER_IDENTICAL_BY_DESIGN,
 });
 
 describeTranslationParity('lewis-structures catalogue', {
   source: LEWIS_STRUCTURES_MESSAGES,
-  translations: { de: lewisDe, fr: lewisFr, es: lewisEs, it: lewisIt },
+  translations: { de: lewisDe, fr: lewisFr, es: lewisEs, it: lewisIt, ru: lewisRu },
   identicalByDesign: LEWIS_IDENTICAL_BY_DESIGN,
+});
+
+// Both catalogues carry more plural records than the dictionary does — every
+// count of bonds, lone pairs, shared pairs and molecules — so this is where an
+// incomplete Russian plural would do the most damage. English is included for
+// the same reason it is in dictionary.test.ts.
+describePluralCompleteness('reaction-balancer catalogue', {
+  en: REACTION_BALANCER_MESSAGES,
+  de: balancerDe,
+  fr: balancerFr,
+  es: balancerEs,
+  it: balancerIt,
+  ru: balancerRu,
+});
+describePluralCompleteness('lewis-structures catalogue', {
+  en: LEWIS_STRUCTURES_MESSAGES,
+  de: lewisDe,
+  fr: lewisFr,
+  es: lewisEs,
+  it: lewisIt,
+  ru: lewisRu,
 });
 
 /**
@@ -200,21 +270,44 @@ describe.each(GAMES)('$slug catalogue loader', ({ load, english }) => {
 
 describe.each(GAMES)('$slug glossary match words', ({ load }) => {
   it.each([...LOCALES])(
-    'start and end with an ASCII letter in %s, so the matcher can find them',
+    'start and end with a letter in %s, so the matcher can find them',
     (locale) => {
-      // GlossaryTerm.tsx finds a term with a JavaScript `\b`, which only knows
-      // ASCII letters: a word that begins with "Ä" or ends with "ß" would never
-      // match, and the tap-to-explain chip would silently never appear.
-      // Umlauts *inside* a word are fine — see docs/i18n/glossary-de.md.
+      // This used to demand an *ASCII* letter, because GlossaryTerm.tsx found
+      // a term with a JavaScript `\b`, and `\b` only knows `[A-Za-z0-9_]`: a
+      // word beginning "Ä" or ending "ß" would never match and the
+      // tap-to-explain chip would silently never appear. French paid for that,
+      // moving whole phrases off *électron* onto a later word.
+      //
+      // The matcher now uses `\p{L}` lookarounds under the `u` flag, so this
+      // is the script-neutral rule it always meant: a match word must start
+      // and end with a *letter*, in any alphabet. No Russian match word could
+      // have satisfied the ASCII version at all.
+      //
+      // What still fails, and must: a word starting or ending with punctuation
+      // or a space, where the boundary would land in the wrong place.
       const offenders = Object.entries(glossaryOf(load(locale))).flatMap(([key, entry]) =>
         entry.matches
-          .filter((word) => !/^[A-Za-z].*[A-Za-z]$/.test(word))
+          .filter((word) => !/^\p{L}.*\p{L}$/u.test(word))
           .map((word) => `${key}: "${word}"`)
       );
 
       expect(offenders).toEqual([]);
     }
   );
+
+  it.each([...LOCALES])('are never an empty list in %s', (locale) => {
+    // The guard that pays for the key-parity exemption. `matches` is exempt
+    // from the missing/extra check in i18n-parity.ts, because how many
+    // inflected forms a term needs is a property of the language — Russian
+    // carries four where English carries two. The cost of that exemption is
+    // that a locale could ship `matches: []` and lose a chip silently, so the
+    // floor is asserted here instead.
+    const empty = Object.entries(glossaryOf(load(locale)))
+      .filter(([, entry]) => entry.matches.length === 0)
+      .map(([key]) => key);
+
+    expect(empty).toEqual([]);
+  });
 
   it.each([...LOCALES].filter((locale) => locale !== 'en'))(
     'cover the %s running text wherever the English list covers the English text',
@@ -234,7 +327,15 @@ describe.each(GAMES)('$slug glossary match words', ({ load }) => {
     }
   );
 
-  /** Whether this locale's copy, outside the glossary itself, uses one of the term's match words. */
+  /**
+   * Whether this locale's copy, outside the glossary itself, uses one of the
+   * term's match words.
+   *
+   * The boundaries here mirror GlossaryTerm.tsx exactly, `u` flag included. If
+   * this kept an ASCII `\b` while the matcher went Unicode, the two would
+   * disagree about Cyrillic in opposite directions and this gate would report
+   * every Russian term as unlinked.
+   */
   function linksInRunningText(locale: string, key: string): boolean {
     const catalogue = load(locale);
     const entry = glossaryOf(catalogue)[key];
@@ -243,8 +344,9 @@ describe.each(GAMES)('$slug glossary match words', ({ load }) => {
       .map((line) => line.value)
       .join('\n');
 
-    return entry.matches.some((word) =>
-      new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(runningText)
-    );
+    return entry.matches.some((word) => {
+      const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'iu').test(runningText);
+    });
   }
 });

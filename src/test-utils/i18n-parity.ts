@@ -19,7 +19,7 @@
 // automatically.
 
 import { describe, expect, it } from 'vitest';
-import { isPluralForms, placeholdersIn } from '@/i18n/format';
+import { isPluralForms, placeholdersIn, type PluralCategory } from '@/i18n/format';
 
 export type Entry = { path: string; value: string; plural?: boolean };
 
@@ -47,6 +47,36 @@ export function flatten(value: unknown, prefix = '', inPlural = false): Entry[] 
 
 /** `games.x.count.one` -> `games.x.count`. */
 export const pluralRoot = (path: string) => path.slice(0, path.lastIndexOf('.'));
+
+/**
+ * A glossary match word — `glossary.loner.matches[3]`.
+ *
+ * **Exempt from the key-parity check in both directions**, and for exactly the
+ * reason plural forms are: *how many of these a term needs is a property of
+ * the language, not of the string.* `matches` is the list of word forms that
+ * open a tap-to-explain pop-over, the matcher does not stem, and a language
+ * supplies one entry per inflected form its own copy uses. English needs two
+ * for *lone pair* (singular and plural). Russian needs four for
+ * *неподелённая пара*, because the copy uses the nominative, the genitive
+ * singular, the genitive plural and the accusative — six cases is not an
+ * excess, it is the language.
+ *
+ * Positional array parity made that impossible: `flatten()` gives every array
+ * element its own path, so a fifth Russian form reads as an "extra key". The
+ * five Latin locales never noticed, because each of them happens to need the
+ * same count English does. docs/i18n/README.md and GAMES.md both already tell
+ * the Russian pass to expect longer lists than any previous language; this is
+ * the gate catching up with the documented design rather than a relaxation of
+ * it.
+ *
+ * What still holds, so this cannot become a way of switching coverage off:
+ * every match word is still checked for emptiness; `game-messages.test.ts`
+ * still asserts each one starts and ends with a letter; it still asserts that
+ * a term linked in the English running text is linked in the translation's;
+ * and it now asserts no locale ships an empty `matches` list.
+ */
+const isGlossaryMatch = (path: string) =>
+  /(?:^|\.)glossary\.[^.]+\.matches\[\d+\]$/.test(path);
 
 /**
  * A cheap smoke test for the most damaging class of mistake: a translator
@@ -91,10 +121,13 @@ export function describeTranslationParity(label: string, options: ParityOptions)
       // Plural forms are exempt in both directions: a locale supplies the CLDR
       // categories its language uses. `other` is covered by the test below.
       const missing = englishEntries
-        .filter((entry) => !entry.plural && !map.has(entry.path))
+        .filter((entry) => !entry.plural && !isGlossaryMatch(entry.path) && !map.has(entry.path))
         .map((e) => e.path);
       const extra = entries
-        .filter((entry) => !entry.plural && !englishMap.has(entry.path))
+        .filter(
+          (entry) =>
+            !entry.plural && !isGlossaryMatch(entry.path) && !englishMap.has(entry.path)
+        )
         .map((e) => e.path);
 
       expect({ missing, extra }).toEqual({ missing: [], extra: [] });
@@ -156,6 +189,124 @@ export function describeTranslationParity(label: string, options: ParityOptions)
         .map((entry) => entry.path);
 
       expect(altered).toEqual([]);
+    });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Plural completeness — a build-time gate, deliberately stricter than runtime
+// ---------------------------------------------------------------------------
+//
+// `selectPlural()` in format.ts falls back to `other` when a locale has not
+// supplied the category a count selects, and `plural.test.ts` pins that: a
+// half-translated page should render a slightly wrong sentence, not the word
+// "undefined". That is the right runtime behaviour and it is not changing.
+//
+// But it means a Russian dictionary shipped with only `one` and `other` — the
+// shape a translator copying en.ts would naturally produce — is *grammatically
+// wrong on almost every count* and nothing anywhere fails. 2 books, 5 books
+// and 25 books would all read "2 книги / 5 книги / 25 книги", and the parity
+// gates above are all satisfied: no key is missing, nothing is empty, nothing
+// is identical to the English, every placeholder survives.
+//
+// So the two disagree on purpose. Runtime degrades; the build refuses.
+
+/**
+ * The largest count any string on this site interpolates, with three orders
+ * of magnitude of headroom.
+ *
+ * It has to be a number rather than "all of them", because CLDR categories are
+ * defined over every numeric value and some are unreachable in practice. The
+ * real counts here are topics on a cheat-sheet grid, bonds and lone pairs in a
+ * Lewis structure, molecules in an equation, correct answers in a round — all
+ * in the low tens.
+ *
+ * This is what keeps the gate honest in both directions:
+ *
+ *   * French, Spanish and Italian *declare* a `many` category, but the
+ *     smallest integer that selects it is **1,000,000** (checked, not
+ *     assumed — it is the compact-decimal rule, "1,5 million de livres").
+ *     Requiring the three shipped Romance locales to invent a millions form
+ *     for "{count} topics" would be noise, and noise is how a gate gets
+ *     switched off.
+ *   * Russian reaches `few` at 2 and `many` at 5. Those are ordinary counts
+ *     on an ordinary page, so Russian must supply both.
+ */
+const PLAUSIBLE_COUNT_CEILING = 1000;
+
+/**
+ * The CLDR categories a locale must supply, derived from `Intl.PluralRules`
+ * rather than written down.
+ *
+ * Derived, because a hard-coded table is a second source of truth that goes
+ * stale silently: CLDR moves, ICU ships with Node, and the one thing worse
+ * than no gate is a gate asserting last year's rules.
+ *
+ * `other` is always required even where no count selects it — Russian is the
+ * example, since every integer there is `one`, `few` or `many` and only a
+ * fraction (1.5) is `other`. It is the type's only required form and the
+ * fallback the runtime leans on, so a record without it is broken regardless.
+ */
+export function requiredPluralCategories(locale: string): PluralCategory[] {
+  const rules = new Intl.PluralRules(locale);
+  const reachable = new Set<string>(['other']);
+  for (let n = 0; n <= PLAUSIBLE_COUNT_CEILING; n++) reachable.add(rules.select(n));
+  return [...reachable].sort() as PluralCategory[];
+}
+
+/** Every category `Intl.PluralRules` says this locale has, reachable or not. */
+const declaredPluralCategories = (locale: string): string[] =>
+  [...new Intl.PluralRules(locale).resolvedOptions().pluralCategories].sort();
+
+/**
+ * Asserts every plural record in every locale carries exactly the forms its
+ * language needs. Call it once per translated source, with English included —
+ * English is as capable of losing a form as anything else.
+ */
+export function describePluralCompleteness(
+  label: string,
+  catalogues: Record<string, unknown>
+): void {
+  const locales = Object.keys(catalogues).sort();
+
+  describe.each(locales)(`${label}: %s plural completeness`, (locale) => {
+    const records = () => {
+      const byRoot = new Map<string, Set<string>>();
+      for (const entry of flatten(catalogues[locale])) {
+        if (!entry.plural) continue;
+        const root = pluralRoot(entry.path);
+        const forms = byRoot.get(root) ?? new Set<string>();
+        forms.add(entry.path.slice(root.length + 1));
+        byRoot.set(root, forms);
+      }
+      return byRoot;
+    };
+
+    it('supplies every CLDR category a real count can select', () => {
+      const required = requiredPluralCategories(locale);
+      const incomplete = [...records()]
+        .map(([root, forms]) => ({
+          root,
+          missing: required.filter((category) => !forms.has(category)),
+        }))
+        .filter((record) => record.missing.length > 0);
+
+      // Failure reads as e.g. [{ root: 'cheatSheets.count', missing: ['few','many'] }]
+      expect(incomplete).toEqual([]);
+    });
+
+    it('supplies no category the language does not have', () => {
+      // The other direction, and the cheaper bug: a `two` in a Russian record,
+      // or a typo like `mny`, is dead weight the runtime silently ignores.
+      const declared = new Set(declaredPluralCategories(locale));
+      const surplus = [...records()]
+        .map(([root, forms]) => ({
+          root,
+          surplus: [...forms].filter((category) => !declared.has(category)).sort(),
+        }))
+        .filter((record) => record.surplus.length > 0);
+
+      expect(surplus).toEqual([]);
     });
   });
 }

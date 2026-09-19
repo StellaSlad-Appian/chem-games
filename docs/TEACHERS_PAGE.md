@@ -44,10 +44,17 @@ a class.
       no student account needed to play. Target band **Year 9–10, ages 14–16**, stated
       explicitly; `src/i18n/review-notes.ts:206` treats that band as load-bearing and
       corrects locales that drift off it.
-- [ ] **MUST** **Languages.** Names the five locales that actually ship — English,
-      German, French, Spanish, Italian — and says that all text, game coaching and cheat
-      sheets are translated while chemical formulae, symbols and equations never are.
-      Must not list Russian, which is planned and not shipped.
+- [ ] **MUST** **Languages.** Names every locale in `src/i18n/config.ts` that actually
+      ships — English, German, French, Spanish, Italian, Russian — and says that all
+      text, game coaching and cheat sheets are translated while chemical formulae,
+      symbols and equations never are. **This bullet used to say "the five locales" and
+      "must not list Russian, which is planned and not shipped".** Russian shipped, and
+      for one commit the page told a teacher the opposite of the truth about it. Read
+      the count off `LOCALES` rather than off this document; `page.test.tsx` now fails
+      if the sentence and `LOCALES` disagree. Also worth saying here: the cheat sheets'
+      outside links are English-language sites and every sheet cites the Victorian
+      Curriculum whatever language it is read in (docs/i18n/README.md § Known gaps), so
+      the section says so rather than implying translation reaches further than it does.
 - [ ] **MUST** **Student privacy.** No analytics, no advertising, no third-party tracking
       (`src/i18n/dictionaries/en.ts:301`). Playing needs no account. One sentence on what
       a signed-in account stores, then a link to `/privacy` rather than a restatement of

@@ -21,6 +21,7 @@ import { fr } from './teachers/fr';
 import { es } from './teachers/es';
 // `it` is vitest's test function here, so the Italian catalogue is aliased.
 import { it as itTeachers } from './teachers/it';
+import { ru } from './teachers/ru';
 import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
 
 /**
@@ -36,7 +37,7 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {};
 
 describeTranslationParity('teachers catalogue', {
   source: TEACHERS_EN,
-  translations: { de, fr, es, it: itTeachers },
+  translations: { de, fr, es, it: itTeachers, ru },
   identicalByDesign: IDENTICAL_BY_DESIGN,
 });
 
@@ -75,9 +76,15 @@ describe('year band', () => {
     fr: /lyc[ée]e/i,
     es: /bachillerato/i,
     it: /\bliceo\b/i,
+    // «Старшие классы» is 10–11 класс, ages 16–18: the Russian name for
+    // exactly the band the other four patterns catch. This site is 8–9 класс.
+    // Note the lookaround rather than a `\b` — `\b` is defined against
+    // [A-Za-z0-9_], so it never matches at a Cyrillic boundary. That is the
+    // same trap the glossary matcher and the ё gate each hit once.
+    ru: /(?<!\p{L})старш\p{L}*\s+класс|10–11\s*класс/iu,
   };
 
-  const CATALOGUES: Record<string, unknown> = { de, fr, es, it: itTeachers };
+  const CATALOGUES: Record<string, unknown> = { de, fr, es, it: itTeachers, ru };
 
   it.each(Object.keys(WRONG_BAND))('does not name the 16–19 band in %s', (locale) => {
     const offenders = flatten(CATALOGUES[locale])

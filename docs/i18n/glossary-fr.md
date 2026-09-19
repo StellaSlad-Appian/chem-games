@@ -33,7 +33,7 @@ the suite rather than failing silently on screen.
 
 | Rule | Decision |
 |---|---|
-| Address | Informal **tu** throughout. **Flagged for review.** French school textbooks and exam papers very often use *vous* ("Vous disposez de…"), so this is a real decision rather than an obvious one. *tu* was chosen because the site is a game, not a worksheet: the English says "Stuck? Press the lightbulb", and *vous* turns that into an invigilator. If the owner prefers *vous*, the change touches almost every imperative in the dictionary and both catalogues — decide before a native review, not after. |
+| Address | Informal **tu** throughout. **Decided by the owner on 2026-09-19; no longer provisional.** It was a real decision rather than an obvious one — French school textbooks and exam papers very often use *vous* ("Vous disposez de…") — and *tu* was chosen because the site is a game, not a worksheet: the English says "Stuck? Press the lightbulb", and *vous* turns that into an invigilator. Every imperative in the dictionary and both catalogues is the *tu* form. |
 | Quotation marks | French **« … »**, never `"…"`. A narrow no-break space (U+202F) sits inside both guillemets. |
 | Space before `; ! ?` | **Narrow no-break space (U+202F)**, per the Imprimerie nationale and the Unicode recommendation. |
 | Space before `:` | **No-break space (U+00A0)**, which is the full-width one. This is the one place French does *not* use the narrow space. |
@@ -141,8 +141,8 @@ Two more consequences worth knowing:
 | lone pair | **doublet non liant** | The French school term, and the one the brief fixes. **Rejected: *paire libre*** (a calque of the English), **and *doublet libre*** (older French, still seen, but *non liant* is what a current textbook prints and it says what the thing does). |
 | bonding pair / shared pair | **doublet liant** | Share to Fill says "shared pair" where a textbook says "bonding pair"; both are *doublet liant*. Do not introduce a second word (*doublet de liaison*, *paire partagée*) for the same thing. |
 | unpaired electron (formal term) | **électron célibataire** | The French textbook term — the one used when teaching radicals. Use it in the glossary, on the cheat sheets and anywhere the text is explaining rather than instructing. Note that French's own formal term is already concrete and slightly playful, which is not true of English's "unpaired electron" or German's "ungepaartes Elektron". |
-| the game's "loner" (game word) | **solitaire** | See the long note below. |
-| the short label on a pulsing dot | **seul** | See the long note below. |
+| ~~the game's "loner" (game word)~~ | **dropped 2026-09-19 — use *électron célibataire*** | The game used to give this concept two names: the textbook term above and an invented game word, *solitaire*, with *seul* as the short label on a pulsing dot. **That scheme was abolished on 2026-09-19.** There is now one term per language and it is the formal one, used in the hub line, every coach line, every hint, the glossary and the canvas legend. The reasoning that produced *solitaire* is kept in the section below so that nobody re-proposes it, and the collision warnings in that section are still true — they bind any *new* wording chosen near this term, not just the nickname they originally decided. The width argument that forced the short dot label is also retired: *électron célibataire* renders 116 px at `text-[9px]` uppercase against the ~44 px a per-dot label had, but the label is no longer printed beside every dot — it is printed once, in a legend above the board, where length does not matter. |
+| the Level 1 canvas legend | **électron célibataire** | The same formal term, naming the pulsing dot once beside a sample of it, above the board. Present at Level 1 and off from Level 2. |
 | octet (eight outer electrons) | **octet** | *La règle de l’octet* is standard from 3ᵉ. |
 | duet (hydrogen's two) | **duet** | **French already has this word, and teaches it.** *La règle du duet et de l’octet* is in the French programme: hydrogen, helium, lithium and beryllium follow *la règle du duet*. This is the one place French is in a much better position than German, where Phase 1 had to coin *Duett* and rate it low. **Rated high.** |
 | single / double / triple bond | **liaison simple / liaison double / liaison triple** | Note the adjective follows the noun, so these cannot be compounded the way German's *Doppelbindung* is; the match words are three two-word phrases. |
@@ -153,7 +153,21 @@ Two more consequences worth knowing:
 | electronegativity | **électronégativité** | — |
 | delocalised electrons | **électrons libres** | The literal *électrons délocalisés* is correct and is upper-secondary register; *électrons libres* is the school phrasing for the "sea" in a metal and is clearer at this level. |
 
-### The "loner": French's own two-tier pair
+### The “loner”: French's own two-tier pair — historical, and why it is kept
+
+> **This scheme was abolished on 2026-09-19.** The game no longer has a game
+> word, a formal term and a dot label: it has ***électron célibataire*** and nothing else,
+> in the hub line, every coach line, every hint, the glossary and the canvas
+> legend. Nothing below is current practice.
+>
+> It is kept for two reasons. First, so that the rejected candidates stay
+> rejected — every one of them was ruled out for a stated reason, and a future
+> pass that re-proposes one should have to answer that reason. Second, and more
+> important, because **the collisions recorded below are facts about French,
+> not facts about the old nickname.** They bind any *new* wording chosen
+> anywhere near this term, which is why they are repeated in the term table
+> above rather than living only here.
+
 
 English deliberately gives an unpaired outer electron two names — the formal
 *unpaired electron* and the game's own *loner* — and teaches the pair, with the

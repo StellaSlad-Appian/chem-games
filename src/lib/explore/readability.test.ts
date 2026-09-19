@@ -22,6 +22,12 @@
 // ratio against the English pool (fr 1.125, es 1.110, it 1.088, de 0.946), so
 // every language is held to the same standard rather than the same number.
 //
+// Russian starts at the English 30 as a placeholder, because there is no
+// Russian Explore prose yet to measure a ratio from. Re-derive it the same way
+// as the others when that prose lands — Russian typically runs slightly shorter
+// than English in word count while being longer in characters, so 30 is a
+// conservative starting point rather than a measured one.
+//
 // Re-derive the ratios if the pool grows a lot; do not simply raise a limit
 // because a new entry fails. The failure message names the entry and the
 // sentence, and splitting it is nearly always the right fix.
@@ -43,6 +49,7 @@ const MAX_SENTENCE_WORDS: Record<Locale, number> = {
   fr: 34,
   es: 33,
   it: 33,
+  ru: 30,
 };
 
 /**

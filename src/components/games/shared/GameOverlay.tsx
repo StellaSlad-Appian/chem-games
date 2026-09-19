@@ -10,6 +10,7 @@ import { LevelProgress } from '@/components/ui/LevelProgress';
 import { useSound } from '@/hooks/useSound';
 import { OverlayMessageConfig } from '@/core-engine/constants/ui-constants';
 import { useI18n } from '@/i18n/client';
+import { formattingLocale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries/en';
 
 /**
@@ -220,7 +221,7 @@ export default function GameOverlay({
         {gameState === 'paused' && (
           <div className="my-6 grid grid-cols-3 gap-2 rounded-xl border border-(--border) bg-(--background) p-3 text-left">
             <OverlayStat label={t.games.overlay.statLevel} value={`${currentLevel} / ${maxLevel}`} />
-            <OverlayStat label={t.games.overlay.statScore} value={score.toLocaleString(locale)} />
+            <OverlayStat label={t.games.overlay.statScore} value={score.toLocaleString(formattingLocale(locale))} />
             <OverlayStat
               label={t.games.overlay.statRound}
               value={f(t.games.overlay.statRoundValue, { count: correctInRound })}

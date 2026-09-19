@@ -47,7 +47,7 @@ export const de = {
       'Was ChemGames über dich speichert, was öffentlich ist, wer die Daten verarbeitet und wie du sie herunterlädst oder löschst.',
     teachersTitle: 'Für Lehrkräfte | ChemGames',
     teachersDescription:
-      'Was ChemGames ist, in welchen fünf Sprachen es erscheint, wie es mit den Daten von Lernenden umgeht, wo die Barrierefreiheit steht und wie Lehrkräfte die Beta mitgestalten können.',
+      'Was ChemGames ist, in welchen sechs Sprachen es erscheint, wie es mit den Daten von Lernenden umgeht, wo die Barrierefreiheit steht und wie Lehrkräfte die Beta mitgestalten können.',
     cheatSheetTitle: 'Spickzettel {title} | ChemGames',
     cheatSheetNotFound: 'Thema nicht gefunden – ChemGames',
   },
@@ -148,7 +148,7 @@ export const de = {
     balancerTitle: 'Reaktions-Balancer',
     balancerDescription: 'Bring die Atome auf beiden Seiten des Pfeils ins Gleichgewicht.',
     lewisTitle: 'Teilen bis voll',
-    lewisDescription: 'Verbinde die Einzelelektronen zu einem Molekül.',
+    lewisDescription: 'Verbinde die ungepaarten Elektronen zu einem Molekül.',
     bondsTitle: 'Chemische Bindungen',
     bondsDescription: 'Erkunde Molekülstrukturen und Bindungen zwischen Atomen.',
   },

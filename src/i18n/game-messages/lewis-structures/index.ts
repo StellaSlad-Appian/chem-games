@@ -28,9 +28,11 @@
 //     `nameInSentence(locale, name)`, never `.toLowerCase()`.
 //   * Which word forms open a glossary pop-over. Each locale lists its own in
 //     `glossary.<entry>.matches`, because the German copy uses German
-//     inflections. The matcher uses a JavaScript `\b`, which only knows ASCII
-//     letters, so a match word must start and end with one — see
-//     docs/i18n/glossary-de.md.
+//     inflections. The matcher uses `\p{L}` lookarounds under the `u` flag, so
+//     a match word must start and end with a letter in any script. It used to
+//     use a JavaScript `\b` and require an *ASCII* letter, which no Cyrillic
+//     word could ever satisfy — see docs/i18n/glossary-de.md and
+//     docs/i18n/README.md § Preparing a non-Latin locale.
 
 import { useMemo } from 'react';
 import { useI18n } from '@/i18n/client';
@@ -47,6 +49,7 @@ import { de } from './de';
 import { fr } from './fr';
 import { es } from './es';
 import { it } from './it';
+import { ru } from './ru';
 
 export type CountKind = 'bonds' | 'lonePairs';
 
@@ -61,6 +64,7 @@ const CATALOGUES: Record<Locale, LewisStructuresMessages> = {
   fr,
   es,
   it,
+  ru,
 };
 
 /** This game's copy in `locale`. Throws rather than falling back to English. */
@@ -293,7 +297,9 @@ export function lewisMessages(t: Dictionary, locale: Locale) {
           f(d.ui.atomLonerA11y, { element: elementName, index, total }),
         lonePair: (elementName: string, index: number, total: number) =>
           f(d.ui.atomLonePairA11y, { element: elementName, index, total }),
-        lonerLabel: d.ui.lonerLabel,
+        // The canvas legend caption (Level 1 scaffold). Named `lonerLabel` on the
+        // AtomCanvas side still; only the message key was renamed.
+        lonerLabel: d.ui.unpairedLabel,
         full: d.ui.atomFull,
         selectedForPairing: (elementName: string) =>
           f(d.ui.atomSelectedA11y, { element: elementName }),

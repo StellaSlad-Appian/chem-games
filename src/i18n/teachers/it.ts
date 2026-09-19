@@ -59,11 +59,11 @@ export const it = {
 
   languagesHeading: 'Lingue',
   languagesBody1:
-    'Il sito esiste in cinque lingue: inglese, tedesco, francese, spagnolo e italiano. Il selettore è nella barra di navigazione e la scelta viene ricordata su quel browser.',
+    'Il sito esiste in sei lingue: inglese, tedesco, francese, spagnolo, italiano e russo. Il selettore è nella barra di navigazione e la scelta viene ricordata su quel browser.',
   languagesBody2:
     'Tutto ciò che legge chi studia è tradotto: l’interfaccia, l’accompagnamento e gli indizi dentro i giochi, e i bigini. Le formule chimiche, i simboli degli elementi e le equazioni non vengono mai tradotti; un’equazione si scrive allo stesso modo in tutte le lingue.',
   languagesBody3:
-    'Il russo è previsto ma non è ancora arrivato. Oggi nel sito non c’è nulla in russo.',
+    'Due cose non cambiano con la lingua: i link esterni dei bigini portano tutti a siti in inglese e ogni bigino cita il Victorian Curriculum, un programma australiano. Utile saperlo se Lei segue un altro programma.',
 
   privacyHeading: 'Privacy di chi studia',
   privacyBody1:

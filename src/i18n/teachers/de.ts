@@ -64,11 +64,11 @@ export const de = {
 
   languagesHeading: 'Sprachen',
   languagesBody1:
-    'Die Seite erscheint in fünf Sprachen: Englisch, Deutsch, Französisch, Spanisch und Italienisch. Die Sprachauswahl sitzt in der Navigationsleiste, und die Wahl wird im jeweiligen Browser gemerkt.',
+    'Die Seite erscheint in sechs Sprachen: Englisch, Deutsch, Französisch, Spanisch, Italienisch und Russisch. Die Sprachauswahl sitzt in der Navigationsleiste, und die Wahl wird im jeweiligen Browser gemerkt.',
   languagesBody2:
     'Alles, was Lernende lesen, ist übersetzt – die Oberfläche, die Hinweise und die Begleitung in den Spielen sowie die Spickzettel. Chemische Formeln, Elementsymbole und Gleichungen werden nie übersetzt; eine Gleichung sieht in jeder Sprache gleich aus.',
   languagesBody3:
-    'Russisch ist geplant, aber noch nicht erschienen. Auf der Seite gibt es heute kein Russisch.',
+    'Zwei Dinge ändern sich mit der Sprache nicht: Die weiterführenden Links auf den Spickzetteln führen alle zu englischsprachigen Seiten, und jeder Spickzettel verweist auf das Victorian Curriculum, einen australischen Lehrplan. Gut zu wissen, wenn Sie nach einem anderen Lehrplan unterrichten.',
 
   privacyHeading: 'Datenschutz für Lernende',
   privacyBody1:

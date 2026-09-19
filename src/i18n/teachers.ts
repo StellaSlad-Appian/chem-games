@@ -26,6 +26,7 @@ import { de } from './teachers/de';
 import { fr } from './teachers/fr';
 import { es } from './teachers/es';
 import { it } from './teachers/it';
+import { ru } from './teachers/ru';
 
 export type { TeachersCopy };
 
@@ -35,7 +36,7 @@ export type { TeachersCopy };
  * the same gate the game catalogues use, for the same reason: a page that
  * renders in English inside a German site is not a shipped translation.
  */
-const CATALOGUES: Record<Locale, TeachersCopy> = { en, de, fr, es, it };
+const CATALOGUES: Record<Locale, TeachersCopy> = { en, de, fr, es, it, ru };
 
 /**
  * The For Teachers copy in `locale`. Throws rather than falling back to

@@ -44,7 +44,7 @@ The project is built with **Next.js, React, TypeScript and Tailwind CSS**, with 
 
 ### Languages
 
-The site is multilingual. Every page is served under a language prefix (`/en/games`, `/de/games`), the reader's language is negotiated from the URL, a cookie set by the language switcher, or the browser's `Accept-Language`, and all text — UI, game instructions and coaching, cheat sheets, element and compound names — is translated, while chemical formulae, symbols and equations are never translated. English, German, French, Spanish and Italian ship today; Russian is planned.
+The site is multilingual. Every page is served under a language prefix (`/en/games`, `/de/games`), the reader's language is negotiated from the URL, a cookie set by the language switcher, or the browser's `Accept-Language`, and all text — UI, game instructions and coaching, cheat sheets, element and compound names — is translated, while chemical formulae, symbols and equations are never translated. English, German, French, Spanish, Italian and Russian all ship.
 
 **Every game is built in every language from the same brief and tested in each of them**: the text must be correct and understandable at reading age ~12 in that language, the chemical names must follow that language's naming conventions, and the game's title must sound right in that culture. How the system works: `docs/i18n/README.md`; what that means for a new game: [`docs/i18n/GAMES.md`](docs/i18n/GAMES.md).
 
@@ -133,6 +133,8 @@ Nothing of it is built. A placeholder card used to sit on the games hub with a l
 ---
 
 ## 🚀 Roadmap
+
+Open work that is decided but not yet built, plus the decisions waiting on a human, is tracked in [`docs/TODO.md`](docs/TODO.md).
 
 ### 1. Complete the New Games
 

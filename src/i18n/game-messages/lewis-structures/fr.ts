@@ -2,12 +2,11 @@
 //
 // Partage et complète (structures de Lewis), en français.
 //
-// « Solitaire » est le mot du jeu pour un électron externe sans partenaire –
-// aussi courant que l’anglais « loner », mais clairement chimique. Le terme
-// scolaire « électron célibataire » figure à côté dans le glossaire, et sur la
-// zone de dessin il n’y a que « seul ». Le raisonnement complet, et les
-// candidats écartés (orphelin, solo, dépareillé), sont dans
-// docs/i18n/glossary-fr.md § Le « loner ».
+// « Électron célibataire » est le seul nom que le jeu donne à un
+// électron externe sans partenaire – partout, y compris sur la zone de dessin.
+// Le mot du jeu « solitaire » (anglais « loner ») a été supprimé le
+// 19/09/2026 ; le raisonnement, et les candidats écartés (orphelin, solo,
+// dépareillé), restent dans docs/i18n/glossary-fr.md.
 //
 // Autres termes fixés par le glossaire : doublet non liant (et non « paire
 // libre », qui est un calque), doublet liant, liaison covalente, structure de
@@ -20,11 +19,13 @@
 //     l’article dépend du genre et de la première lettre du nom (l’oxygène
 //     mais le carbone, l’eau mais le méthane). D’où la tournure
 //     « nom + deux-points » employée dans presque toutes les lignes du coach.
-//   * Les mots de `matches` doivent commencer et finir par une lettre ASCII,
-//     sinon le `\b` du moteur de recherche ne les trouve jamais. C’est pour
-//     cela que `outerElectron` est repéré sur « externes » et « valence »
-//     plutôt que sur « électrons externes », et `loner` sur « célibataires »
-//     plutôt que sur « électron célibataire ».
+//   * Les mots de `matches` doivent commencer et finir par une lettre, dans
+//     n’importe quel alphabet : le moteur de recherche utilise des
+//     délimiteurs `\p{L}` avec le drapeau `u`, et non le `\b` de
+//     JavaScript. Une expression qui commence par un accent, comme
+//     « électron célibataire », est donc désormais utilisable telle quelle
+//     (ce qui n’était pas le cas quand le `\b` ASCII a forcé `outerElectron`
+//     sur « externes » et « valence »).
 //
 // `satisfies LewisStructuresMessages` type ce fichier contre l’original
 // anglais dans src/core-engine/config/games/lewis-structures-messages.ts : une
@@ -44,14 +45,14 @@ export const fr = {
 
   instructions: {
     title: 'Comment jouer : Partage et complète',
-    lead: 'Associe les solitaires.',
+    lead: 'Associe les électrons célibataires.',
     intro:
-      'Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un solitaire – il cherche un partenaire. Deux solitaires venant de deux atomes différents forment un doublet liant, c’est-à-dire une liaison.',
+      'Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un électron célibataire – il cherche un partenaire. Deux électrons célibataires venant de deux atomes différents forment un doublet liant, c’est-à-dire une liaison.',
     bullets: [
       'Fais glisser un point qui clignote sur un point qui clignote d’un autre atome (ou appuie sur l’un, puis sur l’autre).',
       'Un atome est complet quand il a 8 points autour de lui – l’hydrogène est complet à 2.',
       'Partage deux fois entre les deux mêmes atomes et tu obtiens une liaison double.',
-      'La structure se verrouille toute seule quand chaque atome est complet et qu’il ne reste aucun solitaire. Pas besoin de bouton.',
+      'La structure se verrouille toute seule quand chaque atome est complet et qu’il ne reste aucun électron célibataire. Pas besoin de bouton.',
       'Tu bloques ? Appuie sur l’ampoule (ou sur H). La première astuce est toujours gratuite.',
     ],
     disclaimer:
@@ -62,14 +63,14 @@ export const fr = {
     // leaving Tab, H and P alone.
     keyboard: [
       ['Tab', 'sélectionne un atome'],
-      ['← →', 'passent d’un solitaire à l’autre'],
+      ['← →', 'passent d’un électron célibataire à l’autre'],
       ['Entrée', 'commence un doublet ; Tab + Entrée sur un autre atome le termine'],
       ['Échap', 'annule'],
       ['H', 'astuce'],
       ['P', 'met le jeu en pause'],
     ],
     touch: [
-      ['Appuie', 'sur un solitaire, puis sur un solitaire d’un autre atome.'],
+      ['Appuie', 'sur un électron célibataire, puis sur celui d’un autre atome.'],
       ['Appuie', 'sur un doublet liant pour le défaire.'],
     ],
     glossaryTitle: 'Les mots du jeu',
@@ -78,14 +79,14 @@ export const fr = {
   guided: {
     stepLabel: 'Étape {step} sur {total}',
     h2: [
-      'Deux atomes d’hydrogène. Chacun a 1 électron externe – un solitaire. Fais glisser l’un sur l’autre.',
+      'Deux atomes d’hydrogène. Chacun a 1 électron externe – un électron célibataire. Fais glisser l’un sur l’autre.',
       'Ils partagent maintenant un doublet. Compte autour de chaque H : 2. L’hydrogène est complet à 2 – c’est une liaison simple, H–H.',
     ],
     h2oStep1:
-      'L’oxygène a 6 électrons externes : deux doublets (qui restent en place) et deux solitaires (qui clignotent).',
-    h2oStep2: 'Associe un solitaire de l’oxygène avec un solitaire de l’hydrogène.',
+      'L’oxygène a 6 électrons externes : deux doublets (qui restent en place) et deux électrons célibataires (qui clignotent).',
+    h2oStep2: 'Associe un électron célibataire de l’oxygène avec un électron célibataire de l’hydrogène.',
     h2oStep2After: 'L’oxygène en a maintenant 7 autour de lui – il en manque encore un.',
-    h2oStep3: 'Associe l’autre solitaire de l’oxygène avec l’autre hydrogène.',
+    h2oStep3: 'Associe l’autre électron célibataire de l’oxygène avec l’autre hydrogène.',
     h2oStep4:
       'Oxygène : 8. Chaque hydrogène : 2. Deux doublets liants et deux doublets non liants – c’est l’eau, H–O–H.',
   },
@@ -93,21 +94,21 @@ export const fr = {
   coach: {
     label: 'Coach',
     loners: {
-      one: '{atom} : il reste {count} solitaire. Un solitaire s’associe avec un solitaire d’un autre atome.',
+      one: '{atom} : il reste {count} électron célibataire. Il s’associe avec un électron célibataire d’un autre atome.',
       other:
-        '{atom} : il reste {count} solitaires. Les solitaires s’associent avec les solitaires d’un autre atome.',
+        '{atom} : il reste {count} électrons célibataires. Ils s’associent avec les électrons célibataires d’un autre atome.',
     },
     needsMore:
-      '{atom} : {count} sur 8. Il manque un doublet liant – quel atome a encore un solitaire ?',
+      '{atom} : {count} sur 8. Il manque un doublet liant – quel atome a encore un électron célibataire ?',
     shareAgain:
-      '{atom1} et {atom2} ont chacun encore un solitaire. Ils peuvent partager une deuxième fois : cela fait une liaison double.',
+      '{atom1} et {atom2} ont chacun encore un électron célibataire. Ils peuvent partager une deuxième fois : cela fait une liaison double.',
     complete:
-      'Chaque atome est complet et il ne reste aucun solitaire. Molécule obtenue : {name} – {bonds}, {lonePairs}.',
+      'Chaque atome est complet et il ne reste aucun électron célibataire. Molécule obtenue : {name} – {bonds}, {lonePairs}.',
     sameGroup:
       '{element} est dans la même colonne que l’élément {analogue} : il a donc le même nombre d’électrons externes. La structure sera la même que celle-ci : {analogueMolecule}.',
-    central: 'L’atome qui a le plus de solitaires se place généralement au milieu.',
+    central: 'L’atome qui a le plus d’électrons célibataires se place généralement au milieu.',
     deadEnd:
-      '{atom} : {count} sur 8, mais aucun autre atome n’a de solitaire à partager. Appuie sur un doublet liant pour le défaire, puis essaie un autre partenaire.',
+      '{atom} : {count} sur 8, mais aucun autre atome n’a d’électron célibataire à partager. Appuie sur un doublet liant pour le défaire, puis essaie un autre partenaire.',
     isomer:
       'Chaque atome est complet, mais les atomes ne sont pas reliés comme dans la molécule attendue : {name}. Appuie sur un doublet liant pour le défaire et essaie un autre agencement.',
   },
@@ -122,7 +123,7 @@ export const fr = {
     label: 'Astuce',
     tierLabel: 'Astuce {tier} sur 3',
     tier1: 'Regarde quels atomes ont encore des points qui clignotent.',
-    tier3: 'Associe deux solitaires, un sur chaque atome – {atom1} et {atom2}.',
+    tier3: 'Associe deux électrons célibataires, un sur chaque atome – {atom1} et {atom2}.',
     tier3Undo: 'Appuie sur le doublet liant entre {atom1} et {atom2} pour le défaire.',
     offerTier2: 'Toujours bloqué ? Appuie encore sur l’ampoule pour avoir la stratégie.',
     noMoreHints: 'C’était la dernière astuce. Chaque atome est complet – appuie sur Suivant.',
@@ -134,7 +135,7 @@ export const fr = {
     inspectTier3Correct:
       'Chaque atome est complet et il ne reste rien – appuie sur « Celle-ci est correcte ».',
     inspectTier3Repair:
-      'Associe les solitaires jusqu’à ce que chaque atome soit de nouveau complet.',
+      'Associe les électrons célibataires jusqu’à ce que chaque atome soit de nouveau complet.',
     // French does not inflect "il y en a {count}" with the count, so the two
     // forms coincide. They are both supplied rather than dropping `one`, so the
     // review table has a row for each English form.
@@ -152,12 +153,12 @@ export const fr = {
   error: {
     label: 'Pas ce coup-là',
     atomFull:
-      '{atom} : déjà 8 électrons. Cet atome ne peut plus rien partager. Prends un atome qui a encore un solitaire.',
+      '{atom} : déjà 8 électrons. Cet atome ne peut plus rien partager. Prends un atome qui a encore un électron célibataire.',
     hydrogenFull: 'L’hydrogène est complet à 2. Il ne peut partager qu’un seul doublet.',
     sameAtom:
       'Ces deux points appartiennent au même atome – ils forment déjà un doublet. Une liaison demande deux atomes différents.',
     pairedDot:
-      'Ce point fait déjà partie d’un doublet. Seuls les solitaires (ceux qui clignotent) peuvent être partagés.',
+      'Ce point fait déjà partie d’un doublet. Seuls les électrons célibataires (ceux qui clignotent) peuvent être partagés.',
   },
 
   inspect: {
@@ -183,14 +184,14 @@ export const fr = {
     explainTooFew: '{atom} : moins de 8 électrons – il manque un doublet non liant.',
     explainHydrogenFull: 'L’hydrogène en a 4 – il ne peut partager qu’un seul doublet.',
     explainNeedsDouble:
-      '{atom1} et {atom2} ont chacun encore un solitaire – ils doivent partager deux fois.',
-    explainLeftover: '{atom} : il reste un solitaire – un électron a été dessiné en trop.',
+      '{atom1} et {atom2} ont chacun encore un électron célibataire – ils doivent partager deux fois.',
+    explainLeftover: '{atom} : il reste un électron célibataire – un électron a été dessiné en trop.',
     correctStructure: 'Exact – chaque atome est complet et il ne reste rien.',
     missedCorrect:
       'Celle-ci est vraiment correcte : chaque atome est complet. Tous les dessins ne contiennent pas une erreur.',
     notCorrect:
       'Pas tout à fait – un atome n’est pas bon. Compte les points autour de chaque atome et appuie sur celui qui cloche.',
-    repair: 'Maintenant, corrige : associe les solitaires jusqu’à ce que chaque atome soit complet.',
+    repair: 'Maintenant, corrige : associe les électrons célibataires jusqu’à ce que chaque atome soit complet.',
     repaired: 'Corrigé – chaque atome est de nouveau complet.',
     countBonds: 'Combien y a-t-il de liaisons ? Appuie sur chaque doublet liant.',
     countLonePairs:
@@ -213,7 +214,7 @@ export const fr = {
   overlay: {
     levelUpBadge: 'Tous les atomes complets',
     levelUpTitle: 'Niveau réussi',
-    levelUpSubtitle: 'Chaque solitaire a trouvé un partenaire',
+    levelUpSubtitle: 'Chaque électron célibataire a trouvé un partenaire',
     levelUpDescription: 'Niveau {level} : {changes}',
     levelChanges: {
       level2:
@@ -225,7 +226,7 @@ export const fr = {
     },
     victoryBadge: 'Tous les objectifs atteints',
     victoryTitle: 'Structures de Lewis maîtrisées',
-    victorySubtitle: 'Chaque solitaire a trouvé un partenaire',
+    victorySubtitle: 'Chaque électron célibataire a trouvé un partenaire',
     victoryDescription: 'Ouvre ta feuille de correction pour revoir ce que tu as construit.',
     pausedBadge: 'Partie suspendue',
     pausedTitle: 'Jeu en pause',
@@ -256,10 +257,15 @@ export const fr = {
       // never find, so the chip lands on the adjective instead.
       matches: ['externes', 'externe', 'de valence', 'valence'],
     },
-    loner: {
-      term: 'solitaire (électron célibataire)',
-      definition: 'un électron externe sans partenaire ; seuls les solitaires peuvent être partagés',
-      matches: ['solitaires', 'solitaire', 'célibataires', 'célibataire'],
+    unpairedElectron: {
+      term: 'électron célibataire',
+      definition: 'un électron externe sans partenaire ; seuls ceux-là peuvent être partagés',
+      matches: [
+        'électrons célibataires',
+        'électron célibataire',
+        'célibataires',
+        'célibataire',
+      ],
     },
     lonePair: {
       term: 'doublet non liant',
@@ -319,16 +325,16 @@ export const fr = {
     canvasLabelA11y: 'Structure de Lewis : {name}',
     atomNameA11y: '{element} : {count} sur {full}',
     atomCounterA11y: '{symbol} : {count} sur {full}',
-    atomLonerA11y: '{element}, solitaire {index} sur {total}',
+    atomLonerA11y: '{element}, électron célibataire {index} sur {total}',
     atomLonePairA11y: '{element}, doublet non liant {index} sur {total}',
     atomOrdinal: '{element} {ordinal}',
     // The short label on a pulsing dot at Level 1, off from Level 2 — the
     // scaffold the brief removes on purpose. Four characters, and beside a
     // single dot it reads as "on its own".
-    lonerLabel: 'seul',
+    unpairedLabel: 'électron célibataire',
     atomFull: 'complet',
     atomSelectedA11y:
-      '{element} : solitaire sélectionné. Choisis maintenant un solitaire sur un autre atome.',
+      '{element} : électron célibataire sélectionné. Choisis maintenant un électron célibataire sur un autre atome.',
     atomInspectTapA11y: '{element} – appuie si cet atome n’est pas bon',
     bondSingleA11y: 'Liaison simple entre {atom1} et {atom2}',
     bondDoubleA11y: 'Liaison double entre {atom1} et {atom2}',

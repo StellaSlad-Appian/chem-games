@@ -12,6 +12,7 @@ import { AppProviders } from '@/providers/app-providers';
 import { DEFAULT_LOCALE, isLocale, LOCALES, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { I18nProvider } from '@/i18n/client';
+import { extraFontStylesheet } from '@/i18n/fonts';
 import { localeAlternates } from '@/i18n/routing';
 import '@/app/globals.css';
 
@@ -55,6 +56,12 @@ export default async function RootLayout(props: LayoutProps<'/[lang]'>) {
   // the 404 page renders inside it. Fall back rather than call notFound().
   const locale: Locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
   const dictionary = await getDictionary(locale);
+  // Undefined for every Latin locale, so they render no extra <link> and pay
+  // nothing for a Cyrillic face they would never draw a glyph from. React 19
+  // hoists a `<link rel="stylesheet">` with a `precedence` into <head> and
+  // de-duplicates it — see the Next.js CSS guide, "In React 19,
+  // `<link rel="stylesheet" href="…" />` can also be used".
+  const fontStylesheet = extraFontStylesheet(locale);
 
   return (
     // Every locale in the roadmap (en, de, fr, es, it, ru) is left-to-right, so
@@ -62,6 +69,7 @@ export default async function RootLayout(props: LayoutProps<'/[lang]'>) {
     // dir={...} here and auditing the fixed left/right positioning in the game
     // shells — see docs/i18n/README.md § Adding a locale.
     <html lang={locale}>
+      {fontStylesheet && <link rel="stylesheet" href={fontStylesheet} precedence="high" />}
       <body className="flex min-h-screen flex-col bg-(--background) font-sans text-(--foreground) antialiased selection:bg-blue-500 selection:text-white">
         <I18nProvider locale={locale} dictionary={dictionary}>
           <AppProviders>{props.children}</AppProviders>

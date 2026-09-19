@@ -32,7 +32,7 @@ import type { Metadata } from 'next';
 import { Compass } from 'lucide-react';
 import { MoleculeCard } from '@/components/explore/MoleculeCard';
 import { ScientistCard } from '@/components/explore/ScientistCard';
-import { DATE_LOCALES, DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
+import { DEFAULT_LOCALE, formattingLocale, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { exploreLinkTarget, getExploreContent } from '@/i18n/explore';
 import { format } from '@/i18n/format';
@@ -50,12 +50,12 @@ export const revalidate = 3600;
  * whose machine is behind UTC would be shown the previous day's date on the
  * Monday itself.
  *
- * `DATE_LOCALES[locale]`, not `locale`: `Intl.DateTimeFormat('en')` resolves to
+ * `formattingLocale(locale)`, not `locale`: `Intl.DateTimeFormat('en')` resolves to
  * en-US and writes "September 21, 2026" on a site that otherwise writes British
- * English. See the comment on `DATE_LOCALES` in src/i18n/config.ts.
+ * English. See the comment on `FORMATTING_LOCALE` in src/i18n/config.ts.
  */
 function formatWeekDate(locale: Locale, date: Date): string {
-  return new Intl.DateTimeFormat(DATE_LOCALES[locale], {
+  return new Intl.DateTimeFormat(formattingLocale(locale), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -64,7 +64,7 @@ function formatWeekDate(locale: Locale, date: Date): string {
 }
 
 function formatShortDate(locale: Locale, isoDate: string): string {
-  return new Intl.DateTimeFormat(DATE_LOCALES[locale], {
+  return new Intl.DateTimeFormat(formattingLocale(locale), {
     day: 'numeric',
     month: 'short',
     year: 'numeric',

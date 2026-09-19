@@ -16,6 +16,7 @@ import {
 import type { LucideIcon } from 'lucide-react';
 import type { UserProfile } from '@/core-engine/types/general';
 import { useI18n } from '@/i18n/client';
+import { formatPercent } from '@/i18n/format';
 
 interface PublicProfileProps { 
   profile: UserProfile; 
@@ -30,7 +31,7 @@ const elementColors: Record<string, string> = {
 };
 
 export function PublicProfile({ profile }: PublicProfileProps) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const elementStyle = profile.favoriteElement 
     ? elementColors[profile.favoriteElement.group] 
     : 'border-violet-400 bg-violet-500/15 text-violet-500';
@@ -82,7 +83,7 @@ export function PublicProfile({ profile }: PublicProfileProps) {
                 <StatChip label={t.profile.statStreak} value={profile.currentStreak.toString()} icon={Flame} color="text-orange-500 bg-orange-500/10 border-orange-500/20" />
               )}
               {profile.accuracy !== undefined && profile.privacy.showAccuracy && (
-                <StatChip label={t.profile.statAccuracy} value={`${profile.accuracy}%`} icon={Target} color="text-emerald-500 bg-emerald-500/10 border-emerald-500/20" />
+                <StatChip label={t.profile.statAccuracy} value={formatPercent(locale, profile.accuracy)} icon={Target} color="text-emerald-500 bg-emerald-500/10 border-emerald-500/20" />
               )}
               {profile.privacy.showJoinedDate && (
                 <span className="inline-flex items-center gap-1 rounded-full border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-xs font-bold text-[var(--muted)]">

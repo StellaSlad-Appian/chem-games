@@ -75,7 +75,7 @@ export const it = {
       'Che cosa ChemGames conserva su di te, che cosa è pubblico, chi lo tratta e come scaricare o cancellare i tuoi dati.',
     teachersTitle: 'Per chi insegna | ChemGames',
     teachersDescription:
-      'Che cos’è ChemGames, in quali cinque lingue esiste, come tratta i dati di chi studia, a che punto è l’accessibilità e come chi insegna può contribuire durante la beta.',
+      'Che cos’è ChemGames, in quali sei lingue esiste, come tratta i dati di chi studia, a che punto è l’accessibilità e come chi insegna può contribuire durante la beta.',
     cheatSheetTitle: 'Bigino di {title} | ChemGames',
     cheatSheetNotFound: 'Argomento non trovato – ChemGames',
   },
@@ -207,11 +207,11 @@ export const it = {
     // lewisTitle candidates:
     //   'Condividi per completare' — calque; the purpose clause is clumsy in Italian
     //   'A due a due'              — memorable, but loses the "fill" half of the rule
-    //   'Accoppia e completa'      — names the mechanic (pairing the dispari) rather
+    //   'Accoppia e completa'      — names the mechanic (pairing the electrons) rather
     //                                than the rule (sharing to fill a shell)
     lewisTitle: 'Condividi e completa', // chosen: names the rule in Italian, two
     // short imperatives, instantly readable at 14
-    lewisDescription: 'Accoppia i dispari per costruire una molecola.',
+    lewisDescription: 'Accoppia gli elettroni spaiati per costruire una molecola.',
 
     // bondsTitle candidates:
     //   'I legami'    — too vague

@@ -15,10 +15,15 @@ import { fr } from './dictionaries/fr';
 import { es } from './dictionaries/es';
 // `it` is vitest's test function here, so the dictionary is aliased.
 import { it as itDictionary } from './dictionaries/it';
+import { ru } from './dictionaries/ru';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
-import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
+import {
+  describePluralCompleteness,
+  describeTranslationParity,
+  flatten,
+} from '@/test-utils/i18n-parity';
 
-const dictionaries: Record<Locale, unknown> = { en, de, fr, es, it: itDictionary };
+const dictionaries: Record<Locale, unknown> = { en, de, fr, es, it: itDictionary, ru };
 const translations = Object.fromEntries(
   LOCALES.filter((locale) => locale !== DEFAULT_LOCALE).map((locale) => [
     locale,
@@ -157,6 +162,33 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // Italian list is chosen for Italian search behaviour rather than
     // translated, and it shares no entry with the English one.
   ],
+  ru: [
+    // Brand and company names. Russian transliterates almost every loanword
+    // (пароль, not "Password"), so these are the only Latin strings in the
+    // dictionary — and they are names, not words.
+    /^meta\.siteName$/,
+    /^privacy\.processor(Supabase|Resend|Google)Label$/,
+    // A placeholder and a colon. Russian punctuates this exactly as English
+    // does — no space before the colon — so the two coincide. The key exists
+    // only because French needs a no-break space there.
+    /^cheatSheets\.exampleLabel$/,
+    // Keyboard glyphs and single digits used as <kbd> labels. The first column
+    // of an instructions key table is the physical key, so it never translates;
+    // the second column, which says what the key does, always does.
+    /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
+    // Note what is NOT here, because each is a place the other five locales
+    // needed an exemption and Russian does not. `settings.audio` is «Звук»;
+    // `profile.alias` is «Псевдоним»; `auth.password` is «Пароль»; and
+    // `chemistry.base` is **«Основание»**, never *база*, which in Russian
+    // means a base of operations or a database. German, French, Spanish and
+    // Italian all allowlist `chemistry.base`; Russian is the one locale where
+    // it is a real translation, and getting it wrong would be the single most
+    // visible chemistry error on the site.
+    //
+    // As for the other four, `meta.keywords` is deliberately NOT exempted: the
+    // Russian list is chosen for Russian search behaviour rather than
+    // translated, and it shares no entry with the English one.
+  ],
 };
 
 describeTranslationParity('dictionary', {
@@ -164,6 +196,11 @@ describeTranslationParity('dictionary', {
   translations,
   identicalByDesign: IDENTICAL_BY_DESIGN,
 });
+
+// English is included deliberately: the source can lose a form as easily as a
+// translation can, and a plural record left with only `other` satisfies every
+// other gate in the file.
+describePluralCompleteness('dictionary', dictionaries);
 
 describe('dictionary shape', () => {
   it('covers every locale in LOCALES', () => {

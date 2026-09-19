@@ -28,15 +28,18 @@
 //     `nameInSentence(locale, name)`, never `.toLowerCase()`.
 //   * Which word forms open a glossary pop-over. Each locale lists its own in
 //     `glossary.<entry>.matches`, because the German copy uses German
-//     inflections. The matcher uses a JavaScript `\b`, which only knows ASCII
-//     letters, so a match word must start and end with one — see
-//     docs/i18n/glossary-de.md.
+//     inflections. The matcher uses `\p{L}` lookarounds under the `u` flag, so
+//     a match word must start and end with a letter in any script. It used to
+//     use a JavaScript `\b` and require an *ASCII* letter, which no Cyrillic
+//     word could ever satisfy — see docs/i18n/glossary-de.md and
+//     docs/i18n/README.md § Preparing a non-Latin locale.
 
 import { useMemo } from 'react';
 import { useI18n } from '@/i18n/client';
 import { nameInSentence } from '@/i18n/chemistry-names';
 import { LOCALE_LABELS, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries/en';
+import type { ReactionType } from '@/core-engine/data/reactions';
 import { format as f, formatPlural } from '@/i18n/format';
 import {
   REACTION_BALANCER_MESSAGES,
@@ -46,6 +49,7 @@ import { de } from './de';
 import { fr } from './fr';
 import { es } from './es';
 import { it } from './it';
+import { ru } from './ru';
 
 export type MessageSide = 'reactant' | 'product';
 
@@ -60,6 +64,7 @@ const CATALOGUES: Record<Locale, ReactionBalancerMessages> = {
   fr,
   es,
   it,
+  ru,
 };
 
 /** This game's copy in `locale`. Throws rather than falling back to English. */
@@ -290,6 +295,13 @@ export function reactionBalancerMessages(t: Dictionary, locale: Locale) {
         built: d.ui.liveBuilt,
       },
     },
+
+    /**
+     * The reaction-class badge above the equation. A function rather than the
+     * record itself, so the call site cannot accidentally render the dataset's
+     * raw English value — which is precisely what GameArena used to do.
+     */
+    reactionType: (type: ReactionType) => d.reactionType[type],
   };
 }
 

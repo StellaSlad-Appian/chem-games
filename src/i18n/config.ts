@@ -10,10 +10,16 @@
  * and the values written into the `<html lang>` attribute, so they must be
  * valid BCP 47 tags.
  *
- * Phase 1 shipped English and German; Phase 2 has added French, Spanish and
- * Italian. Still to come: 'ru'. Adding a code here is deliberately a
- * compile error in every strict `Record<Locale, …>` until the locale's files
- * exist — see docs/i18n/README.md § Adding a locale.
+ * Phase 1 shipped English and German; Phase 2 added French, Spanish, Italian
+ * and, last, Russian. Adding a code here is deliberately a compile error in
+ * every strict `Record<Locale, …>` until the locale's files exist — see
+ * docs/i18n/README.md § Adding a locale.
+ *
+ * Russian is the first locale written in anything but the Latin alphabet, and
+ * three things in the codebase had to change before it could be added at all:
+ * the glossary matcher's word boundaries, the display font, and plural
+ * completeness. All three failed *silently* on Cyrillic — see
+ * docs/i18n/README.md § Preparing a non-Latin locale.
  *
  * Spanish ships under the plain `es` tag but is written in **es-ES**
  * (peninsular). No Spanish copy is variety-neutral, so that is a decision
@@ -21,7 +27,7 @@
  * of docs/i18n/glossary-es.md. If es-419 is ever wanted as well it is a second
  * locale with its own files, not a setting.
  */
-export const LOCALES = ['en', 'de', 'fr', 'es', 'it'] as const;
+export const LOCALES = ['en', 'de', 'fr', 'es', 'it', 'ru'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -50,33 +56,47 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   fr: 'Français',
   es: 'Español',
   it: 'Italiano',
+  ru: 'Русский',
 };
 
 /**
- * The BCP 47 tag to hand `Intl` when formatting a date or a number.
+ * The BCP 47 tag `Intl` should format dates and numbers with, per locale.
  *
- * Not the same thing as `Locale`, and the difference is not cosmetic.
- * `Intl.DateTimeFormat('en', …)` resolves to **en-US** and writes
- * "September 21, 2026" — on a site that otherwise spells things *neutralise*
- * and *sulfur*, follows the Victorian curriculum, and is read by students who
- * write the day first. The URL prefix stays `en`, because that is a language
- * and the reader's region is not ours to guess from a path; the formatting tag
- * is a separate, deliberate choice.
+ * Almost always the locale code itself. English is the exception, and it is
+ * not a nicety: CLDR resolves a bare `en` to **en-US**, so
+ * `Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' })`
+ * produces "September 14, 2026" — month-first, with a comma. This site's
+ * English is Australian: it spells *neutralise*, every cheat sheet cites the
+ * Victorian Curriculum, and the privacy page answers to the OAIC. An
+ * Australian reader writes "14 September 2026".
  *
- * `es` resolves to **es-ES** for the reason recorded at the top of this file
- * and argued in docs/i18n/glossary-es.md: the Spanish copy is peninsular, and
- * a Spanish date is written the same way across the language anyway — so this
- * only makes the existing decision explicit rather than adding a new one.
+ * The URL prefix, the `<html lang>` and the cookie all stay `en`. This is only
+ * about number and date formatting, which is why it is a separate map rather
+ * than a change to `LOCALES` — `en-AU` is not a second locale with its own
+ * dictionary, and making it one would be a much larger and worse decision.
  *
- * Use it for `Intl`, never for `<html lang>`: that must keep matching the URL.
+ * Russian needs no special tag either — a bare `ru` resolves to ru-RU, which
+ * is what this audience wants: decimal comma, space as the thousands
+ * separator, and `14 сентября 2026 г.` for a date. The entry below exists
+ * only because `Record<Locale, string>` is strict, and that is the right
+ * trade: it is one line, and it makes forgetting a locale a compile error.
  */
-export const DATE_LOCALES: Record<Locale, string> = {
-  en: 'en-GB',
-  de: 'de-DE',
-  fr: 'fr-FR',
+export const FORMATTING_LOCALE: Record<Locale, string> = {
+  en: 'en-AU',
+  de: 'de',
+  fr: 'fr',
   es: 'es-ES',
-  it: 'it-IT',
+  it: 'it',
+  ru: 'ru',
 };
+
+/**
+ * `Intl`-ready tag for a locale. Use this, not the locale code, anywhere a
+ * date or a number is formatted for a reader.
+ */
+export function formattingLocale(locale: Locale): string {
+  return FORMATTING_LOCALE[locale] ?? locale;
+}
 
 export function isLocale(value: unknown): value is Locale {
   return typeof value === 'string' && (LOCALES as readonly string[]).includes(value);

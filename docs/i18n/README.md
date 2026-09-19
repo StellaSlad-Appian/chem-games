@@ -3,9 +3,10 @@
 How the multi-language setup works, how to add a language, and how to add a
 string. Written for whoever adds Russian next.
 
-Currently shipping: **English** (default), **German**, **French**, **Spanish**
-and **Italian**. Planned: Russian — see [Adding a locale](#adding-a-locale)
-and [Plurals](#plurals), which is the one thing Russian will break.
+Currently shipping: **English** (default), **German**, **French**, **Spanish**,
+**Italian** and **Russian**. Russian is the first locale written in anything
+but the Latin alphabet; what that cost, and what it found, is in
+[Preparing a non-Latin locale](#preparing-a-non-latin-locale).
 
 ---
 
@@ -394,6 +395,271 @@ piece of work, not a one-line change.
 
 ---
 
+## Preparing a non-Latin locale
+
+Russian is the sixth locale and the first written in anything but the Latin
+alphabet. Five Latin languages in a row hid three assumptions in the code, and
+all three failed *silently* — no error, no failing test, just a feature that
+quietly does nothing. They are fixed now; this section exists so the next
+non-Latin locale costs an afternoon instead of a release.
+
+The pattern is worth naming, because it is the thing to look for: **code that
+works on Latin script by accident tends to fail closed, not loudly.** A regex
+that matches nothing returns no matches. A font with no glyph falls back. A
+missing plural form resolves to another form. Nothing throws.
+
+### 1. Word boundaries must be Unicode, not `\b`
+
+JavaScript's `\b` is defined against `[A-Za-z0-9_]`. It knows one alphabet.
+
+```js
+new RegExp('\\b(электрон)\\b', 'gi').test('Это электрон здесь')  // false
+```
+
+That is the bare nominative, standing alone with a space on each side, and it
+does not match — because neither neighbour is an ASCII word character, so
+there is no boundary for `\b` to anchor to. The tap-to-explain matcher in
+`GlossaryTerm.tsx` was built this way, so every glossary chip on the Russian
+site would have failed to appear, on every page, with nothing in the console.
+
+Use lookarounds and the `u` flag:
+
+```js
+new RegExp(`(?<![\\p{L}\\p{N}])(${alternation})(?![\\p{L}\\p{N}])`, 'giu')
+```
+
+Three things follow, all covered by tests:
+
+- **`u` makes escaping strict.** `(`, `)`, `*`, `+`, `?`, `\`, `]`, `{` and
+  `}` are each a syntax error unescaped, and an *unnecessary* escape is an
+  error too. A match word is translator-supplied, so a throw here is a blank
+  page rather than a missing chip.
+- **Punctuation is still a boundary**, which is what keeps the Italian elision
+  *l'elettrone* matching `elettrone`.
+- **The boundary no longer falls between a Latin letter and an accented one.**
+  `/\bíndice\b/` used to match inside *subíndice*; it no longer does.
+  `glossary-es.md` and `glossary-it.md` both recorded that as the pair to
+  re-test if the matcher ever went Unicode, and `GlossaryTerm.test.tsx` now
+  does. (The Italian note names *perche* ⊂ *perché* and *meta* ⊂ *metà*. Those
+  differ in their final letter, so neither was ever a substring and neither
+  regex ever matched; the demonstrable form is the prefix, `perch` ⊂ *perché*.)
+
+Grep for `\b` before starting a non-Latin locale. It hides in test helpers,
+and a *test* that uses `\b` against Cyrillic passes vacuously rather than
+failing — two in this repo did.
+
+### 1a. Two things the Russian gates got wrong until Russian existed
+
+Both were written ahead of their subject and proven against a fixture, which
+is the right way to do it — and both had a defect the fixture could not
+contain, because the fixture was hand-written Russian and the real files are
+translated Russian. Recorded because the *shape* of each mistake generalises
+to the next gate somebody writes ahead of its subject.
+
+- **`latinRunsIn()` counted interpolation placeholders as Latin.** `{count}`,
+  `{element}` and `{atom1}` are identifiers in the source, never text a reader
+  sees — `format()` substitutes them long before the string reaches a page.
+  Counting them produced 40 findings on the first real run, on every a11y
+  label and every coach line, and the only way to silence it would have been
+  an allowlist covering most of the catalogue. Placeholders are stripped
+  before the check now, and the fixture has a case for it. *The general
+  lesson: a fixture with no placeholders in it cannot exercise a rule about
+  strings that nearly all have placeholders in them.*
+
+- **The ё gate's participle rule was not true of Russian.** It read
+  `[а-я]енн(ый|ая|ое|ые|ого|ому)` and flagged every `-енный` adjective, but
+  only participles with a **stressed** ending take ё. It fired on
+  *пропущенный*, *полученный*, *отправленный*, *современный* and
+  *обыкновенный* — and on **неспаренный электрон**, which is the formal term
+  `glossary-ru.md` is built on, so the rule as written made the required
+  terminology unshippable. It is a list of specific participles now, which is
+  what that file's own header says the design is; the blanket rule was the one
+  thing in it that departed from that. *The general lesson: a rule that fires
+  on correct input is worse than no rule, because the fix a reader reaches for
+  is to change the correct input.*
+
+### 2. Check the font actually has the script
+
+A Google font serves whatever subsets it has, and the API will tell you which.
+Ask with a full Chrome user agent, because the response depends on it:
+
+```bash
+curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \
+  (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
+  "https://fonts.googleapis.com/css2?family=Oswald:wght@400..700" \
+  | grep -oE "/\* [a-z-]+ \*/" | sort -u
+```
+
+```
+/* cyrillic */  /* cyrillic-ext */  /* latin */  /* latin-ext */  /* vietnamese */
+```
+
+The site's own two faces answer `/* latin */ /* latin-ext */` and nothing
+else. So on a Russian page **Bebas Neue and DM Sans render no glyph at all**.
+Body copy falling back to system-ui is off-brand but readable; headings
+falling back to bare `sans-serif` is a broken layout, because Bebas Neue is a
+*condensed all-caps* face and the substitute is neither. Every heading would
+come out at a different width from the five languages the design is tuned for.
+
+The fix has two halves, deliberately in different files:
+
+- **`src/app/globals.css`** re-points `--font-display` and `--font-body` under
+  `html[lang="ru"]`. That selector is (0,1,1), which beats `:root` and both
+  `[data-theme]` blocks at (0,1,0), so it wins in either theme without
+  `!important` and changes nothing for the other five locales.
+- **`src/i18n/fonts.ts`** says which stylesheet a locale needs, and the root
+  layout emits a `<link>` only when there is one. Widening the `@import` in
+  globals.css would also have worked, but it would put the request on every
+  page in every language; this way a Latin locale requests nothing extra.
+
+`src/i18n/fonts.test.ts` asserts both halves; `e2e/i18n.spec.ts` asserts the
+half only a browser can see — that a Russian page requests the two faces, that
+an English page requests nothing extra, and that a Russian `h1` is actually
+*drawn* in Oswald rather than falling back. That last one matters because a
+missing glyph is not an error: it is a heading at the wrong width.
+
+> **The body half does not currently reach the page, and it never has — in any
+> locale.** `@layer base { body { font-family: var(--font-body) } }` is
+> overridden by the Tailwind utility `font-sans` on the `<body>` element in the
+> root layout, and a utility beats a base rule. So **DM Sans has never been
+> applied to body text either**: measured in a browser, `/en` and `/ru` both
+> compute `ui-sans-serif, system-ui, …` and neither DM Sans nor Manrope is
+> ever fetched as a used face. The display half is unaffected and works, which
+> is the half that breaks a layout.
+>
+> This is pre-existing and site-wide, not something Russian introduced, and
+> Russian is therefore no worse off than the five Latin locales. It is left
+> alone deliberately: removing `font-sans` from the body class changes the
+> typography of every page in every language, which is the owner's call and
+> not a translation pass's. If it is ever fixed, `--font-body` starts working
+> and the Russian entry is already correct.
+
+### 3. Plural completeness is a *build-time* gate
+
+`selectPlural()` falls back to `other` when a locale has not supplied the
+category a count selects, and that is right: a half-translated page should
+render a slightly wrong sentence rather than the word "undefined". But on its
+own it means a Russian dictionary with only `one` and `other` — the shape a
+translator copying `en.ts` naturally produces — is grammatically wrong on
+almost every count while **every gate passes**: no key missing, nothing empty,
+nothing identical to the English, every placeholder intact.
+
+So the build refuses what the runtime tolerates.
+`describePluralCompleteness()` in `src/test-utils/i18n-parity.ts` requires
+every plural record to carry every category its language needs, derived from
+`Intl.PluralRules` rather than written down.
+
+One thing to know about the derivation. Reading
+`resolvedOptions().pluralCategories` straight off does not work: **French,
+Spanish and Italian all declare a `many` category**, and the smallest integer
+that selects it is 1,000,000 — it is the compact-decimal rule, "1,5 million de
+livres". A gate demanding it would have failed all three shipped Romance
+locales on its first run, and a gate that fails on day one gets deleted. The
+required set is therefore the categories a count under 1000 can select, plus
+`other` — always required, because Russian reaches it only through a fraction.
+English and German get `one`/`other`; Russian gets all four.
+
+### 3a. Measure any label that sits in a fixed slot, in a browser
+
+Russian found one layout breakage that no gate in this repo could have seen,
+and the shape of it generalises.
+
+The Share to Fill canvas centres a one-word label under each pulsing dot. In
+H2 the two dots are **50 px apart**, so the label has to be narrower than that.
+It is, in five languages — *loner* 32 px, *impar* 33, *dispari* 40, *einzeln*
+41 — and Russian's game word «одиночка» is **59 px**, so the two labels overlap
+and read «ОДИНОЧКАДИНОЧКА» on screen. They overlap rather than wrap, because
+the span is `whitespace-nowrap` and absolutely positioned, so nothing about it
+is visible in a text dump, an accessibility tree or a unit test.
+
+**The budget is about 44 px at `text-[9px]` uppercase.** Measure a candidate in
+the page before choosing the word:
+
+```js
+const probe = document.createElement('span');
+probe.className = document.querySelector('[data-atom-id] span[class*="whitespace-nowrap"]').className;
+probe.style.cssText = 'position:fixed;left:-9999px';
+probe.textContent = 'кандидат';
+document.body.appendChild(probe);
+probe.getBoundingClientRect().width;
+```
+
+**Postscript, 2026-09-19: this particular label is gone, and how it went is the
+more useful half of the lesson.** When the game dropped its invented nicknames
+and every locale moved to its formal term, the measurement above stopped having
+a solution: *unpaired electron* and its five translations are 102 px (it) to
+134 px (ru), two to three times the budget, in every language at once. No
+abbreviation was acceptable, because an abbreviation of a formal term is just a
+new nickname. Wrapping did not save it either — the longest single word of the
+phrase is 51 px (en) to 78 px (ru), still wider than the 50 px gap.
+
+The fix was not a shorter word but **a different place**: the term is now
+printed once, in a legend above the board, beside one sample of the pulsing dot
+it names, instead of being stamped beside every dot. So the generalisable rule
+is narrower than "measure the label", and worth stating on its own:
+
+> A fixed-slot measurement constrains **the layout that created the slot**, not
+> the vocabulary. Before you shorten a word to fit a slot, check whether the
+> slot has to exist — repeating a label beside every one of four dots is a
+> layout choice, and it was the thing that could not survive translation.
+
+Measuring still matters, and measuring is what showed the slot was the problem.
+What does not follow from a measurement is that the *word* must give way.
+
+### 4. Dates, numbers and percentages are not strings
+
+Nothing in `src/i18n` can see them, so a page can be word-perfect in five
+languages and still write every date the American way. Three were live here:
+the privacy effective date was the literal English `'14 September 2026'`; two
+percentages were `${n}%` template literals, which is right in exactly one of
+the six languages, since German, French and Russian all put a no-break space
+before the sign; and the leaderboard formatted with a bare `en`, which CLDR
+resolves to **en-US**, so an Australian site wrote "Sep 14, 2026".
+
+Format through `formattingLocale(locale)` from `config.ts`, never the locale
+code. CSS percentages (`width: 42%`) must *not* be localised — a decimal comma
+makes the declaration invalid and the bar stops drawing.
+
+---
+
+## Where a placeholder may sit
+
+**A placeholder should sit in a position that needs no agreement.** That is a
+rule, not a style preference, and it is the most reusable thing three
+translation passes have produced.
+
+French found it first. A substance name dropped into a sentence needs an
+article, and French chooses between *le*, *la* and *l'* by the name's gender
+and first letter — *l'oxygène* but *le carbone*. A template cannot know which,
+so `"Ajoute le {name}"` is wrong about half the time. French invented three
+label shapes to avoid the article entirely, the simplest of which puts the
+name before a colon:
+
+```
+{name} : ajoute-le          instead of   Ajoute le {name}
+```
+
+Spanish reused all three unchanged for *el/la*, and Italian for elision. Three
+languages is enough to call it a device rather than a workaround.
+
+**Russian needs the same device for an entirely different reason,** which is
+why the rule belongs here and not in `glossary-fr.md`. A name after a
+preposition takes an oblique case — *в воду*, not *в вода* — and the
+`chemistry-names` overlay stores nominatives only. Name-then-colon sidesteps
+the case exactly as it sidesteps the article: nothing can agree with something
+that is not inside the sentence's grammar.
+
+The same reasoning covers counts, and there it has its own gate. A count
+interpolated into a sentence is a placeholder that things agree with:
+Italian's *"{count} corrette"* is wrong at 1, and Russian numerals govern the
+case of the noun after them as well as selecting one of three plural forms.
+Either make the string a plural record, or move the count somewhere invariant
+— see `GAMES.md` § Count-bearing strings and `src/i18n/count-strings.test.ts`,
+which pins the set at 57 so a new one has to be argued for rather than
+discovered by a translator.
+
+---
+
 ## Plurals
 
 **A count-dependent string is a record keyed by CLDR plural category, and the
@@ -439,6 +705,28 @@ language's business:
 
 So a Russian dictionary adds `few` and `many` and passes. A locale that drops
 `other`, or that turns a plural into a flat string, fails.
+
+### The second place, found by Russian: glossary match words
+
+`glossary.<entry>.matches` is exempt from the same check, in both directions,
+for the same reason. It is the list of word forms that open a tap-to-explain
+pop-over; the matcher does not stem; a language supplies one entry per
+inflected form its own copy uses. English needs two for *lone pair*. Russian
+needs four for *неподелённая пара*, because the copy uses the nominative, the
+genitive singular, the genitive plural and the accusative.
+
+`flatten()` gives every array element its own path, so before this exemption a
+fifth Russian form read as an "extra key" and the suite refused it. The five
+Latin locales never met it: each happens to need exactly the count English
+needs, and this section and GAMES.md both already told the Russian pass to
+expect longer lists — so the gate was the thing out of step, not the copy.
+
+The exemption is paid for rather than free. Every match word is still checked
+for emptiness; `game-messages.test.ts` still asserts each one starts and ends
+with a letter, still asserts that a term linked in the English running text is
+linked in the translation's, and now asserts that no locale ships an **empty**
+`matches` list — which is the one thing the relaxed key check could otherwise
+have hidden.
 
 ### Why this shipped before Russian did
 

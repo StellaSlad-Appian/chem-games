@@ -320,6 +320,20 @@ export const it = {
     liveLocked: 'Bilanciata. {equation}. L’equazione è bloccata.',
     liveBuilt: 'Equazione costruita. Ora bilanciala.',
   },
+  // The reaction-class badge. Terms from docs/i18n/glossary-it.md § reaction
+  // types, including the *scambio* pair Italian school chemistry teaches in
+  // preference to *spostamento*.
+  reactionType: {
+    Synthesis: 'Sintesi',
+    Decomposition: 'Decomposizione',
+    'Single Replacement': 'Scambio semplice',
+    'Double Replacement': 'Doppio scambio',
+    Combustion: 'Combustione',
+    'Acid-Base': 'Acido-base',
+    // International: Italian says *reazione redox* and never expands it.
+    Redox: 'Redox',
+    Precipitation: 'Precipitazione',
+  },
 } satisfies ReactionBalancerMessages;
 
 export default it;

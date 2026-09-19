@@ -5,6 +5,32 @@
 // `src/i18n/dictionary.test.ts` possible: a translator who drops or renames a
 // placeholder fails the suite instead of shipping a literal "{count}" to a
 // student.
+//
+// It also holds the `Intl` wrappers the UI formats numbers through, so that no
+// component has to remember that a percent sign takes a no-break space in
+// French, German and Russian but not in English.
+
+import { formattingLocale, type Locale } from './config';
+
+/**
+ * A percentage, punctuated the way the reader's language punctuates one.
+ *
+ * `Intl.NumberFormat` is the only thing that knows German and French put a
+ * no-break space before the `%` where English does not — `85 %` against
+ * `85%` — and that Russian does too. It was `${n}%` in template literals,
+ * which is right for exactly one of the site's five languages.
+ *
+ * Not for CSS. A percentage in a `style` attribute (`width: 42%`) is a length
+ * and must stay machine-readable: localised, a decimal comma would make the
+ * declaration invalid and the bar would not draw.
+ */
+export function formatPercent(locale: Locale, value: number, fractionDigits = 0): string {
+  return new Intl.NumberFormat(formattingLocale(locale), {
+    style: 'percent',
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  }).format(value / 100);
+}
 
 /** Placeholder names a string uses, in the order they first appear. */
 export function placeholdersIn(template: string): string[] {

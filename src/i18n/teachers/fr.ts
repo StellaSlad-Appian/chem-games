@@ -59,11 +59,11 @@ export const fr = {
 
   languagesHeading: 'Langues',
   languagesBody1:
-    'Le site existe en cinq langues : anglais, allemand, français, espagnol et italien. Le sélecteur est dans la barre de navigation, et le choix est mémorisé sur ce navigateur.',
+    'Le site existe en six langues : anglais, allemand, français, espagnol, italien et russe. Le sélecteur est dans la barre de navigation, et le choix est mémorisé sur ce navigateur.',
   languagesBody2:
     'Tout ce que lit un élève est traduit – l’interface, l’accompagnement et les astuces dans les jeux, et les antisèches. Les formules chimiques, les symboles d’éléments et les équations ne sont jamais traduits : une équation s’écrit de la même façon dans toutes les langues.',
   languagesBody3:
-    'Le russe est prévu mais n’est pas encore arrivé. Il n’y a aucun russe sur le site aujourd’hui.',
+    'Deux choses ne changent pas avec la langue : les liens externes des antisèches renvoient tous vers des sites en anglais, et chaque antisèche cite le Victorian Curriculum, un programme australien. À savoir si vous enseignez selon un autre programme.',
 
   privacyHeading: 'Vie privée des élèves',
   privacyBody1:

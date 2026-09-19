@@ -20,7 +20,7 @@ import { getCheatSheets } from '@/i18n/cheat-sheets';
 import { de } from '@/i18n/dictionaries/de';
 import { en } from '@/i18n/dictionaries/en';
 import type { Dictionary } from '@/i18n/dictionaries/en';
-import type { Locale } from '@/i18n/config';
+import { LOCALES, type Locale } from '@/i18n/config';
 import { en as enTeachers } from '@/i18n/teachers/en';
 import { de as deTeachers } from '@/i18n/teachers/de';
 
@@ -68,17 +68,33 @@ describe('For Teachers page', () => {
     }
   });
 
-  it('states the year band, the five shipping locales and the beta', async () => {
+  it('states the year band, the six shipping locales and the beta', async () => {
     await renderPage('en');
 
     // The band is load-bearing (review-notes.ts) and must be on the page.
     expect(screen.getByText(/Year 9–10, ages 14–16/)).toBeInTheDocument();
-    // The five locales that actually ship — and not Russian, which does not.
+    // Every locale in LOCALES, named. Russian used to be the one this page
+    // said was *not* shipped; it shipped, and the sentence had to move with
+    // it, which is the failure mode docs/TEACHERS_PAGE.md § 2 warns about.
     expect(
-      screen.getByText(/English, German, French, Spanish and Italian/)
+      screen.getByText(/English, German, French, Spanish, Italian and Russian/)
     ).toBeInTheDocument();
     expect(screen.getByText(enTeachers.languagesBody3)).toBeInTheDocument();
     expect(screen.getByText(enTeachers.betaBody)).toBeInTheDocument();
+  });
+
+  it('names one language per locale in LOCALES, and no more', async () => {
+    // A count rather than a list, so adding a seventh locale fails here
+    // instead of leaving the page quietly one language short. The claim is
+    // the sentence's, not the switcher's: this is the page a teacher reads
+    // deciding whether the site is usable in their classroom.
+    await renderPage('en');
+
+    const named = ['English', 'German', 'French', 'Spanish', 'Italian', 'Russian'];
+    expect(named).toHaveLength(LOCALES.length);
+    for (const language of named) {
+      expect(enTeachers.languagesBody1).toContain(language);
+    }
   });
 
   it('is honest about accessibility rather than claiming conformance', async () => {
