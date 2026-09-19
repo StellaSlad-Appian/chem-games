@@ -5,7 +5,11 @@
 //  - Address the reader with informal "tu" throughout. Like Spanish and unlike
 //    French this is not contentious: Italian school material addresses students
 //    as "tu" as a matter of course, and "Lei" would read as a letter from the
-//    bank.
+//    bank. **The one exception is the `teachers` namespace**, the site's only
+//    adults-facing page, which uses "Lei": the argument for "tu" is about
+//    school material read by a student, and that is not who reads it. Flagged
+//    for a native reviewer. That copy now lives in src/i18n/teachers/it.ts;
+//    the reasoning is at the top of it.
 //  - Chemistry terms follow Italian school curriculum usage, not literal
 //    translation. Every term is fixed in docs/i18n/glossary-it.md.
 //  - **The apostrophe is U+2019 (’), everywhere.** Elision is pervasive in
@@ -69,6 +73,9 @@ export const it = {
     privacyTitle: 'Informativa sulla privacy | ChemGames',
     privacyDescription:
       'Che cosa ChemGames conserva su di te, che cosa è pubblico, chi lo tratta e come scaricare o cancellare i tuoi dati.',
+    teachersTitle: 'Per chi insegna | ChemGames',
+    teachersDescription:
+      'Che cos’è ChemGames, in quali sei lingue esiste, come tratta i dati di chi studia, a che punto è l’accessibilità e come chi insegna può contribuire durante la beta.',
     cheatSheetTitle: 'Bigino di {title} | ChemGames',
     cheatSheetNotFound: 'Argomento non trovato – ChemGames',
   },
@@ -109,6 +116,7 @@ export const it = {
     tagline: 'ChemGames – la chimica vista, giocata e capita.',
     copyright: '© {year} ChemGames. Tutti i diritti riservati.',
     privacy: 'Informativa privacy',
+    teachers: 'Per chi insegna',
   },
 
   home: {

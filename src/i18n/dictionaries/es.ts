@@ -9,7 +9,13 @@
 //    docs/i18n/glossary-es.md, flagged for the owner.
 //  - Address the reader with informal "tú" throughout. Unlike the French
 //    tu/vous call this is not contentious: Spanish school material addresses
-//    students as "tú" as a matter of course.
+//    students as "tú" as a matter of course. **The one exception is the
+//    `teachers` namespace**, the site's only adults-facing page, which uses
+//    "usted": the argument for "tú" is about school material read by a
+//    student, and that is not who reads it. This is the more debatable of the
+//    four locales — Spanish professional web copy often keeps "tú" — so it is
+//    flagged for a native reviewer. That copy now lives in
+//    src/i18n/teachers/es.ts; the reasoning is at the top of it.
 //  - Chemistry terms follow Spanish school curriculum usage, not literal
 //    translation. Every term is fixed in docs/i18n/glossary-es.md.
 //  - "Hint" is *pista*. The French run warned that Spanish would repeat its
@@ -61,6 +67,9 @@ export const es = {
     privacyTitle: 'Privacidad | ChemGames',
     privacyDescription:
       'Qué guarda ChemGames sobre ti, qué es público, quién lo trata y cómo descargar o borrar tus datos.',
+    teachersTitle: 'Para el profesorado | ChemGames',
+    teachersDescription:
+      'Qué es ChemGames, en qué seis idiomas existe, cómo trata los datos del alumnado, en qué punto está la accesibilidad y cómo el profesorado puede ayudar a darle forma durante la beta.',
     cheatSheetTitle: 'Chuleta de {title} | ChemGames',
     cheatSheetNotFound: 'Tema no encontrado – ChemGames',
   },
@@ -101,6 +110,7 @@ export const es = {
     tagline: 'ChemGames – la química en imágenes, jugando y sin líos.',
     copyright: '© {year} ChemGames. Todos los derechos reservados.',
     privacy: 'Privacidad',
+    teachers: 'Para el profesorado',
   },
 
   home: {

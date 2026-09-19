@@ -64,6 +64,12 @@ export const ru = {
     privacyTitle: 'Конфиденциальность | ChemGames',
     privacyDescription:
       'Что ChemGames хранит о тебе, что видят другие, кто обрабатывает данные и как их скачать или удалить.',
+    // The one page on the site written for an adult, so this description and
+    // the copy it summarises use «вы» rather than the site-wide «ты» — the
+    // argument is at the top of src/i18n/teachers/ru.ts.
+    teachersTitle: 'Учителям | ChemGames',
+    teachersDescription:
+      'Что такое ChemGames, на каких шести языках он выходит, как он обращается с данными учеников, на каком уровне доступность и как учителя могут помочь развивать его во время беты.',
     cheatSheetTitle: 'Шпаргалка: {title} | ChemGames',
     cheatSheetNotFound: 'Тема не найдена — ChemGames',
   },
@@ -102,6 +108,7 @@ export const ru = {
     tagline: 'ChemGames — химия наглядно, с интересом и без зубрёжки.',
     copyright: '© {year} ChemGames. Все права защищены.',
     privacy: 'Конфиденциальность',
+    teachers: 'Учителям',
   },
 
   home: {

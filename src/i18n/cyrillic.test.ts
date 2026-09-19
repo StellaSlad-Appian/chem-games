@@ -38,6 +38,17 @@ import {
  * keys — at which point the allowlist stops being evidence of anything. Their
  * completeness and their untranslatable parts are gated by
  * cheat-sheets.test.ts and chemistry-names.test.ts instead.
+ *
+ * The For Teachers catalogue (src/i18n/teachers/ru.ts) is **not** here for the
+ * same reason plus one of its own. It is server-only, like the two overlays.
+ * And its copy names "WCAG 2.2" and "version 1.0 / 2.0": the decimal check
+ * below is `(?<![Latin\d])\d+\.\d`, so each of those reads as a decimal point
+ * where Russian wants a comma. Admitting the file would mean exempting them,
+ * and the exemption is broader than the thing it buys — the decimal gate is
+ * the one that catches «pH равен 1.5», which is a real mistake a translator
+ * makes. The typography rules are applied by hand in that file instead, and
+ * its header says so. Its parity, placeholders and year band are gated by
+ * teachers.test.ts.
  */
 const RUSSIAN_SOURCES: Record<string, unknown> = {
   dictionary: ru,
@@ -73,7 +84,7 @@ const LATIN_BY_DESIGN: RegExp[] = [
   // transliterated, so every string that names it carries a Latin run.
   // Supabase, Resend and Google are companies. "Bond Builder" is the working
   // name of a game that does not exist yet.
-  /^meta\.(siteName|title|privacyTitle|privacyDescription|cheatSheetTitle|cheatSheetNotFound)$/,
+  /^meta\.(siteName|title|privacyTitle|privacyDescription|teachersTitle|teachersDescription|cheatSheetTitle|cheatSheetNotFound)$/,
   /^footer\.(tagline|copyright)$/,
   /^feedback\.(heading|sentBody)$/,
   /^profile\.dataIntro$/,
