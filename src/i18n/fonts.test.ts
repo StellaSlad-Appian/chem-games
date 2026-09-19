@@ -73,7 +73,11 @@ describe('globals.css font variables', () => {
     // `[data-theme='light']` are all (0,1,0). The override therefore wins in
     // either theme without !important — and if someone ever moves it inside a
     // theme block, this is the assertion that notices.
-    const themeBlocks = globalsCss.slice(0, globalsCss.indexOf("html[lang='ru']"));
+    // Locate the rule, not the first mention: a comment naming the selector
+    // used to satisfy indexOf() and slice this check off at the wrong point.
+    const ruRuleAt = globalsCss.search(/^html\[lang='ru'\]\s*\{/m);
+    expect(ruRuleAt).toBeGreaterThan(-1);
+    const themeBlocks = globalsCss.slice(0, ruRuleAt);
     expect(themeBlocks).toContain("[data-theme='light']");
   });
 

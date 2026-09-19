@@ -74,7 +74,7 @@ export const de = {
   privacyBody1:
     'Auf dieser Seite gibt es keine Analysewerkzeuge, keine Werbung und kein Tracking durch Dritte. Was jemand hier tut, wird für niemanden sonst gemessen.',
   privacyBody2:
-    'Zum Spielen braucht es kein Konto. Wer ohne eines spielt, hinterlässt nichts außer den Einstellungen für Ton und Farbschema, die der eigene Browser für sich behält.',
+    'Zum Spielen braucht es kein Konto. Wer ohne eines spielt, wird auf der Seite gar nicht erfasst: Der eigene Browser behält die Einstellungen für Ton, Farbschema und Barrierefreiheit sowie den Hinweis, ob die Anleitung eines Spiels schon gesehen wurde, und ein einziges Cookie reist mit den Anfragen mit – es enthält nur die gewählte Sprache.',
   privacyBody3:
     'Wer sich anmeldet, gibt eine E-Mail-Adresse an, bekommt einen erzeugten Alias – nie einen echten Namen – und von da an speichert die Seite die Punkte, die erreichten Level, die freiwillig ausgefüllten Profilfelder und die Sichtbarkeitseinstellungen. Was davon öffentlich ist und wie sich ein Konto samt Inhalt löschen lässt, steht auf der Seite {link}.',
   privacyLinkLabel: 'Datenschutz',
