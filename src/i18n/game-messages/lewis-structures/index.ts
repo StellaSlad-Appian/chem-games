@@ -297,7 +297,9 @@ export function lewisMessages(t: Dictionary, locale: Locale) {
           f(d.ui.atomLonerA11y, { element: elementName, index, total }),
         lonePair: (elementName: string, index: number, total: number) =>
           f(d.ui.atomLonePairA11y, { element: elementName, index, total }),
-        lonerLabel: d.ui.lonerLabel,
+        // The canvas legend caption (Level 1 scaffold). Named `lonerLabel` on the
+        // AtomCanvas side still; only the message key was renamed.
+        lonerLabel: d.ui.unpairedLabel,
         full: d.ui.atomFull,
         selectedForPairing: (elementName: string) =>
           f(d.ui.atomSelectedA11y, { element: elementName }),

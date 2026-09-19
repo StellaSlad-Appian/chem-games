@@ -192,11 +192,11 @@ export const it = {
     // lewisTitle candidates:
     //   'Condividi per completare' — calque; the purpose clause is clumsy in Italian
     //   'A due a due'              — memorable, but loses the "fill" half of the rule
-    //   'Accoppia e completa'      — names the mechanic (pairing the dispari) rather
+    //   'Accoppia e completa'      — names the mechanic (pairing the electrons) rather
     //                                than the rule (sharing to fill a shell)
     lewisTitle: 'Condividi e completa', // chosen: names the rule in Italian, two
     // short imperatives, instantly readable at 14
-    lewisDescription: 'Accoppia i dispari per costruire una molecola.',
+    lewisDescription: 'Accoppia gli elettroni spaiati per costruire una molecola.',
 
     // bondsTitle candidates:
     //   'I legami'    — too vague

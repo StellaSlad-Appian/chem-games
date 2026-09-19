@@ -5,22 +5,21 @@
 // Terminology is fixed in docs/i18n/glossary-ru.md. The four decisions that
 // shape this file:
 //
-//   * **одиночка** is the game's word for an unpaired outer electron, with
-//     *неспаренный электрон* as the formal gloss. Russian could not calque any
-//     of the five languages before it: *свободный* is taken twice over
+//   * **неспаренный электрон** is the only word for an unpaired outer
+//     electron, everywhere — coach lines, hints, glossary and the canvas
+//     legend alike. The game word «одиночка» and the short canvas label
+//     «соло» were both dropped on 2026-09-19; the reasoning is kept in
+//     docs/i18n/glossary-ru.md so nobody re-proposes them.
+//     The collision warnings that chose «одиночка» are still true and still
+//     bind anything written near this term: *свободный* is taken twice over
 //     (*свободная электронная пара* is a lone pair, *свободные электроны* are
 //     the delocalised ones in a metal), *одинокая пара* is the calque of *lone
-//     pair* that Spanish rejected as *solitario*, *одиночный* collides with
-//     *одинарная связь* three levels later, and *непарный* — the true
-//     counterpart of *impar* and *dispari* — shares its root with the formal
-//     *неспаренный* and would collapse the two-tier scaffold the game is built
-//     on. *Одиночка* is a noun, it declines and counts cleanly
-//     (одна одиночка / 2 одиночки / 5 одиночек), and Russian already applies
-//     it to things as well as people (камера-одиночка).
-//     **The short canvas label is a different word, «соло».** Russian follows
-//     German rather than Spanish and Italian here, and not by choice: the
-//     label sits 50 px from its neighbour and «одиночка» renders 59 px wide,
-//     so reusing the game word overlaps on screen. See `ui.lonerLabel`.
+//     pair* that Spanish rejected as *solitario*, and *одиночный* collides
+//     with *одинарная связь* three levels later.
+//     It is a masculine noun phrase, so it counts
+//     1 неспаренный электрон / 2 неспаренных электрона / 5 неспаренных
+//     электронов, and every case form it uses is listed in
+//     `glossary.unpairedElectron.matches`.
 //
 //   * **Nothing agrees with an interpolated name.** `{atom}`, `{name}` and
 //     `{element}` arrive from the chemistry-names overlay in the **nominative
@@ -58,14 +57,14 @@ export const ru = {
 
   instructions: {
     title: 'Как играть: Делись и заполняй',
-    lead: 'Соединяй одиночки в пары.',
+    lead: 'Соединяй неспаренные электроны в пары.',
     intro:
-      'Каждый атом приносит свои внешние электроны — они нарисованы точками. Точка сама по себе — это одиночка, ей нужен напарник. Две одиночки от разных атомов дают общую пару, а общая пара — это связь.',
+      'Каждый атом приносит свои внешние электроны — они нарисованы точками. Точка сама по себе — это неспаренный электрон, ему нужен напарник. Два неспаренных электрона от разных атомов дают общую пару, а общая пара — это связь.',
     bullets: [
       'Перетащи мигающую точку на мигающую точку другого атома (или нажми сначала на одну, потом на другую).',
       'Атом заполнен, когда вокруг него 8 точек. Водороду хватает двух.',
       'Поделись дважды между одними и теми же атомами — получится двойная связь.',
-      'Структура закрепляется сама, когда все атомы заполнены и одиночек не осталось. Никакой кнопки не нужно.',
+      'Структура закрепляется сама, когда все атомы заполнены и неспаренных электронов не осталось. Никакой кнопки не нужно.',
       'Не получается? Нажми на лампочку (или H). Первая подсказка всегда бесплатная.',
     ],
     disclaimer:
@@ -73,14 +72,14 @@ export const ru = {
     /** Column 1 is the physical key and is never translated. */
     keyboard: [
       ['Tab', 'выбрать атом'],
-      ['← →', 'перебрать его одиночки'],
+      ['← →', 'перебрать его неспаренные электроны'],
       ['Enter', 'начать пару; на другом атоме повторить — и пара готова'],
       ['Esc', 'отменить'],
       ['H', 'подсказка'],
       ['P', 'пауза'],
     ],
     touch: [
-      ['Нажми', 'на одиночку, потом на одиночку другого атома.'],
+      ['Нажми', 'на неспаренный электрон, потом на неспаренный электрон другого атома.'],
       ['Нажми', 'на общую пару, чтобы разорвать её.'],
     ],
     glossaryTitle: 'Слова, которые встретятся в игре',
@@ -89,40 +88,43 @@ export const ru = {
   guided: {
     stepLabel: 'Шаг {step} из {total}',
     h2: [
-      'Два атома водорода. У каждого один внешний электрон — одиночка. Перетащи одну на другую.',
+      'Два атома водорода. У каждого один неспаренный электрон — он же единственный внешний. Перетащи один на другой.',
       'Теперь у них общая пара. Посчитай точки вокруг каждого H: их 2. Водороду хватает двух — это одинарная связь, H–H.',
     ],
     h2oStep1:
-      'У кислорода 6 внешних электронов: две пары (они остаются на месте) и две одиночки (они мигают).',
-    h2oStep2: 'Соедини одну одиночку кислорода с одиночкой водорода.',
+      'У кислорода 6 внешних электронов: две пары (они остаются на месте) и два неспаренных электрона (они мигают).',
+    h2oStep2: 'Соедини один неспаренный электрон кислорода с неспаренным электроном водорода.',
     h2oStep2After: 'Теперь вокруг кислорода 7 — остался один.',
-    h2oStep3: 'Соедини вторую одиночку кислорода со вторым водородом.',
+    h2oStep3: 'Соедини второй неспаренный электрон кислорода со вторым водородом.',
     h2oStep4:
       'Кислород: 8. Каждый водород: 2. Две общие пары и две неподелённые пары — это вода, H–O–H.',
   },
 
   coach: {
     label: 'Наставник',
-    // Four forms. The noun «одиночка» is feminine, so `one` takes «осталась»
-    // and the other three the impersonal «осталось» with the genitive.
+    // Four forms. «Неспаренный электрон» is masculine, so `one` takes the
+    // agreeing «остался» and the other three the impersonal «осталось» with
+    // the genitive — genitive singular after 2–4 (`few`, `other`), genitive
+    // plural from 5 (`many`).
     loners: {
-      one: '{atom} — осталась {count} одиночка. Одиночки соединяются с одиночками другого атома.',
-      few: '{atom} — осталось {count} одиночки. Одиночки соединяются с одиночками другого атома.',
-      many: '{atom} — осталось {count} одиночек. Одиночки соединяются с одиночками другого атома.',
-      other: '{atom} — осталось {count} одиночки. Одиночки соединяются с одиночками другого атома.',
+      one: '{atom} — остался {count} неспаренный электрон. Он соединяется с неспаренным электроном другого атома.',
+      few: '{atom} — осталось {count} неспаренных электрона. Они соединяются с неспаренными электронами другого атома.',
+      many: '{atom} — осталось {count} неспаренных электронов. Они соединяются с неспаренными электронами другого атома.',
+      other: '{atom} — осталось {count} неспаренного электрона. Они соединяются с неспаренными электронами другого атома.',
     },
     needsMore:
-      '{atom} — {count} из 8. Нужна ещё одна общая пара: у какого атома ещё осталась одиночка?',
+      '{atom} — {count} из 8. Нужна ещё одна общая пара: у какого атома ещё остался неспаренный электрон?',
     shareAgain:
-      '{atom1} и {atom2} — у обоих ещё есть одиночка. Они могут поделиться ещё раз: получится двойная связь.',
-    complete: 'Все атомы заполнены, одиночек не осталось. Это {name}: {bonds}, {lonePairs}.',
+      '{atom1} и {atom2} — у обоих ещё есть неспаренный электрон. Они могут поделиться ещё раз: получится двойная связь.',
+    complete:
+      'Все атомы заполнены, неспаренных электронов не осталось. Это {name}: {bonds}, {lonePairs}.',
     // «как у {analogueMolecule}» would need the genitive, so the analogue
     // molecule moves behind a colon.
     sameGroup:
       '{element} — в той же группе, что и {analogue}, поэтому внешних электронов столько же. Строение получится такое же, как здесь: {analogueMolecule}.',
-    central: 'В середину обычно идёт атом, у которого больше всего одиночек.',
+    central: 'В середину обычно идёт атом, у которого больше всего неспаренных электронов.',
     deadEnd:
-      '{atom} — {count} из 8, но свободных одиночек больше ни у кого нет. Нажми на общую пару, чтобы разорвать её, и выбери другого напарника.',
+      '{atom} — {count} из 8, но неспаренных электронов больше ни у кого нет. Нажми на общую пару, чтобы разорвать её, и выбери другого напарника.',
     isomer:
       'Все атомы заполнены, но соединены они не так, как нужно. Должно получиться вот это: {name}. Нажми на общую пару, чтобы разорвать её, и попробуй другое расположение.',
   },
@@ -154,7 +156,7 @@ export const ru = {
     tierLabel: 'Подсказка {tier} из 3',
     tier1: 'Найди атомы, у которых ещё мигают точки.',
     // Tier 2 is the molecule's own hint, translated in chemistry-names/.
-    tier3: 'Соедини одиночки двух атомов: {atom1} и {atom2}.',
+    tier3: 'Соедини неспаренные электроны двух атомов: {atom1} и {atom2}.',
     tier3Undo: 'Нажми на общую пару этих двух атомов: {atom1} и {atom2}.',
     offerTier2: 'Всё ещё не получается? Нажми на лампочку ещё раз — будет стратегия.',
     noMoreHints: 'Это была последняя подсказка. Все атомы заполнены — нажми «Дальше».',
@@ -164,7 +166,7 @@ export const ru = {
     inspectTier3: '{atom} — {count}. Нажми на него и выбери, что не так.',
     inspectTier3Correct:
       'Все атомы заполнены, ничего лишнего не осталось — нажми «Здесь всё верно».',
-    inspectTier3Repair: 'Соединяй одиночки, пока каждый атом снова не заполнится.',
+    inspectTier3Repair: 'Соединяй неспаренные электроны, пока каждый атом снова не заполнится.',
     inspectTier3CountBonds: {
       one: 'Каждая линия между двумя атомами — это одна связь. Здесь {count} связь.',
       few: 'Каждая линия между двумя атомами — это одна связь. Здесь {count} связи.',
@@ -182,12 +184,12 @@ export const ru = {
   error: {
     label: 'Так не получится',
     atomFull:
-      '{atom} — уже 8, делиться больше нечем. Возьми атом, у которого ещё осталась одиночка.',
+      '{atom} — уже 8, делиться больше нечем. Возьми атом, у которого ещё остался неспаренный электрон.',
     hydrogenFull: 'Водороду хватает двух. Он может отдать только одну пару.',
     sameAtom:
       'Эти две точки на одном атоме — они и так уже пара. Для связи нужны два разных атома.',
     pairedDot:
-      'Эта точка уже в паре. Делиться могут только одиночки — те, что мигают.',
+      'Эта точка уже в паре. Делиться могут только неспаренные электроны — те, что мигают.',
   },
 
   inspect: {
@@ -209,14 +211,14 @@ export const ru = {
     explainTooFew: '{atom} — меньше 8: не хватает неподелённой пары.',
     explainHydrogenFull: 'У водорода 4 — он может отдать только одну пару.',
     explainNeedsDouble:
-      '{atom1} и {atom2} — у каждого ещё осталась одиночка: им нужно поделиться дважды.',
-    explainLeftover: '{atom} — осталась одиночка: нарисован лишний электрон.',
+      '{atom1} и {atom2} — у каждого ещё остался неспаренный электрон: им нужно поделиться дважды.',
+    explainLeftover: '{atom} — остался неспаренный электрон: нарисован лишний электрон.',
     correctStructure: 'Верно — все атомы заполнены, ничего лишнего.',
     missedCorrect:
       'А здесь всё правильно: каждый атом заполнен. Ошибка есть не в каждом рисунке.',
     notCorrect:
       'Не совсем — один атом всё-таки не тот. Посчитай точки вокруг каждого и нажми на неверный.',
-    repair: 'Теперь исправь: соединяй одиночки, пока каждый атом не заполнится.',
+    repair: 'Теперь исправь: соединяй неспаренные электроны, пока каждый атом не заполнится.',
     repaired: 'Исправлено — все атомы снова заполнены.',
     countBonds: 'Сколько здесь связей? Нажми на каждую общую пару.',
     countLonePairs: 'Сколько здесь неподелённых пар? Нажми на каждую пару, которая не общая.',
@@ -239,7 +241,7 @@ export const ru = {
   overlay: {
     levelUpBadge: 'Все атомы заполнены',
     levelUpTitle: 'Уровень пройден',
-    levelUpSubtitle: 'Каждая одиночка нашла пару',
+    levelUpSubtitle: 'Неспаренных электронов не осталось',
     levelUpDescription: 'Уровень {level}: {changes}',
     levelChanges: {
       level2:
@@ -251,7 +253,7 @@ export const ru = {
     },
     victoryBadge: 'Все цели достигнуты',
     victoryTitle: 'Формулы Льюиса освоены',
-    victorySubtitle: 'Каждая одиночка нашла пару',
+    victorySubtitle: 'Неспаренных электронов не осталось',
     victoryDescription: 'Открой лист проверки или попробуй следующую игру — Bond Builder.',
     pausedBadge: 'Опыт на паузе',
     pausedTitle: 'Пауза',
@@ -294,18 +296,25 @@ export const ru = {
         'валентный электрон',
       ],
     },
-    loner: {
-      term: 'одиночка (неспаренный электрон)',
-      definition: 'внешний электрон без напарника; делиться могут только одиночки',
+    unpairedElectron: {
+      term: 'неспаренный электрон',
+      definition: 'внешний электрон без напарника; делиться могут только они',
+      // Russian carries more forms than any other locale here, because the
+      // phrase declines in both words and the copy uses six of the twelve
+      // case/number cells. The parity gate exempts `matches` length across
+      // locales for exactly this reason.
       matches: [
-        'одиночки',
-        'одиночка',
-        'одиночек',
-        'одиночку',
-        'одиночкой',
-        'одиночками',
-        'неспаренный электрон',
+        'неспаренными электронами',
+        'неспаренных электронах',
+        'неспаренным электронам',
+        'неспаренных электронов',
         'неспаренные электроны',
+        'неспаренных электрона',
+        'неспаренного электрона',
+        'неспаренному электрону',
+        'неспаренным электроном',
+        'неспаренном электроне',
+        'неспаренный электрон',
       ],
     },
     lonePair: {
@@ -376,29 +385,18 @@ export const ru = {
     canvasLabelA11y: 'Точечная формула: {name}',
     atomNameA11y: '{element}: {count} из {full}',
     atomCounterA11y: '{symbol}: {count} из {full}',
-    atomLonerA11y: '{element}, одиночка {index} из {total}',
+    atomLonerA11y: '{element}, неспаренный электрон {index} из {total}',
     atomLonePairA11y: '{element}, неподелённая пара {index} из {total}',
     atomOrdinal: '{element} {ordinal}',
-    // **Not «одиночка», and that is a measured constraint rather than a
-    // translation preference.** The canvas places this label centred under a
-    // dot, and in H2 the two dots are 50 px apart. At `text-[9px]` uppercase,
-    // «одиночка» renders 59 px wide and the two labels overlap by 9 px —
-    // visible on screen as «ОДИНОЧКАДИНОЧКА». English "loner" is 32 px,
-    // Spanish «impar» 33, Italian «dispari» 40 and German «einzeln» 41, so the
-    // real budget is about 44 px and Russian has no transparent one-word
-    // rendering of the concept that fits: «непарный» is 59, «без пары» 51,
-    // «не в паре» 52, and «одинок» is 44 but collides with «одинокая пара».
-    //
-    // So Russian does what German did and gives the dot its own shorter word.
-    // «Соло» is 28 px, every fourteen-year-old knows it, it means exactly "on
-    // its own", and — unlike every adjective Russian could have used — it
-    // collides with no chemistry term. The cost is that it does not share a
-    // root with «одиночка» the way *einzeln* shares one with *Einzelelektron*;
-    // the coach line and the glossary carry the game word, and this label is a
-    // Level 1 scaffold the brief removes at Level 2. **Rated low.**
-    lonerLabel: 'соло',
+    // The Level 1 scaffold, off from Level 2. The 44 px budget that forced
+    // Russian onto the short «соло» was a constraint on stamping a label
+    // beside every dot 50 px from its neighbour, not on how long the term may
+    // be: since 2026-09-19 the label is printed once, in the canvas legend,
+    // so the full phrase fits in every language.
+    unpairedLabel: 'неспаренный электрон',
     atomFull: 'заполнен',
-    atomSelectedA11y: '{element}: одиночка выбрана. Теперь выбери одиночку на другом атоме.',
+    atomSelectedA11y:
+      '{element}: неспаренный электрон выбран. Теперь выбери неспаренный электрон на другом атоме.',
     atomInspectTapA11y: '{element} — нажми, если этот атом неверный',
     // «между {atom1} и {atom2}» would need the instrumental, so the atoms are
     // named in a trailing list instead.

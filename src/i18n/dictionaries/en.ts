@@ -127,7 +127,7 @@ export const en = {
     balancerTitle: 'Reaction Balancer',
     balancerDescription: 'Make the atoms match on both sides of the arrow.',
     lewisTitle: 'Share to Fill',
-    lewisDescription: 'Pair up the loners to build a molecule.',
+    lewisDescription: 'Pair up the unpaired electrons to build a molecule.',
     bondsTitle: 'Chemical Bonds',
     bondsDescription: 'Explore molecular structures and atomic bonding.',
   },

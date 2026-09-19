@@ -188,7 +188,7 @@ export const ru = {
     //   'Общая пара'                — names the mechanic, reads as a glossary entry
     lewisTitle: 'Делись и заполняй', // chosen: names the rule in Russian as two
     // short imperatives, instantly readable at 14
-    lewisDescription: 'Соединяй одиночки в пары — получится молекула.',
+    lewisDescription: 'Соединяй неспаренные электроны в пары — получится молекула.',
 
     // bondsTitle candidates:
     //   'Связи'       — ambiguous: connections, contacts

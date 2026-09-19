@@ -175,7 +175,7 @@ export const fr = {
     //                            you learn it
     lewisTitle: 'Partage et complète', // chosen: names the rule in French, two short
     // imperatives, instantly readable at 14
-    lewisDescription: 'Associe les solitaires pour construire une molécule.',
+    lewisDescription: 'Associe les électrons célibataires pour construire une molécule.',
 
     // bondsTitle candidates:
     //   'Les liaisons' — too vague

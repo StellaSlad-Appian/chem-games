@@ -2,23 +2,18 @@
 //
 // Condividi e completa (strutture di Lewis), in italiano.
 //
-// «Dispari» è la parola del gioco per un elettrone esterno senza compagno. Il
-// termine scolastico «elettrone spaiato» compare accanto nel glossario, e sopra
-// il punto che lampeggia si scrive anche «dispari», perché in italiano la parola
-// del gioco è già l'aggettivo e non c'è niente da accorciare.
+// «Elettrone spaiato» è l'unico nome che il gioco dà a un elettrone esterno
+// senza compagno: ovunque, anche sopra il punto che lampeggia. La parola del
+// gioco «dispari» è stata ritirata il 19/09/2026.
 //
-// **Perché NON «solitario», e perché nemmeno «libero» o «singolo».** L'italiano
-// chiama *doppietto solitario* un lone pair (e *coppia solitaria* è l'altra
-// dicitura corrente: l'aggettivo è lo stesso). Un gioco che insegna proprio la
-// differenza fra un elettrone da solo e due elettroni che stanno insieme non può
-// chiamare *un solitario* il primo e *un doppietto solitario* il secondo: le due
-// frasi si distinguono per una parola, vogliono dire cose opposte e compaiono in
-// righe della guida vicine. Ricalcare qui il francese (*solitaire*) avrebbe
-// spedito in produzione un errore didattico vero. In più *doppietto libero* è un
-// altro nome del lone pair e *elettroni liberi* sono quelli delocalizzati, e
-// *legame singolo* è il single bond, insegnato tre righe più in là in questo
-// stesso gioco. Il ragionamento completo, e i candidati scartati (solo,
-// scompagnato, celibe, orfano), sono in docs/i18n/glossary-it.md § Il «loner».
+// Restano valide le collisioni che a suo tempo scartarono le alternative, e
+// vanno ancora evitate: l'italiano chiama *doppietto solitario* un lone pair
+// (e *coppia solitaria* è l'altra dicitura corrente), *doppietto libero* è un
+// altro nome dello stesso concetto, *elettroni liberi* sono quelli
+// delocalizzati e *legame singolo* è il single bond, insegnato tre righe più
+// in là in questo stesso gioco. Il ragionamento completo, e i candidati
+// scartati (solo, scompagnato, celibe, orfano), sono in
+// docs/i18n/glossary-it.md.
 //
 // Altri termini fissati dal glossario: doppietto solitario, doppietto di legame
 // (e non «doppietto condiviso», che cozza con il verbo *condividere* del titolo
@@ -58,14 +53,14 @@ export const it = {
 
   instructions: {
     title: 'Come si gioca: Condividi e completa',
-    lead: 'Accoppia i dispari.',
+    lead: 'Accoppia gli elettroni spaiati.',
     intro:
-      'Ogni atomo porta i suoi elettroni esterni sotto forma di punti. Un punto da solo è un dispari: cerca un compagno. Due dispari di due atomi diversi formano un doppietto di legame, cioè un legame.',
+      'Ogni atomo porta i suoi elettroni esterni sotto forma di punti. Un punto da solo è un elettrone spaiato: cerca un compagno. Due elettroni spaiati di due atomi diversi formano un doppietto di legame, cioè un legame.',
     bullets: [
       'Trascina un punto che lampeggia su un punto che lampeggia di un altro atomo (oppure tocca prima uno e poi l’altro).',
       'Un atomo è completo quando ha 8 punti intorno; l’idrogeno è completo con 2.',
       'Condividi due volte fra gli stessi due atomi e avrai fatto un legame doppio.',
-      'La struttura si blocca da sola quando ogni atomo è completo e non resta nessun dispari. Non serve nessun pulsante.',
+      'La struttura si blocca da sola quando ogni atomo è completo e non resta nessun elettrone spaiato. Non serve nessun pulsante.',
       'Non sai come andare avanti? Premi la lampadina (o la H). Il primo indizio è sempre gratis.',
     ],
     disclaimer:
@@ -75,14 +70,14 @@ export const it = {
     // reasoning that made German write «Leertaste» and French «Entrée».
     keyboard: [
       ['Tab', 'seleziona un atomo'],
-      ['← →', 'passano da un dispari all’altro'],
+      ['← →', 'passano da un elettrone spaiato all’altro'],
       ['Invio', 'comincia un doppietto; Tab + Invio su un altro atomo lo finisce'],
       ['Esc', 'annulla'],
       ['H', 'indizio'],
       ['P', 'pausa'],
     ],
     touch: [
-      ['Tocca', 'un dispari, poi un dispari di un altro atomo.'],
+      ['Tocca', 'un elettrone spaiato, poi uno di un altro atomo.'],
       ['Tocca', 'un doppietto di legame per disfarlo.'],
     ],
     glossaryTitle: 'Le parole del gioco',
@@ -91,14 +86,14 @@ export const it = {
   guided: {
     stepLabel: 'Passo {step} di {total}',
     h2: [
-      'Due atomi di idrogeno. Ognuno ha 1 elettrone esterno: un dispari. Trascina uno sull’altro.',
+      'Due atomi di idrogeno. Ognuno ha 1 elettrone esterno: un elettrone spaiato. Trascina uno sull’altro.',
       'Ora condividono un doppietto. Conta intorno a ogni H: 2. L’idrogeno è completo con 2, quindi è un legame singolo, H–H.',
     ],
     h2oStep1:
-      'L’ossigeno ha 6 elettroni esterni: due doppietti (che restano fermi) e due dispari (che lampeggiano).',
-    h2oStep2: 'Accoppia un dispari dell’ossigeno con un dispari dell’idrogeno.',
+      'L’ossigeno ha 6 elettroni esterni: due doppietti (che restano fermi) e due elettroni spaiati (che lampeggiano).',
+    h2oStep2: 'Accoppia un elettrone spaiato dell’ossigeno con uno dell’idrogeno.',
     h2oStep2After: 'L’ossigeno ora ne ha 7 intorno: ne manca uno.',
-    h2oStep3: 'Accoppia l’altro dispari dell’ossigeno con l’altro idrogeno.',
+    h2oStep3: 'Accoppia l’altro elettrone spaiato dell’ossigeno con l’altro idrogeno.',
     h2oStep4:
       'Ossigeno: 8. Ogni idrogeno: 2. Due doppietti di legame e due doppietti solitari: questa è l’acqua, H–O–H.',
   },
@@ -106,26 +101,26 @@ export const it = {
   coach: {
     label: 'Guida',
     loners: {
-      one: '{atom}: resta {count} dispari. Un dispari si accoppia con un dispari di un altro atomo.',
+      one: '{atom}: resta {count} elettrone spaiato. Si accoppia con un elettrone spaiato di un altro atomo.',
       other:
-        '{atom}: restano {count} dispari. I dispari si accoppiano con i dispari di un altro atomo.',
+        '{atom}: restano {count} elettroni spaiati. Si accoppiano con gli elettroni spaiati di un altro atomo.',
     },
     // No pronoun: "gli serve" would be safe (every Italian element name is
     // masculine) but the impersonal form needs no such argument.
     needsMore:
-      '{atom}: {count} su 8. Serve un altro doppietto di legame. Quale atomo ha ancora un dispari?',
+      '{atom}: {count} su 8. Serve un altro doppietto di legame. Quale atomo ha ancora un elettrone spaiato?',
     shareAgain:
-      '{atom1} e {atom2} hanno tutti e due un dispari. Possono condividere di nuovo: così si fa un legame doppio.',
+      '{atom1} e {atom2} hanno tutti e due un elettrone spaiato. Possono condividere di nuovo: così si fa un legame doppio.',
     complete:
-      'Ogni atomo è completo e non resta nessun dispari. Molecola ottenuta: {name} – {bonds}, {lonePairs}.',
+      'Ogni atomo è completo e non resta nessun elettrone spaiato. Molecola ottenuta: {name} – {bonds}, {lonePairs}.',
     // A colon label rather than "{element} è nella stessa colonna…": a bare name
     // as the subject of an Italian sentence wants an article the placeholder
     // cannot supply.
     sameGroup:
       '{element}: stessa colonna dell’elemento {analogue}, quindi stesso numero di elettroni esterni. La struttura sarà come questa: {analogueMolecule}.',
-    central: 'L’atomo con più dispari di solito va al centro.',
+    central: 'L’atomo con più elettroni spaiati di solito va al centro.',
     deadEnd:
-      '{atom}: {count} su 8, ma nessun altro atomo ha un dispari da condividere. Tocca un doppietto di legame per disfarlo e prova con un’altra coppia.',
+      '{atom}: {count} su 8, ma nessun altro atomo ha un elettrone spaiato da condividere. Tocca un doppietto di legame per disfarlo e prova con un’altra coppia.',
     isomer:
       'Ogni atomo è completo, ma gli atomi non sono uniti come nella molecola cercata: {name}. Tocca un doppietto di legame per disfarlo e prova un’altra disposizione.',
   },
@@ -140,7 +135,7 @@ export const it = {
     label: 'Indizio',
     tierLabel: 'Indizio {tier} di 3',
     tier1: 'Guarda quali atomi hanno ancora punti che lampeggiano.',
-    tier3: 'Accoppia due dispari, uno per atomo: {atom1} e {atom2}.',
+    tier3: 'Accoppia due elettroni spaiati, uno per atomo: {atom1} e {atom2}.',
     tier3Undo: 'Tocca il doppietto di legame fra {atom1} e {atom2} per disfarlo.',
     offerTier2: 'Ancora non lo vedi? Premi di nuovo la lampadina per la strategia.',
     noMoreHints: 'Quello era l’ultimo indizio. Ogni atomo è completo: premi Avanti.',
@@ -151,7 +146,7 @@ export const it = {
     inspectTier3: '{atom}: {count}. Toccalo, poi scegli che cosa non va.',
     inspectTier3Correct:
       'Ogni atomo è completo e non avanza niente: premi «Questo disegno è giusto».',
-    inspectTier3Repair: 'Accoppia i dispari finché ogni atomo non è di nuovo completo.',
+    inspectTier3Repair: 'Accoppia gli elettroni spaiati finché ogni atomo non è di nuovo completo.',
     // Italian *does* inflect "ce n'è" / "ce ne sono" with the count, and this is
     // a plural record, so both forms are written out rather than forced into one
     // invariant shape.
@@ -169,12 +164,12 @@ export const it = {
   error: {
     label: 'Questa mossa no',
     atomFull:
-      '{atom}: ha già 8. Quell’atomo non può condividere altro. Cerca un atomo che abbia ancora un dispari.',
+      '{atom}: ha già 8. Quell’atomo non può condividere altro. Cerca un atomo che abbia ancora un elettrone spaiato.',
     hydrogenFull: 'L’idrogeno è completo con 2. Può condividere un solo doppietto.',
     sameAtom:
       'Quei due punti sono dello stesso atomo: formano già un doppietto. Un legame ha bisogno di due atomi diversi.',
     pairedDot:
-      'Quel punto fa già parte di un doppietto. Si possono condividere solo i dispari, quelli che lampeggiano.',
+      'Quel punto fa già parte di un doppietto. Si possono condividere solo gli elettroni spaiati, quelli che lampeggiano.',
   },
 
   inspect: {
@@ -199,14 +194,14 @@ export const it = {
     explainTooFew: '{atom}: meno di 8. Manca un doppietto solitario.',
     explainHydrogenFull: 'L’idrogeno ha 4: può condividere un solo doppietto.',
     explainNeedsDouble:
-      '{atom1} e {atom2} hanno ancora un dispari ciascuno: devono condividere due volte.',
-    explainLeftover: '{atom}: è rimasto un dispari. È stato disegnato un elettrone in più.',
+      '{atom1} e {atom2} hanno ancora un elettrone spaiato ciascuno: devono condividere due volte.',
+    explainLeftover: '{atom}: è rimasto un elettrone spaiato. È stato disegnato un elettrone in più.',
     correctStructure: 'Esatto: ogni atomo è completo e non avanza niente.',
     missedCorrect:
       'Questo disegno è davvero giusto: ogni atomo è completo. Non tutti i disegni hanno un errore.',
     notCorrect:
       'Non proprio: c’è un atomo che non va. Conta i punti intorno a ogni atomo e tocca quello sbagliato.',
-    repair: 'Ora correggilo: accoppia i dispari finché ogni atomo non è completo.',
+    repair: 'Ora correggilo: accoppia gli elettroni spaiati finché ogni atomo non è completo.',
     repaired: 'Corretto: ogni atomo è di nuovo completo.',
     countBonds: 'Quanti legami ci sono? Tocca ogni doppietto di legame.',
     countLonePairs: 'Quanti doppietti solitari ci sono? Tocca ogni doppietto non condiviso.',
@@ -234,7 +229,7 @@ export const it = {
   overlay: {
     levelUpBadge: 'Tutti gli atomi completi',
     levelUpTitle: 'Livello superato',
-    levelUpSubtitle: 'Tutti i dispari accoppiati',
+    levelUpSubtitle: 'Non resta nessun elettrone spaiato',
     levelUpDescription: 'Livello {level}: {changes}',
     levelChanges: {
       level2:
@@ -247,7 +242,7 @@ export const it = {
     },
     victoryBadge: 'Tutti gli obiettivi raggiunti',
     victoryTitle: 'Strutture di Lewis conquistate',
-    victorySubtitle: 'Tutti i dispari accoppiati',
+    victorySubtitle: 'Non resta nessun elettrone spaiato',
     victoryDescription: 'Apri la tua scheda di correzione, oppure prova ora Bond Builder.',
     pausedBadge: 'Partita in attesa',
     pausedTitle: 'Gioco in pausa',
@@ -284,18 +279,14 @@ export const it = {
         'elettrone di valenza',
       ],
     },
-    loner: {
-      term: 'dispari (elettrone spaiato)',
-      definition: 'un elettrone esterno senza compagno; solo i dispari si possono condividere',
-      // *dispari* is invariant in Italian, so singular and plural are one form
-      // — which is part of why it was chosen, and which is also why the full
-      // noun phrase is listed as well: the parity gate compares this array
-      // against the English one item for item, and the English has four
-      // (loners / loner / unpaired electrons / unpaired electron). Listing
-      // *elettrone dispari* keeps the shapes in step and is a real Italian form
-      // rather than padding. Longest phrases first, so a chip covers the whole
-      // term where the copy uses it.
-      matches: ['elettroni spaiati', 'elettrone spaiato', 'elettrone dispari', 'dispari'],
+    unpairedElectron: {
+      term: 'elettrone spaiato',
+      definition: 'un elettrone esterno senza compagno; solo quelli si possono condividere',
+      // Longest phrases first, so a chip covers the whole term where the copy
+      // uses it; the bare adjective is kept for a sentence that elides the
+      // noun. *dispari* is gone with the game word — it now means only "odd
+      // number" to a reader of this page.
+      matches: ['elettroni spaiati', 'elettrone spaiato', 'spaiati', 'spaiato'],
     },
     lonePair: {
       term: 'doppietto solitario',
@@ -355,19 +346,16 @@ export const it = {
     canvasLabelA11y: 'Struttura di Lewis: {name}',
     atomNameA11y: '{element}: {count} su {full}',
     atomCounterA11y: '{symbol}: {count} su {full}',
-    atomLonerA11y: '{element}, dispari {index} di {total}',
+    atomLonerA11y: '{element}, elettrone spaiato {index} di {total}',
     atomLonePairA11y: '{element}, doppietto solitario {index} di {total}',
     atomOrdinal: '{element} {ordinal}',
-    // The short label on a pulsing dot at Level 1, off from Level 2 — the
-    // scaffold the brief removes on purpose. German shortened its noun to an
-    // adjective and French did the same; in Italian the game word already IS the
-    // adjective (elettrone dispari → dispari), so there is nothing to shorten to.
-    // Seven characters, which is the German end of the range the Lewis layout
-    // note describes; the only shorter candidate Italian offers is *solo*, whose
-    // bare plural *i soli* means "the suns".
-    lonerLabel: 'dispari',
+    // The Level 1 scaffold, off from Level 2. Since 2026-09-19 this is the
+    // full formal term in every language: it is no longer stamped beside each
+    // dot, but printed once in the canvas legend, so its length is free.
+    unpairedLabel: 'elettrone spaiato',
     atomFull: 'completo',
-    atomSelectedA11y: '{element}: dispari selezionato. Ora scegli un dispari di un altro atomo.',
+    atomSelectedA11y:
+      '{element}: elettrone spaiato selezionato. Ora scegli un elettrone spaiato di un altro atomo.',
     atomInspectTapA11y: '{element} – tocca se questo atomo non va',
     bondSingleA11y: 'Legame singolo fra {atom1} e {atom2}',
     bondDoubleA11y: 'Legame doppio fra {atom1} e {atom2}',

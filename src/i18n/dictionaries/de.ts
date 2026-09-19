@@ -126,7 +126,7 @@ export const de = {
     balancerTitle: 'Reaktions-Balancer',
     balancerDescription: 'Bring die Atome auf beiden Seiten des Pfeils ins Gleichgewicht.',
     lewisTitle: 'Teilen bis voll',
-    lewisDescription: 'Verbinde die Einzelelektronen zu einem Molekül.',
+    lewisDescription: 'Verbinde die ungepaarten Elektronen zu einem Molekül.',
     bondsTitle: 'Chemische Bindungen',
     bondsDescription: 'Erkunde Molekülstrukturen und Bindungen zwischen Atomen.',
   },
