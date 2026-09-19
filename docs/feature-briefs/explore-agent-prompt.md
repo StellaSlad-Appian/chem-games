@@ -111,8 +111,9 @@ same milestone. A page that is English-only is not done.
 
 ## Content to write
 
-Launch pool: **12 molecule-and-scientist pairs** (override only if the brief's
-`YOU DECIDE` was resolved differently).
+Launch pool: **20 molecule-and-scientist pairs** — a 20-week cycle. That is 40
+entries in English plus four translations each: **200 prose blocks**. Budget for
+it, and do not let the last five pairs come out thinner than the first five.
 
 **Molecules.** Pick ones that land on cheat sheets the site already has —
 `states-of-matter`, `acids-and-bases`, `balancing-equations`, `reaction-types`,
@@ -125,9 +126,11 @@ English body 120–180 words, reading age ~12, one idea per sentence.
 **Scientists.** Do **not** invent the pool. `docs/feature-briefs/explore-scientists.md`
 contains a curated, reviewed 104-week pool (52 women, 52 men, 28 countries) with
 a link target proposed for each, and 50 runner-ups. Take the launch twelve from
-the 76 entries marked as having a matching link target today, six
-`represents: 'woman'` and six `represents: 'man'`, strictly alternating, each
-paired with that week's molecule.
+the 92 entries marked as having a matching link target today, ten
+`represents: 'woman'` and ten `represents: 'man'`, strictly alternating, each
+paired with that week's molecule. The twelve theme-A entries (atoms, isotopes and
+the periodic table) are **not** available: the cheat sheet they need does not
+exist yet.
 
 Every date, nationality and attribution in that document is a **lead, not a
 fact** — verify each against a citable source before writing the entry, and
@@ -137,7 +140,7 @@ Write every entry to the same shape and the same length band, and **lead with th
 science**. Do not make every woman's entry a story about being overlooked and
 every man's a story about discovery — that pattern teaches exactly the bias this
 section exists to counter. Credit history is an optional field available to any
-entry, used sparingly (at most 3 of 12), and a test will check it is not
+entry, used sparingly (at most 5 of 20), and a test will check it is not
 concentrated on one group.
 
 Accuracy bar for everything on the page is `AGENT_INSTRUCTIONS.md` Part A: 100%
@@ -207,7 +210,7 @@ plus:
   focus trapped, focus restored, Escape, scroll lock, reduced motion.
 - The four `docs/i18n/GAMES.md` language checks per locale, with anything you
   are unsure about flagged as `low` confidence rather than quietly shipped.
-- The twelve molecule-and-scientist pairs with their shared link targets, so the
+- The twenty molecule-and-scientist pairs with their shared link targets, so the
   owner can review the editorial choices without reading the diff.
 - Any entry in `explore-scientists.md` whose proposed link target did not hold up.
 - Anything you had to decide that the brief did not cover.

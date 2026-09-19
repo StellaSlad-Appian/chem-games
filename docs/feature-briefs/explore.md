@@ -171,10 +171,15 @@ this only if you expect to be editing entries without a deploy.
 
 ### Launch pool size
 
-`YOU DECIDE`, recommendation: **12 molecule-and-scientist pairs** at launch
-(6 weeks led by a woman, 6 by a man, strictly alternating). That is a 12-week
-cycle that grows toward 104 as pairs are added, and it is enough content to judge
-whether the section deserves the other 92. The rotation is
+**Decided 2026-09-19: 20 molecule-and-scientist pairs** at launch (10 weeks led
+by a woman, 10 by a man, strictly alternating). That is a 20-week cycle — most of
+a school year before anything repeats — growing toward 104 as pairs are added.
+
+Worth saying plainly what that costs: 40 entries × 5 locales is **200 prose
+blocks**, each held to the cheat sheets' standard. It is the largest single
+writing task the site has taken on, and the risk is not that it fails but that
+the last few entries are visibly thinner than the first few. Whoever reviews it
+should read entries 15–20 first. The rotation is
 `weekIndex % pool.length`, so appending entries is safe at any time; it does
 shift which entry a given future week shows, which is fine for editorial content
 and is stated in AC-4.
