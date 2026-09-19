@@ -73,6 +73,9 @@ export const de = {
     logout: 'Abmelden',
     loggingOut: 'Wird abgemeldet …',
     settingsA11y: 'Allgemeine Einstellungen öffnen',
+    menuOpenA11y: 'Menü öffnen',
+    menuCloseA11y: 'Menü schließen',
+    menuTitleA11y: 'Seitenmenü',
   },
 
   footer: {

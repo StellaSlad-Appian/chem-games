@@ -100,6 +100,9 @@ export const it = {
     logout: 'Esci',
     loggingOut: 'Uscita in corso…',
     settingsA11y: 'Apri le impostazioni generali',
+    menuOpenA11y: 'Apri il menu',
+    menuCloseA11y: 'Chiudi il menu',
+    menuTitleA11y: 'Menu del sito',
   },
 
   footer: {
