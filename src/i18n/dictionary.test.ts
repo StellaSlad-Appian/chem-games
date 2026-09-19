@@ -16,7 +16,11 @@ import { es } from './dictionaries/es';
 // `it` is vitest's test function here, so the dictionary is aliased.
 import { it as itDictionary } from './dictionaries/it';
 import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
-import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
+import {
+  describePluralCompleteness,
+  describeTranslationParity,
+  flatten,
+} from '@/test-utils/i18n-parity';
 
 const dictionaries: Record<Locale, unknown> = { en, de, fr, es, it: itDictionary };
 const translations = Object.fromEntries(
@@ -151,6 +155,11 @@ describeTranslationParity('dictionary', {
   translations,
   identicalByDesign: IDENTICAL_BY_DESIGN,
 });
+
+// English is included deliberately: the source can lose a form as easily as a
+// translation can, and a plural record left with only `other` satisfies every
+// other gate in the file.
+describePluralCompleteness('dictionary', dictionaries);
 
 describe('dictionary shape', () => {
   it('covers every locale in LOCALES', () => {

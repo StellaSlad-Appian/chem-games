@@ -28,9 +28,11 @@
 //     `nameInSentence(locale, name)`, never `.toLowerCase()`.
 //   * Which word forms open a glossary pop-over. Each locale lists its own in
 //     `glossary.<entry>.matches`, because the German copy uses German
-//     inflections. The matcher uses a JavaScript `\b`, which only knows ASCII
-//     letters, so a match word must start and end with one — see
-//     docs/i18n/glossary-de.md.
+//     inflections. The matcher uses `\p{L}` lookarounds under the `u` flag, so
+//     a match word must start and end with a letter in any script. It used to
+//     use a JavaScript `\b` and require an *ASCII* letter, which no Cyrillic
+//     word could ever satisfy — see docs/i18n/glossary-de.md and
+//     docs/i18n/README.md § Preparing a non-Latin locale.
 
 import { useMemo } from 'react';
 import { useI18n } from '@/i18n/client';

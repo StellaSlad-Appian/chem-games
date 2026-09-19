@@ -26,7 +26,11 @@ import { es as balancerEs } from './game-messages/reaction-balancer/es';
 import { es as lewisEs } from './game-messages/lewis-structures/es';
 import { it as balancerIt } from './game-messages/reaction-balancer/it';
 import { it as lewisIt } from './game-messages/lewis-structures/it';
-import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
+import {
+  describePluralCompleteness,
+  describeTranslationParity,
+  flatten,
+} from '@/test-utils/i18n-parity';
 
 /**
  * Keys whose translation is legitimately identical to the English. Carried over
@@ -151,6 +155,25 @@ describeTranslationParity('lewis-structures catalogue', {
   identicalByDesign: LEWIS_IDENTICAL_BY_DESIGN,
 });
 
+// Both catalogues carry more plural records than the dictionary does — every
+// count of bonds, lone pairs, shared pairs and molecules — so this is where an
+// incomplete Russian plural would do the most damage. English is included for
+// the same reason it is in dictionary.test.ts.
+describePluralCompleteness('reaction-balancer catalogue', {
+  en: REACTION_BALANCER_MESSAGES,
+  de: balancerDe,
+  fr: balancerFr,
+  es: balancerEs,
+  it: balancerIt,
+});
+describePluralCompleteness('lewis-structures catalogue', {
+  en: LEWIS_STRUCTURES_MESSAGES,
+  de: lewisDe,
+  fr: lewisFr,
+  es: lewisEs,
+  it: lewisIt,
+});
+
 /**
  * The catalogues are two unrelated shapes, so these walk them structurally.
  * Every key they name is asserted to exist by the parity block above.
@@ -200,15 +223,24 @@ describe.each(GAMES)('$slug catalogue loader', ({ load, english }) => {
 
 describe.each(GAMES)('$slug glossary match words', ({ load }) => {
   it.each([...LOCALES])(
-    'start and end with an ASCII letter in %s, so the matcher can find them',
+    'start and end with a letter in %s, so the matcher can find them',
     (locale) => {
-      // GlossaryTerm.tsx finds a term with a JavaScript `\b`, which only knows
-      // ASCII letters: a word that begins with "Ä" or ends with "ß" would never
-      // match, and the tap-to-explain chip would silently never appear.
-      // Umlauts *inside* a word are fine — see docs/i18n/glossary-de.md.
+      // This used to demand an *ASCII* letter, because GlossaryTerm.tsx found
+      // a term with a JavaScript `\b`, and `\b` only knows `[A-Za-z0-9_]`: a
+      // word beginning "Ä" or ending "ß" would never match and the
+      // tap-to-explain chip would silently never appear. French paid for that,
+      // moving whole phrases off *électron* onto a later word.
+      //
+      // The matcher now uses `\p{L}` lookarounds under the `u` flag, so this
+      // is the script-neutral rule it always meant: a match word must start
+      // and end with a *letter*, in any alphabet. No Russian match word could
+      // have satisfied the ASCII version at all.
+      //
+      // What still fails, and must: a word starting or ending with punctuation
+      // or a space, where the boundary would land in the wrong place.
       const offenders = Object.entries(glossaryOf(load(locale))).flatMap(([key, entry]) =>
         entry.matches
-          .filter((word) => !/^[A-Za-z].*[A-Za-z]$/.test(word))
+          .filter((word) => !/^\p{L}.*\p{L}$/u.test(word))
           .map((word) => `${key}: "${word}"`)
       );
 
@@ -234,7 +266,15 @@ describe.each(GAMES)('$slug glossary match words', ({ load }) => {
     }
   );
 
-  /** Whether this locale's copy, outside the glossary itself, uses one of the term's match words. */
+  /**
+   * Whether this locale's copy, outside the glossary itself, uses one of the
+   * term's match words.
+   *
+   * The boundaries here mirror GlossaryTerm.tsx exactly, `u` flag included. If
+   * this kept an ASCII `\b` while the matcher went Unicode, the two would
+   * disagree about Cyrillic in opposite directions and this gate would report
+   * every Russian term as unlinked.
+   */
   function linksInRunningText(locale: string, key: string): boolean {
     const catalogue = load(locale);
     const entry = glossaryOf(catalogue)[key];
@@ -243,8 +283,9 @@ describe.each(GAMES)('$slug glossary match words', ({ load }) => {
       .map((line) => line.value)
       .join('\n');
 
-    return entry.matches.some((word) =>
-      new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(runningText)
-    );
+    return entry.matches.some((word) => {
+      const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'iu').test(runningText);
+    });
   }
 });

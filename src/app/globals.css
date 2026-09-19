@@ -92,6 +92,38 @@
     --chem-amphoteric-bg: #3b0764;
   }
 
+/* --- Cyrillic locales -----------------------------------------------------
+ *
+ * Bebas Neue and DM Sans ship `latin` and `latin-ext` only — verified against
+ * the Google Fonts API with a full Chrome UA, which is what decides the
+ * subsets you are served:
+ *
+ *   curl -s -A "<Chrome UA>" \
+ *     "https://fonts.googleapis.com/css2?family=Bebas+Neue" \
+ *     | grep -oE "/\* [a-z-]+ \*\/" | sort -u
+ *
+ * Every Cyrillic glyph therefore falls back: body copy to system-ui, which is
+ * off-brand but readable, and headings to bare `sans-serif` — a catastrophe
+ * rather than a blemish, because Bebas Neue is a *condensed all-caps* face and
+ * the stand-in is neither. Russian headings would render at a completely
+ * different width and weight from the five languages the layout is tuned for.
+ *
+ * Oswald (condensed, display) and Manrope (geometric, body) are the approved
+ * replacements; both serve `cyrillic` and `cyrillic-ext`. The swap is scoped
+ * to `html[lang="ru"]`, whose specificity (0,1,1) beats both `:root` and the
+ * `[data-theme]` blocks above (0,1,0), so it wins in either theme without
+ * !important and changes nothing for en/de/fr/es/it.
+ *
+ * The two families are *not* imported here. They are loaded by a
+ * `<link rel="stylesheet">` that src/app/[lang]/layout.tsx emits only when the
+ * locale is Russian, so a Latin page never requests a stylesheet — or a font
+ * file — it has no use for.
+ */
+html[lang='ru'] {
+  --font-display: 'Oswald', 'Bebas Neue', sans-serif;
+  --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+}
+
 @layer base {
   :root {
     --chem-acid-bg: #450a0a;
