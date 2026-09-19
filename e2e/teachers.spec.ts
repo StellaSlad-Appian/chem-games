@@ -104,29 +104,28 @@ test.describe('For Teachers', () => {
       page.getByRole('heading', { level: 1, name: enTeachers.heading })
     ).toBeVisible();
 
-    // Scoped to this page's own <main>, deliberately, rather than to the
-    // document. At 320px the shared NavBar already overflows by 33px — the
-    // English "Log in / Register" carries `whitespace-nowrap` and sits beside
-    // the language <select> — and it does so on /en/privacy and every other
-    // page too, not just this one. /de/teachers does not overflow at all,
-    // because "Anmelden" is shorter, which is what identifies the cause. That
-    // is a real WCAG 1.4.10 defect on the NavBar and `fix/mobile-nav` is in
-    // flight for it; asserting the whole document here would make this page's
-    // test the one that fails for it. **If the nav is fixed, widen this back
-    // to documentElement** — the page passes that assertion today.
+    // Asserted on the whole document, not just this page's <main>.
+    //
+    // It used to be scoped to <main>, because the shared NavBar overflowed a
+    // 320px viewport by 33px: the English "Log in / Register" carried
+    // `whitespace-nowrap` beside the language <select>, and /de/teachers did
+    // not overflow because "Anmelden" is shorter. The mobile nav panel moved
+    // those controls behind a menu button, so the header now fits, and this
+    // was widened back as the old comment said to. Measured at 320px on
+    // /en/teachers, /en and /en/games: zero overflow on all three.
     const overflow = await page.evaluate(() => {
-      const main = document.querySelector('main');
-      if (!main) return { reason: 'no main', overflows: true, offenders: [] as string[] };
-      const limit = document.documentElement.clientWidth;
-      const offenders = [...main.querySelectorAll('*')]
+      const root = document.documentElement;
+      const limit = root.clientWidth;
+      const offenders = [...document.querySelectorAll('body *')]
         .filter((el) => {
           const rect = el.getBoundingClientRect();
+          if (rect.width === 0 && rect.height === 0) return false;
           return rect.right > limit + 0.5 || rect.left < -0.5;
         })
         .map((el) => `${el.tagName}.${String(el.className).slice(0, 60)}`);
       return {
         reason: '',
-        overflows: main.scrollWidth > main.clientWidth || offenders.length > 0,
+        overflows: root.scrollWidth > root.clientWidth || offenders.length > 0,
         offenders: offenders.slice(0, 5),
       };
     });

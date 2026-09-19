@@ -104,15 +104,14 @@ actually does. Everything marked `«TO CONFIRM»` there is a fact only you have.
 
 ## Known defects
 
-- [ ] **The NavBar overflows a 320px viewport.** Measured at 33px over in English, where
-      "Log in / Register" carries `whitespace-nowrap` beside the language `<select>`
-      ([`NavBar.tsx:69`](../src/components/layout/NavBar.tsx)); German does not overflow
-      because "Anmelden" is shorter. This is a WCAG 1.4.10 failure against a **MUST** in
-      [`ACCESSIBILITY.md`](./ACCESSIBILITY.md). It was found before the mobile nav
-      landed and has not been re-measured since — **verify first, it may already be
-      fixed.** `e2e/teachers.spec.ts` scopes its reflow assertion to the page's own
-      `<main>` with a comment saying to widen it back to `documentElement` once the nav
-      is fixed; the page passes that stricter assertion today.
+- [x] ~~**The NavBar overflows a 320px viewport.**~~ **Fixed by the mobile nav panel.**
+      It used to overflow by 33px in English, where "Log in / Register" carried
+      `whitespace-nowrap` beside the language `<select>`; the panel moved those
+      controls behind a menu button. Re-measured at 320px on `/en/teachers`, `/en`
+      and `/en/games`: zero overflow on all three, and the controls are still
+      reachable through the menu rather than merely hidden. `e2e/teachers.spec.ts`
+      now asserts reflow against `documentElement` instead of the page's own
+      `<main>`, which is what its comment said to do once this was fixed.
 - [ ] **`npm run check` stops at the lint step.** 21 known findings, inventoried in
       [`TESTING.md`](./TESTING.md) § Known lint findings and deferred deliberately. Fix
       them when you are already editing the file, not in a sweep — several are game
