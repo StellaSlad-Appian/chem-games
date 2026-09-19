@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its Italian
 translation, so a native speaker or a chemistry teacher can review the Italian
 without reading any code.
 
-**861 strings** — 389 high confidence,
+**862 strings** — 390 high confidence,
 364 medium, 108 low.
 
 The confidence column is a judgement about *this* translation, not about Italian
@@ -465,6 +465,7 @@ flat string cannot agree with its number — so *risposte esatte: 1* rather than
 | `explore.scientistCta` | The chemistry behind this: {target} | La chimica dietro: {target} | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
 | `explore.sourcesHeading` | Sources | Fonti | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
 | `explore.sourcesNote` | Source links last checked {date}. | Link controllati l’ultima volta il {date}. | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.untranslatedNotice` | The molecule and the chemist below have not been translated yet, so their text is in English. The rest of the page is not. | La sostanza e la persona qui sotto non sono ancora tradotte, quindi il loro testo è in inglese. Il resto della pagina no. | high | The one Explore string Italian never renders — shown only where the entry prose is untranslated. "La persona" for the same reason as the Spanish. |
 
 ### `chemistry`
 

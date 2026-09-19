@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Russian
 translation, so a native speaker or a chemistry teacher can review the Russian
 without reading any code.
 
-**861 strings** — 390 high confidence,
-362 medium, 109 low.
+**862 strings** — 390 high confidence,
+363 medium, 109 low.
 
 The confidence column is a judgement about *this* translation, not about Russian
 in general:
@@ -476,6 +476,7 @@ quotation marks and are enforced by a gate rather than remembered.
 | `explore.scientistCta` | The chemistry behind this: {target} | Химия за этим: {target} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.sourcesHeading` | Sources | Источники | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.sourcesNote` | Source links last checked {date}. | Ссылки проверены — {date}. | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.untranslatedNotice` | The molecule and the chemist below have not been translated yet, so their text is in English. The rest of the page is not. | Вещество и химик ниже пока не переведены — их текст на английском. Остальная часть страницы переведена. | medium | No specific note; reviewed as ordinary UI copy. |
 
 ### `chemistry`
 

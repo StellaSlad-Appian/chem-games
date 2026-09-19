@@ -22,11 +22,12 @@
 // ratio against the English pool (fr 1.125, es 1.110, it 1.088, de 0.946), so
 // every language is held to the same standard rather than the same number.
 //
-// Russian starts at the English 30 as a placeholder, because there is no
-// Russian Explore prose yet to measure a ratio from. Re-derive it the same way
-// as the others when that prose lands — Russian typically runs slightly shorter
-// than English in word count while being longer in characters, so 30 is a
-// conservative starting point rather than a measured one.
+// Russian is in the table but not yet measured: its Explore prose is deferred
+// (EXPLORE_UNTRANSLATED_LOCALES in src/i18n/explore.ts), so there is nothing to
+// derive a ratio from and the loop below skips it rather than measuring the
+// English twice. 30 is a conservative placeholder — Russian runs slightly
+// shorter than English in word count while setting wider on the page. Re-derive
+// it the same way as the others when that prose lands.
 //
 // Re-derive the ratios if the pool grows a lot; do not simply raise a limit
 // because a new entry fails. The failure message names the entry and the
@@ -40,6 +41,7 @@ import { EXPLORE_OVERLAY_FR } from '@/i18n/explore/fr';
 import { EXPLORE_OVERLAY_ES } from '@/i18n/explore/es';
 import { EXPLORE_OVERLAY_IT } from '@/i18n/explore/it';
 import { LOCALES, type Locale } from '@/i18n/config';
+import { exploreProseIsUntranslated } from '@/i18n/explore';
 import type { ExploreOverlay } from '@/i18n/explore';
 
 /** Maximum words in one sentence, per locale. See the header for the derivation. */
@@ -105,7 +107,12 @@ function prose(locale: Locale): Array<{ where: string; text: string }> {
 }
 
 describe('Explore prose stays readable', () => {
-  for (const locale of LOCALES) {
+  // A deferred locale reads the English prose, so measuring it would be
+  // measuring English twice and reporting it as Russian. The English limit
+  // already covers that text.
+  const measurable = LOCALES.filter((locale) => !exploreProseIsUntranslated(locale));
+
+  for (const locale of measurable) {
     it(`${locale}: no sentence runs longer than ${MAX_SENTENCE_WORDS[locale]} words`, () => {
       const limit = MAX_SENTENCE_WORDS[locale];
       const tooLong: string[] = [];

@@ -145,6 +145,47 @@ more sentences.
 
 ---
 
+## 0c. Russian is deferred, deliberately
+
+**Owner's decision, 2026-09-19: ship Explore in five languages and add Russian
+afterwards.** Master gained a sixth locale while this feature was being written,
+and the every-locale rule in `docs/i18n/GAMES.md` would otherwise have held
+twenty pairs of finished, reviewed prose behind roughly **6,500 words** of
+translation that nobody had scheduled.
+
+This is a real exception to that rule, so it is written down rather than implied
+by an absent file.
+
+**What a Russian reader gets.** The page, in Russian chrome — heading, intro,
+dateline, section headings, calls to action, sources line and the name of the
+linked cheat sheet are all translated — with the twenty entries' prose still in
+English, under a line in Russian that says so. That is worse than a translation
+and better than the two alternatives: hiding a finished feature from one
+language, or serving English with no acknowledgement that it is a gap.
+
+**How it is kept honest.** `EXPLORE_UNTRANSLATED_LOCALES` in
+`src/i18n/explore.ts` is the single list, and `explore.test.ts` asserts it in
+both directions:
+
+- a locale **not** on the list must have a complete overlay — the usual
+  missing-translation gate, unchanged for de, fr, es and it;
+- a locale **on** the list must **not** have an overlay. Writing the Russian
+  without deleting the entry would leave a finished translation switched off and
+  a reader still being told the section is untranslated, and every other parity
+  test would simply have stopped looking at Russian;
+- a locale on the list must exist in `LOCALES`.
+
+So finishing the Russian is: write `src/i18n/explore/ru.ts`, delete `'ru'` from
+that constant, and let the tests tell you what is missing. The readability gate
+skips deferred locales for the same reason — measuring them would be measuring
+the English twice.
+
+**This does not extend to anything else.** The Explore *chrome* is translated
+into Russian, and so is the rest of the site. The exception is the twenty
+entries, and it lapses the moment they are written.
+
+---
+
 ## 1. Review of the concept
 
 ### The concept is sound, and it is the cheapest useful thing left to build

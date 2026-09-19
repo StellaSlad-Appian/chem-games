@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**861 strings** — 397 high confidence,
+**862 strings** — 398 high confidence,
 354 medium, 110 low.
 
 The confidence column is a judgement about *this* translation, not about German
@@ -453,6 +453,7 @@ invisible here.
 | `explore.scientistCta` | The chemistry behind this: {target} | Die Chemie dazu: {target} | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
 | `explore.sourcesHeading` | Sources | Quellen | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
 | `explore.sourcesNote` | Source links last checked {date}. | Links zuletzt geprüft am {date}. | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.untranslatedNotice` | The molecule and the chemist below have not been translated yet, so their text is in English. The rest of the page is not. | Das Molekül und die Person unten sind noch nicht übersetzt, ihr Text ist also auf Englisch. Der Rest der Seite nicht. | high | The one Explore string German never renders: it is shown only where the entry prose is untranslated, which German is not. Kept in step with the others so a future deferral has it ready. |
 
 ### `chemistry`
 

@@ -586,6 +586,10 @@ export const it = {
     scientistCta: 'La chimica dietro: {target}',
     sourcesHeading: 'Fonti',
     sourcesNote: 'Link controllati l’ultima volta il {date}.',
+    // Mostrato solo in una lingua senza testi di Explore tradotti — per ora il
+    // solo russo. L'italiano non lo mostra mai; vedi il commento in en.ts.
+    untranslatedNotice:
+      'La sostanza e la persona qui sotto non sono ancora tradotte, quindi il loro testo è in inglese. Il resto della pagina no.',
   },
 
   chemistry: {

@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its French
 translation, so a native speaker or a chemistry teacher can review the French
 without reading any code.
 
-**861 strings** — 393 high confidence,
+**862 strings** — 394 high confidence,
 360 medium, 108 low.
 
 The confidence column is a judgement about *this* translation, not about French
@@ -458,6 +458,7 @@ one (U+00A0) before `:`. Both are otherwise invisible here.
 | `explore.scientistCta` | The chemistry behind this: {target} | La chimie derrière : {target} | medium | Page chrome for the weekly Explore page. Both section titles are written without an article — "Molécule de la semaine", "Scientifique de la semaine" — which is the usual French headline register and, for the second, avoids choosing "la" or "le" depending on who that week features. "Pourquoi ça marche" is deliberately spoken French rather than "Pourquoi cela fonctionne": the audience is fourteen. Worth a native read for that register choice. |
 | `explore.sourcesHeading` | Sources | Sources | high | "Sources" is the French word and is identical to the English; it is allowlisted in dictionary.test.ts. "Références" was rejected because it names a bibliography rather than "where these facts came from". |
 | `explore.sourcesNote` | Source links last checked {date}. | Liens vérifiés le {date}. | medium | Page chrome for the weekly Explore page. Both section titles are written without an article — "Molécule de la semaine", "Scientifique de la semaine" — which is the usual French headline register and, for the second, avoids choosing "la" or "le" depending on who that week features. "Pourquoi ça marche" is deliberately spoken French rather than "Pourquoi cela fonctionne": the audience is fourteen. Worth a native read for that register choice. |
+| `explore.untranslatedNotice` | The molecule and the chemist below have not been translated yet, so their text is in English. The rest of the page is not. | La molécule et la chimiste ou le chimiste ci-dessous ne sont pas encore traduits, leur texte est donc en anglais. Le reste de la page, non. | high | The one Explore string French never renders — shown only where the entry prose is untranslated. Phrased to cover a chemist of either gender, which French needs and the English does not. |
 
 ### `chemistry`
 

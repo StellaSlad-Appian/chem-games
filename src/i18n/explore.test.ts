@@ -28,7 +28,9 @@ import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
 import { getDictionary } from './dictionaries';
 import {
   EXPLORE_OVERLAYS,
+  EXPLORE_UNTRANSLATED_LOCALES,
   exploreLinkTarget,
+  exploreProseIsUntranslated,
   getExploreContent,
   localizeMolecule,
   localizeScientist,
@@ -36,8 +38,16 @@ import {
   type ExploreOverlay,
 } from './explore';
 
+/**
+ * The locales whose prose exists and must therefore be complete.
+ *
+ * `EXPLORE_UNTRANSLATED_LOCALES` is subtracted here rather than each test
+ * skipping Russian by name — a skip is invisible, and this is a decision
+ * (src/i18n/explore.ts, and docs/feature-briefs/explore.md §0c). The two tests
+ * below hold that list honest in both directions.
+ */
 const translatedLocales = LOCALES.filter(
-  (locale) => locale !== DEFAULT_LOCALE
+  (locale) => locale !== DEFAULT_LOCALE && !exploreProseIsUntranslated(locale)
 ) as Exclude<Locale, 'en'>[];
 
 /**
@@ -108,15 +118,45 @@ describeTranslationParity('explore', {
 });
 
 describe('every locale has an overlay', () => {
-  it('covers every locale in LOCALES except the default', () => {
+  it('covers every locale in LOCALES except the default and the deferred ones', () => {
     const missing = translatedLocales.filter((locale) => !EXPLORE_OVERLAYS[locale]);
     expect(missing).toEqual([]);
+  });
+
+  /*
+   * The other direction, and the reason the deferral cannot rot. Writing the
+   * Russian overlay without deleting 'ru' from EXPLORE_UNTRANSLATED_LOCALES
+   * would leave a finished translation switched off and a reader still told the
+   * section is untranslated — a failure nothing else would catch, because every
+   * parity test would simply stop looking at Russian.
+   */
+  it('lists no deferred locale that has since been translated', () => {
+    const doneButStillListed = EXPLORE_UNTRANSLATED_LOCALES.filter(
+      (locale) => EXPLORE_OVERLAYS[locale]
+    );
+    expect(
+      doneButStillListed,
+      'These locales have an Explore overlay but are still listed as untranslated. ' +
+        'Delete them from EXPLORE_UNTRANSLATED_LOCALES in src/i18n/explore.ts.'
+    ).toEqual([]);
+  });
+
+  it('defers only locales that are actually in LOCALES', () => {
+    const unknown = EXPLORE_UNTRANSLATED_LOCALES.filter(
+      (locale) => !(LOCALES as readonly string[]).includes(locale)
+    );
+    expect(unknown).toEqual([]);
   });
 
   it('leaves English reading from the source data', () => {
     expect(usesEnglishExploreProse(DEFAULT_LOCALE)).toBe(true);
     for (const locale of translatedLocales) {
       expect(usesEnglishExploreProse(locale)).toBe(false);
+    }
+    // A deferred locale reads the English too — that is what deferring means,
+    // and it is why the page tells the reader so.
+    for (const locale of EXPLORE_UNTRANSLATED_LOCALES) {
+      expect(usesEnglishExploreProse(locale)).toBe(true);
     }
   });
 });

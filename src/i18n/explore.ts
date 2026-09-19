@@ -87,6 +87,34 @@ const OVERLAYS: Partial<Record<Locale, ExploreOverlay>> = {
 /** Exposed for the parity test. */
 export { OVERLAYS as EXPLORE_OVERLAYS };
 
+/**
+ * Locales whose Explore **content** is deliberately not written yet.
+ *
+ * Owner's decision, 2026-09-19: ship this page in five languages and add
+ * Russian afterwards, rather than hold twenty pairs of finished prose behind
+ * roughly 6,500 words of translation. That is a real exception to the
+ * every-locale rule in docs/i18n/GAMES.md, so it is written down, dated and
+ * narrow rather than implied by an absent file.
+ *
+ * What a Russian reader gets: the page, in Russian chrome — headings, dateline,
+ * calls to action and the linked destination are all translated — with the
+ * twenty entries' prose still in English, above a line that says so. That is
+ * worse than a translation and better than either of the alternatives, which
+ * were to hide a finished feature from one language or to serve English with no
+ * acknowledgement that it is a gap.
+ *
+ * **This list is asserted in both directions.** `explore.test.ts` fails if a
+ * locale here has an overlay (finish the job, then delete the entry) and fails
+ * if a locale absent from here has no overlay (the usual missing-translation
+ * gate, unchanged). It cannot rot into a way of skipping a language quietly.
+ */
+export const EXPLORE_UNTRANSLATED_LOCALES = ['ru'] as const satisfies readonly Locale[];
+
+/** True when this locale reads the English prose because its own is not written. */
+export function exploreProseIsUntranslated(locale: Locale): boolean {
+  return (EXPLORE_UNTRANSLATED_LOCALES as readonly Locale[]).includes(locale);
+}
+
 /** A molecule as the page renders it: prose resolved, notation untouched. */
 export interface LocalizedMolecule {
   id: string;

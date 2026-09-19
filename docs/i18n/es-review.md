@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its Spanish
 translation, so a native speaker or a chemistry teacher can review the Spanish
 without reading any code.
 
-**861 strings** — 384 high confidence,
+**862 strings** — 385 high confidence,
 369 medium, 108 low.
 
 The confidence column is a judgement about *this* translation, not about Spanish
@@ -464,6 +464,7 @@ style choice when missing.
 | `explore.scientistCta` | The chemistry behind this: {target} | La química detrás: {target} | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
 | `explore.sourcesHeading` | Sources | Fuentes | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
 | `explore.sourcesNote` | Source links last checked {date}. | Enlaces comprobados por última vez el {date}. | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.untranslatedNotice` | The molecule and the chemist below have not been translated yet, so their text is in English. The rest of the page is not. | La molécula y la persona de abajo todavía no están traducidas, así que su texto está en inglés. El resto de la página, no. | high | The one Explore string Spanish never renders — shown only where the entry prose is untranslated. "La persona" avoids the gendered noun the English sidesteps for free. |
 
 ### `chemistry`
 
