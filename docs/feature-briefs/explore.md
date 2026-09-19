@@ -3,9 +3,12 @@
 **Status:** draft — `YOU DECIDE` callouts to resolve before this is `Approved`.
 **Owner:** Stella. **Written:** 2026-09-19. **Branch:** `feature/explore-page`.
 
-A new top-level page, `/explore`, carrying three rotating editorial sections:
-Molecule of the Week, Scientist of the Week, and a short Did-You-Know list.
-Ships in every locale in `LOCALES` in the same milestone, like a game does.
+A new top-level page, `/explore`, carrying two rotating editorial sections:
+Molecule of the Week and Scientist of the Week. Ships in every locale in
+`LOCALES` in the same milestone, like a game does.
+
+The curated 104-week scientist pool, the 50 runner-ups and the link analysis are
+in [`explore-scientists.md`](./explore-scientists.md).
 
 Companion documents: [`AGENT_INSTRUCTIONS.md`](../AGENT_INSTRUCTIONS.md) (Part B
 is the platform contract this feature obeys too), [`i18n/README.md`](../i18n/README.md),
@@ -59,23 +62,20 @@ the mechanism matters.** See §4; the short version is that the balance must be
 enforced by a test over a curated schedule, and gender must never appear in the
 UI.
 
-**Did You Know — keep, with a guard.** Quick facts are the single most common
-carrier of chemistry misinformation on the web ("glass is a slow-moving liquid",
-"you only use water to put out fires", "natural means no chemicals"). A fun-fact
-section with no sourcing requirement will, over 104 weeks, ship something wrong,
-and wrong chemistry on a site aimed at students is worse than no section. So:
-every fact carries a source URL in the data, the same way `cheat-sheet-data.ts`
-carries verified resource links, and the accuracy bar is the one in
-`AGENT_INSTRUCTIONS.md` Part A (100% correct, and no statement that plants a
-misconception).
+**Fun facts — dropped** (owner's decision, 2026-09-19). Worth recording why it
+was a reasonable thing to drop: quick facts are the most common carrier of
+chemistry misinformation on the web ("glass is a slow-moving liquid", "natural
+means no chemicals"), so the section would have needed a source URL per fact and
+the same accuracy review as everything else — a third content pipeline, in five
+languages, for the least substantial part of the page. Two well-made sections
+beat three thin ones.
 
-I would also call the section **"Did you know?"** rather than "Fun facts" in
-English — it promises the same lightness without promising entertainment the
-chemistry cannot always deliver, and it translates cleanly into all five
-languages. `YOU DECIDE`.
+If it comes back later, it comes back with the sourcing requirement attached.
 
-**Three sections is the right number.** Two feels thin for a top-level nav item;
-four starts to look like a newsletter. Stop at three.
+**Two sections, deeply done.** The page is now one molecule and one scientist per
+week, chosen as a **pair** on the same theme (see
+[`explore-scientists.md`](./explore-scientists.md) §2). One page, one idea per
+week, two ways into it.
 
 ### What the concept is missing
 
@@ -86,8 +86,7 @@ four starts to look like a newsletter. Stop at three.
   `hidden … lg:flex` and there is no mobile menu, so on a phone the top bar has
   no links at all — Cheat Sheets is currently reachable only by typing the URL.
   Adding Explore to that nav therefore does *not* make it reachable for phone
-  users. AC-2 requires a dashboard entry point as well. (The missing mobile nav
-  is a pre-existing bug, not this feature's to fix.)
+  users. This is why AC-2 now includes the side panel — see §8.
 - **Nav width.** The comment in `NavBar.tsx` records that at 1280px the German
   header was already 1014px of content before gaps, which is why the nav appears
   at `lg` and not `md`. A fifth item is added to that measurement, in the widest
@@ -116,7 +115,7 @@ four starts to look like a newsletter. Stop at three.
 4. **Weekly gives search engines something stable.** A URL whose content changes
    every day accumulates nothing; a week is long enough for a page to be crawled
    and indexed while the content is still on it.
-5. **It lets the three sections share one dateline** (above).
+5. **It lets both sections share one dateline** (above).
 
 Your instinct about the traffic is right, and it points the same way as the cost.
 
@@ -172,12 +171,18 @@ this only if you expect to be editing entries without a deploy.
 
 ### Launch pool size
 
-`YOU DECIDE`, recommendation: **12 molecules, 12 scientists (6 women, 6 men), 24
-facts** at launch. That is a 12-week cycle that grows toward 104 as entries are
-added, and it is enough content to judge whether the section deserves the other
-92. The rotation is `weekIndex % pool.length`, so appending entries is safe at
-any time; it does shift which entry a given future week shows, which is fine for
-editorial content and is stated in AC-4.
+`YOU DECIDE`, recommendation: **12 molecule-and-scientist pairs** at launch
+(6 weeks led by a woman, 6 by a man, strictly alternating). That is a 12-week
+cycle that grows toward 104 as pairs are added, and it is enough content to judge
+whether the section deserves the other 92. The rotation is
+`weekIndex % pool.length`, so appending entries is safe at any time; it does
+shift which entry a given future week shows, which is fine for editorial content
+and is stated in AC-4.
+
+The 104-week scientist pool already exists — [`explore-scientists.md`](./explore-scientists.md)
+— so the launch 12 are chosen from it rather than invented. 76 of the 104 have a
+matching link target today; the other 28 are blocked on two cheat sheets that do
+not exist yet, which that document sets out.
 
 ---
 
@@ -211,11 +216,17 @@ notice the balance can just read the page over a few weeks.
 
 **Pick internationally, not just anglophone.** The site ships in German, French,
 Spanish, Italian and soon Russian. A pool of Anglo-American scientists reads, in
-those languages, as a translated American site. Including e.g. Marie Curie
-(FR/PL), Justus von Liebig (DE), Margarita Salas (ES), Giulio Natta (IT),
-Dmitri Mendeleev (RU), Rita Levi-Montalcini (IT), Alice Ball (US),
-Tu Youyou (CN) makes each locale feel addressed rather than served a translation.
-This is a content instruction in the prompt, and it costs nothing extra.
+those languages, as a translated American site. The curated pool in
+[`explore-scientists.md`](./explore-scientists.md) covers 28 countries, with
+every shipping language area represented, and names its own thin spots (Latin
+America, Korea, sub-Saharan Africa) rather than hiding them.
+
+**The pool is 52 women and 52 men**, above the owner's 40% floor and chosen that
+way so strict alternation needs no special case. If the pool is ever cut down,
+the floor is 42 women and the alternation rule relaxes to a windowed one — say so
+explicitly rather than letting it drift. The pool is deliberately not a prize
+list: 34 of the 104 have no Nobel, because the prize record is itself the bias
+being corrected.
 
 The `represents` field is `'woman' | 'man' | 'other'`; `'other'` entries take a
 slot without counting toward either side of the balance invariant, so a
@@ -260,7 +271,7 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
       `node_modules/next/dist/docs/` prescribe for this — read them first, per
       `AGENTS.md`; do not assume an API from memory.
 
-### AC-2 — It is reachable
+### AC-2 — It is reachable, on a phone as well as a laptop
 - [ ] A fifth entry in the `sections` array in `NavBar.tsx`, label from
       `t.nav.explore`, `lucide-react` icon, `LocaleLink`.
 - [ ] The header is re-measured at 360px, 768px, 1024px and 1280px **in the
@@ -268,17 +279,31 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
       width — `ACCESSIBILITY.md` (1.4.10) forbids it. If the fifth item breaks
       the `lg` row, report the measurement and the options rather than shipping
       an overflowing header.
-- [ ] Because the nav is hidden below `lg` and there is no mobile menu, the
-      dashboard (`(main)/page.tsx`) also gets a link into Explore, so phone users
-      can reach it. Match the existing section styling; do not invent a new card
-      pattern.
+- [ ] **Below `lg`, the nav becomes a slide-out side panel** (see §8 for the
+      reasoning). The horizontal row stays as it is at `lg` and above. The panel
+      holds the five section links plus the language switcher and settings, so
+      one control reaches everything.
+- [ ] The panel meets the disclosure contract: a labelled trigger with
+      `aria-expanded` and `aria-controls`, focus moved into the panel on open and
+      restored to the trigger on close, focus trapped while open, Escape closes
+      it, background scroll locked, and the transition respects
+      `prefers-reduced-motion`. Tap targets at least 44px tall.
+- [ ] The dashboard (`(main)/page.tsx`) also gets a link into Explore. This is
+      belt and braces — the panel is new code and the dashboard is where a phone
+      reader already is. Match the existing section styling; do not invent a new
+      card pattern.
+- [ ] The panel fixes a pre-existing bug as a side effect: `/cheat-sheets` was
+      reachable only from the hidden nav. Say so in the milestone report.
 
-### AC-3 — Three sections, one clock
-- [ ] Molecule of the Week, Scientist of the Week, and the quick-facts list, in
-      that order, each an `<h2>` under a single `<h1>`.
+### AC-3 — Two sections, one clock
+- [ ] Molecule of the Week then Scientist of the Week, each an `<h2>` under a
+      single `<h1>`.
+- [ ] The two are scheduled as a **pair**: the same week's molecule and scientist
+      share a theme, and usually a link target. The schedule is a list of pairs,
+      not two independent lists.
 - [ ] One dateline naming the current week, formatted per locale with `Intl`,
       never a hand-built date string.
-- [ ] All three change on the same boundary: **Monday 00:00 UTC**. UTC is chosen
+- [ ] Both change on the same boundary: **Monday 00:00 UTC**. UTC is chosen
       for determinism (a local-time boundary makes the tests flaky and the
       cached page ambiguous); the dateline is the only thing the reader sees.
 
@@ -295,8 +320,8 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
       weeks show. It must never produce an empty section.
 
 ### AC-5 — Content model
-- [ ] English is canonical in `src/lib/explore/` (molecules, scientists, facts,
-      rotation). Every other locale contributes a prose overlay in
+- [ ] English is canonical in `src/lib/explore/` (molecules, scientists, the
+      paired schedule, rotation). Every other locale contributes a prose overlay in
       `src/i18n/explore/<locale>.ts`, keyed by the same ids, resolved with a
       registry fallback the way `chemistry-names.ts` does.
 - [ ] Formulae, element symbols, CAS numbers, IUPAC names, slugs, ids, dates and
@@ -311,14 +336,30 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
       way a game catalogue is, so the shared dictionary stays UI-sized and the
       budget assertion in `dictionary.test.ts` keeps passing.
 
-### AC-6 — Every card links inward
-- [ ] Every molecule entry links to at least one cheat sheet or game, through
-      `LocaleLink`, with a localized call to action.
-- [ ] Every scientist entry links to at least one cheat sheet, game or concept.
-- [ ] A test asserts this for every entry, and that every link target actually
-      exists (the slug is in `CHEAT_SHEETS`, the game slug is in `GameName`) — a
-      typo here is a 404 that nothing else catches.
-- [ ] Facts may link, and are not required to.
+### AC-6 — Every card links inward, and the link matches the content
+- [ ] **Every** molecule and scientist entry carries at least one link to a cheat
+      sheet or a game, rendered through `LocaleLink` with a localized call to
+      action. No entry ships without one — an entry with no link is a dead end,
+      and the whole point of the page is to be a way in.
+- [ ] **The link is topical, not decorative.** It goes to the sheet or game that
+      teaches the chemistry the card is actually about. An entry about the pH
+      scale links to `acids-and-bases` or `neutralise`; it does not link to
+      `/games` because that is where the games are. If no existing sheet or game
+      matches the entry's chemistry, **the entry does not ship yet** — it waits
+      for the sheet, or it is replaced by an entry that does match. Do not
+      stretch a link to satisfy this criterion; the stretch is the failure mode
+      this rule exists to prevent.
+- [ ] The link target is a real one: a test asserts every referenced slug exists
+      in `CHEAT_SHEETS` and every referenced game slug is in `GameName` **and is
+      active**. A typo here is a 404 nothing else catches, and a link to an
+      inactive game (`bond-builder`) is worse than no link.
+- [ ] The paired molecule and scientist for a week share their link target
+      wherever the pairing allows it, so the week points somewhere rather than
+      two places.
+- [ ] `explore-scientists.md` marks which of the 104 have a matching target
+      today (76) and which are blocked on a cheat sheet that does not exist (28).
+      The launch pool is drawn from the 76. If the implementation disagrees with
+      a mapping in that table, say so — the table is a proposal, not a fact.
 
 ### AC-7 — Gender balance is enforced, not intended
 - [ ] Every scientist entry carries `represents: 'woman' | 'man' | 'other'`.
@@ -351,8 +392,8 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 
 ### AC-9 — Freshness
 - [ ] Every entry carries `writtenOn`, `reviewedOn`, `sourcesVerifiedOn` (ISO
-      dates) and at least one `{ label, url }` source. Facts included — especially
-      facts.
+      dates) and at least one `{ label, url }` source — for a scientist, one that
+      supports the dates and the attribution, not just a general biography.
 - [ ] A test fails when an active entry's `reviewedOn` or `sourcesVerifiedOn` is
       more than 3.5 years old, naming the entries and saying what to do.
 - [ ] An `isActive` flag lets an entry be retired without deleting it or
@@ -386,13 +427,14 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 ### AC-12 — Definition of done
 - [ ] `npm run lint` (over `src e2e`), `npm run typecheck`, `npm test`,
       `npm run build` all pass.
-- [ ] `page.test.tsx` covers: all three sections render, the dateline is right
+- [ ] `page.test.tsx` covers: both sections render, the dateline is right
       for a fixed date, inward links are present, and a pool of size 1 still
       renders.
 - [ ] `e2e/explore.spec.ts` covers: the page loads in every locale with the
       right `html lang`, the nav entry navigates there and keeps the locale, the
       language switcher preserves the path, an inward link reaches a real page,
-      and there is no horizontal scroll at 360px.
+      the side panel opens, navigates and closes by Escape at 360px, and there is
+      no horizontal scroll at 360px.
 - [ ] Verified in a real browser at `npm run dev` in at least English and German
       — typechecking is not a substitute for looking at it.
 - [ ] `docs/feature-briefs/explore.md` updated with anything the build proved
@@ -412,7 +454,65 @@ Named so they are not quietly added, and not quietly forgotten:
   exempts `/sitemap.xml` from prefixing. Separate piece of work.
 - Molecular structure diagrams (AC-10).
 - An admin UI for editing entries.
-- The missing mobile navigation menu (§1) — a pre-existing bug this feature must
-  work around, not fix.
+- The two missing cheat sheets (atoms/isotopes, analytical chemistry) that would
+  unlock 28 more scientists. Worth doing — see `explore-scientists.md` §2 — but
+  it is cheat-sheet work, not Explore work.
+- Fun facts, dropped on 2026-09-19 (§1).
 - Any change to `LOCALES`. Russian arrives on its own branch; when it does, this
   content is part of what that branch translates.
+
+The mobile navigation panel is **no longer** out of scope — it moved into AC-2
+(§8).
+
+---
+
+## 8. Decision: a side panel below `lg`, not a wider top row
+
+You asked whether the phone navigation should be a side panel rather than a top
+bar. **Yes — and it is the right moment to do it, because this feature is what
+breaks the current arrangement.**
+
+The argument, in order:
+
+1. **The top row is out of room, and this feature is why.** The measurement in
+   `NavBar.tsx` is that German content alone was 1014px at 1280px before gaps.
+   That is with four links. Adding Explore makes the row worse at every width,
+   and the archive pages in §7 would make it worse again. A panel takes the list
+   off the row entirely, so the next thing you add costs nothing.
+2. **Below `lg` there is currently no navigation at all.** This is not "the
+   phone nav is cramped", it is that the phone nav does not exist — the links are
+   `hidden … lg:flex` with no fallback, and `/cheat-sheets` is reachable only by
+   typing the URL. Adding a fifth invisible link does not help anyone. So the
+   panel is not scope creep on top of a working thing; it is the thing that makes
+   the nav work on a phone at all.
+3. **A vertical list is a better target than a horizontal one.** Full-width rows
+   give you 44px tap targets with the label beside the icon. A horizontal row at
+   360px cannot do that in German without truncating or scrolling sideways, and
+   `ACCESSIBILITY.md` forbids the sideways scroll.
+4. **It can hold what the row cannot.** Language switcher, settings and the five
+   links in one place, which is exactly what a reader who cannot find something
+   goes looking for. Today those controls compete with the wordmark for the same
+   360px.
+
+**Two qualifications.**
+
+**Keep the horizontal row at `lg` and above.** On a laptop the links visible
+without a click are worth more than the tidiness, and swapping a working desktop
+nav for a hamburger is the standard way this change goes wrong. The panel is a
+below-`lg` replacement, not a replacement everywhere.
+
+**Right side rather than left.** `YOU DECIDE` — the convention is a left panel
+with a top-left hamburger, but on this header the brand is on the left and every
+control (language, settings, account) is already on the right. Putting the
+trigger with the other controls and sliding the panel from the same side means
+the panel opens where the thumb already is and where the user just tapped,
+instead of jumping across the screen. If you prefer the convention, left costs
+nothing to switch — it is one set of classes, and none of the roadmap locales
+are right-to-left.
+
+**The part that is easy to get wrong** is not the animation, it is the focus
+handling: focus into the panel on open, trapped while it is open, restored to the
+trigger on close, Escape closes, background scroll locked, and
+`prefers-reduced-motion` respected. That is spelled out in AC-2 because a panel
+that fails those is worse than the broken nav it replaces — it traps keyboard
+and screen-reader users instead of merely hiding links from them.

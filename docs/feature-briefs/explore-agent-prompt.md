@@ -32,7 +32,7 @@ Work on the branch `feature/explore-page`.
    improving on it:
    - `src/lib/cheat-sheet-data.ts` + `src/i18n/cheat-sheets.ts` +
      `src/i18n/cheat-sheets/de.ts` — the canonical-English-plus-overlay pattern
-     you are copying for all three content types.
+     you are copying for both content types.
    - `src/i18n/cheat-sheets.test.ts` and `src/i18n/chemistry-names.test.ts` —
      the overlay parity gates you are copying.
    - `src/app/[lang]/(main)/cheat-sheets/page.tsx` and its `[slug]/page.tsx` —
@@ -48,21 +48,28 @@ Work on the branch `feature/explore-page`.
 ## What you are building
 
 A page at `/explore` (English URL segment in every locale, like `/cheat-sheets`)
-with three sections that all rotate together, weekly, on **Monday 00:00 UTC**:
+with two sections that rotate together, weekly, on **Monday 00:00 UTC**:
 
 1. **Molecule of the Week** — one everyday or industrial molecule: formula, name,
    where the reader meets it in real life, the chemistry that makes it work, and
    a link into a cheat sheet or game.
-2. **Scientist of the Week** — one chemist or chemistry-adjacent scientist: what
-   they did, why it mattered, and a link into a cheat sheet, game or concept.
-3. **Did you know?** — three to five short facts, each sourced.
+2. **Scientist of the Week** — one chemist: what they did, why it mattered, and a
+   link into a cheat sheet or game.
+
+The two are scheduled as **pairs**: the week's molecule and scientist share a
+theme and usually a link target.
+
+You are also replacing the navigation below the `lg` breakpoint with a slide-out
+side panel. This is not optional extra polish — the existing links are
+`hidden … lg:flex` with no fallback, so on a phone the site currently has no
+navigation at all, and adding a fifth invisible link would help nobody.
 
 It ships in **every locale in `LOCALES`** (`en`, `de`, `fr`, `es`, `it`) in this
 same milestone. A page that is English-only is not done.
 
 ## Non-negotiable design decisions (do not relitigate these)
 
-- **Weekly, not daily**, for all three sections, under one dateline.
+- **Weekly, not daily**, for both sections, under one dateline.
 - **Prose lives in TypeScript, not in the database.** `src/lib/explore/` is
   canonical English; `src/i18n/explore/<locale>.ts` are prose overlays keyed by
   the same ids, resolved with a registry fallback the way `chemistry-names.ts`
@@ -76,18 +83,30 @@ same milestone. A page that is English-only is not done.
 - **Rotation is a pure function of `now`**, in its own module, no I/O.
   `pool[weekIndex(now) % pool.length]`. The page passes `new Date()`; every test
   passes a fixed date. UTC boundary, documented epoch constant.
-- **Every molecule and scientist card links inward** to a cheat sheet, game or
-  concept. A card with no inward link is the wrong entry — replace it.
+- **Every molecule and scientist card links inward, and the link matches the
+  card's chemistry.** Not a link to `/games` because that is where games live —
+  the sheet or game that teaches the thing the card is about. If nothing existing
+  matches, the entry does not ship; pick one that does. A test checks every slug
+  exists and every linked game is active (`bond-builder` is not).
 - **Gender is scheduling metadata and is never rendered.** No "female scientist"
   label, no badge, no separate list.
 - **Formulae, symbols, ids, slugs, dates and URLs are never translated** and never
   appear in an overlay file.
 - **No molecular structure diagrams in v1.**
+- **The side panel replaces the nav below `lg` only.** The horizontal row stays
+  as it is at `lg` and above; do not swap a working desktop nav for a hamburger.
+  The panel slides from the right, next to the controls that are already there
+  (left is acceptable if the brief's `YOU DECIDE` was resolved that way). It
+  carries the five links plus the language switcher and settings. Focus moves in
+  on open, is trapped while open and returns to the trigger on close; Escape
+  closes; background scroll is locked; `prefers-reduced-motion` is respected;
+  tap targets are at least 44px. A panel that traps keyboard users is worse than
+  the broken nav it replaces.
 
 ## Content to write
 
-Launch pool: **12 molecules, 12 scientists, 24 facts** (override only if the
-brief's `YOU DECIDE` was resolved differently).
+Launch pool: **12 molecule-and-scientist pairs** (override only if the brief's
+`YOU DECIDE` was resolved differently).
 
 **Molecules.** Pick ones that land on cheat sheets the site already has —
 `states-of-matter`, `acids-and-bases`, `balancing-equations`, `reaction-types`,
@@ -97,12 +116,16 @@ Reuse `src/core-engine/data/compounds.ts` / `elements.ts` by id wherever the
 species is already there; never restate a formula that a registry already holds.
 English body 120–180 words, reading age ~12, one idea per sentence.
 
-**Scientists.** Twelve entries, six `represents: 'woman'` and six
-`represents: 'man'`, in a curated schedule that strictly alternates. Choose
-internationally, not just anglophone: the site publishes in German, French,
-Spanish, Italian and soon Russian, and a pool of Anglo-American names reads in
-those languages as a translated American site. Include at least one scientist
-associated with each shipping language area.
+**Scientists.** Do **not** invent the pool. `docs/feature-briefs/explore-scientists.md`
+contains a curated, reviewed 104-week pool (52 women, 52 men, 28 countries) with
+a link target proposed for each, and 50 runner-ups. Take the launch twelve from
+the 76 entries marked as having a matching link target today, six
+`represents: 'woman'` and six `represents: 'man'`, strictly alternating, each
+paired with that week's molecule.
+
+Every date, nationality and attribution in that document is a **lead, not a
+fact** — verify each against a citable source before writing the entry, and
+report anything that turns out to be wrong rather than fixing it silently.
 
 Write every entry to the same shape and the same length band, and **lead with the
 science**. Do not make every woman's entry a story about being overlooked and
@@ -111,11 +134,9 @@ section exists to counter. Credit history is an optional field available to any
 entry, used sparingly (at most 3 of 12), and a test will check it is not
 concentrated on one group.
 
-**Facts.** Twenty-four, ≤ 30 English words each, each with a source URL. Do not
-ship the common chemistry myths (glass does not flow at room temperature;
-"chemical-free" is not a thing; the tongue has no taste map). Accuracy bar is
-`AGENT_INSTRUCTIONS.md` Part A: 100% correct, and nothing that plants a
-misconception a teacher will later have to undo.
+Accuracy bar for everything on the page is `AGENT_INSTRUCTIONS.md` Part A: 100%
+correct, and nothing that plants a misconception a teacher will later have to
+undo.
 
 **Every entry carries** `writtenOn`, `reviewedOn`, `sourcesVerifiedOn` (ISO
 dates), at least one `{ label, url }` source, and `isActive`.
@@ -137,7 +158,6 @@ src/app/[lang]/(main)/explore/page.test.tsx   flow test
 src/components/explore/*.tsx                  section components (small, presentational)
 src/lib/explore/molecules.ts                  canonical English + structure
 src/lib/explore/scientists.ts                 canonical English + schedule
-src/lib/explore/facts.ts                      canonical English
 src/lib/explore/rotation.ts                   pure weekIndex/select + epoch constant
 src/lib/explore/rotation.test.ts
 src/lib/explore/schedule.test.ts              the AC-7 fairness invariants
@@ -147,7 +167,8 @@ src/i18n/explore/{de,fr,es,it}.ts             prose overlays
 src/i18n/explore.test.ts                      overlay parity gate
 src/i18n/dictionaries/{en,de,fr,es,it}.ts     nav.explore + the explore chrome namespace
 src/i18n/review-notes.ts                      confidence notes for the new namespace
-src/components/layout/NavBar.tsx              the fifth nav entry
+src/components/layout/NavBar.tsx              the fifth nav entry + the panel trigger
+src/components/layout/NavPanel.tsx            the below-lg slide-out panel (+ its test)
 src/app/[lang]/(main)/page.tsx                a dashboard entry point (nav is hidden below lg)
 supabase/migrations/<date>_create_explore.sql registry tables + idempotent seed
 e2e/explore.spec.ts                           locale + navigation + 360px journey
@@ -175,9 +196,12 @@ Against the AC numbers in `docs/feature-briefs/explore.md` §6, one line each,
 plus:
 
 - The header width measurements from AC-2 at 360 / 768 / 1024 / 1280px in the
-  widest language, and whether the fifth nav item fits.
+  widest language, and whether the fifth nav item fits the `lg` row.
+- How the side panel behaves for keyboard and screen-reader users: focus in,
+  focus trapped, focus restored, Escape, scroll lock, reduced motion.
 - The four `docs/i18n/GAMES.md` language checks per locale, with anything you
   are unsure about flagged as `low` confidence rather than quietly shipped.
-- The full list of the 12 molecules, 12 scientists and 24 facts, so the owner can
-  review the editorial choices without reading the diff.
+- The twelve molecule-and-scientist pairs with their shared link targets, so the
+  owner can review the editorial choices without reading the diff.
+- Any entry in `explore-scientists.md` whose proposed link target did not hold up.
 - Anything you had to decide that the brief did not cover.
