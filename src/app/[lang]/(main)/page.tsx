@@ -252,7 +252,20 @@ function SectionHeading({
       <div>
         <div className="flex items-center gap-2">
           <Icon className="h-6 w-6 shrink-0 text-blue-500" aria-hidden="true" />
-          <h2 className="text-3xl font-black text-(--foreground)">{title}</h2>
+          {/*
+            `break-words` is not decoration. At 320px the Spanish heading
+            "Clasificaciones" is one unbreakable 274px word at `text-3xl`,
+            starting 48px in, so it reached 322px in a 320px viewport — a real
+            WCAG 1.4.10 failure on the dashboard, in Spanish, before this branch
+            existed. Nothing here can wrap a single word without it.
+          */}
+          {/*
+            `min-w-0` is what makes `break-words` work here, and the pair has to
+            stay together. The h2 is a flex item, and a flex item's automatic
+            minimum size is its min-content width — the longest single word — so
+            it refuses to shrink no matter what wrapping it is allowed.
+          */}
+          <h2 className="min-w-0 text-3xl font-black break-words text-(--foreground)">{title}</h2>
         </div>
         <p className="mt-1 text-sm font-medium text-(--muted)">{description}</p>
       </div>
