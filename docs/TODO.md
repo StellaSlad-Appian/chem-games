@@ -13,35 +13,26 @@ item; "run axe on /teachers and fix what it finds" is.
 
 ### Teacher collaborator sign-up
 
-**Built, and waiting on one thing only: the migration.** Acceptance criteria in
-[`COLLABORATORS.md`](./COLLABORATORS.md).
+**Built and merged.** Acceptance criteria in [`COLLABORATORS.md`](./COLLABORATORS.md).
+What is left is not code.
 
-Shipped on `feature/collaborators`: `public.collaborators`, the `submit_collaborator`
-`SECURITY DEFINER` RPC, the server action, the validator, the form on the For Teachers
-page in all six locales, and the privacy entry that § 0 made a precondition. The
-dedicated table was kept rather than the lighter "teacher feedback type plus an email
-column" option — the form asks seven questions, six of them optional, and hanging that
-off `public.feedback` would have meant six nullable columns on a table about something
-else.
-
-- [ ] **Run `supabase/migrations/20260919_create_collaborators.sql`** against the live
-      project, from the Supabase SQL editor. Nothing in the feature works until this is
-      done; the server action answers "not configured" and the form says so. The file
-      is idempotent, so a re-run is safe.
-- [ ] **Then check the five things no test here can check**, listed in
-      [`TESTING.md`](./TESTING.md) § Teacher collaborator sign-up: the RPC's argument
-      names, that RLS denies a direct PostgREST insert *and* select, that the rate
-      limits fire, that a second sign-up with the same address updates one row, and
-      that `PT400` / `PT429` reach the action as `error.code`.
-- [ ] **Try the deletion route once, end to end**, from an address with no account.
-      `COLLABORATORS.md` § 7 asks for it and it is the one promise on the form that is
-      served entirely by hand.
-- [ ] **Set `FEEDBACK_HASH_SALT` in production** if it is not set already. Both public
-      write paths now share it (`src/lib/utils/client-hash.ts`), so an unset salt is
-      two rate limiters degraded rather than one.
-- [ ] **Have a native speaker read the new copy** in de / fr / es / it / ru — the form
-      labels and the privacy section. The register is formal in all five, matching the
-      rest of the For Teachers page rather than the rest of the site.
+- [ ] **Run `supabase/migrations/20260919_create_collaborators.sql`** against the
+      Supabase project, from the SQL editor. **Until this is run the form fails.** It
+      fails politely — a teacher sees "could not save, please try again later" rather
+      than a broken page — but it fails, so run the migration before the form is live
+      in front of anyone. Read it first; it creates a table, a `SECURITY DEFINER`
+      function and RLS with no client policies.
+- [ ] **Then verify the five things the test suite cannot reach**, because the e2e
+      suite boots without Supabase credentials and never writes a row: that the RPC's
+      argument names match what the server action sends, that RLS really denies a
+      direct PostgREST insert *and* select, that the limits fire at 3/hour and 10/day,
+      that a second sign-up from the same address updates one row instead of making
+      two, and that `PT400` / `PT429` arrive as `error.code` rather than only inside
+      the message.
+- [ ] **Native-speaker review of the sign-up copy** in de, fr, es, it and ru — the form
+      labels, the success and error messages, and the new privacy section. Folded into
+      the review item below; listed here because it shipped later than the rest of the
+      page.
 
 ### Chemical Bonds
 
