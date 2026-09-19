@@ -19,6 +19,71 @@ checks), [`ACCESSIBILITY.md`](../ACCESSIBILITY.md), [`STYLE_GUIDE.md`](../STYLE_
 
 ---
 
+## 0. What the build proved wrong
+
+Added on 2026-09-19, on branch `feature/explore-page-impl`, after implementing
+the whole of this brief. Each item is a place where the plan met the code and
+the code won. Nothing here is a complaint about the brief; a brief that survives
+implementation untouched usually means nobody checked it.
+
+**Arrhenius had to be dropped from the launch twenty**, and the reason is in
+this document's own inclusion rule. [`explore-scientists.md`](./explore-scientists.md)
+§1 says the work that earns a slot must be 20th or 21st century, and justifies
+Arrhenius by his 1903 Nobel — but the electrolytic-dissociation work is his 1884
+dissertation, and the greenhouse calculation is 1896. The prize is 20th century;
+the work is not. Separately, he was a leading member of the Swedish Society for
+Race Hygiene, which campaigned for the state race-biology institute founded in
+1921 (Saura, *Hereditas*, 2020). Featuring him honestly costs about a third of a
+150-word entry aimed at fourteen-year-olds; featuring him without it is not an
+option on a page whose whole point is who gets remembered. **Dan Shechtman** took
+the slot, paired with sodium chloride — and the pairing is better than the one it
+replaced: a crystal whose pattern repeats, against one that never does.
+
+**Four other leads in `explore-scientists.md` did not survive verification** and
+are listed in the milestone report. The one that changes an entry rather than a
+detail is **Sabatier**: "the reaction that turns oil into margarine" is Wilhelm
+Normann's liquid-phase hydrogenation of 1901, not Sabatier's vapour-phase
+method. Both men are now in the entry.
+
+**The 92-ready count held, but the link table is a proposal and two of its
+suggestions were not taken.** Sørensen is mapped to the `neutralise` game; the
+pH *scale* is taught by the `acids-and-bases` sheet, and that is where his card
+goes. Gilbert Lewis is mapped to `lewis-structures` + game; the card links to
+the game alone, because "Share to Fill" is literally about placing shared
+electron pairs.
+
+**§6 AC-2 assumed `nav-profile-to-settings.md` had landed. It had not** — only
+the document was on `master`. It is implemented on this branch, because the
+1024px English overflow it describes is a live WCAG 1.4.10 failure that Explore
+would have made worse.
+
+**AC-5 says the shared dictionary "asserts a size budget".** It does not, quite:
+`dictionary.test.ts` asserts that no *new game namespace* appears in
+`en.games`. The constraint the brief means is real and was honoured — no entry
+prose is in the dictionary — but nothing would have caught it automatically, and
+a future brief should not rely on a gate that is not there.
+
+**A genuine bug this feature exposed, in every language at once.**
+`Intl.DateTimeFormat('en', …)` resolves to **en-US** and writes
+"September 21, 2026". This site spells things *neutralise* and *sulfur*, follows
+the Victorian curriculum, and is read by students who write the day first.
+`DATE_LOCALES` in `src/i18n/config.ts` now maps each locale to the BCP 47 tag to
+format with (`en` → `en-GB`, `es` → `es-ES`); `<html lang>` and the URL prefix
+are untouched. **Any future feature that formats a date or a number needs this
+map, not the raw locale.**
+
+**And one the English could not see.** The Italian "why it mattered" heading was
+`Perché è stato importante` — a past participle that agrees with its subject, so
+on the ten cards featuring a woman it read as *why **he** was important*. Now
+`Perché ha contato`, which has no gender. Worth generalising: this section
+deliberately never renders `represents`, but a **grammatically gendered heading
+renders it anyway**, in every language that agrees participles and adjectives.
+Spanish and Italian both needed a fixed doublet for "Scientist of the Week" for
+the same reason; French got away with the epicene *scientifique*; German uses
+the substantivised participle *Forschende*.
+
+---
+
 ## 1. Review of the concept
 
 ### The concept is sound, and it is the cheapest useful thing left to build
