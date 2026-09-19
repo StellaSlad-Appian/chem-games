@@ -4,6 +4,23 @@
 /* seems to be better to have just 1 import */
 @import "tailwindcss";
 
+/* Register the body stack as Tailwind's `font-sans`.
+ *
+ * <body> carries the `font-sans` utility (src/app/[lang]/layout.tsx). In
+ * Tailwind v4 the utilities layer is declared after `base`, so that utility
+ * beat the `body { font-family: var(--font-body) }` rule below regardless of
+ * specificity — and `--font-sans` was never defined, so it resolved to
+ * Tailwind's own default stack. The effect was that DM Sans never rendered,
+ * in any locale, and Manrope would not have rendered for Russian either.
+ *
+ * Pointing `--font-sans` at `--font-body` makes the utility and the base rule
+ * agree. The indirection resolves at runtime, so the Russian-scoped override
+ * below still reaches text set with `font-sans`.
+ */
+@theme {
+  --font-sans: var(--font-body);
+}
+
 /* --- @import "tailwindcss/preflight";  --- */
 /* ---  @import "tailwindcss/utilities"; --- */
 
