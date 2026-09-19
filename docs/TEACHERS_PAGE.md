@@ -103,11 +103,25 @@ The offer is a promise to real people, so the copy has to be specific enough to 
 
 ## 5. Internationalisation
 
-- [ ] **MUST** All copy in a `teachers` namespace in `src/i18n/dictionaries/en.ts`, plus
-      the new `meta` and `footer` keys. Nothing written inline in JSX.
-- [ ] **MUST** Ship in all five locales. `npm run typecheck` fails every non-English
-      dictionary the moment the English key lands; that is the intended gate.
-- [ ] **MUST** Pass the parity checks in `src/i18n/dictionary.test.ts`: no missing keys,
+- [ ] **MUST** All copy in a per-page catalogue under `src/i18n/teachers/`, loaded by
+      this page alone through `teachersCopy(locale)`. Nothing written inline in JSX.
+      Only the three genuinely site-wide keys belong in the shared dictionary:
+      `footer.teachers`, `meta.teachersTitle` and `meta.teachersDescription`.
+
+      *This criterion originally said "all copy in a `teachers` namespace in
+      `src/i18n/dictionaries/en.ts`", and that was wrong. `src/app/[lang]/layout.tsx`
+      hands the whole dictionary to `I18nProvider`, so every byte of it is serialized
+      into the RSC payload of every page — including the game pages. Following it put
+      8,075 bytes of prose, a quarter of the German dictionary, on every route for the
+      sake of one page that exactly one Server Component reads. `docs/i18n/README.md`
+      § "The dictionary is a budget, and a game will eat it" sets out the same rule for
+      the game catalogues; this page is subject to it too.*
+- [ ] **MUST** Ship in all five locales. `TeachersCopy` is derived from the English
+      catalogue, so `npm run typecheck` fails every other locale the moment an English
+      key lands; that is the intended gate. `teachersCopy()` throws for a locale with
+      no file rather than falling back to English.
+- [ ] **MUST** Pass the parity checks in `src/i18n/teachers.test.ts`, which runs the
+      shared gates from `src/test-utils/i18n-parity.ts` against the catalogue: no missing keys,
       no empty values, no dropped placeholders, and nothing left identical to the English
       unless it is allowlisted with a stated reason.
 - [ ] **MUST** Never build a sentence by concatenation. Where a link interrupts a

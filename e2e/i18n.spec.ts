@@ -15,6 +15,8 @@ import { fr } from '../src/i18n/dictionaries/fr';
 import { es } from '../src/i18n/dictionaries/es';
 import { it } from '../src/i18n/dictionaries/it';
 import { LOCALE_COOKIE } from '../src/i18n/config';
+import { en as enTeachers } from '../src/i18n/teachers/en';
+import { de as deTeachers } from '../src/i18n/teachers/de';
 import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
 import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
 import { languageSwitcher, openGame, path, waitForHydration } from './helpers';
@@ -215,11 +217,11 @@ test.describe('German rendering', () => {
 
     expect(await htmlLang(page)).toBe('de');
     await expect(
-      page.getByRole('heading', { level: 1, name: de.teachers.heading })
+      page.getByRole('heading', { level: 1, name: deTeachers.heading })
     ).toBeVisible();
-    await expect(page.getByText(de.teachers.betaBody)).toBeVisible();
+    await expect(page.getByText(deTeachers.betaBody)).toBeVisible();
     await expect(
-      page.getByRole('heading', { level: 2, name: de.teachers.collaborateHeading })
+      page.getByRole('heading', { level: 2, name: deTeachers.collaborateHeading })
     ).toBeVisible();
 
     // The year band is rendered in the German school system. "Oberstufe"
@@ -231,7 +233,7 @@ test.describe('German rendering', () => {
     // ambiguous. The cheat-sheet test above does the same.
     await expect(page.locator('body')).toContainText('Klasse 9–10');
     await expect(page.locator('body')).not.toContainText('Oberstufe');
-    await expect(page.locator('body')).not.toContainText(en.teachers.betaHeading);
+    await expect(page.locator('body')).not.toContainText(enTeachers.betaHeading);
 
     // The footer link that leads here is translated too.
     await expect(

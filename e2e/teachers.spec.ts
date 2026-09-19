@@ -13,6 +13,7 @@
 
 import { expect, test, type ConsoleMessage, type Page } from '@playwright/test';
 import { en } from '../src/i18n/dictionaries/en';
+import { en as enTeachers } from '../src/i18n/teachers/en';
 import { path } from './helpers';
 
 /**
@@ -41,7 +42,7 @@ test.describe('For Teachers', () => {
 
     await expect(page).toHaveURL(/\/en\/teachers$/);
     await expect(
-      page.getByRole('heading', { level: 1, name: en.teachers.heading })
+      page.getByRole('heading', { level: 1, name: enTeachers.heading })
     ).toBeVisible();
   });
 
@@ -56,7 +57,7 @@ test.describe('For Teachers', () => {
     await page.setViewportSize({ width: 1280, height: 720 });
     await page.goto(path('/teachers'));
 
-    const notice = page.getByRole('heading', { level: 2, name: en.teachers.betaHeading });
+    const notice = page.getByRole('heading', { level: 2, name: enTeachers.betaHeading });
     await expect(notice).toBeVisible();
 
     // "Without scrolling" means the whole card, not just its heading, sits
@@ -66,7 +67,7 @@ test.describe('For Teachers', () => {
     expect(box).not.toBeNull();
     expect(box!.y + box!.height).toBeLessThanOrEqual(720);
     expect(await page.evaluate(() => window.scrollY)).toBe(0);
-    await expect(page.getByText(en.teachers.betaBody)).toBeVisible();
+    await expect(page.getByText(enTeachers.betaBody)).toBeVisible();
   });
 
   test('offers the site-wide feedback button, and no second form of its own', async ({ page }) => {
@@ -82,7 +83,7 @@ test.describe('For Teachers', () => {
     await page.goto(path('/teachers'));
 
     const main = page.locator('main');
-    await expect(main.getByRole('link', { name: en.teachers.privacyLinkLabel })).toHaveAttribute(
+    await expect(main.getByRole('link', { name: enTeachers.privacyLinkLabel })).toHaveAttribute(
       'href',
       '/en/privacy'
     );
@@ -100,7 +101,7 @@ test.describe('For Teachers', () => {
     await page.setViewportSize({ width: 320, height: 800 });
     await page.goto(path('/teachers'));
     await expect(
-      page.getByRole('heading', { level: 1, name: en.teachers.heading })
+      page.getByRole('heading', { level: 1, name: enTeachers.heading })
     ).toBeVisible();
 
     // Scoped to this page's own <main>, deliberately, rather than to the
@@ -139,7 +140,7 @@ test.describe('For Teachers', () => {
 
     await page.goto(path('/teachers'));
     await expect(
-      page.getByRole('heading', { level: 1, name: en.teachers.heading })
+      page.getByRole('heading', { level: 1, name: enTeachers.heading })
     ).toBeVisible();
     // Give any client-side effect a chance to complain before we look.
     await expect(page.getByRole('button', { name: en.feedback.openA11y })).toBeVisible();

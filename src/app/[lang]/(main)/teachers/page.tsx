@@ -47,6 +47,7 @@ import { LocaleLink } from '@/components/layout/LocaleLink';
 import { getCheatSheets } from '@/i18n/cheat-sheets';
 import { DEFAULT_LOCALE, isLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
+import { teachersCopy } from '@/i18n/teachers';
 import { format } from '@/i18n/format';
 
 const PRIVACY_PATH = '/privacy';
@@ -87,7 +88,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
   const { lang } = await props.params;
   const locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
   const t = await getDictionary(locale);
-  const p = t.teachers;
+  const p = teachersCopy(locale);
   const sheets = getCheatSheets(locale);
 
   // Read as a bare `process.env.NEXT_PUBLIC_…` reference so Next can inline it

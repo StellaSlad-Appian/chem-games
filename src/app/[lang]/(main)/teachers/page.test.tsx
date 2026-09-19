@@ -21,6 +21,8 @@ import { de } from '@/i18n/dictionaries/de';
 import { en } from '@/i18n/dictionaries/en';
 import type { Dictionary } from '@/i18n/dictionaries/en';
 import type { Locale } from '@/i18n/config';
+import { en as enTeachers } from '@/i18n/teachers/en';
+import { de as deTeachers } from '@/i18n/teachers/de';
 
 const SUPPORT_URL = 'https://example.test/support-chemgames';
 
@@ -47,7 +49,7 @@ const link = (name: string | RegExp) => screen.getByRole('link', { name });
 describe('For Teachers page', () => {
   it('renders every section heading in English, with one h1', async () => {
     await renderPage('en');
-    const t = en.teachers;
+    const t = enTeachers;
 
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
     expect(heading(t.heading)).toBeInTheDocument();
@@ -75,8 +77,8 @@ describe('For Teachers page', () => {
     expect(
       screen.getByText(/English, German, French, Spanish and Italian/)
     ).toBeInTheDocument();
-    expect(screen.getByText(en.teachers.languagesBody3)).toBeInTheDocument();
-    expect(screen.getByText(en.teachers.betaBody)).toBeInTheDocument();
+    expect(screen.getByText(enTeachers.languagesBody3)).toBeInTheDocument();
+    expect(screen.getByText(enTeachers.betaBody)).toBeInTheDocument();
   });
 
   it('is honest about accessibility rather than claiming conformance', async () => {
@@ -93,10 +95,10 @@ describe('For Teachers page', () => {
   it('names version 1.0 and version 2.0 explicitly, and says everything is free now', async () => {
     await renderPage('en');
 
-    expect(screen.getByText(en.teachers.collaborateThanks)).toHaveTextContent(
+    expect(screen.getByText(enTeachers.collaborateThanks)).toHaveTextContent(
       'version 1.0 and version 2.0'
     );
-    expect(screen.getByText(en.teachers.collaborateFreeNow)).toBeInTheDocument();
+    expect(screen.getByText(enTeachers.collaborateFreeNow)).toBeInTheDocument();
     // The collaborator route is the existing feedback widget, named by the
     // category label a reader can actually see on it.
     expect(
@@ -106,7 +108,7 @@ describe('For Teachers page', () => {
 
   it('links to /privacy under the active locale', async () => {
     await renderPage('en');
-    expect(link(en.teachers.privacyLinkLabel)).toHaveAttribute('href', '/en/privacy');
+    expect(link(enTeachers.privacyLinkLabel)).toHaveAttribute('href', '/en/privacy');
   });
 
   it('links to each shipped game, and to no game that has no page', async () => {
@@ -144,17 +146,17 @@ describe('For Teachers page', () => {
   it('renders in German, with German links', async () => {
     await renderPage('de', de);
 
-    expect(screen.getByRole('heading', { level: 1, name: de.teachers.heading })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: deTeachers.heading })).toBeInTheDocument();
     expect(
-      screen.getByRole('heading', { level: 2, name: de.teachers.collaborateHeading })
+      screen.getByRole('heading', { level: 2, name: deTeachers.collaborateHeading })
     ).toBeInTheDocument();
     // The band in the German school system, never "Oberstufe" (ages 16–19).
     expect(screen.getByText(/Klasse 9–10/)).toBeInTheDocument();
     expect(document.body.textContent).not.toContain('Oberstufe');
 
-    expect(link(de.teachers.privacyLinkLabel)).toHaveAttribute('href', '/de/privacy');
+    expect(link(deTeachers.privacyLinkLabel)).toHaveAttribute('href', '/de/privacy');
     expect(link(de.gamesHub.lewisTitle)).toHaveAttribute('href', '/de/games/lewis-structures');
-    expect(screen.queryByText(en.teachers.betaBody)).toBeNull();
+    expect(screen.queryByText(enTeachers.betaBody)).toBeNull();
   });
 
   describe('the support section', () => {
@@ -163,7 +165,7 @@ describe('For Teachers page', () => {
       await renderPage('en');
 
       expect(
-        screen.queryByRole('heading', { name: en.teachers.supportHeading })
+        screen.queryByRole('heading', { name: enTeachers.supportHeading })
       ).toBeNull();
       expect(screen.queryByRole('link', { name: /support page/i })).toBeNull();
     });
@@ -173,7 +175,7 @@ describe('For Teachers page', () => {
       await renderPage('en');
 
       const section = screen
-        .getByRole('heading', { level: 2, name: en.teachers.supportHeading })
+        .getByRole('heading', { level: 2, name: enTeachers.supportHeading })
         .closest('section');
       expect(section).not.toBeNull();
 
@@ -182,7 +184,7 @@ describe('For Teachers page', () => {
       expect(supportLink).toHaveAttribute('target', '_blank');
       expect(supportLink).toHaveAttribute('rel', 'noopener noreferrer');
       expect(supportLink).toHaveAccessibleName(
-        new RegExp(en.teachers.supportLinkLabel, 'i')
+        new RegExp(enTeachers.supportLinkLabel, 'i')
       );
 
       // No payment form is ever embedded: the link leaves, nothing collects.
