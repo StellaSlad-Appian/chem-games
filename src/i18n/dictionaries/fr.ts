@@ -91,6 +91,9 @@ export const fr = {
     logout: 'Déconnexion',
     loggingOut: 'Déconnexion…',
     settingsA11y: 'Ouvrir les paramètres généraux',
+    menuOpenA11y: 'Ouvrir le menu',
+    menuCloseA11y: 'Fermer le menu',
+    menuTitleA11y: 'Menu du site',
   },
 
   footer: {

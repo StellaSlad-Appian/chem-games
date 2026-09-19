@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its Italian
 translation, so a native speaker or a chemistry teacher can review the Italian
 without reading any code.
 
-**833 strings** — 379 high confidence,
+**836 strings** — 382 high confidence,
 338 medium, 116 low.
 
 The confidence column is a judgement about *this* translation, not about Italian
@@ -100,6 +100,9 @@ flat string cannot agree with its number — so *risposte esatte: 1* rather than
 | `nav.logout` | Log out | Esci | high | Standard navigation vocabulary. "Accedi" is much shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
 | `nav.loggingOut` | Logging out... | Uscita in corso… | high | Standard navigation vocabulary. "Accedi" is much shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
 | `nav.settingsA11y` | Open general settings | Apri le impostazioni generali | high | Standard navigation vocabulary. "Accedi" is much shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
+| `nav.menuOpenA11y` | Open menu | Apri il menu | high | "Menu" is the usual Italian spelling in interfaces; "menù" exists but reads as the restaurant sense. "Menu del sito" names the panel without claiming to be the only navigation. |
+| `nav.menuCloseA11y` | Close menu | Chiudi il menu | high | "Menu" is the usual Italian spelling in interfaces; "menù" exists but reads as the restaurant sense. "Menu del sito" names the panel without claiming to be the only navigation. |
+| `nav.menuTitleA11y` | Site menu | Menu del sito | high | "Menu" is the usual Italian spelling in interfaces; "menù" exists but reads as the restaurant sense. "Menu del sito" names the panel without claiming to be the only navigation. |
 
 ### `footer`
 

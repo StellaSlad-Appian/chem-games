@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its Spanish
 translation, so a native speaker or a chemistry teacher can review the Spanish
 without reading any code.
 
-**833 strings** — 375 high confidence,
+**836 strings** — 378 high confidence,
 342 medium, 116 low.
 
 The confidence column is a judgement about *this* translation, not about Spanish
@@ -99,6 +99,9 @@ style choice when missing.
 | `nav.logout` | Log out | Cerrar sesión | high | Standard navigation vocabulary. "Iniciar sesión" is still shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
 | `nav.loggingOut` | Logging out... | Cerrando sesión… | high | Standard navigation vocabulary. "Iniciar sesión" is still shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
 | `nav.settingsA11y` | Open general settings | Abrir las opciones generales | high | Standard navigation vocabulary. "Iniciar sesión" is still shorter than the English "Log in / Register", so the header pair that forced German and French to abbreviate is not a problem here. |
+| `nav.menuOpenA11y` | Open menu | Abrir el menú | high | "Menú" takes the accent, and the article is obligatory before it in Spanish — "Abrir el menú", never "Abrir menú". |
+| `nav.menuCloseA11y` | Close menu | Cerrar el menú | high | "Menú" takes the accent, and the article is obligatory before it in Spanish — "Abrir el menú", never "Abrir menú". |
+| `nav.menuTitleA11y` | Site menu | Menú del sitio | high | "Menú" takes the accent, and the article is obligatory before it in Spanish — "Abrir el menú", never "Abrir menú". |
 
 ### `footer`
 
