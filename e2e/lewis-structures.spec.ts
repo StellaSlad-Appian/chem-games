@@ -10,7 +10,7 @@ const M = lewisMessages(en, 'en');
 
 /** The first loner dot on an atom, by the canvas's data-atom-id. */
 const loner = (page: Page, atomId: string) =>
-  page.locator(`[data-atom-id="${atomId}"]`).getByRole('button', { name: /loner \d+ of \d+/ }).first();
+  page.locator(`[data-atom-id="${atomId}"]`).getByRole('button', { name: /unpaired electron \d+ of \d+/ }).first();
 
 const coach = (page: Page) => page.getByTestId('coach-panel');
 const arena = (page: Page) => page.getByTestId('lewis-arena');

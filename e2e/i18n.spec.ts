@@ -278,10 +278,10 @@ test.describe('German rendering: Share to Fill', () => {
     // dictionary, so this is the seam between the two that has to hold.
     await expect(page.getByText(lewisDe.header.build('Wasserstoff', 'H2'))).toBeVisible();
     await expect(page.getByText(lewisDe.header.progress(1, 3))).toBeVisible();
-    // The game word for an unpaired outer electron. German mirrors English's
-    // two tiers: 'Einzelelektron' here and in every hint, 'ungepaartes Elektron'
-    // as the formal gloss in the glossary, 'einzeln' on the dot itself.
-    await expect(page.getByTestId('coach-panel')).toContainText('Einzelelektron');
+    // The one term for an unpaired outer electron. Since 2026-09-19 there is no
+    // second, playful tier: 'ungepaartes Elektron' here, in every hint, in the
+    // glossary and in the canvas legend. docs/i18n/glossary-de.md.
+    await expect(page.getByTestId('coach-panel')).toContainText('ungepaarte');
 
     // The formula itself is never translated.
     await expect(page.getByLabel(lewisDe.ui.canvasLabel('Wasserstoff'))).toBeVisible();
@@ -321,7 +321,7 @@ test.describe('German rendering: Share to Fill', () => {
     const loner = (atomId: string) =>
       page
         .locator(`[data-atom-id="${atomId}"]`)
-        .getByRole('button', { name: /Einzelelektron \d+ von \d+/ })
+        .getByRole('button', { name: /ungepaartes Elektron \d+ von \d+/ })
         .first();
 
     await loner('a0').click();
@@ -526,9 +526,9 @@ test.describe('French rendering: Partage et complète', () => {
     await expect(page.getByText(looseText(lewisFr.header.build('dihydrogène', 'H2')))).toBeVisible();
     await expect(page.getByText(looseText(lewisFr.header.progress(1, 3)))).toBeVisible();
     // The game word for an unpaired outer electron. French mirrors English's
-    // two tiers with its own pair: 'solitaire' here and in every hint,
-    // 'électron célibataire' as the formal gloss, 'seul' on the dot itself.
-    await expect(page.getByTestId('coach-panel')).toContainText('solitaire');
+    // one term everywhere since 2026-09-19: 'électron célibataire' here, in every
+    // hint, in the glossary and in the canvas legend. docs/i18n/glossary-fr.md.
+    await expect(page.getByTestId('coach-panel')).toContainText('célibataire');
 
     await expect(page.getByLabel(looseText(lewisFr.ui.canvasLabel('dihydrogène')))).toBeVisible();
   });
@@ -566,7 +566,7 @@ test.describe('French rendering: Partage et complète', () => {
     const loner = (atomId: string) =>
       page
         .locator(`[data-atom-id="${atomId}"]`)
-        .getByRole('button', { name: /solitaire \d+ sur \d+/ })
+        .getByRole('button', { name: /électron célibataire \d+ sur \d+/ })
         .first();
 
     await loner('a0').click();
@@ -803,11 +803,12 @@ test.describe('Spanish rendering: Comparte y completa', () => {
     // the catalogue and the chemistry-name overlay.
     await expect(page.getByText(lewisEs.header.build('dihidrógeno', 'H2'))).toBeVisible();
     await expect(page.getByText(lewisEs.header.progress(1, 3))).toBeVisible();
-    // The game word for an unpaired outer electron. Spanish uses 'impar' — NOT
+    // The one term for an unpaired outer electron: 'electrón desapareado'. NOT
     // 'solitario', which is already the Spanish for a lone pair (*par
     // solitario*), so using it here would collide with the very distinction
-    // this game teaches. See docs/i18n/glossary-es.md § El «loner».
-    await expect(page.getByTestId('coach-panel')).toContainText('impar');
+    // this game teaches. The collision outlived the
+    // nickname it decided: see docs/i18n/glossary-es.md.
+    await expect(page.getByTestId('coach-panel')).toContainText('desapareado');
 
     await expect(page.getByLabel(lewisEs.ui.canvasLabel('dihidrógeno'))).toBeVisible();
   });
@@ -841,7 +842,7 @@ test.describe('Spanish rendering: Comparte y completa', () => {
     const loner = (atomId: string) =>
       page
         .locator(`[data-atom-id="${atomId}"]`)
-        .getByRole('button', { name: /impar \d+ de \d+/ })
+        .getByRole('button', { name: /electrón desapareado \d+ de \d+/ })
         .first();
 
     await loner('a0').click();
@@ -1067,11 +1068,12 @@ test.describe('Italian rendering: Condividi e completa', () => {
     // visible as behaviour rather than as a comment.
     await expect(page.getByText(lewisIt.header.build('idrogeno', 'H2'))).toBeVisible();
     await expect(page.getByText(lewisIt.header.progress(1, 3))).toBeVisible();
-    // The game word for an unpaired outer electron. Italian uses 'dispari' —
-    // NOT 'solitario' (already a lone pair, *doppietto solitario*), not
+    // The one term for an unpaired outer electron: 'elettrone spaiato'. NOT
+    // 'solitario' (already a lone pair, *doppietto solitario*), not
     // 'libero' (also a lone pair, and the delocalised electrons) and not
-    // 'singolo' (the single bond). See docs/i18n/glossary-it.md § Il «loner».
-    await expect(page.getByTestId('coach-panel')).toContainText('dispari');
+    // 'singolo' (the single bond). The collisions outlived the
+    // nickname they decided: see docs/i18n/glossary-it.md.
+    await expect(page.getByTestId('coach-panel')).toContainText('spaiat');
 
     await expect(page.getByLabel(lewisIt.ui.canvasLabel('idrogeno'))).toBeVisible();
   });
@@ -1104,7 +1106,7 @@ test.describe('Italian rendering: Condividi e completa', () => {
     const loner = (atomId: string) =>
       page
         .locator(`[data-atom-id="${atomId}"]`)
-        .getByRole('button', { name: /dispari \d+ di \d+/ })
+        .getByRole('button', { name: /elettrone spaiato \d+ di \d+/ })
         .first();
 
     await loner('a0').click();
@@ -1378,11 +1380,12 @@ test.describe('Russian rendering: Делись и заполняй', () => {
     // nominative, so the colon is what keeps every molecule grammatical.
     await expect(page.getByText(lewisRu.header.build('водород', 'H2'))).toBeVisible();
     await expect(page.getByText(lewisRu.header.progress(1, 3))).toBeVisible();
-    // The game word for an unpaired outer electron. Russian uses «одиночка» —
-    // NOT «свободный» (already a lone pair *and* the delocalised electrons),
+    // The one term for an unpaired outer electron: «неспаренный электрон». NOT
+    // «свободный» (already a lone pair *and* the delocalised electrons),
     // not «одинокий» (the calque of *lone pair*) and not «одиночный» (one
-    // suffix from «одинарная связь»). docs/i18n/glossary-ru.md § The "loner".
-    await expect(page.getByTestId('coach-panel')).toContainText('одиночк');
+    // suffix from «одинарная связь»). The collisions
+    // outlived the nickname they decided: see docs/i18n/glossary-ru.md.
+    await expect(page.getByTestId('coach-panel')).toContainText('неспаренн');
 
     await expect(page.getByLabel(lewisRu.ui.canvasLabel('водород'))).toBeVisible();
   });
@@ -1416,7 +1419,7 @@ test.describe('Russian rendering: Делись и заполняй', () => {
     const loner = (atomId: string) =>
       page
         .locator(`[data-atom-id="${atomId}"]`)
-        .getByRole('button', { name: /одиночка \d+ из \d+/ })
+        .getByRole('button', { name: /неспаренный электрон \d+ из \d+/ })
         .first();
 
     await loner('a0').click();

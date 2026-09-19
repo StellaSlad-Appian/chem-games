@@ -21,7 +21,7 @@ const M = lewisMessages(en, 'en');
 
 const arena = (page: Page) => page.getByTestId('lewis-arena');
 const atom = (page: Page, id: string) => page.locator(`[data-atom-id="${id}"]`);
-const loner = (page: Page, id: string): Locator => atom(page, id).getByRole('button', { name: /loner \d+ of \d+/ }).first();
+const loner = (page: Page, id: string): Locator => atom(page, id).getByRole('button', { name: /unpaired electron \d+ of \d+/ }).first();
 
 /** The structure as currently drawn on the canvas. */
 async function readStructure(page: Page): Promise<LewisStructure> {

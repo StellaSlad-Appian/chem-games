@@ -3,7 +3,11 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { GlossaryTerm, GlossaryText } from './GlossaryTerm';
 
 const GLOSSARY = [
-  { term: 'loner (unpaired electron)', definition: 'an outer electron without a partner', matches: ['loners', 'loner'] },
+  {
+    term: 'unpaired electron',
+    definition: 'an outer electron without a partner',
+    matches: ['unpaired electrons', 'unpaired electron'],
+  },
   { term: 'lone pair', definition: 'two outer electrons that stay on one atom', matches: ['lone pairs', 'lone pair'] },
 ];
 
@@ -69,10 +73,15 @@ describe('GlossaryTerm', () => {
 
 describe('GlossaryText', () => {
   it('wraps the first occurrence of each glossary word, longest match first', () => {
-    render(<GlossaryText text="Oxygen still has 2 loners. Its lone pairs stay put; a loner pairs with a loner." glossary={GLOSSARY} />);
+    render(
+      <GlossaryText
+        text="Oxygen still has 2 unpaired electrons. Its lone pairs stay put; an unpaired electron pairs with an unpaired electron."
+        glossary={GLOSSARY}
+      />
+    );
     const buttons = screen.getAllByRole('button');
-    expect(buttons.map((b) => b.textContent)).toEqual(['loners', 'lone pairs']);
-    expect(screen.getByText(/a loner pairs with a loner/)).toBeInTheDocument();
+    expect(buttons.map((b) => b.textContent)).toEqual(['unpaired electrons', 'lone pairs']);
+    expect(screen.getByText(/an unpaired electron pairs with an unpaired electron/)).toBeInTheDocument();
   });
 
   it('leaves text without glossary words untouched', () => {
@@ -82,10 +91,10 @@ describe('GlossaryText', () => {
   });
 
   it('does not match a glossary word inside a longer Latin word', () => {
-    render(<GlossaryText text="A loners-only rule; lone pairing is different." glossary={GLOSSARY} />);
-    // "loners" here is followed by "-", which is a boundary, so it still
+    render(<GlossaryText text="An unpaired electrons-only rule; lone pairing is different." glossary={GLOSSARY} />);
+    // "unpaired electrons" here is followed by "-", which is a boundary, so it still
     // matches; "lone pairing" must not, because "pairing" continues the word.
-    expect(screen.getAllByRole('button').map((b) => b.textContent)).toEqual(['loners']);
+    expect(screen.getAllByRole('button').map((b) => b.textContent)).toEqual(['unpaired electrons']);
   });
 });
 
