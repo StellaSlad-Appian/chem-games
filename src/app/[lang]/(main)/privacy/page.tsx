@@ -17,10 +17,26 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { ArrowLeft, ShieldCheck } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
+import { DEFAULT_LOCALE, formattingLocale, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import { format } from '@/i18n/format';
 
-const EFFECTIVE_DATE = '14 September 2026';
+/**
+ * When this policy took effect, as a machine-readable date rather than as
+ * English prose.
+ *
+ * It used to be the string '14 September 2026', interpolated straight into
+ * `{date}` — so the German page read "Gültig ab: 14 September 2026", with an
+ * English month name in the middle of a German sentence, and the French and
+ * Spanish pages were wrong the same way. It is a date, not copy, so it is
+ * stored as one and formatted per locale below.
+ *
+ * ISO 8601, parsed as UTC: a plain `new Date('2026-09-14')` is already UTC,
+ * but writing the time on makes it explicit that the day must not shift in a
+ * negative-offset timezone. Same reasoning as
+ * `formatLeaderboardDate` in PublicLeaderboard.tsx, which is the pattern here.
+ */
+const EFFECTIVE_DATE = new Date('2026-09-14T00:00:00Z');
 const CONTACT_EMAIL = 'stella.slad@gmail.com';
 const PROFILE_EDIT_PATH = '/profile/edit';
 const OAIC_URL = 'https://www.oaic.gov.au';
@@ -32,6 +48,24 @@ export async function generateMetadata(props: PageProps<'/[lang]'>): Promise<Met
     title: t.meta.privacyTitle,
     description: t.meta.privacyDescription,
   };
+}
+
+/**
+ * The effective date, written the way the reader's language writes a date.
+ *
+ * `long` rather than `short` because this is running prose, not a table cell:
+ * English gets "14 September 2026", German "14. September 2026", French
+ * "14 septembre 2026", Spanish "14 de septiembre de 2026" and Italian
+ * "14 settembre 2026" — each with its own month name, word order and
+ * punctuation, none of which this file has to know about.
+ */
+function formatEffectiveDate(locale: Locale): string {
+  return new Intl.DateTimeFormat(formattingLocale(locale), {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(EFFECTIVE_DATE);
 }
 
 /**
@@ -55,6 +89,9 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
   const { lang } = await props.params;
   const t = await getDictionary(lang);
   const p = t.privacy;
+  // Matches the root layout: a layout or page must never throw on an unknown
+  // segment, because the 404 renders inside it.
+  const locale: Locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
 
   const contact = <ContactLink />;
   const profileEditLink = (
@@ -96,7 +133,7 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
         <article className="mt-8 flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
           <Section title={p.whoWeAreHeading}>
             <p>{withPlaceholder(p.whoWeAreBody, 'email', contact)}</p>
-            <p>{format(p.effectiveDate, { date: EFFECTIVE_DATE })}</p>
+            <p>{format(p.effectiveDate, { date: formatEffectiveDate(locale) })}</p>
           </Section>
 
           <Section title={p.collectHeading}>

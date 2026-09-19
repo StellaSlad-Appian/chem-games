@@ -58,7 +58,7 @@ inventing a separate scaffolding system.
 | Chocolate-covered broccoli (quiz bolted onto unrelated gameplay) | Kills intrinsic motivation | Chemistry logic *is* the physics/win-condition |
 | Rigid solar-system orbits / solid billiard-ball atoms | Embeds lasting misconceptions | Electron density clouds / probability models, with explicit scale disclaimers |
 | Extraneous UI, heavy cutscenes, bloated menus | Burns working memory the student needs for chemistry | Keep controls learnable in <30s (see Cognitive Friction Check) |
-| High-stakes timers / public leaderboards as the primary loop | Anxiety, especially for struggling students | Self-paced, mastery-based progression as the default; if a public leaderboard is used (this platform already has one — `LeaderBoard.tsx`, `PublicLeaderboard.tsx`), treat it as optional flavor, never the thing blocking progress |
+| High-stakes timers / public leaderboards as the primary loop | Anxiety, especially for struggling students | Self-paced, mastery-based progression as the default; if a public leaderboard is used (this platform already has one — `PublicLeaderboard.tsx`), treat it as optional flavor, never the thing blocking progress |
 
 **Existing tension to be aware of:** Formula Blaster and Neutralise already use wave countdowns
 (`baseWaveTimeSeconds`) and the platform has a public leaderboard. Follow the platform's existing
@@ -108,7 +108,7 @@ src/
                                CoachPanel, GlossaryTerm (+ GlossaryText), AtomCanvas/
       <game-slug>/             game-specific components (GameArena.tsx + smaller pieces)
     ui/                        generic widgets (ScoreBadge, LevelProgress, ChemIcon, ...)
-    social/                    LeaderBoard, PublicLeaderboard, PublicProfile
+    social/                    PublicLeaderboard, PublicProfile
   core-engine/
     data/                      shared scientific data: elements.ts, compounds.ts, ions.ts,
                                reactions.ts — reuse this, don't fork copies into your game
@@ -143,7 +143,7 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    - Add the slug to `GameName` in `src/core-engine/types/general.ts`.
    - Add the slug to `GameThemeScope` in `src/context/game-settings-context.tsx`.
    - Grep for every other place `GameName` or the theme scope union is switched over
-     exhaustively (e.g. `LeaderBoard.tsx`, `PublicLeaderboard.tsx`) — TypeScript will not
+     exhaustively (e.g. `PublicLeaderboard.tsx`) — TypeScript will not
      always catch a missing case in a plain `Record`, so check `DEFAULT_OVERLAY_MESSAGES` too.
    - Add the slug to `GAME_TITLE_KEYS` in `src/i18n/game-titles.ts` and to `EXPECTED_GAMES`
      in its test, pointing at `gamesHub.<key>Title` — which must exist in **every**

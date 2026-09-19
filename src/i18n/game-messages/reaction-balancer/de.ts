@@ -249,6 +249,20 @@ export const de = {
     liveLocked: 'Ausgeglichen. {equation}. Die Gleichung ist eingerastet.',
     liveBuilt: 'Gleichung aufgestellt. Jetzt gleich sie aus.',
   },
+  // The reaction-class badge. Terms from docs/i18n/glossary-de.md § reaction
+  // types; "Fällung" is the bare noun to match the English badge's register,
+  // where the glossary's full phrase is "Fällungsreaktion".
+  reactionType: {
+    Synthesis: 'Synthese',
+    Decomposition: 'Zersetzung',
+    'Single Replacement': 'Einfache Verdrängung',
+    'Double Replacement': 'Doppelte Verdrängung',
+    Combustion: 'Verbrennung',
+    'Acid-Base': 'Säure-Base',
+    // International, and what a German textbook writes: Redoxreaktion.
+    Redox: 'Redox',
+    Precipitation: 'Fällung',
+  },
 } satisfies ReactionBalancerMessages;
 
 export default de;

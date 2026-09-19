@@ -106,6 +106,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct.',
     },
     {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every German page. Terms are taken from docs/i18n/glossary-de.md. Two calls to check: **Fällung** is the bare noun, matching the English badge\'s register, where the glossary\'s full phrase is *Fällungsreaktion*; and **Redox** is left as the international term, which is what a German textbook writes (*Redoxreaktion*). *Säure-Base* is the compact form of *Säure-Base-Reaktion*.',
+    },
+    {
       prefix: 'games.reactionBalancer.card',
       confidence: 'high',
       note: 'Accessible names for the coefficient controls. The literal "Add one water" cannot be translated with an article, because the compound name that fills the placeholder can be any gender ("Ein Schwefelsäure mehr" is wrong). The German uses a verb instead — "{name} erhöhen" / "{name} verringern" — which is gender-free and reads better on a screen reader.',
@@ -373,6 +378,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'games.reactionBalancer',
       confidence: 'high',
       note: 'Uses the glossary terms réactifs / produits / coefficient / indice / bilan des atomes / équilibrer. One open question for a teacher: the current French programme prints *ajuster* where students and teachers say *équilibrer*. The glossary picked *équilibrer* because the game shows a balance beam and because it pairs with "équation équilibrée"; if the audience\'s textbook says *ajuster*, that is a one-word change across this namespace.',
+    },
+    {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every French page. Terms are taken from docs/i18n/glossary-fr.md, including the *déplacement* pair the glossary picked over *échange*. Two French-specific calls to check: **Oxydoréduction** rather than the clipped « rédox » — it is what a textbook names the class, and the badge has room — and **Combustion**, which is spelled exactly as the English and is therefore allowlisted as identical by design. *Précipitation* is the compact badge form of *réaction de précipitation*.',
     },
     {
       prefix: 'games.reactionBalancer.coach',
@@ -681,6 +691,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'games.reactionBalancer',
       confidence: 'high',
       note: 'Uses the glossary terms reactivos / productos / coeficiente / subíndice / recuento de átomos / ajustar. **The one thing to check is the variety, not the translation:** Spain says *ajustar una ecuación* and Latin America says *balancear*. It is the single most visible es-ES marker on the site, it appears in this namespace dozens of times, and the decision is argued at the top of glossary-es.md.',
+    },
+    {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every Spanish page. Terms are taken from docs/i18n/glossary-es.md, including the es-ES *desplazamiento* pair the glossary argues for over *sustitución*. **Rated medium** for the same reason the glossary rates that pair medium, and because *Ácido-base* and the bare *Precipitación* are the compact badge forms rather than the full *reacción ácido-base* / *reacción de precipitación*.',
     },
     {
       prefix: 'games.reactionBalancer.coach',
@@ -1004,6 +1019,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'games.reactionBalancer',
       confidence: 'high',
       note: 'Uses the glossary terms reagenti / prodotti / coefficiente / pedice / conteggio degli atomi / bilanciare. There is no variety decision to make here and no collision to dodge - the namespace that was hardest in French (indice) and in Spanish (ajustar/ajustes) is the straightforward one in Italian.',
+    },
+    {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badge labels, new: GameArena used to render the dataset\'s raw English value, so this badge read "SYNTHESIS" on every Italian page. Terms are taken from docs/i18n/glossary-it.md, including the *scambio* pair Italian school chemistry teaches in preference to *spostamento*. **Rated medium** for the same reason the glossary rates that pair medium, and because *Acido-base* and the bare *Precipitazione* are the compact badge forms rather than the full *reazione acido-base* / *reazione di precipitazione*.',
     },
     {
       prefix: 'games.reactionBalancer.coach',

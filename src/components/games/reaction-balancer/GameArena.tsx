@@ -145,7 +145,7 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
       >
         <div className="text-center">
           <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-blue-500">
-            {round.reaction.type}
+            {M.reactionType(round.reaction.type)}
           </span>
           <h2 className="mt-2 text-2xl font-black text-(--foreground) sm:text-3xl">{round.reaction.name}</h2>
         </div>

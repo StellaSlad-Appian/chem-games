@@ -302,6 +302,20 @@ export const es = {
     liveLocked: 'Ajustada. {equation}. La ecuación está bloqueada.',
     liveBuilt: 'Ecuación construida. Ahora ajústala.',
   },
+  // The reaction-class badge. Terms from docs/i18n/glossary-es.md § reaction
+  // types, including the es-ES *desplazamiento* pair the glossary argues for
+  // over *sustitución*.
+  reactionType: {
+    Synthesis: 'Síntesis',
+    Decomposition: 'Descomposición',
+    'Single Replacement': 'Desplazamiento simple',
+    'Double Replacement': 'Doble desplazamiento',
+    Combustion: 'Combustión',
+    'Acid-Base': 'Ácido-base',
+    // International: Spanish says *reacción redox* and never expands it.
+    Redox: 'Redox',
+    Precipitation: 'Precipitación',
+  },
 } satisfies ReactionBalancerMessages;
 
 export default es;

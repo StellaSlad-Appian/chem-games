@@ -39,6 +39,7 @@ import { useI18n } from '@/i18n/client';
 import { nameInSentence } from '@/i18n/chemistry-names';
 import { LOCALE_LABELS, type Locale } from '@/i18n/config';
 import type { Dictionary } from '@/i18n/dictionaries/en';
+import type { ReactionType } from '@/core-engine/data/reactions';
 import { format as f, formatPlural } from '@/i18n/format';
 import {
   REACTION_BALANCER_MESSAGES,
@@ -292,6 +293,13 @@ export function reactionBalancerMessages(t: Dictionary, locale: Locale) {
         built: d.ui.liveBuilt,
       },
     },
+
+    /**
+     * The reaction-class badge above the equation. A function rather than the
+     * record itself, so the call site cannot accidentally render the dataset's
+     * raw English value — which is precisely what GameArena used to do.
+     */
+    reactionType: (type: ReactionType) => d.reactionType[type],
   };
 }
 

@@ -52,6 +52,40 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   it: 'Italiano',
 };
 
+/**
+ * The BCP 47 tag `Intl` should format dates and numbers with, per locale.
+ *
+ * Almost always the locale code itself. English is the exception, and it is
+ * not a nicety: CLDR resolves a bare `en` to **en-US**, so
+ * `Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' })`
+ * produces "September 14, 2026" — month-first, with a comma. This site's
+ * English is Australian: it spells *neutralise*, every cheat sheet cites the
+ * Victorian Curriculum, and the privacy page answers to the OAIC. An
+ * Australian reader writes "14 September 2026".
+ *
+ * The URL prefix, the `<html lang>` and the cookie all stay `en`. This is only
+ * about number and date formatting, which is why it is a separate map rather
+ * than a change to `LOCALES` — `en-AU` is not a second locale with its own
+ * dictionary, and making it one would be a much larger and worse decision.
+ *
+ * A Russian entry will not be needed: `ru` already formats as Russian.
+ */
+export const FORMATTING_LOCALE: Record<Locale, string> = {
+  en: 'en-AU',
+  de: 'de',
+  fr: 'fr',
+  es: 'es-ES',
+  it: 'it',
+};
+
+/**
+ * `Intl`-ready tag for a locale. Use this, not the locale code, anywhere a
+ * date or a number is formatted for a reader.
+ */
+export function formattingLocale(locale: Locale): string {
+  return FORMATTING_LOCALE[locale] ?? locale;
+}
+
 export function isLocale(value: unknown): value is Locale {
   return typeof value === 'string' && (LOCALES as readonly string[]).includes(value);
 }

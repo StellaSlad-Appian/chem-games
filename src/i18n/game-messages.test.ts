@@ -8,9 +8,10 @@
 // formulae altered in translation — from src/test-utils/i18n-parity.ts. Moving
 // the copy out of the dictionary must not move it out of the gates.
 //
-// On top of that, two things only a catalogue has: a loader that must cover
-// every locale in LOCALES, and a glossary whose match words have to be findable
-// by a JavaScript `\b`.
+// On top of that, three things only a catalogue has: a loader that must cover
+// every locale in LOCALES, a glossary whose match words have to be findable by
+// the matcher's `\p{L}` boundaries (an ASCII `\b` until Russian forced the
+// question), and plural records complete enough for the language.
 
 import { describe, expect, it } from 'vitest';
 import { LOCALES } from './config';
@@ -53,6 +54,10 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     /^success\.points$/,
     /^challenge\.tileA11y$/,
     /^glossary\.stateSymbols\.term$/,
+    // "Redox" is the international name for the reaction class and is what a
+    // German textbook writes (Redoxreaktion). The other seven badge labels
+    // are all translated.
+    /^reactionType\.Redox$/,
   ],
   fr: [
     // "Coach" is an established French loanword and names a thing in the
@@ -71,6 +76,11 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     /^glossary\.coefficient\.(term|matches\[\d+\])$/,
     // "Points" as a column heading.
     /^notebook\.columnPoints$/,
+    // "Combustion" is spelled identically in French and English. Note that
+    // French is the one locale where `reactionType.Redox` is NOT exempt: it
+    // says « Oxydoréduction » where German, Spanish and Italian all keep the
+    // international "Redox".
+    /^reactionType\.Combustion$/,
   ],
   es: [
     // The first column of an instructions key table is the physical key, so it
@@ -86,6 +96,9 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     // « Guía » in Spanish, where German and French both keep the loanword; and
     // "coefficient" is « coeficiente », where French had to allowlist the
     // glossary term and both its match words as identical-by-design.
+    // "Redox" is the international name for the reaction class; Spanish
+    // says *reacción redox* and never expands it.
+    /^reactionType\.Redox$/,
   ],
   it: [
     // The first column of an instructions key table is the physical key, so it
@@ -100,6 +113,9 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     // The same four as Spanish, and for the same reasons: "Coach" is « Guida »,
     // "Challenge" is « Sfida » and "coefficient" is « coefficiente », so none of
     // those needs an exemption here.
+    // "Redox" is the international name for the reaction class; Italian
+    // says *reazione redox* and never expands it.
+    /^reactionType\.Redox$/,
   ],
 };
 

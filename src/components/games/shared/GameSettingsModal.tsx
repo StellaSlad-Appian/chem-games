@@ -6,6 +6,7 @@ import { X, Volume2, VolumeX, Moon, Sun, LifeBuoy } from 'lucide-react';
 import { GameThemeScope, Theme, useGameSettings } from '../../../context/game-settings-context';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { useI18n } from '@/i18n/client';
+import { formatPercent } from '@/i18n/format';
 import type { Dictionary } from '@/i18n/dictionaries/en';
 
 interface GameSettingsModalProps {
@@ -27,7 +28,7 @@ export default function GameSettingsModal({
   variant = 'modal', // Default to modal for existing game pages
   supportMode,
 }: GameSettingsModalProps) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const {
     isMuted,
     volume,
@@ -249,7 +250,7 @@ export default function GameSettingsModal({
                   />
 
                   <span className="w-10 shrink-0 text-right text-xs font-bold text-[var(--muted)]">
-                    {isMuted ? 0 : Math.round(volume * 100)}%
+                    {formatPercent(locale, isMuted ? 0 : Math.round(volume * 100))}
                   </span>
                 </div>
               </section>
