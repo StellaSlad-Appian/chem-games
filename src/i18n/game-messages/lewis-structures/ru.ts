@@ -17,7 +17,10 @@
 //     on. *Одиночка* is a noun, it declines and counts cleanly
 //     (одна одиночка / 2 одиночки / 5 одиночек), and Russian already applies
 //     it to things as well as people (камера-одиночка).
-//     The same word is the short canvas label, as in Spanish and Italian.
+//     **The short canvas label is a different word, «соло».** Russian follows
+//     German rather than Spanish and Italian here, and not by choice: the
+//     label sits 50 px from its neighbour and «одиночка» renders 59 px wide,
+//     so reusing the game word overlaps on screen. See `ui.lonerLabel`.
 //
 //   * **Nothing agrees with an interpolated name.** `{atom}`, `{name}` and
 //     `{element}` arrive from the chemistry-names overlay in the **nominative
@@ -61,7 +64,7 @@ export const ru = {
     bullets: [
       'Перетащи мигающую точку на мигающую точку другого атома (или нажми сначала на одну, потом на другую).',
       'Атом заполнен, когда вокруг него 8 точек. Водороду хватает двух.',
-      'Поделись дважды между одними и теми же атомами — получится **двойная связь**.',
+      'Поделись дважды между одними и теми же атомами — получится двойная связь.',
       'Структура закрепляется сама, когда все атомы заполнены и одиночек не осталось. Никакой кнопки не нужно.',
       'Не получается? Нажми на лампочку (или H). Первая подсказка всегда бесплатная.',
     ],
@@ -376,7 +379,24 @@ export const ru = {
     atomLonerA11y: '{element}, одиночка {index} из {total}',
     atomLonePairA11y: '{element}, неподелённая пара {index} из {total}',
     atomOrdinal: '{element} {ordinal}',
-    lonerLabel: 'одиночка',
+    // **Not «одиночка», and that is a measured constraint rather than a
+    // translation preference.** The canvas places this label centred under a
+    // dot, and in H2 the two dots are 50 px apart. At `text-[9px]` uppercase,
+    // «одиночка» renders 59 px wide and the two labels overlap by 9 px —
+    // visible on screen as «ОДИНОЧКАДИНОЧКА». English "loner" is 32 px,
+    // Spanish «impar» 33, Italian «dispari» 40 and German «einzeln» 41, so the
+    // real budget is about 44 px and Russian has no transparent one-word
+    // rendering of the concept that fits: «непарный» is 59, «без пары» 51,
+    // «не в паре» 52, and «одинок» is 44 but collides with «одинокая пара».
+    //
+    // So Russian does what German did and gives the dot its own shorter word.
+    // «Соло» is 28 px, every fourteen-year-old knows it, it means exactly "on
+    // its own", and — unlike every adjective Russian could have used — it
+    // collides with no chemistry term. The cost is that it does not share a
+    // root with «одиночка» the way *einzeln* shares one with *Einzelelektron*;
+    // the coach line and the glossary carry the game word, and this label is a
+    // Level 1 scaffold the brief removes at Level 2. **Rated low.**
+    lonerLabel: 'соло',
     atomFull: 'заполнен',
     atomSelectedA11y: '{element}: одиночка выбрана. Теперь выбери одиночку на другом атоме.',
     atomInspectTapA11y: '{element} — нажми, если этот атом неверный',

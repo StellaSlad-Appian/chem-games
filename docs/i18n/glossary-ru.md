@@ -352,7 +352,7 @@ lists are long for a grammatical reason, not a technical one.
 | bonding pair / shared pair | **общая электронная пара** | Short form *общая пара*. The Share to Fill game says "shared pair" where a textbook says "bonding pair"; both are *общая электронная пара*. Do not introduce a second word (*связывающая пара*) for the same thing. |
 | unpaired electron (formal term) | **неспаренный электрон** | The Russian textbook term, the one used when teaching radicals. Use it in the glossary, on the cheat sheets and anywhere the text is explaining rather than instructing. |
 | the game's "loner" (game word) | **одиночка** | See the long note below. |
-| the short label on a pulsing dot | **одиночка** | Same word; see below for why Russian has nothing shorter worth shortening to. |
+| the short label on a pulsing dot | **соло** | **A different word from the game word, and measured rather than chosen.** The canvas centres this label under a dot, and in H2 the two dots are 50 px apart; at `text-[9px]` uppercase, *одиночка* renders 59 px and the two labels overlap by 9 px on screen. The budget is about 44 px — *loner* is 32, *impar* 33, *dispari* 40, *einzeln* 41 — and no transparent Russian one-word rendering fits: *непарный* 59, *без пары* 51, *не в паре* 52, *одинок* 44 but colliding with *одинокая пара*. So Russian follows German in giving the dot its own shorter word. **Соло** is 28 px, every fourteen-year-old knows it, it means exactly «on its own», and it collides with no chemistry term. See below. |
 | octet (eight outer electrons) | **октет** | *Правило октета* is standard from 8 класс. |
 | duet (hydrogen's two) | **дублет** | **Russian sits with German, not with French.** French has *la règle du duet* in its national programme; Russian school chemistry has **no settled word at all** — it says «завершённый внешний уровень, как у гелия» or nothing. *Дублет* is a real Russian scientific word meaning a pair (спектральный дублет), so it is transparent and it is not a coinage. **Rejected: *дуэт*** — the direct calque of the English and German word, which in Russian reads purely musical and would be the only jokey term in a serious glossary. **Rated low.** A teacher may well prefer to drop the word and say «два электрона, как у гелия». |
 | single / double / triple bond | **одинарная / двойная / тройная связь** | **одинарная**, not *одиночная* — a real and common mistake, and one reason *одиночный* could not be the loner word. |
@@ -380,7 +380,7 @@ difference is the whole reason it could not calque any of the five.
 |---|---|---|---|---|---|---|
 | Formal term — glossary, cheat sheet, explaining | unpaired electron | ungepaartes Elektron | électron célibataire | electrón desapareado | elettrone spaiato | **неспаренный электрон** |
 | Game word — hub, coach, hints | loner | Einzelelektron | solitaire | impar | dispari | **одиночка** |
-| Short label on a dot | loner | einzeln | seul | impar | dispari | **одиночка** |
+| Short label on a dot | loner | einzeln | seul | impar | dispari | **соло** (see below: *одиночка* does not fit the canvas) |
 
 **The four words Russian could not use, and why.**
 
@@ -419,10 +419,32 @@ difference is the whole reason it could not calque any of the five.
   (*камера-одиночка*, *лодка-одиночка*), so it carries "the one that is on its
   own" without dragging in a personality. That is exactly the distinction German
   could not find and had to abandon *Einzelgänger* over.
-- It is **short enough for a dot label** at eight characters — between German's
-  *einzeln* (7) and Spanish's *impar* (5) — and it needs no separate short form,
-  so Russian follows Spanish and Italian in using one word in both roles rather
-  than German's two.
+- It **counts and declines**, which the canvas label cannot make use of but
+  every coach line can.
+
+**The dot label is *соло*, not *одиночка*, and that was measured rather than
+preferred.** The canvas centres the label under its dot, and in H2 the two dots
+sit 50 px apart. At `text-[9px]` uppercase, *одиночка* renders **59 px** and the
+two labels overlap by 9 px — on screen it reads «ОДИНОЧКАДИНОЧКА». The other
+five locales fit because their words are short: *loner* 32 px, *impar* 33,
+*dispari* 40, *einzeln* 41. The real budget is about **44 px**, and Russian has
+no transparent one-word rendering of the concept inside it: *непарный* is 59,
+*без пары* 51, *не в паре* 52, and *одинок* is exactly 44 but collides with
+*одинокая пара*, which is the word this glossary already rejected.
+
+So Russian does what German did — a different, shorter word on the dot —
+rather than what Spanish and Italian did. **Соло** is 28 px, it is a word every
+Russian fourteen-year-old uses (*играть соло*), it means precisely "on its own",
+and unlike every adjective available it collides with no chemistry term. The
+cost is that it shares no root with *одиночка* the way *einzeln* shares one with
+*Einzelelektron*, so the label teaches the concept rather than the word; the
+coach line and the glossary carry the game word, and the label is a Level 1
+scaffold the brief removes at Level 2 anyway.
+
+**Worth writing down for the next non-Latin locale:** a dot label must render at
+**44 px or less at `text-[9px]` uppercase**. Measure it in the browser before
+choosing the word — the unit gates cannot see this, and the two labels overlap
+rather than wrap, so it is invisible in any text-only check.
 
 **Rated low, and flagged for a native speaker and a chemistry teacher.** It is a
 coinage in the sense that no Russian textbook uses it for this; it is not a

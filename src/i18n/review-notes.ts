@@ -1647,7 +1647,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.ui.lonerLabel',
       confidence: 'low',
-      note: 'The one-word label beside a pulsing dot at Level 1, off from Level 2. Russian reuses the game word rather than shortening it, as Spanish and Italian do and unlike German, which has a separate adjective. Eight characters - check it fits the canvas.',
+      note: '**Not the game word, and that is a measured constraint rather than a preference.** The canvas centres this label under its dot, and in H2 the two dots are 50 px apart; at text-[9px] uppercase «одиночка» renders 59 px and the two labels overlap on screen as «ОДИНОЧКАДИНОЧКА». The budget is about 44 px (loner 32, impar 33, dispari 40, einzeln 41) and no transparent Russian one-word rendering fits it: непарный 59, без пары 51, не в паре 52, одинок 44 but colliding with «одинокая пара». So Russian follows German in giving the dot its own shorter word. «Соло» is 28 px, every fourteen-year-old knows it, it means exactly "on its own", and it collides with no chemistry term - but it shares no root with «одиночка», so the label teaches the concept rather than the word. Found by looking at the rendered canvas; no unit gate can see it.',
     },
   ],
 };
@@ -2181,25 +2181,30 @@ Ranked, honestly:
    they teach, because teaching English naming rules in Russian would be worse
    than useless. That is the right call and it is beyond what a translator
    should decide alone.
-3. **"Дублет"** for the duet. Russian school chemistry has no settled word at
+3. **"Соло"** as the canvas dot label, which is a *third* word beside the game
+   word and the formal term where every other locale has two. It is not a
+   translation call: «одиночка» renders 59 px against a 44 px budget and the
+   two labels overlap on screen. Worth a native speaker's opinion on whether a
+   loanword is the right register for the one word a Level 1 player sees most.
+4. **"Дублет"** for the duet. Russian school chemistry has no settled word at
    all, so this is a coinage in use if not in vocabulary. A teacher may prefer
    to drop the word and say "два электрона, как у гелия".
-4. **Register in the playful copy.** Overlay messages, empty states and the
+5. **Register in the playful copy.** Overlay messages, empty states and the
    marketing hero are where a non-native translation reads as "correct but
    flat". None of it is wrong; some of it may be charmless. "Партия готова!"
    for "Batch complete!" is the weakest line in the file.
-5. **Game titles.** Six product-naming calls, no strong opinion behind any of
+6. **Game titles.** Six product-naming calls, no strong opinion behind any of
    them. «Весы реакций» and «Охота на формулы» move furthest from the English;
    «Нейтрализуй!» is the one most likely to be judged an instruction rather
    than a name.
-6. **"Окислительно-восстановительная"** as a reaction badge. Thirty characters,
+7. **"Окислительно-восстановительная"** as a reaction badge. Thirty characters,
    CSS-uppercased, in a fixed-width control. It is the right word and it may
    not fit.
-7. **ты vs вы.** Decided as *ты* and applied to every imperative in two
+8. **ты vs вы.** Decided as *ты* and applied to every imperative in two
    catalogues and the dictionary. Less contentious than French's *tu* — Russian
    educational games for teenagers use *ты* as a matter of course — but it is
    still a decision, and reversing it is mechanical and total.
-8. **The privacy page.** Legally unreviewed, describing Australian law, and
+9. **The privacy page.** Legally unreviewed, describing Australian law, and
    silent on Russian personal-data law, which has requirements of its own.
 `,
 };

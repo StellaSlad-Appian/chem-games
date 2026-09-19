@@ -14,6 +14,7 @@ import { de } from '../src/i18n/dictionaries/de';
 import { fr } from '../src/i18n/dictionaries/fr';
 import { es } from '../src/i18n/dictionaries/es';
 import { it } from '../src/i18n/dictionaries/it';
+import { ru } from '../src/i18n/dictionaries/ru';
 import { LOCALE_COOKIE } from '../src/i18n/config';
 import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
 import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
@@ -112,7 +113,7 @@ test.describe('hreflang alternates', () => {
       .evaluateAll((links) => links.map((link) => link.getAttribute('hreflang')));
 
     expect(hreflangs).toEqual(
-      expect.arrayContaining(['en', 'de', 'fr', 'es', 'it', 'x-default'])
+      expect.arrayContaining(['en', 'de', 'fr', 'es', 'it', 'ru', 'x-default'])
     );
   });
 
@@ -1157,5 +1158,318 @@ test.describe('Italian rendering: La bilancia degli atomi', () => {
 
     await expect(page.getByTestId('round-complete')).toContainText(balancerIt.success.label);
     await expect(page.getByRole('button', { name: balancerIt.ui.nextReaction })).toBeVisible();
+  });
+});
+
+
+// ---------------------------------------------------------------------------
+// Russian — the first locale written in anything but the Latin alphabet
+// ---------------------------------------------------------------------------
+
+test.describe('Russian negotiation and routing', () => {
+  test('a Russian browser is sent to the Russian site', async ({ browser }) => {
+    const context = await browser.newContext({ locale: 'ru-RU' });
+    const page = await context.newPage();
+    await page.goto('/games');
+
+    await expect(page).toHaveURL(/\/ru\/games$/);
+    await expect(page.getByRole('heading', { level: 1, name: ru.gamesHub.heading })).toBeVisible();
+    expect(await htmlLang(page)).toBe('ru');
+
+    await context.close();
+  });
+
+  test('a regional variant resolves to its base language', async ({ browser }) => {
+    const context = await browser.newContext({ locale: 'ru-BY' });
+    const page = await context.newPage();
+    await page.goto('/cheat-sheets');
+    await expect(page).toHaveURL(/\/ru\/cheat-sheets$/);
+    await context.close();
+  });
+
+  test('an unprefixed URL redirects and the switcher remembers Russian', async ({ page }) => {
+    await page.goto(path('/games'));
+    await (await languageSwitcher(page, en.language.label)).selectOption('ru');
+    await expect(page).toHaveURL(/\/ru\/games$/);
+
+    // A bookmark, a shared link, or just typing the bare domain.
+    await page.goto('/cheat-sheets');
+    await expect(page).toHaveURL(/\/ru\/cheat-sheets$/);
+  });
+
+  test('html lang is set on a game page too, not just the marketing pages', async ({ page }) => {
+    await page.goto(path('/games/reaction-balancer', 'ru'));
+    await expect(page.locator('main.game-shell')).toBeVisible();
+    expect(await htmlLang(page)).toBe('ru');
+  });
+});
+
+test.describe('Russian fonts', () => {
+  // The half of the non-Latin preparation that only a browser can check.
+  // `src/i18n/fonts.test.ts` asserts the map and the CSS agree; it cannot see
+  // whether the <link> is actually emitted, or whether a Latin page picked up
+  // a request it has no glyph to draw from. Both failures are silent: a font
+  // with no glyph falls back rather than erroring.
+  test('a Russian page requests the Cyrillic faces and an English page does not', async ({
+    page,
+  }) => {
+    const cyrillic = 'link[rel="stylesheet"][href*="family=Oswald"]';
+
+    await page.goto(path('/games', 'ru'));
+    await expect(page.locator(cyrillic)).toHaveCount(1);
+    await expect(page.locator(cyrillic)).toHaveAttribute('href', /family=Manrope/);
+
+    await page.goto(path('/games'));
+    await expect(page.locator(cyrillic)).toHaveCount(0);
+  });
+
+  test('a Russian heading is drawn in Oswald, not in a fallback', async ({ page }) => {
+    // The failure this catches is the one the README calls out: Bebas Neue is
+    // a *condensed all-caps* face with no Cyrillic, so a Russian heading in it
+    // renders in bare `sans-serif` at a completely different width, and the
+    // layout tuned around the design breaks. Nothing throws.
+    await page.goto(path('/games', 'ru'));
+    const heading = page.getByRole('heading', { level: 1, name: ru.gamesHub.heading });
+    await expect(heading).toBeVisible();
+
+    await page.evaluate(() => document.fonts.ready);
+    const drawnInOswald = await page.evaluate(
+      () =>
+        [...document.fonts].some(
+          (face) => face.family.includes('Oswald') && face.status === 'loaded'
+        ) && getComputedStyle(document.querySelector('h1')!).fontFamily.startsWith('Oswald')
+    );
+    expect(drawnInOswald).toBe(true);
+  });
+});
+
+test.describe('Russian rendering', () => {
+  test('the hub', async ({ page }) => {
+    await page.goto(path('/games', 'ru'));
+    await expect(page.getByRole('heading', { level: 1, name: ru.gamesHub.heading })).toBeVisible();
+    await expect(page.getByText(ru.gamesHub.intro)).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: new RegExp(ru.gamesHub.balancerTitle) })
+    ).toBeVisible();
+  });
+
+  test('a game, including its instructions modal', async ({ page }) => {
+    await page.goto(path('/games/acid-classification', 'ru'));
+    await expect(page.locator('main.game-shell')).toBeVisible();
+
+    await expect(page.getByText(ru.games.acidClassification.subtitle)).toBeVisible();
+    // «Основание», never «база» — the one English–Russian false friend in the
+    // core chemistry vocabulary, and the only locale where this key is a real
+    // translation rather than an identical-by-design exemption.
+    await expect(page.getByRole('button', { name: ru.chemistry.base, exact: true })).toBeVisible();
+    expect(ru.chemistry.base).not.toContain('аза');
+
+    await page.locator('footer').getByTitle(ru.games.shared.howToPlay).click();
+    await expect(
+      page.getByRole('heading', { name: ru.games.acidClassification.instructionsTitle })
+    ).toBeVisible();
+    await page.getByRole('button', { name: ru.games.shared.gotIt }).click();
+  });
+
+  test('the cheat-sheet index, including its category and year-level labels', async ({ page }) => {
+    await page.goto(path('/cheat-sheets', 'ru'));
+    await expect(
+      page.getByRole('heading', { level: 1, name: ru.cheatSheets.heading })
+    ).toBeVisible();
+    await expect(page.getByText(ru.cheatSheetCategories.Fundamentals).first()).toBeVisible();
+    await expect(page.getByText(ru.yearLevels['Year 9'], { exact: true }).first()).toBeVisible();
+    // Twelve sheets selects the `many` category in Russian, which is the form
+    // English does not have and the reason the plural system was rebuilt.
+    await expect(page.getByText(ru.cheatSheets.count.many.replace('{count}', '12'))).toBeVisible();
+  });
+
+  test('a cheat sheet, with its formulae left untranslated', async ({ page }) => {
+    await page.goto(path('/cheat-sheets/acids-and-bases', 'ru'));
+
+    await expect(page.getByRole('heading', { level: 1, name: 'Кислоты и основания' })).toBeVisible();
+    await expect(page.getByText(ru.cheatSheets.keyConcepts)).toBeVisible();
+    await expect(page.getByText(ru.cheatSheets.watchOutFor)).toBeVisible();
+
+    // HCl is «соляная кислота», the school name for the solution, not the
+    // systematic «хлороводородная» — the same distinction German draws.
+    await expect(page.getByText('Соляная кислота (сильная)')).toBeVisible();
+    // …while the formulae they label stay Latin, as Russian chemistry writes them.
+    await expect(page.locator('body')).toContainText('NaOH');
+    await expect(page.locator('body')).toContainText('CH3COOH');
+  });
+
+  test('the Lewis cheat sheet keeps all four sections in step', async ({ page }) => {
+    await page.goto(path('/cheat-sheets/lewis-structures', 'ru'));
+
+    await expect(page.getByRole('heading', { level: 1, name: 'Формулы Льюиса' })).toBeVisible();
+    for (const heading of [
+      'Самое нужное для 9 класса',
+      'Пять шагов',
+      'От формулы Льюиса к форме молекулы',
+      'Исключения из октета',
+    ]) {
+      await expect(page.getByRole('heading', { name: heading })).toBeVisible();
+    }
+    await expect(page.locator('body')).not.toContainText('Exceptions to the octet');
+    // Decimal comma, in the one place on the site where a number sits in prose
+    // next to formulae that keep their own notation.
+    await expect(page.locator('body')).toContainText('109,5°');
+  });
+
+  test('the game overlay', async ({ page }) => {
+    await openGame(page, 'reaction-balancer', { locale: 'ru' });
+
+    await page.locator('footer').getByTitle(ru.games.shared.pause).click();
+    const dialog = page.getByRole('dialog', { name: ru.games.overlay.pausedTitle });
+    await expect(dialog).toBeVisible();
+    // The count string Italian got wrong, at the count that breaks the naive
+    // wording: «Верно: 0», not «0 верных».
+    await expect(dialog).toContainText(ru.games.overlay.statRoundValue.replace('{count}', '0'));
+    await expect(dialog.getByRole('link', { name: ru.games.overlay.quitToHub })).toHaveAttribute(
+      'href',
+      '/ru/games'
+    );
+  });
+
+  test('the sign-in page renders in Russian and links stay prefixed', async ({ page }) => {
+    await page.goto(path('/auth', 'ru'));
+
+    await expect(page.getByRole('heading', { name: ru.auth.loginTitle })).toBeVisible();
+    await expect(page.getByLabel(ru.auth.email)).toBeVisible();
+    await expect(page.getByRole('link', { name: ru.auth.backToGames })).toHaveAttribute(
+      'href',
+      '/ru'
+    );
+  });
+
+  test('the leaderboards page renders in Russian', async ({ page }) => {
+    await page.goto(path('/leaderboards', 'ru'));
+    await expect(
+      page.getByRole('heading', { level: 1, name: ru.leaderboards.heading })
+    ).toBeVisible();
+  });
+
+  test('the privacy page dates in Russian, with no doubled full stop', async ({ page }) => {
+    // Found by looking: Russian's long date format ends in the abbreviation
+    // «г.», so a sentence that adds its own full stop renders «…2026 г..».
+    await page.goto(path('/privacy', 'ru'));
+    const body = page.locator('body');
+    await expect(body).toContainText('сентября 2026');
+    await expect(body).not.toContainText('г..');
+    await expect(body).not.toContainText('September');
+  });
+});
+
+const lewisRu = lewisMessages(ru, 'ru');
+const balancerRu = reactionBalancerMessages(ru, 'ru');
+
+test.describe('Russian rendering: Делись и заполняй', () => {
+  test('the header, the coach and the canvas all name the molecule in Russian', async ({
+    page,
+  }) => {
+    await openGame(page, 'lewis-structures', { locale: 'ru' });
+    await expect(page).toHaveURL(/\/ru\/games\/lewis-structures$/);
+    expect(await htmlLang(page)).toBe('ru');
+
+    // Like Italian and German and unlike French and Spanish, H2 is plain
+    // «водород» — Russian school chemistry does not teach «диводород» at all.
+    // Note the header is «Собери: {name}» rather than «Собери {name}»: the
+    // overlay stores nominatives, and the accusative of «сера» is not the
+    // nominative, so the colon is what keeps every molecule grammatical.
+    await expect(page.getByText(lewisRu.header.build('водород', 'H2'))).toBeVisible();
+    await expect(page.getByText(lewisRu.header.progress(1, 3))).toBeVisible();
+    // The game word for an unpaired outer electron. Russian uses «одиночка» —
+    // NOT «свободный» (already a lone pair *and* the delocalised electrons),
+    // not «одинокий» (the calque of *lone pair*) and not «одиночный» (one
+    // suffix from «одинарная связь»). docs/i18n/glossary-ru.md § The "loner".
+    await expect(page.getByTestId('coach-panel')).toContainText('одиночк');
+
+    await expect(page.getByLabel(lewisRu.ui.canvasLabel('водород'))).toBeVisible();
+  });
+
+  test('the instructions modal and its glossary are Russian', async ({ page }) => {
+    await openGame(page, 'lewis-structures', { locale: 'ru', showLewisIntro: true });
+
+    await expect(page.getByRole('heading', { name: lewisRu.instructions.title })).toBeVisible();
+    await expect(page.getByText(lewisRu.instructions.lead)).toBeVisible();
+    await expect(page.getByText(lewisRu.instructions.glossaryTitle)).toBeVisible();
+
+    // Tap-to-explain, on a Cyrillic word. This could not have worked before
+    // the matcher went Unicode: `\b` is defined against `[A-Za-z0-9_]`, so
+    // `/\bнеподелённая\b/` matches nothing at all and every chip on the
+    // Russian site would simply never have appeared, with nothing in the
+    // console. README § Preparing a non-Latin locale.
+    await page.getByRole('button', { name: 'неподелённая пара' }).first().click();
+    await expect(page.getByRole('tooltip')).toContainText('не делятся');
+
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('tooltip')).toBeHidden();
+
+    await page.getByRole('button', { name: ru.games.shared.gotIt }).click();
+    await expect(page.getByRole('heading', { name: lewisRu.instructions.title })).toBeHidden();
+  });
+
+  test('a shared pair announces itself in Russian and the round locks', async ({ page }) => {
+    await openGame(page, 'lewis-structures', { locale: 'ru' });
+    await waitForHydration(page);
+
+    const loner = (atomId: string) =>
+      page
+        .locator(`[data-atom-id="${atomId}"]`)
+        .getByRole('button', { name: /одиночка \d+ из \d+/ })
+        .first();
+
+    await loner('a0').click();
+    await loner('a1').click();
+
+    await expect(page.getByTestId('round-complete')).toContainText(
+      lewisRu.success.round('Водород', 'H-H')
+    );
+    await expect(page.getByRole('button', { name: lewisRu.ui.nextMolecule })).toBeVisible();
+  });
+});
+
+test.describe('Russian rendering: Весы реакций', () => {
+  test('the ledger, the cards and the coach are Russian, and the equation is not', async ({
+    page,
+  }) => {
+    await openGame(page, 'reaction-balancer', { locale: 'ru' });
+    await expect(page).toHaveURL(/\/ru\/games\/reaction-balancer$/);
+
+    await expect(page.getByText(balancerRu.header.balance('Синтез воды'))).toBeVisible();
+
+    // Element names in the ledger come from the chemistry-names overlay.
+    const oxygenRow = page.locator('[data-testid="ledger-row"][data-element="O"]');
+    await expect(oxygenRow).toContainText('Кислород');
+    // The count-agreement string, at the count that breaks the naive wording.
+    // «не хватает 1» would be right and «не хватает 2» would want a different
+    // case, so the numeral goes last and governs nothing.
+    await expect(oxygenRow).toContainText(balancerRu.ledger.needsMore(1, 'right'));
+    // Case government, visible as behaviour. English's "Which compound with
+    // {element}?" needs the instrumental in Russian and the overlay has only
+    // the nominative, so the coach uses a который-clause instead.
+    await expect(page.getByTestId('coach-panel')).toContainText(
+      balancerRu.coach.imbalance('Кислород', 2, 1)
+    );
+
+    // Species names on the cards come from the same overlay…
+    await expect(
+      page.getByLabel(balancerRu.card.coefficient('Вода', 'H2O'), { exact: true })
+    ).toBeVisible();
+    // …and the formulae on them are international notation, untouched.
+    await expect(page.locator('[data-testid="compound-card"][data-formula="H2O"]')).toBeVisible();
+  });
+
+  test('balancing it through announces and locks in Russian', async ({ page }) => {
+    await openGame(page, 'reaction-balancer', { locale: 'ru' });
+    await waitForHydration(page);
+
+    const card = (formula: string) =>
+      page.locator(`[data-testid="compound-card"][data-formula="${formula}"]`);
+    await card('H2O').getByRole('button', { name: balancerRu.card.increase('Вода') }).click();
+    await card('H2').getByRole('button', { name: balancerRu.card.increase('Водород') }).click();
+
+    await expect(page.getByTestId('round-complete')).toContainText(balancerRu.success.label);
+    await expect(page.getByRole('button', { name: balancerRu.ui.nextReaction })).toBeVisible();
   });
 });
