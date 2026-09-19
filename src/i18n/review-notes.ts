@@ -251,14 +251,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Chemie-Sortierer" is a coinage for "Chemical Classifier". Understandable, but check it does not sound like a machine for sorting chemicals.',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'medium',
-      note: 'German mirrors English\'s two tiers rather than picking one word: **"ungepaartes Elektron"** is the formal term (glossary, cheat sheet, prose), **"Einzelelektron"** is the game word (hub line, coach, hints, canvas), and **"einzeln"** is the short label on a dot. "Einzelelektron" is a real chemistry compound noun, transparent to a 14-year-old, and unambiguously about an electron. **It replaced "Einzelgänger", which was rejected:** that is a word for a *person* (a lone wolf), so it reads as cute rather than chemical, and German has no playful register for this the way English does for "loner". The remaining risk is register, not accuracy: a teacher may want the textbook term throughout.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"ungepaartes Elektron"** — the term fixed in docs/i18n/glossary-de.md, and since 2026-09-19 the *only* name the game gives the concept. The two-tier scheme is gone: the game word "Einzelelektron" and the short dot label "einzeln" were both dropped, and the textbook term now runs through the hub line, every coach line, every hint, the glossary and the canvas legend. **Re-rated low-risk from medium**, and the reason is not confidence creep: the old rating was about a *coinage* the project had invented, and there is no longer a coinage to rate — this is the phrase a German textbook prints. The rejected nickname and the argument against "Einzelgänger" are kept in docs/i18n/glossary-de.md so nobody re-proposes them. What a reviewer should check is inflection rather than vocabulary: the phrase is neuter and both words decline (ein ungepaartes Elektron / einem ungepaarten Elektron / zwei ungepaarte Elektronen), and the five forms the copy actually uses are listed in `glossary.unpairedElectron.matches`.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'medium',
-      note: 'The label printed on a pulsing dot at Level 1 (off from Level 2 — the scaffold is meant to be removed). "einzeln" rather than the full "Einzelelektron" because it has to fit beside a dot: it is the adjective, and the noun it abbreviates is on screen in the coach line and in the glossary. Check it reads as "on its own" rather than "individually" in context.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "ungepaartes Elektron", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. That is what makes the full phrase possible. Measured in the page at `text-[9px]` uppercase, "ungepaartes Elektron" is **125 px** where a per-dot label had about 44 px (the dots sit 50 px apart), so no abbreviation of it could have fitted — the longest single word, *ungepaartes*, is still 72 px. **Re-rated from medium**: it is the same glossary term as the entry above, in a position with no length limit. Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'games.lewisStructures.glossary.duet',
@@ -462,7 +462,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.coach',
       confidence: 'medium',
-      note: 'Almost every line here opens "{atom} : …". That is the article device again: "L\'oxygène a encore 2 solitaires" needs an article the placeholder cannot supply, and a bare "Oxygène a encore…" is not French. A name followed by a colon is idiomatic in a UI and works for every substitution. Worth a native read for rhythm — it is correct, but it is a repeated shape.',
+      note: 'Almost every line here opens "{atom} : …". That is the article device again: "L\'oxygène a encore 2 électrons célibataires" needs an article the placeholder cannot supply, and a bare "Oxygène a encore…" is not French. A name followed by a colon is idiomatic in a UI and works for every substitution. Worth a native read for rhythm — it is correct, but it is a repeated shape.',
     },
 
     // -------------------------------------------------------------- medium --
@@ -579,14 +579,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'Unlike German, this does not coin a name for the classifier: it reuses the game\'s own title ("Comment jouer : Acide ou base ?"), which avoids the "sounds like a machine" problem "Chemie-Sortierer" ran into.',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: 'French gets its own two-tier pair rather than calquing English or German: **"électron célibataire"** is the formal term (glossary, cheat sheet, prose), **"solitaire"** is the game word (hub line, coach, hints, canvas), and **"seul"** is the short label on a dot. The interesting difference from German is that French\'s *formal* term is already the vivid one — *célibataire* is what a French textbook says about a radical — so *solitaire* had to be the second tier rather than the first. **Rejected: "célibataire" as the game word** (collapses the two tiers the game is built on, and the scaffold stops being a scaffold), **"orphelin"** (a word for a child, cute rather than chemical — the same objection German raised against "Einzelgänger"), **"solo"** (right register, too slangy, and says nothing about pairing) and **"dépareillé"** (the best idea of the four — it is the everyday word for "not part of a matching pair" — but it does not nominalise, and the coach lines need a noun). The risk is register, not accuracy: a teacher may want *célibataire* throughout and read *solitaire* as a sloppy synonym rather than a deliberate second tier. If it changes, the edit touches every line of this game.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"électron célibataire"** — the term fixed in docs/i18n/glossary-fr.md, and since 2026-09-19 the *only* name the game gives the concept. The game word "solitaire" and the dot label "seul" were both dropped. French loses least of the six by this change and arguably gains: its formal term was always the vivid one — *célibataire* is what a French textbook says about a radical — so the second tier had been the weaker half of the pair from the start, and the register worry that held this row at **low** (a teacher reading *solitaire* as sloppiness) is now gone entirely. **Re-rated from low.** The rejected candidates (orphelin, solo, dépareillé) stay recorded in docs/i18n/glossary-fr.md. One thing that changed underfoot and is worth knowing: the tap-to-explain matcher now uses `\\p{L}` lookarounds instead of an ASCII `\\b`, so `électron célibataire` is usable as a match word in full — the constraint that once forced French phrases off *électron* onto a later word no longer applies here.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'low',
-      note: 'The label printed on a pulsing dot at Level 1 (off from Level 2 — the scaffold is meant to be removed). "seul" rather than the full "solitaire" because it has to fit beside a dot: four characters, and it is the adjective of the same idea. Check it reads as "on its own" rather than "only" in context.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "électron célibataire", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. Measured in the page at `text-[9px]` uppercase, "électron célibataire" is **116 px** where a per-dot label had about 44 px (the dots sit 50 px apart); the longest single word, *célibataire*, is 63 px, so letting it wrap would not have saved it either. **Re-rated from low.** Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'privacy',
@@ -770,7 +770,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.glossary.lonePair',
       confidence: 'high',
-      note: '"par solitario" is the Spanish school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it is unavailable as the game\'s word for a single unpaired electron — see games.lewisStructures.glossary.loner. The formal alternative *par no enlazante* is glossed once where the Lewis sheet defines the idea and is not used as a second name in running text.',
+      note: '"par solitario" is the Spanish school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it can never name a single unpaired electron anywhere in this game — see games.lewisStructures.glossary.unpairedElectron. That constraint outlived the game word it originally decided, and still binds any new Spanish wording near this term. The formal alternative *par no enlazante* is glossed once where the Lewis sheet defines the idea and is not used as a second name in running text.',
     },
     {
       prefix: 'games.lewisStructures.glossary.sharedPair',
@@ -917,14 +917,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"¡Tanda completa!" for "Batch complete!". *Tanda* is the right word for a batch, but as a two-word celebration it may read as flat rather than triumphant. The same problem German hit with "Charge fertig!" and French with "Série terminée !".',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: '**Spanish gets its own two-tier pair, and one option was ruled out on chemistry rather than taste.** "electrón desapareado" is the formal term (glossary, cheat sheet, prose), **"impar"** is the game word (hub line, coach, hints, canvas), and *impar* is also the label on a dot. **"solitario" — the French answer — is unavailable**, because Spanish already calls a lone pair a *par solitario*: in the one game that teaches the difference between one unpaired electron and two that stay together, "quedan 2 solitarios" and "quedan 2 pares solitarios" would be adjacent coach lines differing by one word and meaning opposite things. *Impar* is exactly the chemistry ("not one of a pair"), it nominalises (*un impar*, *los impares*), it is five ASCII characters, and it hands the game a root the other three languages do not have: *empareja los impares para formar pares*. **Rejected: "libre"** (*electrón libre* already means a delocalised electron, which the bonding sheet teaches on this same site), **"suelto"** (good, but the bare noun *los sueltos* is Spanish for loose change and the coach lines need the bare noun), **"soltero"** (the literal analogue of French\'s *célibataire*, but Spanish chemistry does not use it and it reads as a joke about bachelors) and **"desparejado"** (the best of them — the everyday word for an odd sock — but twelve characters is too long for a dot label and too heavy to repeat three times a sentence). The risk is register, not accuracy: *impar* is also the everyday word for an **odd number**, so a reader meeting it cold beside a dot may hear "number 3" rather than "unpaired". Check it with a real teenager. If it changes, the edit touches every line of this game.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"electrón desapareado"** — the term fixed in docs/i18n/glossary-es.md, and since 2026-09-19 the *only* name the game gives the concept. The game word "impar", which was also the dot label, was dropped. **Re-rated from low**, and this row moves further than any other: what was rated low was specifically the risk that *impar* is the everyday word for an **odd number** and that a fourteen-year-old meeting it beside a pulsing dot would hear "number 3" before "unpaired". That risk is removed rather than mitigated, because the word is gone. **The collision warning behind the original choice is still true and still binds anything written near this term:** Spanish calls a lone pair a *par solitario*, so *solitario* can never name a single unpaired electron in this game, and *electrón libre* already means a delocalised electron. Both are recorded in docs/i18n/glossary-es.md. The remaining check is length, not sense: *electrón desapareado* is the longest of the six formal terms after Russian\'s, and it now appears in coach lines that previously carried a five-letter word.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'low',
-      note: 'The label printed on a pulsing dot at Level 1, off from Level 2 — the scaffold the brief removes on purpose. It is the **same word** as the game word, and that is a fact about Spanish rather than a shortcut: German shortened the noun *Einzelelektron* to the adjective *einzeln* and French shortened *solitaire* to *seul*, but in Spanish the game word already **is** the adjective (*electrón impar* → *impar*), so there is nothing to shorten to and a third word would invent a distinction Spanish does not make. Five characters. Check it reads as "odd one out" beside a single dot.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "electrón desapareado", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. This retires the Spanish-specific argument that used to live here — that Spanish had nothing to shorten to, because its game word already *was* the adjective — since nothing needs shortening any more. Measured in the page at `text-[9px]` uppercase, "electrón desapareado" is **126 px** where a per-dot label had about 44 px (the dots sit 50 px apart); the longest single word, *desapareado*, is 73 px. **Re-rated from low.** Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'privacy',
@@ -1113,7 +1113,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.glossary.lonePair',
       confidence: 'high',
-      note: '"doppietto solitario" is the Italian school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it is unavailable as the game’s word for a single unpaired electron - see games.lewisStructures.glossary.loner. Note the collision does not depend on which phrasing a textbook prints: the other common one, *coppia solitaria*, uses the same adjective. *Doppietto libero* and *doppietto non condiviso* are also in circulation, and the first of those is a second reason *libero* is unavailable.',
+      note: '"doppietto solitario" is the Italian school term and is glossary-fixed. **This entry is load-bearing well beyond itself:** because *solitario* is already taken by the lone pair, it can never name a single unpaired electron anywhere in this game - see games.lewisStructures.glossary.unpairedElectron. That constraint outlived the game word it originally decided, and still binds any new Italian wording near this term. Note the collision does not depend on which phrasing a textbook prints: the other common one, *coppia solitaria*, uses the same adjective. *Doppietto libero* and *doppietto non condiviso* are also in circulation, and the first of those is a second reason *libero* is unavailable.',
     },
     {
       prefix: 'games.lewisStructures.glossary.sharedPair',
@@ -1138,7 +1138,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures.coach',
       confidence: 'medium',
-      note: 'Almost every line here opens "{atom}: ...". That is the article device again: "L’ossigeno ha ancora 2 dispari" needs an article the placeholder cannot supply, and a bare "Ossigeno ha ancora..." is not Italian. A name followed by a colon is idiomatic in a UI and works for every substitution. Note coach.sameGroup also became a colon label for the same reason, where the Spanish version left the name as a bare subject. Worth a native read for rhythm - it is correct, but it is a repeated shape.',
+      note: 'Almost every line here opens "{atom}: ...". That is the article device again: "L’ossigeno ha ancora 2 elettroni spaiati" needs an article the placeholder cannot supply, and a bare "Ossigeno ha ancora..." is not Italian. A name followed by a colon is idiomatic in a UI and works for every substitution. Note coach.sameGroup also became a colon label for the same reason, where the Spanish version left the name as a bare subject. Worth a native read for rhythm - it is correct, but it is a repeated shape.',
     },
     {
       prefix: 'games.lewisStructures.inspect.classmate',
@@ -1247,7 +1247,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'gamesHub.lewisTitle',
       confidence: 'low',
-      note: '"Condividi e completa" - GAMES.md asks for "a phrase that names the rule in that language", and two short imperatives do that. Runner-up "Accoppia e completa" names the *mechanic* (pairing the dispari) rather than the *rule* (sharing to fill a shell), which is a real argument for it; it was dropped because the rule is what the game teaches and the mechanic is what it shows. Rejected: "Condividi per completare" (calque; the purpose clause is clumsy) and "A due a due" (memorable, loses the filling half of the rule).',
+      note: '"Condividi e completa" - GAMES.md asks for "a phrase that names the rule in that language", and two short imperatives do that. Runner-up "Accoppia e completa" names the *mechanic* (pairing the unpaired electrons) rather than the *rule* (sharing to fill a shell), which is a real argument for it; it was dropped because the rule is what the game teaches and the mechanic is what it shows. Rejected: "Condividi per completare" (calque; the purpose clause is clumsy) and "A due a due" (memorable, loses the filling half of the rule).',
     },
     {
       prefix: 'gamesHub.bondsTitle',
@@ -1275,14 +1275,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Serie completata!" for "Batch complete!". Italian lab Italian for a batch is *lotto* or *partita*; neither is the celebratory register the English has, and *partita* is already this dictionary’s word for one run of a game. The same problem German hit with "Charge fertig!", French with "Serie terminee !" and Spanish with "Tanda completa!".',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: '**Italian gets its own two-tier pair, and three options were ruled out on chemistry rather than on taste.** "elettrone spaiato" is the formal term (glossary, cheat sheet, prose), **"dispari"** is the game word (hub line, coach, hints, canvas), and *dispari* is also the label on a dot. **"solitario" - the French answer - is unavailable**, because Italian already calls a lone pair a *doppietto solitario* (and *coppia solitaria*, same adjective): in the one game that teaches the difference between one unpaired electron and two that stay together, "restano 2 solitari" and "restano 2 doppietti solitari" would be adjacent coach lines differing by one word and meaning opposite things. **"libero" is unavailable twice over** (*doppietto libero* is also a lone pair, *elettroni liberi* are the delocalised ones the bonding sheet teaches), and **"singolo" is unavailable** because *legame singolo* is the single bond, taught three lines away in this same game. *Dispari* is exactly the chemistry (*dis-* + *pari*, "not one of a pair"), it is real usage for a radical, it nominalises (*un dispari*, *i dispari*), it is entirely ASCII, and it is **invariant** - which in a language where a flat count string cannot agree with its number is worth a great deal. **Rejected: "solo"** (four characters, and it would have fixed the dot-label width - but the bare plural *i soli* is Italian for "the suns" and the coach lines need the bare noun constantly), **"spaiato" as the game word** (that is the formal term, and using it everywhere would collapse the two tiers the game is built on; it is the closest call here, and it is the word to collapse onto if the owner decides Italian does not need two tiers), **"scompagnato"** (the everyday word for an odd sock, the best of the rejected ideas, but eleven characters) and **"celibe"** (the literal analogue of French’s *celibataire*, but Italian chemistry does not use it and it would read as a joke). The risk is register, not accuracy: *dispari* is also the everyday word for an **odd number**, and in Italian that is doubly salient because *pari o dispari* is a children’s game. Check it with a real teenager. If it changes, the edit touches every line of this game.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"elettrone spaiato"** — the term fixed in docs/i18n/glossary-it.md, and since 2026-09-19 the *only* name the game gives the concept. The game word "dispari", which was also the dot label, was dropped. **Re-rated from low.** The glossary note had already called *spaiato* "the closest call here, and the word to collapse onto if the owner decides Italian does not need two tiers" — that is exactly what has happened, so this is the outcome the Italian analysis predicted rather than a new decision. The register risk that held the row at low is removed with the word: *dispari* is also the everyday term for an odd number, doubly salient in Italian because *pari o dispari* is a children\'s game. **The three collisions that ruled out the alternatives are still true and still bind anything written near this term:** *doppietto solitario* and *doppietto libero* are both lone pairs, *elettroni liberi* are the delocalised ones, and *legame singolo* is the single bond taught three lines away in this same game. All are recorded in docs/i18n/glossary-it.md.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'low',
-      note: 'The label printed on a pulsing dot at Level 1, off from Level 2 - the scaffold the brief removes on purpose. It is the **same word** as the game word, and that is a fact about Italian rather than a shortcut: German shortened the noun *Einzelelektron* to the adjective *einzeln* and French shortened *solitaire* to *seul*, but in Italian the game word already **is** the adjective (*elettrone dispari* -> *dispari*), so there is nothing to shorten to. **The honest cost is width:** seven characters, which is the German (EINZELN) end of the range the pre-existing Lewis layout note describes, where French’s SEUL clears it and Spanish’s IMPAR sits between. That was weighed rather than discovered - the only shorter Italian candidate is *solo*, rejected above - and checked on screen at 360 px.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "elettrone spaiato", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. The width cost this row used to record honestly — seven characters, at the German end of the old range — is gone with the per-dot label. Measured in the page at `text-[9px]` uppercase, "elettrone spaiato" is **102 px**, the shortest of the six formal terms, but still more than twice the ~44 px a per-dot label had (the dots sit 50 px apart). **Re-rated from low.** Checked on screen at 360 px and on desktop.',
     },
     {
       prefix: 'privacy',
@@ -1460,7 +1460,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'games.lewisStructures',
       confidence: 'medium',
-      note: 'The whole game rests on "одиночка" - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет.',
+      note: 'The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет.',
     },
     {
       prefix: 'games.lewisStructures.instructions.keyboard',
@@ -1640,14 +1640,14 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Партия готова!" for "Batch complete!" - lab idiom, translated as lab idiom. This is the kind of line the German review rates low for exactly this reason.',
     },
     {
-      prefix: 'games.lewisStructures.glossary.loner',
-      confidence: 'low',
-      note: '**The word the whole of «Делись и заполняй» is built on.** Russian rules out four words the other locales could reach for: "свободный" is taken twice over (свободная электронная пара is a lone pair, свободные электроны are the delocalised ones in a metal - the trap Spanish hit with *libre* and Italian with *libero*); "одинокий" because "одинокая пара" circulates as a calque of *lone pair*, which is why Spanish rejected *solitario*; "одиночный" because it is one suffix from "одинарная связь", the single bond this same game teaches three levels later; and "непарный" - the true counterpart of *impar* and *dispari* - because it shares its root with the formal "неспаренный" and would collapse the two-tier scaffold into one word spelled twice. "Одиночка" is a noun, it declines and counts cleanly (одна одиночка / 2 одиночки / 5 одиночек), and Russian already applies it to things as well as people (камера-одиночка), which is the objection that killed German\'s "Einzelgänger". Accuracy is not the worry; register is. **A native speaker and a chemistry teacher should both rule on this**, and if it changes, the edit touches every line of the game.',
+      prefix: 'games.lewisStructures.glossary.unpairedElectron',
+      confidence: 'high',
+      note: '**"неспаренный электрон"** — the term fixed in docs/i18n/glossary-ru.md, and since 2026-09-19 the *only* name the game gives the concept. Both the game word «одиночка» and the separate canvas label «соло» were dropped, so Russian goes from three words for one idea to one. **Re-rated from low**, and this row moves the furthest of the thirty: what was rated low, and flagged for *both* a native speaker and a teacher, was whether a noun Russian also uses for a person (мать-одиночка) reads as chemical rather than cute. That question no longer exists. **The four collisions that ruled out the alternatives remain true and still bind anything written near this term:** *свободный* is taken twice over (*свободная электронная пара* is a lone pair, *свободные электроны* are the delocalised ones in a metal), *одинокая пара* circulates as a calque of *lone pair*, and *одиночный* is one suffix from *одинарная связь*, the single bond this game teaches three levels later. All are recorded in docs/i18n/glossary-ru.md. What a reviewer should check now is inflection, not vocabulary: both words decline, the count forms are 1 неспаренный электрон / 2 неспаренных электрона / 5 неспаренных электронов, and the eleven case forms the copy uses are listed in `glossary.unpairedElectron.matches` — more than any other locale carries, which is what the parity gate\'s `matches` exemption exists for.',
     },
     {
-      prefix: 'games.lewisStructures.ui.lonerLabel',
-      confidence: 'low',
-      note: '**Not the game word, and that is a measured constraint rather than a preference.** The canvas centres this label under its dot, and in H2 the two dots are 50 px apart; at text-[9px] uppercase «одиночка» renders 59 px and the two labels overlap on screen as «ОДИНОЧКАДИНОЧКА». The budget is about 44 px (loner 32, impar 33, dispari 40, einzeln 41) and no transparent Russian one-word rendering fits it: непарный 59, без пары 51, не в паре 52, одинок 44 but colliding with «одинокая пара». So Russian follows German in giving the dot its own shorter word. «Соло» is 28 px, every fourteen-year-old knows it, it means exactly "on its own", and it collides with no chemistry term - but it shares no root with «одиночка», so the label teaches the concept rather than the word. Found by looking at the rendered canvas; no unit gate can see it.',
+      prefix: 'games.lewisStructures.ui.unpairedLabel',
+      confidence: 'high',
+      note: 'The Level 1 vocabulary scaffold, off from Level 2. Since 2026-09-19 it carries the full formal term, "неспаренный электрон", and it is **no longer stamped beside every pulsing dot**: it is printed once in a legend above the board, next to one sample dot. **This retires the measurement that made Russian a special case.** The 44 px budget was real, but it was a constraint on repeating a label beside every dot 50 px from its neighbour — not a limit on how long the term may be; once the label is said once, the length stops mattering. Measured in the page at `text-[9px]` uppercase, "неспаренный электрон" is **134 px**, the widest of the six, and it now sits on a 312 px line at 360 px viewport with room to spare. Russian no longer needs a third word where the other locales have one. **Re-rated from low.** Checked on screen at 360 px and on desktop.',
     },
   ],
 };
@@ -1743,13 +1743,13 @@ Ranked, honestly:
 2. **Register in the playful copy.** Overlay messages, empty states and the
    marketing hero are where a non-native translation reads as "correct but
    flat". None of it is wrong; some of it may be charmless.
-3. **"Einzelelektron" / "einzeln".** The word Share to Fill is built on, in
-   every coach line, every hint and on the canvas. It replaced "Einzelgänger",
-   which was a word for a *person* and read as cute rather than chemical. The
-   split mirrors the English: "ungepaartes Elektron" is the formal term in the
-   glossary, "Einzelelektron" is the game word, "einzeln" is the dot label.
-   Accuracy is no longer the worry; register is. If a teacher wants the
-   textbook term throughout, the edit still touches every line of that game.
+3. **"ungepaartes Elektron".** *Closed on 2026-09-19.* Share to Fill used to
+   carry three words for one idea — the formal term, the game word
+   "Einzelelektron" and the dot label "einzeln". It now carries the textbook
+   term alone, everywhere including the canvas. The teacher question this
+   entry used to pose has been answered in the teacher's favour, so what is
+   left to review is German inflection in the coach lines rather than the
+   choice of word.
 4. **Game titles.** Four coinages now, no strong opinion behind any of them.
    "Teilen bis voll" is the weakest.
 5. **The privacy page.** Legally unreviewed, and describing Australian law.
@@ -1836,19 +1836,22 @@ programme reference, or none.
 
 Ranked, honestly:
 
-1. **tu vs. vous.** Not a word but a decision, and it is the one that touches
-   every other row. French school material often uses *vous*; I chose *tu*
-   because this is a game. If that is wrong, almost every imperative changes.
+1. **tu vs. vous.** *Closed on 2026-09-19: the owner confirmed informal **tu**.*
+   French school material often uses *vous*, so this was a real decision and
+   not an obvious one; it is settled now, and every imperative in the
+   dictionary and both catalogues is the *tu* form. No longer an open
+   question, kept here because it touches every other row.
 2. **The two naming sheets** (\`naming-compounds\`, \`organic-nomenclature\`). I
    changed what they teach, because teaching English naming rules in French
    would be worse than useless. That is the right call but it is beyond what a
    translator should decide alone.
-3. **"solitaire" / "seul".** The word Partage et complète is built on, in every
-   coach line, every hint and on the canvas. Accuracy is not the worry —
-   *électron célibataire* is genuinely the French term and *solitaire* is
-   genuinely adjacent to it. Register is: a teacher may want the textbook word
-   throughout and read the game word as sloppiness rather than as the second
-   tier the English design asks for.
+3. **"électron célibataire".** *Closed on 2026-09-19.* The game word
+   "solitaire" and the dot label "seul" are gone; the textbook term runs
+   through every coach line, every hint and the canvas legend. This is the
+   entry that asked whether a teacher would read the game word as sloppiness,
+   and the answer turned out to be that the question should not arise.
+   French loses least of the six locales here, because its formal term was
+   always the vivid one.
 4. **"astuce" for hint, and "antisèche" for cheat sheet.** Both are register
    calls about school French. *Astuce* exists because *indice* was unavailable —
    it is the French for a formula subscript, and using it for "hint" in the
@@ -1960,13 +1963,13 @@ Ranked, honestly:
    changed what they teach, because teaching English naming rules in Spanish
    would be worse than useless. That is the right call but it is beyond what a
    translator should decide alone.
-3. **"impar".** The word Comparte y completa is built on, in every coach line,
-   every hint and on the canvas. The *reason* for it is solid — *solitario* is
-   genuinely unavailable, because Spanish already calls a lone pair a *par
-   solitario*, and shipping both would have been a real pedagogical bug in the
-   one game that teaches the difference. What is uncertain is register: *impar*
-   is also the everyday word for an odd number, and a fourteen-year-old meeting
-   it beside a pulsing dot may hear "number 3" before "unpaired".
+3. **"electrón desapareado".** *Closed on 2026-09-19.* The game word "impar"
+   is gone and the textbook term runs through every coach line, every hint and
+   the canvas legend. The register doubt this entry recorded — that *impar* is
+   also the everyday word for an odd number, and a fourteen-year-old beside a
+   pulsing dot may hear "number 3" — is removed rather than mitigated. The
+   collision that made *solitario* unavailable (Spanish calls a lone pair a
+   *par solitario*) still holds for any future wording near this term.
 4. **The *di-* forms** (*dihidrógeno*, *dioxígeno*). Correct IUPAC Spanish, and
    they keep a distinction the balancer depends on, but Spanish school practice
    is less settled than French practice and a teacher may find them unusual.
@@ -2066,16 +2069,13 @@ Ranked, honestly:
    changed what they teach, because teaching English naming rules in Italian
    would be worse than useless. That is the right call but it is beyond what a
    translator should decide alone.
-2. **"dispari".** The word Condividi e completa is built on, in every coach line,
-   every hint and on the canvas. The *reason* for it is solid and it is stronger
-   than the Spanish case: three separate words are genuinely unavailable
-   (*solitario* and *libero* are both already lone pairs, *singolo* is the single
-   bond), and shipping any of them would have been a real pedagogical bug in the
-   one game that teaches those differences. What is uncertain is register:
-   *dispari* is also the everyday word for an odd number, and *pari o dispari* is
-   a children's game, so a fourteen-year-old meeting it beside a pulsing dot may
-   hear "number 3" before "unpaired". It is also seven characters on a dot label
-   that the layout note says overlaps beyond about four.
+2. **"elettrone spaiato".** *Closed on 2026-09-19.* The game word "dispari" is
+   gone and the textbook term runs through every coach line, every hint and the
+   canvas legend — which is precisely the collapse the Italian glossary note
+   named as the likely outcome. Both doubts this entry recorded are removed
+   with the word: the register risk (*pari o dispari* is a children's game) and
+   the dot-label width. The three collisions that ruled out *solitario*,
+   *libero* and *singolo* still hold for any future wording near this term.
 3. **The bare diatomic names** (*idrogeno* for H2, not *diidrogeno*). A
    deliberate divergence from French and Spanish, made because Italian school
    practice is what it is, and the one place a teacher's answer would change the
@@ -2167,25 +2167,25 @@ deciding whether Russian sheets should show a Russian curriculum reference
 
 Ranked, honestly:
 
-1. **"Одиночка".** The word the whole of «Делись и заполняй» is built on, in
-   every coach line, every hint and on the canvas. The *elimination* is
-   objective — свободный, одинокий, одиночный and непарный are each ruled out
-   for a stated reason, and three of the four are the same collisions Spanish
-   and Italian hit. What is not objective is whether a noun Russian also uses
-   for a person (мать-одиночка) reads as chemical rather than cute. That is the
-   argument German lost with *Einzelgänger*, and Russian's word is only
-   defensible because Russian applies the same noun to objects
-   (камера-одиночка, лодка-одиночка). **Rated low and flagged for both a native
-   speaker and a teacher.**
+1. **«неспаренный электрон».** *Closed on 2026-09-19.* Russian used to carry
+   three words for one idea — the formal term, the game word «одиночка» and the
+   canvas label «соло» — and now carries one. The question this entry was
+   flagged for (whether a noun Russian also uses for a person reads as chemical
+   rather than cute) no longer exists. The four collisions that ruled out
+   *свободный*, *одинокий*, *одиночный* and *непарный* still hold for any
+   future wording near this term. What is left to review is inflection: both
+   words decline, and the coach line counts 1 / 2 / 5 through three different
+   endings.
 2. **The two naming sheets** (\`naming-compounds\`, \`organic-nomenclature\`). I changed what
    they teach, because teaching English naming rules in Russian would be worse
    than useless. That is the right call and it is beyond what a translator
    should decide alone.
-3. **"Соло"** as the canvas dot label, which is a *third* word beside the game
-   word and the formal term where every other locale has two. It is not a
-   translation call: «одиночка» renders 59 px against a 44 px budget and the
-   two labels overlap on screen. Worth a native speaker's opinion on whether a
-   loanword is the right register for the one word a Level 1 player sees most.
+3. **The canvas label.** *Closed on 2026-09-19.* «Соло» is gone with the game
+   word. The 44 px budget that forced it was a constraint on stamping a label
+   beside every dot 50 px from its neighbour, not a limit on the term's length,
+   so the label is now printed once in a legend above the board and carries the
+   full «неспаренный электрон» (134 px) in comfort. Russian is no longer the
+   locale that needs an extra word.
 4. **"Дублет"** for the duet. Russian school chemistry has no settled word at
    all, so this is a coinage in use if not in vocabulary. A teacher may prefer
    to drop the word and say "два электрона, как у гелия".
@@ -2200,10 +2200,10 @@ Ranked, honestly:
 7. **"Окислительно-восстановительная"** as a reaction badge. Thirty characters,
    CSS-uppercased, in a fixed-width control. It is the right word and it may
    not fit.
-8. **ты vs вы.** Decided as *ты* and applied to every imperative in two
-   catalogues and the dictionary. Less contentious than French's *tu* — Russian
-   educational games for teenagers use *ты* as a matter of course — but it is
-   still a decision, and reversing it is mechanical and total.
+8. **ты vs вы.** *Closed on 2026-09-19: the owner confirmed informal **ты**.*
+   Applied to every imperative in two catalogues and the dictionary. It was
+   always less contentious than French's *tu* — Russian educational games for
+   teenagers use *ты* as a matter of course — and it is settled now.
 9. **The privacy page.** Legally unreviewed, describing Australian law, and
    silent on Russian personal-data law, which has requirements of its own.
 `,
