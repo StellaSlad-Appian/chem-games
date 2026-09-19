@@ -134,6 +134,8 @@ Nothing of it is built. A placeholder card used to sit on the games hub with a l
 
 ## 🚀 Roadmap
 
+Open work that is decided but not yet built, plus the decisions waiting on a human, is tracked in [`docs/TODO.md`](docs/TODO.md).
+
 ### 1. Complete the New Games
 
 Build Chemical Bonds, and remove or wire up its dead card on the games hub. The same attention applies as to the games already shipped: the interaction has to be meaningfully connected to the underlying chemistry rather than a generic mechanic with chemistry painted on.
