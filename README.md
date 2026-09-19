@@ -44,9 +44,17 @@ The project is built with **Next.js, React, TypeScript and Tailwind CSS**, with 
 
 ### Languages
 
-The site is multilingual. Every page is served under a language prefix (`/en/games`, `/de/games`), the reader's language is negotiated from the URL, a cookie set by the language switcher, or the browser's `Accept-Language`, and all text — UI, game instructions and coaching, cheat sheets, element and compound names — is translated, while chemical formulae, symbols and equations are never translated. English and German ship today; French, Spanish, Italian and Russian are planned.
+The site is multilingual. Every page is served under a language prefix (`/en/games`, `/de/games`), the reader's language is negotiated from the URL, a cookie set by the language switcher, or the browser's `Accept-Language`, and all text — UI, game instructions and coaching, cheat sheets, element and compound names — is translated, while chemical formulae, symbols and equations are never translated. English, German, French, Spanish and Italian ship today; Russian is planned.
 
 **Every game is built in every language from the same brief and tested in each of them**: the text must be correct and understandable at reading age ~12 in that language, the chemical names must follow that language's naming conventions, and the game's title must sound right in that culture. How the system works: `docs/i18n/README.md`; what that means for a new game: [`docs/i18n/GAMES.md`](docs/i18n/GAMES.md).
+
+### For Teachers
+
+Every page on the site is written for the student playing, with one exception. `/[lang]/teachers` is written for the adult deciding whether to use the site in a class: what the games cover and at what year level, which languages ship, what is stored about a student, and an honest account of where accessibility currently falls short. It is also where the site asks for teacher collaborators and where — and only where — money is mentioned.
+
+That last point is deliberate rather than incidental. The players are 14 to 16 and cannot legally complete a payment, so the funding ask lives on a page an adult has to go looking for and is never surfaced to a student through a popup, an interstitial or a timed prompt. The acceptance criteria, including that constraint, are in [`docs/TEACHERS_PAGE.md`](docs/TEACHERS_PAGE.md).
+
+Its copy lives in `src/i18n/teachers/`, not in the shared dictionary — see `docs/i18n/README.md` § "The dictionary is a budget, and a game will eat it" for why a page's prose must not ride along in every other page's payload.
 
 ---
 
@@ -96,25 +104,31 @@ The game combines chemical reasoning with action-game mechanics. Players need to
 
 ---
 
-## 🚧 Games in Development
-
 ### 4. Reaction Balancer ⚖️
 
-Reaction Balancer is being developed as a chemistry game focused on balancing chemical equations.
+Reaction Balancer is a chemistry game focused on balancing chemical equations.
 
-Players will adjust the coefficients of reactants and products so that the number of atoms of each element is equal on both sides of the equation.
+Players adjust the coefficients of reactants and products so that the number of atoms of each element is equal on both sides of the equation, with a running atom count on each side visible as they work.
 
-The goal is to turn equation balancing into an interactive problem-solving task rather than a worksheet-style exercise.
+The goal is to turn equation balancing into an interactive problem-solving task rather than a worksheet-style exercise, complementing the faster recognition-based games with a more deliberate reasoning activity.
 
-The game is intended to complement the faster recognition-based games with a more deliberate reasoning activity.
+### 5. Share to Fill 🔗
 
-### 5. Bond Builder 🔗
+Share to Fill is a Lewis-structure game: players pair unpaired outer electrons into bonds and lone pairs until every atom has a full outer shell.
 
-Bond Builder is being developed as an interactive game focused on constructing molecules and understanding chemical bonding.
+It is the game that most directly teaches the submicroscopic layer — what the notation on the page stands for — and, with Reaction Balancer, one of the two built keyboard-first.
 
-The game will explore interactions with atoms and bonds rather than relying only on text-based chemical formulas.
+---
 
-This game is also a potential early use case for richer molecular visualisation, allowing chemical structures to become interactive objects rather than static images.
+## 🚧 Games in Development
+
+### 6. Chemical Bonds 🧲
+
+Chemical Bonds is planned as an interactive game about how and why atoms bond, exploring interactions with atoms and bonds rather than relying only on text-based chemical formulas.
+
+It is also a potential early use case for richer molecular visualisation, allowing chemical structures to become interactive objects rather than static images.
+
+**A card for it already appears on the games hub and its link goes nowhere** (`/games/chemical-bonds` has no route and 404s). Either build the route or drop the card before the site is shown to a class; the For Teachers page names it as unbuilt so that nobody plans a lesson around it in the meantime.
 
 ---
 
@@ -122,7 +136,7 @@ This game is also a potential early use case for richer molecular visualisation,
 
 ### 1. Complete the New Games
 
-Continue development of Reaction Balancer and Bond Builder, with particular attention to making their interactions meaningfully connected to the underlying chemistry concepts.
+Build Chemical Bonds, and remove or wire up its dead card on the games hub. The same attention applies as to the games already shipped: the interaction has to be meaningfully connected to the underlying chemistry rather than a generic mechanic with chemistry painted on.
 
 ### 2. Player Progress & Analytics
 
@@ -188,6 +202,7 @@ Ensure you have **Node.js (v18+)** installed.
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public | The Supabase anon/publishable key. Row Level Security protects the data, not this key. |
    | `RESEND_API_KEY` | **Secret** | Resend API key used to email new feedback to the maintainer. If unset, feedback is still stored in Supabase but no email is sent. |
    | `FEEDBACK_RECIPIENT_EMAIL` | **Secret** | Address that receives feedback emails. There is no fallback: if unset, the email step is skipped. |
+   | `NEXT_PUBLIC_SUPPORT_URL` | Public | Link target for the support section of the For Teachers page — a hosted donation page (Ko-fi or similar). **If unset, that section is not rendered at all**, which is the intended state until an account exists. No payment form is ever embedded in this app. |
    | `FEEDBACK_HASH_SALT` | **Secret** | Random string (e.g. `openssl rand -hex 32`) used to salt the SHA-256 hash of the submitter's IP for feedback rate limiting. Raw IPs are never stored. If unset, a fallback salt is derived from the Supabase URL and a warning is logged; set a real value in production and keep it stable, otherwise existing hashes stop matching and limits reset. |
 
    Database migrations under `supabase/migrations/` are applied by hand in the Supabase SQL editor; run them in filename order when setting up a new project.

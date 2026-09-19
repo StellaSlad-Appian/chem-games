@@ -53,7 +53,9 @@ First-time setup on a new machine: `npm install` then `npx playwright install ch
 | Shared components | `src/components/games/shared/*.test.tsx`, `src/components/ui/MoleculeText.test.tsx` | Overlay copy and keyboard handling, header/timer/lives, formula typography. |
 | Game arenas | `src/components/games/<game>/GameArena.test.tsx` | Each game's interactive surface in isolation (the Neutralise one drives the real physics loop with fake timers). |
 | Game flows | `src/app/(gameplay)/games/<game>/page.test.tsx` | Whole game with a fake clock and a deterministic `Math.random`: scoring, quotas, level-up, game-over, pause, modals, session recording. |
-| End-to-end | `e2e/<game>.spec.ts`, `e2e/hub.spec.ts` | The same journeys in a real browser against the running app. No Supabase credentials needed. |
+| Translated copy | `src/i18n/dictionary.test.ts`, `game-messages.test.ts`, `teachers.test.ts`, `cheat-sheets.test.ts` | The five parity gates from `src/test-utils/i18n-parity.ts`, run against every translated source wherever it is stored: missing or extra keys, empty values, strings left identical to the English, dropped placeholders, formulae altered in translation. `dictionary.test.ts` also guards the payload budget — it fails if a game namespace or a whole page's copy reappears in the shared dictionary. |
+| Content pages | `src/app/[lang]/(main)/<page>/page.test.tsx` | Pages that are prose rather than gameplay (privacy, For Teachers): every section renders, in more than one locale, with the right link targets and metadata. |
+| End-to-end | `e2e/<game>.spec.ts`, `e2e/hub.spec.ts`, `e2e/nav.spec.ts`, `e2e/teachers.spec.ts`, `e2e/i18n.spec.ts` | The same journeys in a real browser against the running app. No Supabase credentials needed. |
 
 The bugs this suite surfaced when it was first written have been fixed; their regression
 tests live in the files above (see "Bugs the suite found" below).
