@@ -92,6 +92,9 @@ export const es = {
     logout: 'Cerrar sesión',
     loggingOut: 'Cerrando sesión…',
     settingsA11y: 'Abrir las opciones generales',
+    menuOpenA11y: 'Abrir el menú',
+    menuCloseA11y: 'Cerrar el menú',
+    menuTitleA11y: 'Menú del sitio',
   },
 
   footer: {

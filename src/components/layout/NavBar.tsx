@@ -6,6 +6,7 @@ import { AuthButton } from '@/components/auth/AuthButton';
 import { GlobalSettingsButton } from '@/components/ui/GlobalSettingsButton';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { LocaleLink } from '@/components/layout/LocaleLink';
+import { NavPanel, type NavSection } from '@/components/layout/NavPanel';
 import { useI18n } from '@/i18n/client';
 
 interface NavBarProps {
@@ -17,7 +18,12 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
 
   // Hash links keep their leading '/' so they navigate correctly from
   // sub-pages; LocaleLink adds the language prefix.
-  const sections = [
+  //
+  // One array, rendered twice: the row at `lg` and up, the panel below it. A
+  // destination added here appears in both, which is the point — the reason
+  // `/cheat-sheets` was unreachable on a phone is that the row was the only
+  // place it was listed.
+  const sections: NavSection[] = [
     { href: '/#profile', label: t.nav.profile, Icon: User },
     { href: '/#leaderboards', label: t.nav.leaderboards, Icon: Trophy },
     { href: '/#games', label: t.nav.games, Icon: Gamepad2 },
@@ -71,7 +77,17 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
         <div className="flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
           <GlobalSettingsButton />
-          <AuthButton isAuthenticated={isAuthenticated} />
+          {/*
+            Below lg the sign-in button lives in the panel instead. It is the
+            widest control in the header — 107px in German, and that is the
+            already-shortened "Anmelden" — so moving it is what buys room for
+            the panel's trigger: measured in German at 360px, the control
+            cluster goes from 237px to 170px.
+          */}
+          <div className="hidden lg:block">
+            <AuthButton isAuthenticated={isAuthenticated} />
+          </div>
+          <NavPanel sections={sections} isAuthenticated={isAuthenticated} />
         </div>
       </div>
     </header>

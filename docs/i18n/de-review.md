@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**793 strings** — 386 high confidence,
+**796 strings** — 389 high confidence,
 342 medium, 65 low.
 
 The confidence column is a judgement about *this* translation, not about German
@@ -86,6 +86,9 @@ invisible here.
 | `nav.logout` | Log out | Abmelden | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.loggingOut` | Logging out... | Wird abgemeldet … | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.settingsA11y` | Open general settings | Allgemeine Einstellungen öffnen | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
+| `nav.menuOpenA11y` | Open menu | Menü öffnen | high | "Menü" is the ordinary German word and needs no gloss. "Seitenmenü" names the panel for a screen reader; "Hauptmenü" was rejected because the horizontal row above lg is equally the main menu. |
+| `nav.menuCloseA11y` | Close menu | Menü schließen | high | "Menü" is the ordinary German word and needs no gloss. "Seitenmenü" names the panel for a screen reader; "Hauptmenü" was rejected because the horizontal row above lg is equally the main menu. |
+| `nav.menuTitleA11y` | Site menu | Seitenmenü | high | "Menü" is the ordinary German word and needs no gloss. "Seitenmenü" names the panel for a screen reader; "Hauptmenü" was rejected because the horizontal row above lg is equally the main menu. |
 
 ### `footer`
 
