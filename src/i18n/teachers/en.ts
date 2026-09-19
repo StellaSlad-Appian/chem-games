@@ -58,8 +58,6 @@ export const en = {
     'Balancing an equation one coefficient at a time, with the atom count on each side visible as you work.',
   gameLewis:
     'Pairing unpaired electrons into bonds and lone pairs to build a Lewis structure.',
-  gamesUnfinished:
-    'A sixth card, {bonds}, already appears on the games hub but is not built yet, so its link goes nowhere. It is the next one planned.',
   sheetsIntro:
     'Twelve cheat sheets carry the reference material the games lean on. Each is a single page, readable on a projector and printable:',
 

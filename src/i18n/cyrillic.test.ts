@@ -82,8 +82,14 @@ const LATIN_BY_DESIGN: RegExp[] = [
   // --- Brand, product and company names ----------------------------------
   // "ChemGames" is the product; it is never translated and never
   // transliterated, so every string that names it carries a Latin run.
-  // Supabase, Resend and Google are companies. "Bond Builder" is the working
-  // name of a game that does not exist yet.
+  // Supabase, Resend and Google are companies.
+  //
+  // "Bond Builder" used to be here too, in `overlay.victoryDescription`: the
+  // won-game overlay recommended a game that was never written and 404s. The
+  // card and the recommendation are both gone, so the Russian line has no
+  // Latin in it any more and the entry was removed rather than left standing.
+  // An allowlist entry outliving its reason is a hole, not a comment — the
+  // next English string to land on that key would pass unnoticed.
   /^meta\.(siteName|title|privacyTitle|privacyDescription|teachersTitle|teachersDescription|cheatSheetTitle|cheatSheetNotFound)$/,
   /^footer\.(tagline|copyright)$/,
   /^feedback\.(heading|sentBody)$/,
@@ -94,7 +100,6 @@ const LATIN_BY_DESIGN: RegExp[] = [
   // whoWeAreBody carries the data controller's own name, which is a person's.
   /^privacy\.(intro|whoWeAreBody|collectAccountBody|cookiesBody1|childrenBody1)$/,
   /^privacy\.processor(Supabase|Resend|Google)(Label|Body)$/,
-  /^overlay\.victoryDescription$/,
 
   // --- A file format and a transport protocol -----------------------------
   // Russian writes both in Latin: «файл JSON», «по HTTPS».

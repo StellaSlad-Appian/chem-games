@@ -254,7 +254,7 @@ export const ru = {
     victoryBadge: 'Все цели достигнуты',
     victoryTitle: 'Формулы Льюиса освоены',
     victorySubtitle: 'Неспаренных электронов не осталось',
-    victoryDescription: 'Открой лист проверки или попробуй следующую игру — Bond Builder.',
+    victoryDescription: 'Открой лист проверки и посмотри ещё раз, что у тебя получилось.',
     pausedBadge: 'Опыт на паузе',
     pausedTitle: 'Пауза',
     pausedSubtitle: 'Время никто не считает.',

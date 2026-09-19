@@ -141,12 +141,19 @@ describe('For Teachers page', () => {
       expect(link(title)).toHaveAttribute('href', href);
     }
 
-    // Chemical Bonds is on the games hub but has no route, so the page names
-    // it as unbuilt instead of linking to a 404.
-    expect(screen.queryByRole('link', { name: en.gamesHub.bondsTitle })).toBeNull();
-    expect(
-      screen.getByText(new RegExp(`A sixth card, ${en.gamesHub.bondsTitle},`))
-    ).toBeInTheDocument();
+    // Chemical Bonds was a placeholder card with no route behind it. Both it
+    // and the hub card are gone, so nothing here may link to the game route —
+    // a teacher planning a lesson should see only games that exist.
+    //
+    // Asserted on the href rather than on the words, because the cheat sheet
+    // called "Chemical Bonds & Structure" is a real, translated page about the
+    // same topic and does legitimately link from here. The topic is taught;
+    // the game was never written.
+    const gameLinks = screen
+      .getAllByRole('link')
+      .map((anchor) => anchor.getAttribute('href') ?? '');
+    expect(gameLinks.filter((href) => href.includes('/games/chemical-bonds'))).toEqual([]);
+    expect(gameLinks).toContain('/en/cheat-sheets/chemical-bonds');
   });
 
   it('links every cheat sheet to its own page', async () => {

@@ -101,7 +101,6 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
     neutralise: t.gamesHub.neutraliseTitle,
     balancer: t.gamesHub.balancerTitle,
     lewis: t.gamesHub.lewisTitle,
-    bonds: t.gamesHub.bondsTitle,
   };
 
   const games = [
@@ -200,7 +199,6 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
                 </div>
               ))}
             </dl>
-            <p>{format(p.gamesUnfinished, gameNames)}</p>
 
             <p className="flex items-start gap-2">
               <BookMarked

@@ -204,7 +204,7 @@ export const de = {
     victoryBadge: 'Alle Ziele erreicht',
     victoryTitle: 'Lewis-Formeln gemeistert',
     victorySubtitle: 'Jedes ungepaarte Elektron hat einen Partner',
-    victoryDescription: 'Öffne deinen Korrekturbogen oder probier als Nächstes Bond Builder.',
+    victoryDescription: 'Öffne deinen Korrekturbogen und sieh dir noch einmal an, was du gebaut hast.',
     pausedBadge: 'Sitzung angehalten',
     pausedTitle: 'Spiel pausiert',
     pausedSubtitle: 'Nichts läuft auf Zeit.',

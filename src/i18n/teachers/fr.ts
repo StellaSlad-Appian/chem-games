@@ -54,8 +54,6 @@ export const fr = {
     'Équilibrer une équation coefficient par coefficient, avec le nombre d’atomes de chaque côté sous les yeux.',
   gameLewis:
     'Apparier les électrons célibataires en liaisons et en doublets non liants pour construire une structure de Lewis.',
-  gamesUnfinished:
-    'Une sixième carte, {bonds}, figure déjà sur la page des jeux mais n’est pas encore construite : son lien ne mène nulle part. C’est le prochain jeu prévu.',
   sheetsIntro:
     'Douze antisèches rassemblent les références sur lesquelles les jeux s’appuient. Chacune tient sur une page, lisible au vidéoprojecteur et imprimable :',
 

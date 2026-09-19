@@ -243,7 +243,7 @@ export const it = {
     victoryBadge: 'Tutti gli obiettivi raggiunti',
     victoryTitle: 'Strutture di Lewis conquistate',
     victorySubtitle: 'Non resta nessun elettrone spaiato',
-    victoryDescription: 'Apri la tua scheda di correzione, oppure prova ora Bond Builder.',
+    victoryDescription: 'Apri la tua scheda di correzione per rivedere quello che hai costruito.',
     pausedBadge: 'Partita in attesa',
     pausedTitle: 'Gioco in pausa',
     pausedSubtitle: 'Niente va a tempo.',

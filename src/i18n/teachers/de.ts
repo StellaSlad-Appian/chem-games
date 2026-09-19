@@ -59,8 +59,6 @@ export const de = {
     'Eine Gleichung Koeffizient für Koeffizient ausgleichen, mit der Atomzahl beider Seiten im Blick.',
   gameLewis:
     'Ungepaarte Elektronen zu Bindungen und freien Elektronenpaaren zusammenführen und so eine Lewis-Formel bauen.',
-  gamesUnfinished:
-    'Eine sechste Karte, {bonds}, steht bereits in der Spieleübersicht, ist aber noch nicht gebaut – ihr Link führt ins Leere. Sie ist das nächste Spiel auf der Liste.',
   sheetsIntro:
     'Zwölf Spickzettel enthalten das Nachschlagematerial, auf das sich die Spiele stützen. Jeder passt auf eine Seite, lässt sich projizieren und ausdrucken:',
 

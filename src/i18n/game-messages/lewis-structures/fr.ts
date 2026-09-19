@@ -227,7 +227,7 @@ export const fr = {
     victoryBadge: 'Tous les objectifs atteints',
     victoryTitle: 'Structures de Lewis maîtrisées',
     victorySubtitle: 'Chaque électron célibataire a trouvé un partenaire',
-    victoryDescription: 'Ouvre ta feuille de correction, ou essaie Bond Builder ensuite.',
+    victoryDescription: 'Ouvre ta feuille de correction pour revoir ce que tu as construit.',
     pausedBadge: 'Partie suspendue',
     pausedTitle: 'Jeu en pause',
     pausedSubtitle: 'Rien n’est chronométré.',
