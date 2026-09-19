@@ -480,11 +480,17 @@ own piece of work, scoped from the SEO case rather than from Explore.
 
 ---
 
-## 8. Arrhenius — an open decision, not a correction
+## 8. Arrhenius — decided 2026-09-19: **left out**
+
+> **Owner's decision, 2026-09-19: leave him out for now.** Option 1 below. The
+> century rule settles it on its own and needs no argument about the man, which
+> is the narrowest ground available and the reason it was the recommendation.
+> Entry 25 stays struck through in §3 and is not a candidate for cycle 2 unless
+> this decision is revisited here.
 
 Entry 25 is struck through in §3 but **not removed**, because half of the case
-against him is a judgement that belongs to the owner rather than to whoever is
-writing entries.
+against him was a judgement that belonged to the owner rather than to whoever
+was writing entries. It is recorded here so nobody re-adds him by accident.
 
 **The factual half is settled.** §1 of this document admits a scientist on the
 rule that *the work* is 20th or 21st century, and justifies Arrhenius by his
@@ -507,7 +513,8 @@ whose pattern repeats against one that never does, which is a better pairing
 than the one it replaced. Nothing is lost if he comes back; nothing breaks if he
 goes.
 
-**Three ways to settle it**, in the order I would consider them:
+**The three ways it could have been settled**, in the order I would consider
+them — kept because the reasoning is what makes the decision re-examinable:
 
 1. **Leave him out** and say so here in a line. The century rule alone is
    sufficient and needs no argument about the man.
@@ -518,8 +525,9 @@ goes.
    is the option I would not take: it is the one that requires the page to know
    something and not say it.
 
-Whichever you choose, record it in this section. An unmarked name in a curated
-pool is an invitation to re-add him by accident in cycle 2.
+Option 1 was chosen. An unmarked name in a curated pool is an invitation to
+re-add him by accident in cycle 2, which is why the strike-through and this
+section both stay.
 
 ### A pairing correction, while here
 

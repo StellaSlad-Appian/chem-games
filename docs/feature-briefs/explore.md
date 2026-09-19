@@ -488,6 +488,13 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
       on the reviewer.
 
 ### AC-6 — Every card links inward, and the link matches the content
+
+> **Confirmed 2026-09-19: the rule stands as written.** Applying it honestly to
+> the launch twenty left only two of forty cards linking to a game rather than a
+> cheat sheet, because only Haber → Reaction Balancer and Lewis → Share to Fill
+> are genuinely topical. That is the rule working, not failing. A weak link is
+> worse than a sheet link, and if Explore should funnel harder into play, the
+> answer is more games covering more topics — not a looser AC-6.
 - [ ] **Every** molecule and scientist entry carries at least one link to a cheat
       sheet or a game, rendered through `LocaleLink` with a localized call to
       action. No entry ships without one — an entry with no link is a dead end,
