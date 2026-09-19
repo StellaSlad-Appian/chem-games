@@ -278,17 +278,17 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 ### AC-2 — It is reachable, on a phone as well as a laptop
 - [ ] A fifth entry in the `sections` array in `NavBar.tsx`, label from
       `t.nav.explore`, `lucide-react` icon, `LocaleLink`.
+- [ ] **`docs/feature-briefs/nav-profile-to-settings.md` has landed first**, or
+      is landed as part of this work. It removes Profile from the nav and
+      shortens the longest English and Spanish labels, which is what makes room
+      for Explore. Without it there is no room: measured at 1024px, English is
+      already 1048px of content in a 1024px viewport *before* a fifth item.
 - [ ] The header is re-measured at 320px, 360px, 768px, 1024px and 1280px **in
-      the widest language** (German or Italian). No horizontal page scroll at any
-      width — `ACCESSIBILITY.md` (1.4.10) forbids it, and at 320px, not 360px.
-      **Expect the fifth item not to fit at 1024px.** Measured in German on
-      `fix/mobile-nav` after the panel landed: the `lg` row is brand 165 + nav
-      463 + controls 278 + gaps and padding = 970 of 1024, i.e. 54px spare, and
-      four nav items cost 463px — about 116px each. A fifth German label
-      ("Entdecken") takes the row past 1024. Options, in order: let the panel
-      cover 1024–1280 by moving the row's breakpoint to `xl` (the panel exists
-      now, so nothing becomes unreachable), or shorten labels per locale. Report
-      the measurement either way rather than shipping an overflowing header.
+      every locale**, signed in and signed out. Not just the "widest language" —
+      English turned out to be the widest, contradicting the comment in
+      `NavBar.tsx`. No horizontal page scroll at any width — `ACCESSIBILITY.md`
+      (1.4.10) forbids it, and at 320px, not 360px. Target ≥20px spare at
+      1024px. Report the table rather than shipping an overflowing header.
 - [ ] **Below `lg`, the nav becomes a slide-out side panel** (see §8 for the
       reasoning). **This may already exist**: a separate session was started on
       2026-09-19 to build exactly this panel, as a fix for the pre-existing gap.
