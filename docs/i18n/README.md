@@ -494,8 +494,27 @@ The fix has two halves, deliberately in different files:
   globals.css would also have worked, but it would put the request on every
   page in every language; this way a Latin locale requests nothing extra.
 
-`src/i18n/fonts.test.ts` asserts both halves, including that no shipped locale
-has an entry.
+`src/i18n/fonts.test.ts` asserts both halves; `e2e/i18n.spec.ts` asserts the
+half only a browser can see — that a Russian page requests the two faces, that
+an English page requests nothing extra, and that a Russian `h1` is actually
+*drawn* in Oswald rather than falling back. That last one matters because a
+missing glyph is not an error: it is a heading at the wrong width.
+
+> **The body half does not currently reach the page, and it never has — in any
+> locale.** `@layer base { body { font-family: var(--font-body) } }` is
+> overridden by the Tailwind utility `font-sans` on the `<body>` element in the
+> root layout, and a utility beats a base rule. So **DM Sans has never been
+> applied to body text either**: measured in a browser, `/en` and `/ru` both
+> compute `ui-sans-serif, system-ui, …` and neither DM Sans nor Manrope is
+> ever fetched as a used face. The display half is unaffected and works, which
+> is the half that breaks a layout.
+>
+> This is pre-existing and site-wide, not something Russian introduced, and
+> Russian is therefore no worse off than the five Latin locales. It is left
+> alone deliberately: removing `font-sans` from the body class changes the
+> typography of every page in every language, which is the owner's call and
+> not a translation pass's. If it is ever fixed, `--font-body` starts working
+> and the Russian entry is already correct.
 
 ### 3. Plural completeness is a *build-time* gate
 
@@ -521,6 +540,36 @@ locales on its first run, and a gate that fails on day one gets deleted. The
 required set is therefore the categories a count under 1000 can select, plus
 `other` — always required, because Russian reaches it only through a fraction.
 English and German get `one`/`other`; Russian gets all four.
+
+### 3a. Measure any label that sits in a fixed slot, in a browser
+
+Russian found one layout breakage that no gate in this repo could have seen,
+and the shape of it generalises.
+
+The Share to Fill canvas centres a one-word label under each pulsing dot. In
+H2 the two dots are **50 px apart**, so the label has to be narrower than that.
+It is, in five languages — *loner* 32 px, *impar* 33, *dispari* 40, *einzeln*
+41 — and Russian's game word «одиночка» is **59 px**, so the two labels overlap
+and read «ОДИНОЧКАДИНОЧКА» on screen. They overlap rather than wrap, because
+the span is `whitespace-nowrap` and absolutely positioned, so nothing about it
+is visible in a text dump, an accessibility tree or a unit test.
+
+**The budget is about 44 px at `text-[9px]` uppercase.** Measure a candidate in
+the page before choosing the word:
+
+```js
+const probe = document.createElement('span');
+probe.className = document.querySelector('[data-atom-id] span[class*="whitespace-nowrap"]').className;
+probe.style.cssText = 'position:fixed;left:-9999px';
+probe.textContent = 'кандидат';
+document.body.appendChild(probe);
+probe.getBoundingClientRect().width;
+```
+
+Russian ended up following German — a *different, shorter* word on the dot than
+in the coach line — rather than Spanish and Italian, which reuse one word in
+both roles. That is a real cost: the label then teaches the concept rather than
+the word. It is worth knowing before a locale picks its game word, not after.
 
 ### 4. Dates, numbers and percentages are not strings
 
