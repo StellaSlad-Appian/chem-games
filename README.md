@@ -128,7 +128,7 @@ Chemical Bonds is planned as an interactive game about how and why atoms bond, e
 
 It is also a potential early use case for richer molecular visualisation, allowing chemical structures to become interactive objects rather than static images.
 
-**A card for it already appears on the games hub and its link goes nowhere** (`/games/chemical-bonds` has no route and 404s). Either build the route or drop the card before the site is shown to a class; the For Teachers page names it as unbuilt so that nobody plans a lesson around it in the meantime.
+Nothing of it is built. A placeholder card used to sit on the games hub with a link to `/games/chemical-bonds`, which has no route and 404s; that card has been removed, and so has Share to Fill's victory line recommending the game. What remains is the `chemical-bonds` **cheat sheet**, which is real, translated and unrelated — the topic is taught, the game is not written. The `bondsTitle` / `bondsDescription` strings and the `'bond-builder'` entry in `GameName` are kept for whenever it is.
 
 ---
 

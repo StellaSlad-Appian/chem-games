@@ -112,9 +112,13 @@ the UI:
 5. **Slug hygiene**: `classifier-games-config.ts` uses ids like `acid-base-classifier` that don't
    match `games.id` (`acid-classification`). Any new classifier page must use the `games.id`
    slug in `recordGameSession()` or inserts will fail the FK.
-6. The `*_rows.sql` files in `supabase/migrations/` are data dumps, not migrations; the
-   Supabase CLI will try to run them in filename order. Move them to `supabase/seed/` (or
-   `supabase/seed.sql`) so `supabase db reset` doesn't replay production rows.
+6. ~~The `*_rows.sql` files in `supabase/migrations/` are data dumps, not migrations.~~
+   **Done:** they live in `supabase/dumps/` now, so `supabase db reset` cannot replay
+   production rows. Named `dumps/` rather than the `seed/` this originally suggested,
+   because `supabase/seed.sql` is a path the CLI runs on reset and these must never be
+   run — `leaderboard_entries_rows.sql` inserts into a view and would simply fail. They
+   also carry real aliases and user ids; `supabase/dumps/README.md` says what to do
+   about that before the repository goes public.
 
 ## Applying it
 

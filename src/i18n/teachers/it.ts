@@ -54,8 +54,6 @@ export const it = {
     'Bilanciare un’equazione un coefficiente alla volta, con il conteggio degli atomi dei due lati sempre in vista.',
   gameLewis:
     'Accoppiare gli elettroni spaiati in legami e doppietti solitari per costruire una struttura di Lewis.',
-  gamesUnfinished:
-    'Una sesta scheda, {bonds}, compare già nella pagina dei giochi ma non è ancora stata costruita: il suo collegamento non porta da nessuna parte. È il prossimo gioco in programma.',
   sheetsIntro:
     'Dodici bigini raccolgono il materiale di consultazione su cui i giochi si appoggiano. Ognuno sta in una pagina, si legge bene dal proiettore e si può stampare:',
 

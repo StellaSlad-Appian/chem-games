@@ -229,7 +229,7 @@ export const es = {
     victoryBadge: 'Todos los objetivos cumplidos',
     victoryTitle: 'Estructuras de Lewis dominadas',
     victorySubtitle: 'Todos los impares emparejados',
-    victoryDescription: 'Abre tu hoja de corrección, o prueba ahora Bond Builder.',
+    victoryDescription: 'Abre tu hoja de corrección para repasar lo que has construido.',
     pausedBadge: 'Partida en espera',
     pausedTitle: 'Juego en pausa',
     pausedSubtitle: 'Nada va contrarreloj.',

@@ -24,7 +24,7 @@ in the documents listed under "Read first".
    foundations and stays open; each finished game is a milestone on that PR (§6). Never commit
    to `master`; never force-push; never rebase the branch once the PR is open (merge
    `origin/master` in instead).
-4. **Do not touch** `.claude/`, `supabase/migrations/*_rows.sql` (data dumps), or any
+4. **Do not touch** `.claude/`, `supabase/dumps/` (data dumps, see the README there), or any
    `neutralise-levels*` file other than `neutralise-levels.ts`. Do not add a second test
    runner, icon library, or state library.
 5. **Every game ships its text — in every language.** Instructions that auto-open on first

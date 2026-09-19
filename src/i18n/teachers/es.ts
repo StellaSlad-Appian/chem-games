@@ -55,8 +55,6 @@ export const es = {
     'Ajustar una ecuación coeficiente a coeficiente, con el recuento de átomos de cada lado a la vista.',
   gameLewis:
     'Emparejar electrones desapareados en enlaces y pares solitarios para construir una estructura de Lewis.',
-  gamesUnfinished:
-    'Una sexta tarjeta, {bonds}, ya aparece en la página de juegos pero todavía no está construida: su enlace no lleva a ninguna parte. Es el próximo juego previsto.',
   sheetsIntro:
     'Doce chuletas reúnen el material de consulta en el que se apoyan los juegos. Cada una ocupa una sola página, se ve bien en el proyector y se puede imprimir:',
 

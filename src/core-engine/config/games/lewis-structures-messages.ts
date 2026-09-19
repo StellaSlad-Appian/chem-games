@@ -206,7 +206,7 @@ export const LEWIS_STRUCTURES_MESSAGES = {
     victoryBadge: 'All objectives complete',
     victoryTitle: 'Lewis structures mastered',
     victorySubtitle: 'Every loner paired',
-    victoryDescription: 'Open your marking sheet, or try Bond Builder next.',
+    victoryDescription: 'Open your marking sheet to look back over what you built.',
     pausedBadge: 'Session on hold',
     pausedTitle: 'Game Paused',
     pausedSubtitle: 'Nothing is timed.',
