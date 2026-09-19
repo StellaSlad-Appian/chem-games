@@ -64,10 +64,26 @@ export const en = {
 
   nav: {
     sectionsA11y: 'Dashboard sections',
+    /**
+     * No longer in the navigation row — Profile moved into the Settings
+     * popover's Account section (docs/feature-briefs/nav-profile-to-settings.md
+     * §2). The key stays because that section reuses it, and because the
+     * dashboard still has a `#profile` section of its own.
+     */
     profile: 'Profile',
-    leaderboards: 'Leaderboards',
+    /**
+     * "Scores", not "Leaderboards", and "Guides", not "Cheat Sheets": nav
+     * labels only, shortened for header width. Measured in a real browser at
+     * 1024px, the English header was 1048px of content in a 1024px viewport —
+     * a live WCAG 1.4.10 failure before Explore was added at all. The page
+     * headings, the <title>, the URLs and the `cheatSheets.*` copy are
+     * untouched; this is the chip in the header, not the name of the page.
+     * See docs/feature-briefs/nav-profile-to-settings.md §3.
+     */
+    leaderboards: 'Scores',
     games: 'Games',
-    cheatSheets: 'Cheat Sheets',
+    cheatSheets: 'Guides',
+    explore: 'Explore',
     login: 'Log in / Register',
     logout: 'Log out',
     loggingOut: 'Logging out...',
@@ -420,6 +436,12 @@ export const en = {
     audio: 'Audio',
     soundEffects: 'Sound Effects',
     volumeA11y: 'Sound volume',
+    /**
+     * Heading of the Account section, which the header's Settings popover
+     * shows and the in-game modal does not: a profile link inside a game
+     * navigates away mid-run and discards it.
+     */
+    account: 'Account',
   },
 
   cheatSheets: {
@@ -448,6 +470,50 @@ export const en = {
     forTeachers: 'For teachers',
     curriculum: 'Curriculum: ',
     filterA11y: 'Filter topics by year level',
+  },
+
+  /**
+   * Page chrome for /explore — headings, labels, the dateline pattern and the
+   * calls to action. **The entries themselves are not here**, and must not be:
+   * the root layout hands this whole dictionary to `I18nProvider`, so every
+   * byte of it is serialized into the RSC payload of every page on the site.
+   * Forty entries of prose in five languages would be carried by the games,
+   * the leaderboards and the privacy page alike.
+   *
+   * The prose lives in `src/lib/explore/` (canonical English) with per-locale
+   * overlays in `src/i18n/explore/`, loaded only by the Explore page, exactly
+   * as a game's catalogue is. See docs/i18n/README.md § What goes where.
+   */
+  explore: {
+    heading: 'Explore',
+    intro: 'One molecule and one chemist, new every Monday.',
+    /**
+     * The dateline both sections share. `{date}` is formatted with `Intl` in
+     * the reader's locale, never assembled by hand — so the pattern has to
+     * carry whatever preposition and word order that language needs, which is
+     * why this is one key and not "Week of" + a date.
+     */
+    dateline: 'Week of {date}',
+    moleculeHeading: 'Molecule of the Week',
+    scientistHeading: 'Scientist of the Week',
+    formulaLabel: 'Formula',
+    /** Accessible name for the formula, read before the name of the compound. */
+    formulaA11y: '{name}, formula {formula}',
+    everydayHeading: 'Where you meet it',
+    chemistryHeading: 'Why it works',
+    workHeading: 'What they did',
+    legacyHeading: 'Why it mattered',
+    /**
+     * The optional credit-history field. Available to any entry and used
+     * sparingly — a section where every woman's story is about being
+     * overlooked and every man's is about discovery teaches the bias this
+     * section exists to counter. AC-7 caps and balances its use.
+     */
+    creditHeading: 'Credit where it was due',
+    moleculeCta: 'Practise this: {target}',
+    scientistCta: 'The chemistry behind this: {target}',
+    sourcesHeading: 'Sources',
+    sourcesNote: 'Source links last checked {date}.',
   },
 
   chemistry: {

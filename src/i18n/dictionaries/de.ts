@@ -62,9 +62,15 @@ export const de = {
   nav: {
     sectionsA11y: 'Bereiche der Übersicht',
     profile: 'Profil',
+    // Not shortened. English needed "Scores" and "Guides" to stop the header
+    // overflowing at 1024px; German never overflowed there (970px of content,
+    // 54px spare before Explore), and "Bestenlisten" and "Spickzettel" are the
+    // school words a 14-year-old actually uses. Shortening a label that fits,
+    // only to match the English, would cost meaning for nothing.
     leaderboards: 'Bestenlisten',
     games: 'Spiele',
     cheatSheets: 'Spickzettel',
+    explore: 'Entdecken',
     // Deliberately shorter than the English "Log in / Register": the German
     // pair runs 215px against 150px and was the single widest thing in the
     // header. The sign-in page itself offers both actions, so the nav button
@@ -415,6 +421,7 @@ export const de = {
     audio: 'Audio',
     soundEffects: 'Soundeffekte',
     volumeA11y: 'Lautstärke',
+    account: 'Konto',
   },
 
   cheatSheets: {
@@ -439,6 +446,28 @@ export const de = {
     forTeachers: 'Für Lehrkräfte',
     curriculum: 'Lehrplan: ',
     filterA11y: 'Themen nach Klassenstufe filtern',
+  },
+
+  explore: {
+    heading: 'Entdecken',
+    intro: 'Ein Molekül und eine Person aus der Chemie – jeden Montag neu.',
+    dateline: 'Woche vom {date}',
+    moleculeHeading: 'Molekül der Woche',
+    // „Forschende der Woche“ statt „Wissenschaftlerin/Wissenschaftler“: das
+    // substantivierte Partizip ist geschlechtsneutral, ohne Sternchen oder
+    // Doppelpunkt – so wie es glossary-de.md § Register vorgibt.
+    scientistHeading: 'Forschende der Woche',
+    formulaLabel: 'Formel',
+    formulaA11y: '{name}, Formel {formula}',
+    everydayHeading: 'Im Alltag',
+    chemistryHeading: 'So funktioniert es',
+    workHeading: 'Die Arbeit',
+    legacyHeading: 'Warum das wichtig war',
+    creditHeading: 'Wer die Anerkennung bekam',
+    moleculeCta: 'Dazu üben: {target}',
+    scientistCta: 'Die Chemie dazu: {target}',
+    sourcesHeading: 'Quellen',
+    sourcesNote: 'Links zuletzt geprüft am {date}.',
   },
 
   chemistry: {

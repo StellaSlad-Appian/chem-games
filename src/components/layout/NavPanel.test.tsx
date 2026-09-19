@@ -13,7 +13,7 @@
 
 import { describe, expect, it, vi } from 'vitest';
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { FileText, Gamepad2, Trophy, User } from 'lucide-react';
+import { Compass, FileText, Gamepad2, Trophy } from 'lucide-react';
 import { NavPanel, type NavSection } from './NavPanel';
 import { TestProviders } from '@/test-utils/render';
 import { en } from '@/i18n/dictionaries/en';
@@ -24,11 +24,18 @@ vi.mock('next/navigation', () => ({
   useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }),
 }));
 
+/**
+ * The same list `NavBar` builds, kept in step with it by hand. Profile is not
+ * here any more — it moved into the Settings popover's Account section — and
+ * `/explore` has joined, which is the case the panel matters most for: it is a
+ * route of its own, like `/cheat-sheets`, so below `lg` this panel is the only
+ * thing that links to it.
+ */
 const SECTIONS: NavSection[] = [
-  { href: '/#profile', label: en.nav.profile, Icon: User },
   { href: '/#leaderboards', label: en.nav.leaderboards, Icon: Trophy },
   { href: '/#games', label: en.nav.games, Icon: Gamepad2 },
   { href: '/cheat-sheets', label: en.nav.cheatSheets, Icon: FileText },
+  { href: '/explore', label: en.nav.explore, Icon: Compass },
 ];
 
 function renderPanel(isAuthenticated = false) {

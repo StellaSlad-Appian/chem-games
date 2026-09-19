@@ -82,9 +82,18 @@ export const es = {
   nav: {
     sectionsA11y: 'Secciones del panel',
     profile: 'Perfil',
-    leaderboards: 'Clasificaciones',
+    // "Ranking", not "Clasificaciones": nav label only, shortened for header
+    // width. Spanish had the second-widest header of the five (1006px of
+    // content at 1024px, 18px spare) and "Clasificaciones" was its widest nav
+    // chip at 160px, so a fifth item did not fit. "Ranking" is an ordinary
+    // Spanish loanword in exactly this sense — a sports or game standings
+    // table — and stays recognisable to a reader hunting for the leaderboard.
+    // It does not collide with the identical-to-English gate because English
+    // uses "Scores". The page heading in `leaderboards.*` is untouched.
+    leaderboards: 'Ranking',
     games: 'Juegos',
     cheatSheets: 'Chuletas',
+    explore: 'Explorar',
     // Shorter than the English "Log in / Register", the same trade German and
     // French make: the pair is the widest thing in the header, and the sign-in
     // page offers both actions anyway.
@@ -496,6 +505,7 @@ export const es = {
     audio: 'Audio',
     soundEffects: 'Efectos de sonido',
     volumeA11y: 'Volumen del sonido',
+    account: 'Cuenta',
   },
 
   cheatSheets: {
@@ -523,6 +533,29 @@ export const es = {
     forTeachers: 'Para el profesorado',
     curriculum: 'Currículo: ',
     filterA11y: 'Filtrar los temas por curso',
+  },
+
+  explore: {
+    heading: 'Explorar',
+    intro: 'Una molécula y una persona de la química, cada lunes.',
+    dateline: 'Semana del {date}',
+    moleculeHeading: 'Molécula de la semana',
+    // Doblete fijo: el mismo encabezado todas las semanas, sea quien sea la
+    // persona de esa semana. El español no tiene un epiceno usable aquí
+    // («científica o científico» es la fórmula habitual), y el doblete no
+    // revela nada, porque no cambia nunca.
+    scientistHeading: 'Científica o científico de la semana',
+    formulaLabel: 'Fórmula',
+    formulaA11y: '{name}, fórmula {formula}',
+    everydayHeading: 'Dónde la encuentras',
+    chemistryHeading: 'Por qué funciona',
+    workHeading: 'Su trabajo',
+    legacyHeading: 'Por qué importó',
+    creditHeading: 'A quién se debe el mérito',
+    moleculeCta: 'Practica esto: {target}',
+    scientistCta: 'La química detrás: {target}',
+    sourcesHeading: 'Fuentes',
+    sourcesNote: 'Enlaces comprobados por última vez el {date}.',
   },
 
   chemistry: {

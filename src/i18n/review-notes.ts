@@ -46,6 +46,31 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Menü" is the ordinary German word and needs no gloss. "Seitenmenü" names the panel for a screen reader; "Hauptmenü" was rejected because the horizontal row above lg is equally the main menu.',
     },
     {
+      prefix: 'nav.explore',
+      confidence: 'high',
+      note: '"Entdecken" — the verb German uses for this kind of browsing section, and what a German streaming or news app puts on the same tab. "Erkunden" is the closer literal translation of "explore" but sounds like map-reading; "Entdecken" promises something new each week, which is what the page does.',
+    },
+    {
+      prefix: 'settings.account',
+      confidence: 'high',
+      note: '"Konto" is the ordinary German word for an online account. "Account" is also current in German tech copy but "Konto" is plainer and is what a fourteen-year-old meets at school.',
+    },
+    {
+      prefix: 'explore',
+      confidence: 'medium',
+      note: 'Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook.',
+    },
+    {
+      prefix: 'explore.scientistHeading',
+      confidence: 'low',
+      note: '**Have a native speaker settle this one.** "Forschende der Woche" is the gender-neutral substantivised participle, which is what glossary-de.md § Register asks for and avoids both a Sternchen and a "Wissenschaftlerin oder Wissenschaftler" doublet that would be twice as wide in the header of a card. The risk is that the singular participle still reads as officialese to a teenager. The alternatives are the doublet (clear, long, and used by the Spanish and Italian versions) or "Chemie-Porträt der Woche" (natural, but stops naming a person).',
+    },
+    {
+      prefix: 'explore.dateline',
+      confidence: 'high',
+      note: '"Woche vom {date}" is the standard German dateline. The date itself is formatted by Intl in the German locale, so the string only supplies the words around it.',
+    },
+    {
       prefix: 'language',
       confidence: 'high',
       note: 'Switcher labels; short and unambiguous.',
@@ -308,6 +333,31 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'nav.cheatSheets',
       confidence: 'medium',
       note: '"Antisèches". This is the exact French counterpart of the German "Spickzettel" Phase 1 chose, and of the English "cheat sheet" itself — the school word, with the same cheeky edge. It does carry the cheating connotation, so a teacher may prefer "fiches mémo" or "fiches de révision". Changing it touches nav, cheatSheets.* and meta.cheatSheetTitle together.',
+    },
+    {
+      prefix: 'nav.explore',
+      confidence: 'high',
+      note: '"Explorer" — the infinitive, matching "Jeux"/"Classements" as a label rather than an order. French interfaces use "Explorer" for exactly this kind of browse tab; "Découvrir" was the alternative and is warmer, but "Explorer" matches the English URL segment, which stays /explore in every language.',
+    },
+    {
+      prefix: 'settings.account',
+      confidence: 'high',
+      note: '"Compte" is the unambiguous French word for an account and is what every French site puts above these two links.',
+    },
+    {
+      prefix: 'explore',
+      confidence: 'medium',
+      note: 'Page chrome for the weekly Explore page. Both section titles are written without an article — "Molécule de la semaine", "Scientifique de la semaine" — which is the usual French headline register and, for the second, avoids choosing "la" or "le" depending on who that week features. "Pourquoi ça marche" is deliberately spoken French rather than "Pourquoi cela fonctionne": the audience is fourteen. Worth a native read for that register choice.',
+    },
+    {
+      prefix: 'explore.sourcesHeading',
+      confidence: 'high',
+      note: '"Sources" is the French word and is identical to the English; it is allowlisted in dictionary.test.ts. "Références" was rejected because it names a bibliography rather than "where these facts came from".',
+    },
+    {
+      prefix: 'explore.scientistHeading',
+      confidence: 'medium',
+      note: '"Scientifique" is epicene in French, so unlike German, Spanish and Italian this needs no doublet and no participle — one word covers whoever the week features. That is the reason the French heading is the shortest of the five.',
     },
     {
       prefix: 'language',
@@ -611,6 +661,31 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'nav.cheatSheets',
       confidence: 'medium',
       note: '"Chuletas". The exact Spanish counterpart of the German "Spickzettel" and the French "antisèche" — the school word, with the same cheeky edge (it also means a pork chop, which is the same kind of joke "cheat sheet" is). Two risks, not one: it carries the cheating connotation, so a teacher may prefer "fichas de repaso"; and **it is the strongest es-ES marker in the whole UI** — Latin America says *acordeón* (MX), *torpedo* (CL) or *machete* (AR). Changing it touches nav, cheatSheets.* and meta.cheatSheetTitle together.',
+    },
+    {
+      prefix: 'nav.leaderboards',
+      confidence: 'medium',
+      note: '**Shortened from "Clasificaciones" to "Ranking" for header width, and it is the one abbreviation in this locale.** Spanish had the second-widest header of the five and "Clasificaciones" was its widest chip at 160px, which left no room for a fifth destination. "Ranking" is an established Spanish loanword in exactly this sense — a standings table — and the RAE records it. Two things to check with a native speaker: whether a fourteen-year-old reads it as the leaderboard rather than as something about search results, and whether "Clasificación" in the singular would have been short enough. The page heading in leaderboards.* is unchanged, so the full word still appears where the reader lands.',
+    },
+    {
+      prefix: 'nav.explore',
+      confidence: 'high',
+      note: '"Explorar" — the infinitive, as a label rather than an order, matching the register of "Juegos" and "Ranking". "Descubre" and "Explora" are both imperatives and would have been the only tú-forms in the header.',
+    },
+    {
+      prefix: 'settings.account',
+      confidence: 'high',
+      note: '"Cuenta" is the plain Spanish word and needs no gloss.',
+    },
+    {
+      prefix: 'explore',
+      confidence: 'medium',
+      note: 'Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past.',
+    },
+    {
+      prefix: 'explore.scientistHeading',
+      confidence: 'medium',
+      note: '"Científica o científico de la semana" is a fixed doublet — the same heading every week regardless of who is featured, so it reveals nothing about that week\'s person, which the brief requires. Spanish has no usable epicene here the way French has "scientifique". The alternative was "Personaje de la semana", which is shorter and reads well but stops saying "scientist". Worth a native opinion on whether the doublet feels institutional at this length.',
     },
     {
       prefix: 'language',
@@ -944,6 +1019,26 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'nav.cheatSheets',
       confidence: 'medium',
       note: '"Bigini". The Italian counterpart of the German "Spickzettel", the French "antiseche" and the Spanish "chuleta" - the school word for a crib, with the same cheeky edge. **Two risks:** it carries the cheating connotation, so a teacher may prefer "schede di ripasso"; and it is mildly dated, so it is worth checking with an actual fourteen-year-old that it does not read as their grandparents’ word. Changing it touches nav, cheatSheets.* and meta.cheatSheetTitle together.',
+    },
+    {
+      prefix: 'nav.explore',
+      confidence: 'high',
+      note: '"Esplora" — Italian interfaces use the imperative for this tab (it is what the reader is invited to do), unlike the Spanish label, which stays an infinitive to avoid being the only tu-form in its header. Italian already uses tu-form imperatives throughout the games, so this is consistent rather than an exception.',
+    },
+    {
+      prefix: 'settings.account',
+      confidence: 'high',
+      note: '"Account" is what Italian calls an online account; *conto* is a bank account and *utenza* is a utility subscription. Identical to the English and allowlisted in dictionary.test.ts, for the same reason auth.password is.',
+    },
+    {
+      prefix: 'explore',
+      confidence: 'medium',
+      note: 'Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted.',
+    },
+    {
+      prefix: 'explore.scientistHeading',
+      confidence: 'medium',
+      note: '"Chimica o chimico della settimana" is a fixed doublet — identical every week whoever is featured, so it says nothing about that person. Italian has fewer epicene nouns than French, so the doublet is the honest option; "Personaggio della settimana" was the shorter alternative but drops the chemistry. Worth a native opinion on the length.',
     },
     {
       prefix: 'language',

@@ -74,9 +74,13 @@ export const fr = {
   nav: {
     sectionsA11y: 'Sections du tableau de bord',
     profile: 'Profil',
+    // Not shortened, for the reason given in de.ts: French had 63px spare at
+    // 1024px before Explore, so there is no width argument for giving up the
+    // words the reader recognises.
     leaderboards: 'Classements',
     games: 'Jeux',
     cheatSheets: 'Antisèches',
+    explore: 'Explorer',
     // Deliberately shorter than the English "Log in / Register", for the same
     // reason German is: the pair is the widest thing in the header. The
     // sign-in page itself offers both actions.
@@ -473,6 +477,7 @@ export const fr = {
     audio: 'Audio',
     soundEffects: 'Effets sonores',
     volumeA11y: 'Volume du son',
+    account: 'Compte',
   },
 
   cheatSheets: {
@@ -497,6 +502,29 @@ export const fr = {
     forTeachers: 'Pour les enseignants',
     curriculum: 'Programme : ',
     filterA11y: 'Filtrer les sujets par niveau scolaire',
+  },
+
+  explore: {
+    heading: 'Explorer',
+    intro: 'Une molécule et une personne de la chimie, chaque lundi.',
+    dateline: 'Semaine du {date}',
+    // Sans article, pour les deux titres : « Scientifique de la semaine »
+    // évite de choisir entre « la » et « le » chaque semaine, et
+    // « scientifique » est épicène (glossary-fr.md § Registre).
+    moleculeHeading: 'Molécule de la semaine',
+    scientistHeading: 'Scientifique de la semaine',
+    formulaLabel: 'Formule',
+    formulaA11y: '{name}, formule {formula}',
+    everydayHeading: 'Où on la rencontre',
+    chemistryHeading: 'Pourquoi ça marche',
+    workHeading: 'Ses travaux',
+    legacyHeading: 'Pourquoi c’était important',
+    creditHeading: 'À qui revient le mérite',
+    // Espace insécable avant les deux-points (U+00A0), comme partout ailleurs.
+    moleculeCta: 'S’entraîner : {target}',
+    scientistCta: 'La chimie derrière : {target}',
+    sourcesHeading: 'Sources',
+    sourcesNote: 'Liens vérifiés le {date}.',
   },
 
   chemistry: {

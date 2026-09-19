@@ -90,9 +90,13 @@ export const it = {
   nav: {
     sectionsA11y: 'Sezioni del pannello',
     profile: 'Profilo',
+    // Not shortened, for the reason given in de.ts: Italian is the narrowest
+    // of the five headers (905px of content at 1024px, 119px spare before
+    // Explore), so there is nothing to buy by abbreviating.
     leaderboards: 'Classifiche',
     games: 'Giochi',
     cheatSheets: 'Bigini',
+    explore: 'Esplora',
     // Shorter than the English "Log in / Register", the same trade German,
     // French and Spanish make: the pair is the widest thing in the header, and
     // the sign-in page offers both actions anyway.
@@ -511,6 +515,10 @@ export const it = {
     audio: 'Audio',
     soundEffects: 'Effetti sonori',
     volumeA11y: 'Volume del suono',
+    // «Account» è la parola che l’italiano usa davvero per un account online:
+    // «conto» è la banca e «utenza» è la bolletta. Coincide con l’inglese, come
+    // già `auth.password`, ed è nell’elenco delle eccezioni di dictionary.test.ts.
+    account: 'Account',
   },
 
   cheatSheets: {
@@ -539,6 +547,30 @@ export const it = {
     forTeachers: 'Per chi insegna',
     curriculum: 'Programma: ',
     filterA11y: 'Filtra gli argomenti per classe',
+  },
+
+  explore: {
+    heading: 'Esplora',
+    intro: 'Una molecola e una persona della chimica, ogni lunedì.',
+    dateline: 'Settimana del {date}',
+    moleculeHeading: 'Molecola della settimana',
+    // Doppietta fissa, uguale ogni settimana: l’italiano non ha qui un
+    // epiceno utilizzabile, e una formula che non cambia mai non dice nulla
+    // sulla persona della settimana.
+    scientistHeading: 'Chimica o chimico della settimana',
+    // «Formula» è la stessa parola in italiano e in inglese; vedi l’elenco
+    // delle eccezioni in dictionary.test.ts.
+    formulaLabel: 'Formula',
+    formulaA11y: '{name}, formula {formula}',
+    everydayHeading: 'Dove la incontri',
+    chemistryHeading: 'Perché funziona',
+    workHeading: 'Il suo lavoro',
+    legacyHeading: 'Perché è stato importante',
+    creditHeading: 'A chi va il merito',
+    moleculeCta: 'Esercitati: {target}',
+    scientistCta: 'La chimica dietro: {target}',
+    sourcesHeading: 'Fonti',
+    sourcesNote: 'Link controllati l’ultima volta il {date}.',
   },
 
   chemistry: {

@@ -1,7 +1,7 @@
 // src/components/layout/NavBar.tsx
 'use client';
 
-import { Beaker, User, Trophy, Gamepad2, FileText } from 'lucide-react';
+import { Beaker, Compass, Trophy, Gamepad2, FileText } from 'lucide-react';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { GlobalSettingsButton } from '@/components/ui/GlobalSettingsButton';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
@@ -23,11 +23,19 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
   // destination added here appears in both, which is the point — the reason
   // `/cheat-sheets` was unreachable on a phone is that the row was the only
   // place it was listed.
+  //
+  // Profile is deliberately absent. It was the only *account management* entry
+  // in a list of content destinations, and a signed-out visitor — most of the
+  // traffic — got an empty-state card from it. It now lives in the Settings
+  // popover's Account section, which is where account management conventionally
+  // is and which is already in this same header row. The dashboard keeps its
+  // own `#profile` section and `/profile` keeps its route; only the nav chip
+  // moved. See docs/feature-briefs/nav-profile-to-settings.md §2.
   const sections: NavSection[] = [
-    { href: '/#profile', label: t.nav.profile, Icon: User },
     { href: '/#leaderboards', label: t.nav.leaderboards, Icon: Trophy },
     { href: '/#games', label: t.nav.games, Icon: Gamepad2 },
     { href: '/cheat-sheets', label: t.nav.cheatSheets, Icon: FileText },
+    { href: '/explore', label: t.nav.explore, Icon: Compass },
   ];
 
   return (
@@ -52,11 +60,24 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
         </LocaleLink>
 
         {/*
-          The horizontal nav appears at lg, not md. Measured in German at 1280px:
-          brand 173px + nav 463px + controls 378px is already 1014px of content
-          before gaps and padding, so between 768px and roughly 1100px the header
-          overflowed. English fits at md; German does not, and the breakpoint has
-          to suit the widest language rather than the narrowest.
+          The horizontal nav appears at lg, not md, because between 768px and
+          roughly 1100px the header overflowed.
+
+          An earlier version of this comment said "English fits at md; German
+          does not". That was measured on the nav labels alone, and it was
+          wrong about the header. Re-measured in a real browser at 1024px, with
+          the whole row — brand + nav + controls + gaps + padding — **English
+          was the widest of the five**, at 1048px of content in a 1024px
+          viewport: a live WCAG 1.4.10 failure in the default language. English
+          has both the widest nav labels ("Leaderboards", "Cheat Sheets") and
+          the widest control ("Log in / Register"); German's longer-looking
+          words are offset by its much shorter "Anmelden".
+
+          That is what the shortened English and Spanish nav labels in the
+          dictionaries are for, and why Profile left the row. The measured
+          table is in docs/feature-briefs/nav-profile-to-settings.md §1; do not
+          add a sixth entry here without re-measuring at 320, 360, 768, 1024
+          and 1280px in all five locales, signed in and signed out.
         */}
         <nav aria-label={t.nav.sectionsA11y} className="hidden items-center gap-1 lg:flex">
           {sections.map(({ href, label, Icon }) => (
@@ -76,7 +97,13 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
 
         <div className="flex shrink-0 items-center gap-2">
           <LanguageSwitcher />
-          <GlobalSettingsButton />
+          {/*
+            `isAuthenticated` is threaded through so the settings popover's
+            Account section can show the two profile links to a signed-in
+            reader and the way in to a signed-out one. The in-game modal never
+            passes it and renders no Account section at all.
+          */}
+          <GlobalSettingsButton isAuthenticated={isAuthenticated} />
           {/*
             Below lg the sign-in button lives in the panel instead. It is the
             widest control in the header — 107px in German, and that is the

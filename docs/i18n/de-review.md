@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**788 strings** — 389 high confidence,
-334 medium, 65 low.
+**806 strings** — 392 high confidence,
+348 medium, 66 low.
 
 The confidence column is a judgement about *this* translation, not about German
 in general:
@@ -79,9 +79,10 @@ invisible here.
 |---|---|---|---|---|
 | `nav.sectionsA11y` | Dashboard sections | Bereiche der Übersicht | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.profile` | Profile | Profil | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
-| `nav.leaderboards` | Leaderboards | Bestenlisten | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
+| `nav.leaderboards` | Scores | Bestenlisten | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.games` | Games | Spiele | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
-| `nav.cheatSheets` | Cheat Sheets | Spickzettel | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
+| `nav.cheatSheets` | Guides | Spickzettel | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
+| `nav.explore` | Explore | Entdecken | high | "Entdecken" — the verb German uses for this kind of browsing section, and what a German streaming or news app puts on the same tab. "Erkunden" is the closer literal translation of "explore" but sounds like map-reading; "Entdecken" promises something new each week, which is what the page does. |
 | `nav.login` | Log in / Register | Anmelden | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.logout` | Log out | Abmelden | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.loggingOut` | Logging out... | Wird abgemeldet … | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
@@ -400,6 +401,7 @@ invisible here.
 | `settings.audio` | Audio | Audio | high | Standard settings vocabulary. |
 | `settings.soundEffects` | Sound Effects | Soundeffekte | high | Standard settings vocabulary. |
 | `settings.volumeA11y` | Sound volume | Lautstärke | high | Standard settings vocabulary. |
+| `settings.account` | Account | Konto | high | "Konto" is the ordinary German word for an online account. "Account" is also current in German tech copy but "Konto" is plainer and is what a fourteen-year-old meets at school. |
 
 ### `cheatSheets`
 
@@ -424,6 +426,27 @@ invisible here.
 | `cheatSheets.forTeachers` | For teachers | Für Lehrkräfte | high | Section headings for the reference pages. |
 | `cheatSheets.curriculum` | Curriculum:  | Lehrplan:  | high | Section headings for the reference pages. |
 | `cheatSheets.filterA11y` | Filter topics by year level | Themen nach Klassenstufe filtern | high | Section headings for the reference pages. |
+
+### `explore`
+
+| Key | English | German | Confidence | Notes |
+|---|---|---|---|---|
+| `explore.heading` | Explore | Entdecken | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.intro` | One molecule and one chemist, new every Monday. | Ein Molekül und eine Person aus der Chemie – jeden Montag neu. | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.dateline` | Week of {date} | Woche vom {date} | high | "Woche vom {date}" is the standard German dateline. The date itself is formatted by Intl in the German locale, so the string only supplies the words around it. |
+| `explore.moleculeHeading` | Molecule of the Week | Molekül der Woche | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.scientistHeading` | Scientist of the Week | Forschende der Woche | low | **Have a native speaker settle this one.** "Forschende der Woche" is the gender-neutral substantivised participle, which is what glossary-de.md § Register asks for and avoids both a Sternchen and a "Wissenschaftlerin oder Wissenschaftler" doublet that would be twice as wide in the header of a card. The risk is that the singular participle still reads as officialese to a teenager. The alternatives are the doublet (clear, long, and used by the Spanish and Italian versions) or "Chemie-Porträt der Woche" (natural, but stops naming a person). |
+| `explore.formulaLabel` | Formula | Formel | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.formulaA11y` | {name}, formula {formula} | {name}, Formel {formula} | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.everydayHeading` | Where you meet it | Im Alltag | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.chemistryHeading` | Why it works | So funktioniert es | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.workHeading` | What they did | Die Arbeit | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.legacyHeading` | Why it mattered | Warum das wichtig war | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.creditHeading` | Credit where it was due | Wer die Anerkennung bekam | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.moleculeCta` | Practise this: {target} | Dazu üben: {target} | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.scientistCta` | The chemistry behind this: {target} | Die Chemie dazu: {target} | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.sourcesHeading` | Sources | Quellen | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
+| `explore.sourcesNote` | Source links last checked {date}. | Links zuletzt geprüft am {date}. | medium | Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook. |
 
 ### `chemistry`
 

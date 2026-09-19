@@ -79,6 +79,10 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     /^chemistry\.base$/,
     // A category label that is the same word in both languages.
     /^cheatSheetCategories\.Nomenclature$/,
+    // "Sources" is the French word for sources. Reaching for "Références" only
+    // to make the two differ would name something slightly else — the section
+    // lists where the entry's facts came from, not a bibliography.
+    /^explore\.sourcesHeading$/,
     // Keyboard glyphs and single digits used as <kbd> labels. The first column
     // of an instructions key table is the physical key, so it never translates;
     // the second column, which says what the key does, always does.
@@ -128,6 +132,15 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     /^auth\.password$/,
     /^feedback\.categoryFeature$/,
     /^privacy\.collectAccountLabel$/,
+    // "Account" is what Italian calls an online account; *conto* is a bank and
+    // *utenza* is a utility bill. Same decision, and same reason, as
+    // `auth.password` above.
+    /^settings\.account$/,
+    // *Formula* is the Italian word for a chemical formula — identical to the
+    // English by coincidence of Latin, not by omission. `formulaA11y` is the
+    // same word inside a screen-reader label whose other two parts are
+    // placeholders, so it coincides too.
+    /^explore\.formula(Label|A11y)$/,
     // Chemistry terms that are the same word in both languages. Note that
     // Italian, like French and Spanish and unlike German, does translate
     // "neutral" (neutro) — only "base" coincides.

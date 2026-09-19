@@ -2,9 +2,10 @@
 'use client';
 
 import { useEffect } from 'react';
-import { X, Volume2, VolumeX, Moon, Sun, LifeBuoy } from 'lucide-react';
+import { X, Volume2, VolumeX, Moon, Sun, LifeBuoy, User } from 'lucide-react';
 import { GameThemeScope, Theme, useGameSettings } from '../../../context/game-settings-context';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+import { LocaleLink } from '@/components/layout/LocaleLink';
 import { useI18n } from '@/i18n/client';
 import type { Dictionary } from '@/i18n/dictionaries/en';
 
@@ -18,6 +19,16 @@ interface GameSettingsModalProps {
    * level). Pass the copy from the game's messages catalogue.
    */
   supportMode?: { label: string; description: string };
+  /**
+   * Whether anyone is signed in, which turns on the Account section.
+   *
+   * Optional and `undefined` by default on purpose: the modal is a client
+   * component with no server data, and only `NavBar` knows the answer. When it
+   * is absent the section renders nothing rather than guessing — which is also
+   * what every in-game use of this modal wants, because a profile link inside
+   * a game navigates away mid-run and silently discards it.
+   */
+  isAuthenticated?: boolean;
 }
 
 export default function GameSettingsModal({
@@ -26,6 +37,7 @@ export default function GameSettingsModal({
   gameId,
   variant = 'modal', // Default to modal for existing game pages
   supportMode,
+  isAuthenticated,
 }: GameSettingsModalProps) {
   const { t } = useI18n();
   const {
@@ -152,6 +164,50 @@ export default function GameSettingsModal({
               <section className="flex flex-col gap-4">
                 <LanguageSwitcher variant="panel" />
               </section>
+
+              {/*
+                ACCOUNT SECTION — the popover only, and only once the header has
+                told us whether anyone is signed in.
+
+                Links, not the edit form. Inlining `EditProfileForm` would mean
+                the layout fetching the reader's profile on every page in case
+                someone opens Settings, and `/profile/edit` also carries
+                `AccountDangerZone` — irreversible account deletion — which does
+                not belong in a popover that closes when you click outside it.
+
+                Signed out, this shows the way in rather than nothing: a reader
+                who opens Settings looking for their account should find the
+                door, not an absence.
+              */}
+              {!isModal && isAuthenticated !== undefined && (
+                <section className="flex flex-col gap-4">
+                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                    <User className="h-4 w-4" aria-hidden="true" />
+                    {t.settings.account}
+                  </h3>
+                  <div className="flex flex-col overflow-hidden rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)]">
+                    {(isAuthenticated
+                      ? [
+                          { href: '/profile', label: t.nav.profile },
+                          { href: '/profile/edit', label: t.profile.edit },
+                        ]
+                      : [{ href: '/auth', label: t.nav.login }]
+                    ).map((link) => (
+                      <LocaleLink
+                        key={link.href}
+                        href={link.href}
+                        // Closing on click matters: navigating with the popover
+                        // still open leaves it sitting over the destination.
+                        onClick={onClose}
+                        // min-h-11 is the 44px target docs/ACCESSIBILITY.md asks for.
+                        className="flex min-h-11 items-center border-b border-[var(--game-panel-border)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition last:border-b-0 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                      >
+                        {link.label}
+                      </LocaleLink>
+                    ))}
+                  </div>
+                </section>
+              )}
 
               {/* SUPPORT SECTION (games that opt in) */}
               {gameId && supportMode && (
