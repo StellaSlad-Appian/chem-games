@@ -1,9 +1,12 @@
 # Game Concept Brief: Share to Fill (Lewis Structures)
 
-**Status:** Approved — rev 4, 2026-09-17 (rev 3 scope unchanged: Year 10, covalent only,
-"interpret" = spot and fix errors; rev 4 removes the symbolic side panel — see "Decisions"
-at the end)
-**Hub title / description:** Share to Fill — "Pair up the loners to build a molecule."
+**Status:** Approved — rev 5, 2026-09-19 (rev 3 scope unchanged: Year 10, covalent only,
+"interpret" = spot and fix errors; rev 4 removed the symbolic side panel; **rev 5 abolishes
+the game's invented nickname for an unpaired outer electron — "loner" and its five
+translations — in favour of the formal term in every language.** The Level 1 vocabulary
+scaffold itself is unchanged in *purpose*; only the word changes, and the place it is printed.
+See "Decisions" at the end)
+**Hub title / description:** Share to Fill — "Pair up the unpaired electrons to build a molecule."
 **Slug (everywhere):** `lewis-structures` — add to `GameName`, `GameThemeScope`, route,
 `games.id`, `concept_games`
 **Concept:** `lewis-structures` (primary; currently seeded under `chemical-bonding` with
@@ -37,7 +40,7 @@ By the end, a Year 10 student can:
 | # | Mechanic | Intrinsic? | Triplet | Struggling students | Verdict |
 |---|---|---|---|---|---|
 | A | **Electron budget** — count total valence electrons, then place bonds and lone pairs until the budget is spent and octets satisfied (the earlier Octet Architect draft) | Yes | Sub + sym | Two abstractions at once (a global budget *and* per-atom octets); the budget number is an exam trick, not a Year 10 idea | Too much cognitive load for Year 10; keep for a Senior mode later |
-| B | **Share to Fill** — each atom arrives with its own valence electrons drawn as dots; unpaired dots are the only ones that can be shared; drag (or tap-tap) an unpaired dot onto another atom's unpaired dot to make a shared pair. An atom is "full" at 8 (H at 2). Double/triple bonds are just two/three shared pairs | Yes — valence *emerges* from the dot count (O has two unpaired dots, so O makes two bonds); there is no separate rule to remember | Sub (dots, sharing) + sym (formula, bond lines drawn as the pairs form) | Concrete: you move *things*; one idea (pair up the loners) | **Chosen for build mode** |
+| B | **Share to Fill** — each atom arrives with its own valence electrons drawn as dots; unpaired dots are the only ones that can be shared; drag (or tap-tap) an unpaired dot onto another atom's unpaired dot to make a shared pair. An atom is "full" at 8 (H at 2). Double/triple bonds are just two/three shared pairs | Yes — valence *emerges* from the dot count (O has two unpaired dots, so O makes two bonds); there is no separate rule to remember | Sub (dots, sharing) + sym (formula, bond lines drawn as the pairs form) | Concrete: you move *things*; one idea (pair up the unpaired electrons) | **Chosen for build mode** |
 | C | **Fix the structure** — a structure "drawn by another student" is shown; tap where the error is, choose the diagnosis, then repair it with the same tools as B. One in six is actually correct | Yes — the check *is* the octet rule applied | Sub + sym | Reading is easier than producing; good entry point and the requested interpretation skill | **Chosen for inspect mode** |
 | D | **Pick the correct diagram** (three drawn options, choose one) | No — recognition quiz | Sym only | Guessable | Rejected (anti-pattern) |
 | E | **Molecule race** — build structures against a countdown | Mechanic B with a timer | — | Anxiety, no gain | Rejected (anti-pattern) |
@@ -92,14 +95,15 @@ Mode B rounds are interleaved from Level 2 (every third round) and are the whole
 
 1. **Coach panel** under the canvas, always on at Levels 1–2, on request from Level 3, pinnable
    with **Support mode** (Settings; never lowers `accuracy`). It names the next thing to look at
-   in words: "Oxygen has 6 outer electrons — 2 pairs and 2 loners. Each loner can pair with a
-   loner on another atom."
-2. **Hint ladder** (lightbulb / `H`): tier 1 *what to look at* ("Which atoms still have loners?
-   They pulse."), tier 2 *the strategy* ("Carbon has four loners, so it will share with all four
-   hydrogens."), tier 3 *one move* ("Pair the loner on the left oxygen with a loner on carbon."
+   in words: "Oxygen has 6 outer electrons — 2 pairs and 2 unpaired electrons. Each can pair
+   with an unpaired electron on another atom."
+2. **Hint ladder** (lightbulb / `H`): tier 1 *what to look at* ("Which atoms still have unpaired
+   electrons? They pulse."), tier 2 *the strategy* ("Carbon has four unpaired electrons, so it
+   will share with all four hydrogens."), tier 3 *one move* ("Pair the unpaired electron on the
+   left oxygen with the one on carbon."
    — the two dots glow). Tier 1 free; tiers 2–3 cost the no-hint bonus; `accuracy` = rounds
    completed without tier 3 ÷ rounds played.
-3. **Tap-to-explain glossary**: *valence (outer) electron*, *unpaired electron / "loner"*,
+3. **Tap-to-explain glossary**: *valence (outer) electron*, *unpaired electron*,
    *lone pair*, *shared pair / bond*, *single / double / triple bond*, *octet*, *duet*, *dot*.
 4. **Guided first molecule** — `H2` then `H2O`, four scripted steps each, skippable, shown once.
 5. **Ring counters are text as well as rings** ("O: 8 of 8") so the octet is never colour-only.
@@ -129,10 +133,10 @@ structure" rounds (H₂S after H₂O, PH₃ after NH₃) make the periodic-table
 
 | Level | Molecules (in order) | Mode | Scaffolding |
 |---|---|---|---|
-| 1 | H₂ (guided), Cl₂, HCl | A | Coach on; loners pulse and are labelled "loner"; ring counters; bond line drawn as you pair |
-| 2 | H₂O (guided), NH₃, CH₄, then H₂S ("same as water?") and PH₃ ("same as ammonia?") | A, with a Mode B round every third | Coach on; loner labels off; counters on; the two same-group rounds open with `coach.sameGroup` |
+| 1 | H₂ (guided), Cl₂, HCl | A | Coach on; unpaired dots pulse and a legend above the board names them ("unpaired electron", beside one sample dot); ring counters; bond line drawn as you pair |
+| 2 | H₂O (guided), NH₃, CH₄, then H₂S ("same as water?") and PH₃ ("same as ammonia?") | A, with a Mode B round every third | Coach on; the legend is off; counters on; the two same-group rounds open with `coach.sameGroup` |
 | 3 | O₂, CO₂, N₂, C₂H₄, C₂H₂ | A + B | Coach on request; the "share again" affordance (second pairing between the same atoms draws a double bond) is introduced by the coach on O₂ |
-| 4 | C₂H₆, CCl₄, CH₃Cl, H₂O₂, C₂H₅OH (ethanol) | A + B | Counters on hover only; atoms start unplaced (player also chooses which atom is central — the coach explains "the atom with the most loners usually goes in the middle") |
+| 4 | C₂H₆, CCl₄, CH₃Cl, H₂O₂, C₂H₅OH (ethanol) | A + B | Counters on hover only; atoms start unplaced (player also chooses which atom is central — the coach explains "the atom with the most unpaired electrons usually goes in the middle") |
 | 5 — Marking mode | Six classmate drawings drawn from all 18 molecules, one in six correct; each ends with the two counting questions | B only | No coach; hint ladder only; ends with a "marking sheet" summary of every diagnosis and count |
 
 Config: `src/core-engine/config/games/lewis-structures-config.ts` — `levels.roundsByLevel`,
@@ -147,34 +151,35 @@ can swap a molecule without touching tuning numbers.
 
 **Title:** How to Play: Share to Fill
 
-> **Pair up the loners.** Every atom brings its outer electrons as dots. A dot on its own is a
-> *loner* — it wants a partner. Two loners from two different atoms make a **shared pair**,
+> **Pair up the unpaired electrons.** Every atom brings its outer electrons as dots. A dot on its
+> own is an *unpaired electron* — it wants a partner. Two unpaired electrons from two different
+> atoms make a **shared pair**,
 > which is a bond.
 >
 > - Drag a pulsing dot onto a pulsing dot on another atom (or tap one, then the other).
 > - An atom is full when it has **8** dots around it — hydrogen is full at **2**.
 > - Share twice between the same two atoms and you've made a double bond.
-> - The structure locks itself when every atom is full and no loners are left. No button needed.
+> - The structure locks itself when every atom is full and no unpaired electrons are left. No button needed.
 > - Stuck? Press the **lightbulb** (or `H`). The first hint is always free.
 >
 > The dots show *how many* outer electrons an atom has — not where they really are.
 >
-> *Keyboard & mouse:* `Tab` selects an atom · `←` `→` picks one of its loners · `Enter` starts
+> *Keyboard & mouse:* `Tab` selects an atom · `←` `→` picks one of its unpaired electrons · `Enter` starts
 > a pair, `Tab` + `Enter` on another atom finishes it · `Esc` cancels · `H` hint · `P` pause.
-> *Touchscreen:* tap a loner, then tap a loner on another atom. Tap a shared pair to undo it.
+> *Touchscreen:* tap an unpaired electron, then tap one on another atom. Tap a shared pair to undo it.
 
 ## Guided first molecules
 
 **H₂ (Level 1, round 1):**
-1. "Two hydrogen atoms. Each has 1 outer electron — a loner. Drag one onto the other."
+1. "Two hydrogen atoms. Each has 1 outer electron — an unpaired electron. Drag one onto the other."
 2. "They now share a pair. Count around each H: 2. Hydrogen is full at 2 — that's a single
    bond, H–H." *(lock)*
 
 **H₂O (Level 2, round 1):**
-1. "Oxygen has 6 outer electrons: two pairs (they stay put) and two loners (they pulse)."
-2. "Pair one oxygen loner with a hydrogen loner." *(waits)* "Oxygen now has 7 around it — one
+1. "Oxygen has 6 outer electrons: two pairs (they stay put) and two unpaired electrons (they pulse)."
+2. "Pair one unpaired electron on the oxygen with the one on a hydrogen." *(waits)* "Oxygen now has 7 around it — one
    more to go."
-3. "Pair the other oxygen loner with the other hydrogen." *(waits)*
+3. "Pair the other unpaired electron on the oxygen with the other hydrogen." *(waits)*
 4. "Oxygen: 8. Each hydrogen: 2. Two shared pairs and two lone pairs — that's water, H–O–H."
    *(lock)*
 
@@ -182,17 +187,17 @@ can swap a molecule without touching tuning numbers.
 
 | Key | When | Text |
 |---|---|---|
-| `coach.loners` | unpaired dots remain | "{Atom} still has {n} loner(s). Loners pair with loners on *another* atom." |
-| `coach.needsMore` | atom below full, no loners left elsewhere nearby | "{Atom} has {count} of 8. It needs another shared pair — which atom still has a loner?" |
-| `coach.shareAgain` | two bonded atoms both still have loners | "{Atom1} and {Atom2} both still have a loner. They can share again — that makes a double bond." |
-| `coach.complete` | lock | "Every atom is full and no loners are left. This is {name}: {bonds} shared pair(s), {lonePairs} lone pair(s)." |
+| `coach.loners` | unpaired dots remain | "{Atom} still has {n} unpaired electron(s). They pair with unpaired electrons on *another* atom." |
+| `coach.needsMore` | atom below full, nothing unpaired left elsewhere nearby | "{Atom} has {count} of 8. It needs another shared pair — which atom still has an unpaired electron?" |
+| `coach.shareAgain` | two bonded atoms both still have unpaired electrons | "{Atom1} and {Atom2} both still have an unpaired electron. They can share again — that makes a double bond." |
+| `coach.complete` | lock | "Every atom is full and no unpaired electrons are left. This is {name}: {bonds} shared pair(s), {lonePairs} lone pair(s)." |
 | `hint.tier1` | | "Look for the atoms that still have pulsing dots." |
-| `hint.tier2` | | per-molecule text from the dataset, e.g. "Carbon has four loners, so it will share with all four hydrogens." |
-| `hint.tier3` | | "Pair the loner on {atom1} with the loner on {atom2}." (dots glow) |
-| `error.atomFull` | drop on a full atom | "{Atom} already has 8 — it can't share any more. Try an atom that still has a loner." |
+| `hint.tier2` | | per-molecule text from the dataset, e.g. "Carbon has four unpaired electrons, so it will share with all four hydrogens." |
+| `hint.tier3` | | "Pair the unpaired electron on {atom1} with the one on {atom2}." (dots glow) |
+| `error.atomFull` | drop on a full atom | "{Atom} already has 8 — it can't share any more. Try an atom that still has an unpaired electron." |
 | `error.hydrogenFull` | second pair onto H | "Hydrogen is full at 2. It can only share one pair." |
 | `error.sameAtom` | drag within one atom | "Those two dots are on the same atom — they're already a pair. A bond needs two different atoms." |
-| `error.pairedDot` | drag a lone-pair dot | "That dot is already part of a pair. Only loners (the pulsing ones) can be shared." |
+| `error.pairedDot` | drag a lone-pair dot | "That dot is already part of a pair. Only unpaired electrons (the pulsing ones) can be shared." |
 | `inspect.wrongAtom` | Mode B, tapped a correct atom | "{Atom} has {count} — that one's fine. Check an atom with too few or too many." |
 | `inspect.wrongDiagnosis` | | "Not quite. Count the dots around {atom}: {count}. {Explanation of the actual error}." |
 | `inspect.correctStructure` | player says "correct" and it is | "Right — every atom is full and nothing is left over." |
@@ -202,12 +207,12 @@ can swap a molecule without touching tuning numbers.
 | `inspect.countWrong` | count off | "You counted {given}; there are {actual}. The ones you missed are highlighted — a double bond counts as one bond but two shared pairs." *(second sentence only when relevant)* |
 | `coach.sameGroup` | H₂S / PH₃ rounds | "{Element} is in the same group as {analogue}, so it has the same number of outer electrons. Expect the same structure as {analogueMolecule}." |
 | `success.round` | | "{Name} complete — {bondLine}." |
-| `overlay.levelUp` | `customMessages.levelUp` | badge "All atoms full" · title "Level cleared" · subtitle "Every loner paired" · description "Level {n}: {what changes}." |
+| `overlay.levelUp` | `customMessages.levelUp` | badge "All atoms full" · title "Level cleared" · subtitle "No unpaired electrons left" · description "Level {n}: {what changes}." |
 | `overlay.victory` | | badge "All objectives complete" · title "Lewis structures mastered" · description "Open your marking sheet, or try Bond Builder next." |
 | `notebook.header` | end summary | "Your structures" (each molecule: dot structure, bond-line, bonds / lone pairs, hint tier) |
 
 Glossary: **outer (valence) electron** "an electron in the outside shell — the ones an atom
-shares" · **loner (unpaired electron)** "an outer electron without a partner; only loners can be
+shares" · **unpaired electron** "an outer electron without a partner; only these can be
 shared" · **lone pair** "two outer electrons that stay on one atom and are not shared" ·
 **shared pair / bond** "two electrons, one from each atom, shared between them — drawn as a
 line" · **single / double / triple bond** "one, two or three shared pairs between the same two
@@ -220,13 +225,13 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
   rings; disclaimer in instructions and glossary.
 - **Shared electrons "belong" to one atom** — the shared pair is drawn *between* the atoms and
   counts toward *both* rings (the counters visibly both go up by 2 on pairing).
-- **Hydrogen with 8 / lone pairs on H** — impossible in Mode A (H has one loner), diagnosed in
+- **Hydrogen with 8 / lone pairs on H** — impossible in Mode A (H has one unpaired electron), diagnosed in
   Mode B (`hydrogenFull`).
 - **Lone pairs are optional / forgotten** — atoms arrive with all their electrons; you can't
   delete them; Mode B's most common injected error is a missing lone pair.
 - **"More bonds is always better"** — a full atom refuses further pairs; the coach explains.
-- **Any atom can be central** — Level 4 makes the choice explicit with the loner-count heuristic
-  (and H is never central because it has one loner).
+- **Any atom can be central** — Level 4 makes the choice explicit with the unpaired-count heuristic
+  (and H is never central because it has one unpaired electron).
 - **Line drawings and dot drawings are different things** — both are shown side by side and
   update together.
 
@@ -261,9 +266,10 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
 ## Accessibility (from `ACCESSIBILITY.md`)
 
 - Drag has tap-tap and full keyboard equivalents (above); every dot is a focusable button
-  with a name ("oxygen, loner 1 of 2").
-- Pulsing marks loners but so does the label/pattern (open dot vs filled pair) and the text
-  counter; under `prefers-reduced-motion` loners are outlined instead of pulsing.
+  with a name ("oxygen, unpaired electron 1 of 2").
+- Pulsing marks an unpaired electron but so does the pattern (open dot vs filled pair), the
+  Level 1 legend and the text counter; under `prefers-reduced-motion` they are outlined instead
+  of pulsing.
 - Ring counters have text; coach and hints in an `aria-live="polite"` region; lock is assertive.
 - Colour never carries meaning: element identity is the symbol, not the colour.
 - No timer. Targets ≥ 44 px on touch (`useInputMethod`), dots enlarged on touch.
@@ -281,6 +287,29 @@ around hydrogen — full" · **dot** "shows how many outer electrons, not where 
 - [ ] Concept seed year level changed to `Year 10`; cheat sheet `lewis-structures` gains a
       Year 10 essentials section; `games.is_active = true` in a new migration; one
       `game_sessions` row per full run.
+
+## Decisions (rev 5, 2026-09-19 — terminology)
+
+1. **The invented nickname is abolished.** The game used to give an unpaired outer electron two
+   names and teach the pair: the formal term, and a coined game word in each language — English
+   *loner*, German *Einzelelektron*, French *solitaire*, Spanish *impar*, Italian *dispari*,
+   Russian *одиночка* — with a third, shorter word on the canvas in German, French and Russian.
+   **There is now one term per language and it is the formal one**, used in the hub line, every
+   coach line, every hint, the glossary and the canvas. This reverses the rev 3 decision that the
+   nickname was a useful teaching scaffold. The rejected words and, more importantly, the
+   *collisions* that ruled out their alternatives (Spanish *par solitario*, Italian *doppietto
+   solitario*, Russian *свободный*) are kept in `docs/i18n/glossary-<locale>.md`: they are facts
+   about each language and still bind any new wording near this term.
+2. **The Level 1 vocabulary scaffold stays; only the word and its place change.** The term used to
+   be stamped beside *every* unpaired dot, which only worked because the nicknames were short: the
+   dots sit 50 px apart, giving a per-dot label about 44 px, and the formal term is 102 px
+   (Italian) to 134 px (Russian) at `text-[9px]` uppercase — two to three times the budget, in all
+   six languages at once, and printed up to four times around a single carbon. Letting it wrap
+   does not fix it either: the longest single word of the phrase is 51 px (English) to 78 px
+   (Russian), still wider than the gap. **So the term is said once, in a legend above the board,
+   beside one sample of the pulsing dot it names.** Nothing repeats, nothing can collide, and the
+   phrase has no length limit in any language. Still present at Level 1 and off from Level 2,
+   exactly as before.
 
 ## Decisions (rev 3, 2026-09-16 — science-teacher call)
 
@@ -317,21 +346,21 @@ rev 3 keys or wording changed. Please approve or reword.
 
 | Key | When | Text |
 |---|---|---|
-| `coach.deadEnd` | the only loners left are on one atom (or none), so a shared pair must be undone — e.g. O–O paired first in CO₂ | "{Atom} has {count} of 8, but no other atom has a loner left to share. Tap a shared pair to undo it, then try a different partner." |
+| `coach.deadEnd` | the only unpaired electrons left are on one atom (or none), so a shared pair must be undone — e.g. O–O paired first in CO₂ | "{Atom} has {count} of 8, but no other atom has an unpaired electron left to share. Tap a shared pair to undo it, then try a different partner." |
 | `coach.isomer` | every atom is full but the atoms are joined differently from the target (only ethanol can reach this: dimethyl ether) | "Every atom is full, but the atoms are joined up differently from {name}. Tap a shared pair to undo it and try another arrangement." |
-| `coach.central` | Level 4 round start (the brief's "the atom with the most loners usually goes in the middle") | "The atom with the most loners usually goes in the middle." |
+| `coach.central` | Level 4 round start (the brief's "the atom with the most unpaired electrons usually goes in the middle") | "The atom with the most unpaired electrons usually goes in the middle." |
 | `hint.tier3Undo` | tier 3 when the drawing has wandered off the target | "Tap the shared pair between {atom1} and {atom2} to undo it." |
 | `hint.offerTier2` | after `stuckAfterSeconds` | "Still stuck? Press the lightbulb again for the strategy." |
 | `hint.noMoreHints` | tier 3 requested on a finished structure | "That was the last hint. Every atom is full — press Next." |
 | `hint.inspect.tier1/2/3`, `tier3Correct`, `tier3Count` | the hint ladder in Mode B (Level 5 is "hint ladder only", so the ladder needs Mode B text) | tier 1 "Count the dots around each atom. Every atom should have 8 — hydrogen 2." · tier 2 "Check the atoms with the most bonds first. That is where extra or missing pairs hide." · tier 3 "{Atom} has {count}. Tap it, then choose what is wrong." / "Every atom is full and nothing is left over — press 'This one is correct'." / counting: "Every line between two atoms is one bond. There are {n}." |
 | `inspect.classmate`, `inspect.prompt` | Mode B round start | "Drawn by a classmate: {name}." "Tap the atom you think is wrong — or say the drawing is correct." |
 | `inspect.diagnosisPrompt` | after tapping an atom | "What is wrong with {atom}?" |
-| `inspect.explain.*` | the "{Explanation of the actual error}" slot in `inspect.wrongDiagnosis` | tooMany "{Atom} has more than {full} — an extra lone pair was drawn." · tooFew "{Atom} has fewer than 8 — a lone pair is missing." · hydrogenFull "Hydrogen has 4 — it can only share one pair." · needsDouble "{A} and {B} each still have a loner — they need to share twice." · leftover "{Atom} has a loner left over — an extra electron was drawn." |
+| `inspect.explain.*` | the "{Explanation of the actual error}" slot in `inspect.wrongDiagnosis` | tooMany "{Atom} has more than {full} — an extra lone pair was drawn." · tooFew "{Atom} has fewer than 8 — a lone pair is missing." · hydrogenFull "Hydrogen has 4 — it can only share one pair." · needsDouble "{A} and {B} each still have an unpaired electron — they need to share twice." · leftover "{Atom} has an unpaired electron left over — an extra electron was drawn." |
 | `inspect.notCorrect` | "This one is correct" pressed on a flawed drawing | "Not quite — one atom isn't right. Count the dots around each atom and tap the one that's off." |
-| `inspect.repair`, `inspect.repaired` | after the right diagnosis / once repaired | "Now fix it: pair up the loners until every atom is full." "Fixed — every atom is full again." |
+| `inspect.repair`, `inspect.repaired` | after the right diagnosis / once repaired | "Now fix it: pair up the unpaired electrons until every atom is full." "Fixed — every atom is full again." |
 | `inspect.countRight`, `inspect.countLabel` | a correct count / the live tally | "Yes — 4 bonds." · "Counted: 4 bonds" |
 | `overlay.levelChanges[n]` | the "{what changes}" slot of `overlay.levelUp` | 2 "oxygen, nitrogen and carbon bring lone pairs that stay put, and every third molecule is a classmate's drawing to check." · 3 "some atoms need to share twice — a double bond. The coach now waits until you ask." · 4 "atoms start unplaced. You choose which one goes in the middle." · 5 "marking mode — six classmate drawings, no coach, hint ladder only." |
-| `ui.*` | button labels and accessible names | Next molecule · Next drawing · Finish level · Skip guide · Next · This one is correct · Done counting · Open marking sheet · Back · Play again · Support mode (+ help text) · per-dot names ("Oxygen, loner 1 of 2", "Oxygen, lone pair 1 of 2"), bond names ("Single bond between oxygen and hydrogen — press to undo"), live announcements |
+| `ui.*` | button labels and accessible names | Next molecule · Next drawing · Finish level · Skip guide · Next · This one is correct · Done counting · Open marking sheet · Back · Play again · Support mode (+ help text) · per-dot names ("Oxygen, unpaired electron 1 of 2", "Oxygen, lone pair 1 of 2"), bond names ("Single bond between oxygen and hydrogen — press to undo"), live announcements |
 
 Build decisions that touch the pedagogy (also for review):
 
@@ -342,7 +371,7 @@ Build decisions that touch the pedagogy (also for review):
   local. The diagnosis text is unchanged.
 - **Repair = reset the wrong atom, then pair.** Adding or deleting electrons is not a Mode A
   tool, so after a correct diagnosis the wrong atom is reset to its own electrons (partners
-  keep theirs as loners) and the player finishes with pairing. `needsDouble` needs no reset.
+  keep theirs unpaired) and the player finishes with pairing. `needsDouble` needs no reset.
   `prepareRepair()` is unit-tested: every generated drawing is repairable by pairing alone.
 - **"How many bonds?" counts bonds, not shared pairs.** Tapping either line of a double bond
   selects the whole bond, so a double bond can only ever be counted once; the "a double bond
@@ -351,8 +380,9 @@ Build decisions that touch the pedagogy (also for review):
   shown while counters are always on (Levels 1–3), hidden with them from Level 4 so marking
   mode is about counting dots.
 - `coach.needsMore` is kept in the catalogue but cannot occur in a valence-consistent
-  drawing (an atom with no loner is always full), so the dead-end message covers that case.
-- `{n} loner(s)` is rendered with real plurals ("1 loner", "2 loners").
+  drawing (an atom with nothing unpaired is always full), so the dead-end message covers that case.
+- `{n} unpaired electron(s)` is rendered with real plurals ("1 unpaired electron",
+  "2 unpaired electrons").
 - **Molecule `tier2Hint`, `propertyLine` and `bondLine` text** was written during the build
   (the brief specifies the fields, with one example each) — see `lewis-molecules.ts`.
 
@@ -368,13 +398,15 @@ The four language checks are run as part of that work.
 
 | Locale | Title | Kind | Hub description | Notes / alternative |
 |---|---|---|---|---|
-| en | Share to Fill | — | Pair up the loners to build a molecule. | The title is the rule (rev 3 decision). |
-| de | Schalen füllen | adaptation | Verbinde die Einzelelektronen zu einem Molekül. | Proposal: names the rule (fill the shells) in the imperative pattern the German hub already uses (*Neutralisieren!*). A literal *Teilen* is avoided because it also means *divide*. Alternative: *Volle Schale*. Check it does not read as a chore. > YOU DECIDE |
+| en | Share to Fill | — | Pair up the unpaired electrons to build a molecule. | The title is the rule (rev 3 decision). |
+| de | Schalen füllen | adaptation | Verbinde die ungepaarten Elektronen zu einem Molekül. | Proposal: names the rule (fill the shells) in the imperative pattern the German hub already uses (*Neutralisieren!*). A literal *Teilen* is avoided because it also means *divide*. Alternative: *Volle Schale*. Check it does not read as a chore. > YOU DECIDE |
 | fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
 
-**Terms to fix in each glossary before translating:** the coined **loner** (unpaired electron —
-de: decided — *ungepaartes Elektron* as the formal term, *Einzelelektron* as the game word,
-*einzeln* as the short canvas label; *Einzelgänger* was rejected as a word for a person),
+**Terms to fix in each glossary before translating:** **unpaired electron** (rev 5: one term per
+language, the formal one — de *ungepaartes Elektron*, fr *électron célibataire*, es *electrón
+desapareado*, it *elettrone spaiato*, ru *неспаренный электрон*; the invented game words and
+short canvas labels this brief used to specify are recorded as rejected in
+`docs/i18n/glossary-<locale>.md`),
 lone pair (*freies Elektronenpaar*), shared pair / bond (*bindendes Elektronenpaar* /
 *Atombindung*), single / double / triple bond, octet and **duet** (de: *Oktettregel*; the
 hydrogen "full at 2" rule — *Duett-Regel* or *Edelgasregel*, decide), outer / valence electron
@@ -385,5 +417,5 @@ Lewis structure (*Lewis-Formel*), the *marking sheet* of inspect mode, *Support 
 O₂ and the hydrides are element names plus a molecular name, e.g. de *Wasserstoff* for H₂).
 **Dataset prose to overlay:** `lewis-molecules.ts` `name`, `tier2Hint`, `propertyLine`,
 `bondLine` is notation and stays.
-**Count-dependent strings:** "{n} loner(s)", the bond and lone-pair counts in `coach.complete`,
+**Count-dependent strings:** "{n} unpaired electron(s)", the bond and lone-pair counts in `coach.complete`,
 `success.round` and the counting questions, "{count} of 8".

@@ -41,7 +41,7 @@ genders means longer `matches` arrays than any previous locale needed. See
 
 | Rule | Decision |
 |---|---|
-| Address | Informal **ты** throughout. **Flagged for review, but far less contentious than French's *tu*.** Russian school textbooks mix *ты* and impersonal constructions, and formal *вы* appears mostly in exam rubrics and teacher-facing material. This site is a game: the English says "Stuck? Press the lightbulb", and *вы* turns that into an invigilator. Every imperative in the dictionary and both catalogues is second-person singular (*нажми*, *посчитай*, *соедини*). If the owner prefers *вы*, the change is mechanical but touches almost every string — decide before a native review, not after. |
+| Address | Informal **ты** throughout. **Decided by the owner on 2026-09-19; no longer provisional.** Russian school textbooks mix *ты* and impersonal constructions, and formal *вы* appears mostly in exam rubrics and teacher-facing material. This site is a game: the English says "Stuck? Press the lightbulb", and *вы* turns that into an invigilator. Every imperative in the dictionary and both catalogues is second-person singular (*нажми*, *посчитай*, *соедини*). |
 | Quotation marks | Russian **« … »** (ёлочки), with **no inner spaces** — unlike French. Nested quotes would be „ … “, but nothing on the site nests. `src/test-utils/i18n-russian.ts` fails on `"`, `“` and `”`, so this is enforced rather than remembered. |
 | Dash | **—** (em dash, U+2014) with a space on each side, which is Russian's parenthetical and its zero-copula dash (*Вода — это H2O*). **Not** the en dash the German and French glossaries chose: Russian typography uses the em dash for both jobs, and the en dash only between numerals. |
 | Hyphen vs dash | A hyphen `-` joins words (*кислотно-основная*); it is never a dash. |
@@ -351,8 +351,8 @@ lists are long for a grammatical reason, not a technical one.
 | lone pair | **неподелённая электронная пара** | The Russian school term. Short form *неподелённая пара* where the sentence has already said "electron". Note ё. *Свободная электронная пара* is the other term in circulation and is **rejected** — see the loner note below for what it would have cost. *Одинокая пара* is a calque of the English and is not Russian chemistry. |
 | bonding pair / shared pair | **общая электронная пара** | Short form *общая пара*. The Share to Fill game says "shared pair" where a textbook says "bonding pair"; both are *общая электронная пара*. Do not introduce a second word (*связывающая пара*) for the same thing. |
 | unpaired electron (formal term) | **неспаренный электрон** | The Russian textbook term, the one used when teaching radicals. Use it in the glossary, on the cheat sheets and anywhere the text is explaining rather than instructing. |
-| the game's "loner" (game word) | **одиночка** | See the long note below. |
-| the short label on a pulsing dot | **соло** | **A different word from the game word, and measured rather than chosen.** The canvas centres this label under a dot, and in H2 the two dots are 50 px apart; at `text-[9px]` uppercase, *одиночка* renders 59 px and the two labels overlap by 9 px on screen. The budget is about 44 px — *loner* is 32, *impar* 33, *dispari* 40, *einzeln* 41 — and no transparent Russian one-word rendering fits: *непарный* 59, *без пары* 51, *не в паре* 52, *одинок* 44 but colliding with *одинокая пара*. So Russian follows German in giving the dot its own shorter word. **Соло** is 28 px, every fourteen-year-old knows it, it means exactly «on its own», and it collides with no chemistry term. See below. |
+| ~~the game's "loner" (game word)~~ | **dropped 2026-09-19 — use *неспаренный электрон*** | The game used to give this concept two names: the textbook term above and an invented game word, *одиночка*, with a third word, *соло*, as the short label on a pulsing dot. **That scheme was abolished on 2026-09-19.** There is now one term per language and it is the formal one, used in the hub line, every coach line, every hint, the glossary and the canvas legend. The reasoning that produced *одиночка* is kept in the section below so that nobody re-proposes it, and the collision warnings in that section are still true — they bind any *new* wording chosen near this term, not just the nickname they originally decided. |
+| the Level 1 canvas legend | **неспаренный электрон** | The same formal term, naming the pulsing dot once beside a sample of it, above the board. **Russian no longer needs a third word.** The 44 px that ruled out every transparent Russian rendering (*непарный* 59, *без пары* 51, *не в паре* 52, *одинок* 44 but colliding with *одинокая пара*) was the budget for a label stamped beside *each* dot 50 px from its neighbour — not a limit on the term's length. There is no such label any more, and *неспаренный электрон* renders 134 px on a 312 px line at 360 px viewport with room to spare. Present at Level 1 and off from Level 2. |
 | octet (eight outer electrons) | **октет** | *Правило октета* is standard from 8 класс. |
 | duet (hydrogen's two) | **дублет** | **Russian sits with German, not with French.** French has *la règle du duet* in its national programme; Russian school chemistry has **no settled word at all** — it says «завершённый внешний уровень, как у гелия» or nothing. *Дублет* is a real Russian scientific word meaning a pair (спектральный дублет), so it is transparent and it is not a coinage. **Rejected: *дуэт*** — the direct calque of the English and German word, which in Russian reads purely musical and would be the only jokey term in a serious glossary. **Rated low.** A teacher may well prefer to drop the word and say «два электрона, как у гелия». |
 | single / double / triple bond | **одинарная / двойная / тройная связь** | **одинарная**, not *одиночная* — a real and common mistake, and one reason *одиночный* could not be the loner word. |
@@ -364,7 +364,21 @@ lists are long for a grammatical reason, not a technical one.
 | electronegativity | **электроотрицательность** | Long (21 letters) but there is no alternative; it appears in prose only, never in a fixed-width control. |
 | delocalised electrons | **свободные электроны** | The school phrasing for the "sea" in a metal (*электронный газ* is the other). The literal *делокализованные электроны* is upper-secondary register. **And this is the second reason *свободный* could not be the game's word for a loner**: it already means something else, and something a student meets on the bonding sheet. |
 
-### The "loner": Russian's own two-tier pair, and the four words it could not use
+### The “loner”: Russian's own two-tier pair, and the four words it could not use — historical, and why it is kept
+
+> **This scheme was abolished on 2026-09-19.** The game no longer has a game
+> word, a formal term and a dot label: it has ***неспаренный электрон*** and nothing else,
+> in the hub line, every coach line, every hint, the glossary and the canvas
+> legend. Nothing below is current practice.
+>
+> It is kept for two reasons. First, so that the rejected candidates stay
+> rejected — every one of them was ruled out for a stated reason, and a future
+> pass that re-proposes one should have to answer that reason. Second, and more
+> important, because **the collisions recorded below are facts about Russian,
+> not facts about the old nickname.** They bind any *new* wording chosen
+> anywhere near this term, which is why they are repeated in the term table
+> above rather than living only here.
+
 
 English deliberately gives an unpaired outer electron two names — the formal
 *unpaired electron* and the game's own *loner* — and teaches the pair, with the

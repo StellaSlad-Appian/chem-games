@@ -566,10 +566,27 @@ document.body.appendChild(probe);
 probe.getBoundingClientRect().width;
 ```
 
-Russian ended up following German — a *different, shorter* word on the dot than
-in the coach line — rather than Spanish and Italian, which reuse one word in
-both roles. That is a real cost: the label then teaches the concept rather than
-the word. It is worth knowing before a locale picks its game word, not after.
+**Postscript, 2026-09-19: this particular label is gone, and how it went is the
+more useful half of the lesson.** When the game dropped its invented nicknames
+and every locale moved to its formal term, the measurement above stopped having
+a solution: *unpaired electron* and its five translations are 102 px (it) to
+134 px (ru), two to three times the budget, in every language at once. No
+abbreviation was acceptable, because an abbreviation of a formal term is just a
+new nickname. Wrapping did not save it either — the longest single word of the
+phrase is 51 px (en) to 78 px (ru), still wider than the 50 px gap.
+
+The fix was not a shorter word but **a different place**: the term is now
+printed once, in a legend above the board, beside one sample of the pulsing dot
+it names, instead of being stamped beside every dot. So the generalisable rule
+is narrower than "measure the label", and worth stating on its own:
+
+> A fixed-slot measurement constrains **the layout that created the slot**, not
+> the vocabulary. Before you shorten a word to fit a slot, check whether the
+> slot has to exist — repeating a label beside every one of four dots is a
+> layout choice, and it was the thing that could not survive translation.
+
+Measuring still matters, and measuring is what showed the slot was the problem.
+What does not follow from a measurement is that the *word* must give way.
 
 ### 4. Dates, numbers and percentages are not strings
 
