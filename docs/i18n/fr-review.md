@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its French
 translation, so a native speaker or a chemistry teacher can review the French
 without reading any code.
 
-**806 strings** — 387 high confidence,
-348 medium, 71 low.
+**808 strings** — 387 high confidence,
+350 medium, 71 low.
 
 The confidence column is a judgement about *this* translation, not about French
 in general:
@@ -123,6 +123,8 @@ one (U+00A0) before `:`. Both are otherwise invisible here.
 | `home.gamesHeading` | Interactive Mini-Games | Mini-jeux interactifs | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.gamesDescription` | Select an experiment to master chemical reactions and formulas. | Choisis une expérience et maîtrise les réactions et les formules chimiques. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.gamesLink` | Browse all games | Voir tous les jeux | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
+| `home.exploreLink` | Open Explore | Ouvrir Explorer | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
+| `home.exploreDetail` | A new molecule and a new chemist every Monday, each with a way into the chemistry behind it. | Chaque lundi, une nouvelle molécule et une nouvelle personne de la chimie – et à chaque fois une porte d’entrée vers la chimie qui va avec. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.emptyProfileAuthenticatedTitle` | Profile setup in progress | Profil en cours de création | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.emptyProfileAuthenticatedBody` | Your profile will be available after the database profile migration has run. | Ton profil sera disponible dès que la migration des profils aura été faite dans la base de données. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.emptyProfileAnonymousTitle` | Your profile starts here | Ton profil commence ici | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |

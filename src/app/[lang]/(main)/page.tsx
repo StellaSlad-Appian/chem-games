@@ -1,6 +1,6 @@
 // src/app/[lang]/(main)/page.tsx
 
-import { Trophy, Gamepad2, User, ArrowRight } from 'lucide-react';
+import { Trophy, Gamepad2, User, ArrowRight, Compass } from 'lucide-react';
 import { PersonalScoreSummary } from '@/components/social/PersonalScoreSummary';
 import { PublicLeaderboard } from '@/components/social/PublicLeaderboard';
 import { PublicProfile } from '@/components/social/PublicProfile';
@@ -122,6 +122,44 @@ export default async function Home(props: PageProps<'/[lang]'>) {
 
       {/* Main Content Sections */}
       <div className="mx-auto max-w-6xl space-y-20 px-4 py-14 md:px-8">
+        {/*
+          Explore Section — the dashboard's way into /explore.
+
+          Belt and braces, and deliberately so: the header's phone panel is new
+          code, and the dashboard is where a phone reader already is. It sits
+          first because it is the only part of the site that changes on its own,
+          so it is the only part worth checking on a return visit.
+
+          Heading and description reuse the `explore` namespace rather than
+          restating it, so the dashboard and the page itself can never describe
+          the feature differently.
+        */}
+        <section id="explore" className="scroll-mt-24">
+          <SectionHeading
+            icon={Compass}
+            title={t.explore.heading}
+            description={t.explore.intro}
+            link="/explore"
+            linkLabel={t.home.exploreLink}
+          />
+          <LocaleLink
+            href="/explore"
+            className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl"
+          >
+            <div>
+              <span className="block h-2 w-16 rounded-full bg-blue-500" />
+              <p className="mt-5 max-w-2xl text-sm text-(--muted)">{t.home.exploreDetail}</p>
+            </div>
+            <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-blue-500">
+              <span>{t.home.exploreLink}</span>
+              <ArrowRight
+                className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            </div>
+          </LocaleLink>
+        </section>
+
         {/* Profile Section */}
         <section id="profile" className="scroll-mt-24">
           <SectionHeading

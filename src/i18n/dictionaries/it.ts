@@ -136,6 +136,9 @@ export const it = {
     gamesHeading: 'Minigiochi interattivi',
     gamesDescription: 'Scegli un esperimento e impara le reazioni e le formule chimiche.',
     gamesLink: 'Vedi tutti i giochi',
+    exploreLink: 'Apri Esplora',
+    exploreDetail:
+      'Ogni lunedì una molecola nuova e una persona nuova della chimica – e ogni volta una porta d’ingresso alla chimica che c’è dietro.',
     emptyProfileAuthenticatedTitle: 'Profilo in costruzione',
     emptyProfileAuthenticatedBody:
       'Il tuo profilo sarà disponibile appena sarà stata eseguita la migrazione dei profili nel database.',
@@ -565,7 +568,11 @@ export const it = {
     everydayHeading: 'Dove la incontri',
     chemistryHeading: 'Perché funziona',
     workHeading: 'Il suo lavoro',
-    legacyHeading: 'Perché è stato importante',
+    // «Perché ha contato», non «Perché è stato importante»: il participio
+    // concorderebbe con la persona della settimana, e su dieci delle venti
+    // schede quella persona è una donna – l’intestazione si leggerebbe come
+    // «perché *lui* è stato importante». Questa forma non ha genere.
+    legacyHeading: 'Perché ha contato',
     creditHeading: 'A chi va il merito',
     moleculeCta: 'Esercitati: {target}',
     scientistCta: 'La chimica dietro: {target}',

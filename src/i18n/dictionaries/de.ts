@@ -107,6 +107,9 @@ export const de = {
     gamesHeading: 'Interaktive Minispiele',
     gamesDescription: 'Wähle ein Experiment und meistere chemische Reaktionen und Formeln.',
     gamesLink: 'Alle Spiele ansehen',
+    exploreLink: 'Zu „Entdecken“',
+    exploreDetail:
+      'Jeden Montag ein neues Molekül und eine neue Person aus der Chemie – und jedes Mal ein Weg zur Chemie dahinter.',
     emptyProfileAuthenticatedTitle: 'Profil wird noch eingerichtet',
     emptyProfileAuthenticatedBody:
       'Dein Profil ist verfügbar, sobald die Profil-Migration der Datenbank gelaufen ist.',

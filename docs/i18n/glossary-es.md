@@ -499,3 +499,37 @@ rejected candidates are kept as comments above each chosen line in
 The open question the German review raised — *should game titles be translated
 at all, or kept as English product names?* — is unchanged and is answered per
 game in the brief, not silently per locale.
+
+---
+
+## Explore: molécula y científica o científico de la semana
+
+Decided for `src/lib/explore/` and used in `src/i18n/explore/es.ts`. Each term is
+used identically in every entry that needs it.
+
+| English | Spanish | Note |
+|---|---|---|
+| quasicrystal | **cuasicristal** | Settled Spanish. |
+| peroxide bridge / endoperoxide | **un puente de dos átomos de oxígeno … un peróxido** | Matches *Peróxido* in the polyatomic table. *Endoperóxido* is university register and was not used. |
+| isotactic | **isotáctico** | Natta's own term, and what Spanish polymer texts print. |
+| liquid crystal | **cristal líquido** | One of the few places *cristal* is unambiguous — see the next row. |
+| crystal vs glass | **sólido cristalino** vs **vidrio** | **A trap for every Romance locale.** In Spain *cristal* is the everyday word for window glass, so a literal "the difference between a crystal and a glass" reads as "the difference between glass and glass". In `sodium-chloride`, where *cristal* means the object, the ordinary word is kept. |
+| latent heat of fusion | **calor latente de fusión** | Used once, as a gloss, in `maria-telkes`. |
+| incongruent melting | **no funde de forma limpia** | *Fusión incongruente* is correct and not 3.º ESO vocabulary. Same wording in `sodium-sulfate` and `maria-telkes`, so the pair reads as one idea. |
+| chirality / mirror images | **quiral**; **imágenes especulares una de la otra** | The noun *quiralidad* was not needed. |
+| R/S nomenclature | **el sistema R/S**; **las reglas de Cahn–Ingold–Prelog** | Letters never translated. |
+| processivity | *(paraphrased: «no suelta el molde»)* | *Procesividad* is the real term; flagged `low`, because Spanish readers of the Salas entry are the likeliest to know it. |
+| strand displacement | **aparta a su paso la hebra contraria** | A DNA strand is **hebra**, never *cadena* — *cadena* is already this glossary's word for a carbon chain. |
+| polyatomic vs complex ion | **ion poliatómico** (already above) vs **ion complejo** | The contrast `alfred-werner` turns on. |
+| monolayer | **monocapa** | Glossed in place on first use. |
+| catalytic hydrogenation | **hidrogenación catalítica** | — |
+| phase-change material | **material de cambio de fase** | — |
+| umami | **umami** | Naturalised in Spain; carries `monosodium-glutamate` and `kikunae-ikeda`. |
+| diffraction pattern | **patrón de difracción** | Consistent in `kathleen-lonsdale` and `dan-shechtman`. |
+| twinned crystals | **una macla de cristales** | The Spanish crystallography word — correct, and probably unknown at 14. Flagged `low`. |
+| hydrogen bond | **enlace de hidrógeno** | The IUPAC and modern-textbook form, over *puente de hidrógeno*, which many Spanish teachers still say. Appears in four entries, so a reversal is a visible four-line change. Flagged `medium-low` for a teacher. |
+| greenhouse gas | **gas de efecto invernadero** | — |
+| fertiliser | **fertilizante** | Over *abono*, which implies manure. |
+| heat of formation | **calor de formación** | Chosen over *entalpía de formación* so it sits beside *calor latente*. |
+| aramid | **aramida** | Recorded; the Kevlar entry now uses the bare trade mark. |
+| Kevlar, urea | **Kevlar**, **Urea** | Identical to the English and allowlisted in `src/i18n/explore.test.ts`. The first draft glossed them (*Kevlar (aramida)*, *Urea (carbamida)*) purely to pass the byte-identity gate; *carbamida* is real Spanish that nobody says and does not belong on a card heading to satisfy a test. |

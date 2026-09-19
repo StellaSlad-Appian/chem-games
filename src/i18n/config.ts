@@ -52,6 +52,32 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   it: 'Italiano',
 };
 
+/**
+ * The BCP 47 tag to hand `Intl` when formatting a date or a number.
+ *
+ * Not the same thing as `Locale`, and the difference is not cosmetic.
+ * `Intl.DateTimeFormat('en', …)` resolves to **en-US** and writes
+ * "September 21, 2026" — on a site that otherwise spells things *neutralise*
+ * and *sulfur*, follows the Victorian curriculum, and is read by students who
+ * write the day first. The URL prefix stays `en`, because that is a language
+ * and the reader's region is not ours to guess from a path; the formatting tag
+ * is a separate, deliberate choice.
+ *
+ * `es` resolves to **es-ES** for the reason recorded at the top of this file
+ * and argued in docs/i18n/glossary-es.md: the Spanish copy is peninsular, and
+ * a Spanish date is written the same way across the language anyway — so this
+ * only makes the existing decision explicit rather than adding a new one.
+ *
+ * Use it for `Intl`, never for `<html lang>`: that must keep matching the URL.
+ */
+export const DATE_LOCALES: Record<Locale, string> = {
+  en: 'en-GB',
+  de: 'de-DE',
+  fr: 'fr-FR',
+  es: 'es-ES',
+  it: 'it-IT',
+};
+
 export function isLocale(value: unknown): value is Locale {
   return typeof value === 'string' && (LOCALES as readonly string[]).includes(value);
 }

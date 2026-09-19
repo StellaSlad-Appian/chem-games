@@ -118,6 +118,15 @@ export const en = {
     gamesHeading: 'Interactive Mini-Games',
     gamesDescription: 'Select an experiment to master chemical reactions and formulas.',
     gamesLink: 'Browse all games',
+    /**
+     * The dashboard's way into /explore. Belt and braces: the nav panel is new
+     * code, and the dashboard is where a phone reader already is.
+     * The section's heading and description reuse `explore.heading` and
+     * `explore.intro`, so only these two strings are new.
+     */
+    exploreLink: 'Open Explore',
+    exploreDetail:
+      'A new molecule and a new chemist every Monday, each with a way into the chemistry behind it.',
     emptyProfileAuthenticatedTitle: 'Profile setup in progress',
     emptyProfileAuthenticatedBody:
       'Your profile will be available after the database profile migration has run.',

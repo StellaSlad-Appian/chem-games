@@ -133,6 +133,9 @@ export const es = {
     gamesHeading: 'Minijuegos interactivos',
     gamesDescription: 'Elige un experimento y domina las reacciones y las fórmulas químicas.',
     gamesLink: 'Ver todos los juegos',
+    exploreLink: 'Abrir Explorar',
+    exploreDetail:
+      'Cada lunes, una molécula nueva y una persona nueva de la química – y en los dos casos una puerta de entrada a la química que hay detrás.',
     emptyProfileAuthenticatedTitle: 'Perfil en construcción',
     emptyProfileAuthenticatedBody:
       'Tu perfil estará disponible en cuanto se ejecute la migración de perfiles en la base de datos.',

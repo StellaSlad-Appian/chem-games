@@ -552,3 +552,37 @@ rejected candidates are kept as comments above each chosen line in
 The open question the German review raised — *should game titles be translated
 at all, or kept as English product names?* — is unchanged and is answered per
 game in the brief, not silently per locale.
+
+---
+
+## Explore: molecola e chimica o chimico della settimana
+
+Decided for `src/lib/explore/` and used in `src/i18n/explore/it.ts`. Each term is
+used identically in every entry that needs it.
+
+| English | Italian | Note |
+|---|---|---|
+| quasicrystal | **quasicristallo** | Standard and transparent. |
+| peroxide bridge / endoperoxide | **ponte perossidico**; the group is a **perossido** | Matches *Perossido* in the polyatomic table in `cheat-sheets/it.ts`. |
+| isotactic | **isotattico** | Natta's own Italian word. Double t, as in *tattico*. |
+| liquid crystal | **cristallo liquido** | Noun then adjective, the only Italian form. |
+| latent heat / heat of formation | **calore latente**; **calore di formazione** | *Calore di formazione* over *entalpia di formazione*: school register, and the English says "heat", not "enthalpy". |
+| incongruent melting | **non fonde in modo pulito** | The English avoids the term in both entries, so the Italian does too. Term is *fusione incongruente*. |
+| chirality / mirror images | **chirale**, **chiralità**; **l'una l'immagine speculare dell'altra** | *Immagine speculare* is the school phrase; identical in `limonene` and `vladimir-prelog`. |
+| R/S nomenclature | **il sistema R/S**; **regole di Cahn–Ingold–Prelog**; **in senso orario / antiorario** | R and S stay as letters. |
+| processivity | *(described: «si tiene stretta allo stampo … senza mollare la presa»)* | Term would be *processività*. |
+| strand displacement | *(described: «scosta da sé il filamento opposto»)* | Term would be *spiazzamento del filamento*; flagged `low` on register. |
+| polyatomic vs complex ion | **ione poliatomico** (already above) vs **ione complesso** | Werner's entry says complexes are *una famiglia di ioni poliatomici*, as the English does. |
+| monolayer / thin film | **monostrato**; **pellicola** | *Pellicola* beats *film* for a 14-year-old and avoids the cinema loanword. |
+| catalytic hydrogenation | **idrogenazione catalitica** | — |
+| phase-change heat store | **accumulo di calore** | The English never names the material class, and neither does the Italian. |
+| umami | **umami** | The plain taste word is **saporito** (the MSG entry); *umami* is its name (the Ikeda entry). |
+| diffraction pattern | **figura di diffrazione** | The Italian physics term; *pattern di diffrazione* is a loan. Flagged `medium`. |
+| twinned crystals | **cristalli geminati** | Standard crystallography Italian. |
+| hydrogen bond | **legame a idrogeno** | Used in four entries; was not in this glossary. |
+| hydroxyl group | **gruppo ossidrilico** / **ossidrile** | *Gruppo idrossilico* is equally current; flagged `medium`. |
+| oxidation state | **numero di ossidazione** | The school term, not *stato di ossidazione*. |
+| fertiliser | **fertilizzante**, **fertilizzante azotato** | Over *concime*, so that one word covers ammonia, urea, Haber and Döbereiner. |
+| rocket oxidiser | **ossidante** | Reuses the glossary's *ossidante*; *comburente* is combustion-specific. |
+| aramid | **arammide** | Double m, as in *ammide*. Kevlar's systematic name is **poli(parafenilentereftalammide)**. |
+| benzene, urea, limonene, Kevlar | **Benzene**, **Urea**, **Limonene**, **Kevlar** | All four are byte-identical to the English because that is what Italian calls them — three from the same Latin and Greek roots, one a trade mark. Allowlisted in `src/i18n/explore.test.ts`; never gloss one to dodge the gate. |

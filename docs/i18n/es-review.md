@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Spanish
 translation, so a native speaker or a chemistry teacher can review the Spanish
 without reading any code.
 
-**806 strings** — 378 high confidence,
-357 medium, 71 low.
+**808 strings** — 378 high confidence,
+359 medium, 71 low.
 
 The confidence column is a judgement about *this* translation, not about Spanish
 in general:
@@ -129,6 +129,8 @@ style choice when missing.
 | `home.gamesHeading` | Interactive Mini-Games | Minijuegos interactivos | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
 | `home.gamesDescription` | Select an experiment to master chemical reactions and formulas. | Elige un experimento y domina las reacciones y las fórmulas químicas. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
 | `home.gamesLink` | Browse all games | Ver todos los juegos | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
+| `home.exploreLink` | Open Explore | Abrir Explorar | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
+| `home.exploreDetail` | A new molecule and a new chemist every Monday, each with a way into the chemistry behind it. | Cada lunes, una molécula nueva y una persona nueva de la química – y en los dos casos una puerta de entrada a la química que hay detrás. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
 | `home.emptyProfileAuthenticatedTitle` | Profile setup in progress | Perfil en construcción | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
 | `home.emptyProfileAuthenticatedBody` | Your profile will be available after the database profile migration has run. | Tu perfil estará disponible en cuanto se ejecute la migración de perfiles en la base de datos. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |
 | `home.emptyProfileAnonymousTitle` | Your profile starts here | Tu perfil empieza aquí | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "las mejores puntuaciones" rather than "los mejores científicos", because the person noun would default to masculine. |

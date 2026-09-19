@@ -364,3 +364,35 @@ rejected candidates are kept as comments above each chosen line in
 The open question the German review raised — *should game titles be translated
 at all, or kept as English product names?* — is unchanged and is answered per
 game in the brief, not silently per locale.
+
+---
+
+## Explore : molécule et scientifique de la semaine
+
+Decided for `src/lib/explore/` and used in `src/i18n/explore/fr.ts`. Each term
+is used identically in every entry that needs it.
+
+| English | French | Note |
+|---|---|---|
+| quasicrystal | **quasi-cristal** (pl. *quasi-cristaux*) | Hyphenated, as French crystallography and the Nobel coverage write it. *quasicristal* also circulates; flagged `low–medium`. |
+| diffraction pattern | **figure de diffraction** | The school and physics term. *Cliché de diffraction* is the photograph, not the pattern. |
+| liquid crystal | **cristal liquide** | Everyone knows it from screens. |
+| isotactic | **isotactique** | The IUPAC French term. |
+| monolayer | **monocouche** | Used where the English says "a single layer". |
+| peroxide bridge / endoperoxide | **pont peroxyde** | *Peroxyde* is already fixed in `cheat-sheets/fr.ts`; *pont* is what French says for this bridge. *Endoperoxyde* is pharmacology register and above this reading age. |
+| chirality / mirror-image forms | **chiral**; **formes images l'une de l'autre dans un miroir** | Deliberately **not** *énantiomères*, which is terminale register — the English avoids "enantiomer" too. Identical wording in `limonene` and `vladimir-prelog`. |
+| R/S nomenclature | **le système R et S**; **les règles de Cahn–Ingold–Prelog** | R and S are notation and stay as letters. |
+| catalytic hydrogenation | **hydrogénation catalytique** | — |
+| processivity | *(described: « ne lâche pas la matrice »)* | Term is *processivité*; the English describes rather than names it. |
+| strand displacement | *(described: « écarter le brin d'en face »)* | Term is *déplacement de brin*, which is above this reading age. |
+| polyatomic vs complex ion | **ion polyatomique** (already above) vs **ion complexe** | `alfred-werner` turns on the contrast: complexes are *une famille d'ions polyatomiques*. |
+| latent heat of fusion | *(described: « la fusion absorbe de l'énergie sans que la température monte »)* | Term is *chaleur latente de fusion* if a future entry needs it. |
+| incongruent melting | **« il ne fond pas proprement »** | Matches the English's own plain phrasing. Term is *fusion non congruente*. |
+| phase-change material | **matériau à changement de phase** | Decided; not used, because the English never names it either. |
+| umami | **umami** | Kept, and it does extra work: French has no everyday word for *savoury*, so "savoury rather than salty" becomes **« umami plutôt que salé »**. An adaptation, not a translation. |
+| aramid | **aramide** | Recorded; does not occur in the current source. |
+| rocket oxidiser | **comburant** | Pairs with *combustible*, which French teaches in combustion. |
+| heat of formation | **enthalpie de formation** | Correct, and lycée-terminale vocabulary in a text written for ~12. Flagged `low`; *chaleur de formation* is the gentler alternative. |
+| oxidation state | **nombre d'oxydation** | Fixed here so it cannot drift to *degré d'oxydation*. |
+| weight for weight | **à masse égale** | Recurs in `kevlar` and `stephanie-kwolek`. |
+| Kevlar | **Kevlar** | A registered trade mark, identical to the English and allowlisted in `src/i18n/explore.test.ts`. Never glossed to dodge the gate. |

@@ -118,6 +118,9 @@ export const fr = {
     gamesDescription:
       'Choisis une expérience et maîtrise les réactions et les formules chimiques.',
     gamesLink: 'Voir tous les jeux',
+    exploreLink: 'Ouvrir Explorer',
+    exploreDetail:
+      'Chaque lundi, une nouvelle molécule et une nouvelle personne de la chimie – et à chaque fois une porte d’entrée vers la chimie qui va avec.',
     emptyProfileAuthenticatedTitle: 'Profil en cours de création',
     emptyProfileAuthenticatedBody:
       'Ton profil sera disponible dès que la migration des profils aura été faite dans la base de données.',

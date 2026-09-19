@@ -245,7 +245,14 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     id: 'kevlar',
     name: 'Kevlar',
-    formula: 'C14H10N2O2',
+    // `(…)n` rather than a bare `C14H10N2O2`. A polymer has no molecular
+    // formula, and a repeat unit printed next to the name, in the slot where
+    // every other card shows a molecular formula, reads as one — which is a
+    // misconception a teacher then has to undo. The prose says so as well, but
+    // the notation should not have to be corrected by the paragraph below it.
+    // MoleculeText leaves the trailing `n` full size; the brackets carry the
+    // meaning.
+    formula: '(C14H10N2O2)n',
     everyday:
       'Kevlar is in body armour, motorcycle jackets, cut-resistant gloves, brake pads, tyre belts and the hulls of racing boats. It is sold as a yellow fibre, spun into rope and woven into cloth. Its proper name, poly(para-phenylene terephthalamide), is a description of what it is built from rather than anything a person says out loud.',
     chemistry:
@@ -392,7 +399,10 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     id: 'polypropylene',
     name: 'Polypropylene',
-    formula: 'C3H6',
+    // See the note on Kevlar. This one is sharper: a bare `C3H6` beside the
+    // word "polypropylene" is propene's formula, and the entry's own chemistry
+    // paragraph says exactly that.
+    formula: '(C3H6)n',
     everyday:
       'Polypropylene is the second most produced plastic in the world. It is bottle caps, yoghurt pots, the food tubs you are allowed to microwave, car bumpers, rope, carpet fibre and the non-woven fabric in a surgical mask. When you see a recycling triangle with a 5 in it, this is what it means.',
     chemistry:

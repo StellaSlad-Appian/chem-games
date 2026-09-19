@@ -201,3 +201,48 @@ Not chemistry, but it needs to be consistent too.
 | year level | **Klassenstufe**, labels **Klasse 7–10**, **Oberstufe** | The stored value stays `Year 9`; only the label is German. |
 | teacher | **Lehrkraft / Lehrkräfte** | Gender-neutral. |
 | student | **Schülerin / Schüler**, plural **Schülerinnen und Schüler** | — |
+
+---
+
+## Explore: Molekül und Forschende der Woche
+
+Decided for `src/lib/explore/` and used in `src/i18n/explore/de.ts`. Each term is
+used identically in every entry that needs it — the same concept called two
+things on two cards is the single most common translation bug in a technical
+app, and that is what this table exists to stop.
+
+| English | German | Note |
+|---|---|---|
+| quasicrystal | **Quasikristall** | No competing form. |
+| tenfold / fivefold symmetry | **zehnzählige / fünfzählige Symmetrie** | German crystallography says *-zählig*, never *-fach*. |
+| twinned crystals | **verzwillingte Kristalle** | What Pauling's objection is actually called in German. |
+| diffraction pattern | **Beugungsmuster** | *Beugungsbild* is equally correct; *Muster* is transparent to a 14-year-old. |
+| X-ray crystallography | **Röntgenstrukturanalyse** | The German term; *Röntgenkristallographie* is a calque. |
+| peroxide bridge | **Peroxidbrücke** | Builds on *Peroxid*, already fixed above. *Endoperoxid* is university register, and the English avoids it too. |
+| isotactic | **isotaktisch** | Natta's own coinage; the same word in both languages. |
+| liquid crystal | **Flüssigkristall** | — |
+| heat of fusion / latent heat store | **Schmelzwärme**; **Wärmespeicher**, **Latentwärmespeicher** | Both entries describe the effect rather than naming it, as the English does. |
+| incongruent melting | **„es schmilzt nicht sauber“** (prose) | *Inkongruentes Schmelzen* is correct and far above reading age 12. Recorded so nobody reaches for it. |
+| chirality / mirror images | **chiral**; **„wie Bild und Spiegelbild“** | The German textbook phrase. *Spiegelbildformen* reads as a translation. |
+| R/S nomenclature | **R/S-System**, **Cahn-Ingold-Prelog-Regeln** | **German joins personal names in a compound with hyphens, not en dashes** — likewise *Ziegler-Natta-Katalysator*, *Langmuir-Blodgett-Schichten*, *Lewis-Langmuir-Theorie*, *Haber-Bosch-Verfahren*. The en dash in the typography table above is for parenthetical dashes only; do not over-apply it here. |
+| processivity | **„hält die Vorlage fest und lässt nicht los“** | The term is *Prozessivität*; the English describes rather than names it, so the German does too. |
+| strand displacement | **„schiebt den Gegenstrang aus dem Weg“** | The term is *Strangverdrängung*. Same reasoning. |
+| complex ion | **Komplex-Ion** | Hyphenated to match *Oxonium-Ion*. One family of *mehratomiges Ion*, which is already fixed above. |
+| monolayer | **Moleküllage**; noun form **Monoschicht** | The Blodgett entry needs the plain word („44 Lagen“). |
+| catalytic hydrogenation | **katalytische Hydrierung** | Not *Hydrogenierung*. |
+| heat of formation | **Bildungsenthalpie** | Correct and standard — and above reading age 12, which is why the review rates it `low`. |
+| CFCs | **FCKW** | **The important one.** A German reader knows no other abbreviation; "CFC" is opaque. |
+| Haber process | **Haber-Bosch-Verfahren** | German names it after both men; *Haber-Verfahren* alone reads as a mistake. |
+| oxidation state | **Oxidationszahl** | The school term. |
+| –OH / –COOH / –NH2 groups | **Hydroxygruppe / Carboxygruppe / Aminogruppe** | Current German IUPAC forms, not *Hydroxyl-/Carboxyl-/Amin-*. Older textbooks differ; flagged for a teacher. |
+| umami | **Umami** | Loanword, capitalised as a German noun. |
+| aramid | **Aramid**, **Aramidfaser** | — |
+| benzene | **Benzol** | The school and everyday word; *Benzen* is the German IUPAC form no Year 10 textbook uses, and `cheat-sheets/de.ts` already says *Benzol*. The entry adds a clause the English has no reason to carry, because **Benzol/Benzin** is a confusion German readers actually have. |
+| citric acid | **Citronensäure** | The chemical spelling. *Zitronensäure* is what a student reads on an ingredients list; flagged `medium` for a teacher to settle. |
+| cholesterol | **Cholesterin** | **Never *Cholesterol*** — a real trap when translating from English. |
+| baking soda | **Natron** | The everyday word. *Backpulver* is a different product, so it would be a factual error. |
+| table salt / rock salt | **Kochsalz / Steinsalz** | — |
+| Glauber's salt | **Glaubersalz** | One word, no genitive. |
+| urea | **Harnstoff** | — |
+| limonene | **Limonen** | Correct, and a homograph of the plural of *Limone* (lime) inside an entry about citrus. No better option exists; flagged. |
+| oleic acid / stearic acid | **Ölsäure / Stearinsäure** | — |
