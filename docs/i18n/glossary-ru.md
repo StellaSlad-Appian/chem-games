@@ -1,0 +1,585 @@
+# Russian chemistry glossary
+
+The agreed Russian term for every chemistry concept that appears on the site. It
+exists so the same idea is not called two different things on two different
+pages, and so whoever writes the next Russian string does not have to re-decide.
+
+**If you are adding or editing Russian copy, use the term in the middle column.**
+Where Russian school practice accepts more than one word, the "Why this one"
+column says which we picked and why; the rejected alternative is not wrong, it
+is just not ours.
+
+Scope: Russian for a Year 9–10 audience — **8–9 класс**, which is where the
+Russian curriculum introduces valency, bonding and equation balancing —
+following the vocabulary of Russian school textbooks rather than university
+Russian.
+
+Russian is the sixth locale and the **first written in anything but the Latin
+alphabet**. Three sections below exist only because of that, and none of them is
+a style preference:
+
+- [Case government, and the device that solves it](#case-government-and-the-device-that-solves-it)
+  — the overlay stores nominatives, and a Russian sentence wants six cases.
+- [Counts, plurals and the 57 invariant strings](#counts-plurals-and-the-57-invariant-strings)
+  — measured, not assumed.
+- [Gender agreement on an interpolated noun](#gender-agreement-on-an-interpolated-noun)
+  — the thing that is ungrammatical in Russian and fine in all five Latin locales.
+
+One constraint that is **no longer** a problem, and is recorded here so nobody
+reintroduces the workaround: the tap-to-explain matcher in `GlossaryTerm.tsx`
+used a JavaScript `\b`, which is defined against `[A-Za-z0-9_]` and can never
+find a Cyrillic word. The preparation pass replaced it with `\p{L}`/`\p{N}`
+lookarounds under the `u` flag. **A Russian match word therefore works** — but it
+must still be the bare standalone form, and **every inflected form the copy
+actually uses has to be listed**, which in a language with six cases and three
+genders means longer `matches` arrays than any previous locale needed. See
+[Glossary match words](#glossary-match-words).
+
+---
+
+## Register and typography
+
+| Rule | Decision |
+|---|---|
+| Address | Informal **ты** throughout. **Flagged for review, but far less contentious than French's *tu*.** Russian school textbooks mix *ты* and impersonal constructions, and formal *вы* appears mostly in exam rubrics and teacher-facing material. This site is a game: the English says "Stuck? Press the lightbulb", and *вы* turns that into an invigilator. Every imperative in the dictionary and both catalogues is second-person singular (*нажми*, *посчитай*, *соедини*). If the owner prefers *вы*, the change is mechanical but touches almost every string — decide before a native review, not after. |
+| Quotation marks | Russian **« … »** (ёлочки), with **no inner spaces** — unlike French. Nested quotes would be „ … “, but nothing on the site nests. `src/test-utils/i18n-russian.ts` fails on `"`, `“` and `”`, so this is enforced rather than remembered. |
+| Dash | **—** (em dash, U+2014) with a space on each side, which is Russian's parenthetical and its zero-copula dash (*Вода — это H2O*). **Not** the en dash the German and French glossaries chose: Russian typography uses the em dash for both jobs, and the en dash only between numerals. |
+| Hyphen vs dash | A hyphen `-` joins words (*кислотно-основная*); it is never a dash. |
+| Ellipsis | **…** as a single character (U+2026). Enforced by the typography gate. |
+| **ё** | **Written explicitly, everywhere.** Russian print often folds ё to е and for adult readers that is defensible; for fourteen-year-olds it is not, because ё is always the stressed vowel. *твёрдый*, *заряжённый*, *неподелённая*, *учёный*, *приведённый*. The gate lists the words this site cannot avoid. |
+| Decimals | Russian **comma**: 6,02 × 10²³, not 6.02. (Prose only; code, formulae and version numbers keep their own notation, and the gate's lookbehind ignores a digit-dot-digit that follows a Latin letter.) |
+| Thousands | **No-break space** (U+00A0): 1 000, not 1,000 and not 1.000. `Intl.NumberFormat('ru-RU')` produces exactly this, so never hand-format. |
+| Non-breaking space | Before a unit (`8,0 г`), inside `и т. д.`, and between a numeral and what it counts where the pair must not break. |
+| Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `ru` (see below). Russian capitalises far less than English: not months, not days, not nationalities, not the names of school subjects. |
+| Gender of the reader | **Never inflected for.** Russian past-tense verbs and short adjectives agree with the speaker's gender, so *«ты насчитал»* is wrong for half the readers. Every such string is rewritten in the present tense or as a noun phrase — see [Adjectives, participles and past tenses that would agree with the reader](#adjectives-participles-and-past-tenses-that-would-agree-with-the-reader). |
+| Element symbols | Stay **Latin** (*Na*, *Cl*, *H₂O*), even in Cyrillic prose. Element *names* are Cyrillic (*натрий*). This is Russian chemistry's own convention, not a shortcut. |
+
+### `LOWERCASES_NAMES_IN_SENTENCE` is `true` for Russian
+
+Russian capitalises only proper nouns, so a chemical name inside a sentence is
+lower case: «две молекулы воды», not «две молекулы Воды». The map in
+`src/i18n/chemistry-names.ts` is therefore `true` for `ru`, the same as English,
+French, Spanish and Italian, and the opposite of German.
+
+Checked against every call site before setting it, the way French, Spanish and
+Italian each were: `nameInSentence()` is applied only to **element names** in the
+Reaction Balancer catalogue and to **element and molecule names** in the Share to
+Fill catalogue. Neither set contains a Roman numeral, so the naive
+`.toLowerCase()` cannot turn *железо(III)* into *железо(iii)*. Species names
+carrying a Roman numeral (*нитрат меди(II)*) reach the screen through
+`speciesName()`, which does **not** lowercase. If a future change routes a
+species name through `nameInSentence()`, that is the thing to re-check.
+
+One extra Russian-specific reason to be sure of this: `.toLowerCase()` on a
+Cyrillic string is well defined and lossless in JavaScript (`'Натрий'` →
+`'натрий'`), and **Ё lowercases to ё rather than to е**, so the yo convention
+above survives the call. Verified, because it is the kind of thing that would
+silently fold ё on every coach line.
+
+---
+
+## Case government, and the device that solves it
+
+This is the biggest structural difference between Russian and all five languages
+that came before it, and it shapes dozens of strings.
+
+**The `chemistry-names` overlay stores nominatives only.** `elementName()`,
+`compoundName()`, `speciesName()` and `localizeLewisMolecule()` each return one
+form: *кислород*, *гидроксид натрия*, *вода*. A Russian sentence wants whichever
+of six cases the position calls for:
+
+```
+проверь кислород        accusative  — happens to equal the nominative
+проверь серу            accusative  — does NOT (сера is feminine)
+в воду                  accusative after в
+с кислородом            instrumental after с
+молекула воды           genitive
+```
+
+So a template like *«Проверь {element} ещё раз»* is right for *кислород*,
+*водород*, *углерод*, *азот*, *хлор*, *натрий* and *железо*, and **wrong for
+*сера*, *сурьма* and every other feminine name** the dataset can produce. It
+compiles, it passes every parity gate, and it is a grammar mistake on screen —
+precisely the class of bug the Italian count strings were.
+
+**The device: put the name in a position that governs nothing.** French invented
+it for its article problem, Spanish reused it for *el/la*, Italian for elision;
+README § Where a placeholder may sit calls it a device rather than a workaround
+for exactly that reason. It solves case government too, and for the same
+underlying reason: *nothing can agree with something that is not inside the
+sentence's grammar.*
+
+Four shapes, used consistently across both catalogues:
+
+| Shape | Example | Where it is used |
+|---|---|---|
+| Name, then a colon | `Потом снова проверь: {element}.` | hints, coach lines, anywhere the English has the name as a verb's object |
+| Name, then a dash, then the fact | `{atom} — {count} из 8.` | coach lines, a11y labels, live-region announcements |
+| A generic noun, then a colon, then the name | `Этого вещества нет в реакции: {name}.` | Challenge errors, wrong-pick feedback |
+| A relative clause with the name as **subject** | `Измени вещество, в котором есть {elementInSentence}.` | Reaction Balancer coach, where English says "which compound with {element}" |
+
+The fourth is Russian's own addition to the list, and it is worth naming: a
+subject is nominative, so a `который`-clause takes any name the overlay can
+supply without touching it. It reads as ordinary Russian rather than as a
+translator dodging something, which the colon shapes occasionally do not.
+
+Two consequences worth knowing:
+
+- **`{elementInSentence}` could not keep its French treatment.** French wrote
+  *« l'élément {elementInSentence} »*, leaning on every French element name being
+  masculine. Russian element names are masculine (*кислород*), neuter (*железо*,
+  *серебро*, *олово*, *золото*) and feminine (*сера*, *медь*, *ртуть*,
+  *сурьма*, *платина*), so no article-like crutch exists and no pronoun is safe.
+  The relative clause is what replaced it.
+- **Prepositions are the hard failure, colons the easy one.** *в {name}*,
+  *с {name}*, *из {name}* are all ungrammatical with a nominative. There is no
+  such construction left in the Russian copy: every one was rewritten. If a new
+  English string puts a name after a preposition, it needs one of the four
+  shapes above before it can be translated.
+
+### Nothing structural was left unresolved
+
+Every interpolation of a chemistry name in the dictionary and both catalogues
+was audited one at a time against this rule. None of them needed a template
+change in the English source, and none had to be left awkward. The shapes above
+were enough.
+
+---
+
+## Counts, plurals and the 57 invariant strings
+
+### Measured, not assumed
+
+```js
+new Intl.PluralRules('ru').resolvedOptions().pluralCategories
+// → ['one', 'few', 'many', 'other']
+```
+
+| n | 0 | 1 | 2 | 3 | 4 | 5 | 11 | 20 | 21 | 22 | 25 | 101 | 102 | 1,5 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| category | many | one | few | few | few | many | many | many | one | few | many | one | few | **other** |
+
+Three things fall out of that table, all of which the Russian copy depends on:
+
+- **`other` is reachable only through a fraction.** Every integer is `one`, `few`
+  or `many`. `other` is still required — it is the type's only mandatory form and
+  the runtime fallback — and `requiredPluralCategories()` in `i18n-parity.ts`
+  adds it unconditionally for exactly this reason. Its Russian wording should
+  match `few`, because that is what a fraction takes (*1,5 связи*).
+- **0 is `many`, not `one`.** French's *0 solitaire* singular has no Russian
+  counterpart: *0 связей*, genitive plural.
+- **The categories are the case the numeral governs.** `one` → nominative
+  singular (1 связь), `few` → genitive singular (2 связи), `many` → genitive
+  plural (5 связей). Writing a plural record in Russian is therefore not
+  "pick three wordings", it is "decline the noun three ways", and it is
+  mechanical once you see it that way.
+
+Never hand-roll a modulo. `Intl.PluralRules` already encodes the 11–14 exception
+(*11 связей*, not *11 связь*), which is the single most common mistake in
+hand-written Russian pluralisation.
+
+### The 57 that are not plural records
+
+`src/i18n/count-strings.test.ts` pins 57 strings that interpolate a number and
+are **not** plural records. Each one has exactly one form, and that form has to
+be right at 1, at 2 and at 25. This is the hardest single constraint in the
+Russian pass, because Russian is the first locale where the usual escape hatches
+do not work: a Romance language can often dodge with an infinitive, and Russian
+numerals govern case as well as selecting one of three plural forms.
+
+**All 57 were worked through before any prose was translated**, and all 57 are
+phrasable invariantly. None needed to become a plural record, and none needed an
+English template change. Four patterns cover the set:
+
+| Pattern | Shape | Example |
+|---|---|---|
+| **Numeral last, after a colon** | `<label>: {count}` | «Верно: {count}», «Слева не хватает: {count}» |
+| **Numeral between two other numbers** | `{a} / {b}`, `{a} из {b}` | «Уровень {level} из {max}», «Подсказка {tier} из 3» |
+| **Numeral after a noun it does not govern** | `<noun> {n}` | «Уровень {level}», «Волна {wave}/3», «Шаг {step} из {total}» |
+| **Numeral governed by a preposition, not by a noun** | `на {k}`, `+{points}` | «Сокращено на {k}», «Бонус без подсказок +{points}» |
+
+The second pattern is the one that does most of the work and is worth stating as
+a rule: **a Russian numeral governs the noun that follows it, so a numeral with
+no noun after it governs nothing.** «Уровень 1 из 5», «Уровень 2 из 5»,
+«Уровень 25 из 40» are all correct, because *уровень* precedes the numeral and
+*из 5* is a preposition phrase, not a counted noun. This is why the site's
+progress readouts translate almost for free while «{count} correct» does not.
+
+Three worth calling out individually, because the naive Russian is wrong:
+
+| Key | English | Naive Russian (**wrong**) | Shipped Russian |
+|---|---|---|---|
+| `games.overlay.statRoundValue` | `{count} correct` | *{count} верных* — wrong at 1 (*верный*) and at 2 (*верных* vs *верных ответа*) | «Верно: {count}» |
+| `serverMessages.aliasLength` | `must be between {min} and {max} characters` | *от {min} до {max} символов* — wrong at 21 (*до 21 символа*) | «Длина псевдонима в символах: от {min} до {max}.» |
+| `lewis-structures:inspect.countWrong` | `You counted {given}; there are {actual}` | *ты насчитал {given}* — agrees with the **reader's** gender, not the count | «Твой ответ: {given}, а на самом деле {actual}.» |
+
+The third is the one that generalises: in Russian, a count string can be wrong
+for a reason the count has nothing to do with.
+
+### The plural records themselves
+
+There are few, and they are listed here so the next change to them is deliberate.
+
+| Where | Key | Russian forms |
+|---|---|---|
+| dictionary | `cheatSheets.count` | одна тема / {count} темы / {count} тем / {count} темы |
+| lewis | `coach.loners` | одиночка / одиночки / одиночек |
+| lewis | `counts.sharedPairs`, `counts.lonePairs`, `counts.bonds` | общая пара / пары / пар; неподелённая пара / пары / пар; связь / связи / связей |
+| lewis | `hint.inspectTier3CountBonds`, `…CountLonePairs` | … (with «Их {count}» rather than an English-style "There is/are") |
+| balancer | `card.clustersA11y` | молекула / молекулы / молекул |
+
+`cheatSheets.count.one` deliberately reads «одна тема», not «{count} тема». The
+`one` category fires at 1, 21, 101 …, so the numeral is not always literally
+"one" — but the grid never shows 21 topics (there are twelve sheets), and
+«1 тема» in a filter pill reads worse than «одна тема». **If the sheet count ever
+exceeds 20, change this back to «{count} тема».** Recorded here rather than left
+as a surprise; it is the one place the Russian copy trades correctness-at-scale
+for readability at the real scale, and it is flagged low in `ru-review.md`.
+
+---
+
+## Gender agreement on an interpolated noun
+
+A template that embeds a chemical name may need an adjective or a past-tense verb
+to agree with it. `"{compound} is correct"` works in all five Latin-script
+locales — Romance adjectives agree, but the three Romance locales all reach for
+the colon label anyway — and is simply ungrammatical in Russian, where
+*вода готова*, *кислород готов* and *железо готово* are three different words.
+
+Every interpolated string was audited. The findings:
+
+- **No adjective or participle anywhere in the Russian copy agrees with an
+  interpolated name.** Where the English has one, the Russian uses a noun
+  predicate, a colon label or an impersonal construction: «{name} — готово» is
+  avoided in favour of «Готово: {name}» or «{name}: всё верно».
+- **No past-tense verb takes an interpolated name as its subject.** Russian past
+  tenses agree in gender and number with the subject, so this is the same bug in
+  a different part of speech. The present tense and the impersonal do not agree,
+  and both were used.
+- **The reader is never the subject of a past tense either** — see the register
+  table. This is a separate problem with the same shape and it bit harder,
+  because it applies to strings with no placeholder in them at all.
+
+### Adjectives, participles and past tenses that would agree with the reader
+
+Italian rewrote these strings because a Romance participle agrees with the
+speaker; Spanish used collective nouns; Russian's own device is the **present
+tense and the verbal noun**.
+
+| English | Not this | This |
+|---|---|---|
+| Ready for your first result? | *Готов к первому результату?* (masc. only) | «Готов сыграть первый раунд?» → rewritten as «Первый результат ещё впереди» |
+| You counted {given} | *Ты насчитал {given}* | «Твой ответ: {given}» |
+| Splendid work, Researcher! You cleared all levels. | *Ты прошёл все уровни* | «Все уровни пройдены.» (impersonal passive) |
+| Logging out… | — | «Выходим…» (first person plural, gender-free) |
+
+The impersonal passive (*пройдены*, *сохранено*, *разобрано*) is the workhorse
+here. It is also the register a Russian game actually uses, so this is not a
+compromise.
+
+---
+
+## Glossary match words
+
+The matcher is Unicode-safe now, so a Cyrillic match word works. Two rules still
+bind, and the second is what makes Russian expensive:
+
+1. **A match word must be the bare standalone form**, starting and ending with a
+   letter. `game-messages.test.ts` asserts it for every locale.
+2. **Every inflected form the copy actually uses must be listed.** The matcher
+   does not stem. Russian nouns have twelve slots (six cases × two numbers) and
+   adjectives far more, so a term that appears in three cases across the
+   catalogue needs three entries.
+
+In practice the lists run two to three times longer than the German ones. The
+rule followed here: list the forms **the copy uses**, verified by the
+"cover the running text" assertion in `game-messages.test.ts`, not every form the
+grammar allows. A list of every theoretical form is unmaintainable and the test
+cannot tell it from a correct one.
+
+Worth noting what Russian does **not** suffer from: French lost whole phrases
+because they began with *é*, and Italian could not use *elettronegatività*
+because it ends in an accent. Neither constraint exists any more, and neither
+would have applied to Cyrillic even under the old rule's spirit. The Russian
+lists are long for a grammatical reason, not a technical one.
+
+---
+
+## Core chemistry terms
+
+| English | Russian (use this) | Why this one, and what we rejected |
+|---|---|---|
+| acid | **кислота** | — |
+| base | **основание** | **Not *база***, which in Russian means a base of operations or a database and is not the chemistry word. This is the trap English–Russian sets that none of the Latin locales had. |
+| basic / alkaline | **основный / щелочной** | Both are taught. *Основный* describes the class (*основные оксиды*); *щелочной* describes the solution. Note *основнЫй* (chemistry) vs *оснОвный* (principal) differ only in stress — unavoidable, and school texts live with it. |
+| alkali (the substance) | **щёлочь** | A soluble base. Not interchangeable with *основание*: NH₃ and an insoluble hydroxide are bases and not щёлочи. |
+| neutral | **нейтральный** | — |
+| amphoteric | **амфотерный** | — |
+| pH | **pH** | Written in Latin in Russian chemistry, exactly as here. *Водородный показатель* is the full term and appears once, on the acids sheet, as a gloss. |
+| indicator | **индикатор** | — |
+| neutralisation | **нейтрализация** | — |
+| proton donor / acceptor | **донор / акцептор протонов** | The Brønsted–Lowry pair as Russian textbooks write it. |
+| hydronium ion (H₃O⁺) | **ион гидроксония** | *Гидроксоний* is the Russian school term. *Гидроний* is an anglicism that appears in translated material and is not what a Russian textbook prints. |
+| strong / weak acid | **сильная / слабая кислота** | — |
+| concentrated / dilute | **концентрированный / разбавленный** | — |
+| salt | **соль** | — |
+| solution | **раствор** | — |
+
+## Substances and structure
+
+| English | Russian (use this) | Why this one, and what we rejected |
+|---|---|---|
+| substance | **вещество** | The general word, and the one the Challenge picker uses. |
+| compound | **соединение** | *Вещество* is broader and is used where the text means "a substance" rather than "a compound specifically". |
+| molecule | **молекула** | — |
+| element | **элемент** | — |
+| atom | **атом** | — |
+| ion | **ион** | — |
+| cation / anion | **катион / анион** | — |
+| polyatomic ion | **многоатомный ион** | *Сложный ион* also occurs; *многоатомный* is transparent and matches the English. |
+| state of matter | **агрегатное состояние** | — |
+| solid / liquid / gas | **твёрдый / жидкий / газообразный** | Note **твёрдый**, with ё. The gate enforces it. |
+| aqueous | **водный раствор** / «растворённый в воде» | — |
+| precipitate | **осадок** | — |
+| lattice | **решётка** (кристаллическая, ионная, металлическая) | Note ё. |
+| covalent bond | **ковалентная связь** | The standard Russian school term, unlike German, which prefers *Atombindung* over the Latin form. |
+| ionic bond | **ионная связь** | — |
+| metallic bond | **металлическая связь** | — |
+| valence electrons | **валентные электроны** | — |
+| outer electron | **внешний электрон** | The transparent everyday word, used in the game's running text; *валентный электрон* stays the formal term and the two are glossed together. |
+| lone pair | **неподелённая электронная пара** | The Russian school term. Short form *неподелённая пара* where the sentence has already said "electron". Note ё. *Свободная электронная пара* is the other term in circulation and is **rejected** — see the loner note below for what it would have cost. *Одинокая пара* is a calque of the English and is not Russian chemistry. |
+| bonding pair / shared pair | **общая электронная пара** | Short form *общая пара*. The Share to Fill game says "shared pair" where a textbook says "bonding pair"; both are *общая электронная пара*. Do not introduce a second word (*связывающая пара*) for the same thing. |
+| unpaired electron (formal term) | **неспаренный электрон** | The Russian textbook term, the one used when teaching radicals. Use it in the glossary, on the cheat sheets and anywhere the text is explaining rather than instructing. |
+| the game's "loner" (game word) | **одиночка** | See the long note below. |
+| the short label on a pulsing dot | **одиночка** | Same word; see below for why Russian has nothing shorter worth shortening to. |
+| octet (eight outer electrons) | **октет** | *Правило октета* is standard from 8 класс. |
+| duet (hydrogen's two) | **дублет** | **Russian sits with German, not with French.** French has *la règle du duet* in its national programme; Russian school chemistry has **no settled word at all** — it says «завершённый внешний уровень, как у гелия» or nothing. *Дублет* is a real Russian scientific word meaning a pair (спектральный дублет), so it is transparent and it is not a coinage. **Rejected: *дуэт*** — the direct calque of the English and German word, which in Russian reads purely musical and would be the only jokey term in a serious glossary. **Rated low.** A teacher may well prefer to drop the word and say «два электрона, как у гелия». |
+| single / double / triple bond | **одинарная / двойная / тройная связь** | **одинарная**, not *одиночная* — a real and common mistake, and one reason *одиночный* could not be the loner word. |
+| bond-line drawing | **структурная формула** | — |
+| Lewis structure | **формула Льюиса** | Russian also says *электронная формула* and *структура Льюиса*. Picked *формула Льюиса* because it is transparent, names the person the sheet names, and pairs with *структурная формула* without collision. |
+| dot structure | **точечная формула** | Used once, in the canvas a11y label. |
+| octet rule | **правило октета** | — |
+| formal charge | **формальный заряд** | — |
+| electronegativity | **электроотрицательность** | Long (21 letters) but there is no alternative; it appears in prose only, never in a fixed-width control. |
+| delocalised electrons | **свободные электроны** | The school phrasing for the "sea" in a metal (*электронный газ* is the other). The literal *делокализованные электроны* is upper-secondary register. **And this is the second reason *свободный* could not be the game's word for a loner**: it already means something else, and something a student meets on the bonding sheet. |
+
+### The "loner": Russian's own two-tier pair, and the four words it could not use
+
+English deliberately gives an unpaired outer electron two names — the formal
+*unpaired electron* and the game's own *loner* — and teaches the pair, with the
+game word fading out as a scaffold (Level 1 labels the dots, Level 2 does not).
+German mirrored that split with *Einzelelektron*; French with *solitaire*;
+Spanish with *impar*; Italian with *dispari*.
+
+Every one of those languages was constrained by what it already calls a **lone
+pair**, and Russian is no exception — but it is constrained differently, and the
+difference is the whole reason it could not calque any of the five.
+
+| Role | English | German | French | Spanish | Italian | **Russian** |
+|---|---|---|---|---|---|---|
+| Formal term — glossary, cheat sheet, explaining | unpaired electron | ungepaartes Elektron | électron célibataire | electrón desapareado | elettrone spaiato | **неспаренный электрон** |
+| Game word — hub, coach, hints | loner | Einzelelektron | solitaire | impar | dispari | **одиночка** |
+| Short label on a dot | loner | einzeln | seul | impar | dispari | **одиночка** |
+
+**The four words Russian could not use, and why.**
+
+- ***свободный***. The obvious first reach, and doubly blocked: *свободная
+  электронная пара* is a live synonym for a **lone pair**, and *свободные
+  электроны* are the **delocalised** electrons in a metal, which is on the
+  bonding sheet this game links to. This is precisely the trap Spanish hit with
+  *libre* and Italian with *libero*, arrived at independently.
+- ***одинокий***. *Одинокая пара* circulates as a calque of *lone pair* in
+  translated material. Spanish rejected *solitario* for the identical reason.
+- ***одиночный***. One letter and one suffix away from **одинарная связь**
+  (single bond), which the same game teaches three levels later. A student who
+  learns *одиночный электрон* in Level 1 and meets *одинарная связь* in Level 3
+  has been set up to confuse them.
+- ***непарный***. This is the closest Russian counterpart to Spanish *impar* and
+  Italian *dispari* — the everyday "unmatched" word, as in *непарный носок* —
+  and it was the runner-up. It lost for a reason neither Spanish nor Italian
+  had to weigh: *непарный* and the formal *неспаренный* share the root *пар-*
+  and differ by one prefix and one suffix. The English pair is *loner* /
+  *unpaired electron*, two visibly different words, and the whole point of the
+  two-tier design is that a student can see they are two names for one thing.
+  *Непарный* / *неспаренный* does not read as two names; it reads as one word
+  spelled two ways. It would collapse the scaffold rather than build it.
+
+**Why *одиночка*.**
+
+- It is a **noun**, which is what the coach lines need. They say the word three
+  times a sentence and they count it: *одна одиночка, две одиночки, пять
+  одиночек*. An adjective would need a head noun every time or would have to be
+  nominalised, and a nominalised *непарный* in a game aimed at fourteen-year-olds
+  reads as clipped textbook Russian.
+- It is **morphologically unrelated to *пара***, so the game word and the formal
+  term look like two different words, which is the design.
+- It is **concrete and already general**. *Одиночка* is not only a person-word
+  the way German's *Einzelgänger* is: Russian applies it freely to things
+  (*камера-одиночка*, *лодка-одиночка*), so it carries "the one that is on its
+  own" without dragging in a personality. That is exactly the distinction German
+  could not find and had to abandon *Einzelgänger* over.
+- It is **short enough for a dot label** at eight characters — between German's
+  *einzeln* (7) and Spanish's *impar* (5) — and it needs no separate short form,
+  so Russian follows Spanish and Italian in using one word in both roles rather
+  than German's two.
+
+**Rated low, and flagged for a native speaker and a chemistry teacher.** It is a
+coinage in the sense that no Russian textbook uses it for this; it is not a
+coinage in the sense that every Russian speaker already knows the word. The
+formal term beside it (*неспаренный электрон*) is not in doubt.
+
+## Formulae, equations and naming
+
+| English | Russian (use this) | Why this one, and what we rejected |
+|---|---|---|
+| chemical formula | **химическая формула** | — |
+| molecular formula | **молекулярная формула** | — |
+| empirical / ionic formula | **простейшая формула** | Russian does not draw German's *Verhältnisformel* / *Molekülformel* distinction as sharply; the `chemical-formulas` sheet teaches the ionic case explicitly instead. |
+| subscript (the small number in a formula) | **индекс** | The English "subscript"/"coefficient" contrast becomes **индекс**/**коэффициент**, which is exactly the distinction the balancing topic turns on, and both are the standard Russian school words. Convenient: no false friend, unlike French, where *indice* also means a clue. |
+| coefficient (stoichiometric) | **коэффициент** | — |
+| to balance an equation | **уравнять** (уравнение, реакцию) | The verb the site uses throughout. Russian school more often says «расставить коэффициенты», which is fuller and is used in the instructions and the guided steps where there is room; *уравнять* is what the short strings and the success label need, and the two must not drift — *уравнять* is the decided term and *расставить коэффициенты* is its expansion, never a second concept. |
+| balanced (the success label) | **уравнено** | Impersonal, so nothing agrees with it. *Уравнение уравнено* is tautological and was rejected. |
+| conservation of mass | **закон сохранения массы** | — |
+| reactants | **реагенты** | *Исходные вещества* is the fuller school term and is used once, in the instructions, where the concept is introduced. **Picked *реагенты* as the term** because it pairs with *продукты*, and because *исходные вещества* is seventeen characters and will not fit a column heading or a picker tab — the same reasoning German used to pick *Edukte* over *Ausgangsstoffe*. |
+| products | **продукты** | — |
+| reaction arrow | **стрелка реакции** | — |
+| atom ledger (the game's own name for the tally table) | **баланс атомов** | Names what the table shows and pairs with *уравнять*. *Таблица атомов* was rejected as saying nothing. Note this is why *баланс* is **not** available as the game's title — see the titles table. |
+| lowest terms | **простейший вид** | «Сократить» is the act (*сокращено на 3*); *простейший вид* is the state. |
+| word equation | **описание реакции словами** | Used in the Challenge level; the game shows the description as prose rather than naming it, so this term appears only in the glossary and the cheat sheet. |
+| state symbol | **обозначение состояния** | The symbols themselves — (s), (l), (g), (aq) — stay Latin. |
+| synthesis | **соединение** (реакция соединения) | The Russian class name. Note the collision with *соединение* meaning "a compound": Russian genuinely uses one word for both, and the badge is unambiguous in context because it sits above an equation. Flagged in `ru-review.md`. |
+| decomposition | **разложение** | — |
+| combustion | **горение** | — |
+| single / double displacement | **замещение / обмен** | The Russian school names: *реакция замещения* and *реакция обмена*. Not a calque of "single/double" — Russian does not build the pair that way, and inventing *одинарное замещение* would be wrong. |
+| precipitation reaction | **осаждение** | — |
+| acid–base reaction | **кислотно-основная** | Hyphen, not dash. |
+| oxidation / reduction | **окисление / восстановление** | — |
+| redox | **окислительно-восстановительная** | Thirty characters, and the badge is CSS-uppercased — the longest string in the file that sits in a fixed-width control, so it is the one to re-check on the rendered card at 360 px. *Редокс* exists in Russian (*редокс-реакция*) and would have been five characters, but it is laboratory jargon rather than school vocabulary, and the other seven badges are all the words a textbook prints. |
+| oxidising agent | **окислитель** | — |
+
+## The mole and stoichiometry
+
+| English | Russian (use this) | Why this one, and what we rejected |
+|---|---|---|
+| amount of substance (n) | **количество вещества** | — |
+| mole | **моль** | Masculine: *один моль*, *два моля*, *пять молей*. |
+| Avogadro's number | **постоянная Авогадро** | The modern term. *Число Авогадро* is still common and is not wrong; *постоянная* matches the symbol N_A being a constant. |
+| relative atomic mass | **относительная атомная масса** | — |
+| molar mass (M) | **молярная масса** | — |
+| concentration | **концентрация** | — |
+| limiting reagent | **реагент в недостатке** | Also seen: *лимитирующий реагент* (a loan), *вещество, взятое в недостатке* (the full school phrase). Picked the middle form because it reuses *реагент*, already fixed above. |
+| in excess | **в избытке** | — |
+| theoretical / actual yield | **теоретический / практический выход** | Russian says *практический*, not *фактический*, for the measured yield. |
+| percentage yield | **выход в процентах** | — |
+
+## Organic chemistry
+
+| English | Russian (use this) | Why this one, and what we rejected |
+|---|---|---|
+| functional group | **функциональная группа** | — |
+| homologous series | **гомологический ряд** | — |
+| hydrocarbon | **углеводород** | — |
+| alkane / alkene / alkyne | **алкан / алкен / алкин** | — |
+| haloalkane | **галогеналкан** | — |
+| alcohol | **спирт** | *Алкоголь* in Russian means the drink, not the class. A real false friend. |
+| aldehyde / ketone | **альдегид / кетон** | — |
+| carboxylic acid | **карбоновая кислота** | — |
+| ester | **сложный эфир** | Two words, and it must be both: *эфир* alone means an ether (*простой эфир*) or the airwaves. Russian names esters *метилацетат*, *этилацетат* — the alkyl group first, then the acid residue, which is the opposite order from German's *Essigsäureethylester* and the same order as the English "-oate" pattern. |
+| amine / amide | **амин / амид** | — |
+| esterification | **этерификация** | Note the spelling: *этерификация*, not *эстерификация*. |
+| hydrolysis | **гидролиз** | — |
+| substituent | **заместитель** | — |
+| chain (carbon chain) | **цепь / углеродная цепь** | — |
+| locant (position number) | **номер** / **цифра положения** | Prose uses *номер* at this level. |
+
+---
+
+## Naming: what changes and what does not
+
+| Kind of thing | Translated? | Notes |
+|---|---|---|
+| Chemical formula (H₂O, Ca(OH)₂, 2H₂ + O₂ → 2H₂O) | **No** | International notation. Structurally impossible to translate in this codebase: formulae are not in the translation overlays at all, and `cheat-sheets.test.ts` asserts they come through byte-identical. |
+| Element symbol (Na, Cl, Fe) | **No** | Latin on a Cyrillic page, which is what Russian chemistry does. The Latin-leakage e2e gate exempts them by building its pattern from the real element registry. |
+| State symbol ((s), (l), (g), (aq)) | **No** | Kept as the international abbreviations even though the Russian words differ (*тв.*, *ж.*, *г.*, *р-р*). Russian textbooks print both; equations on this site use the Latin set. |
+| Charge notation (2−, +) | **No** | — |
+| Element **name** | **Yes** | Sodium → **натрий**, Potassium → **калий**, Nitrogen → **азот**, Oxygen → **кислород**, Carbon → **углерод**, Iron → **железо**, Copper → **медь**, Silver → **серебро**, Tin → **олово**, Lead → **свинец**, Tungsten → **вольфрам**, Mercury → **ртуть**, Sulfur → **сера**. Like German and unlike English, the Latin stems win for Na and K. All 118 verified one at a time in `src/i18n/chemistry-names/ru.ts`. |
+| Compound **name** | **Yes** | Anion first, then the cation **in the genitive**: *гидроксид натрия*, *хлорид кальция*. This is the same shape French, Spanish and Italian use with *de/di*, achieved with a case ending rather than a preposition — which is exactly why the overlay's nominative-only storage is a problem for sentences and not for names: the genitive is baked into the stored string. |
+| Acid names | **Yes** | HCl → **соляная кислота**, the name Russian school chemistry gives the aqueous acid, with *хлороводородная кислота* as the systematic alternative. The **gas** HCl is *хлороводород*. This is the same distinction German draws with *Salzsäure* / *Chlorwasserstoff* and English loses. Likewise HF → **плавиковая кислота** (gas: *фтороводород*). |
+| Ion **name** | **Yes** | Russian uses the systematic *гидро-* prefix where the English data still says *bi-*: bicarbonate → **гидрокарбонат**, bisulfate → **гидросульфат**, bisulfite → **гидросульфит**, hydrosulfide → **гидросульфид**. A monoatomic cation is *ион* + the element in the genitive (*ион натрия*), which is why those read as two words where the anions are one. |
+| IUPAC affixes being *discussed as affixes* (-ate/-ite, hypo-/per-, -ol/-al/-one) | **Partly** | Where the sentence teaches the Russian naming system, the Russian affixes are used (*-ат*/*-ит*, *гипо-*/*пер-*). Where a table shows the English source affix, it is kept and the Russian equivalent given alongside. Flagged for review — see `ru-review.md`. |
+| Spelling convention | — | Russian chemical usage: **иод** (not *йод*, which is the pharmacy word), **сера** (not *сульфур*), **кремний**, **висмут**, **вольфрам**, **цезий**, **оганесон** (one с). |
+
+---
+
+## Product and UI vocabulary
+
+Not chemistry, but it needs to be consistent too.
+
+| English | Russian | Note |
+|---|---|---|
+| ChemGames | **ChemGames** | Brand; never translated, and never transliterated. One of the few Latin strings on a Russian page, and every key that carries it is listed in `LATIN_BY_DESIGN` in `cyrillic.test.ts`. |
+| cheat sheet | **шпаргалка** | The natural Russian school word and exactly the right register for teenagers — the same call German made with *Spickzettel*. *Справочник* would be a reference manual. |
+| game | **игра** | — |
+| level | **уровень** | Russian does not need the loanword. *Левел* is gamer slang and would read as slang; *ступень* would read as a school year. |
+| score | **счёт** | — |
+| points | **очки** | — |
+| high score | **рекорд** | — |
+| leaderboard | **таблица лидеров** | — |
+| rank | **место** | — |
+| hint | **подсказка** | — |
+| lives | **жизни** | — |
+| wave (of enemies) | **волна** | — |
+| Game Over | **игра окончена** | — |
+| pause / resume | **пауза / продолжить** | — |
+| instructions | **как играть** | Matches the English heading shape rather than inventing a noun (*инструкция* reads like an appliance manual). |
+| coach (the in-game hint panel) | **наставник** | It has to stay distinct from *подсказка*, which is the hint ladder. *Тренер* is a sports coach and names a person; *помощник* is vague; *наставник* is a mentor and reads as a role the panel plays. Spanish and Italian reached the same place with *Guía* / *Guida*; German and French kept the loanword, which Russian cannot — *коуч* is business jargon. |
+| support mode | **режим поддержки** | — |
+| marking sheet | **лист проверки** | — |
+| lab notebook | **лабораторный журнал** | Long, and it is the real Russian word; the buttons that open it say «Журнал» where the control is narrow. |
+| challenge (the bonus level) | **испытание** | — |
+| settings | **настройки** | — |
+| year level | **класс**, labels **7–10 класс**, **старшие классы** | The stored value stays `Year 9`; only the label is Russian. Note the site's audience is Year 9–10 ≈ **8–9 класс** in the Russian system, and the SEO keywords say so. |
+| teacher | **учитель / учителя** | — |
+| student | **ученик / ученики**, **школьники** | — |
+| scientist | **учёный** | Note ё. |
+
+---
+
+## Game titles
+
+Every title below is rated **low** in `ru-review.md`: these are product-naming
+calls for the owner, not translation calls. GAMES.md § 4 is the checklist each
+was run through — does it read as an instruction rather than a title, as a
+machine or a job, as an existing product, and does it still say what the game
+does.
+
+| Game | English | Russian (chosen) | Kind | Runners-up and why they lost |
+|---|---|---|---|---|
+| Acid or Base? | Acid or Base? | **Кислота или основание?** | translation | *Кислота или щёлочь?* — shorter, but щёлочь is a soluble base specifically and the game also sorts ammonia and solid hydroxides, so it narrows the chemistry. *Определи вещество* — reads as a worksheet instruction. |
+| Formula Blaster | Formula Blaster | **Охота на формулы** | adaptation | *Формула-бластер* — calque; *бластер* is a sci-fi loan that reads as English filler and says nothing about chemistry. *Лопни формулу* — truer to the popping mechanic, but the hub would then carry two imperative titles. *Формулы на мушке* — vivid, and too long for the card. |
+| Neutralise! | Neutralise! | **Нейтрализуй!** | translation | *Нейтрализация* — a textbook chapter heading, which is the trap GAMES.md names. *Ионная оборона* — reads more like a product but drops the word the game teaches. The English is a deliberate imperative and Russian carries it directly; GAMES.md's warning about titles that read as orders applies and is flagged. |
+| Reaction Balancer | Reaction Balancer | **Весы реакций** | adaptation | *Балансировщик реакций* — **a *балансировщик* in Russian is a machine or a job** (wheel balancer, load balancer): the exact GAMES.md trap, and the same one Italian hit with *bilanciatore*. *Уравняй реакцию* — good, but a second imperative in the hub. *Баланс атомов* — already this glossary's term for the ledger table inside the game, so the title would name a component of itself. |
+| Share to Fill | Share to Fill | **Делись и заполняй** | adaptation | *Поделись, чтобы заполнить* — calque; the purpose clause is heavy in Russian and does not fit the card. *Пара к паре* — memorable, loses the "fill" half of the rule. *Общая пара* — names the mechanic, reads as a glossary entry. |
+| Chemical Bonds | Chemical Bonds | **Химические связи** | translation | *Связи* — ambiguous (connections, contacts). *Мир связей* — marketing. A topic name is the one case where the direct translation is the right answer. |
+
+**What the owner is most likely to change.** *Весы реакций* and *Охота на
+формулы* are the two that move furthest from the English. *Нейтрализуй!* is the
+one most likely to be judged an instruction rather than a name. All six were
+chosen short enough for the hub card, the game header at 360 px and the
+leaderboard column, and that has to be confirmed on the rendered pages rather
+than assumed — Cyrillic sets wider than Latin at the same point size.
+
+---
+
+## SEO keywords
+
+Rated **low**: these are plausible Russian search terms, not researched ones.
+The one thing they get deliberately right is the **age band**. Phase 1 shipped
+"Chemie Oberstufe" for a Year 9–10 site, which names ages 16–19; Year 9–10 in the
+Australian system is **8–9 класс** in the Russian one, and the keyword list says
+that rather than a bare «химия в школе».
+
+```
+химия, химия 8 класс, химия 9 класс, обучающие игры, молекулы,
+химические реакции, шпаргалки по химии
+```
