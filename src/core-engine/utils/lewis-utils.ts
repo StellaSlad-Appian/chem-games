@@ -4,9 +4,9 @@
 // or the DOM; every function returns a new structure and never mutates its
 // input, so the hook and the tests can treat structures as values.
 //
-// The chemistry is the physics: an atom can only share an unpaired electron
-// ("loner"), a shared pair counts toward both atoms, hydrogen is full at 2 and
-// everything else at 8.
+// The chemistry is the physics: an atom can only share an unpaired electron,
+// a shared pair counts toward both atoms, hydrogen is full at 2 and everything
+// else at 8.
 
 import { ELEMENTS_REGISTRY } from '../data/elements';
 import { atomId } from '../data/lewis-molecules';
@@ -63,14 +63,14 @@ export function createStructure(molecule: LewisMoleculeData): LewisStructure {
   };
 }
 
-/** The finished molecule: every target bond formed, loners used up accordingly. */
+/** The finished molecule: every target bond formed, unpaired electrons used up accordingly. */
 export function createCompleteStructure(molecule: LewisMoleculeData): LewisStructure {
   let structure = createStructure(molecule);
   for (const bond of molecule.bonds) {
     for (let i = 0; i < bond.order; i++) {
       const result = pairAtoms(structure, bond.sourceNodeId, bond.targetNodeId);
       if (!result.ok) {
-        throw new Error(`Molecule ${molecule.id} cannot be built by pairing loners (${result.error})`);
+        throw new Error(`Molecule ${molecule.id} cannot be built by pairing unpaired electrons (${result.error})`);
       }
       structure = result.structure;
     }
@@ -101,7 +101,7 @@ export const otherEnd = (bond: BondConnection, id: string): string =>
 export const sharedPairsOn = (structure: LewisStructure, id: string): number =>
   bondsOn(structure, id).reduce((sum, b) => sum + b.order, 0);
 
-/** Electrons drawn around an atom: lone pairs, loners and every shared pair. */
+/** Electrons drawn around an atom: lone pairs, unpaired electrons and every shared pair. */
 export function countAround(structure: LewisStructure, id: string): number {
   const atom = getAtom(structure, id);
   return atom.lonePairs * 2 + atom.unpaired + sharedPairsOn(structure, id) * 2;
@@ -129,7 +129,7 @@ export function isConnected(structure: LewisStructure): boolean {
 }
 
 /**
- * The round-win condition: every atom full (H = 2, others = 8), no loner left
+ * The round-win condition: every atom full (H = 2, others = 8), nothing unpaired left
  * anywhere, and every atom connected to the molecule.
  */
 export function isComplete(structure: LewisStructure): boolean {
@@ -165,7 +165,7 @@ const nextBondId = (structure: LewisStructure): string => {
 };
 
 /**
- * Shares one loner from `sourceId` with one loner on `targetId`. A second
+ * Shares one unpaired electron from `sourceId` with one on `targetId`. A second
  * pairing between the same two atoms raises the bond order (double, triple).
  */
 export function pairAtoms(structure: LewisStructure, sourceId: string, targetId: string): PairResult {
@@ -211,7 +211,7 @@ function rejectNoLoner(structure: LewisStructure, atom: LewisAtomState): PairRes
   return { ok: false, error: 'pairedDot', atomId: atom.id };
 }
 
-/** Undoes one shared pair: both atoms get their electron back as a loner. */
+/** Undoes one shared pair: both atoms get their electron back, unpaired. */
 export function unpairBond(structure: LewisStructure, bondId: string): LewisStructure {
   const bond = structure.bonds.find((b) => b.id === bondId);
   if (!bond) return structure;
@@ -301,7 +301,7 @@ export type NextMove =
 
 /**
  * One concrete step toward the target (hint tier 3): a pair of atoms whose
- * loners should be shared, or, when the drawing has wandered off the target,
+ * unpaired electrons should be shared, or, when the drawing has wandered off the target,
  * the shared pair to undo. Null once the structure matches.
  */
 export function nextMove(structure: LewisStructure, molecule: LewisMoleculeData): NextMove {
@@ -335,7 +335,7 @@ export function nextMove(structure: LewisStructure, molecule: LewisMoleculeData)
 /**
  * Reads a drawing and names its single error. Checks run in priority order so
  * every generated flaw has one deterministic diagnosis:
- *   hydrogen sharing twice → a downgraded multiple bond → a stray loner →
+ *   hydrogen sharing twice → a downgraded multiple bond → a stray electron →
  *   too many → too few → none.
  */
 export function diagnose(structure: LewisStructure): LewisDiagnosis {
@@ -455,7 +455,7 @@ export function generateFlawedStructure(
 
 /**
  * Gives an atom back its own electrons: removes every shared pair on it and
- * lets the partners keep theirs as loners, so the player can re-pair with the
+ * lets the partners keep theirs unpaired, so the player can re-pair with the
  * build-mode tools. Partners are re-normalised against their true valence so
  * an electron the classmate invented (or lost) disappears with the reset.
  */
@@ -475,7 +475,7 @@ export function resetAtoms(structure: LewisStructure, atomIds: string[]): LewisS
   return { atoms, bonds };
 }
 
-/** An atom's own lone pairs and loners given how many pairs it currently shares. */
+/** An atom's own lone pairs and unpaired electrons given how many pairs it currently shares. */
 function normaliseAtom(atom: LewisAtomState, sharedPairs: number): LewisAtomState {
   const fresh = createAtom(atom.id, atom.element);
   let lonePairs = fresh.lonePairs;

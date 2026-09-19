@@ -143,7 +143,7 @@ export interface BondConnection {
 }
 // --- Lewis Structures (Share to Fill) Types ---
 // Shared with Bond Builder through AtomCanvas: an atom carries its own outer
-// electrons as lone pairs and unpaired electrons ("loners"); every shared
+// electrons as lone pairs and unpaired electrons; every shared
 // pair is one unit of a BondConnection's order.
 
 /** One atom as drawn on the canvas, with its outer electrons. */
@@ -155,7 +155,7 @@ export interface LewisAtomState {
   valence: number;
   /** Pairs of electrons that stay on this atom. */
   lonePairs: number;
-  /** Unpaired electrons ("loners") — the only ones that can be shared. */
+  /** Unpaired electrons — the only ones that can be shared. */
   unpaired: number;
 }
 

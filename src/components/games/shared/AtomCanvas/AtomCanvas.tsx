@@ -355,6 +355,37 @@ export default function AtomCanvas({
   const ringCircumference = 2 * Math.PI * ringRadius;
 
   return (
+    <div className="w-full">
+      {/*
+        The Level 1 vocabulary scaffold, off from Level 2 (`lonerLabels`).
+        It used to be the term stamped beside *every* unpaired dot. That only
+        ever worked because each locale invented a short nickname for it: the
+        dots sit 50 px apart, giving a label about 44 px, and once the game
+        dropped the nicknames on 2026-09-19 the formal term overflowed in all
+        six languages at once — 102 px (it) to 134 px (ru) at `text-[9px]`,
+        two to three times the gap, printed up to four times around a single
+        carbon. Letting it wrap does not save it either: the longest single
+        word of the phrase is 51 px (en) to 78 px (ru), still wider than the
+        gap.
+        So the term is said once, here, next to a sample of the dot it names.
+        Nothing is repeated, nothing can collide, and the phrase has no length
+        limit in any language.
+      */}
+      {lonerLabels && !compact && (
+        <p
+          data-testid="unpaired-legend"
+          className="mb-2 flex items-center gap-2 px-1 text-[11px] font-black uppercase tracking-wider text-(--game-glow)"
+        >
+          <span
+            aria-hidden="true"
+            className={`inline-block shrink-0 rounded-full border-[3px] border-(--foreground) bg-(--surface) ${
+              pulseLoners ? 'loner-pulse' : ''
+            }`}
+            style={{ width: dotSize, height: dotSize }}
+          />
+          {labels.lonerLabel}
+        </p>
+      )}
     <div
       ref={containerRef}
       role="group"
@@ -649,21 +680,6 @@ export default function AtomCanvas({
                   style={{ left: cx - hit / 2, top: cy - hit / 2, width: hit, height: hit }}
                 >
                   {dot}
-                  {lonerLabels && (
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute whitespace-nowrap text-[9px] font-black uppercase tracking-wider text-(--game-glow)"
-                      style={
-                        // Side dots label underneath, top/bottom dots label to the right, so two
-                        // loners facing each other across a bond never overlap their labels.
-                        v.y === 0
-                          ? { left: hit / 2, top: hit / 2 + dotSize / 2 + 4, transform: 'translateX(-50%)' }
-                          : { left: hit / 2 + dotSize / 2 + 4, top: hit / 2, transform: 'translateY(-50%)' }
-                      }
-                    >
-                      {labels.lonerLabel}
-                    </span>
-                  )}
                 </button>
               );
             })}
@@ -677,8 +693,8 @@ export default function AtomCanvas({
                   showCounters === 'always' ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-focus-within:opacity-100'
                 }`}
                 style={{
-                  // Clear a dot (and its "loner" label) sitting on the bottom side.
-                  top: atomSize + (slots.some((s) => s.side === 'bottom') ? (lonerLabels ? 34 : 24) : 12),
+                  // Clear a dot sitting on the bottom side.
+                  top: atomSize + (slots.some((s) => s.side === 'bottom') ? 24 : 12),
                   transform: 'translateX(-50%)',
                 }}
               >
@@ -689,6 +705,7 @@ export default function AtomCanvas({
         );
       })}
       </div>
+    </div>
     </div>
   );
 }
