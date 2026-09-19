@@ -100,6 +100,51 @@ the substantivised participle *Forschende*.
 
 ---
 
+## 0b. The readability pass, 2026-09-19
+
+Done after the first draft shipped, on the owner's instruction, and the reason
+it is recorded here rather than in a commit message is that it changes a rule
+for the other 84 entries.
+
+**Measured before:** Flesch–Kincaid grade 9.4 across the 40 English entries,
+reading ease 62–64. That is *at* Year 10 level rather than comfortably below it,
+and about three grades harder than the reading age ~12 that
+`docs/AGENT_INSTRUCTIONS.md` asks of the games — the two were disagreeing about
+who the site is written for.
+
+**The cause was sentence length, not vocabulary.** 36 English sentences ran over
+30 words, the longest 46; four-syllable words were rare and mostly unavoidable
+(*molecule*, *carboxylic*). Splitting those 36 at natural joints took the English
+to **FK 8.4** and reading ease to 67.9, without losing a fact or changing a
+claim.
+
+**Every split was mirrored in all four translations**, and the translations had
+long sentences of their own: 32 German, 31 French, 45 Spanish, 40 Italian. All
+five languages are now clean.
+
+**The limit is per language, and that matters.** A flat 30-word rule would force
+choppy, unidiomatic Romance prose — worse writing, not easier reading. The
+limits are the English 30 scaled by each locale's measured length ratio against
+the English pool:
+
+| | en | de | fr | es | it |
+|---|---|---|---|---|---|
+| length ratio vs English | 1.000 | 0.946 | 1.125 | 1.110 | 1.088 |
+| sentence limit (words) | 30 | 28 | 34 | 33 | 33 |
+| longest sentence now | 30 | 28 | 34 | 33 | 33 |
+| average sentence | 17.6 | 16.0 | 20.0 | 19.3 | 19.2 |
+
+**It is now a gate, not an instruction.** `src/lib/explore/readability.test.ts`
+fails the build on any sentence over its locale's limit, naming the entry and
+the sentence, and separately asserts the English pool stays under Year 10 grade
+level. "Keep sentences short" in a brief did not survive first contact with 200
+prose blocks; a test will.
+
+**Entry length is unchanged** — about 162 words per entry, the same facts in
+more sentences.
+
+---
+
 ## 1. Review of the concept
 
 ### The concept is sound, and it is the cheapest useful thing left to build

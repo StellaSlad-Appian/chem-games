@@ -37,9 +37,9 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     name: 'Benzene',
     formula: 'C6H6',
     everyday:
-      'Benzene is one of the smaller ingredients of petrol, and it is made in huge quantities as a starting material for plastics, nylon and dyes. You will probably never meet a bottle of it. You meet its ring constantly: that six-carbon hexagon is at the heart of paracetamol, of polystyrene and of several amino acids in your own body. Benzene is a known cause of leukaemia, which is why the amount allowed in fuel is capped by law at one per cent by volume in the UK and the EU, and why petrol stations are built to stay ventilated.',
+      'Benzene is one of the smaller ingredients of petrol, and it is made in huge quantities as a starting material for plastics, nylon and dyes. You will probably never meet a bottle of it. You meet its ring constantly: that six-carbon hexagon is at the heart of paracetamol, of polystyrene and of several amino acids in your own body. Benzene is a known cause of leukaemia. The law caps it at one per cent by volume in fuel in the UK and the EU. It is also why petrol stations are built to stay ventilated.',
     chemistry:
-      'The ring is six carbons in a flat hexagon, each with one hydrogen sticking out. What makes it unusual is that six of its electrons do not belong to any one bond. They are spread around the whole ring, above and below the flat hexagon. That spreading out is why benzene is far less reactive than three double bonds would suggest, and why all six carbon-to-carbon bonds are exactly the same length instead of alternating short and long.',
+      'The ring is six carbons in a flat hexagon, each with one hydrogen sticking out. What makes it unusual is that six of its electrons do not belong to any one bond. They are spread around the whole ring, above and below the flat hexagon. That spreading out is why benzene is far less reactive than three double bonds would suggest. It is also why all six carbon-to-carbon bonds are exactly the same length, instead of alternating short and long.',
     link: { kind: 'cheat-sheet', slug: 'chemical-bonds' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -58,7 +58,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     name: 'Citric acid',
     formula: 'C6H8O7',
     everyday:
-      'Citric acid is what makes a lemon sharp — it is around five per cent of lemon juice by weight. It is also the sour coating on sweets, the tang in a fizzy drink, the active ingredient in kettle descaler, and an ingredient of almost any tinned food, where it adds flavour and helps keep the contents from spoiling. Most of the citric acid sold is not squeezed out of fruit at all. It is made by feeding sugar to a mould, which produces it by the tonne.',
+      'Citric acid is what makes a lemon sharp — it is around five per cent of lemon juice by weight. It is also the sour coating on sweets, the tang in a fizzy drink and the active ingredient in kettle descaler. It goes into almost any tinned food too, where it adds flavour and helps keep the contents from spoiling. Most of the citric acid sold is not squeezed out of fruit at all. It is made by feeding sugar to a mould, which produces it by the tonne.',
     chemistry:
       'The molecule carries three carboxylic acid groups, and each one can let go of a hydrogen ion. That makes it a weak acid: in water it gives up its hydrogens only partly, and not all at once. Weak is the useful part. A strong acid at the same concentration would take the enamel off your teeth, while citric acid stops at making your mouth pucker. It also grips metal ions tightly, which is what lifts limescale out of a kettle.',
     link: { kind: 'cheat-sheet', slug: 'acids-and-bases' },
@@ -81,7 +81,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     everyday:
       'Silicon dioxide is sand, quartz, and most of the glass around you. A window is roughly 70 per cent silicon dioxide, with sodium and calcium oxides mixed in to bring the melting point down to something a furnace can actually reach. The same compound is in the little sachet marked do not eat in a shoebox, where it has been made porous so that it soaks up water instead.',
     chemistry:
-      'In quartz, every silicon atom is bonded to four oxygens and every oxygen bridges two silicons, in a pattern that repeats without end. In glass the same bonds are there but the pattern is not: the network is frozen in a jumble, because the liquid cooled faster than the atoms could line up. That difference is the whole difference between a crystal and a glass. It is also worth killing an old story: glass is not a slowly moving liquid, and old windows are thicker at the bottom because of how they were made, not because they have flowed.',
+      'In quartz, every silicon atom is bonded to four oxygens and every oxygen bridges two silicons, in a pattern that repeats without end. In glass the same bonds are there but the pattern is not: the network is frozen in a jumble, because the liquid cooled faster than the atoms could line up. That difference is the whole difference between a crystal and a glass. It is also worth killing an old story. Glass is not a slowly moving liquid. Old windows are thicker at the bottom because of how they were made, not because they have flowed.',
     link: { kind: 'cheat-sheet', slug: 'states-of-matter' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -100,7 +100,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     name: 'Monosodium glutamate',
     formula: 'C5H8NNaO4',
     everyday:
-      'Monosodium glutamate is a white crystal added to soups, crisps, stock cubes and instant noodles. The same ion, as free glutamate, is what makes parmesan, ripe tomatoes, soy sauce and kombu seaweed taste savoury — and your body cannot tell the two apart, because they are chemically identical. A typical serving of a food containing added MSG has less than half a gram of it in.',
+      'Monosodium glutamate is a white crystal added to soups, crisps, stock cubes and instant noodles. The same ion, as free glutamate, is what makes parmesan, ripe tomatoes, soy sauce and kombu seaweed taste savoury. Your body cannot tell the two apart, because they are chemically identical. A typical serving of a food containing added MSG has less than half a gram of it in.',
     chemistry:
       'Glutamic acid is an amino acid, so it has an amine group at one end and, unusually, two carboxylic acid groups. Take the sodium salt of one of those acid groups and you have monosodium glutamate — mono because one sodium, not two. Dissolved in water it comes apart into a sodium ion and a glutamate ion, and it is the glutamate ion that fits the receptor on your tongue. The sodium is along for the ride, which is why the taste is savoury rather than salty.',
     link: { kind: 'cheat-sheet', slug: 'functional-groups' },
@@ -123,7 +123,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     everyday:
       'Sold as Freon-12, this gas was in almost every fridge and aerosol can from the 1930s to the 1990s. It was chosen because it is astonishingly unreactive: it will not burn, does not corrode anything, is not poisonous, and does nothing at all to whatever it touches. That is what made it safe to put in a kitchen, and it is also what made it a disaster. Making it has been banned in most countries since 1996, and the amount still in the air is falling only slowly.',
     chemistry:
-      'Because nothing down here destroys it, a molecule drifts upward for years until it reaches the stratosphere. There the ultraviolet light is finally strong enough to snap off a chlorine atom. That chlorine attacks ozone, O3, and is handed back at the end of the next step — so one chlorine atom can go round and round, destroying thousands of ozone molecules. That is how a gas present in tiny amounts managed to thin a layer the size of a continent.',
+      'Because nothing down here destroys it, a molecule drifts upward for years until it reaches the stratosphere. There the ultraviolet light is finally strong enough to snap off a chlorine atom. That chlorine attacks ozone, O3, and is handed back at the end of the next step. So one chlorine atom can go round and round, destroying thousands of ozone molecules. That is how a gas present in tiny amounts managed to thin a layer the size of a continent.',
     link: { kind: 'cheat-sheet', slug: 'reaction-types' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -144,7 +144,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     everyday:
       'Ammonia is a sharp-smelling gas that dissolves very readily in water; the pungent cleaning liquid is a dilute solution of it. Almost all of it — roughly 180 million tonnes a year — ends up as fertiliser, either spread directly or turned into urea or ammonium nitrate first. There is also a little in your own blood, made as your body breaks protein down.',
     chemistry:
-      'The nitrogen sits at the centre with three hydrogens around it and one pair of electrons left over, which pushes the molecule into a squashed pyramid rather than a flat triangle. That leftover pair is the whole story. It is free to grab a hydrogen ion, which is what makes ammonia a base, and it is what lets ammonia hydrogen-bond to water so well. Industrially it is built from N2 and H2 — the nitrogen out of the air, the hydrogen usually out of natural gas, which is why making it also produces a great deal of carbon dioxide.',
+      'The nitrogen sits at the centre, with three hydrogens around it and one pair of electrons left over. That spare pair pushes the molecule into a squashed pyramid rather than a flat triangle. That leftover pair is the whole story. It is free to grab a hydrogen ion, which is what makes ammonia a base, and it is what lets ammonia hydrogen-bond to water so well. Industrially it is built from N2 and H2: the nitrogen comes out of the air, the hydrogen usually out of natural gas. That is why making it also produces a great deal of carbon dioxide.',
     link: { kind: 'game', game: 'reaction-balancer' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -163,7 +163,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     name: 'Cholesterol',
     formula: 'C27H46O',
     everyday:
-      'Every animal cell you have is wrapped in a membrane with cholesterol sitting in it, and your own liver makes most of what you need. It is also the raw material your body builds vitamin D, bile and several hormones out of. You meet it in eggs, meat and dairy, and it has a reputation it only half deserves: for most people, how much cholesterol is in their food matters much less to the amount in their blood than how much saturated fat is.',
+      'Every animal cell you have is wrapped in a membrane with cholesterol sitting in it, and your own liver makes most of what you need. It is also the raw material your body builds vitamin D, bile and several hormones out of. You meet it in eggs, meat and dairy, and it has a reputation it only half deserves. For most people, the cholesterol in their food matters much less to the amount in their blood than the saturated fat does.',
     chemistry:
       'The molecule is four rings fused together — the steroid skeleton — with a short hydrocarbon tail at one end and a single hydroxyl group at the other. That one hydroxyl is the only part of it that likes water. So a cholesterol molecule sits in a cell membrane the right way up, hydroxyl outward where the water is, rings and tail buried among the fatty chains. Wedged in like that, it stops the membrane going too floppy when warm or too stiff when cold.',
     link: { kind: 'cheat-sheet', slug: 'functional-groups' },
@@ -186,7 +186,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     everyday:
       'Oleic acid is the main fatty acid in olive oil — around three-quarters of it — and it is most of what is in rapeseed oil, almonds and avocados too. It is the reason those oils stay liquid in a cupboard. The same molecule is a large part of the oil your own skin produces.',
     chemistry:
-      'The molecule is a chain of eighteen carbons with a carboxylic acid group at one end and a single double bond in the middle. That double bond is cis: both halves of the chain leave it on the same side, so the chain has a permanent kink in it. Kinked chains cannot stack neatly against each other, so they stay liquid at temperatures where straight ones have set — which is the whole difference between an oil and a hard fat. Add hydrogen across that double bond over a nickel catalyst and you get stearic acid: eighteen carbons, no kink, solid at room temperature. Done to real fats, that is how a liquid oil is turned into margarine.',
+      'The molecule is a chain of eighteen carbons with a carboxylic acid group at one end and a single double bond in the middle. That double bond is cis: both halves of the chain leave it on the same side, so the chain has a permanent kink in it. Kinked chains cannot stack neatly against each other, so they stay liquid at temperatures where straight ones have set. That is the whole difference between an oil and a hard fat. Add hydrogen across that double bond over a nickel catalyst and you get stearic acid: eighteen carbons, no kink, solid at room temperature. Done to real fats, that is how a liquid oil is turned into margarine.',
     link: { kind: 'cheat-sheet', slug: 'reaction-types' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -205,9 +205,9 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     name: 'Methane',
     formula: 'CH4',
     everyday:
-      'Methane is natural gas. It heats houses, cooks food and generates about a fifth of the world’s electricity. It also seeps out of wetlands, rice paddies and landfill, and comes out of cows, and it is a greenhouse gas far more powerful than carbon dioxide — although it breaks down in the atmosphere within about a decade, which carbon dioxide does not.',
+      'Methane is natural gas. It heats houses, cooks food and generates about a fifth of the world’s electricity. It also seeps out of wetlands, rice paddies and landfill, and comes out of cows. As a greenhouse gas it is far more powerful than carbon dioxide. It does break down in the atmosphere within about a decade, though, which carbon dioxide does not.',
     chemistry:
-      'One carbon, four hydrogens, arranged as a tetrahedron because four pairs of electrons push each other as far apart as they can get. Burning it is the simplest combustion there is: CH4 + 2O2 -> CO2 + 2H2O. Count the atoms on each side and you can see why it takes exactly two oxygen molecules and not one — the four hydrogens make two waters, which uses two oxygen atoms, and the carbon takes the other two. That single equation is where most stoichiometry questions begin.',
+      'One carbon, four hydrogens, arranged as a tetrahedron because four pairs of electrons push each other as far apart as they can get. Burning it is the simplest combustion there is: CH4 + 2O2 -> CO2 + 2H2O. Count the atoms on each side and you can see why it takes exactly two oxygen molecules and not one. The four hydrogens make two waters, which uses two oxygen atoms, and the carbon takes the other two. That single equation is where most stoichiometry questions begin.',
     link: { kind: 'cheat-sheet', slug: 'stoichiometry' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -226,7 +226,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     id: 'water',
     compoundId: '15',
     everyday:
-      'Water covers most of the planet, makes up about 60 per cent of you, and is the only common substance you are likely to meet as a solid, a liquid and a gas on the same day. It is also the reason a pond freezes from the top down: solid water is less dense than liquid water, which is unusual enough to be very nearly unique.',
+      'Water covers most of the planet and makes up about 60 per cent of you. It is also the only common substance you are likely to meet as a solid, a liquid and a gas on the same day. It is also the reason a pond freezes from the top down: solid water is less dense than liquid water, which is unusual enough to be very nearly unique.',
     chemistry:
       'Oxygen brings six outer electrons and shares two of them, one with each hydrogen. That leaves two pairs unshared — the lone pairs. All four pairs push apart, and because the lone pairs take up more room than the bonding pairs, the molecule ends up bent at about 104.5 degrees rather than straight. A bent molecule with oxygen dragging the electrons its way has a negative end and a positive end, so the molecules stick to each other. That stickiness is why water is still liquid at 80 °C when something that light has no business being anything but a gas.',
     link: { kind: 'game', game: 'lewis-structures' },
@@ -275,7 +275,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     name: 'Lithium cobalt oxide',
     formula: 'LiCoO2',
     everyday:
-      'Lithium cobalt oxide is the positive electrode in a great many phone and laptop batteries. You will never see it: it is a black powder, painted onto aluminium foil and rolled up inside the cell. The cobalt in it is the reason battery makers keep trying to use less: about three-quarters of the world’s cobalt is mined in the Democratic Republic of the Congo, and some of that comes from small unregulated mines with real safety and child-labour problems.',
+      'Lithium cobalt oxide is the positive electrode in a great many phone and laptop batteries. You will never see it: it is a black powder, painted onto aluminium foil and rolled up inside the cell. The cobalt in it is the reason battery makers keep trying to use less. About three-quarters of the world’s cobalt is mined in the Democratic Republic of the Congo. Some of that comes from small unregulated mines with real safety and child-labour problems.',
     chemistry:
       'The structure is layers: sheets of cobalt and oxygen, with lithium ions sitting in the gaps between them. Charging pulls lithium ions out from between the layers and drives them to the carbon electrode at the other end; using the battery lets them travel back. The cobalt changes oxidation state each time to keep the charge balanced. Nothing is destroyed and nothing new is built, which is why a cell can be recharged hundreds of times. Pull too many out, though, and the layers collapse — which is why every battery has electronics whose job is to stop you.',
     link: { kind: 'cheat-sheet', slug: 'reaction-types' },
@@ -298,7 +298,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     everyday:
       'Adenine is the A in the A, T, C and G of DNA — one of the four bases whose order spells out a gene. There are about three billion of those letters in each of your cells, and roughly a quarter of them are adenine. It is also part of ATP, the molecule your cells use to move energy about, so you are rebuilding and spending it every second of the day.',
     chemistry:
-      'The molecule is two rings fused together, one six-membered and one five-membered, with nitrogen atoms built into both. Chemists call that arrangement a purine. Hanging off one ring is an amine group. In DNA, that amine and one of the ring nitrogens make two hydrogen bonds with a thymine on the opposite strand — exactly two, which is why adenine pairs with thymine and not with cytosine, which needs three. The pairing is not magic. It is hydrogen bonds either fitting or not fitting.',
+      'The molecule is two rings fused together, one six-membered and one five-membered, with nitrogen atoms built into both. Chemists call that arrangement a purine. Hanging off one ring is an amine group. In DNA, that amine and one of the ring nitrogens make two hydrogen bonds with a thymine on the opposite strand. Exactly two — which is why adenine pairs with thymine and not with cytosine, which needs three. The pairing is not magic. It is hydrogen bonds either fitting or not fitting.',
     link: { kind: 'cheat-sheet', slug: 'functional-groups' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -380,9 +380,9 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     id: 'sodium-sulfate',
     compoundId: '14',
     everyday:
-      'Sodium sulfate is made by the million tonnes and most of it goes into laundry powder, where it is the bulk that everything else is mixed into. Crystallised with ten water molecules built into its structure it is known as Glauber’s salt, and that form has been used to store heat: it melts in a warm room and freezes again as the room cools.',
+      'Sodium sulfate is made by the million tonnes and most of it goes into laundry powder, where it is the bulk that everything else is mixed into. Crystallised with ten water molecules built into its structure, it is known as Glauber’s salt. That form has been used to store heat: it melts in a warm room and freezes again as the room cools.',
     chemistry:
-      'The useful thing happens at about 32 °C. Melting takes energy in without the temperature rising, and freezing hands that same energy back out, so a drum of the salt is a heat store that works at room temperature. The catch is that it does not melt cleanly. The crystals split into solid sodium sulfate and a saturated solution, and the solid, being denser, sinks to the bottom where less of it can rejoin the water on the way back. Each cycle stores a little less than the last. Seventy years on, that is still the problem to solve.',
+      'The useful thing happens at about 32 °C. Melting takes energy in without the temperature rising, and freezing hands that same energy back out. So a drum of the salt is a heat store that works at room temperature. The catch is that it does not melt cleanly. The crystals split into solid sodium sulfate and a saturated solution. The solid is denser, so it sinks to the bottom, where less of it can rejoin the water on the way back. Each cycle stores a little less than the last. Seventy years on, that is still the problem to solve.',
     link: { kind: 'cheat-sheet', slug: 'states-of-matter' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -406,7 +406,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     everyday:
       'Polypropylene is the second most produced plastic in the world. It is bottle caps, yoghurt pots, the food tubs you are allowed to microwave, car bumpers, rope, carpet fibre and the non-woven fabric in a surgical mask. When you see a recycling triangle with a 5 in it, this is what it means.',
     chemistry:
-      'The formula above is the repeating unit, and it is the same as propene’s, because nothing is added and nothing is lost when the chains form — each molecule simply opens its double bond and joins on. What decides whether the plastic is any good is which way each methyl group ends up pointing. Made with an ordinary catalyst, the chains are a random tangle and the plastic is soft and weak. Made with a Ziegler–Natta catalyst, every methyl points the same way, the chains coil into regular helices, and those pack together into crystalline regions. That regularity is the difference between a sticky gum and a car bumper.',
+      'The formula above is the repeating unit, and it is the same as propene’s. Nothing is added and nothing is lost when the chains form: each molecule simply opens its double bond and joins on. What decides whether the plastic is any good is which way each methyl group ends up pointing. Made with an ordinary catalyst, the chains are a random tangle and the plastic is soft and weak. Made with a Ziegler–Natta catalyst, every methyl points the same way, the chains coil into regular helices, and those pack together into crystalline regions. That regularity is the difference between a sticky gum and a car bumper.',
     link: { kind: 'cheat-sheet', slug: 'chemical-bonds' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
@@ -425,7 +425,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     name: 'Artemisinin',
     formula: 'C15H22O5',
     everyday:
-      'Artemisinin comes from sweet wormwood, a plant used in Chinese medicine for more than two thousand years. It is now the basis of the standard treatment for malaria — always given together with a second drug and never on its own, so that the parasite is less likely to become resistant to it. Most of the world’s supply is still extracted from farmed plants rather than made from scratch.',
+      'Artemisinin comes from sweet wormwood, a plant used in Chinese medicine for more than two thousand years. It is now the basis of the standard treatment for malaria. It is always given together with a second drug and never on its own, so that the parasite is less likely to become resistant to it. Most of the world’s supply is still extracted from farmed plants rather than made from scratch.',
     chemistry:
       'Most of the molecule is an unremarkable arrangement of rings. The part that matters is a bridge of two oxygen atoms bonded directly to each other — a peroxide. An oxygen-to-oxygen single bond is weak and unusual, and most of chemistry avoids building one. Inside a malaria parasite, which is full of iron from the haemoglobin it has been digesting, that bridge breaks and produces fragments that wreck the parasite from the inside. Take the bridge out of the molecule and the drug stops working, which is how chemists know it is the business end.',
     link: { kind: 'cheat-sheet', slug: 'functional-groups' },
@@ -446,9 +446,9 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
     id: 'sodium-chloride',
     compoundId: '6',
     everyday:
-      'Table salt. It is mined out of rock, evaporated from the sea, scattered on icy roads, and used by the chemical industry as the starting point for chlorine, sodium hydroxide and hydrochloric acid. Your body genuinely needs some, and most people eat a good deal more than some.',
+      'Table salt. It is mined out of rock, evaporated from the sea and scattered on icy roads. The chemical industry uses it as the starting point for chlorine, sodium hydroxide and hydrochloric acid. Your body genuinely needs some, and most people eat a good deal more than some.',
     chemistry:
-      'There are no sodium chloride molecules in a grain of salt. The crystal is sodium ions and chloride ions alternating in every direction, each sodium surrounded by six chlorides and each chloride by six sodiums, repeating identically for billions of ions in a row. The formula is a ratio, one to one, not a count of atoms in a molecule. That endlessly repeating pattern is what makes it a crystal, and it is why a grain splits into little cubes: you are separating it along planes the ions were already lined up on.',
+      'There are no sodium chloride molecules in a grain of salt. The crystal is sodium ions and chloride ions alternating in every direction. Each sodium is surrounded by six chlorides and each chloride by six sodiums, repeating identically for billions of ions in a row. The formula is a ratio, one to one, not a count of atoms in a molecule. That endlessly repeating pattern is what makes it a crystal. It is also why a grain splits into little cubes: you are separating it along planes the ions were already lined up on.',
     link: { kind: 'cheat-sheet', slug: 'states-of-matter' },
     writtenOn: '2026-09-19',
     reviewedOn: '2026-09-19',
