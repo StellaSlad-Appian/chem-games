@@ -49,6 +49,7 @@ import { de } from './de';
 import { fr } from './fr';
 import { es } from './es';
 import { it } from './it';
+import { ru } from './ru';
 
 export type MessageSide = 'reactant' | 'product';
 
@@ -63,6 +64,7 @@ const CATALOGUES: Record<Locale, ReactionBalancerMessages> = {
   fr,
   es,
   it,
+  ru,
 };
 
 /** This game's copy in `locale`. Throws rather than falling back to English. */

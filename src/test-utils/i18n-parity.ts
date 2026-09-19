@@ -49,6 +49,36 @@ export function flatten(value: unknown, prefix = '', inPlural = false): Entry[] 
 export const pluralRoot = (path: string) => path.slice(0, path.lastIndexOf('.'));
 
 /**
+ * A glossary match word — `glossary.loner.matches[3]`.
+ *
+ * **Exempt from the key-parity check in both directions**, and for exactly the
+ * reason plural forms are: *how many of these a term needs is a property of
+ * the language, not of the string.* `matches` is the list of word forms that
+ * open a tap-to-explain pop-over, the matcher does not stem, and a language
+ * supplies one entry per inflected form its own copy uses. English needs two
+ * for *lone pair* (singular and plural). Russian needs four for
+ * *неподелённая пара*, because the copy uses the nominative, the genitive
+ * singular, the genitive plural and the accusative — six cases is not an
+ * excess, it is the language.
+ *
+ * Positional array parity made that impossible: `flatten()` gives every array
+ * element its own path, so a fifth Russian form reads as an "extra key". The
+ * five Latin locales never noticed, because each of them happens to need the
+ * same count English does. docs/i18n/README.md and GAMES.md both already tell
+ * the Russian pass to expect longer lists than any previous language; this is
+ * the gate catching up with the documented design rather than a relaxation of
+ * it.
+ *
+ * What still holds, so this cannot become a way of switching coverage off:
+ * every match word is still checked for emptiness; `game-messages.test.ts`
+ * still asserts each one starts and ends with a letter; it still asserts that
+ * a term linked in the English running text is linked in the translation's;
+ * and it now asserts no locale ships an empty `matches` list.
+ */
+const isGlossaryMatch = (path: string) =>
+  /(?:^|\.)glossary\.[^.]+\.matches\[\d+\]$/.test(path);
+
+/**
  * A cheap smoke test for the most damaging class of mistake: a translator
  * localising a formula. Any occurrence of one of these in the English must
  * appear byte-identical in the translation at the same key.
@@ -91,10 +121,13 @@ export function describeTranslationParity(label: string, options: ParityOptions)
       // Plural forms are exempt in both directions: a locale supplies the CLDR
       // categories its language uses. `other` is covered by the test below.
       const missing = englishEntries
-        .filter((entry) => !entry.plural && !map.has(entry.path))
+        .filter((entry) => !entry.plural && !isGlossaryMatch(entry.path) && !map.has(entry.path))
         .map((e) => e.path);
       const extra = entries
-        .filter((entry) => !entry.plural && !englishMap.has(entry.path))
+        .filter(
+          (entry) =>
+            !entry.plural && !isGlossaryMatch(entry.path) && !englishMap.has(entry.path)
+        )
         .map((e) => e.path);
 
       expect({ missing, extra }).toEqual({ missing: [], extra: [] });

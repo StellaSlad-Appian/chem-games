@@ -3,9 +3,10 @@
 How the multi-language setup works, how to add a language, and how to add a
 string. Written for whoever adds Russian next.
 
-Currently shipping: **English** (default), **German**, **French**, **Spanish**
-and **Italian**. Planned: Russian — see [Adding a locale](#adding-a-locale)
-and [Plurals](#plurals), which is the one thing Russian will break.
+Currently shipping: **English** (default), **German**, **French**, **Spanish**,
+**Italian** and **Russian**. Russian is the first locale written in anything
+but the Latin alphabet; what that cost, and what it found, is in
+[Preparing a non-Latin locale](#preparing-a-non-latin-locale).
 
 ---
 
@@ -429,6 +430,36 @@ Grep for `\b` before starting a non-Latin locale. It hides in test helpers,
 and a *test* that uses `\b` against Cyrillic passes vacuously rather than
 failing — two in this repo did.
 
+### 1a. Two things the Russian gates got wrong until Russian existed
+
+Both were written ahead of their subject and proven against a fixture, which
+is the right way to do it — and both had a defect the fixture could not
+contain, because the fixture was hand-written Russian and the real files are
+translated Russian. Recorded because the *shape* of each mistake generalises
+to the next gate somebody writes ahead of its subject.
+
+- **`latinRunsIn()` counted interpolation placeholders as Latin.** `{count}`,
+  `{element}` and `{atom1}` are identifiers in the source, never text a reader
+  sees — `format()` substitutes them long before the string reaches a page.
+  Counting them produced 40 findings on the first real run, on every a11y
+  label and every coach line, and the only way to silence it would have been
+  an allowlist covering most of the catalogue. Placeholders are stripped
+  before the check now, and the fixture has a case for it. *The general
+  lesson: a fixture with no placeholders in it cannot exercise a rule about
+  strings that nearly all have placeholders in them.*
+
+- **The ё gate's participle rule was not true of Russian.** It read
+  `[а-я]енн(ый|ая|ое|ые|ого|ому)` and flagged every `-енный` adjective, but
+  only participles with a **stressed** ending take ё. It fired on
+  *пропущенный*, *полученный*, *отправленный*, *современный* and
+  *обыкновенный* — and on **неспаренный электрон**, which is the formal term
+  `glossary-ru.md` is built on, so the rule as written made the required
+  terminology unshippable. It is a list of specific participles now, which is
+  what that file's own header says the design is; the blanket rule was the one
+  thing in it that departed from that. *The general lesson: a rule that fires
+  on correct input is worse than no rule, because the fix a reader reaches for
+  is to change the correct input.*
+
 ### 2. Check the font actually has the script
 
 A Google font serves whatever subsets it has, and the API will tell you which.
@@ -590,6 +621,28 @@ language's business:
 
 So a Russian dictionary adds `few` and `many` and passes. A locale that drops
 `other`, or that turns a plural into a flat string, fails.
+
+### The second place, found by Russian: glossary match words
+
+`glossary.<entry>.matches` is exempt from the same check, in both directions,
+for the same reason. It is the list of word forms that open a tap-to-explain
+pop-over; the matcher does not stem; a language supplies one entry per
+inflected form its own copy uses. English needs two for *lone pair*. Russian
+needs four for *неподелённая пара*, because the copy uses the nominative, the
+genitive singular, the genitive plural and the accusative.
+
+`flatten()` gives every array element its own path, so before this exemption a
+fifth Russian form read as an "extra key" and the suite refused it. The five
+Latin locales never met it: each happens to need exactly the count English
+needs, and this section and GAMES.md both already told the Russian pass to
+expect longer lists — so the gate was the thing out of step, not the copy.
+
+The exemption is paid for rather than free. Every match word is still checked
+for emptiness; `game-messages.test.ts` still asserts each one starts and ends
+with a letter, still asserts that a term linked in the English running text is
+linked in the translation's, and now asserts that no locale ships an **empty**
+`matches` list — which is the one thing the relaxed key check could otherwise
+have hidden.
 
 ### Why this shipped before Russian did
 

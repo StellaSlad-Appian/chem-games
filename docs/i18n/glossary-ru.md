@@ -222,19 +222,20 @@ There are few, and they are listed here so the next change to them is deliberate
 
 | Where | Key | Russian forms |
 |---|---|---|
-| dictionary | `cheatSheets.count` | одна тема / {count} темы / {count} тем / {count} темы |
+| dictionary | `cheatSheets.count` | {count} тема / {count} темы / {count} тем / {count} темы |
 | lewis | `coach.loners` | одиночка / одиночки / одиночек |
 | lewis | `counts.sharedPairs`, `counts.lonePairs`, `counts.bonds` | общая пара / пары / пар; неподелённая пара / пары / пар; связь / связи / связей |
 | lewis | `hint.inspectTier3CountBonds`, `…CountLonePairs` | … (with «Их {count}» rather than an English-style "There is/are") |
 | balancer | `card.clustersA11y` | молекула / молекулы / молекул |
 
-`cheatSheets.count.one` deliberately reads «одна тема», not «{count} тема». The
-`one` category fires at 1, 21, 101 …, so the numeral is not always literally
-"one" — but the grid never shows 21 topics (there are twelve sheets), and
-«1 тема» in a filter pill reads worse than «одна тема». **If the sheet count ever
-exceeds 20, change this back to «{count} тема».** Recorded here rather than left
-as a surprise; it is the one place the Russian copy trades correctness-at-scale
-for readability at the real scale, and it is flagged low in `ru-review.md`.
+`cheatSheets.count.one` was briefly written «одна тема», on the argument that
+the grid only ever shows twelve topics so the `one` category's numeral is
+always literally one. **The placeholder gate refused it**, because a
+translation may not drop a placeholder the English source has — and the gate
+was right twice over: «{count} тема» is correct at 1, at 21 and at 101, and the
+prettier wording would have been silently wrong the day a thirteenth sheet was
+added. Worth recording as the one place where a gate overruled a deliberate
+translation choice and improved it.
 
 ---
 

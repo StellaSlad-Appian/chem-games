@@ -1295,6 +1295,361 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: 'The language-preference cookie this feature introduces had to be disclosed; the Italian follows the German, French and Spanish paragraphs rather than the original English.',
     },
   ],
+  ru: [
+    // ---------------------------------------------------------------- high --
+    {
+      prefix: 'common',
+      confidence: 'high',
+      note: 'Everyday UI words with unambiguous Russian equivalents.',
+    },
+    {
+      prefix: 'nav',
+      confidence: 'high',
+      note: 'Standard navigation vocabulary. "Шпаргалки" for cheat sheets is the natural Russian school word and exactly the right register for teenagers - the same call German made with Spickzettel. "Выходим…" for "Logging out" is first person plural rather than a past tense, because a Russian past tense agrees with the reader\'s gender.',
+    },
+    {
+      prefix: 'nav.menu',
+      confidence: 'high',
+      note: '"Меню" is the ordinary Russian word. "Меню сайта" names the panel for a screen reader.',
+    },
+    {
+      prefix: 'language',
+      confidence: 'high',
+      note: 'Switcher labels; short and unambiguous. The locale names itself "Русский".',
+    },
+    {
+      prefix: 'auth',
+      confidence: 'high',
+      note: 'Standard sign-in vocabulary. "Пароль" rather than a Latin "Password" - Russian transliterates loanwords rather than keeping them, which is why this locale needs far fewer identical-by-design exemptions than Italian did. The placeholder email uses a Cyrillic .рф domain.',
+    },
+    {
+      prefix: 'feedback',
+      confidence: 'high',
+      note: '"Отзыв" for feedback; the category labels are plain nouns (Ошибка / Данные / Идея).',
+    },
+    {
+      prefix: 'settings',
+      confidence: 'high',
+      note: 'Standard settings vocabulary.',
+    },
+    {
+      prefix: 'settings.useGlobal',
+      confidence: 'medium',
+      note: 'Rendered "Как везде" rather than a literal "Использовать общие": shorter, and it says what it does. settings.overrideHelp quotes the same wording inside guillemets, so the two must change together.',
+    },
+    {
+      prefix: 'footer',
+      confidence: 'high',
+      note: 'Short; the tagline is a free rendering rather than word-for-word, which suits a tagline. "без зубрёжки" (without rote learning) is an idiom a Russian fourteen-year-old uses about school.',
+    },
+    {
+      prefix: 'yearLevels',
+      confidence: 'high',
+      note: '"7 класс" … "10 класс" and "Старшие классы" are the Russian school-year labels. Note the stored value stays the English "Year 9"; only the label is translated. The site\'s Year 9-10 audience is 8-9 класс in the Russian system, which is what the SEO keywords say.',
+    },
+    {
+      prefix: 'chemistry',
+      confidence: 'high',
+      note: 'Fixed in docs/i18n/glossary-ru.md. **"Base" is "Основание", never "база"** - "база" in Russian is a base of operations or a database. German, French, Spanish and Italian all allowlist this key as identical to the English; Russian is the one locale where it is a real translation, and getting it wrong would be the most visible chemistry error on the site.',
+    },
+    {
+      prefix: 'games.shared',
+      confidence: 'high',
+      note: 'Short in-game controls. "Уровень" rather than the gamer loan "левел"; "Счёт" for score. Every count string here is invariant by construction: the numeral follows the noun ("Уровень {level}"), so it governs nothing.',
+    },
+    {
+      prefix: 'games.shared.hint',
+      confidence: 'medium',
+      note: '"Подсказка" is the right word and it is long (10 characters) for the header badge. Check it fits at 360 px next to the level and score readouts.',
+    },
+    {
+      prefix: 'profileToggles',
+      confidence: 'high',
+      note: 'Switch labels; plain imperative-free noun phrases.',
+    },
+    {
+      prefix: 'serverMessages',
+      confidence: 'high',
+      note: 'Validation and error copy. Two of these are the hardest invariant strings on the site: aliasLength and feedbackMessageTooLong both count characters, and the natural Russian ("от 3 до 20 символов") is wrong at 21. Both were rewritten as colon labels with the numerals last.',
+    },
+    {
+      prefix: 'cheatSheets',
+      confidence: 'high',
+      note: 'Index-page furniture. cheatSheets.count is a four-form plural record (one / few / many / other), which is the shape Russian needs and the reason the whole plural system was rebuilt before this locale was written.',
+    },
+    {
+      prefix: 'cheatSheets.forStudents',
+      confidence: 'high',
+      note: '"Для школьников" - the ordinary Russian word for secondary-school pupils, and gender-neutral in the plural.',
+    },
+    {
+      prefix: 'cheatSheets.forTeachers',
+      confidence: 'high',
+      note: '"Для учителей" - the plural is gender-neutral in Russian, so this needed none of the care German took with Lehrkräfte.',
+    },
+    {
+      prefix: 'games.reactionBalancer',
+      confidence: 'high',
+      note: 'Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов.',
+    },
+    {
+      prefix: 'games.reactionBalancer.reactionType',
+      confidence: 'medium',
+      note: 'The eight reaction-class badges, in the names a Russian textbook prints: Соединение, Разложение, Замещение, Обмен, Горение, Кислотно-основная, Осаждение. Note that Russian does *not* build "single/double displacement" as a pair the way English does - they are замещение and обмен, two unrelated words, and inventing "одинарное замещение" would be wrong. One collision worth knowing: "Соединение" is both "synthesis" and "a compound" in Russian. One word genuinely does both jobs; the badge sits above an equation, so it is unambiguous in place.',
+    },
+    {
+      prefix: 'games.reactionBalancer.reactionType.Redox',
+      confidence: 'low',
+      note: '"Окислительно-восстановительная" is thirty characters and the badge is CSS-uppercased - by far the longest string in a fixed-width control anywhere on the site. It is the word a Russian textbook prints. "Редокс" exists and would be five characters, but it is laboratory jargon rather than school vocabulary. **Check this on the rendered card at 360 px**, and if it will not fit, the question is whether to shorten the word or widen the badge.',
+    },
+    {
+      prefix: 'games.reactionBalancer.coach',
+      confidence: 'medium',
+      note: 'The coach lines are where case government bites hardest. English\'s "Which compound with {element} could you change?" needs the instrumental in Russian, and the overlay stores nominatives only, so it became "Измени вещество, в котором есть {elementInSentence}" - a relative clause, where the name is the subject and therefore nominative. That is Russian\'s own addition to the three placeholder shapes French, Spanish and Italian invented. It reads as ordinary Russian; check it does not read as evasive.',
+    },
+    {
+      prefix: 'games.reactionBalancer.card',
+      confidence: 'high',
+      note: 'Card controls and their accessible names. clustersA11y is a four-form plural record.',
+    },
+    {
+      prefix: 'games.reactionBalancer.challenge',
+      confidence: 'high',
+      note: 'The Challenge level. The wrong-side messages use a noun predicate ("{name} - продукт: …") rather than an adjective, because an adjective would have to agree with the gender of an interpolated compound name.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger',
+      confidence: 'medium',
+      note: '"Баланс атомов" is the game\'s own name for the tally table, chosen because it pairs with "уравнять". It is also why the game is titled "Весы реакций" and not "Баланс атомов" - the title would otherwise name a component of itself.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger.needsMoreLeft',
+      confidence: 'medium',
+      note: 'Invariant by construction: "слева не хватает: {count}". The natural Russian would put the numeral first and then have to decline what follows it.',
+    },
+    {
+      prefix: 'games.reactionBalancer.ledger.needsMoreRight',
+      confidence: 'medium',
+      note: 'Same shape as needsMoreLeft, for the same reason.',
+    },
+    {
+      prefix: 'games.reactionBalancer.glossary',
+      confidence: 'high',
+      note: 'Tap-to-explain vocabulary. The match lists are two to three times longer than the German ones, because the matcher does not stem and Russian has six cases - every form the copy actually uses is listed, and game-messages.test.ts asserts the running text is covered.',
+    },
+    {
+      prefix: 'games.reactionBalancer.beam',
+      confidence: 'high',
+      note: '"Коромысло" is the beam of a balance, which is what the component draws.',
+    },
+    {
+      prefix: 'games.reactionBalancer.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column 1 is the physical key and is never translated; column 2 is Russian.',
+    },
+    {
+      prefix: 'games.formulaBlaster',
+      confidence: 'high',
+      note: 'Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb\'s object, so no case agreement is needed.',
+    },
+    {
+      prefix: 'games.neutralise',
+      confidence: 'high',
+      note: 'Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does.',
+    },
+    {
+      prefix: 'games.lewisStructures',
+      confidence: 'medium',
+      note: 'The whole game rests on "одиночка" - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет.',
+    },
+    {
+      prefix: 'games.lewisStructures.instructions.keyboard',
+      confidence: 'high',
+      note: 'Column 1 is the physical key and is never translated; column 2 is Russian.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.lonePair',
+      confidence: 'high',
+      note: '"Неподелённая электронная пара" is the Russian school term, short form "неподелённая пара". Note the ё, which the typography gate enforces.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.sharedPair',
+      confidence: 'high',
+      note: '"Общая электронная пара" is the Russian school term for both "shared pair" and "bonding pair"; there is deliberately no second word for the same thing.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.outerElectron',
+      confidence: 'high',
+      note: '"Внешний электрон" in running text with "валентный электрон" as the formal term, glossed together exactly as the English does.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.duet',
+      confidence: 'low',
+      note: '**Russian sits with German here, not with French.** French school chemistry already teaches "la règle du duet"; Russian has no settled word at all - it says "завершённый внешний уровень, как у гелия" or nothing. "Дублет" is a real Russian scientific word meaning a pair, so nothing was coined, but no Russian textbook uses it for hydrogen. The rejected alternative is "дуэт", the direct calque, which in Russian reads purely musical. A teacher may well prefer to drop the word.',
+    },
+    {
+      prefix: 'games.lewisStructures.counts',
+      confidence: 'high',
+      note: 'Four-form plural records for shared pairs, lone pairs and bonds. These are the strings that make the case for the whole CLDR rebuild: 1 связь / 2 связи / 5 связей are three different words, and no two-form shape can express them.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach',
+      confidence: 'medium',
+      note: 'Every coach line names an atom, and the overlay has only the nominative, so every one of them puts the name after a dash or a colon. "{atom} - {count} из 8" rather than English\'s "{atom} has {count} of 8". Grammatical and terse; check it does not read as clipped.',
+    },
+    {
+      prefix: 'games.lewisStructures.coach.label',
+      confidence: 'medium',
+      note: '"Наставник" for the coach panel. It has to stay distinct from "подсказка", which is the hint ladder. "Тренер" is a sports coach and names a person; "коуч" is business jargon. Spanish and Italian reached the same place with Guía / Guida; German and French kept the English loanword, which Russian cannot.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.classmate',
+      confidence: 'high',
+      note: '"Рисунок одноклассника: {name}." - the colon keeps the molecule name out of the genitive the sentence would otherwise want.',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.countWrong',
+      confidence: 'medium',
+      note: 'This is the string that generalises the Italian lesson one step further. Italian\'s bug was a participle agreeing with the *count*; the Russian danger is a past tense agreeing with the **reader** - "ты насчитал" is wrong for half the readers, with no placeholder involved at all. Rewritten as a noun phrase: "Твой ответ: {given}, а на самом деле {actual}."',
+    },
+    {
+      prefix: 'games.lewisStructures.inspect.countLabel',
+      confidence: 'medium',
+      note: '"Насчитано: {counted}" - impersonal, so nothing agrees with anything. {counted} arrives already pluralised.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.supportMode',
+      confidence: 'medium',
+      note: '"Режим поддержки" is transparent and matches the "Поддержка" heading in the settings panel.',
+    },
+    // -------------------------------------------------------------- medium --
+    {
+      prefix: 'home',
+      confidence: 'medium',
+      note: 'Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands.',
+    },
+    {
+      prefix: 'gamesHub',
+      confidence: 'medium',
+      note: 'Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card.',
+    },
+    {
+      prefix: 'leaderboards',
+      confidence: 'medium',
+      note: 'Leaderboard furniture. "Таблица лидеров" is the standard Russian phrase and it is long; check the nav at 360 px.',
+    },
+    {
+      prefix: 'leaderboards.firstResultTitle',
+      confidence: 'medium',
+      note: 'English\'s "Ready for your first result?" has no Russian rendering that keeps the adjective without choosing the reader\'s gender ("готов" / "готова"). Rewritten as a statement: "Первый результат ещё впереди". Same device Italian used with the headless relative, reached independently.',
+    },
+    {
+      prefix: 'profile',
+      confidence: 'medium',
+      note: 'Profile fields and the laboratory framing. The lab metaphor travels into Russian, but a native speaker should check "Карточка исследователя" reads as a profile rather than as a library card.',
+    },
+    {
+      prefix: 'games.acidClassification',
+      confidence: 'medium',
+      note: 'Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use.',
+    },
+    {
+      prefix: 'games.acidClassification.instructionsTitle',
+      confidence: 'medium',
+      note: 'Quotes the game title, so it changes with it.',
+    },
+    {
+      prefix: 'games.overlay',
+      confidence: 'medium',
+      note: 'The paused / game-over / level-up cards. English lab idiom ("Batch complete!", "Your reaction fizzled!") is the risk, not the vocabulary. Note victoryDescription is impersonal - "Все уровни пройдены" - because "ты прошёл" would be wrong for half the readers.',
+    },
+    {
+      prefix: 'games.overlay.statRoundValue',
+      confidence: 'medium',
+      note: 'The string Italian got wrong. "{count} верных" is wrong at 1 and wrong at 2 in different ways, so this is the colon label: "Верно: {count}". Nothing in it can agree with the number.',
+    },
+    {
+      prefix: 'meta',
+      confidence: 'medium',
+      note: 'Page titles and descriptions. Fine as copy; not optimised as search text.',
+    },
+    {
+      prefix: 'privacy',
+      confidence: 'low',
+      note: 'Privacy-policy prose. I am not a lawyer and this is not legal review: the Russian says what the English says, but the phrasing has not been checked against Russian data-protection conventions, and Russian personal-data law (152-ФЗ) has requirements this page does not address at all. Note also that the page describes Australian law (Privacy Act 1988, the OAIC) - those names deliberately stay Latin inside Russian sentences, which is correct and reads oddly. If the site is ever actually offered to students in Russia, this page needs a review that is well out of scope for a translation pass.',
+    },
+    {
+      prefix: 'privacy.cookiesBody2',
+      confidence: 'medium',
+      note: 'The language-preference cookie this feature introduces had to be disclosed; the Russian follows the German, French, Spanish and Italian paragraphs rather than the original English.',
+    },
+    // ----------------------------------------------------------------- low --
+    {
+      prefix: 'meta.keywords',
+      confidence: 'low',
+      note: 'Keyword lists are chosen per language, not translated, and this one is plausible rather than researched. The one thing it gets deliberately right is the age band: Year 9-10 is 8-9 класс in the Russian system, and the list says so rather than a bare "химия в школе". Phase 1 shipped "Chemie Oberstufe" for this audience, which names ages 16-19.',
+    },
+    {
+      prefix: 'gamesHub.acidTitle',
+      confidence: 'low',
+      note: 'Chosen: «Кислота или основание?» - the question the game actually asks. Rejected: «Кислота или щёлочь?» (shorter, but щёлочь is a *soluble* base and the game also sorts ammonia and solid hydroxides) and «Определи вещество» (reads as a worksheet instruction). A product-naming call for the owner.',
+    },
+    {
+      prefix: 'gamesHub.blasterTitle',
+      confidence: 'low',
+      note: 'Chosen: «Охота на формулы» - an ordinary Russian noun phrase for a game, and it says what you do. Rejected: «Формула-бластер» (calque; "бластер" is a sci-fi loan that reads as English filler and says nothing about chemistry), «Лопни формулу» (truer to the popping mechanic, but the hub would then carry two imperative titles) and «Формулы на мушке» (vivid, too long for the card).',
+    },
+    {
+      prefix: 'gamesHub.neutraliseTitle',
+      confidence: 'low',
+      note: 'Chosen: «Нейтрализуй!» - the English is a deliberate imperative and Russian carries it directly. Rejected: «Нейтрализация» (a textbook chapter heading, which is the trap GAMES.md names) and «Ионная оборона» (reads more like a product, but drops the word the game teaches). GAMES.md\'s warning about titles that read as orders applies; this is the title most likely to be changed.',
+    },
+    {
+      prefix: 'gamesHub.balancerTitle',
+      confidence: 'low',
+      note: 'Chosen: «Весы реакций» - it names the beam the game draws, and a student can guess the chemistry from it. Rejected: «Балансировщик реакций», because **a "балансировщик" in Russian is a machine or a job** (a wheel balancer, a load balancer) - exactly the GAMES.md trap, and the same one Italian hit with "bilanciatore". Also rejected: «Уравняй реакцию» (a second imperative in the hub) and «Баланс атомов» (already this glossary\'s name for the ledger table inside the game).',
+    },
+    {
+      prefix: 'gamesHub.lewisTitle',
+      confidence: 'low',
+      note: 'Chosen: «Делись и заполняй» - names the rule in Russian as two short imperatives. Rejected: «Поделись, чтобы заполнить» (calque; the purpose clause is heavy and does not fit the card), «Пара к паре» (memorable, loses the "fill" half of the rule) and «Общая пара» (names the mechanic, reads as a glossary entry).',
+    },
+    {
+      prefix: 'gamesHub.bondsTitle',
+      confidence: 'low',
+      note: 'Chosen: «Химические связи». A topic name is the one case where the direct translation is the right answer; «Связи» alone is ambiguous (connections, contacts) and «Мир связей» is marketing.',
+    },
+    {
+      prefix: 'profile.defaultTitle',
+      confidence: 'low',
+      note: '"Исследователь" for the default scientist title. Correct, and possibly grander than a fourteen-year-old wants.',
+    },
+    {
+      prefix: 'profile.labNotesEmpty',
+      confidence: 'low',
+      note: 'A joke in English ("observing reactions in silence"). The Russian keeps the shape; whether it is funny in Russian is a native speaker\'s call.',
+    },
+    {
+      prefix: 'leaderboards.noData',
+      confidence: 'low',
+      note: '"Здесь ещё ничего не синтезировали" keeps the lab pun. "Будь первым!" is masculine-agnostic as an imperative, which is why it was chosen over a construction with an adjective.',
+    },
+    {
+      prefix: 'games.overlay.levelUpSubtitle',
+      confidence: 'low',
+      note: '"Партия готова!" for "Batch complete!" - lab idiom, translated as lab idiom. This is the kind of line the German review rates low for exactly this reason.',
+    },
+    {
+      prefix: 'games.lewisStructures.glossary.loner',
+      confidence: 'low',
+      note: '**The word the whole of «Делись и заполняй» is built on.** Russian rules out four words the other locales could reach for: "свободный" is taken twice over (свободная электронная пара is a lone pair, свободные электроны are the delocalised ones in a metal - the trap Spanish hit with *libre* and Italian with *libero*); "одинокий" because "одинокая пара" circulates as a calque of *lone pair*, which is why Spanish rejected *solitario*; "одиночный" because it is one suffix from "одинарная связь", the single bond this same game teaches three levels later; and "непарный" - the true counterpart of *impar* and *dispari* - because it shares its root with the formal "неспаренный" and would collapse the two-tier scaffold into one word spelled twice. "Одиночка" is a noun, it declines and counts cleanly (одна одиночка / 2 одиночки / 5 одиночек), and Russian already applies it to things as well as people (камера-одиночка), which is the objection that killed German\'s "Einzelgänger". Accuracy is not the worry; register is. **A native speaker and a chemistry teacher should both rule on this**, and if it changes, the edit touches every line of the game.',
+    },
+    {
+      prefix: 'games.lewisStructures.ui.lonerLabel',
+      confidence: 'low',
+      note: 'The one-word label beside a pulsing dot at Level 1, off from Level 2. Russian reuses the game word rather than shortening it, as Spanish and Italian do and unlike German, which has a separate adjective. Eight characters - check it fits the canvas.',
+    },
+  ],
 };
 
 /**
@@ -1734,5 +2089,117 @@ Ranked, honestly:
 7. **"bigino" for cheat sheet, "indizio" for hint, and "Guida" for the coach.**
    All three are register calls about school Italian rather than chemistry, and
    *bigino* is the one a fourteen-year-old might find dated.
+`,
+  ru: `
+---
+
+## Chemistry names — \`src/i18n/chemistry-names/ru.ts\`
+
+Not in the table above: these are keyed by registry identifier rather than by
+dictionary path, and there are 193 of them.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Element names | 118 | **high** | Russian element names are standardised and I am confident in the table. **The trap the brief names is real and it is the German one, not the English one:** sodium is **натрий** and potassium is **калий**, from the Latin stems, and the same is true of iron (**железо**), copper (**медь**), silver (**серебро**), tin (**олово**), lead (**свинец**), mercury (**ртуть**) and tungsten (**вольфрам**). All fourteen names the test demands differ from the English genuinely do, so this locale needs no \`SAME_AS_ENGLISH\` exemption — checked one at a time rather than inherited from the German result. Spellings follow Russian *chemical* usage rather than everyday usage: **иод** (not *йод*, which is the pharmacy word), **кремний**, **висмут**, **оганесон** with one с. |
+| Compound names | 35 | **high** for the salts and hydroxides, **medium** for the acids | Russian composes anion-first with the cation **in the genitive** — *гидроксид натрия*, *хлорид кальция*. That is the same order French, Spanish and Italian reach with a preposition, achieved with a case ending instead, and it matters for the rest of the system: the genitive is baked into the stored string, so a compound name is usable as it stands where an element name is not. The acids are the judgement calls: HCl is **соляная кислота** and HF **плавиковая кислота**, which is what a Russian school textbook prints, where the systematic names are *хлороводородная* and *фтороводородная*. All 35 differ from the English (N2H4 is *гидразин*), so no \`IDENTICAL_COMPOUNDS_BY_DESIGN\` entry either. |
+| Ion names | 40 | **high** | The same modernisation German, French, Spanish and Italian each made: Russian uses the systematic **гидро-** prefix where the English source data still says *bi-*. Bicarbonate becomes *гидрокарбонат*, bisulfate *гидросульфат*, bisulfite *гидросульфит*. A monoatomic cation is *ион* + the element in the genitive (*ион натрия*), which is why those read as two words where the anions are one. |
+
+**Specifically worth a second pair of eyes:** \`Ts\` (Tennessine) is given as
+"Теннессин", which is the Russian IUPAC form but is rarely written; and
+\`H4SiO4\` is "кремниевая кислота" where the fully systematic name would be
+"ортокремниевая кислота".
+
+## Game data — \`src/i18n/chemistry-names/ru.ts\`
+
+Also keyed by identifier rather than by dictionary path: the prose the two new
+games read straight out of the core-engine datasets. 104 entries, all new in
+this pass.
+
+| Group | Count | Confidence | Notes |
+|---|---|---|---|
+| Species names (\`SPECIES_NAMES_RU\`) | 53 | **high** | Everyday names for the compounds a Reaction Balancer card can show. One deliberate decision, the same one German made and English cannot: HCl is **хлороводород**, the substance, because that is what a card labels; the reaction descriptions say **соляная кислота** where the reaction happens in water. A second: the oxides use the Stock Roman numeral (*оксид углерода(IV)*, *оксид серы(VI)*, *оксид железа(III)*) rather than the Greek prefixes, because that is what a Russian school equation uses. *Углекислый газ* is the everyday Russian for CO2 and is deliberately **not** used here — it would be right in prose and wrong on a card beside a formula. |
+| Reaction prose (\`REACTION_TEXT_RU\`) | 33 × up to 4 | **medium** | Name, macroscopic observation, strategy hint and word equation for every reaction. The observations are the risk: they are short pieces of lab description ("носится с шипением по поверхности воды", "летит сноп искр") where a flat translation reads flat. The reaction *names* follow Russian convention — *процесс Габера*, *процесс Оствальда*, *термитная реакция*, *золотой дождь*, *клеточное дыхание*, *фотосинтез*. |
+| Lewis molecule prose (\`LEWIS_MOLECULE_TEXT_RU\`) | 18 × 3 | **medium** | Name, tier-2 hint and property line per molecule. Names follow Russian IUPAC: **этен** and **этин** rather than the older этилен/ацетилен, **фосфин**, **тетрахлорметан**, **хлорметан**, **сероводород**. Those six are worth a teacher's eye — Russian school books still often print этилен and ацетилен, so the modern forms may read as unfamiliar to the audience rather than as correct. |
+
+**Structurally out of reach of a translator, by design:** equations, formulae,
+bond lines, state symbols, atom lists and level assignments are not in the
+overlay at all, and \`chemistry-names.test.ts\` asserts they come through
+byte-identical. The same test fails the suite if a reaction gains a Russian word
+equation it does not have in English, because the game decides what to show by
+whether one exists.
+
+## Cheat sheets — \`src/i18n/cheat-sheets/ru.ts\`
+
+Twelve reference sheets, roughly 6,000 words of specialist Russian. **This is the
+highest-risk part of the translation and the part I would most want reviewed
+before students see it.**
+
+| Sheet | Confidence | What to look at |
+|---|---|---|
+| States of Matter | **high** | Ordinary particle-model vocabulary. The six transitions use the standard Russian pairs (плавление/кристаллизация, испарение/конденсация, возгонка/десублимация). |
+| Acids & Bases | **high** | Glossary-fixed throughout. Two choices to check: H₃O⁺ is **ион гидроксония**, the Russian school term, where English says hydronium; and "base" is **основание** throughout, never *база*. |
+| Balancing Equations | **high** | Turns on the индекс/коэффициент distinction, which Russian makes with exactly the two words a textbook uses. "Уравнять" is the decided verb, with "расставить коэффициенты" as its fuller expansion where there is room — see the glossary. |
+| Reaction Types | **medium** | The Russian class names are **замещение** and **обмен**, which are not a "single/double" pair the way English builds them. Check they match the reader's textbook. |
+| Chemical Bonds | **medium** | Uses **ковалентная связь** directly, unlike German, which prefers *Atombindung*. **Свободные электроны** for the delocalised ones is the school phrasing; *делокализованные* is upper-secondary register. |
+| Writing Ionic Formulas | **medium** | "Перекрёстное правило" for the cross-over method. Check it is called that locally — some Russian textbooks describe the method without naming it. |
+| Polyatomic Ions | **medium** | The naming-pattern bullets are the risk: they explain *English* suffix patterns (-ate/-ite, per-/hypo-) using Russian equivalents (-ат/-ит, пер-/гипо-). A Russian reader learns the Russian pattern, so this mostly works, but the mapping deserves a teacher's eye. |
+| Naming Inorganic Compounds | **low** | The hardest sheet, and **adapted rather than translated**. English teaches "-ide → hydro-…-ic acid"; Russian has no counterpart to that shape at all. It names binary acids with **-водородная** (*сероводородная*) or by tradition (*соляная*, *плавиковая*), and the -ate/-ite contrast lands on the **acid** as **-ная / -истая** (*серная* / *сернистая*) where English's lands on the anion. The molecular-naming bullet was restated from the other end, because Russian names oxides with the Stock Roman numeral where English uses Greek prefixes. **This is a content change, not a translation, and it needs a teacher.** |
+| The Mole & Stoichiometry | **medium** | Terminology is glossary-fixed (количество вещества, молярная масса, реагент в недостатке). **Decimal commas throughout the worked examples** — 6,02 × 10²³, 8,0 г, 24,8 л/моль, 8,31 — which is correct Russian and sits next to formulae that keep their own notation. Check that is what you want. |
+| Lewis Structures | **medium** | Uses **формула Льюиса** and **неподелённая пара**. The VSEPR shape names (тетраэдр, тригональная пирамида, уголковая форма) are standard. This is the sheet the game links, so its Year 10 section repeats the game's «одиночка». |
+| Naming Organic Compounds | **low** | Same problem as the inorganic naming sheet. Russian names esters the other way round (*метилэтаноат*, not "methyl ethanoate"), writes carboxylic acids as *…овая кислота* and amines as *-амин*, and the root table is the Russian one. **A chemistry teacher must check this sheet.** |
+| Functional Groups | **low** | The reference table mixes structure notation (untranslated) with Russian group names and Russian reaction descriptions. **Сложный эфир** for ester is the row to check: it must be both words, because *эфир* alone is an ether or the airwaves. |
+
+**Not translated, deliberately:** every linked resource is an English-language
+site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
+titles are left in English so they are findable, and the Russian descriptions
+say "(На английском.)" so a reader is not surprised. **This is a genuine gap
+rather than a solved problem**: a Russian student gets Russian explanations and
+then English source material. Russian-language equivalents exist and are good
+(Фоксфорд, ХиМиК.ру, Российская электронная школа, ПостНаука), which is a
+content task rather than a translation task.
+
+**Also not translated:** the curriculum references. Every sheet cites the
+Victorian Curriculum or the VCE study design, which is Australian. Worth
+deciding whether Russian sheets should show a Russian curriculum reference
+(ФГОС / ПООП), or none.
+
+## What I am most likely to have got wrong
+
+Ranked, honestly:
+
+1. **"Одиночка".** The word the whole of «Делись и заполняй» is built on, in
+   every coach line, every hint and on the canvas. The *elimination* is
+   objective — свободный, одинокий, одиночный and непарный are each ruled out
+   for a stated reason, and three of the four are the same collisions Spanish
+   and Italian hit. What is not objective is whether a noun Russian also uses
+   for a person (мать-одиночка) reads as chemical rather than cute. That is the
+   argument German lost with *Einzelgänger*, and Russian's word is only
+   defensible because Russian applies the same noun to objects
+   (камера-одиночка, лодка-одиночка). **Rated low and flagged for both a native
+   speaker and a teacher.**
+2. **The two naming sheets** (\`naming-compounds\`, \`organic-nomenclature\`). I changed what
+   they teach, because teaching English naming rules in Russian would be worse
+   than useless. That is the right call and it is beyond what a translator
+   should decide alone.
+3. **"Дублет"** for the duet. Russian school chemistry has no settled word at
+   all, so this is a coinage in use if not in vocabulary. A teacher may prefer
+   to drop the word and say "два электрона, как у гелия".
+4. **Register in the playful copy.** Overlay messages, empty states and the
+   marketing hero are where a non-native translation reads as "correct but
+   flat". None of it is wrong; some of it may be charmless. "Партия готова!"
+   for "Batch complete!" is the weakest line in the file.
+5. **Game titles.** Six product-naming calls, no strong opinion behind any of
+   them. «Весы реакций» and «Охота на формулы» move furthest from the English;
+   «Нейтрализуй!» is the one most likely to be judged an instruction rather
+   than a name.
+6. **"Окислительно-восстановительная"** as a reaction badge. Thirty characters,
+   CSS-uppercased, in a fixed-width control. It is the right word and it may
+   not fit.
+7. **ты vs вы.** Decided as *ты* and applied to every imperative in two
+   catalogues and the dictionary. Less contentious than French's *tu* — Russian
+   educational games for teenagers use *ты* as a matter of course — but it is
+   still a decision, and reversing it is mechanical and total.
+8. **The privacy page.** Legally unreviewed, describing Australian law, and
+   silent on Russian personal-data law, which has requirements of its own.
 `,
 };

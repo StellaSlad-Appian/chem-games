@@ -10,10 +10,16 @@
  * and the values written into the `<html lang>` attribute, so they must be
  * valid BCP 47 tags.
  *
- * Phase 1 shipped English and German; Phase 2 has added French, Spanish and
- * Italian. Still to come: 'ru'. Adding a code here is deliberately a
- * compile error in every strict `Record<Locale, …>` until the locale's files
- * exist — see docs/i18n/README.md § Adding a locale.
+ * Phase 1 shipped English and German; Phase 2 added French, Spanish, Italian
+ * and, last, Russian. Adding a code here is deliberately a compile error in
+ * every strict `Record<Locale, …>` until the locale's files exist — see
+ * docs/i18n/README.md § Adding a locale.
+ *
+ * Russian is the first locale written in anything but the Latin alphabet, and
+ * three things in the codebase had to change before it could be added at all:
+ * the glossary matcher's word boundaries, the display font, and plural
+ * completeness. All three failed *silently* on Cyrillic — see
+ * docs/i18n/README.md § Preparing a non-Latin locale.
  *
  * Spanish ships under the plain `es` tag but is written in **es-ES**
  * (peninsular). No Spanish copy is variety-neutral, so that is a decision
@@ -21,7 +27,7 @@
  * of docs/i18n/glossary-es.md. If es-419 is ever wanted as well it is a second
  * locale with its own files, not a setting.
  */
-export const LOCALES = ['en', 'de', 'fr', 'es', 'it'] as const;
+export const LOCALES = ['en', 'de', 'fr', 'es', 'it', 'ru'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -50,6 +56,7 @@ export const LOCALE_LABELS: Record<Locale, string> = {
   fr: 'Français',
   es: 'Español',
   it: 'Italiano',
+  ru: 'Русский',
 };
 
 /**
@@ -68,7 +75,11 @@ export const LOCALE_LABELS: Record<Locale, string> = {
  * than a change to `LOCALES` — `en-AU` is not a second locale with its own
  * dictionary, and making it one would be a much larger and worse decision.
  *
- * A Russian entry will not be needed: `ru` already formats as Russian.
+ * Russian needs no special tag either — a bare `ru` resolves to ru-RU, which
+ * is what this audience wants: decimal comma, space as the thousands
+ * separator, and `14 сентября 2026 г.` for a date. The entry below exists
+ * only because `Record<Locale, string>` is strict, and that is the right
+ * trade: it is one line, and it makes forgetting a locale a compile error.
  */
 export const FORMATTING_LOCALE: Record<Locale, string> = {
   en: 'en-AU',
@@ -76,6 +87,7 @@ export const FORMATTING_LOCALE: Record<Locale, string> = {
   fr: 'fr',
   es: 'es-ES',
   it: 'it',
+  ru: 'ru',
 };
 
 /**

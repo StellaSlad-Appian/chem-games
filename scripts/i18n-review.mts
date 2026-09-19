@@ -44,6 +44,9 @@ import { es as lewisEs } from '../src/i18n/game-messages/lewis-structures/es.ts'
 import { it } from '../src/i18n/dictionaries/it.ts';
 import { it as balancerIt } from '../src/i18n/game-messages/reaction-balancer/it.ts';
 import { it as lewisIt } from '../src/i18n/game-messages/lewis-structures/it.ts';
+import { ru } from '../src/i18n/dictionaries/ru.ts';
+import { ru as balancerRu } from '../src/i18n/game-messages/reaction-balancer/ru.ts';
+import { ru as lewisRu } from '../src/i18n/game-messages/lewis-structures/ru.ts';
 import { REVIEW_NOTES, REVIEW_SUMMARY } from '../src/i18n/review-notes.ts';
 import type { Confidence } from '../src/i18n/review-notes.ts';
 
@@ -321,6 +324,75 @@ instead: every apostrophe is the typographic U+2019 (’), not a straight
 quote; and every count-bearing string is deliberately **invariant**, because a
 flat string cannot agree with its number — so *risposte esatte: 1* rather than
 *1 corrette*.
+
+---
+
+## UI strings
+
+`,
+  },
+  ru: {
+    dictionary: ru,
+    catalogues: [balancerRu, lewisRu],
+    columnTitle: 'Russian',
+    header: (total, counts) => `<!--
+  GENERATED FILE - do not edit by hand.
+  Regenerate with:  npm run i18n:review
+  The confidence ratings, the notes and the assessment at the end come from
+  src/i18n/review-notes.ts; edit them there. Everything else is read from the
+  dictionaries, so this table cannot drift from what the site actually says.
+-->
+
+# Russian translation review
+
+Every UI string on the site, with its English source and its Russian
+translation, so a native speaker or a chemistry teacher can review the Russian
+without reading any code.
+
+**${total} strings** — ${counts.high} high confidence,
+${counts.medium} medium, ${counts.low} low.
+
+The confidence column is a judgement about *this* translation, not about Russian
+in general:
+
+- **high** — ordinary UI copy, or a term fixed in [\`glossary-ru.md\`](./glossary-ru.md). Low risk.
+- **medium** — correct as far as I can tell, but a native speaker may prefer a
+  different word, or the register may be slightly off for a 14-year-old. Worth a
+  read; not urgent.
+- **low** — I am genuinely unsure. Please have a native speaker or a chemistry
+  teacher check these before the Russian site goes in front of students.
+
+The chemistry names and the cheat-sheet prose are **not** in this table — they
+are keyed by registry identifier rather than by dictionary path, and they are
+assessed as bodies of work in [the section at the end](#chemistry-names--srci18nchemistry-namesruts).
+
+**The first thing to look at** is the word the whole of «Делись и заполняй» is
+built on: **одиночка**, for a single unpaired outer electron. Russian rules out
+four words the other locales could reach for — *свободный* (a lone pair is a
+*свободная электронная пара*, and *свободные электроны* are the delocalised
+ones in a metal), *одинокий* (*одинокая пара* circulates as a calque of *lone
+pair*), *одиночный* (one suffix from *одинарная связь*, the single bond) and
+*непарный*, which shares its root with the formal *неспаренный* and would
+collapse the game's two-tier scaffold into one word spelled twice. So the
+elimination is objective. What is not objective is register: *одиночка* is also
+what Russian calls a person who is on their own. The full reasoning is in
+[\`glossary-ru.md\`](./glossary-ru.md).
+
+**The second thing** is grammatical rather than lexical, and it has no
+counterpart in the five Latin locales. The \`chemistry-names\` overlay stores
+**nominatives only**, and a Russian sentence wants six cases, so no chemical
+name in this table sits after a preposition or as a verb's object: every one of
+them is behind a colon, behind a dash, or the subject of a который-clause.
+*«Потом снова проверь: {element}»*, not *«проверь {element}»*, which is right
+for *кислород* and wrong for *сера*. The same rule covers the reader: a Russian
+past tense agrees with the speaker's gender, so *«ты насчитал»* is wrong for
+half the readers and every such string is an impersonal instead.
+
+A note on reading the table: Russian needs none of the no-break-space marking
+German and French do, so a \`·\` will rarely appear. What to watch for instead
+is **ё**, which is written out everywhere rather than folded to е — *твёрдый*,
+*неподелённая*, *учёный* — and the guillemets «…», which are Russian's
+quotation marks and are enforced by a gate rather than remembered.
 
 ---
 

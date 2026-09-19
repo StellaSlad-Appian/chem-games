@@ -51,6 +51,23 @@ const CYRILLIC = /\p{Script=Cyrillic}/u;
  */
 const LATIN_RUN = /\p{Script=Latin}{3,}/gu;
 
+/**
+ * An interpolation placeholder: `{count}`, `{elementInSentence}`.
+ *
+ * **Removed before the Latin-run check, and that is not a convenience.** A
+ * placeholder name is an identifier in the source, never text a reader sees:
+ * `format()` has substituted it long before the string reaches a page. Left
+ * in, it is a Latin run of three or more letters in almost every interpolated
+ * string, so the gate reported 40 findings on its first real run — every
+ * a11y label, every coach line, every progress readout — and the only way to
+ * make it quiet would have been an allowlist covering most of the catalogue.
+ * That is the shape of a gate nobody keeps.
+ *
+ * Found the first time this gate ran against real Russian files; the fixture
+ * in cyrillic.test.ts had none, so nothing exercised it before.
+ */
+const PLACEHOLDER = /\{[a-zA-Z0-9_]+\}/g;
+
 const find = (entries: Entry[], test: (value: string) => string | null): Finding[] =>
   entries.flatMap((entry) => {
     const detail = test(entry.value);
@@ -73,7 +90,7 @@ export function stringsWithoutCyrillic(tree: unknown): Finding[] {
  */
 export function latinRunsIn(tree: unknown): Finding[] {
   return find(flatten(tree), (value) => {
-    const runs = value.match(LATIN_RUN);
+    const runs = value.replace(PLACEHOLDER, ' ').match(LATIN_RUN);
     return runs ? `Latin run(s): ${runs.join(', ')}` : null;
   });
 }
@@ -98,12 +115,40 @@ export function latinRunsIn(tree: unknown): Finding[] {
  */
 const FOLDED_YO: [RegExp, string][] = [
   [/заряженн/u, 'заряженный → заряжённый'],
-  [/твердый|твердое|твердая/u, 'твердый → твёрдый'],
+  [/твердый|твердое|твердая|твердые/u, 'твердый → твёрдый'],
+  // Participles that really do take ё. Each is listed, because the general
+  // rule that used to stand here — `[а-я]енн(ый|ая|ое|ые|ого|ому)(?!\p{L})`
+  // — is **not true of Russian**, and it fired on the Russian copy the first
+  // day there was any. Most -енный adjectives are correctly spelled with е:
+  // *неспаренный*, *пропущенный*, *полученный*, *отправленный*,
+  // *современный*, *обыкновенный*. Only participles whose ending is stressed
+  // take ё. The blanket rule flagged six correct words for every real one,
+  // and one of the six was **неспаренный электрон** — the formal term this
+  // locale's glossary is built on, so the rule as written made the required
+  // terminology unshippable.
+  //
+  // This is the design the file's own header states ("listed rather than
+  // ruled, because 'should this е be ё' is not a question a regex can answer
+  // in general — only for words this site cannot avoid"). The general rule was
+  // the one thing in the file that departed from it.
+  //
   // Note the `(?!\p{L})` rather than a `\b`. `\b` is defined against
   // `[A-Za-z0-9_]`, so there is no boundary after a Cyrillic "й" and
   // `/-енный\b/` matches nothing at all — the same bug this branch fixes in
   // GlossaryTerm.tsx, met again while writing the gate for it.
-  [/[а-я]енн(ый|ая|ое|ые|ого|ому)(?!\p{L})/u, '-енный participle → -ённый'],
+  [
+    /(привед|определ|раздел|соедин|раствор|провед|неподел|вовлеч|отнес)енн(ый|ая|ое|ые|ого|ому|ых|ыми)(?!\p{L})/u,
+    '-енный participle → -ённый',
+  ],
+  // Words other than participles that this site cannot avoid and that a
+  // translator working from an English-shaped file folds by reflex.
+  [/(?<!\p{L})учен(ый|ые|ых|ым|ыми)(?!\p{L})/u, 'ученый → учёный'],
+  [/(?<!\p{L})\p{L}*счет(?!\p{L})|(?<!\p{L})счета(?!\p{L})/u, 'счет → счёт'],
+  [/(?<!\p{L})еще(?!\p{L})/u, 'еще → ещё'],
+  [/желт(ый|ая|ое|ые|ого|о-)/u, 'желтый → жёлтый'],
+  [/зелен(ый|ая|ое|ые|ого|о-)/u, 'зеленый → зелёный'],
+  [/теплый|теплая|теплое|теплой|теплые/u, 'теплый → тёплый'],
+  [/решетк/u, 'решетка → решётка'],
 ];
 
 export const RUSSIAN_TYPOGRAPHY: { label: string; check: (value: string) => string | null }[] = [

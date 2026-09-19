@@ -20,12 +20,18 @@ import { LOCALES_WITH_EXTRA_FONTS, extraFontStylesheet } from './fonts';
 const globalsCss = readFileSync(join(process.cwd(), 'src/app/globals.css'), 'utf8');
 
 describe('extra font stylesheets', () => {
-  it('gives every shipped locale nothing extra to download', () => {
+  it('gives every Latin-script locale nothing extra to download', () => {
     // en/de/fr/es/it are covered by the `@import` in globals.css. If one of
     // them starts returning a URL, a page that draws no glyph from that face
     // has gained a render-blocking request.
+    //
+    // This used to read "every shipped locale", which was true while Russian
+    // was only planned. Russian shipping is the event the whole file was
+    // written for, so the assertion is now the one that was always meant:
+    // exactly the locales that need a different script get a stylesheet, and
+    // no others.
     const withExtras = LOCALES.filter((locale) => extraFontStylesheet(locale) !== undefined);
-    expect(withExtras).toEqual([]);
+    expect(withExtras).toEqual(['ru']);
   });
 
   it('has the Cyrillic stylesheet ready before `ru` is a locale', () => {

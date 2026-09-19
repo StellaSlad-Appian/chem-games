@@ -18,6 +18,9 @@
 
 import { describe, expect, it } from 'vitest';
 import { LOCALES } from './config';
+import { ru } from './dictionaries/ru';
+import { ru as balancerRu } from './game-messages/reaction-balancer/ru';
+import { ru as lewisRu } from './game-messages/lewis-structures/ru';
 import {
   describeFinding,
   latinRunsIn,
@@ -26,21 +29,21 @@ import {
 } from '@/test-utils/i18n-russian';
 
 /**
- * The Russian sources, once they exist.
+ * The Russian sources.
  *
- * The Russian pass fills this in at the same time as it adds the files:
- *
- *   import { ru } from './dictionaries/ru';
- *   import { ru as balancerRu } from './game-messages/reaction-balancer/ru';
- *   import { ru as lewisRu } from './game-messages/lewis-structures/ru';
- *
- *   const RUSSIAN_SOURCES: Record<string, unknown> = {
- *     dictionary: ru,
- *     'reaction-balancer': balancerRu,
- *     'lewis-structures': lewisRu,
- *   };
+ * The three that ship to a reader's browser, which is what this file is for.
+ * The cheat-sheet and chemistry-name overlays are deliberately **not** here:
+ * they are server-only, they are mostly notation, and putting them under the
+ * Latin-run rule would mean allowlisting several hundred formula-bearing
+ * keys — at which point the allowlist stops being evidence of anything. Their
+ * completeness and their untranslatable parts are gated by
+ * cheat-sheets.test.ts and chemistry-names.test.ts instead.
  */
-const RUSSIAN_SOURCES: Record<string, unknown> = {};
+const RUSSIAN_SOURCES: Record<string, unknown> = {
+  dictionary: ru,
+  'reaction-balancer': balancerRu,
+  'lewis-structures': lewisRu,
+};
 
 /**
  * Keys whose Russian is legitimately Latin, mirroring the
@@ -60,10 +63,67 @@ const RUSSIAN_SOURCES: Record<string, unknown> = {};
  *     German: Russian transliterates almost everything (пароль, not
  *     "Password"), so an entry here needs a real argument behind it.
  *
- * Empty until the files land. Inventing exemptions for strings that do not
- * exist is how an allowlist turns into a way of switching the gate off.
+ * Every entry below was found by running the gate, not by guessing, and each
+ * falls into one of the categories above. Nothing here is a category the list
+ * invented for its own convenience.
  */
-const LATIN_BY_DESIGN: RegExp[] = [];
+const LATIN_BY_DESIGN: RegExp[] = [
+  // --- Brand, product and company names ----------------------------------
+  // "ChemGames" is the product; it is never translated and never
+  // transliterated, so every string that names it carries a Latin run.
+  // Supabase, Resend and Google are companies. "Bond Builder" is the working
+  // name of a game that does not exist yet.
+  /^meta\.(siteName|title|privacyTitle|privacyDescription|cheatSheetTitle|cheatSheetNotFound)$/,
+  /^footer\.(tagline|copyright)$/,
+  /^feedback\.(heading|sentBody)$/,
+  /^profile\.dataIntro$/,
+  /^auth\.(registerTitle|switchToRegisterPrompt|checkInbox|continueWithGoogle)$/,
+  // Also names two dotfiles, which are filenames rather than words.
+  /^auth\.unconfiguredNotice$/,
+  // whoWeAreBody carries the data controller's own name, which is a person's.
+  /^privacy\.(intro|whoWeAreBody|collectAccountBody|cookiesBody1|childrenBody1)$/,
+  /^privacy\.processor(Supabase|Resend|Google)(Label|Body)$/,
+  /^overlay\.victoryDescription$/,
+
+  // --- A file format and a transport protocol -----------------------------
+  // Russian writes both in Latin: «файл JSON», «по HTTPS».
+  /^profile\.exportBody$/,
+  /^privacy\.processorsTransport$/,
+
+  // --- Australian legal proper nouns --------------------------------------
+  // The Privacy Act 1988, the Australian Privacy Principles and the OAIC keep
+  // their English names by policy — the same decision the privacy page itself
+  // records and the Latin-leakage e2e gate allowlists. Translating the name of
+  // a statute makes it impossible to look up.
+  /^privacy\.legalBody[12]$/,
+
+  // --- Keyboard glyphs ----------------------------------------------------
+  // The legend printed on a physical key, which is Latin on every keyboard a
+  // Russian reader owns. The first column of an instructions key table is
+  // always the key; the second column, which says what it does, is Russian.
+  /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
+  /^games\.overlay\.keyHint(Resume|Retry)$/,
+  /^instructions\.keyboard\[\d+\]\[0\]$/,
+
+  // --- Pure notation, with no words in it ---------------------------------
+  // Strings whose entire visible content is placeholders, punctuation or
+  // international notation. There is nothing in them that could be Cyrillic,
+  // and each is already recorded as identical-by-design in dictionary.test.ts
+  // or game-messages.test.ts for exactly the same reason.
+  /^cheatSheets\.exampleLabel$/,
+  /^success\.points$/,
+  /^challenge\.tileA11y$/,
+  /^glossary\.stateSymbols\.term$/,
+  /^notebook\.diagnosisRow$/,
+  /^ui\.atomOrdinal$/,
+
+  // Note what is NOT here. No formula-bearing string needed an entry: Russian
+  // chemistry writes `H2O`, `2H2 + O2 -> 2H2O` and `NaOH` exactly as English
+  // does, and the Latin-run floor of three letters lets every one of them
+  // through untouched, because a digit breaks the run. The one place a
+  // formula would have tripped the gate is a four-letter symbol run like
+  // `NaOH` standing alone in prose, and no Russian string has one.
+];
 
 const allowed = (path: string) => LATIN_BY_DESIGN.some((pattern) => pattern.test(path));
 const sourceNames = Object.keys(RUSSIAN_SOURCES);
@@ -142,6 +202,44 @@ describe('the Cyrillic and typography checks themselves', () => {
     // If this ever starts failing, the floor was lowered — check that the
     // formula and state-symbol keys got allowlisted at the same time.
     expect(latinRunsIn({ x: 'Уровень 3 of 5' })).toEqual([]);
+  });
+
+  it('ignores interpolation placeholders, which no reader ever sees', () => {
+    // Regression. `{element}`, `{count}` and `{full}` are identifiers in the
+    // source: `format()` substitutes them long before the string reaches a
+    // page. Counting them as Latin runs made the gate report 40 findings the
+    // first time it ran against real Russian files — every a11y label, every
+    // coach line — and the only way to silence it would have been an
+    // allowlist covering most of the catalogue.
+    expect(latinRunsIn({ x: '{element}: {count} из {full}' })).toEqual([]);
+    expect(latinRunsIn({ x: 'Общая пара: {atom1} и {atom2}.' })).toEqual([]);
+
+    // ...and a real English word standing next to one is still caught, which
+    // is the half that matters.
+    expect(paths(latinRunsIn({ x: 'Уровень {level} complete' }))).toEqual(['x']);
+  });
+
+  it('does not flag an -енный adjective that is correctly spelled with е', () => {
+    // Regression, and the more dangerous of the two. A blanket
+    // `[а-я]енн(ый|ая|…)` rule is not true of Russian: only participles with
+    // a stressed ending take ё. It fired on six correct words for every real
+    // one — and one of the six was **неспаренный электрон**, the formal term
+    // glossary-ru.md is built on, which made the required terminology
+    // unshippable.
+    expect(
+      typographyFindings({
+        a: 'остался неспаренный электрон',
+        b: 'Пропущенные подсвечены.',
+        c: 'полученные значки',
+        d: 'Отправленные отзывы остаются.',
+        e: 'современный учебник',
+      })
+    ).toEqual([]);
+
+    // The participles that really do take ё are still caught, one by one.
+    expect(paths(typographyFindings({ f: 'приведенный пример' }))).toEqual(['f']);
+    expect(paths(typographyFindings({ g: 'определенный ответ' }))).toEqual(['g']);
+    expect(paths(typographyFindings({ h: 'неподеленная пара' }))).toEqual(['h']);
   });
 
   it('lets an element symbol and pH through, and stops a formula', () => {

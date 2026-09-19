@@ -27,6 +27,8 @@ import { es as balancerEs } from './game-messages/reaction-balancer/es';
 import { es as lewisEs } from './game-messages/lewis-structures/es';
 import { it as balancerIt } from './game-messages/reaction-balancer/it';
 import { it as lewisIt } from './game-messages/lewis-structures/it';
+import { ru as balancerRu } from './game-messages/reaction-balancer/ru';
+import { ru as lewisRu } from './game-messages/lewis-structures/ru';
 import {
   describePluralCompleteness,
   describeTranslationParity,
@@ -117,6 +119,23 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     // says *reazione redox* and never expands it.
     /^reactionType\.Redox$/,
   ],
+  ru: [
+    // The first column of an instructions key table is the physical key, so it
+    // never translates; the second column, which says what the key does, always
+    // does.
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    // Strings whose whole visible content is placeholders, punctuation or
+    // international notation: there is nothing in them to translate.
+    /^success\.points$/,
+    /^challenge\.tileA11y$/,
+    /^glossary\.stateSymbols\.term$/,
+    // **`reactionType.Redox` is deliberately NOT here**, and Russian is only
+    // the second locale after French where that is true. German, Spanish and
+    // Italian all keep the international "Redox"; Russian has *редокс* too,
+    // but it is laboratory jargon, and the word a school textbook prints is
+    // «окислительно-восстановительная». "Coach" is «Наставник» and
+    // "Challenge" is «Испытание», so neither needs an exemption either.
+  ],
 };
 
 const LEWIS_IDENTICAL_BY_DESIGN = {
@@ -157,17 +176,27 @@ const LEWIS_IDENTICAL_BY_DESIGN = {
     // Italian needs none of the glossary exemptions French did either:
     // « ottetto », « duetto » and « punto » all differ from the English.
   ],
+  ru: [
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^notebook\.diagnosisRow$/,
+    /^ui\.atomOrdinal$/,
+    // Russian needs none of the glossary exemptions French did: «октет»,
+    // «дублет» and «точка» are all Cyrillic, so nothing in this catalogue can
+    // coincide with the English by accident — which is the one respect in
+    // which a non-Latin locale is *easier* than a Latin one.
+  ],
 };
 
 describeTranslationParity('reaction-balancer catalogue', {
   source: REACTION_BALANCER_MESSAGES,
-  translations: { de: balancerDe, fr: balancerFr, es: balancerEs, it: balancerIt },
+  translations: { de: balancerDe, fr: balancerFr, es: balancerEs, it: balancerIt, ru: balancerRu },
   identicalByDesign: BALANCER_IDENTICAL_BY_DESIGN,
 });
 
 describeTranslationParity('lewis-structures catalogue', {
   source: LEWIS_STRUCTURES_MESSAGES,
-  translations: { de: lewisDe, fr: lewisFr, es: lewisEs, it: lewisIt },
+  translations: { de: lewisDe, fr: lewisFr, es: lewisEs, it: lewisIt, ru: lewisRu },
   identicalByDesign: LEWIS_IDENTICAL_BY_DESIGN,
 });
 
@@ -181,6 +210,7 @@ describePluralCompleteness('reaction-balancer catalogue', {
   fr: balancerFr,
   es: balancerEs,
   it: balancerIt,
+  ru: balancerRu,
 });
 describePluralCompleteness('lewis-structures catalogue', {
   en: LEWIS_STRUCTURES_MESSAGES,
@@ -188,6 +218,7 @@ describePluralCompleteness('lewis-structures catalogue', {
   fr: lewisFr,
   es: lewisEs,
   it: lewisIt,
+  ru: lewisRu,
 });
 
 /**
@@ -263,6 +294,20 @@ describe.each(GAMES)('$slug glossary match words', ({ load }) => {
       expect(offenders).toEqual([]);
     }
   );
+
+  it.each([...LOCALES])('are never an empty list in %s', (locale) => {
+    // The guard that pays for the key-parity exemption. `matches` is exempt
+    // from the missing/extra check in i18n-parity.ts, because how many
+    // inflected forms a term needs is a property of the language — Russian
+    // carries four where English carries two. The cost of that exemption is
+    // that a locale could ship `matches: []` and lose a chip silently, so the
+    // floor is asserted here instead.
+    const empty = Object.entries(glossaryOf(load(locale)))
+      .filter(([, entry]) => entry.matches.length === 0)
+      .map(([key]) => key);
+
+    expect(empty).toEqual([]);
+  });
 
   it.each([...LOCALES].filter((locale) => locale !== 'en'))(
     'cover the %s running text wherever the English list covers the English text',
