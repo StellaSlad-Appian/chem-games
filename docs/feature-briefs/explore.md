@@ -180,9 +180,13 @@ shift which entry a given future week shows, which is fine for editorial content
 and is stated in AC-4.
 
 The 104-week scientist pool already exists — [`explore-scientists.md`](./explore-scientists.md)
-— so the launch 12 are chosen from it rather than invented. 76 of the 104 have a
-matching link target today; the other 28 are blocked on two cheat sheets that do
-not exist yet, which that document sets out.
+— so the launch 12 are chosen from it rather than invented. **92 of the 104 have
+a matching link target today**; the other 12 are theme A (atoms, isotopes and the
+periodic table) and are blocked on a cheat sheet that does not exist yet.
+
+*(An earlier draft said "76 ready, 28 blocked". That double-counted ten entries
+whose link to `chemical-bonds` is loose but perfectly shippable, and it predated
+dropping analytical chemistry. 92 / 12 is the real split.)*
 
 ---
 
@@ -274,11 +278,17 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 ### AC-2 — It is reachable, on a phone as well as a laptop
 - [ ] A fifth entry in the `sections` array in `NavBar.tsx`, label from
       `t.nav.explore`, `lucide-react` icon, `LocaleLink`.
-- [ ] The header is re-measured at 360px, 768px, 1024px and 1280px **in the
-      widest language** (German or Italian). No horizontal page scroll at any
-      width — `ACCESSIBILITY.md` (1.4.10) forbids it. If the fifth item breaks
-      the `lg` row, report the measurement and the options rather than shipping
-      an overflowing header.
+- [ ] The header is re-measured at 320px, 360px, 768px, 1024px and 1280px **in
+      the widest language** (German or Italian). No horizontal page scroll at any
+      width — `ACCESSIBILITY.md` (1.4.10) forbids it, and at 320px, not 360px.
+      **Expect the fifth item not to fit at 1024px.** Measured in German on
+      `fix/mobile-nav` after the panel landed: the `lg` row is brand 165 + nav
+      463 + controls 278 + gaps and padding = 970 of 1024, i.e. 54px spare, and
+      four nav items cost 463px — about 116px each. A fifth German label
+      ("Entdecken") takes the row past 1024. Options, in order: let the panel
+      cover 1024–1280 by moving the row's breakpoint to `xl` (the panel exists
+      now, so nothing becomes unreachable), or shorten labels per locale. Report
+      the measurement either way rather than shipping an overflowing header.
 - [ ] **Below `lg`, the nav becomes a slide-out side panel** (see §8 for the
       reasoning). **This may already exist**: a separate session was started on
       2026-09-19 to build exactly this panel, as a fix for the pre-existing gap.
@@ -362,9 +372,9 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
       wherever the pairing allows it, so the week points somewhere rather than
       two places.
 - [ ] `explore-scientists.md` marks which of the 104 have a matching target
-      today (76) and which are blocked on a cheat sheet that does not exist (28).
-      The launch pool is drawn from the 76. If the implementation disagrees with
-      a mapping in that table, say so — the table is a proposal, not a fact.
+      today (92) and which are blocked on the atoms cheat sheet (12). The launch
+      pool is drawn from the 92. If the implementation disagrees with a mapping
+      in that table, say so — the table is a proposal, not a fact.
 
 ### AC-7 — Gender balance is enforced, not intended
 - [ ] Every scientist entry carries `represents: 'woman' | 'man' | 'other'`.
@@ -459,9 +469,17 @@ Named so they are not quietly added, and not quietly forgotten:
   exempts `/sitemap.xml` from prefixing. Separate piece of work.
 - Molecular structure diagrams (AC-10).
 - An admin UI for editing entries.
-- The two missing cheat sheets (atoms/isotopes, analytical chemistry) that would
-  unlock 28 more scientists. Worth doing — see `explore-scientists.md` §2 — but
-  it is cheat-sheet work, not Explore work.
+- The **Atoms, isotopes & the periodic table** cheat sheet, which would unlock
+  the 12 theme-A scientists. Worth doing on its own merits — the site has no
+  atomic-structure content at all — but it is cheat-sheet work, not Explore work.
+  See `explore-scientists.md` §7.
+- The **pop-out interactive periodic table**. A different artefact from the sheet
+  and a bigger one; `seo/KEYWORDS.md` already scopes it as its own P1 page at
+  110,000 monthly searches, which is where it should be scoped from, not from
+  here. `explore-scientists.md` §7 has the comparison and the three decisions to
+  make first.
+- Analytical chemistry scientists, dropped on 2026-09-19: a later year level, and
+  the site has no content to link them to.
 - Fun facts, dropped on 2026-09-19 (§1).
 - Any change to `LOCALES`. Russian arrives on its own branch; when it does, this
   content is part of what that branch translates.

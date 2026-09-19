@@ -60,30 +60,36 @@ named in §5 and should go into the second cycle.
 ## 2. The link problem, and what it tells you
 
 Your new requirement — *every card links to a game or cheat sheet, and the link
-must match the content* — is the right rule, and applying it to 104 scientists
-surfaces something useful: **the cheat-sheet library has two holes.**
+must match the content* — is the right rule, and applying it to the pool found
+something useful: **the cheat-sheet library has a hole where atoms should be.**
 
 | Marker | Meaning | Count |
 |---|---|---|
-| (no marker) | An existing cheat sheet or game genuinely matches. Ready to schedule. | 76 |
-| † | The honest link is a cheat sheet **that does not exist yet**. Cannot be scheduled until it does. | 18 |
-| ‡ | Links to `chemical-bonds` honestly but loosely; a dedicated sheet would be better. | 10 |
+| (no marker) | An existing cheat sheet or game genuinely matches. Ready to schedule. | 82 |
+| ‡ | Links to `chemical-bonds` honestly but loosely; a dedicated polymers sheet would be better. Also ready. | 10 |
+| † | The honest link is a cheat sheet **that does not exist yet**. Cannot be scheduled until it does. | 12 |
 
-The two missing sheets are:
+> **Correction to an earlier count.** The first version of this document said
+> "76 ready, 28 blocked", which double-counted: the ten `‡` entries link to
+> `chemical-bonds` honestly enough to ship, so they were never blocked. With
+> analytical chemistry now dropped (below), the real numbers are **92 ready and
+> 12 blocked**. `explore.md` §3 and AC-6 have been corrected to match.
 
-1. **Atoms, isotopes & the periodic table** — blocks all 10 of theme A. There is
-   currently no sheet about atomic structure at all, which is a curriculum gap
-   independent of this feature.
-2. **Analytical chemistry & measurement** — blocks all 8 of theme I (how you
-   know what is in something: chromatography, spectroscopy, electrophoresis).
+The one missing sheet is **Atoms, isotopes & the periodic table**, which blocks
+all 12 of theme A. The site has no content about atomic structure at all today,
+which is a curriculum gap independent of this feature — Moseley's entire story
+is *the table is ordered by atomic number, not by mass*, and there is nowhere on
+the site to send a reader who wants to know what that means. See §7 for what
+that sheet is, and how it differs from the pop-out periodic table tool.
 
-The 10 `‡` rows are polymers and materials, which link to `chemical-bonds`
-(structure and properties) defensibly. A **Polymers & materials** sheet would be
-the third-best addition but is not blocking.
-
-**Recommendation:** launch from the 76 unmarked entries. Adding those two cheat
-sheets later unlocks 18 more and fills real gaps in the reference library — a
-separate, worthwhile piece of work that this feature has now justified.
+**Analytical chemistry is out** (owner's decision, 2026-09-19). It is a later
+year level and the site has no content for it, so a sheet would have to be
+written before the scientists could be linked — and unlike atoms, it is not
+something the current curriculum coverage is missing. The eight people in that
+theme move to §5, where they are the obvious first group to bring back if an
+analytical sheet is ever written. One of them does not leave: Darleane Hoffman's
+work is nuclear chemistry rather than instrumentation, so she moves into theme A
+where she always belonged.
 
 **Pair the two sections.** Since both sections rotate on the same week, curate
 the schedule as 104 **pairs**: the week's molecule and the week's scientist share
@@ -99,10 +105,11 @@ teaches one idea per week instead of two unrelated ones.
 
 `Rep`: W = woman, M = man. Scheduling metadata only; never displayed.
 
-### A. Atoms, isotopes and the periodic table — 5 W / 5 M †
+### A. Atoms, isotopes and the periodic table — 6 W / 6 M †
 
-*All ten blocked until an atoms/isotopes cheat sheet exists. Worth writing: this
-is the single richest theme in the pool.*
+*All twelve blocked until an atoms/isotopes cheat sheet exists. Worth writing:
+this is the single richest theme in the pool, and the sheet is missing
+curriculum content regardless (§7).*
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
@@ -116,6 +123,8 @@ is the single richest theme in the pool.*
 | 8 | Henry Moseley | 1887–1915 | UK | Showed the periodic table is ordered by atomic number, not mass | M | † |
 | 9 | Glenn Seaborg | 1912–1999 | US | Made plutonium and nine more elements; redrew the periodic table's bottom rows | M | † |
 | 10 | Yuri Oganessian | b. 1933 | RU | Leads the synthesis of superheavy elements; element 118 carries his name | M | † |
+| 11 | Darleane Hoffman | b. 1926 | US | Did chemistry on single atoms of elements that exist for seconds | W | † |
+| 12 | Emilio Segrè | 1905–1989 | IT / US | Co-made technetium, the first element made rather than found | M | † |
 
 ### B. Bonding and structure — 5 W / 5 M
 
@@ -132,7 +141,7 @@ is the single richest theme in the pool.*
 | 19 | Harry Kroto | 1939–2016 | UK | Co-discovered C60: 60 carbons in a football, found while looking at stars | M | `chemical-bonds` |
 | 20 | Peter Debye | 1884–1966 | NL / US | Dipole moments: measuring how unevenly a molecule shares its electrons | M | `chemical-bonds` |
 
-### C. Acids, bases, solutions and electrochemistry — 4 W / 4 M
+### C. Acids, bases, solutions and electrochemistry — 5 W / 5 M
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
@@ -144,6 +153,8 @@ is the single richest theme in the pool.*
 | 26 | Johannes Brønsted | 1879–1947 | DK | Acids give protons away, bases take them — the definition schools still use | M | `acids-and-bases` |
 | 27 | Søren Sørensen | 1868–1939 | DK | Invented the pH scale, in a brewery laboratory | M | `neutralise` game |
 | 28 | George Olah | 1927–2017 | HU / US | Superacids: made carbocations stable enough to look at | M | `acids-and-bases` |
+| 28a | Mary Lowe Good | 1931–2019 | US | Coordination and industrial inorganic chemistry, then science policy | W | `polyatomic-ions` |
+| 28b | Akira Yoshino | b. 1948 | JP | Made the lithium-ion battery safe enough to sell | M | `reaction-types` |
 
 ### D. Reactions, mechanisms and catalysis — 6 W / 6 M
 
@@ -175,7 +186,7 @@ is the single richest theme in the pool.*
 | 47 | Theodor Svedberg | 1884–1971 | SE | The ultracentrifuge: spinning molecules fast enough to weigh them | M | `stoichiometry` |
 | 48 | George de Hevesy | 1885–1966 | HU | Radioactive tracers — following a labelled atom through a body or a plant | M | `stoichiometry` |
 
-### F. Organic chemistry and natural products — 6 W / 6 M
+### F. Organic chemistry and natural products — 7 W / 7 M
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
@@ -191,6 +202,8 @@ is the single richest theme in the pool.*
 | 58 | Arthur Birch | 1915–1995 | AU | The Birch reduction; built organic chemistry research in Australia | M | `functional-groups` |
 | 59 | Kikunae Ikeda | 1864–1936 | JP | Identified glutamate as the fifth taste and named it umami | M | `functional-groups` |
 | 60 | Percy Julian | 1899–1975 | US | Made cortisone and hormones from soybeans, against everything in his way | M | `functional-groups` |
+| 60a | Alice Ball | 1892–1916 | US | Turned chaulmoogra oil into injectable esters — the first leprosy treatment, at 23 | W | `functional-groups` |
+| 60b | Ryoji Noyori | b. 1938 | JP | Catalysts that build one mirror image of a molecule and not the other | M | `organic-nomenclature` |
 
 ### G. Polymers and materials — 5 W / 5 M ‡
 
@@ -222,21 +235,6 @@ is the single richest theme in the pool.*
 | 79 | Omar Yaghi | b. 1965 | JO / US | Reticular chemistry; frameworks that pull drinking water out of desert air | M | `chemical-bonds` |
 | 80 | Thomas Mensah | b. 1950 | GH / US | Process chemistry that made optical fibre fast and cheap enough to lay everywhere | M | `states-of-matter` |
 
-### I. Analytical chemistry and instrumentation — 4 W / 4 M †
-
-*All eight blocked until an analytical/measurement cheat sheet exists.*
-
-| # | Name | Life | Base | The work | Rep | Links to |
-|---|---|---|---|---|---|---|
-| 81 | Erika Cremer | 1900–1996 | DE / AT | Worked out gas chromatography and built the first instrument; published late, ignored longer | W | † |
-| 82 | Carol Robinson | b. 1956 | UK | Weighed intact protein machines in a mass spectrometer; returned to science after eight years away | W | † |
-| 83 | Darleane Hoffman | b. 1926 | US | Did chemistry on single atoms of elements that exist for seconds | W | † |
-| 84 | Betty Wright Harris | b. 1940 | US | Invented the field spot test that identifies TATB explosive safely | W | † |
-| 85 | Jaroslav Heyrovský | 1890–1967 | CZ | Polarography — identifying what is in a solution from a dropping mercury electrode | M | † |
-| 86 | Archer Martin | 1910–2002 | UK | Partition chromatography: separating a mixture by how it divides between two phases | M | † |
-| 87 | Arne Tiselius | 1902–1971 | SE | Electrophoresis — pulling proteins apart with an electric field | M | † |
-| 88 | Richard Ernst | 1933–2021 | CH | Turned NMR into the tool that shows a molecule's skeleton | M | † |
-
 ### J. Environmental and industrial chemistry — 4 W / 4 M
 
 | # | Name | Life | Base | The work | Rep | Links to |
@@ -250,7 +248,7 @@ is the single richest theme in the pool.*
 | 95 | Primo Levi | 1919–1987 | IT | Industrial chemist and Auschwitz survivor; wrote chemistry as a way of seeing | M | `naming-compounds` |
 | 96 | Xu Guangxian | 1920–2015 | CN | Separation theory that made rare-earth elements — in every phone — affordable | M | `reaction-types` |
 
-### K. Biochemistry and medicinal chemistry — 4 W / 4 M
+### K. Biochemistry and medicinal chemistry — 5 W / 5 M
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
@@ -262,6 +260,8 @@ is the single richest theme in the pool.*
 | 102 | Har Gobind Khorana | 1922–2011 | IN / US | Built nucleic acids chemically and cracked how codons are read | M | `functional-groups` |
 | 103 | Aziz Sancar | b. 1946 | TR / US | Mapped how cells repair DNA damaged by sunlight | M | `functional-groups` |
 | 104 | Albert Szent-Györgyi | 1893–1986 | HU | Isolated vitamin C — in quantity, from Hungarian paprika | M | `functional-groups` |
+| 104a | Cecilia Hidalgo | b. 1942 | CL | How oxidation controls the channels that release calcium inside a cell | W | `functional-groups` |
+| 104b | Luis Federico Leloir | 1906–1987 | AR | Found how cells activate sugars, on a shoestring in Buenos Aires | M | `functional-groups` |
 
 ---
 
@@ -269,18 +269,23 @@ is the single richest theme in the pool.*
 
 | Theme | W | M | Ready to schedule |
 |---|---|---|---|
-| A Atoms, isotopes, periodic table | 5 | 5 | no († sheet missing) |
+| A Atoms, isotopes, periodic table | 6 | 6 | no († the sheet does not exist yet) |
 | B Bonding and structure | 5 | 5 | yes |
-| C Acids, bases, electrochemistry | 4 | 4 | yes |
+| C Acids, bases, electrochemistry | 5 | 5 | yes |
 | D Reactions and catalysis | 6 | 6 | yes |
 | E Stoichiometry and measurement | 4 | 4 | yes |
-| F Organic and natural products | 6 | 6 | yes |
+| F Organic and natural products | 7 | 7 | yes |
 | G Polymers and materials | 5 | 5 | yes (‡ loose link) |
 | H States of matter and solids | 5 | 5 | yes |
-| I Analytical and instrumentation | 4 | 4 | no († sheet missing) |
 | J Environmental and industrial | 4 | 4 | yes |
-| K Biochemistry and medicinal | 4 | 4 | yes |
-| **Total** | **52** | **52** | **76 ready** |
+| K Biochemistry and medicinal | 5 | 5 | yes |
+| **Total** | **52** | **52** | **92 ready, 12 blocked** |
+
+Dropping analytical chemistry took out four women and four men, so the balance
+held without intervention; the six replacements were chosen in pairs, one woman
+and one man into each of three themes, for the same reason. Two of the six
+(Hidalgo, Leloir) are Latin American, which takes the pool's thinnest region
+from two entries to four.
 
 No theme is majority one gender. Women are not concentrated in biochemistry:
 of the 52, 4 are in biochemistry and 48 are in physical, inorganic, organic,
@@ -324,8 +329,25 @@ one idea per week. Most of these are the first choices for cycle 2.
 | Robert Curl, Richard Smalley | Fullerenes is Kroto's week |
 | Susumu Kitagawa | MOFs are already Robson and Yaghi |
 | June Lindsey | Her base structures fed the DNA model; overlaps Franklin's week |
-| Alma Levant Hayden | Exposed a fake cancer drug by spectroscopy; overlaps Harris's angle |
 | Aaron Klug | Structural methods, overlaps Hodgkin and Franklin |
+
+### Ruled out because the site has no content to link them to
+*Owner's decision, 2026-09-19: analytical chemistry is a later year level and,
+unlike atomic structure, is not a gap in what the site already teaches. These
+eight are the first group to bring back if an analytical sheet is ever written —
+they are a coherent theme, already balanced 4 / 4, and every one of them is
+about how you know what is in something.*
+
+| Name | Base | The work |
+|---|---|---|
+| Erika Cremer | DE / AT | Worked out gas chromatography and built the first instrument; published late, ignored longer |
+| Carol Robinson | UK | Weighed intact protein machines in a mass spectrometer; returned to science after eight years away |
+| Betty Wright Harris | US | Invented the field spot test that identifies TATB explosive safely |
+| Alma Levant Hayden | US | Exposed a fake cancer drug by spectroscopy |
+| Jaroslav Heyrovský | CZ | Polarography — identifying what is in a solution from a dropping mercury electrode |
+| Archer Martin | UK | Partition chromatography: separating a mixture by how it divides between two phases |
+| Arne Tiselius | SE | Electrophoresis — pulling proteins apart with an electric field |
+| Richard Ernst | CH | Turned NMR into the tool that shows a molecule's skeleton |
 
 ### Ruled out as physics, biology or engineering rather than chemistry
 | Name | Reason |
@@ -354,13 +376,11 @@ one idea per week. Most of these are the first choices for cycle 2.
 | Ada Yonath | IL | Crystallised the ribosome when everyone said it was impossible |
 | Jennifer Doudna | US | CRISPR as chemistry: a programmable molecular scissor |
 | Emmanuelle Charpentier | FR | The other half of CRISPR, and the RNA insight that started it |
-| Alice Ball | US | The first injectable leprosy treatment, at 23, credit taken after her death |
 | Florence Seibert | US | Purified tuberculin; made intravenous drips safe |
 | Rachel Fuller Brown & Elizabeth Lee Hazen | US | Nystatin, discovered by post between two labs; royalties given away |
 | Gerty Cori | CZ / US | Glycogen metabolism; needs a biochemistry sheet |
 | Kamala Sohonie | IN | First Indian woman to get a science doctorate, after fighting for admission |
 | Lina Stern | RU | Blood–brain barrier; survived a Soviet death sentence |
-| Cecilia Hidalgo | CL | Redox control of calcium channels — a Latin American slot the list needs |
 | Alejandra Bravo | MX | How Bt toxins actually kill an insect |
 | Ana María Cetto | MX | Physical chemistry and science for development |
 | Segenet Kelemu | ET | Molecular plant pathology across African agriculture |
@@ -370,18 +390,14 @@ one idea per week. Most of these are the first choices for cycle 2.
 | Remziye Hisar | TR | Turkey's first woman chemist, trained in Marie Curie's Paris |
 | Mary Engle Pennington | US | Made refrigerated food transport safe |
 | Jean'ne Shreeve | US | Fluorine and energetic materials chemistry |
-| Mary Lowe Good | US | Inorganic chemistry, industry and science policy |
 | Laura Kiessling | US | Why sugar–protein binding depends on how many, not how tight |
 | Angela Belcher | US | Grows battery electrodes using engineered viruses |
 | Molly Shoichet | CA | Polymer gels that deliver drugs into the eye and spinal cord |
 | Osamu Shimomura | JP | Green fluorescent protein, from jellyfish collected by the thousand |
-| Akira Yoshino | JP | The working lithium-ion battery |
-| Ryoji Noyori | JP | Asymmetric catalysis: making one hand of a molecule and not the other |
 | Jean-Marie Lehn | FR | Supramolecular chemistry — chemistry beyond the molecule |
 | Ben Feringa | NL | Molecular motors that actually turn |
 | Ilya Prigogine | BE | Order out of chaos in systems far from equilibrium |
 | Giacomo Ciamician | IT | Predicted solar chemistry in 1912 and told industry to prepare |
-| Luis Leloir | AR | Sugar nucleotides, on a budget, in Buenos Aires |
 | Prafulla Chandra Ray | IN | Founded Indian chemical industry and research |
 | C. N. R. Rao | IN | Six decades of solid-state and materials chemistry |
 | Christopher Ingold | UK | SN1 and SN2 — needs a reaction-mechanisms cheat sheet first |
@@ -405,5 +421,52 @@ one idea per week. Most of these are the first choices for cycle 2.
    source; `sourcesVerifiedOn` records when.
 4. **Then translate**, against `docs/i18n/glossary-<locale>.md`, adding any new
    term to the glossary first.
-5. **Decide on the two missing cheat sheets.** They unlock 18 of these entries
-   and close real gaps in the reference library.
+5. **Decide on the atoms cheat sheet.** It unlocks the 12 entries in theme A and
+   closes a real gap in the reference library — see §7.
+
+---
+
+## 7. The periodic table: a cheat sheet *and* a pop-out tool
+
+You asked whether the periodic table should be a cheat sheet or something a
+player can pop out inside a game. **Both, and they are not alternatives — they
+answer different questions and only one of them unblocks these scientists.**
+
+| | Cheat sheet: *Atoms, isotopes & the periodic table* | Pop-out tool: interactive periodic table |
+|---|---|---|
+| Answers | *Why* is chlorine there? What is an isotope? Why does the table have these shapes? | *What* is chlorine's symbol and mass, right now, while I am mid-question |
+| Shape | Prose, tables and worked examples, like the other twelve sheets | A grid, a search box, a detail panel. No prose to read |
+| Read when | Revising, away from a game | Mid-task, inside a game, under time pressure |
+| Cost | A sheet's worth of writing × 5 locales, on the pattern that already exists | A component, per-game integration, a real design problem at 360px |
+| Unblocks theme A | **Yes** | No |
+
+**The scientists need the sheet, not the tool.** A card about Moseley links to
+"the table is ordered by atomic number"; sending that reader to a lookup grid
+answers a question they did not ask. So if only one gets built, build the sheet:
+it is the cheaper of the two, it uses a pattern the repo already has, it unblocks
+12 entries, and it fills a gap that exists whether or not Explore ships — there
+is currently no atomic-structure content on the site at all, under any heading.
+
+**But the tool has a case of its own, and it is a stronger one than I expected.**
+`seo/KEYWORDS.md` already lists "Interactive Periodic Table — Explore Elements"
+at `/games/interactive-periodic-table` as a **P1** page at **110,000** monthly
+searches — the highest-volume keyword in that file. That is not a reason to bolt
+it into the games; it is a reason to treat it as its own page with its own URL,
+which a pop-out can then reuse.
+
+If it is built, three things are worth deciding up front:
+
+- **Global, not per-game.** One component, opened from the game footer beside
+  Settings and Instructions, reusing the `pausedByModalRef` pattern so opening it
+  cannot un-pause a paused game. Reading a reference must never cost points or
+  lives — `AGENT_INSTRUCTIONS.md` Part A is explicit about that.
+- **It reads `ELEMENTS_REGISTRY`,** not a second copy of the element data, and
+  takes its names from `src/i18n/chemistry-names/<locale>.ts` so it is
+  multilingual on the day it ships. Symbols and masses are never translated.
+- **360px is the hard part.** 118 cells do not fit a phone; a table that needs
+  pinch-zoom fails 1.4.10 the same way the header did. Decide the phone layout
+  (a searchable list that falls back from the grid is the usual answer) before
+  the desktop grid, not after.
+
+**Recommendation:** the sheet now, as part of unblocking theme A; the tool as its
+own piece of work, scoped from the SEO case rather than from Explore.
