@@ -59,10 +59,16 @@ with two sections that rotate together, weekly, on **Monday 00:00 UTC**:
 The two are scheduled as **pairs**: the week's molecule and scientist share a
 theme and usually a link target.
 
-You are also replacing the navigation below the `lg` breakpoint with a slide-out
-side panel. This is not optional extra polish — the existing links are
-`hidden … lg:flex` with no fallback, so on a phone the site currently has no
-navigation at all, and adding a fifth invisible link would help nobody.
+The navigation below the `lg` breakpoint also becomes a slide-out side panel:
+the existing links are `hidden … lg:flex` with no fallback, so on a phone the
+site currently has no navigation at all, and adding a fifth invisible link would
+help nobody.
+
+**Check whether that panel already exists before you build it.** Separate work
+was started on 2026-09-19 to add it. Look for a panel component in
+`src/components/layout/` and check the other branches. If it is already there,
+add the Explore link to it and review it against AC-2 instead of writing a second
+one; if it is not, build it. Do not end up with two panels.
 
 It ships in **every locale in `LOCALES`** (`en`, `de`, `fr`, `es`, `it`) in this
 same milestone. A page that is English-only is not done.

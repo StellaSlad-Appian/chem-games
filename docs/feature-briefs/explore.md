@@ -280,7 +280,12 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
       the `lg` row, report the measurement and the options rather than shipping
       an overflowing header.
 - [ ] **Below `lg`, the nav becomes a slide-out side panel** (see §8 for the
-      reasoning). The horizontal row stays as it is at `lg` and above. The panel
+      reasoning). **This may already exist**: a separate session was started on
+      2026-09-19 to build exactly this panel, as a fix for the pre-existing gap.
+      Check for it before writing any of it. If it is there, Explore adds its
+      link to it and the panel criteria below become a *review* of that work, not
+      new work; if two versions exist, reconcile to one rather than shipping
+      both. The horizontal row stays as it is at `lg` and above. The panel
       holds the five section links plus the language switcher and settings, so
       one control reaches everything.
 - [ ] The panel meets the disclosure contract: a labelled trigger with
