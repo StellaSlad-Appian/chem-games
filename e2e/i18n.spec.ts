@@ -210,6 +210,35 @@ test.describe('German rendering', () => {
     await expect(page.locator('body')).toContainText('CH3COOH');
   });
 
+  test('the For Teachers page, including its footer link', async ({ page }) => {
+    await page.goto(path('/teachers', 'de'));
+
+    expect(await htmlLang(page)).toBe('de');
+    await expect(
+      page.getByRole('heading', { level: 1, name: de.teachers.heading })
+    ).toBeVisible();
+    await expect(page.getByText(de.teachers.betaBody)).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 2, name: de.teachers.collaborateHeading })
+    ).toBeVisible();
+
+    // The year band is rendered in the German school system. "Oberstufe"
+    // names Klasse 11–13 (ages 16–19) and would be wrong for this site; that
+    // exact mistake was already corrected once, in meta.keywords.
+    //
+    // Asserted on <body> rather than on <main>, because the (main) layout
+    // wraps the page's own <main> in one of its own and the locator would be
+    // ambiguous. The cheat-sheet test above does the same.
+    await expect(page.locator('body')).toContainText('Klasse 9–10');
+    await expect(page.locator('body')).not.toContainText('Oberstufe');
+    await expect(page.locator('body')).not.toContainText(en.teachers.betaHeading);
+
+    // The footer link that leads here is translated too.
+    await expect(
+      page.locator('footer').getByRole('link', { name: de.footer.teachers })
+    ).toHaveAttribute('href', '/de/teachers');
+  });
+
   test('the game overlay', async ({ page }) => {
     await openGame(page, 'reaction-balancer', { locale: 'de' });
 

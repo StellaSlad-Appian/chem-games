@@ -39,6 +39,16 @@ export default async function MainLayout(props: LayoutProps<'/[lang]'>) {
             <LocaleLink href="/privacy" className="font-bold transition hover:text-blue-500">
               {t.footer.privacy}
             </LocaleLink>
+            <span aria-hidden="true">&middot;</span>
+            {/*
+              The only entry point to /teachers. It is deliberately not in the
+              NavBar: German labels already put the horizontal nav at 1014px of
+              content at 1280px (NavBar.tsx), and the page is for adults who
+              will go looking rather than for the students the nav serves.
+            */}
+            <LocaleLink href="/teachers" className="font-bold transition hover:text-blue-500">
+              {t.footer.teachers}
+            </LocaleLink>
           </div>
         </div>
       </footer>
