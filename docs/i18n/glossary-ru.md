@@ -223,7 +223,7 @@ There are few, and they are listed here so the next change to them is deliberate
 | Where | Key | Russian forms |
 |---|---|---|
 | dictionary | `cheatSheets.count` | {count} тема / {count} темы / {count} тем / {count} темы |
-| lewis | `coach.loners` | одиночка / одиночки / одиночек |
+| lewis | `coach.loners` | неспаренный электрон / неспаренных электрона / неспаренных электронов / неспаренного электрона — masculine, so `one` takes «остался» and the rest «осталось» |
 | lewis | `counts.sharedPairs`, `counts.lonePairs`, `counts.bonds` | общая пара / пары / пар; неподелённая пара / пары / пар; связь / связи / связей |
 | lewis | `hint.inspectTier3CountBonds`, `…CountLonePairs` | … (with «Их {count}» rather than an English-style "There is/are") |
 | balancer | `card.clustersA11y` | молекула / молекулы / молекул |
@@ -380,8 +380,15 @@ lists are long for a grammatical reason, not a technical one.
 > above rather than living only here.
 
 
-English deliberately gives an unpaired outer electron two names — the formal
-*unpaired electron* and the game's own *loner* — and teaches the pair, with the
+> **Everything from here to the end of this section is history, kept on
+> purpose.** It describes the two-tier naming scheme the site used until
+> 2026-09-19. That scheme no longer exists: there is one term per language and
+> it is the formal one. Read on for *why each candidate was rejected* — those
+> constraints still bind any new wording near this term — not for what the
+> product says today.
+
+English used to give an unpaired outer electron two names — the formal
+*unpaired electron* and the game's own *loner* — and taught the pair, with the
 game word fading out as a scaffold (Level 1 labels the dots, Level 2 does not).
 German mirrored that split with *Einzelelektron*; French with *solitaire*;
 Spanish with *impar*; Italian with *dispari*.
@@ -393,8 +400,8 @@ difference is the whole reason it could not calque any of the five.
 | Role | English | German | French | Spanish | Italian | **Russian** |
 |---|---|---|---|---|---|---|
 | Formal term — glossary, cheat sheet, explaining | unpaired electron | ungepaartes Elektron | électron célibataire | electrón desapareado | elettrone spaiato | **неспаренный электрон** |
-| Game word — hub, coach, hints | loner | Einzelelektron | solitaire | impar | dispari | **одиночка** |
-| Short label on a dot | loner | einzeln | seul | impar | dispari | **соло** (see below: *одиночка* does not fit the canvas) |
+| ~~Game word — hub, coach, hints~~ *(dropped 2026-09-19)* | ~~loner~~ | ~~Einzelelektron~~ | ~~solitaire~~ | ~~impar~~ | ~~dispari~~ | ~~**одиночка**~~ |
+| ~~Short label on a dot~~ *(now a single legend, see README)* | ~~loner~~ | ~~einzeln~~ | ~~seul~~ | ~~impar~~ | ~~dispari~~ | ~~**соло**~~ |
 
 **The four words Russian could not use, and why.**
 

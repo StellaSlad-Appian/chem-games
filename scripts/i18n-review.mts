@@ -324,13 +324,14 @@ The chemistry names and the cheat-sheet prose are **not** in this table — they
 are keyed by registry identifier rather than by dictionary path, and they are
 assessed as bodies of work in [the section at the end](#chemistry-names--srci18nchemistry-namesitts).
 
-**The first thing to look at** is the word the whole of *Condividi e completa*
-is built on: **dispari**, for a single unpaired outer electron. Italian rules
-out three words the other locales could use — *solitario* (a lone pair is a
-*doppietto solitario*), *libero* (*doppietto libero* is also a lone pair, and
-*elettroni liberi* are the delocalised ones) and *singolo* (*legame singolo* is
-the single bond) — so the argument for *dispari* is objective. What is not
-objective is register: it is also the everyday word for an odd number. The full
+**The first thing to look at** is **elettrone spaiato**, the term *Condividi e
+completa* uses for a single unpaired outer electron. The game used to give this
+concept a second, invented name (*dispari*); that scheme was abolished on
+2026-09-19 and there is now one term, the textbook one. The collision warnings
+that shaped the old choice still bind any *new* wording near this term: Italian
+rules out *solitario* (a lone pair is a *doppietto solitario*), *libero*
+(*doppietto libero* is also a lone pair, and *elettroni liberi* are the
+delocalised ones) and *singolo* (*legame singolo* is the single bond). The full
 reasoning is in [\`glossary-it.md\`](./glossary-it.md).
 
 A note on reading the table: Italian needs none of the no-break-space marking
@@ -381,16 +382,18 @@ The chemistry names and the cheat-sheet prose are **not** in this table — they
 are keyed by registry identifier rather than by dictionary path, and they are
 assessed as bodies of work in [the section at the end](#chemistry-names--srci18nchemistry-namesruts).
 
-**The first thing to look at** is the word the whole of «Делись и заполняй» is
-built on: **одиночка**, for a single unpaired outer electron. Russian rules out
-four words the other locales could reach for — *свободный* (a lone pair is a
+**The first thing to look at** is **неспаренный электрон**, the term «Делись и
+заполняй» uses for a single unpaired outer electron. The game used to give
+this concept a second, invented name (*одиночка*, with *соло* as a short canvas
+label); that scheme was abolished on 2026-09-19 and there is now one term, the
+textbook one. The collision warnings that shaped the old choice still bind any
+*new* wording near this term: Russian rules out *свободный* (a lone pair is a
 *свободная электронная пара*, and *свободные электроны* are the delocalised
 ones in a metal), *одинокий* (*одинокая пара* circulates as a calque of *lone
-pair*), *одиночный* (one suffix from *одинарная связь*, the single bond) and
-*непарный*, which shares its root with the formal *неспаренный* and would
-collapse the game's two-tier scaffold into one word spelled twice. So the
-elimination is objective. What is not objective is register: *одиночка* is also
-what Russian calls a person who is on their own. The full reasoning is in
+pair*) and *одиночный* (one suffix from *одинарная связь*, the single bond).
+What is worth a native ear is the inflection: the term is masculine, so every
+verb, participle and pronoun near it agrees accordingly, and the four plural
+forms each govern a different case. The full reasoning is in
 [\`glossary-ru.md\`](./glossary-ru.md).
 
 **The second thing** is grammatical rather than lexical, and it has no
