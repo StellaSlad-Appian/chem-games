@@ -7,7 +7,6 @@ import MoleculeBubble from './MoleculeBubble';
 import { CLASSIFICATION_OPTIONS } from '@/core-engine/constants/chemical-labels';
 import { GAME_STATE, ANSWER_STATUS, AnswerStatus } from '@/core-engine/constants/ui-constants';
 import type { CompoundData, ChemicalClassification } from '@/core-engine/types/chemistry';
-import { evaluateChemical } from '@/core-engine/utils/chemical-utils';
 import { useI18n } from '@/i18n/client';
 import { compoundName } from '@/i18n/chemistry-names';
 import type { Dictionary } from '@/i18n/dictionaries/en';
@@ -58,17 +57,6 @@ export default function GameArena({
       `}
       aria-hidden={!isPlaying}
     >
-
-      {/* debugging */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="my-4 w-full max-w-md rounded-xl border border-amber-500/50 bg-amber-500/10 p-3 font-mono text-xs text-amber-300">
-          <p className="font-bold uppercase tracking-wider">🐛 Debug State</p>
-          <p>Formula: {currentChemical?.formula || 'N/A'}</p>
-          <p>Expected Type: {currentChemical ? evaluateChemical(currentChemical) : 'N/A'}</p>
-          <p>Last Selected: {feedback.selected || 'None'}</p>
-          <p>Status: {feedback.status}</p>
-        </div>
-      )}
 
       {currentChemical && (
         <div className="mb-12">
