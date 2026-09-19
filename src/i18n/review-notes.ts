@@ -1826,6 +1826,16 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person’s project and not a зарегистрированный благотворительный фонд. **Two Russian words were deliberately not used.** «Пожертвование» belongs to charities and to almsgiving and would claim a status this project does not have; «донат» is gaming slang and would sound like the games are asking, on the one page the players never see. What is left is «поддержать» and «любой посильной суммой» — an adult asking an equal. **This is the row most worth a native speaker’s ear**, because the line between a request and a pitch is finer in Russian than in English: вы-address plus an imperative («поддержите») can tip into advertising, and the sentences around it are kept flat on purpose to hold it down. Not legal review either: whether «налоговый вычет» is the phrasing a Russian reader expects for a non-deductible payment to an Australian individual has not been checked.',
     },
+    {
+      prefix: 'nav.leaderboards',
+      confidence: 'medium',
+      note: '"Рейтинг" rather than the fuller "Таблица лидеров", which stays on the dashboard heading where there is room. Idiomatic for a leaderboard in Russian apps and games, but it is a width decision as much as a translation one — a native speaker should confirm it does not read as a score rather than a ranking.',
+    },
+    {
+      prefix: 'nav.login',
+      confidence: 'high',
+      note: '"Войти" alone, not the pair "Войти / Зарегистрироваться": the same trade German, French, Spanish and Italian make, and Russian needed it most — the full pair measured 245px against the German 108 and put the 1024px header 128px over. The sign-in page offers both actions.',
+    },
   ],
 };
 

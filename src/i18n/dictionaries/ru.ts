@@ -90,13 +90,24 @@ export const ru = {
   nav: {
     sectionsA11y: 'Разделы сайта',
     profile: 'Профиль',
-    leaderboards: 'Таблица лидеров',
+    // «Рейтинг» in the nav, «Таблица лидеров» everywhere there is room — the
+    // pattern this file's header describes for strings inside fixed-width
+    // controls. The full phrase is the widest label in the widest language:
+    // 169px at 1024px, where the whole row has about 30 to spare.
+    leaderboards: 'Рейтинг',
     games: 'Игры',
     cheatSheets: 'Шпаргалки',
     // Imperative, like the other nav labels, and short: this sits in the
     // horizontal row, where Cyrillic sets wider at the same point size.
     explore: 'Открывай',
-    login: 'Войти / Зарегистрироваться',
+    // Deliberately shorter than a faithful rendering of the English
+    // "Log in / Register", the same trade German, French, Spanish and Italian
+    // all make: the pair is the widest single thing in the header, and Russian
+    // is the widest language on the site. At 1024px the full pair measured
+    // 245px against German's 108, and it put the row 128px over the viewport.
+    // The sign-in page offers both actions anyway, so this button only has to
+    // get the reader there.
+    login: 'Войти',
     logout: 'Выйти',
     // First person plural: Russian's own way of avoiding a past tense that
     // would have to agree with the reader's gender.
