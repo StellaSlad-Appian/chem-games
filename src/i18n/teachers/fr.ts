@@ -69,7 +69,7 @@ export const fr = {
   privacyBody1:
     'Il n’y a sur ce site aucune mesure d’audience, aucune publicité et aucun traceur tiers. Ce qu’un élève y fait n’est mesuré pour personne d’autre.',
   privacyBody2:
-    'Jouer ne demande aucun compte. Qui joue sans compte ne laisse rien derrière soi, hormis les préférences de son et de thème que son propre navigateur conserve pour lui.',
+    'Jouer ne demande aucun compte. Qui joue sans compte n’est pas enregistré sur le site : son propre navigateur conserve ses préférences de son, de thème et d’accessibilité, ainsi que le fait d’avoir déjà vu les consignes de chaque jeu, et un seul cookie accompagne ses requêtes — il ne contient que la langue choisie.',
   privacyBody3:
     'Un élève qui se connecte fournit une adresse e-mail et reçoit un alias généré – jamais un vrai nom –, et à partir de là le site conserve ses scores, les niveaux atteints, les champs de profil facultatifs qu’il choisit de remplir et ses réglages de visibilité. Ce qui, dans tout cela, est public, et comment supprimer un compte et tout ce qu’il contient, est expliqué sur la page {link}.',
   privacyLinkLabel: 'Confidentialité',

@@ -69,7 +69,7 @@ export const it = {
   privacyBody1:
     'In questo sito non ci sono strumenti di analisi, né pubblicità, né tracciatori di terze parti. Quello che qualcuno fa qui non viene misurato per nessun altro.',
   privacyBody2:
-    'Per giocare non serve un account. Chi gioca senza non lascia dietro di sé nulla, a parte le preferenze di suono e di tema che conserva il suo browser.',
+    'Per giocare non serve un account. Di chi gioca senza non resta traccia sul sito: è il suo browser a conservare le preferenze di suono, di tema e di accessibilità e il fatto di aver già visto le istruzioni di ciascun gioco, e un solo cookie viaggia con le sue richieste — contiene soltanto la lingua scelta.',
   privacyBody3:
     'Chi invece accede indica un indirizzo email e riceve un alias generato – mai un nome vero – e da quel momento il sito conserva i punteggi, i livelli raggiunti, i campi facoltativi del profilo che decide di compilare e le impostazioni di visibilità. Che cosa di tutto questo è pubblico, e come cancellare un account e tutto ciò che contiene, è spiegato nella pagina {link}.',
   privacyLinkLabel: 'informativa privacy',

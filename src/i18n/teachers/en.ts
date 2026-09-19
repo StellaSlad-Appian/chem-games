@@ -73,7 +73,7 @@ export const en = {
   privacyBody1:
     'There is no analytics, no advertising and no third-party tracking anywhere on this site. Nothing a student does here is measured for anybody else.',
   privacyBody2:
-    'Playing needs no account. Someone who plays without one leaves nothing behind but the sound and theme preferences their own browser keeps for them.',
+    'Playing needs no account. Someone who plays without one is not recorded on the site at all: their own browser keeps their sound, theme and accessibility preferences and whether they have already seen each game\u2019s instructions, and one cookie travels with their requests holding the language they chose and nothing else.',
   privacyBody3:
     'A student who does sign in gives an email address and is given a generated alias, never a real name, and from then on the site stores their scores, the levels they reach, whichever optional profile fields they choose to fill in, and their visibility settings. What of that is public, and how to delete an account and everything in it, is set out on the {link} page.',
   privacyLinkLabel: 'privacy',

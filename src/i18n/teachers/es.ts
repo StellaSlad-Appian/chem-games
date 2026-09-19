@@ -70,7 +70,7 @@ export const es = {
   privacyBody1:
     'En este sitio no hay analítica, ni publicidad, ni rastreadores de terceros. Lo que alguien hace aquí no se mide para nadie más.',
   privacyBody2:
-    'Jugar no requiere cuenta. Quien juega sin ella no deja nada detrás, salvo las preferencias de sonido y de tema que guarda su propio navegador.',
+    'Jugar no requiere cuenta. De quien juega sin ella no queda registro en el sitio: su propio navegador guarda las preferencias de sonido, de tema y de accesibilidad, y si ya ha visto las instrucciones de cada juego, y una sola cookie viaja con sus peticiones — solo contiene el idioma elegido.',
   privacyBody3:
     'Quien sí inicia sesión facilita una dirección de correo y recibe un alias generado – nunca un nombre real –, y a partir de ahí el sitio guarda sus puntuaciones, los niveles que alcanza, los campos opcionales del perfil que decida rellenar y sus opciones de visibilidad. Qué parte de eso es pública, y cómo borrar una cuenta y cuanto contiene, se explica en la página de {link}.',
   privacyLinkLabel: 'privacidad',
