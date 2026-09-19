@@ -10,7 +10,7 @@ import type { CheatSheetTopic } from '@/core-engine/types/general';
 import { useI18n } from '@/i18n/client';
 
 export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
-  const { t } = useI18n();
+  const { t, f } = useI18n();
   const firstExample =
     topic.formulaExamples?.[0] ?? topic.sections?.[0]?.examples?.[0] ?? null;
 
@@ -52,7 +52,7 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
               {t.cheatSheets.exampleFormula}
             </p>
             <div className="mt-1 flex items-center gap-1.5 text-xs font-bold text-blue-500">
-              <span>{firstExample.name}:</span>
+              <span>{f(t.cheatSheets.exampleLabel, { name: firstExample.name })}</span>
               <MoleculeText
                 formula={firstExample.formula}
                 className="font-mono text-sm"

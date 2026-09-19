@@ -20,7 +20,10 @@ is not done, the same way a game with no instructions modal is not done.
 |---|---|---|
 | `en` | shipping (default) | The brief's text, verbatim. English is the canonical source every other locale is checked against. |
 | `de` | shipping | Required at build time. Terms come from [`glossary-de.md`](./glossary-de.md). |
-| `fr`, `es`, `it`, `ru` | planned, in that order | Required from the day the locale is added. Adding a locale (README § Adding a locale) includes translating every existing game; adding a game includes every locale that exists. |
+| `fr` | shipping | Required at build time. Terms come from [`glossary-fr.md`](./glossary-fr.md). |
+| `es` | shipping | Required at build time. Terms come from [`glossary-es.md`](./glossary-es.md), which also records the es-ES / es-419 variety decision. |
+| `it` | shipping | Required at build time. Terms come from [`glossary-it.md`](./glossary-it.md). |
+| `ru` | planned | Required from the day the locale is added. Adding a locale (README § Adding a locale) includes translating every existing game; adding a game includes every locale that exists. |
 
 Two workflows meet here, and both must leave every game × locale cell filled:
 
@@ -214,7 +217,7 @@ The glossary for the locale is authoritative; these are reminders.
 | Locale | Address | Typography | Chemistry naming | Watch for |
 |---|---|---|---|---|
 | **de** | *du* | „…“ quotes, en dash, decimal comma, non-breaking space before units and in *z. B.* | Compound names are one word (*Natriumhydroxid*); *Index* vs *Koeffizient*; *Edukte* / *Produkte*; *Oxonium-Ion*; German IUPAC spellings | Text ~30% longer; long compound nouns in cards; nominalised verbs capitalised |
-| **fr** | *tu* for a school audience (decide once in `glossary-fr.md`) | « … » with spaces; a non-breaking space before `: ; ? !`; decimal comma; accents on capitals (*É*) | *hydroxyde de sodium* (name, then *de* + element); *ion hydronium* / *oxonium* — decide; *acide éthanoïque* | Sentences run long; keep *tu/vous* consistent between the catalogue and the UI dictionary |
+| **fr** | **decided: *tu***, flagged for review at the top of `glossary-fr.md` | « … » with a **narrow** no-break space (U+202F) inside, and before `; ! ?`; a **full** no-break space (U+00A0) before `:`; decimal comma; accents on capitals (*É*) | *hydroxyde de sodium* (anion, then *de* + cation); **decided: *ion oxonium***, which is what the programme prints; *acide éthanoïque*; and the element/simple-substance split — H is *hydrogène* but H₂ is *dihydrogène* | **No article can precede a name placeholder** (*l'oxygène* but *le carbone*) — `glossary-fr.md` fixes three label shapes that avoid it. Glossary match words cannot start with *é*, so they land on *externes* / *célibataires* rather than the full phrase. Sentences run long; keep *tu* consistent between the catalogue and the UI dictionary |
 | **es** | *tú* — and decide **which Spanish** (Spain vs Latin America) before translating: it changes *vosotros/ustedes*, some vocabulary and the decimal separator | ¿…? ¡…! opening marks; decimal comma (Spain) or point (Mexico and others) | *hidróxido de sodio*; *ácido clorhídrico*; *catión / anión* | Instructions in the imperative (*Arrastra…*); accents on every syllable that needs one |
 | **it** | *tu* | «…» or “…”; decimal comma | *idrossido di sodio*; *acido cloridrico*; *legame covalente* | Elisions (*l'atomo*); gendered articles around placeholders — a `{compound}` inside a sentence may force an article, so prefer sentence shapes that do not need one |
 | **ru** | *ты* for students (decide in `glossary-ru.md`); the imperative for controls | «…» quotes; decimal comma; Cyrillic throughout, but element **symbols** stay Latin (*натрий*, but *Na*) | *гидроксид натрия* (compound word, then element in the genitive); *соляная / хлороводородная кислота* — decide | **Three plural forms** (1 атом, 2 атома, 5 атомов) — every count string needs the `Intl.PluralRules` shape (README § Plurals) *before* the `ru` files are written; numerals govern the noun's case; text width in Cyrillic |

@@ -44,6 +44,49 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
     expect(Object.keys(content.sheets).filter((slug) => !slugs.has(slug))).toEqual([]);
   });
 
+  // The gate that actually bites. The test below this one compares the
+  // *localized sheet* against the English one, which can never fail on a
+  // length: `localizeSheet()` maps over the English arrays and falls back to
+  // the English item whenever the overlay has no entry at that index, so its
+  // output is the right shape by construction. It is comparing the function's
+  // output against the function's input.
+  //
+  // The thing that can really be wrong is the *overlay*, and it fails silently
+  // because the mapping is positional: an overlay one section short does not
+  // drop a section, it shifts every heading and body onto the wrong slot and
+  // leaves the last one in English. That shipped on the German
+  // `lewis-structures` sheet — three section overlays against four English
+  // sections — and every assertion in this file passed.
+  it.each(CHEAT_SHEETS.map((sheet) => sheet.slug))(
+    '%s has an overlay the same shape as the English sheet',
+    (slug) => {
+      const source = CHEAT_SHEETS.find((sheet) => sheet.slug === slug)!;
+      const overlay = content.sheets[slug]!;
+
+      // One object rather than six assertions, so a failure names every field
+      // that is out of step instead of stopping at the first.
+      expect({
+        keyTakeaways: overlay.keyTakeaways.length,
+        formulaExampleNames: overlay.formulaExampleNames?.length ?? 0,
+        sections: overlay.sections.length,
+        sectionExampleNames: overlay.sections.map((s) => s.exampleNames?.length ?? 0),
+        tables: overlay.tables?.length ?? 0,
+        tableColumns: overlay.tables?.map((t) => t.columns.length) ?? [],
+        tableRows: overlay.tables?.map((t) => t.rows.length) ?? [],
+        commonMistakes: overlay.commonMistakes?.length ?? 0,
+      }).toEqual({
+        keyTakeaways: source.keyTakeaways.length,
+        formulaExampleNames: source.formulaExamples?.length ?? 0,
+        sections: source.sections.length,
+        sectionExampleNames: source.sections.map((s) => s.examples?.length ?? 0),
+        tables: source.tables?.length ?? 0,
+        tableColumns: source.tables?.map((t) => t.columns.length) ?? [],
+        tableRows: source.tables?.map((t) => t.rows.length) ?? [],
+        commonMistakes: source.commonMistakes?.length ?? 0,
+      });
+    }
+  );
+
   it.each(CHEAT_SHEETS.map((sheet) => sheet.slug))('%s keeps the English shape', (slug) => {
     const source = CHEAT_SHEETS.find((sheet) => sheet.slug === slug)!;
     const target = getCheatSheet(locale, slug)!;

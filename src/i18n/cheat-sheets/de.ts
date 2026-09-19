@@ -578,6 +578,16 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'Grundlagen für Klasse 10',
+        content:
+          'Jedes Atom bringt seine Außenelektronen als Punkte mit. Ein Punkt, der allein steht, ist ein Einzelelektron (formal: ein ungepaartes Elektron); zwei Einzelelektronen aus zwei verschiedenen Atomen ergeben ein bindendes Elektronenpaar, also eine Bindung (gezeichnet als Strich). Paare, die an einem Atom bleiben, sind freie Elektronenpaare. Ein Atom ist mit 8 Punkten um sich herum voll (ein Oktett) – Wasserstoff ist schon mit 2 voll (ein Duett). Teilst du zwischen denselben zwei Atomen zweimal, wird daraus eine Doppelbindung, dreimal eine Dreifachbindung. Die Zahl der Einzelelektronen sagt dir, wie viele Bindungen ein Atom eingeht: H 1, C 4, N 3, O 2, Cl 1. Schwefel verhält sich wie Sauerstoff und Phosphor wie Stickstoff, weil sie in denselben Hauptgruppen stehen. Alles unterhalb dieses Abschnitts (Formalladung, VSEPR-Formen, Ausnahmen von der Oktettregel) ist Stoff der Oberstufe.',
+        exampleNames: [
+          'Wasser – Sauerstoff teilt zweimal und behält 2 freie Elektronenpaare',
+          'Methan – Kohlenstoff teilt alle vier Einzelelektronen',
+          'Sauerstoff – zwei bindende Elektronenpaare ergeben eine Doppelbindung',
+        ],
+      },
+      {
         heading: 'Die fünf Schritte',
         content:
           '1. Zähle alle Valenzelektronen (Ladung berücksichtigen). 2. Setz das am wenigsten elektronegative Atom in die Mitte (nie H). 3. Verbinde jedes äußere Atom mit einer Einfachbindung zum Zentrum. 4. Verteile die übrigen Elektronen als freie Elektronenpaare, zuerst an den äußeren Atomen, dann am Zentrum. 5. Fehlt dem Zentrum das Oktett, mach Doppel- oder Dreifachbindungen daraus. Prüfe zum Schluss, ob die Gesamtzahl der Elektronen zu Schritt 1 passt.',

@@ -1,10 +1,10 @@
 # Internationalisation
 
 How the multi-language setup works, how to add a language, and how to add a
-string. Written for whoever adds French next.
+string. Written for whoever adds Russian next.
 
-Currently shipping: **English** (default) and **German**.
-Planned: French, Spanish, Italian, Russian — see [Adding a locale](#adding-a-locale)
+Currently shipping: **English** (default), **German**, **French**, **Spanish**
+and **Italian**. Planned: Russian — see [Adding a locale](#adding-a-locale)
 and [Plurals](#plurals), which is the one thing Russian will break.
 
 ---
@@ -302,32 +302,64 @@ Two things fall out of that, both worth keeping:
 
 ## Adding a locale
 
-Phase 1 was built so this is small. To add French:
+Phase 1 was built so this is small, and the French pass confirmed it. To add
+Spanish, with `<x>` standing for the new code:
 
-1. **`src/i18n/config.ts`** — add `'fr'` to `LOCALES` and to `LOCALE_LABELS`,
-   naming the language in itself: a French reader scans for "Français", not for
-   "French".
-2. **`src/i18n/dictionaries/fr.ts`** — copy `de.ts`, translate, keep
+1. **`src/i18n/config.ts`** — add `'<x>'` to `LOCALES` and to `LOCALE_LABELS`,
+   naming the language in itself: a Spanish reader scans for "Español", not for
+   "Spanish".
+2. **`src/i18n/dictionaries/<x>.ts`** — copy `de.ts` or `fr.ts`, translate, keep
    `satisfies Dictionary`. `npm run typecheck` tells you what is missing.
 3. **`src/i18n/dictionaries.ts`** — add the loader entry.
-4. **`src/i18n/game-messages/<game>/fr.ts`** — one per game with a catalogue
+4. **`src/i18n/game-messages/<game>/<x>.ts`** — one per game with a catalogue
    (Reaction Balancer and Share to Fill today), each `satisfies
    <Game>Messages`, plus its entry in that game's `CATALOGUES` map. The
-   `Record<Locale, …>` there means adding `'fr'` to `LOCALES` fails to compile
+   `Record<Locale, …>` there means adding a code to `LOCALES` fails to compile
    until every game has its file: a game that plays in English only is not
    done (`GAMES.md` § The rule).
-5. **`src/i18n/chemistry-names/fr.ts`** — 118 elements, 35 compounds, 40 ions.
-   Register it in `chemistry-names.ts`. The test tells you what is missing.
-6. **`src/i18n/cheat-sheets/fr.ts`** — the twelve sheets. Register it in
+5. **`src/i18n/chemistry-names/<x>.ts`** — 118 elements, 35 compounds, 40 ions,
+   plus 53 species names, 33 reactions and 18 Lewis molecules of dataset prose.
+   Register it in `chemistry-names.ts`, **and set its entry in
+   `LOWERCASES_NAMES_IN_SENTENCE`** — getting that wrong is a spelling error in
+   every sentence that embeds a substance name.
+6. **`src/i18n/cheat-sheets/<x>.ts`** — the twelve sheets. Register it in
    `cheat-sheets.ts`. The test tells you what is missing and what has the wrong
-   shape.
-7. **`src/i18n/review-notes.ts`** — add a `fr` entry, and extend
-   `scripts/i18n-review.mts` to emit `fr-review.md` as well.
-8. **`docs/i18n/glossary-fr.md`** — decide the chemistry terms *before*
+   shape — but see the warning below about what it *cannot* tell you.
+7. **`src/i18n/review-notes.ts`** — add an `<x>` entry and an `<x>` summary, then
+   add the locale to `LOCALES_TO_REVIEW` in `scripts/i18n-review.mts`. Each
+   locale's header is written out in full there on purpose, so adding one
+   cannot reflow another locale's file and cost you the "an unchanged review
+   file proves no copy changed" property.
+8. **`docs/i18n/glossary-<x>.md`** — decide the chemistry terms *before*
    translating, not during.
 
-Nothing else. The proxy, the switcher, the `hreflang` alternates,
-`generateStaticParams`, the tests and the e2e suite all read `LOCALES`.
+The proxy, the switcher, the `hreflang` alternates, `generateStaticParams`,
+`e2e/warm-up.setup.ts` and most of the tests all read `LOCALES` and need no
+edit. Three test files do **not**, and French had to fix each of them:
+
+- **`dictionary.test.ts`** holds a `Record<Locale, unknown>` of dictionaries
+  (a compile error until you add yours) and an `IDENTICAL_BY_DESIGN` list per
+  locale, for the strings your language genuinely spells the English way.
+- **`game-messages.test.ts`** passes its `translations` map explicitly, has a
+  per-locale identical-by-design list for each game, and proves the loader
+  throws for an unknown locale by asking it for `'xx'` — which used to be
+  `'fr'`, and stopped working the day French shipped.
+- **`chemistry-names.test.ts`** asserts a list of element names that any real
+  translation must change. Which names those are is a property of the *pair* of
+  languages: Na/Natrium and K/Kalium are the German examples and are not false
+  friends in French at all, so there is a per-locale `SAME_AS_ENGLISH` exemption
+  list. The same test requires every compound name to differ from the English,
+  with a per-locale `IDENTICAL_COMPOUNDS_BY_DESIGN` for the ones that genuinely
+  coincide (French: hydrazine).
+
+> **What `cheat-sheets.test.ts` cannot tell you.** Its shape assertions compare
+> the *localized* sheet against the English, and `localizeSheet()` falls back to
+> the English section when the overlay has no entry at that index — so the
+> lengths always match and an overlay that is one section short passes. It does
+> not render short: it shifts every heading onto the wrong body and leaves the
+> last section in English. Count your sections against
+> `src/lib/cheat-sheet-data.ts` by hand, or fix the test to assert against the
+> overlay.
 
 ### Before you start
 
@@ -538,9 +570,10 @@ sign-in flow.
 
 ### Linked resources are English
 
-Every cheat-sheet resource points at an English-language site. The German
-descriptions say so, but a German student gets German explanations and English
-source material. German equivalents would be a content task.
+Every cheat-sheet resource points at an English-language site. The German and
+French descriptions say so, but a reader gets an explanation in their own
+language and then English source material. Local equivalents would be a content
+task, and the per-locale summaries in `review-notes.ts` suggest candidates.
 
 ### Curriculum references are Australian
 

@@ -12,7 +12,7 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**784 strings** — 385 high confidence,
+**785 strings** — 386 high confidence,
 334 medium, 65 low.
 
 The confidence column is a judgement about *this* translation, not about German
@@ -408,6 +408,7 @@ invisible here.
 | `cheatSheets.count.one` | {count} topic | {count} Thema | high | Section headings for the reference pages. |
 | `cheatSheets.count.other` | {count} topics | {count} Themen | high | Section headings for the reference pages. |
 | `cheatSheets.exampleFormula` | Example Formula | Beispielformel | high | Section headings for the reference pages. |
+| `cheatSheets.exampleLabel` | {name}: | {name}: | high | Section headings for the reference pages. |
 | `cheatSheets.readReference` | Read reference | Nachschlagen | high | Section headings for the reference pages. |
 | `cheatSheets.practiseThis` | Practise this | Üben | high | Section headings for the reference pages. |
 | `cheatSheets.keyConcepts` | Key Concepts | Das Wichtigste | high | Section headings for the reference pages. |

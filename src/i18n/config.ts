@@ -10,9 +10,18 @@
  * and the values written into the `<html lang>` attribute, so they must be
  * valid BCP 47 tags.
  *
- * Phase 1 ships English and German. Phase 2 adds 'fr', 'es', 'it', 'ru'.
+ * Phase 1 shipped English and German; Phase 2 has added French, Spanish and
+ * Italian. Still to come: 'ru'. Adding a code here is deliberately a
+ * compile error in every strict `Record<Locale, …>` until the locale's files
+ * exist — see docs/i18n/README.md § Adding a locale.
+ *
+ * Spanish ships under the plain `es` tag but is written in **es-ES**
+ * (peninsular). No Spanish copy is variety-neutral, so that is a decision
+ * rather than an omission: it is argued, and flagged for the owner, at the top
+ * of docs/i18n/glossary-es.md. If es-419 is ever wanted as well it is a second
+ * locale with its own files, not a setting.
  */
-export const LOCALES = ['en', 'de'] as const;
+export const LOCALES = ['en', 'de', 'fr', 'es', 'it'] as const;
 
 export type Locale = (typeof LOCALES)[number];
 
@@ -38,6 +47,9 @@ export const LOCALE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 export const LOCALE_LABELS: Record<Locale, string> = {
   en: 'English',
   de: 'Deutsch',
+  fr: 'Français',
+  es: 'Español',
+  it: 'Italiano',
 };
 
 export function isLocale(value: unknown): value is Locale {

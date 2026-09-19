@@ -20,6 +20,12 @@ import { gameMessages as balancerMessagesFor } from './game-messages/reaction-ba
 import { gameMessages as lewisMessagesFor } from './game-messages/lewis-structures';
 import { de as balancerDe } from './game-messages/reaction-balancer/de';
 import { de as lewisDe } from './game-messages/lewis-structures/de';
+import { fr as balancerFr } from './game-messages/reaction-balancer/fr';
+import { fr as lewisFr } from './game-messages/lewis-structures/fr';
+import { es as balancerEs } from './game-messages/reaction-balancer/es';
+import { es as lewisEs } from './game-messages/lewis-structures/es';
+import { it as balancerIt } from './game-messages/reaction-balancer/it';
+import { it as lewisIt } from './game-messages/lewis-structures/it';
 import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
 
 /**
@@ -44,6 +50,53 @@ const BALANCER_IDENTICAL_BY_DESIGN = {
     /^challenge\.tileA11y$/,
     /^glossary\.stateSymbols\.term$/,
   ],
+  fr: [
+    // "Coach" is an established French loanword and names a thing in the
+    // game, so it reads the same way in both languages. "Challenge" is not:
+    // French has « Défi » and uses it, so challenge.label is a real
+    // translation here where the German one was not.
+    /^coach\.label$/,
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^challenge\.tileA11y$/,
+    /^glossary\.stateSymbols\.term$/,
+    // "coefficient" is spelled identically in French and English, so the
+    // glossary term and both of its match words coincide. This is the
+    // distinction the whole game teaches, so it is worth being explicit
+    // that the French really is "coefficient" and not an oversight.
+    /^glossary\.coefficient\.(term|matches\[\d+\])$/,
+    // "Points" as a column heading.
+    /^notebook\.columnPoints$/,
+  ],
+  es: [
+    // The first column of an instructions key table is the physical key, so it
+    // never translates; the second column, which says what the key does, always
+    // does.
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    // Strings whose whole visible content is placeholders, punctuation or
+    // international notation: there is nothing in them to translate.
+    /^success\.points$/,
+    /^challenge\.tileA11y$/,
+    /^glossary\.stateSymbols\.term$/,
+    // Note what is NOT here, because both are worth stating. "Coach" is
+    // « Guía » in Spanish, where German and French both keep the loanword; and
+    // "coefficient" is « coeficiente », where French had to allowlist the
+    // glossary term and both its match words as identical-by-design.
+  ],
+  it: [
+    // The first column of an instructions key table is the physical key, so it
+    // never translates; the second column, which says what the key does, always
+    // does.
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    // Strings whose whole visible content is placeholders, punctuation or
+    // international notation: there is nothing in them to translate.
+    /^success\.points$/,
+    /^challenge\.tileA11y$/,
+    /^glossary\.stateSymbols\.term$/,
+    // The same four as Spanish, and for the same reasons: "Coach" is « Guida »,
+    // "Challenge" is « Sfida » and "coefficient" is « coefficiente », so none of
+    // those needs an exemption here.
+  ],
 };
 
 const LEWIS_IDENTICAL_BY_DESIGN = {
@@ -55,17 +108,46 @@ const LEWIS_IDENTICAL_BY_DESIGN = {
     /^notebook\.diagnosisRow$/,
     /^ui\.atomOrdinal$/,
   ],
+  fr: [
+    /^coach\.label$/,
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^notebook\.diagnosisRow$/,
+    /^ui\.atomOrdinal$/,
+    // "octet", "duet" and "point(s)" are the same words in French. The
+    // duet in particular is worth noting: German had to coin one, while
+    // French school chemistry already teaches « la règle du duet ».
+    /^glossary\.(octet|duet)\.(term|matches\[\d+\])$/,
+    /^glossary\.dot\.matches\[\d+\]$/,
+  ],
+  es: [
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^notebook\.diagnosisRow$/,
+    /^ui\.atomOrdinal$/,
+    // Spanish needs none of the glossary exemptions French did: « octeto »,
+    // « dueto » and « punto » all differ from the English, and « Guía » differs
+    // from "Coach".
+  ],
+  it: [
+    /^instructions\.keyboard\[\d+\]\[0\]$/,
+    /^success\.points$/,
+    /^notebook\.diagnosisRow$/,
+    /^ui\.atomOrdinal$/,
+    // Italian needs none of the glossary exemptions French did either:
+    // « ottetto », « duetto » and « punto » all differ from the English.
+  ],
 };
 
 describeTranslationParity('reaction-balancer catalogue', {
   source: REACTION_BALANCER_MESSAGES,
-  translations: { de: balancerDe },
+  translations: { de: balancerDe, fr: balancerFr, es: balancerEs, it: balancerIt },
   identicalByDesign: BALANCER_IDENTICAL_BY_DESIGN,
 });
 
 describeTranslationParity('lewis-structures catalogue', {
   source: LEWIS_STRUCTURES_MESSAGES,
-  translations: { de: lewisDe },
+  translations: { de: lewisDe, fr: lewisFr, es: lewisEs, it: lewisIt },
   identicalByDesign: LEWIS_IDENTICAL_BY_DESIGN,
 });
 
@@ -109,7 +191,10 @@ describe.each(GAMES)('$slug catalogue loader', ({ load, english }) => {
 
   it('throws rather than falling back to English for a locale it has no file for', () => {
     // A silent fallback is how a half-translated game ships unnoticed.
-    expect(() => load('fr')).toThrow(/catalogue/i);
+    // 'xx' rather than a real language code: this used to say 'fr', which
+    // stopped being a locale-with-no-file the moment French shipped. A code
+    // that is not in the Phase 2 roadmap cannot be overtaken the same way.
+    expect(() => load('xx')).toThrow(/catalogue/i);
   });
 });
 

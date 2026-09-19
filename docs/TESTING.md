@@ -284,8 +284,8 @@ decisions rather than test tweaks.
 | `Accept-Language` parsing, q-values, regional fallback, cookie precedence | `src/i18n/locale-match.test.ts` |
 | Prefix/strip round-trips, the unprefixed-path list | `src/i18n/routing.test.ts` |
 | **Supabase auth cookies surviving the locale redirect**, negotiation, query preservation | `src/proxy.test.ts` |
-| Redirect, negotiation in a real browser, the switcher (including by keyboard), `<html lang>`, `hreflang`, German rendering, auth under a prefix | `e2e/i18n.spec.ts` |
-| Share to Fill and Reaction Balancer rendered in German end to end — the catalogue copy, the names from the chemistry overlay, the glossary pop-over, and the formulae left alone | `e2e/i18n.spec.ts` "German rendering: …" |
+| Redirect, negotiation in a real browser, the switcher (including by keyboard), `<html lang>`, `hreflang`, German and French rendering, auth under a prefix | `e2e/i18n.spec.ts` |
+| Share to Fill and Reaction Balancer rendered in German and in French end to end — the catalogue copy, the names from the chemistry overlay, the glossary pop-over, and the formulae left alone | `e2e/i18n.spec.ts` "German rendering: …" / "French rendering: …" |
 
 Component tests render in English by default — `renderWithProviders()` supplies the
 `I18nProvider` — so assertions written against the English copy keep working. Pass a
