@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**808 strings** — 392 high confidence,
-350 medium, 66 low.
+**808 strings** — 391 high confidence,
+351 medium, 66 low.
 
 The confidence column is a judgement about *this* translation, not about German
 in general:
@@ -25,7 +25,8 @@ in general:
 - **low** — I am genuinely unsure. Please have a native speaker or a chemistry
   teacher check these before the German site goes in front of students.
 
-The chemistry names and the cheat-sheet prose are **not** in this table — they
+The chemistry names, the cheat-sheet prose and the Explore entries are **not**
+in this table — they
 are keyed by registry identifier rather than by dictionary path, and they are
 assessed as bodies of work in [the section at the end](#chemistry-names--srci18nchemistry-namesdets).
 
@@ -79,7 +80,7 @@ invisible here.
 |---|---|---|---|---|
 | `nav.sectionsA11y` | Dashboard sections | Bereiche der Übersicht | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.profile` | Profile | Profil | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
-| `nav.leaderboards` | Scores | Bestenlisten | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
+| `nav.leaderboards` | Scores | Rangliste | medium | **Shortened from "Bestenlisten" to "Rangliste" for header width, and it is the one abbreviation in this locale.** With Profile removed and Explore added, the German nav row became the widest of the five, and forcing the header to `width: max-content` showed it needing 1033px in a 1024px viewport — it only looked fine because flex-shrink was compressing it. "Rangliste" is the ordinary German word for a standings table and is the right register for a fourteen-year-old. Worth a native check on two points: whether the singular reads oddly for a page that lists several games' boards, and whether "Bestenliste" (singular, same length problem) would be preferred. The page heading in leaderboards.* still uses the full word, so the reader meets it where they land. |
 | `nav.games` | Games | Spiele | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.cheatSheets` | Guides | Spickzettel | high | Standard navigation vocabulary. "Spickzettel" for cheat sheet is the natural school word and the right register for teenagers. |
 | `nav.explore` | Explore | Entdecken | high | "Entdecken" — the verb German uses for this kind of browsing section, and what a German streaming or news app puts on the same tab. "Erkunden" is the closer literal translation of "explore" but sounds like map-reading; "Entdecken" promises something new each week, which is what the page does. |

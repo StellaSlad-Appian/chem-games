@@ -106,7 +106,16 @@ test.describe('getting there', () => {
     await page.goto(path('/'));
     await waitForHydration(page);
 
-    await page.locator('#explore').getByRole('link', { name: t.home.exploreLink }).click();
+    // `.first()` rather than an exact selector: the section deliberately shows
+    // the same call to action twice — once beside the heading and once on the
+    // card — so that a reader who has scrolled past the heading still has one.
+    // Both go to the same place, and asserting on a unique match here would be
+    // asserting that the duplication does not exist.
+    await page
+      .locator('#explore')
+      .getByRole('link', { name: t.home.exploreLink })
+      .first()
+      .click();
 
     await expect(page).toHaveURL(/\/en\/explore$/);
   });

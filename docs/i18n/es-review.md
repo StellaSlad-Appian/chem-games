@@ -25,7 +25,8 @@ in general:
 - **low** — I am genuinely unsure. Please have a native speaker or a chemistry
   teacher check these before the Spanish site goes in front of students.
 
-The chemistry names and the cheat-sheet prose are **not** in this table — they
+The chemistry names, the cheat-sheet prose and the Explore entries are **not**
+in this table — they
 are keyed by registry identifier rather than by dictionary path, and they are
 assessed as bodies of work in [the section at the end](#chemistry-names--srci18nchemistry-namesests).
 

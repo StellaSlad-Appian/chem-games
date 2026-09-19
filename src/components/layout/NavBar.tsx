@@ -84,10 +84,16 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
             <LocaleLink
               key={href}
               href={href}
-              // German nav labels ("Bestenlisten", "Spickzettel") run wider
-              // than the English ones, so the horizontal padding is tighter
-              // here than the app's usual buttons and only relaxes at lg.
-              className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-blue-500 lg:px-3"
+              // Tighter horizontal padding than the app's usual buttons, and
+              // it no longer relaxes at lg. Measured with the row forced to
+              // `width: max-content` — which is the only way to see the real
+              // number, because flex-shrink otherwise hides an over-full row by
+              // quietly compressing it — the German header was **1033px wide in
+              // a 1024px viewport**. Nothing scrolled, because the shrink
+              // absorbed the difference, so `scrollWidth <= innerWidth` passed
+              // while the row was genuinely over-full. Dropping `lg:px-3` gives
+              // 4px back per link, 16px across the four.
+              className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-blue-500"
             >
               <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
               {label}

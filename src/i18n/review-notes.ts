@@ -51,6 +51,11 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       note: '"Entdecken" — the verb German uses for this kind of browsing section, and what a German streaming or news app puts on the same tab. "Erkunden" is the closer literal translation of "explore" but sounds like map-reading; "Entdecken" promises something new each week, which is what the page does.',
     },
     {
+      prefix: 'nav.leaderboards',
+      confidence: 'medium',
+      note: '**Shortened from "Bestenlisten" to "Rangliste" for header width, and it is the one abbreviation in this locale.** With Profile removed and Explore added, the German nav row became the widest of the five, and forcing the header to `width: max-content` showed it needing 1033px in a 1024px viewport — it only looked fine because flex-shrink was compressing it. "Rangliste" is the ordinary German word for a standings table and is the right register for a fourteen-year-old. Worth a native check on two points: whether the singular reads oddly for a page that lists several games\' boards, and whether "Bestenliste" (singular, same length problem) would be preferred. The page heading in leaderboards.* still uses the full word, so the reader meets it where they land.',
+    },
+    {
       prefix: 'settings.account',
       confidence: 'high',
       note: '"Konto" is the ordinary German word for an online account. "Account" is also current in German tech copy but "Konto" is plainer and is what a fourteen-year-old meets at school.',

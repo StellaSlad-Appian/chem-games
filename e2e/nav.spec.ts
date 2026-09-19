@@ -163,16 +163,25 @@ test.describe('header reflow', () => {
   }
 
   /*
-   * The number behind the assertion above, reported rather than merely passed.
+   * How much room the header actually has at `lg`, which the loop above cannot
+   * tell you.
    *
-   * `scrollWidth <= innerWidth` tells you the header fits; it does not tell you
-   * by how much, and "fits with 2px to spare" is a regression waiting for the
-   * next label. docs/feature-briefs/nav-profile-to-settings.md §3 asks for at
-   * least ~20px spare at 1024px in every locale, so that is what this checks —
-   * and it prints the measurement so the milestone table can be copied out of
-   * the test output instead of retyped.
+   * **`scrollWidth <= innerWidth` is not enough, and this is the trap.** The
+   * header row is a flex container whose `<nav>` can shrink, so an over-full
+   * row does not scroll — it compresses. Measured the naive way, the German
+   * header passed every reflow check while genuinely being 1033px of content
+   * in a 1024px viewport.
+   *
+   * Forcing `width: max-content` for the measurement is what makes the real
+   * number visible: nothing can shrink, so the row reports the width it would
+   * need. docs/feature-briefs/nav-profile-to-settings.md §3 asks for ~20px
+   * spare at 1024px in every locale, and that target only means anything
+   * against this measurement.
+   *
+   * The measurement is printed either way, so the milestone table can be read
+   * off the run rather than retyped.
    */
-  test('keeps real spare width in the 1024px header, in every locale', async ({ page }) => {
+  test('has real headroom in the 1024px header, in every locale', async ({ page }) => {
     await page.setViewportSize({ width: 1024, height: 800 });
     const measurements: Array<Record<string, number | string>> = [];
 
@@ -181,19 +190,15 @@ test.describe('header reflow', () => {
       await waitForHydration(page);
 
       const measured = await page.evaluate(() => {
-        const header = document.querySelector('header');
-        // The flex row inside the header, which is what actually has to fit.
-        const row = header?.firstElementChild as HTMLElement | null;
+        const row = document.querySelector('header')?.firstElementChild as HTMLElement | null;
         if (!row) return null;
-        const content = Array.from(row.children).reduce(
-          (total, child) => total + (child as HTMLElement).getBoundingClientRect().width,
-          0
-        );
-        const styles = getComputedStyle(row);
-        const gaps = (row.children.length - 1) * parseFloat(styles.columnGap || '0');
-        const padding = parseFloat(styles.paddingLeft) + parseFloat(styles.paddingRight);
+        // Temporarily stop the row shrinking, so it reports what it needs.
+        const previous = row.style.width;
+        row.style.width = 'max-content';
+        const natural = Math.ceil(row.getBoundingClientRect().width);
+        row.style.width = previous;
         return {
-          content: Math.round(content + gaps + padding),
+          natural,
           viewport: window.innerWidth,
           scrollWidth: document.documentElement.scrollWidth,
         };
@@ -202,19 +207,24 @@ test.describe('header reflow', () => {
       expect(measured).not.toBeNull();
       measurements.push({
         locale,
-        content: measured!.content,
-        spare: measured!.viewport - measured!.content,
+        natural: measured!.natural,
+        spare: measured!.viewport - measured!.natural,
       });
-
-      expect(measured!.scrollWidth).toBeLessThanOrEqual(measured!.viewport);
-      expect(measured!.viewport - measured!.content).toBeGreaterThanOrEqual(20);
     }
 
-    // Shows up in the Playwright report, and in `--reporter=list` on failure.
     test.info().annotations.push({
-      type: 'header widths at 1024px, signed out',
+      type: 'header natural widths at 1024px, signed out',
       description: JSON.stringify(measurements),
     });
+
+    const tooTight = measurements.filter((row) => (row.spare as number) < 20);
+    expect(
+      tooTight,
+      `These locales have under 20px of headroom in the 1024px header: ` +
+        `${JSON.stringify(measurements)}. Shorten a nav label or tighten the row ` +
+        `— do not lower this threshold, and do not trust scrollWidth here, ` +
+        `because flex-shrink hides an over-full row from it.`
+    ).toEqual([]);
   });
 });
 

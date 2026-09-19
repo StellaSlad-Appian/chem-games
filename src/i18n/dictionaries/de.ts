@@ -62,12 +62,17 @@ export const de = {
   nav: {
     sectionsA11y: 'Bereiche der Übersicht',
     profile: 'Profil',
-    // Not shortened. English needed "Scores" and "Guides" to stop the header
-    // overflowing at 1024px; German never overflowed there (970px of content,
-    // 54px spare before Explore), and "Bestenlisten" and "Spickzettel" are the
-    // school words a 14-year-old actually uses. Shortening a label that fits,
-    // only to match the English, would cost meaning for nothing.
-    leaderboards: 'Bestenlisten',
+    // "Rangliste", not "Bestenlisten": nav label only, shortened for header
+    // width — and this one was found by measuring rather than by arithmetic.
+    // With Profile gone and Explore added, the German nav row went from 463px
+    // to 494px, the widest of the five. Forcing the header to
+    // `width: max-content` showed it at **1033px in a 1024px viewport**: it
+    // only looked fine because flex-shrink was silently compressing it, so the
+    // usual `scrollWidth <= innerWidth` check passed on an over-full row.
+    // "Rangliste" is the ordinary German word for a standings table and reads
+    // correctly to a fourteen-year-old. `leaderboards.*`, the page heading, is
+    // untouched — this is the chip in the header, not the name of the page.
+    leaderboards: 'Rangliste',
     games: 'Spiele',
     cheatSheets: 'Spickzettel',
     explore: 'Entdecken',
