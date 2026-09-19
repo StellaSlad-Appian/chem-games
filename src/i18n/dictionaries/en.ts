@@ -259,6 +259,28 @@ export const en = {
     feedbackStoreFailed: 'Could not save your feedback right now. Please try again later.',
     feedbackEmailFailed: 'Could not deliver your feedback right now. Please try again later.',
     feedbackUnexpected: 'An unexpected error occurred while processing feedback.',
+
+    // The teacher collaborator sign-up (docs/COLLABORATORS.md). These are the
+    // only strings in this namespace written for an adult: every other
+    // serverMessage is shown to a 14–16 year old player, and these appear on
+    // one page, the For Teachers page, which is written for the teacher
+    // deciding whether to put the site in front of a class. So each
+    // translation uses the **formal** address, matching
+    // src/i18n/teachers/<locale>.ts rather than the rest of this file.
+    collaboratorEmailRequired:
+      'Please enter an email address, so there is somewhere to write back to.',
+    collaboratorEmailInvalid:
+      'That does not look like an email address. It needs an @ and a domain after it — for example name@school.edu.au.',
+    // Invariant at every count, for the same reason aliasLength is: nothing
+    // in the sentence agrees with the number. See count-strings.test.ts.
+    collaboratorTooLong:
+      'That is longer than this field allows (maximum {max} characters). Please shorten it.',
+    collaboratorRateLimited: 'Too many sign-ups from this connection. Please try again later.',
+    collaboratorUnconfigured:
+      'The collaborator list is not configured in this environment, so nothing was saved.',
+    collaboratorStoreFailed:
+      'Your sign-up could not be saved right now. Please try again later.',
+    collaboratorUnexpected: 'Something went wrong while saving your sign-up.',
   },
 
   // The privacy page is one long document. Its paragraphs are split at the
@@ -288,6 +310,24 @@ export const en = {
     collectFeedbackLabel: 'Feedback.',
     collectFeedbackBody:
       'When you use the feedback button we store the category, your message and the page you were on. We also store your account id if you are signed in, and a hashed, non-reversible identifier used only to limit abuse.',
+    collectCollaboratorLabel: 'Teacher collaborators.',
+    collectCollaboratorBody:
+      'If you are a teacher and you volunteer on the For Teachers page, we store the email address you give us, plus anything else you choose to add: your name, school, country, the year levels and subjects you teach, and a message. Only the address is required. We also store the language you signed up in, your account id if you happened to be signed in, and the same hashed, non-reversible identifier we use to limit abuse.',
+
+
+    // The one place this site holds data that identifies a person directly.
+    // Required before the sign-up form could ship: docs/COLLABORATORS.md § 0.
+    collaboratorsHeading: 'The teacher collaborator list',
+    collaboratorsWhy:
+      'This is the only thing on this site that identifies a person directly rather than through a generated alias, so it gets a section of its own. Teachers volunteer to help shape the games, and the promises made to them can only be kept if there is somewhere to write to.',
+    collaboratorsBasis:
+      'The lawful basis is your consent, given by filling that form in. It is freely given: nothing here is withheld from anyone who does not sign up, and everything stays free either way. You can withdraw it whenever you like, and withdrawing costs you nothing.',
+    collaboratorsUse:
+      'The address is used to contact you about the games and to give you the access you were promised. It is never sold, never passed to anyone else and never added to a mailing list, and no automatic email is ever sent to it.',
+    collaboratorsRetention:
+      'We keep the entry until you ask for it to be removed, or until the collaboration is plainly over — whichever comes first. The list is not published anywhere, and no page on this site renders it. Deleting an account does not remove it, because the entry does not belong to an account; ask below instead.',
+    collaboratorsDelete:
+      'You do not need an account to have it deleted, and most collaborators have none. Email {email}, say you would like to come off the list, and the entry is removed. You do not have to give a reason.',
 
     publicHeading: 'What is public',
     publicBody1:
@@ -308,7 +348,7 @@ export const en = {
     processorSupabaseLabel: 'Supabase',
     processorSupabaseBody: 'hosts the database and handles authentication.',
     processorResendLabel: 'Resend',
-    processorResendBody: 'delivers feedback emails to us.',
+    processorResendBody: 'delivers feedback and collaborator sign-ups to us by email.',
     processorGoogleLabel: 'Google',
     processorGoogleBody: 'only if you use Google sign-in.',
     processorHosting: 'The hosting provider that serves the site.',

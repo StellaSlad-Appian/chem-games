@@ -320,6 +320,25 @@ export const fr = {
     feedbackEmailFailed: 'Ton avis n’a pas pu être transmis. Réessaie plus tard.',
     feedbackUnexpected:
       'Une erreur inattendue s’est produite pendant le traitement de l’avis.',
+
+    // Teacher collaborator sign-up. Formal address, unlike the rest of this
+    // namespace: these appear only on the For Teachers page, which is written
+    // for an adult. See the note on the English keys and the header of
+    // src/i18n/teachers/<locale>.ts.
+    collaboratorEmailRequired:
+      'Veuillez indiquer une adresse e-mail, afin qu’il y ait un endroit où vous répondre.',
+    collaboratorEmailInvalid:
+      'Cela ne ressemble pas à une adresse e-mail. Il faut un @ suivi d’un domaine — par exemple name@school.edu.au.',
+    collaboratorTooLong:
+      'C’est plus long que ce champ ne l’autorise ({max} caractères maximum). Veuillez raccourcir.',
+    collaboratorRateLimited:
+      'Trop d’inscriptions depuis cette connexion. Veuillez réessayer plus tard.',
+    collaboratorUnconfigured:
+      'La liste des enseignants partenaires n’est pas configurée dans cet environnement : rien n’a été enregistré.',
+    collaboratorStoreFailed:
+      'Votre inscription n’a pas pu être enregistrée pour le moment. Veuillez réessayer plus tard.',
+    collaboratorUnexpected:
+      'Une erreur est survenue pendant l’enregistrement de votre inscription.',
   },
 
   privacy: {
@@ -345,6 +364,22 @@ export const fr = {
     collectFeedbackLabel: 'Avis.',
     collectFeedbackBody:
       'Quand tu utilises le bouton d’avis, nous enregistrons la catégorie, ton message et la page où tu étais. Nous enregistrons aussi l’identifiant de ton compte si tu es connecté, ainsi qu’un identifiant haché et non réversible qui sert uniquement à limiter les abus.',
+    collectCollaboratorLabel: 'Enseignants partenaires.',
+    collectCollaboratorBody:
+      'Si vous êtes enseignant et que vous vous portez volontaire sur la page « Pour les enseignants », nous conservons l’adresse e-mail que vous indiquez, ainsi que tout ce que vous choisissez d’ajouter : votre nom, votre établissement, votre pays, les niveaux et les matières que vous enseignez, et un message. Seule l’adresse est obligatoire. Nous conservons aussi la langue dans laquelle vous vous êtes inscrit, l’identifiant de votre compte si vous étiez connecté, et le même identifiant haché et irréversible qui sert à limiter les abus.',
+
+
+    collaboratorsHeading: 'La liste des enseignants partenaires',
+    collaboratorsWhy:
+      'C’est la seule chose sur ce site qui identifie une personne directement plutôt que par un alias généré, d’où une section à part. Des enseignants se portent volontaires pour aider à façonner les jeux, et les promesses qui leur sont faites ne peuvent être tenues que s’il existe une adresse où leur écrire.',
+    collaboratorsBasis:
+      'La base légale est votre consentement, donné en remplissant ce formulaire. Il est libre : rien ici n’est refusé à qui ne s’inscrit pas, et tout reste gratuit dans les deux cas. Vous pouvez le retirer quand vous voulez, et le retirer ne vous coûte rien.',
+    collaboratorsUse:
+      'L’adresse sert à vous contacter au sujet des jeux et à vous donner l’accès promis. Elle n’est jamais vendue, jamais transmise à qui que ce soit et jamais ajoutée à une liste de diffusion, et aucun e-mail automatique ne lui est jamais envoyé.',
+    collaboratorsRetention:
+      'Nous conservons l’entrée jusqu’à ce que vous en demandiez la suppression, ou jusqu’à ce que la collaboration soit manifestement terminée — selon ce qui vient en premier. La liste n’est publiée nulle part et aucune page de ce site ne l’affiche. Supprimer un compte ne l’enlève pas, car l’entrée n’appartient à aucun compte ; demandez plutôt ci-dessous.',
+    collaboratorsDelete:
+      'Vous n’avez pas besoin de compte pour la faire supprimer, et la plupart des partenaires n’en ont pas. Écrivez à {email} que vous souhaitez sortir de la liste, et l’entrée est supprimée. Vous n’avez pas à donner de raison.',
 
     publicHeading: 'Ce qui est public',
     publicBody1:
@@ -366,7 +401,7 @@ export const fr = {
     processorSupabaseLabel: 'Supabase',
     processorSupabaseBody: 'héberge la base de données et gère la connexion.',
     processorResendLabel: 'Resend',
-    processorResendBody: 'nous transmet les e-mails d’avis.',
+    processorResendBody: 'nous transmet par e-mail les avis et les inscriptions des enseignants partenaires.',
     processorGoogleLabel: 'Google',
     processorGoogleBody: 'uniquement si tu utilises la connexion Google.',
     processorHosting: 'L’hébergeur qui met le site en ligne.',

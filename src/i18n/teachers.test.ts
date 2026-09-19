@@ -33,7 +33,16 @@ import { describeTranslationParity, flatten } from '@/test-utils/i18n-parity';
  * needs to go here it needs a sentence saying why, like the ones in
  * game-messages.test.ts.
  */
-const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {};
+const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
+  // `formOptional` is the word beside every field the sign-up form does not
+  // require. German borrowed it whole: *optional* is the ordinary German
+  // adjective, it is what a German form says, and the alternatives
+  // (*freiwillig*, *fakultativ*) are respectively about volunteering and
+  // about school subjects. Identical because the language is, not because
+  // anybody skipped it — the other four locales each have their own word
+  // (facultatif / opcional / facoltativo / необязательно).
+  de: [/^formOptional$/],
+};
 
 describeTranslationParity('teachers catalogue', {
   source: TEACHERS_EN,

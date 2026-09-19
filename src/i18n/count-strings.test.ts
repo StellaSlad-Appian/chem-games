@@ -181,6 +181,7 @@ const COUNT_BEARING = [
   'dictionary:games.shared.lives',
   'dictionary:games.shared.scoreValue',
   'dictionary:serverMessages.aliasLength',
+  'dictionary:serverMessages.collaboratorTooLong',
   'dictionary:serverMessages.feedbackMessageTooLong',
   'lewis-structures:coach.deadEnd',
   'lewis-structures:coach.needsMore',

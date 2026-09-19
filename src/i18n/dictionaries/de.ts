@@ -267,6 +267,24 @@ export const de = {
     feedbackEmailFailed:
       'Dein Feedback konnte gerade nicht zugestellt werden. Bitte versuche es später noch einmal.',
     feedbackUnexpected: 'Beim Verarbeiten des Feedbacks ist ein unerwarteter Fehler aufgetreten.',
+
+    // Teacher collaborator sign-up. Formal address, unlike the rest of this
+    // namespace: these appear only on the For Teachers page, which is written
+    // for an adult. See the note on the English keys and the header of
+    // src/i18n/teachers/<locale>.ts.
+    collaboratorEmailRequired:
+      'Bitte geben Sie eine E-Mail-Adresse an, damit es eine Adresse für die Antwort gibt.',
+    collaboratorEmailInvalid:
+      'Das sieht nicht nach einer E-Mail-Adresse aus. Sie braucht ein @ und dahinter eine Domain — zum Beispiel name@school.edu.au.',
+    collaboratorTooLong:
+      'Das ist länger, als dieses Feld zulässt (höchstens {max} Zeichen). Bitte kürzen Sie es.',
+    collaboratorRateLimited:
+      'Zu viele Anmeldungen von dieser Verbindung. Bitte versuchen Sie es später noch einmal.',
+    collaboratorUnconfigured:
+      'Die Liste der Mitwirkenden ist in dieser Umgebung nicht konfiguriert; es wurde nichts gespeichert.',
+    collaboratorStoreFailed:
+      'Ihre Anmeldung konnte gerade nicht gespeichert werden. Bitte versuchen Sie es später noch einmal.',
+    collaboratorUnexpected: 'Beim Speichern Ihrer Anmeldung ist etwas schiefgegangen.',
   },
 
   privacy: {
@@ -292,6 +310,22 @@ export const de = {
     collectFeedbackLabel: 'Feedback.',
     collectFeedbackBody:
       'Wenn du die Feedback-Schaltfläche nutzt, speichern wir die Kategorie, deine Nachricht und die Seite, auf der du warst. Außerdem speichern wir deine Konto-ID, falls du angemeldet bist, und eine gehashte, nicht umkehrbare Kennung, die nur dazu dient, Missbrauch zu begrenzen.',
+    collectCollaboratorLabel: 'Mitwirkende Lehrkräfte.',
+    collectCollaboratorBody:
+      'Wenn Sie als Lehrkraft auf der Seite „Für Lehrkräfte“ mitmachen möchten, speichern wir die E-Mail-Adresse, die Sie angeben, und alles Weitere, was Sie freiwillig dazuschreiben: Ihren Namen, Ihre Schule, Ihr Land, die Klassenstufen und Fächer, die Sie unterrichten, und eine Nachricht. Nur die Adresse ist erforderlich. Außerdem speichern wir die Sprache, in der Sie sich eingetragen haben, Ihre Konto-ID, falls Sie gerade angemeldet waren, und denselben gehashten, nicht umkehrbaren Kennwert, mit dem wir Missbrauch begrenzen.',
+
+
+    collaboratorsHeading: 'Die Liste der mitwirkenden Lehrkräfte',
+    collaboratorsWhy:
+      'Das ist das Einzige auf dieser Website, das eine Person unmittelbar benennt und nicht über ein erzeugtes Alias, deshalb bekommt es einen eigenen Abschnitt. Lehrkräfte melden sich freiwillig, um die Spiele mitzugestalten, und die Zusagen an sie lassen sich nur einhalten, wenn es eine Adresse gibt, an die wir schreiben können.',
+    collaboratorsBasis:
+      'Die Rechtsgrundlage ist Ihre Einwilligung, die Sie mit dem Ausfüllen des Formulars geben. Sie ist freiwillig: Wer sich nicht einträgt, dem wird hier nichts vorenthalten, und alles bleibt so oder so kostenlos. Sie können sie jederzeit widerrufen, und der Widerruf kostet Sie nichts.',
+    collaboratorsUse:
+      'Die Adresse dient dazu, Sie zu den Spielen zu kontaktieren und Ihnen den zugesagten Zugang zu geben. Sie wird nie verkauft, nie weitergegeben und nie in einen Verteiler aufgenommen, und es geht nie eine automatische E-Mail an sie.',
+    collaboratorsRetention:
+      'Wir behalten den Eintrag, bis Sie um seine Löschung bitten oder die Zusammenarbeit erkennbar beendet ist — je nachdem, was zuerst eintritt. Die Liste wird nirgends veröffentlicht, und keine Seite dieser Website zeigt sie an. Ein Konto zu löschen entfernt ihn nicht, denn der Eintrag gehört zu keinem Konto; fragen Sie stattdessen unten.',
+    collaboratorsDelete:
+      'Für die Löschung brauchen Sie kein Konto, und die meisten Mitwirkenden haben keines. Schreiben Sie an {email}, dass Sie von der Liste möchten, und der Eintrag wird entfernt. Eine Begründung brauchen Sie nicht.',
 
     publicHeading: 'Was öffentlich ist',
     publicBody1:
@@ -312,7 +346,7 @@ export const de = {
     processorSupabaseLabel: 'Supabase',
     processorSupabaseBody: 'betreibt die Datenbank und wickelt die Anmeldung ab.',
     processorResendLabel: 'Resend',
-    processorResendBody: 'stellt uns die Feedback-E-Mails zu.',
+    processorResendBody: 'stellt uns Feedback und Anmeldungen von Mitwirkenden per E-Mail zu.',
     processorGoogleLabel: 'Google',
     processorGoogleBody: 'nur, wenn du die Google-Anmeldung nutzt.',
     processorHosting: 'Der Hosting-Anbieter, der die Seite ausliefert.',

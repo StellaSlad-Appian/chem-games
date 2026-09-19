@@ -354,6 +354,24 @@ export const it = {
     feedbackEmailFailed: 'Non è stato possibile inviare la tua segnalazione. Riprova più tardi.',
     feedbackUnexpected:
       'Si è verificato un errore imprevisto durante l’elaborazione della segnalazione.',
+
+    // Teacher collaborator sign-up. Formal address, unlike the rest of this
+    // namespace: these appear only on the For Teachers page, which is written
+    // for an adult. See the note on the English keys and the header of
+    // src/i18n/teachers/<locale>.ts.
+    collaboratorEmailRequired:
+      'Inserisca un indirizzo e-mail, così ci sarà un posto a cui risponderle.',
+    collaboratorEmailInvalid:
+      'Questo non sembra un indirizzo e-mail. Serve una @ e dopo un dominio — per esempio name@school.edu.au.',
+    collaboratorTooLong:
+      'È più lungo di quanto questo campo consenta (massimo {max} caratteri). Lo accorci, per favore.',
+    collaboratorRateLimited: 'Troppe iscrizioni da questa connessione. Riprovi più tardi.',
+    collaboratorUnconfigured:
+      'L’elenco di chi collabora non è configurato in questo ambiente, quindi non è stato salvato nulla.',
+    collaboratorStoreFailed:
+      'Non è stato possibile salvare la sua iscrizione in questo momento. Riprovi più tardi.',
+    collaboratorUnexpected:
+      'Qualcosa è andato storto durante il salvataggio della sua iscrizione.',
   },
 
   privacy: {
@@ -381,6 +399,22 @@ export const it = {
     collectFeedbackLabel: 'Segnalazioni.',
     collectFeedbackBody:
       'Quando usi il pulsante delle segnalazioni conserviamo la categoria, il tuo messaggio e la pagina in cui eri. Conserviamo anche l’identificativo del tuo account, se hai effettuato l’accesso, e un identificativo cifrato e non reversibile che serve solo a limitare gli abusi.',
+    collectCollaboratorLabel: 'Chi collabora come insegnante.',
+    collectCollaboratorBody:
+      'Se insegna e si propone nella pagina «Per chi insegna», conserviamo l’indirizzo e-mail che ci lascia e tutto ciò che sceglie di aggiungere: il suo nome, la scuola, il paese, gli anni di corso e le materie che insegna e un messaggio. Solo l’indirizzo è obbligatorio. Conserviamo anche la lingua in cui si è iscritto, l’identificativo del suo account se era autenticato e lo stesso identificatore cifrato e non reversibile che usiamo per limitare gli abusi.',
+
+
+    collaboratorsHeading: 'L’elenco di chi collabora',
+    collaboratorsWhy:
+      'È l’unica cosa su questo sito che identifica una persona in modo diretto e non tramite un alias generato, perciò ha una sezione tutta sua. Chi insegna si propone per aiutare a dare forma ai giochi, e le promesse fatte si possono mantenere solo se esiste un indirizzo a cui scrivere.',
+    collaboratorsBasis:
+      'La base giuridica è il suo consenso, dato compilando quel modulo. È libero: a chi non si iscrive non viene negato nulla, e tutto resta gratuito in entrambi i casi. Può ritirarlo quando vuole, e ritirarlo non le costa nulla.',
+    collaboratorsUse:
+      'L’indirizzo serve a contattarla a proposito dei giochi e a darle l’accesso promesso. Non viene mai venduto, mai ceduto a nessuno e mai aggiunto a una lista di distribuzione, e non le viene mai inviata alcuna e-mail automatica.',
+    collaboratorsRetention:
+      'Conserviamo la voce finché non ci chiede di rimuoverla, o finché la collaborazione non è chiaramente finita, a seconda di che cosa arriva prima. L’elenco non è pubblicato da nessuna parte e nessuna pagina di questo sito lo mostra. Cancellare un account non la rimuove, perché la voce non appartiene a nessun account; lo chieda qui sotto.',
+    collaboratorsDelete:
+      'Non serve un account per farla cancellare, e la maggior parte di chi collabora non ne ha uno. Scriva a {email} che desidera uscire dall’elenco e la voce viene rimossa. Non deve dare alcuna motivazione.',
 
     publicHeading: 'Che cosa è pubblico',
     publicBody1:
@@ -401,7 +435,7 @@ export const it = {
     processorSupabaseLabel: 'Supabase',
     processorSupabaseBody: 'ospita il database e gestisce l’accesso.',
     processorResendLabel: 'Resend',
-    processorResendBody: 'ci consegna le email delle segnalazioni.',
+    processorResendBody: 'ci consegna per email le segnalazioni e le iscrizioni di chi collabora.',
     processorGoogleLabel: 'Google',
     processorGoogleBody: 'solo se usi l’accesso con Google.',
     processorHosting: 'Il fornitore di hosting che serve il sito.',

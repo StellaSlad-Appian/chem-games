@@ -49,6 +49,10 @@ lawfulBasisFeedbackLabel: 'Feedback you send us.',
 lawfulBasisFeedbackBody:
   'We hold this because we have a legitimate interest in knowing when the site is wrong, particularly when the chemistry is wrong. You choose what to put in the message.',
 
+lawfulBasisCollaboratorLabel: 'The teacher collaborator list.',
+lawfulBasisCollaboratorBody:
+  'We hold this on your consent, which you gave by filling in the sign-up form on the For Teachers page. You can withdraw it at any time by asking us to delete the entry, and nothing on this site is withheld from anyone who does not sign up.',
+
 lawfulBasisAbuseLabel: 'The hashed identifier that limits abuse.',
 lawfulBasisAbuseBody:
   'We hold this because we have a legitimate interest in keeping the feedback form from being flooded. It cannot be reversed into an address and is used for nothing else.',
@@ -163,6 +167,54 @@ Code without having set out to: generated aliases, every visibility toggle off b
 default, no tracking, minimal collection. That code applies to services likely to be
 accessed by under-18s, and you are closer to it than most sites that have heard of it.
 
+## 5a. The teacher collaborator list — **shipped, and it changes §5**
+
+Added with the sign-up form (`docs/COLLABORATORS.md`, migration
+`20260919_create_collaborators.sql`). This is not a draft: the copy is live in the
+`privacy` namespace in every locale and rendered by
+`src/app/[lang]/(main)/privacy/page.tsx`, under its own heading between "What we
+collect" and "What is public". It is recorded here so the draft and the site do not
+drift, and because it moves one of this document's premises.
+
+**What moved.** §5 above, and the children's-data posture generally, rest on the fact
+that everything this site stores about a person is pseudonymous by construction —
+generated aliases, no real names. `public.collaborators` is the first table that holds
+a directly identifying address, with a school name beside it. That is defensible and
+it is not free:
+
+- The people in it are **adults volunteering deliberately**, which is why it does not
+  disturb the Art. 8 analysis in §5. Nothing about the sign-up is offered to a student,
+  and the form is only on the For Teachers page, reachable by a footer link.
+- The basis is **consent**, and the site has to be able to show it was freely given.
+  It is: playing needs no account, the collaborator offer is about versions that do not
+  exist yet, and everything stays free either way. Keep it that way — the moment
+  anything on the site is only available to people on that list, the consent stops
+  being freely given and the basis has to change.
+- **Withdrawal has to work without an account**, because most collaborators will not
+  have one. The route is an email address, it is stated on the form itself rather than
+  only in the policy, and it is served by hand. There is no self-service deletion for
+  this table and there should not be: a self-service route would need an account, which
+  is the thing a collaborator does not have.
+
+**What still needs the lawyer**, in the same spirit as the rest of this document:
+
+1. Whether consent is the right basis, or whether a legitimate interest would be
+   cleaner for an address someone typed into a form asking to be contacted. Consent is
+   the more conservative answer and is what the site says today.
+2. Retention. The policy says "until you ask, or until the collaboration is plainly
+   over", which is honest and is not a period. Same question §7 asks about dormant
+   accounts, and the same two defensible answers: state a period and build it, or say
+   there is none.
+3. Whether `status = 'declined'` rows should be kept at all. Keeping one records that
+   somebody was asked and said no, which is arguably the kindest thing to keep and
+   arguably the thing they least expect you to.
+
+**What the migration already does**, so a reviewer does not have to read SQL: RLS with
+no client policies, so nothing can read the table through the public API; one
+`SECURITY DEFINER` RPC as the only write path; rate limits per hashed IP; the raw IP
+never stored; a unique index on `lower(email)` so one person is one row; and no page
+on the site that renders the list.
+
 ## 6. The EU/UK representative question
 
 Not copy — a question to put to the lawyer, and the only item here that costs money.
@@ -189,7 +241,7 @@ draft above needs one more key.
 - **`retentionBody1`** says "as long as your account exists". A reviewer will ask what
   happens to an account nobody has touched in three years. Either state a dormancy
   period and build it, or say plainly that there is none — both are defensible, silence
-  is not.
+  is not. The collaborator list has the same gap for the same reason; see §5a.
 
 ## 8. Translation notes
 

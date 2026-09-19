@@ -151,7 +151,27 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
               <li>
                 <Term>{p.collectFeedbackLabel}</Term> {p.collectFeedbackBody}
               </li>
+              <li>
+                <Term>{p.collectCollaboratorLabel}</Term> {p.collectCollaboratorBody}
+              </li>
             </ul>
+          </Section>
+
+          {/*
+            The collaborator list gets its own section rather than a bullet in
+            the list above, because it is the only personal data on this site
+            that names a person directly — everything else is pseudonymous by
+            construction. docs/COLLABORATORS.md § 0 requires it to state what
+            is collected, why, the lawful basis, the retention and a deletion
+            route that works without an account, and this is where all five
+            live.
+          */}
+          <Section title={p.collaboratorsHeading}>
+            <p>{p.collaboratorsWhy}</p>
+            <p>{p.collaboratorsBasis}</p>
+            <p>{p.collaboratorsUse}</p>
+            <p>{p.collaboratorsRetention}</p>
+            <p>{withPlaceholder(p.collaboratorsDelete, 'email', contact)}</p>
           </Section>
 
           <Section title={p.publicHeading}>

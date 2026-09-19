@@ -95,11 +95,44 @@ export const es = {
   collaborateFreeNow:
     'Para que quede claro cuánto vale eso: ahora mismo todo el sitio es gratuito y lo seguirá siendo durante toda la beta. La oferta se refiere a las versiones de pago que vendrán después, no a nada por lo que estuviera pagando hoy.',
   collaborateHow:
-    'Para apuntarse, use el botón de comentarios de la esquina inferior derecha de cualquier página, elija la categoría «{category}» y diga que da clase y que le gustaría ayudar. Ese es todo el trámite: no hay un segundo formulario y no se recoge nada más de lo que ya recoge ese botón.',
+    'Para ofrecerse, rellene el formulario de abajo. La dirección de correo electrónico es lo único que necesito de verdad; lo demás está ahí para que yo sepa algo de su clase antes de responderle, y puede dejarlo todo en blanco.',
   collaborateReply:
-    'Lo leo todo y contesto, pero aquí trabaja una sola persona y lo hace al margen de su empleo: cuente con un par de semanas más que con un par de días, y no lea el silencio como una negativa.',
+    'Lo leo todo y contesto, pero aquí trabaja una sola persona y lo hace al lado de otro empleo: cuente con un par de semanas, no con un par de días, y por favor no lea el silencio como un no.',
   collaborateRecords:
-    'Una salvedad práctica, mejor dicha ahora que descubierta después: los comentarios llegan a un buzón, no a una lista de personas colaboradoras. Le responderé pidiéndole una dirección para guardarla, porque sin un sitio estable donde conservarla no podría cumplir la promesa de la 1.0 y la 2.0.',
+    'Por qué un formulario y no el botón de comentarios, que es adonde apuntaba antes esta página: los comentarios llegan a una bandeja de entrada, y una bandeja de entrada no es una lista. Sin un sitio duradero donde guardar una dirección, la oferta de las versiones 1.0 y 2.0 no sería una que pudiera cumplir. Esa es toda la razón por la que aquí se pide una dirección.',
+
+  // El formulario de alta. La página pasa sus cadenas como props a
+  // `CollaboratorForm`; el componente nunca importa este catálogo — véase
+  // docs/COLLABORATORS.md § 4.
+  formHeading: 'Darse de alta como docente colaborador',
+  formIntro:
+    'Aquí no hay nada obligatorio salvo la dirección de correo electrónico. Deje el resto en blanco si lo prefiere: los demás campos están para ayudarme a mí y ninguno es condición de nada.',
+  formUse:
+    'Su dirección se usa para escribirle sobre los juegos y para darle acceso a la versión 1.0 y a la versión 2.0. Nada más, y nunca se cede a nadie. Tampoco se envía ningún correo de confirmación: lo siguiente que reciba de mí será una respuesta escrita a mano.',
+  formDelete:
+    'Puede pedir que se borren sus datos cuando quiera, y para eso no necesita ni cuenta ni formulario: escriba a {email} diciendo que quiere salir de la lista y el registro se elimina.',
+  formOptional: 'opcional',
+
+  formEmailLabel: 'Dirección de correo electrónico',
+  formEmailHelp: 'La dirección a la que prefiere que le escriba.',
+  formNameLabel: 'Su nombre',
+  formSchoolLabel: 'Centro',
+  formCountryLabel: 'País',
+  formYearLevelsLabel: 'Cursos a los que da clase',
+  formYearLevelsHelp: 'Como los llame su centro; por ejemplo, 3º y 4º de ESO.',
+  formSubjectsLabel: 'Materias que imparte',
+  formSubjectsHelp: 'Por ejemplo, Física y Química en la ESO.',
+  formMessageLabel: 'En qué le gustaría ayudar',
+  formMessageHelp:
+    'Cómo ha ido un juego con una clase, una idea para uno que todavía no existe, o las dos cosas. Con una frase basta.',
+
+  formSubmit: 'Me ofrezco',
+  formSubmitting: 'Enviando…',
+  formSuccessTitle: 'Gracias, ya está en la lista.',
+  formSuccessBody:
+    'Mientras tanto no pasa nada más: no hay ningún correo de confirmación en camino y su dirección no se usa para otra cosa que no sea responderle.',
+  formGenericError:
+    'Algo ha ido mal y el alta no se ha guardado. Inténtelo de nuevo dentro de un momento.',
 
   feedbackHeading: 'Avisar de un error',
   feedbackBody1:
