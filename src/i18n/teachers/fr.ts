@@ -94,11 +94,44 @@ export const fr = {
   collaborateFreeNow:
     'Pour que la valeur de cette offre soit claire : aujourd’hui tout est gratuit sur le site, et le restera pendant toute la bêta. L’offre porte sur les versions payantes qui viendront après, pas sur quoi que ce soit que vous payeriez aujourd’hui.',
   collaborateHow:
-    'Pour vous manifester, utilisez le bouton d’avis en bas à droite de n’importe quelle page, choisissez la catégorie « {category} » et dites que vous enseignez et que vous aimeriez aider. C’est toute la démarche – il n’y a pas de second formulaire, et rien n’est collecté au-delà de ce que ce bouton collecte déjà.',
+    'Pour vous proposer, remplissez le formulaire ci-dessous. L’adresse e-mail est la seule chose dont j’aie vraiment besoin ; le reste est là pour que je sache quelque chose de votre classe avant de vous répondre, et vous pouvez tout laisser de côté.',
   collaborateReply:
-    'Je lis tout et je réponds, mais il s’agit d’une seule personne qui fait cela à côté d’un métier : comptez quelques semaines plutôt que quelques jours, et ne lisez pas le silence comme un refus.',
+    'Je lis tout et je réponds, mais c’est une seule personne qui travaille à côté d’un métier : comptez plutôt quelques semaines que quelques jours, et ne prenez surtout pas le silence pour un non.',
   collaborateRecords:
-    'Une réserve pratique, dite maintenant plutôt que découverte plus tard : les avis arrivent dans une boîte de réception, pas dans une liste de collaborateurs. Je vous répondrai en demandant une adresse à conserver, car sans un endroit durable où la garder, la promesse des versions 1.0 et 2.0 ne serait pas tenable.',
+    'Pourquoi un formulaire plutôt que le bouton d’avis, vers lequel cette page renvoyait avant : les avis arrivent dans une boîte de réception, et une boîte de réception n’est pas une liste. Sans endroit durable où garder une adresse, la promesse des versions 1.0 et 2.0 ne serait pas tenable. C’est toute la raison pour laquelle une adresse e-mail est demandée ici.',
+
+  // Le formulaire d’inscription. La page en passe les chaînes en props à
+  // `CollaboratorForm` ; le composant n’importe jamais ce catalogue — voir
+  // docs/COLLABORATORS.md § 4.
+  formHeading: 'S’inscrire comme enseignant partenaire',
+  formIntro:
+    'Rien n’est obligatoire ici, sauf l’adresse e-mail. Laissez le reste vide si vous préférez : chacun des autres champs est là pour m’aider, et aucun n’est une condition.',
+  formUse:
+    'Votre adresse sert à vous contacter au sujet des jeux et à vous donner l’accès aux versions 1.0 et 2.0. Rien d’autre, et elle n’est jamais transmise à personne. Aucun e-mail de confirmation n’est envoyé non plus : la prochaine chose qui vous parviendra de ma part sera une réponse écrite à la main.',
+  formDelete:
+    'Vous pouvez faire supprimer vos informations à tout moment, sans compte et sans formulaire : écrivez à {email} que vous souhaitez sortir de la liste, et l’enregistrement est effacé.',
+  formOptional: 'facultatif',
+
+  formEmailLabel: 'Adresse e-mail',
+  formEmailHelp: 'L’adresse à laquelle vous préférez que je vous écrive.',
+  formNameLabel: 'Votre nom',
+  formSchoolLabel: 'Établissement',
+  formCountryLabel: 'Pays',
+  formYearLevelsLabel: 'Niveaux auxquels vous enseignez',
+  formYearLevelsHelp: 'Comme votre établissement les appelle — par exemple, 3e et 2de.',
+  formSubjectsLabel: 'Matières que vous enseignez',
+  formSubjectsHelp: 'Par exemple, la physique-chimie au collège.',
+  formMessageLabel: 'Ce sur quoi vous aimeriez aider',
+  formMessageHelp:
+    'Comment un jeu s’est passé avec une classe, une idée de jeu qui n’existe pas encore, ou les deux. Une phrase suffit.',
+
+  formSubmit: 'Je me propose',
+  formSubmitting: 'Envoi…',
+  formSuccessTitle: 'Merci — vous êtes sur la liste.',
+  formSuccessBody:
+    'Rien d’autre ne se passe entre-temps : aucun e-mail de confirmation n’est en route, et votre adresse ne sert à rien d’autre qu’à vous répondre.',
+  formGenericError:
+    'Quelque chose s’est mal passé et l’inscription n’a pas été enregistrée. Réessayez dans un instant.',
 
   feedbackHeading: 'Signaler une erreur',
   feedbackBody1:

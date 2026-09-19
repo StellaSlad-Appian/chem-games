@@ -233,6 +233,47 @@ case there, never by loosening the assertion.
 | Canvas geometry: no overlapping atoms, chains continue straight, tray for unplaced atoms | `AtomCanvas/layout.test.ts` | — |
 | Coach panel live region, glossary pop-overs, hint ladder state | `CoachPanel.test.tsx`, `GlossaryTerm.test.tsx`, `useHintLadder.test.ts` | — |
 
+### Teacher collaborator sign-up (`/[lang]/teachers`)
+
+Acceptance criteria: `docs/COLLABORATORS.md`. Four files, and one of them exists for a
+reason worth restating.
+
+| Scenario | Test |
+| --- | --- |
+| Email shapes, length caps in code points, trimming, blank optional fields to `null`, translated messages | `src/lib/validation/collaborator.test.ts` |
+| Honeypot short-circuit, RPC arguments, salted IP hash, `PT400`/`PT429` split, no email-only fallback, the maintainer notification and its escaping | `src/lib/actions/collaborator.test.ts` |
+| Labels, optional markers, success `role="status"`, failure `role="alert"`, per-field `aria-describedby`, in-flight disable, honeypot | `src/components/teachers/CollaboratorForm.test.tsx` |
+| The form mounted in the collaborators section, copy passed as props, in English and German | `src/app/[lang]/(main)/teachers/page.test.tsx` |
+| The privacy entry: what, why, basis, retention, account-free deletion, in two locales | `src/app/[lang]/(main)/privacy/page.test.tsx` |
+| **The server-only catalogue is not imported from any `'use client'` module** | `src/i18n/teachers-boundary.test.ts` |
+| Fields labelled in the browser, honeypot off-screen, a real submit, server-side validation, German | `e2e/teachers.spec.ts` |
+
+The boundary test is the one that looks paranoid and is not. `src/i18n/teachers/` is
+~8 KB of prose per locale, kept out of the shared dictionary precisely so it never
+reaches a browser, and the sign-up form is a client component rendering two dozen of
+those strings. One import inside it would compile, type-check, pass every other test,
+render identically, and silently put the whole page's prose into the route's JS chunk.
+The test scans source for the import rather than the module graph, because the import
+statement is the thing being forbidden.
+
+**What the e2e cannot cover.** `npm run e2e` boots the app with no Supabase
+credentials, so `createClient()` returns `null` and `submitCollaboratorAction` answers
+`collaboratorUnconfigured`: **no row is ever written by the suite**. Everything up to
+the database is exercised for real — the form renders and labels its fields, the server
+action is reachable and runs, the honeypot reaches it, validation happens on the server
+and comes back in the page's language, and the result is announced to assistive
+technology. What remains unproven until the owner runs
+`supabase/migrations/20260919_create_collaborators.sql` against the live project:
+
+- that the RPC exists with the argument names the action sends,
+- that RLS really denies a direct PostgREST insert and select,
+- that the rate limits fire at 3/hour and 10/day,
+- that a second sign-up with the same address updates the row instead of duplicating it,
+- that `PT400`/`PT429` arrive at the action as `error.code` rather than only in the
+  message.
+
+Those are a session in the Supabase SQL editor, not a test this suite can write.
+
 ### Cross-cutting
 
 | Scenario | Test |

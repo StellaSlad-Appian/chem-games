@@ -13,30 +13,35 @@ item; "run axe on /teachers and fix what it finds" is.
 
 ### Teacher collaborator sign-up
 
-**Decided, specced, not started.** Full acceptance criteria in
+**Built, and waiting on one thing only: the migration.** Acceptance criteria in
 [`COLLABORATORS.md`](./COLLABORATORS.md).
 
-A `collaborators` table, a sign-up form on the For Teachers page, and a write path as
-hardened as the feedback one (`SECURITY DEFINER` RPC, RLS with no client policies,
-salted IP hash, `PT400`/`PT429`).
+Shipped on `feature/collaborators`: `public.collaborators`, the `submit_collaborator`
+`SECURITY DEFINER` RPC, the server action, the validator, the form on the For Teachers
+page in all six locales, and the privacy entry that § 0 made a precondition. The
+dedicated table was kept rather than the lighter "teacher feedback type plus an email
+column" option — the form asks seven questions, six of them optional, and hanging that
+off `public.feedback` would have meant six nullable columns on a table about something
+else.
 
-Why it matters: the For Teachers page promises collaborators free access to v1.0 and
-v2.0. Replies currently land in an inbox. An inbox is not a list, and you cannot honour
-a promise to people you cannot enumerate.
-
-Two things to settle first, because they are not the agent's to decide:
-
-- [ ] **The privacy page must describe it before it ships.** An email address next to a
-      school name is the first directly identifying data this site would hold —
-      everything else is pseudonymous by construction, and the children's-data position
-      rests on that. Lawful basis is consent; withdrawal has to actually work; deletion
-      has to work *without* an account, because a collaborator will not have one.
-- [ ] **Confirm the dedicated table is still what you want.** It is the most work of the
-      four options considered. The lighter one — a `teacher` feedback type plus one
-      optional email column, reusing the existing rate limiting and honeypot — gets you
-      a queryable list for a fraction of the effort and one extra sentence in the
-      privacy policy instead of a new section. Graduating to a real table later is easy;
-      it is only worth building now if you expect to manage dozens of collaborators.
+- [ ] **Run `supabase/migrations/20260919_create_collaborators.sql`** against the live
+      project, from the Supabase SQL editor. Nothing in the feature works until this is
+      done; the server action answers "not configured" and the form says so. The file
+      is idempotent, so a re-run is safe.
+- [ ] **Then check the five things no test here can check**, listed in
+      [`TESTING.md`](./TESTING.md) § Teacher collaborator sign-up: the RPC's argument
+      names, that RLS denies a direct PostgREST insert *and* select, that the rate
+      limits fire, that a second sign-up with the same address updates one row, and
+      that `PT400` / `PT429` reach the action as `error.code`.
+- [ ] **Try the deletion route once, end to end**, from an address with no account.
+      `COLLABORATORS.md` § 7 asks for it and it is the one promise on the form that is
+      served entirely by hand.
+- [ ] **Set `FEEDBACK_HASH_SALT` in production** if it is not set already. Both public
+      write paths now share it (`src/lib/utils/client-hash.ts`), so an unset salt is
+      two rate limiters degraded rather than one.
+- [ ] **Have a native speaker read the new copy** in de / fr / es / it / ru — the form
+      labels and the privacy section. The register is formal in all five, matching the
+      rest of the For Teachers page rather than the rest of the site.
 
 ### Chemical Bonds
 

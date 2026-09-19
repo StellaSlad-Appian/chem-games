@@ -126,14 +126,17 @@ policy it replaced let anyone with the anon key insert anything.
 
 ## 5. Internationalisation
 
-- [ ] **MUST** Every new string in `src/i18n/teachers/<locale>.ts`, all five locales,
-      passing the parity gates in `src/i18n/teachers.test.ts`.
+- [ ] **MUST** Every new string in `src/i18n/teachers/<locale>.ts`, **every locale in
+      `LOCALES`** — do not trust a count written here, read `src/i18n/config.ts`, which
+      has gained a locale twice while this page was being built. All of them pass the
+      parity gates in `src/i18n/teachers.test.ts`.
 - [ ] **MUST** Server-action error strings go wherever the feedback ones live
       (`errors.feedback*` in the shared dictionary), because a server action has no
       access to the page catalogue.
-- [ ] **MUST** Formal address in the four translated locales, matching the rest of the
-      page — `Sie` / `vous` / `usted` / `Lei`. The reasoning is at the top of each
-      catalogue file.
+- [ ] **MUST** Formal address in every translated locale, matching the rest of the page
+      — `Sie` / `vous` / `usted` / `Lei` and the Russian equivalent. The reasoning is at
+      the top of each catalogue file; follow what that file already does rather than
+      deciding afresh.
 - [ ] **MUST** `npm run i18n:review`, regenerated file committed.
 - [ ] **SHOULD** Label the year-levels field in each locale's own school system, as the
       rest of the page does. Never *Oberstufe* / *lycée* / *bachillerato* / *liceo*.

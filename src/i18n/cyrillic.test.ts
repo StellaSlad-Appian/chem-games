@@ -101,6 +101,13 @@ const LATIN_BY_DESIGN: RegExp[] = [
   /^privacy\.(intro|whoWeAreBody|collectAccountBody|cookiesBody1|childrenBody1)$/,
   /^privacy\.processor(Supabase|Resend|Google)(Label|Body)$/,
 
+  // --- An example email address -------------------------------------------
+  // `collaboratorEmailInvalid` shows the reader what an address looks like,
+  // and an email address is written in Latin in Russian exactly as it is in
+  // English — there is no Cyrillic form of one to write instead. The rest of
+  // the string is Russian; only the example is not.
+  /^serverMessages\.collaboratorEmailInvalid$/,
+
   // --- A file format and a transport protocol -----------------------------
   // Russian writes both in Latin: «файл JSON», «по HTTPS».
   /^profile\.exportBody$/,

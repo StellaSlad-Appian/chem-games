@@ -1,11 +1,10 @@
 // src/lib/actions/feedback.ts
 'use server';
 
-import { createHash } from 'node:crypto';
-import { headers } from 'next/headers';
 import { Resend } from 'resend';
 import { createClient } from '@/lib/supabase/server';
 import { escapeHtml } from '@/lib/utils/escape-html';
+import { getClientHash } from '@/lib/utils/client-hash';
 import { getRequestDictionary } from '@/i18n/server';
 import {
   isHoneypotFilled,
@@ -51,42 +50,6 @@ const CLIENT_MESSAGES = {
 
 type StoreOutcome = 'stored' | 'unconfigured' | 'rate_limited' | 'failed';
 type EmailOutcome = 'sent' | 'unconfigured' | 'failed';
-
-let warnedAboutFallbackSalt = false;
-
-function getHashSalt(): string {
-  const configured = process.env.FEEDBACK_HASH_SALT;
-  if (configured) return configured;
-
-  if (!warnedAboutFallbackSalt) {
-    warnedAboutFallbackSalt = true;
-    console.warn(
-      '[ChemGames] FEEDBACK_HASH_SALT is not set; deriving a fallback salt from NEXT_PUBLIC_SUPABASE_URL. Set FEEDBACK_HASH_SALT in production.'
-    );
-  }
-  return `chem-games-feedback-fallback:${process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''}`;
-}
-
-async function getClientIp(): Promise<string> {
-  try {
-    const requestHeaders = await headers();
-    const forwardedFor = requestHeaders.get('x-forwarded-for')?.split(',')[0]?.trim();
-    if (forwardedFor) return forwardedFor;
-
-    const realIp = requestHeaders.get('x-real-ip')?.trim();
-    if (realIp) return realIp;
-  } catch (err) {
-    console.error('[ChemGames] Could not read request headers for feedback rate limiting:', err);
-  }
-  return 'unknown';
-}
-
-// The raw IP is never stored: only a salted SHA-256 of it, which is enough to
-// group submissions from one client for rate limiting.
-async function getClientHash(): Promise<string> {
-  const ip = await getClientIp();
-  return createHash('sha256').update(`${getHashSalt()}:${ip}`).digest('hex');
-}
 
 async function storeFeedback(
   feedback: ValidatedFeedback,
@@ -227,7 +190,7 @@ export async function submitFeedbackAction(
     }
     const feedback = validation.value;
 
-    const clientHash = await getClientHash();
+    const clientHash = await getClientHash('feedback rate limiting');
     const { outcome: stored, userId } = await storeFeedback(feedback, clientHash);
 
     if (stored === 'rate_limited') {

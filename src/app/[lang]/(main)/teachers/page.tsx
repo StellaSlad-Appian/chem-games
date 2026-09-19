@@ -19,8 +19,11 @@
 //   - the cheat-sheet titles, which come from `getCheatSheets(locale)` — the
 //     same localized data the cheat-sheet index renders, so a sheet added or
 //     retitled shows up here with no edit;
-//   - the feedback category name, which comes from `feedback.categoryFeature`,
-//     so the instruction always names the button a reader can actually see.
+//   - the copy for the collaborator sign-up form, which *is* in the catalogue
+//     but is handed to `<CollaboratorForm>` as props. The form is a client
+//     component and the catalogue is server-only: importing it there would put
+//     this whole page's prose into the client bundle. See docs/COLLABORATORS.md
+//     § 4 and the comment at the top of CollaboratorForm.tsx.
 //
 // The support section renders only when NEXT_PUBLIC_SUPPORT_URL is set, so the
 // page could ship before the payment account existed. No payment form, widget
@@ -44,6 +47,7 @@ import {
   Users,
 } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
+import { CollaboratorForm } from '@/components/teachers/CollaboratorForm';
 import { getCheatSheets } from '@/i18n/cheat-sheets';
 import { DEFAULT_LOCALE, isLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -51,6 +55,15 @@ import { teachersCopy } from '@/i18n/teachers';
 import { format } from '@/i18n/format';
 
 const PRIVACY_PATH = '/privacy';
+
+/**
+ * Where a collaborator writes to have their details deleted. The same address
+ * the privacy page gives, deliberately: a person should not have to work out
+ * which of two addresses their request belongs to. docs/COLLABORATORS.md § 0
+ * requires the route to be stated on the form itself, not only in the policy,
+ * which is why it is passed into the form rather than only linked from it.
+ */
+const CONTACT_EMAIL = 'stella.slad@gmail.com';
 
 export async function generateMetadata(
   props: PageProps<'/[lang]/teachers'>
@@ -245,9 +258,43 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             <p>{p.collaborateCommitment}</p>
             <p className="font-bold text-(--foreground)">{p.collaborateThanks}</p>
             <p>{p.collaborateFreeNow}</p>
-            <p>{format(p.collaborateHow, { category: t.feedback.categoryFeature })}</p>
+            <p>{p.collaborateHow}</p>
             <p>{p.collaborateReply}</p>
             <p>{p.collaborateRecords}</p>
+
+            {/*
+              The form's strings are read here, in the Server Component, and
+              handed down. `CollaboratorForm` never imports the catalogue:
+              doing so would put this page's whole prose into the client
+              bundle. See docs/COLLABORATORS.md § 4 and
+              src/i18n/teachers-boundary.test.ts.
+            */}
+            <CollaboratorForm
+              contactEmail={CONTACT_EMAIL}
+              copy={{
+                heading: p.formHeading,
+                intro: p.formIntro,
+                use: p.formUse,
+                deletion: p.formDelete,
+                optional: p.formOptional,
+                emailLabel: p.formEmailLabel,
+                emailHelp: p.formEmailHelp,
+                nameLabel: p.formNameLabel,
+                schoolLabel: p.formSchoolLabel,
+                countryLabel: p.formCountryLabel,
+                yearLevelsLabel: p.formYearLevelsLabel,
+                yearLevelsHelp: p.formYearLevelsHelp,
+                subjectsLabel: p.formSubjectsLabel,
+                subjectsHelp: p.formSubjectsHelp,
+                messageLabel: p.formMessageLabel,
+                messageHelp: p.formMessageHelp,
+                submit: p.formSubmit,
+                submitting: p.formSubmitting,
+                successTitle: p.formSuccessTitle,
+                successBody: p.formSuccessBody,
+                genericError: p.formGenericError,
+              }}
+            />
           </Section>
 
           <Section icon={MessageSquarePlus} title={p.feedbackHeading}>

@@ -354,6 +354,22 @@ export const es = {
     feedbackStoreFailed: 'No se han podido guardar tus comentarios. Inténtalo más tarde.',
     feedbackEmailFailed: 'No se han podido enviar tus comentarios. Inténtalo más tarde.',
     feedbackUnexpected: 'Se ha producido un error inesperado al procesar los comentarios.',
+
+    // Teacher collaborator sign-up. Formal address, unlike the rest of this
+    // namespace: these appear only on the For Teachers page, which is written
+    // for an adult. See the note on the English keys and the header of
+    // src/i18n/teachers/<locale>.ts.
+    collaboratorEmailRequired:
+      'Indique una dirección de correo electrónico, para que haya adónde responderle.',
+    collaboratorEmailInvalid:
+      'Eso no parece una dirección de correo electrónico. Necesita una @ y un dominio detrás; por ejemplo, name@school.edu.au.',
+    collaboratorTooLong:
+      'Eso supera lo que admite este campo (máximo {max} caracteres). Acórtelo, por favor.',
+    collaboratorRateLimited: 'Demasiadas altas desde esta conexión. Inténtelo más tarde.',
+    collaboratorUnconfigured:
+      'La lista de docentes colaboradores no está configurada en este entorno, así que no se ha guardado nada.',
+    collaboratorStoreFailed: 'No se ha podido guardar su alta ahora mismo. Inténtelo más tarde.',
+    collaboratorUnexpected: 'Se ha producido un error al guardar su alta.',
   },
 
   privacy: {
@@ -378,6 +394,22 @@ export const es = {
     collectFeedbackLabel: 'Comentarios.',
     collectFeedbackBody:
       'Cuando usas el botón de comentarios guardamos la categoría, tu mensaje y la página en la que estabas. También guardamos el identificador de tu cuenta si has iniciado sesión, y un identificador cifrado e irreversible que solo sirve para limitar los abusos.',
+    collectCollaboratorLabel: 'Docentes colaboradores.',
+    collectCollaboratorBody:
+      'Si es usted docente y se ofrece como colaborador en la página «Para el profesorado», guardamos la dirección de correo electrónico que nos dé y todo lo demás que quiera añadir: su nombre, su centro, su país, los cursos y las materias que imparte y un mensaje. Solo la dirección es obligatoria. También guardamos el idioma en el que se dio de alta, el identificador de su cuenta si había iniciado sesión y el mismo identificador cifrado e irreversible que usamos para limitar los abusos.',
+
+
+    collaboratorsHeading: 'La lista de docentes colaboradores',
+    collaboratorsWhy:
+      'Es lo único de este sitio que identifica a una persona de forma directa y no mediante un alias generado, así que tiene su propia sección. Hay docentes que se ofrecen a ayudar a dar forma a los juegos, y lo prometido solo puede cumplirse si existe una dirección a la que escribirles.',
+    collaboratorsBasis:
+      'La base jurídica es su consentimiento, que da al rellenar ese formulario. Es libre: a quien no se da de alta no se le niega nada aquí, y todo sigue siendo gratuito en cualquier caso. Puede retirarlo cuando quiera, y retirarlo no le cuesta nada.',
+    collaboratorsUse:
+      'La dirección se usa para escribirle sobre los juegos y para darle el acceso prometido. Nunca se vende, nunca se cede a nadie y nunca se añade a una lista de correo, y jamás se le envía un correo automático.',
+    collaboratorsRetention:
+      'Conservamos el registro hasta que pida que se elimine, o hasta que la colaboración haya terminado claramente, lo que ocurra antes. La lista no se publica en ningún sitio y ninguna página de este sitio la muestra. Borrar una cuenta no lo elimina, porque el registro no pertenece a ninguna cuenta; pídalo más abajo.',
+    collaboratorsDelete:
+      'No necesita una cuenta para que se elimine, y la mayoría de los colaboradores no la tiene. Escriba a {email} diciendo que quiere salir de la lista y el registro se borra. No hace falta que dé ningún motivo.',
 
     publicHeading: 'Qué es público',
     publicBody1:
@@ -398,7 +430,7 @@ export const es = {
     processorSupabaseLabel: 'Supabase',
     processorSupabaseBody: 'aloja la base de datos y gestiona el inicio de sesión.',
     processorResendLabel: 'Resend',
-    processorResendBody: 'nos entrega los correos de comentarios.',
+    processorResendBody: 'nos entrega por correo los comentarios y las altas de docentes colaboradores.',
     processorGoogleLabel: 'Google',
     processorGoogleBody: 'solo si usas el acceso con Google.',
     processorHosting: 'El proveedor de alojamiento que sirve el sitio.',

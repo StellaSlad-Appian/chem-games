@@ -99,11 +99,44 @@ export const de = {
   collaborateFreeNow:
     'Damit klar ist, was das wert ist: Zurzeit ist alles auf der Seite kostenlos und bleibt es die ganze Beta über. Das Angebot betrifft die kostenpflichtigen Versionen danach, nicht etwas, wofür Sie heute zahlen würden.',
   collaborateHow:
-    'Wenn Sie mitmachen möchten, nutzen Sie die Feedback-Schaltfläche unten rechts auf jeder Seite, wählen Sie die Kategorie „{category}“ und schreiben Sie, dass Sie unterrichten und helfen möchten. Das ist der ganze Vorgang – es gibt kein zweites Formular, und es wird nichts erhoben, was die Feedback-Schaltfläche nicht ohnehin erhebt.',
+    'Wenn Sie mitmachen möchten, füllen Sie das Formular unten aus. Die E-Mail-Adresse ist das Einzige, was ich wirklich brauche; alles andere steht dort, damit ich etwas über Ihre Klasse weiß, bevor ich zurückschreibe — und Sie dürfen jedes einzelne Feld davon auslassen.',
   collaborateReply:
-    'Ich lese alles und antworte auch, aber hier arbeitet ein einzelner Mensch neben einem Beruf: Rechnen Sie mit ein paar Wochen statt mit ein paar Tagen, und lesen Sie Schweigen bitte nicht als Absage.',
+    'Ich lese alles und ich antworte auch, aber hier arbeitet eine Person neben einem Beruf: Rechnen Sie mit ein paar Wochen statt mit ein paar Tagen, und lesen Sie Schweigen bitte nicht als Nein.',
   collaborateRecords:
-    'Ein praktischer Vorbehalt, lieber jetzt gesagt als später entdeckt: Feedback landet in einem Postfach, nicht in einer Liste von Mitgestaltenden. Ich melde mich zurück und frage nach einer Adresse, die ich aufbewahren darf – ohne einen dauerhaften Ort dafür könnte ich das Versprechen zu 1.0 und 2.0 nicht einlösen.',
+    'Warum ein Formular und nicht der Feedback-Knopf, auf den hier vorher verwiesen wurde: Feedback landet in einem Postfach, und ein Postfach ist keine Liste. Ohne einen dauerhaften Ort für eine Adresse wäre das Versprechen auf 1.0 und 2.0 keines, das ich halten könnte. Genau deshalb wird hier nach einer E-Mail-Adresse gefragt.',
+
+  // Das Anmeldeformular. Die Seite reicht diese Strings als Props an
+  // `CollaboratorForm` weiter; die Komponente importiert diesen Katalog nie —
+  // siehe docs/COLLABORATORS.md § 4.
+  formHeading: 'Als mitwirkende Lehrkraft eintragen',
+  formIntro:
+    'Erforderlich ist hier nur die E-Mail-Adresse. Den Rest dürfen Sie leer lassen — jedes weitere Feld hilft mir, und keines davon ist eine Bedingung für irgendetwas.',
+  formUse:
+    'Ihre Adresse dient dazu, Sie zu den Spielen zu kontaktieren und Ihnen den Zugang zu Version 1.0 und Version 2.0 zu geben. Sonst nichts, und sie wird nie an jemanden weitergegeben. Eine Bestätigungsmail geht auch nicht an Sie: Das Nächste, was Sie von mir hören, ist eine von Hand geschriebene Antwort.',
+  formDelete:
+    'Sie können Ihre Angaben jederzeit löschen lassen, und dafür brauchen Sie weder ein Konto noch ein Formular: Schreiben Sie an {email}, dass Sie von der Liste möchten, und der Eintrag wird entfernt.',
+  formOptional: 'optional',
+
+  formEmailLabel: 'E-Mail-Adresse',
+  formEmailHelp: 'Die Adresse, an die ich Ihnen lieber schreiben soll.',
+  formNameLabel: 'Ihr Name',
+  formSchoolLabel: 'Schule',
+  formCountryLabel: 'Land',
+  formYearLevelsLabel: 'Klassenstufen, die Sie unterrichten',
+  formYearLevelsHelp: 'So, wie Ihre Schule sie nennt — zum Beispiel Klasse 9 und Klasse 10.',
+  formSubjectsLabel: 'Fächer, die Sie unterrichten',
+  formSubjectsHelp: 'Zum Beispiel Chemie und Naturwissenschaften in der Mittelstufe.',
+  formMessageLabel: 'Wobei Sie helfen möchten',
+  formMessageHelp:
+    'Wie ein Spiel in einer Klasse gelaufen ist, eine Idee für eines, das es noch nicht gibt, oder beides. Ein Satz genügt.',
+
+  formSubmit: 'Ich mache mit',
+  formSubmitting: 'Wird gesendet …',
+  formSuccessTitle: 'Danke — Sie stehen auf der Liste.',
+  formSuccessBody:
+    'In der Zwischenzeit passiert nichts weiter: Es ist keine Bestätigungsmail unterwegs, und Ihre Adresse wird für nichts anderes verwendet, als Ihnen zu antworten.',
+  formGenericError:
+    'Etwas ist schiefgegangen und die Anmeldung wurde nicht gespeichert. Bitte versuchen Sie es gleich noch einmal.',
 
   feedbackHeading: 'Wenn etwas falsch ist',
   feedbackBody1:

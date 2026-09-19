@@ -94,11 +94,44 @@ export const it = {
   collaborateFreeNow:
     'Perché sia chiaro quanto vale: in questo momento tutto il sito è gratuito e resterà tale per tutta la beta. L’offerta riguarda le versioni a pagamento che verranno dopo, non qualcosa che oggi si starebbe pagando.',
   collaborateHow:
-    'Per farsi avanti, usi il pulsante delle segnalazioni in basso a destra in qualsiasi pagina, scelga la categoria «{category}» e scriva che insegna e che vorrebbe dare una mano. La procedura è tutta qui: non c’è un secondo modulo e non viene raccolto nulla oltre a ciò che quel pulsante raccoglie già.',
+    'Per proporsi, compili il modulo qui sotto. L’indirizzo e-mail è l’unica cosa di cui ho davvero bisogno; il resto serve a farmi sapere qualcosa della sua classe prima di risponderle, e può saltarlo tutto.',
   collaborateReply:
-    'Leggo tutto e rispondo, ma qui lavora una persona sola e lo fa accanto a un impiego: metta in conto un paio di settimane invece di un paio di giorni, e non legga il silenzio come un no.',
+    'Leggo tutto e rispondo, ma qui lavora una persona sola e lo fa accanto a un altro lavoro: metta in conto un paio di settimane invece di un paio di giorni e, per favore, non legga il silenzio come un no.',
   collaborateRecords:
-    'Un avvertimento pratico, meglio detto adesso che scoperto dopo: le segnalazioni arrivano in una casella di posta, non in un elenco di collaboratori. Le risponderò chiedendole un indirizzo da conservare, perché senza un posto stabile in cui tenerlo non potrei mantenere la promessa sulla 1.0 e sulla 2.0.',
+    'Perché un modulo e non il pulsante delle segnalazioni, a cui questa pagina rimandava prima: le segnalazioni arrivano in una casella di posta, e una casella di posta non è un elenco. Senza un posto stabile in cui tenere un indirizzo, la promessa delle versioni 1.0 e 2.0 non sarebbe mantenibile. È tutta qui la ragione per cui qui si chiede un indirizzo.',
+
+  // Il modulo di iscrizione. La pagina ne passa le stringhe come props a
+  // `CollaboratorForm`; il componente non importa mai questo catalogo — si
+  // veda docs/COLLABORATORS.md § 4.
+  formHeading: 'Iscriversi fra chi collabora',
+  formIntro:
+    'Qui non è obbligatorio nulla tranne l’indirizzo e-mail. Lasci pure in bianco il resto: gli altri campi servono a me e nessuno di essi è una condizione.',
+  formUse:
+    'Il suo indirizzo serve a contattarla a proposito dei giochi e a darle l’accesso alla versione 1.0 e alla versione 2.0. Nient’altro, e non viene mai passato a nessuno. Non le viene inviata nemmeno una e-mail di conferma: la prossima cosa che riceverà da me sarà una risposta scritta a mano.',
+  formDelete:
+    'Può far cancellare i suoi dati quando vuole, e per farlo non le servono né un account né un modulo: scriva a {email} che desidera uscire dall’elenco e la voce viene rimossa.',
+  formOptional: 'facoltativo',
+
+  formEmailLabel: 'Indirizzo e-mail',
+  formEmailHelp: 'L’indirizzo a cui preferisce che le scriva.',
+  formNameLabel: 'Il suo nome',
+  formSchoolLabel: 'Scuola',
+  formCountryLabel: 'Paese',
+  formYearLevelsLabel: 'Anni di corso in cui insegna',
+  formYearLevelsHelp: 'Come li chiama la sua scuola — per esempio terza media e primo superiore.',
+  formSubjectsLabel: 'Materie che insegna',
+  formSubjectsHelp: 'Per esempio scienze e chimica.',
+  formMessageLabel: 'In che cosa vorrebbe dare una mano',
+  formMessageHelp:
+    'Com’è andato un gioco con una classe, un’idea per uno che ancora non c’è, o entrambe le cose. Basta una frase.',
+
+  formSubmit: 'Mi propongo',
+  formSubmitting: 'Invio in corso…',
+  formSuccessTitle: 'Grazie — è nell’elenco.',
+  formSuccessBody:
+    'Nel frattempo non succede altro: non c’è nessuna e-mail di conferma in arrivo e il suo indirizzo non serve a niente se non a risponderle.',
+  formGenericError:
+    'Qualcosa è andato storto e l’iscrizione non è stata salvata. Riprovi fra un momento.',
 
   feedbackHeading: 'Segnalare un errore',
   feedbackBody1:

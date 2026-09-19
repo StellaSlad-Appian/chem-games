@@ -82,17 +82,27 @@ The offer is a promise to real people, so the copy has to be specific enough to 
       version", which is unbounded and would be read differently by every reader.
 - [ ] **MUST** Make clear that everything on the site is free during beta, so the offer
       concerns future paid versions, not present access.
-- [ ] **MUST** Say how a teacher gets in touch. The cheapest correct route is the
-      existing `FeedbackWidget` — no new server action, no new table, and the rate
-      limiting and honeypot are already in place. A dedicated "Teacher" category would
-      mean extending `FeedbackType` in `src/lib/validation/feedback.ts` plus its error
-      strings in five locales; do that only if the inbox needs them separable.
-- [ ] **MUST NOT** collect anything beyond what the feedback flow already stores, and
-      must not imply a binding contract on either side.
+- [ ] **MUST** Say how a teacher gets in touch. ~~The cheapest correct route is the
+      existing `FeedbackWidget`~~ — **superseded.** It is a sign-up form now, backed by
+      `public.collaborators`; the acceptance criteria for it are their own document,
+      `docs/COLLABORATORS.md`, and that is where changes to it belong.
+
+      *Why it changed, since the reasoning above was not wrong when it was written: the
+      feedback route really was the cheapest thing that satisfied "say how a teacher
+      gets in touch", and it did not satisfy the SHOULD two bullets down. Feedback lands
+      in an inbox. The 1.0 / 2.0 promise needs a list you can query, and the page was
+      reduced to admitting as much in `collaborateRecords` — an acceptance criterion met
+      by a paragraph apologising for not meeting the next one.*
+- [ ] **MUST NOT** ~~collect anything beyond what the feedback flow already stores~~, and
+      must not imply a binding contract on either side. **Superseded in its first half**
+      by `docs/COLLABORATORS.md` § 0, which is the more careful version of the same
+      instinct: the form collects an email address, which is the first directly
+      identifying data this site holds, and § 0 sets out what has to be true before it
+      may. The second half stands unchanged.
 - [ ] **SHOULD** Set a loose expectation on reply time, so silence is not read as
       rejection.
-- [ ] **SHOULD** Note that collaborator contact details need to live somewhere durable
-      and queryable, or the v1.0 / v2.0 promise cannot actually be honoured later.
+- [ ] **SHOULD** ~~Note that collaborator contact details need to live somewhere durable
+      and queryable~~ — **done**, rather than noted. See `docs/COLLABORATORS.md`.
 
 ## 4. The support ask
 
@@ -138,6 +148,10 @@ The offer is a promise to real people, so the copy has to be specific enough to 
 - [ ] **MUST** Use `{name}` interpolation and nothing else; `${}` and `%s` are rejected by
       test.
 - [ ] **MUST** Run `npm run i18n:review` and commit the regenerated review file.
+- [ ] **MUST** Keep the catalogue out of every `'use client'` module. The sign-up form
+      is a client component and takes its strings as props from this page;
+      `src/i18n/teachers-boundary.test.ts` fails the build if anything imports the
+      catalogue across that line.
 - [ ] **SHOULD** Render the year band in each locale's own school system rather than
       literally. The review notes are emphatic: Year 9–10 is 3e/2de, 3º/4º de ESO, terza
       media/primo superiore — and **not** Oberstufe, lycée, bachillerato or liceo, all of
@@ -175,7 +189,9 @@ The offer is a promise to real people, so the copy has to be specific enough to 
       the dictionary.
 - [ ] **MUST** `e2e/teachers.spec.ts`: reachable from the footer link; the beta notice
       visible without scrolling at desktop width; the feedback button present; no console
-      errors.
+      errors. The sign-up form's own browser coverage lives in the same file and is
+      specified by `docs/COLLABORATORS.md` § 6; what it can and cannot prove without
+      Supabase credentials is written down in `docs/TESTING.md`.
 - [ ] **SHOULD** Extend `e2e/i18n.spec.ts` to cover `/de/teachers`, asserting
       `<html lang="de">` and translated copy.
 - [ ] **MUST** `npm run check` green. Lint `src e2e`, not the repository root.

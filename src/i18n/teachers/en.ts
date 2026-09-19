@@ -98,11 +98,46 @@ export const en = {
   collaborateFreeNow:
     'To be clear about what that is worth: everything on the site is free right now and stays free for the whole beta. The offer is about the paid versions that come after it, not about anything you would be paying for today.',
   collaborateHow:
-    'To put your hand up, use the feedback button in the bottom-right corner of any page, choose the “{category}” category, and say that you teach and would like to help. That is the whole process — there is no second form, and nothing is collected beyond what the feedback button already collects.',
+    'To put your hand up, fill in the form below. The email address is the only thing I actually need; everything else is there so that I know something about your class before I write back, and you can skip all of it.',
   collaborateReply:
     'I read everything and I do reply, but this is one person working around a job: assume a couple of weeks rather than a couple of days, and please do not read silence as a no.',
   collaborateRecords:
-    'One practical caveat, better said now than discovered later: feedback arrives in an inbox, not in a list of collaborators. I will write back and ask for an address to keep on file, because without somewhere durable to keep it, the 1.0 and 2.0 offer is not one I could honour.',
+    'Why a form rather than the feedback button, which is where this used to point: feedback arrives in an inbox, and an inbox is not a list. Without somewhere durable to keep an address, the 1.0 and 2.0 offer is not one I could honour. That is the entire reason this asks for an email address.',
+
+  // The sign-up form. Passed into `CollaboratorForm` as props by the page,
+  // never imported by the component itself — see the note at the top of
+  // src/i18n/teachers.ts and docs/TEACHERS_PAGE.md § 5. The form is a client
+  // component, and importing this catalogue from it would put all of the prose
+  // above into the JavaScript bundle of a page that renders it on the server.
+  formHeading: 'Sign up as a collaborator',
+  formIntro:
+    'Nothing here is required except the email address. Leave the rest blank if you would rather — every other field is there to help me, and none of them is a condition of anything.',
+  formUse:
+    'Your address is used to contact you about the games and to give you version 1.0 and version 2.0 access. Nothing else, and it is never passed to anyone. No confirmation email is sent either, so the next thing you hear from me will be a reply written by hand.',
+  formDelete:
+    'You can have your details deleted at any time, and you do not need an account or a form to do it: email {email}, say you would like to be taken off the list, and the record is removed.',
+  formOptional: 'optional',
+
+  formEmailLabel: 'Email address',
+  formEmailHelp: 'Whichever address you would rather I wrote to.',
+  formNameLabel: 'Your name',
+  formSchoolLabel: 'School',
+  formCountryLabel: 'Country',
+  formYearLevelsLabel: 'Year levels you teach',
+  formYearLevelsHelp: 'In whatever your school calls them — for example, Year 9 and Year 10.',
+  formSubjectsLabel: 'Subjects you teach',
+  formSubjectsHelp: 'For example, Chemistry and junior General Science.',
+  formMessageLabel: 'What you would like to help with',
+  formMessageHelp:
+    'How a game went with a class, an idea for one that does not exist yet, or both. A sentence is plenty.',
+
+  formSubmit: 'Put my hand up',
+  formSubmitting: 'Sending…',
+  formSuccessTitle: 'Thank you — you are on the list.',
+  formSuccessBody:
+    'Nothing else happens in the meantime: no confirmation email is on its way, and your address is not used for anything but writing back to you.',
+  formGenericError:
+    'Something went wrong and the sign-up was not saved. Please try again in a moment.',
 
   feedbackHeading: 'Telling me something is wrong',
   feedbackBody1:
