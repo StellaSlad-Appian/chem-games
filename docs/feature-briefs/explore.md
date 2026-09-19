@@ -72,6 +72,22 @@ format with (`en` → `en-GB`, `es` → `es-ES`); `<html lang>` and the URL pref
 are untouched. **Any future feature that formats a date or a number needs this
 map, not the raw locale.**
 
+**The reflow check that everything passed was measuring the wrong thing.**
+AC-2 and `nav-profile-to-settings.md` both ask for `scrollWidth <= innerWidth`,
+and every locale passed it at every width, on this branch, throughout. It was
+not true that the header fitted. The header row is a flex container whose
+`<nav>` can shrink, so an over-full row does not scroll — **it compresses**, and
+`scrollWidth` never notices. Forcing `width: max-content` on the row, which stops
+anything shrinking, showed the German header needing **1033px in a 1024px
+viewport**: over-full at the exact breakpoint where the horizontal nav appears.
+French and Spanish had 11px and 12px of real headroom against a target of 20.
+
+That is the same mistake as the wrong comment in `NavBar.tsx`, one level deeper.
+That comment was arithmetic mistaken for a measurement; this was a measurement
+of a quantity that cannot show the failure. **Any future check on this header
+must force `max-content` first**; `e2e/nav.spec.ts` now does, prints the table,
+and its failure message says why `scrollWidth` must not be trusted here.
+
 **And one the English could not see.** The Italian "why it mattered" heading was
 `Perché è stato importante` — a past participle that agrees with its subject, so
 on the ten cards featuring a woman it read as *why **he** was important*. Now
