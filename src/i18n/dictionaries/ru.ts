@@ -72,6 +72,7 @@ export const ru = {
       'Что такое ChemGames, на каких шести языках он выходит, как он обращается с данными учеников, на каком уровне доступность и как учителя могут помочь развивать его во время беты.',
     cheatSheetTitle: 'Шпаргалка: {title} | ChemGames',
     cheatSheetNotFound: 'Тема не найдена — ChemGames',
+    exploreEntryNotFound: 'Материал не найден — ChemGames',
   },
 
   common: {
@@ -588,6 +589,29 @@ export const ru = {
      */
     untranslatedNotice:
       'Вещество и химик ниже пока не переведены — их текст на английском. Остальная часть страницы переведена.',
+
+    /*
+     * Архив. Every date below sits after a dash, for the same reason
+     * `dateline` does: Intl hands back a nominative-shaped date and «неделя
+     * 14 сентября» would need the genitive.
+     *
+     * The three `featured*` strings also avoid any past participle. A
+     * permalink describes either вещество (neuter) or химик (masculine), and
+     * «показано / показан» would have to agree with whichever page it is on —
+     * the same class of bug as the Italian `legacyHeading` that read «why *he*
+     * was important» on every woman's card. «Показов ещё не было» and «Неделя
+     * показа» are impersonal and fit both.
+     */
+    recentHeading: 'Прошлые недели',
+    archiveCta: 'Посмотреть все материалы',
+    archiveHeading: 'Архив раздела «Открывай»',
+    archiveIntro: 'Все вещества и химики из ротации, в порядке их появления.',
+    archiveThisWeek: 'Эта неделя',
+    backToExplore: 'Назад к разделу «Открывай»',
+    sameWeekHeading: 'Из той же недели',
+    featuredOnce: 'Неделя показа — {date}.',
+    featuredAgain: 'Последняя неделя показа — {date}. Следующая — {nextDate}.',
+    featuredNever: 'Показов ещё не было. Первая неделя — {date}.',
   },
 
   cheatSheets: {

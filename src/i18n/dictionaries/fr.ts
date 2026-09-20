@@ -62,6 +62,7 @@ export const fr = {
       'Ce qu’est ChemGames, les six langues dans lesquelles il existe, la façon dont il traite les données des élèves, où en est l’accessibilité et comment les enseignants peuvent contribuer pendant la bêta.',
     cheatSheetTitle: 'Antisèche {title} | ChemGames',
     cheatSheetNotFound: 'Sujet introuvable – ChemGames',
+    exploreEntryNotFound: 'Fiche introuvable – ChemGames',
   },
 
   common: {
@@ -577,6 +578,23 @@ export const fr = {
     // l'instant le russe seul. Le français ne l'affiche jamais ; voir en.ts.
     untranslatedNotice:
       'La molécule et la chimiste ou le chimiste ci-dessous ne sont pas encore traduits, leur texte est donc en anglais. Le reste de la page, non.',
+
+    // Les archives.
+    recentHeading: 'Semaines précédentes',
+    archiveCta: 'Voir toutes les fiches',
+    archiveHeading: 'Archives d’Explorer',
+    archiveIntro:
+      'Toutes les molécules et toutes les personnes de la chimie, dans l’ordre où elles reviennent.',
+    archiveThisWeek: 'Cette semaine',
+    backToExplore: 'Retour à Explorer',
+    // « De la même semaine » plutôt que « En binôme avec » : le titre précède
+    // un nom, et la formulation reste vraie même quand la paire est déjà
+    // passée cinq fois. Voir le commentaire dans en.ts.
+    sameWeekHeading: 'De la même semaine',
+    featuredOnce: 'À l’affiche la semaine du {date}.',
+    featuredAgain:
+      'Dernière apparition la semaine du {date}. De retour la semaine du {nextDate}.',
+    featuredNever: 'Pas encore à l’affiche. Première apparition la semaine du {date}.',
   },
 
   chemistry: {

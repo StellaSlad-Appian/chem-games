@@ -50,6 +50,7 @@ export const de = {
       'Was ChemGames ist, in welchen sechs Sprachen es erscheint, wie es mit den Daten von Lernenden umgeht, wo die Barrierefreiheit steht und wie Lehrkräfte die Beta mitgestalten können.',
     cheatSheetTitle: 'Spickzettel {title} | ChemGames',
     cheatSheetNotFound: 'Thema nicht gefunden – ChemGames',
+    exploreEntryNotFound: 'Eintrag nicht gefunden – ChemGames',
   },
 
   common: {
@@ -524,6 +525,23 @@ export const de = {
     // Deutsch rendert diesen Satz nie; siehe den Kommentar in en.ts.
     untranslatedNotice:
       'Das Molekül und die Person unten sind noch nicht übersetzt, ihr Text ist also auf Englisch. Der Rest der Seite nicht.',
+
+    // Das Archiv.
+    recentHeading: 'Frühere Wochen',
+    archiveCta: 'Alle Einträge ansehen',
+    archiveHeading: 'Entdecken-Archiv',
+    archiveIntro:
+      'Alle Moleküle und Forschenden der Rotation, in der Reihenfolge ihres Erscheinens.',
+    archiveThisWeek: 'Diese Woche',
+    backToExplore: 'Zurück zu Entdecken',
+    // „Aus derselben Woche“ statt „Gepaart mit“: die Überschrift steht über
+    // einem Namen, und „gepaart mit“ verlangt einen Dativ, in dem der Name
+    // nicht steht. Siehe den Kommentar in en.ts.
+    sameWeekHeading: 'Aus derselben Woche',
+    featuredOnce: 'Vorgestellt in der Woche vom {date}.',
+    featuredAgain:
+      'Zuletzt vorgestellt in der Woche vom {date}. Wieder an der Reihe in der Woche vom {nextDate}.',
+    featuredNever: 'Noch nicht vorgestellt. Erstmals in der Woche vom {date}.',
   },
 
   chemistry: {

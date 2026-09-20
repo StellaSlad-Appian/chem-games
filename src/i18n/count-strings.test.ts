@@ -103,6 +103,11 @@ const TEXT_PLACEHOLDERS = new Set([
   'fixed',
   'broken',
   'date',
+  // The second date in an Explore permalink's "last featured … comes round
+  // again …" sentence. Deliberately not called `next`, which is in the numeric
+  // list above: this is an `Intl`-formatted date, nothing agrees with it, and
+  // naming it `next` would have quietly enrolled the string in COUNT_BEARING.
+  'nextDate',
   'email',
   'link',
   'alias',

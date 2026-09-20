@@ -49,6 +49,13 @@ export const en = {
       'What ChemGames is, the six languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta.',
     cheatSheetTitle: '{title} Cheat Sheet | ChemGames',
     cheatSheetNotFound: 'Topic Not Found - ChemGames',
+    /**
+     * An Explore permalink whose id is not in the pool. `generateStaticParams`
+     * covers every entry, so this is only reachable by typing a URL — but
+     * `generateMetadata` runs before `notFound()` does, and a page that titles
+     * itself after the site while showing a 404 is worse than one that says so.
+     */
+    exploreEntryNotFound: 'Entry Not Found - ChemGames',
   },
 
   common: {
@@ -584,6 +591,42 @@ export const en = {
      */
     untranslatedNotice:
       'The molecule and the chemist below have not been translated yet, so their text is in English. The rest of the page is not.',
+
+    // -----------------------------------------------------------------------
+    // The archive
+    // -----------------------------------------------------------------------
+
+    /** The list of past weeks under the current one. Ten rows at most. */
+    recentHeading: 'Recent weeks',
+    /** From /explore and from a permalink, to the full index. */
+    archiveCta: 'Browse every entry',
+    archiveHeading: 'Explore archive',
+    /** Doubles as the archive page's meta description, like `intro` does. */
+    archiveIntro: 'Every molecule and chemist in the rotation, in the order they come round.',
+    /** Marks the one row in the archive that is the week the reader is in. */
+    archiveThisWeek: 'This week',
+    backToExplore: 'Back to Explore',
+    /**
+     * Above the link to the other half of a pair, on a permalink.
+     *
+     * "From the same week" rather than "Paired with", for two reasons. It is a
+     * heading followed by a name, and *paired with* wants a case the name is
+     * not in — German dative, Russian instrumental. And it stays true however
+     * many times the pair has run, because the pairing is a property of the
+     * schedule and not of any one week.
+     */
+    sameWeekHeading: 'From the same week',
+    /**
+     * What a permalink says about dates. **Three patterns, not one**, because
+     * an entry runs again every twenty weeks and "Week of 21 September" is
+     * false the second time round. `EntryRotation` in lib/explore/archive.ts
+     * has the full reasoning; the short version is that only an entry which has
+     * run exactly once may be dated with a single date.
+     */
+    featuredOnce: 'Featured in the week of {date}.',
+    featuredAgain:
+      'Last featured in the week of {date}. It comes round again in the week of {nextDate}.',
+    featuredNever: 'Not featured yet. First up in the week of {date}.',
   },
 
   chemistry: {

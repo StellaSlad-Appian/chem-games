@@ -72,6 +72,7 @@ export const es = {
       'Qué es ChemGames, en qué seis idiomas existe, cómo trata los datos del alumnado, en qué punto está la accesibilidad y cómo el profesorado puede ayudar a darle forma durante la beta.',
     cheatSheetTitle: 'Chuleta de {title} | ChemGames',
     cheatSheetNotFound: 'Tema no encontrado – ChemGames',
+    exploreEntryNotFound: 'Ficha no encontrada – ChemGames',
   },
 
   common: {
@@ -607,6 +608,21 @@ export const es = {
     // solo el ruso. El español no lo muestra nunca; véase el comentario en en.ts.
     untranslatedNotice:
       'La molécula y la persona de abajo todavía no están traducidas, así que su texto está en inglés. El resto de la página, no.',
+
+    // El archivo.
+    recentHeading: 'Semanas anteriores',
+    archiveCta: 'Ver todas las fichas',
+    archiveHeading: 'Archivo de Explorar',
+    archiveIntro:
+      'Todas las moléculas y todas las personas de la química, en el orden en que van apareciendo.',
+    archiveThisWeek: 'Esta semana',
+    backToExplore: 'Volver a Explorar',
+    // «De la misma semana» y no «Emparejada con»: el encabezado va delante de
+    // un nombre, y el participio tendría que concordar con él. Véase en.ts.
+    sameWeekHeading: 'De la misma semana',
+    featuredOnce: 'Apareció la semana del {date}.',
+    featuredAgain: 'Última aparición la semana del {date}. Vuelve la semana del {nextDate}.',
+    featuredNever: 'Todavía no ha aparecido. Primera aparición la semana del {date}.',
   },
 
   chemistry: {

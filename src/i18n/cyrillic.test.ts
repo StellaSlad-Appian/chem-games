@@ -90,7 +90,7 @@ const LATIN_BY_DESIGN: RegExp[] = [
   // Latin in it any more and the entry was removed rather than left standing.
   // An allowlist entry outliving its reason is a hole, not a comment — the
   // next English string to land on that key would pass unnoticed.
-  /^meta\.(siteName|title|privacyTitle|privacyDescription|teachersTitle|teachersDescription|cheatSheetTitle|cheatSheetNotFound)$/,
+  /^meta\.(siteName|title|privacyTitle|privacyDescription|teachersTitle|teachersDescription|cheatSheetTitle|cheatSheetNotFound|exploreEntryNotFound)$/,
   /^footer\.(tagline|copyright)$/,
   /^feedback\.(heading|sentBody)$/,
   /^profile\.dataIntro$/,

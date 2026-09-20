@@ -78,6 +78,7 @@ export const it = {
       'Che cos’è ChemGames, in quali sei lingue esiste, come tratta i dati di chi studia, a che punto è l’accessibilità e come chi insegna può contribuire durante la beta.',
     cheatSheetTitle: 'Bigino di {title} | ChemGames',
     cheatSheetNotFound: 'Argomento non trovato – ChemGames',
+    exploreEntryNotFound: 'Scheda non trovata – ChemGames',
   },
 
   common: {
@@ -626,6 +627,23 @@ export const it = {
     // solo russo. L'italiano non lo mostra mai; vedi il commento in en.ts.
     untranslatedNotice:
       'La sostanza e la persona qui sotto non sono ancora tradotte, quindi il loro testo è in inglese. Il resto della pagina no.',
+
+    // L’archivio.
+    recentHeading: 'Settimane precedenti',
+    archiveCta: 'Vedi tutte le schede',
+    archiveHeading: 'Archivio di Esplora',
+    archiveIntro:
+      'Tutte le molecole e tutte le persone della chimica, nell’ordine in cui tornano.',
+    archiveThisWeek: 'Questa settimana',
+    backToExplore: 'Torna a Esplora',
+    // «Della stessa settimana» e non «Abbinata a»: il participio concorderebbe
+    // con il nome che segue, che può essere una molecola o una persona. È lo
+    // stesso problema di `legacyHeading` qui sopra; vedi il commento in en.ts.
+    sameWeekHeading: 'Della stessa settimana',
+    featuredOnce: 'In evidenza nella settimana del {date}.',
+    featuredAgain:
+      'Ultima apparizione nella settimana del {date}. Torna nella settimana del {nextDate}.',
+    featuredNever: 'Non ancora in evidenza. Prima apparizione nella settimana del {date}.',
   },
 
   chemistry: {
