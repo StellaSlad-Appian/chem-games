@@ -342,6 +342,14 @@ instructions, a coach message, a hint and the victory overlay for each locale):
 - Every species name on screen matches the overlay and the glossary (check 3).
 - The hub card, header and overlay show the decided title, and it fits (check 4).
 - 375 px width and 200% zoom in the locale with the longest strings (German today).
+- **Open the cheat sheet the game links to, in that locale, and ask two questions: does
+  it cite a curriculum the student actually sits, and do its links point somewhere they
+  can read?** If either answer is no, the fix is to *withhold* that material from the
+  locale, never to translate it — see docs/i18n/README.md § Locale-appropriate content.
+  This exists because it was answered "no" on both counts for months: every sheet cited
+  the Victorian Curriculum in translation, and every outside link went to an
+  English-language site with a translated description. Both are withheld now, and the
+  local replacements are open research.
 
 ---
 

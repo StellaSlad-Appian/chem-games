@@ -64,7 +64,7 @@ export const es = {
   languagesBody2:
     'Todo lo que lee el alumnado está traducido: la interfaz, el acompañamiento y las pistas dentro de los juegos, y las chuletas. Las fórmulas químicas, los símbolos de los elementos y las ecuaciones no se traducen nunca; una ecuación se escribe igual en todos los idiomas.',
   languagesBody3:
-    'Dos cosas no cambian con el idioma: los enlaces externos de las chuletas llevan todos a sitios en inglés, y cada chuleta cita el Victorian Curriculum, un currículo australiano. Conviene saberlo si usted sigue otro currículo.',
+    'En una chuleta en cualquier idioma que no sea el inglés faltan dos cosas. No lleva ningún enlace externo, porque todos los sitios a los que enlazamos están en inglés, y no cita ningún currículo, porque el único que tenemos es el Victorian Curriculum, que es australiano. Poner delante del alumnado material que no puede usar es peor que dejarlo fuera, así que ambas cosas se retienen en vez de traducirse. Los equivalentes locales —una correspondencia curricular por país y enlaces que el alumnado pueda leer— todavía no se han buscado.',
 
   privacyHeading: 'Privacidad del alumnado',
   privacyBody1:

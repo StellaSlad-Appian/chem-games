@@ -67,7 +67,7 @@ export const en = {
   languagesBody2:
     'Everything a student reads is translated — the interface, the coaching and hints inside the games, and the cheat sheets. Chemical formulae, element symbols and equations are never translated, so an equation looks the same in every language.',
   languagesBody3:
-    'Two things do not change with the language: the outside links on the cheat sheets all point at English-language sites, and every sheet cites the Victorian Curriculum, which is Australian. Worth knowing if you teach to a different syllabus.',
+    'Two things are missing from a cheat sheet in any language but English. It carries no outside links, because every site we link to is English-language, and it cites no curriculum, because the one we have is the Victorian Curriculum and that is Australian. Putting material in front of a student that the student cannot use is worse than leaving it out, so both are withheld rather than translated. Local equivalents — a curriculum mapping for each country, and links a student can read — have not been researched yet.',
 
   privacyHeading: 'Student privacy',
   privacyBody1:

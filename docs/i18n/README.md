@@ -849,6 +849,111 @@ the check: if a string stops being identical, the allowlist entry is flagged.
 
 ---
 
+## Locale-appropriate content
+
+### The rule
+
+**Material tied to one country or one language is _withheld_ from other
+locales, not translated.**
+
+The test is one question: *could a student in that locale actually use this?*
+If the answer is no, translating the words around it does not make it usable —
+it makes it look usable, which is worse, because the student now spends their
+time finding out. Two things on this site failed that test, and both were
+translated for months before anybody noticed:
+
+- **Curriculum references.** Every cheat sheet carries a `curriculumRef` citing
+  the Victorian Curriculum or the VCE study design. That is the syllabus of one
+  Australian state. All five non-English overlays were translating it, so the
+  Russian sheet read «Victorian Curriculum Science, уровень 9: …» to a student
+  who will never sit it.
+- **Outside links.** The cheat sheets link to 21 URLs across 13 domains, every
+  one of them an English-language page. Only the *description* was localised,
+  so a Russian student read a Russian sentence recommending a page they cannot
+  read. **A link a student cannot read is worse than no link.**
+
+Both are now withheld in the localisation layer, `src/i18n/cheat-sheets.ts`,
+for every locale but English. English is unchanged and keeps both.
+
+### Withholding has to be explicit
+
+This is the part that is easy to get wrong, and it is worth understanding
+before applying the rule anywhere else.
+
+`localizeSheet()` used to resolve the curriculum line as
+`overlay.curriculumRef ?? sheet.curriculumRef`. So **deleting the translated
+value from an overlay would not have removed the line — it would have restored
+the English Australian one.** The fallback that normally protects you from a
+half-finished translation works against you here, because the English is not a
+safe default for content specific to English-speaking Australia.
+
+The fix therefore goes in the resolver, which sets the field to `undefined`,
+and only then in the data. Any future withholding needs the same two steps in
+the same order.
+
+### It has to look deliberate on the page
+
+Withholding leaves a hole, and a hole has to be shaped like an ending rather
+than like a failure. The cheat-sheet detail page drops the **whole** "Learn
+more" panel when a locale has no resources, not just the two lists inside it:
+two empty lists left a heading standing over nothing, which reads as a page
+that did not finish loading. Open a page in the locale you are withholding
+from, at 360 px and at desktop, and ask whether it reads as finished.
+
+### The open research, which this change deliberately does not do
+
+Both of these are **subject-expert work, not translation**, and neither should
+be guessed at. Guessing produces exactly the failure the rule exists to
+prevent: something that looks usable and is not.
+
+#### 1. A curriculum mapping per country
+
+Each sheet's `curriculumRef` needs a local equivalent, or stays absent. What is
+known so far, from the per-locale summaries in `src/i18n/review-notes.ts`:
+
+| Locale | Target | The difficulty |
+|---|---|---|
+| de | The Länder each set their own | There is no single German curriculum to map onto. This may have to be a per-Land mapping, or nothing. |
+| fr | The national *programme* | A single national syllabus; the cleanest of the five. |
+| es | The Spanish *currículo* | Spain's autonomous communities vary, and the es-ES / es-419 question at the top of `glossary-es.md` reaches this too. |
+| it | The *Indicazioni nazionali* | A single national framework. |
+| ru | ФГОС / ПООП | A single federal standard; the 8–9 класс band is already established in `glossary-ru.md`. |
+
+The English `curriculumRef` values are in `src/lib/cheat-sheet-data.ts` and are
+what is being mapped *from*. Whoever does this has to teach the subject in that
+country; a translator cannot do it and neither can an agent.
+
+#### 2. Locale-appropriate outside links
+
+Each of the 13 domains needs checking per locale, and **a URL that 404s is
+worse than no link**. What is already known:
+
+- **PhET publishes translated simulations** at `/<lang>/simulations/…`, and all
+  five languages exist. The seven PhET links on the sheets are the likeliest to
+  have a real equivalent — but each one has to be *opened*, because the site
+  being translated is not the same as a given simulation being translated.
+- **PubChem, NIST, the VCAA and the IUPAC Gold Book are English-only** and have
+  nothing to substitute. Those stay absent.
+- **Khan Academy, LibreTexts, ptable and MolView** have some translated
+  material, in varying states. Per-link checking, not a pattern.
+- **Local candidates named during review**, which are starting points and not
+  recommendations: de — Chemie.de, LEIFIchemie, Studyflix; fr — Kartable,
+  Lelivrescolaire.fr, Maxicours; it — Zanichelli's Aula di Scienze, Chimica
+  Online, Openfisica; ru — Фоксфорд, ХиМиК.ру, Российская электронная школа,
+  ПостНаука; es — none named yet.
+
+If this work lands, it does **not** come back as a `resourceDescriptions` map
+keyed by the English URL. That shape is what made the old arrangement possible,
+because it could only ever localise the words and never the destination. A
+per-locale resource *list* is the shape to build.
+
+### The per-locale checklist gains a question
+
+The manual per-locale list in `docs/i18n/GAMES.md` § Testing a game in every
+locale now ends with: *does this sheet cite a curriculum the student actually
+sits, and do its links point somewhere they can read?* If the answer to either
+is no, the fix is to withhold, not to translate.
+
 ## Known gaps
 
 Things this does **not** solve. None of them are bugs; they are decisions that
@@ -874,17 +979,13 @@ credentials"). Mapping Supabase's error codes onto translated copy is a
 contained piece of work and would remove the last English text from the German
 sign-in flow.
 
-### Linked resources are English
+### Non-English sheets have no outside links and cite no curriculum
 
-Every cheat-sheet resource points at an English-language site. The German and
-French descriptions say so, but a reader gets an explanation in their own
-language and then English source material. Local equivalents would be a content
-task, and the per-locale summaries in `review-notes.ts` suggest candidates.
-
-### Curriculum references are Australian
-
-Every sheet cites the Victorian Curriculum or the VCE study design. Translated,
-but not relevant to a German reader.
+Closed as a *bug* on 2026-09-20 and reopened as *research*. Both used to be
+translated and are now withheld — see § Locale-appropriate content above for
+the rule, and for what a local curriculum mapping and locale-appropriate links
+would take. Until that research is done a non-English cheat sheet ends at its
+common-mistakes panel, and the For Teachers page says so.
 
 ### No `sitemap.xml` or `robots.txt`
 

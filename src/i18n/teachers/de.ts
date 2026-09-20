@@ -68,7 +68,7 @@ export const de = {
   languagesBody2:
     'Alles, was Lernende lesen, ist übersetzt – die Oberfläche, die Hinweise und die Begleitung in den Spielen sowie die Spickzettel. Chemische Formeln, Elementsymbole und Gleichungen werden nie übersetzt; eine Gleichung sieht in jeder Sprache gleich aus.',
   languagesBody3:
-    'Zwei Dinge ändern sich mit der Sprache nicht: Die weiterführenden Links auf den Spickzetteln führen alle zu englischsprachigen Seiten, und jeder Spickzettel verweist auf das Victorian Curriculum, einen australischen Lehrplan. Gut zu wissen, wenn Sie nach einem anderen Lehrplan unterrichten.',
+    'Auf einem Spickzettel in einer anderen Sprache als Englisch fehlen zwei Dinge. Er enthält keine weiterführenden Links, weil alle verlinkten Seiten englischsprachig sind, und er nennt keinen Lehrplan, weil der einzige vorhandene das australische Victorian Curriculum ist. Lernenden Material zu zeigen, das sie nicht nutzen können, ist schlechter, als es wegzulassen – deshalb wird beides zurückgehalten statt übersetzt. Entsprechungen vor Ort – eine Lehrplanzuordnung je Land und Links, die Lernende lesen können – sind noch nicht recherchiert.',
 
   privacyHeading: 'Datenschutz für Lernende',
   privacyBody1:
