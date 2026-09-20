@@ -30,6 +30,7 @@ export function MoleculeCard({
   verifiedOn,
   t,
   headingId,
+  standalone = false,
 }: {
   molecule: LocalizedMolecule;
   linkHref: string;
@@ -38,7 +39,32 @@ export function MoleculeCard({
   verifiedOn: string;
   t: Dictionary;
   headingId: string;
+  /**
+   * True on the entry's own permalink, where this card *is* the page.
+   *
+   * A prop rather than a second component, because everything that makes the
+   * card — the formula's accessible name, the picture slot, the inward link,
+   * the sources — is identical in both places. Only two things change, and both
+   * are about the document rather than the content:
+   *
+   *   * **The name becomes the `<h1>`.** On /explore two cards sit side by side
+   *     under one page heading, so "Molecule of the Week" is the h2 that tells
+   *     you which section you are in and the name is an h3 inside it. On a
+   *     permalink the page is about one molecule, so its name is the heading of
+   *     the page and "Molecule of the Week" is an eyebrow above it — a `<p>`,
+   *     not a heading, because it is a label and not a section.
+   *   * **Everything below moves up with it**, so the tree is h1 → h2 and never
+   *     skips a level.
+   *
+   * The section's accessible name follows the same logic: "Benzene" on a
+   * permalink, "Molecule of the Week" beside a second card that is not.
+   */
+  standalone?: boolean;
 }) {
+  const LabelTag = standalone ? 'p' : 'h2';
+  const NameTag = standalone ? 'h1' : 'h3';
+  const SubTag = standalone ? 'h2' : 'h4';
+
   return (
     <section
       aria-labelledby={headingId}
@@ -48,16 +74,28 @@ export function MoleculeCard({
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500">
           <FlaskConical className="h-4 w-4" aria-hidden="true" />
         </span>
-        <h2
-          id={headingId}
+        <LabelTag
+          id={standalone ? undefined : headingId}
           className="text-xs font-black uppercase tracking-widest text-(--muted)"
         >
           {t.explore.moleculeHeading}
-        </h2>
+        </LabelTag>
       </div>
 
       <div className="mt-4 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-        <h3 className="text-3xl font-black text-(--foreground) md:text-4xl">{molecule.name}</h3>
+        {/*
+          `min-w-0` and `break-words`: this is a flex item at text-3xl, and a
+          flex item's automatic minimum size is its longest unbreakable word.
+          Without them a long name pushes the whole page past a 320px viewport,
+          which is the WCAG 1.4.10 failure docs/ACCESSIBILITY.md forbids and
+          which the cheat-sheet detail page already hit.
+        */}
+        <NameTag
+          id={standalone ? headingId : undefined}
+          className="min-w-0 text-3xl font-black break-words text-(--foreground) md:text-4xl"
+        >
+          {molecule.name}
+        </NameTag>
         {/*
           The accessible name is a sibling rather than an `aria-label` on
           MoleculeText, because MoleculeText renders a plain <span> and takes no
@@ -112,17 +150,17 @@ export function MoleculeCard({
 
       <div className="mt-6 space-y-5">
         <div>
-          <h4 className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
+          <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
             {t.explore.everydayHeading}
-          </h4>
+          </SubTag>
           <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
             {molecule.everyday}
           </p>
         </div>
         <div>
-          <h4 className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
+          <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
             {t.explore.chemistryHeading}
-          </h4>
+          </SubTag>
           <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
             {molecule.chemistry}
           </p>
@@ -137,6 +175,7 @@ export function MoleculeCard({
         note={t.explore.sourcesNote}
         verifiedOn={verifiedOn}
         opensInNewTab={t.common.opensInNewTab}
+        headingTag={SubTag}
       />
     </section>
   );

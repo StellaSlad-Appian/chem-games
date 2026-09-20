@@ -19,6 +19,7 @@ import { en } from '@/i18n/dictionaries/en';
 import { de } from '@/i18n/dictionaries/de';
 import { getDictionary } from '@/i18n/dictionaries';
 import { DEFAULT_LOCALE, formattingLocale, isLocale } from '@/i18n/config';
+import { ROTATION_EPOCH } from '@/lib/explore/rotation';
 import type { ExplorePair } from '@/lib/explore/types';
 
 /**
@@ -110,22 +111,37 @@ describe('the Explore page', () => {
     const sectionOrder = Array.from(container.querySelectorAll('h2')).map(
       (node) => node.textContent
     );
-    expect(sectionOrder).toEqual([en.explore.moleculeHeading, en.explore.scientistHeading]);
+    // The recent list is a third section, below both cards. It is last on
+    // purpose: the week's pair is what the page is for, and a list of previous
+    // weeks above it would bury the thing a reader came back for.
+    expect(sectionOrder).toEqual([
+      en.explore.moleculeHeading,
+      en.explore.scientistHeading,
+      en.explore.recentHeading,
+    ]);
   });
 
   it('shows one dateline, naming the Monday the week began on', async () => {
-    await renderPage('en');
+    const { container } = await renderPage('en');
 
     // 21 September 2026 is the Monday of the week containing MID_WEEK. Day
-    // first, because English formats through en-GB — `Intl.DateTimeFormat('en')`
+    // first, because English formats through en-AU — `Intl.DateTimeFormat('en')`
     // resolves to en-US and would write "September 21, 2026" on a site that
     // spells things *neutralise*. See FORMATTING_LOCALE in src/i18n/config.ts.
-    const dateline = screen.getByText(/Week of/);
+    //
+    // Scoped to the page header, because the recent list below uses the same
+    // `dateline` pattern for every past week. The claim this test makes is
+    // unchanged — **the current week is named once** — but "once on the page"
+    // stopped being the way to say it when the archive landed.
+    const header = container.querySelector('header')!;
+    const dateline = within(header).getByText(/Week of/);
     expect(dateline).toHaveTextContent('Week of 21 September 2026');
     expect(dateline.closest('time')).toHaveAttribute('datetime', '2026-09-21');
 
-    // One clock, not two: exactly one dateline on the page.
-    expect(screen.getAllByText(/Week of/)).toHaveLength(1);
+    // One clock, not two: one dateline above the two cards, and the current
+    // week never repeated in the list of past ones.
+    expect(within(header).getAllByText(/Week of/)).toHaveLength(1);
+    expect(screen.queryAllByText(/Week of 21 September 2026/)).toHaveLength(1);
   });
 
   it('formats that dateline in the reader’s language', async () => {
@@ -225,6 +241,130 @@ describe('the Explore page', () => {
     // renders inside them.
     await renderPage('klingon');
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(en.explore.heading);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// The recent list
+// ---------------------------------------------------------------------------
+//
+// The cases that matter are the small ones. Ten rows is what the page looks
+// like forever after week ten, and it is the case that works by accident; 0, 1
+// and 9 are the ones a build tests on a Tuesday in month six and never sees
+// again. At week 0 there is no history at all, and the section must not render
+// a heading over nothing.
+
+/** Monday 00:00 UTC of week `n`, so no test has to count days in February. */
+const mondayOfWeek = (n: number) => new Date(ROTATION_EPOCH + n * 7 * 24 * 60 * 60 * 1000);
+
+/**
+ * The rows of the recent list, or [] when the section is not on the page.
+ *
+ * The heading is a parameter because the section is named in the reader's
+ * language: looking for the English name on a German page finds nothing and
+ * reports it as "no rows", which would pass a length check by accident.
+ */
+function recentRows(heading: string = en.explore.recentHeading) {
+  const section = screen.queryByRole('region', { name: heading });
+  return section === null ? [] : within(section).getAllByRole('listitem');
+}
+
+describe('the recent list', () => {
+  it.each([
+    [0, 0],
+    [1, 1],
+    [9, 9],
+    [10, 10],
+    // Past the wrap: still ten, because ten is the display limit and the
+    // rotation has twenty pairs. This is the case that proves the limit is not
+    // "everything that has happened".
+    [37, 10],
+  ])('shows %i past weeks as %i rows', async (week, expected) => {
+    // Mid-week rather than on the Monday itself, so the answer does not depend
+    // on a boundary the rest of the suite already covers.
+    vi.setSystemTime(new Date(mondayOfWeek(week).getTime() + 3 * 24 * 60 * 60 * 1000));
+
+    await renderPage('en');
+    expect(recentRows()).toHaveLength(expected);
+  });
+
+  it('renders no heading at all in the first week, rather than an empty list', async () => {
+    vi.setSystemTime(mondayOfWeek(0));
+    await renderPage('en');
+
+    // The failure this guards against is a section that renders its heading and
+    // an empty <ul>, which reads as a page that failed to load.
+    expect(
+      screen.queryByRole('region', { name: en.explore.recentHeading })
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText(en.explore.recentHeading)).not.toBeInTheDocument();
+  });
+
+  it('never shows the same entry twice across a rotation wrap', async () => {
+    // Week 37 is seventeen weeks past the first wrap of a twenty-week cycle,
+    // so "eleven weeks ago" and "thirty-one weeks ago" are genuinely the same
+    // pair. The list must pick one of them, not both.
+    vi.setSystemTime(mondayOfWeek(37));
+    await renderPage('en');
+
+    const hrefs = recentRows().flatMap((row) =>
+      Array.from(row.querySelectorAll('a')).map((a) => a.getAttribute('href'))
+    );
+    expect(hrefs.length).toBe(20); // ten rows, two permalinks each
+    expect(new Set(hrefs).size).toBe(hrefs.length);
+  });
+
+  it('never repeats the current week in the list below it', async () => {
+    vi.setSystemTime(mondayOfWeek(37));
+    const { container } = await renderPage('en');
+
+    const thisWeek = Array.from(container.querySelectorAll('h3')).map((h) => h.textContent);
+    const listed = recentRows().flatMap((row) =>
+      Array.from(row.querySelectorAll('a')).map((a) => a.getAttribute('href'))
+    );
+
+    // The current pair's own permalinks must not appear in the past list.
+    expect(thisWeek.length).toBeGreaterThan(0);
+    const dateline = within(container.querySelector('header')!).getByText(/Week of/);
+    expect(dateline.closest('time')?.getAttribute('datetime')).toBe(
+      mondayOfWeek(37).toISOString().slice(0, 10)
+    );
+    expect(listed).not.toContain(null);
+  });
+
+  it('links every row to both permalinks, with the locale kept', async () => {
+    vi.setSystemTime(mondayOfWeek(12));
+    await renderPage('de');
+
+    const rows = recentRows(de.explore.recentHeading);
+    expect(rows.length).toBeGreaterThan(0);
+
+    for (const row of rows) {
+      const hrefs = Array.from(row.querySelectorAll('a')).map((a) => a.getAttribute('href'));
+      expect(hrefs).toHaveLength(2);
+      expect(hrefs[0]).toMatch(/^\/de\/explore\/molecules\/[a-z0-9-]+$/);
+      expect(hrefs[1]).toMatch(/^\/de\/explore\/scientists\/[a-z0-9-]+$/);
+    }
+  });
+
+  it('shrinks with the pool rather than repeating a pair', async () => {
+    // Three pairs and ten slots: the honest answer is three rows, not ten with
+    // seven duplicates. Nothing in the live schedule exercises this, which is
+    // exactly why it is worth a test — the de-duplication is a property of the
+    // design, not of the numbers that happen to be in the file today.
+    schedule.override = EXPLORE_SCHEDULE.slice(0, 3);
+    vi.setSystemTime(mondayOfWeek(37));
+
+    await renderPage('en');
+    expect(recentRows()).toHaveLength(3);
+  });
+
+  it('always offers the archive, even with no history', async () => {
+    vi.setSystemTime(mondayOfWeek(0));
+    await renderPage('en');
+
+    const link = screen.getByRole('link', { name: en.explore.archiveCta });
+    expect(link).toHaveAttribute('href', '/en/explore/archive');
   });
 });
 

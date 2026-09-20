@@ -21,20 +21,29 @@ export function SourceList({
   note,
   verifiedOn,
   opensInNewTab,
+  headingTag: HeadingTag = 'h4',
 }: {
   heading: string;
   sources: ExploreSource[];
   note: string;
   verifiedOn: string;
   opensInNewTab: string;
+  /**
+   * `h4` inside a card on /explore, which sits under the card's own h2 and h3.
+   * A permalink page has one entry, so its card starts at h1 and everything
+   * inside it moves up two levels — see the `standalone` prop on the cards.
+   * The level is a prop rather than a guess because a skipped heading level is
+   * a real failure for a screen-reader user, and docs/ACCESSIBILITY.md says so.
+   */
+  headingTag?: 'h2' | 'h4';
 }) {
   if (sources.length === 0) return null;
 
   return (
     <div className="mt-8 border-t border-(--border) pt-4">
-      <h4 className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
+      <HeadingTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
         {heading}
-      </h4>
+      </HeadingTag>
       <ul className="mt-2 space-y-1">
         {sources.map((source) => (
           <li key={source.url}>

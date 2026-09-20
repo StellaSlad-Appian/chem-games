@@ -27,6 +27,7 @@ export function ScientistCard({
   verifiedOn,
   t,
   headingId,
+  standalone = false,
 }: {
   scientist: LocalizedScientist;
   linkHref: string;
@@ -35,7 +36,18 @@ export function ScientistCard({
   verifiedOn: string;
   t: Dictionary;
   headingId: string;
+  /**
+   * True on the entry's own permalink, where this card *is* the page. See the
+   * long note on the same prop in `MoleculeCard` — the name becomes the `<h1>`,
+   * the section label becomes an eyebrow, and everything inside moves up with
+   * it so the heading tree never skips a level.
+   */
+  standalone?: boolean;
 }) {
+  const LabelTag = standalone ? 'p' : 'h2';
+  const NameTag = standalone ? 'h1' : 'h3';
+  const SubTag = standalone ? 'h2' : 'h4';
+
   return (
     <section
       aria-labelledby={headingId}
@@ -45,16 +57,22 @@ export function ScientistCard({
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500">
           <Microscope className="h-4 w-4" aria-hidden="true" />
         </span>
-        <h2
-          id={headingId}
+        <LabelTag
+          id={standalone ? undefined : headingId}
           className="text-xs font-black uppercase tracking-widest text-(--muted)"
         >
           {t.explore.scientistHeading}
-        </h2>
+        </LabelTag>
       </div>
 
       <div className="mt-4 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-        <h3 className="text-3xl font-black text-(--foreground) md:text-4xl">{scientist.name}</h3>
+        {/* `min-w-0` / `break-words`: see the note on the same line in MoleculeCard. */}
+        <NameTag
+          id={standalone ? headingId : undefined}
+          className="min-w-0 text-3xl font-black break-words text-(--foreground) md:text-4xl"
+        >
+          {scientist.name}
+        </NameTag>
         {/* Dates, so never translated and never in an overlay. */}
         <p className="shrink-0 font-mono text-sm font-bold text-(--muted)">
           {scientist.lifespan}
@@ -77,17 +95,17 @@ export function ScientistCard({
 
       <div className="mt-6 space-y-5">
         <div>
-          <h4 className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
+          <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
             {t.explore.workHeading}
-          </h4>
+          </SubTag>
           <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
             {scientist.work}
           </p>
         </div>
         <div>
-          <h4 className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
+          <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
             {t.explore.legacyHeading}
-          </h4>
+          </SubTag>
           <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
             {scientist.legacy}
           </p>
@@ -96,10 +114,10 @@ export function ScientistCard({
 
       {scientist.credit && (
         <div className="mt-6 rounded-2xl border border-(--border) bg-(--background) p-4">
-          <h4 className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-(--muted)">
+          <SubTag className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-(--muted)">
             <Scale className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {t.explore.creditHeading}
-          </h4>
+          </SubTag>
           <p className="mt-1.5 text-sm leading-relaxed text-(--muted)">{scientist.credit}</p>
         </div>
       )}
@@ -112,6 +130,7 @@ export function ScientistCard({
         note={t.explore.sourcesNote}
         verifiedOn={verifiedOn}
         opensInNewTab={t.common.opensInNewTab}
+        headingTag={SubTag}
       />
     </section>
   );

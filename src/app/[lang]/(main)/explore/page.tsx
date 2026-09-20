@@ -29,52 +29,24 @@
 // promptly and long enough that the page is worth caching at all.
 
 import type { Metadata } from 'next';
-import { Compass } from 'lucide-react';
+import { ArrowRight, Compass } from 'lucide-react';
+import { LocaleLink } from '@/components/layout/LocaleLink';
 import { MoleculeCard } from '@/components/explore/MoleculeCard';
 import { ScientistCard } from '@/components/explore/ScientistCard';
-import { DEFAULT_LOCALE, formattingLocale, isLocale, type Locale } from '@/i18n/config';
+import { WeekRow } from '@/components/explore/WeekRow';
+import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import {
   exploreLinkTarget,
   exploreProseIsUntranslated,
   getExploreContent,
+  getExploreRecent,
 } from '@/i18n/explore';
+import { formatShortDate, formatWeekDate, isoDay } from '@/i18n/explore-dates';
 import { format } from '@/i18n/format';
 import { localeAlternates } from '@/i18n/routing';
 
 export const revalidate = 3600;
-
-/**
- * The dateline and the source dates, in the reader's language.
- *
- * `Intl`, never a hand-built string: "Week of 21 September" is
- * "Woche vom 21. September" in German and "Semana del 21 de septiembre" in
- * Spanish, and the difference is not something a template can be talked into.
- * `timeZone: 'UTC'` because the week boundary is UTC — without it a reader
- * whose machine is behind UTC would be shown the previous day's date on the
- * Monday itself.
- *
- * `formattingLocale(locale)`, not `locale`: `Intl.DateTimeFormat('en')` resolves to
- * en-US and writes "September 21, 2026" on a site that otherwise writes British
- * English. See the comment on `FORMATTING_LOCALE` in src/i18n/config.ts.
- */
-function formatWeekDate(locale: Locale, date: Date): string {
-  return new Intl.DateTimeFormat(formattingLocale(locale), {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(date);
-}
-
-function formatShortDate(locale: Locale, isoDate: string): string {
-  return new Intl.DateTimeFormat(formattingLocale(locale), {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    timeZone: 'UTC',
-  }).format(new Date(`${isoDate}T00:00:00Z`));
-}
 
 export async function generateMetadata(
   props: PageProps<'/[lang]/explore'>
@@ -107,8 +79,12 @@ export default async function ExplorePage(props: PageProps<'/[lang]/explore'>) {
   const t = await getDictionary(locale);
 
   // The only clock in the whole feature. Everything downstream is a pure
-  // function of this value, which is what lets every test pin a date.
-  const week = getExploreContent(locale, new Date());
+  // function of this value, which is what lets every test pin a date — the
+  // recent list below reads the same `now` rather than calling `new Date()` a
+  // second time, so the current week and "last week" can never disagree.
+  const now = new Date();
+  const week = getExploreContent(locale, now);
+  const recent = getExploreRecent(locale, now);
 
   const moleculeLink = exploreLinkTarget(locale, t, week.molecule.link);
   const scientistLink = exploreLinkTarget(locale, t, week.scientist.link);
@@ -131,7 +107,7 @@ export default async function ExplorePage(props: PageProps<'/[lang]/explore'>) {
             scientist rotate together rather than on their own clocks.
           */}
           <p className="mt-4 inline-block rounded-full border border-(--border) bg-(--surface) px-4 py-1.5 text-xs font-black uppercase tracking-wider text-(--muted)">
-            <time dateTime={week.weekStart.toISOString().slice(0, 10)}>
+            <time dateTime={isoDay(week.weekStart)}>
               {format(t.explore.dateline, {
                 date: formatWeekDate(locale, week.weekStart),
               })}
@@ -180,6 +156,58 @@ export default async function ExplorePage(props: PageProps<'/[lang]/explore'>) {
             headingId="explore-scientist"
           />
         </div>
+
+        {/*
+          The weeks before this one.
+
+          Rendered only when there are any. At launch — and for anyone running
+          the site with a clock before ROTATION_EPOCH — there is no history at
+          all, and an empty "Recent weeks" heading over nothing is worse than no
+          heading: it reads as a page that failed to load its own content.
+
+          Ten rows at most, and that is a display limit and not a lifetime.
+          Every entry that falls off this list keeps its permalink, keeps its
+          place in the archive index, and comes round again on schedule. The
+          link below goes to the index, which is the whole rotation.
+        */}
+        {recent.length > 0 && (
+          <section aria-labelledby="explore-recent" className="mt-12">
+            <h2
+              id="explore-recent"
+              className="text-xs font-black uppercase tracking-widest text-(--muted)"
+            >
+              {t.explore.recentHeading}
+            </h2>
+            <ul className="mt-4 space-y-3">
+              {recent.map((past) => (
+                <WeekRow
+                  key={isoDay(past.weekStart)}
+                  dateLabel={format(t.explore.dateline, {
+                    date: formatWeekDate(locale, past.weekStart),
+                  })}
+                  dateTime={isoDay(past.weekStart)}
+                  molecule={past.molecule}
+                  scientist={past.scientist}
+                />
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/*
+          Always shown, even with no history: the index lists the whole
+          rotation, so it is worth reading on the day the site launches.
+        */}
+        <LocaleLink
+          href="/explore/archive"
+          className="group mt-8 inline-flex min-h-11 items-center gap-2 rounded-xl border-2 border-(--border) bg-(--surface) px-4 py-2.5 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:border-blue-500 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+        >
+          <span>{t.explore.archiveCta}</span>
+          <ArrowRight
+            className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </LocaleLink>
       </div>
     </main>
   );
