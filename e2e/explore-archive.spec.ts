@@ -170,8 +170,18 @@ test.describe('the permalinks', () => {
 
     await expect(page.getByRole('link', { name: ru.explore.backToExplore })).toHaveCount(1);
     await expect(page.getByText(ru.explore.everydayHeading)).toBeVisible();
-    // The formula stays Latin, as Russian chemistry writes it.
-    await expect(page.locator('main')).toContainText('C6H6');
+    /*
+     * `.first()` because there are two nested <main> elements on every page of
+     * this site — the (main) layout wraps children in `<main className="flex-1">`
+     * and each page renders its own — so a bare `locator('main')` is a strict-mode
+     * violation rather than a missing element. That nesting is a real defect
+     * (two main landmarks is one more than a screen reader should be offered)
+     * and it is logged in docs/TODO.md; it is site-wide, so it is not this
+     * branch's to fix.
+     *
+     * The formula itself stays Latin, as Russian chemistry writes it.
+     */
+    await expect(page.locator('main').first()).toContainText('C6H6');
   });
 
   test('carries its own canonical and a full set of hreflang alternates', async ({ page }) => {
