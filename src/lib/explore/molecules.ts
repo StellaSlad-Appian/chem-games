@@ -328,7 +328,7 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     id: 'lithium-cobalt-oxide',
     image: {
-      src: '/explore/molecules/lithium-cobalt-oxide.svg',
+      src: '/explore/molecules/lithium-cobalt-oxide.png',
       width: 720,
       height: 400,
     },
