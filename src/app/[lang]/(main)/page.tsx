@@ -252,7 +252,21 @@ function SectionHeading({
 }) {
   return (
     <div className="mb-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-      <div>
+      {/*
+        `min-w-0` here, and `shrink-0` on the link below. The h2 inside already
+        had `min-w-0` — and it was not enough, because *this* div is the flex
+        item once `sm:flex-row` applies, and a flex item's automatic minimum
+        size is its min-content width. Fixing the h2 alone fixed the 320px
+        column and left the row broken: at 768px every locale overflowed, and
+        German still did at 1024px, with the "Open Explore" link pushed past the
+        viewport.
+
+        That is the fourth time this pattern has cost a reflow bug in this
+        repo — the Spanish dashboard heading, every German cheat sheet, English
+        `stoichiometry`, and now this row. It is listed in docs/TODO.md as
+        wanting a lint rule rather than a fifth fix.
+      */}
+      <div className="min-w-0">
         <div className="flex items-center gap-2">
           <Icon className="h-6 w-6 shrink-0 text-blue-500" aria-hidden="true" />
           {/*
@@ -274,7 +288,7 @@ function SectionHeading({
       </div>
       <LocaleLink
         href={link}
-        className="flex items-center gap-1 text-xs font-black uppercase tracking-wider text-blue-500 hover:underline"
+        className="flex shrink-0 items-center gap-1 text-xs font-black uppercase tracking-wider text-blue-500 hover:underline"
       >
         <span>{linkLabel}</span>
         <ArrowRight className="h-3 w-3 shrink-0" aria-hidden="true" />
