@@ -186,6 +186,75 @@ entries, and it lapses the moment they are written.
 
 ---
 
+## 0d. What the archive proved wrong, 2026-09-20
+
+Added on branch `feature/explore-archive`, after building §7's permalinks and
+index. Same rule as §0: each item is a place where the plan met the code, or the
+screen, and lost.
+
+**A doubled full stop in every Russian date, on the live page, since Explore
+shipped.** `Intl.DateTimeFormat('ru', { month: 'long', … })` writes
+«19 сент. 2026 г.» — a long date that already ends in an abbreviation's own full
+stop. `explore.sourcesNote` added a second one, so every card in Russian read
+«Ссылки проверены — 19 сент. 2026 г..», every week.
+
+**Nothing caught it, and the reason generalises.** The parity gates see a
+non-empty, translated, correctly-placeholdered string, which it is. The Russian
+typography gate checks ellipses, quotation marks and ё, not a doubled stop. And
+no test in the repo had ever rendered a dictionary pattern *with a real date
+interpolated into it* — the page tests assert that the pattern matched, not what
+it produced. §0 already records that `Intl.DateTimeFormat('en')` resolves to
+en-US; this is the same class of bug one step further on. **A locale's date is
+not a neutral substring.** `src/i18n/explore-dates.test.ts` is now the gate: it
+interpolates a real formatted date into every `explore` string that takes one,
+in all six locales, and fails on doubled punctuation.
+
+**The rule that came out of it**, for Russian and for any future locale with an
+era marker or an ordinal: a string that ends with a date carries no punctuation
+of its own. The abbreviation's stop closes the sentence.
+
+**Rotation order does not read as an index**, which §7 could not have known and
+this document's own suggestion ("grouped by month or by rotation order") did not
+anticipate. Listed in the curated order, with each row dated by the week it last
+ran, the German archive at 320px read: *25 May, 1 June, … 14 September (this
+week), 4 May, 11 May, 18 May*. Every date correct — the pairs after the current
+one in the cycle last ran before the wrap — and the column looks broken, because
+a reader cannot see that the rotation wrapped. The index is now ordered by the
+date each row shows. The curated order is still `schedule.ts`, which is where it
+is load-bearing.
+
+**A permalink cannot be dated at all, in the usual sense.** An entry runs again
+every twenty weeks, so "Week of 21 September 2026" — correct on the page about
+*this* week — is false the second time round. Three sentences, chosen by how
+many times the entry has actually run, and only the "exactly once" case may name
+a single week. There is deliberately **no `<time>` element** on a permalink: a
+`datetime` on a two-date sentence tells a crawler the page is about one day, and
+for an entry that runs every twenty weeks there is no such day.
+
+**The archive is derived, not recorded, and the difference is written down** at
+the top of `src/lib/explore/archive.ts`. Nothing logs what ran when; the dates
+are where today's schedule *would* have put each pair, so AC-4's "appending
+shifts the schedule" silently rewrites all of them. Accepted, not overlooked —
+a real record is a weekly database row, which is a much larger change.
+
+**`max-content` is the wrong measurement on these pages**, and copying §0's
+lesson without thinking would have produced a check that cannot fail. The nav
+row is measured that way because nothing in it may shrink or wrap. Everything on
+an entry page is meant to give way: the prose wraps, the names `truncate`, the
+heading is `break-words`. What replaced it is *no element's right edge past the
+viewport*, which still catches the compressed-row case `scrollWidth` misses,
+plus a `max-content` measurement of the parts of a row that genuinely cannot
+shrink — the icons, the formula and the lifespan, with the names hidden.
+
+**The deferred-prose notice was the easy thing to forget.** It is now on both
+permalink routes as well as `/explore`, and §0c's reasoning is why: a permalink
+is the *likeliest* page for a Russian reader to arrive at cold, from a search
+result, with no page above it to have explained anything. It is **not** on the
+archive index, which carries names and dates rather than prose — a decision
+rather than an omission, and the one place a reviewer might reasonably disagree.
+
+---
+
 ## 1. Review of the concept
 
 ### The concept is sound, and it is the cheapest useful thing left to build
@@ -645,10 +714,11 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 
 Named so they are not quietly added, and not quietly forgotten:
 
-- Per-entry permalinks and an archive (`/explore/molecules/<slug>`). This is
-  where the real SEO value is — 104 URLs instead of 1 — but it is 104 × 5 pages
-  and it should follow once the section has proven itself. Design the ids and
-  slugs now so it is additive later.
+- ~~Per-entry permalinks and an archive (`/explore/molecules/<slug>`).~~
+  **Built on 2026-09-20**, branch `feature/explore-archive`; see §0d. It was
+  additive exactly as this line hoped: the ids did not change, and the whole
+  feature is derived from `rotation.ts`. 246 new URLs — 40 entries × 6 locales,
+  plus the index in each.
 - A `sitemap.ts`. There is none in the repo today, although `routing.ts` already
   exempts `/sitemap.xml` from prefixing. Separate piece of work.
 - Molecular structure diagrams (AC-10).
