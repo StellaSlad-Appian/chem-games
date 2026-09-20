@@ -234,6 +234,8 @@ describe('Formula Blaster page (game flow)', () => {
 
   it('Exit leaves the game', () => {
     fireEvent.click(screen.getByRole('button', { name: /Exit/ }));
-    expect(pushMock).toHaveBeenCalledWith('/en');
+    // The games hub, not the dashboard: leaving a game means leaving this
+    // game, and every other game already did this.
+    expect(pushMock).toHaveBeenCalledWith('/en/games');
   });
 });

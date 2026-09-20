@@ -115,7 +115,7 @@ export default async function ExplorePage(props: PageProps<'/[lang]/explore'>) {
 
   return (
     <main className="min-h-screen bg-(--background) px-4 py-8 text-(--foreground) md:px-8">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-4xl lg:max-w-6xl">
         <header>
           <div className="flex items-center gap-2">
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white">
@@ -153,7 +153,16 @@ export default async function ExplorePage(props: PageProps<'/[lang]/explore'>) {
           )}
         </header>
 
-        <div className="mt-8 space-y-8">
+        {/*
+          Side by side from lg, stacked below it. The two cards are a pair —
+          the molecule and the scientist share a theme and usually a link
+          target — so on a wide screen they should be readable together
+          rather than one scrolled past to reach the other.
+
+          `items-start` so a short card does not stretch to match a tall one,
+          which would leave a panel of empty surface under its own text.
+        */}
+        <div className="mt-8 grid items-start gap-8 lg:grid-cols-2">
           <MoleculeCard
             molecule={week.molecule}
             linkHref={moleculeLink.href}

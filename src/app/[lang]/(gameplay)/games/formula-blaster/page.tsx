@@ -473,7 +473,10 @@ export default function FormulaBlasterPage() {
 
   const handleExitGame = () => {
     playSound('click');
-    router.push(localizePath('/', locale));
+    // The games hub, not the dashboard. Leaving a game means leaving *this*
+    // game, and the next thing a player wants is another one — three of the
+    // five already did this; these two did not.
+    router.push(localizePath('/games', locale));
   };
 
   // ------------------------------------------------------------
