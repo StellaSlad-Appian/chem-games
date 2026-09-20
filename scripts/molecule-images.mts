@@ -8,12 +8,13 @@
 // chemistry:
 //
 //   STRUCTURES  a SMILES string, drawn by OpenChemLib          (11 entries)
-//   DIAGRAMS    a drawing function in this file                 (2 entries)
+//   DIAGRAMS    a drawing function in this file                 (4 entries)
 //   SOURCED     a public-domain file in assets/explore/,
 //               recoloured and refitted                         (5 entries)
 //
 // Whatever is in none of the three keeps its placeholder, and the run prints
-// it with the reason. Two do today: polypropylene and sodium sulfate.
+// it with the reason. All twenty have a picture as of 2026-09-20, so nothing
+// does — but the machinery stays, because a twenty-first will.
 //
 // ## Why generated and not found on the internet
 //
@@ -776,9 +777,236 @@ function drawWater(): string {
   );
 }
 
+/**
+ * Polypropylene: the same chain twice, once regular and once not.
+ *
+ * The card spends its chemistry paragraph on one thing — "what decides whether
+ * the plastic is any good is which way each methyl group ends up pointing" —
+ * and ends on "that regularity is the difference between a sticky gum and a
+ * car bumper". So the picture is the comparison and nothing else. Two
+ * identical backbones; the only difference is whether the methyls agree.
+ *
+ * Which chain is which comes from the prose, which describes the random one
+ * first and the regular one second, in that order. There is no label on the
+ * drawing because "atactic" and "isotactic" are words, and a word in an image
+ * is a word in one language — the site ships in six. Everything on here is
+ * either a bond or a number.
+ *
+ * Wedges and hashes rather than methyls drawn up and down in the plane. It
+ * costs nothing, it is the notation the SMILES-drawn cards already use for
+ * cholesterol and limonene, and in a flat zig-zag "up" and "down" are fixed by
+ * the backbone, so they cannot express tacticity at all. All-solid against
+ * mixed reads at a glance whether or not you know what a wedge means.
+ */
+function drawPolypropylene(): string {
+  const BOND_X = 46;
+  const RISE = 30;
+  const METHYL = 60;
+  const CARBONS = 13;
+  const GAP = 200;
+  const n = (v: number) => Number(v.toFixed(1));
+
+  /** A bond coming towards the reader: a triangle, point at the carbon. */
+  const wedge = (x: number, y: number, length: number, half: number) =>
+    `<polygon points="${n(x)},${n(y)} ${n(x - half)},${n(y - length)} ${n(x + half)},${n(y - length)}" ` +
+    `fill="${INK}" />`;
+
+  /** A bond going away from the reader: rungs, widening with distance. */
+  const hash = (x: number, y: number, length: number, half: number) => {
+    const rungs = 4;
+    return Array.from({ length: rungs }, (_, i) => {
+      // Start out from the carbon rather than at it, so the first rung is a
+      // rung and not a blob on the vertex.
+      const t = (i + 1) / (rungs + 0.35);
+      const w = half * t;
+      return (
+        `<line x1="${n(x - w)}" y1="${n(y - length * t)}" x2="${n(x + w)}" y2="${n(y - length * t)}" ` +
+        `stroke="${INK}" stroke-width="3.4" stroke-linecap="round" />`
+      );
+    }).join('');
+  };
+
+  const chain = (offsetY: number, towardsReader: boolean[]) => {
+    const parts: string[] = [];
+    const at = (i: number): [number, number] => [i * BOND_X, offsetY + (i % 2 === 0 ? 0 : -RISE)];
+
+    for (let i = 0; i < CARBONS - 1; i += 1) {
+      const [x1, y1] = at(i);
+      const [x2, y2] = at(i + 1);
+      parts.push(
+        `<line x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke="${INK}" stroke-width="3" />`,
+      );
+    }
+    // Every other carbon carries the methyl, and they are all on the upper
+    // vertices so the two chains differ in one respect only.
+    towardsReader.forEach((solid, index) => {
+      const [x, y] = at(index * 2 + 1);
+      parts.push(solid ? wedge(x, y, METHYL, 12) : hash(x, y, METHYL, 12));
+    });
+    return parts.join('\n  ');
+  };
+
+  const body = [
+    chain(0, [true, false, false, true, false, true]),
+    chain(GAP, [true, true, true, true, true, true]),
+  ].join('\n  ');
+
+  const width = (CARBONS - 1) * BOND_X;
+  return svgDocument(
+    'polypropylene',
+    slotViewBox(0, -(RISE + METHYL), width, GAP + RISE + METHYL, 26, 0),
+    `  ${body}`,
+    'Drawn by drawPolypropylene().',
+  );
+}
+
+/**
+ * Sodium sulfate: why the heat store runs down.
+ *
+ * The only card in the pool whose chemistry is a process rather than a
+ * structure. It is about Glauber's salt melting at 32 °C to store heat and
+ * freezing again to give it back, and then about the catch: "it does not melt
+ * cleanly. The crystals split into solid sodium sulfate and a saturated
+ * solution. The solid is denser, so it sinks to the bottom, where less of it
+ * can rejoin the water on the way back. Each cycle stores a little less than
+ * the last."
+ *
+ * A structure diagram cannot say any of that, which is why docs/EXPLORE_IMAGES.md
+ * guessed a photograph of crystals belonged here. A photograph cannot say it
+ * either. Three vessels can: crystals, then melted with a layer settled out of
+ * reach at the bottom, then frozen again with that layer still there. The
+ * point of the picture is the thing left at the bottom of the third vessel.
+ *
+ * Purple is sodium, the same as in the rock-salt drawing.
+ *
+ * No words, so it survives all six locales. "32 °C" is a number, and the
+ * triangles say which way the temperature is going.
+ */
+function drawGlauberCycle(): string {
+  const W = 148;
+  const H = 186;
+  const TOP = 116;
+  const BOTTOM = TOP + H;
+  const LEFT = [30, 286, 542];
+  const SALT = ION_SODIUM;
+  const SOLUTION = '#3b82f6';
+  const n = (v: number) => Number(v.toFixed(1));
+
+  const parts: string[] = [];
+
+  /** An open-topped vessel, and a clip so its contents cannot leak out of it. */
+  const vessel = (index: number) => {
+    const x = LEFT[index];
+    const r = 22;
+    const wall =
+      `M ${x} ${TOP} L ${x} ${BOTTOM - r} Q ${x} ${BOTTOM} ${x + r} ${BOTTOM} ` +
+      `L ${x + W - r} ${BOTTOM} Q ${x + W} ${BOTTOM} ${x + W} ${BOTTOM - r} L ${x + W} ${TOP}`;
+    parts.push(
+      `<clipPath id="jar${index}"><path d="${wall} Z" /></clipPath>`,
+      `<path d="${wall}" fill="none" stroke="${INK}" stroke-width="3.5" stroke-linecap="round" />`,
+    );
+    return x;
+  };
+
+  /** Crystals: a staggered field of diamonds, clipped to one vessel. */
+  const crystals = (index: number, from: number, opacity: number, until = BOTTOM) => {
+    const x = LEFT[index];
+    const diamonds: string[] = [];
+    const step = 27;
+    for (let row = 0; from + row * step < BOTTOM + step; row += 1) {
+      for (let col = 0; col < W / step + 1; col += 1) {
+        const cx = x + col * step + (row % 2 === 0 ? 8 : 8 + step / 2);
+        const cy = from + row * step + 10;
+        const s = 8.5;
+        diamonds.push(
+          `<path d="M ${n(cx)} ${n(cy - s)} L ${n(cx + s)} ${n(cy)} L ${n(cx)} ${n(cy + s)} ` +
+            `L ${n(cx - s)} ${n(cy)} Z" fill="${SALT}" fill-opacity="${opacity}" ` +
+            `stroke="${SALT}" stroke-width="1.6" />`,
+        );
+      }
+    }
+    // Stop at the settled layer rather than draw through it: the crystals
+    // that reform are the ones still in contact with the water, and that is
+    // the whole point of the third vessel.
+    parts.push(
+      `<clipPath id="crop${index}"><rect x="${x}" y="${TOP}" width="${W}" ` +
+        `height="${n(until - TOP)}" /></clipPath>`,
+      `<g clip-path="url(#jar${index})"><g clip-path="url(#crop${index})">` +
+        `${diamonds.join('')}</g></g>`,
+    );
+  };
+
+  /** The saturated solution, with a surface. */
+  const solution = (index: number, from: number) => {
+    const x = LEFT[index];
+    parts.push(
+      `<g clip-path="url(#jar${index})">` +
+        `<rect x="${x}" y="${from}" width="${W}" height="${BOTTOM - from}" ` +
+        `fill="${SOLUTION}" fill-opacity="0.18" />` +
+        `<line x1="${x}" y1="${from}" x2="${x + W}" y2="${from}" ` +
+        `stroke="${SOLUTION}" stroke-width="3" /></g>`,
+    );
+  };
+
+  /** The dense solid that has sunk out of reach. */
+  const settled = (index: number, height: number) => {
+    const x = LEFT[index];
+    parts.push(
+      `<g clip-path="url(#jar${index})">` +
+        `<rect x="${x}" y="${BOTTOM - height}" width="${W}" height="${height}" ` +
+        `fill="${SALT}" fill-opacity="0.75" />` +
+        `<line x1="${x}" y1="${BOTTOM - height}" x2="${x + W}" y2="${BOTTOM - height}" ` +
+        `stroke="${SALT}" stroke-width="3" /></g>`,
+    );
+  };
+
+  const arrow = (fromX: number, toX: number, warming: boolean) => {
+    const y = 210;
+    const mid = (fromX + toX) / 2;
+    const half = 14;
+    const base = warming ? y + 48 : y + 30;
+    const tip = warming ? y + 30 : y + 48;
+    parts.push(
+      `<line x1="${fromX}" y1="${y}" x2="${toX - 12}" y2="${y}" stroke="${INK}" stroke-width="3" />`,
+      `<path d="M ${toX} ${y} L ${toX - 14} ${y - 7} L ${toX - 14} ${y + 7} Z" fill="${INK}" />`,
+      `<text x="${n(mid)} " y="${y - 26}" text-anchor="middle" dominant-baseline="central" ` +
+        `font-size="25" fill="${INK}">32 °C</text>`,
+      // Drawn rather than typed: a triangle is a triangle in every font.
+      `<path d="M ${n(mid - half)} ${base} L ${n(mid + half)} ${base} ` +
+        `L ${n(mid)} ${tip} Z" fill="${INK}" />`,
+    );
+  };
+
+  // Cool: all of it is crystal, and all of it is available.
+  vessel(0);
+  crystals(0, TOP + 16, 0.45);
+
+  // Warm: melted, but not cleanly — the dense solid has already sunk.
+  vessel(1);
+  solution(1, TOP + 30);
+  settled(1, 40);
+
+  // Cool again: frozen back, except for what is stuck at the bottom.
+  vessel(2);
+  crystals(2, TOP + 16, 0.45, BOTTOM - 46);
+  settled(2, 46);
+
+  arrow(LEFT[0] + W + 14, LEFT[1] - 14, true);
+  arrow(LEFT[1] + W + 14, LEFT[2] - 14, false);
+
+  return svgDocument(
+    'sodium-sulfate',
+    `0 0 ${BOX_W} ${BOX_H}`,
+    parts.map((part) => `  ${part}`).join('\n'),
+    'Drawn by drawGlauberCycle().',
+  );
+}
+
 const DIAGRAMS: Record<string, () => string> = {
   'sodium-chloride': drawRockSalt,
   water: drawWater,
+  polypropylene: drawPolypropylene,
+  'sodium-sulfate': drawGlauberCycle,
 };
 
 // --- Taken from Wikimedia Commons -----------------------------------------
