@@ -579,7 +579,21 @@ export const ru = {
     moleculeImageA11y: 'Изображение: {name}',
     scientistImageA11y: 'Фото: {name}',
     sourcesHeading: 'Источники',
-    sourcesNote: 'Ссылки проверены — {date}.',
+    /*
+     * **No full stop after {date}, here or in any string below.**
+     *
+     * `Intl.DateTimeFormat('ru')` writes a long date as «19 сент. 2026 г.» —
+     * it already ends in an abbreviation's own full stop. Adding a second
+     * produced «Ссылки проверены — 19 сент. 2026 г..» on the live page, in
+     * every week, and nothing caught it: the parity gates see a non-empty
+     * translated string with the right placeholder, and the typography check
+     * in cyrillic.test.ts looks for ellipses and quotation marks rather than a
+     * doubled stop. It was found by looking at the rendered page in Russian.
+     *
+     * So the rule for this locale is that a sentence ending in a date carries
+     * no punctuation of its own. The abbreviation's stop closes it.
+     */
+    sourcesNote: 'Ссылки проверены — {date}',
     /*
      * The one string on this page written to be read. Russian Explore prose is
      * deferred (EXPLORE_UNTRANSLATED_LOCALES in src/i18n/explore.ts), so a
@@ -605,13 +619,19 @@ export const ru = {
     recentHeading: 'Прошлые недели',
     archiveCta: 'Посмотреть все материалы',
     archiveHeading: 'Архив раздела «Открывай»',
-    archiveIntro: 'Все вещества и химики из ротации, в порядке их появления.',
+    archiveIntro: 'Все вещества и химики из ротации — сначала самые свежие.',
     archiveThisWeek: 'Эта неделя',
     backToExplore: 'Назад к разделу «Открывай»',
     sameWeekHeading: 'Из той же недели',
-    featuredOnce: 'Неделя показа — {date}.',
-    featuredAgain: 'Последняя неделя показа — {date}. Следующая — {nextDate}.',
-    featuredNever: 'Показов ещё не было. Первая неделя — {date}.',
+    /*
+     * No full stop after a date — see `sourcesNote` above. In `featuredAgain`
+     * the «г.» that closes the first date is also what separates the two
+     * sentences, which is why there is no stop before «Следующая». It is not a
+     * missing one.
+     */
+    featuredOnce: 'Неделя показа — {date}',
+    featuredAgain: 'Последняя неделя показа — {date} Следующая — {nextDate}',
+    featuredNever: 'Показов ещё не было. Первая неделя — {date}',
   },
 
   cheatSheets: {
