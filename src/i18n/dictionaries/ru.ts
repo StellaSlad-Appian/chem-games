@@ -578,6 +578,8 @@ export const ru = {
     // {target} is the name of a cheat sheet or a game, after a colon.
     moleculeCta: 'Потренируйся: {target}',
     scientistCta: 'Химия за этим: {target}',
+    moleculeImageA11y: 'Изображение: {name}',
+    scientistImageA11y: 'Фото: {name}',
     sourcesHeading: 'Источники',
     // No full stop, for the same reason as `privacy.effectiveDate`: `Intl`
     // renders a long Russian date as «19 сент. 2026 г.», and the «г.»

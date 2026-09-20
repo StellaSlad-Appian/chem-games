@@ -348,9 +348,9 @@ shift which entry a given future week shows, which is fine for editorial content
 and is stated in AC-4.
 
 The 104-week scientist pool already exists — [`explore-scientists.md`](./explore-scientists.md)
-— so the launch 12 are chosen from it rather than invented. **92 of the 104 have
-a matching link target today**; the other 12 are theme A (atoms, isotopes and the
-periodic table) and are blocked on a cheat sheet that does not exist yet.
+— so the launch pairs are chosen from it rather than invented. **All 104 have a
+matching link target**: theme A was blocked on an atoms cheat sheet, and that
+sheet shipped on 2026-09-20 in all six languages.
 
 *(An earlier draft said "76 ready, 28 blocked". That double-counted ten entries
 whose link to `chemical-bonds` is loose but perfectly shippable, and it predated
@@ -551,10 +551,10 @@ every entry in `LOCALES` at implementation time (`en`, `de`, `fr`, `es`, `it`).
 - [ ] The paired molecule and scientist for a week share their link target
       wherever the pairing allows it, so the week points somewhere rather than
       two places.
-- [ ] `explore-scientists.md` marks which of the 104 have a matching target
-      today (92) and which are blocked on the atoms cheat sheet (12). The launch
-      pool is drawn from the 92. If the implementation disagrees with a mapping
-      in that table, say so — the table is a proposal, not a fact.
+- [ ] `explore-scientists.md` gives every one of the 104 a link target, and as
+      of 2026-09-20 none is blocked — the atoms cheat sheet closed the last
+      twelve. If the implementation disagrees with a mapping in that table, say
+      so; the table is a proposal, not a fact.
 
 ### AC-7 — Gender balance is enforced, not intended
 - [ ] Every scientist entry carries `represents: 'woman' | 'man' | 'other'`.

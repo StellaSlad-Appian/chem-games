@@ -84,6 +84,123 @@ const polyatomicIonRowsDe = POLYATOMIC_ION_TABLE.rows.map((row) => [
 // ---------------------------------------------------------------------------
 
 export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
+  'atomic-structure': {
+    title: 'Atome, Isotope und das Periodensystem',
+    summary:
+      'Woraus ein Atom besteht, warum die Ordnungszahl das Element festlegt und wie das Periodensystem geordnet ist.',
+    keyTakeaways: [
+      'Ein Atom besteht aus einem Kern aus Protonen und Neutronen, um den herum sich Elektronen verteilen.',
+      'Die Zahl der Protonen – die Ordnungszahl – macht ein Atom zu diesem Element. Ändere sie, und du hast ein anderes Element.',
+      'Isotope sind Atome desselben Elements mit unterschiedlich vielen Neutronen. Chemisch verhalten sie sich gleich.',
+      'Die relative Atommasse ist ein gewichteter Mittelwert über die Isotope eines Elements. Deshalb sind so wenige davon ganze Zahlen.',
+      'Elektronen sitzen in Energiestufen. Wie viele in der äußersten sitzen, danach ist das Periodensystem geordnet.',
+      'Ein Atom ist fast vollständig leerer Raum. Jedes Bild davon stimmt im Maßstab nicht, auch die hier.',
+    ],
+    formulaExampleNames: [
+      'Chlor-35',
+      'Chlor-37',
+      'Kohlenstoff-12',
+      'Wasserstoff-Ion',
+    ],
+    sections: [
+      {
+        heading: 'Woraus ein Atom besteht',
+        content:
+          'Ein Atom hat einen Kern aus Protonen und Neutronen, um den herum Elektronen sind. Protonen tragen eine positive Ladung, Elektronen eine gleich große negative. Ein neutrales Atom hat deshalb von beiden gleich viele. Neutronen tragen keine Ladung. Fast die ganze Masse steckt im Kern, denn ein Elektron wiegt neben einem Proton so gut wie nichts.',
+        imageAlt:
+          'Ein Kern aus Protonen und Neutronen in der Mitte, darum eine unscharfe Wolke, die zeigt, wo Elektronen wahrscheinlich sind. Ein Hinweis sagt, dass der Kern viel zu groß gezeichnet ist, um überhaupt sichtbar zu sein.',
+      },
+      {
+        heading: 'Ordnungszahl und Massenzahl',
+        content:
+          'Die Ordnungszahl ist die Zahl der Protonen, und sie macht ein Atom zu diesem Element. Jedes Chloratom hat 17 Protonen; alles mit 17 Protonen ist Chlor. Die Massenzahl ist Protonen plus Neutronen. Die Zahl der Neutronen kann sich ändern, ohne dass sich das Element ändert.',
+        exampleNames: ['Chlor-35', 'Chlor-37'],
+        imageAlt:
+          'Das Symbol für Chlor-35 mit der Massenzahl 35 über der Ordnungszahl 17, dazu Pfeile: 17 Protonen, und 35 minus 17 ergibt 18 Neutronen.',
+      },
+      {
+        heading: 'Isotope',
+        content:
+          'Isotope sind Atome eines Elements mit unterschiedlich vielen Neutronen. Chemie machen die Elektronen, und davon haben Isotope gleich viele. Sie reagieren also gleich. Unterschiedlich sind die Masse und manchmal die Stabilität: Manche Isotope sind radioaktiv, andere nicht.',
+        imageAlt:
+          'Drei Wasserstoffatome nebeneinander: eines mit einem Proton, eines mit einem Proton und einem Neutron, eines mit einem Proton und zwei Neutronen. Alle drei haben ein Elektron.',
+      },
+      {
+        heading: 'Warum die relative Atommasse selten eine ganze Zahl ist',
+        content:
+          'Eine Probe eines Elements ist eine Mischung seiner Isotope, in festen Anteilen. Die relative Atommasse ist der Mittelwert über diese Mischung, gewichtet danach, wie häufig jedes Isotop ist. Chlor besteht zu etwa drei Vierteln aus Chlor-35 und zu einem Viertel aus Chlor-37. Im Mittel ergibt das 35,5. Kein einzelnes Chloratom wiegt so viel.',
+        imageAlt:
+          'Ein Balken mit 75 Prozent Chlor-35 und 25 Prozent Chlor-37, darauf der gewichtete Mittelwert 35,5, näher am Ende mit 35.',
+      },
+      {
+        heading: 'Elektronen, Energiestufen und die Form des Periodensystems',
+        content:
+          'Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.',
+        imageAlt:
+          'Ein Natriumatom mit drei Energiestufen, die 2, 8 und 1 Elektronen tragen, daneben das Periodensystem mit hervorgehobener Gruppe 1.',
+      },
+      {
+        heading: 'Geordnet nach der Ordnungszahl, nicht nach der Masse',
+        content:
+          'Mendelejew ordnete das Periodensystem nach der Masse, und einige Elemente landeten am falschen Platz. 1913 maß Henry Moseley die Ladung des Kerns und fand die Ordnung, die funktioniert: die Ordnungszahl. Tellur ist schwerer als Iod, steht aber davor, weil es ein Proton weniger hat.',
+        imageAlt:
+          'Tellur und Iod nebeneinander. Tellur hat die größere relative Atommasse, aber die kleinere Ordnungszahl, und das Periodensystem stellt es zuerst.',
+      },
+      {
+        heading: 'Instabile Kerne und Elemente, die gemacht werden mussten',
+        content:
+          'Manche Kerne sind instabil und zerfallen, wobei sie Strahlung abgeben. Die Halbwertszeit ist die Zeit, in der die Hälfte einer Probe zerfällt. Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur nicht vor. Sie werden in Beschleunigern gebaut, manchmal wenige Atome auf einmal.',
+        imageAlt:
+          'Eine Zerfallskurve, die sich mit jeder Halbwertszeit halbiert, daneben die unteren Reihen des Periodensystems mit den hervorgehobenen Elementen, die es nur gibt, wenn man sie herstellt.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'Die drei Kernbausteine und das Elektron',
+        columns: ['Teilchen', 'Ladung', 'Relative Masse', 'Wo es sitzt'],
+        rows: [
+          ['Proton', '+1', '1', 'im Kern'],
+          ['Neutron', '0', '1', 'im Kern'],
+          ['Elektron', '−1', 'etwa 1/1836', 'um den Kern herum'],
+        ],
+      },
+      {
+        heading: 'Die ersten zwanzig Elemente',
+        caption:
+          'Die Elektronenverteilung wird von innen nach außen geschrieben: Natrium ist 2, 8, 1.',
+        columns: ['Element', 'Symbol', 'Ordnungszahl', 'Elektronenverteilung'],
+        rows: [
+          ['Wasserstoff', 'H', '1', '1'],
+          ['Helium', 'He', '2', '2'],
+          ['Lithium', 'Li', '3', '2, 1'],
+          ['Beryllium', 'Be', '4', '2, 2'],
+          ['Bor', 'B', '5', '2, 3'],
+          ['Kohlenstoff', 'C', '6', '2, 4'],
+          ['Stickstoff', 'N', '7', '2, 5'],
+          ['Sauerstoff', 'O', '8', '2, 6'],
+          ['Fluor', 'F', '9', '2, 7'],
+          ['Neon', 'Ne', '10', '2, 8'],
+          ['Natrium', 'Na', '11', '2, 8, 1'],
+          ['Magnesium', 'Mg', '12', '2, 8, 2'],
+          ['Aluminium', 'Al', '13', '2, 8, 3'],
+          ['Silicium', 'Si', '14', '2, 8, 4'],
+          ['Phosphor', 'P', '15', '2, 8, 5'],
+          ['Schwefel', 'S', '16', '2, 8, 6'],
+          ['Chlor', 'Cl', '17', '2, 8, 7'],
+          ['Argon', 'Ar', '18', '2, 8, 8'],
+          ['Kalium', 'K', '19', '2, 8, 8, 1'],
+          ['Calcium', 'Ca', '20', '2, 8, 8, 2'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Elektronen auf Kreisbahnen zeichnen, wie Planeten. Sie laufen nicht auf Bahnen. Eine Stufe ist eine Energie, und ein Elektron ist irgendwo in einem Bereich um den Kern, nicht an einem Punkt einer Linie.',
+      'Den Bildern die Größe glauben. Wäre der Kern eine Erbse, wäre das Atom ein Sportplatz. Jede Zeichnung schrumpft diesen Abstand, damit sie auf die Seite passt – auch die auf diesem Spickzettel.',
+      'Ordnungszahl und Massenzahl verwechseln. Die Ordnungszahl sind die Protonen und benennt das Element. Die Massenzahl sind Protonen plus Neutronen.',
+      'Die relative Atommasse als Anzahl von Teilchen lesen. Sie ist ein Mittelwert über Isotope. Die 35,5 von Chlor gehört zu keinem Atom, das du finden könntest.',
+      'Ein Ion für ein anderes Element halten. Ein Elektron abzugeben oder aufzunehmen ändert die Ladung, nicht die Zahl der Protonen. Natrium und Na+ sind beides Natrium.',
+    ],
+  },
   'states-of-matter': {
     title: 'Aggregatzustände',
     summary: 'Teilchenanordnung, kinetische Energie und die sechs Zustandsänderungen.',

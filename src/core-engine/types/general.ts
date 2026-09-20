@@ -142,10 +142,33 @@ export interface FormulaExample {
   description?: string;
 }
 
+/**
+ * A diagram for one cheat-sheet section.
+ *
+ * `src` is a path under `public/`, so it is a URL and never translated.
+ * `width` and `height` are the file's intrinsic pixel size and exist to reserve
+ * the space before the image loads — without them the text below jumps down as
+ * each diagram arrives, which is the layout shift docs/ACCESSIBILITY.md treats
+ * as a defect rather than a cosmetic issue.
+ *
+ * `alt` is prose. The English lives here; every other locale overrides it
+ * through `imageAlt` in the overlay, because an alt text that stays English on
+ * a German page is the one part of an image a screen-reader user actually
+ * reads.
+ */
+export interface CheatSheetImage {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
 export interface CheatSheetSection {
   heading: string;
   content: string;
   examples?: FormulaExample[];
+  /** Optional diagram, rendered under the prose. */
+  image?: CheatSheetImage;
 }
 
 /** A lookup table. Cells in `formulaColumns` are rendered with MoleculeText. */

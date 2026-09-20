@@ -148,7 +148,179 @@ export const GAME_LINKS: Partial<Record<GameName, { title: string; href: string 
 // Cheat sheets
 // ---------------------------------------------------------------------------
 
+/**
+ * Folder holding this sheet's diagrams, under `public/`.
+ *
+ * Every section below points at a file in here. The files that ship are
+ * placeholders — a dashed frame saying what the diagram should show — so the
+ * page has its final shape and its final alt text from the first commit, and
+ * providing a real diagram is replacing one file. No code changes, no rebuild
+ * of the data. docs/CHEAT_SHEET_IMAGES.md lists every slot and its size.
+ */
+const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
+
 export const CHEAT_SHEETS: CheatSheetTopic[] = [
+  {
+    slug: 'atomic-structure',
+    title: 'Atoms, Isotopes & the Periodic Table',
+    yearLevel: 'Year 9',
+    category: 'Fundamentals',
+    summary: 'What an atom is made of, why atomic number defines the element, and how the table is arranged.',
+    iconName: 'Atom',
+    colorTheme: 'border-violet-500 text-violet-500',
+    curriculumRef:
+      'Victorian Curriculum Science Level 9: the atom as the smallest unit of an element, subatomic particles, atomic number and isotopes. The last two sections reach forward into Year 10 and VCE Unit 1.',
+    keyTakeaways: [
+      'An atom is a nucleus of protons and neutrons, with electrons spread around it.',
+      'The number of protons — the atomic number — is what makes an atom that element. Change it and you have a different element.',
+      'Isotopes are atoms of the same element with different numbers of neutrons. They behave the same chemically.',
+      'Relative atomic mass is a weighted average across an element\u2019s isotopes, which is why so few are whole numbers.',
+      'Electrons sit in energy levels, and how many are in the outer level is what the periodic table is arranged by.',
+      'Almost all of an atom is empty space. Every picture of one, including the ones here, is wrong about scale.',
+    ],
+    formulaExamples: [
+      { name: 'Chlorine-35', formula: 'Cl-35', description: '17 protons, 18 neutrons' },
+      { name: 'Chlorine-37', formula: 'Cl-37', description: '17 protons, 20 neutrons' },
+      { name: 'Carbon-12', formula: 'C-12', description: 'the standard all other masses are measured against' },
+      { name: 'Hydrogen ion', formula: 'H+', description: 'a hydrogen atom that has lost its one electron — a bare proton' },
+    ],
+    sections: [
+      {
+        heading: 'What an atom is made of',
+        content:
+          'An atom has a nucleus of protons and neutrons, with electrons around it. Protons carry a positive charge and electrons an equal negative one, so a neutral atom has the same number of each. Neutrons carry no charge. Nearly all the mass is in the nucleus, because an electron weighs almost nothing next to a proton.',
+        image: {
+          src: `${ATOMIC_STRUCTURE_DIAGRAMS}01-inside-an-atom.svg`,
+          width: 640,
+          height: 360,
+          alt: 'A nucleus of protons and neutrons at the centre, with a fuzzy cloud around it showing where electrons are likely to be. A note says the nucleus is drawn far too large to be seen at all.',
+        },
+      },
+      {
+        heading: 'Atomic number and mass number',
+        content:
+          'The atomic number is the number of protons, and it is what makes an atom that element. Every chlorine atom has 17 protons; anything with 17 protons is chlorine. The mass number is protons plus neutrons. Neutrons can vary without changing which element it is.',
+        examples: [
+          { name: 'Chlorine-35', formula: 'Cl-35' },
+          { name: 'Chlorine-37', formula: 'Cl-37' },
+        ],
+        image: {
+          src: `${ATOMIC_STRUCTURE_DIAGRAMS}02-atomic-and-mass-number.svg`,
+          width: 640,
+          height: 320,
+          alt: 'The symbol for chlorine-35 with the mass number 35 written above the atomic number 17, and arrows labelling each: 17 protons, and 35 minus 17 giving 18 neutrons.',
+        },
+      },
+      {
+        heading: 'Isotopes',
+        content:
+          'Isotopes are atoms of one element with different numbers of neutrons. Chemistry is done by electrons, and isotopes have the same number of those, so they react identically. What differs is mass, and sometimes stability: some isotopes are radioactive and some are not.',
+        image: {
+          src: `${ATOMIC_STRUCTURE_DIAGRAMS}03-isotopes-of-hydrogen.svg`,
+          width: 640,
+          height: 280,
+          alt: 'Three hydrogen atoms side by side: one proton, one proton and one neutron, and one proton and two neutrons. All three have a single electron.',
+        },
+      },
+      {
+        heading: 'Why relative atomic mass is rarely a whole number',
+        content:
+          'A sample of an element is a mixture of its isotopes, in fixed proportions. Relative atomic mass is the average across that mixture, weighted by how common each isotope is. Chlorine is about three-quarters chlorine-35 and one-quarter chlorine-37, which averages to 35.5. No single chlorine atom weighs that.',
+        image: {
+          src: `${ATOMIC_STRUCTURE_DIAGRAMS}04-weighted-average.svg`,
+          width: 640,
+          height: 300,
+          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, with the weighted average 35.5 marked closer to the 35 end.',
+        },
+      },
+      {
+        heading: 'Electrons, energy levels and the shape of the table',
+        content:
+          'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
+        image: {
+          src: `${ATOMIC_STRUCTURE_DIAGRAMS}05-energy-levels.svg`,
+          width: 640,
+          height: 360,
+          alt: 'A sodium atom drawn as three energy levels holding 2, 8 and 1 electrons, next to the periodic table with group 1 highlighted.',
+        },
+      },
+      {
+        heading: 'Ordered by atomic number, not by mass',
+        content:
+          'Mendeleev arranged the table by mass, and a few elements came out in the wrong place. In 1913 Henry Moseley measured the charge on the nucleus and found the order that works: atomic number. Tellurium is heavier than iodine but comes before it, because it has one proton fewer.',
+        image: {
+          src: `${ATOMIC_STRUCTURE_DIAGRAMS}06-ordered-by-atomic-number.svg`,
+          width: 640,
+          height: 300,
+          alt: 'Tellurium and iodine side by side. Tellurium has the larger relative atomic mass but the smaller atomic number, and the table places it first.',
+        },
+      },
+      {
+        heading: 'Unstable nuclei, and elements that had to be made',
+        content:
+          'Some nuclei are unstable and break down, giving out radiation. Half-life is the time for half a sample to decay. Elements past uranium have no stable isotopes and are not found in nature — they are built in accelerators, sometimes a few atoms at a time.',
+        image: {
+          src: `${ATOMIC_STRUCTURE_DIAGRAMS}07-decay-and-made-elements.svg`,
+          width: 640,
+          height: 320,
+          alt: 'A decay curve halving at each half-life, beside the bottom rows of the periodic table with the elements that exist only when they are made highlighted.',
+        },
+      },
+    ],
+    tables: [
+      {
+        heading: 'The three subatomic particles',
+        columns: ['Particle', 'Charge', 'Relative mass', 'Where it is'],
+        rows: [
+          ['Proton', '+1', '1', 'in the nucleus'],
+          ['Neutron', '0', '1', 'in the nucleus'],
+          ['Electron', '\u22121', 'about 1/1836', 'around the nucleus'],
+        ],
+      },
+      {
+        heading: 'The first twenty elements',
+        caption: 'Electron arrangement is written outer level last: sodium is 2, 8, 1.',
+        columns: ['Element', 'Symbol', 'Atomic number', 'Electron arrangement'],
+        formulaColumns: [1],
+        rows: [
+          ['Hydrogen', 'H', '1', '1'],
+          ['Helium', 'He', '2', '2'],
+          ['Lithium', 'Li', '3', '2, 1'],
+          ['Beryllium', 'Be', '4', '2, 2'],
+          ['Boron', 'B', '5', '2, 3'],
+          ['Carbon', 'C', '6', '2, 4'],
+          ['Nitrogen', 'N', '7', '2, 5'],
+          ['Oxygen', 'O', '8', '2, 6'],
+          ['Fluorine', 'F', '9', '2, 7'],
+          ['Neon', 'Ne', '10', '2, 8'],
+          ['Sodium', 'Na', '11', '2, 8, 1'],
+          ['Magnesium', 'Mg', '12', '2, 8, 2'],
+          ['Aluminium', 'Al', '13', '2, 8, 3'],
+          ['Silicon', 'Si', '14', '2, 8, 4'],
+          ['Phosphorus', 'P', '15', '2, 8, 5'],
+          ['Sulfur', 'S', '16', '2, 8, 6'],
+          ['Chlorine', 'Cl', '17', '2, 8, 7'],
+          ['Argon', 'Ar', '18', '2, 8, 8'],
+          ['Potassium', 'K', '19', '2, 8, 8, 1'],
+          ['Calcium', 'Ca', '20', '2, 8, 8, 2'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Drawing electrons on circular tracks, like planets. They are not on tracks. A level is an energy, and an electron is somewhere in a region around the nucleus, not at a point on a line.',
+      'Believing the pictures about size. If the nucleus were a pea, the atom would be a sports field. Every diagram shrinks that gap to fit on a page, including the ones on this sheet.',
+      'Confusing atomic number with mass number. Atomic number is protons and names the element. Mass number is protons plus neutrons.',
+      'Reading relative atomic mass as a count of particles. It is an average over isotopes, so chlorine\u2019s 35.5 is not any atom you could find.',
+      'Thinking an ion is a different element. Losing or gaining an electron changes the charge, not the number of protons. Sodium and Na+ are both sodium.',
+    ],
+    resources: [
+      PHET('build-an-atom', 'Build an Atom', 'Add protons, neutrons and electrons and watch the element, charge and mass change as you go.'),
+      PHET('isotopes-and-atomic-mass', 'Isotopes and Atomic Mass', 'Mix isotopes in different proportions and see the relative atomic mass move.'),
+      RSC_PTABLE,
+      VCAA_DATA_BOOK,
+      KHAN_HS_CHEM,
+    ],
+  },
   {
     slug: 'states-of-matter',
     title: 'States of Matter',

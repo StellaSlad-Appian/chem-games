@@ -27,6 +27,7 @@ import { EXPLORE_SCIENTISTS } from '@/lib/explore/scientists';
 import { EXPLORE_SCHEDULE } from '@/lib/explore/schedule';
 import { selectForWeek, weekStart } from '@/lib/explore/rotation';
 import type {
+  ExploreImage,
   ExploreLink,
   ExploreMolecule,
   ExploreScientist,
@@ -115,6 +116,7 @@ export interface LocalizedMolecule {
   id: string;
   name: string;
   formula: string;
+  image?: ExploreImage;
   everyday: string;
   chemistry: string;
   link: ExploreLink;
@@ -127,6 +129,7 @@ export interface LocalizedScientist {
   id: string;
   name: string;
   lifespan: string;
+  image?: ExploreImage;
   work: string;
   legacy: string;
   credit?: string;
@@ -167,6 +170,8 @@ export function localizeMolecule(locale: Locale, molecule: ExploreMolecule): Loc
       ? compoundName(locale, compound)
       : (overlay?.name ?? molecule.name ?? molecule.id),
     formula: compound ? compound.formula : (molecule.formula ?? ''),
+    // Structure, not prose: the same file in every locale, like the link.
+    image: molecule.image,
     everyday: overlay?.everyday ?? molecule.everyday,
     chemistry: overlay?.chemistry ?? molecule.chemistry,
     link: molecule.link,
@@ -186,6 +191,7 @@ export function localizeScientist(
     // Never translated, never overlaid.
     name: scientist.name,
     lifespan: scientist.lifespan,
+    image: scientist.image,
     work: overlay?.work ?? scientist.work,
     legacy: overlay?.legacy ?? scientist.legacy,
     // An entry with no English credit line must not gain one in German: the
