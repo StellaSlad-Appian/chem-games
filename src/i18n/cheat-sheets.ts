@@ -45,6 +45,15 @@ export interface CheatSheetTableOverlay {
 export interface CheatSheetSectionOverlay {
   heading: string;
   content: string;
+  /**
+   * Alt text for this section's diagram, when it has one.
+   *
+   * Optional because most sections have no image. When a section *does* have
+   * one and a locale omits this, the reader gets the English alt — which
+   * `cheat-sheets.test.ts` treats as a missing translation rather than a
+   * fallback, for the same reason the rest of this file does.
+   */
+  imageAlt?: string;
   /** Names of the worked examples, in the English order. Formulae are not here. */
   exampleNames?: string[];
 }
@@ -161,6 +170,11 @@ function localizeSheet(
           ...example,
           name: sectionOverlay.exampleNames?.[exampleIndex] ?? example.name,
         })),
+        // The image itself is structure — same file, same size, every locale.
+        // Only the alt text is prose.
+        image: section.image
+          ? { ...section.image, alt: sectionOverlay.imageAlt ?? section.image.alt }
+          : undefined,
       };
     }),
     tables: sheet.tables?.map((table, index) => localizeTable(table, overlay.tables?.[index])),

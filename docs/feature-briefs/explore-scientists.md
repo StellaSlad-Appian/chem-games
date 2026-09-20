@@ -72,22 +72,24 @@ something useful: **the cheat-sheet library has a hole where atoms should be.**
 
 | Marker | Meaning | Count |
 |---|---|---|
-| (no marker) | An existing cheat sheet or game genuinely matches. Ready to schedule. | 82 |
+| (no marker) | An existing cheat sheet or game genuinely matches. Ready to schedule. | 94 |
 | ‡ | Links to `chemical-bonds` honestly but loosely; a dedicated polymers sheet would be better. Also ready. | 10 |
-| † | The honest link is a cheat sheet **that does not exist yet**. Cannot be scheduled until it does. | 12 |
+| † | The honest link is a cheat sheet that does not exist yet. | **0 — none left** |
 
-> **Correction to an earlier count.** The first version of this document said
-> "76 ready, 28 blocked", which double-counted: the ten `‡` entries link to
-> `chemical-bonds` honestly enough to ship, so they were never blocked. With
-> analytical chemistry now dropped (below), the real numbers are **92 ready and
-> 12 blocked**. `explore.md` §3 and AC-6 have been corrected to match.
+> **Counts, twice corrected.** The first version said "76 ready, 28 blocked",
+> which double-counted: the ten `‡` entries link to `chemical-bonds` honestly
+> enough to ship, so they were never blocked. Dropping analytical chemistry took
+> it to 92 ready and 12 blocked. Writing the atoms cheat sheet on 2026-09-20
+> cleared the last twelve, so it is now **104 ready, 0 blocked** — the whole
+> pool is schedulable. `explore.md` §3 and AC-6 are corrected to match.
 
-The one missing sheet is **Atoms, isotopes & the periodic table**, which blocks
-all 12 of theme A. The site has no content about atomic structure at all today,
-which is a curriculum gap independent of this feature — Moseley's entire story
-is *the table is ordered by atomic number, not by mass*, and there is nowhere on
-the site to send a reader who wants to know what that means. See §7 for what
-that sheet is, and how it differs from the pop-out periodic table tool.
+**That hole is now filled.** `atomic-structure` shipped on 2026-09-20 in all six
+languages, and theme A's twelve entries link to it. It was a curriculum gap
+independent of this feature — Moseley's entire story is *the table is ordered by
+atomic number, not by mass*, and until then there was nowhere on the site to send
+a reader who wanted to know what that meant. §7 still holds for the difference
+between that sheet and the pop-out periodic table tool, which is a separate
+piece of work.
 
 **Analytical chemistry is out** (owner's decision, 2026-09-19). It is a later
 year level and the site has no content for it, so a sheet would have to be
@@ -112,26 +114,26 @@ teaches one idea per week instead of two unrelated ones.
 
 `Rep`: W = woman, M = man. Scheduling metadata only; never displayed.
 
-### A. Atoms, isotopes and the periodic table — 6 W / 6 M †
+### A. Atoms, isotopes and the periodic table — 6 W / 6 M
 
-*All twelve blocked until an atoms/isotopes cheat sheet exists. Worth writing:
-this is the single richest theme in the pool, and the sheet is missing
-curriculum content regardless (§7).*
+*Unblocked on 2026-09-20: the **Atoms, Isotopes & the Periodic Table** cheat
+sheet now exists, in all six languages, and every entry below links to it. This
+is the single richest theme in the pool and none of it was schedulable before.*
 
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
-| 1 | Marie Skłodowska-Curie | 1867–1934 | PL / FR | Isolated polonium and radium from tonnes of pitchblende; named radioactivity | W | † |
-| 2 | Irène Joliot-Curie | 1897–1956 | FR | Made the first artificial radioactive isotopes by bombarding aluminium | W | † |
-| 3 | Lise Meitner | 1878–1968 | AT / SE | Worked out that the nucleus had split, and why the mass was missing | W | † |
-| 4 | Ida Noddack | 1896–1978 | DE | Co-discovered rhenium; first to suggest a nucleus could break in two (1934) | W | † |
-| 5 | Marguerite Perey | 1909–1975 | FR | Discovered francium, the last element found in nature | W | † |
-| 6 | Frederick Soddy | 1877–1956 | UK | Named isotopes: same element, different mass, same chemistry | M | † |
-| 7 | Francis Aston | 1877–1945 | UK | Built the mass spectrograph and separated isotopes by weight | M | † |
-| 8 | Henry Moseley | 1887–1915 | UK | Showed the periodic table is ordered by atomic number, not mass | M | † |
-| 9 | Glenn Seaborg | 1912–1999 | US | Made plutonium and nine more elements; redrew the periodic table's bottom rows | M | † |
-| 10 | Yuri Oganessian | b. 1933 | RU | Leads the synthesis of superheavy elements; element 118 carries his name | M | † |
-| 11 | Darleane Hoffman | b. 1926 | US | Did chemistry on single atoms of elements that exist for seconds | W | † |
-| 12 | Emilio Segrè | 1905–1989 | IT / US | Co-made technetium, the first element made rather than found | M | † |
+| 1 | Marie Skłodowska-Curie | 1867–1934 | PL / FR | Isolated polonium and radium from tonnes of pitchblende; named radioactivity | W | `atomic-structure` |
+| 2 | Irène Joliot-Curie | 1897–1956 | FR | Made the first artificial radioactive isotopes by bombarding aluminium | W | `atomic-structure` |
+| 3 | Lise Meitner | 1878–1968 | AT / SE | Worked out that the nucleus had split, and why the mass was missing | W | `atomic-structure` |
+| 4 | Ida Noddack | 1896–1978 | DE | Co-discovered rhenium; first to suggest a nucleus could break in two (1934) | W | `atomic-structure` |
+| 5 | Marguerite Perey | 1909–1975 | FR | Discovered francium, the last element found in nature | W | `atomic-structure` |
+| 6 | Frederick Soddy | 1877–1956 | UK | Named isotopes: same element, different mass, same chemistry | M | `atomic-structure` |
+| 7 | Francis Aston | 1877–1945 | UK | Built the mass spectrograph and separated isotopes by weight | M | `atomic-structure` |
+| 8 | Henry Moseley | 1887–1915 | UK | Showed the periodic table is ordered by atomic number, not mass | M | `atomic-structure` |
+| 9 | Glenn Seaborg | 1912–1999 | US | Made plutonium and nine more elements; redrew the periodic table's bottom rows | M | `atomic-structure` |
+| 10 | Yuri Oganessian | b. 1933 | RU | Leads the synthesis of superheavy elements; element 118 carries his name | M | `atomic-structure` |
+| 11 | Darleane Hoffman | b. 1926 | US | Did chemistry on single atoms of elements that exist for seconds | W | `atomic-structure` |
+| 12 | Emilio Segrè | 1905–1989 | IT / US | Co-made technetium, the first element made rather than found | M | `atomic-structure` |
 
 ### B. Bonding and structure — 5 W / 5 M
 
@@ -276,7 +278,7 @@ curriculum content regardless (§7).*
 
 | Theme | W | M | Ready to schedule |
 |---|---|---|---|
-| A Atoms, isotopes, periodic table | 6 | 6 | no († the sheet does not exist yet) |
+| A Atoms, isotopes, periodic table | 6 | 6 | yes |
 | B Bonding and structure | 5 | 5 | yes |
 | C Acids, bases, electrochemistry | 5 | 5 | yes |
 | D Reactions and catalysis | 6 | 6 | yes |
@@ -286,7 +288,7 @@ curriculum content regardless (§7).*
 | H States of matter and solids | 5 | 5 | yes |
 | J Environmental and industrial | 4 | 4 | yes |
 | K Biochemistry and medicinal | 5 | 5 | yes |
-| **Total** | **52** | **52** | **92 ready, 12 blocked** |
+| **Total** | **52** | **52** | **104 ready, 0 blocked** |
 
 Dropping analytical chemistry took out four women and four men, so the balance
 held without intervention; the six replacements were chosen in pairs, one woman
@@ -428,8 +430,8 @@ about how you know what is in something.*
    source; `sourcesVerifiedOn` records when.
 4. **Then translate**, against `docs/i18n/glossary-<locale>.md`, adding any new
    term to the glossary first.
-5. **Decide on the atoms cheat sheet.** It unlocks the 12 entries in theme A and
-   closes a real gap in the reference library — see §7.
+5. ~~**Decide on the atoms cheat sheet.**~~ Done on 2026-09-20: written, and
+   translated into all six languages. Theme A is schedulable.
 
 ---
 

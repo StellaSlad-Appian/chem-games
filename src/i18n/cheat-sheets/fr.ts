@@ -105,6 +105,10 @@ export const RESOURCE_DESCRIPTIONS_FR: ResourceDescriptions = {
     'Des explications claires et sans détour, particulièrement solides sur les mécanismes en chimie organique et sur les liaisons. (En anglais.)',
   'https://ptable.com/':
     'Clique sur un élément pour voir sa configuration électronique, son électronégativité et ses ions courants.',
+  'https://phet.colorado.edu/en/simulations/build-an-atom':
+    'Ajoute des protons, des neutrons et des électrons et regarde l’élément, la charge et la masse changer au fur et à mesure.',
+  'https://phet.colorado.edu/en/simulations/isotopes-and-atomic-mass':
+    'Mélange des isotopes en proportions différentes et observe la masse atomique relative se déplacer.',
   'https://www.rsc.org/periodic-table':
     'Des données fiables sur les éléments, avec leur histoire et leurs usages – pratique pour un exposé. (En anglais.)',
   'https://molview.org/':
@@ -138,6 +142,125 @@ export const RESOURCE_DESCRIPTIONS_FR: ResourceDescriptions = {
 };
 
 export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
+  'atomic-structure': {
+    title: 'Atomes, isotopes et tableau périodique',
+    summary:
+      'De quoi un atome est fait, pourquoi le numéro atomique définit l’élément, et comment le tableau est rangé.',
+    curriculumRef:
+      'Victorian Curriculum Science niveau 9 : l’atome comme plus petite unité d’un élément, les particules du noyau, le numéro atomique et les isotopes. Les deux dernières sections anticipent la classe 10 et VCE Unit 1.',
+    keyTakeaways: [
+      'Un atome, c’est un noyau de protons et de neutrons, avec des électrons répartis autour.',
+      'Le nombre de protons – le numéro atomique – fait qu’un atome est cet élément-là. Change-le et tu as un autre élément.',
+      'Les isotopes sont des atomes du même élément avec des nombres de neutrons différents. Chimiquement, ils se comportent pareil.',
+      'La masse atomique relative est une moyenne pondérée sur les isotopes d’un élément. C’est pour cela que si peu sont des nombres entiers.',
+      'Les électrons occupent des niveaux d’énergie. Le nombre d’électrons du niveau extérieur est ce qui range le tableau périodique.',
+      'Un atome est presque entièrement vide. Toutes les images d’atome se trompent sur l’échelle, y compris celles d’ici.',
+    ],
+    formulaExampleNames: [
+      'Chlore 35',
+      'Chlore 37',
+      'Carbone 12',
+      'Ion hydrogène',
+    ],
+    sections: [
+      {
+        heading: 'De quoi un atome est fait',
+        content:
+          'Un atome a un noyau de protons et de neutrons, avec des électrons autour. Les protons portent une charge positive et les électrons une charge négative égale. Un atome neutre en a donc autant des uns que des autres. Les neutrons ne portent aucune charge. Presque toute la masse est dans le noyau, parce qu’un électron ne pèse presque rien à côté d’un proton.',
+        imageAlt:
+          'Un noyau de protons et de neutrons au centre, entouré d’un nuage flou montrant où les électrons se trouvent probablement. Une note précise que le noyau est dessiné bien trop gros pour être visible.',
+      },
+      {
+        heading: 'Numéro atomique et nombre de masse',
+        content:
+          'Le numéro atomique est le nombre de protons, et c’est lui qui fait qu’un atome est cet élément. Tout atome de chlore a 17 protons ; tout ce qui a 17 protons est du chlore. Le nombre de masse, c’est les protons plus les neutrons. Le nombre de neutrons peut varier sans changer l’élément.',
+        exampleNames: ['Chlore 35', 'Chlore 37'],
+        imageAlt:
+          'Le symbole du chlore 35 avec le nombre de masse 35 écrit au-dessus du numéro atomique 17, et des flèches : 17 protons, et 35 moins 17 donne 18 neutrons.',
+      },
+      {
+        heading: 'Les isotopes',
+        content:
+          'Les isotopes sont des atomes d’un même élément avec des nombres de neutrons différents. La chimie, ce sont les électrons qui la font, et les isotopes en ont le même nombre. Ils réagissent donc de la même façon. Ce qui change, c’est la masse, et parfois la stabilité : certains isotopes sont radioactifs, d’autres non.',
+        imageAlt:
+          'Trois atomes d’hydrogène côte à côte : un proton, puis un proton et un neutron, puis un proton et deux neutrons. Tous les trois ont un seul électron.',
+      },
+      {
+        heading: 'Pourquoi la masse atomique relative est rarement un nombre entier',
+        content:
+          'Un échantillon d’un élément est un mélange de ses isotopes, en proportions fixes. La masse atomique relative est la moyenne sur ce mélange, pondérée par l’abondance de chaque isotope. Le chlore est à peu près pour trois quarts du chlore 35 et pour un quart du chlore 37. La moyenne donne 35,5. Aucun atome de chlore ne pèse cela.',
+        imageAlt:
+          'Une barre montrant 75 pour cent de chlore 35 et 25 pour cent de chlore 37, avec la moyenne pondérée 35,5 marquée plus près du côté 35.',
+      },
+      {
+        heading: 'Électrons, niveaux d’énergie et forme du tableau',
+        content:
+          'Les électrons occupent des niveaux d’énergie autour du noyau. Le premier en contient jusqu’à 2, le suivant jusqu’à 8, puis 8 encore pour les vingt premiers éléments. Le nombre d’électrons du niveau extérieur décide de la façon dont un atome réagit. Deux éléments sont dans le même groupe quand ils en ont autant à l’extérieur. C’est pour cela qu’un groupe se comporte de la même manière.',
+        imageAlt:
+          'Un atome de sodium dessiné avec trois niveaux d’énergie portant 2, 8 et 1 électrons, à côté du tableau périodique avec le groupe 1 mis en évidence.',
+      },
+      {
+        heading: 'Rangé par numéro atomique, pas par masse',
+        content:
+          'Mendeleïev a rangé le tableau par masse, et quelques éléments se sont retrouvés au mauvais endroit. En 1913, Henry Moseley a mesuré la charge du noyau et a trouvé l’ordre qui marche : le numéro atomique. Le tellure est plus lourd que l’iode, mais il passe avant, parce qu’il a un proton de moins.',
+        imageAlt:
+          'Le tellure et l’iode côte à côte. Le tellure a la masse atomique relative la plus grande mais le numéro atomique le plus petit, et le tableau le place en premier.',
+      },
+      {
+        heading: 'Noyaux instables et éléments qu’il a fallu fabriquer',
+        content:
+          'Certains noyaux sont instables et se désintègrent en émettant un rayonnement. La demi-vie est le temps qu’il faut pour que la moitié d’un échantillon se désintègre. Les éléments après l’uranium n’ont aucun isotope stable et ne se trouvent pas dans la nature. On les construit dans des accélérateurs, parfois quelques atomes à la fois.',
+        imageAlt:
+          'Une courbe de désintégration qui se divise par deux à chaque demi-vie, à côté des dernières lignes du tableau périodique avec les éléments qui n’existent que fabriqués mis en évidence.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'Les trois particules',
+        columns: ['Particule', 'Charge', 'Masse relative', 'Où elle se trouve'],
+        rows: [
+          ['Proton', '+1', '1', 'dans le noyau'],
+          ['Neutron', '0', '1', 'dans le noyau'],
+          ['Électron', '−1', 'environ 1/1836', 'autour du noyau'],
+        ],
+      },
+      {
+        heading: 'Les vingt premiers éléments',
+        caption:
+          'La répartition des électrons s’écrit du niveau intérieur vers l’extérieur : le sodium, c’est 2, 8, 1.',
+        columns: ['Élément', 'Symbole', 'Numéro atomique', 'Répartition des électrons'],
+        rows: [
+          ['Hydrogène', 'H', '1', '1'],
+          ['Hélium', 'He', '2', '2'],
+          ['Lithium', 'Li', '3', '2, 1'],
+          ['Béryllium', 'Be', '4', '2, 2'],
+          ['Bore', 'B', '5', '2, 3'],
+          ['Carbone', 'C', '6', '2, 4'],
+          ['Azote', 'N', '7', '2, 5'],
+          ['Oxygène', 'O', '8', '2, 6'],
+          ['Fluor', 'F', '9', '2, 7'],
+          ['Néon', 'Ne', '10', '2, 8'],
+          ['Sodium', 'Na', '11', '2, 8, 1'],
+          ['Magnésium', 'Mg', '12', '2, 8, 2'],
+          ['Aluminium', 'Al', '13', '2, 8, 3'],
+          ['Silicium', 'Si', '14', '2, 8, 4'],
+          ['Phosphore', 'P', '15', '2, 8, 5'],
+          ['Soufre', 'S', '16', '2, 8, 6'],
+          ['Chlore', 'Cl', '17', '2, 8, 7'],
+          ['Argon', 'Ar', '18', '2, 8, 8'],
+          ['Potassium', 'K', '19', '2, 8, 8, 1'],
+          ['Calcium', 'Ca', '20', '2, 8, 8, 2'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Dessiner les électrons sur des orbites circulaires, comme des planètes. Ils ne suivent pas de trajectoire. Un niveau est une énergie, et un électron se trouve quelque part dans une région autour du noyau, pas en un point sur une ligne.',
+      'Croire les images sur la taille. Si le noyau était un petit pois, l’atome serait un terrain de sport. Chaque schéma écrase cet écart pour tenir sur la page, y compris ceux de cette antisèche.',
+      'Confondre numéro atomique et nombre de masse. Le numéro atomique, ce sont les protons, et il nomme l’élément. Le nombre de masse, ce sont les protons plus les neutrons.',
+      'Lire la masse atomique relative comme un compte de particules. C’est une moyenne sur les isotopes : les 35,5 du chlore ne correspondent à aucun atome que tu pourrais trouver.',
+      'Prendre un ion pour un autre élément. Perdre ou gagner un électron change la charge, pas le nombre de protons. Le sodium et Na+ sont tous les deux du sodium.',
+    ],
+  },
   'states-of-matter': {
     title: 'États de la matière',
     summary: 'Disposition des particules, énergie cinétique et les six changements d’état.',

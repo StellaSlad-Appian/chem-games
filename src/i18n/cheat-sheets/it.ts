@@ -117,6 +117,10 @@ export const RESOURCE_DESCRIPTIONS_IT: ResourceDescriptions = {
     'Spiegazioni chiare e senza giri di parole, ottime soprattutto per i meccanismi della chimica organica e per il legame. (In inglese.)',
   'https://ptable.com/':
     'Premi un elemento per vedere la sua configurazione elettronica, la sua elettronegatività e i suoi ioni più comuni.',
+  'https://phet.colorado.edu/en/simulations/build-an-atom':
+    'Aggiungi protoni, neutroni ed elettroni e guarda come cambiano l’elemento, la carica e la massa via via.',
+  'https://phet.colorado.edu/en/simulations/isotopes-and-atomic-mass':
+    'Mescola gli isotopi in proporzioni diverse e osserva come si sposta la massa atomica relativa.',
   'https://www.rsc.org/periodic-table':
     'Dati affidabili sugli elementi, con la loro storia e i loro usi: comodo per una ricerca. (In inglese.)',
   'https://molview.org/':
@@ -150,6 +154,125 @@ export const RESOURCE_DESCRIPTIONS_IT: ResourceDescriptions = {
 };
 
 export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
+  'atomic-structure': {
+    title: 'Atomi, isotopi e tavola periodica',
+    summary:
+      'Di che cosa è fatto un atomo, perché il numero atomico definisce l’elemento e come è ordinata la tavola.',
+    curriculumRef:
+      'Victorian Curriculum Science livello 9: l’atomo come unità più piccola di un elemento, le particelle del nucleo, il numero atomico e gli isotopi. Le ultime due sezioni anticipano la classe 10 e VCE Unit 1.',
+    keyTakeaways: [
+      'Un atomo è un nucleo di protoni e neutroni, con gli elettroni distribuiti tutt’intorno.',
+      'Il numero di protoni — il numero atomico — è ciò che rende un atomo quell’elemento. Cambialo e hai un elemento diverso.',
+      'Gli isotopi sono atomi dello stesso elemento con un numero diverso di neutroni. Dal punto di vista chimico si comportano allo stesso modo.',
+      'La massa atomica relativa è una media pesata sugli isotopi di un elemento. È per questo che così poche sono numeri interi.',
+      'Gli elettroni stanno su livelli di energia, e quanti ce ne sono sul livello esterno è il criterio con cui la tavola è ordinata.',
+      'Un atomo è quasi tutto spazio vuoto. Ogni immagine di un atomo sbaglia la scala, comprese quelle qui sopra.',
+    ],
+    formulaExampleNames: [
+      'Cloro-35',
+      'Cloro-37',
+      'Carbonio-12',
+      'Ione idrogeno',
+    ],
+    sections: [
+      {
+        heading: 'Di che cosa è fatto un atomo',
+        content:
+          'Un atomo ha un nucleo di protoni e neutroni, con gli elettroni intorno. I protoni portano una carica positiva e gli elettroni una carica negativa uguale, quindi un atomo neutro ne ha altrettanti degli uni e degli altri. I neutroni non portano carica. Quasi tutta la massa sta nel nucleo, perché un elettrone non pesa quasi niente accanto a un protone.',
+        imageAlt:
+          'Un nucleo di protoni e neutroni al centro, circondato da una nuvola sfumata che mostra dove è probabile trovare gli elettroni. Una nota avverte che il nucleo è disegnato molto più grande del vero, altrimenti non si vedrebbe.',
+      },
+      {
+        heading: 'Numero atomico e numero di massa',
+        content:
+          'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento.',
+        exampleNames: ['Cloro-35', 'Cloro-37'],
+        imageAlt:
+          'Il simbolo del cloro-35 con il numero di massa 35 scritto sopra il numero atomico 17, e delle frecce: 17 protoni, e 35 meno 17 dà 18 neutroni.',
+      },
+      {
+        heading: 'Isotopi',
+        content:
+          'Gli isotopi sono atomi di uno stesso elemento con un numero diverso di neutroni. La chimica la fanno gli elettroni, e gli isotopi ne hanno lo stesso numero, quindi reagiscono allo stesso modo. Quello che cambia è la massa, e a volte la stabilità: alcuni isotopi sono radioattivi, altri no.',
+        imageAlt:
+          'Tre atomi di idrogeno uno accanto all’altro: uno con un protone, uno con un protone e un neutrone, uno con un protone e due neutroni. Tutti e tre hanno un solo elettrone.',
+      },
+      {
+        heading: 'Perché la massa atomica relativa è raramente un numero intero',
+        content:
+          'Un campione di un elemento è una miscela dei suoi isotopi, in proporzioni fisse. La massa atomica relativa è la media su quella miscela, pesata su quanto è comune ciascun isotopo. Il cloro è per circa tre quarti cloro-35 e per un quarto cloro-37. La media viene 35,5. Nessun singolo atomo di cloro pesa così.',
+        imageAlt:
+          'Una barra che mostra il 75 per cento di cloro-35 e il 25 per cento di cloro-37, con la media pesata 35,5 segnata più vicino al lato del 35.',
+      },
+      {
+        heading: 'Elettroni, livelli di energia e forma della tavola',
+        content:
+          'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
+        imageAlt:
+          'Un atomo di sodio disegnato con tre livelli di energia che contengono 2, 8 e 1 elettroni, accanto alla tavola periodica con il gruppo 1 evidenziato.',
+      },
+      {
+        heading: 'Ordinata per numero atomico, non per massa',
+        content:
+          'Mendeleev ordinò la tavola per massa, e alcuni elementi finirono nel posto sbagliato. Nel 1913 Henry Moseley misurò la carica del nucleo e trovò l’ordine che funziona: il numero atomico. Il tellurio è più pesante dello iodio, ma viene prima, perché ha un protone in meno.',
+        imageAlt:
+          'Il tellurio e lo iodio uno accanto all’altro. Il tellurio ha la massa atomica relativa maggiore ma il numero atomico minore, e la tavola lo mette per primo.',
+      },
+      {
+        heading: 'Nuclei instabili, ed elementi che è stato necessario fabbricare',
+        content:
+          'Alcuni nuclei sono instabili e decadono, emettendo radiazione. Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura. Vengono costruiti negli acceleratori, a volte pochi atomi alla volta.',
+        imageAlt:
+          'Una curva di decadimento che si dimezza a ogni tempo di dimezzamento, accanto alle ultime righe della tavola periodica con evidenziati gli elementi che esistono solo se fabbricati.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'Le tre particelle',
+        columns: ['Particella', 'Carica', 'Massa relativa', 'Dove si trova'],
+        rows: [
+          ['Protone', '+1', '1', 'nel nucleo'],
+          ['Neutrone', '0', '1', 'nel nucleo'],
+          ['Elettrone', '−1', 'circa 1/1836', 'intorno al nucleo'],
+        ],
+      },
+      {
+        heading: 'I primi venti elementi',
+        caption:
+          'La configurazione elettronica si scrive dal livello interno a quello esterno: il sodio è 2, 8, 1.',
+        columns: ['Elemento', 'Simbolo', 'Numero atomico', 'Configurazione elettronica'],
+        rows: [
+          ['Idrogeno', 'H', '1', '1'],
+          ['Elio', 'He', '2', '2'],
+          ['Litio', 'Li', '3', '2, 1'],
+          ['Berillio', 'Be', '4', '2, 2'],
+          ['Boro', 'B', '5', '2, 3'],
+          ['Carbonio', 'C', '6', '2, 4'],
+          ['Azoto', 'N', '7', '2, 5'],
+          ['Ossigeno', 'O', '8', '2, 6'],
+          ['Fluoro', 'F', '9', '2, 7'],
+          ['Neon', 'Ne', '10', '2, 8'],
+          ['Sodio', 'Na', '11', '2, 8, 1'],
+          ['Magnesio', 'Mg', '12', '2, 8, 2'],
+          ['Alluminio', 'Al', '13', '2, 8, 3'],
+          ['Silicio', 'Si', '14', '2, 8, 4'],
+          ['Fosforo', 'P', '15', '2, 8, 5'],
+          ['Zolfo', 'S', '16', '2, 8, 6'],
+          ['Cloro', 'Cl', '17', '2, 8, 7'],
+          ['Argon', 'Ar', '18', '2, 8, 8'],
+          ['Potassio', 'K', '19', '2, 8, 8, 1'],
+          ['Calcio', 'Ca', '20', '2, 8, 8, 2'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Disegnare gli elettroni su orbite circolari, come pianeti. Non seguono una traiettoria. Un livello è un’energia, e un elettrone sta da qualche parte in una regione intorno al nucleo, non su un punto di una linea.',
+      'Credere alle dimensioni dei disegni. Se il nucleo fosse un pisello, l’atomo sarebbe un campo sportivo. Ogni schema schiaccia quella distanza per stare nella pagina, compresi quelli di questo bigino.',
+      'Confondere numero atomico e numero di massa. Il numero atomico sono i protoni e dà il nome all’elemento. Il numero di massa sono protoni più neutroni.',
+      'Leggere la massa atomica relativa come un conteggio di particelle. È una media sugli isotopi: il 35,5 del cloro non è un atomo che potresti trovare.',
+      'Pensare che uno ione sia un altro elemento. Perdere o acquistare un elettrone cambia la carica, non il numero di protoni. Il sodio e Na+ sono entrambi sodio.',
+    ],
+  },
   'states-of-matter': {
     title: 'Gli stati della materia',
     summary:

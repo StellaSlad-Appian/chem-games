@@ -186,9 +186,24 @@ export default async function CheatSheetDetailPage(
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-500">
             <ChemIcon name={sheet.iconName} className="h-8 w-8" aria-hidden="true" />
           </div>
-          <div>
-            <h1 className="text-3xl font-black text-(--foreground) md:text-4xl">{sheet.title}</h1>
-            <p className="mt-1 text-sm font-medium text-(--muted) md:text-base">{sheet.summary}</p>
+          {/*
+            `min-w-0` is load-bearing. This is a flex item, and a flex item's
+            automatic minimum size is its min-content width — the longest
+            unbreakable word in the title, set at text-3xl. Without it the whole
+            page grows to fit that word and scrolls sideways at 320px, which
+            docs/ACCESSIBILITY.md forbids (1.4.10). It did: German
+            "Periodensystem" and "Aggregatzustände", and English "Stoichiometry",
+            each pushed the document past the viewport on their own sheets.
+            `break-words` then handles the case where one word is still wider
+            than the column it has been given.
+          */}
+          <div className="min-w-0">
+            <h1 className="text-3xl font-black break-words text-(--foreground) md:text-4xl">
+              {sheet.title}
+            </h1>
+            <p className="mt-1 text-sm font-medium break-words text-(--muted) md:text-base">
+              {sheet.summary}
+            </p>
           </div>
         </div>
 
@@ -253,6 +268,28 @@ export default async function CheatSheetDetailPage(
               <article key={section.heading}>
                 <h3 className="text-base font-black text-(--foreground)">{section.heading}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
+                {section.image && (
+                  /*
+                   * A plain <img>, not next/image. These are small static SVGs
+                   * served straight from public/ — there is nothing for the
+                   * optimiser to do to an SVG, and next/image would add a
+                   * config surface (remotePatterns, dangerouslyAllowSVG) for no
+                   * gain. width/height are the file's intrinsic size and are
+                   * set so the paragraph below does not jump when the diagram
+                   * arrives.
+                   *
+                   * Replacing a diagram is replacing the file at `src`; no code
+                   * changes. See docs/CHEAT_SHEET_IMAGES.md.
+                   */
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={section.image.src}
+                    alt={section.image.alt}
+                    width={section.image.width}
+                    height={section.image.height}
+                    className="mt-3 h-auto w-full max-w-lg rounded-2xl border border-(--border) bg-(--background)"
+                  />
+                )}
                 {section.examples && section.examples.length > 0 && (
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {section.examples.map((example) => (
