@@ -46,6 +46,16 @@ setup('compile every route', async ({ page }) => {
     '/cheat-sheets/acids-and-bases',
     '/teachers',
     '/auth',
+    // Explore and its archive. The three archive routes are separate compiles,
+    // and leaving them out is what made the permalink specs fail in de, fr, es
+    // and it while passing in en: six workers hit a brand-new route at once,
+    // one of them paid the compile and the others were served a document whose
+    // <html> had no `lang` yet. Warming the two dynamic segments warms the
+    // route, not the entry — any id compiles the same page.
+    '/explore',
+    '/explore/archive',
+    '/explore/molecules/benzene',
+    '/explore/scientists/kathleen-lonsdale',
     ...GAME_SLUGS.map((slug) => `/games/${slug}`),
   ];
 

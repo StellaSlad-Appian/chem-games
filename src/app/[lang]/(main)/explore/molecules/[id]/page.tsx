@@ -44,8 +44,7 @@ import { ArrowLeft } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { MoleculeCard } from '@/components/explore/MoleculeCard';
 import { EntryDates } from '@/components/explore/EntryDates';
-import { ScientistEntryLink } from '@/components/explore/EntryLink';
-import { moleculeHref } from '@/components/explore/EntryLink';
+import { moleculeHref, ScientistEntryLink } from '@/components/explore/EntryLink';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import {

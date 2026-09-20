@@ -127,9 +127,15 @@ export default async function ExploreArchivePage(props: PageProps<'/[lang]/explo
         <ul className="mt-8 space-y-3">
           {rotation.map((entry) => {
             // The most recent week it ran, or — before its first — the week it
-            // is next due. Both are a single real week, so both can carry a
-            // `<time>`; it is only the *permalink's* two-date sentence that
-            // cannot. See src/components/explore/EntryDates.tsx.
+            // is next due.
+            //
+            // Only a row that has actually run carries a `<time>`, and it reads
+            // "Week of X" and nothing else: the element's content is then the
+            // date, which is what `<time>` is for. A row that has not run yet
+            // reads "Not featured yet. First up in the week of X", and wrapping
+            // that sentence in a `datetime` would be telling a crawler the row
+            // *is* that day. Same judgement as the permalink, one step milder —
+            // see src/components/explore/EntryDates.tsx.
             const shown = entry.lastFeatured ?? entry.nextFeatured;
             return (
               <WeekRow
@@ -141,7 +147,7 @@ export default async function ExploreArchivePage(props: PageProps<'/[lang]/explo
                         date: formatWeekDate(locale, shown),
                       })
                 }
-                dateTime={isoDay(shown)}
+                dateTime={entry.lastFeatured ? isoDay(shown) : undefined}
                 badge={
                   entry.isCurrentWeek ? (
                     <ThisWeekBadge label={t.explore.archiveThisWeek} />

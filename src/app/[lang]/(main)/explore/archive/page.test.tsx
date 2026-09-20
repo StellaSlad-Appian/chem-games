@@ -66,6 +66,21 @@ describe('the Explore archive', () => {
     expect(screen.getAllByText(/Not featured yet/)).toHaveLength(POOL - 1);
   });
 
+  it('gives a <time> only to rows that have actually run', async () => {
+    // A `datetime` on "Not featured yet. First up in the week of X" would tell
+    // a crawler the row *is* that day. Only "Week of X" is a date.
+    vi.setSystemTime(midWeek(0));
+    const { container } = await renderPage('en');
+
+    // Week 0: one pair has run — this week's — and nineteen have not.
+    expect(container.querySelectorAll('li time')).toHaveLength(1);
+
+    // …and after a full cycle every row has a date to point at.
+    vi.setSystemTime(midWeek(37));
+    const later = await renderPage('en');
+    expect(later.container.querySelectorAll('li time')).toHaveLength(POOL);
+  });
+
   it('links both permalinks on every row, with no duplicates anywhere', async () => {
     await renderPage('en');
 

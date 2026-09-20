@@ -41,8 +41,11 @@ test.describe('the Explore page', () => {
         page.getByRole('region', { name: t.explore.scientistHeading })
       ).toBeVisible();
 
-      // Exactly one dateline: the two sections share a clock.
-      await expect(page.locator('time')).toHaveCount(1);
+      // Exactly one dateline above the cards: the two sections share a clock.
+      // Scoped to the header now that the recent list below dates every row —
+      // the claim is unchanged, but "one <time> on the page" stopped being the
+      // way to say it when the archive landed.
+      await expect(page.locator('header time')).toHaveCount(1);
     });
   }
 
