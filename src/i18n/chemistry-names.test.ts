@@ -27,6 +27,14 @@ import {
   usesRegistryNames,
 } from './chemistry-names';
 
+/*
+ * Every locale but English. `usesRegistryNames()` is English-only since the
+ * overlay registry became strict (2026-09-20); before that it was also true of
+ * a locale whose overlay was simply missing, so this filter would quietly drop
+ * that locale from the suite rather than fail. The filter stays because it
+ * reads better than an inline `!== DEFAULT_LOCALE`, but it can no longer hide
+ * anything: a missing overlay is a compile error.
+ */
 const translatedLocales = LOCALES.filter((locale) => !usesRegistryNames(locale));
 
 describe('English falls through to the registries', () => {

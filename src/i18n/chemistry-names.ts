@@ -100,10 +100,21 @@ const EMPTY: ChemistryNameOverlay = {
 };
 
 /**
- * No entry for the default locale: English names come straight from the
+ * Every locale but English, and the type says so.
+ *
+ * `Record<Exclude<Locale, 'en'>, …>` rather than
+ * `Partial<Record<Locale, …>>`, which is what this was until 2026-09-20. The
+ * `Partial` was the same construct that let Russian ship with no Explore
+ * overlay, and it had the same consequence here: `usesRegistryNames()` returns
+ * true for a locale with no overlay, and `chemistry-names.test.ts` builds its
+ * locale list by filtering that out — so a missing overlay would not fail a
+ * test, it would remove the locale from the suite and serve English names.
+ *
+ * English is excluded rather than optional: its names come straight from the
  * registries, so there is nothing to duplicate and nothing to keep in sync.
+ * That is a different statement from "may be missing".
  */
-const OVERLAYS: Partial<Record<Locale, ChemistryNameOverlay>> = {
+const OVERLAYS: Record<Exclude<Locale, 'en'>, ChemistryNameOverlay> = {
   de: {
     elements: ELEMENT_NAMES_DE,
     compounds: COMPOUND_NAMES_DE,
@@ -147,12 +158,17 @@ const OVERLAYS: Partial<Record<Locale, ChemistryNameOverlay>> = {
 };
 
 export function chemistryNameOverlay(locale: Locale): ChemistryNameOverlay {
-  return OVERLAYS[locale] ?? EMPTY;
+  return locale === 'en' ? EMPTY : OVERLAYS[locale];
 }
 
-/** Whether a locale relies on the registries' English names. */
-export const usesRegistryNames = (locale: Locale): boolean =>
-  locale === DEFAULT_LOCALE || !OVERLAYS[locale];
+/**
+ * Whether a locale relies on the registries' English names.
+ *
+ * English alone, now that the registry above is strict. It used to be true of
+ * any locale with no overlay as well, which is what made a missing overlay
+ * invisible instead of fatal.
+ */
+export const usesRegistryNames = (locale: Locale): boolean => locale === DEFAULT_LOCALE;
 
 export function elementName(locale: Locale, symbol: string): string {
   const overlay = chemistryNameOverlay(locale).elements[symbol];
