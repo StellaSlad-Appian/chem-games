@@ -150,6 +150,31 @@ actually does. Everything marked `«TO CONFIRM»` there is a fact only you have.
 
 ---
 
+## Languages
+
+- [ ] **Remove the English sources from Explore in the other five languages.** The
+      cheat sheets no longer link out on a non-English page — the links were all to
+      English-language sites, and one a student cannot read is worse than none. The
+      Explore page still does: its SOURCES list shows titles such as "Science History
+      Institute — the Sun Queen and the sceptic" on `/ru/explore`, in every locale.
+      Same problem, different page.
+
+      The reason it was not done with the cheat sheets is that these are **citations**,
+      not "learn more" links, so dropping them drops attribution. Decide which: remove
+      them on non-English locales the way `localizeSheet` withholds resources, or keep
+      them and mark the language. Do not translate the titles — the page behind the
+      link is still English.
+
+- [ ] **Research locale-appropriate curriculum references and outside links.** Recorded
+      in [`i18n/README.md`](./i18n/README.md) § Locale-appropriate content. Non-English
+      cheat sheets now cite no curriculum at all, which is honest but empty. Germany
+      alone needs one per Land. Subject-expert work, not translation.
+
+- [ ] **German has never had a native-speaker or chemistry-teacher review**, and the
+      five later languages inherited its precedents — the two adapted naming sheets
+      most of all. Every review table is in [`docs/i18n/`](./i18n/); the low-confidence
+      rows are the ones to read first.
+
 ## Known defects
 
 - [x] ~~**The NavBar overflows a 320px viewport.**~~ **Fixed by the mobile nav panel.**
