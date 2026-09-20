@@ -599,6 +599,8 @@ export const es = {
     creditHeading: 'A quién se debe el mérito',
     moleculeCta: 'Practica esto: {target}',
     scientistCta: 'La química detrás: {target}',
+    moleculeImageA11y: 'Esquema: {name}',
+    scientistImageA11y: 'Imagen: {name}',
     sourcesHeading: 'Fuentes',
     sourcesNote: 'Enlaces comprobados por última vez el {date}.',
     // Se muestra solo en un idioma sin texto de Explore traducido — por ahora

@@ -618,6 +618,8 @@ export const it = {
     creditHeading: 'A chi va il merito',
     moleculeCta: 'Esercitati: {target}',
     scientistCta: 'La chimica dietro: {target}',
+    moleculeImageA11y: 'Schema: {name}',
+    scientistImageA11y: 'Immagine: {name}',
     sourcesHeading: 'Fonti',
     sourcesNote: 'Link controllati l’ultima volta il {date}.',
     // Mostrato solo in una lingua senza testi di Explore tradotti — per ora il

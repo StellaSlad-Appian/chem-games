@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" width="720" height="400" role="img" aria-label="Placeholder">
+  <title>Placeholder</title>
+  <rect x="8" y="8" width="704" height="384" rx="20" fill="none" stroke="#9aa3b2" stroke-width="2" stroke-dasharray="10 8"/>
+  <text x="360" y="154" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" letter-spacing="1.8" fill="#9aa3b2">PICTURE TO COME</text>
+  <text x="360" y="192" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" font-weight="700" fill="#6b7382">sodium chloride</text>
+  <text x="360" y="230" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#9aa3b2">/explore/molecules/sodium-chloride.svg</text>
+  <text x="360" y="252" text-anchor="middle" font-family="ui-monospace, monospace" font-size="12" fill="#9aa3b2">720&#215;400</text>
+</svg>

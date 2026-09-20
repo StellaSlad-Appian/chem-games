@@ -64,6 +64,27 @@ export interface ExploreProvenance {
   isActive: boolean;
 }
 
+/**
+ * A picture for one entry.
+ *
+ * `src` is a path under `public/`, so it is a URL and never translated.
+ * `width` and `height` are the file's intrinsic pixel size; they are here so
+ * the browser reserves the space before the image loads, instead of the prose
+ * below jumping down as it arrives.
+ *
+ * There is no `alt` field, deliberately. The alt is built from the entry's own
+ * name through `explore.moleculeImageA11y` / `explore.scientistImageA11y`, so
+ * it is already translated into every locale and cannot go stale when the
+ * rotation moves on. A picture that needs a more specific description than
+ * "Diagram: sodium sulfate" wants a per-entry, per-locale string, which is an
+ * overlay field and a separate decision — see docs/EXPLORE_IMAGES.md.
+ */
+export interface ExploreImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
 export interface ExploreMolecule extends ExploreProvenance {
   /** Stable, lowercase-hyphen, never translated; the future permalink segment. */
   id: string;
@@ -83,6 +104,8 @@ export interface ExploreMolecule extends ExploreProvenance {
   formula?: string;
   /** Where the reader meets it.
    * Together with `chemistry`, 120–180 English words. */
+  /** Optional diagram, shown under the formula. */
+  image?: ExploreImage;
   everyday: string;
   /** The chemistry that makes it work. */
   chemistry: string;
@@ -109,6 +132,8 @@ export interface ExploreScientist extends ExploreProvenance {
    */
   represents: 'woman' | 'man' | 'other';
   /** What they did — leads with the science. With `legacy`, 120–180 English words. */
+  /** Optional portrait or illustration, shown beside the prose. */
+  image?: ExploreImage;
   work: string;
   /** Why it mattered. */
   legacy: string;

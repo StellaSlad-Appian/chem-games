@@ -565,6 +565,14 @@ export const en = {
     creditHeading: 'Credit where it was due',
     moleculeCta: 'Practise this: {target}',
     scientistCta: 'The chemistry behind this: {target}',
+    /*
+     * Alt text for an entry's picture. Built from the entry's own name rather
+     * than authored per entry, so it is translated everywhere the name is and
+     * cannot go stale when the rotation moves on. {name} sits after a colon,
+     * where it governs nothing — the rule in docs/i18n/README.md.
+     */
+    moleculeImageA11y: 'Diagram: {name}',
+    scientistImageA11y: 'Picture: {name}',
     sourcesHeading: 'Sources',
     sourcesNote: 'Source links last checked {date}.',
     /**

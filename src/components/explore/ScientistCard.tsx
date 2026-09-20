@@ -2,6 +2,7 @@
 
 import { Microscope, Scale } from 'lucide-react';
 import { InwardLink } from './InwardLink';
+import { format } from '@/i18n/format';
 import { SourceList } from './SourceList';
 import type { Dictionary } from '@/i18n/dictionaries';
 import type { LocalizedScientist } from '@/i18n/explore';
@@ -59,6 +60,20 @@ export function ScientistCard({
           {scientist.lifespan}
         </p>
       </div>
+
+      {scientist.image && (
+        // See the note on MoleculeCard. The alt is built from the name, which is
+        // never translated, so this one string reads the same in every locale
+        // apart from the word in front of it.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={scientist.image.src}
+          alt={format(t.explore.scientistImageA11y, { name: scientist.name })}
+          width={scientist.image.width}
+          height={scientist.image.height}
+          className="mt-6 h-auto w-full rounded-2xl border border-(--border) bg-(--background)"
+        />
+      )}
 
       <div className="mt-6 space-y-5">
         <div>

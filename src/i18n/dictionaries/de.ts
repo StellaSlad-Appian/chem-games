@@ -516,6 +516,8 @@ export const de = {
     creditHeading: 'Wer die Anerkennung bekam',
     moleculeCta: 'Dazu üben: {target}',
     scientistCta: 'Die Chemie dazu: {target}',
+    moleculeImageA11y: 'Abbildung: {name}',
+    scientistImageA11y: 'Bild: {name}',
     sourcesHeading: 'Quellen',
     sourcesNote: 'Links zuletzt geprüft am {date}.',
     // Nur für Sprachen ohne eigene Explore-Texte — derzeit allein Russisch.

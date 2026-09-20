@@ -90,6 +90,26 @@ export function MoleculeCard({
         </p>
       </div>
 
+      {molecule.image && (
+        /*
+          A plain <img>, not next/image: these are small static files served
+          from public/, and next/image would add a config surface for nothing.
+          width/height are the file's intrinsic size, so the prose below does
+          not jump when the picture arrives.
+
+          Providing a picture is replacing the file at `src` — no code changes.
+          docs/EXPLORE_IMAGES.md has the folder and the slot list.
+        */
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={molecule.image.src}
+          alt={format(t.explore.moleculeImageA11y, { name: molecule.name })}
+          width={molecule.image.width}
+          height={molecule.image.height}
+          className="mt-6 h-auto w-full rounded-2xl border border-(--border) bg-(--background)"
+        />
+      )}
+
       <div className="mt-6 space-y-5">
         <div>
           <h4 className="text-[10px] font-black uppercase tracking-widest text-(--muted)">

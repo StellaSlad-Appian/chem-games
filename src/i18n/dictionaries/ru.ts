@@ -575,6 +575,8 @@ export const ru = {
     // {target} is the name of a cheat sheet or a game, after a colon.
     moleculeCta: 'Потренируйся: {target}',
     scientistCta: 'Химия за этим: {target}',
+    moleculeImageA11y: 'Изображение: {name}',
+    scientistImageA11y: 'Фото: {name}',
     sourcesHeading: 'Источники',
     sourcesNote: 'Ссылки проверены — {date}.',
     /*

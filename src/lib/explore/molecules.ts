@@ -34,6 +34,11 @@ import type { ExploreMolecule } from './types';
 export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     id: 'benzene',
+    image: {
+      src: '/explore/molecules/benzene.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Benzene',
     formula: 'C6H6',
     everyday:
@@ -55,6 +60,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'citric-acid',
+    image: {
+      src: '/explore/molecules/citric-acid.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Citric acid',
     formula: 'C6H8O7',
     everyday:
@@ -76,6 +86,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'silicon-dioxide',
+    image: {
+      src: '/explore/molecules/silicon-dioxide.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Silicon dioxide',
     formula: 'SiO2',
     everyday:
@@ -97,6 +112,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'monosodium-glutamate',
+    image: {
+      src: '/explore/molecules/monosodium-glutamate.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Monosodium glutamate',
     formula: 'C5H8NNaO4',
     everyday:
@@ -118,6 +138,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'cfc-12',
+    image: {
+      src: '/explore/molecules/cfc-12.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Dichlorodifluoromethane',
     formula: 'CCl2F2',
     everyday:
@@ -140,6 +165,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     // In COMPOUNDS_REGISTRY as id '11' — no name, no formula here.
     id: 'ammonia',
+    image: {
+      src: '/explore/molecules/ammonia.svg',
+      width: 720,
+      height: 400,
+    },
     compoundId: '11',
     everyday:
       'Ammonia is a sharp-smelling gas that dissolves very readily in water; the pungent cleaning liquid is a dilute solution of it. Almost all of it — roughly 180 million tonnes a year — ends up as fertiliser, either spread directly or turned into urea or ammonium nitrate first. There is also a little in your own blood, made as your body breaks protein down.',
@@ -160,6 +190,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'cholesterol',
+    image: {
+      src: '/explore/molecules/cholesterol.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Cholesterol',
     formula: 'C27H46O',
     everyday:
@@ -181,6 +216,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'oleic-acid',
+    image: {
+      src: '/explore/molecules/oleic-acid.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Oleic acid',
     formula: 'C18H34O2',
     everyday:
@@ -202,6 +242,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'methane',
+    image: {
+      src: '/explore/molecules/methane.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Methane',
     formula: 'CH4',
     everyday:
@@ -224,6 +269,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     // In COMPOUNDS_REGISTRY as id '15' — no name, no formula here.
     id: 'water',
+    image: {
+      src: '/explore/molecules/water.svg',
+      width: 720,
+      height: 400,
+    },
     compoundId: '15',
     everyday:
       'Water covers most of the planet and makes up about 60 per cent of you. It is also the only common substance you are likely to meet as a solid, a liquid and a gas on the same day. It is also the reason a pond freezes from the top down: solid water is less dense than liquid water, which is unusual enough to be very nearly unique.',
@@ -244,6 +294,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'kevlar',
+    image: {
+      src: '/explore/molecules/kevlar.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Kevlar',
     // `(…)n` rather than a bare `C14H10N2O2`. A polymer has no molecular
     // formula, and a repeat unit printed next to the name, in the slot where
@@ -272,6 +327,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'lithium-cobalt-oxide',
+    image: {
+      src: '/explore/molecules/lithium-cobalt-oxide.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Lithium cobalt oxide',
     formula: 'LiCoO2',
     everyday:
@@ -293,6 +353,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'adenine',
+    image: {
+      src: '/explore/molecules/adenine.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Adenine',
     formula: 'C5H5N5',
     everyday:
@@ -315,6 +380,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     // In COMPOUNDS_REGISTRY as id '16' — no name, no formula here.
     id: 'sodium-bicarbonate',
+    image: {
+      src: '/explore/molecules/sodium-bicarbonate.svg',
+      width: 720,
+      height: 400,
+    },
     compoundId: '16',
     everyday:
       'This is baking soda. It makes cakes rise, puts the fizz into a bath bomb and the relief into an indigestion tablet, and it is what many powder fire extinguishers are filled with. The same compound is dissolved in your blood, where its job is to stop the acidity drifting when you exercise.',
@@ -335,6 +405,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'urea',
+    image: {
+      src: '/explore/molecules/urea.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Urea',
     formula: 'CH4N2O',
     everyday:
@@ -356,6 +431,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'limonene',
+    image: {
+      src: '/explore/molecules/limonene.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Limonene',
     formula: 'C10H16',
     everyday:
@@ -378,6 +458,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     // In COMPOUNDS_REGISTRY as id '14' — no name, no formula here.
     id: 'sodium-sulfate',
+    image: {
+      src: '/explore/molecules/sodium-sulfate.svg',
+      width: 720,
+      height: 400,
+    },
     compoundId: '14',
     everyday:
       'Sodium sulfate is made by the million tonnes and most of it goes into laundry powder, where it is the bulk that everything else is mixed into. Crystallised with ten water molecules built into its structure, it is known as Glauber’s salt. That form has been used to store heat: it melts in a warm room and freezes again as the room cools.',
@@ -398,6 +483,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'polypropylene',
+    image: {
+      src: '/explore/molecules/polypropylene.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Polypropylene',
     // See the note on Kevlar. This one is sharper: a bare `C3H6` beside the
     // word "polypropylene" is propene's formula, and the entry's own chemistry
@@ -422,6 +512,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
 
   {
     id: 'artemisinin',
+    image: {
+      src: '/explore/molecules/artemisinin.svg',
+      width: 720,
+      height: 400,
+    },
     name: 'Artemisinin',
     formula: 'C15H22O5',
     everyday:
@@ -444,6 +539,11 @@ export const EXPLORE_MOLECULES: ExploreMolecule[] = [
   {
     // In COMPOUNDS_REGISTRY as id '6' — no name, no formula here.
     id: 'sodium-chloride',
+    image: {
+      src: '/explore/molecules/sodium-chloride.svg',
+      width: 720,
+      height: 400,
+    },
     compoundId: '6',
     everyday:
       'Table salt. It is mined out of rock, evaporated from the sea and scattered on icy roads. The chemical industry uses it as the starting point for chlorine, sodium hydroxide and hydrochloric acid. Your body genuinely needs some, and most people eat a good deal more than some.',

@@ -569,6 +569,8 @@ export const fr = {
     // Espace insécable avant les deux-points (U+00A0), comme partout ailleurs.
     moleculeCta: 'S’entraîner : {target}',
     scientistCta: 'La chimie derrière : {target}',
+    moleculeImageA11y: 'Schéma\u00a0: {name}',
+    scientistImageA11y: 'Image\u00a0: {name}',
     sourcesHeading: 'Sources',
     sourcesNote: 'Liens vérifiés le {date}.',
     // Affiché uniquement pour une langue sans texte Explore traduit — pour
