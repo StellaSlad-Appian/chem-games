@@ -13,7 +13,7 @@ replacing a file**: no code changes, no new entry anywhere, no rebuild.
 The page rotates weekly, so **each entry has its own picture** — 20 molecules
 and 20 scientists for the current pool.
 
-Eighteen of the twenty molecule slots are **produced by a script** and should
+All twenty molecule slots are **produced by a script** and should
 not be edited by hand — see [Molecule pictures are generated](#molecule-pictures-are-generated)
 below. Every other slot is a placeholder: a dashed frame showing which entry it
 belongs to, its path and its size. That is deliberate. The card has its final
@@ -75,16 +75,16 @@ one of three places:
 | How | Count | Which |
 | --- | --- | --- |
 | Drawn from a SMILES string by OpenChemLib | 11 | benzene · citric acid · monosodium glutamate · CFC-12 · cholesterol · oleic acid · adenine · sodium bicarbonate · urea · limonene · artemisinin |
-| Drawn in code, by a function in the script | 2 | sodium chloride · water |
+| Drawn in code, by a function in the script | 4 | sodium chloride · water · polypropylene · sodium sulfate |
 | A public-domain file under `assets/explore/`, recoloured | 5 | methane · ammonia · Kevlar · silicon dioxide · lithium cobalt oxide |
 
-**Do not edit the eighteen output files.** The next run overwrites them. Each
+**Do not edit these twenty files.** The next run overwrites them. Each
 carries a comment at the top saying so and where it came from. To change one,
 change the script and re-run.
 
-Two slots are still placeholders: **polypropylene** and **sodium sulfate**.
-The script prints them on every run with the reason, so the gap stays visible
-rather than being something you have to remember.
+No molecule slot is a placeholder any more. The script still prints any that
+are, with the reason, so a twenty-first entry cannot quietly ship without a
+picture.
 
 ### ⚠ Water: do not use the obvious Commons file
 
@@ -122,10 +122,10 @@ own prose:
 | water, methane, ammonia | The cards are about VSEPR shape and lone pairs — 104.5°, a squashed pyramid, a tetrahedron. A skeletal drawing shows none of that, and OpenChemLib will not draw a bond to a hydrogen at all: a one-heavy-atom molecule comes out as the text `H2O`. |
 | silicon dioxide | A continuous network. `O=[Si]=O` is gas-phase SiO₂, the exact picture the card says quartz is not. |
 | sodium chloride, lithium cobalt oxide | Ionic solids. SMILES gives disconnected ions and loses the lattice and the layers, which is what both cards are about. |
-| Kevlar, polypropylene | Polymers. They need a bracketed repeat unit with an *n*. |
-| sodium sulfate | The card is about storing heat, so Glauber's salt crystals earn the slot over any structure diagram. |
+| Kevlar, polypropylene | Polymers. Kevlar needs the chains hydrogen-bonded to each other; polypropylene needs the same backbone drawn twice, once regular and once not, because that is what its card compares. |
+| sodium sulfate | The only card whose chemistry is a process: it melts at 32 °C to store heat, and the denser solid sinks out of reach so each cycle stores less. Drawn as three vessels, not a structure — and not the photograph this doc once guessed at, which cannot say it either. |
 
-Being on that list only rules out the depictor. Six of the nine have a picture
+Being on that list only rules out the depictor. All nine have a picture
 anyway, from the other two routes.
 
 ### Adding a molecule
