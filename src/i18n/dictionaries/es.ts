@@ -614,7 +614,7 @@ export const es = {
     archiveCta: 'Ver todas las fichas',
     archiveHeading: 'Archivo de Explorar',
     archiveIntro:
-      'Todas las moléculas y todas las personas de la química, en el orden en que van apareciendo.',
+      'Todas las moléculas y todas las personas de la química, empezando por lo más reciente.',
     archiveThisWeek: 'Esta semana',
     backToExplore: 'Volver a Explorar',
     // «De la misma semana» y no «Emparejada con»: el encabezado va delante de

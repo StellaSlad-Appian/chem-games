@@ -1,32 +1,43 @@
 // src/app/[lang]/(main)/explore/archive/page.tsx
 //
-// The index: every pair in the rotation, in the order they come round.
+// The index: every pair in the rotation, most recent first.
 //
-// ## Rotation order, not months — and not "only what has been featured"
+// ## Not months, and not "only what has been featured"
 //
 // The brief offered "grouped by month or by rotation order, whichever reads
-// better once you see the data". Having seen the data, rotation order, for
-// three reasons that only show up once you try the alternative:
+// better once you see the data". Two things about a month grouping only show up
+// once you try it:
 //
 //   1. **A pair recurs.** With a twenty-week cycle, benzene appears in January,
 //      then June, then November. Grouped by month it is three rows for one
 //      pair, and a reader scanning for "the benzene one" finds it three times
-//      and cannot tell which is the real one. In rotation order it is one row,
-//      dated by its most recent week.
-//   2. **Rotation order is the editorial order.** `schedule.ts` alternates
-//      `represents` deliberately, prefix by prefix, so reading the index top to
-//      bottom is reading the schedule as it was curated. A month grid destroys
-//      that and replaces it with an accident of the calendar.
-//   3. **A month grouping is empty at launch**, and so is "every entry that has
+//      and cannot tell which is the real one. Here it is one row, dated by its
+//      most recent week.
+//   2. **A month grouping is empty at launch**, and so is "every entry that has
 //      been featured". At `weekIndex` 0 nothing has run. The index would be a
-//      heading over nothing on the day the site most needs to be crawlable,
-//      and would grow one row a week for five months. Listing the whole
-//      rotation is complete from day one and is what makes all forty
-//      permalinks reachable in one hop, which is the point of having an index.
+//      heading over nothing on the day the site most needs to be crawlable, and
+//      would grow one row a week for five months. Listing the whole rotation is
+//      complete from day one and is what makes all forty permalinks reachable
+//      in one hop, which is the point of having an index.
 //
-// So this page lists the whole rotation and says of each row where it stands:
-// the week it last ran, or — before its first — the week it is next due. The
-// one row that is the current week is marked.
+// ## And not rotation order either, which is what this was
+//
+// Rotation order is the curated order — `schedule.ts` alternates `represents`
+// prefix by prefix — and it was the obvious answer until the dates were on
+// screen. The German page at 320px read: 25 May, 1 June, … 14 September
+// (**this week**), 4 May, 11 May, 18 May. Every one of those is true, because
+// the pairs after the current one in the cycle last ran before the wrap, and
+// the whole column looks broken — a reader cannot see that the rotation
+// wrapped, only that a sorted list is not sorted.
+//
+// So the rows are ordered by the date they carry: what has run, newest week
+// first, then what has not, soonest first. `archiveRotation` does the sorting
+// and carries the same note. The curated order is still in `schedule.ts`,
+// which is where it belongs.
+//
+// Each row says where it stands: the week it last ran, or — before its first —
+// the week it is next due. The one row that is the current week is marked, and
+// it is the top row.
 //
 // ## These dates are derived, not recorded
 //
@@ -41,7 +52,7 @@
 // stand-in a crawler can follow; a sitemap is the separate, better answer.
 
 import type { Metadata } from 'next';
-import { Compass } from 'lucide-react';
+import { ArrowLeft, Compass } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { ThisWeekBadge, WeekRow } from '@/components/explore/WeekRow';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
@@ -94,6 +105,7 @@ export default async function ExploreArchivePage(props: PageProps<'/[lang]/explo
           href="/explore"
           className="mb-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
         >
+          <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
           {t.explore.backToExplore}
         </LocaleLink>
 

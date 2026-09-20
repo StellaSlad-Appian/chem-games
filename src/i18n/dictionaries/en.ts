@@ -602,7 +602,7 @@ export const en = {
     archiveCta: 'Browse every entry',
     archiveHeading: 'Explore archive',
     /** Doubles as the archive page's meta description, like `intro` does. */
-    archiveIntro: 'Every molecule and chemist in the rotation, in the order they come round.',
+    archiveIntro: 'Every molecule and chemist in the rotation, the most recent first.',
     /** Marks the one row in the archive that is the week the reader is in. */
     archiveThisWeek: 'This week',
     backToExplore: 'Back to Explore',

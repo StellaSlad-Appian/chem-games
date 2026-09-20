@@ -216,13 +216,44 @@ describe('entryRotation — what a permalink may say about dates', () => {
 });
 
 describe('archiveRotation', () => {
-  it('lists the whole rotation, once each, in order', () => {
+  it('lists the whole rotation, once each', () => {
     const rows = archiveRotation(midWeek(37));
 
     expect(rows).toHaveLength(POOL);
-    expect(rows.map((row) => row.pair.rotationIndex)).toEqual(
-      Array.from({ length: POOL }, (_, i) => i)
-    );
+    expect(new Set(rows.map((row) => row.pair.rotationIndex)).size).toBe(POOL);
+  });
+
+  it('is ordered by the date each row shows, newest first', () => {
+    // The bug this replaced: in rotation order the column ran 25 May, 1 June,
+    // … 14 September (this week), 4 May, 11 May. Every date true, the whole
+    // list looking broken, because a reader cannot see that the cycle wrapped.
+    const rows = archiveRotation(midWeek(37));
+
+    const dates = rows.map((row) => row.lastFeatured!.getTime());
+    expect(dates.every((d) => Number.isFinite(d))).toBe(true);
+    expect([...dates].sort((a, b) => b - a)).toEqual(dates);
+  });
+
+  it('puts the current week at the top', () => {
+    const rows = archiveRotation(midWeek(37));
+    expect(rows[0].isCurrentWeek).toBe(true);
+  });
+
+  it('puts what has run before what has not, in the first weeks', () => {
+    // Week 5 of the site's life: six pairs have run and fourteen have not. The
+    // ones that have come first, newest first; the rest follow, soonest first.
+    const rows = archiveRotation(midWeek(5));
+
+    const run = rows.filter((row) => row.lastFeatured !== null);
+    const toCome = rows.filter((row) => row.lastFeatured === null);
+
+    expect(run).toHaveLength(6);
+    expect(toCome).toHaveLength(POOL - 6);
+    // No interleaving: every run row precedes every not-yet-run row.
+    expect(rows.slice(0, run.length).every((row) => row.lastFeatured !== null)).toBe(true);
+
+    const upcoming = toCome.map((row) => row.nextFeatured.getTime());
+    expect([...upcoming].sort((a, b) => a - b)).toEqual(upcoming);
   });
 
   it('marks exactly one row as the current week', () => {
@@ -241,6 +272,12 @@ describe('archiveRotation', () => {
       expect(row.timesFeatured).toBe(0);
       expect(row.nextFeatured.getTime()).toBeGreaterThanOrEqual(ROTATION_EPOCH);
     }
+    // With nothing to sort by recency, the order falls back to the order the
+    // pairs come round in — which is the curated order, and the right one for
+    // a page that is entirely "what is coming".
+    expect(rows.map((row) => row.pair.rotationIndex)).toEqual(
+      Array.from({ length: POOL }, (_, i) => i)
+    );
   });
 
   it('is complete from the first week, which is what makes it an index', () => {

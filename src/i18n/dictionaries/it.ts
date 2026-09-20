@@ -633,7 +633,7 @@ export const it = {
     archiveCta: 'Vedi tutte le schede',
     archiveHeading: 'Archivio di Esplora',
     archiveIntro:
-      'Tutte le molecole e tutte le persone della chimica, nell’ordine in cui tornano.',
+      'Tutte le molecole e tutte le persone della chimica, dalle più recenti.',
     archiveThisWeek: 'Questa settimana',
     backToExplore: 'Torna a Esplora',
     // «Della stessa settimana» e non «Abbinata a»: il participio concorderebbe

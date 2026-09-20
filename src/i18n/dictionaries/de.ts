@@ -530,8 +530,7 @@ export const de = {
     recentHeading: 'Frühere Wochen',
     archiveCta: 'Alle Einträge ansehen',
     archiveHeading: 'Entdecken-Archiv',
-    archiveIntro:
-      'Alle Moleküle und Forschenden der Rotation, in der Reihenfolge ihres Erscheinens.',
+    archiveIntro: 'Alle Moleküle und Forschenden der Rotation, das Neueste zuerst.',
     archiveThisWeek: 'Diese Woche',
     backToExplore: 'Zurück zu Entdecken',
     // „Aus derselben Woche“ statt „Gepaart mit“: die Überschrift steht über

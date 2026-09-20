@@ -584,7 +584,7 @@ export const fr = {
     archiveCta: 'Voir toutes les fiches',
     archiveHeading: 'Archives d’Explorer',
     archiveIntro:
-      'Toutes les molécules et toutes les personnes de la chimie, dans l’ordre où elles reviennent.',
+      'Toutes les molécules et toutes les personnes de la chimie, les plus récentes d’abord.',
     archiveThisWeek: 'Cette semaine',
     backToExplore: 'Retour à Explorer',
     // « De la même semaine » plutôt que « En binôme avec » : le titre précède

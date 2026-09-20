@@ -261,13 +261,48 @@ export function entryRotation(
 }
 
 /**
- * Every pair in the rotation, in the order they come round, with its dates.
+ * Every pair in the rotation, most recently featured first, with its dates.
  *
  * This is the archive index's data. It is the **whole rotation**, not only the
- * weeks that have already happened — see the note in the archive page for why
- * that reads better and why it is what search engines should be given.
+ * weeks that have already happened — see the note in the archive page for why.
+ *
+ * ## Why this is not in rotation order, which is what it was
+ *
+ * Rotation order is the order `schedule.ts` was curated in, and the first
+ * version of this listed the pairs that way. Then the dates went on screen and
+ * the column read: 25 May, 1 June, … 14 September (**this week**), 4 May,
+ * 11 May, 18 May. All six dates are true — the pairs after the current one in
+ * the cycle last ran *before* the wrap — and the whole column looks broken. A
+ * reader does not know the rotation wrapped; they see a sorted list that is not
+ * sorted.
+ *
+ * So the rows are ordered by the date they carry:
+ *
+ *   * pairs that have run, most recent week first — the current week is the
+ *     top row, which is also where its "this week" marker wants to be;
+ *   * then pairs that have not run yet, soonest first.
+ *
+ * In the site's first weeks that is a short list of what has been, followed by
+ * what is coming. After one full cycle it is simply the whole rotation, newest
+ * first, and it reads as the extension of the recent list that it is.
+ *
+ * The curated order is not lost — it is `EXPLORE_SCHEDULE`, and
+ * `rotationIndex` still carries it — it is just not what an index wants.
  */
 export function archiveRotation(now: Date): EntryRotation[] {
   const pairs = schedulablePairs();
-  return pairs.map((pair) => rotationFor(pair, now, pairs.length));
+  return pairs
+    .map((pair) => rotationFor(pair, now, pairs.length))
+    .sort((a, b) => {
+      // Run before not-yet-run.
+      if ((a.lastFeatured === null) !== (b.lastFeatured === null)) {
+        return a.lastFeatured === null ? 1 : -1;
+      }
+      // Both have run: newest week first.
+      if (a.lastFeatured && b.lastFeatured) {
+        return b.lastFeatured.getTime() - a.lastFeatured.getTime();
+      }
+      // Neither has: soonest first, which before the epoch is rotation order.
+      return a.nextFeatured.getTime() - b.nextFeatured.getTime();
+    });
 }
