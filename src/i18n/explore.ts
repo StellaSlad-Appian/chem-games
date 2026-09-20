@@ -24,7 +24,15 @@ import { COMPOUNDS_REGISTRY } from '@/core-engine/data/compounds';
 import { GAME_LINKS } from '@/lib/cheat-sheet-data';
 import { EXPLORE_MOLECULES } from '@/lib/explore/molecules';
 import { EXPLORE_SCIENTISTS } from '@/lib/explore/scientists';
-import { EXPLORE_SCHEDULE } from '@/lib/explore/schedule';
+import {
+  archiveRotation,
+  entryRotation,
+  recentWeeks,
+  schedulablePairs,
+  RECENT_WEEKS_LIMIT,
+  type EntryRotation,
+  type ExploreEntryKind,
+} from '@/lib/explore/archive';
 import { selectForWeek, weekStart } from '@/lib/explore/rotation';
 import type {
   ExploreImage,
@@ -210,37 +218,21 @@ export function localizeScientist(
 }
 
 /**
- * Only entries that are still active can be scheduled. Retiring an entry with
- * `isActive: false` therefore drops its whole week rather than leaving half a
- * page — which is the right trade, because the pair is the unit of meaning.
- */
-function activePairs() {
-  const molecules = new Map(
-    EXPLORE_MOLECULES.filter((m) => m.isActive).map((m) => [m.id, m] as const)
-  );
-  const scientists = new Map(
-    EXPLORE_SCIENTISTS.filter((s) => s.isActive).map((s) => [s.id, s] as const)
-  );
-
-  return EXPLORE_SCHEDULE.map((pair) => {
-    const molecule = molecules.get(pair.moleculeId);
-    const scientist = scientists.get(pair.scientistId);
-    return molecule && scientist ? { molecule, scientist } : null;
-  }).filter((pair): pair is { molecule: ExploreMolecule; scientist: ExploreScientist } =>
-    pair !== null
-  );
-}
-
-/**
  * The week's pair, in the reader's language.
  *
  * `now` is a parameter and there is no clock in here: the page passes
  * `new Date()` and every test passes a fixed date. Throws rather than returning
  * `undefined` when nothing is schedulable, because an Explore page with no
  * entry on it is not a page.
+ *
+ * The pool comes from `schedulablePairs()` in `lib/explore/archive.ts`, which
+ * is the same list the recent list, the archive index and every permalink
+ * count. It used to be a private copy of that filter in this file; two copies
+ * would be two cycle lengths, and the archive would disagree with the page
+ * above it about which week showed what.
  */
 export function getExploreContent(locale: Locale, now: Date): ExploreWeek {
-  const pairs = activePairs();
+  const pairs = schedulablePairs();
   if (pairs.length === 0) {
     throw new Error(
       'explore: no schedulable pairs. Every pair in EXPLORE_SCHEDULE references an ' +
@@ -260,6 +252,120 @@ export function getExploreContent(locale: Locale, now: Date): ExploreWeek {
 /** Whether a locale falls back to the English prose. */
 export const usesEnglishExploreProse = (locale: Locale): boolean =>
   locale === DEFAULT_LOCALE || !OVERLAYS[locale];
+
+// ---------------------------------------------------------------------------
+// The archive
+// ---------------------------------------------------------------------------
+//
+// Localized views over `src/lib/explore/archive.ts`. The arithmetic is all
+// there and takes `now` as a parameter; this layer only resolves prose. Read
+// the header of that file before trusting a date on any of these pages — the
+// archive is derived from today's schedule, not recorded week by week.
+
+export { RECENT_WEEKS_LIMIT } from '@/lib/explore/archive';
+export type { ExploreEntryKind } from '@/lib/explore/archive';
+
+/**
+ * A past week, shaped exactly like the current one.
+ *
+ * `ExploreWeek` already means "a week's pair, resolved for a reader", and a
+ * past week is the same thing with a different date — so it is the same type
+ * rather than a near-duplicate of it. docs/AGENT_INSTRUCTIONS.md Part B is
+ * explicit about this repo's habit of growing competing shapes.
+ */
+export type ExplorePastWeek = ExploreWeek;
+
+/** The most recent past weeks, newest first, in the reader's language. */
+export function getExploreRecent(
+  locale: Locale,
+  now: Date,
+  limit: number = RECENT_WEEKS_LIMIT
+): ExplorePastWeek[] {
+  return recentWeeks(now, limit).map((week) => ({
+    weekStart: week.weekStart,
+    molecule: localizeMolecule(locale, week.pair.molecule),
+    scientist: localizeScientist(locale, week.pair.scientist),
+  }));
+}
+
+/**
+ * One row of the archive index: a pair, resolved, with the dates that say where
+ * it sits in the rotation.
+ *
+ * `lastFeatured` is null until the pair's first week, and `nextFeatured` is
+ * always set — see `EntryRotation` in lib/explore/archive.ts for why a pair is
+ * described by two dates rather than one.
+ */
+export interface LocalizedRotationEntry {
+  molecule: LocalizedMolecule;
+  scientist: LocalizedScientist;
+  cycleWeeks: number;
+  timesFeatured: number;
+  lastFeatured: Date | null;
+  nextFeatured: Date;
+  isCurrentWeek: boolean;
+}
+
+function localizeRotation(locale: Locale, rotation: EntryRotation): LocalizedRotationEntry {
+  return {
+    molecule: localizeMolecule(locale, rotation.pair.molecule),
+    scientist: localizeScientist(locale, rotation.pair.scientist),
+    cycleWeeks: rotation.cycleWeeks,
+    timesFeatured: rotation.timesFeatured,
+    lastFeatured: rotation.lastFeatured,
+    nextFeatured: rotation.nextFeatured,
+    isCurrentWeek: rotation.isCurrentWeek,
+  };
+}
+
+/** Every pair in the rotation, in the order they come round. */
+export function getExploreArchive(locale: Locale, now: Date): LocalizedRotationEntry[] {
+  return archiveRotation(now).map((rotation) => localizeRotation(locale, rotation));
+}
+
+/**
+ * One entry by id, for its permalink.
+ *
+ * Looks in the **whole pool**, not in the rotation: an entry retired with
+ * `isActive: false` keeps its URL, which is the reason that flag exists (see
+ * `ExploreProvenance` in lib/explore/types.ts). It takes no `now`, so
+ * `generateMetadata` can resolve a title without consulting a clock.
+ *
+ * Returns null only when the id is not in the pool at all, which is the page's
+ * cue to call `notFound()`.
+ */
+export function findLocalizedMolecule(locale: Locale, id: string): LocalizedMolecule | null {
+  const molecule = EXPLORE_MOLECULES.find((entry) => entry.id === id);
+  return molecule ? localizeMolecule(locale, molecule) : null;
+}
+
+/** As `findLocalizedMolecule`, for the scientists' pool. */
+export function findLocalizedScientist(locale: Locale, id: string): LocalizedScientist | null {
+  const scientist = EXPLORE_SCIENTISTS.find((entry) => entry.id === id);
+  return scientist ? localizeScientist(locale, scientist) : null;
+}
+
+/**
+ * Where one entry sits in the rotation, in the reader's language.
+ *
+ * Null for an entry that is in the pool but not in the active rotation — a
+ * retired entry, or one whose partner is retired, since the pair is the unit of
+ * meaning. Its permalink still resolves; it simply carries no dates and no link
+ * to a pair, which is the honest rendering rather than an invented one.
+ */
+export function getEntryRotation(
+  locale: Locale,
+  kind: ExploreEntryKind,
+  id: string,
+  now: Date
+): LocalizedRotationEntry | null {
+  const found = entryRotation(kind, id, now);
+  return found ? localizeRotation(locale, found) : null;
+}
+
+/** Every permalink this feature publishes, for `generateStaticParams`. */
+export const exploreMoleculeIds = (): string[] => EXPLORE_MOLECULES.map((entry) => entry.id);
+export const exploreScientistIds = (): string[] => EXPLORE_SCIENTISTS.map((entry) => entry.id);
 
 /**
  * Where a card's call to action goes, and what it is called there.

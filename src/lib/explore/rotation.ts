@@ -46,13 +46,27 @@ export function weekIndex(now: Date): number {
   return Math.floor((now.getTime() - ROTATION_EPOCH) / WEEK_MS);
 }
 
+/**
+ * The Monday 00:00 UTC that a given week number began on.
+ *
+ * The inverse of `weekIndex`, and the only place a week number is turned back
+ * into a date. The archive needs this — it names weeks that are not `now` — and
+ * having it here rather than in the archive module is what keeps the epoch, the
+ * week length and the direction of the arithmetic in one file. A second copy of
+ * `ROTATION_EPOCH + n * WEEK_MS` somewhere else is a second thing that can be
+ * off by one.
+ */
+export function weekStartOfIndex(index: number): Date {
+  return new Date(ROTATION_EPOCH + index * WEEK_MS);
+}
+
 /** The Monday 00:00 UTC that the week containing `now` began on. */
 export function weekStart(now: Date): Date {
-  return new Date(ROTATION_EPOCH + weekIndex(now) * WEEK_MS);
+  return weekStartOfIndex(weekIndex(now));
 }
 
 /**
- * The index into a pool of `length` entries for the week containing `now`.
+ * The index into a pool of `length` entries for a given week number.
  *
  * `((i % n) + n) % n` rather than `i % n`, because JavaScript's `%` keeps the
  * sign of the left operand: a date before the epoch would otherwise produce a
@@ -62,16 +76,24 @@ export function weekStart(now: Date): Date {
  * Throws on an empty pool. A pool of size 0 has no right answer, and returning
  * `undefined` would push the failure into the page, where it renders as a blank
  * card instead of a build that fails.
+ *
+ * Split out from `selectIndex` so the archive can ask the same question about a
+ * week that is not the current one without reconstructing a `Date` to ask it
+ * with. One modulo, used by both.
  */
-export function selectIndex(now: Date, length: number): number {
+export function rotationIndexForWeek(index: number, length: number): number {
   if (!Number.isInteger(length) || length < 1) {
     throw new Error(
       `explore rotation: the pool must hold at least one entry, got ${length}. ` +
         'A pool of any size >= 1 works; the cycle length is the pool size.'
     );
   }
-  const index = weekIndex(now);
   return ((index % length) + length) % length;
+}
+
+/** The index into a pool of `length` entries for the week containing `now`. */
+export function selectIndex(now: Date, length: number): number {
+  return rotationIndexForWeek(weekIndex(now), length);
 }
 
 /**
