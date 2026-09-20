@@ -1133,8 +1133,9 @@ before students see it.**
 English-language site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA
 data book) with a Russian description reading "На английском.", and every
 sheet cited the Victorian Curriculum or the VCE study design — so the Russian
-read «Victorian Curriculum Science, уровень 9: …» to a student who will never
-sit it. That is the example that prompted the rule. The Russian
+read «Victorian Curriculum Science, уровень 10 (химические реакции, в том
+числе кислоты); VCE Unit 2 AoS 1 (Брёнстед — Лоури).» to a student who
+will never sit any of it. That is the example that prompted the rule. The Russian
 `resourceDescriptions` and `curriculumRef` entries have been deleted with them.
 
 **What that leaves open**, and it is content work rather than translation:

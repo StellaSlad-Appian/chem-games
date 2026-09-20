@@ -82,9 +82,9 @@ export type CheatSheetOverlaySet = Record<string, CheatSheetOverlay>;
 //
 //   2. **`curriculumRef`.** It cites the Victorian Curriculum and the VCE
 //      study design — the syllabus of one Australian state. All five overlays
-//      were translating it, so a Russian sheet read
-//      «Victorian Curriculum Science, уровень 9: …» to a student who will
-//      never sit it.
+//      were translating it, so the Russian acids sheet read «Victorian
+//      Curriculum Science, уровень 10 …; VCE Unit 2 AoS 1 (Брёнстед —
+//      Лоури).» to a student who will never sit any of it.
 //
 // **Both are withheld explicitly, and that is the whole point.** Deleting the
 // values from the overlays alone would not have worked: `localizeSheet()` fell

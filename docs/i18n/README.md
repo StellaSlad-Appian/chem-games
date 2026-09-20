@@ -865,8 +865,9 @@ translated for months before anybody noticed:
 - **Curriculum references.** Every cheat sheet carries a `curriculumRef` citing
   the Victorian Curriculum or the VCE study design. That is the syllabus of one
   Australian state. All five non-English overlays were translating it, so the
-  Russian sheet read «Victorian Curriculum Science, уровень 9: …» to a student
-  who will never sit it.
+  Russian acids sheet read «Victorian Curriculum Science, уровень 10
+  (химические реакции, в том числе кислоты); VCE Unit 2 AoS 1 (Брёнстед —
+  Лоури).» to a student who will never sit any of it.
 - **Outside links.** The cheat sheets link to 21 URLs across 13 domains, every
   one of them an English-language page. Only the *description* was localised,
   so a Russian student read a Russian sentence recommending a page they cannot
@@ -934,8 +935,10 @@ worse than no link**. What is already known:
   being translated is not the same as a given simulation being translated.
 - **PubChem, NIST, the VCAA and the IUPAC Gold Book are English-only** and have
   nothing to substitute. Those stay absent.
-- **Khan Academy, LibreTexts, ptable and MolView** have some translated
-  material, in varying states. Per-link checking, not a pattern.
+- **Khan Academy, LibreTexts, ptable and MolView** are the unknowns. Each
+  publishes *some* material in *some* languages, and none of it has been
+  checked link by link — treat that sentence as the open question, not as a
+  finding. Per-link checking, not a pattern.
 - **Local candidates named during review**, which are starting points and not
   recommendations: de — Chemie.de, LEIFIchemie, Studyflix; fr — Kartable,
   Lelivrescolaire.fr, Maxicours; it — Zanichelli's Aula di Scienze, Chimica
