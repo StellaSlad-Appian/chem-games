@@ -15,7 +15,6 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { TestProviders } from '@/test-utils/render';
 import { en } from '@/i18n/dictionaries/en';
-import { ru } from '@/i18n/dictionaries/ru';
 import { getDictionary } from '@/i18n/dictionaries';
 import { DEFAULT_LOCALE, isLocale, LOCALES } from '@/i18n/config';
 import { ROTATION_EPOCH } from '@/lib/explore/rotation';
@@ -148,11 +147,6 @@ describe('a scientist permalink', () => {
     vi.setSystemTime(midWeek(2));
     const { container } = await renderPage('en', THIRD.scientist.id);
     expect(container.textContent).toMatch(/Featured in the week of /);
-  });
-
-  it('carries the deferred-prose notice for Russian', async () => {
-    await renderPage('ru', 'kathleen-lonsdale');
-    expect(screen.getByText(ru.explore.untranslatedNotice)).toBeInTheDocument();
   });
 
   it('calls notFound for an id that is not in the pool', async () => {

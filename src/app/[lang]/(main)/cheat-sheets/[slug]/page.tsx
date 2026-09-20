@@ -320,11 +320,21 @@ export default async function CheatSheetDetailPage(
         </section>
       )}
 
-      <section className={panelClass}>
-        <PanelHeading icon={<BookOpen className="h-5 w-5 text-blue-500" aria-hidden="true" />}>{t.cheatSheets.learnMore}</PanelHeading>
-        <ResourceList heading={t.cheatSheets.forStudents} resources={studentResources} t={t} />
-        <ResourceList heading={t.cheatSheets.forTeachers} resources={teacherResources} t={t} />
-      </section>
+      {/*
+        The whole panel, not just the two lists. A non-English sheet has no
+        resources at all — every one of them is an English-language page, so
+        src/i18n/cheat-sheets.ts withholds them — and `ResourceList` returning
+        null for each list would have left a "Learn more" heading standing over
+        nothing. An empty section reads as a page that failed to load; no
+        section reads as a page that ends where it ends.
+      */}
+      {studentResources.length + teacherResources.length > 0 && (
+        <section className={panelClass}>
+          <PanelHeading icon={<BookOpen className="h-5 w-5 text-blue-500" aria-hidden="true" />}>{t.cheatSheets.learnMore}</PanelHeading>
+          <ResourceList heading={t.cheatSheets.forStudents} resources={studentResources} t={t} />
+          <ResourceList heading={t.cheatSheets.forTeachers} resources={teacherResources} t={t} />
+        </section>
+      )}
 
       {sheet.curriculumRef && (
         <p className="mt-6 text-xs text-(--muted)">

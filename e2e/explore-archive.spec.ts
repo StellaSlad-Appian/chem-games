@@ -154,18 +154,24 @@ test.describe('the permalinks', () => {
     expect(response?.status()).toBe(404);
   });
 
-  test('tells a Russian reader the entry prose is still English', async ({ page }) => {
-    // explore.md §0c. This is the page a Russian reader is likeliest to arrive
-    // at cold, from a search result, with nothing above it to have explained
-    // anything — so the notice matters more here than on /explore.
+  test('renders a permalink in Russian, chrome and prose alike', async ({ page }) => {
+    /*
+     * This test used to assert a notice saying the entry prose was still
+     * English — explore.md §0c, when Russian content was deferred. The Russian
+     * prose landed while the archive was being built, so the notice is gone and
+     * what is worth checking is the opposite: that a permalink, the page a
+     * Russian reader is likeliest to arrive at cold from a search result, is
+     * Russian the whole way down.
+     */
     const ru = await getDictionary('ru');
 
     await page.goto(path('/explore/molecules/benzene', 'ru'));
     await waitForHydration(page);
 
-    await expect(page.getByText(ru.explore.untranslatedNotice)).toBeVisible();
-    // And the chrome around it really is Russian.
     await expect(page.getByRole('link', { name: ru.explore.backToExplore })).toHaveCount(1);
+    await expect(page.getByText(ru.explore.everydayHeading)).toBeVisible();
+    // The formula stays Latin, as Russian chemistry writes it.
+    await expect(page.locator('main')).toContainText('C6H6');
   });
 
   test('carries its own canonical and a full set of hreflang alternates', async ({ page }) => {

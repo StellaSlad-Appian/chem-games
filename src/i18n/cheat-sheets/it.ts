@@ -49,12 +49,18 @@
 // the user chose adaptation, not bilingual presentation.
 //
 // Not translated anywhere in this file: formulae, element symbols, state
-// symbols, charges, structural notation (C–OH, –CHO), the names of
-// English-language linked resources, and the Australian curriculum references
-// (only the words around them are Italian).
+// symbols, charges and structural notation (C–OH, –CHO).
+//
+// **This file carries no `curriculumRef` and no resource descriptions.** Both
+// were here until 2026-09-20 and both were translated: the curriculum line
+// cites one Australian state's syllabus, and every linked resource is an
+// English-language page. Translating them put material in front of a student
+// that the student cannot use. `src/i18n/cheat-sheets.ts` now withholds both
+// from every locale but English, and the note there says why; the follow-up
+// research is in docs/i18n/README.md § Locale-appropriate content.
 
 import { POLYATOMIC_ION_TABLE } from '@/lib/cheat-sheet-data';
-import type { CheatSheetOverlaySet, ResourceDescriptions } from '../cheat-sheets';
+import type { CheatSheetOverlaySet } from '../cheat-sheets';
 
 // ---------------------------------------------------------------------------
 // The polyatomic-ion table is generated from the ion registry, so its Italian
@@ -104,62 +110,11 @@ const polyatomicIonRowsIt = POLYATOMIC_ION_TABLE.rows.map((row) => [
 
 // ---------------------------------------------------------------------------
 
-export const RESOURCE_DESCRIPTIONS_IT: ResourceDescriptions = {
-  'https://www.vcaa.vic.edu.au/sites/default/files/2026-02/2026-ChemistryDataBook.pdf':
-    'Esattamente le tabelle che ti danno all’esame: tavola periodica, ioni poliatomici, dati IR e NMR, costanti. (In inglese.)',
-  'https://www.vcaa.vic.edu.au/curriculum/vce/vce-study-designs/chemistry/Pages/index.aspx':
-    'Il programma ufficiale e le competenze attese per le Units da 1 a 4 (2023–2027). (In inglese.)',
-  'https://www.khanacademy.org/science/hs-chemistry':
-    'Video brevi ed esercizi; utile per una seconda spiegazione di qualsiasi argomento di questa pagina. (In inglese.)',
-  'https://chem.libretexts.org/':
-    'Libro di testo libero e gratuito; cerca un concetto qualsiasi per una spiegazione più approfondita, a livello d’esame. (In inglese.)',
-  'https://www.chemguide.co.uk/':
-    'Spiegazioni chiare e senza giri di parole, ottime soprattutto per i meccanismi della chimica organica e per il legame. (In inglese.)',
-  'https://ptable.com/':
-    'Premi un elemento per vedere la sua configurazione elettronica, la sua elettronegatività e i suoi ioni più comuni.',
-  'https://phet.colorado.edu/en/simulations/build-an-atom':
-    'Aggiungi protoni, neutroni ed elettroni e guarda come cambiano l’elemento, la carica e la massa via via.',
-  'https://phet.colorado.edu/en/simulations/isotopes-and-atomic-mass':
-    'Mescola gli isotopi in proporzioni diverse e osserva come si sposta la massa atomica relativa.',
-  'https://www.rsc.org/periodic-table':
-    'Dati affidabili sugli elementi, con la loro storia e i loro usi: comodo per una ricerca. (In inglese.)',
-  'https://molview.org/':
-    'Disegna una molecola e guardala in 3D; mostra i legami, la geometria e il nome IUPAC.',
-  'https://pubchem.ncbi.nlm.nih.gov/':
-    'Cerca qualsiasi composto: struttura, nome IUPAC, massa molare, proprietà. (In inglese.)',
-  'https://goldbook.iupac.org/':
-    'Le definizioni di riferimento dei termini della chimica. (In inglese.)',
-  'https://phet.colorado.edu/en/simulations/states-of-matter':
-    'Scalda, raffredda e comprimi atomi e molecole, e osserva il cambiamento di stato.',
-  'https://phet.colorado.edu/en/simulations/ph-scale':
-    'Misura il pH di liquidi di tutti i giorni e osserva l’equilibrio fra H3O+ e OH-.',
-  'https://phet.colorado.edu/en/simulations/acid-base-solutions':
-    'Confronta gli acidi forti e quelli deboli su scala di particelle.',
-  'https://phet.colorado.edu/en/simulations/balancing-chemical-equations':
-    'Trascina i coefficienti e guarda come cambia il numero di atomi su una bilancia.',
-  'https://phet.colorado.edu/en/simulations/build-a-molecule':
-    'Monta molecole a partire dagli atomi e vedi le loro formule e le loro forme in 3D.',
-  'https://phet.colorado.edu/en/simulations/molecule-shapes':
-    'Aggiungi legami e doppietti solitari a un atomo centrale e guarda come cambia la forma secondo la VSEPR.',
-  'https://phet.colorado.edu/en/simulations/reactants-products-and-leftovers':
-    'Prima panini e poi reazioni vere: il modo più chiaro per capire che cos’è un reagente limitante.',
-  'https://www.compoundchem.com/2020/02/21/functional-groups/':
-    'Un’infografica di una pagina su ogni gruppo funzionale, con la sua struttura e un esempio: da stampare. (In inglese.)',
-  'https://www.compoundchem.com/2014/02/17/organic-chemistry-reaction-map/':
-    'I percorsi di reazione fra i gruppi funzionali, in una pagina sola. (In inglese.)',
-  'https://sdbs.db.aist.go.jp/':
-    'Spettri IR e NMR veri di migliaia di composti organici. (In inglese.)',
-  'https://webbook.nist.gov/chemistry/':
-    'Spettri di riferimento e dati termochimici. (In inglese.)',
-};
-
 export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
   'atomic-structure': {
     title: 'Atomi, isotopi e tavola periodica',
     summary:
       'Di che cosa è fatto un atomo, perché il numero atomico definisce l’elemento e come è ordinata la tavola.',
-    curriculumRef:
-      'Victorian Curriculum Science livello 9: l’atomo come unità più piccola di un elemento, le particelle del nucleo, il numero atomico e gli isotopi. Le ultime due sezioni anticipano la classe 10 e VCE Unit 1.',
     keyTakeaways: [
       'Un atomo è un nucleo di protoni e neutroni, con gli elettroni distribuiti tutt’intorno.',
       'Il numero di protoni — il numero atomico — è ciò che rende un atomo quell’elemento. Cambialo e hai un elemento diverso.',
@@ -277,8 +232,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Gli stati della materia',
     summary:
       'Come sono disposte le particelle, energia cinetica e i sei passaggi di stato.',
-    curriculumRef:
-      'Victorian Curriculum Science: modello particellare (Levels 7–8), ripreso in Year 9–10 (scienze chimiche).',
     keyTakeaways: [
       'Solidi: le particelle vibrano in posizioni fisse; forma fissa e volume fisso.',
       'Liquidi: le particelle scivolano le une sulle altre; volume fisso, ma la forma è quella del recipiente.',
@@ -328,8 +281,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
   'acids-and-bases': {
     title: 'Acidi e basi',
     summary: 'pH, donatori e accettori di protoni, forte o debole, e la neutralizzazione.',
-    curriculumRef:
-      'Victorian Curriculum Science Level 10 (reazioni chimiche, acidi compresi); VCE Unit 2 AoS 1 (Brønsted-Lowry).',
     keyTakeaways: [
       'Acido: un donatore di protoni (H+). In acqua forma ioni idronio, H3O+. pH < 7.',
       'Base: un accettore di protoni. Le basi solubili (alcali) liberano ioni idrossido, OH-, in acqua. pH > 7.',
@@ -381,8 +332,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Bilanciare le equazioni chimiche',
     summary:
       'Conservazione della massa: entrano ed escono gli stessi atomi. Cambia i coefficienti, mai i pedici.',
-    curriculumRef:
-      'Victorian Curriculum Science Level 10; VCE Unit 1–2 (scrivere equazioni bilanciate con gli stati).',
     keyTakeaways: [
       'In una reazione gli atomi si riorganizzano, non si creano e non si distruggono: ogni elemento deve esserci nello stesso numero ai due lati.',
       'I coefficienti (i numeri grandi davanti) moltiplicano tutta la formula. I pedici (i numeri piccoli dentro) definiscono la sostanza e non vanno mai cambiati.',
@@ -414,7 +363,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Tipi di reazioni chimiche',
     summary:
       'Riconoscere dallo schema la sintesi, la decomposizione, la combustione, lo scambio, la precipitazione e la neutralizzazione.',
-    curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 2 AoS 1–2.',
     keyTakeaways: [
       'Sintesi (combinazione): due o più sostanze si uniscono; A + B → AB.',
       'Decomposizione: una sostanza si separa; AB → A + B (spesso serve calore o corrente elettrica).',
@@ -462,8 +410,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Legami chimici e strutture',
     summary:
       'Legame ionico, covalente e metallico, e come la struttura spiega le proprietà.',
-    curriculumRef:
-      'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1 (metalli, composti ionici, sostanze covalenti).',
     keyTakeaways: [
       'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). Il numero del gruppo ti dice quanti elettroni di valenza ha un elemento rappresentativo.',
       'Ionico: metallo + non metallo. Si trasferiscono elettroni e si formano ioni tenuti insieme in un reticolo tridimensionale dall’attrazione elettrostatica.',
@@ -519,7 +465,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Scrivere le formule dei composti ionici',
     summary:
       'Pareggia le cariche: prima il catione, incrocia le cariche e metti le parentesi agli ioni poliatomici ripetuti.',
-    curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1.',
     keyTakeaways: [
       'Un composto ionico non ha carica complessiva: la carica positiva totale è uguale alla carica negativa totale.',
       'Nella formula scrivi prima il catione (il metallo o NH4+) e poi l’anione.',
@@ -558,8 +503,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Ioni poliatomici',
     summary:
       'La tabella di consultazione, più gli schemi di nomenclatura che fanno sì che ci sia molto meno da imparare a memoria di quanto sembri.',
-    curriculumRef:
-      'VCE Unit 1 AoS 1 (formule e nomi dei composti ionici). Il libro dei dati di VCE contiene questa tabella anche all’esame.',
     keyTakeaways: [
       'Uno ione poliatomico è un gruppo di atomi uniti da legami covalenti che ha una carica complessiva e si muove come un’unità nelle reazioni.',
       'L’unico catione poliatomico comune è l’ammonio, NH4+. Tutti gli altri sono anioni.',
@@ -605,7 +548,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Dare il nome ai composti inorganici',
     summary:
       'Tre sistemi di nomenclatura – ionico, molecolare e acidi – e come capire quale si applica.',
-    curriculumRef: 'VCE Unit 1 AoS 1 (nomenclatura IUPAC dei composti ionici e covalenti).',
     keyTakeaways: [
       'Decidi prima il tipo: metallo + non metallo (o NH4+) → ionico; due non metalli → molecolare; H davanti e sciolto in acqua → acido.',
       'Ionico: nome dell’anione + «di» + nome del catione; in italiano l’anione va per primo, al contrario dell’inglese. Gli anioni monoatomici finiscono in -uro (cloruro, con il caso a parte dell’ossido); quelli poliatomici tengono il loro nome (solfato). Niente prefissi: il rapporto lo fissano già le cariche.',
@@ -662,8 +604,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'La mole e la stechiometria',
     summary:
       'Conversioni con la mole, rapporti molari, reagente limitante e resa percentuale, tutto in un posto.',
-    curriculumRef:
-      'VCE Unit 2 AoS 1–2 (la mole, la concentrazione, la stechiometria); Unit 3 AoS 2 (resa).',
     keyTakeaways: [
       'Una mole è 6,02 × 10^23 particelle (la costante di Avogadro, N_A). La massa molare M (g/mol) è la massa di una mole: si sommano le masse atomiche della tavola periodica.',
       'Tutte le strade passano per la mole: converti in moli quello che ti danno, usa il rapporto molare dell’equazione bilanciata e riconverti in quello che ti chiedono.',
@@ -709,8 +649,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Strutture di Lewis',
     summary:
       'Conta gli elettroni di valenza, condividi fino a completare gli ottetti e verifica con la carica formale.',
-    curriculumRef:
-      'VCE Unit 1 AoS 1 (legame covalente, strutture di Lewis, geometria VSEPR).',
     keyTakeaways: [
       'Elettroni di valenza = numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
       'Ogni legame è un doppietto in comune fra due atomi (2 elettroni). Singolo = 1 doppietto, doppio = 2, triplo = 3. Gli elettroni che non formano legami restano come doppietti solitari.',
@@ -777,7 +715,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     title: 'Dare il nome ai composti organici',
     summary:
       'Nomi IUPAC passo per passo: la catena più lunga, i numeri più bassi, i sostituenti in ordine alfabetico e il suffisso del gruppo funzionale.',
-    curriculumRef: 'VCE Unit 4 AoS 1 (nomenclatura sistematica IUPAC dei composti organici).',
     keyTakeaways: [
       'Cerca la catena continua di carboni più lunga che comprenda il gruppo funzionale di priorità più alta: può girare agli angoli del disegno.',
       'Numera la catena dall’estremità che dà al gruppo funzionale il numero più basso; se non c’è un gruppo funzionale, dai il numero più basso al primo sostituente.',
@@ -836,8 +773,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
   'functional-groups': {
     title: 'Gruppi funzionali',
     summary: 'Che aspetto ha ogni gruppo, come si chiama e quali reazioni dà.',
-    curriculumRef:
-      'VCE Unit 4 AoS 1 (gruppi funzionali, serie omologhe, percorsi di reazione) e AoS 2 (identificazione con IR e NMR).',
     keyTakeaways: [
       'Un gruppo funzionale è l’atomo o il gruppo di atomi che dà a una molecola le sue reazioni caratteristiche. Le molecole con lo stesso gruppo reagiscono allo stesso modo.',
       'Una serie omologa è una famiglia con lo stesso gruppo funzionale e una formula generale, in cui ogni membro si distingue dal precedente per un CH2. Le proprietà fisiche cambiano poco a poco lungo la serie.',

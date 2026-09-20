@@ -63,7 +63,7 @@ export const fr = {
   languagesBody2:
     'Tout ce que lit un élève est traduit – l’interface, l’accompagnement et les astuces dans les jeux, et les antisèches. Les formules chimiques, les symboles d’éléments et les équations ne sont jamais traduits : une équation s’écrit de la même façon dans toutes les langues.',
   languagesBody3:
-    'Deux choses ne changent pas avec la langue : les liens externes des antisèches renvoient tous vers des sites en anglais, et chaque antisèche cite le Victorian Curriculum, un programme australien. À savoir si vous enseignez selon un autre programme.',
+    'Sur une antisèche dans une autre langue que l’anglais, deux choses manquent. Elle ne porte aucun lien externe, parce que tous les sites vers lesquels nous renvoyons sont en anglais, et elle ne cite aucun programme, parce que le seul dont nous disposons est le Victorian Curriculum, qui est australien. Mettre sous les yeux d’un élève une ressource qu’il ne peut pas utiliser est pire que de ne rien lui montrer : les deux sont donc retenues plutôt que traduites. Les équivalents locaux – une correspondance de programme par pays, et des liens qu’un élève peut lire – n’ont pas encore été cherchés.',
 
   privacyHeading: 'Vie privée des élèves',
   privacyBody1:

@@ -49,7 +49,6 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import {
   exploreLinkTarget,
-  exploreProseIsUntranslated,
   findLocalizedMolecule,
   getEntryRotation,
   exploreMoleculeIds,
@@ -133,20 +132,6 @@ export default async function MoleculePermalinkPage(
           {t.explore.backToExplore}
         </LocaleLink>
 
-        {/*
-          The same notice the week page carries, for the same reason and in the
-          same place — above the English prose rather than below it. A permalink
-          is the *likeliest* page for a Russian reader to arrive at cold, from a
-          search result or a shared link, with no page above it to have
-          explained anything. Leaving it off here would have been the easy
-          oversight: docs/feature-briefs/explore.md §0c is about the reader, not
-          about one route.
-        */}
-        {exploreProseIsUntranslated(locale) && (
-          <p className="mb-6 rounded-xl border border-(--border) bg-(--surface) px-4 py-3 text-sm text-(--muted)">
-            {t.explore.untranslatedNotice}
-          </p>
-        )}
 
         <MoleculeCard
           molecule={molecule}

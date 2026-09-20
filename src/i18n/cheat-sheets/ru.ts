@@ -54,17 +54,23 @@
 // the user chose adaptation, not bilingual presentation.
 //
 // Not translated anywhere in this file: formulae, element symbols, state
-// symbols, charges, structural notation (C–OH, –CHO), physical quantities and
-// their symbols (n, m, M, c, V, P, R, T), the names of English-language linked
-// resources, and the Australian curriculum references (only the words around
-// them are Russian).
+// symbols, charges, structural notation (C–OH, –CHO), and physical quantities
+// and their symbols (n, m, M, c, V, P, R, T).
+//
+// **This file carries no `curriculumRef` and no resource descriptions.** Both
+// were here until 2026-09-20 and both were translated: the curriculum line
+// cites one Australian state's syllabus, and every linked resource is an
+// English-language page. Translating them put material in front of a student
+// that the student cannot use. `src/i18n/cheat-sheets.ts` now withholds both
+// from every locale but English, and the note there says why; the follow-up
+// research is in docs/i18n/README.md § Locale-appropriate content.
 //
 // **Every adapted sheet is rated low in ru-review.md and needs a chemistry
 // teacher who teaches in Russian to check it.** That is not a formality: the
 // naming rules are content design per locale, not translation.
 
 import { POLYATOMIC_ION_TABLE } from '@/lib/cheat-sheet-data';
-import type { CheatSheetOverlaySet, ResourceDescriptions } from '../cheat-sheets';
+import type { CheatSheetOverlaySet } from '../cheat-sheets';
 
 // ---------------------------------------------------------------------------
 // The polyatomic-ion table is generated from the ion registry, so its Russian
@@ -114,62 +120,11 @@ const polyatomicIonRowsRu = POLYATOMIC_ION_TABLE.rows.map((row) => [
 
 // ---------------------------------------------------------------------------
 
-export const RESOURCE_DESCRIPTIONS_RU: ResourceDescriptions = {
-  'https://www.vcaa.vic.edu.au/sites/default/files/2026-02/2026-ChemistryDataBook.pdf':
-    'Ровно те таблицы, которые дают на экзамене: таблица Менделеева, многоатомные ионы, данные ИК и ЯМР, постоянные. (На английском.)',
-  'https://www.vcaa.vic.edu.au/curriculum/vce/vce-study-designs/chemistry/Pages/index.aspx':
-    'Официальная программа и требования для Units 1–4 (2023–2027). (На английском.)',
-  'https://www.khanacademy.org/science/hs-chemistry':
-    'Короткие видео и задачи; пригодится, если нужно второе объяснение любой темы с этой страницы. (На английском.)',
-  'https://chem.libretexts.org/':
-    'Бесплатный открытый учебник; найди любое понятие и получи более глубокое объяснение, экзаменационного уровня. (На английском.)',
-  'https://www.chemguide.co.uk/':
-    'Ясные объяснения без лишних слов, особенно хороши по механизмам органики и по химической связи. (На английском.)',
-  'https://ptable.com/':
-    'Нажми на элемент и увидишь его электронную конфигурацию, электроотрицательность и обычные ионы.',
-  'https://phet.colorado.edu/en/simulations/build-an-atom':
-    'Добавляй протоны, нейтроны и электроны и смотри, как по ходу меняются элемент, заряд и масса.',
-  'https://phet.colorado.edu/en/simulations/isotopes-and-atomic-mass':
-    'Смешивай изотопы в разных долях и следи, как смещается относительная атомная масса.',
-  'https://www.rsc.org/periodic-table':
-    'Надёжные данные по элементам, с историей и применением, — удобно для доклада. (На английском.)',
-  'https://molview.org/':
-    'Нарисуй молекулу и посмотри на неё в 3D; показывает связи, геометрию и название по IUPAC.',
-  'https://pubchem.ncbi.nlm.nih.gov/':
-    'Найди любое соединение: строение, название по IUPAC, молярная масса, свойства. (На английском.)',
-  'https://goldbook.iupac.org/':
-    'Эталонные определения химических терминов. (На английском.)',
-  'https://phet.colorado.edu/en/simulations/states-of-matter':
-    'Нагревай, охлаждай и сжимай атомы и молекулы и смотри, как меняется агрегатное состояние.',
-  'https://phet.colorado.edu/en/simulations/ph-scale':
-    'Измеряй pH привычных жидкостей и смотри на соотношение H3O+ и OH-.',
-  'https://phet.colorado.edu/en/simulations/acid-base-solutions':
-    'Сравни сильные и слабые кислоты на уровне частиц.',
-  'https://phet.colorado.edu/en/simulations/balancing-chemical-equations':
-    'Перетаскивай коэффициенты и смотри, как меняется число атомов на весах.',
-  'https://phet.colorado.edu/en/simulations/build-a-molecule':
-    'Собирай молекулы из атомов и смотри на их формулы и объёмные модели.',
-  'https://phet.colorado.edu/en/simulations/molecule-shapes':
-    'Добавляй к центральному атому связи и неподелённые пары и смотри, как меняется форма по теории отталкивания пар.',
-  'https://phet.colorado.edu/en/simulations/reactants-products-and-leftovers':
-    'Сначала бутерброды, потом настоящие реакции — самое наглядное объяснение недостатка и избытка.',
-  'https://www.compoundchem.com/2020/02/21/functional-groups/':
-    'Плакат на одну страницу: каждая функциональная группа со строением и примером — распечатай. (На английском.)',
-  'https://www.compoundchem.com/2014/02/17/organic-chemistry-reaction-map/':
-    'Карта превращений между группами на одной странице. (На английском.)',
-  'https://sdbs.db.aist.go.jp/':
-    'Настоящие ИК- и ЯМР-спектры тысяч органических соединений. (На английском.)',
-  'https://webbook.nist.gov/chemistry/':
-    'Справочные спектры и термохимические данные. (На английском.)',
-};
-
 export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
   'atomic-structure': {
     title: 'Атомы, изотопы и периодическая таблица',
     summary:
       'Из чего состоит атом, почему элемент задаётся атомным номером и по какому признаку выстроена таблица.',
-    curriculumRef:
-      'Victorian Curriculum Science, уровень 9: атом как наименьшая частица элемента, частицы ядра, атомный номер и изотопы. Последние два раздела заглядывают вперёд, в 10-й класс и VCE Unit 1.',
     keyTakeaways: [
       'Атом — это ядро из протонов и нейтронов, вокруг которого распределены электроны.',
       'Число протонов — атомный номер — и делает атом именно этим элементом. Измени его, и элемент станет другим.',
@@ -286,8 +241,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
   'states-of-matter': {
     title: 'Агрегатные состояния',
     summary: 'Расположение частиц, кинетическая энергия и шесть переходов между состояниями.',
-    curriculumRef:
-      'Victorian Curriculum Science: модель частиц (уровни 7–8), повторяется в химии 9–10 года обучения.',
     keyTakeaways: [
       'Твёрдое: частицы колеблются на своих местах — своя форма и свой объём.',
       'Жидкое: частицы скользят друг относительно друга — объём свой, форма как у сосуда.',
@@ -337,8 +290,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
   'acids-and-bases': {
     title: 'Кислоты и основания',
     summary: 'pH, доноры и акцепторы протонов, сильные и слабые, нейтрализация.',
-    curriculumRef:
-      'Victorian Curriculum Science, уровень 10 (химические реакции, в том числе кислоты); VCE Unit 2 AoS 1 (Брёнстед — Лоури).',
     keyTakeaways: [
       'Кислота — донор протона (H+). В воде она даёт ионы гидроксония, H3O+. pH меньше 7.',
       'Основание — акцептор протона. Растворимые основания (щёлочи) дают в воде гидроксид-ионы, OH-. pH больше 7.',
@@ -390,8 +341,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Как уравнивать химические уравнения',
     summary:
       'Закон сохранения массы: сколько атомов вошло, столько и вышло — меняй коэффициенты, но никогда индексы.',
-    curriculumRef:
-      'Victorian Curriculum Science, уровень 10; VCE Unit 1–2 (запись уравнений с обозначениями состояния).',
     keyTakeaways: [
       'В реакции атомы только перегруппировываются, они не появляются и не исчезают: каждого элемента с обеих сторон должно быть поровну.',
       'Коэффициенты (большие числа спереди) умножают всю формулу. Индексы (маленькие числа внутри) задают само вещество, и менять их нельзя.',
@@ -423,7 +372,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Типы химических реакций',
     summary:
       'Узнавай соединение, разложение, горение, замещение, осаждение и нейтрализацию по их схеме.',
-    curriculumRef: 'Victorian Curriculum Science, уровень 10; VCE Unit 2 AoS 1–2.',
     keyTakeaways: [
       'Соединение: два вещества или больше объединяются — A + B → AB.',
       'Разложение: одно вещество распадается — AB → A + B (часто нужен нагрев или ток).',
@@ -471,8 +419,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Химическая связь и строение',
     summary:
       'Ионная, ковалентная и металлическая связь — и как строение объясняет свойства.',
-    curriculumRef:
-      'Victorian Curriculum Science, уровень 10; VCE Unit 1 AoS 1 (металлы, ионные соединения, ковалентные вещества).',
     keyTakeaways: [
       'Атомы соединяются, чтобы получить устойчивый, заполненный внешний уровень — как у благородного газа. Номер группы говорит, сколько у элемента главной подгруппы валентных электронов.',
       'Ионная: металл + неметалл. Электроны переходят, получаются ионы, которые держит в объёмной решётке электростатическое притяжение.',
@@ -516,7 +462,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Как составлять формулы ионных соединений',
     summary:
       'Уравняй заряды: сначала катион, потом перекрёстное правило, а повторяющийся многоатомный ион — в скобки.',
-    curriculumRef: 'Victorian Curriculum Science, уровень 10; VCE Unit 1 AoS 1.',
     keyTakeaways: [
       'У ионного соединения нет общего заряда: сумма положительных зарядов равна сумме отрицательных.',
       'Сначала пиши катион (металл или NH4+), потом анион.',
@@ -555,8 +500,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Многоатомные ионы',
     summary:
       'Таблица для справки и правила названий, из-за которых учить наизусть приходится куда меньше, чем кажется.',
-    curriculumRef:
-      'VCE Unit 1 AoS 1 (формулы и названия ионных соединений). Эту таблицу выдают на экзамене в справочнике VCE.',
     keyTakeaways: [
       'Многоатомный ион — это группа атомов, связанных ковалентно, у которой есть общий заряд и которая в реакции ведёт себя как одно целое.',
       'Единственный распространённый многоатомный катион — аммоний, NH4+. Все остальные анионы.',
@@ -602,7 +545,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Названия неорганических соединений',
     summary:
       'Три системы названий — для ионных, молекулярных соединений и кислот — и как понять, какая из них нужна.',
-    curriculumRef: 'VCE Unit 1 AoS 1 (названия ионных и ковалентных соединений по IUPAC).',
     keyTakeaways: [
       'Сначала определи тип: металл + неметалл (или NH4+) — ионное; два неметалла — молекулярное; H впереди и растворено в воде — кислота.',
       'Ионное: сначала название аниона, потом катион в родительном падеже. Одноатомные анионы получают -ид (хлорид, оксид), многоатомные сохраняют своё название (сульфат). Приставок нет: соотношение задано зарядами.',
@@ -659,8 +601,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Моль и расчёты по уравнениям',
     summary:
       'Переходы через моль, мольные соотношения, недостаток и избыток, выход в процентах — всё на одной странице.',
-    curriculumRef:
-      'VCE Unit 2 AoS 1–2 (моль, концентрация, расчёты по уравнениям); Unit 3 AoS 2 (выход).',
     keyTakeaways: [
       'Один моль — это 6,02 × 10²³ частиц (постоянная Авогадро, N_A). Молярная масса M (г/моль) — масса одного моля; её складывают из атомных масс по таблице Менделеева.',
       'Все дороги идут через моль: переведи данное в моли, возьми мольное соотношение из уравнения, а потом переведи обратно в то, о чём спрашивают.',
@@ -706,8 +646,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Формулы Льюиса',
     summary:
       'Посчитай валентные электроны, подели их так, чтобы всем хватило октета, и проверь формальным зарядом.',
-    curriculumRef:
-      'VCE Unit 1 AoS 1 (ковалентная связь, формулы Льюиса, формы молекул по теории отталкивания пар).',
     keyTakeaways: [
       'Валентных электронов столько же, сколько номер группы, — для элементов главных подгрупп (H 1, C 4, N 5, O 6, галогены 7). За каждый минус заряда прибавь электрон, за каждый плюс отними.',
       'Каждая связь — это общая пара (2 электрона). Одинарная — 1 пара, двойная — 2, тройная — 3. Электроны, не занятые в связях, стоят неподелёнными парами.',
@@ -774,7 +712,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
     title: 'Названия органических соединений',
     summary:
       'Названия по IUPAC по шагам: самая длинная цепь, наименьшие номера, заместители по алфавиту, суффикс функциональной группы.',
-    curriculumRef: 'VCE Unit 4 AoS 1 (систематические названия органических соединений по IUPAC).',
     keyTakeaways: [
       'Найди самую длинную непрерывную углеродную цепь, в которую входит старшая функциональная группа, — на рисунке она может заворачивать за углы.',
       'Нумеруй цепь с того конца, который даёт функциональной группе меньший номер; если группы нет, меньший номер получает первый заместитель.',
@@ -833,8 +770,6 @@ export const CHEAT_SHEET_OVERLAY_RU: CheatSheetOverlaySet = {
   'functional-groups': {
     title: 'Функциональные группы',
     summary: 'Как выглядит каждая группа, как её называют и в какие реакции она вступает.',
-    curriculumRef:
-      'VCE Unit 4 AoS 1 (функциональные группы, гомологические ряды, цепочки превращений) и AoS 2 (определение по ИК и ЯМР).',
     keyTakeaways: [
       'Функциональная группа — атом или группа атомов, которая задаёт молекуле её характерные реакции. Молекулы с одной и той же группой реагируют одинаково.',
       'Гомологический ряд — семейство с одной функциональной группой и общей формулой, где соседи отличаются на CH2. Физические свойства вдоль ряда меняются постепенно.',

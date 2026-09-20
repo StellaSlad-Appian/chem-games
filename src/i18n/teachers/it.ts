@@ -63,7 +63,7 @@ export const it = {
   languagesBody2:
     'Tutto ciò che legge chi studia è tradotto: l’interfaccia, l’accompagnamento e gli indizi dentro i giochi, e i bigini. Le formule chimiche, i simboli degli elementi e le equazioni non vengono mai tradotti; un’equazione si scrive allo stesso modo in tutte le lingue.',
   languagesBody3:
-    'Due cose non cambiano con la lingua: i link esterni dei bigini portano tutti a siti in inglese e ogni bigino cita il Victorian Curriculum, un programma australiano. Utile saperlo se Lei segue un altro programma.',
+    'Su un bigino in una lingua diversa dall’inglese mancano due cose. Non porta nessun link esterno, perché tutti i siti a cui rimandiamo sono in inglese, e non cita nessun programma, perché l’unico che abbiamo è il Victorian Curriculum, che è australiano. Mettere davanti a chi studia del materiale che non può usare è peggio che lasciarlo fuori, quindi entrambe le cose vengono trattenute anziché tradotte. Gli equivalenti locali – una corrispondenza di programma per ogni Paese e link che chi studia possa leggere – non sono ancora stati cercati.',
 
   privacyHeading: 'Privacy di chi studia',
   privacyBody1:

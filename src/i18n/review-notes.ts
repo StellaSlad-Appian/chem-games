@@ -330,11 +330,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not a gemeinnütziger Verein. "Spende" was avoided throughout for that reason, in favour of "beisteuern" and "unterstützen". Not legal review either — whether the sentence about steuerliche Absetzbarkeit is phrased the way a German reader expects has not been checked.',
     },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string German never renders: it is shown only where the entry prose is untranslated, which German is not. Kept in step with the others so a future deferral has it ready.',
-    },
   ],
 
   fr: [
@@ -677,11 +672,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'teachers.supportBody',
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *association reconnue d\'utilité publique*. *Don* and *faire un don* were avoided in favour of *soutenir* and *contribuer* for exactly that reason. Not legal review either — whether the sentence about déductibilité fiscale reads the way a French reader expects has not been checked.',
-    },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string French never renders — shown only where the entry prose is untranslated. Phrased to cover a chemist of either gender, which French needs and the English does not.',
     },
   ],
 
@@ -1055,11 +1045,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'teachers.supportBody',
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *entidad benéfica registrada*. *Donar* and *donación* were avoided in favour of *apoyar* and *aportar* for exactly that reason. Not legal review either — whether the sentence about desgravación is phrased the way a Spanish reader expects has not been checked.',
-    },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string Spanish never renders — shown only where the entry prose is untranslated. \"La persona\" avoids the gendered noun the English sidesteps for free.',
     },
   ],
 
@@ -1449,11 +1434,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *ente benefico riconosciuto*. *Donazione* and *donare* were avoided in favour of *sostenere* and *contribuire* for exactly that reason. Not legal review either — whether the sentence about detraibilità is phrased the way an Italian reader expects has not been checked.',
     },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string Italian never renders — shown only where the entry prose is untranslated. \"La persona\" for the same reason as the Spanish.',
-    },
   ],
   ru: [
     // ---------------------------------------------------------------- high --
@@ -1819,7 +1799,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'teachers.languagesBody',
       confidence: 'medium',
-      note: '**Re-checked against the repository rather than translated from the English of the day.** `languagesBody1` says **six** languages and names Russian, which is now true; the same correction was made in the other five locale files and in `meta.teachersDescription`. `languagesBody3` used to say Russian was planned and had not shipped — false from the moment this locale landed — so the slot now carries a caveat that is true and that a teacher actually needs (docs/i18n/README.md § Known gaps): the cheat sheets’ outside links are all English-language sites, and every sheet cites the Victorian Curriculum. «Victorian Curriculum» stays Latin, like the Privacy Act and the OAIC on the privacy page — translating the name of a syllabus makes it impossible to look up. Medium rather than low: the register question that rates the rest of the namespace low applies here too, but the facts are checked.',
+      note: '**Re-checked against the repository rather than translated from the English of the day.** `languagesBody1` says **six** languages and names Russian, which is now true; the same correction was made in the other five locale files and in `meta.teachersDescription`. `languagesBody3` has now been rewritten twice. It used to say Russian was planned and had not shipped; it then carried the caveat that the outside links were English and every sheet cited the Victorian Curriculum; and since 2026-09-20 a Russian reader is shown neither, so it says *that* instead — no links and no curriculum, because the ones we have are English and Australian, and local equivalents have not been researched. «Victorian Curriculum» stays Latin, like the Privacy Act and the OAIC on the privacy page: translating the name of a syllabus makes it impossible to look up. Medium rather than low: the register question that rates the rest of the namespace low applies here too, but the facts are checked.',
     },
     {
       prefix: 'teachers.supportBody',
@@ -1904,20 +1884,21 @@ before students see it.**
 | Naming Organic Compounds | **low** | Same problem as the inorganic naming sheet, worse. IUPAC suffixes differ between the languages (-oic acid vs. -säure, ester naming is structurally different: "Ethansäuremethylester" not "methyl ethanoate"). I used the German conventions. **A chemistry teacher must check this sheet.** |
 | Functional Groups | **low** | The reference table mixes structure notation (untranslated) with German group names and German reaction descriptions. The ester row in particular follows German ester naming, which is not a translation of the English pattern. |
 
-**Not translated, deliberately:** every linked resource is an English-language
-site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
-titles are left in English so they are findable, and the German descriptions
-say "(Auf Englisch.)" so a reader is not surprised. **This is a genuine gap
-rather than a solved problem**: a German student gets German explanations and
-then English source material. If German is going to be a first-class language,
-the resource lists should get German equivalents (e.g. Chemie.de, LEIFIchemie,
-Studyflix), which is a content task rather than a translation task.
+**Withheld, not translated (changed 2026-09-20):** a German sheet now shows
+**no outside links and no curriculum reference**. Every linked resource was an
+English-language site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA
+data book) with a German description reading "(Auf Englisch.)", and every sheet
+cited the Victorian Curriculum or the VCE study design, which is Australian.
+Both were translated *around* rather than left out, which put material in front
+of a student that the student cannot use. The German \`resourceDescriptions\` and
+\`curriculumRef\` entries have been deleted with them; there is nothing left in
+this file to review on either.
 
-**Also not translated:** the curriculum references. Every sheet cites the
-Victorian Curriculum or the VCE study design, which is Australian. The
-surrounding German is translated but the curriculum itself is not relevant to a
-German reader. Worth deciding whether German sheets should show a German
-curriculum reference, or none.
+**What that leaves open**, and it is content work rather than translation:
+German equivalents for the resource lists (Chemie.de, LEIFIchemie and Studyflix
+are the candidates named when this was first reviewed) and a German curriculum
+mapping, which has the extra difficulty that the Länder differ. Both are
+written up in docs/i18n/README.md § Locale-appropriate content.
 
 ## What I am most likely to have got wrong
 
@@ -2003,21 +1984,20 @@ before students see it.**
 | Nommer les composés organiques | **low** | Same problem as the inorganic naming sheet. French names esters the other way round from English — *éthanoate de méthyle*, not "methyl ethanoate" — and writes carboxylic acids as *acide …oïque*. I used the French conventions. **A chemistry teacher must check this sheet.** |
 | Groupes caractéristiques | **low** | Titled with **groupe caractéristique**, which is the term the French lycée programme uses, rather than the calque *groupe fonctionnel*. The reference table mixes structure notation (untranslated) with French group names and French reaction descriptions. The ester row in particular follows French ester naming, which is not a translation of the English pattern. |
 
-**Not translated, deliberately:** every linked resource is an English-language
-site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
-titles are left in English so they are findable, and the French descriptions say
-"(En anglais.)" so a reader is not surprised. **This is a genuine gap rather
-than a solved problem**: a French student gets French explanations and then
-English source material. If French is going to be a first-class language, the
-resource lists should get French equivalents (e.g. Kartable, Lelivrescolaire.fr,
-Maxicours, the CNRS's *Chimie et …* series), which is a content task rather than
-a translation task.
+**Withheld, not translated (changed 2026-09-20):** a French sheet now shows
+**no outside links and no curriculum reference**. Every linked resource was an
+English-language site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA
+data book) with a French description reading "(En anglais.)", and every sheet
+cited the Victorian Curriculum or the VCE study design, which is Australian.
+Both were translated *around* rather than left out, which put material in front
+of a student that the student cannot use. The French \`resourceDescriptions\` and
+\`curriculumRef\` entries have been deleted with them.
 
-**Also not translated:** the curriculum references. Every sheet cites the
-Victorian Curriculum or the VCE study design, which is Australian. The
-surrounding French is translated but the curriculum itself is not relevant to a
-French reader. Worth deciding whether French sheets should show a French
-programme reference, or none.
+**What that leaves open**, and it is content work rather than translation:
+French equivalents for the resource lists (Kartable, Lelivrescolaire.fr,
+Maxicours and the CNRS's *Chimie et …* series are the candidates named when
+this was first reviewed) and a mapping onto the French *programme*. Both are
+written up in docs/i18n/README.md § Locale-appropriate content.
 
 ## What I am most likely to have got wrong
 
@@ -2121,20 +2101,20 @@ against the English for every sheet in every locale.
 | Nombrar compuestos orgánicos | **low** | Same problem as the inorganic naming sheet. Spanish names esters the other way round from English — *etanoato de metilo*, not "methyl ethanoate" — and writes carboxylic acids as *ácido …oico*. The suffix table teaches the Spanish affixes, and the haloalkane prefix is *yodo-*, not *iodo-*. **A chemistry teacher must check this sheet.** |
 | Grupos funcionales | **low** | Unlike French — whose programme insists on *groupe caractéristique* — Spanish says **grupo funcional** and there was no decision to make in the title. The reference table mixes structure notation (untranslated) with Spanish group names and Spanish reaction descriptions. The ester row in particular follows Spanish ester naming, which is not a translation of the English pattern. |
 
-**Not translated, deliberately:** every linked resource is an English-language
-site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
-titles are left in English so they are findable, and the Spanish descriptions say
-"(En inglés.)" so a reader is not surprised. **This is a genuine gap rather than
-a solved problem**: a Spanish student gets Spanish explanations and then English
-source material. If Spanish is going to be a first-class language, the resource
-lists should get Spanish equivalents, which is a content task rather than a
-translation task.
+**Withheld, not translated (changed 2026-09-20):** a Spanish sheet now shows
+**no outside links and no curriculum reference**. Every linked resource was an
+English-language site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA
+data book) with a Spanish description reading "(En inglés.)", and every sheet
+cited the Victorian Curriculum or the VCE study design, which is Australian.
+Both were translated *around* rather than left out, which put material in front
+of a student that the student cannot use. The Spanish \`resourceDescriptions\`
+and \`curriculumRef\` entries have been deleted with them.
 
-**Also not translated:** the curriculum references. Every sheet cites the
-Victorian Curriculum or the VCE study design, which is Australian. The
-surrounding Spanish is translated but the curriculum itself is not relevant to a
-Spanish reader. Worth deciding whether Spanish sheets should show a Spanish
-currículo reference, or none.
+**What that leaves open**, and it is content work rather than translation:
+Spanish equivalents for the resource lists — none were named when this was
+first reviewed, and picking them raises the same es-ES / es-419 question the
+glossary opens with — and a mapping onto the Spanish *currículo*. Both are
+written up in docs/i18n/README.md § Locale-appropriate content.
 
 ## What I am most likely to have got wrong
 
@@ -2232,21 +2212,20 @@ is also machine-checked by the overlay-shape gate.
 | Dare il nome ai composti organici | **low** | Same problem as the inorganic naming sheet. Italian names esters the other way round from English -- *etanoato di metile*, not "methyl ethanoate" -- writes carboxylic acids as *acido ...oico* and amines as *-ammina* (double m). The root table is the Italian one (*es-*, *ept-*, *ott-*), not a transliteration, and the haloalkane prefix is *iodo-*. **A chemistry teacher must check this sheet.** |
 | Gruppi funzionali | **low** | Unlike French -- whose programme insists on *groupe caracteristique* -- Italian says **gruppo funzionale** and there was no decision to make in the title. The reference table mixes structure notation (untranslated) with Italian group names and Italian reaction descriptions. The ester and amide rows in particular follow Italian naming, which is not a translation of the English pattern. |
 
-**Not translated, deliberately:** every linked resource is an English-language
-site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
-titles are left in English so they are findable, and the Italian descriptions say
-"(In inglese.)" so a reader is not surprised. **This is a genuine gap rather than
-a solved problem**: an Italian student gets Italian explanations and then English
-source material. If Italian is going to be a first-class language, the resource
-lists should get Italian equivalents (Zanichelli's Aula di Scienze, Chimica
-Online, Openfisica and the like), which is a content task rather than a
-translation task.
+**Withheld, not translated (changed 2026-09-20):** an Italian sheet now shows
+**no outside links and no curriculum reference**. Every linked resource was an
+English-language site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA
+data book) with an Italian description reading "(In inglese.)", and every sheet
+cited the Victorian Curriculum or the VCE study design, which is Australian.
+Both were translated *around* rather than left out, which put material in front
+of a student that the student cannot use. The Italian \`resourceDescriptions\`
+and \`curriculumRef\` entries have been deleted with them.
 
-**Also not translated:** the curriculum references. Every sheet cites the
-Victorian Curriculum or the VCE study design, which is Australian. The
-surrounding Italian is translated but the curriculum itself is not relevant to an
-Italian reader. Worth deciding whether Italian sheets should show an Italian
-*Indicazioni nazionali* reference, or none.
+**What that leaves open**, and it is content work rather than translation:
+Italian equivalents for the resource lists (Zanichelli's Aula di Scienze,
+Chimica Online and Openfisica are the candidates named when this was first
+reviewed) and a mapping onto the *Indicazioni nazionali*. Both are written up
+in docs/i18n/README.md § Locale-appropriate content.
 
 ## What I am most likely to have got wrong
 
@@ -2336,19 +2315,21 @@ before students see it.**
 | Naming Organic Compounds | **low** | Same problem as the inorganic naming sheet. Russian names esters the other way round (*метилэтаноат*, not "methyl ethanoate"), writes carboxylic acids as *…овая кислота* and amines as *-амин*, and the root table is the Russian one. **A chemistry teacher must check this sheet.** |
 | Functional Groups | **low** | The reference table mixes structure notation (untranslated) with Russian group names and Russian reaction descriptions. **Сложный эфир** for ester is the row to check: it must be both words, because *эфир* alone is an ether or the airwaves. |
 
-**Not translated, deliberately:** every linked resource is an English-language
-site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA data book). Their
-titles are left in English so they are findable, and the Russian descriptions
-say "(На английском.)" so a reader is not surprised. **This is a genuine gap
-rather than a solved problem**: a Russian student gets Russian explanations and
-then English source material. Russian-language equivalents exist and are good
-(Фоксфорд, ХиМиК.ру, Российская электронная школа, ПостНаука), which is a
-content task rather than a translation task.
+**Withheld, not translated (changed 2026-09-20):** a Russian sheet now shows
+**no outside links and no curriculum reference**. Every linked resource was an
+English-language site (Khan Academy, LibreTexts, Chemguide, PubChem, the VCAA
+data book) with a Russian description reading "На английском.", and every
+sheet cited the Victorian Curriculum or the VCE study design — so the Russian
+read «Victorian Curriculum Science, уровень 10 (химические реакции, в том
+числе кислоты); VCE Unit 2 AoS 1 (Брёнстед — Лоури).» to a student who
+will never sit any of it. That is the example that prompted the rule. The Russian
+\`resourceDescriptions\` and \`curriculumRef\` entries have been deleted with them.
 
-**Also not translated:** the curriculum references. Every sheet cites the
-Victorian Curriculum or the VCE study design, which is Australian. Worth
-deciding whether Russian sheets should show a Russian curriculum reference
-(ФГОС / ПООП), or none.
+**What that leaves open**, and it is content work rather than translation:
+Russian equivalents for the resource lists (Фоксфорд, ХиМиК.ру, Российская
+электронная школа and ПостНаука are the candidates named when this was
+first reviewed, and they are good ones) and a mapping onto ФГОС / ПООП. Both
+are written up in docs/i18n/README.md § Locale-appropriate content.
 
 ## What I am most likely to have got wrong
 

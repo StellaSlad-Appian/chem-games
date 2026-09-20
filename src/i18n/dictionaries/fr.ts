@@ -574,10 +574,6 @@ export const fr = {
     scientistImageA11y: 'Image\u00a0: {name}',
     sourcesHeading: 'Sources',
     sourcesNote: 'Liens vérifiés le {date}.',
-    // Affiché uniquement pour une langue sans texte Explore traduit — pour
-    // l'instant le russe seul. Le français ne l'affiche jamais ; voir en.ts.
-    untranslatedNotice:
-      'La molécule et la chimiste ou le chimiste ci-dessous ne sont pas encore traduits, leur texte est donc en anglais. Le reste de la page, non.',
 
     // Les archives.
     recentHeading: 'Semaines précédentes',

@@ -24,7 +24,6 @@ import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
 import {
   exploreLinkTarget,
-  exploreProseIsUntranslated,
   exploreScientistIds,
   findLocalizedScientist,
   getEntryRotation,
@@ -93,12 +92,6 @@ export default async function ScientistPermalinkPage(
           {t.explore.backToExplore}
         </LocaleLink>
 
-        {/* The deferred-prose notice belongs here too. See the molecule route. */}
-        {exploreProseIsUntranslated(locale) && (
-          <p className="mb-6 rounded-xl border border-(--border) bg-(--surface) px-4 py-3 text-sm text-(--muted)">
-            {t.explore.untranslatedNotice}
-          </p>
-        )}
 
         <ScientistCard
           scientist={scientist}

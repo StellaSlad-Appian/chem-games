@@ -15,7 +15,6 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { TestProviders } from '@/test-utils/render';
 import { en } from '@/i18n/dictionaries/en';
-import { ru } from '@/i18n/dictionaries/ru';
 import { getDictionary } from '@/i18n/dictionaries';
 import { DEFAULT_LOCALE, isLocale, LOCALES } from '@/i18n/config';
 import { ROTATION_EPOCH } from '@/lib/explore/rotation';
@@ -191,25 +190,6 @@ describe('a molecule permalink', () => {
     for (const locale of LOCALES) {
       const { unmount } = await renderPage(locale, 'benzene');
       expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
-      unmount();
-    }
-  });
-
-  it('carries the deferred-prose notice for Russian, as the week page does', async () => {
-    // docs/feature-briefs/explore.md §0c. A permalink is the likeliest page for
-    // a Russian reader to arrive at cold — from a search result or a shared
-    // link — with no page above it to have explained anything.
-    await renderPage('ru', 'benzene');
-    expect(screen.getByText(ru.explore.untranslatedNotice)).toBeInTheDocument();
-  });
-
-  it('shows that notice in no other locale', async () => {
-    for (const locale of LOCALES.filter((l) => l !== 'ru')) {
-      const dictionary = await getDictionary(locale);
-      const { unmount } = await renderPage(locale, 'benzene');
-      expect(
-        screen.queryByText(dictionary.explore.untranslatedNotice)
-      ).not.toBeInTheDocument();
       unmount();
     }
   });

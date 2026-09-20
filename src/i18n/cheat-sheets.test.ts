@@ -8,21 +8,27 @@
 //
 // These tests therefore compare the localized sheet against the English one
 // item for item, and check that the parts that must never be translated —
-// slugs, formulae, URLs, icons, year levels — are byte-identical.
+// slugs, formulae, icons, year levels — are byte-identical.
+//
+// Since 2026-09-20 they also check the opposite: that a non-English sheet
+// shows **no** outside links and **no** curriculum reference. Those are the
+// two things on an English sheet that belong to one language and one country,
+// and translating them was the defect. The last group in this file pins the
+// other side of it — English keeps both, unchanged.
 
 import { describe, expect, it } from 'vitest';
-import { CHEAT_SHEETS } from '@/lib/cheat-sheet-data';
-import { LOCALES, DEFAULT_LOCALE } from './config';
+import { CHEAT_SHEETS, GLOBAL_TEACHER_RESOURCES } from '@/lib/cheat-sheet-data';
+import { LOCALES, DEFAULT_LOCALE, type Locale } from './config';
 import {
-  CHEAT_SHEET_LOCALE_CONTENT,
+  CHEAT_SHEET_OVERLAYS,
   getCheatSheet,
   getCheatSheets,
   getGlobalTeacherResources,
 } from './cheat-sheets';
 
 const translatedLocales = LOCALES.filter(
-  (locale) => locale !== DEFAULT_LOCALE && CHEAT_SHEET_LOCALE_CONTENT[locale]
-);
+  (locale) => locale !== DEFAULT_LOCALE
+) as Exclude<Locale, 'en'>[];
 
 describe('English', () => {
   it('is the source data, untouched', () => {
@@ -32,16 +38,16 @@ describe('English', () => {
 
 describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
   const localized = getCheatSheets(locale);
-  const content = CHEAT_SHEET_LOCALE_CONTENT[locale]!;
+  const overlays = CHEAT_SHEET_OVERLAYS[locale];
 
   it('covers every sheet', () => {
-    const missing = CHEAT_SHEETS.filter((sheet) => !content.sheets[sheet.slug]).map((s) => s.slug);
+    const missing = CHEAT_SHEETS.filter((sheet) => !overlays[sheet.slug]).map((s) => s.slug);
     expect(missing).toEqual([]);
   });
 
   it('has no overlay for a sheet that does not exist', () => {
     const slugs = new Set(CHEAT_SHEETS.map((sheet) => sheet.slug));
-    expect(Object.keys(content.sheets).filter((slug) => !slugs.has(slug))).toEqual([]);
+    expect(Object.keys(overlays).filter((slug) => !slugs.has(slug))).toEqual([]);
   });
 
   // The gate that actually bites. The test below this one compares the
@@ -61,7 +67,7 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
     '%s has an overlay the same shape as the English sheet',
     (slug) => {
       const source = CHEAT_SHEETS.find((sheet) => sheet.slug === slug)!;
-      const overlay = content.sheets[slug]!;
+      const overlay = overlays[slug]!;
 
       // One object rather than six assertions, so a failure names every field
       // that is out of step instead of stopping at the first.
@@ -96,7 +102,6 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
     expect(target.sections).toHaveLength(source.sections.length);
     expect(target.tables?.length ?? 0).toBe(source.tables?.length ?? 0);
     expect(target.commonMistakes?.length ?? 0).toBe(source.commonMistakes?.length ?? 0);
-    expect(target.resources?.length ?? 0).toBe(source.resources?.length ?? 0);
 
     source.tables?.forEach((table, index) => {
       const localizedTable = target.tables![index];
@@ -142,12 +147,6 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
           });
         });
       });
-
-      // Resource URLs.
-      source.resources?.forEach((resource, index) => {
-        expect(target.resources![index].url).toBe(resource.url);
-        expect(target.resources![index].audience).toBe(resource.audience);
-      });
     }
   );
 
@@ -171,25 +170,71 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
     }
   });
 
-  it('describes every resource the app can show, including the global ones', () => {
-    const urls = new Set<string>();
-    for (const sheet of CHEAT_SHEETS) {
-      sheet.resources?.forEach((resource) => urls.add(resource.url));
-    }
-    getGlobalTeacherResources(DEFAULT_LOCALE).forEach((resource) => urls.add(resource.url));
+  // -------------------------------------------------------------------------
+  // What this locale must NOT show
+  // -------------------------------------------------------------------------
+  //
+  // These replace the two tests that used to check the *descriptions* of the
+  // outside links were complete and had no orphans. Both were gates on
+  // maintaining translations for material this locale no longer shows at all:
+  // every linked page is English-language, and `curriculumRef` names one
+  // Australian state's syllabus. See src/i18n/cheat-sheets.ts for the argument
+  // and docs/i18n/README.md § Locale-appropriate content for the follow-up.
 
-    const missing = [...urls].filter((url) => !content.resourceDescriptions[url]);
-    expect(missing).toEqual([]);
+  it('shows no outside links, because every one of them is an English page', () => {
+    const withLinks = localized
+      .filter((sheet) => (sheet.resources?.length ?? 0) > 0)
+      .map((sheet) => sheet.slug);
+    expect(
+      withLinks,
+      'A non-English sheet must not link out to English-language sites. ' +
+        'A link a student cannot read is worse than no link.'
+    ).toEqual([]);
   });
 
-  it('has no resource description for a URL nothing links to', () => {
-    const urls = new Set<string>();
-    for (const sheet of CHEAT_SHEETS) {
-      sheet.resources?.forEach((resource) => urls.add(resource.url));
-    }
-    getGlobalTeacherResources(DEFAULT_LOCALE).forEach((resource) => urls.add(resource.url));
+  it('appends no global teacher resources either', () => {
+    expect(getGlobalTeacherResources(locale)).toEqual([]);
+  });
 
-    expect(Object.keys(content.resourceDescriptions).filter((url) => !urls.has(url))).toEqual([]);
+  /*
+   * The one that would have failed before this change *and* would still fail
+   * if somebody merely deleted the translated values from the overlay:
+   * `localizeSheet()` used to fall back to `sheet.curriculumRef`, so a deleted
+   * translation restored the English Australian line rather than removing it.
+   */
+  it('cites no curriculum, and does not fall back to the Australian one', () => {
+    const withCurriculum = localized
+      .filter((sheet) => sheet.curriculumRef !== undefined)
+      .map((sheet) => `${sheet.slug}: ${sheet.curriculumRef}`);
+    expect(withCurriculum).toEqual([]);
+  });
+
+  it('carries no curriculumRef in the overlay itself', () => {
+    const stillThere = Object.entries(overlays)
+      .filter(([, overlay]) => 'curriculumRef' in overlay)
+      .map(([slug]) => slug);
+    expect(stillThere).toEqual([]);
+  });
+});
+
+describe('English keeps everything', () => {
+  it('still shows every resource on every sheet', () => {
+    for (const sheet of CHEAT_SHEETS) {
+      const target = getCheatSheet(DEFAULT_LOCALE, sheet.slug)!;
+      expect(target.resources).toBe(sheet.resources);
+    }
+  });
+
+  it('still appends the global teacher resources', () => {
+    expect(getGlobalTeacherResources(DEFAULT_LOCALE)).toBe(GLOBAL_TEACHER_RESOURCES);
+  });
+
+  it('still cites the Victorian Curriculum on every sheet that has one', () => {
+    const cited = CHEAT_SHEETS.filter((sheet) => sheet.curriculumRef !== undefined);
+    expect(cited.length).toBeGreaterThan(0);
+    for (const sheet of cited) {
+      expect(getCheatSheet(DEFAULT_LOCALE, sheet.slug)!.curriculumRef).toBe(sheet.curriculumRef);
+    }
   });
 });
 

@@ -623,10 +623,6 @@ export const it = {
     scientistImageA11y: 'Immagine: {name}',
     sourcesHeading: 'Fonti',
     sourcesNote: 'Link controllati l’ultima volta il {date}.',
-    // Mostrato solo in una lingua senza testi di Explore tradotti — per ora il
-    // solo russo. L'italiano non lo mostra mai; vedi il commento in en.ts.
-    untranslatedNotice:
-      'La sostanza e la persona qui sotto non sono ancora tradotte, quindi il loro testo è in inglese. Il resto della pagina no.',
 
     // L’archivio.
     recentHeading: 'Settimane precedenti',
