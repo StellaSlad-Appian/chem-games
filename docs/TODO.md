@@ -36,38 +36,44 @@ What is left is not code.
 
 ### Explore
 
-**Built and merged**, in five languages. Brief and acceptance criteria in
+**Built and merged**, in all six languages. Brief and acceptance criteria in
 [`feature-briefs/explore.md`](./feature-briefs/explore.md); the curated pool and the
 editorial decisions in
 [`feature-briefs/explore-scientists.md`](./feature-briefs/explore-scientists.md).
 
-- [ ] **Write the Russian entry prose.** About 6,500 words: 99 keys across the twenty
-      pairs. Russian was added to `LOCALES` mid-build and the every-locale rule would
-      have held finished prose behind a translation nobody had scheduled, so it is
-      deferred deliberately rather than forgotten — `explore.md` §0c, and
-      `EXPLORE_UNTRANSLATED_LOCALES` in `src/i18n/explore.ts`. A Russian reader
-      currently gets Russian chrome around English entries, under a line in Russian
-      saying so. **Finishing it is: write `src/i18n/explore/ru.ts`, delete `'ru'` from
-      that constant, and let the tests say what is missing** — `explore.test.ts`
-      asserts the list in both directions, so a finished translation cannot be left
-      switched off.
-- [ ] **Provide the pictures.** Forty slots, twenty of them molecules and twenty
-      scientists, all currently placeholders that print their own path on the page.
-      [`EXPLORE_IMAGES.md`](./EXPLORE_IMAGES.md) has the folders and the sizes. **Read
-      its portrait warning first**: most of this pool worked in the 20th century, so
-      their photographs are very likely still in copyright, and there is no attribution
-      line on the card yet — if you use something that needs one, it has to be built,
-      not tucked into alt text.
+- [x] ~~**Write the Russian entry prose.**~~ **Done**, by a concurrent session on
+      2026-09-20, before anyone had to schedule the 6,500 words. `src/i18n/explore/ru.ts`
+      exists, `EXPLORE_UNTRANSLATED_LOCALES` and the notice that went with it are gone,
+      and Explore now ships in all six languages. The deferral is described in
+      `explore.md` §0c in the past tense it now belongs in.
+- [x] ~~**Provide the molecule pictures.**~~ **Done**, by a concurrent session on
+      2026-09-21: all twenty are generated from SMILES by `npm run explore:images`
+      rather than hunted for, which sidesteps the licensing problem entirely for that
+      half. `scripts/molecule-images.mts`, and do not edit the files by hand.
+- [ ] **Provide the twenty scientist pictures.** Still placeholders, each printing its
+      own path on the page. [`EXPLORE_IMAGES.md`](./EXPLORE_IMAGES.md) has the folder
+      and the sizes. **Read its portrait warning first**: most of this pool worked in
+      the 20th century, so their photographs are very likely still in copyright, and
+      there is no attribution line on the card — if you use something that needs one,
+      it has to be built. A portrait cannot be generated the way a structure can, so
+      this half stays manual. Their apparatus or their result is a legitimate answer
+      where no usable portrait exists.
 - [ ] **Decide whether entries 21–104 get written.** Twenty pairs is a twenty-week
       cycle: about five months before anything repeats. The remaining 84 are roughly
       67,000 words once the translations are counted, which is why this is a decision
       and not a task. Decided 2026-09-19 to stay at twenty and watch. The pool is
       curated, fact-checked and fully linked, so the work is writing, not choosing.
-- [ ] **The archive.** Prompt written and agent started 2026-09-20 —
-      [`feature-briefs/explore-archive-prompt.md`](./feature-briefs/explore-archive-prompt.md).
-      Permalinks per entry, a recent list capped at ten, and an index. Until it lands,
-      each pair is visible for seven days and then gone for five months, and forty
-      entries share one URL.
+- [x] ~~**The archive.**~~ **Built and merged** 2026-09-21. Permalinks for every entry
+      (`/[lang]/explore/molecules/[id]` and `/scientists/[id]`), a recent list capped at
+      ten, and an index at `/[lang]/explore/archive`. **246 new URLs.** The archive is
+      *derived* from the rotation clock, not recorded: appending a 21st pair silently
+      rewrites every date about the past, which is stated at the top of
+      `src/lib/explore/archive.ts`. A permalink never claims a single week for an entry
+      that has run more than once.
+- [ ] **Decide whether the archive should be recorded rather than derived.** Only worth
+      doing if the pool grows past twenty, because that is when the dates about the past
+      start being wrong. It is a weekly row in Postgres and a migration; not needed now,
+      and cheaper to decide before the pool grows than after.
 
 ### Atoms cheat sheet
 
@@ -185,6 +191,17 @@ actually does. Everything marked `«TO CONFIRM»` there is a fact only you have.
       reachable through the menu rather than merely hidden. `e2e/teachers.spec.ts`
       now asserts reflow against `documentElement` instead of the page's own
       `<main>`, which is what its comment said to do once this was fixed.
+- [ ] **Every page has two `<main>` elements.** The `(main)` layout wraps children in
+      `<main className="flex-1">` and each page then renders its own. Two main landmarks
+      is one more than a screen reader should be offered, and it makes a bare
+      `page.locator('main')` a strict-mode violation in Playwright — which is how it was
+      found. Site-wide, so it is a deliberate small change rather than a drive-by:
+      either the layout's wrapper becomes a `<div>`, or the pages stop declaring their
+      own.
+- [ ] **`sitemap.ts` is now worth more than it was.** The archive added **246 URLs** and
+      there is still no sitemap, and no `robots.ts`. Both are already anticipated by
+      `UNPREFIXED_PATHS` in `src/i18n/routing.ts`. Decided 2026-09-19 to do them
+      together as one piece of work; the archive is the thing that makes it pay.
 - [ ] **`scrollWidth <= innerWidth` cannot detect an over-full header**, and two
       documents used to ask for exactly that check. The header row is a flex container
       whose `<nav>` can shrink, so an over-full row does not scroll — it **compresses**,
@@ -192,9 +209,12 @@ actually does. Everything marked `«TO CONFIRM»` there is a fact only you have.
       needed 1033px in a 1024px viewport. `e2e/nav.spec.ts` now forces
       `width: max-content` and prints the table; **copy that rather than writing a new
       check**, anywhere a row has to fit.
-- [ ] **A flex item with no `min-w-0` has cost three separate bugs now** — the Spanish
-      dashboard heading at 320px, every German cheat sheet, and English
-      `stoichiometry`. In each case a long unbreakable word set the item's minimum size
+- [ ] **A flex item with no `min-w-0` has cost four separate bugs now** — the Spanish
+      dashboard heading at 320px, every German cheat sheet, English `stoichiometry`,
+      and the dashboard's SectionHeading row at 768px in every locale. The fourth is
+      the instructive one: the `h2` already had `min-w-0` from fixing the first, and it
+      was one level too shallow — the *parent* was the flex item. So the column was
+      fixed and the row stayed broken, and every check written at 320px passed. In each case a long unbreakable word set the item's minimum size
       and pushed the whole page sideways, and in each case `break-words` alone did
       nothing. All three are fixed. Worth a lint rule or a line in
       [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) rather than a fourth one-off.
