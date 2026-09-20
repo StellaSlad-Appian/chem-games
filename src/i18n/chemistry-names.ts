@@ -105,9 +105,9 @@ const EMPTY: ChemistryNameOverlay = {
  * `Record<Exclude<Locale, 'en'>, …>` rather than
  * `Partial<Record<Locale, …>>`, which is what this was until 2026-09-20. The
  * `Partial` was the same construct that let Russian ship with no Explore
- * overlay, and it had the same consequence here: `usesRegistryNames()` returns
- * true for a locale with no overlay, and `chemistry-names.test.ts` builds its
- * locale list by filtering that out — so a missing overlay would not fail a
+ * overlay, and it had the same consequence here: `usesRegistryNames()` used to
+ * return true for a locale with no overlay, and `chemistry-names.test.ts` builds
+ * its locale list by filtering that out — so a missing overlay would not fail a
  * test, it would remove the locale from the suite and serve English names.
  *
  * English is excluded rather than optional: its names come straight from the
