@@ -330,11 +330,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not a gemeinnütziger Verein. "Spende" was avoided throughout for that reason, in favour of "beisteuern" and "unterstützen". Not legal review either — whether the sentence about steuerliche Absetzbarkeit is phrased the way a German reader expects has not been checked.',
     },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string German never renders: it is shown only where the entry prose is untranslated, which German is not. Kept in step with the others so a future deferral has it ready.',
-    },
   ],
 
   fr: [
@@ -677,11 +672,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'teachers.supportBody',
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *association reconnue d\'utilité publique*. *Don* and *faire un don* were avoided in favour of *soutenir* and *contribuer* for exactly that reason. Not legal review either — whether the sentence about déductibilité fiscale reads the way a French reader expects has not been checked.',
-    },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string French never renders — shown only where the entry prose is untranslated. Phrased to cover a chemist of either gender, which French needs and the English does not.',
     },
   ],
 
@@ -1055,11 +1045,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'teachers.supportBody',
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *entidad benéfica registrada*. *Donar* and *donación* were avoided in favour of *apoyar* and *aportar* for exactly that reason. Not legal review either — whether the sentence about desgravación is phrased the way a Spanish reader expects has not been checked.',
-    },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string Spanish never renders — shown only where the entry prose is untranslated. \"La persona\" avoids the gendered noun the English sidesteps for free.',
     },
   ],
 
@@ -1448,11 +1433,6 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
       prefix: 'teachers.supportBody',
       confidence: 'low',
       note: 'Money copy, and the one paragraph where the wrong register costs something real: it has to ask without begging, and it has to be clear that this is one person\'s project and not an *ente benefico riconosciuto*. *Donazione* and *donare* were avoided in favour of *sostenere* and *contribuire* for exactly that reason. Not legal review either — whether the sentence about detraibilità is phrased the way an Italian reader expects has not been checked.',
-    },
-    {
-      prefix: 'explore.untranslatedNotice',
-      confidence: 'high',
-      note: 'The one Explore string Italian never renders — shown only where the entry prose is untranslated. \"La persona\" for the same reason as the Spanish.',
     },
   ],
   ru: [

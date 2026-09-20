@@ -571,10 +571,6 @@ export const fr = {
     scientistCta: 'La chimie derrière : {target}',
     sourcesHeading: 'Sources',
     sourcesNote: 'Liens vérifiés le {date}.',
-    // Affiché uniquement pour une langue sans texte Explore traduit — pour
-    // l'instant le russe seul. Le français ne l'affiche jamais ; voir en.ts.
-    untranslatedNotice:
-      'La molécule et la chimiste ou le chimiste ci-dessous ne sont pas encore traduits, leur texte est donc en anglais. Le reste de la page, non.',
   },
 
   chemistry: {

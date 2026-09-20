@@ -22,12 +22,15 @@
 // ratio against the English pool (fr 1.125, es 1.110, it 1.088, de 0.946), so
 // every language is held to the same standard rather than the same number.
 //
-// Russian is in the table but not yet measured: its Explore prose is deferred
-// (EXPLORE_UNTRANSLATED_LOCALES in src/i18n/explore.ts), so there is nothing to
-// derive a ratio from and the loop below skips it rather than measuring the
-// English twice. 30 is a conservative placeholder — Russian runs slightly
-// shorter than English in word count while setting wider on the page. Re-derive
-// it the same way as the others when that prose lands.
+// Russian now has prose and is measured like the other four. Its ratio was
+// derived exactly as theirs were, once the prose existed: 5,623 words against
+// the English pool's 6,541, a ratio of 0.860, so the limit is 30 × 0.860 = 26.
+// That is the tightest limit in the table and it is the correct one — Russian
+// says the same thing in fewer words than English, so holding it to 30 would
+// have held it to a looser standard, not the same one. Seven sentences in the
+// first Russian draft ran to 27 or 28 words and were split rather than the
+// limit raised; the placeholder 30 that sat here while the prose was deferred
+// is gone.
 //
 // Re-derive the ratios if the pool grows a lot; do not simply raise a limit
 // because a new entry fails. The failure message names the entry and the
@@ -40,8 +43,8 @@ import { EXPLORE_OVERLAY_DE } from '@/i18n/explore/de';
 import { EXPLORE_OVERLAY_FR } from '@/i18n/explore/fr';
 import { EXPLORE_OVERLAY_ES } from '@/i18n/explore/es';
 import { EXPLORE_OVERLAY_IT } from '@/i18n/explore/it';
+import { EXPLORE_OVERLAY_RU } from '@/i18n/explore/ru';
 import { LOCALES, type Locale } from '@/i18n/config';
-import { exploreProseIsUntranslated } from '@/i18n/explore';
 import type { ExploreOverlay } from '@/i18n/explore';
 
 /** Maximum words in one sentence, per locale. See the header for the derivation. */
@@ -51,7 +54,7 @@ const MAX_SENTENCE_WORDS: Record<Locale, number> = {
   fr: 34,
   es: 33,
   it: 33,
-  ru: 30,
+  ru: 26,
 };
 
 /**
@@ -79,13 +82,14 @@ function prose(locale: Locale): Array<{ where: string; text: string }> {
   // Typed as ExploreOverlay so the id lookups below are index signatures
   // rather than the literal shapes each file happens to have; `en` has no
   // overlay and reads the English pool directly.
-  const overlays: Partial<Record<Locale, ExploreOverlay>> = {
+  const overlays: Record<Exclude<Locale, 'en'>, ExploreOverlay> = {
     de: EXPLORE_OVERLAY_DE,
     fr: EXPLORE_OVERLAY_FR,
     es: EXPLORE_OVERLAY_ES,
     it: EXPLORE_OVERLAY_IT,
+    ru: EXPLORE_OVERLAY_RU,
   };
-  const overlay = overlays[locale];
+  const overlay = locale === 'en' ? undefined : overlays[locale];
 
   const out: Array<{ where: string; text: string }> = [];
 
@@ -107,12 +111,9 @@ function prose(locale: Locale): Array<{ where: string; text: string }> {
 }
 
 describe('Explore prose stays readable', () => {
-  // A deferred locale reads the English prose, so measuring it would be
-  // measuring English twice and reporting it as Russian. The English limit
-  // already covers that text.
-  const measurable = LOCALES.filter((locale) => !exploreProseIsUntranslated(locale));
-
-  for (const locale of measurable) {
+  // Every locale, with nothing skipped. There used to be a subtraction here
+  // for the deferred Russian prose; the prose exists and the deferral is gone.
+  for (const locale of LOCALES) {
     it(`${locale}: no sentence runs longer than ${MAX_SENTENCE_WORDS[locale]} words`, () => {
       const limit = MAX_SENTENCE_WORDS[locale];
       const tooLong: string[] = [];

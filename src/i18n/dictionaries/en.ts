@@ -567,15 +567,6 @@ export const en = {
     scientistCta: 'The chemistry behind this: {target}',
     sourcesHeading: 'Sources',
     sourcesNote: 'Source links last checked {date}.',
-    /**
-     * Rendered only for a locale in `EXPLORE_UNTRANSLATED_LOCALES`
-     * (src/i18n/explore.ts) — today that is Russian alone. The other locales
-     * carry a translation because the dictionary's keys must match across all
-     * six, and because the next locale to be deferred should not have to invent
-     * this string under time pressure. None of them renders it.
-     */
-    untranslatedNotice:
-      'The molecule and the chemist below have not been translated yet, so their text is in English. The rest of the page is not.',
   },
 
   chemistry: {

@@ -41,6 +41,7 @@ import { EXPLORE_OVERLAY_DE } from './explore/de';
 import { EXPLORE_OVERLAY_FR } from './explore/fr';
 import { EXPLORE_OVERLAY_ES } from './explore/es';
 import { EXPLORE_OVERLAY_IT } from './explore/it';
+import { EXPLORE_OVERLAY_RU } from './explore/ru';
 
 /**
  * A molecule's translatable prose.
@@ -73,46 +74,40 @@ export interface ExploreOverlay {
 }
 
 /**
- * No entry for English: the English prose comes straight from
+ * Every locale but English, and the type says so.
+ *
+ * `Record<Exclude<Locale, 'en'>, …>` rather than `Partial<Record<Locale, …>>`,
+ * which is what this was until 2026-09-20 and is why Russian shipped without
+ * an overlay: `Partial` makes an absent locale a legal value, so adding `ru` to
+ * `LOCALES` compiled, every parity test kept passing, and a Russian reader got
+ * English prose. Every other per-locale registry in this codebase is strict for
+ * exactly that reason (src/i18n/config.ts § LOCALES), and this one now is too —
+ * the seventh locale is a compile error until its file exists.
+ *
+ * English is excluded rather than optional: its prose comes straight from
  * `src/lib/explore/`, so there is nothing to duplicate and nothing to keep in
- * step.
+ * step. That is a different statement from "may be missing", and the type now
+ * makes only the first one sayable.
  */
-const OVERLAYS: Partial<Record<Locale, ExploreOverlay>> = {
+const OVERLAYS: Record<Exclude<Locale, 'en'>, ExploreOverlay> = {
   de: EXPLORE_OVERLAY_DE,
   fr: EXPLORE_OVERLAY_FR,
   es: EXPLORE_OVERLAY_ES,
   it: EXPLORE_OVERLAY_IT,
+  ru: EXPLORE_OVERLAY_RU,
 };
 
 /** Exposed for the parity test. */
 export { OVERLAYS as EXPLORE_OVERLAYS };
 
 /**
- * Locales whose Explore **content** is deliberately not written yet.
+ * The overlay for a locale, or `undefined` for English.
  *
- * Owner's decision, 2026-09-19: ship this page in five languages and add
- * Russian afterwards, rather than hold twenty pairs of finished prose behind
- * roughly 6,500 words of translation. That is a real exception to the
- * every-locale rule in docs/i18n/GAMES.md, so it is written down, dated and
- * narrow rather than implied by an absent file.
- *
- * What a Russian reader gets: the page, in Russian chrome — headings, dateline,
- * calls to action and the linked destination are all translated — with the
- * twenty entries' prose still in English, above a line that says so. That is
- * worse than a translation and better than either of the alternatives, which
- * were to hide a finished feature from one language or to serve English with no
- * acknowledgement that it is a gap.
- *
- * **This list is asserted in both directions.** `explore.test.ts` fails if a
- * locale here has an overlay (finish the job, then delete the entry) and fails
- * if a locale absent from here has no overlay (the usual missing-translation
- * gate, unchanged). It cannot rot into a way of skipping a language quietly.
+ * The one place the `en` gap is handled, so the rest of the module can index
+ * the strict record without a cast.
  */
-export const EXPLORE_UNTRANSLATED_LOCALES = ['ru'] as const satisfies readonly Locale[];
-
-/** True when this locale reads the English prose because its own is not written. */
-export function exploreProseIsUntranslated(locale: Locale): boolean {
-  return (EXPLORE_UNTRANSLATED_LOCALES as readonly Locale[]).includes(locale);
+function overlayFor(locale: Locale): ExploreOverlay | undefined {
+  return locale === 'en' ? undefined : OVERLAYS[locale];
 }
 
 /** A molecule as the page renders it: prose resolved, notation untouched. */
@@ -161,7 +156,7 @@ function registryCompound(compoundId: string) {
 }
 
 export function localizeMolecule(locale: Locale, molecule: ExploreMolecule): LocalizedMolecule {
-  const overlay = OVERLAYS[locale]?.molecules[molecule.id];
+  const overlay = overlayFor(locale)?.molecules[molecule.id];
   const compound = molecule.compoundId ? registryCompound(molecule.compoundId) : undefined;
 
   return {
@@ -184,7 +179,7 @@ export function localizeScientist(
   locale: Locale,
   scientist: ExploreScientist
 ): LocalizedScientist {
-  const overlay = OVERLAYS[locale]?.scientists[scientist.id];
+  const overlay = overlayFor(locale)?.scientists[scientist.id];
 
   return {
     id: scientist.id,
@@ -251,9 +246,15 @@ export function getExploreContent(locale: Locale, now: Date): ExploreWeek {
   };
 }
 
-/** Whether a locale falls back to the English prose. */
+/**
+ * Whether a locale falls back to the English prose.
+ *
+ * Since the registry became strict this is true of English alone, and that is
+ * the point: there is no longer a second way for a locale to end up reading
+ * the English.
+ */
 export const usesEnglishExploreProse = (locale: Locale): boolean =>
-  locale === DEFAULT_LOCALE || !OVERLAYS[locale];
+  locale === DEFAULT_LOCALE || !overlayFor(locale);
 
 /**
  * Where a card's call to action goes, and what it is called there.

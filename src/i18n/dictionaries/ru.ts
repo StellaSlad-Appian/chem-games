@@ -577,15 +577,6 @@ export const ru = {
     scientistCta: 'Химия за этим: {target}',
     sourcesHeading: 'Источники',
     sourcesNote: 'Ссылки проверены — {date}.',
-    /*
-     * The one string on this page written to be read. Russian Explore prose is
-     * deferred (EXPLORE_UNTRANSLATED_LOCALES in src/i18n/explore.ts), so a
-     * Russian reader meets Russian chrome around English entries, and is told
-     * so rather than left to conclude the site is broken. Impersonal, like the
-     * rest of this file: no past-tense verb whose subject is the reader.
-     */
-    untranslatedNotice:
-      'Вещество и химик ниже пока не переведены — их текст на английском. Остальная часть страницы переведена.',
   },
 
   cheatSheets: {

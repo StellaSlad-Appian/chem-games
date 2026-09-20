@@ -145,44 +145,40 @@ more sentences.
 
 ---
 
-## 0c. Russian is deferred, deliberately
+## 0c. Russian was deferred, and no longer is
 
-**Owner's decision, 2026-09-19: ship Explore in five languages and add Russian
-afterwards.** Master gained a sixth locale while this feature was being written,
-and the every-locale rule in `docs/i18n/GAMES.md` would otherwise have held
-twenty pairs of finished, reviewed prose behind roughly **6,500 words** of
-translation that nobody had scheduled.
+**Closed 2026-09-20.** `src/i18n/explore/ru.ts` exists, so the exception below
+has lapsed. The section is kept because the mechanism it describes is gone as
+well, and the reason matters more than the decision did.
 
-This is a real exception to that rule, so it is written down rather than implied
-by an absent file.
+**What was decided, 2026-09-19.** Ship Explore in five languages and add
+Russian afterwards, rather than hold twenty pairs of finished, reviewed prose
+behind roughly **6,500 words** of translation that nobody had scheduled. A
+Russian reader got the page in Russian chrome with the twenty entries' prose
+still in English, under a line in Russian saying so.
 
-**What a Russian reader gets.** The page, in Russian chrome — heading, intro,
-dateline, section headings, calls to action, sources line and the name of the
-linked cheat sheet are all translated — with the twenty entries' prose still in
-English, under a line in Russian that says so. That is worse than a translation
-and better than the two alternatives: hiding a finished feature from one
-language, or serving English with no acknowledgement that it is a gap.
+**What was wrong with how it was built.** The deferral rested on
+`OVERLAYS` in `src/i18n/explore.ts` being declared
+`Partial<Record<Locale, ExploreOverlay>>`. That type makes "this locale has no
+overlay" a legal value, so `ru` compiled with no file and every parity gate
+simply stopped looking at Russian. `EXPLORE_UNTRANSLATED_LOCALES` and the
+two-directional test around it were the compensating control — a list, a
+notice string in six languages, and three tests, all to hold honest something
+the type system had been asked not to check. The user found the gap on the
+rendered page, not through any of it.
 
-**How it is kept honest.** `EXPLORE_UNTRANSLATED_LOCALES` in
-`src/i18n/explore.ts` is the single list, and `explore.test.ts` asserts it in
-both directions:
+**What replaced it.** `OVERLAYS` is now
+`Record<Exclude<Locale, 'en'>, ExploreOverlay>`, like every other per-locale
+registry in the codebase. A seventh locale is a compile error until its file
+exists, and there is no list to forget to update. The deferral list, the
+`exploreProseIsUntranslated()` helper, the `explore.untranslatedNotice`
+dictionary key in all six languages and the paragraph the page rendered from it
+are all deleted: with a strict registry there is no state in which a locale
+could need them.
 
-- a locale **not** on the list must have a complete overlay — the usual
-  missing-translation gate, unchanged for de, fr, es and it;
-- a locale **on** the list must **not** have an overlay. Writing the Russian
-  without deleting the entry would leave a finished translation switched off and
-  a reader still being told the section is untranslated, and every other parity
-  test would simply have stopped looking at Russian;
-- a locale on the list must exist in `LOCALES`.
-
-So finishing the Russian is: write `src/i18n/explore/ru.ts`, delete `'ru'` from
-that constant, and let the tests tell you what is missing. The readability gate
-skips deferred locales for the same reason — measuring them would be measuring
-the English twice.
-
-**This does not extend to anything else.** The Explore *chrome* is translated
-into Russian, and so is the rest of the site. The exception is the twenty
-entries, and it lapses the moment they are written.
+**If a future locale really must ship without Explore prose**, the honest move
+is to say so at the type level — not to loosen this one back to `Partial`. That
+is the change that produced this defect, and it produced it silently.
 
 ---
 

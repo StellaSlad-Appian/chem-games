@@ -36,7 +36,6 @@ import { DEFAULT_LOCALE, formattingLocale, isLocale, type Locale } from '@/i18n/
 import { getDictionary } from '@/i18n/dictionaries';
 import {
   exploreLinkTarget,
-  exploreProseIsUntranslated,
   getExploreContent,
 } from '@/i18n/explore';
 import { format } from '@/i18n/format';
@@ -137,20 +136,6 @@ export default async function ExplorePage(props: PageProps<'/[lang]/explore'>) {
               })}
             </time>
           </p>
-
-          {/*
-            Shown only where the entries' prose has not been translated yet —
-            currently Russian alone. Saying so is the price of shipping the page
-            in five languages instead of holding it for a sixth: a reader who
-            switched to Russian and met English prose with no explanation would
-            reasonably read it as a bug. The notice is in their language even
-            though what follows is not.
-          */}
-          {exploreProseIsUntranslated(locale) && (
-            <p className="mt-4 rounded-xl border border-(--border) bg-(--surface) px-4 py-3 text-sm text-(--muted)">
-              {t.explore.untranslatedNotice}
-            </p>
-          )}
         </header>
 
         <div className="mt-8 space-y-8">

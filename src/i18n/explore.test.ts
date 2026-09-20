@@ -28,9 +28,7 @@ import { DEFAULT_LOCALE, LOCALES, type Locale } from './config';
 import { getDictionary } from './dictionaries';
 import {
   EXPLORE_OVERLAYS,
-  EXPLORE_UNTRANSLATED_LOCALES,
   exploreLinkTarget,
-  exploreProseIsUntranslated,
   getExploreContent,
   localizeMolecule,
   localizeScientist,
@@ -39,15 +37,16 @@ import {
 } from './explore';
 
 /**
- * The locales whose prose exists and must therefore be complete.
+ * The locales whose prose must be complete: every locale but English.
  *
- * `EXPLORE_UNTRANSLATED_LOCALES` is subtracted here rather than each test
- * skipping Russian by name — a skip is invisible, and this is a decision
- * (src/i18n/explore.ts, and docs/feature-briefs/explore.md §0c). The two tests
- * below hold that list honest in both directions.
+ * There used to be a second subtraction here — `EXPLORE_UNTRANSLATED_LOCALES`,
+ * which held `'ru'` while the Russian prose was deferred. It is gone with the
+ * deferral (2026-09-20): `EXPLORE_OVERLAYS` is now a strict
+ * `Record<Exclude<Locale, 'en'>, …>`, so a locale with no overlay does not
+ * compile and there is nothing left for a list to excuse.
  */
 const translatedLocales = LOCALES.filter(
-  (locale) => locale !== DEFAULT_LOCALE && !exploreProseIsUntranslated(locale)
+  (locale) => locale !== DEFAULT_LOCALE
 ) as Exclude<Locale, 'en'>[];
 
 /**
@@ -118,45 +117,35 @@ describeTranslationParity('explore', {
 });
 
 describe('every locale has an overlay', () => {
-  it('covers every locale in LOCALES except the default and the deferred ones', () => {
+  it('covers every locale in LOCALES except the default', () => {
     const missing = translatedLocales.filter((locale) => !EXPLORE_OVERLAYS[locale]);
     expect(missing).toEqual([]);
   });
 
   /*
-   * The other direction, and the reason the deferral cannot rot. Writing the
-   * Russian overlay without deleting 'ru' from EXPLORE_UNTRANSLATED_LOCALES
-   * would leave a finished translation switched off and a reader still told the
-   * section is untranslated — a failure nothing else would catch, because every
-   * parity test would simply stop looking at Russian.
+   * The runtime half of the strict registry, and the reason the Russian gap
+   * could exist at all. `Partial<Record<Locale, ExploreOverlay>>` made an
+   * absent locale a legal value, so `ru` compiled with no file and every
+   * parity test simply stopped looking at it. The type is strict now; this
+   * asserts the same thing at runtime, so a `Partial` reintroduced later
+   * fails a test rather than only losing a compile error.
    */
-  it('lists no deferred locale that has since been translated', () => {
-    const doneButStillListed = EXPLORE_UNTRANSLATED_LOCALES.filter(
-      (locale) => EXPLORE_OVERLAYS[locale]
-    );
+  it('has an overlay object for every non-default locale, not just a key', () => {
+    const notAnOverlay = translatedLocales.filter((locale) => {
+      const overlay = EXPLORE_OVERLAYS[locale];
+      return !overlay || !overlay.molecules || !overlay.scientists;
+    });
     expect(
-      doneButStillListed,
-      'These locales have an Explore overlay but are still listed as untranslated. ' +
-        'Delete them from EXPLORE_UNTRANSLATED_LOCALES in src/i18n/explore.ts.'
+      notAnOverlay,
+      'These locales have no usable Explore overlay, so they would silently ' +
+        'render the English prose. Write src/i18n/explore/<locale>.ts.'
     ).toEqual([]);
   });
 
-  it('defers only locales that are actually in LOCALES', () => {
-    const unknown = EXPLORE_UNTRANSLATED_LOCALES.filter(
-      (locale) => !(LOCALES as readonly string[]).includes(locale)
-    );
-    expect(unknown).toEqual([]);
-  });
-
-  it('leaves English reading from the source data', () => {
+  it('leaves English — and only English — reading from the source data', () => {
     expect(usesEnglishExploreProse(DEFAULT_LOCALE)).toBe(true);
     for (const locale of translatedLocales) {
       expect(usesEnglishExploreProse(locale)).toBe(false);
-    }
-    // A deferred locale reads the English too — that is what deferring means,
-    // and it is why the page tells the reader so.
-    for (const locale of EXPLORE_UNTRANSLATED_LOCALES) {
-      expect(usesEnglishExploreProse(locale)).toBe(true);
     }
   });
 });

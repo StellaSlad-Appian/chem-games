@@ -518,10 +518,6 @@ export const de = {
     scientistCta: 'Die Chemie dazu: {target}',
     sourcesHeading: 'Quellen',
     sourcesNote: 'Links zuletzt geprüft am {date}.',
-    // Nur für Sprachen ohne eigene Explore-Texte — derzeit allein Russisch.
-    // Deutsch rendert diesen Satz nie; siehe den Kommentar in en.ts.
-    untranslatedNotice:
-      'Das Molekül und die Person unten sind noch nicht übersetzt, ihr Text ist also auf Englisch. Der Rest der Seite nicht.',
   },
 
   chemistry: {
