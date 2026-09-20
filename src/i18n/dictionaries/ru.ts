@@ -557,26 +557,33 @@ export const ru = {
     // Both placeholders sit after a comma, governing nothing. The formula
     // itself stays Latin, as Russian chemistry writes it.
     formulaA11y: '{name}, формула {formula}',
-    everydayHeading: 'Где ты с ним встречаешься',
+    everydayHeading: 'Где это встречается в жизни',
     chemistryHeading: 'Почему это работает',
-    workHeading: 'Что он сделал',
+    workHeading: 'Вклад в науку',
     legacyHeading: 'Почему это важно',
     /*
-     * «Что он сделал» is the one heading here that has to agree with a person,
-     * and Russian gives no genderless third-person past. An impersonal
-     * rewrite is the fix the rest of this file uses, and the Italian bug this
-     * section already hit — a participle that read «why **he** was important»
-     * on every woman's card — is exactly why it matters. `workHeading` is
-     * therefore flagged low in docs/i18n/ru-review.md as the one string a
-     * native speaker must settle before Russian ships: «Чем он занимался» has
-     * the same problem, and «Вклад» loses the voice.
+     * `workHeading` and `everydayHeading` used to read «Что он сделал» and
+     * «Где ты с ним встречаешься». Russian gives no genderless
+     * third-person past, so the first sat masculine over every woman's card —
+     * half of the twenty scientists — and the second agreed with the substance
+     * by gender. Both are impersonal now, which is the fix the rest of this
+     * file uses and the same one the Italian section needed.
+     *
+     * «Вклад в науку» is flatter than «Что он сделал»; that is the price of
+     * being correct for everyone on the page, and it is the trade the rest of
+     * the Russian copy already makes. Still worth a native ear — see
+     * docs/i18n/ru-review.md — but it is no longer a grammatical error.
      */
     creditHeading: 'Кому на самом деле принадлежит заслуга',
     // {target} is the name of a cheat sheet or a game, after a colon.
     moleculeCta: 'Потренируйся: {target}',
     scientistCta: 'Химия за этим: {target}',
     sourcesHeading: 'Источники',
-    sourcesNote: 'Ссылки проверены — {date}.',
+    // No full stop, for the same reason as `privacy.effectiveDate`: `Intl`
+    // renders a long Russian date as «19 сент. 2026 г.», and the «г.»
+    // abbreviation already ends the sentence — adding one gave «…2026 г...»
+    // on the rendered page. The other five locales need theirs.
+    sourcesNote: 'Ссылки проверены — {date}',
   },
 
   cheatSheets: {
