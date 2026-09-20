@@ -28,11 +28,11 @@ import type {
 } from '@/core-engine/types/general';
 import { CHEAT_SHEETS, GLOBAL_TEACHER_RESOURCES } from '@/lib/cheat-sheet-data';
 import { DEFAULT_LOCALE, type Locale } from './config';
-import { CHEAT_SHEET_OVERLAY_DE, RESOURCE_DESCRIPTIONS_DE } from './cheat-sheets/de';
-import { CHEAT_SHEET_OVERLAY_FR, RESOURCE_DESCRIPTIONS_FR } from './cheat-sheets/fr';
-import { CHEAT_SHEET_OVERLAY_ES, RESOURCE_DESCRIPTIONS_ES } from './cheat-sheets/es';
-import { CHEAT_SHEET_OVERLAY_IT, RESOURCE_DESCRIPTIONS_IT } from './cheat-sheets/it';
-import { CHEAT_SHEET_OVERLAY_RU, RESOURCE_DESCRIPTIONS_RU } from './cheat-sheets/ru';
+import { CHEAT_SHEET_OVERLAY_DE } from './cheat-sheets/de';
+import { CHEAT_SHEET_OVERLAY_FR } from './cheat-sheets/fr';
+import { CHEAT_SHEET_OVERLAY_ES } from './cheat-sheets/es';
+import { CHEAT_SHEET_OVERLAY_IT } from './cheat-sheets/it';
+import { CHEAT_SHEET_OVERLAY_RU } from './cheat-sheets/ru';
 
 /** Prose for one table; `rows` must match the English table row for row. */
 export interface CheatSheetTableOverlay {
@@ -52,7 +52,6 @@ export interface CheatSheetSectionOverlay {
 export interface CheatSheetOverlay {
   title: string;
   summary: string;
-  curriculumRef?: string;
   keyTakeaways: string[];
   /** Names of `formulaExamples`, in the English order. */
   formulaExampleNames?: string[];
@@ -63,54 +62,65 @@ export interface CheatSheetOverlay {
 
 export type CheatSheetOverlaySet = Record<string, CheatSheetOverlay>;
 
+// ---------------------------------------------------------------------------
+// What a non-English sheet does NOT get, and why
+// ---------------------------------------------------------------------------
+//
+// Two things on an English sheet are tied to one country and one language, and
+// translating them made them worse rather than better. Both are now
+// **withheld** from every locale but English.
+//
+//   1. **The outside links.** `src/lib/cheat-sheet-data.ts` points at 21 URLs
+//      across 13 domains — VCAA, Khan Academy, PhET's `/en/` simulations,
+//      LibreTexts, the IUPAC Gold Book, PubChem, NIST, the RSC, chemguide,
+//      Compound Interest, ptable, MolView and SDBS. Every one of them is an
+//      English-language page. Until now only the *description* was localised,
+//      so a Russian student read a Russian sentence recommending a page they
+//      cannot read. A link a student cannot read is worse than no link, so the
+//      whole `resources` list is dropped, together with the global teacher
+//      resources the detail page appends at render time.
+//
+//   2. **`curriculumRef`.** It cites the Victorian Curriculum and the VCE
+//      study design — the syllabus of one Australian state. All five overlays
+//      were translating it, so a Russian sheet read
+//      «Victorian Curriculum Science, уровень 9: …» to a student who will
+//      never sit it.
+//
+// **Both are withheld explicitly, and that is the whole point.** Deleting the
+// values from the overlays alone would not have worked: `localizeSheet()` fell
+// back to the English field whenever the overlay had none, so a deleted
+// translation would have restored the *English Australian* string — the worse
+// of the two outcomes. The fields are set here instead, and the overlays no
+// longer carry them at all.
+//
+// English is untouched: `getCheatSheets('en')` still returns `CHEAT_SHEETS` by
+// identity, with every resource and every curriculum line on it.
+//
+// This is a withholding, not a finding that these locales need nothing. What
+// they need — a curriculum mapping per country, and outside links a student
+// can actually read — is subject-expert work that has not been done. It is
+// written up as the deferred follow-up in docs/i18n/README.md
+// § Locale-appropriate content.
+
 /**
- * Resource *descriptions* are keyed by URL rather than by position, because the
- * same resource (the VCAA data book, Khan Academy) appears on many sheets and
- * the global teacher resources are appended at render time.
+ * One prose overlay per locale, English excluded.
  *
- * Resource *labels* are deliberately left in English: they are the names of
- * English-language sites and documents ("Khan Academy — High School
- * Chemistry", "VCAA VCE Chemistry Data Book"), and renaming them would make
- * them harder to find, not easier. That the linked material is English-only is
- * a real gap for a German reader — it is recorded in docs/i18n/README.md
- * § Known gaps rather than papered over here.
+ * `Record<Exclude<Locale, 'en'>, …>` rather than `Partial<Record<Locale, …>>`:
+ * strict, so a new locale is a compile error until its overlay exists. The
+ * `Partial` this replaces is the same construct that let Russian ship with no
+ * Explore overlay at all (src/i18n/explore.ts), and it was no safer here.
  */
-export type ResourceDescriptions = Record<string, string>;
-
-interface LocaleContent {
-  sheets: CheatSheetOverlaySet;
-  resourceDescriptions: ResourceDescriptions;
-}
-
-const LOCALE_CONTENT: Partial<Record<Locale, LocaleContent>> = {
-  de: {
-    sheets: CHEAT_SHEET_OVERLAY_DE,
-    resourceDescriptions: RESOURCE_DESCRIPTIONS_DE,
-  },
-  fr: {
-    sheets: CHEAT_SHEET_OVERLAY_FR,
-    resourceDescriptions: RESOURCE_DESCRIPTIONS_FR,
-  },
-  es: {
-    sheets: CHEAT_SHEET_OVERLAY_ES,
-    resourceDescriptions: RESOURCE_DESCRIPTIONS_ES,
-  },
-  it: {
-    sheets: CHEAT_SHEET_OVERLAY_IT,
-    resourceDescriptions: RESOURCE_DESCRIPTIONS_IT,
-  },
-  ru: {
-    sheets: CHEAT_SHEET_OVERLAY_RU,
-    resourceDescriptions: RESOURCE_DESCRIPTIONS_RU,
-  },
+const OVERLAYS: Record<Exclude<Locale, 'en'>, CheatSheetOverlaySet> = {
+  de: CHEAT_SHEET_OVERLAY_DE,
+  fr: CHEAT_SHEET_OVERLAY_FR,
+  es: CHEAT_SHEET_OVERLAY_ES,
+  it: CHEAT_SHEET_OVERLAY_IT,
+  ru: CHEAT_SHEET_OVERLAY_RU,
 };
 
-function localizeResource(
-  resource: CheatSheetResource,
-  descriptions: ResourceDescriptions
-): CheatSheetResource {
-  const description = descriptions[resource.url];
-  return description ? { ...resource, description } : resource;
+/** The overlay set for a locale, or `undefined` for English. */
+function overlaysFor(locale: Locale): CheatSheetOverlaySet | undefined {
+  return locale === 'en' ? undefined : OVERLAYS[locale];
 }
 
 function localizeTable(
@@ -135,16 +145,15 @@ function localizeTable(
   };
 }
 
-function localizeSheet(
-  sheet: CheatSheetTopic,
-  overlay: CheatSheetOverlay,
-  descriptions: ResourceDescriptions
-): CheatSheetTopic {
+function localizeSheet(sheet: CheatSheetTopic, overlay: CheatSheetOverlay): CheatSheetTopic {
   return {
     ...sheet,
     title: overlay.title,
     summary: overlay.summary,
-    curriculumRef: overlay.curriculumRef ?? sheet.curriculumRef,
+    // Withheld, not translated — and explicitly, because the old
+    // `overlay.curriculumRef ?? sheet.curriculumRef` would otherwise restore
+    // the English Australian line. See the note above.
+    curriculumRef: undefined,
     keyTakeaways: overlay.keyTakeaways,
     formulaExamples: sheet.formulaExamples?.map((example, index) => ({
       ...example,
@@ -165,20 +174,23 @@ function localizeSheet(
     }),
     tables: sheet.tables?.map((table, index) => localizeTable(table, overlay.tables?.[index])),
     commonMistakes: overlay.commonMistakes ?? sheet.commonMistakes,
-    resources: sheet.resources?.map((resource) => localizeResource(resource, descriptions)),
+    // Withheld for the same reason: every one of them is an English-language
+    // page. `undefined` rather than `[]`, so the shape matches a sheet that
+    // lists no resources at all and the detail page needs no special case.
+    resources: undefined,
   };
 }
 
 /** Every cheat sheet, with prose in the requested locale. */
 export function getCheatSheets(locale: Locale): CheatSheetTopic[] {
-  const content = LOCALE_CONTENT[locale];
-  if (locale === DEFAULT_LOCALE || !content) return CHEAT_SHEETS;
+  const overlays = overlaysFor(locale);
+  if (locale === DEFAULT_LOCALE || !overlays) return CHEAT_SHEETS;
 
   return CHEAT_SHEETS.map((sheet) => {
-    const overlay = content.sheets[sheet.slug];
+    const overlay = overlays[sheet.slug];
     // A sheet with no overlay renders in English rather than disappearing.
     // The test asserts this never happens for a shipped locale.
-    return overlay ? localizeSheet(sheet, overlay, content.resourceDescriptions) : sheet;
+    return overlay ? localizeSheet(sheet, overlay) : sheet;
   });
 }
 
@@ -186,14 +198,16 @@ export function getCheatSheet(locale: Locale, slug: string): CheatSheetTopic | u
   return getCheatSheets(locale).find((sheet) => sheet.slug === slug);
 }
 
-/** The global teacher resources, with localized descriptions. */
+/**
+ * The global teacher resources — English only.
+ *
+ * The VCAA study design is the syllabus of one Australian state and the RSC
+ * periodic table is an English-language site, so a non-English sheet gets
+ * neither. Empty rather than translated, for the reason in the note above.
+ */
 export function getGlobalTeacherResources(locale: Locale): CheatSheetResource[] {
-  const content = LOCALE_CONTENT[locale];
-  if (!content) return GLOBAL_TEACHER_RESOURCES;
-  return GLOBAL_TEACHER_RESOURCES.map((resource) =>
-    localizeResource(resource, content.resourceDescriptions)
-  );
+  return locale === DEFAULT_LOCALE ? GLOBAL_TEACHER_RESOURCES : [];
 }
 
 /** Exposed for the completeness test. */
-export { LOCALE_CONTENT as CHEAT_SHEET_LOCALE_CONTENT };
+export { OVERLAYS as CHEAT_SHEET_OVERLAYS };

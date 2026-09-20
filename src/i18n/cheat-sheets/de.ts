@@ -21,12 +21,19 @@
 // – for parenthetical dashes, non-breaking space before units).
 //
 // Not translated anywhere in this file: formulae, element symbols, state
-// symbols, charges, IUPAC suffixes/prefixes (-ol, -al, hypo-, per-) where the
-// point of the sentence *is* the English-language IUPAC affix, and the names of
-// English-language linked resources.
+// symbols, charges, and IUPAC suffixes/prefixes (-ol, -al, hypo-, per-) where
+// the point of the sentence *is* the English-language IUPAC affix.
+//
+// **This file carries no `curriculumRef` and no resource descriptions.** Both
+// were here until 2026-09-20 and both were translated: the curriculum line
+// cites one Australian state's syllabus, and every linked resource is an
+// English-language page. Translating them put material in front of a student
+// that the student cannot use. `src/i18n/cheat-sheets.ts` now withholds both
+// from every locale but English, and the note there says why; the follow-up
+// research is in docs/i18n/README.md § Locale-appropriate content.
 
 import { POLYATOMIC_ION_TABLE } from '@/lib/cheat-sheet-data';
-import type { CheatSheetOverlaySet, ResourceDescriptions } from '../cheat-sheets';
+import type { CheatSheetOverlaySet } from '../cheat-sheets';
 
 // ---------------------------------------------------------------------------
 // The polyatomic-ion table is generated from the ion registry, so its German
@@ -76,57 +83,10 @@ const polyatomicIonRowsDe = POLYATOMIC_ION_TABLE.rows.map((row) => [
 
 // ---------------------------------------------------------------------------
 
-export const RESOURCE_DESCRIPTIONS_DE: ResourceDescriptions = {
-  'https://www.vcaa.vic.edu.au/sites/default/files/2026-02/2026-ChemistryDataBook.pdf':
-    'Genau die Tabellen, die du in der Prüfung bekommst: Periodensystem, mehratomige Ionen, IR-/NMR-Daten, Konstanten. (Auf Englisch.)',
-  'https://www.vcaa.vic.edu.au/curriculum/vce/vce-study-designs/chemistry/Pages/index.aspx':
-    'Offizielle Lerninhalte und Kompetenzen für die Units 1–4 (2023–2027). (Auf Englisch.)',
-  'https://www.khanacademy.org/science/hs-chemistry':
-    'Kurze Videos und Übungsaufgaben; gut für eine zweite Erklärung zu jedem Thema hier. (Auf Englisch.)',
-  'https://chem.libretexts.org/':
-    'Kostenloses offenes Lehrbuch; such dir jeden Begriff für eine ausführlichere Erklärung auf Prüfungsniveau. (Auf Englisch.)',
-  'https://www.chemguide.co.uk/':
-    'Klare, unaufgeregte Erklärungen, besonders stark bei organischen Mechanismen und der Bindungslehre. (Auf Englisch.)',
-  'https://ptable.com/':
-    'Klick auf ein Element und du siehst Elektronenkonfiguration, Elektronegativität und häufige Ionen.',
-  'https://www.rsc.org/periodic-table':
-    'Verlässliche Elementdaten mit Geschichte und Verwendung – gut für Referate. (Auf Englisch.)',
-  'https://molview.org/':
-    'Zeichne ein Molekül und sieh es in 3D; zeigt Bindungen, Geometrie und den IUPAC-Namen.',
-  'https://pubchem.ncbi.nlm.nih.gov/':
-    'Schlag jede Verbindung nach: Struktur, IUPAC-Name, molare Masse, Eigenschaften. (Auf Englisch.)',
-  'https://goldbook.iupac.org/':
-    'Die maßgeblichen Definitionen chemischer Fachbegriffe. (Auf Englisch.)',
-  'https://phet.colorado.edu/en/simulations/states-of-matter':
-    'Erwärme, kühle und komprimiere Atome und Moleküle und beobachte den Zustandswechsel.',
-  'https://phet.colorado.edu/en/simulations/ph-scale':
-    'Miss den pH-Wert von Alltagsflüssigkeiten und sieh das Verhältnis von H3O+ zu OH-.',
-  'https://phet.colorado.edu/en/simulations/acid-base-solutions':
-    'Vergleiche starke und schwache Säuren auf Teilchenebene.',
-  'https://phet.colorado.edu/en/simulations/balancing-chemical-equations':
-    'Zieh Koeffizienten zurecht und beobachte, wie sich die Atomanzahl auf einer Waage ändert.',
-  'https://phet.colorado.edu/en/simulations/build-a-molecule':
-    'Bau Moleküle aus Atomen zusammen und sieh ihre Formeln und 3D-Formen.',
-  'https://phet.colorado.edu/en/simulations/molecule-shapes':
-    'Füge einem Zentralatom Bindungen und freie Elektronenpaare hinzu und beobachte, wie sich die VSEPR-Form ändert.',
-  'https://phet.colorado.edu/en/simulations/reactants-products-and-leftovers':
-    'Erst belegte Brötchen, dann echte Reaktionen – die anschaulichste Darstellung des begrenzenden Edukts, die es gibt.',
-  'https://www.compoundchem.com/2020/02/21/functional-groups/':
-    'Eine einseitige Infografik zu jeder funktionellen Gruppe mit Struktur und Beispiel – zum Ausdrucken. (Auf Englisch.)',
-  'https://www.compoundchem.com/2014/02/17/organic-chemistry-reaction-map/':
-    'Die Reaktionswege zwischen den funktionellen Gruppen auf einer Seite. (Auf Englisch.)',
-  'https://sdbs.db.aist.go.jp/':
-    'Echte IR- und NMR-Spektren für Tausende organischer Verbindungen. (Auf Englisch.)',
-  'https://webbook.nist.gov/chemistry/':
-    'Referenzspektren und thermochemische Daten. (Auf Englisch.)',
-};
-
 export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
   'states-of-matter': {
     title: 'Aggregatzustände',
     summary: 'Teilchenanordnung, kinetische Energie und die sechs Zustandsänderungen.',
-    curriculumRef:
-      'Victorian Curriculum Science: Teilchenmodell (Level 7–8), vertieft in Klasse 9–10 (chemische Grundlagen).',
     keyTakeaways: [
       'Feststoffe: Die Teilchen schwingen an festen Plätzen – feste Form und festes Volumen.',
       'Flüssigkeiten: Die Teilchen gleiten aneinander vorbei – festes Volumen, die Form passt sich dem Gefäß an.',
@@ -176,8 +136,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
   'acids-and-bases': {
     title: 'Säuren und Basen',
     summary: 'pH-Wert, Protonendonatoren und -akzeptoren, stark gegen schwach, und die Neutralisation.',
-    curriculumRef:
-      'Victorian Curriculum Science Level 10 (chemische Reaktionen inkl. Säuren); VCE Unit 2 AoS 1 (Brønsted-Lowry).',
     keyTakeaways: [
       'Säure: ein Protonendonator (gibt H+ ab). In Wasser entstehen Oxonium-Ionen, H3O+. pH < 7.',
       'Base: ein Protonenakzeptor. Lösliche Basen (Laugen) geben in Wasser Hydroxid-Ionen, OH-, ab. pH > 7.',
@@ -229,8 +187,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Chemische Gleichungen ausgleichen',
     summary:
       'Erhaltung der Masse: gleiche Atome hinein, gleiche Atome heraus – ändere Koeffizienten, niemals Indizes.',
-    curriculumRef:
-      'Victorian Curriculum Science Level 10; VCE Unit 1–2 (ausgeglichene Gleichungen mit Zustandssymbolen).',
     keyTakeaways: [
       'Bei einer Reaktion werden Atome nur neu angeordnet, nie erzeugt oder vernichtet – von jedem Element muss auf beiden Seiten die gleiche Anzahl stehen.',
       'Koeffizienten (die großen Zahlen davor) gelten für die ganze Formel. Indizes (die kleinen tiefgestellten Zahlen darin) legen den Stoff fest und dürfen nie verändert werden.',
@@ -262,7 +218,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Reaktionstypen',
     summary:
       'Synthese, Zersetzung, Verbrennung, Verdrängung, Fällung und Neutralisation an ihrem Muster erkennen.',
-    curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 2 AoS 1–2.',
     keyTakeaways: [
       'Synthese (Vereinigung): Zwei oder mehr Stoffe verbinden sich – A + B → AB.',
       'Zersetzung: Ein Stoff zerfällt – AB → A + B (braucht oft Wärme oder Strom).',
@@ -310,8 +265,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Chemische Bindungen und Strukturen',
     summary:
       'Ionenbindung, Atombindung und Metallbindung – und wie die Struktur die Eigenschaften erklärt.',
-    curriculumRef:
-      'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1 (Metalle, Ionenverbindungen, molekulare Stoffe).',
     keyTakeaways: [
       'Atome gehen Bindungen ein, um eine stabile, volle Außenschale zu erreichen (Edelgaskonfiguration). Bei den Hauptgruppenelementen sagt dir die Hauptgruppennummer, wie viele Valenzelektronen ein Atom hat.',
       'Ionenbindung: Metall + Nichtmetall. Elektronen werden übertragen; die entstehenden Ionen werden im dreidimensionalen Ionengitter durch elektrostatische Anziehung zusammengehalten.',
@@ -367,7 +320,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Verhältnisformeln von Ionenverbindungen aufstellen',
     summary:
       'Gleiche die Ladungen aus: Kation zuerst, Ladungen über Kreuz, Klammern um mehrfach vorkommende mehratomige Ionen.',
-    curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1.',
     keyTakeaways: [
       'Eine Ionenverbindung ist insgesamt ungeladen: Die gesamte positive Ladung ist so groß wie die gesamte negative.',
       'Schreib das Kation (Metall oder NH4+) zuerst, dann das Anion.',
@@ -406,8 +358,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Mehratomige Ionen',
     summary:
       'Die Nachschlagetabelle – und die Namensmuster, dank derer du viel weniger auswendig lernen musst, als du denkst.',
-    curriculumRef:
-      'VCE Unit 1 AoS 1 (Formeln und Benennung von Ionenverbindungen). Das VCE-Datenheft enthält diese Tabelle in der Prüfung.',
     keyTakeaways: [
       'Ein mehratomiges Ion ist eine Gruppe von Atomen, die durch Atombindungen zusammenhängt, insgesamt eine Ladung trägt und in Reaktionen als Einheit auftritt.',
       'Das einzige häufige mehratomige Kation ist Ammonium, NH4+. Alle anderen sind Anionen.',
@@ -453,8 +403,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Anorganische Verbindungen benennen',
     summary:
       'Drei Systeme – Ionenverbindungen, molekulare Stoffe, Säuren – und woran du erkennst, welches gilt.',
-    curriculumRef:
-      'VCE Unit 1 AoS 1 (IUPAC-Benennung von ionischen und molekularen Verbindungen).',
     keyTakeaways: [
       'Bestimm zuerst den Typ: Metall + Nichtmetall (oder NH4+) → ionisch; zwei Nichtmetalle → molekular; H vorn und in Wasser gelöst → Säure.',
       'Ionisch: Name des Kations + Name des Anions. Einatomige Anionen enden auf -id (Chlorid, Oxid); mehratomige Anionen behalten ihren eigenen Namen (Sulfat). Keine Zahlwortpräfixe – das Verhältnis ergibt sich aus den Ladungen.',
@@ -511,8 +459,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Stoffmenge und Stöchiometrie',
     summary:
       'Umrechnungen mit der Stoffmenge, Stoffmengenverhältnisse, begrenzendes Edukt und prozentuale Ausbeute an einem Ort.',
-    curriculumRef:
-      'VCE Unit 2 AoS 1–2 (Stoffmenge, Konzentration, Stöchiometrie); Unit 3 AoS 2 (Ausbeute).',
     keyTakeaways: [
       'Ein Mol sind 6,02 × 10^23 Teilchen (Avogadro-Konstante, N_A). Die molare Masse M (g/mol) ist die Masse eines Mols – addiere dazu die Atommassen aus dem Periodensystem.',
       'Alle Wege führen über die Stoffmenge: Rechne das Gegebene in Mol um, benutze das Stoffmengenverhältnis aus der ausgeglichenen Gleichung und rechne dann zurück in die gesuchte Größe.',
@@ -562,7 +508,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Lewis-Formeln',
     summary:
       'Valenzelektronen zählen, so verteilen, dass die Oktettregel erfüllt ist, und mit der Formalladung prüfen.',
-    curriculumRef: 'VCE Unit 1 AoS 1 (Atombindung, Lewis-Formeln, VSEPR-Formen).',
     keyTakeaways: [
       'Valenzelektronen = Hauptgruppennummer bei den Hauptgruppenelementen (H 1, C 4, N 5, O 6, Halogene 7). Pro negativer Ladung kommt ein Elektron dazu, pro positiver Ladung fällt eins weg.',
       'Jede Bindung ist ein gemeinsames Elektronenpaar (2 Elektronen). Einfachbindung = 1 Paar, Doppelbindung = 2, Dreifachbindung = 3. Elektronen, die nicht binden, sitzen als freie Elektronenpaare am Atom.',
@@ -629,7 +574,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Organische Verbindungen benennen',
     summary:
       'IUPAC-Namen Schritt für Schritt: längste Kette, kleinste Nummern, Substituenten alphabetisch, Endung nach der funktionellen Gruppe.',
-    curriculumRef: 'VCE Unit 4 AoS 1 (systematische IUPAC-Benennung organischer Verbindungen).',
     keyTakeaways: [
       'Such die längste durchgehende Kohlenstoffkette, die die ranghöchste funktionelle Gruppe enthält – sie kann in der Zeichnung um Ecken laufen.',
       'Nummeriere die Kette von dem Ende aus, das der funktionellen Gruppe die kleinere Nummer gibt; gibt es keine funktionelle Gruppe, bekommt der erste Substituent die kleinere Nummer.',
@@ -689,8 +633,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     title: 'Funktionelle Gruppen',
     summary:
       'Wie jede Gruppe aussieht, wie sie benannt wird und welche Reaktionen sie eingeht.',
-    curriculumRef:
-      'VCE Unit 4 AoS 1 (funktionelle Gruppen, homologe Reihen, Reaktionswege) und AoS 2 (Identifizierung über IR/NMR).',
     keyTakeaways: [
       'Eine funktionelle Gruppe ist das Atom oder die Atomgruppe, die einem Molekül seine typischen Reaktionen gibt. Moleküle mit derselben Gruppe reagieren auf dieselbe Weise.',
       'Eine homologe Reihe ist eine Familie mit derselben funktionellen Gruppe und einer allgemeinen Formel; benachbarte Mitglieder unterscheiden sich um CH2. Die physikalischen Eigenschaften ändern sich entlang der Reihe allmählich.',
