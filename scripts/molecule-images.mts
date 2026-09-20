@@ -8,12 +8,12 @@
 // chemistry:
 //
 //   STRUCTURES  a SMILES string, drawn by OpenChemLib          (11 entries)
-//   DIAGRAMS    a drawing function in this file                 (1 entry)
+//   DIAGRAMS    a drawing function in this file                 (2 entries)
 //   SOURCED     a public-domain file in assets/explore/,
 //               recoloured and refitted                         (5 entries)
 //
 // Whatever is in none of the three keeps its placeholder, and the run prints
-// it with the reason. Three do today: water, polypropylene, sodium sulfate.
+// it with the reason. Two do today: polypropylene and sodium sulfate.
 //
 // ## Why generated and not found on the internet
 //
@@ -309,11 +309,12 @@ const INK = '#64748b'; // slate-500: bonds, carbon, hydrogen, charges
  * emerald-500 measures 2.3:1 on white, which is fine for a filled shape and
  * too weak for a two-letter label. 600 clears 3:1 on both surfaces.
  */
+const OXYGEN = '#ef4444'; // globals.css --acid-color
 const ION_CHLORIDE = '#059669';
 const ION_SODIUM = '#a855f7'; // globals.css --amphoteric-color
 const PALETTE: Record<string, string> = {
   'rgb(0,0,0)': INK,
-  'rgb(255,13,13)': '#ef4444', // O — globals.css --acid-color
+  'rgb(255,13,13)': OXYGEN,
   'rgb(48,80,248)': '#3b82f6', // N — globals.css --base-color
   'rgb(31,240,31)': ION_CHLORIDE,
   'rgb(144,224,80)': '#0891b2', // F — cyan-600, kept clearly apart from Cl
@@ -644,8 +645,140 @@ ${items.map((item) => `    ${item.svg}`).join('\n')}
  * contradicts, and because the right picture is a specific illustration rather
  * than a structural formula.
  */
+/**
+ * Water: four electron pairs round the oxygen, two of them lone.
+ *
+ * Drawn rather than found, and drawn to one requirement above all the others.
+ * The card says "because the lone pairs take up more room than the bonding
+ * pairs, the molecule ends up bent at about 104.5 degrees", so the lone pairs
+ * have to *look* roomier than the bonds. The public-domain Commons picture
+ * that would otherwise have filled this slot showed them pinched closer
+ * together than the hydrogens — see the note at the top of `SOURCED`.
+ *
+ * So all four pairs are drawn the same way, as a lobe with two electrons in
+ * it, and the only difference between them is size. The comparison is the
+ * picture. The lone-pair lobes are 1.6 times the width of the bonding lobes
+ * and sit 115 degrees apart against the bonds' 104.5, which is the squeeze the
+ * prose describes: four pairs pushing apart would give 109.5, and the fatter
+ * two win.
+ *
+ * A caution for anyone redrawing this. It is a 2D schematic of the electron
+ * pairs, the way every textbook draws it, and not a claim about the molecule
+ * in space — the two lone pairs really sit in a plane at right angles to the
+ * hydrogens. That is fine here because nothing in the drawing suggests
+ * otherwise, but it is the thing to be careful about if you ever move it
+ * towards a three-dimensional model.
+ */
+function drawWater(): string {
+  /** Screen coordinates from a compass-free bearing: 0 is right, 90 is up. */
+  const at = (bearing: number, radius: number): [number, number] => [
+    radius * Math.cos((bearing * Math.PI) / 180),
+    -radius * Math.sin((bearing * Math.PI) / 180),
+  ];
+  const n = (v: number) => Number(v.toFixed(1));
+
+  const BOND_ANGLE = 104.5;
+  const LONE_PAIR_ANGLE = 115;
+  const bonds = [-90 - BOND_ANGLE / 2, -90 + BOND_ANGLE / 2];
+  const lonePairs = [90 + LONE_PAIR_ANGLE / 2, 90 - LONE_PAIR_ANGLE / 2];
+
+  /**
+   * One electron pair's share of the space around the oxygen.
+   *
+   * Filled with its own colour at low opacity rather than a flat tint, because
+   * that is the one fill that works on both cards: over white it lightens, over
+   * `#18181b` it darkens, and either way it reads as a region rather than an
+   * object.
+   */
+  // Track what has actually been drawn, rather than estimating it afterwards.
+  // The first attempt guessed, put the hydrogens straight down when they are
+  // out to the sides, and reserved 78 units of empty space below the drawing —
+  // which the framing then paid for by shrinking everything a quarter.
+  const bounds = { minX: 0, minY: 0, maxX: 0, maxY: 0 };
+  const cover = (x: number, y: number, halfW: number, halfH: number) => {
+    bounds.minX = Math.min(bounds.minX, x - halfW);
+    bounds.maxX = Math.max(bounds.maxX, x + halfW);
+    bounds.minY = Math.min(bounds.minY, y - halfH);
+    bounds.maxY = Math.max(bounds.maxY, y + halfH);
+  };
+
+  const cloud = (bearing: number, distance: number, along: number, across: number, colour: string) => {
+    const [x, y] = at(bearing, distance);
+    // A rotated ellipse's bounding box, so the framing knows its real extent.
+    const t = (bearing * Math.PI) / 180;
+    cover(
+      x,
+      y,
+      Math.hypot(along * Math.cos(t), across * Math.sin(t)),
+      Math.hypot(along * Math.sin(t), across * Math.cos(t)),
+    );
+    return (
+      `<ellipse cx="${n(x)}" cy="${n(y)}" rx="${along}" ry="${across}" ` +
+      `transform="rotate(${n(-bearing)} ${n(x)} ${n(y)})" ` +
+      `fill="${colour}" fill-opacity="0.15" stroke="${colour}" stroke-width="2.5" />`
+    );
+  };
+
+  const parts: string[] = [];
+
+  // The two bonding pairs. Shared, so they are drawn as bonds rather than as
+  // dots — "oxygen ... shares two of them, one with each hydrogen".
+  for (const bearing of bonds) {
+    parts.push(cloud(bearing, 86, 54, 24, INK));
+    const [x1, y1] = at(bearing, 36);
+    const [x2, y2] = at(bearing, 152);
+    parts.push(
+      `<line x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke="${INK}" stroke-width="3" />`,
+    );
+    const [hx, hy] = at(bearing, 188);
+    cover(hx, hy, 16, 22);
+    parts.push(
+      `<text x="${n(hx)}" y="${n(hy)}" text-anchor="middle" dominant-baseline="central" ` +
+        `font-size="42" fill="${INK}">H</text>`,
+    );
+  }
+
+  // The two lone pairs. Unshared, so they keep their electrons as dots, and
+  // they are oxygen's colour because both electrons are oxygen's.
+  for (const bearing of lonePairs) {
+    parts.push(cloud(bearing, 78, 52, 40, OXYGEN));
+    for (const offset of [-20, 20]) {
+      const [x, y] = at(bearing, 78);
+      const [ox, oy] = at(bearing + 90, offset);
+      parts.push(`<circle cx="${n(x + ox)}" cy="${n(y + oy)}" r="7" fill="${OXYGEN}" />`);
+    }
+  }
+
+  cover(0, 122, 48, 16);
+  cover(0, 0, 20, 30);
+  parts.push(
+    // No arc: at this bond angle one either hugs the vertex, where it collides
+    // with both clouds, or stands off far enough to read as a bond joining the
+    // two hydrogens. The number alone, sitting in the V, is unambiguous.
+    `<text x="0" y="122" text-anchor="middle" dominant-baseline="central" ` +
+      `font-size="28" fill="${INK}">104.5°</text>`,
+    `<text x="0" y="0" text-anchor="middle" dominant-baseline="central" ` +
+      `font-size="58" fill="${OXYGEN}">O</text>`,
+  );
+
+  return svgDocument(
+    'water',
+    slotViewBox(
+      bounds.minX,
+      bounds.minY,
+      bounds.maxX - bounds.minX,
+      bounds.maxY - bounds.minY,
+      20,
+      0,
+    ),
+    parts.map((part) => `  ${part}`).join('\n'),
+    'Drawn by drawWater().',
+  );
+}
+
 const DIAGRAMS: Record<string, () => string> = {
   'sodium-chloride': drawRockSalt,
+  water: drawWater,
 };
 
 // --- Taken from Wikimedia Commons -----------------------------------------
@@ -718,8 +851,8 @@ const INKSCAPE_CRUFT: RegExp[] = [
 // pairs, the molecule ends up bent at about 104.5 degrees". Picture and text
 // contradict each other on the one point the card exists to make.
 //
-// A replacement needs the lone pairs visibly wider apart than the O-H bonds.
-// Drawing it is probably easier than finding it.
+// The slot is filled by `drawWater` in DIAGRAMS instead, which draws all four
+// electron pairs the same way and lets their size carry the argument.
 const SOURCED: Record<string, Sourced> = {
   methane: {
     file: 'methane.svg',

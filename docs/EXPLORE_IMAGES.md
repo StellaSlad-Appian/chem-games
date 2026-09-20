@@ -13,7 +13,7 @@ replacing a file**: no code changes, no new entry anywhere, no rebuild.
 The page rotates weekly, so **each entry has its own picture** — 20 molecules
 and 20 scientists for the current pool.
 
-Seventeen of the twenty molecule slots are **produced by a script** and should
+Eighteen of the twenty molecule slots are **produced by a script** and should
 not be edited by hand — see [Molecule pictures are generated](#molecule-pictures-are-generated)
 below. Every other slot is a placeholder: a dashed frame showing which entry it
 belongs to, its path and its size. That is deliberate. The card has its final
@@ -75,16 +75,16 @@ one of three places:
 | How | Count | Which |
 | --- | --- | --- |
 | Drawn from a SMILES string by OpenChemLib | 11 | benzene · citric acid · monosodium glutamate · CFC-12 · cholesterol · oleic acid · adenine · sodium bicarbonate · urea · limonene · artemisinin |
-| Drawn in code, by a function in the script | 1 | sodium chloride |
+| Drawn in code, by a function in the script | 2 | sodium chloride · water |
 | A public-domain file under `assets/explore/`, recoloured | 5 | methane · ammonia · Kevlar · silicon dioxide · lithium cobalt oxide |
 
-**Do not edit the seventeen output files.** The next run overwrites them. Each
+**Do not edit the eighteen output files.** The next run overwrites them. Each
 carries a comment at the top saying so and where it came from. To change one,
 change the script and re-run.
 
-Three slots are still placeholders: **water**, **polypropylene** and
-**sodium sulfate**. The script prints them on every run with the reason, so the
-gap stays visible rather than being something you have to remember.
+Two slots are still placeholders: **polypropylene** and **sodium sulfate**.
+The script prints them on every run with the reason, so the gap stays visible
+rather than being something you have to remember.
 
 ### ⚠ Water: do not use the obvious Commons file
 
@@ -98,9 +98,18 @@ angle is 94.4° and the projected lone-pair–O–lone-pair angle is **71.7°**.
 card says "the lone pairs take up more room than the bonding pairs". The
 picture shows the opposite, on the one point the card exists to make.
 
-A replacement needs the lone pairs visibly **wider apart** than the O–H bonds.
-The rejection is recorded in the script as well, at the top of `SOURCED`, so
-nobody re-adds it.
+The slot is drawn by `drawWater` instead. All four electron pairs are drawn
+the same way — a lobe with its electrons in it — so the only difference between
+them is size, and the comparison is the picture: the lone-pair lobes are 1.6
+times the width of the bonding ones and sit 115° apart against the bonds'
+104.5°. The rejection is recorded in the script as well, at the top of
+`SOURCED`, so nobody re-adds it.
+
+Note what that drawing is and is not. It is a 2D schematic of the electron
+pairs, the way a textbook draws it, not a claim about the molecule in space —
+the two lone pairs really sit in a plane at right angles to the hydrogens.
+Nothing in the drawing suggests otherwise, but it is the thing to watch if
+anyone moves it towards a three-dimensional model.
 
 ### Why not just draw all twenty from SMILES
 
