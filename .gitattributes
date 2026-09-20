@@ -1,0 +1,4 @@
+# Source pictures under assets/ are third-party files kept byte-for-byte as
+# downloaded, so the licence audit sees exactly what was published. No line
+# ending translation.
+assets/explore/** -text
