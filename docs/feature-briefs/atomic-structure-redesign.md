@@ -1283,8 +1283,20 @@ Still open:
    specified at 75.8 / 24.2. Which one moves?
 3. **The 65,000-year dating elaboration.** VC2S10U06 asks for it by name and it
    deserves care, a source and a review before it ships. Who reviews it?
-4. **Does the Year 10 sheet get its own `concepts` row**, or link to the Year 9
-   concept? The `concept_cheat_sheets` table has `is_primary`, so both are
-   expressible; the migration needs the decision.
-5. **Flame tests and emission spectra** (VC2S10U07's last elaboration) — a
+~~4. **Does the Year 10 sheet get its own `concepts` row?**~~ **Resolved** —
+   yes, in `20260921_split_atomic_structure_sheet.sql`. Sharing the Year 9
+   concept is not actually expressible: `concept_cheat_sheets_one_primary` is a
+   partial unique index on `(concept_id) where is_primary`, so a shared concept
+   forces the new sheet to be non-primary. `concepts` also carries `year_level`
+   and `curriculum_ref`, and the two sheets differ on both. The new concept
+   nests under `atomic-structure` via `parent_id`, the way `polyatomic-ions`
+   nests under `ionic-compounds`, and links back to the Year 9 sheet
+   non-primary — the same shape as `('stoichiometry', 'balancing-equations',
+   false)`. There is deliberately no link the other way.
+
+4. **Flame tests and emission spectra** (VC2S10U07's last elaboration) — a
    section on the Year 9 sheet, an Explore entry, or left out?
+5. **`concepts.curriculum_ref` is capped at 300 characters**, and the prose the
+   pages render is roughly twice that, so the migration carries an abridged
+   version. Two sources of the same sentence is a drift risk. Widen the column
+   in a later migration, or accept the abridgement and note it?
