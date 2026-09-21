@@ -12,6 +12,7 @@ import GameOverlay, { FailReason } from '@/components/games/shared/GameOverlay';
 import GameSettingsModal from '@/components/games/shared/GameSettingsModal'; 
 import GameFooter from '@/components/games/shared/GameFooter';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
+import { AcidCompactInstructions } from '@/components/games/shared/CompactGameInstructions';
 import GameArena from '@/components/games/acid-classification/GameArena';
 import { useI18n } from '@/i18n/client';
 import { localizePath } from '@/i18n/routing';
@@ -275,6 +276,7 @@ export default function ClassificationGame() {
         isOpen={isInstructionsOpen} 
         onClose={() => setIsInstructionsOpen(false)}
         title={t.games.acidClassification.instructionsTitle}
+        compact={<AcidCompactInstructions />}
       >
         <div className="space-y-4 font-mono text-(--muted)">
           <p>{t.games.acidClassification.instructionsSubtitle}</p>

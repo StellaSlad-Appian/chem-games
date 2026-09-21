@@ -77,6 +77,11 @@ export const es = {
       ['Toca', 'un electrón desapareado y luego otro de un átomo distinto.'],
       ['Toca', 'un par enlazante para deshacerlo.'],
     ],
+    compact: [
+      'Toca un punto desapareado y luego uno de otro átomo.',
+      'Un átomo está completo con 8 puntos; el hidrógeno con 2.',
+      'Se bloquea solo cuando cada átomo está completo. Sin botones.',
+    ],
     glossaryTitle: 'Las palabras del juego',
   },
 

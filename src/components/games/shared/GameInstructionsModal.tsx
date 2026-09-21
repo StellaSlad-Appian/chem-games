@@ -4,12 +4,24 @@
 import React, { useEffect, useId } from 'react';
 import { X } from 'lucide-react';
 import { useI18n } from '@/i18n/client';
+import { useIsCompactScreen } from '@/hooks/useMediaQuery';
 
 interface GameInstructionsModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
+  /** The full instructions, shown from the `md` breakpoint up. */
   children: React.ReactNode;
+  /**
+   * A shorter set of instructions for phones — not the same words hidden
+   * behind an expander, but its own tighter copy: what the player cannot
+   * start without, and nothing else.
+   *
+   * Optional so a game can be migrated on its own, but every game should have
+   * one: 40 lines of scrolling before the first tap is how a student decides
+   * the game is not worth it.
+   */
+  compact?: React.ReactNode;
 }
 
 /**
@@ -17,9 +29,16 @@ interface GameInstructionsModalProps {
  * both themes (the previous hardcoded slate panel hid token-coloured text in
  * light theme). Escape closes it, like the settings modal.
  */
-export default function GameInstructionsModal({ isOpen, onClose, title, children }: GameInstructionsModalProps) {
+export default function GameInstructionsModal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  compact,
+}: GameInstructionsModalProps) {
   const { t } = useI18n();
   const titleId = useId();
+  const isCompactScreen = useIsCompactScreen();
 
   useEffect(() => {
     if (!isOpen) return;
@@ -38,7 +57,9 @@ export default function GameInstructionsModal({ isOpen, onClose, title, children
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="my-auto w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border-2 border-(--game-panel-border) bg-(--game-panel) p-6 shadow-2xl"
+        /* max-w-3xl, not max-w-lg: at 512px the instructions were 40 lines of
+           scrolling on a laptop. The prose still caps its own line length. */
+        className="my-auto w-full max-w-3xl max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border-2 border-(--game-panel-border) bg-(--game-panel) p-6 shadow-2xl"
       >
         <div className="mb-6 flex items-center justify-between">
           {/* German instruction titles ("Spielanleitung: Reaktions-Balancer")
@@ -59,7 +80,9 @@ export default function GameInstructionsModal({ isOpen, onClose, title, children
             <X className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <div className="text-sm">{children}</div>
+        {/* One or the other, never both: rendering both and hiding one with
+            CSS would read the whole lot twice to a screen reader. */}
+        <div className="text-sm">{isCompactScreen && compact ? compact : children}</div>
         <button
           type="button"
           onClick={onClose}

@@ -674,6 +674,11 @@ export const fr = {
       registryError: 'Erreur : registre des composés introuvable.',
       instructionsTitle: 'Comment jouer : Acide ou base ?',
       instructionsSubtitle: 'Analyse la formule chimique et trouve ses propriétés !',
+      instructionsCompact: [
+        'Lis la formule dans la bulle.',
+        'Dis si la substance est acide, basique, neutre ou amphotère.',
+        'Au bout de 3 erreurs, le bécher se casse. L’ampoule donne le nom.',
+      ],
       stepIdentifyLabel: 'Repérer :',
       stepIdentifyText: 'Regarde le composé affiché dans la bulle centrale.',
       stepClassifyLabel: 'Classer :',
@@ -701,6 +706,11 @@ export const fr = {
       /** Feedback templates. {compound}/{element} are localized names; {formula}/{symbol} never are. */
       // Every one of these is written so no article ever has to precede a name
       // placeholder: French would need "de l'eau" but "du méthane".
+      instructionsCompact: [
+        'La molécule cible est affichée en haut.',
+        'Appuie sur les bulles dont la formule correspond.',
+        'Une mauvaise bulle t’indique quel élément chercher à la place.',
+      ],
       hintTemplate: '{compound} – éléments : {elements}.',
       wrongPick: 'Ce n’est pas ça : {compound} ({formula}) !',
       wrongPickLookFor:
@@ -720,6 +730,11 @@ export const fr = {
       switchIonA11yBase: 'Changer d’ion, actuellement OH- (base)',
       instructionsTitle: 'Comment jouer : Neutralise !',
       instructionsIntro: 'Défends le labo contre les produits dangereux qui arrivent !',
+      instructionsCompact: [
+        'Des acides et des bases arrivent d’en haut.',
+        'Charge l’ion qui annule celui qui arrive.',
+        'Tire. Touché, il est neutralisé ; raté, il passe.',
+      ],
       keyOneLabel: '1',
       keyOneText: 'Charge {ion} pour neutraliser les bases.',
       keyOneIon: 'H⁺ (acide)',

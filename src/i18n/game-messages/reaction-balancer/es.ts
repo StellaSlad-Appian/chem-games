@@ -72,6 +72,11 @@ export const es = {
       ['Toca', '▲ / ▼ en una tarjeta para cambiar el coeficiente.'],
       ['Toca', 'el número para escribirlo.'],
     ],
+    compact: [
+      'Cambia los **números grandes** delante de una fórmula. Los pequeños están bloqueados.',
+      'Cuando todas las filas del **recuento de átomos** son iguales, la ecuación se bloquea.',
+      '¿No sabes por dónde seguir? Pulsa la **bombilla**. La primera pista es gratis.',
+    ],
     glossaryTitle: 'Las palabras del juego',
   },
 

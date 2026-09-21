@@ -70,6 +70,17 @@ export const REACTION_BALANCER_MESSAGES = {
       ['Tap', '▲ / ▼ on a card to change a coefficient.'],
       ['Tap', 'the number to type one.'],
     ],
+    /**
+     * The phone version: three lines, no glossary, and only the control list
+     * for the input the player is actually using. Its own wording rather than
+     * the full text hidden behind an expander, because the full text is
+     * written to be read sitting down.
+     */
+    compact: [
+      'Change the **big numbers** in front of a formula. The small ones are locked.',
+      'Make every row of the **atom ledger** equal and the equation locks.',
+      'Stuck? Tap the **lightbulb**. The first hint is free.',
+    ],
     glossaryTitle: 'Words the game uses',
   },
 

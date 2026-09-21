@@ -730,6 +730,11 @@ export const it = {
       registryError: 'Errore: registro dei composti non trovato.',
       instructionsTitle: 'Come si gioca: Acido o base?',
       instructionsSubtitle: 'Analizza la formula chimica e scopri le sue proprietà!',
+      instructionsCompact: [
+        'Leggi la formula nella bolla.',
+        'Di’ se la sostanza è acida, basica, neutra o anfotera.',
+        'Al terzo errore il becher si rompe. La lampadina ti dà il nome.',
+      ],
       stepIdentifyLabel: 'Identifica:',
       stepIdentifyText: 'Guarda il composto che compare nella bolla centrale.',
       stepClassifyLabel: 'Classifica:',
@@ -757,6 +762,11 @@ export const it = {
       // Every one of these is written so no article ever has to precede a name
       // placeholder: Italian would need "il metano" but "l’acqua" and "lo
       // zolfo", and "di il" must contract to "del", "dello" or "dell’".
+      instructionsCompact: [
+        'La molecola bersaglio è in alto.',
+        'Premi le bolle la cui formula corrisponde.',
+        'Una bolla sbagliata ti dice quale elemento cercare.',
+      ],
       hintTemplate: '{compound} – elementi: {elements}.',
       wrongPick: 'Non è quella: {compound} ({formula}).',
       wrongPickLookFor:
@@ -776,6 +786,11 @@ export const it = {
       switchIonA11yBase: 'Cambia ione, ora OH- (base)',
       instructionsTitle: 'Come si gioca: Neutralizza!',
       instructionsIntro: 'Difendi il laboratorio dalle sostanze pericolose in arrivo!',
+      instructionsCompact: [
+        'Dall’alto arrivano acidi e basi.',
+        'Carica lo ione che annulla quello in arrivo.',
+        'Spara. Se colpisci lo neutralizzi, se sbagli passa.',
+      ],
       keyOneLabel: '1',
       keyOneText: 'Carica {ion} per neutralizzare le basi.',
       keyOneIon: 'H⁺ (acido)',

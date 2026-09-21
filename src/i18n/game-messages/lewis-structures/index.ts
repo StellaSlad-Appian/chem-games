@@ -108,6 +108,7 @@ export function lewisMessages(t: Dictionary, locale: Locale) {
       keyboard: d.instructions.keyboard,
       touchTitle: t.games.shared.touchscreen,
       touch: d.instructions.touch,
+      compact: d.instructions.compact,
       glossaryTitle: d.instructions.glossaryTitle,
     },
 

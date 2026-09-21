@@ -19,7 +19,9 @@ import GameInstructionsModal from '@/components/games/shared/GameInstructionsMod
 
 // Share to Fill specific
 import LewisStructuresArena from '@/components/games/lewis-structures/GameArena';
-import LewisInstructions from '@/components/games/lewis-structures/Instructions';
+import LewisInstructions, {
+  LewisCompactInstructions,
+} from '@/components/games/lewis-structures/Instructions';
 import LewisNotebook from '@/components/games/lewis-structures/Notebook';
 import { LEWIS_STRUCTURES_CONFIG } from '@/core-engine/config/games/lewis-structures-config';
 import { useLewisMessages } from '@/i18n/game-messages/lewis-structures';
@@ -239,7 +241,12 @@ export default function LewisStructuresPage() {
         supportMode={{ label: M.ui.supportMode, description: M.ui.supportModeHelp }}
       />
 
-      <GameInstructionsModal isOpen={isInstructionsOpen} onClose={handleCloseInstructions} title={M.instructions.title}>
+      <GameInstructionsModal
+        isOpen={isInstructionsOpen}
+        onClose={handleCloseInstructions}
+        title={M.instructions.title}
+        compact={<LewisCompactInstructions tab={instructionsTab} />}
+      >
         <LewisInstructions tab={instructionsTab} onTabChange={setInstructionsTabOverride} />
       </GameInstructionsModal>
     </GameShell>

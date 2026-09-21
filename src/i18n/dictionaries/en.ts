@@ -698,6 +698,16 @@ export const en = {
       registryError: 'Error: Compounds Registry not found.',
       instructionsTitle: 'How to Play: Chemical Classifier',
       instructionsSubtitle: 'Analyze the chemical formula and identify its properties!',
+      /**
+       * The phone version: three lines, shown below the md breakpoint in place
+       * of the full instructions (CompactInstructions explains what is left
+       * out). Its own wording, not the long text truncated.
+       */
+      instructionsCompact: [
+        'Read the formula in the bubble.',
+        'Say whether it is an acid, a base, neutral or amphoteric.',
+        'Three mistakes and the beaker breaks. The lightbulb gives you the name.',
+      ],
       stepIdentifyLabel: 'Identify:',
       stepIdentifyText: 'Look at the compound shown in the center bubble.',
       stepClassifyLabel: 'Classify:',
@@ -722,6 +732,16 @@ export const en = {
       instructionsBullet3:
         'Tapping an incorrect molecule reveals what element you should look for instead.',
       /** Feedback templates. {compound}/{element} are localized names; {formula}/{symbol} never are. */
+      /**
+       * The phone version: three lines, shown below the md breakpoint in place
+       * of the full instructions (CompactInstructions explains what is left
+       * out). Its own wording, not the long text truncated.
+       */
+      instructionsCompact: [
+        'The target molecule is in the header.',
+        'Tap the bubbles whose formula matches it.',
+        'A wrong bubble tells you which element to look for instead.',
+      ],
       hintTemplate: '{compound} consists of the elements: {elements}.',
       wrongPick: "That's {compound} ({formula})!",
       wrongPickLookFor:
@@ -740,6 +760,16 @@ export const en = {
       switchIonA11yBase: 'Switch ion, currently OH- base',
       instructionsTitle: 'How to Play: Neutralize!',
       instructionsIntro: 'Defend the lab from incoming chemical hazards!',
+      /**
+       * The phone version: three lines, shown below the md breakpoint in place
+       * of the full instructions (CompactInstructions explains what is left
+       * out). Its own wording, not the long text truncated.
+       */
+      instructionsCompact: [
+        'Acids and bases fly in from the top.',
+        'Load the ion that cancels the one coming at you.',
+        'Fire. A hit neutralises it; a miss lets it through.',
+      ],
       keyOneLabel: '1',
       keyOneText: 'Load {ion} to neutralize Bases.',
       keyOneIon: 'H⁺ (Acid)',

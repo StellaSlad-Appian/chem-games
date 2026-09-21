@@ -4,6 +4,7 @@
 import { useMemo } from 'react';
 import { GlossaryTerm, type GlossaryEntry } from '@/components/games/shared/GlossaryTerm';
 import RichMessage from '@/components/games/shared/RichMessage';
+import CompactInstructions from '@/components/games/shared/CompactInstructions';
 import { useBalancerMessages, type BalancerMessages } from '@/i18n/game-messages/reaction-balancer';
 import type { InputMethod } from '@/hooks/useInputMethod';
 
@@ -18,6 +19,22 @@ export const balancerGlossary = (M: BalancerMessages): GlossaryEntry[] =>
 export function useBalancerGlossary(): { M: BalancerMessages; glossary: GlossaryEntry[] } {
   const M = useBalancerMessages();
   return { M, glossary: useMemo(() => balancerGlossary(M), [M]) };
+}
+
+
+/** The phone version: three lines and the controls for the input in use. */
+export function BalancerCompactInstructions({ tab }: { tab: InputMethod }) {
+  const { M, glossary } = useBalancerGlossary();
+  return (
+    <CompactInstructions
+      lead={M.instructions.lead}
+      bullets={M.instructions.compact}
+      controls={tab === 'pointer' ? M.instructions.keyboard : M.instructions.touch}
+      controlsLabel={tab === 'pointer' ? M.instructions.keyboardTitle : M.instructions.touchTitle}
+      inputMethod={tab}
+      glossary={glossary}
+    />
+  );
 }
 
 interface InstructionsProps {

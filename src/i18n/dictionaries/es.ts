@@ -707,6 +707,11 @@ export const es = {
       registryError: 'Error: no se encuentra el registro de compuestos.',
       instructionsTitle: 'Cómo jugar: ¿Ácido o base?',
       instructionsSubtitle: '¡Analiza la fórmula química y descubre sus propiedades!',
+      instructionsCompact: [
+        'Lee la fórmula de la burbuja.',
+        'Di si la sustancia es ácida, básica, neutra o anfótera.',
+        'A los 3 fallos el vaso se rompe. La bombilla te da el nombre.',
+      ],
       stepIdentifyLabel: 'Identifica:',
       stepIdentifyText: 'Mira el compuesto que aparece en la burbuja central.',
       stepClassifyLabel: 'Clasifica:',
@@ -733,6 +738,11 @@ export const es = {
       // Every one of these is written so no article ever has to precede a name
       // placeholder: Spanish would need "el metano" but "el agua" (feminine),
       // and "de el" must contract to "del".
+      instructionsCompact: [
+        'La molécula objetivo está arriba.',
+        'Pulsa las burbujas cuya fórmula coincide.',
+        'Una burbuja equivocada te dice qué elemento buscar.',
+      ],
       hintTemplate: '{compound} – elementos: {elements}.',
       wrongPick: 'No es eso: {compound} ({formula}).',
       wrongPickLookFor:
@@ -752,6 +762,11 @@ export const es = {
       switchIonA11yBase: 'Cambiar de ion, ahora OH- (base)',
       instructionsTitle: 'Cómo jugar: ¡Neutraliza!',
       instructionsIntro: '¡Defiende el laboratorio de los productos peligrosos que llegan!',
+      instructionsCompact: [
+        'Por arriba llegan ácidos y bases.',
+        'Carga el ion que anula al que se acerca.',
+        'Dispara. Si aciertas lo neutralizas; si fallas, pasa.',
+      ],
       keyOneLabel: '1',
       keyOneText: 'Carga {ion} para neutralizar las bases.',
       keyOneIon: 'H⁺ (ácido)',

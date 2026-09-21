@@ -76,6 +76,16 @@ export const LEWIS_STRUCTURES_MESSAGES = {
       ['Tap', 'an unpaired electron, then tap one on another atom.'],
       ['Tap', 'a shared pair to undo it.'],
     ],
+    /**
+     * The phone version: three lines, no glossary, and only the control list
+     * for the input in use. See CompactInstructions for what is left out and
+     * why.
+     */
+    compact: [
+      'Tap an unpaired dot, then tap one on another atom.',
+      'An atom is full at 8 dots — hydrogen at 2.',
+      'It locks itself when every atom is full. No button needed.',
+    ],
     glossaryTitle: 'Words the game uses',
   },
 

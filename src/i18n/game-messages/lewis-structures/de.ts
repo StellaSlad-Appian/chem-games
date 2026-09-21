@@ -50,6 +50,11 @@ export const de = {
       ['Tippen', 'auf ein ungepaartes Elektron, dann auf eines an einem anderen Atom.'],
       ['Tippen', 'auf ein bindendes Elektronenpaar löst es wieder.'],
     ],
+    compact: [
+      'Tipp einen ungepaarten Punkt an, dann einen an einem anderen Atom.',
+      'Ein Atom ist bei 8 Punkten voll – Wasserstoff schon bei 2.',
+      'Es rastet von selbst ein, sobald jedes Atom voll ist. Kein Knopf nötig.',
+    ],
     glossaryTitle: 'Wörter, die im Spiel vorkommen',
   },
 

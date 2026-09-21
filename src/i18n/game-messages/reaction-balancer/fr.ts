@@ -55,6 +55,11 @@ export const fr = {
       ['Appuie', 'sur ▲ / ▼ d’une carte pour changer le coefficient.'],
       ['Appuie', 'sur le nombre pour le taper.'],
     ],
+    compact: [
+      'Change les **grands chiffres** devant une formule. Les petits sont verrouillés.',
+      'Quand toutes les lignes du **bilan des atomes** sont égales, l’équation se verrouille.',
+      'Tu bloques ? Appuie sur l’**ampoule**. La première astuce est gratuite.',
+    ],
     glossaryTitle: 'Les mots du jeu',
   },
 

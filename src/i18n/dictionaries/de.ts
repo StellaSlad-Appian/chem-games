@@ -617,6 +617,11 @@ export const de = {
       registryError: 'Fehler: Verbindungsregister nicht gefunden.',
       instructionsTitle: 'Spielanleitung: Chemie-Sortierer',
       instructionsSubtitle: 'Untersuche die chemische Formel und bestimme ihre Eigenschaften!',
+      instructionsCompact: [
+        'Lies die Formel in der Blase.',
+        'Sag, ob der Stoff sauer, basisch, neutral oder amphoter ist.',
+        'Nach 3 Fehlern zerbricht das Becherglas. Die Glühbirne verrät den Namen.',
+      ],
       stepIdentifyLabel: 'Erkennen:',
       stepIdentifyText: 'Sieh dir die Verbindung in der mittleren Blase an.',
       stepClassifyLabel: 'Einordnen:',
@@ -641,6 +646,11 @@ export const de = {
         'Nutze die Glühbirne oben, wenn du einen Hinweis zur Zusammensetzung brauchst.',
       instructionsBullet3:
         'Wenn du ein falsches Molekül antippst, erfährst du, nach welchem Element du stattdessen suchen solltest.',
+      instructionsCompact: [
+        'Das Zielmolekül steht in der Kopfzeile.',
+        'Tipp die Blasen an, deren Formel dazu passt.',
+        'Eine falsche Blase verrät dir, nach welchem Element du suchen sollst.',
+      ],
       hintTemplate: '{compound} besteht aus den Elementen: {elements}.',
       wrongPick: 'Das ist {compound} ({formula})!',
       wrongPickLookFor:
@@ -660,6 +670,11 @@ export const de = {
       switchIonA11yBase: 'Ion wechseln, aktuell OH- (Base)',
       instructionsTitle: 'Spielanleitung: Neutralisieren!',
       instructionsIntro: 'Verteidige das Labor gegen anfliegende Gefahrstoffe!',
+      instructionsCompact: [
+        'Von oben fliegen Säuren und Basen heran.',
+        'Lade das Ion, das den ankommenden Stoff aufhebt.',
+        'Feuer. Ein Treffer neutralisiert ihn, ein Fehlschuss lässt ihn durch.',
+      ],
       keyOneLabel: '1',
       keyOneText: 'Lade {ion}, um Basen zu neutralisieren.',
       keyOneIon: 'H⁺ (Säure)',

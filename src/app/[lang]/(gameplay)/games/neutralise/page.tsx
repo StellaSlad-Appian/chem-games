@@ -13,6 +13,7 @@ import GameFooter from '@/components/games/shared/GameFooter';
 import GameOverlay from '@/components/games/shared/GameOverlay';
 import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
+import { NeutraliseCompactInstructions } from '@/components/games/shared/CompactGameInstructions';
 
 // Neutralise Specific
 import NeutralizeArena from '@/components/games/neutralise/GameArena';
@@ -402,6 +403,7 @@ export default function NeutralizePage() {
         isOpen={isInstructionsOpen}
         onClose={handleCloseInstructions}
         title={t.games.neutralise.instructionsTitle}
+        compact={<NeutraliseCompactInstructions tab={instructionsTab} />}
       >
         <div className="space-y-4 text-sm font-medium text-(--muted)">
           <p className="font-bold text-(--foreground)">

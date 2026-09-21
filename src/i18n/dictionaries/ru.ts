@@ -752,6 +752,11 @@ export const ru = {
       registryError: 'Ошибка: справочник соединений не найден.',
       instructionsTitle: 'Как играть: Кислота или основание?',
       instructionsSubtitle: 'Посмотри на формулу и определи свойства вещества.',
+      instructionsCompact: [
+        'Прочитай формулу в пузырьке.',
+        'Скажи, что это: кислота, основание, нейтральное или амфотерное вещество.',
+        'Три ошибки — и стакан разбит. Лампочка подскажет название.',
+      ],
       stepIdentifyLabel: 'Посмотри:',
       stepIdentifyText: 'В пузырьке по центру показано соединение.',
       stepClassifyLabel: 'Определи:',
@@ -776,6 +781,11 @@ export const ru = {
       instructionsBullet3:
         'Если лопнешь не ту молекулу, игра подскажет, какой элемент искать.',
       /** Feedback templates. {compound}/{element} are localized names; {formula}/{symbol} never are. */
+      instructionsCompact: [
+        'Нужная молекула указана наверху.',
+        'Нажимай пузырьки, формула которых совпадает.',
+        'Неверный пузырёк подскажет, какой элемент искать.',
+      ],
       hintTemplate: 'Состав вещества {compound}: {elements}.',
       wrongPick: 'Это {compound} ({formula}).',
       wrongPickLookFor:
@@ -794,6 +804,11 @@ export const ru = {
       switchIonA11yBase: 'Сменить ион, сейчас OH- (основание)',
       instructionsTitle: 'Как играть: Нейтрализуй!',
       instructionsIntro: 'Защити лабораторию от химической угрозы!',
+      instructionsCompact: [
+        'Сверху летят кислоты и основания.',
+        'Заряди ион, который гасит то, что летит на тебя.',
+        'Стреляй. Попал — вещество нейтрализовано, промахнулся — оно прошло.',
+      ],
       keyOneLabel: '1',
       keyOneText: 'Зарядить {ion}, чтобы гасить основания.',
       keyOneIon: 'H⁺ (кислота)',

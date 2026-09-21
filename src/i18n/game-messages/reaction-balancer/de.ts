@@ -43,6 +43,11 @@ export const de = {
       ['Tippen', 'auf ▲ / ▼ einer Karte ändert den Koeffizienten.'],
       ['Tippen', 'auf die Zahl, um sie einzugeben.'],
     ],
+    compact: [
+      'Ändere die **großen Zahlen** vor einer Formel. Die kleinen sind gesperrt.',
+      'Sind alle Zeilen der **Atombilanz** gleich, rastet die Gleichung ein.',
+      'Du kommst nicht weiter? Tipp auf die **Glühbirne**. Der erste Tipp ist umsonst.',
+    ],
     glossaryTitle: 'Wörter, die im Spiel vorkommen',
   },
 

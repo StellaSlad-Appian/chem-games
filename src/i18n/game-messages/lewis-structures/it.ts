@@ -80,6 +80,11 @@ export const it = {
       ['Tocca', 'un elettrone spaiato, poi uno di un altro atomo.'],
       ['Tocca', 'un doppietto di legame per disfarlo.'],
     ],
+    compact: [
+      'Tocca un punto spaiato, poi uno di un altro atomo.',
+      'Un atomo è completo con 8 punti; l’idrogeno con 2.',
+      'Si blocca da solo quando ogni atomo è completo. Nessun pulsante.',
+    ],
     glossaryTitle: 'Le parole del gioco',
   },
 

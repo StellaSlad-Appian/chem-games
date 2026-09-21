@@ -14,6 +14,7 @@ import GameOverlay from '@/components/games/shared/GameOverlay';
 import GameSettingsModal from '@/components/games/shared/GameSettingsModal';
 import GameFooter from '@/components/games/shared/GameFooter';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
+import { BlasterCompactInstructions } from '@/components/games/shared/CompactGameInstructions';
 
 // Formula Blaster
 import GameArena, {
@@ -651,6 +652,7 @@ export default function FormulaBlasterPage() {
         isOpen={isInstructionsOpen}
         onClose={handleCloseInstructions}
         title={t.games.formulaBlaster.instructionsTitle}
+        compact={<BlasterCompactInstructions />}
       >
         <div className="space-y-4 text-sm font-medium text-(--muted)">
           <p>{t.games.formulaBlaster.instructionsIntro}</p>

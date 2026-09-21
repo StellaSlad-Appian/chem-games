@@ -73,6 +73,11 @@ export const fr = {
       ['Appuie', 'sur un électron célibataire, puis sur celui d’un autre atome.'],
       ['Appuie', 'sur un doublet liant pour le défaire.'],
     ],
+    compact: [
+      'Appuie sur un point célibataire, puis sur un point d’un autre atome.',
+      'Un atome est complet à 8 points – l’hydrogène à 2.',
+      'Ça se verrouille tout seul quand chaque atome est complet. Pas de bouton.',
+    ],
     glossaryTitle: 'Les mots du jeu',
   },
 

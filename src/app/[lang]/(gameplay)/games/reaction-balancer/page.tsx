@@ -19,7 +19,9 @@ import GameInstructionsModal from '@/components/games/shared/GameInstructionsMod
 
 // Reaction Balancer specific
 import ReactionBalancerArena from '@/components/games/reaction-balancer/GameArena';
-import BalancerInstructions from '@/components/games/reaction-balancer/Instructions';
+import BalancerInstructions, {
+  BalancerCompactInstructions,
+} from '@/components/games/reaction-balancer/Instructions';
 import BalancerNotebook from '@/components/games/reaction-balancer/Notebook';
 import { REACTION_BALANCER_CONFIG } from '@/core-engine/config/games/reaction-balancer-config';
 import { useBalancerMessages } from '@/i18n/game-messages/reaction-balancer';
@@ -258,7 +260,12 @@ export default function ReactionBalancerPage() {
         supportMode={{ label: M.ui.supportMode, description: M.ui.supportModeHelp }}
       />
 
-      <GameInstructionsModal isOpen={isInstructionsOpen} onClose={handleCloseInstructions} title={M.instructions.title}>
+      <GameInstructionsModal
+        isOpen={isInstructionsOpen}
+        onClose={handleCloseInstructions}
+        title={M.instructions.title}
+        compact={<BalancerCompactInstructions tab={instructionsTab} />}
+      >
         <BalancerInstructions tab={instructionsTab} onTabChange={setInstructionsTabOverride} />
       </GameInstructionsModal>
     </GameShell>

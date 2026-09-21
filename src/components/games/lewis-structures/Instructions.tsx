@@ -2,9 +2,24 @@
 'use client';
 
 import { GlossaryTerm } from '@/components/games/shared/GlossaryTerm';
+import CompactInstructions from '@/components/games/shared/CompactInstructions';
 import { useLewisMessages } from '@/i18n/game-messages/lewis-structures';
 import type { InputMethod } from '@/hooks/useInputMethod';
 
+
+/** The phone version: three lines and the controls for the input in use. */
+export function LewisCompactInstructions({ tab }: { tab: InputMethod }) {
+  const M = useLewisMessages();
+  return (
+    <CompactInstructions
+      lead={M.instructions.lead}
+      bullets={M.instructions.compact}
+      controls={tab === 'pointer' ? M.instructions.keyboard : M.instructions.touch}
+      controlsLabel={tab === 'pointer' ? M.instructions.keyboardTitle : M.instructions.touchTitle}
+      inputMethod={tab}
+    />
+  );
+}
 
 interface InstructionsProps {
   tab: InputMethod;
