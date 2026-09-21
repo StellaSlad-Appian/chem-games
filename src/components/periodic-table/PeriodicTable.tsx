@@ -36,7 +36,7 @@ import { ElementCell } from './ElementCell';
 import { ElementDetail, FAMILY_LEGEND_KEY } from './ElementDetail';
 import { Legend, legendLabel } from './Legend';
 import { ViewModeSwitch } from './ViewModeSwitch';
-import { buildRows, isNavKey, navigate } from './layout';
+import { GROUP_COUNT, buildRows, isNavKey, navigate } from './layout';
 import { describeCell, type ViewMode } from './view-modes';
 import { DEFAULT_SELECTED, type PeriodicTableCell } from './cells';
 
@@ -152,7 +152,7 @@ export function PeriodicTable({ cells, modes, fullTableHref }: PeriodicTableProp
             <tr>
               {/* The corner. Not a header of anything, so not a <th>. */}
               <td />
-              {Array.from({ length: 18 }, (_, index) => index + 1).map((group) => (
+              {Array.from({ length: GROUP_COUNT }, (_, index) => index + 1).map((group) => (
                 <th
                   key={group}
                   scope="col"
@@ -168,41 +168,66 @@ export function PeriodicTable({ cells, modes, fullTableHref }: PeriodicTableProp
             onFocusCapture={onFocusCapture}
             onKeyDown={(event) => onKeyDown(event, focusTarget)}
           >
-            {rows.map((row) => (
-              <tr
-                key={`${row.kind}-${row.period}`}
-                className={row.kind === 'lanthanide' ? 'border-t' : undefined}
-              >
-                <th
-                  scope="row"
-                  aria-label={f(t.periodicTable.periodHeaderA11y, { period: row.period })}
-                  className="pr-1 text-right text-[9px] font-bold text-(--muted)"
-                >
-                  {row.kind === 'main' ? row.period : ''}
-                </th>
-                {row.cells.map((atomicNumber, column) => {
-                  if (atomicNumber === null) return <td key={column} />;
-                  const cell = byAtomicNumber.get(atomicNumber);
-                  if (!cell) return <td key={column} />;
-                  const view = describeCell(cell, viewMode);
-                  return (
-                    <td key={column} className="p-0 align-top">
-                      <ElementCell
-                        cell={cell}
-                        tone={view.tone}
-                        badge={view.badge}
-                        isFocusTarget={atomicNumber === focusTarget}
-                        isSelected={atomicNumber === selected}
-                        familyLabel={legendLabel(t, f, FAMILY_LEGEND_KEY[cell.category])}
-                        touch={touch}
-                        onSelect={select}
-                        registerRef={registerRef}
-                      />
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
+            {rows.map((row) => {
+              /*
+               * §6 D1 asks for a spacer row above the f-block. It gets a gap
+               * instead, as top padding on the lanthanide row's cells. A
+               * literal `<tr>` of empty `<td>`s is a row in the accessibility
+               * tree, and a screen reader walking the table down a column would
+               * meet it and announce it — an empty row that exists for the
+               * sighted layout is exactly the kind of thing D1 chose a real
+               * `<table>` to avoid. The gap is the same size either way.
+               */
+              const gap = row.kind === 'lanthanide' ? 'pt-4' : '';
+              const rowLabel =
+                row.kind === 'main'
+                  ? f(t.periodicTable.periodHeaderA11y, { period: row.period })
+                  : legendLabel(t, f, row.kind);
+              return (
+                <tr key={`${row.kind}-${row.period}`}>
+                  <th
+                    scope="row"
+                    aria-label={rowLabel}
+                    className={`pr-1 text-right text-[9px] font-bold text-(--muted) ${gap}`}
+                  >
+                    {/*
+                      The two f-block rows are not a period of their own, so
+                      numbering them 6 and 7 a second time would be a lie about
+                      the shape of the table. They carry their family's badge,
+                      and the row header's accessible name is the family's full
+                      name — which is also what a cell in those rows says in
+                      place of a group.
+                    */}
+                    {row.kind === 'main'
+                      ? row.period
+                      : t.periodicTable.badge[
+                          row.kind === 'lanthanide' ? 'lanthanide' : 'actinide'
+                        ]}
+                  </th>
+                  {row.cells.map((atomicNumber, column) => {
+                    if (atomicNumber === null) return <td key={column} className={gap} />;
+                    const cell = byAtomicNumber.get(atomicNumber);
+                    if (!cell) return <td key={column} className={gap} />;
+                    const view = describeCell(cell, viewMode);
+                    return (
+                      <td key={column} className={`p-0 align-top ${gap}`}>
+                        <ElementCell
+                          cell={cell}
+                          tone={view.tone}
+                          badge={view.badge}
+                          isFocusTarget={atomicNumber === focusTarget}
+                          isSelected={atomicNumber === selected}
+                          familyLabel={legendLabel(t, f, FAMILY_LEGEND_KEY[cell.category])}
+                          touch={touch}
+                          onSelect={select}
+                          registerRef={registerRef}
+                        />
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

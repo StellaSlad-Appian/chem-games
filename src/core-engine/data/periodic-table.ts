@@ -220,14 +220,8 @@ export function ionLabel(charge: number | null): string | undefined {
   return `${Math.abs(charge)}${charge > 0 ? '+' : '−'}`;
 }
 
-/** The table is eighteen columns wide in every period. */
-export const GROUP_COUNT = 18;
-
-/** The periods, top to bottom. */
-export const PERIODS = [1, 2, 3, 4, 5, 6, 7] as const;
-
-/** The two f-block rows, in the order they are drawn under the main table. */
-export const F_BLOCK_ROWS = [
-  { period: 6, category: 'lanthanide' },
-  { period: 7, category: 'actinide' },
-] as const;
+// The *shape* of the drawn table — how many columns it has, which rows are
+// pulled out underneath — is deliberately not here. It is presentation, and it
+// lives in src/components/periodic-table/layout.ts, derived from the `group`,
+// `period` and `block` above rather than stated a second time. A second
+// statement of it is a second thing to keep in step.

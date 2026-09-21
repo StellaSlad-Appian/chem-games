@@ -74,6 +74,17 @@ describe('PeriodicTable — the table', () => {
       'Uranium, symbol U, atomic number 92, Actinide, period 7'
     );
   });
+
+  it('labels the two f-block rows by family rather than numbering them again', () => {
+    // They are not periods of their own. Calling them 6 and 7 a second time
+    // would be a claim about the shape of the table that is not true.
+    renderTable();
+    expect(screen.getByRole('rowheader', { name: 'Lanthanide' })).toBeInTheDocument();
+    expect(screen.getByRole('rowheader', { name: 'Actinide' })).toBeInTheDocument();
+    // And there is no empty spacer row for a screen reader to walk into: nine
+    // rows in the body, plus the header row.
+    expect(screen.getAllByRole('row')).toHaveLength(10);
+  });
 });
 
 describe('PeriodicTable — keyboard', () => {
