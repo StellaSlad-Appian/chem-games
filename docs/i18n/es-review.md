@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Spanish
 translation, so a native speaker or a chemistry teacher can review the Spanish
 without reading any code.
 
-**897 strings** — 391 high confidence,
-369 medium, 137 low.
+**910 strings** — 391 high confidence,
+382 medium, 137 low.
 
 The confidence column is a judgement about *this* translation, not about Spanish
 in general:
@@ -69,6 +69,7 @@ style choice when missing.
 | `meta.teachersDescription` | What ChemGames is, the six languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta. | Qué es ChemGames, en qué seis idiomas existe, cómo trata los datos del alumnado, en qué punto está la accesibilidad y cómo el profesorado puede ayudar a darle forma durante la beta. | medium | Page titles and descriptions. |
 | `meta.cheatSheetTitle` | {title} Cheat Sheet \| ChemGames | Chuleta de {title} \| ChemGames | medium | Page titles and descriptions. |
 | `meta.cheatSheetNotFound` | Topic Not Found - ChemGames | Tema no encontrado – ChemGames | medium | Page titles and descriptions. |
+| `meta.exploreEntryNotFound` | Entry Not Found - ChemGames | Ficha no encontrada – ChemGames | medium | Page titles and descriptions. |
 
 ### `common`
 
@@ -477,8 +478,20 @@ style choice when missing.
 | `explore.creditHeading` | Credit where it was due | A quién se debe el mérito | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
 | `explore.moleculeCta` | Practise this: {target} | Practica esto: {target} | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
 | `explore.scientistCta` | The chemistry behind this: {target} | La química detrás: {target} | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.moleculeImageA11y` | Diagram: {name} | Esquema: {name} | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.scientistImageA11y` | Picture: {name} | Imagen: {name} | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
 | `explore.sourcesHeading` | Sources | Fuentes | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
 | `explore.sourcesNote` | Source links last checked {date}. | Enlaces comprobados por última vez el {date}. | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.recentHeading` | Recent weeks | Semanas anteriores | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.archiveCta` | Browse every entry | Ver todas las fichas | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.archiveHeading` | Explore archive | Archivo de Explorar | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.archiveIntro` | Every molecule and chemist in the rotation, the most recent first. | Todas las moléculas y todas las personas de la química, empezando por lo más reciente. | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.archiveThisWeek` | This week | Esta semana | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.backToExplore` | Back to Explore | Volver a Explorar | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.sameWeekHeading` | From the same week | De la misma semana | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.featuredOnce` | Featured in the week of {date}. | Apareció la semana del {date}. | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.featuredAgain` | Last featured in the week of {date}. It comes round again in the week of {nextDate}. | Última aparición la semana del {date}. Vuelve la semana del {nextDate}. | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
+| `explore.featuredNever` | Not featured yet. First up in the week of {date}. | Todavía no ha aparecido. Primera aparición la semana del {date}. | medium | Page chrome for the weekly Explore page, written in tú throughout ("Dónde la encuentras", "Practica esto") per glossary-es.md. "Por qué importó" is in the preterite because most of these people worked decades ago; if an entry ever features living work the heading still reads acceptably as a summary of the past. |
 
 ### `chemistry`
 
@@ -1095,7 +1108,7 @@ whether one exists.
 
 ## Cheat sheets — `src/i18n/cheat-sheets/es.ts`
 
-Twelve reference sheets, roughly 6,000 words of specialist Spanish. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist Spanish. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
@@ -1107,6 +1120,8 @@ against the English for every sheet in every locale.
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Átomos y la tabla periódica | **medium** | New on 2026-09-21, when the September sheet split in two. **Semimetal** was chosen over *metaloide*: both are current and correct in Spanish — unlike French, Spanish *metaloide* is not a false friend — and *semimetal* is the plainer word for a fourteen-year-old. It is marked on the sheet as an extension, since the curriculum says only "metallic and non-metallic properties". *Periodo* is written without the accent, per current chemistry usage. *Capa* is named once as the curriculum's word while *nivel de energía* stays the term. The group-1-with-water sentence (burbujea, corretea por la superficie, se incendia) is lab description and reads flat if it is translated flat. |
+| Isótopos y radiactividad | **low** | New on 2026-09-21. **Check the spelling first: *radiactivo* and *radiactividad*, never *radioactivo*.** It is the easiest thing to get wrong on this sheet and it appears in the title. Uranium-238 is written as *4500 millones de años* rather than as a decimal, because that is how Spanish says it, while chlorine keeps the decimal comma at 35,5. *Periodo de semidesintegración* is the term; *semivida* is shorter and equally correct, and the heading is long. **The sheet is rated low for one section**, the 65,000-year dating section, which writes "los pueblos aborígenes australianos y los isleños del estrecho de Torres". **Have a Spanish speaker who writes about Australian Indigenous history read that sentence before students do.** |
 | Los estados de la materia | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard Spanish pairs (fusión/solidificación, vaporización/condensación, sublimación/sublimación inversa). |
 | Ácidos y bases | **high** | Glossary-fixed throughout. **One choice to check, and Spanish lands the opposite way from French:** H3O+ is called **ion hidronio**, which is what Spanish secondary textbooks overwhelmingly print, where the French pass chose *ion oxonium* because the lycée programme prints that. *Ion oxonio* is the IUPAC form and is what a university text uses. It recurs through the sheet. |
 | Ajustar ecuaciones químicas | **high** | Turns on the subíndice/coeficiente distinction, which Spanish makes as cleanly as German does. The variety marker *ajustar* (Spain) vs *balancear* (Latin America) is at its densest here. |

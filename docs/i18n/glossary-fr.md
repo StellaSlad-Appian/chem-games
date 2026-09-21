@@ -225,6 +225,43 @@ decide. The specific risks: a teacher may want *célibataire* throughout and vie
 can be read as "only" rather than "alone" if the reader is not looking at a
 lone dot. If either changes, the edit touches every line of Share to Fill.
 
+## Atomic structure, the periodic table and radioactivity
+
+Added 2026-09-21, when *Atoms, Isotopes & the Periodic Table* split into
+*Atoms & the Periodic Table* (Year 9) and *Isotopes & Radioactivity* (Year 10).
+The first rows were already in use on the French atomic-structure sheet and are
+recorded here so the next writer does not re-decide them; the rest are new with
+the split.
+
+| English | French (use this) | Why this one, and what we rejected |
+|---|---|---|
+| periodic table | **tableau périodique** | The French programme also says *classification périodique des éléments*, which is the formal name; *tableau périodique* is what a classroom says and what the sheet already used. |
+| atomic number | **numéro atomique** | — |
+| mass number | **nombre de masse** | Note the asymmetry French keeps and English does not: *numéro* for the one that identifies, *nombre* for the one that counts. |
+| energy level | **niveau d'énergie** | The sheet says *level*, not *shell*, deliberately. See the next row. |
+| electron shell (the curriculum's word) | **couche électronique** | VC2S10U07 says "electron shells", so the sheet names *couche* once as the word the reader's teacher uses, and keeps *niveau d'énergie* as its own term. |
+| outer level / outer shell | **niveau extérieur** / **couche externe** | *Couche externe* is the standard French phrase; the sheet uses *niveau extérieur* to stay consistent with *niveau d'énergie* and glosses the other once. |
+| Bohr model | **modèle de Bohr** | Named as a *model* every time, per the sheet's own contract. |
+| isotope | **isotope** | — |
+| group (a column) | **groupe** | The sheet always writes *groupe 1*, *groupe 17*, never a bare *groupe*, because *groupe* also names a functional group. |
+| period (a row) | **période** | Not *ligne*, which is the layout word; *période* is the term and pairs with *tableau périodique*. |
+| metal | **métal** | — |
+| non-metal | **non-métal** | With the hyphen. Plural *non-métaux*. |
+| metalloid | **semi-métal** | **The false friend in this whole table, and the reason this row is long.** French *métalloïde* historically means **non-metal** — it is what nineteenth-century French chemistry called everything that was not a metal, and older French textbooks still use it that way. Writing *métalloïde* for silicon would therefore say the opposite of what is meant. **Rated medium**, and worth a teacher's eye: *semi-métal* is unambiguous, but *métalloïde* in the modern English sense is also now current in French, so a reader may meet both. Marked on the sheet as an extension in any case: the curriculum says only "metallic and non-metallic properties". |
+| alkali metal | **métal alcalin** | — |
+| halogen | **halogène** | — |
+| noble gas | **gaz noble** | *Gaz rare* is the traditional French school term and is still widely used; *gaz noble* is the current IUPAC-aligned form and is what recent programmes print. **Rated medium** — an older teacher may expect *gaz rare*. |
+| atomic size / atomic radius | **rayon atomique** | *Taille de l'atome* is the everyday phrase and is used once in running prose. |
+| reactivity | **réactivité** | — |
+| radioactive decay | **désintégration radioactive** | Not *décroissance radioactive*, which names the *decrease* of a sample over time (the curve) rather than the event in one nucleus. The sheet talks about both, so keeping the two words apart matters: *désintégration* for what a nucleus does, *décroissance* only if the curve itself is the subject. |
+| alpha particle | **particule alpha** | Written out rather than as α. |
+| beta particle | **particule bêta** | With the circumflex, which is how French spells the Greek letter's name. |
+| gamma radiation | **rayonnement gamma** | *Rayonnement*, not *rayon*: gamma is radiation, not a particle, and French keeps that straight where "gamma ray" does not. |
+| half-life | **demi-vie** | *Période radioactive* is the term used in French physics teaching and in the programme; *demi-vie* is transparent for a fourteen-year-old and is what the sheet already used. **Rated medium** — a physics teacher may prefer *période*. |
+| synthetic element / made element | **élément artificiel** | *Élément synthétique* is also correct; *artificiel* is the word French uses for the transuranium elements and pairs with the sheet's "had to be made". |
+| radiocarbon dating | **datation au carbone 14** | French writes the isotope as *carbone 14*, with a space and no hyphen, which is why the sheet's prose does too while the formula stays `C-14`. |
+| optically stimulated luminescence (OSL) | **luminescence stimulée optiquement (OSL)** | The established French term; the abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in French school material. |
+
 ## Formulae, equations and naming
 
 | English | French (use this) | Why this one, and what we rejected |

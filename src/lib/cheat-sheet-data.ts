@@ -82,6 +82,27 @@ const IUPAC_GOLD_BOOK: CheatSheetResource = {
   audience: 'teacher',
 };
 
+/**
+ * The source for the 65,000-year dating section on the isotopes sheet.
+ *
+ * VC2S10U06's elaboration asks for radiocarbon and optically stimulated
+ * luminescence "establishing that Aboriginal and Torres Strait Islander Peoples
+ * have been present on the Australian continent for at least 65,000 years", and
+ * this is the peer-reviewed paper that figure comes from — the Madjedbebe
+ * excavation on Mirarr Country, dated by OSL on the sediments and radiocarbon
+ * on charcoal. Cited rather than paraphrased from memory, because a
+ * cross-curriculum priority elaboration is the last place to assert a number
+ * without saying where it came from. The abstract is readable without a
+ * subscription; the full text is not, which the description says.
+ */
+const MADJEDBEBE: CheatSheetResource = {
+  label: 'Clarkson et al. (2017), “Human occupation of northern Australia by 65,000 years ago”, Nature 547',
+  url: 'https://www.nature.com/articles/nature22968',
+  description:
+    'The excavation and the dating behind the 65,000-year figure, at Madjedbebe on Mirarr Country. (Abstract free; full text behind a paywall.)',
+  audience: 'teacher',
+};
+
 const PHET = (slug: string, label: string, description: string): CheatSheetResource => ({
   label: `PhET simulation — ${label}`,
   url: `https://phet.colorado.edu/en/simulations/${slug}`,
@@ -159,29 +180,39 @@ export const GAME_LINKS: Partial<Record<GameName, { title: string; href: string 
  */
 const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
 
+/**
+ * The same arrangement for the Year 10 sheet the atomic-structure sheet split
+ * into. Three of the original seven diagrams teach isotopes, the weighted
+ * average and decay, so they moved with the prose rather than being served to
+ * the new sheet out of the old sheet's folder. One folder per slug is what
+ * docs/CHEAT_SHEET_IMAGES.md documents, and the M7 diagram milestone renames
+ * and re-splits these; keeping the folder honest now is what makes that a
+ * one-folder change later.
+ */
+const ISOTOPE_DIAGRAMS = '/cheat-sheets/isotopes-and-radioactivity/';
+
 export const CHEAT_SHEETS: CheatSheetTopic[] = [
   {
     slug: 'atomic-structure',
-    title: 'Atoms, Isotopes & the Periodic Table',
+    title: 'Atoms & the Periodic Table',
     yearLevel: 'Year 9',
     category: 'Fundamentals',
-    summary: 'What an atom is made of, why atomic number defines the element, and how the table is arranged.',
+    summary: 'What an atom is made of, why atomic number defines the element, and what the table’s arrangement predicts.',
     iconName: 'Atom',
     colorTheme: 'border-violet-500 text-violet-500',
     curriculumRef:
-      'Victorian Curriculum Science Level 9: the atom as the smallest unit of an element, subatomic particles, atomic number and isotopes. The last two sections reach forward into Year 10 and VCE Unit 1.',
+      'Victorian Curriculum F–10 Version 2.0, Science VC2S10U07: the organisation of the elements in the periodic table is related to the structure and properties of atoms — rows and periods, metallic and non-metallic properties, atomic size and reactivity. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 9 description, so “Year 9” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Isotopes & Radioactivity takes VC2S10U06 from the same band. Atomic number, mass number, metalloid and ion formation are this site’s extension — Version 2.0 names none of them.',
     keyTakeaways: [
       'An atom is a nucleus of protons and neutrons, with electrons spread around it.',
       'The number of protons — the atomic number — is what makes an atom that element. Change it and you have a different element.',
-      'Isotopes are atoms of the same element with different numbers of neutrons. They behave the same chemically.',
-      'Relative atomic mass is a weighted average across an element\u2019s isotopes, which is why so few are whole numbers.',
       'Electrons sit in energy levels, and how many are in the outer level is what the periodic table is arranged by.',
+      'A group is a column and a period is a row. Elements in one group share an outer-level count, so they react alike.',
+      'Metals sit on the left and non-metals on the right. Atoms shrink across a period and grow down a group.',
       'Almost all of an atom is empty space. Every picture of one, including the ones here, is wrong about scale.',
     ],
     formulaExamples: [
       { name: 'Chlorine-35', formula: 'Cl-35', description: '17 protons, 18 neutrons' },
       { name: 'Chlorine-37', formula: 'Cl-37', description: '17 protons, 20 neutrons' },
-      { name: 'Carbon-12', formula: 'C-12', description: 'the standard all other masses are measured against' },
       { name: 'Hydrogen ion', formula: 'H+', description: 'a hydrogen atom that has lost its one electron — a bare proton' },
     ],
     sections: [
@@ -199,7 +230,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Atomic number and mass number',
         content:
-          'The atomic number is the number of protons, and it is what makes an atom that element. Every chlorine atom has 17 protons; anything with 17 protons is chlorine. The mass number is protons plus neutrons. Neutrons can vary without changing which element it is.',
+          'The atomic number is the number of protons, and it is what makes an atom that element. Every chlorine atom has 17 protons; anything with 17 protons is chlorine. The mass number is protons plus neutrons. Neutrons can vary without changing which element it is. Both terms are an extension here: the curriculum for these years names neither, and you cannot read a table cell without them.',
         examples: [
           { name: 'Chlorine-35', formula: 'Cl-35' },
           { name: 'Chlorine-37', formula: 'Cl-37' },
@@ -212,37 +243,35 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         },
       },
       {
-        heading: 'Isotopes',
-        content:
-          'Isotopes are atoms of one element with different numbers of neutrons. Chemistry is done by electrons, and isotopes have the same number of those, so they react identically. What differs is mass, and sometimes stability: some isotopes are radioactive and some are not.',
-        image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}03-isotopes-of-hydrogen.svg`,
-          width: 640,
-          height: 280,
-          alt: 'Three hydrogen atoms side by side: one proton, one proton and one neutron, and one proton and two neutrons. All three have a single electron.',
-        },
-      },
-      {
-        heading: 'Why relative atomic mass is rarely a whole number',
-        content:
-          'A sample of an element is a mixture of its isotopes, in fixed proportions. Relative atomic mass is the average across that mixture, weighted by how common each isotope is. Chlorine is about three-quarters chlorine-35 and one-quarter chlorine-37, which averages to 35.5. No single chlorine atom weighs that.',
-        image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}04-weighted-average.svg`,
-          width: 640,
-          height: 300,
-          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, with the weighted average 35.5 marked closer to the 35 end.',
-        },
-      },
-      {
         heading: 'Electrons, energy levels and the shape of the table',
         content:
-          'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
+          'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. Your teacher and the curriculum may call these shells, and it means the same thing. Counting electrons this way is called the Bohr model: it is useful, and it is not a picture of a real atom. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
         image: {
           src: `${ATOMIC_STRUCTURE_DIAGRAMS}05-energy-levels.svg`,
           width: 640,
           height: 360,
           alt: 'A sodium atom drawn as three energy levels holding 2, 8 and 1 electrons, next to the periodic table with group 1 highlighted.',
         },
+      },
+      {
+        heading: 'Groups and periods',
+        content:
+          'A group is a column of the table and a period is a row. Elements in one group have the same number of electrons in their outer level, so the column predicts how an element reacts. Group 1 is the alkali metals, group 17 the halogens and group 18 the noble gases. A period tells you how many energy levels are in use: an element in period 3 uses three of them. So the row tells you roughly how big the atom is.',
+      },
+      {
+        heading: 'Metals and non-metals',
+        content:
+          'Metals fill the left and the middle of the table, and non-metals sit in the top right corner. A metal conducts electricity and heat, has a shiny surface, and can be hammered into a sheet without shattering. Almost every metal is solid at room temperature; mercury is the liquid one. A non-metal is usually a poor conductor, dull, and brittle if it is solid at all. Many non-metals are gases. Extension: a few elements along the staircase between the two, such as silicon, behave partly like each. They are called metalloids, which is a word the curriculum does not use.',
+      },
+      {
+        heading: 'Atomic size',
+        content:
+          'Atoms get smaller from left to right across a period. Each step adds a proton, and the larger positive charge pulls the same outer level in tighter. Atoms get larger down a group, because each step down starts a new energy level further out. So the largest atoms sit at the bottom left of the table and the smallest at the top right.',
+      },
+      {
+        heading: 'Reactivity, and why a group behaves alike',
+        content:
+          'You can test a group by reacting its elements with oxygen, water and acids, and they behave the same way as each other. Group 1 metals react with water and get more violent down the group: lithium fizzes, sodium darts about, potassium catches fire. The same metals with an acid give off hydrogen, faster still. Group 17 elements run the other way and get less reactive down the group. Group 18 already has a full outer level, so the noble gases react with almost nothing.',
       },
       {
         heading: 'Ordered by atomic number, not by mass',
@@ -255,17 +284,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           alt: 'Tellurium and iodine side by side. Tellurium has the larger relative atomic mass but the smaller atomic number, and the table places it first.',
         },
       },
-      {
-        heading: 'Unstable nuclei, and elements that had to be made',
-        content:
-          'Some nuclei are unstable and break down, giving out radiation. Half-life is the time for half a sample to decay. Elements past uranium have no stable isotopes and are not found in nature — they are built in accelerators, sometimes a few atoms at a time.',
-        image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}07-decay-and-made-elements.svg`,
-          width: 640,
-          height: 320,
-          alt: 'A decay curve halving at each half-life, beside the bottom rows of the periodic table with the elements that exist only when they are made highlighted.',
-        },
-      },
     ],
     tables: [
       {
@@ -274,7 +292,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         rows: [
           ['Proton', '+1', '1', 'in the nucleus'],
           ['Neutron', '0', '1', 'in the nucleus'],
-          ['Electron', '\u22121', 'about 1/1836', 'around the nucleus'],
+          ['Electron', '−1', 'about 1/1836', 'around the nucleus'],
         ],
       },
       {
@@ -310,13 +328,110 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Drawing electrons on circular tracks, like planets. They are not on tracks. A level is an energy, and an electron is somewhere in a region around the nucleus, not at a point on a line.',
       'Believing the pictures about size. If the nucleus were a pea, the atom would be a sports field. Every diagram shrinks that gap to fit on a page, including the ones on this sheet.',
       'Confusing atomic number with mass number. Atomic number is protons and names the element. Mass number is protons plus neutrons.',
-      'Reading relative atomic mass as a count of particles. It is an average over isotopes, so chlorine\u2019s 35.5 is not any atom you could find.',
       'Thinking an ion is a different element. Losing or gaining an electron changes the charge, not the number of protons. Sodium and Na+ are both sodium.',
     ],
     resources: [
       PHET('build-an-atom', 'Build an Atom', 'Add protons, neutrons and electrons and watch the element, charge and mass change as you go.'),
-      PHET('isotopes-and-atomic-mass', 'Isotopes and Atomic Mass', 'Mix isotopes in different proportions and see the relative atomic mass move.'),
       RSC_PTABLE,
+      VCAA_DATA_BOOK,
+      KHAN_HS_CHEM,
+    ],
+  },
+  {
+    slug: 'isotopes-and-radioactivity',
+    title: 'Isotopes & Radioactivity',
+    yearLevel: 'Year 10',
+    category: 'Fundamentals',
+    summary: 'What changes when the neutron count changes: isotopes, decay, half-life, and the elements that had to be made.',
+    iconName: 'Timer',
+    colorTheme: 'border-red-500 text-red-500',
+    curriculumRef:
+      'Victorian Curriculum F–10 Version 2.0, Science VC2S10U06: the model of the atom changed following the discovery of electrons, protons and neutrons, and natural radioactive decay results in a change from unstable to stable atoms. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 10 description, so “Year 10” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Atoms & the Periodic Table takes VC2S10U07 from the same band. Atomic number, mass number and relative atomic mass are this site’s extension — Version 2.0 names none of them, and relative atomic mass is VCE Unit 1.',
+    keyTakeaways: [
+      'Isotopes are atoms of the same element with different numbers of neutrons. They behave the same chemically.',
+      'Relative atomic mass is a weighted average across an element’s isotopes, which is why so few are whole numbers.',
+      'An unstable nucleus decays and gives out radiation, leaving a more stable atom behind.',
+      'The three kinds are alpha, beta and gamma, and they differ in what comes out and what stops it.',
+      'Half-life is the time for half a sample to decay. After three half-lives, an eighth is left.',
+      'Half-lives run from seconds to billions of years, which is what makes dating the distant past possible.',
+    ],
+    formulaExamples: [
+      { name: 'Carbon-12', formula: 'C-12', description: 'the standard all other masses are measured against' },
+      { name: 'Radon-222', formula: 'Rn-222', description: 'decays by giving out an alpha particle' },
+      { name: 'Iodine-131', formula: 'I-131', description: 'decays by giving out a beta particle' },
+      { name: 'Cobalt-60', formula: 'Co-60', description: 'gives out gamma radiation' },
+      { name: 'Carbon-14', formula: 'C-14', description: 'half-life about 5730 years' },
+      { name: 'Uranium-238', formula: 'U-238', description: 'half-life about 4.5 billion years' },
+    ],
+    sections: [
+      {
+        heading: 'The two numbers this sheet needs',
+        content:
+          'The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Both terms are an extension: the curriculum for these years names neither, and nothing here works without them.',
+      },
+      {
+        heading: 'Isotopes',
+        content:
+          'Isotopes are atoms of one element with different numbers of neutrons. Chemistry is done by electrons, and isotopes have the same number of those, so they react identically. What differs is mass, and sometimes stability: some isotopes are radioactive and some are not.',
+        image: {
+          src: `${ISOTOPE_DIAGRAMS}03-isotopes-of-hydrogen.svg`,
+          width: 640,
+          height: 280,
+          alt: 'Three hydrogen atoms side by side: one proton, one proton and one neutron, and one proton and two neutrons. All three have a single electron.',
+        },
+      },
+      {
+        heading: 'Why relative atomic mass is rarely a whole number',
+        content:
+          'A sample of an element is a mixture of its isotopes, in fixed proportions. Relative atomic mass is the average across that mixture, weighted by how common each isotope is. Chlorine is about three-quarters chlorine-35 and one-quarter chlorine-37, which averages to 35.5. No single chlorine atom weighs that. This section is an extension: relative atomic mass is VCE Unit 1 work, and it is here because isotopes make no sense without it.',
+        image: {
+          src: `${ISOTOPE_DIAGRAMS}04-weighted-average.svg`,
+          width: 640,
+          height: 300,
+          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, with the weighted average 35.5 marked closer to the 35 end.',
+        },
+      },
+      {
+        heading: 'Unstable nuclei, and the three kinds of radiation',
+        content:
+          'Some nuclei are unstable. They break down on their own, give out radiation, and leave a more stable atom behind. Radon-222 throws out an alpha particle, which is two protons and two neutrons stuck together. Iodine-131 gives out a beta particle, which is a fast electron thrown from the nucleus. Cobalt-60 gives out gamma radiation, which is energy rather than a particle. Paper stops alpha, a sheet of aluminium stops beta, and gamma needs lead or thick concrete.',
+      },
+      {
+        heading: 'Half-life',
+        content:
+          'Half-life is the time it takes for half of a sample to decay. After one half-life half is left, after two a quarter, and after three an eighth. The number is fixed for each isotope, and heating it or reacting it does not change it. Carbon-14 has a half-life of about 5730 years. Uranium-238 has one of about 4.5 billion years, which is why there is still uranium in the ground.',
+        image: {
+          src: `${ISOTOPE_DIAGRAMS}07-decay-and-made-elements.svg`,
+          width: 640,
+          height: 320,
+          alt: 'A decay curve halving at each half-life, beside the bottom rows of the periodic table with the elements that exist only when they are made highlighted.',
+        },
+      },
+      {
+        heading: 'Dating the past, and 65,000 years in Australia',
+        content:
+          'Carbon-14 forms high in the air and ends up in every living thing. When something dies it takes in no more, and the carbon-14 already in it decays. Measuring how much is left dates the remains, back to roughly 50,000 years. Older material needs another method. Optically stimulated luminescence dates the last time a grain of sand was exposed to daylight, and it reaches much further back. At Madjedbebe, a rock shelter on Mirarr Country in the Northern Territory, both methods were used on the same deposits. They place Aboriginal and Torres Strait Islander Peoples on the Australian continent for at least 65,000 years.',
+      },
+      {
+        heading: 'Radioactivity in medicine and industry',
+        content:
+          'Radiation is useful because it passes through solid things and can be aimed. In medicine, a small dose of a short-lived isotope is tracked through the body to find a tumour. A large focused dose is used to kill cancer cells, and cobalt-60 is one source used for that. In industry, gamma radiation is shone through parts made for aircraft and spacecraft. A crack shows up on the film behind the part, without anyone cutting it open.',
+      },
+      {
+        heading: 'Elements that had to be made',
+        content:
+          'Elements past uranium have no stable isotopes and are not found in nature. They are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. This is an extension: the curriculum does not ask for made elements. They are here because they are how the bottom rows of the periodic table were filled in.',
+      },
+    ],
+    commonMistakes: [
+      'Drawing electrons on circular tracks, like planets. They are not on tracks. A level is an energy, and an electron is somewhere in a region around the nucleus, not at a point on a line.',
+      'Believing the pictures about size. If the nucleus were a pea, the atom would be a sports field. Every diagram shrinks that gap to fit on a page, including the ones on this sheet.',
+      'Reading relative atomic mass as a count of particles. It is an average over isotopes, so chlorine’s 35.5 is not any atom you could find.',
+      'Adding the two isotope masses and halving them. That gives 36 for chlorine, and it is wrong because chlorine-35 is three times as common as chlorine-37.',
+    ],
+    resources: [
+      PHET('isotopes-and-atomic-mass', 'Isotopes and Atomic Mass', 'Mix isotopes in different proportions and see the relative atomic mass move.'),
+      MADJEDBEBE,
       VCAA_DATA_BOOK,
       KHAN_HS_CHEM,
     ],

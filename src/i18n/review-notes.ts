@@ -1865,12 +1865,14 @@ whether one exists.
 
 ## Cheat sheets — \`src/i18n/cheat-sheets/de.ts\`
 
-Twelve reference sheets, roughly 6,000 words of specialist German. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist German. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Atoms & the Periodic Table | **medium** | New on 2026-09-21, when the September sheet split in two. The four added sections carry the risk. **Halbmetall**, not *Metalloid* — the German cognate historically meant *non-metal*, so it says the opposite; it is marked on the sheet as an extension, since the curriculum says only "metallic and non-metallic properties". *Reaktivität* was chosen over the more transparent *Reaktionsfreudigkeit*; either is taught. **Schale** is named once as the curriculum's own word while *Energiestufe* stays the term — check the clause reads as one idea with two names and not as two ideas. The group-1-with-water sentence is lab description (zischt, flitzt herum, fängt Feuer) and is the kind of line that reads flat if it is translated flat. |
+| Isotopes & Radioactivity | **low** | New on 2026-09-21. The decay vocabulary is settled and would rate high on its own: Alphateilchen, Betateilchen, Gammastrahlung, Halbwertszeit, radioaktiver Zerfall, künstlich erzeugtes Element. **The whole sheet is rated low because of one section**, the 65,000-year dating section. German has no settled respectful rendering of "Aboriginal and Torres Strait Islander Peoples"; *Aborigines* is now discouraged, so this writes "die indigenen Völker Australiens und die Torres-Strait-Insulaner". **Have somebody who writes about Australian Indigenous history in German read that sentence before students do.** Second thing to check: *optisch stimulierte Lumineszenz* is correct but is essentially absent from German school material. |
 | States of Matter | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard German pairs (Schmelzen/Erstarren, Sublimieren/Resublimieren). |
 | Acids & Bases | **high** | Glossary-fixed throughout. One choice to check: H₃O⁺ is called **Oxonium-Ion**, which is the German school term, where English says hydronium. |
 | Balancing Equations | **high** | Turns on the Index/Koeffizient distinction, which German makes more clearly than English does. "ausgleichen" chosen over "einrichten" — see the glossary. |
@@ -1965,12 +1967,14 @@ whether one exists.
 
 ## Cheat sheets — \`src/i18n/cheat-sheets/fr.ts\`
 
-Twelve reference sheets, roughly 6,000 words of specialist French. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist French. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Atomes et tableau périodique | **medium** | New on 2026-09-21, when the September sheet split in two. **The one real trap in this locale is in here: *semi-métal*, never *métalloïde*.** French *métalloïde* historically means NON-metal, so the obvious cognate would say the opposite of what the sheet means; it is marked as an extension in any case. Second decision: **gaz noble** rather than the traditional French school *gaz rare* — an older teacher may expect the latter. *Couche* is named once as the curriculum's word while *niveau d'énergie* stays the term. The group-1-with-water sentence (pétille, file à la surface, prend feu) is lab description and reads flat if it is translated flat. |
+| Isotopes et radioactivité | **low** | New on 2026-09-21. The decay vocabulary is settled and would rate high alone, with one distinction French makes and English does not: **désintégration** for what a nucleus does, *décroissance* only for the curve — the sheet talks about both, so the two words are kept apart. *Demi-vie* is used rather than *période radioactive*, which is what French physics teaching says; a physics teacher may prefer the latter. **The sheet is rated low for one section**, the 65,000-year dating section, which writes "les peuples aborigènes et insulaires du détroit de Torrès". **Have a French speaker who writes about Australian Indigenous history read that sentence before students do.** |
 | États de la matière | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard French pairs (fusion/solidification, vaporisation/liquéfaction, sublimation/condensation solide). |
 | Acides et bases | **high** | Glossary-fixed throughout. **One choice to check, and it is the open question GAMES.md flagged for French:** H3O+ is called **ion oxonium**, which is what the lycée programme and most French textbooks print, where English says hydronium. *Ion hydronium* is also in circulation and is what a translator reaching for the cognate would write. A teacher should confirm which their textbook uses; it recurs through the sheet. |
 | Équilibrer les équations | **high** | Turns on the indice/coefficient distinction, which French makes as cleanly as German does. *Équilibrer* chosen over *ajuster* — see the glossary; the current programme prints *ajuster*. |
@@ -2076,7 +2080,7 @@ whether one exists.
 
 ## Cheat sheets — \`src/i18n/cheat-sheets/es.ts\`
 
-Twelve reference sheets, roughly 6,000 words of specialist Spanish. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist Spanish. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
@@ -2088,6 +2092,8 @@ against the English for every sheet in every locale.
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Átomos y la tabla periódica | **medium** | New on 2026-09-21, when the September sheet split in two. **Semimetal** was chosen over *metaloide*: both are current and correct in Spanish — unlike French, Spanish *metaloide* is not a false friend — and *semimetal* is the plainer word for a fourteen-year-old. It is marked on the sheet as an extension, since the curriculum says only "metallic and non-metallic properties". *Periodo* is written without the accent, per current chemistry usage. *Capa* is named once as the curriculum's word while *nivel de energía* stays the term. The group-1-with-water sentence (burbujea, corretea por la superficie, se incendia) is lab description and reads flat if it is translated flat. |
+| Isótopos y radiactividad | **low** | New on 2026-09-21. **Check the spelling first: *radiactivo* and *radiactividad*, never *radioactivo*.** It is the easiest thing to get wrong on this sheet and it appears in the title. Uranium-238 is written as *4500 millones de años* rather than as a decimal, because that is how Spanish says it, while chlorine keeps the decimal comma at 35,5. *Periodo de semidesintegración* is the term; *semivida* is shorter and equally correct, and the heading is long. **The sheet is rated low for one section**, the 65,000-year dating section, which writes "los pueblos aborígenes australianos y los isleños del estrecho de Torres". **Have a Spanish speaker who writes about Australian Indigenous history read that sentence before students do.** |
 | Los estados de la materia | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard Spanish pairs (fusión/solidificación, vaporización/condensación, sublimación/sublimación inversa). |
 | Ácidos y bases | **high** | Glossary-fixed throughout. **One choice to check, and Spanish lands the opposite way from French:** H3O+ is called **ion hidronio**, which is what Spanish secondary textbooks overwhelmingly print, where the French pass chose *ion oxonium* because the lycée programme prints that. *Ion oxonio* is the IUPAC form and is what a university text uses. It recurs through the sheet. |
 | Ajustar ecuaciones químicas | **high** | Turns on the subíndice/coeficiente distinction, which Spanish makes as cleanly as German does. The variety marker *ajustar* (Spain) vs *balancear* (Latin America) is at its densest here. |
@@ -2189,7 +2195,7 @@ whether one exists.
 
 ## Cheat sheets -- \`src/i18n/cheat-sheets/it.ts\`
 
-Twelve reference sheets, roughly 6,000 words of specialist Italian. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist Italian. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
@@ -2199,6 +2205,8 @@ is also machine-checked by the overlay-shape gate.
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Atomi e tavola periodica | **medium** | New on 2026-09-21, when the September sheet split in two. **Semimetallo** was chosen over *metalloide*: both are current and correct in Italian, and *semimetallo* is the plainer word for a fourteen-year-old. It is marked on the sheet as an extension, since the curriculum says only "metallic and non-metallic properties". *Reattività* carries a final accent, so like *elettronegatività* it can never be a glossary match word — it appears in prose only. *Guscio* is named once as the curriculum's word while *livello di energia* stays the term. The group-1-with-water sentence (sfrigola, sfreccia in superficie, prende fuoco) is lab description and reads flat if it is translated flat. |
+| Isotopi e radioattività | **low** | New on 2026-09-21. The decay vocabulary is settled and would rate high alone: particella alfa, particella beta, radiazione gamma, decadimento radioattivo, tempo di dimezzamento. *Emivita* was rejected for half-life as the medical word. **The sheet is rated low for one section**, the 65,000-year dating section, which writes "i popoli aborigeni australiani e gli isolani dello Stretto di Torres". **Have an Italian speaker who writes about Australian Indigenous history read that sentence before students do.** |
 | Gli stati della materia | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard Italian pairs (fusione/solidificazione, vaporizzazione/condensazione, sublimazione/brinamento). *Brinamento* for deposition is the school word and is worth confirming. |
 | Acidi e basi | **high** | Glossary-fixed throughout. **One choice to check, and Italian lands with Spanish rather than French:** H3O+ is called **ione idronio**, which is what Italian secondary textbooks print, where the French pass chose *ion oxonium* because the lycee programme prints that. *Ione ossonio* is the IUPAC form and is what a university text uses. It recurs through the sheet. |
 | Bilanciare le equazioni chimiche | **high** | Turns on the pedice/coefficiente distinction, which Italian makes as cleanly as German does, and there is no variety marker and no collision anywhere in it. |
@@ -2296,12 +2304,14 @@ whether one exists.
 
 ## Cheat sheets — \`src/i18n/cheat-sheets/ru.ts\`
 
-Twelve reference sheets, roughly 6,000 words of specialist Russian. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist Russian. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Атомы и периодическая таблица | **medium** | New on 2026-09-21, when the September sheet split in two. Reactivity is **химическая активность** and the adjective is not optional: bare *активность* also means radioactive activity, and this is the one pair of sheets where that collides. **Полуметалл** over *металлоид*, marked as an extension. **Атомный номер is recorded as shipped, and *порядковый номер* is arguably the better school term** — changing it is a change to both sheets and this file together. Электронная оболочка is named once as the curriculum's word while *энергетический уровень* stays the term. Groups are numbered 1–18 in Arabic numerals rather than by the older Roman-numeral-plus-letter scheme; check that against the reader's textbook. |
+| Изотопы и радиоактивность | **low** | New on 2026-09-21. The decay vocabulary is settled and would rate high alone: альфа-частица, бета-частица, гамма-излучение, радиоактивный распад, период полураспада. **Typography to check, because this sheet has more numbers than any other:** 65 000 and 50 000 take a no-break space and never a comma, and uranium-238 is 4,5 миллиарда лет with a decimal comma. **The sheet is rated low for two things.** The 65,000-year dating section writes «коренные народы Австралии и жители островов Торресова пролива» — **have a Russian speaker who writes about Australian Indigenous history read that sentence before students do.** And «Маджедбебе» is a transliteration of Madjedbebe with no established Russian spelling behind it. |
 | States of Matter | **high** | Ordinary particle-model vocabulary. The six transitions use the standard Russian pairs (плавление/кристаллизация, испарение/конденсация, возгонка/десублимация). |
 | Acids & Bases | **high** | Glossary-fixed throughout. Two choices to check: H₃O⁺ is **ион гидроксония**, the Russian school term, where English says hydronium; and "base" is **основание** throughout, never *база*. |
 | Balancing Equations | **high** | Turns on the индекс/коэффициент distinction, which Russian makes with exactly the two words a textbook uses. "Уравнять" is the decided verb, with "расставить коэффициенты" as its fuller expansion where there is room — see the glossary. |

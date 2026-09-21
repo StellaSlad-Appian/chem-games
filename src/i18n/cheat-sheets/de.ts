@@ -85,21 +85,20 @@ const polyatomicIonRowsDe = POLYATOMIC_ION_TABLE.rows.map((row) => [
 
 export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
   'atomic-structure': {
-    title: 'Atome, Isotope und das Periodensystem',
+    title: 'Atome und das Periodensystem',
     summary:
-      'Woraus ein Atom besteht, warum die Ordnungszahl das Element festlegt und wie das Periodensystem geordnet ist.',
+      'Woraus ein Atom besteht, warum die Ordnungszahl das Element festlegt und was die Anordnung des Periodensystems vorhersagt.',
     keyTakeaways: [
       'Ein Atom besteht aus einem Kern aus Protonen und Neutronen, um den herum sich Elektronen verteilen.',
       'Die Zahl der Protonen – die Ordnungszahl – macht ein Atom zu diesem Element. Ändere sie, und du hast ein anderes Element.',
-      'Isotope sind Atome desselben Elements mit unterschiedlich vielen Neutronen. Chemisch verhalten sie sich gleich.',
-      'Die relative Atommasse ist ein gewichteter Mittelwert über die Isotope eines Elements. Deshalb sind so wenige davon ganze Zahlen.',
       'Elektronen sitzen in Energiestufen. Wie viele in der äußersten sitzen, danach ist das Periodensystem geordnet.',
+      'Eine Gruppe ist eine Spalte, eine Periode eine Zeile. Elemente einer Gruppe haben außen gleich viele Elektronen und reagieren deshalb ähnlich.',
+      'Metalle stehen links, Nichtmetalle rechts. Atome werden nach rechts kleiner und nach unten größer.',
       'Ein Atom ist fast vollständig leerer Raum. Jedes Bild davon stimmt im Maßstab nicht, auch die hier.',
     ],
     formulaExampleNames: [
       'Chlor-35',
       'Chlor-37',
-      'Kohlenstoff-12',
       'Wasserstoff-Ion',
     ],
     sections: [
@@ -113,31 +112,37 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Ordnungszahl und Massenzahl',
         content:
-          'Die Ordnungszahl ist die Zahl der Protonen, und sie macht ein Atom zu diesem Element. Jedes Chloratom hat 17 Protonen; alles mit 17 Protonen ist Chlor. Die Massenzahl ist Protonen plus Neutronen. Die Zahl der Neutronen kann sich ändern, ohne dass sich das Element ändert.',
+          'Die Ordnungszahl ist die Zahl der Protonen, und sie macht ein Atom zu diesem Element. Jedes Chloratom hat 17 Protonen; alles mit 17 Protonen ist Chlor. Die Massenzahl ist Protonen plus Neutronen. Die Zahl der Neutronen kann sich ändern, ohne dass sich das Element ändert. Beide Begriffe sind hier eine Erweiterung: Der Lehrplan dieser Jahrgänge nennt keinen von beiden, und ohne sie kannst du kein Feld im Periodensystem lesen.',
         exampleNames: ['Chlor-35', 'Chlor-37'],
         imageAlt:
           'Das Symbol für Chlor-35 mit der Massenzahl 35 über der Ordnungszahl 17, dazu Pfeile: 17 Protonen, und 35 minus 17 ergibt 18 Neutronen.',
       },
       {
-        heading: 'Isotope',
-        content:
-          'Isotope sind Atome eines Elements mit unterschiedlich vielen Neutronen. Chemie machen die Elektronen, und davon haben Isotope gleich viele. Sie reagieren also gleich. Unterschiedlich sind die Masse und manchmal die Stabilität: Manche Isotope sind radioaktiv, andere nicht.',
-        imageAlt:
-          'Drei Wasserstoffatome nebeneinander: eines mit einem Proton, eines mit einem Proton und einem Neutron, eines mit einem Proton und zwei Neutronen. Alle drei haben ein Elektron.',
-      },
-      {
-        heading: 'Warum die relative Atommasse selten eine ganze Zahl ist',
-        content:
-          'Eine Probe eines Elements ist eine Mischung seiner Isotope, in festen Anteilen. Die relative Atommasse ist der Mittelwert über diese Mischung, gewichtet danach, wie häufig jedes Isotop ist. Chlor besteht zu etwa drei Vierteln aus Chlor-35 und zu einem Viertel aus Chlor-37. Im Mittel ergibt das 35,5. Kein einzelnes Chloratom wiegt so viel.',
-        imageAlt:
-          'Ein Balken mit 75 Prozent Chlor-35 und 25 Prozent Chlor-37, darauf der gewichtete Mittelwert 35,5, näher am Ende mit 35.',
-      },
-      {
         heading: 'Elektronen, Energiestufen und die Form des Periodensystems',
         content:
-          'Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.',
+          'Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Deine Lehrkraft und der Lehrplan sagen dazu vielleicht Schalen – gemeint ist dasselbe. Elektronen so zu zählen heißt bohrsches Atommodell: nützlich, und kein Bild eines echten Atoms. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.',
         imageAlt:
           'Ein Natriumatom mit drei Energiestufen, die 2, 8 und 1 Elektronen tragen, daneben das Periodensystem mit hervorgehobener Gruppe 1.',
+      },
+      {
+        heading: 'Gruppen und Perioden',
+        content:
+          'Eine Gruppe ist eine Spalte des Periodensystems, eine Periode eine Zeile. Elemente einer Gruppe haben gleich viele Elektronen in der äußersten Stufe. Die Spalte sagt dir also vorher, wie ein Element reagiert. Gruppe 1 sind die Alkalimetalle, Gruppe 17 die Halogene und Gruppe 18 die Edelgase. Die Periode sagt, wie viele Energiestufen benutzt werden: Ein Element der 3. Periode benutzt drei davon. Die Zeile sagt dir damit ungefähr, wie groß das Atom ist.',
+      },
+      {
+        heading: 'Metalle und Nichtmetalle',
+        content:
+          'Metalle füllen die linke Seite und die Mitte des Periodensystems, Nichtmetalle stehen oben rechts. Ein Metall leitet Strom und Wärme, hat eine glänzende Oberfläche und lässt sich zu einem Blech hämmern, ohne zu zerspringen. Fast jedes Metall ist bei Raumtemperatur fest; Quecksilber ist das flüssige. Ein Nichtmetall leitet meist schlecht, ist matt und zerbricht, wenn es überhaupt fest ist. Viele Nichtmetalle sind Gase. Erweiterung: Ein paar Elemente auf der Treppe dazwischen, zum Beispiel Silicium, verhalten sich teils wie das eine und teils wie das andere. Man nennt sie Halbmetalle – ein Wort, das im Lehrplan nicht vorkommt.',
+      },
+      {
+        heading: 'Atomradius',
+        content:
+          'Innerhalb einer Periode werden Atome von links nach rechts kleiner. Jeder Schritt bringt ein Proton dazu, und die größere positive Ladung zieht dieselbe äußerste Stufe enger heran. Innerhalb einer Gruppe werden Atome nach unten größer, denn jeder Schritt nach unten beginnt eine neue Energiestufe weiter außen. Die größten Atome stehen also unten links im Periodensystem und die kleinsten oben rechts.',
+      },
+      {
+        heading: 'Reaktivität, und warum sich eine Gruppe ähnlich verhält',
+        content:
+          'Du kannst eine Gruppe prüfen, indem du ihre Elemente mit Sauerstoff, Wasser und Säuren reagieren lässt. Untereinander verhalten sie sich gleich. Die Metalle der Gruppe 1 reagieren mit Wasser und werden nach unten heftiger: Lithium zischt, Natrium flitzt herum, Kalium fängt Feuer. Dieselben Metalle geben mit einer Säure Wasserstoff ab, und das noch schneller. Die Elemente der Gruppe 17 laufen andersherum und werden nach unten reaktionsträger. Gruppe 18 hat die äußerste Stufe schon voll, deshalb reagieren die Edelgase mit fast nichts.',
       },
       {
         heading: 'Geordnet nach der Ordnungszahl, nicht nach der Masse',
@@ -145,13 +150,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
           'Mendelejew ordnete das Periodensystem nach der Masse, und einige Elemente landeten am falschen Platz. 1913 maß Henry Moseley die Ladung des Kerns und fand die Ordnung, die funktioniert: die Ordnungszahl. Tellur ist schwerer als Iod, steht aber davor, weil es ein Proton weniger hat.',
         imageAlt:
           'Tellur und Iod nebeneinander. Tellur hat die größere relative Atommasse, aber die kleinere Ordnungszahl, und das Periodensystem stellt es zuerst.',
-      },
-      {
-        heading: 'Instabile Kerne und Elemente, die gemacht werden mussten',
-        content:
-          'Manche Kerne sind instabil und zerfallen, wobei sie Strahlung abgeben. Die Halbwertszeit ist die Zeit, in der die Hälfte einer Probe zerfällt. Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur nicht vor. Sie werden in Beschleunigern gebaut, manchmal wenige Atome auf einmal.',
-        imageAlt:
-          'Eine Zerfallskurve, die sich mit jeder Halbwertszeit halbiert, daneben die unteren Reihen des Periodensystems mit den hervorgehobenen Elementen, die es nur gibt, wenn man sie herstellt.',
       },
     ],
     tables: [
@@ -197,8 +195,82 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Elektronen auf Kreisbahnen zeichnen, wie Planeten. Sie laufen nicht auf Bahnen. Eine Stufe ist eine Energie, und ein Elektron ist irgendwo in einem Bereich um den Kern, nicht an einem Punkt einer Linie.',
       'Den Bildern die Größe glauben. Wäre der Kern eine Erbse, wäre das Atom ein Sportplatz. Jede Zeichnung schrumpft diesen Abstand, damit sie auf die Seite passt – auch die auf diesem Spickzettel.',
       'Ordnungszahl und Massenzahl verwechseln. Die Ordnungszahl sind die Protonen und benennt das Element. Die Massenzahl sind Protonen plus Neutronen.',
-      'Die relative Atommasse als Anzahl von Teilchen lesen. Sie ist ein Mittelwert über Isotope. Die 35,5 von Chlor gehört zu keinem Atom, das du finden könntest.',
       'Ein Ion für ein anderes Element halten. Ein Elektron abzugeben oder aufzunehmen ändert die Ladung, nicht die Zahl der Protonen. Natrium und Na+ sind beides Natrium.',
+    ],
+  },
+  'isotopes-and-radioactivity': {
+    title: 'Isotope und Radioaktivität',
+    summary:
+      'Was sich ändert, wenn sich die Neutronenzahl ändert: Isotope, Zerfall, Halbwertszeit und die Elemente, die gemacht werden mussten.',
+    keyTakeaways: [
+      'Isotope sind Atome desselben Elements mit unterschiedlich vielen Neutronen. Chemisch verhalten sie sich gleich.',
+      'Die relative Atommasse ist ein gewichteter Mittelwert über die Isotope eines Elements. Deshalb sind so wenige davon ganze Zahlen.',
+      'Ein instabiler Kern zerfällt und gibt Strahlung ab. Zurück bleibt ein stabileres Atom.',
+      'Es gibt drei Arten – Alpha, Beta und Gamma. Sie unterscheiden sich darin, was herauskommt und was sie aufhält.',
+      'Die Halbwertszeit ist die Zeit, in der die Hälfte einer Probe zerfällt. Nach drei Halbwertszeiten ist ein Achtel übrig.',
+      'Halbwertszeiten reichen von Sekunden bis zu Milliarden Jahren. Genau das macht es möglich, die ferne Vergangenheit zu datieren.',
+    ],
+    formulaExampleNames: [
+      'Kohlenstoff-12',
+      'Radon-222',
+      'Iod-131',
+      'Cobalt-60',
+      'Kohlenstoff-14',
+      'Uran-238',
+    ],
+    sections: [
+      {
+        heading: 'Die zwei Zahlen, die dieser Spickzettel braucht',
+        content:
+          'Die Ordnungszahl ist die Zahl der Protonen, und sie legt fest, welches Element es ist. Die Massenzahl ist Protonen plus Neutronen. Auf diesem Spickzettel geht es überall darum, dass sich die zweite Zahl ändert und die erste bleibt. Beide Begriffe sind eine Erweiterung: Der Lehrplan dieser Jahrgänge nennt keinen von beiden, und ohne sie funktioniert hier nichts.',
+      },
+      {
+        heading: 'Isotope',
+        content:
+          'Isotope sind Atome eines Elements mit unterschiedlich vielen Neutronen. Chemie machen die Elektronen, und davon haben Isotope gleich viele. Sie reagieren also gleich. Unterschiedlich sind die Masse und manchmal die Stabilität: Manche Isotope sind radioaktiv, andere nicht.',
+        imageAlt:
+          'Drei Wasserstoffatome nebeneinander: eines mit einem Proton, eines mit einem Proton und einem Neutron, eines mit einem Proton und zwei Neutronen. Alle drei haben ein Elektron.',
+      },
+      {
+        heading: 'Warum die relative Atommasse selten eine ganze Zahl ist',
+        content:
+          'Eine Probe eines Elements ist eine Mischung seiner Isotope, in festen Anteilen. Die relative Atommasse ist der Mittelwert über diese Mischung, gewichtet danach, wie häufig jedes Isotop ist. Chlor besteht zu etwa drei Vierteln aus Chlor-35 und zu einem Viertel aus Chlor-37. Im Mittel ergibt das 35,5. Kein einzelnes Chloratom wiegt so viel. Dieser Abschnitt ist eine Erweiterung: Die relative Atommasse gehört in die Oberstufe, und sie steht hier, weil Isotope ohne sie keinen Sinn ergeben.',
+        imageAlt:
+          'Ein Balken mit 75 Prozent Chlor-35 und 25 Prozent Chlor-37, darauf der gewichtete Mittelwert 35,5, näher am Ende mit 35.',
+      },
+      {
+        heading: 'Instabile Kerne und die drei Arten von Strahlung',
+        content:
+          'Manche Kerne sind instabil. Sie zerfallen von selbst, geben Strahlung ab und lassen ein stabileres Atom zurück. Radon-222 schleudert ein Alphateilchen heraus, also zwei Protonen und zwei Neutronen zusammen. Iod-131 gibt ein Betateilchen ab, also ein schnelles Elektron aus dem Kern. Cobalt-60 gibt Gammastrahlung ab, und das ist Energie statt eines Teilchens. Papier hält Alpha auf, ein Blech aus Aluminium hält Beta auf, und für Gamma braucht man Blei oder dicken Beton.',
+      },
+      {
+        heading: 'Halbwertszeit',
+        content:
+          'Die Halbwertszeit ist die Zeit, in der die Hälfte einer Probe zerfällt. Nach einer Halbwertszeit ist die Hälfte übrig, nach zweien ein Viertel und nach dreien ein Achtel. Für jedes Isotop liegt sie fest: Erhitzen oder eine Reaktion ändern nichts daran. Kohlenstoff-14 hat eine Halbwertszeit von etwa 5730 Jahren. Uran-238 hat eine von etwa 4,5 Milliarden Jahren, und deshalb steckt überhaupt noch Uran im Boden.',
+        imageAlt:
+          'Eine Zerfallskurve, die sich mit jeder Halbwertszeit halbiert, daneben die unteren Reihen des Periodensystems mit den hervorgehobenen Elementen, die es nur gibt, wenn man sie herstellt.',
+      },
+      {
+        heading: 'Die Vergangenheit datieren, und 65 000 Jahre in Australien',
+        content:
+          'Kohlenstoff-14 entsteht hoch oben in der Luft und landet in jedem Lebewesen. Stirbt etwas, nimmt es keinen mehr auf, und der vorhandene Kohlenstoff-14 zerfällt. Wie viel davon übrig ist, datiert den Fund – bis etwa 50 000 Jahre zurück. Älteres braucht eine andere Methode. Die optisch stimulierte Lumineszenz datiert, wann ein Sandkorn zuletzt Tageslicht gesehen hat, und sie reicht viel weiter zurück. In Madjedbebe, einem Felsdach auf Mirarr Country im Northern Territory, wurden beide Methoden an denselben Schichten angewendet. Sie belegen, dass die indigenen Völker Australiens und die Torres-Strait-Insulaner seit mindestens 65 000 Jahren auf dem australischen Kontinent leben.',
+      },
+      {
+        heading: 'Radioaktivität in Medizin und Technik',
+        content:
+          'Strahlung ist nützlich, weil sie durch feste Dinge hindurchgeht und sich richten lässt. In der Medizin verfolgt man eine kleine Menge eines kurzlebigen Isotops durch den Körper, um einen Tumor zu finden. Eine große, gebündelte Dosis tötet Krebszellen ab, und Cobalt-60 ist eine der Quellen dafür. In der Technik durchleuchtet man Teile für Flugzeuge und Raumfahrzeuge mit Gammastrahlung. Ein Riss zeigt sich auf dem Film dahinter, ohne dass jemand das Teil aufschneiden muss.',
+      },
+      {
+        heading: 'Elemente, die gemacht werden mussten',
+        content:
+          'Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur nicht vor. Sie werden in Beschleunigern gebaut, indem man einen Kern auf einen anderen schießt, manchmal wenige Atome auf einmal. Viele halten weniger als eine Sekunde durch und zerfallen dann. Das ist eine Erweiterung: Der Lehrplan verlangt gemachte Elemente nicht. Sie stehen hier, weil so die unteren Zeilen des Periodensystems gefüllt wurden.',
+      },
+    ],
+    commonMistakes: [
+      'Elektronen auf Kreisbahnen zeichnen, wie Planeten. Sie laufen nicht auf Bahnen. Eine Stufe ist eine Energie, und ein Elektron ist irgendwo in einem Bereich um den Kern, nicht an einem Punkt einer Linie.',
+      'Den Bildern die Größe glauben. Wäre der Kern eine Erbse, wäre das Atom ein Sportplatz. Jede Zeichnung schrumpft diesen Abstand, damit sie auf die Seite passt – auch die auf diesem Spickzettel.',
+      'Die relative Atommasse als Anzahl von Teilchen lesen. Sie ist ein Mittelwert über Isotope. Die 35,5 von Chlor gehört zu keinem Atom, das du finden könntest.',
+      'Die beiden Isotopenmassen addieren und halbieren. Für Chlor kommt dann 36 heraus, und das ist falsch, weil Chlor-35 dreimal so häufig ist wie Chlor-37.',
     ],
   },
   'states-of-matter': {

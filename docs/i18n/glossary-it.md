@@ -411,6 +411,43 @@ reader who meets it cold beside a dot may hear "number 3" rather than
 which is the mitigation, but it should be checked with a real teenager. If it
 changes, the edit touches every line of Share to Fill.
 
+## Atomic structure, the periodic table and radioactivity
+
+Added 2026-09-21, when *Atoms, Isotopes & the Periodic Table* split into
+*Atoms & the Periodic Table* (Year 9) and *Isotopes & Radioactivity* (Year 10).
+The first rows were already in use on the Italian atomic-structure sheet and are
+recorded here so the next writer does not re-decide them; the rest are new with
+the split.
+
+| English | Italian (use this) | Why this one, and what we rejected |
+|---|---|---|
+| periodic table | **tavola periodica** | *Tavola*, not *tabella*: Italian chemistry says *tavola periodica* and *tabella* is a spreadsheet. |
+| atomic number | **numero atomico** | — |
+| mass number | **numero di massa** | — |
+| energy level | **livello di energia** | The sheet says *level*, not *shell*, deliberately. See the next row. |
+| electron shell (the curriculum's word) | **guscio elettronico** | VC2S10U07 says "electron shells", so the sheet names *guscio* once as the word the reader's teacher uses, and keeps *livello di energia* as its own term. |
+| outer level / outer shell | **livello esterno** / **guscio esterno** | *Livello esterno* throughout, to stay consistent with *livello di energia*. |
+| Bohr model | **modello di Bohr** | Named as a *model* every time, per the sheet's own contract. |
+| isotope | **isotopo** | — |
+| group (a column) | **gruppo** | The sheet always writes *gruppo 1*, *gruppo 17*, never a bare *gruppo*, because *gruppo* also names a functional group. |
+| period (a row) | **periodo** | Not *riga*, which is the layout word; *periodo* is the term and pairs with *tavola periodica*. |
+| metal | **metallo** | — |
+| non metal | **non metallo** | Two words, no hyphen, as Italian chemistry writes it. Plural *non metalli*. |
+| metalloid | **semimetallo** | Italian *metalloide* does mean the staircase elements and is also current; *semimetallo* is picked because it is transparent for a fourteen-year-old. **Rated medium.** Marked on the sheet as an extension in any case: the curriculum says only "metallic and non-metallic properties". |
+| alkali metal | **metallo alcalino** | — |
+| halogen | **alogeno** | One l, no h. |
+| noble gas | **gas nobile** | Plural *gas nobili* — *gas* is invariable, the adjective is not. |
+| atomic size / atomic radius | **raggio atomico** | *Dimensione dell'atomo* is the everyday phrase and is used once in running prose. |
+| reactivity | **reattività** | Final accent, so — like *elettronegatività* above — **never usable as a glossary match word**. It appears in prose only. |
+| radioactive decay | **decadimento radioattivo** | Verb: *decadere*. — |
+| alpha particle | **particella alfa** | Written out rather than as α, and *alfa* with an f. |
+| beta particle | **particella beta** | — |
+| gamma radiation | **radiazione gamma** | *Radiazione*, not *raggio*: gamma is radiation, not a particle. |
+| half-life | **tempo di dimezzamento** | The term Italian textbooks use, and the one the sheet already used. *Emivita* is the medical and pharmacological word; it is understood but reads clinical. |
+| synthetic element / made element | **elemento artificiale** | *Elemento sintetico* is also correct; *artificiale* is what Italian uses for the transuranium elements. |
+| radiocarbon dating | **datazione al radiocarbonio** | The standard Italian phrase. *Datazione al carbonio-14* is equally clear and is used once, where the sheet names the isotope. |
+| optically stimulated luminescence (OSL) | **luminescenza otticamente stimolata (OSL)** | The abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in Italian school material. |
+
 ## Formulae, equations and naming
 
 | English | Italian (use this) | Why this one, and what we rejected |

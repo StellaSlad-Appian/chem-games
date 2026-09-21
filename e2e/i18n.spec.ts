@@ -1311,12 +1311,16 @@ test.describe('Russian rendering', () => {
     ).toBeVisible();
     await expect(page.getByText(ru.cheatSheetCategories.Fundamentals).first()).toBeVisible();
     await expect(page.getByText(ru.yearLevels['Year 9'], { exact: true }).first()).toBeVisible();
-    // Thirteen sheets selects the `many` category in Russian, which is the form
+    // Fourteen sheets selects the `many` category in Russian, which is the form
     // English does not have and the reason the plural system was rebuilt. The
     // number went from twelve to thirteen when the atomic-structure sheet
-    // landed; both are `many` (Russian uses it for 11–14 whatever the last
-    // digit), so this still exercises the form it was written for.
-    await expect(page.getByText(ru.cheatSheets.count.many.replace('{count}', '13'))).toBeVisible();
+    // landed, and from thirteen to fourteen when that sheet split in two; all
+    // three are `many` (Russian uses it for 11–14 whatever the last digit), so
+    // this still exercises the form it was written for. **Fifteen would not.**
+    // At 15 Russian is still `many`, but at 21 it is `one` and at 22 it is
+    // `few` — so whoever adds the twenty-first sheet has to move this assertion
+    // rather than bump the digit.
+    await expect(page.getByText(ru.cheatSheets.count.many.replace('{count}', '14'))).toBeVisible();
   });
 
   test('a cheat sheet, with its formulae left untranslated', async ({ page }) => {
