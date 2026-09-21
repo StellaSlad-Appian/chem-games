@@ -472,6 +472,52 @@ coinage in the sense that no Russian textbook uses it for this; it is not a
 coinage in the sense that every Russian speaker already knows the word. The
 formal term beside it (*неспаренный электрон*) is not in doubt.
 
+## Atomic structure, the periodic table and radioactivity
+
+Added 2026-09-21, when *Atoms, Isotopes & the Periodic Table* split into
+*Atoms & the Periodic Table* (Year 9) and *Isotopes & Radioactivity* (Year 10).
+The first rows were already in use on the Russian atomic-structure sheet and are
+recorded here so the next writer does not re-decide them; the rest are new with
+the split.
+
+| English | Russian (use this) | Why this one, and what we rejected |
+|---|---|---|
+| periodic table | **периодическая таблица** | *Таблица Менделеева* is what everybody in Russia actually says and *Периодическая система химических элементов* is the formal name. The sheet uses *периодическая таблица* because it is what the existing Russian overlay used and it reads neutrally to a reader outside Russia. |
+| atomic number | **атомный номер** | *Порядковый номер* is the standard Russian school term and is arguably the better one. **The sheet already shipped with *атомный номер***, so that is what this table records; changing it means changing both sheets and the review file together, not one sentence. **Rated medium** for that reason, not because the term is wrong. |
+| mass number | **массовое число** | — |
+| energy level | **энергетический уровень** | The sheet says *level*, not *shell*, deliberately. See the next row. |
+| electron shell (the curriculum's word) | **электронная оболочка** | VC2S10U07 says "electron shells", so the sheet names *оболочка* once as the word the reader's teacher uses, and keeps *энергетический уровень* as its own term. |
+| outer level / outer shell | **внешний уровень** | Consistent with *энергетический уровень*. |
+| Bohr model | **модель Бора** | Named as a *model* every time, per the sheet's own contract. Note the genitive: *модель Бора*, never *модель Бор*. |
+| isotope | **изотоп** | — |
+| group (a column) | **группа** | The sheet always writes *группа 1*, *группа 17*, never a bare *группа*. Russian numbers the groups with Arabic numerals here rather than the older Roman-numeral-plus-letter system, because that is what the periodic table in the rest of the site shows. |
+| period (a row) | **период** | Collides with *период полураспада* below; the sheet never uses the bare word for the half-life. |
+| metal | **металл** | Two л. |
+| non-metal | **неметалл** | One word, no hyphen. |
+| metalloid | **полуметалл** | *Металлоид* is also current in Russian and means the same thing. *Полуметалл* is picked because it is transparent and because *металлоид* has a second, older sense (non-metal) in some languages a bilingual reader may carry. **Rated medium.** Marked on the sheet as an extension in any case: the curriculum says only "metallic and non-metallic properties". |
+| alkali metal | **щелочной металл** | — |
+| halogen | **галоген** | — |
+| noble gas | **благородный газ** | *Инертный газ* is the older Russian school term and is still common; *благородный* is the current one and matches the other five locales. **Rated medium.** |
+| atomic size / atomic radius | **атомный радиус** | *Размер атома* is the everyday phrase and is used once in running prose. |
+| reactivity | **химическая активность** | Not *реакционная способность*, which is correct but is upper-secondary register. *Активность* alone is ambiguous on this sheet, because it also means radioactive activity — so the adjective is not optional here. |
+| radioactive decay | **радиоактивный распад** | Verb: *распадаться*. Note **распад**, not *разложение*, which is chemical decomposition. |
+| alpha particle | **альфа-частица** | Written out rather than as α, with a hyphen, as Russian compounds it. |
+| beta particle | **бета-частица** | — |
+| gamma radiation | **гамма-излучение** | *Излучение*, not *луч*: gamma is radiation, not a particle. |
+| half-life | **период полураспада** | The standard term. Long, but there is no short form. |
+| synthetic element / made element | **искусственно полученный элемент** | Or *искусственный элемент* where the sentence needs it shorter. Not *синтетический*, which in Russian suggests a manufactured material. |
+| radiocarbon dating | **радиоуглеродное датирование** | *Датирование*, not *датировка*: the first is the method, the second is the resulting date. |
+| optically stimulated luminescence (OSL) | **оптически стимулированная люминесценция (ОСЛ)** | The established Russian term, and the abbreviation is Cyrillic — ОСЛ, not OSL — because Russian archaeology writes it that way. **Rated low** — a specialist dating method, rare in Russian school material, and the abbreviation in particular deserves a check. |
+
+**Typography on this pair of sheets.** Two things recur and both are easy to
+get wrong inside an English-shaped file. Large round numbers take a
+non-breaking space and not a comma, so the English "65,000 years" is
+*65 000 лет* and "50,000" is *50 000*. And a half-life written as a decimal
+takes a comma: uranium-238 is *4,5 миллиарда лет*, never *4.5*. Isotope names
+are Cyrillic with the number after a hyphen — *углерод-14*, *радон-222* — while
+the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
+`formulaExamples` this file never touches.
+
 ## Formulae, equations and naming
 
 | English | Russian (use this) | Why this one, and what we rejected |

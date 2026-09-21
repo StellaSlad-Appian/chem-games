@@ -110,21 +110,20 @@ const polyatomicIonRowsEs = POLYATOMIC_ION_TABLE.rows.map((row) => [
 
 export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
   'atomic-structure': {
-    title: 'Átomos, isótopos y la tabla periódica',
+    title: 'Átomos y la tabla periódica',
     summary:
-      'De qué está hecho un átomo, por qué el número atómico define el elemento y cómo está ordenada la tabla.',
+      'De qué está hecho un átomo, por qué el número atómico define el elemento y qué permite predecir el orden de la tabla.',
     keyTakeaways: [
       'Un átomo es un núcleo de protones y neutrones, con electrones repartidos a su alrededor.',
       'El número de protones —el número atómico— es lo que hace que un átomo sea ese elemento. Cámbialo y tienes otro elemento.',
-      'Los isótopos son átomos del mismo elemento con distinto número de neutrones. Químicamente se comportan igual.',
-      'La masa atómica relativa es una media ponderada entre los isótopos de un elemento. Por eso tan pocas son números enteros.',
       'Los electrones ocupan niveles de energía, y cuántos hay en el nivel exterior es el criterio con el que está ordenada la tabla.',
+      'Un grupo es una columna y un periodo es una fila. Los elementos de un grupo tienen los mismos electrones fuera, así que reaccionan igual.',
+      'Los metales están a la izquierda y los no metales a la derecha. Los átomos se encogen hacia la derecha y crecen hacia abajo.',
       'Casi todo el átomo es espacio vacío. Cualquier dibujo de un átomo se equivoca en la escala, también los de aquí.',
     ],
     formulaExampleNames: [
       'Cloro-35',
       'Cloro-37',
-      'Carbono-12',
       'Ion hidrógeno',
     ],
     sections: [
@@ -138,31 +137,37 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Número atómico y número másico',
         content:
-          'El número atómico es el número de protones, y es lo que hace que un átomo sea ese elemento. Todo átomo de cloro tiene 17 protones; cualquier cosa con 17 protones es cloro. El número másico es protones más neutrones. Los neutrones pueden variar sin que cambie el elemento.',
+          'El número atómico es el número de protones, y es lo que hace que un átomo sea ese elemento. Todo átomo de cloro tiene 17 protones; cualquier cosa con 17 protones es cloro. El número másico es protones más neutrones. Los neutrones pueden variar sin que cambie el elemento. Los dos términos son aquí una ampliación: el currículo de estos cursos no nombra ninguno, y sin ellos no puedes leer una casilla de la tabla.',
         exampleNames: ['Cloro-35', 'Cloro-37'],
         imageAlt:
           'El símbolo del cloro-35 con el número másico 35 escrito encima del número atómico 17, y flechas que señalan: 17 protones, y 35 menos 17 da 18 neutrones.',
       },
       {
-        heading: 'Isótopos',
-        content:
-          'Los isótopos son átomos de un mismo elemento con distinto número de neutrones. La química la hacen los electrones, y los isótopos tienen el mismo número, así que reaccionan igual. Lo que cambia es la masa y, a veces, la estabilidad: algunos isótopos son radiactivos y otros no.',
-        imageAlt:
-          'Tres átomos de hidrógeno uno al lado del otro: uno con un protón, otro con un protón y un neutrón, y otro con un protón y dos neutrones. Los tres tienen un solo electrón.',
-      },
-      {
-        heading: 'Por qué la masa atómica relativa casi nunca es un número entero',
-        content:
-          'Una muestra de un elemento es una mezcla de sus isótopos, en proporciones fijas. La masa atómica relativa es la media de esa mezcla, ponderada según lo común que es cada isótopo. El cloro es aproximadamente tres cuartas partes cloro-35 y una cuarta parte cloro-37. La media sale 35,5. Ningún átomo de cloro pesa eso.',
-        imageAlt:
-          'Una barra que muestra un 75 por ciento de cloro-35 y un 25 por ciento de cloro-37, con la media ponderada 35,5 marcada más cerca del extremo del 35.',
-      },
-      {
         heading: 'Electrones, niveles de energía y la forma de la tabla',
         content:
-          'Los electrones ocupan niveles de energía alrededor del núcleo. El primero admite hasta 2, el siguiente hasta 8, y otros 8 en los veinte primeros elementos. Cuántos hay en el nivel exterior determina cómo reacciona un átomo. Dos elementos van en el mismo grupo cuando tienen el mismo número fuera. Por eso un grupo se comporta de forma parecida.',
+          'Los electrones ocupan niveles de energía alrededor del núcleo. El primero admite hasta 2, el siguiente hasta 8, y otros 8 en los veinte primeros elementos. Tu profesorado y el currículo quizá digan capas: es lo mismo. Contar los electrones así se llama modelo de Bohr: es útil, y no es una foto de un átomo de verdad. Cuántos hay en el nivel exterior determina cómo reacciona un átomo. Dos elementos van en el mismo grupo cuando tienen el mismo número fuera. Por eso un grupo se comporta de forma parecida.',
         imageAlt:
           'Un átomo de sodio dibujado con tres niveles de energía que contienen 2, 8 y 1 electrones, junto a la tabla periódica con el grupo 1 resaltado.',
+      },
+      {
+        heading: 'Grupos y periodos',
+        content:
+          'Un grupo es una columna de la tabla y un periodo es una fila. Los elementos de un mismo grupo tienen el mismo número de electrones en el nivel exterior. La columna predice, por tanto, cómo reacciona un elemento. El grupo 1 son los metales alcalinos, el grupo 17 los halógenos y el grupo 18 los gases nobles. El periodo dice cuántos niveles de energía se usan: un elemento del periodo 3 usa tres. La fila te dice así, más o menos, lo grande que es el átomo.',
+      },
+      {
+        heading: 'Metales y no metales',
+        content:
+          'Los metales ocupan la izquierda y el centro de la tabla, y los no metales están en la esquina superior derecha. Un metal conduce la electricidad y el calor, tiene la superficie brillante y se deja golpear hasta formar una lámina sin romperse. Casi todos los metales son sólidos a temperatura ambiente; el mercurio es el líquido. Un no metal suele conducir mal, es mate y se rompe si es que llega a ser sólido. Muchos no metales son gases. Ampliación: unos pocos elementos de la escalera que hay entre unos y otros, como el silicio, se comportan en parte como cada uno. Se llaman semimetales, una palabra que el currículo no usa.',
+      },
+      {
+        heading: 'Radio atómico',
+        content:
+          'Los átomos se hacen más pequeños de izquierda a derecha a lo largo de un periodo. Cada paso añade un protón, y la carga positiva mayor tira del mismo nivel exterior con más fuerza. Los átomos se hacen más grandes hacia abajo dentro de un grupo, porque cada paso hacia abajo estrena un nivel de energía más lejano. Así que los átomos más grandes están abajo a la izquierda de la tabla y los más pequeños arriba a la derecha.',
+      },
+      {
+        heading: 'La reactividad, y por qué un grupo se comporta igual',
+        content:
+          'Puedes poner a prueba un grupo haciendo reaccionar sus elementos con oxígeno, agua y ácidos: entre ellos se comportan igual. Los metales del grupo 1 reaccionan con el agua y se vuelven más violentos hacia abajo: el litio burbujea, el sodio corretea por la superficie, el potasio se incendia. Esos mismos metales desprenden hidrógeno con un ácido, y todavía más deprisa. Los elementos del grupo 17 van al revés y son menos reactivos hacia abajo. El grupo 18 ya tiene el nivel exterior lleno, así que los gases nobles no reaccionan casi con nada.',
       },
       {
         heading: 'Ordenada por número atómico, no por masa',
@@ -170,13 +175,6 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
           'Mendeléiev ordenó la tabla por masa, y algunos elementos quedaron en el sitio equivocado. En 1913 Henry Moseley midió la carga del núcleo y encontró el orden que funciona: el número atómico. El teluro es más pesado que el yodo, pero va antes, porque tiene un protón menos.',
         imageAlt:
           'El teluro y el yodo uno al lado del otro. El teluro tiene mayor masa atómica relativa pero menor número atómico, y la tabla lo coloca primero.',
-      },
-      {
-        heading: 'Núcleos inestables y elementos que hubo que fabricar',
-        content:
-          'Algunos núcleos son inestables y se desintegran emitiendo radiación. El periodo de semidesintegración es el tiempo que tarda en desintegrarse la mitad de una muestra. Los elementos posteriores al uranio no tienen isótopos estables y no se encuentran en la naturaleza. Se construyen en aceleradores, a veces unos pocos átomos cada vez.',
-        imageAlt:
-          'Una curva de desintegración que se reduce a la mitad en cada periodo, junto a las últimas filas de la tabla periódica con los elementos que solo existen cuando se fabrican resaltados.',
       },
     ],
     tables: [
@@ -222,8 +220,82 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Dibujar los electrones en órbitas circulares, como planetas. No van por una trayectoria. Un nivel es una energía, y un electrón está en algún punto de una región alrededor del núcleo, no sobre una línea.',
       'Creerse el tamaño de los dibujos. Si el núcleo fuera un guisante, el átomo sería un campo de deporte. Cualquier esquema aplasta esa diferencia para que quepa en la página, también los de esta chuleta.',
       'Confundir el número atómico con el número másico. El número atómico son los protones y da nombre al elemento. El número másico son protones más neutrones.',
-      'Leer la masa atómica relativa como un recuento de partículas. Es una media entre isótopos: el 35,5 del cloro no es ningún átomo que puedas encontrar.',
       'Pensar que un ion es otro elemento. Perder o ganar un electrón cambia la carga, no el número de protones. El sodio y Na+ son los dos sodio.',
+    ],
+  },
+  'isotopes-and-radioactivity': {
+    title: 'Isótopos y radiactividad',
+    summary:
+      'Qué cambia cuando cambia el número de neutrones: isótopos, desintegración, semidesintegración y los elementos que hubo que fabricar.',
+    keyTakeaways: [
+      'Los isótopos son átomos del mismo elemento con distinto número de neutrones. Químicamente se comportan igual.',
+      'La masa atómica relativa es una media ponderada entre los isótopos de un elemento. Por eso tan pocas son números enteros.',
+      'Un núcleo inestable se desintegra y emite radiación, y deja detrás un átomo más estable.',
+      'Hay tres clases —alfa, beta y gamma— y se diferencian en qué sale y en qué las detiene.',
+      'El periodo de semidesintegración es el tiempo que tarda en desintegrarse la mitad de una muestra. Tras tres periodos queda un octavo.',
+      'Van desde segundos hasta miles de millones de años, y eso es justo lo que permite datar un pasado remoto.',
+    ],
+    formulaExampleNames: [
+      'Carbono-12',
+      'Radón-222',
+      'Yodo-131',
+      'Cobalto-60',
+      'Carbono-14',
+      'Uranio-238',
+    ],
+    sections: [
+      {
+        heading: 'Los dos números que necesita esta chuleta',
+        content:
+          'El número atómico es cuántos protones tiene un átomo, y es lo que fija de qué elemento se trata. El número másico es protones más neutrones. Toda esta chuleta va de que el segundo número cambia mientras el primero se queda quieto. Los dos términos son una ampliación: el currículo de estos cursos no nombra ninguno, y sin ellos aquí no funciona nada.',
+      },
+      {
+        heading: 'Isótopos',
+        content:
+          'Los isótopos son átomos de un mismo elemento con distinto número de neutrones. La química la hacen los electrones, y los isótopos tienen el mismo número, así que reaccionan igual. Lo que cambia es la masa y, a veces, la estabilidad: algunos isótopos son radiactivos y otros no.',
+        imageAlt:
+          'Tres átomos de hidrógeno uno al lado del otro: uno con un protón, otro con un protón y un neutrón, y otro con un protón y dos neutrones. Los tres tienen un solo electrón.',
+      },
+      {
+        heading: 'Por qué la masa atómica relativa casi nunca es un número entero',
+        content:
+          'Una muestra de un elemento es una mezcla de sus isótopos, en proporciones fijas. La masa atómica relativa es la media de esa mezcla, ponderada según lo común que es cada isótopo. El cloro es aproximadamente tres cuartas partes cloro-35 y una cuarta parte cloro-37. La media sale 35,5. Ningún átomo de cloro pesa eso. Esta sección es una ampliación: la masa atómica relativa es materia de bachillerato, y está aquí porque sin ella los isótopos no tienen sentido.',
+        imageAlt:
+          'Una barra que muestra un 75 por ciento de cloro-35 y un 25 por ciento de cloro-37, con la media ponderada 35,5 marcada más cerca del extremo del 35.',
+      },
+      {
+        heading: 'Núcleos inestables y las tres clases de radiación',
+        content:
+          'Algunos núcleos son inestables. Se desintegran por su cuenta, emiten radiación y dejan detrás un átomo más estable. El radón-222 expulsa una partícula alfa, que son dos protones y dos neutrones juntos. El yodo-131 emite una partícula beta, que es un electrón rápido salido del núcleo. El cobalto-60 emite radiación gamma, que es energía y no una partícula. Un papel detiene la alfa, una lámina de aluminio detiene la beta, y la gamma necesita plomo u hormigón grueso.',
+      },
+      {
+        heading: 'Periodo de semidesintegración',
+        content:
+          'Es el tiempo que tarda en desintegrarse la mitad de una muestra. Tras un periodo queda la mitad, tras dos un cuarto y tras tres un octavo. Para cada isótopo es fijo: calentarlo o hacerlo reaccionar no lo cambia. El carbono-14 tiene un periodo de unos 5730 años. El uranio-238 lo tiene de unos 4500 millones de años, y por eso todavía queda uranio en el suelo.',
+        imageAlt:
+          'Una curva de desintegración que se reduce a la mitad en cada periodo, junto a las últimas filas de la tabla periódica con los elementos que solo existen cuando se fabrican resaltados.',
+      },
+      {
+        heading: 'Datar el pasado, y 65 000 años en Australia',
+        content:
+          'El carbono-14 se forma en lo alto de la atmósfera y acaba en todo ser vivo. Cuando algo muere deja de tomar más, y el que ya tiene se desintegra. Medir cuánto queda data los restos, hasta unos 50 000 años atrás. Lo más antiguo necesita otro método. La luminiscencia ópticamente estimulada data la última vez que un grano de arena estuvo expuesto a la luz del día, y llega mucho más lejos. En Madjedbebe, un abrigo rocoso en tierras del pueblo mirarr, en el Territorio del Norte, se aplicaron los dos métodos a los mismos depósitos. Sitúan a los pueblos aborígenes australianos y a los isleños del estrecho de Torres en el continente australiano desde hace al menos 65 000 años.',
+      },
+      {
+        heading: 'La radiactividad en medicina y en la industria',
+        content:
+          'La radiación es útil porque atraviesa lo sólido y se puede dirigir. En medicina se sigue por el cuerpo una dosis pequeña de un isótopo de vida corta para localizar un tumor. Una dosis grande y concentrada sirve para matar células cancerosas, y el cobalto-60 es una de las fuentes que se usan. En la industria se atraviesan con radiación gamma las piezas destinadas a aviones y naves espaciales. Una grieta aparece en la película que hay detrás de la pieza, sin que nadie tenga que abrirla.',
+      },
+      {
+        heading: 'Elementos que hubo que fabricar',
+        content:
+          'Los elementos posteriores al uranio no tienen isótopos estables y no se encuentran en la naturaleza. Se construyen en aceleradores lanzando un núcleo contra otro, a veces unos pocos átomos cada vez. Muchos duran menos de un segundo y luego se desintegran. Esto es una ampliación: el currículo no pide los elementos fabricados. Están aquí porque así se rellenaron las últimas filas de la tabla periódica.',
+      },
+    ],
+    commonMistakes: [
+      'Dibujar los electrones en órbitas circulares, como planetas. No van por una trayectoria. Un nivel es una energía, y un electrón está en algún punto de una región alrededor del núcleo, no sobre una línea.',
+      'Creerse el tamaño de los dibujos. Si el núcleo fuera un guisante, el átomo sería un campo de deporte. Cualquier esquema aplasta esa diferencia para que quepa en la página, también los de esta chuleta.',
+      'Leer la masa atómica relativa como un recuento de partículas. Es una media entre isótopos: el 35,5 del cloro no es ningún átomo que puedas encontrar.',
+      'Sumar las dos masas de los isótopos y dividir entre dos. Para el cloro sale 36, y está mal, porque el cloro-35 es tres veces más abundante que el cloro-37.',
     ],
   },
   'states-of-matter': {

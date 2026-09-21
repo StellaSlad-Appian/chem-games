@@ -84,7 +84,9 @@ something useful: **the cheat-sheet library has a hole where atoms should be.**
 > pool is schedulable. `explore.md` §3 and AC-6 are corrected to match.
 
 **That hole is now filled.** `atomic-structure` shipped on 2026-09-20 in all six
-languages, and theme A's twelve entries link to it. It was a curriculum gap
+languages, and theme A's twelve entries link to it — eleven of them, since
+2026-09-21, to `isotopes-and-radioactivity`, the Year 10 sheet that half of it
+split into. See the note at the head of §3 A. It was a curriculum gap
 independent of this feature — Moseley's entire story is *the table is ordered by
 atomic number, not by mass*, and until then there was nowhere on the site to send
 a reader who wanted to know what that meant. §7 still holds for the difference
@@ -120,20 +122,47 @@ teaches one idea per week instead of two unrelated ones.
 sheet now exists, in all six languages, and every entry below links to it. This
 is the single richest theme in the pool and none of it was schedulable before.*
 
+*Re-pointed on 2026-09-21, when that sheet split in two along the line the
+Victorian Curriculum draws.* `atomic-structure` kept its slug and became
+**Atoms & the Periodic Table** (VC2S10U07); the isotope, decay and
+made-element half became **`isotopes-and-radioactivity`** (VC2S10U06). Eleven of
+the twelve entries below are isotope, decay or synthetic-element stories, so
+they now point at the Year 10 sheet, which is where their science is taught.
+
+**Only Henry Moseley stays on `atomic-structure`.** His whole story is that the
+table is ordered by atomic number rather than by mass, which is the Year 9
+sheet's last section and is VC2S10U07 itself.
+
+**Glenn Seaborg goes to `isotopes-and-radioactivity`, and the call is
+arguable.** Redrawing the table's bottom rows is a periodic-table story, so the
+Year 9 sheet has a claim on him. It loses, for a reason about what a reader
+needs rather than about what the work was: after the split, the Year 9 sheet
+does not mention synthetic elements at all, and the f-block reorganisation that
+is the strongest Year 9 argument is not taught at this level on either sheet.
+The Year 10 sheet has an *Elements that had to be made* section that a reader
+arriving from "made plutonium and nine more elements" can actually use. A link
+has to land somewhere that answers the question it raised. If the widget
+milestone later gives the Year 9 sheet a view mode for natural-versus-made
+elements, this is the entry to revisit.
+
+No entry below is scheduled by this change: the link target is editorial
+metadata here, and putting a scientist on a week has its own balance rules in
+`schedule.test.ts`.
+
 | # | Name | Life | Base | The work | Rep | Links to |
 |---|---|---|---|---|---|---|
-| 1 | Marie Skłodowska-Curie | 1867–1934 | PL / FR | Isolated polonium and radium from tonnes of pitchblende; named radioactivity | W | `atomic-structure` |
-| 2 | Irène Joliot-Curie | 1897–1956 | FR | Made the first artificial radioactive isotopes by bombarding aluminium | W | `atomic-structure` |
-| 3 | Lise Meitner | 1878–1968 | AT / SE | Worked out that the nucleus had split, and why the mass was missing | W | `atomic-structure` |
-| 4 | Ida Noddack | 1896–1978 | DE | Co-discovered rhenium; first to suggest a nucleus could break in two (1934) | W | `atomic-structure` |
-| 5 | Marguerite Perey | 1909–1975 | FR | Discovered francium, the last element found in nature | W | `atomic-structure` |
-| 6 | Frederick Soddy | 1877–1956 | UK | Named isotopes: same element, different mass, same chemistry | M | `atomic-structure` |
-| 7 | Francis Aston | 1877–1945 | UK | Built the mass spectrograph and separated isotopes by weight | M | `atomic-structure` |
+| 1 | Marie Skłodowska-Curie | 1867–1934 | PL / FR | Isolated polonium and radium from tonnes of pitchblende; named radioactivity | W | `isotopes-and-radioactivity` |
+| 2 | Irène Joliot-Curie | 1897–1956 | FR | Made the first artificial radioactive isotopes by bombarding aluminium | W | `isotopes-and-radioactivity` |
+| 3 | Lise Meitner | 1878–1968 | AT / SE | Worked out that the nucleus had split, and why the mass was missing | W | `isotopes-and-radioactivity` |
+| 4 | Ida Noddack | 1896–1978 | DE | Co-discovered rhenium; first to suggest a nucleus could break in two (1934) | W | `isotopes-and-radioactivity` |
+| 5 | Marguerite Perey | 1909–1975 | FR | Discovered francium, the last element found in nature | W | `isotopes-and-radioactivity` |
+| 6 | Frederick Soddy | 1877–1956 | UK | Named isotopes: same element, different mass, same chemistry | M | `isotopes-and-radioactivity` |
+| 7 | Francis Aston | 1877–1945 | UK | Built the mass spectrograph and separated isotopes by weight | M | `isotopes-and-radioactivity` |
 | 8 | Henry Moseley | 1887–1915 | UK | Showed the periodic table is ordered by atomic number, not mass | M | `atomic-structure` |
-| 9 | Glenn Seaborg | 1912–1999 | US | Made plutonium and nine more elements; redrew the periodic table's bottom rows | M | `atomic-structure` |
-| 10 | Yuri Oganessian | b. 1933 | RU | Leads the synthesis of superheavy elements; element 118 carries his name | M | `atomic-structure` |
-| 11 | Darleane Hoffman | b. 1926 | US | Did chemistry on single atoms of elements that exist for seconds | W | `atomic-structure` |
-| 12 | Emilio Segrè | 1905–1989 | IT / US | Co-made technetium, the first element made rather than found | M | `atomic-structure` |
+| 9 | Glenn Seaborg | 1912–1999 | US | Made plutonium and nine more elements; redrew the periodic table's bottom rows | M | `isotopes-and-radioactivity` |
+| 10 | Yuri Oganessian | b. 1933 | RU | Leads the synthesis of superheavy elements; element 118 carries his name | M | `isotopes-and-radioactivity` |
+| 11 | Darleane Hoffman | b. 1926 | US | Did chemistry on single atoms of elements that exist for seconds | W | `isotopes-and-radioactivity` |
+| 12 | Emilio Segrè | 1905–1989 | IT / US | Co-made technetium, the first element made rather than found | M | `isotopes-and-radioactivity` |
 
 ### B. Bonding and structure — 5 W / 5 M
 

@@ -92,6 +92,43 @@ suite rather than failing silently on screen.
 | electronegativity | **Elektronegativität** | — |
 | delocalised electrons | **frei bewegliche Elektronen** | The literal *delokalisierte Elektronen* is correct but is upper-secondary register; the school phrasing is clearer at this level. |
 
+## Atomic structure, the periodic table and radioactivity
+
+Added 2026-09-21, when *Atoms, Isotopes & the Periodic Table* split into
+*Atoms & the Periodic Table* (Year 9) and *Isotopes & Radioactivity* (Year 10).
+The first eight rows were already in use on the German atomic-structure sheet
+and are recorded here so the next writer does not re-decide them; the rest are
+new with the split.
+
+| English | German (use this) | Why this one, and what we rejected |
+|---|---|---|
+| periodic table | **Periodensystem** | The full form is *Periodensystem der Elemente* (PSE); the short form is what a German classroom says. Not *periodische Tafel*, which is a calque. |
+| atomic number | **Ordnungszahl** | *Kernladungszahl* is equally correct and says more (it is the nuclear charge), but *Ordnungszahl* is the word a Year 9 textbook prints and the one the sheet already used. |
+| mass number | **Massenzahl** | — |
+| energy level | **Energiestufe** | The sheet deliberately says *level*, not *shell*, because a shell is a picture and a level is an energy. See the next row. |
+| electron shell (the curriculum's word) | **Schale** / **Elektronenschale** | VC2S10U07 says "electron shells", so the sheet names *Schale* once as the word the reader's teacher will use and keeps *Energiestufe* as its own term. Do not swap one for the other halfway through a sheet. |
+| outer level / outer shell | **äußerste Stufe**, electrons in it: **Außenelektronen** | Follows the *Außenelektron* row above. |
+| Bohr model | **Bohrsches Atommodell** | Named as a *model* every time it appears, per the sheet's own contract: it is how you count electrons, not what an atom looks like. |
+| isotope | **Isotop** | — |
+| group (a column) | **Gruppe** | German uses the same word for a column of the table and for a functional group; context separates them, and the sheet always writes *Gruppe 1*, *Gruppe 17*, never bare *Gruppe*. |
+| period (a row) | **Periode** | Not *Reihe*. *Periode* is the technical term and pairs with *Periodensystem*. |
+| metal | **Metall** | — |
+| non-metal | **Nichtmetall** | One word, no hyphen. |
+| metalloid | **Halbmetall** | The German school word. *Metalloid* exists in German but historically meant *non-metal*, which is the opposite of what is meant here — so it is not usable. Marked on the sheet as an extension: the curriculum says only "metallic and non-metallic properties". |
+| alkali metal | **Alkalimetall** | — |
+| halogen | **Halogen** | — |
+| noble gas | **Edelgas** | — |
+| atomic size / atomic radius | **Atomradius** | *Atomgröße* is the everyday word and is used once in running prose; *Atomradius* is the term. |
+| reactivity | **Reaktivität** | *Reaktionsfreudigkeit* is the more transparent school word and reads better in a sentence about group 1; both are in use, and the sheet uses *Reaktivität* for the heading and either in the body. |
+| radioactive decay | **radioaktiver Zerfall** | Verb: *zerfallen*. Not *Verfall*, which is decay in the sense of a building falling down. |
+| alpha particle | **Alphateilchen** | Written out rather than as α, so a screen reader says something. |
+| beta particle | **Betateilchen** | — |
+| gamma radiation | **Gammastrahlung** | Gamma is radiation, not a particle, and the German word keeps that straight where the English "gamma ray" does not. |
+| half-life | **Halbwertszeit** | — |
+| synthetic element / made element | **künstlich erzeugtes Element** | Not *synthetisches Element*, which in German suggests a manufactured material rather than a nucleus built in an accelerator. |
+| radiocarbon dating | **Radiokarbonmethode** | Also *C-14-Methode*, which is shorter and is what a museum label says. Either is fine; do not use both on one sheet. |
+| optically stimulated luminescence (OSL) | **optisch stimulierte Lumineszenz (OSL)** | The established German term; the abbreviation is the English one and stays Latin. **Rated low** — this is a specialist archaeological dating method and the phrase is rare in German school material. |
+
 ## Formulae, equations and naming
 
 | English | German (use this) | Why this one, and what we rejected |
