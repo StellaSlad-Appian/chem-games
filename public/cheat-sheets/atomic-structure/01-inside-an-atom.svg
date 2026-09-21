@@ -13,16 +13,16 @@
   <circle cx="157" cy="166" r="12" fill="none" stroke="#64748b" stroke-width="3" />
   <circle cx="179" cy="166" r="12" fill="none" stroke="#64748b" stroke-width="3" />
   <text x="336" y="66" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="27" font-weight="700" fill="#3b82f6">Electrons</text>
-  <text x="336" y="94" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#64748b">are somewhere in this</text>
-  <text x="336" y="120" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#64748b">fuzzy region — never</text>
-  <text x="336" y="146" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#64748b">on a track or an orbit.</text>
+  <text x="336" y="94" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">are somewhere in this</text>
+  <text x="336" y="120" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">fuzzy region — never</text>
+  <text x="336" y="146" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">on a track or an orbit.</text>
   <text x="336" y="190" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="27" font-weight="700" fill="#ef4444">Nucleus</text>
-  <text x="336" y="218" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#64748b">protons and neutrons,</text>
-  <text x="336" y="244" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#64748b">and nearly all the mass.</text>
+  <text x="336" y="218" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">protons and neutrons,</text>
+  <text x="336" y="244" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">and nearly all the mass.</text>
   <circle cx="118" cy="290" r="13" fill="#ef4444" />
-  <text x="142" y="290" dominant-baseline="central" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#64748b">filled = proton</text>
+  <text x="142" y="290" dominant-baseline="central" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">filled = proton</text>
   <circle cx="338" cy="290" r="13" fill="none" stroke="#64748b" stroke-width="3" />
-  <text x="362" y="290" dominant-baseline="central" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#64748b">hollow = neutron</text>
+  <text x="362" y="290" dominant-baseline="central" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">hollow = neutron</text>
   <text x="320" y="326" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">Nothing here is to scale. A real nucleus is about</text>
   <text x="320" y="350" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">1/100,000 of the atom — far too small to draw.</text>
 </svg>

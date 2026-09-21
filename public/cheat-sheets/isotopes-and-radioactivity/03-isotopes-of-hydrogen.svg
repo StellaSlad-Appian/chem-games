@@ -5,7 +5,7 @@
   <title id="03-isotopes-of-hydrogen-title">The three isotopes of hydrogen</title>
   <desc id="03-isotopes-of-hydrogen-desc">Three hydrogen atoms side by side: one proton, one proton and one neutron, and one proton and two neutrons. Each has a single electron, drawn as one mark in a soft band around the nucleus rather than as a dot on a circle.</desc>
   <text x="320" y="30" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" font-weight="700" fill="#64748b">All three are hydrogen: 1 proton, 1 electron.</text>
-  <text x="320" y="58" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" fill="#64748b">Filled = proton, hollow = neutron, outer mark = electron.</text>
+  <text x="320" y="58" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#64748b">Filled = proton, hollow = neutron, outer mark = electron.</text>
   <circle cx="107" cy="138" r="35.2" fill="none" stroke="#3b82f6" stroke-width="3.9" stroke-opacity="0.05" />
   <circle cx="107" cy="138" r="37.4" fill="none" stroke="#3b82f6" stroke-width="3.9" stroke-opacity="0.08" />
   <circle cx="107" cy="138" r="39.6" fill="none" stroke="#3b82f6" stroke-width="3.9" stroke-opacity="0.12" />

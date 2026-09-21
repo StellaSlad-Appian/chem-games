@@ -194,15 +194,25 @@ const SCALE_FACTOR = '100,000';
 const MIN_TEXT = 20;
 
 /**
- * The smallest *unbold* size allowed for anything load-bearing.
+ * The smallest size allowed at anything under weight 700.
  *
  * No single grey clears 4.5:1 against both a near-white and a near-black
  * background, so diagram text cannot meet the normal-text contrast threshold
- * and has to qualify as WCAG large text and clear 3:1 instead. That means 24
- * units, or 20 at weight 700. Anything carrying a number or a name a student
- * would copy down passes `load: true` and is held to it.
+ * and has to qualify as WCAG *large* text and clear 3:1 instead. Large means
+ * 24 units here, or 20 at weight 700 — 18.66 CSS px bold, and 20 units draws
+ * at 16.
+ *
+ * The brief only asks for this on text carrying a load-bearing number or
+ * label, and this file applies it to every glyph. That is on purpose. The page
+ * around these diagrams can afford a per-theme colour — globals.css gives
+ * `--muted` a different value in each theme and clears 7:1 both ways — and an
+ * `<img>`-loaded SVG cannot. Leaving a sentence at 20 units unbold would be
+ * `INK` at 4.18:1 on the dark theme at 16 CSS px, which is below what the
+ * paragraph directly above the diagram manages. Sorting labels into
+ * load-bearing and not would also have been a judgement call made once per
+ * label and never checked again; this way the rule is mechanical.
  */
-const MIN_LOAD_BEARING = 24;
+const MIN_LARGE = 24;
 
 /**
  * A system font stack, on purpose.
@@ -267,11 +277,6 @@ interface TextOptions {
   mono?: boolean;
   /** Centre the glyphs on `y` rather than sitting them on it. */
   central?: boolean;
-  /**
-   * This text carries a number, or a name a student would copy down, so it is
-   * held to `MIN_LOAD_BEARING` rather than `MIN_TEXT`.
-   */
-  load?: boolean;
   /** Degrees anticlockwise about `(x, y)`, for an axis label. */
   rotate?: number;
 }
@@ -284,17 +289,18 @@ interface TextOptions {
  * actually draws it — which is exactly what the placeholders did.
  */
 function label(x: number, y: number, content: string, options: TextOptions): string {
-  const { size, bold, anchor, fill, mono, central, load, rotate } = options;
+  const { size, bold, anchor, fill, mono, central, rotate } = options;
   if (size < MIN_TEXT) {
     throw new Error(
       `"${content}" is set at ${size}, below the ${MIN_TEXT} floor. The page ` +
         'draws these at about 0.8x, so it would land under 16 CSS px.',
     );
   }
-  if (load && size < MIN_LOAD_BEARING && !bold) {
+  if (size < MIN_LARGE && !bold) {
     throw new Error(
-      `"${content}" carries a number or a label, so at ${size} it has to be ` +
-        `bold: below ${MIN_LOAD_BEARING} it only clears 3:1 at weight 700.`,
+      `"${content}" is set at ${size} and is not bold. Below ${MIN_LARGE} it ` +
+        'only counts as large text at weight 700, and there is no grey that ' +
+        'clears the normal-text threshold on both themes.',
     );
   }
   const attributes = [
@@ -500,18 +506,18 @@ function drawInsideAnAtom(slot: Slot): string {
     ...nucleons(cx, cy, 12, places, 3),
 
     label(336, 66, 'Electrons', { size: 27, bold: true, fill: BASE_BLUE }),
-    label(336, 94, 'are somewhere in this', { size: 21 }),
-    label(336, 120, 'fuzzy region — never', { size: 21 }),
-    label(336, 146, 'on a track or an orbit.', { size: 21 }),
+    label(336, 94, 'are somewhere in this', { size: 21, bold: true }),
+    label(336, 120, 'fuzzy region — never', { size: 21, bold: true }),
+    label(336, 146, 'on a track or an orbit.', { size: 21, bold: true }),
 
     label(336, 190, 'Nucleus', { size: 27, bold: true, fill: ACID_RED }),
-    label(336, 218, 'protons and neutrons,', { size: 21 }),
-    label(336, 244, 'and nearly all the mass.', { size: 21 }),
+    label(336, 218, 'protons and neutrons,', { size: 21, bold: true }),
+    label(336, 244, 'and nearly all the mass.', { size: 21, bold: true }),
 
     dot(118, 290, 13, ACID_RED),
-    label(142, 290, 'filled = proton', { size: 21, central: true }),
+    label(142, 290, 'filled = proton', { size: 21, bold: true, central: true }),
     ring(338, 290, 13, INK),
-    label(362, 290, 'hollow = neutron', { size: 21, central: true }),
+    label(362, 290, 'hollow = neutron', { size: 21, bold: true, central: true }),
 
     label(320, 326, 'Nothing here is to scale. A real nucleus is about', {
       size: 21,
@@ -522,7 +528,6 @@ function drawInsideAnAtom(slot: Slot): string {
       size: 21,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
   ]);
 }
@@ -559,30 +564,28 @@ function drawAtomicAndMassNumber(slot: Slot): string {
     // leader through either the "Cl" or the box's corner, whichever way it is
     // routed. Both leaders approaching from the same side has neither problem
     // and reads in the order a student asks the questions in.
-    label(188, 120, String(mass), { size: 42, bold: true, anchor: 'end', central: true, load: true }),
+    label(188, 120, String(mass), { size: 42, bold: true, anchor: 'end', central: true }),
     label(188, 172, String(atomic), {
       size: 42,
       bold: true,
       anchor: 'end',
       central: true,
       fill: ACID_RED,
-      load: true,
     }),
-    label(196, 146, 'Cl', { size: 84, bold: true, central: true, load: true }),
+    label(196, 146, 'Cl', { size: 84, bold: true, central: true }),
 
     leader(194, 112, 326, 96),
-    label(340, 88, `mass number ${mass}`, { size: 24, bold: true, load: true }),
-    label(340, 116, 'protons + neutrons', { size: 21 }),
+    label(340, 88, `mass number ${mass}`, { size: 24, bold: true }),
+    label(340, 116, 'protons + neutrons', { size: 21, bold: true }),
 
     leader(194, 180, 326, 196),
     label(340, 190, `atomic number ${atomic}`, {
       size: 24,
       bold: true,
       fill: ACID_RED,
-      load: true,
     }),
-    label(340, 218, `${atomic} protons, which is`, { size: 21 }),
-    label(340, 244, 'what makes it chlorine', { size: 21 }),
+    label(340, 218, `${atomic} protons, which is`, { size: 21, bold: true }),
+    label(340, 244, 'what makes it chlorine', { size: 21, bold: true }),
 
     `<path d="M 150 268 L 490 268" fill="none" stroke="${INK}" stroke-width="2" ` +
       'stroke-opacity="0.45" stroke-linecap="round" />',
@@ -591,7 +594,6 @@ function drawAtomicAndMassNumber(slot: Slot): string {
       bold: true,
       anchor: 'middle',
       mono: true,
-      load: true,
     }),
   ]);
 }
@@ -623,10 +625,10 @@ function drawIsotopesOfHydrogen(slot: Slot): string {
       size: 22,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
     label(320, 58, 'Filled = proton, hollow = neutron, outer mark = electron.', {
       size: 20,
+      bold: true,
       anchor: 'middle',
     }),
   ];
@@ -658,8 +660,8 @@ function drawIsotopesOfHydrogen(slot: Slot): string {
     parts.push(...nucleons(cx, cy, 12, places, 1));
 
     parts.push(
-      label(cx, 218, isotope.name, { size: 25, bold: true, anchor: 'middle', load: true }),
-      label(cx, 246, '1 proton', { size: 20, bold: true, anchor: 'middle', load: true }),
+      label(cx, 218, isotope.name, { size: 25, bold: true, anchor: 'middle' }),
+      label(cx, 246, '1 proton', { size: 20, bold: true, anchor: 'middle' }),
     );
     if (isotope.neutrons > 0) {
       parts.push(
@@ -667,7 +669,6 @@ function drawIsotopesOfHydrogen(slot: Slot): string {
           size: 20,
           bold: true,
           anchor: 'middle',
-          load: true,
         }),
       );
     }
@@ -730,7 +731,6 @@ function drawWeightedAverage(slot: Slot): string {
       size: 23,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
 
     // Tinted fills rather than solid ones, so the segments read on both
@@ -748,26 +748,22 @@ function drawWeightedAverage(slot: Slot): string {
       bold: true,
       anchor: 'middle',
       central: true,
-      load: true,
     }),
     label(n((split + barLeft + barWidth) / 2), 71, `${n(heavy * 100)}%`, {
       size: 26,
       bold: true,
       anchor: 'middle',
       central: true,
-      load: true,
     }),
     label(n((barLeft + split) / 2), 118, `chlorine-${CHLORINE.lightMassNumber}`, {
       size: 21,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
     label(n((split + barLeft + barWidth) / 2), 118, `chlorine-${CHLORINE.heavyMassNumber}`, {
       size: 21,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
 
     `<path d="M ${axisLeft} ${axisY} L ${n(axisLeft + axisWidth)} ${axisY}" fill="none" ` +
@@ -779,7 +775,6 @@ function drawWeightedAverage(slot: Slot): string {
         size: 21,
         bold: true,
         anchor: 'middle',
-        load: true,
       }),
     ]),
     `<path d="M ${n(meanX)} ${axisY} L ${n(meanX - 11)} ${axisY - 17} L ${n(meanX + 11)} ` +
@@ -789,27 +784,28 @@ function drawWeightedAverage(slot: Slot): string {
       bold: true,
       anchor: 'middle',
       fill: ACID_RED,
-      load: true,
     }),
 
     label(320, 232, `Nearer ${CHLORINE.lightMassNumber}, because ${CHLORINE.lightMassNumber} is the common one.`, {
       size: 20,
+      bold: true,
       anchor: 'middle',
     }),
     label(
       320,
       270,
       `(${light} × ${CHLORINE.lightMassNumber}) + (${heavy} × ${CHLORINE.heavyMassNumber}) = ${mean}`,
-      { size: 25, bold: true, anchor: 'middle', mono: true, load: true },
+      { size: 25, bold: true, anchor: 'middle', mono: true },
     ),
     label(
       320,
       300,
       `Not (${CHLORINE.lightMassNumber} + ${CHLORINE.heavyMassNumber}) ÷ 2 = ${middle}. No atom weighs ${mean}.`,
-      { size: 20, anchor: 'middle' },
+      { size: 20, bold: true, anchor: 'middle' },
     ),
     label(320, 326, `The split is rounded: measured, it is ${CHLORINE.measured}.`, {
       size: 20,
+      bold: true,
       anchor: 'middle',
     }),
   ]);
@@ -864,16 +860,14 @@ function drawEnergyLevels(slot: Slot): string {
       size: 20,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
 
-    label(296, 52, SODIUM.levels.join(', '), { size: 46, bold: true, load: true }),
-    label(296, 82, 'outer level last', { size: 21 }),
+    label(296, 52, SODIUM.levels.join(', '), { size: 46, bold: true }),
+    label(296, 82, 'outer level last', { size: 21, bold: true }),
     ...SODIUM.levels.map((count, level) =>
       label(296, 126 + level * 30, `level ${level + 1}: ${count} electron${count > 1 ? 's' : ''}`, {
         size: 21,
         bold: true,
-        load: true,
       }),
     ),
 
@@ -890,7 +884,6 @@ function drawEnergyLevels(slot: Slot): string {
       size: 20,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
   );
 
@@ -921,7 +914,7 @@ function drawOrderedByAtomicNumber(slot: Slot): string {
       bold: true,
       anchor: 'middle',
     }),
-    label(320, 58, 'The small number counts the protons.', { size: 20, anchor: 'middle' }),
+    label(320, 58, 'The small number counts the protons.', { size: 20, bold: true, anchor: 'middle' }),
   ];
 
   ORDER_PAIR.forEach((element, index) => {
@@ -933,16 +926,14 @@ function drawOrderedByAtomicNumber(slot: Slot): string {
         size: 26,
         bold: true,
         fill: ACID_RED,
-        load: true,
       }),
-      label(mid, 154, element.symbol, { size: 54, bold: true, anchor: 'middle', load: true }),
-      label(mid, 186, element.name, { size: 21, anchor: 'middle' }),
+      label(mid, 154, element.symbol, { size: 54, bold: true, anchor: 'middle' }),
+      label(mid, 186, element.name, { size: 21, bold: true, anchor: 'middle' }),
       label(mid, 210, element.mass, {
         size: 23,
         bold: true,
         anchor: 'middle',
         mono: true,
-        load: true,
       }),
       label(mid, 250, element.rank, { size: 21, bold: true, anchor: 'middle' }),
     );
@@ -951,6 +942,7 @@ function drawOrderedByAtomicNumber(slot: Slot): string {
   parts.push(
     label(320, 282, `${ORDER_PAIR[0].name} has one proton fewer, so it goes first.`, {
       size: 21,
+      bold: true,
       anchor: 'middle',
     }),
   );
@@ -1005,7 +997,7 @@ function drawHalfLife(slot: Slot): string {
     `<path d="M ${originX} 48 L ${originX} ${baseline} L ${n(x(lastTime) + 22)} ${baseline}" ` +
       `fill="none" stroke="${INK}" stroke-width="2.5" stroke-linecap="round" ` +
       'stroke-linejoin="round" />',
-    label(66, 123, 'how much is left', { size: 20, anchor: 'middle', rotate: 90 }),
+    label(66, 123, 'how much is left', { size: 20, bold: true, anchor: 'middle', rotate: 90 }),
 
     `<polyline points="${samples.join(' ')}" fill="none" stroke="${BASE_BLUE}" ` +
       'stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />',
@@ -1035,19 +1027,17 @@ function drawHalfLife(slot: Slot): string {
         size: 21,
         bold: true,
         central: true,
-        load: true,
       }),
-      label(px, 226, String(halfLives), { size: 22, bold: true, anchor: 'middle', load: true }),
+      label(px, 226, String(halfLives), { size: 22, bold: true, anchor: 'middle' }),
     );
   });
 
   parts.push(
-    label(536, 226, 'half-lives', { size: 20 }),
+    label(536, 226, 'half-lives', { size: 20, bold: true }),
     label(320, 250, 'After 3 half-lives, an eighth is left.', {
       size: 22,
       bold: true,
       anchor: 'middle',
-      load: true,
     }),
     frame(50, 262, 540, 52),
     ...HALF_LIVES.map((line, index) =>
@@ -1055,7 +1045,6 @@ function drawHalfLife(slot: Slot): string {
         size: 20,
         bold: true,
         anchor: 'middle',
-        load: true,
       }),
     ),
   );

@@ -22,8 +22,8 @@
   <text x="490" y="204" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" font-weight="700" fill="#64748b">37</text>
   <path d="M 235 176 L 224 159 L 246 159 Z" fill="#ef4444" />
   <text x="235" y="148" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" font-weight="700" fill="#ef4444">35.5</text>
-  <text x="320" y="232" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" fill="#64748b">Nearer 35, because 35 is the common one.</text>
+  <text x="320" y="232" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#64748b">Nearer 35, because 35 is the common one.</text>
   <text x="320" y="270" text-anchor="middle" font-family="ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace" font-size="25" font-weight="700" fill="#64748b">(0.75 × 35) + (0.25 × 37) = 35.5</text>
-  <text x="320" y="300" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" fill="#64748b">Not (35 + 37) ÷ 2 = 36. No atom weighs 35.5.</text>
-  <text x="320" y="326" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" fill="#64748b">The split is rounded: measured, it is 75.8% and 24.2%.</text>
+  <text x="320" y="300" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#64748b">Not (35 + 37) ÷ 2 = 36. No atom weighs 35.5.</text>
+  <text x="320" y="326" text-anchor="middle" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" font-weight="700" fill="#64748b">The split is rounded: measured, it is 75.8% and 24.2%.</text>
 </svg>
