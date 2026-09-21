@@ -4,6 +4,17 @@ export type ChemicalClassification = 'Acidic' | 'Basic' | 'Neutral' | 'Amphoteri
 export type PhysicalState = 'solid' | 'liquid' | 'gas';
 export type ShortPhysicalState = 's' | 'l' | 'g' | 'aq';
 
+/**
+ * The family a cell belongs to in the *Families* view mode of the periodic
+ * table widget.
+ *
+ * `lanthanide` and `actinide` were added when that widget landed. The union
+ * was written for `ElementData.category`, which no registry entry has ever
+ * set and nothing reads, so the two new members break nothing — and without
+ * them the thirty f-block elements would have had to borrow
+ * `transition-metal`, which is the label the two rows are pulled out of the
+ * table precisely to avoid.
+ */
 export type ElementCategory =
   | 'nonmetal'
   | 'noble-gas'
@@ -12,7 +23,90 @@ export type ElementCategory =
   | 'metalloid'
   | 'halogen'
   | 'transition-metal'
-  | 'post-transition-metal';
+  | 'post-transition-metal'
+  | 'lanthanide'
+  | 'actinide';
+
+/**
+ * Metal, non-metal or metalloid — the first thing VC2S10U07 asks a student to
+ * read off the table, and a separate axis from `ElementCategory`: astatine is
+ * a `halogen` and a `non-metal`, silicon is a `metalloid` on both.
+ */
+export type MetalClass = 'metal' | 'non-metal' | 'metalloid';
+
+/**
+ * How vigorously an element reacts, **compared with the rest of its own
+ * group**. It is not a cross-group scale: "high" for sodium and "high" for
+ * chlorine describe two unrelated reactions, and the legend says so.
+ *
+ * Only groups 1, 2, 17 and 18 have one at this level, which is exactly what
+ * VC2S10U07 asks for. Everything else is `null` rather than a number invented
+ * to fill the column — the same decision, and the same reason, as
+ * `PeriodicTableEntry.outerElectrons`.
+ */
+export type Reactivity = 'unreactive' | 'low' | 'moderate' | 'high' | 'very-high';
+
+/**
+ * What the periodic-table widget teaches about one element, keyed by atomic
+ * number and **joined** to `ELEMENTS_REGISTRY` rather than replacing it. The
+ * registry stays the source of symbol, name, relative atomic mass and atomic
+ * radius; `src/core-engine/tests/periodic-table.test.ts` asserts the join is
+ * total in both directions.
+ *
+ * It is a separate shape because `ElementData` is load-bearing for five games.
+ * Teaching-only fields on it invite a game to read them.
+ *
+ * > **Nothing here is derived from `ElementData.valenceElectrons`.** That field
+ * > is the common combining number the games need, not a count of outer-shell
+ * > electrons — the registry has chromium at 3, gold at 1 and copernicium at
+ * > 12. `shells` is authored fresh and checked against a hand-written literal
+ * > for the first twenty elements.
+ */
+export interface PeriodicTableEntry {
+  /** Joins to `ELEMENTS_REGISTRY`. 1–118, no gap and no repeat. */
+  atomicNumber: number;
+  /**
+   * The registry's symbol, repeated here on purpose: it makes the 118 literals
+   * below readable as chemistry rather than as a column of numbers, and the
+   * integrity test uses it to prove the join lands on the element the line
+   * claims it does. It is never rendered from here — the cell reads the
+   * registry.
+   */
+  symbol: string;
+  /** 1–18. `null` for the f-block, and only for the f-block. */
+  group: number | null;
+  period: number;
+  block: 's' | 'p' | 'd' | 'f';
+  category: ElementCategory;
+  metalClass: MetalClass;
+  /** School electron arrangement, outer shell last: sodium is `[2, 8, 1]`. */
+  shells: number[];
+  /**
+   * Electrons in the outer shell — `null` across the d- and f-blocks rather
+   * than guessed, because "the outer shell" is not a simple count there. The
+   * *Outer shell* view mode greys those cells and the legend says why. That is
+   * the honest Year 9 answer, and it stops the sheet asserting that iron has
+   * two outer electrons.
+   */
+  outerElectrons: number | null;
+  /**
+   * The charge of the ion this element forms, or `null` where the table does
+   * not predict one: the noble gases, the elements that form no simple
+   * monatomic ion, and the whole d- and f-blocks, whose metals form more than
+   * one. The pattern the mode teaches is a group-number pattern, and it stops
+   * at the transition metals.
+   */
+  commonIonCharge: number | null;
+  /** Within its own group. `null` outside groups 1, 2, 17 and 18. */
+  reactivity: Reactivity | null;
+  stateAt25C: PhysicalState;
+  /**
+   * `synthetic` for technetium, promethium and everything past uranium — the
+   * line school chemistry draws. Several of those do occur in trace amounts;
+   * none of them is where a student would meet the element.
+   */
+  occurrence: 'natural' | 'synthetic';
+}
 
 export type FormulaTokenType =
   | 'text'

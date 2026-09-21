@@ -230,7 +230,7 @@ export const COMPOUNDS_REGISTRY: CompoundData[] = [
     isHazardous: true 
   },
   { 
-    type: 'compound', id: '31', formula: 'CsOH', name: 'Cesium Hydroxide', 
+    type: 'compound', id: '31', formula: 'CsOH', name: 'Caesium Hydroxide', 
     pKb: -1.7, difficulty: 5, molarMass: 149.91, stateAtRoomTemp: 'solid', 
     elements: [{ symbol: 'Cs', count: 1 }, { symbol: 'O', count: 1 }, { symbol: 'H', count: 1 }],
     ionicComponents: { cations: [{ ionId: '21', count: 1 }], anions: [{ ionId: '6', count: 1 }] },

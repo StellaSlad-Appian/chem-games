@@ -18,7 +18,7 @@ export const ELEMENTS_REGISTRY: ElementData[] = [
   // Period 3
   { type: 'element', atomicNumber: 11, symbol: 'Na', name: 'Sodium', mass: 22.990, valenceElectrons: 1, atomicRadius: 190 },
   { type: 'element', atomicNumber: 12, symbol: 'Mg', name: 'Magnesium', mass: 24.305, valenceElectrons: 2, atomicRadius: 145 },
-  { type: 'element', atomicNumber: 13, symbol: 'Al', name: 'Aluminum', mass: 26.982, valenceElectrons: 3, atomicRadius: 118 },
+  { type: 'element', atomicNumber: 13, symbol: 'Al', name: 'Aluminium', mass: 26.982, valenceElectrons: 3, atomicRadius: 118 },
   { type: 'element', atomicNumber: 14, symbol: 'Si', name: 'Silicon', mass: 28.085, valenceElectrons: 4, atomicRadius: 111 },
   { type: 'element', atomicNumber: 15, symbol: 'P', name: 'Phosphorus', mass: 30.974, valenceElectrons: 5, atomicRadius: 98 },
   { type: 'element', atomicNumber: 16, symbol: 'S', name: 'Sulfur', mass: 32.06, valenceElectrons: 6, atomicRadius: 88 },
@@ -63,7 +63,7 @@ export const ELEMENTS_REGISTRY: ElementData[] = [
   { type: 'element', atomicNumber: 53, symbol: 'I', name: 'Iodine', mass: 126.90, valenceElectrons: 7, atomicRadius: 115 },
   { type: 'element', atomicNumber: 54, symbol: 'Xe', name: 'Xenon', mass: 131.29, valenceElectrons: 8, atomicRadius: 108 },
   // Period 6
-  { type: 'element', atomicNumber: 55, symbol: 'Cs', name: 'Cesium', mass: 132.91, valenceElectrons: 1, atomicRadius: 298 },
+  { type: 'element', atomicNumber: 55, symbol: 'Cs', name: 'Caesium', mass: 132.91, valenceElectrons: 1, atomicRadius: 298 },
   { type: 'element', atomicNumber: 56, symbol: 'Ba', name: 'Barium', mass: 137.33, valenceElectrons: 2, atomicRadius: 253 },
   { type: 'element', atomicNumber: 57, symbol: 'La', name: 'Lanthanum', mass: 138.91, valenceElectrons: 3, atomicRadius: 195 },
   { type: 'element', atomicNumber: 58, symbol: 'Ce', name: 'Cerium', mass: 140.12, valenceElectrons: 3, atomicRadius: 185 },
