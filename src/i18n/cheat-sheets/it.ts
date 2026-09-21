@@ -672,6 +672,103 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     ],
   },
 
+  'relative-formula-mass': {
+    title: 'Massa atomica e massa formula relative',
+    summary:
+      'Che cosa vuol dire davvero Ar e come sommare gli atomi per ottenere la Mr di qualunque formula, pedici e parentesi compresi.',
+    keyTakeaways: [
+      'La massa atomica relativa (Ar) è un confronto, non un peso in grammi: un atomo di carbonio pesa quanto 12 atomi di idrogeno, quindi la sua Ar è 12.',
+      'Essendo un rapporto, Ar non ha unità di misura. Niente in questo bigino si misura in grammi finché non passi a una quantità reale.',
+      'La massa formula relativa (Mr) è la somma di tutti gli atomi della formula. Nient’altro: non si moltiplica alla fine e non si fa la media.',
+      'Un pedice moltiplica l’atomo che lo precede. Una parentesi moltiplica tutto quello che contiene.',
+      'Leggi Ar sulla tavola periodica. Non devi impararla a memoria, e una tavola scolastica arrotonda: H 1, C 12, O 16, Cl 35,5.',
+      'Per un composto ionico vale la stessa idea che per una molecola, ed è per questo che si dice massa formula e non molecolare: in NaCl non c’è nessuna molecola da pesare.',
+    ],
+    formulaExampleNames: [
+      'Acqua',
+      'Diossido di carbonio',
+      'Carbonato di calcio',
+      'Idrossido di magnesio',
+      'Nitrato di calcio',
+    ],
+    sections: [
+      {
+        heading: 'Che cosa vuol dire «relativa»',
+        content:
+          'Gli atomi sono troppo leggeri per pesarli uno alla volta, così i chimici li confrontano. Metti un atomo di carbonio su un piatto e atomi di idrogeno sull’altro: ne servono 12 perché la bilancia sia in equilibrio. L’idea è tutta qui: il carbonio pesa 12 volte l’idrogeno, quindi diciamo che la sua massa atomica relativa è 12. Il numero risponde alla domanda «quanti idrogeni?», ed è per questo che non ha unità: è un confronto, non una misura.',
+      },
+      {
+        heading: 'Sommare gli atomi',
+        content:
+          'La massa formula relativa (Mr) è la somma delle Ar di tutti gli atomi della formula. Procedi da sinistra a destra, un elemento alla volta, e scrivi il passaggio: H2O sono 2 idrogeni da 1 ciascuno più 1 ossigeno da 16, quindi 2 + 16 = 18. L’ordine non conta e alla fine non si moltiplica niente: se ti serve la calcolatrice per qualcosa di più di una somma, c’è qualcosa che non va.',
+        exampleNames: ['Ammoniaca', 'Metano', 'Acido solforico'],
+      },
+      {
+        heading: 'Pedici e parentesi',
+        content:
+          'Un pedice moltiplica solo l’atomo che segue: il 2 di CO2 vuol dire due ossigeni, non due di tutto. Una parentesi moltiplica l’intero gruppo che racchiude: Mg(OH)2 è un magnesio più due unità OH, quindi 24 + 2 × 17 = 58, non 24 + 16 + 1. Quando vedi una parentesi, calcola il gruppo una volta e poi moltiplica.',
+        exampleNames: ['Solfato di alluminio'],
+      },
+      {
+        heading: 'Perché la tavola di classe non coincide con internet',
+        content:
+          'Un libro dei dati dà il cloro a 35,45 e l’idrogeno a 1,008, perché un campione reale è una miscela di isotopi. Una tavola scolastica arrotonda: H 1, C 12, N 14, O 16, Cl 35,5. Sono corrette entrambe: quella arrotondata si somma più facilmente ed è abbastanza precisa per qualunque domanda ti faranno. Usa la tavola della tua classe e di’ quale hai usato se il risultato è al limite.',
+      },
+      {
+        heading: 'A che cosa serve',
+        content:
+          'Appena sai trovare la Mr dei due lati di un’equazione, puoi mostrare con i numeri che la massa si conserva e puoi scalare una ricetta: se 4 g di idrogeno danno 36 g di acqua, 8 g ne danno 72 g. È massa a massa per proporzione, senza nessuna mole. La mole arriva dopo, come scorciatoia per lo stesso ragionamento.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'I valori che usa una classe',
+        caption:
+          'Arrotondati come li arrotonda una tavola scolastica. Cloro e rame tengono un mezzo, perché arrotondarli all’intero rovinerebbe visibilmente un risultato.',
+        columns: ['Elemento', 'Simbolo', 'Ar'],
+        rows: [
+          ['idrogeno', 'H', '1'],
+          ['carbonio', 'C', '12'],
+          ['azoto', 'N', '14'],
+          ['ossigeno', 'O', '16'],
+          ['sodio', 'Na', '23'],
+          ['magnesio', 'Mg', '24'],
+          ['alluminio', 'Al', '27'],
+          ['zolfo', 'S', '32'],
+          ['cloro', 'Cl', '35.5'],
+          ['potassio', 'K', '39'],
+          ['calcio', 'Ca', '40'],
+          ['ferro', 'Fe', '56'],
+          ['rame', 'Cu', '63.5'],
+        ],
+      },
+      {
+        heading: 'Esempi svolti',
+        columns: ['Formula', 'Calcolo', 'Mr'],
+        rows: [
+          ['H2', '2 x 1', '2'],
+          ['O2', '2 x 16', '32'],
+          ['H2O', '2 x 1 + 16', '18'],
+          ['NaCl', '23 + 35.5', '58.5'],
+          ['MgO', '24 + 16', '40'],
+          ['CO2', '12 + 2 x 16', '44'],
+          ['CaCO3', '40 + 12 + 3 x 16', '100'],
+          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
+          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Dire che un atomo di carbonio «pesa 12»: 12 che cosa? Ar è un confronto con l’idrogeno e non ha unità. I grammi arrivano solo quando passi a una quantità reale.',
+      'Applicare il pedice a tutta la formula: in CO2 il 2 riguarda solo l’ossigeno.',
+      'Non vedere una parentesi, così Mg(OH)2 viene 41 invece di 58.',
+      'Chiamare la Mr «massa molecolare» per NaCl o MgO. Lì non c’è nessuna molecola, ed è esattamente per questo che si chiama massa formula.',
+      'Mescolare un valore del libro dei dati in un esercizio costruito sulla tavola di classe e poi stupirsi che il risultato differisca di una frazione.',
+      'Fare la media delle Ar invece di sommarle.',
+    ],
+  },
+
   stoichiometry: {
     title: 'La mole e la stechiometria',
     summary:

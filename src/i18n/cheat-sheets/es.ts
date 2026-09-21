@@ -663,6 +663,103 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     ],
   },
 
+  'relative-formula-mass': {
+    title: 'Masa atómica y masa fórmula relativas',
+    summary:
+      'Qué significa de verdad Ar y cómo sumar los átomos para obtener la Mr de cualquier fórmula, subíndices y paréntesis incluidos.',
+    keyTakeaways: [
+      'La masa atómica relativa (Ar) es una comparación, no un peso en gramos: un átomo de carbono pesa lo mismo que 12 átomos de hidrógeno, así que su Ar es 12.',
+      'Como es una razón, Ar no tiene unidad. Nada de esta chuleta se mide en gramos hasta que lo escalas a una cantidad real.',
+      'La masa fórmula relativa (Mr) es la suma de todos los átomos de la fórmula. Nada más: no se multiplica al final ni se hace una media.',
+      'Un subíndice multiplica el átomo que va delante. Un paréntesis multiplica todo lo que hay dentro.',
+      'Lee Ar en la tabla periódica. No se espera que te la sepas, y una tabla de clase redondea: H 1, C 12, O 16, Cl 35,5.',
+      'Para un compuesto iónico vale lo mismo que para una molécula, y por eso es masa fórmula y no molecular: en NaCl no hay ninguna molécula que pesar.',
+    ],
+    formulaExampleNames: [
+      'Agua',
+      'Dióxido de carbono',
+      'Carbonato de calcio',
+      'Hidróxido de magnesio',
+      'Nitrato de calcio',
+    ],
+    sections: [
+      {
+        heading: 'Qué quiere decir «relativa»',
+        content:
+          'Los átomos son demasiado ligeros para pesarlos de uno en uno, así que la química los compara. Pon un átomo de carbono en un platillo y átomos de hidrógeno en el otro: hacen falta 12 hidrógenos para que quede equilibrada. Esa es toda la idea: el carbono pesa 12 veces lo que el hidrógeno, así que decimos que su masa atómica relativa es 12. El número responde a «¿cuántos hidrógenos?», y por eso no tiene unidad: es una comparación, no una medida.',
+      },
+      {
+        heading: 'Sumar los átomos',
+        content:
+          'La masa fórmula relativa (Mr) es la Ar de cada átomo de la fórmula, sumadas. Ve de izquierda a derecha, un elemento cada vez, y escribe el desarrollo: H2O son 2 hidrógenos de 1 cada uno, más 1 oxígeno de 16, o sea 2 + 16 = 18. El orden da igual y al final no se multiplica nada; si necesitas la calculadora para algo más que una suma, algo va mal.',
+        exampleNames: ['Amoniaco', 'Metano', 'Ácido sulfúrico'],
+      },
+      {
+        heading: 'Subíndices y paréntesis',
+        content:
+          'Un subíndice multiplica solo al átomo al que sigue: el 2 de CO2 significa dos oxígenos, no dos de todo. Un paréntesis multiplica todo el grupo que encierra: Mg(OH)2 es un magnesio más dos unidades OH, así que 24 + 2 × 17 = 58, no 24 + 16 + 1. Cuando veas un paréntesis, calcula el grupo una vez y luego multiplica.',
+        exampleNames: ['Sulfato de aluminio'],
+      },
+      {
+        heading: 'Por qué la tabla de clase no coincide con internet',
+        content:
+          'Un libro de datos da el cloro como 35,45 y el hidrógeno como 1,008, porque una muestra real es una mezcla de isótopos. Una tabla de clase redondea: H 1, C 12, N 14, O 16, Cl 35,5. Las dos son correctas: la redondeada se suma más fácil y es bastante exacta para cualquier pregunta que te vayan a hacer. Usa la tabla de tu clase, y di cuál usaste si el resultado queda justo en el límite.',
+      },
+      {
+        heading: 'Para qué sirve',
+        content:
+          'En cuanto sabes hallar la Mr de los dos lados de una ecuación, puedes demostrar con números que la masa se conserva y escalar una receta: si 4 g de hidrógeno dan 36 g de agua, 8 g dan 72 g. Eso es masa a masa por proporción, y no hace falta ningún mol. El mol llega después, como atajo para el mismo razonamiento.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'Los valores que usa una clase',
+        caption:
+          'Redondeados como los redondea una tabla escolar. El cloro y el cobre conservan un medio porque redondearlos al entero estropearía visiblemente un resultado.',
+        columns: ['Elemento', 'Símbolo', 'Ar'],
+        rows: [
+          ['hidrógeno', 'H', '1'],
+          ['carbono', 'C', '12'],
+          ['nitrógeno', 'N', '14'],
+          ['oxígeno', 'O', '16'],
+          ['sodio', 'Na', '23'],
+          ['magnesio', 'Mg', '24'],
+          ['aluminio', 'Al', '27'],
+          ['azufre', 'S', '32'],
+          ['cloro', 'Cl', '35.5'],
+          ['potasio', 'K', '39'],
+          ['calcio', 'Ca', '40'],
+          ['hierro', 'Fe', '56'],
+          ['cobre', 'Cu', '63.5'],
+        ],
+      },
+      {
+        heading: 'Ejemplos resueltos',
+        columns: ['Fórmula', 'Desarrollo', 'Mr'],
+        rows: [
+          ['H2', '2 x 1', '2'],
+          ['O2', '2 x 16', '32'],
+          ['H2O', '2 x 1 + 16', '18'],
+          ['NaCl', '23 + 35.5', '58.5'],
+          ['MgO', '24 + 16', '40'],
+          ['CO2', '12 + 2 x 16', '44'],
+          ['CaCO3', '40 + 12 + 3 x 16', '100'],
+          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
+          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Decir que un átomo de carbono «pesa 12»: ¿12 qué? Ar es una comparación con el hidrógeno y no tiene unidad. Los gramos solo aparecen al escalar a una cantidad real.',
+      'Aplicar el subíndice a toda la fórmula: en CO2 el 2 es solo del oxígeno.',
+      'Pasar por alto un paréntesis, de modo que Mg(OH)2 sale 41 en vez de 58.',
+      'Llamar a la Mr «masa molecular» en NaCl o MgO. Ahí no hay molécula, y justo por eso se llama masa fórmula.',
+      'Mezclar un valor del libro de datos en un ejercicio hecho con la tabla de clase y luego extrañarse de que el resultado difiera por una fracción.',
+      'Hacer la media de las Ar en lugar de sumarlas.',
+    ],
+  },
+
   stoichiometry: {
     title: 'El mol y la estequiometría',
     summary:

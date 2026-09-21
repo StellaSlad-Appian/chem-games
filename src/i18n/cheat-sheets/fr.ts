@@ -669,6 +669,103 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     ],
   },
 
+  'relative-formula-mass': {
+    title: 'Masse atomique et masse formulaire relatives',
+    summary:
+      'Ce que Ar veut vraiment dire, et comment additionner les atomes pour trouver la Mr d’une formule – indices et parenthèses compris.',
+    keyTakeaways: [
+      'La masse atomique relative (Ar) est une comparaison, pas un poids en grammes : un atome de carbone pèse autant que 12 atomes d’hydrogène, donc son Ar vaut 12.',
+      'Comme c’est un rapport, Ar n’a pas d’unité. Rien sur cette fiche ne se mesure en grammes tant que tu n’es pas passé à une quantité réelle.',
+      'La masse formulaire relative (Mr) est la somme de tous les atomes de la formule. Rien d’autre : on ne multiplie pas à la fin, on ne fait pas de moyenne.',
+      'Un indice multiplie l’atome qui le précède. Une parenthèse multiplie tout ce qu’elle contient.',
+      'Lis Ar dans le tableau périodique. On ne te demande pas de la retenir, et un tableau de classe arrondit : H 1, C 12, O 16, Cl 35,5.',
+      'Pour un composé ionique c’est la même idée que pour une molécule – d’où formulaire et non moléculaire : dans NaCl, il n’y a aucune molécule à peser.',
+    ],
+    formulaExampleNames: [
+      'Eau',
+      'Dioxyde de carbone',
+      'Carbonate de calcium',
+      'Hydroxyde de magnésium',
+      'Nitrate de calcium',
+    ],
+    sections: [
+      {
+        heading: 'Ce que « relative » veut dire',
+        content:
+          'Les atomes sont bien trop légers pour être pesés un par un : les chimistes les comparent. Pose un atome de carbone sur un plateau et des atomes d’hydrogène sur l’autre — il en faut 12 pour que la balance soit à l’équilibre. Toute l’idée est là : le carbone est 12 fois plus lourd que l’hydrogène, donc on dit que sa masse atomique relative vaut 12. Le nombre répond à la question « combien d’hydrogènes ? », et c’est pour cela qu’il n’a pas d’unité : c’est une comparaison, pas une mesure.',
+      },
+      {
+        heading: 'Additionner les atomes',
+        content:
+          'La masse formulaire relative (Mr) est la somme des Ar de tous les atomes de la formule. Va de gauche à droite, un élément à la fois, et écris le calcul : H2O, c’est 2 hydrogènes à 1 chacun, plus 1 oxygène à 16, donc 2 + 16 = 18. L’ordre n’a pas d’importance et on ne multiplie rien à la fin — si tu sors la calculatrice pour autre chose qu’une addition, quelque chose cloche.',
+        exampleNames: ['Ammoniac', 'Méthane', 'Acide sulfurique'],
+      },
+      {
+        heading: 'Indices et parenthèses',
+        content:
+          'Un indice ne multiplie que l’atome qu’il suit : le 2 de CO2 veut dire deux oxygènes, pas deux de tout. Une parenthèse multiplie tout le groupe qu’elle contient : Mg(OH)2, c’est un magnésium plus deux groupes OH, donc 24 + 2 × 17 = 58, et non 24 + 16 + 1. Quand tu vois une parenthèse, calcule le groupe une fois, puis multiplie.',
+        exampleNames: ['Sulfate d’aluminium'],
+      },
+      {
+        heading: 'Pourquoi le tableau de la classe ne colle pas à Internet',
+        content:
+          'Un recueil de données donne le chlore à 35,45 et l’hydrogène à 1,008, parce qu’un échantillon réel est un mélange d’isotopes. Un tableau de classe arrondit : H 1, C 12, N 14, O 16, Cl 35,5. Les deux sont justes — la version arrondie s’additionne plus facilement et reste assez précise pour toutes les questions qu’on te posera. Utilise le tableau de ta classe, et précise lequel si le résultat est juste à la limite.',
+      },
+      {
+        heading: 'À quoi ça sert',
+        content:
+          'Dès que tu sais calculer la Mr des deux côtés d’une équation, tu peux montrer en chiffres que la masse se conserve, et mettre une recette à l’échelle : si 4 g d’hydrogène donnent 36 g d’eau, alors 8 g en donnent 72 g. C’est du masse à masse par proportion, sans aucune mole. La mole viendra plus tard, comme raccourci du même raisonnement.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'Les valeurs utilisées en classe',
+        caption:
+          'Arrondies comme les arrondit un tableau scolaire. Le chlore et le cuivre gardent un demi, parce que les arrondir à l’entier abîmerait visiblement un résultat.',
+        columns: ['Élément', 'Symbole', 'Ar'],
+        rows: [
+          ['hydrogène', 'H', '1'],
+          ['carbone', 'C', '12'],
+          ['azote', 'N', '14'],
+          ['oxygène', 'O', '16'],
+          ['sodium', 'Na', '23'],
+          ['magnésium', 'Mg', '24'],
+          ['aluminium', 'Al', '27'],
+          ['soufre', 'S', '32'],
+          ['chlore', 'Cl', '35.5'],
+          ['potassium', 'K', '39'],
+          ['calcium', 'Ca', '40'],
+          ['fer', 'Fe', '56'],
+          ['cuivre', 'Cu', '63.5'],
+        ],
+      },
+      {
+        heading: 'Exemples résolus',
+        columns: ['Formule', 'Calcul', 'Mr'],
+        rows: [
+          ['H2', '2 x 1', '2'],
+          ['O2', '2 x 16', '32'],
+          ['H2O', '2 x 1 + 16', '18'],
+          ['NaCl', '23 + 35.5', '58.5'],
+          ['MgO', '24 + 16', '40'],
+          ['CO2', '12 + 2 x 16', '44'],
+          ['CaCO3', '40 + 12 + 3 x 16', '100'],
+          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
+          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Dire qu’un atome de carbone « pèse 12 » — 12 quoi ? Ar est une comparaison avec l’hydrogène et n’a pas d’unité. Les grammes n’arrivent qu’au moment où tu passes à une quantité réelle.',
+      'Appliquer l’indice à toute la formule : dans CO2, le 2 ne concerne que l’oxygène.',
+      'Oublier une parenthèse, si bien que Mg(OH)2 donne 41 au lieu de 58.',
+      'Appeler la Mr « masse moléculaire » pour NaCl ou MgO. Il n’y a pas de molécule, et c’est précisément pour cela qu’on dit masse formulaire.',
+      'Mélanger une valeur du recueil de données à un exercice bâti sur le tableau de la classe, puis s’étonner que le résultat diffère d’une fraction de celui du corrigé.',
+      'Faire la moyenne des Ar au lieu de les additionner.',
+    ],
+  },
+
   stoichiometry: {
     title: 'La mole et la stœchiométrie',
     summary:

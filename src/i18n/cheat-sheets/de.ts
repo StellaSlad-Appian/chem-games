@@ -644,6 +644,103 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     ],
   },
 
+  'relative-formula-mass': {
+    title: 'Relative Atom- und Formelmasse',
+    summary:
+      'Was Ar wirklich bedeutet und wie du Atome zur Mr einer Formel zusammenzählst – Indizes und Klammern inbegriffen.',
+    keyTakeaways: [
+      'Die relative Atommasse (Ar) ist ein Vergleich, kein Gewicht in Gramm: Ein Kohlenstoffatom wiegt so viel wie 12 Wasserstoffatome, also ist die Ar von Kohlenstoff 12.',
+      'Weil es ein Verhältnis ist, hat die Ar keine Einheit. Nichts auf diesem Blatt wird in Gramm gemessen, bis du es auf eine echte Menge hochrechnest.',
+      'Die relative Formelmasse (Mr) ist die Summe aller Atome der Formel. Mehr nicht: nichts multiplizieren, nichts mitteln.',
+      'Ein Index gilt für das Atom davor. Eine Klammer gilt für alles, was in ihr steht.',
+      'Lies die Ar im Periodensystem ab. Du musst sie nicht auswendig können, und eine Schultabelle rundet – H 1, C 12, O 16, Cl 35,5.',
+      'Für eine Ionenverbindung gilt dasselbe wie für ein Molekül – deshalb heißt es Formelmasse und nicht Molekülmasse: An NaCl gibt es kein Molekül zu wiegen.',
+    ],
+    formulaExampleNames: [
+      'Wasser',
+      'Kohlenstoffdioxid',
+      'Calciumcarbonat',
+      'Magnesiumhydroxid',
+      'Calciumnitrat',
+    ],
+    sections: [
+      {
+        heading: 'Was „relativ“ wirklich heißt',
+        content:
+          'Atome sind viel zu leicht, um sie einzeln zu wiegen, also vergleichen Chemikerinnen und Chemiker sie. Leg ein Kohlenstoffatom auf die eine Waagschale und Wasserstoffatome auf die andere: Es braucht 12 Wasserstoffatome, bis die Waage gerade steht. Das ist die ganze Idee – Kohlenstoff ist 12-mal so schwer wie Wasserstoff, also sagen wir, seine relative Atommasse ist 12. Die Zahl beantwortet die Frage „wie viele Wasserstoffatome?“, und genau deshalb hat sie keine Einheit: Sie ist ein Vergleich, keine Messung.',
+      },
+      {
+        heading: 'Die Atome zusammenzählen',
+        content:
+          'Die relative Formelmasse (Mr) ist die Ar jedes Atoms der Formel, addiert. Arbeite von links nach rechts, ein Element nach dem anderen, und schreib den Rechenweg auf: H2O sind 2 Wasserstoff zu je 1, dazu 1 Sauerstoff mit 16, also 2 + 16 = 18. Die Reihenfolge ist egal, und am Ende wird nichts multipliziert – wenn du für mehr als eine Summe zum Taschenrechner greifst, ist etwas schiefgegangen.',
+        exampleNames: ['Ammoniak', 'Methan', 'Schwefelsäure'],
+      },
+      {
+        heading: 'Indizes und Klammern',
+        content:
+          'Ein Index gilt nur für das Atom davor: Die 2 in CO2 bedeutet zwei Sauerstoff, nicht zwei von allem. Eine Klammer gilt für die ganze Gruppe darin: Mg(OH)2 ist ein Magnesium plus zwei OH-Einheiten, also 24 + 2 × 17 = 58, nicht 24 + 16 + 1. Wenn du eine Klammer siehst, rechne die Gruppe einmal aus und multipliziere dann.',
+        exampleNames: ['Aluminiumsulfat'],
+      },
+      {
+        heading: 'Warum die Tabelle im Unterricht nicht zum Internet passt',
+        content:
+          'Ein Tafelwerk gibt Chlor mit 35,45 an und Wasserstoff mit 1,008, weil eine echte Probe ein Gemisch aus Isotopen ist. Eine Tabelle für Klasse 10 rundet: H 1, C 12, N 14, O 16, Cl 35,5. Beides stimmt – die gerundete Fassung lässt sich leichter addieren und ist für jede Aufgabe genau genug, die dir gestellt wird. Nimm die Tabelle, die deine Klasse benutzt, und schreib dazu, welche es war, wenn das Ergebnis knapp an einer Grenze liegt.',
+      },
+      {
+        heading: 'Wozu das gut ist',
+        content:
+          'Sobald du die Mr beider Seiten einer Gleichung bestimmen kannst, kannst du die Massenerhaltung in Zahlen zeigen und ein Rezept hochrechnen: Wenn 4 g Wasserstoff 36 g Wasser ergeben, dann ergeben 8 g eben 72 g. Das ist Masse zu Masse über das Verhältnis, ganz ohne Mol. Das Mol kommt später – als Abkürzung für dieselbe Überlegung.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'Die Werte, die eine Klasse 10 benutzt',
+        caption:
+          'So gerundet, wie eine Schultabelle rundet. Chlor und Kupfer behalten eine Hälfte, weil das Runden auf eine ganze Zahl ein Ergebnis sichtbar verfälschen würde.',
+        columns: ['Element', 'Symbol', 'Ar'],
+        rows: [
+          ['Wasserstoff', 'H', '1'],
+          ['Kohlenstoff', 'C', '12'],
+          ['Stickstoff', 'N', '14'],
+          ['Sauerstoff', 'O', '16'],
+          ['Natrium', 'Na', '23'],
+          ['Magnesium', 'Mg', '24'],
+          ['Aluminium', 'Al', '27'],
+          ['Schwefel', 'S', '32'],
+          ['Chlor', 'Cl', '35.5'],
+          ['Kalium', 'K', '39'],
+          ['Calcium', 'Ca', '40'],
+          ['Eisen', 'Fe', '56'],
+          ['Kupfer', 'Cu', '63.5'],
+        ],
+      },
+      {
+        heading: 'Gerechnete Beispiele',
+        columns: ['Formel', 'Rechenweg', 'Mr'],
+        rows: [
+          ['H2', '2 x 1', '2'],
+          ['O2', '2 x 16', '32'],
+          ['H2O', '2 x 1 + 16', '18'],
+          ['NaCl', '23 + 35.5', '58.5'],
+          ['MgO', '24 + 16', '40'],
+          ['CO2', '12 + 2 x 16', '44'],
+          ['CaCO3', '40 + 12 + 3 x 16', '100'],
+          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
+          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+        ],
+      },
+    ],
+    commonMistakes: [
+      'Zu sagen, ein Kohlenstoffatom „wiegt 12“ – 12 was? Die Ar ist ein Vergleich mit Wasserstoff und hat keine Einheit. Gramm kommen erst ins Spiel, wenn du auf eine echte Menge hochrechnest.',
+      'Den Index auf die ganze Formel anzuwenden: In CO2 gehört die 2 allein zum Sauerstoff.',
+      'Eine Klammer zu übersehen, sodass für Mg(OH)2 41 statt 58 herauskommt.',
+      'Die Mr bei NaCl oder MgO „Molekülmasse“ zu nennen. Dort gibt es kein Molekül – genau deshalb heißt sie Formelmasse.',
+      'Einen Wert aus dem Tafelwerk in eine Aufgabe zu mischen, die auf der Klassentabelle beruht, und sich dann zu wundern, warum das Ergebnis um einen Bruchteil vom Arbeitsblatt abweicht.',
+      'Die Ar-Werte zu mitteln statt sie zu addieren.',
+    ],
+  },
+
   stoichiometry: {
     title: 'Stoffmenge und Stöchiometrie',
     summary:

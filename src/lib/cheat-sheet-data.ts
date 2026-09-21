@@ -848,6 +848,122 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM, IUPAC_GOLD_BOOK],
   },
   {
+    slug: 'relative-formula-mass',
+    title: 'Relative Atomic & Formula Mass',
+    yearLevel: 'Year 10',
+    category: 'Stoichiometry',
+    summary:
+      'What Ar really means, and how to add atoms up to get the Mr of any formula — subscripts and brackets included.',
+    iconName: 'Scale',
+    colorTheme: 'border-sky-500 text-sky-500',
+    curriculumRef:
+      'Not in the Victorian Curriculum F–10: Levels 9 and 10 cover conservation of mass and balanced equations (VC2S10U08), and relative atomic mass is not named. Most Year 10 courses teach it as pre-VCE extension, and it is formally VCE Unit 1.',
+    // No relatedGames yet: the game that practises this (Mass Production,
+    // slug reacting-quantities) is built but lives on its own branch until
+    // its visuals are finished and a native speaker has read the five
+    // translations. Relinking it is one line.
+    keyTakeaways: [
+      'Relative atomic mass (Ar) is a comparison, not a weight in grams: one carbon atom weighs the same as 12 hydrogen atoms, so carbon\'s Ar is 12.',
+      'Because it is a ratio, Ar has no unit. Nothing in this sheet is measured in grams until you scale it up to a real amount.',
+      'Relative formula mass (Mr) is every atom in the formula added up. Nothing else: no multiplying, no averaging.',
+      'A subscript multiplies the atom before it. A bracket multiplies everything inside it.',
+      'Read Ar off the periodic table. You are not expected to remember it, and a class table rounds it — H 1, C 12, O 16, Cl 35.5.',
+      'Mr is the same idea for an ionic compound as for a molecule, which is why it is formula mass and not molecular mass: NaCl has no molecule to weigh.',
+    ],
+    formulaExamples: [
+      { name: 'Water', formula: 'H2O', description: '2 x 1 + 16 = 18' },
+      { name: 'Carbon dioxide', formula: 'CO2', description: '12 + 2 x 16 = 44' },
+      { name: 'Calcium carbonate', formula: 'CaCO3', description: '40 + 12 + 3 x 16 = 100' },
+      { name: 'Magnesium hydroxide', formula: 'Mg(OH)2', description: '24 + 2 x (16 + 1) = 58' },
+      { name: 'Calcium nitrate', formula: 'Ca(NO3)2', description: '40 + 2 x (14 + 3 x 16) = 164' },
+    ],
+    sections: [
+      {
+        heading: 'What "relative" actually means',
+        content:
+          'Atoms are far too light to weigh one at a time, so chemists compare them instead. Put one carbon atom on one pan of a balance and hydrogen atoms on the other: it takes 12 hydrogens to make it level. That is the whole idea — carbon is 12 times as heavy as hydrogen, so we say its relative atomic mass is 12. The number answers "how many hydrogens?", which is why it has no unit: it is a comparison, not a measurement.',
+      },
+      {
+        heading: 'Adding the atoms up',
+        content:
+          'Relative formula mass (Mr) is the Ar of every atom in the formula, added together. Work left to right, one element at a time, and write the working down: H2O is 2 hydrogens at 1 each, plus 1 oxygen at 16, so 2 + 16 = 18. The order does not matter and nothing gets multiplied at the end — if you are reaching for a calculator for anything harder than a sum, something has gone wrong.',
+        examples: [
+          { name: 'Ammonia', formula: 'NH3', description: '14 + 3 x 1 = 17' },
+          { name: 'Methane', formula: 'CH4', description: '12 + 4 x 1 = 16' },
+          { name: 'Sulfuric acid', formula: 'H2SO4', description: '2 x 1 + 32 + 4 x 16 = 98' },
+        ],
+      },
+      {
+        heading: 'Subscripts and brackets',
+        content:
+          'A subscript multiplies only the atom it follows: the 2 in CO2 means two oxygens, not two of everything. A bracket multiplies the whole group inside it: Mg(OH)2 is one magnesium plus two OH units, so 24 + 2 x 17 = 58, not 24 + 16 + 1. When you see a bracket, work out the group once and then multiply.',
+        examples: [
+          { name: 'Aluminium sulfate', formula: 'Al2(SO4)3', description: '2 x 27 + 3 x (32 + 4 x 16) = 342' },
+        ],
+      },
+      {
+        heading: 'Why the table in class disagrees with the internet',
+        content:
+          'A data book gives chlorine as 35.45 and hydrogen as 1.008, because a real sample is a mixture of isotopes. A Year 10 table rounds: H 1, C 12, N 14, O 16, Cl 35.5. Both are right — the rounded one is easier to add up and accurate enough for every question you will be asked. Use the table your class uses, and say which one you used if the answer is close to a boundary.',
+      },
+      {
+        heading: 'What it is for',
+        content:
+          'Once you can find the Mr of both sides of an equation, you can show mass is conserved in numbers, and you can scale a recipe: if 4 g of hydrogen makes 36 g of water, then 8 g makes 72 g. That is mass-to-mass by proportion, and it needs no mole at all. The mole comes later, as a shortcut for the same reasoning.',
+      },
+    ],
+    tables: [
+      {
+        heading: 'The values a Year 10 class uses',
+        caption:
+          'Rounded the way a school table rounds them. Chlorine and copper keep a half because rounding them to a whole number would visibly spoil an answer.',
+        columns: ['Element', 'Symbol', 'Ar'],
+        rows: [
+          ['Hydrogen', 'H', '1'],
+          ['Carbon', 'C', '12'],
+          ['Nitrogen', 'N', '14'],
+          ['Oxygen', 'O', '16'],
+          ['Sodium', 'Na', '23'],
+          ['Magnesium', 'Mg', '24'],
+          ['Aluminium', 'Al', '27'],
+          ['Sulfur', 'S', '32'],
+          ['Chlorine', 'Cl', '35.5'],
+          ['Potassium', 'K', '39'],
+          ['Calcium', 'Ca', '40'],
+          ['Iron', 'Fe', '56'],
+          ['Copper', 'Cu', '63.5'],
+        ],
+        formulaColumns: [1],
+      },
+      {
+        heading: 'Worked examples',
+        columns: ['Formula', 'Adding up', 'Mr'],
+        rows: [
+          ['H2', '2 x 1', '2'],
+          ['O2', '2 x 16', '32'],
+          ['H2O', '2 x 1 + 16', '18'],
+          ['NaCl', '23 + 35.5', '58.5'],
+          ['MgO', '24 + 16', '40'],
+          ['CO2', '12 + 2 x 16', '44'],
+          ['CaCO3', '40 + 12 + 3 x 16', '100'],
+          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
+          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+        ],
+        formulaColumns: [0],
+      },
+    ],
+    commonMistakes: [
+      'Saying an atom of carbon "weighs 12" — 12 what? Ar is a comparison with hydrogen and has no unit. Grams only appear once you scale up to a real amount.',
+      'Applying a subscript to the whole formula: in CO2 the 2 belongs to the oxygen alone.',
+      'Ignoring a bracket, so Mg(OH)2 comes out as 41 instead of 58.',
+      'Calling Mr the "molecular mass" for something like NaCl or MgO. There is no molecule there, which is exactly why it is called formula mass.',
+      'Mixing a data-book value into a question built on the class table, then wondering why the answer disagrees with the worksheet by a fraction.',
+      'Averaging the Ar values instead of adding them.',
+    ],
+    resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM],
+  },
+  {
     slug: 'stoichiometry',
     title: 'The Mole & Stoichiometry',
     yearLevel: 'Senior',
