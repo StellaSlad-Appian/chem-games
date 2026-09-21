@@ -92,7 +92,7 @@ this table, which is a snapshot.
 | F | *Foundations* (§4) | — | — | **Yes** | — |
 | 1 | `reaction-balancer.md` | `reaction-balancer` | Approved rev 2 — built; translation in progress on `i18n` | **Yes** | F; German title decision in the brief's "Languages" table |
 | 2 | `lewis-structures.md` | `lewis-structures` | Approved rev 3 — built; translation in progress on `i18n` | **Yes** | F (`AtomCanvas` is built *inside* this game and promoted to shared); German title decision |
-| 3 | `stoichiometry-game.md` | `reaction-factory` | Draft rev 2, titles per locale to decide | **No — needs `Approved`** | F, Stella's approval incl. the "Languages" table; reuses the bracket-aware parser from 1 |
+| 3 | `stoichiometry-game.md` | `reaction-factory` | Draft rev 2; all six locale titles decided 2026-09-21 | **No — needs `Approved`** | F, Stella's approval incl. the "Languages" table; reuses the bracket-aware parser from 1 |
 | 4 | `ion-forge.md` | `ion-forge` | Draft, 3 `YOU DECIDE` | No | Stella resolves tray size, hydrates, molecular/acid naming placement |
 | 5 | `stoichiometry.md` (Mole Foundry) | `mole-foundry` | Draft, open questions | No | Stella; should be re-aligned with Reaction Factory Level 9 first |
 | 6 | `synthesis-router.md` | `synthesis-router` | Planned, 4 open questions | No | Stella confirms R15/R16, Markovnikov, exam-mode placement |

@@ -336,13 +336,27 @@ mole in grams".
 
 Ships in every locale in `LOCALES` (`docs/i18n/GAMES.md`). English is the canonical text
 above; each other locale is a translation of it, checked against `docs/i18n/glossary-<locale>.md`.
-The table below must be resolved before the status line reads `Approved`.
+**Decided 2026-09-21** — the table below is the spec; build it verbatim. A native-speaker check
+of each row still happens at build time and is reported under Check 4 (`BUILD_PLAN.md` §6); a
+row that a native speaker rejects is changed there, with the reason, not silently.
+
+Titles follow the shape the hub already uses in each language: English and German name the
+thing (*Formula Blaster*, *Reaktions-Balancer*), the Romance locales take article + noun
+(*La balance des atomes*, *La bilancia degli atomi*), and Russian takes noun + genitive
+(*Весы реакций*). Hub descriptions are one imperative sentence in the informal second person,
+like every other row in `gamesHub`, and carry no colon.
 
 | Locale | Title | Kind | Hub description | Notes / alternative |
 |---|---|---|---|---|
-| en | Reaction Factory | — | Fill the orders: the balanced equation is the recipe. | Proposal; the brief has no hub line yet. > YOU DECIDE |
-| de | Reaktionsfabrik | translation | Erfülle die Aufträge: die ausgeglichene Gleichung ist das Rezept. | A natural German compound; reads as a game, not an instruction. Alternative: *Reaktions-Fabrik* (hyphenated, matches *Formel-Blaster*). > YOU DECIDE |
-| fr, es, it, ru | — | — | — | filled when the locale is added (`docs/i18n/README.md` § Adding a locale) |
+| en | Reaction Factory | — | Follow the equation like a recipe and fill every order. | Rewritten from the rev 2 proposal ("Fill the orders: the balanced equation is the recipe."), which was two clauses and a colon where every other hub line is one imperative sentence. Keeps the coined *order*. |
+| de | Reaktionsfabrik | translation | Folge der Gleichung wie einem Rezept und erfülle jeden Auftrag. | Closed compound, because German closes native compounds; *Formel-Blaster* and *Reaktions-Balancer* are hyphenated only because the head noun is English. Alternative: *Reaktions-Fabrik*. |
+| fr | L'usine à réactions | adaptation | Suis l'équation comme une recette et remplis chaque commande. | *Usine à X* is the idiomatic "factory that turns out X" and matches the article + noun shape of *La balance des atomes*. Alternative: *La fabrique de molécules* (smaller scale, warmer). |
+| es | La fábrica de reacciones | translation | Sigue la ecuación como una receta y completa cada pedido. | Mirrors *La balanza de átomos* exactly. es-ES, per `glossary-es.md`. Alternative: *La fábrica de moléculas*. |
+| it | La fabbrica delle reazioni | translation | Segui l'equazione come una ricetta e completa ogni ordine. | Mirrors *La bilancia degli atomi* exactly. Alternative: *L'officina delle reazioni* (workshop rather than plant). |
+| ru | Фабрика реакций | translation | Следуй уравнению как рецепту и выполняй заказы. | Noun + genitive, like *Весы реакций*; *фабрика* is light manufacturing, which is the register "factory" has here. *ты*, per `glossary-ru.md`. Alternative: *Химический завод* (heavy plant, further from the English). |
+
+The hub descriptions above also fix the coined **order** in each language — *Auftrag*,
+*commande*, *pedido*, *ordine*, *заказ* — so the glossary rows are written to match them.
 
 **Terms to fix in each glossary before translating:** the coined **hopper**, **batch**, **order**
 and **production log** (de: *Trichter*, *Ansatz* — the review rates *Charge* low for teenagers —
