@@ -172,11 +172,25 @@ export const GAME_LINKS: Partial<Record<GameName, { title: string; href: string 
 /**
  * Folder holding this sheet's diagrams, under `public/`.
  *
- * Every section below points at a file in here. The files that ship are
- * placeholders — a dashed frame saying what the diagram should show — so the
- * page has its final shape and its final alt text from the first commit, and
- * providing a real diagram is replacing one file. No code changes, no rebuild
- * of the data. docs/CHEAT_SHEET_IMAGES.md lists every slot and its size.
+ * Every section below points at a file in here, and every one of those files is
+ * **generated** by `scripts/cheat-sheet-diagrams.mts`:
+ *
+ * ```
+ * npm run cheat-sheets:diagrams              write the files
+ * npm run cheat-sheets:diagrams -- --check   fail if a file on disk is stale
+ * ```
+ *
+ * So changing a diagram is changing that script's drawing function and
+ * re-running it — not editing the SVG, which the next run overwrites. The
+ * `--check` mode is what stops a hand-edit surviving unnoticed.
+ *
+ * Note this is not how a *new* sheet's diagrams have to work: the page shows
+ * whatever is at the filename, so dropping a file in still works elsewhere.
+ * These seven are generated because they have to hold one measured palette
+ * across both themes and keep their numbers agreeing with the prose.
+ *
+ * docs/CHEAT_SHEET_IMAGES.md lists every slot and its size, and the script's
+ * own header carries the reasoning.
  */
 const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
 
@@ -185,9 +199,16 @@ const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
  * into. Three of the original seven diagrams teach isotopes, the weighted
  * average and decay, so they moved with the prose rather than being served to
  * the new sheet out of the old sheet's folder. One folder per slug is what
- * docs/CHEAT_SHEET_IMAGES.md documents, and the M7 diagram milestone renames
- * and re-splits these; keeping the folder honest now is what makes that a
- * one-folder change later.
+ * docs/CHEAT_SHEET_IMAGES.md documents.
+ *
+ * The redesign brief wanted slot 7 renamed to `07-half-life.svg` and its
+ * synthetic-element half split into a second file. Neither happened, and
+ * neither should: the filename is the contract the images doc is built on, and
+ * the synthetic elements moved to the periodic table widget's *natural or made*
+ * view mode rather than to another diagram. `07-decay-and-made-elements.svg` is
+ * now the decay curve alone, under the Half-life section. The note under "The
+ * slots on Isotopes & Radioactivity" in docs/CHEAT_SHEET_IMAGES.md is the
+ * current version of this.
  */
 const ISOTOPE_DIAGRAMS = '/cheat-sheets/isotopes-and-radioactivity/';
 
