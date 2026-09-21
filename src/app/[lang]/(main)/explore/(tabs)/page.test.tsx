@@ -235,7 +235,7 @@ describe('the molecule tab', () => {
     expect(section.textContent).toContain(moleculeName());
   });
 
-  it('puts the picture beside the prose, capped and contained', async () => {
+  it('floats the picture into the prose rather than putting it in a column', async () => {
     // The change that actually answers the complaint the redesign started from.
     // Asserted on the classes rather than a measured box, because jsdom
     // computes no layout — the browser check lives in e2e/explore.spec.ts.
@@ -243,13 +243,31 @@ describe('the molecule tab', () => {
 
     const image = container.querySelector('section img');
     expect(image).not.toBeNull();
-    // The cap stops a tall picture stretching its column; `object-contain`
-    // stops the cap cropping chemistry out of a structure diagram instead.
-    expect(image!.className).toContain('max-h-80');
-    expect(image!.className).toContain('object-contain');
-    expect(image!.parentElement!.className).toContain(
-      'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]'
-    );
+
+    // Floated from `sm`, so the prose wraps down its side and then runs full
+    // width underneath it. Below `sm` there is no float at all: a 40% float in
+    // a 320px viewport leaves the text a ribbon.
+    expect(image!.className).toContain('sm:float-left');
+
+    // The structure diagrams are landscape, so this one takes the wider of the
+    // two widths. The narrow one is for portraits — see the scientist tab.
+    expect(image!.className).toContain('sm:w-2/5');
+
+    // Width is the only constraint on a float. Capping its height would make
+    // `object-contain` letterbox the picture and the prose would then wrap
+    // around a band of dead space, so neither class belongs here any more.
+    expect(image!.className).not.toContain('max-h-80');
+    expect(image!.className).not.toContain('object-contain');
+
+    // A float needs a plain block to live in: a grid or flex parent ignores it
+    // outright, and the prose would stop wrapping.
+    const figureParent = image!.parentElement!;
+    expect(figureParent.className).not.toContain('grid');
+    expect(figureParent.className).not.toContain('flex');
+
+    // And it has to be ended, or a picture taller than its own text hangs out
+    // of the card with the inward link and sources wrapping up its side.
+    expect(figureParent.querySelector('.clear-both')).not.toBeNull();
   });
 
   it('still renders with a pool of one', async () => {

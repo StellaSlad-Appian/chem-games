@@ -144,25 +144,31 @@ export function MoleculeCard({
       </div>
 
       {/*
-        Picture beside the prose from `lg`, stacked below it.
+        The picture is *floated* into the top-left of the prose, not put in a
+        column of its own.
 
-        This, and not the tabs, is what actually answers the complaint the
-        redesign started from: a structure diagram told to fill the card was
-        several hundred pixels tall on a laptop and pushed everything worth
-        reading below the fold. **Unconditional, not behind a prop** — the
-        permalinks are `max-w-4xl` with no second column to borrow from and
-        want it more than the tabs do (explore.md §9, "The pictures").
+        This, and not the tabs, is what answers the complaint the redesign
+        started from: a structure diagram told to fill the card was several
+        hundred pixels tall on a laptop and pushed everything worth reading
+        below the fold. **Unconditional, not behind a prop** — the permalinks
+        are `max-w-4xl` with no second column to borrow from and want it more
+        than the tabs do (explore.md §9, "The pictures").
 
-        `minmax(0,5fr)_minmax(0,7fr)` rather than `5fr 7fr`: a grid track's
-        automatic minimum is its longest unbreakable word, so a long formula or
-        an unbroken compound name blows a bare `fr` column out and pushes the
-        page past 320px. Same failure the `min-w-0` notes above guard against.
+        A two-column grid was the first attempt and it is the wrong shape: the
+        prose can never run *underneath* the picture, so a short picture leaves
+        a tall empty gutter beside the text, and a tall one squeezes the text
+        into a narrow ribbon for its entire height. A float wraps the text down
+        the picture's right-hand side and then lets it return to full width the
+        moment it clears the bottom, which is what a reader expects from a
+        figure in running text.
+
+        **This container has to stay a plain block.** A float is ignored by a
+        flex or grid child, and a descendant that establishes its own block
+        formatting context — `overflow-hidden`, `flow-root`, flex, grid —
+        refuses to wrap around it and sits beside it instead. That is why the
+        prose below is a bare `<div>`.
       */}
-      <div
-        className={`mt-6 grid items-start gap-6 ${
-          molecule.image ? 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]' : ''
-        }`}
-      >
+      <div className="mt-6">
         {molecule.image && (
           /*
             A plain <img>, not next/image: these are small static files served
@@ -170,11 +176,17 @@ export function MoleculeCard({
             width/height are the file's intrinsic size, so the prose does not
             jump when the picture arrives.
 
-            `max-h-80` + `object-contain`: the cap is what stops a tall portrait
-            stretching its column, and `object-contain` is what stops the cap
-            cropping the diagram instead of shrinking it. Both are needed —
-            a height cap on its own would crop, which on a structure diagram
-            means silently deleting chemistry.
+            The float only starts at `sm`. Below that the picture is a
+            full-width block above the prose: a 40% float in a 320px viewport
+            leaves the text a ~170px ribbon, which is worse than no wrap at all.
+
+            The width is chosen from the file's own dimensions rather than
+            fixed, because the two halves of this feature have opposite
+            shapes — structure diagrams are landscape, portraits are not. A
+            portrait given a landscape's width becomes tall enough to hold the
+            wrap for the entire card. Width is the only constraint: cap the
+            *height* of a float and `object-contain` letterboxes it, leaving a
+            band of dead space inside the float that the text wraps around.
 
             Providing a picture is replacing the file at `src` — no code changes.
             docs/EXPLORE_IMAGES.md has the folder and the slot list.
@@ -185,14 +197,18 @@ export function MoleculeCard({
             alt={format(t.explore.moleculeImageA11y, { name: molecule.name })}
             width={molecule.image.width}
             height={molecule.image.height}
-            className="max-h-80 w-full min-w-0 rounded-2xl border border-(--border) bg-(--background) object-contain"
+            className={`mb-4 h-auto w-full rounded-2xl border border-(--border) bg-(--background) sm:float-left sm:mr-6 sm:mb-3 ${
+              molecule.image.height > molecule.image.width
+                ? 'sm:w-1/3 sm:max-w-[210px]'
+                : 'sm:w-2/5 sm:max-w-sm'
+            }`}
           />
         )}
 
-        {/* The picture is optional on every entry, so with no picture the prose
-            takes the whole width rather than leaving an empty column beside it:
-            there is only one column to take when the grid has no second track. */}
-        <div className="min-w-0 space-y-5">
+        {/* A bare `<div>` on purpose — see the container note above. The
+            picture is optional on every entry, and with none there is simply
+            no float to wrap, so the prose fills the width by itself. */}
+        <div className="space-y-5">
           <div>
             <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
               {t.explore.everydayHeading}
@@ -210,6 +226,19 @@ export function MoleculeCard({
             </p>
           </div>
         </div>
+
+        {/*
+          Ends the float.
+
+          Without this the container collapses to the height of the prose and
+          a picture taller than its own text hangs out of the bottom of the
+          card, with the inward link and the sources wrapping up its side. The
+          two short entries in the pool are exactly the ones that would do it.
+          `clear-both` on a zero-height element is the version that works with
+          the float starting only at `sm`; `flow-root` on the container would
+          contain the float but would also stop the prose wrapping it at all.
+        */}
+        <div className="clear-both" />
       </div>
 
       <InwardLink pattern={t.explore.moleculeCta} href={linkHref} title={linkTitle} />

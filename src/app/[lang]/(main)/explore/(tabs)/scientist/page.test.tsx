@@ -126,24 +126,45 @@ describe('the scientist tab', () => {
     }
   });
 
-  it('puts the picture beside the prose, capped and contained', async () => {
-    // A chemist's picture is a portrait, so it is the tall one — the cap
-    // matters more here than on a molecule.
+  it('floats the picture into the prose, narrower when it is a portrait', async () => {
+    // A chemist's picture is the tall one, which is exactly why a fixed column
+    // is wrong for it: in a column a portrait holds the text in a ribbon for
+    // its whole height, where a float lets the text past its chin and then
+    // back out to full width underneath.
     const { container } = await renderPage('en');
 
-    const image = container.querySelector('section img');
+    const image = container.querySelector('section img') as HTMLImageElement | null;
     if (image) {
-      expect(image.className).toContain('max-h-80');
-      expect(image.className).toContain('object-contain');
-      expect(image.parentElement!.className).toContain(
-        'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]'
-      );
+      expect(image.className).toContain('sm:float-left');
+
+      // The width is picked from the file's own dimensions, so the rule has to
+      // be checked against whichever shape this slot currently holds. The
+      // placeholders are landscape 720x400; the real photographs that replace
+      // them will not be, and that is the case the narrow width exists for.
+      const isPortrait = Number(image.getAttribute('height')) > Number(image.getAttribute('width'));
+      expect(image.className).toContain(isPortrait ? 'sm:w-1/3' : 'sm:w-2/5');
+
+      // Height is never capped on a float — `object-contain` would letterbox
+      // it and the prose would wrap around the dead space.
+      expect(image.className).not.toContain('max-h-80');
+
+      const figureParent = image.parentElement!;
+      expect(figureParent.className).not.toContain('grid');
+      // The credit block sits right below; a licence line wrapping around the
+      // photograph it credits is the thing `clear-both` prevents.
+      expect(figureParent.querySelector('.clear-both')).not.toBeNull();
     }
-    // With no picture the prose takes the whole width rather than leaving an
-    // empty column — half the chemists still have no picture at all, so this
-    // is the common case and not the edge one.
+    // With no picture there is simply no float to wrap, so the prose fills the
+    // width on its own — half the chemists still have no picture at all, so
+    // this is the common case and not the edge one. The prose container must
+    // stay a plain block either way: give it a grid, a flex or an
+    // `overflow-hidden` and it stops wrapping the float when a picture does
+    // arrive, which is the failure that would only show up on the day someone
+    // drops a photograph in.
     const prose = screen.getByText(en.explore.workHeading).closest('div')!.parentElement!;
-    if (!image) expect(prose.className).not.toContain('lg:grid-cols-');
+    expect(prose.className).not.toContain('grid');
+    expect(prose.className).not.toContain('flex');
+    expect(prose.className).not.toContain('overflow-hidden');
   });
 
   it('keeps the locale on every internal link', async () => {

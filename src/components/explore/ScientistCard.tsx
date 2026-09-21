@@ -86,21 +86,20 @@ export function ScientistCard({
       </div>
 
       {/*
-        Picture beside the prose from `lg`, stacked below it — see the long note
-        on the same block in `MoleculeCard`, including why the tracks are
-        `minmax(0,…)` and not bare `fr`.
+        The portrait floats into the top-left of the prose — see the long note
+        on the same block in `MoleculeCard` for why a float and not a column,
+        and why this container must stay a plain block.
 
-        The cap matters more here than it does on a molecule: a scientist's
-        picture is a portrait, so it is the tall one, and it is the half of the
-        pool still mostly without pictures — which means this has to be right
-        on the day a real photograph lands rather than tested only against
-        placeholders.
+        It matters more here than on a molecule. A portrait is the tall shape,
+        and in a fixed column a tall picture holds the text in a narrow ribbon
+        for its whole height; floated, the text wraps past the chin of the
+        photograph and then runs full width underneath it. This is also the
+        half of the pool still mostly on placeholders, so the orientation rule
+        below has to be right on the day a real photograph lands rather than
+        tested only against the 720×400 placeholder, which is landscape and so
+        is *not* representative of what will replace it.
       */}
-      <div
-        className={`mt-6 grid items-start gap-6 ${
-          scientist.image ? 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]' : ''
-        }`}
-      >
+      <div className="mt-6">
         {scientist.image && (
           // The alt is built from the name, which is never translated, so this
           // one string reads the same in every locale apart from the word in
@@ -111,13 +110,18 @@ export function ScientistCard({
             alt={format(t.explore.scientistImageA11y, { name: scientist.name })}
             width={scientist.image.width}
             height={scientist.image.height}
-            className="max-h-80 w-full min-w-0 rounded-2xl border border-(--border) bg-(--background) object-contain"
+            className={`mb-4 h-auto w-full rounded-2xl border border-(--border) bg-(--background) sm:float-left sm:mr-6 sm:mb-3 ${
+              scientist.image.height > scientist.image.width
+                ? 'sm:w-1/3 sm:max-w-[210px]'
+                : 'sm:w-2/5 sm:max-w-sm'
+            }`}
           />
         )}
 
-        {/* No picture: the prose takes the whole width rather than leaving an
-            empty column beside it. */}
-        <div className="min-w-0 space-y-5">
+        {/* A bare `<div>`: anything that establishes a block formatting context
+            here would sit beside the float instead of wrapping it. With no
+            picture there is no float, and the prose fills the width. */}
+        <div className="space-y-5">
           <div>
             <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
               {t.explore.workHeading}
@@ -135,6 +139,14 @@ export function ScientistCard({
             </p>
           </div>
         </div>
+
+        {/*
+          Ends the float — see the same note in `MoleculeCard`. It matters more
+          on this card, because the block immediately below is the attribution
+          credit, and a licence line wrapping around the very photograph it is
+          crediting would be both ugly and slightly absurd.
+        */}
+        <div className="clear-both" />
       </div>
 
       {scientist.credit && (
