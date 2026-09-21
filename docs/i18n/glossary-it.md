@@ -439,6 +439,11 @@ the split.
 | noble gas | **gas nobile** | Plural *gas nobili* — *gas* is invariable, the adjective is not. |
 | atomic size / atomic radius | **raggio atomico** | *Dimensione dell'atomo* is the everyday phrase and is used once in running prose. |
 | reactivity | **reattività** | Final accent, so — like *elettronegatività* above — **never usable as a glossary match word**. It appears in prose only. |
+| alkaline earth metal | **metallo alcalino terroso** | Three words, no hyphen. Added with the interactive periodic table, whose *Famiglie* mode names all ten families. |
+| transition metal | **metallo di transizione** | — |
+| lanthanide | **lantanide** | *Lantanoide* is the IUPAC form; Italian school material writes *lantanide*, so that is what a reader will have been taught. **Rated medium.** |
+| actinide | **attinide** | Note the double t. Italian writes *attinide*; *actinide* is the English spelling and is wrong here. |
+| picometre (pm) | **picometro (pm)** | The word is Italian, the unit symbol stays Latin — as every unit symbol does. |
 | radioactive decay | **decadimento radioattivo** | Verb: *decadere*. — |
 | alpha particle | **particella alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **particella beta** | — |

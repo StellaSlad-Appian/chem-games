@@ -253,6 +253,11 @@ the split.
 | noble gas | **gaz noble** | *Gaz rare* is the traditional French school term and is still widely used; *gaz noble* is the current IUPAC-aligned form and is what recent programmes print. **Rated medium** — an older teacher may expect *gaz rare*. |
 | atomic size / atomic radius | **rayon atomique** | *Taille de l'atome* is the everyday phrase and is used once in running prose. |
 | reactivity | **réactivité** | — |
+| alkaline earth metal | **métal alcalino-terreux** | Hyphenated; plural *métaux alcalino-terreux*. Added with the interactive periodic table, whose *Familles* mode names all ten families. |
+| transition metal | **métal de transition** | — |
+| lanthanide | **lanthanide** | *Lanthanoïde* is the IUPAC form; French school material overwhelmingly writes *lanthanide*, so that is what a reader will have been taught. **Rated medium.** |
+| actinide | **actinide** | Same decision as *lanthanide*. |
+| picometre (pm) | **picomètre (pm)** | The word is French, the unit symbol stays Latin — as every unit symbol does. |
 | radioactive decay | **désintégration radioactive** | Not *décroissance radioactive*, which names the *decrease* of a sample over time (the curve) rather than the event in one nucleus. The sheet talks about both, so keeping the two words apart matters: *désintégration* for what a nucleus does, *décroissance* only if the curve itself is the subject. |
 | alpha particle | **particule alpha** | Written out rather than as α. |
 | beta particle | **particule bêta** | With the circumflex, which is how French spells the Greek letter's name. |

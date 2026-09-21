@@ -274,6 +274,34 @@ technology. What remains unproven until the owner runs
 
 Those are a session in the Supabase SQL editor, not a test this suite can write.
 
+### The periodic-table widget (both `Fundamentals` sheets)
+
+Acceptance criteria: `docs/feature-briefs/atomic-structure-redesign.md` §14 blocks A
+and B.
+
+| Scenario | Test |
+| --- | --- |
+| 118 entries, atomic numbers 1–118, the join to `ELEMENTS_REGISTRY` total in both directions, no two entries at one (period, group), both f-block rows 15 wide, `group` null iff `block === 'f'` | `src/core-engine/tests/periodic-table.test.ts` |
+| `shells` sums to the atomic number, and the **first twenty arrangements match a hand-written literal** — the content of the deleted twenty-element lookup table | same file |
+| `outerElectrons` null across the d- and f-blocks and 1–8 everywhere else; helium is 2 and not 8 | same file |
+| **Nothing is derived from `valenceElectrons`**, asserted as arithmetic: the registry's combining numbers for Cr, Cu, Au and Cn disagree with the arrangements the widget shows | same file |
+| Every one of the 118 symbols is named in all six locales | same file |
+| **Every mode prints a non-empty badge in every one of the 118 cells**, and every legend key a mode returns has an English row — colour is never alone, as a test | `src/components/periodic-table/view-modes.test.ts` |
+| One tab stop; arrows between neighbours skipping the gaps; Home/End along a period; PageUp/PageDown along a group; Enter and Space select without moving focus | `src/components/periodic-table/PeriodicTable.test.tsx` |
+| Cell accessible names carry the element's localised **name**, not only its symbol | same file |
+| Russian: Cyrillic names, Latin symbols, `35,45` for the mass | same file, and `e2e/cheat-sheet-atomic-structure.spec.ts` |
+| Keyboard only in a real browser: tab to the table, arrow to sodium, Enter, the panel reads `2, 8, 1` | `e2e/cheat-sheet-atomic-structure.spec.ts` |
+| At 320px the **page** has no horizontal scroll while the grid's own region does — asserted on `document.documentElement.scrollWidth`, never on `toBeVisible()` | same file |
+| Cell text ≥ 4.5:1 in every mode with `data-theme` forced to `light` and to `dark` | same file |
+| The Year 10 sheet is gated to two modes and links back | same file |
+
+Two of those are worth restating. The `valenceElectrons` assertion exists because that
+field is the games' *common combining number* — chromium 3, gold 1, copernicium 12 —
+and rendering it as outer-shell electrons would teach a falsehood on the sheet whose
+stated purpose is not teaching false models. And the contrast check forces `data-theme`
+rather than trusting the OS setting, so a machine that prefers one theme cannot pass the
+test by checking that theme twice.
+
 ### Cross-cutting
 
 | Scenario | Test |

@@ -120,6 +120,11 @@ new with the split.
 | noble gas | **Edelgas** | — |
 | atomic size / atomic radius | **Atomradius** | *Atomgröße* is the everyday word and is used once in running prose; *Atomradius* is the term. |
 | reactivity | **Reaktivität** | *Reaktionsfreudigkeit* is the more transparent school word and reads better in a sentence about group 1; both are in use, and the sheet uses *Reaktivität* for the heading and either in the body. |
+| alkaline earth metal | **Erdalkalimetall** | One word. Added with the interactive periodic table, whose *Familien* mode names all ten families. |
+| transition metal | **Übergangsmetall** | — |
+| lanthanide | **Lanthanoid** | The IUPAC-aligned form. *Lanthanid* is older and still common in school books, so a reader may meet either. **Rated medium.** |
+| actinide | **Actinoid** | Same decision as *Lanthanoid*, and note the c: *Aktinoid* also occurs in German, but IUPAC German spells it with c. **Rated low.** |
+| picometre (pm) | **Pikometer (pm)** | The word is German, the unit symbol stays Latin — as every unit symbol does. |
 | radioactive decay | **radioaktiver Zerfall** | Verb: *zerfallen*. Not *Verfall*, which is decay in the sense of a building falling down. |
 | alpha particle | **Alphateilchen** | Written out rather than as α, so a screen reader says something. |
 | beta particle | **Betateilchen** | — |
