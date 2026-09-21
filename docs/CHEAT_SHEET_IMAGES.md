@@ -54,7 +54,44 @@ space before the image loads — otherwise the text below jumps down as each
 diagram arrives. **If your file is a different size, update `width` and `height`
 in that file to match**, or the diagram will be stretched.
 
-The page scales the image down to fit; it never scales it up past its own width.
+### How wide the page draws it
+
+**Always 512 CSS px, at every screen size.** A 640-unit file is therefore always
+drawn at 0.8×, and the 20-unit floor the diagrams hold their text to always
+lands at 16 CSS px. That is the number
+`docs/feature-briefs/atomic-structure-redesign.md` §12 sizes diagram type
+against, and it is the reason it can be trusted: a diagram that is legible on
+the desktop layout is legible everywhere.
+
+It was not always so. The image used to be `w-full max-w-lg` — 512 px where
+there was room for it, and whatever the column had otherwise. On a 320 px phone
+the column is **236 px**, because the page gutter and the panel padding take 84
+between them, and at 236 the same text drew at **7.4 CSS px**. Nothing that can
+be done to an SVG fixes that; the limiter is the column, not the file. Letting
+the image break out of the panel padding was considered and is not enough
+either — it buys the full 320, which is 10 CSS px.
+
+So below the `sm` breakpoint the diagram keeps its 512 px and **pans sideways
+inside its own box**, exactly as the lookup tables on the same page do. A phone
+reader sees 236 px of the diagram at a time and swipes for the rest. WCAG 1.4.10
+exempts content that needs a two-dimensional layout from the
+no-sideways-scrolling rule, which is the exemption the tables already rely on;
+the page itself still reflows at 320 px with no horizontal scrollbar.
+
+Two things follow for anyone drawing one of these:
+
+- **Put nothing load-bearing in the right-hand third alone.** A phone shows the
+  left 236 px first, and a reader who does not swipe sees only that. A diagram
+  that reads left-to-right, or whose right-hand side repeats a pattern the left
+  has already established, survives this; one whose conclusion is bottom-right
+  does not.
+- **The 640-unit width is a ceiling, not a target.** A diagram that says what it
+  has to say in 520 units, with the remainder as margin, needs less swiping.
+
+There is no visible "scroll me" affordance, deliberately: the tables above it
+have none either, and one of them without the other would read as an
+inconsistency rather than a hint. If one is ever added it should be added to
+both.
 
 ---
 

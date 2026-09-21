@@ -887,11 +887,23 @@ Both belong in every prompt.
    an `<img>`-loaded SVG would desync for anyone who picks light while their OS
    is dark. One palette has to work on both `#f8fafc` and `#09090b`.
 2. **The placeholders' text is too small.** They use 12–14px in a 640-wide
-   coordinate space, and the page renders the image into a `max-w-lg` (512px)
-   column — a 0.8× scale, so 14px draws at about 11 CSS px. Worse, no single
-   grey can meet 4.5:1 against both a near-white and a near-black background, so
-   diagram text has to qualify as *large* text (≥24px, or ≥19px bold) and clear
-   the 3:1 threshold instead.
+   coordinate space, and the page renders the image at 512px — a 0.8× scale, so
+   14px draws at about 11 CSS px. Worse, no single grey can meet 4.5:1 against
+   both a near-white and a near-black background, so diagram text has to qualify
+   as *large* text (≥24px, or ≥19px bold) and clear the 3:1 threshold instead.
+
+   **The 512px is now a floor as well as a cap, and the 0.8× holds at every
+   screen size.** It did not at first. The image was `w-full max-w-lg`, which
+   gave it the width of the column it sat in, and on a 320px phone that column
+   is 236px — the page gutter and the panel padding take 84 between them. The
+   20-unit floor below drew at 7.4 CSS px there, on every diagram on both
+   sheets. Since 2026-09-21 the image is pinned at 512 and pans sideways inside
+   its own box below the `sm` breakpoint, the way the lookup tables on the same
+   page already did, so the arithmetic in this section describes what a phone
+   reader gets and not just a desktop one. The consequence for whoever is
+   drawing a diagram — that a phone shows the left 236px first, so nothing
+   load-bearing can live in the right-hand third alone — is in
+   `docs/CHEAT_SHEET_IMAGES.md` under *How wide the page draws it*.
 
 ### 11.4 The shared preamble
 

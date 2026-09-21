@@ -270,6 +270,28 @@ export default async function CheatSheetDetailPage(
                 <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
                 {section.image && (
                   /*
+                   * The diagram is pinned at 512px and pans sideways inside
+                   * this box when the column is narrower than that, exactly as
+                   * the lookup tables above do. It is not free to shrink with
+                   * the column, because below a certain width it stops being a
+                   * diagram and becomes a grey smudge:
+                   *
+                   * The files are 640 units wide, and the generator holds their
+                   * text to a 20-unit floor (scripts/cheat-sheet-diagrams.mts).
+                   * At the 512px cap that is 16 CSS px — the figure
+                   * docs/feature-briefs/atomic-structure-redesign.md §12.3
+                   * sizes the type against. In the 236px column a 320px phone
+                   * actually gave it, the same text drew at 7.4 CSS px, and no
+                   * change to the SVG could fix that: the limiter is the
+                   * column, not the file. Letting the image break out of the
+                   * section padding instead would have bought 320px — 10 CSS
+                   * px — which is not legible either.
+                   *
+                   * WCAG 1.4.10 exempts content that needs a two-dimensional
+                   * layout from the no-sideways-scrolling rule, which is the
+                   * same exemption the tables rely on. The page itself still
+                   * reflows at 320px; only this box scrolls.
+                   *
                    * A plain <img>, not next/image. These are small static SVGs
                    * served straight from public/ — there is nothing for the
                    * optimiser to do to an SVG, and next/image would add a
@@ -281,14 +303,16 @@ export default async function CheatSheetDetailPage(
                    * Replacing a diagram is replacing the file at `src`; no code
                    * changes. See docs/CHEAT_SHEET_IMAGES.md.
                    */
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={section.image.src}
-                    alt={section.image.alt}
-                    width={section.image.width}
-                    height={section.image.height}
-                    className="mt-3 h-auto w-full max-w-lg rounded-2xl border border-(--border) bg-(--background)"
-                  />
+                  <div className="mt-3 max-w-lg overflow-x-auto">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={section.image.src}
+                      alt={section.image.alt}
+                      width={section.image.width}
+                      height={section.image.height}
+                      className="h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--background)"
+                    />
+                  </div>
                 )}
                 {section.examples && section.examples.length > 0 && (
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
