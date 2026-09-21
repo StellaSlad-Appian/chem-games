@@ -359,6 +359,43 @@ chip both define it immediately, which is the mitigation, but it should be
 checked with a real teenager. If it changes, the edit touches every line of Share
 to Fill.
 
+## Atomic structure, the periodic table and radioactivity
+
+Added 2026-09-21, when *Atoms, Isotopes & the Periodic Table* split into
+*Atoms & the Periodic Table* (Year 9) and *Isotopes & Radioactivity* (Year 10).
+The first rows were already in use on the Spanish atomic-structure sheet and are
+recorded here so the next writer does not re-decide them; the rest are new with
+the split.
+
+| English | Spanish (use this) | Why this one, and what we rejected |
+|---|---|---|
+| periodic table | **tabla periódica** | — |
+| atomic number | **número atómico** | — |
+| mass number | **número másico** | Not *número de masa*, which is the calque; *másico* is what a Spanish textbook prints. |
+| energy level | **nivel de energía** | The sheet says *level*, not *shell*, deliberately. See the next row. |
+| electron shell (the curriculum's word) | **capa electrónica** | VC2S10U07 says "electron shells", so the sheet names *capa* once as the word the reader's teacher uses, and keeps *nivel de energía* as its own term. |
+| outer level / outer shell | **nivel exterior** / **última capa** | *Última capa* is what a Spanish classroom says; the sheet uses *nivel exterior* to stay consistent with *nivel de energía*. |
+| Bohr model | **modelo de Bohr** | Named as a *model* every time, per the sheet's own contract. |
+| isotope | **isótopo** | — |
+| group (a column) | **grupo** | The sheet always writes *grupo 1*, *grupo 17*, never a bare *grupo*, because *grupo* also names a functional group. |
+| period (a row) | **periodo** | Without the accent: the RAE lists *periodo* and *período* as equally valid, and current Spanish chemistry writing prefers the unaccented form. Not *fila*, which is the layout word. |
+| metal | **metal** | — |
+| non-metal | **no metal** | Two words, no hyphen. Plural *no metales*. |
+| metalloid | **semimetal** | Spanish *metaloide* does mean the staircase elements — it is **not** the false friend that French *métalloïde* is — and both words are current. *Semimetal* is picked because it is transparent for a fourteen-year-old and cannot be confused with the French sense a bilingual reader may carry. **Rated medium.** Marked on the sheet as an extension in any case: the curriculum says only "metallic and non-metallic properties". |
+| alkali metal | **metal alcalino** | — |
+| halogen | **halógeno** | — |
+| noble gas | **gas noble** | — |
+| atomic size / atomic radius | **radio atómico** | *Tamaño del átomo* is the everyday phrase and is used once in running prose. |
+| reactivity | **reactividad** | — |
+| radioactive decay | **desintegración radiactiva** | **Note the spelling: *radiactivo*, not *radioactivo*.** Spanish drops the o, and the sheet must be consistent about it — this is the single easiest thing to get wrong in this whole table. |
+| alpha particle | **partícula alfa** | Written out rather than as α, and *alfa* with an f. |
+| beta particle | **partícula beta** | — |
+| gamma radiation | **radiación gamma** | *Radiación*, not *rayo*: gamma is radiation, not a particle. |
+| half-life | **periodo de semidesintegración** | The term Spanish textbooks use, and the one the sheet already used. *Semivida* is shorter and is also correct; it was rejected because the longer form says what it measures and the sheet has room. Note it collides with *periodo* (a row of the table) — the sheet never uses the bare word for either. |
+| synthetic element / made element | **elemento artificial** | *Elemento sintético* is also correct; *artificial* is what Spanish uses for the transuranium elements. |
+| radiocarbon dating | **datación por carbono-14** | Spanish writes the isotope with a hyphen, as the sheet already does for *cloro-35*. |
+| optically stimulated luminescence (OSL) | **luminiscencia ópticamente estimulada (OSL)** | Note *luminiscencia*, with an i. The abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in Spanish school material. |
+
 ## Formulae, equations and naming
 
 | English | Spanish (use this) | Why this one, and what we rejected |
