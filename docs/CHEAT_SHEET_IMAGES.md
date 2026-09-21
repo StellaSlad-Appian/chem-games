@@ -7,11 +7,13 @@ Where the image files live, how to replace one, and what each slot is for.
 ## The short version
 
 Every cheat-sheet section can carry one diagram. The image files sit under
-`public/`, so **providing a diagram is replacing a file** — no code changes, no
-rebuild of the data, no new entry anywhere.
+`public/`, and the page shows whatever is at the filename — so for a **new**
+sheet, providing a diagram is dropping in a file, with no code change and no
+new entry anywhere.
 
-All seven slots carry a real diagram as of 2026-09-21. They are **generated**,
-by `scripts/cheat-sheet-diagrams.mts`:
+The seven on the two atomic-structure sheets are not like that. All seven carry
+a real diagram as of 2026-09-21, and all seven are **generated**, by
+`scripts/cheat-sheet-diagrams.mts`:
 
 ```
 npm run cheat-sheets:diagrams              write the files
