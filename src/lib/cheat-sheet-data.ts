@@ -888,7 +888,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     // its visuals are finished and a native speaker has read the five
     // translations. Relinking it is one line.
     keyTakeaways: [
-      'Relative atomic mass (Ar) is a comparison, not a weight in grams: one carbon atom weighs the same as 12 hydrogen atoms, so carbon\'s Ar is 12.',
+      'Relative atomic mass (Ar) is a comparison, not a weight in grams: one carbon atom weighs about the same as 12 hydrogen atoms. Ar is measured against carbon-12, which is exactly 12.',
       'Because it is a ratio, Ar has no unit. Nothing in this sheet is measured in grams until you scale it up to a real amount.',
       'Relative formula mass (Mr) is every atom in the formula added up. Nothing else: no multiplying, no averaging.',
       'A subscript multiplies the atom before it. A bracket multiplies everything inside it.',
@@ -906,7 +906,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'What "relative" actually means',
         content:
-          'Atoms are far too light to weigh one at a time, so chemists compare them instead. Put one carbon atom on one pan of a balance and hydrogen atoms on the other: it takes 12 hydrogens to make it level. That is the whole idea — carbon is 12 times as heavy as hydrogen, so we say its relative atomic mass is 12. The number answers "how many hydrogens?", which is why it has no unit: it is a comparison, not a measurement.',
+          'Atoms are far too light to weigh one at a time, so chemists compare them instead. Put one carbon atom on one pan of a balance and hydrogen atoms on the other: it takes 12 hydrogens to make it level. That is the whole idea — carbon is 12 times as heavy as hydrogen, so we say its relative atomic mass is 12. The number answers "how many hydrogens?", which is why it has no unit: it is a comparison, not a measurement. Strictly, the standard is carbon-12, not hydrogen: every Ar compares an atom against one twelfth of a carbon-12 atom. Hydrogen lands on almost exactly 1, which is why the balance picture works.',
       },
       {
         heading: 'Adding the atoms up',

@@ -649,7 +649,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Che cosa vuol dire davvero Ar e come sommare gli atomi per ottenere la Mr di qualunque formula, pedici e parentesi compresi.',
     keyTakeaways: [
-      'La massa atomica relativa (Ar) è un confronto, non un peso in grammi: un atomo di carbonio pesa quanto 12 atomi di idrogeno, quindi la sua Ar è 12.',
+      'La massa atomica relativa (Ar) è un confronto, non un peso in grammi: un atomo di carbonio pesa all’incirca quanto 12 atomi di idrogeno. Ar si misura rispetto al carbonio-12, che vale esattamente 12.',
       'Essendo un rapporto, Ar non ha unità di misura. Niente in questo bigino si misura in grammi finché non passi a una quantità reale.',
       'La massa formula relativa (Mr) è la somma di tutti gli atomi della formula. Nient’altro: non si moltiplica alla fine e non si fa la media.',
       'Un pedice moltiplica l’atomo che lo precede. Una parentesi moltiplica tutto quello che contiene.',
@@ -667,7 +667,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Che cosa vuol dire «relativa»',
         content:
-          'Gli atomi sono troppo leggeri per pesarli uno alla volta, così i chimici li confrontano. Metti un atomo di carbonio su un piatto e atomi di idrogeno sull’altro: ne servono 12 perché la bilancia sia in equilibrio. L’idea è tutta qui: il carbonio pesa 12 volte l’idrogeno, quindi diciamo che la sua massa atomica relativa è 12. Il numero risponde alla domanda «quanti idrogeni?», ed è per questo che non ha unità: è un confronto, non una misura.',
+          'Gli atomi sono troppo leggeri per pesarli uno alla volta, così i chimici li confrontano. Metti un atomo di carbonio su un piatto e atomi di idrogeno sull’altro: ne servono 12 perché la bilancia sia in equilibrio. L’idea è tutta qui: il carbonio pesa 12 volte l’idrogeno, quindi diciamo che la sua massa atomica relativa è 12. Il numero risponde alla domanda «quanti idrogeni?», ed è per questo che non ha unità: è un confronto, non una misura. A rigore lo standard è il carbonio-12, non l’idrogeno: ogni massa atomica relativa confronta un atomo con un dodicesimo di un atomo di carbonio-12. L’idrogeno viene quasi esattamente 1, ed è per questo che l’immagine della bilancia funziona.',
       },
       {
         heading: 'Sommare gli atomi',
