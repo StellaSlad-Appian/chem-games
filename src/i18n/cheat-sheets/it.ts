@@ -149,7 +149,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna, e anche il programma, può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
         imageAlt:
-          'Un atomo di sodio disegnato con tre livelli di energia che contengono 2, 8 e 1 elettroni, accanto alla tavola periodica con il gruppo 1 evidenziato.',
+          'Un nucleo di sodio con 11 protoni e 12 neutroni, circondato da tre bande sfumate che contengono 2, 8 e 1 elettroni, disegnati come segni ad angoli irregolari e non come punti su cerchi. Accanto, la disposizione 2, 8, 1 con il livello esterno per ultimo. La figura stessa dice che è un modo per contare gli elettroni e non l’immagine di un atomo, e che il nucleo è disegnato circa 100 000 volte troppo grande.',
       },
       {
         heading: 'Gruppi e periodi',
@@ -263,7 +263,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Un campione di un elemento è una miscela dei suoi isotopi, in proporzioni fisse. La massa atomica relativa è la media su quella miscela, pesata su quanto è comune ciascun isotopo. Il cloro è per circa tre quarti cloro-35 e per un quarto cloro-37. La media viene 35,5. Nessun singolo atomo di cloro pesa così. Questa parte è un ampliamento: la massa atomica relativa è materia delle superiori, ed è qui perché senza di essa gli isotopi non hanno senso.',
         imageAlt:
-          'Una barra che mostra il 75 per cento di cloro-35 e il 25 per cento di cloro-37, con la media pesata 35,5 segnata più vicino al lato del 35.',
+          'Una barra che mostra il 75 per cento di cloro-35 e il 25 per cento di cloro-37, con la parte più piccola anche tratteggiata. Sotto, una scala delle masse da 35 a 37 segna la media a 35,5, a un quarto del percorso e non al centro, e il conto è scritto per esteso: 0,75 per 35 più 0,25 per 37 fa 35,5 e non 36. Una nota dice che la divisione è arrotondata e che le abbondanze misurate sono 75,8 e 24,2 per cento.',
       },
       {
         heading: 'Nuclei instabili e le tre specie di radiazione',
@@ -275,7 +275,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Dopo un tempo di dimezzamento ne resta metà, dopo due un quarto e dopo tre un ottavo. Per ogni isotopo è fisso: scaldarlo o farlo reagire non lo cambia. Il carbonio-14 ha un tempo di dimezzamento di circa 5730 anni. L’uranio-238 lo ha di circa 4,5 miliardi di anni, ed è per questo che c’è ancora uranio nel terreno.',
         imageAlt:
-          'Una curva di decadimento che si dimezza a ogni tempo di dimezzamento, accanto alle ultime righe della tavola periodica con evidenziati gli elementi che esistono solo se fabbricati.',
+          'Una curva di decadimento che scende dal 100 per cento al 50, al 25 e al 12,5 per cento dopo uno, due e tre tempi di dimezzamento, con una linea tratteggiata fino all’asse a ogni punto. Dopo tre tempi di dimezzamento ne resta un ottavo. Un tempo di dimezzamento è di 5730 anni per il carbonio-14 e di circa 4,5 miliardi di anni per l’uranio-238.',
       },
       {
         heading: 'Datare il passato, e 65 000 anni in Australia',

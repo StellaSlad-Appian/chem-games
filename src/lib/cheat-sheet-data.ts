@@ -249,8 +249,8 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         image: {
           src: `${ATOMIC_STRUCTURE_DIAGRAMS}05-energy-levels.svg`,
           width: 640,
-          height: 360,
-          alt: 'A sodium atom drawn as three energy levels holding 2, 8 and 1 electrons, next to the periodic table with group 1 highlighted.',
+          height: 300,
+          alt: 'A sodium nucleus of 11 protons and 12 neutrons, surrounded by three soft bands holding 2, 8 and 1 electrons as marks at irregular angles rather than dots on circles. Beside it, the arrangement 2, 8, 1 with the outer level last. The diagram says it is a way to count electrons, not a picture of an atom, and that the nucleus is drawn about 100,000 times too big.',
         },
       },
       {
@@ -387,8 +387,8 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         image: {
           src: `${ISOTOPE_DIAGRAMS}04-weighted-average.svg`,
           width: 640,
-          height: 300,
-          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, with the weighted average 35.5 marked closer to the 35 end.',
+          height: 340,
+          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, the smaller part hatched as well as differently filled. Below it, a mass scale from 35 to 37 marks the average at 35.5, a quarter of the way along rather than in the middle, and the sum is written out: 0.75 times 35 plus 0.25 times 37 makes 35.5, not 36. A note says the split is rounded, and that the measured abundances are 75.8 and 24.2 per cent.',
         },
       },
       {
@@ -404,7 +404,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           src: `${ISOTOPE_DIAGRAMS}07-decay-and-made-elements.svg`,
           width: 640,
           height: 320,
-          alt: 'A decay curve halving at each half-life, beside the bottom rows of the periodic table with the elements that exist only when they are made highlighted.',
+          alt: 'A decay curve falling from 100 per cent to 50, 25 and 12.5 per cent at one, two and three half-lives, with a dashed line down to the axis at each. After three half-lives an eighth is left. One half-life is 5730 years for carbon-14 and about 4.5 billion years for uranium-238.',
         },
       },
       {

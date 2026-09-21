@@ -137,7 +137,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'Les électrons occupent des niveaux d’énergie autour du noyau. Le premier en contient jusqu’à 2, le suivant jusqu’à 8, puis 8 encore pour les vingt premiers éléments. Ton prof et le programme disent peut-être couches : c’est la même chose. Compter les électrons ainsi s’appelle le modèle de Bohr : il est utile, et ce n’est pas une image d’un vrai atome. Le nombre d’électrons du niveau extérieur décide de la façon dont un atome réagit. Deux éléments sont dans le même groupe quand ils en ont autant à l’extérieur. C’est pour cela qu’un groupe se comporte de la même manière.',
         imageAlt:
-          'Un atome de sodium dessiné avec trois niveaux d’énergie portant 2, 8 et 1 électrons, à côté du tableau périodique avec le groupe 1 mis en évidence.',
+          'Un noyau de sodium de 11 protons et 12 neutrons, entouré de trois bandes floues portant 2, 8 et 1 électrons, dessinés comme des marques à des angles irréguliers et non comme des points sur des cercles. À côté, l’arrangement 2, 8, 1 avec le niveau externe en dernier. La figure précise elle-même qu’elle est une façon de compter les électrons et non une image d’un atome, et que le noyau est dessiné environ 100 000 fois trop gros.',
       },
       {
         heading: 'Groupes et périodes',
@@ -251,7 +251,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'Un échantillon d’un élément est un mélange de ses isotopes, en proportions fixes. La masse atomique relative est la moyenne sur ce mélange, pondérée par l’abondance de chaque isotope. Le chlore est à peu près pour trois quarts du chlore 35 et pour un quart du chlore 37. La moyenne donne 35,5. Aucun atome de chlore ne pèse cela. Cette partie est un prolongement : la masse atomique relative est une notion de lycée, et elle est ici parce que sans elle les isotopes n’ont aucun sens.',
         imageAlt:
-          'Une barre montrant 75 pour cent de chlore 35 et 25 pour cent de chlore 37, avec la moyenne pondérée 35,5 marquée plus près du côté 35.',
+          'Une barre montrant 75 pour cent de chlore 35 et 25 pour cent de chlore 37, la plus petite partie étant en plus hachurée. En dessous, une échelle de masse de 35 à 37 où la moyenne 35,5 est marquée au quart du parcours et non au milieu, et le calcul est écrit en entier : 0,75 fois 35 plus 0,25 fois 37 donne 35,5 et non 36. Une note précise que la répartition est arrondie et que les abondances mesurées sont de 75,8 et 24,2 pour cent.',
       },
       {
         heading: 'Noyaux instables et les trois sortes de rayonnement',
@@ -263,7 +263,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'La demi-vie est le temps qu’il faut pour que la moitié d’un échantillon se désintègre. Après une demi-vie il en reste la moitié, après deux un quart, après trois un huitième. Elle est fixe pour chaque isotope : chauffer l’échantillon ou le faire réagir n’y change rien. Le carbone 14 a une demi-vie d’environ 5730 ans. L’uranium 238 en a une d’environ 4,5 milliards d’années, et c’est pour cela qu’il y a encore de l’uranium dans le sol.',
         imageAlt:
-          'Une courbe de désintégration qui se divise par deux à chaque demi-vie, à côté des dernières lignes du tableau périodique avec les éléments qui n’existent que fabriqués mis en évidence.',
+          'Une courbe de désintégration qui tombe de 100 pour cent à 50, 25 puis 12,5 pour cent après une, deux et trois demi-vies, avec à chaque fois un trait en pointillés descendant jusqu’à l’axe. Après trois demi-vies, il reste un huitième. Une demi-vie vaut 5730 ans pour le carbone 14 et environ 4,5 milliards d’années pour l’uranium 238.',
       },
       {
         heading: 'Dater le passé, et 65 000 ans en Australie',
