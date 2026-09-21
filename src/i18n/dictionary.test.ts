@@ -68,6 +68,27 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // happens to be entirely different, so nothing is exempted here — this
     // entry exists to document that `meta.keywords` is intentionally NOT
     // compared as a translation of the English list.
+    //
+    // --- The periodic table's cell badges -------------------------------
+    // A badge is one to four characters printed inside a 40px cell, and it is
+    // an abbreviation of the legend row beside it. Where the German word
+    // abbreviates to the same letters as the English one — Metall/metal,
+    // Nichtmetall/non-metal, Alkalimetall/alkali, Halogen/halogen,
+    // natürlich/natural — the abbreviation coincides, and inventing a
+    // different one purely to make the strings differ would produce a badge
+    // no German reader could expand. Note what is NOT here: Halbmetall is
+    // `HM`, Übergangsmetall `ÜM`, Edelgas `EG` and künstlich `künstl`, each of
+    // which is a real German abbreviation and differs.
+    //
+    // `Ln` and `An` are the standard chemical abbreviations for a lanthanide
+    // and an actinide, and they are the same in every language on this site.
+    /^periodicTable\.badge\.(metal|nonMetal|alkali|lanthanide|actinide|halogen|natural)$/,
+    // An em dash. Pure notation, no word in it — the shared "no value here"
+    // badge for the three modes that have one.
+    /^periodicTable\.badge\.none$/,
+    // "Halogen" and "Symbol" are the same word in German.
+    /^periodicTable\.legend\.halogen$/,
+    /^periodicTable\.fields\.symbol$/,
   ],
   fr: [
     // Brand, product and company names.
@@ -95,6 +116,16 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // As for German, `meta.keywords` is deliberately NOT exempted: the French
     // list is chosen for French search behaviour rather than translated, and it
     // happens to share no entry with the English one.
+    //
+    // --- The periodic table's cell badges -------------------------------
+    // The same reasoning as German. *Métal*, *non-métal*, *métalloïde*,
+    // *halogène* and *naturel* abbreviate to the same letters the English
+    // words do; *alcalin*, *alcalino-terreux*, *métal de transition*, *gaz
+    // noble* and *labo* do not, and are not exempted.
+    /^periodicTable\.badge\.(metal|nonMetal|metalloid|lanthanide|actinide|halogen|natural)$/,
+    /^periodicTable\.badge\.none$/,
+    // *Lanthanide* and *actinide* are spelled identically in French.
+    /^periodicTable\.legend\.(lanthanide|actinide)$/,
   ],
   es: [
     // Brand, product and company names.
@@ -122,6 +153,15 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // As for the other two, `meta.keywords` is deliberately NOT exempted: the
     // Spanish list is chosen for Spanish search behaviour rather than
     // translated, and it shares no entry with the English one.
+    //
+    // --- The periodic table's cell badges -------------------------------
+    // The same reasoning as German and French. *lab* is genuinely how Spanish
+    // shortens *laboratorio*; *alcalino*, *alcalinotérreo*, *de transición*
+    // and *gas noble* all abbreviate differently and are not exempted.
+    /^periodicTable\.badge\.(metal|nonMetal|metalloid|lanthanide|actinide|halogen|natural|synthetic)$/,
+    /^periodicTable\.badge\.none$/,
+    // "Metal" is the Spanish word for a metal.
+    /^periodicTable\.legend\.metal$/,
   ],
   it: [
     // Brand, product and company names.
@@ -161,6 +201,13 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // As for the other three, `meta.keywords` is deliberately NOT exempted: the
     // Italian list is chosen for Italian search behaviour rather than
     // translated, and it shares no entry with the English one.
+    //
+    // --- The periodic table's cell badges -------------------------------
+    // The same reasoning again. *Alogeno* gives `Alo`, which is why the
+    // halogen badge is absent from this list where it is present in the other
+    // three.
+    /^periodicTable\.badge\.(metal|nonMetal|metalloid|lanthanide|actinide|natural|synthetic)$/,
+    /^periodicTable\.badge\.none$/,
   ],
   ru: [
     // Brand and company names. Russian transliterates almost every loanword
@@ -188,6 +235,12 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // As for the other four, `meta.keywords` is deliberately NOT exempted: the
     // Russian list is chosen for Russian search behaviour rather than
     // translated, and it shares no entry with the English one.
+    //
+    // --- The periodic table's cell badges -------------------------------
+    // One entry, against seven and eight for the Latin locales: every Russian
+    // badge is Cyrillic, so none of them can coincide. Only the em dash does,
+    // and it is punctuation.
+    /^periodicTable\.badge\.none$/,
   ],
 };
 

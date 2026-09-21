@@ -163,12 +163,38 @@ export interface CheatSheetImage {
   alt: string;
 }
 
+/**
+ * An interactive widget a section can opt into by name.
+ *
+ * The same idea as `iconName` and for the same reason: a widget *name* is
+ * structural metadata, not prose, so it never enters the translation overlay
+ * and `cheat-sheets.test.ts` is untouched by it. `WIDGET_REGISTRY` in the
+ * cheat-sheet route maps each name to a component, exactly as `ICON_REGISTRY`
+ * maps an icon name.
+ *
+ * The two periodic-table names are the same component with different modes
+ * unlocked, not two components. The Year 9 sheet (VC2S10U07) teaches the
+ * table itself and gets all six modes; the Year 10 sheet (VC2S10U06) teaches
+ * decay and gets *natural or made* plus metals, with a link back. Encoding the
+ * gating in the name keeps the sheet data declarative and leaves the registry
+ * the only place a component is named — the alternative, a `widgetProps` bag
+ * on the section, would put component configuration into the chemistry data.
+ */
+export type CheatSheetWidgetName = 'periodic-table' | 'periodic-table-occurrence';
+
 export interface CheatSheetSection {
   heading: string;
   content: string;
   examples?: FormulaExample[];
   /** Optional diagram, rendered under the prose. */
   image?: CheatSheetImage;
+  /**
+   * Renders an interactive widget under the prose. See `WIDGET_REGISTRY` in
+   * src/app/[lang]/(main)/cheat-sheets/[slug]/page.tsx.
+   *
+   * Not prose, so it is not in the overlay and no locale restates it.
+   */
+  widget?: CheatSheetWidgetName;
 }
 
 /** A lookup table. Cells in `formulaColumns` are rendered with MoleculeText. */

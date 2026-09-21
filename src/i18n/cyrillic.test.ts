@@ -127,6 +127,11 @@ const LATIN_BY_DESIGN: RegExp[] = [
   /^games\.neutralise\.(keyOneLabel|keyTwoLabel|keyArrowsLabel)$/,
   /^games\.overlay\.keyHint(Resume|Retry)$/,
   /^instructions\.keyboard\[\d+\]\[0\]$/,
+  // Same decision, in a sentence rather than a table cell: the periodic
+  // table's keyboard hint names Home, End, Page Up, Page Down and Enter, and
+  // those are the legends printed on the keys of every keyboard a Russian
+  // reader owns. The rest of the sentence is Russian.
+  /^periodicTable\.keyboardHint$/,
 
   // --- Pure notation, with no words in it ---------------------------------
   // Strings whose entire visible content is placeholders, punctuation or
@@ -139,6 +144,11 @@ const LATIN_BY_DESIGN: RegExp[] = [
   /^glossary\.stateSymbols\.term$/,
   /^notebook\.diagnosisRow$/,
   /^ui\.atomOrdinal$/,
+  // An em dash: the periodic table's shared "no value here" badge, printed in
+  // the cells of the three modes that have one. There is no Russian in it to
+  // write, and dictionary.test.ts records it as identical-by-design for the
+  // same reason.
+  /^periodicTable\.badge\.none$/,
 
   // Note what is NOT here. No formula-bearing string needed an entry: Russian
   // chemistry writes `H2O`, `2H2 + O2 -> 2H2O` and `NaOH` exactly as English
