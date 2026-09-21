@@ -78,7 +78,7 @@ describe('PeriodicTable — the table', () => {
 
 describe('PeriodicTable — keyboard', () => {
   it('has exactly one tab stop, wherever the focus has moved to', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     const tabbable = () =>
       screen.getAllByTestId('element-cell').filter((cell) => cell.tabIndex === 0);
@@ -93,7 +93,7 @@ describe('PeriodicTable — keyboard', () => {
   });
 
   it('moves between neighbours with the arrow keys and skips the gaps', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
 
     cellFor('Na').focus();
@@ -109,7 +109,7 @@ describe('PeriodicTable — keyboard', () => {
   });
 
   it('stays put at the edges rather than wrapping', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     cellFor('H').focus();
     await user.keyboard('{ArrowLeft}');
@@ -119,7 +119,7 @@ describe('PeriodicTable — keyboard', () => {
   });
 
   it('runs Home and End along a period', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     cellFor('S').focus();
     await user.keyboard('{Home}');
@@ -129,7 +129,7 @@ describe('PeriodicTable — keyboard', () => {
   });
 
   it('runs Page Up and Page Down along a group', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     cellFor('Na').focus();
     await user.keyboard('{PageDown}');
@@ -139,7 +139,7 @@ describe('PeriodicTable — keyboard', () => {
   });
 
   it('updates the detail panel on Enter, without moving focus off the cell', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
 
     cellFor('Na').focus();
@@ -152,7 +152,7 @@ describe('PeriodicTable — keyboard', () => {
   });
 
   it('selects on Space as well as Enter', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     cellFor('Cl').focus();
     await user.keyboard(' ');
@@ -182,7 +182,7 @@ describe('PeriodicTable — the detail panel', () => {
   });
 
   it('steps by atomic number, which is the path arrowing cannot give', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     await user.click(screen.getByRole('button', { name: en.periodicTable.next }));
     expect(
@@ -191,7 +191,7 @@ describe('PeriodicTable — the detail panel', () => {
   });
 
   it('disables the step buttons at the ends of the range', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     await user.click(cellFor('H'));
     expect(screen.getByRole('button', { name: en.periodicTable.previous })).toBeDisabled();
@@ -200,7 +200,7 @@ describe('PeriodicTable — the detail panel', () => {
   });
 
   it('says a d-block element forms no single ion rather than inventing one', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     await user.click(cellFor('Fe'));
     const panel = screen.getByTestId('element-detail');
@@ -218,7 +218,7 @@ describe('PeriodicTable — view modes', () => {
   });
 
   it('changes the badges and the legend when the mode changes', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ delay: null });
     renderTable();
     const legend = () => screen.getByTestId('periodic-table-legend');
 
@@ -234,15 +234,20 @@ describe('PeriodicTable — view modes', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('always renders a legend, in every mode', async () => {
-    const user = userEvent.setup();
+  it('renders a legend whose rows match the mode', async () => {
+    // Deliberately two modes, not six. Re-rendering 118 cells under jsdom is
+    // about a second a switch, and the exhaustive version of this assertion
+    // costs nothing where it belongs: view-modes.test.ts checks the rows of
+    // all seven modes without rendering anything, and the e2e spec walks all
+    // six in a real browser.
+    const user = userEvent.setup({ delay: null });
     renderTable();
-    for (const mode of Object.values(en.periodicTable.modes).slice(0, 6)) {
-      const button = screen.queryByRole('button', { name: mode });
-      if (!button) continue;
-      await user.click(button);
-      expect(screen.getByText(en.periodicTable.legendHeading)).toBeInTheDocument();
-    }
+    const legend = () => screen.getByTestId('periodic-table-legend');
+
+    expect(within(legend()).getAllByRole('listitem')).toHaveLength(3);
+
+    await user.click(screen.getByRole('button', { name: en.periodicTable.modes.families }));
+    expect(within(legend()).getAllByRole('listitem')).toHaveLength(10);
   });
 
   it('offers only the two modes the Year 10 sheet unlocks', () => {
