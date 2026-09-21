@@ -688,6 +688,19 @@ export const es = {
     // («científica o científico» es la fórmula habitual), y el doblete no
     // revela nada, porque no cambia nunca.
     scientistHeading: 'Científica o científico de la semana',
+    // La subnavegación de Explorar: una etiqueta corta por pestaña, no los
+    // encabezados de sección completos — véase el comentario en en.ts.
+    //
+    // El inglés cabe en una palabra y el español no: el doblete fijo no se
+    // puede acortar sin volver al masculino genérico, que es justo lo que la
+    // sección evita. Así que esta pestaña es la única de las tres que ocupa
+    // dos líneas en la etiqueta, y la tira se envuelve antes en español que
+    // en las demás lenguas. Es el precio correcto: la alternativa sería
+    // «Científico», que dice algo que esta sección no quiere decir.
+    tabsA11y: 'Secciones de Explorar',
+    tabMolecule: 'Molécula',
+    tabScientist: 'Científica o científico',
+    tabArchive: 'Archivo',
     formulaLabel: 'Fórmula',
     formulaA11y: '{name}, fórmula {formula}',
     everydayHeading: 'Dónde la encuentras',

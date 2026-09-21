@@ -21,7 +21,7 @@ export function SourceList({
   note,
   verifiedOn,
   opensInNewTab,
-  headingTag: HeadingTag = 'h4',
+  headingTag: HeadingTag = 'h3',
 }: {
   heading: string;
   sources: ExploreSource[];
@@ -29,13 +29,19 @@ export function SourceList({
   verifiedOn: string;
   opensInNewTab: string;
   /**
-   * `h4` inside a card on /explore, which sits under the card's own h2 and h3.
-   * A permalink page has one entry, so its card starts at h1 and everything
-   * inside it moves up two levels — see the `standalone` prop on the cards.
+   * `h3` inside a card in an Explore tab, where the card sits under the tab
+   * layout's `<h1>` and the entry's name is the `h2`. A permalink page has one
+   * entry, so its card starts at `h1` and everything inside it moves up one
+   * level — see the `standalone` prop on the cards.
+   *
+   * It was `h2 | h4` while the cards carried an eyebrow above the name. The
+   * eyebrow is permalink-only now (explore.md §9), so a card in a tab is one
+   * level shallower than it was and both ends of the pair shift with it.
+   *
    * The level is a prop rather than a guess because a skipped heading level is
    * a real failure for a screen-reader user, and docs/ACCESSIBILITY.md says so.
    */
-  headingTag?: 'h2' | 'h4';
+  headingTag?: 'h2' | 'h3';
 }) {
   if (sources.length === 0) return null;
 

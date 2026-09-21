@@ -38,37 +38,43 @@ export function ScientistCard({
   headingId: string;
   /**
    * True on the entry's own permalink, where this card *is* the page. See the
-   * long note on the same prop in `MoleculeCard` — the name becomes the `<h1>`,
-   * the section label becomes an eyebrow, and everything inside moves up with
-   * it so the heading tree never skips a level.
+   * long note on the same prop in `MoleculeCard`: the eyebrow and its icon are
+   * permalink-only, the name is the heading either way (`<h1>` here, `<h2>`
+   * under the tab layout's "Explore"), `aria-labelledby` points at the name,
+   * and everything inside moves with it so the heading tree never skips a
+   * level.
    */
   standalone?: boolean;
 }) {
-  const LabelTag = standalone ? 'p' : 'h2';
-  const NameTag = standalone ? 'h1' : 'h3';
-  const SubTag = standalone ? 'h2' : 'h4';
+  const NameTag = standalone ? 'h1' : 'h2';
+  const SubTag = standalone ? 'h2' : 'h3';
 
   return (
     <section
       aria-labelledby={headingId}
       className="rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8"
     >
-      <div className="flex items-center gap-2">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500">
-          <Microscope className="h-4 w-4" aria-hidden="true" />
-        </span>
-        <LabelTag
-          id={standalone ? undefined : headingId}
-          className="text-xs font-black uppercase tracking-widest text-(--muted)"
-        >
-          {t.explore.scientistHeading}
-        </LabelTag>
-      </div>
+      {/* The microscope badge goes with the eyebrow — inside the tabs it lives
+          on the Scientist pill instead. See the note in `MoleculeCard`. */}
+      {standalone && (
+        <div className="flex items-center gap-2">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-500">
+            <Microscope className="h-4 w-4" aria-hidden="true" />
+          </span>
+          <p className="text-xs font-black uppercase tracking-widest text-(--muted)">
+            {t.explore.scientistHeading}
+          </p>
+        </div>
+      )}
 
-      <div className="mt-4 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+      <div
+        className={`flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 ${
+          standalone ? 'mt-4' : ''
+        }`}
+      >
         {/* `min-w-0` / `break-words`: see the note on the same line in MoleculeCard. */}
         <NameTag
-          id={standalone ? headingId : undefined}
+          id={headingId}
           className="min-w-0 text-3xl font-black break-words text-(--foreground) md:text-4xl"
         >
           {scientist.name}
@@ -79,36 +85,55 @@ export function ScientistCard({
         </p>
       </div>
 
-      {scientist.image && (
-        // See the note on MoleculeCard. The alt is built from the name, which is
-        // never translated, so this one string reads the same in every locale
-        // apart from the word in front of it.
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={scientist.image.src}
-          alt={format(t.explore.scientistImageA11y, { name: scientist.name })}
-          width={scientist.image.width}
-          height={scientist.image.height}
-          className="mt-6 h-auto w-full rounded-2xl border border-(--border) bg-(--background)"
-        />
-      )}
+      {/*
+        Picture beside the prose from `lg`, stacked below it — see the long note
+        on the same block in `MoleculeCard`, including why the tracks are
+        `minmax(0,…)` and not bare `fr`.
 
-      <div className="mt-6 space-y-5">
-        <div>
-          <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
-            {t.explore.workHeading}
-          </SubTag>
-          <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
-            {scientist.work}
-          </p>
-        </div>
-        <div>
-          <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
-            {t.explore.legacyHeading}
-          </SubTag>
-          <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
-            {scientist.legacy}
-          </p>
+        The cap matters more here than it does on a molecule: a scientist's
+        picture is a portrait, so it is the tall one, and it is the half of the
+        pool still mostly without pictures — which means this has to be right
+        on the day a real photograph lands rather than tested only against
+        placeholders.
+      */}
+      <div
+        className={`mt-6 grid items-start gap-6 ${
+          scientist.image ? 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]' : ''
+        }`}
+      >
+        {scientist.image && (
+          // The alt is built from the name, which is never translated, so this
+          // one string reads the same in every locale apart from the word in
+          // front of it.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={scientist.image.src}
+            alt={format(t.explore.scientistImageA11y, { name: scientist.name })}
+            width={scientist.image.width}
+            height={scientist.image.height}
+            className="max-h-80 w-full min-w-0 rounded-2xl border border-(--border) bg-(--background) object-contain"
+          />
+        )}
+
+        {/* No picture: the prose takes the whole width rather than leaving an
+            empty column beside it. */}
+        <div className="min-w-0 space-y-5">
+          <div>
+            <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
+              {t.explore.workHeading}
+            </SubTag>
+            <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
+              {scientist.work}
+            </p>
+          </div>
+          <div>
+            <SubTag className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
+              {t.explore.legacyHeading}
+            </SubTag>
+            <p className="mt-1.5 text-sm leading-relaxed text-(--foreground) md:text-base">
+              {scientist.legacy}
+            </p>
+          </div>
         </div>
       </div>
 

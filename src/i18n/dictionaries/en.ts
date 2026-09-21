@@ -707,6 +707,31 @@ export const en = {
     dateline: 'Week of {date}',
     moleculeHeading: 'Molecule of the Week',
     scientistHeading: 'Scientist of the Week',
+
+    /**
+     * The sub-navigation across the top of Explore.
+     *
+     * **One word per tab, and deliberately not `moleculeHeading` /
+     * `scientistHeading` / `archiveHeading`.** Those are full-length section
+     * headings — "Molecule of the Week", "Molécula de la semana" — and three
+     * of them side by side in a pill strip do not fit a phone in any language,
+     * least of all in German or Russian. `intro` one line above already
+     * establishes the weekly rhythm, and each pill carries the entry's own
+     * name underneath, so the long form has nothing left to say here.
+     *
+     * The strip is routed navigation between three documents, so it is a
+     * `<nav>` with an accessible name and not the ARIA tabs pattern — see the
+     * header of `src/components/explore/ExploreTabs.tsx`.
+     *
+     * The archive pill's subtitle is `archiveCta`, reused rather than
+     * duplicated: it is the same promise ("browse every entry") in the same
+     * place in the reading order, and the permalinks still render it as a
+     * link, so the key is not going anywhere.
+     */
+    tabsA11y: 'Explore sections',
+    tabMolecule: 'Molecule',
+    tabScientist: 'Scientist',
+    tabArchive: 'Archive',
     formulaLabel: 'Formula',
     /** Accessible name for the formula, read before the name of the compound. */
     formulaA11y: '{name}, formula {formula}',

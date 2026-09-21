@@ -74,6 +74,22 @@ editorial decisions in
       doing if the pool grows past twenty, because that is when the dates about the past
       start being wrong. It is a weekly row in Postgres and a migration; not needed now,
       and cheaper to decide before the pool grows than after.
+- [ ] **Rebuild the page as three tabs instead of two columns.** Decided 2026-09-21;
+      reasoning, rejected alternatives and acceptance notes in
+      [`feature-briefs/explore.md`](./feature-briefs/explore.md) §9, build order in
+      [`feature-briefs/explore-tabs-prompt.md`](./feature-briefs/explore-tabs-prompt.md).
+      `/explore` becomes the molecule tab, `/explore/scientist` is new, and
+      `/explore/archive` moves into an `(tabs)` route group so the permalinks do not
+      inherit the strip. Supersedes AC-3's arrangement but none of its substance. The
+      change that actually answers the complaint is not the tabs — it is capping the
+      picture height and putting the figure beside the prose, which is worth doing
+      even if the tabs are dropped.
+- [ ] **Look at the tab strip on real hardware before calling it done.** Each entry
+      pill carries this week's entry name, so on the active tab the name appears twice
+      — once muted at 13px in the pill, once at ~30px as the card heading. Judged
+      acceptable in §9 and left deliberately cheap to undo: if it reads as a glitch,
+      delete the subtitle and nothing else changes. Not a decision anyone should make
+      from a wireframe.
 
 ### Atoms cheat sheet
 

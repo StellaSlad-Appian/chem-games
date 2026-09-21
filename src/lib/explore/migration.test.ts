@@ -135,7 +135,15 @@ describe('the migration seeds what the code actually ships', () => {
 
 describe('the page renders with Supabase unconfigured', () => {
   const sources = [
-    'src/app/[lang]/(main)/explore/page.tsx',
+    // All three tab pages and the layout above them, not just the one page
+    // there used to be. The layout earns its place on the list: it reads
+    // `getExploreContent` for the tab strip's two entry names, which makes it
+    // the newest place a database import could plausibly be reached for.
+    'src/app/[lang]/(main)/explore/(tabs)/layout.tsx',
+    'src/app/[lang]/(main)/explore/(tabs)/page.tsx',
+    'src/app/[lang]/(main)/explore/(tabs)/scientist/page.tsx',
+    'src/app/[lang]/(main)/explore/(tabs)/archive/page.tsx',
+    'src/components/explore/ExploreTabs.tsx',
     'src/components/explore/MoleculeCard.tsx',
     'src/components/explore/ScientistCard.tsx',
     'src/components/explore/InwardLink.tsx',
