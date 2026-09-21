@@ -24,19 +24,35 @@
 //     is worse than a greyed cell with a legend entry saying why.
 //
 // `shells` is the ground-state electron count per principal shell, outer shell
-// last. It follows the Madelung filling order with the ground-state exceptions
-// applied, so chromium is [2, 8, 13, 1] and not [2, 8, 12, 2]. Source: the
-// Royal Society of Chemistry's periodic table (rsc.org/periodic-table), which
-// this sheet already links to under "Learn more", cross-checked against the
-// electron configurations in the CRC Handbook. Beyond roentgenium the
-// configurations are computed predictions in every published table, including
-// those two; nothing on either sheet renders a claim that rests on them.
+// last. It was produced by filling the subshells in Madelung order and then
+// applying the ~22 documented ground-state exceptions — Cr, Cu, Nb, Mo, Ru, Rh,
+// Pd, Ag, La, Ce, Gd, Pt, Au, Ac, Th, Pa, U, Np, Cm, Lr, Ds, Rg — so chromium
+// comes out [2, 8, 13, 1] rather than the [2, 8, 12, 2] a naive fill gives.
 //
-// The metal / non-metal / metalloid line, and the seven elements called
-// metalloids, are the RSC's ("semi-metals": B, Si, Ge, As, Sb, Te, Po). No
-// definition of "metalloid" is official — IUPAC declines to give one — so
-// following the table the sheet already sends students to is the choice that
-// leaves them with one story rather than two.
+// **How it was checked, stated plainly rather than by citing a book nobody
+// opened.** Two independent derivations had to agree: the values here, and the
+// hand-written literal for the first twenty in periodic-table.test.ts. The test
+// also proves the arithmetic that has to hold whatever the source — every row
+// sums to its atomic number, no inner shell is empty, and the counts agree with
+// the group number across the s- and p-blocks. Nothing here was copied from a
+// published table, and no table was fetched to confirm it; a reviewer with the
+// RSC's periodic table or the CRC Handbook open can settle any one row in a
+// few seconds, and the arrangements a Year 9 student is examined on are the
+// twenty that are asserted twice.
+//
+// Beyond roentgenium the configurations are computed predictions in every
+// published table too. Nothing on either sheet renders a claim that rests on
+// them: the *Outer shell* mode greys the whole d-block, and no mode reads a
+// superheavy element's shell counts.
+//
+// The metal / non-metal / metalloid line follows the seven elements usually
+// drawn along the staircase — B, Si, Ge, As, Sb, Te, Po — which is the set the
+// Royal Society of Chemistry's table (linked from this sheet under "Learn
+// more") marks as semi-metals, with astatine left as a halogen. No definition
+// of "metalloid" is official; IUPAC declines to give one. Following the table
+// the sheet already sends students to is what leaves them with one story
+// rather than two, and the sheet marks the whole idea as an extension because
+// the curriculum says only "metallic and non-metallic properties".
 
 import type { PeriodicTableEntry } from '../types/chemistry';
 

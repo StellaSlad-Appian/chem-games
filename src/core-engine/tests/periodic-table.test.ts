@@ -15,10 +15,18 @@
 // the twenty rows live on here as an assertion instead of as prose that could
 // drift away from the data the page renders.
 //
-// Source for FIRST_TWENTY: the Royal Society of Chemistry's periodic table
-// (rsc.org/periodic-table), element by element, which is the "Learn more" link
-// the atomic-structure sheet already gives students. It agrees with the VCAA
-// Chemistry Data Book's table of the first twenty arrangements.
+// **Where FIRST_TWENTY came from, said plainly.** It was written out by hand,
+// from the 2-8-8 shell-filling rule every Year 9 textbook teaches, and it is
+// the same twenty rows the deleted lookup table carried. It was *not* copied
+// from a published table, and no table was fetched to confirm it — what makes
+// it worth having is that it is a second, independent statement of what
+// periodic-table.ts derives a different way (Madelung order plus the
+// ground-state exceptions). Two derivations agreeing is the check; a citation
+// nobody opened would not have been one.
+//
+// A reviewer wanting a third opinion can hold it against the Royal Society of
+// Chemistry's periodic table, which the sheet already links to, or the VCAA
+// Chemistry Data Book. Twenty rows takes a minute.
 
 import { describe, expect, it } from 'vitest';
 import {
