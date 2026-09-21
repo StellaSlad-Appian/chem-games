@@ -381,9 +381,9 @@ function at(cx: number, cy: number, bearing: number, radius: number): [number, n
 /**
  * A cluster of nucleons, filled for protons and hollow for neutrons.
  *
- * Positions are a fixed hand-placed packing rather than anything computed, so
- * that a nucleus of four looks like a nucleus of four and not like four circles
- * a loop happened to leave somewhere.
+ * `places` is a fixed hand-placed packing rather than anything computed, so
+ * that a nucleus of three looks like a nucleus and not like three circles a
+ * loop happened to leave somewhere. Protons come first in the list.
  */
 function nucleons(
   cx: number,
@@ -464,9 +464,10 @@ ${body.map((part) => `  ${part}`).join('\n')}
  * nucleus that could not exist.
  *
  * The scale note is not a disclaimer bolted on afterwards; it is the reason the
- * picture is allowed to exist. Here the nucleus is about a seventh of the
- * cloud. Honestly drawn it would be 1/100,000 of it, which in this coordinate
- * space is 0.0024 of one unit — far thinner than any line the file can draw.
+ * picture is allowed to exist. Here the nucleus is about a third of the cloud's
+ * radius. At 1/100,000 of the atom's width it would be 0.0024 units across in
+ * this coordinate space — thinner than any line the file can draw, and a good
+ * deal thinner than one pixel once the page has scaled it.
  */
 function drawInsideAnAtom(slot: Slot): string {
   const cx = 168;
