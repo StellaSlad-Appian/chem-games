@@ -112,21 +112,20 @@ const polyatomicIonRowsIt = POLYATOMIC_ION_TABLE.rows.map((row) => [
 
 export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
   'atomic-structure': {
-    title: 'Atomi, isotopi e tavola periodica',
+    title: 'Atomi e tavola periodica',
     summary:
-      'Di che cosa è fatto un atomo, perché il numero atomico definisce l’elemento e come è ordinata la tavola.',
+      'Di che cosa è fatto un atomo, perché il numero atomico definisce l’elemento e che cosa permette di prevedere l’ordine della tavola.',
     keyTakeaways: [
       'Un atomo è un nucleo di protoni e neutroni, con gli elettroni distribuiti tutt’intorno.',
       'Il numero di protoni — il numero atomico — è ciò che rende un atomo quell’elemento. Cambialo e hai un elemento diverso.',
-      'Gli isotopi sono atomi dello stesso elemento con un numero diverso di neutroni. Dal punto di vista chimico si comportano allo stesso modo.',
-      'La massa atomica relativa è una media pesata sugli isotopi di un elemento. È per questo che così poche sono numeri interi.',
       'Gli elettroni stanno su livelli di energia, e quanti ce ne sono sul livello esterno è il criterio con cui la tavola è ordinata.',
+      'Un gruppo è una colonna e un periodo è una riga. Gli elementi di un gruppo hanno gli stessi elettroni all’esterno, quindi reagiscono allo stesso modo.',
+      'I metalli stanno a sinistra e i non metalli a destra. Gli atomi rimpiccioliscono verso destra e crescono verso il basso.',
       'Un atomo è quasi tutto spazio vuoto. Ogni immagine di un atomo sbaglia la scala, comprese quelle qui sopra.',
     ],
     formulaExampleNames: [
       'Cloro-35',
       'Cloro-37',
-      'Carbonio-12',
       'Ione idrogeno',
     ],
     sections: [
@@ -140,31 +139,37 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Numero atomico e numero di massa',
         content:
-          'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento.',
+          'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento. Qui i due termini sono un ampliamento: il programma di questi anni non ne nomina nessuno, e senza di essi non puoi leggere una casella della tavola.',
         exampleNames: ['Cloro-35', 'Cloro-37'],
         imageAlt:
           'Il simbolo del cloro-35 con il numero di massa 35 scritto sopra il numero atomico 17, e delle frecce: 17 protoni, e 35 meno 17 dà 18 neutroni.',
       },
       {
-        heading: 'Isotopi',
-        content:
-          'Gli isotopi sono atomi di uno stesso elemento con un numero diverso di neutroni. La chimica la fanno gli elettroni, e gli isotopi ne hanno lo stesso numero, quindi reagiscono allo stesso modo. Quello che cambia è la massa, e a volte la stabilità: alcuni isotopi sono radioattivi, altri no.',
-        imageAlt:
-          'Tre atomi di idrogeno uno accanto all’altro: uno con un protone, uno con un protone e un neutrone, uno con un protone e due neutroni. Tutti e tre hanno un solo elettrone.',
-      },
-      {
-        heading: 'Perché la massa atomica relativa è raramente un numero intero',
-        content:
-          'Un campione di un elemento è una miscela dei suoi isotopi, in proporzioni fisse. La massa atomica relativa è la media su quella miscela, pesata su quanto è comune ciascun isotopo. Il cloro è per circa tre quarti cloro-35 e per un quarto cloro-37. La media viene 35,5. Nessun singolo atomo di cloro pesa così.',
-        imageAlt:
-          'Una barra che mostra il 75 per cento di cloro-35 e il 25 per cento di cloro-37, con la media pesata 35,5 segnata più vicino al lato del 35.',
-      },
-      {
         heading: 'Elettroni, livelli di energia e forma della tavola',
         content:
-          'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
+          'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna, e anche il programma, può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
         imageAlt:
           'Un atomo di sodio disegnato con tre livelli di energia che contengono 2, 8 e 1 elettroni, accanto alla tavola periodica con il gruppo 1 evidenziato.',
+      },
+      {
+        heading: 'Gruppi e periodi',
+        content:
+          'Un gruppo è una colonna della tavola e un periodo è una riga. Gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni sul livello esterno. La colonna prevede quindi come reagisce un elemento. Il gruppo 1 sono i metalli alcalini, il gruppo 17 gli alogeni e il gruppo 18 i gas nobili. Il periodo dice quanti livelli di energia sono in uso: un elemento del periodo 3 ne usa tre. La riga ti dice così, all’incirca, quanto è grande l’atomo.',
+      },
+      {
+        heading: 'Metalli e non metalli',
+        content:
+          'I metalli riempiono la sinistra e il centro della tavola, e i non metalli stanno nell’angolo in alto a destra. Un metallo conduce l’elettricità e il calore, ha una superficie lucida e si lascia battere in lamina senza rompersi. Quasi tutti i metalli sono solidi a temperatura ambiente; il mercurio è quello liquido. Un non metallo di solito conduce male, è opaco e si spezza, ammesso che sia solido. Molti non metalli sono gas. Ampliamento: alcuni elementi sulla scala che sta fra gli uni e gli altri, come il silicio, si comportano un po’ come entrambi. Si chiamano semimetalli, una parola che il programma non usa.',
+      },
+      {
+        heading: 'Raggio atomico',
+        content:
+          'Gli atomi diventano più piccoli da sinistra a destra lungo un periodo. Ogni passo aggiunge un protone, e la carica positiva più grande tira più stretto lo stesso livello esterno. Gli atomi diventano più grandi scendendo lungo un gruppo, perché ogni passo verso il basso apre un nuovo livello di energia più lontano. Gli atomi più grandi stanno quindi in basso a sinistra nella tavola e i più piccoli in alto a destra.',
+      },
+      {
+        heading: 'La reattività, e perché un gruppo si comporta allo stesso modo',
+        content:
+          'Puoi mettere alla prova un gruppo facendo reagire i suoi elementi con ossigeno, acqua e acidi: fra loro si comportano allo stesso modo. I metalli del gruppo 1 reagiscono con l’acqua e diventano più violenti scendendo: il litio sfrigola, il sodio sfreccia in superficie, il potassio prende fuoco. Gli stessi metalli con un acido liberano idrogeno, e ancora più in fretta. Gli elementi del gruppo 17 vanno nel verso opposto e diventano meno reattivi scendendo. Il gruppo 18 ha già il livello esterno pieno, quindi i gas nobili non reagiscono quasi con niente.',
       },
       {
         heading: 'Ordinata per numero atomico, non per massa',
@@ -172,13 +177,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
           'Mendeleev ordinò la tavola per massa, e alcuni elementi finirono nel posto sbagliato. Nel 1913 Henry Moseley misurò la carica del nucleo e trovò l’ordine che funziona: il numero atomico. Il tellurio è più pesante dello iodio, ma viene prima, perché ha un protone in meno.',
         imageAlt:
           'Il tellurio e lo iodio uno accanto all’altro. Il tellurio ha la massa atomica relativa maggiore ma il numero atomico minore, e la tavola lo mette per primo.',
-      },
-      {
-        heading: 'Nuclei instabili, ed elementi che è stato necessario fabbricare',
-        content:
-          'Alcuni nuclei sono instabili e decadono, emettendo radiazione. Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura. Vengono costruiti negli acceleratori, a volte pochi atomi alla volta.',
-        imageAlt:
-          'Una curva di decadimento che si dimezza a ogni tempo di dimezzamento, accanto alle ultime righe della tavola periodica con evidenziati gli elementi che esistono solo se fabbricati.',
       },
     ],
     tables: [
@@ -224,8 +222,82 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Disegnare gli elettroni su orbite circolari, come pianeti. Non seguono una traiettoria. Un livello è un’energia, e un elettrone sta da qualche parte in una regione intorno al nucleo, non su un punto di una linea.',
       'Credere alle dimensioni dei disegni. Se il nucleo fosse un pisello, l’atomo sarebbe un campo sportivo. Ogni schema schiaccia quella distanza per stare nella pagina, compresi quelli di questo bigino.',
       'Confondere numero atomico e numero di massa. Il numero atomico sono i protoni e dà il nome all’elemento. Il numero di massa sono protoni più neutroni.',
-      'Leggere la massa atomica relativa come un conteggio di particelle. È una media sugli isotopi: il 35,5 del cloro non è un atomo che potresti trovare.',
       'Pensare che uno ione sia un altro elemento. Perdere o acquistare un elettrone cambia la carica, non il numero di protoni. Il sodio e Na+ sono entrambi sodio.',
+    ],
+  },
+  'isotopes-and-radioactivity': {
+    title: 'Isotopi e radioattività',
+    summary:
+      'Che cosa cambia quando cambia il numero di neutroni: isotopi, decadimento, tempo di dimezzamento e gli elementi che è stato necessario fabbricare.',
+    keyTakeaways: [
+      'Gli isotopi sono atomi dello stesso elemento con un numero diverso di neutroni. Dal punto di vista chimico si comportano allo stesso modo.',
+      'La massa atomica relativa è una media pesata sugli isotopi di un elemento. È per questo che così poche sono numeri interi.',
+      'Un nucleo instabile decade ed emette radiazione, e lascia dietro di sé un atomo più stabile.',
+      'Le specie sono tre — alfa, beta e gamma — e si distinguono per che cosa esce e per che cosa le ferma.',
+      'Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Dopo tre, ne resta un ottavo.',
+      'Va da pochi secondi a miliardi di anni, ed è esattamente questo che permette di datare un passato lontanissimo.',
+    ],
+    formulaExampleNames: [
+      'Carbonio-12',
+      'Radon-222',
+      'Iodio-131',
+      'Cobalto-60',
+      'Carbonio-14',
+      'Uranio-238',
+    ],
+    sections: [
+      {
+        heading: 'I due numeri che servono a questo bigino',
+        content:
+          'Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo. I due termini sono un ampliamento: il programma di questi anni non ne nomina nessuno, e senza di essi qui non funziona niente.',
+      },
+      {
+        heading: 'Isotopi',
+        content:
+          'Gli isotopi sono atomi di uno stesso elemento con un numero diverso di neutroni. La chimica la fanno gli elettroni, e gli isotopi ne hanno lo stesso numero, quindi reagiscono allo stesso modo. Quello che cambia è la massa, e a volte la stabilità: alcuni isotopi sono radioattivi, altri no.',
+        imageAlt:
+          'Tre atomi di idrogeno uno accanto all’altro: uno con un protone, uno con un protone e un neutrone, uno con un protone e due neutroni. Tutti e tre hanno un solo elettrone.',
+      },
+      {
+        heading: 'Perché la massa atomica relativa è raramente un numero intero',
+        content:
+          'Un campione di un elemento è una miscela dei suoi isotopi, in proporzioni fisse. La massa atomica relativa è la media su quella miscela, pesata su quanto è comune ciascun isotopo. Il cloro è per circa tre quarti cloro-35 e per un quarto cloro-37. La media viene 35,5. Nessun singolo atomo di cloro pesa così. Questa parte è un ampliamento: la massa atomica relativa è materia delle superiori, ed è qui perché senza di essa gli isotopi non hanno senso.',
+        imageAlt:
+          'Una barra che mostra il 75 per cento di cloro-35 e il 25 per cento di cloro-37, con la media pesata 35,5 segnata più vicino al lato del 35.',
+      },
+      {
+        heading: 'Nuclei instabili e le tre specie di radiazione',
+        content:
+          'Alcuni nuclei sono instabili. Decadono da soli, emettono radiazione e lasciano dietro di sé un atomo più stabile. Il radon-222 scaglia fuori una particella alfa, cioè due protoni e due neutroni insieme. Lo iodio-131 emette una particella beta, cioè un elettrone veloce uscito dal nucleo. Il cobalto-60 emette radiazione gamma, che è energia e non una particella. Un foglio di carta ferma l’alfa, una lamina di alluminio ferma la beta, e la gamma richiede piombo o cemento spesso.',
+      },
+      {
+        heading: 'Tempo di dimezzamento',
+        content:
+          'Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Dopo un tempo di dimezzamento ne resta metà, dopo due un quarto e dopo tre un ottavo. Per ogni isotopo è fisso: scaldarlo o farlo reagire non lo cambia. Il carbonio-14 ha un tempo di dimezzamento di circa 5730 anni. L’uranio-238 lo ha di circa 4,5 miliardi di anni, ed è per questo che c’è ancora uranio nel terreno.',
+        imageAlt:
+          'Una curva di decadimento che si dimezza a ogni tempo di dimezzamento, accanto alle ultime righe della tavola periodica con evidenziati gli elementi che esistono solo se fabbricati.',
+      },
+      {
+        heading: 'Datare il passato, e 65 000 anni in Australia',
+        content:
+          'Il carbonio-14 si forma in alto nell’aria e finisce in ogni essere vivente. Quando qualcosa muore non ne assorbe più, e quello che ha già dentro decade. Misurare quanto ne resta data i resti, fino a circa 50 000 anni fa. Per materiale più antico serve un altro metodo. La luminescenza otticamente stimolata data l’ultima volta che un granello di sabbia ha visto la luce del giorno, e arriva molto più indietro. A Madjedbebe, un riparo sotto roccia nelle terre del popolo mirarr, nel Territorio del Nord, i due metodi sono stati applicati agli stessi depositi. Collocano i popoli aborigeni australiani e gli isolani dello Stretto di Torres nel continente australiano da almeno 65 000 anni.',
+      },
+      {
+        heading: 'La radioattività in medicina e nell’industria',
+        content:
+          'La radiazione è utile perché attraversa i corpi solidi e la si può indirizzare. In medicina si segue nel corpo una piccola dose di un isotopo di vita breve per trovare un tumore. Una dose grande e concentrata serve a uccidere le cellule tumorali, e il cobalto-60 è una delle sorgenti usate per questo. Nell’industria si attraversano con radiazione gamma i pezzi destinati ad aerei e veicoli spaziali. Una crepa compare sulla pellicola dietro il pezzo, senza che nessuno debba aprirlo.',
+      },
+      {
+        heading: 'Elementi che è stato necessario fabbricare',
+        content:
+          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura. Vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. Questo è un ampliamento: il programma non chiede gli elementi fabbricati. Sono qui perché è così che sono state riempite le ultime righe della tavola periodica.',
+      },
+    ],
+    commonMistakes: [
+      'Disegnare gli elettroni su orbite circolari, come pianeti. Non seguono una traiettoria. Un livello è un’energia, e un elettrone sta da qualche parte in una regione intorno al nucleo, non su un punto di una linea.',
+      'Credere alle dimensioni dei disegni. Se il nucleo fosse un pisello, l’atomo sarebbe un campo sportivo. Ogni schema schiaccia quella distanza per stare nella pagina, compresi quelli di questo bigino.',
+      'Leggere la massa atomica relativa come un conteggio di particelle. È una media sugli isotopi: il 35,5 del cloro non è un atomo che potresti trovare.',
+      'Sommare le due masse degli isotopi e dividere per due. Per il cloro viene 36, ed è sbagliato, perché il cloro-35 è tre volte più abbondante del cloro-37.',
     ],
   },
   'states-of-matter': {
