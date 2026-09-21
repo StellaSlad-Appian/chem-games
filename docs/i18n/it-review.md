@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Italian
 translation, so a native speaker or a chemistry teacher can review the Italian
 without reading any code.
 
-**897 strings** — 396 high confidence,
-364 medium, 137 low.
+**910 strings** — 396 high confidence,
+377 medium, 137 low.
 
 The confidence column is a judgement about *this* translation, not about Italian
 in general:
@@ -71,6 +71,7 @@ flat string cannot agree with its number — so *risposte esatte: 1* rather than
 | `meta.teachersDescription` | What ChemGames is, the six languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta. | Che cos’è ChemGames, in quali sei lingue esiste, come tratta i dati di chi studia, a che punto è l’accessibilità e come chi insegna può contribuire durante la beta. | medium | Page titles and descriptions. Note privacyTitle and privacy.heading say "informativa sulla privacy", which is the standard Italian name of the document, rather than the bare loanword "Privacy" the English uses. |
 | `meta.cheatSheetTitle` | {title} Cheat Sheet \| ChemGames | Bigino di {title} \| ChemGames | medium | Page titles and descriptions. Note privacyTitle and privacy.heading say "informativa sulla privacy", which is the standard Italian name of the document, rather than the bare loanword "Privacy" the English uses. |
 | `meta.cheatSheetNotFound` | Topic Not Found - ChemGames | Argomento non trovato – ChemGames | medium | Page titles and descriptions. Note privacyTitle and privacy.heading say "informativa sulla privacy", which is the standard Italian name of the document, rather than the bare loanword "Privacy" the English uses. |
+| `meta.exploreEntryNotFound` | Entry Not Found - ChemGames | Scheda non trovata – ChemGames | medium | Page titles and descriptions. Note privacyTitle and privacy.heading say "informativa sulla privacy", which is the standard Italian name of the document, rather than the bare loanword "Privacy" the English uses. |
 
 ### `common`
 
@@ -479,8 +480,20 @@ flat string cannot agree with its number — so *risposte esatte: 1* rather than
 | `explore.creditHeading` | Credit where it was due | A chi va il merito | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
 | `explore.moleculeCta` | Practise this: {target} | Esercitati: {target} | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
 | `explore.scientistCta` | The chemistry behind this: {target} | La chimica dietro: {target} | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.moleculeImageA11y` | Diagram: {name} | Schema: {name} | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.scientistImageA11y` | Picture: {name} | Immagine: {name} | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
 | `explore.sourcesHeading` | Sources | Fonti | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
 | `explore.sourcesNote` | Source links last checked {date}. | Link controllati l’ultima volta il {date}. | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.recentHeading` | Recent weeks | Settimane precedenti | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.archiveCta` | Browse every entry | Vedi tutte le schede | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.archiveHeading` | Explore archive | Archivio di Esplora | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.archiveIntro` | Every molecule and chemist in the rotation, the most recent first. | Tutte le molecole e tutte le persone della chimica, dalle più recenti. | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.archiveThisWeek` | This week | Questa settimana | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.backToExplore` | Back to Explore | Torna a Esplora | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.sameWeekHeading` | From the same week | Della stessa settimana | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.featuredOnce` | Featured in the week of {date}. | In evidenza nella settimana del {date}. | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.featuredAgain` | Last featured in the week of {date}. It comes round again in the week of {nextDate}. | Ultima apparizione nella settimana del {date}. Torna nella settimana del {nextDate}. | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
+| `explore.featuredNever` | Not featured yet. First up in the week of {date}. | Non ancora in evidenza. Prima apparizione nella settimana del {date}. | medium | Page chrome for the weekly Explore page, in tu throughout ("Dove la incontri", "Esercitati") per glossary-it.md. Every apostrophe is U+2019 ("l’ultima volta"), so no string needs an escape. "Formula" and "formula chimica" are the same word as the English and are allowlisted. |
 
 ### `chemistry`
 
@@ -1097,7 +1110,7 @@ whether one exists.
 
 ## Cheat sheets -- `src/i18n/cheat-sheets/it.ts`
 
-Twelve reference sheets, roughly 6,000 words of specialist Italian. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist Italian. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
@@ -1107,6 +1120,8 @@ is also machine-checked by the overlay-shape gate.
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Atomi e tavola periodica | **medium** | New on 2026-09-21, when the September sheet split in two. **Semimetallo** was chosen over *metalloide*: both are current and correct in Italian, and *semimetallo* is the plainer word for a fourteen-year-old. It is marked on the sheet as an extension, since the curriculum says only "metallic and non-metallic properties". *Reattività* carries a final accent, so like *elettronegatività* it can never be a glossary match word — it appears in prose only. *Guscio* is named once as the curriculum's word while *livello di energia* stays the term. The group-1-with-water sentence (sfrigola, sfreccia in superficie, prende fuoco) is lab description and reads flat if it is translated flat. |
+| Isotopi e radioattività | **low** | New on 2026-09-21. The decay vocabulary is settled and would rate high alone: particella alfa, particella beta, radiazione gamma, decadimento radioattivo, tempo di dimezzamento. *Emivita* was rejected for half-life as the medical word. **The sheet is rated low for one section**, the 65,000-year dating section, which writes "i popoli aborigeni australiani e gli isolani dello Stretto di Torres". **Have an Italian speaker who writes about Australian Indigenous history read that sentence before students do.** |
 | Gli stati della materia | **high** | Ordinary particle-model vocabulary. The six phase changes use the standard Italian pairs (fusione/solidificazione, vaporizzazione/condensazione, sublimazione/brinamento). *Brinamento* for deposition is the school word and is worth confirming. |
 | Acidi e basi | **high** | Glossary-fixed throughout. **One choice to check, and Italian lands with Spanish rather than French:** H3O+ is called **ione idronio**, which is what Italian secondary textbooks print, where the French pass chose *ion oxonium* because the lycee programme prints that. *Ione ossonio* is the IUPAC form and is what a university text uses. It recurs through the sheet. |
 | Bilanciare le equazioni chimiche | **high** | Turns on the pedice/coefficiente distinction, which Italian makes as cleanly as German does, and there is no variety marker and no collision anywhere in it. |

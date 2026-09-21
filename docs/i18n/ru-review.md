@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Russian
 translation, so a native speaker or a chemistry teacher can review the Russian
 without reading any code.
 
-**897 strings** — 396 high confidence,
-363 medium, 138 low.
+**910 strings** — 396 high confidence,
+376 medium, 138 low.
 
 The confidence column is a judgement about *this* translation, not about Russian
 in general:
@@ -83,6 +83,7 @@ quotation marks and are enforced by a gate rather than remembered.
 | `meta.teachersDescription` | What ChemGames is, the six languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta. | Что такое ChemGames, на каких шести языках он выходит, как он обращается с данными учеников, на каком уровне доступность и как учителя могут помочь развивать его во время беты. | medium | Page titles and descriptions. Fine as copy; not optimised as search text. |
 | `meta.cheatSheetTitle` | {title} Cheat Sheet \| ChemGames | Шпаргалка: {title} \| ChemGames | medium | Page titles and descriptions. Fine as copy; not optimised as search text. |
 | `meta.cheatSheetNotFound` | Topic Not Found - ChemGames | Тема не найдена — ChemGames | medium | Page titles and descriptions. Fine as copy; not optimised as search text. |
+| `meta.exploreEntryNotFound` | Entry Not Found - ChemGames | Материал не найден — ChemGames | medium | Page titles and descriptions. Fine as copy; not optimised as search text. |
 
 ### `common`
 
@@ -484,15 +485,27 @@ quotation marks and are enforced by a gate rather than remembered.
 | `explore.scientistHeading` | Scientist of the Week | Химик недели | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.formulaLabel` | Formula | Формула | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.formulaA11y` | {name}, formula {formula} | {name}, формула {formula} | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.everydayHeading` | Where you meet it | Где ты с ним встречаешься | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.everydayHeading` | Where you meet it | Где это встречается в жизни | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.chemistryHeading` | Why it works | Почему это работает | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.workHeading` | What they did | Что он сделал | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.workHeading` | What they did | Вклад в науку | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.legacyHeading` | Why it mattered | Почему это важно | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.creditHeading` | Credit where it was due | Кому на самом деле принадлежит заслуга | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.moleculeCta` | Practise this: {target} | Потренируйся: {target} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.scientistCta` | The chemistry behind this: {target} | Химия за этим: {target} | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.moleculeImageA11y` | Diagram: {name} | Изображение: {name} | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.scientistImageA11y` | Picture: {name} | Фото: {name} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.sourcesHeading` | Sources | Источники | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.sourcesNote` | Source links last checked {date}. | Ссылки проверены — {date}. | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.sourcesNote` | Source links last checked {date}. | Ссылки проверены — {date} | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.recentHeading` | Recent weeks | Прошлые недели | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.archiveCta` | Browse every entry | Посмотреть все материалы | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.archiveHeading` | Explore archive | Архив раздела «Открывай» | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.archiveIntro` | Every molecule and chemist in the rotation, the most recent first. | Все вещества и химики из ротации — сначала самые свежие. | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.archiveThisWeek` | This week | Эта неделя | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.backToExplore` | Back to Explore | Назад к разделу «Открывай» | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.sameWeekHeading` | From the same week | Из той же недели | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.featuredOnce` | Featured in the week of {date}. | Неделя показа — {date} | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.featuredAgain` | Last featured in the week of {date}. It comes round again in the week of {nextDate}. | Последняя неделя показа — {date} Следующая — {nextDate} | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.featuredNever` | Not featured yet. First up in the week of {date}. | Показов ещё не было. Первая неделя — {date} | medium | No specific note; reviewed as ordinary UI copy. |
 
 ### `chemistry`
 
@@ -1109,12 +1122,14 @@ whether one exists.
 
 ## Cheat sheets — `src/i18n/cheat-sheets/ru.ts`
 
-Twelve reference sheets, roughly 6,000 words of specialist Russian. **This is the
+Fourteen reference sheets, roughly 7,500 words of specialist Russian. **This is the
 highest-risk part of the translation and the part I would most want reviewed
 before students see it.**
 
 | Sheet | Confidence | What to look at |
 |---|---|---|
+| Атомы и периодическая таблица | **medium** | New on 2026-09-21, when the September sheet split in two. Reactivity is **химическая активность** and the adjective is not optional: bare *активность* also means radioactive activity, and this is the one pair of sheets where that collides. **Полуметалл** over *металлоид*, marked as an extension. **Атомный номер is recorded as shipped, and *порядковый номер* is arguably the better school term** — changing it is a change to both sheets and this file together. Электронная оболочка is named once as the curriculum's word while *энергетический уровень* stays the term. Groups are numbered 1–18 in Arabic numerals rather than by the older Roman-numeral-plus-letter scheme; check that against the reader's textbook. |
+| Изотопы и радиоактивность | **low** | New on 2026-09-21. The decay vocabulary is settled and would rate high alone: альфа-частица, бета-частица, гамма-излучение, радиоактивный распад, период полураспада. **Typography to check, because this sheet has more numbers than any other:** 65 000 and 50 000 take a no-break space and never a comma, and uranium-238 is 4,5 миллиарда лет with a decimal comma. **The sheet is rated low for two things.** The 65,000-year dating section writes «коренные народы Австралии и жители островов Торресова пролива» — **have a Russian speaker who writes about Australian Indigenous history read that sentence before students do.** And «Маджедбебе» is a transliteration of Madjedbebe with no established Russian spelling behind it. |
 | States of Matter | **high** | Ordinary particle-model vocabulary. The six transitions use the standard Russian pairs (плавление/кристаллизация, испарение/конденсация, возгонка/десублимация). |
 | Acids & Bases | **high** | Glossary-fixed throughout. Two choices to check: H₃O⁺ is **ион гидроксония**, the Russian school term, where English says hydronium; and "base" is **основание** throughout, never *база*. |
 | Balancing Equations | **high** | Turns on the индекс/коэффициент distinction, which Russian makes with exactly the two words a textbook uses. "Уравнять" is the decided verb, with "расставить коэффициенты" as its fuller expansion where there is room — see the glossary. |

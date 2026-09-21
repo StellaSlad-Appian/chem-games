@@ -23,11 +23,13 @@ Open this folder:
 
 ```
 C:\Users\stella.slad\Documents\GitHub\chem-games\public\cheat-sheets\atomic-structure\
+C:\Users\stella.slad\Documents\GitHub\chem-games\public\cheat-sheets\isotopes-and-radioactivity\
 ```
 
 Replace a file, keep the **same filename**, and the page picks it up. In the
-repository the same folder is `public/cheat-sheets/atomic-structure/`, and in
-the browser it is served at `/cheat-sheets/atomic-structure/<file>`.
+repository the same folders are `public/cheat-sheets/atomic-structure/` and
+`public/cheat-sheets/isotopes-and-radioactivity/`, and in the browser they are
+served at `/cheat-sheets/<sheet-slug>/<file>`.
 
 A new sheet gets its own folder under `public/cheat-sheets/<sheet-slug>/`.
 
@@ -56,19 +58,49 @@ The page scales the image down to fit; it never scales it up past its own width.
 
 ---
 
-## The slots on *Atoms, Isotopes & the Periodic Table*
+## The slots on *Atoms & the Periodic Table* — `atomic-structure`
 
-In the order they appear on the page.
+In the order they appear on the page. **The sheet split in two on 2026-09-21**,
+and three of the original seven diagrams went with the prose they belong to;
+they are in the next table, in a folder of their own. The numbering is
+deliberately not closed up, because the filenames did not change and renaming
+them would break the "replacing a diagram is replacing a file" contract this
+document exists to keep.
 
 | # | File | Size | What it should show |
 |---|---|---|---|
 | 1 | `01-inside-an-atom.svg` | 640×360 | A nucleus of protons and neutrons, with a **probability cloud** around it — not electrons on circular tracks. Include a note about the true scale. |
 | 2 | `02-atomic-and-mass-number.svg` | 640×320 | The Cl-35 notation: mass number 35 above atomic number 17, with arrows labelling 17 protons and 35 − 17 = 18 neutrons. |
-| 3 | `03-isotopes-of-hydrogen.svg` | 640×280 | Three hydrogen atoms: 1 proton; 1 proton + 1 neutron; 1 proton + 2 neutrons. One electron on each. |
-| 4 | `04-weighted-average.svg` | 640×300 | One bar, 75% chlorine-35 and 25% chlorine-37, with 35.5 marked nearer the 35 end. |
 | 5 | `05-energy-levels.svg` | 640×360 | Sodium drawn as 2, 8, 1 beside the periodic table with group 1 highlighted. |
 | 6 | `06-ordered-by-atomic-number.svg` | 640×300 | Tellurium and iodine side by side: tellurium heavier, lower atomic number, placed first. |
+
+The four sections the split added — groups and periods, metals and non-metals,
+atomic size, and reactivity — carry **no diagram**. That is on purpose: the
+redesign answers those four with an interactive periodic table, so a placeholder
+here would be a slot nobody should fill.
+
+## The slots on *Isotopes & Radioactivity* — `isotopes-and-radioactivity`
+
+Served from `public/cheat-sheets/isotopes-and-radioactivity/`, and in the
+browser from `/cheat-sheets/isotopes-and-radioactivity/<file>`.
+
+| # | File | Size | What it should show |
+|---|---|---|---|
+| 3 | `03-isotopes-of-hydrogen.svg` | 640×280 | Three hydrogen atoms: 1 proton; 1 proton + 1 neutron; 1 proton + 2 neutrons. One electron on each. |
+| 4 | `04-weighted-average.svg` | 640×300 | One bar, 75% chlorine-35 and 25% chlorine-37, with 35.5 marked nearer the 35 end. |
 | 7 | `07-decay-and-made-elements.svg` | 640×320 | A half-life curve halving at each step, beside the bottom rows of the table with the synthetic elements highlighted. |
+
+**Slot 7 now sits under the *Half-life* section.** The decay curve is what that
+section is about and is the larger half of the file. Its alt text is unchanged
+and still describes the whole file, including the made elements that a later
+section goes on to explain. The redesign's diagram milestone splits this file in
+two and renames it, which is when the second half gets a section of its own;
+until then, one file under one section with an accurate alt is the honest
+arrangement.
+
+The three sections the split added — the three kinds of radiation, the
+65,000-year dating section, and the medical and industrial applications —
+carry **no diagram** yet.
 
 ### One rule these diagrams must follow
 
