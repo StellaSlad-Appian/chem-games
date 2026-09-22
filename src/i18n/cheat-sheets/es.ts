@@ -640,7 +640,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     summary:
       'Qué significa de verdad Ar y cómo sumar los átomos para obtener la Mr de cualquier fórmula, subíndices y paréntesis incluidos.',
     keyTakeaways: [
-      'La masa atómica relativa (Ar) es una comparación, no un peso en gramos: un átomo de carbono pesa lo mismo que 12 átomos de hidrógeno, así que su Ar es 12.',
+      'La masa atómica relativa (Ar) es una comparación, no un peso en gramos: un átomo de carbono pesa aproximadamente lo mismo que 12 átomos de hidrógeno. Ar se mide frente al carbono-12, que vale exactamente 12.',
       'Como es una razón, Ar no tiene unidad. Nada de esta chuleta se mide en gramos hasta que lo escalas a una cantidad real.',
       'La masa fórmula relativa (Mr) es la suma de todos los átomos de la fórmula. Nada más: no se multiplica al final ni se hace una media.',
       'Un subíndice multiplica el átomo que va delante. Un paréntesis multiplica todo lo que hay dentro.',
@@ -658,7 +658,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Qué quiere decir «relativa»',
         content:
-          'Los átomos son demasiado ligeros para pesarlos de uno en uno, así que la química los compara. Pon un átomo de carbono en un platillo y átomos de hidrógeno en el otro: hacen falta 12 hidrógenos para que quede equilibrada. Esa es toda la idea: el carbono pesa 12 veces lo que el hidrógeno, así que decimos que su masa atómica relativa es 12. El número responde a «¿cuántos hidrógenos?», y por eso no tiene unidad: es una comparación, no una medida.',
+          'Los átomos son demasiado ligeros para pesarlos de uno en uno, así que la química los compara. Pon un átomo de carbono en un platillo y átomos de hidrógeno en el otro: hacen falta 12 hidrógenos para que quede equilibrada. Esa es toda la idea: el carbono pesa 12 veces lo que el hidrógeno, así que decimos que su masa atómica relativa es 12. El número responde a «¿cuántos hidrógenos?», y por eso no tiene unidad: es una comparación, no una medida. En rigor, el patrón es el carbono-12, no el hidrógeno: cada masa atómica relativa compara un átomo con la doceava parte de un átomo de carbono-12. El hidrógeno sale casi exactamente 1, y por eso la imagen de la balanza funciona.',
       },
       {
         heading: 'Sumar los átomos',

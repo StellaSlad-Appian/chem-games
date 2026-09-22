@@ -646,7 +646,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Ce que Ar veut vraiment dire, et comment additionner les atomes pour trouver la Mr d’une formule – indices et parenthèses compris.',
     keyTakeaways: [
-      'La masse atomique relative (Ar) est une comparaison, pas un poids en grammes : un atome de carbone pèse autant que 12 atomes d’hydrogène, donc son Ar vaut 12.',
+      'La masse atomique relative (Ar) est une comparaison, pas un poids en grammes : un atome de carbone pèse à peu près autant que 12 atomes d’hydrogène. Ar se mesure par rapport au carbone 12, qui vaut exactement 12.',
       'Comme c’est un rapport, Ar n’a pas d’unité. Rien sur cette fiche ne se mesure en grammes tant que tu n’es pas passé à une quantité réelle.',
       'La masse formulaire relative (Mr) est la somme de tous les atomes de la formule. Rien d’autre : on ne multiplie pas à la fin, on ne fait pas de moyenne.',
       'Un indice multiplie l’atome qui le précède. Une parenthèse multiplie tout ce qu’elle contient.',
@@ -664,7 +664,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Ce que « relative » veut dire',
         content:
-          'Les atomes sont bien trop légers pour être pesés un par un : les chimistes les comparent. Pose un atome de carbone sur un plateau et des atomes d’hydrogène sur l’autre — il en faut 12 pour que la balance soit à l’équilibre. Toute l’idée est là : le carbone est 12 fois plus lourd que l’hydrogène, donc on dit que sa masse atomique relative vaut 12. Le nombre répond à la question « combien d’hydrogènes ? », et c’est pour cela qu’il n’a pas d’unité : c’est une comparaison, pas une mesure.',
+          'Les atomes sont bien trop légers pour être pesés un par un : les chimistes les comparent. Pose un atome de carbone sur un plateau et des atomes d’hydrogène sur l’autre — il en faut 12 pour que la balance soit à l’équilibre. Toute l’idée est là : le carbone est 12 fois plus lourd que l’hydrogène, donc on dit que sa masse atomique relative vaut 12. Le nombre répond à la question « combien d’hydrogènes ? », et c’est pour cela qu’il n’a pas d’unité : c’est une comparaison, pas une mesure. En toute rigueur, l’étalon est le carbone 12, pas l’hydrogène : chaque masse atomique relative compare un atome à un douzième d’un atome de carbone 12. L’hydrogène tombe sur presque exactement 1, et c’est pour cela que l’image de la balance fonctionne.',
       },
       {
         heading: 'Additionner les atomes',
