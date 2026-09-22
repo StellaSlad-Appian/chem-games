@@ -182,10 +182,15 @@ test.describe('the permalinks', () => {
 });
 
 test.describe('the recent list and the index', () => {
+  // Both lists live on the archive tab now: the recent weeks above, the full
+  // rotation below. So every row locator here is **scoped to its own section**
+  // — an unscoped `getByRole('listitem')` would count thirty rows and mean
+  // neither list. That scoping is the only thing the tab strip changed about
+  // these tests; the claims themselves are the ones the archive shipped with.
   test('the recent list links reach a permalink that really renders', async ({ page }) => {
     const t = await getDictionary('en');
 
-    await page.goto(path('/explore'));
+    await page.goto(path('/explore/archive'));
     await waitForHydration(page);
 
     const list = page.getByRole('region', { name: t.explore.recentHeading });
@@ -209,24 +214,32 @@ test.describe('the recent list and the index', () => {
 
     await page.goto(path('/explore'));
     await waitForHydration(page);
-    await page.getByRole('link', { name: t.explore.archiveCta }).first().click();
+    // Reached from the tab strip now, not from a call to action at the foot of
+    // the page. The pill's accessible name is its label plus its subtitle.
+    await page
+      .getByRole('navigation', { name: t.explore.tabsA11y })
+      .getByRole('link', { name: t.explore.tabArchive })
+      .click();
 
     await expect(page).toHaveURL(/\/en\/explore\/archive$/);
+    // An h2 now: the layout owns the only h1 on all three tabs.
     await expect(
-      page.getByRole('heading', { level: 1, name: t.explore.archiveHeading })
+      page.getByRole('heading', { level: 2, name: t.explore.archiveHeading })
     ).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
 
-    const rows = page.getByRole('listitem');
-    await expect(rows).toHaveCount(20);
+    const rotation = page.getByRole('region', { name: t.explore.archiveHeading });
+    await expect(rotation.getByRole('listitem')).toHaveCount(20);
 
-    const hrefs = await page.getByRole('listitem').getByRole('link').evaluateAll((links) =>
-      links.map((link) => link.getAttribute('href'))
-    );
+    const hrefs = await rotation
+      .getByRole('listitem')
+      .getByRole('link')
+      .evaluateAll((links) => links.map((link) => link.getAttribute('href')));
     expect(hrefs).toHaveLength(40);
     expect(new Set(hrefs).size).toBe(40);
 
-    // Exactly one row is marked as this week.
-    await expect(page.getByText(t.explore.archiveThisWeek, { exact: true })).toHaveCount(1);
+    // Exactly one rotation row is marked as this week.
+    await expect(rotation.getByText(t.explore.archiveThisWeek, { exact: true })).toHaveCount(1);
   });
 
   test('the archive keeps the language when you switch it', async ({ page }) => {
@@ -243,7 +256,11 @@ test.describe('the recent list and the index', () => {
 
     await expect(page).toHaveURL(/\/it\/explore\/archive$/, { timeout: 15_000 });
     await expect(
-      page.getByRole('heading', { level: 1, name: it.explore.archiveHeading })
+      page.getByRole('heading', { level: 2, name: it.explore.archiveHeading })
+    ).toBeVisible();
+    // The shared header came with it, in Italian.
+    await expect(
+      page.getByRole('heading', { level: 1, name: it.explore.heading })
     ).toBeVisible();
   });
 });

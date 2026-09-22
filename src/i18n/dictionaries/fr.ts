@@ -549,6 +549,7 @@ export const fr = {
     forTeachers: 'Pour les enseignants',
     curriculum: 'Programme : ',
     filterA11y: 'Filtrer les sujets par niveau scolaire',
+    panHint: 'Faites défiler latéralement pour voir la suite',
   },
 
   periodicTable: {
@@ -657,6 +658,13 @@ export const fr = {
     // « scientifique » est épicène (glossary-fr.md § Registre).
     moleculeHeading: 'Molécule de la semaine',
     scientistHeading: 'Scientifique de la semaine',
+    // La sous-navigation d’Explorer : un mot par onglet, et non les intitulés
+    // de section complets — voir le commentaire dans en.ts. « Scientifique »
+    // est épicène, donc l’onglet n’a pas besoin d’un doublet.
+    tabsA11y: 'Sections d’Explorer',
+    tabMolecule: 'Molécule',
+    tabScientist: 'Scientifique',
+    tabArchive: 'Archives',
     formulaLabel: 'Formule',
     formulaA11y: '{name}, formule {formula}',
     everydayHeading: 'Où on la rencontre',

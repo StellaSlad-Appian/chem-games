@@ -1,6 +1,25 @@
-// src/app/[lang]/(main)/explore/archive/page.tsx
+// src/app/[lang]/(main)/explore/(tabs)/archive/page.tsx
 //
 // The index: every pair in the rotation, most recent first.
+//
+// ## What the tab strip took, and what it gave back
+//
+// This page used to open with its own `<h1>`, its own intro paragraph and a
+// "Back to Explore" link. All three are done better one level up now: the
+// `(tabs)` layout owns the heading and the intro, and the strip is a better way
+// back than a single link because it also says where else there is to go. So
+// the page starts at `<h2>` and every level below it shifts with it.
+//
+// In exchange it gained the **recent-weeks list** that used to sit at the foot
+// of `/explore`. It belongs here: it is history, and this is the history tab.
+// On the molecule tab it was a third thing below the card, and the card is what
+// that tab is for.
+//
+// The two lists are not redundant. The recent list is *what ran, week by week,
+// newest first* and it is short; the rotation below is *every pair, once each*
+// and it is complete. A pair that ran three times appears once in the rotation
+// and up to three times in the recent list, which is the honest answer to two
+// different questions.
 //
 // ## Not months, and not "only what has been featured"
 //
@@ -52,12 +71,10 @@
 // stand-in a crawler can follow; a sitemap is the separate, better answer.
 
 import type { Metadata } from 'next';
-import { ArrowLeft, Compass } from 'lucide-react';
-import { LocaleLink } from '@/components/layout/LocaleLink';
 import { ThisWeekBadge, WeekRow } from '@/components/explore/WeekRow';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
-import { getExploreArchive } from '@/i18n/explore';
+import { getExploreArchive, getExploreRecent } from '@/i18n/explore';
 import { formatWeekDate, isoDay } from '@/i18n/explore-dates';
 import { format } from '@/i18n/format';
 import { localeAlternates } from '@/i18n/routing';
@@ -95,36 +112,67 @@ export default async function ExploreArchivePage(props: PageProps<'/[lang]/explo
   const locale: Locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
   const t = await getDictionary(locale);
 
-  // One clock, as everywhere else in this feature.
-  const rotation = getExploreArchive(locale, new Date());
+  // One clock for both lists on this page — and the second reading on this
+  // route tree, the first being the tab layout's. See `../layout.tsx`.
+  const now = new Date();
+  const recent = getExploreRecent(locale, now);
+  const rotation = getExploreArchive(locale, now);
 
   return (
-    <main className="min-h-screen bg-(--background) px-4 py-8 text-(--foreground) md:px-8">
-      <div className="mx-auto max-w-4xl">
-        <LocaleLink
-          href="/explore"
-          className="mb-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+    // Section content only: the `<main>`, the container, the `<h1>`, the intro
+    // and the dateline all belong to `(tabs)/layout.tsx`.
+    <>
+      {/*
+        The weeks before this one, moved here from the foot of /explore.
+
+        Rendered only when there are any. At launch — and for anyone running
+        the site with a clock before ROTATION_EPOCH — there is no history at
+        all, and an empty "Recent weeks" heading over nothing is worse than no
+        heading: it reads as a page that failed to load its own content. That
+        is truer here than it was on /explore, because this tab's whole promise
+        is history.
+
+        Ten rows at most, and that is a display limit and not a lifetime. Every
+        entry that falls off this list keeps its permalink, keeps its place in
+        the rotation below, and comes round again on schedule.
+      */}
+      {recent.length > 0 && (
+        <section aria-labelledby="explore-recent" className="mt-8">
+          <h2
+            id="explore-recent"
+            className="text-xs font-black uppercase tracking-widest text-(--muted)"
+          >
+            {t.explore.recentHeading}
+          </h2>
+          <ul className="mt-4 space-y-3">
+            {recent.map((past) => (
+              <WeekRow
+                key={isoDay(past.weekStart)}
+                dateLabel={format(t.explore.dateline, {
+                  date: formatWeekDate(locale, past.weekStart),
+                })}
+                dateTime={isoDay(past.weekStart)}
+                molecule={past.molecule}
+                scientist={past.scientist}
+              />
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <section aria-labelledby="explore-rotation" className="mt-12">
+        {/* `min-w-0` / `break-words`: the German and Russian headings are long
+            compounds, and an unbreakable one in a 320px viewport would push the
+            document sideways. Less pressing at `text-xl` than it was at
+            `text-4xl`, and kept because the compounds have not got shorter. */}
+        <h2
+          id="explore-rotation"
+          className="min-w-0 text-xl font-black break-words"
         >
-          <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
-          {t.explore.backToExplore}
-        </LocaleLink>
+          {t.explore.archiveHeading}
+        </h2>
 
-        <header>
-          <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white">
-              <Compass className="h-5 w-5" aria-hidden="true" />
-            </span>
-            {/* `min-w-0` / `break-words`: the German and Russian headings are
-                long compounds, and at text-4xl in a 320px viewport an
-                unbreakable one would push the document sideways. */}
-            <h1 className="min-w-0 text-4xl font-black break-words md:text-5xl">
-              {t.explore.archiveHeading}
-            </h1>
-          </div>
-          <p className="mt-2 text-base text-(--muted)">{t.explore.archiveIntro}</p>
-        </header>
-
-        <ul className="mt-8 space-y-3">
+        <ul className="mt-4 space-y-3">
           {rotation.map((entry) => {
             // The most recent week it ran, or — before its first — the week it
             // is next due.
@@ -159,7 +207,7 @@ export default async function ExploreArchivePage(props: PageProps<'/[lang]/explo
             );
           })}
         </ul>
-      </div>
-    </main>
+      </section>
+    </>
   );
 }

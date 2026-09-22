@@ -122,6 +122,7 @@ export default async function Home(props: PageProps<'/[lang]'>) {
 
       {/* Main Content Sections */}
       <div className="mx-auto max-w-6xl space-y-20 px-4 py-14 md:px-8">
+        {/* Profile Section */}
         <section id="profile" className="scroll-mt-24">
           <SectionHeading
             icon={User}
@@ -178,7 +179,20 @@ export default async function Home(props: PageProps<'/[lang]'>) {
                     {game.name}
                   </h3>
                   <p className="mt-2 text-sm text-(--muted)">{game.detail}</p>
-                  {/*
+                </div>
+                <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-blue-500">
+                  <span>{t.common.playNow}</span>
+                  <ArrowRight
+                    className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
+                </div>
+              </LocaleLink>
+            ))}
+          </div>
+        </section>
+
+        {/*
           Explore Section — the dashboard's way into /explore.
 
           Belt and braces, and deliberately so: the header's phone panel is new
@@ -217,20 +231,6 @@ export default async function Home(props: PageProps<'/[lang]'>) {
               />
             </div>
           </LocaleLink>
-        </section>
-
-        {/* Profile Section */}
-      </div>
-                <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-blue-500">
-                  <span>{t.common.playNow}</span>
-                  <ArrowRight
-                    className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"
-                    aria-hidden="true"
-                  />
-                </div>
-              </LocaleLink>
-            ))}
-          </div>
         </section>
       </div>
     </main>

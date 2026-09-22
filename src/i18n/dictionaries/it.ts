@@ -593,6 +593,7 @@ export const it = {
     forTeachers: 'Per chi insegna',
     curriculum: 'Programma: ',
     filterA11y: 'Filtra gli argomenti per classe',
+    panHint: 'Scorri lateralmente per vedere il resto',
   },
 
   periodicTable: {
@@ -701,6 +702,16 @@ export const it = {
     // epiceno utilizzabile, e una formula che non cambia mai non dice nulla
     // sulla persona della settimana.
     scientistHeading: 'Chimica o chimico della settimana',
+    // La sotto-navigazione di Esplora: un’etichetta breve per scheda, non le
+    // intestazioni di sezione complete — vedi il commento in en.ts.
+    //
+    // Come in spagnolo, la doppietta non si può abbreviare senza tornare al
+    // maschile generico, che è proprio ciò che questa sezione evita: quella
+    // scheda è l’unica delle tre a occupare due righe nell’etichetta.
+    tabsA11y: 'Sezioni di Esplora',
+    tabMolecule: 'Molecola',
+    tabScientist: 'Chimica o chimico',
+    tabArchive: 'Archivio',
     // «Formula» è la stessa parola in italiano e in inglese; vedi l’elenco
     // delle eccezioni in dictionary.test.ts.
     formulaLabel: 'Formula',

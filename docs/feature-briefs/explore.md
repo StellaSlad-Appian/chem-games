@@ -789,3 +789,160 @@ trigger on close, Escape closes, background scroll locked, and
 `prefers-reduced-motion` respected. That is spelled out in AC-2 because a panel
 that fails those is worse than the broken nav it replaces — it traps keyboard
 and screen-reader users instead of merely hiding links from them.
+
+## 9. Decision: tabs, not two columns, 2026-09-21
+
+The page has outgrown the arrangement it was built with. On a laptop the two
+cards sit side by side in a `lg:grid-cols-2`, each with a picture at full column
+width, and the reader scrolls past most of a screen of one card before reaching
+the recent list. **Replace the two-column grid with a three-tab
+sub-navigation.**
+
+| Tab                   | URL                  |
+| --------------------- | -------------------- |
+| Molecule of the week  | `/explore`           |
+| Scientist of the week | `/explore/scientist` |
+| Archive               | `/explore/archive`   |
+
+`/explore` **is** the molecule tab. Not a redirect to `/explore/molecule`, and
+not a fourth URL — a layout returns `null` from `useSelectedLayoutSegment` for
+its own route, which is exactly the signal needed, and it keeps the page count
+at three with no duplicate content to canonicalise. Segments stay English in
+every locale, per the rule at the top of `explore/page.tsx`.
+
+### Why tabs rather than a narrower grid
+
+1. **A narrower grid does not fix the pictures.** The complaint is that the
+   molecule structure is enormous on a laptop, and the cause is that a card at
+   half of `max-w-6xl` is still wide enough to give a picture told to fill it
+   several hundred pixels. Going to one column per view makes that *worse*, not
+   better, which is why the picture needs its own fix regardless of the
+   arrangement — see below.
+2. **The archive is already a route.** It was built as `/explore/archive` in
+   §0d, with its own metadata and `hreflang`. A tab strip costs one layout and
+   reuses that page whole; it does not turn the archive into a client-side
+   panel or re-render the whole rotation into the current page.
+3. **Nothing about the pair rule changes.** The molecule and the scientist are
+   still scheduled as a pair, still turn over on the same Monday boundary, still
+   share a theme and usually a link target. What changes is that the reader sees
+   one at a time.
+
+### What this supersedes
+
+**AC-3's arrangement, not its substance.** "Molecule of the Week then Scientist
+of the Week, each an `<h2>` under a single `<h1>`" described two sections on one
+document. There is now one `<h1>` in a shared layout and one section per tab.
+The pair rule, the single clock and the Monday 00:00 UTC boundary in AC-3 all
+stand unchanged.
+
+**The archive call-to-action** at the foot of `/explore` goes away, and with it
+the archive page's own "Back to Explore" link — the strip does both jobs. Check
+whether `archiveCta` and `backToExplore` are still referenced before deleting
+them from six dictionaries.
+
+### The tabs must not reach the permalinks
+
+A layout at `explore/layout.tsx` would also wrap `explore/molecules/[id]` and
+`explore/scientists/[id]`, giving each permalink a tab strip and an "Explore"
+`<h1>` that fights the `standalone` mode that deliberately makes the entry name
+the `h1`. **Use a route group** — `explore/(tabs)/` holding the layout and the
+three tab pages, with the permalinks left outside it. Route groups do not appear
+in URLs, so `/explore/archive` keeps the address and the inbound links the
+archive shipped with.
+
+### The header stack is the larger win
+
+Tabs alone would leave the reader meeting eight bands before any content: site
+NavBar, `<h1>` at 48px, intro sentence, dateline pill, a two-line tab strip, the
+card's eyebrow, the entry name at 36px, the formula. Three compressions, worth
+more than the tabs by themselves:
+
+- **One-word pill labels.** "Molecule", "Scientist", "Archive" — not "Molecule
+  of the week". The intro sentence already establishes the weekly rhythm, and
+  the entry name underneath removes the ambiguity. This is also what lets three
+  pills fit a 375px phone without a responsive variant, which the long labels
+  never would in German or Russian.
+- **The dateline moves onto the tab row**, right-aligned. It is currently a band
+  of its own carrying eight words. On the strip row it reads as "this is the
+  current week", which is true on all three tabs — the archive's own rows carry
+  their dates and one is already badged as current. This also settles where the
+  dateline lives: the layout, once, rather than duplicated into each entry page.
+- **The `<h1>` drops to `text-3xl`.** `text-4xl md:text-5xl` was right when
+  "Explore" was the only headline on the page. Under tabs it is wayfinding, and
+  it was competing with an entry name of nearly the same size 150px below it.
+
+### The entry names go on the pills, and the repeat is accepted
+
+Each entry pill carries its current entry's name as a subtitle — "Molecule /
+Polypropylene". The layout is a Server Component, so it reads
+`getExploreContent` and passes two strings down; there is no client fetch, and
+the names arrive already localised.
+
+This is the mitigation for the one real cost of tabs: **the chemist is now
+behind a click**, and the scientist entries are the half still without pictures
+and the least likely to be sought out. The name in the pill means a reader knows
+who is there without navigating.
+
+It does mean the name appears twice on the active tab — once at 13px muted in
+the pill, once at around 30px in the card heading below. Three reasons that is
+the right trade:
+
+1. **Only the active pill repeats.** On the molecule tab, "Giulio Natta" in the
+   inactive pill is the *only* place that name appears on the page. The
+   informative instance and the redundant one are different pills.
+2. **On the archive tab neither name is duplicated at all**, and the strip
+   doubles as a "what is current" line while the reader browses history.
+3. **A 2.3x size gap plus a colour gap reads as confirmation, not repetition** —
+   the relationship a browser tab has to an `h1`.
+
+Two rejected alternatives, recorded so they are not re-proposed. *Name on
+inactive pills only* kills the repeat and keeps discovery, but selecting a tab
+would make text vanish from it, so the strip either shifts height or the active
+pill carries a blank line; it also shows less information for the chosen item
+than for the unchosen ones, which reads as disabled rather than selected. *Pill
+as the only title*, dropping the card heading, would leave the most important
+word on the page existing only at 13px inside a nav control, and breaks the
+permalinks.
+
+**Keep every subtitle uniformly muted**, active and inactive alike; show
+selection through the pill border and the label, never by bolding the name. The
+moment the name takes weight it competes with the heading and the repeat becomes
+visible.
+
+**If it still reads as a glitch on real hardware, the retreat is one line:**
+delete the subtitle. Nothing else depends on it. That is a better way to settle
+it than predicting it from a wireframe, and it is why none of the
+state-dependent variants above are worth building.
+
+### The eyebrow
+
+The small "Molecule of the Week" label above the entry name answers *what am I
+looking at*. Inside a tab the active pill answers it, so **the eyebrow is
+dropped in the tabs and kept on the permalinks**, where nothing else says the
+page is a curated Explore entry rather than a generic molecule page. It is one
+boolean, and `standalone` already carries it.
+
+This *simplifies* the heading tree rather than complicating it. A card inside
+`/explore` currently runs h1 Explore, h2 eyebrow, h3 name, h4 "Everyday" — four
+levels for one card. Without the eyebrow it is h1, h2 name, h3 "Everyday", the
+`LabelTag`/`NameTag`/`SubTag` triple collapses to a pair, and `aria-labelledby`
+points at the name, which gives the section a better accessible name than the
+label it has now.
+
+### The pictures
+
+Independent of the arrangement, and the actual complaint. Inside each card the
+body becomes a two-column grid from `lg` — figure beside the prose rather than
+above it — and the picture gets a height cap with `object-contain` so a tall
+portrait cannot stretch its column. Apply it unconditionally: the permalinks are
+`max-w-4xl` with no second column to borrow from, and want it more than the tabs
+do.
+
+### The one way this goes wrong
+
+The strip is a second horizontal band of navigation directly under the site
+NavBar. It goes bad if it gets a full-bleed background or a border spanning the
+viewport, at which point the page looks like it has two menu bars. Free-standing
+bordered pills on the page background, left-aligned to the content column, with
+nothing behind them — they should read as page content, because that is what
+they are.

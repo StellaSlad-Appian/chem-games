@@ -1311,16 +1311,24 @@ test.describe('Russian rendering', () => {
     ).toBeVisible();
     await expect(page.getByText(ru.cheatSheetCategories.Fundamentals).first()).toBeVisible();
     await expect(page.getByText(ru.yearLevels['Year 9'], { exact: true }).first()).toBeVisible();
-    // Fourteen sheets selects the `many` category in Russian, which is the form
+    // Fifteen sheets selects the `many` category in Russian, which is the form
     // English does not have and the reason the plural system was rebuilt. The
-    // number went from twelve to thirteen when the atomic-structure sheet
-    // landed, and from thirteen to fourteen when that sheet split in two; all
-    // three are `many` (Russian uses it for 11–14 whatever the last digit), so
-    // this still exercises the form it was written for. **Fifteen would not.**
-    // At 15 Russian is still `many`, but at 21 it is `one` and at 22 it is
+    // number went twelve → thirteen when the atomic-structure sheet landed,
+    // thirteen → fourteen when that sheet split in two, and fourteen → fifteen
+    // when relative-formula-mass arrived. All four are `many`, so this still
+    // exercises the form it was written for.
+    //
+    // An earlier version of this comment said fifteen would not be `many`. It
+    // is: Intl.PluralRules('ru') gives `many` for 11–20 and for anything ending
+    // 0 or 5–9. The real tripwire is 21, which is `one`, and 22, which is
     // `few` — so whoever adds the twenty-first sheet has to move this assertion
-    // rather than bump the digit.
-    await expect(page.getByText(ru.cheatSheets.count.many.replace('{count}', '14'))).toBeVisible();
+    // rather than bump the digit again.
+    //
+    // Bumping it is the third time in three days. The assertion is coupled to a
+    // count that any new sheet changes, and it has broken on each one. Worth
+    // deriving from CHEAT_SHEETS.length and pinning a separate literal that
+    // exercises `many`, so adding a sheet cannot break it.
+    await expect(page.getByText(ru.cheatSheets.count.many.replace('{count}', '15'))).toBeVisible();
   });
 
   test('a cheat sheet, with its formulae left untranslated', async ({ page }) => {

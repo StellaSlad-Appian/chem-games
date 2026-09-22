@@ -610,7 +610,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     summary:
       'Was Ar wirklich bedeutet und wie du Atome zur Mr einer Formel zusammenzählst – Indizes und Klammern inbegriffen.',
     keyTakeaways: [
-      'Die relative Atommasse (Ar) ist ein Vergleich, kein Gewicht in Gramm: Ein Kohlenstoffatom wiegt so viel wie 12 Wasserstoffatome, also ist die Ar von Kohlenstoff 12.',
+      'Die relative Atommasse (Ar) ist ein Vergleich, kein Gewicht in Gramm: Ein Kohlenstoffatom wiegt ungefähr so viel wie 12 Wasserstoffatome. Die Ar wird an Kohlenstoff-12 gemessen und ist dort genau 12.',
       'Weil es ein Verhältnis ist, hat die Ar keine Einheit. Nichts auf diesem Blatt wird in Gramm gemessen, bis du es auf eine echte Menge hochrechnest.',
       'Die relative Formelmasse (Mr) ist die Summe aller Atome der Formel. Mehr nicht: nichts multiplizieren, nichts mitteln.',
       'Ein Index gilt für das Atom davor. Eine Klammer gilt für alles, was in ihr steht.',
@@ -628,7 +628,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Was „relativ“ wirklich heißt',
         content:
-          'Atome sind viel zu leicht, um sie einzeln zu wiegen, also vergleichen Chemikerinnen und Chemiker sie. Leg ein Kohlenstoffatom auf die eine Waagschale und Wasserstoffatome auf die andere: Es braucht 12 Wasserstoffatome, bis die Waage gerade steht. Das ist die ganze Idee – Kohlenstoff ist 12-mal so schwer wie Wasserstoff, also sagen wir, seine relative Atommasse ist 12. Die Zahl beantwortet die Frage „wie viele Wasserstoffatome?“, und genau deshalb hat sie keine Einheit: Sie ist ein Vergleich, keine Messung.',
+          'Atome sind viel zu leicht, um sie einzeln zu wiegen, also vergleichen Chemikerinnen und Chemiker sie. Leg ein Kohlenstoffatom auf die eine Waagschale und Wasserstoffatome auf die andere: Es braucht 12 Wasserstoffatome, bis die Waage gerade steht. Das ist die ganze Idee – Kohlenstoff ist 12-mal so schwer wie Wasserstoff, also sagen wir, seine relative Atommasse ist 12. Die Zahl beantwortet die Frage „wie viele Wasserstoffatome?“, und genau deshalb hat sie keine Einheit: Sie ist ein Vergleich, keine Messung. Genau genommen ist der Standard Kohlenstoff-12, nicht Wasserstoff: Jede relative Atommasse vergleicht ein Atom mit einem Zwölftel eines Kohlenstoff-12-Atoms. Wasserstoff kommt dabei auf fast genau 1, und deshalb geht das Bild mit der Waage auf.',
       },
       {
         heading: 'Die Atome zusammenzählen',

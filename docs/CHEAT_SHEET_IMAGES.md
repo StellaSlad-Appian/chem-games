@@ -109,10 +109,19 @@ Two things follow for anyone drawing one of these:
 - **The 640-unit width is a ceiling, not a target.** A diagram that says what it
   has to say in 520 units, with the remainder as margin, needs less swiping.
 
-There is no visible "scroll me" affordance, deliberately: the tables above it
-have none either, and one of them without the other would read as an
-inconsistency rather than a hint. If one is ever added it should be added to
-both.
+Both the diagram and the lookup tables carry a **visible "scroll me"
+affordance**, and they got it together: a line of text under the box reading
+*Scroll sideways to see the rest* (`cheatSheets.panHint`, translated into all
+six languages), which fades out once the box is scrolled to its end. One
+without the other would have read as an inconsistency rather than a hint, which
+is why the affordance was not added with the width pin — it needed a dictionary
+key, and the key had to serve both. `src/components/cheat-sheets/PannableBox.tsx`
+is the component; it also makes the box a keyboard tab stop while, and only
+while, it actually pans.
+
+**The affordance does not excuse the rule above it.** A hint tells a reader
+there is more; it does not make them swipe, and it does nothing for the reader
+who swipes once and stops. The left 236 px still has to carry the diagram.
 
 ---
 

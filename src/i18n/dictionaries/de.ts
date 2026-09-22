@@ -497,6 +497,7 @@ export const de = {
     forTeachers: 'Für Lehrkräfte',
     curriculum: 'Lehrplan: ',
     filterA11y: 'Themen nach Klassenstufe filtern',
+    panHint: 'Zur Seite scrollen, um den Rest zu sehen',
   },
 
   periodicTable: {
@@ -604,6 +605,14 @@ export const de = {
     // substantivierte Partizip ist geschlechtsneutral, ohne Sternchen oder
     // Doppelpunkt – so wie es glossary-de.md § Register vorgibt.
     scientistHeading: 'Forschende der Woche',
+    // Die Unternavigation von „Entdecken“: ein Wort pro Reiter, nicht die
+    // langen Abschnittsüberschriften darüber — siehe den Kommentar in en.ts.
+    // „Forschende“ bleibt auch hier das substantivierte Partizip, damit der
+    // Reiter dieselbe geschlechtsneutrale Form trägt wie die Karte.
+    tabsA11y: 'Bereiche von Entdecken',
+    tabMolecule: 'Molekül',
+    tabScientist: 'Forschende',
+    tabArchive: 'Archiv',
     formulaLabel: 'Formel',
     formulaA11y: '{name}, Formel {formula}',
     everydayHeading: 'Im Alltag',

@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { CHEAT_SHEETS, GAME_LINKS } from '@/lib/cheat-sheet-data';
+import { PannableBox } from '@/components/cheat-sheets/PannableBox';
 import { ChemIcon } from '@/components/ui/ChemIcon';
 import MoleculeText from '@/components/ui/MoleculeText';
 import { LocaleLink } from '@/components/layout/LocaleLink';
@@ -100,7 +101,14 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
     <div className="mt-6 first:mt-0">
       <h3 className="text-sm font-black uppercase tracking-wider text-(--muted)">{table.heading}</h3>
       {table.caption && <p className="mt-1 text-xs text-(--muted)">{table.caption}</p>}
-      <div className="mt-3 overflow-x-auto rounded-2xl border border-(--border)">
+      {/*
+        `min-w-[28rem]` is wider than the column below `sm`, so the table pans
+        inside the box — and `PannableBox` is what says so, in the reader's
+        language, and gives the box a tab stop while it can actually pan. The
+        section diagrams further down use the same component for the same
+        reason; see the note there.
+      */}
+      <PannableBox className="mt-3" boxClassName="rounded-2xl border border-(--border)">
         <table className="w-full min-w-[28rem] text-left text-sm">
           <thead className="bg-(--background) text-[10px] font-black uppercase tracking-wider text-(--muted)">
             <tr>
@@ -127,7 +135,7 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
             ))}
           </tbody>
         </table>
-      </div>
+      </PannableBox>
     </div>
   );
 }
@@ -322,6 +330,14 @@ export default async function CheatSheetDetailPage(
                    * same exemption the tables rely on. The page itself still
                    * reflows at 320px; only this box scrolls.
                    *
+                   * `PannableBox` is the box. It tells the reader the figure
+                   * continues past the edge — a 320px phone shows 236 of the
+                   * 512, and the right-hand side of that slice is sometimes
+                   * empty, so the clipping is not always visible in itself —
+                   * and it makes the box a tab stop while it pans. The lookup
+                   * tables above use the same component; an affordance here
+                   * and not there would read as an inconsistency.
+                   *
                    * A plain <img>, not next/image. These are small static SVGs
                    * served straight from public/ — there is nothing for the
                    * optimiser to do to an SVG, and next/image would add a
@@ -333,7 +349,7 @@ export default async function CheatSheetDetailPage(
                    * Replacing a diagram is replacing the file at `src`; no code
                    * changes. See docs/CHEAT_SHEET_IMAGES.md.
                    */
-                  <div className="mt-3 max-w-lg overflow-x-auto">
+                  <PannableBox className="mt-3 max-w-lg">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={section.image.src}
@@ -342,7 +358,7 @@ export default async function CheatSheetDetailPage(
                       height={section.image.height}
                       className="h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--background)"
                     />
-                  </div>
+                  </PannableBox>
                 )}
                 {section.widget && <SectionWidget name={section.widget} locale={locale} />}
                 {section.examples && section.examples.length > 0 && (

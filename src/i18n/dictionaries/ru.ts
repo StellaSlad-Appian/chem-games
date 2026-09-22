@@ -554,6 +554,20 @@ export const ru = {
     dateline: 'Неделя — {date}',
     moleculeHeading: 'Вещество недели',
     scientistHeading: 'Химик недели',
+    /*
+     * Подразделы «Открывай»: по одному слову на вкладку, а не полные
+     * заголовки разделов — см. комментарий в en.ts.
+     *
+     * «Химик» — то же слово, что и в `scientistHeading`, и оно здесь
+     * единственно возможное: женской формы, пригодной для нейтральной
+     * подписи, в русском нет («химичка» — разговорное и уничижительное), а
+     * «Химик» как название профессии описывает и женщин тоже. Ровно тот же
+     * выбор, что уже сделан строкой выше.
+     */
+    tabsA11y: 'Разделы «Открывай»',
+    tabMolecule: 'Вещество',
+    tabScientist: 'Химик',
+    tabArchive: 'Архив',
     formulaLabel: 'Формула',
     // Both placeholders sit after a comma, governing nothing. The formula
     // itself stays Latin, as Russian chemistry writes it.
@@ -663,6 +677,7 @@ export const ru = {
     forTeachers: 'Для учителей',
     curriculum: 'Программа: ',
     filterA11y: 'Отобрать темы по классу',
+    panHint: 'Прокрутите вбок, чтобы увидеть остальное',
   },
 
   periodicTable: {
