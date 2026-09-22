@@ -549,6 +549,7 @@ export const fr = {
     forTeachers: 'Pour les enseignants',
     curriculum: 'Programme : ',
     filterA11y: 'Filtrer les sujets par niveau scolaire',
+    panHint: 'Faites défiler latéralement pour voir la suite',
   },
 
   periodicTable: {

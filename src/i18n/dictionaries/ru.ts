@@ -663,6 +663,7 @@ export const ru = {
     forTeachers: 'Для учителей',
     curriculum: 'Программа: ',
     filterA11y: 'Отобрать темы по классу',
+    panHint: 'Прокрутите вбок, чтобы увидеть остальное',
   },
 
   periodicTable: {

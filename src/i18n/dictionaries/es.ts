@@ -579,6 +579,7 @@ export const es = {
     forTeachers: 'Para el profesorado',
     curriculum: 'Currículo: ',
     filterA11y: 'Filtrar los temas por curso',
+    panHint: 'Desplázate hacia los lados para ver el resto',
   },
 
   periodicTable: {

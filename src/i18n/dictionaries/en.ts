@@ -530,6 +530,16 @@ export const en = {
     forTeachers: 'For teachers',
     curriculum: 'Curriculum: ',
     filterA11y: 'Filter topics by year level',
+    /**
+     * Shown under a lookup table or a section diagram that is wider than the
+     * column it sits in, and used as that box's accessible name — so it has to
+     * read as a plain instruction, with no arrow glyph in the string. The
+     * arrow is a separate `aria-hidden` icon beside it.
+     *
+     * "Sideways" rather than "right": the hint disappears once the box is
+     * scrolled to its end, but the box still scrolls back the other way.
+     */
+    panHint: 'Scroll sideways to see the rest',
   },
 
   /**

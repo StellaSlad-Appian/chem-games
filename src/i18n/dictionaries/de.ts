@@ -497,6 +497,7 @@ export const de = {
     forTeachers: 'Für Lehrkräfte',
     curriculum: 'Lehrplan: ',
     filterA11y: 'Themen nach Klassenstufe filtern',
+    panHint: 'Zur Seite scrollen, um den Rest zu sehen',
   },
 
   periodicTable: {

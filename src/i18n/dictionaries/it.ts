@@ -593,6 +593,7 @@ export const it = {
     forTeachers: 'Per chi insegna',
     curriculum: 'Programma: ',
     filterA11y: 'Filtra gli argomenti per classe',
+    panHint: 'Scorri lateralmente per vedere il resto',
   },
 
   periodicTable: {
