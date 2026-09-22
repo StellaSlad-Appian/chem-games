@@ -45,7 +45,7 @@ export default async function ProfilePage(props: PageProps<'/[lang]'>) {
           <p className="mt-2 text-sm font-medium text-(--muted)">{t.profile.missingBody}</p>
           <LocaleLink
             href="/auth"
-            className="mt-4 inline-block rounded-xl bg-blue-500 px-4 py-2 text-xs font-black uppercase tracking-wider text-white"
+            className="mt-4 inline-block rounded-xl bg-(--action) px-4 py-2 text-xs font-black uppercase tracking-wider text-white"
           >
             {t.profile.missingAction}
           </LocaleLink>
@@ -63,13 +63,13 @@ export default async function ProfilePage(props: PageProps<'/[lang]'>) {
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] pb-4">
           <LocaleLink
             href="/"
-            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-(--muted) hover:text-blue-500"
+            className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-(--muted) hover:text-(--link)"
           >
             <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.common.backToDashboard}
           </LocaleLink>
           <LocaleLink
             href="/profile/edit"
-            className="flex items-center gap-2 rounded-xl bg-blue-500 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 hover:scale-105"
+            className="flex items-center gap-2 rounded-xl bg-(--action) px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-(--action-hover) hover:scale-105"
           >
             <Settings className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.profile.edit}
           </LocaleLink>
@@ -78,7 +78,7 @@ export default async function ProfilePage(props: PageProps<'/[lang]'>) {
         {/* Profile Card View */}
         <div className="rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8">
           <div className="mb-6 flex items-center gap-3 border-b border-[var(--border)] pb-4">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-500">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-(--link)">
               <User className="h-5 w-5" aria-hidden="true" />
             </span>
             <div>

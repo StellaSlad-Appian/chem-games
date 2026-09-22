@@ -92,7 +92,23 @@
      * the nav already use — but as a token, because the bare `text-blue-500`
      * used elsewhere is only 3.68:1 on white and fails text contrast.
      */
-    --accent-explore: #60a5fa; /* blue-400 — 6.97:1 on #18181b */
+    --link: #60a5fa; /* blue-400 — 6.97:1 on --surface, 7.83:1 on --background */
+
+    /*
+     * Filled controls, and the one pair that does NOT flip with the theme.
+     *
+     * White text sits on these, and white-on-blue does not care what the page
+     * behind it is doing: white on blue-500 is 3.68:1 and fails in *both*
+     * themes, which is what every primary button on the site used to be. Giving
+     * these the theme-flipping `--link` would make it worse in dark mode, where
+     * `--link` is blue-400 — white on that is worse still. So they are fixed.
+     */
+    --action: #2563eb;       /* blue-600 — white on it is 5.17:1 */
+    --action-hover: #1d4ed8; /* blue-700 — white on it is 6.70:1 */
+
+    /* Explore is the site's blue, so it follows the link colour rather than
+     * keeping a second copy of the same two values. */
+    --accent-explore: var(--link);
 
     /* --- Feedback states --- */
     --correct: #10b981;
@@ -141,7 +157,7 @@
     --game-accent-emerald: #047857; /* emerald-700 — 5.48:1 */
     --game-accent-amber:   #b45309; /* amber-700   — 5.02:1 */
     --game-accent-rose:    #e11d48; /* rose-600    — 4.70:1 */
-    --accent-explore:      #2563eb; /* blue-600    — 5.17:1 */
+    --link: #2563eb; /* blue-600 — 5.17:1 on #ffffff, 4.94:1 on the page, 4.72:1 on --surface-2 */
     --correct: #10b981;
     --wrong: #ef4444;
     --game-success: #10b981;

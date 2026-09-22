@@ -15,7 +15,7 @@ export default async function AuthPage(props: PageProps<'/[lang]/auth'>) {
       {/* Top Navigation */}
       <LocaleLink
         href="/"
-        className="absolute left-6 top-6 text-sm font-extrabold text-(--muted) transition hover:text-blue-500"
+        className="absolute left-6 top-6 text-sm font-extrabold text-(--muted) transition hover:text-(--link)"
       >
         {t.auth.backToGames}
       </LocaleLink>

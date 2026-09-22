@@ -54,7 +54,7 @@ export function GlossaryTerm({ term, definition, children }: GlossaryTermProps) 
         aria-expanded={open}
         aria-describedby={open ? id : undefined}
         onClick={() => setOpen((v) => !v)}
-        className="cursor-pointer rounded-sm border-b-2 border-dotted border-blue-500 font-bold text-(--foreground) transition hover:bg-blue-500/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+        className="cursor-pointer rounded-sm border-b-2 border-dotted border-(--link) font-bold text-(--foreground) transition hover:bg-blue-500/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
       >
         {children ?? term}
       </button>
@@ -64,7 +64,7 @@ export function GlossaryTerm({ term, definition, children }: GlossaryTermProps) 
           id={id}
           className="absolute left-0 top-full z-30 mt-1 w-64 max-w-[80vw] rounded-xl border-2 border-(--border) bg-(--surface) p-3 text-left text-xs font-medium leading-relaxed text-(--foreground) shadow-xl"
         >
-          <span className="block text-[10px] font-black uppercase tracking-wider text-blue-500">{term}</span>
+          <span className="block text-[10px] font-black uppercase tracking-wider text-(--link)">{term}</span>
           <span className="mt-1 block">{definition}</span>
         </span>
       )}

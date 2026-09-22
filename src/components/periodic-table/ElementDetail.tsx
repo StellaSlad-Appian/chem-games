@@ -62,8 +62,8 @@ export function ElementDetail({
 
   const stepButton =
     'flex h-11 w-11 items-center justify-center rounded-xl border-2 border-(--border) ' +
-    'text-(--foreground) transition hover:border-blue-500 disabled:opacity-40 ' +
-    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500';
+    'text-(--foreground) transition hover:border-(--link) disabled:opacity-40 ' +
+    'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)';
 
   return (
     <section

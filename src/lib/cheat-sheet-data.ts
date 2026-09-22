@@ -453,7 +453,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Fundamentals',
     summary: 'Particle arrangement, kinetic energy, and the six phase changes.',
     iconName: 'Shapes',
-    colorTheme: 'border-blue-500 text-blue-500',
+    colorTheme: 'border-(--link) text-(--link)',
     curriculumRef: 'Victorian Curriculum Science: particle model (Levels 7–8), revisited in Year 9–10 chemical sciences.',
     keyTakeaways: [
       'Solids: particles vibrate in fixed positions — fixed shape and fixed volume.',

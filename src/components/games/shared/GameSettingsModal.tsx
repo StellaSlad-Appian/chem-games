@@ -201,7 +201,7 @@ export default function GameSettingsModal({
                         // still open leaves it sitting over the destination.
                         onClick={onClose}
                         // min-h-11 is the 44px target docs/ACCESSIBILITY.md asks for.
-                        className="flex min-h-11 items-center border-b border-[var(--game-panel-border)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition last:border-b-0 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                        className="flex min-h-11 items-center border-b border-[var(--game-panel-border)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition last:border-b-0 hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                       >
                         {link.label}
                       </LocaleLink>
@@ -327,5 +327,5 @@ function ThemeSelector({ t, label, value, onChange, includeGlobal = false }: { t
     { value: 'light', label: t.settings.light, icon: Sun },
   ];
 
-  return <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] p-4"><p className="mb-3 text-sm font-semibold text-[var(--foreground)]">{label}</p><div className="flex flex-wrap gap-2">{choices.map((choice) => { const Icon = choice.icon; const selected = value === choice.value; return <button key={choice.value} type="button" onClick={() => onChange(choice.value)} className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-bold transition ${selected ? 'border-blue-500 bg-blue-500 text-white' : 'border-[var(--game-panel-border)] bg-[var(--surface)] text-[var(--foreground)] hover:brightness-95'}`}>{Icon && <Icon className="h-4 w-4" />}{choice.label}</button>; })}</div></div>;
+  return <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] p-4"><p className="mb-3 text-sm font-semibold text-[var(--foreground)]">{label}</p><div className="flex flex-wrap gap-2">{choices.map((choice) => { const Icon = choice.icon; const selected = value === choice.value; return <button key={choice.value} type="button" onClick={() => onChange(choice.value)} className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-bold transition ${selected ? 'border-(--link) bg-(--action) text-white' : 'border-[var(--game-panel-border)] bg-[var(--surface)] text-[var(--foreground)] hover:brightness-95'}`}>{Icon && <Icon className="h-4 w-4" />}{choice.label}</button>; })}</div></div>;
 }

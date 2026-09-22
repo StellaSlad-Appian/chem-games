@@ -36,7 +36,7 @@ export default function LewisNotebook({ results, marking = false, onBack, onPlay
           <button
             type="button"
             onClick={onBack}
-            className="cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-2 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-2 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             {M.ui.closeMarkingSheet}
           </button>
@@ -44,7 +44,7 @@ export default function LewisNotebook({ results, marking = false, onBack, onPlay
             <button
               type="button"
               onClick={onPlayAgain}
-              className="cursor-pointer rounded-xl bg-blue-500 px-4 py-2 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+              className="cursor-pointer rounded-xl bg-(--action) px-4 py-2 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-(--action-hover) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             >
               {M.ui.playAgain}
             </button>

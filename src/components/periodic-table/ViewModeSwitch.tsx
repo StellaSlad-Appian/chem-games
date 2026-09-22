@@ -53,10 +53,10 @@ export function ViewModeSwitch({
               onClick={() => onChange(mode)}
               className={[
                 'min-h-11 rounded-xl border-2 px-3 py-1.5 text-xs font-black uppercase tracking-wider',
-                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)',
                 isActive
-                  ? 'border-blue-500 bg-blue-500 text-white'
-                  : 'border-(--border) bg-(--background) text-(--foreground) hover:border-blue-500',
+                  ? 'border-(--link) bg-(--action) text-white'
+                  : 'border-(--border) bg-(--background) text-(--foreground) hover:border-(--link)',
               ].join(' ')}
             >
               {t.periodicTable.modes[MODE_LABEL_KEY[mode]]}

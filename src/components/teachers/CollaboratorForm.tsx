@@ -107,7 +107,7 @@ const EMPTY: Record<TextField, string> = {
 // always and ≥ 44×44 on touch, and an input tall enough for a thumb is not
 // worse for a mouse, so this does not branch on `useInputMethod()`.
 const INPUT_CLASS =
-  'w-full min-h-11 rounded-xl border border-(--border) bg-(--background) px-3 py-2 text-sm text-(--foreground) outline-none transition focus-visible:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 aria-[invalid=true]:border-red-500';
+  'w-full min-h-11 rounded-xl border border-(--border) bg-(--background) px-3 py-2 text-sm text-(--foreground) outline-none transition focus-visible:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) aria-[invalid=true]:border-red-500';
 
 export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) {
   const formId = useId();
@@ -181,7 +181,7 @@ export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) 
           ref={successRef}
           role="status"
           tabIndex={-1}
-          className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+          className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
         >
           <p className="text-sm font-bold text-emerald-500">{copy.successTitle}</p>
           <p className="mt-2 text-sm font-medium leading-relaxed text-(--muted)">
@@ -201,7 +201,7 @@ export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) 
         id={headingId}
         className="flex items-center gap-2 text-lg font-black text-(--foreground)"
       >
-        <Users className="h-4 w-4 shrink-0 text-blue-500" aria-hidden="true" />
+        <Users className="h-4 w-4 shrink-0 text-(--link)" aria-hidden="true" />
         {copy.heading}
       </h3>
 
@@ -381,7 +381,7 @@ function DeletionSentence({ template, email }: { template: string; email: string
       {parts[0]}
       <a
         href={`mailto:${email}`}
-        className="font-bold text-blue-500 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+        className="font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
       >
         {email}
       </a>

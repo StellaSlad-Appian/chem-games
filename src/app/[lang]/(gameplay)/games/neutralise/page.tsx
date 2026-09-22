@@ -444,7 +444,7 @@ export default function NeutralizePage() {
           {instructionsTab === 'pointer' ? (
             <ul className="space-y-3">
               {[
-                { key: t.games.neutralise.keyOneLabel, node: t.games.neutralise.keyOneText.split('{ion}') , ion: t.games.neutralise.keyOneIon, tone: 'text-blue-500' },
+                { key: t.games.neutralise.keyOneLabel, node: t.games.neutralise.keyOneText.split('{ion}') , ion: t.games.neutralise.keyOneIon, tone: 'text-(--link)' },
                 { key: t.games.neutralise.keyTwoLabel, node: t.games.neutralise.keyTwoText.split('{ion}'), ion: t.games.neutralise.keyTwoIon, tone: 'text-rose-500' },
               ].map(({ key, node, ion, tone }) => (
                 <li key={key} className="flex items-center gap-3">

@@ -64,7 +64,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
                 <p className="mt-1 text-muted">{t.leaderboards.firstResultBody}</p>
                 <LocaleLink
                   href={`/games/${score.gameId}`}
-                  className="mt-3 inline-flex items-center gap-1 font-bold text-blue-500 hover:underline"
+                  className="mt-3 inline-flex items-center gap-1 font-bold text-(--link) hover:underline"
                 >
                   <Play className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                   {t.common.playNow}

@@ -116,7 +116,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
     <div className="w-full max-w-md rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
       {/* Header */}
       <div className="mb-6 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-500">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-(--link)">
           <Atom className="h-6 w-6" aria-hidden="true" />
         </div>
         <h1 className="text-2xl font-black text-(--foreground)">
@@ -132,7 +132,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
         type="button"
         onClick={signInWithGoogle}
         disabled={!configured || pending}
-        className="flex w-full items-center justify-center gap-3 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-3 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) disabled:cursor-not-allowed disabled:opacity-50"
       >
         <GoogleMark /> {t.auth.continueWithGoogle}
       </button>
@@ -160,7 +160,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
             placeholder={t.auth.emailPlaceholder}
           />
         </div>
@@ -180,14 +180,14 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
             placeholder={t.auth.passwordPlaceholder}
           />
         </div>
 
         <button
           disabled={!configured || pending}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl bg-(--action) px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-(--action-hover) disabled:cursor-not-allowed disabled:opacity-50"
         >
           {pending && <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />}
           {mode === 'login' ? t.auth.loginAction : t.auth.registerAction}
@@ -198,7 +198,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
       {visibleMessage && (
         <p
           role="status"
-          className="mt-4 flex gap-2 rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-xs font-bold text-blue-500"
+          className="mt-4 flex gap-2 rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-xs font-bold text-(--link)"
         >
           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
           {visibleMessage}
@@ -217,7 +217,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
         <button
           type="button"
           onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}
-          className="font-black text-blue-500 hover:underline"
+          className="font-black text-(--link) hover:underline"
         >
           {mode === 'login' ? t.auth.switchToRegisterAction : t.auth.switchToLoginAction}
         </button>

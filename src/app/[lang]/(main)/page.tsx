@@ -76,7 +76,7 @@ export default async function Home(props: PageProps<'/[lang]'>) {
       {/* Hero Banner */}
       <section className="border-b border-(--border) bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.15),transparent_40%)] px-4 py-16 md:px-8">
         <div className="mx-auto max-w-6xl">
-          <p className="text-xs font-black uppercase tracking-widest text-blue-500">
+          <p className="text-xs font-black uppercase tracking-widest text-(--link)">
             {t.home.eyebrow}
           </p>
           <h1 className="mt-3 max-w-3xl text-5xl font-black leading-none md:text-7xl">
@@ -88,13 +88,13 @@ export default async function Home(props: PageProps<'/[lang]'>) {
           <div className="mt-8 flex flex-wrap gap-3">
             <LocaleLink
               href="/games"
-              className="flex items-center gap-2 rounded-xl bg-blue-500 px-5 py-3 text-sm font-black uppercase tracking-wider text-white shadow-lg transition hover:bg-blue-600 hover:scale-105"
+              className="flex items-center gap-2 rounded-xl bg-(--action) px-5 py-3 text-sm font-black uppercase tracking-wider text-white shadow-lg transition hover:bg-(--action-hover) hover:scale-105"
             >
               <Gamepad2 className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.home.exploreGames}
             </LocaleLink>
             <a
               href="#leaderboards"
-              className="flex items-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:border-blue-500 hover:text-blue-500"
+              className="flex items-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:border-(--link) hover:text-(--link)"
             >
               {t.home.viewLeaderboards}
             </a>
@@ -243,7 +243,7 @@ function SectionHeading({
       */}
       <div className="min-w-0">
         <div className="flex items-center gap-2">
-          <Icon className="h-6 w-6 shrink-0 text-blue-500" aria-hidden="true" />
+          <Icon className="h-6 w-6 shrink-0 text-(--link)" aria-hidden="true" />
           {/*
             `break-words` is not decoration. At 320px the Spanish heading
             "Clasificaciones" is one unbreakable 274px word at `text-3xl`,
@@ -263,7 +263,7 @@ function SectionHeading({
       </div>
       <LocaleLink
         href={link}
-        className="flex shrink-0 items-center gap-1 text-xs font-black uppercase tracking-wider text-blue-500 hover:underline"
+        className="flex shrink-0 items-center gap-1 text-xs font-black uppercase tracking-wider text-(--link) hover:underline"
       >
         <span>{linkLabel}</span>
         <ArrowRight className="h-3 w-3 shrink-0" aria-hidden="true" />
@@ -287,7 +287,7 @@ function EmptyProfile({ isAuthenticated, t }: { isAuthenticated: boolean; t: Dic
       {!isAuthenticated && (
         <LocaleLink
           href="/auth"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-blue-500 px-6 py-3 text-sm font-black uppercase tracking-wider text-white transition hover:bg-blue-600 hover:scale-105"
+          className="mt-5 inline-flex items-center justify-center rounded-xl bg-(--action) px-6 py-3 text-sm font-black uppercase tracking-wider text-white transition hover:bg-(--action-hover) hover:scale-105"
         >
           {t.home.emptyProfileCta}
         </LocaleLink>

@@ -45,7 +45,7 @@ export const OPTION_1_SMOOTH = {
       'border-pink-500 text-pink-400 hover:border-pink-400',
       'border-amber-400 text-amber-400 hover:border-amber-300',
       'border-emerald-400 text-emerald-400 hover:border-emerald-300',
-      'border-blue-500 text-blue-400 hover:border-blue-400',
+      'border-(--link) text-(--link) hover:border-(--link)',
     ],
   },
 } as const;
@@ -65,7 +65,7 @@ export const OPTION_2_ARCADE = {
       'border-pink-500 text-pink-400 hover:border-pink-400',
       'border-amber-400 text-amber-400 hover:border-amber-300',
       'border-emerald-400 text-emerald-400 hover:border-emerald-300',
-      'border-blue-500 text-blue-400 hover:border-blue-400',
+      'border-(--link) text-(--link) hover:border-(--link)',
     ],
   },
 } as const;
@@ -85,7 +85,7 @@ const OPTION_3_PRECISION = {
       'border-pink-500 text-pink-400 hover:border-pink-400',
       'border-amber-400 text-amber-400 hover:border-amber-300',
       'border-emerald-400 text-emerald-400 hover:border-emerald-300',
-      'border-blue-500 text-blue-400 hover:border-blue-400',
+      'border-(--link) text-(--link) hover:border-(--link)',
     ],
   },
 } as const;

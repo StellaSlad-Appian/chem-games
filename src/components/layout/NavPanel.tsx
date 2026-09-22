@@ -189,7 +189,7 @@ export function NavPanel({
         aria-expanded={isOpen}
         aria-controls={PANEL_ID}
         aria-label={t.nav.menuOpenA11y}
-        className="rounded-lg border border-(--border) bg-(--surface)/90 p-2.5 text-(--foreground) shadow-sm backdrop-blur transition hover:border-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 lg:hidden"
+        className="rounded-lg border border-(--border) bg-(--surface)/90 p-2.5 text-(--foreground) shadow-sm backdrop-blur transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) lg:hidden"
       >
         <Menu className="h-5 w-5" aria-hidden="true" />
       </button>
@@ -243,7 +243,7 @@ export function NavPanel({
                     type="button"
                     onClick={close}
                     aria-label={t.nav.menuCloseA11y}
-                    className="rounded-lg border border-(--border) bg-(--surface) p-2.5 text-(--foreground) transition hover:border-blue-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                    className="rounded-lg border border-(--border) bg-(--surface) p-2.5 text-(--foreground) transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                   >
                     <X className="h-5 w-5" aria-hidden="true" />
                   </button>
@@ -257,7 +257,7 @@ export function NavPanel({
                       onClick={close}
                       // min-h-11 is 44px: the target size docs/ACCESSIBILITY.md asks
                       // for, which the horizontal row cannot give on a phone.
-                      className="flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:bg-blue-500/10 hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                      className="flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:bg-blue-500/10 hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                     >
                       <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
                       {label}

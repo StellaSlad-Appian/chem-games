@@ -75,9 +75,9 @@ export function ElementCell({
         'flex w-full flex-col items-center justify-center gap-0 rounded-[3px] border px-0.5 py-1',
         'leading-none text-(--foreground) transition-none',
         touch ? 'min-h-11 min-w-11' : 'min-h-10 min-w-10',
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500',
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)',
         isSelected
-          ? 'border-(--foreground) ring-2 ring-blue-500 ring-offset-0'
+          ? 'border-(--foreground) ring-2 ring-(--link) ring-offset-0'
           : 'border-(--border)',
       ].join(' ')}
     >

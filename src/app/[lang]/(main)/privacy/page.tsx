@@ -95,7 +95,7 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
 
   const contact = <ContactLink />;
   const profileEditLink = (
-    <LocaleLink href={PROFILE_EDIT_PATH} className="font-bold text-blue-500 hover:underline">
+    <LocaleLink href={PROFILE_EDIT_PATH} className="font-bold text-(--link) hover:underline">
       {PROFILE_EDIT_PATH}
     </LocaleLink>
   );
@@ -104,7 +104,7 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
       href={OAIC_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="font-bold text-blue-500 hover:underline"
+      className="font-bold text-(--link) hover:underline"
     >
       oaic.gov.au
     </a>
@@ -115,14 +115,14 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
       <div className="mx-auto max-w-3xl">
         <LocaleLink
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-blue-500"
+          className="inline-flex items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-(--link)"
         >
           <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.common.backToDashboard}
         </LocaleLink>
 
         <div className="mt-6">
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--action) text-white">
               <ShieldCheck className="h-5 w-5" aria-hidden="true" />
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
@@ -238,7 +238,7 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
 
 function ContactLink() {
   return (
-    <a href={`mailto:${CONTACT_EMAIL}`} className="font-bold text-blue-500 hover:underline">
+    <a href={`mailto:${CONTACT_EMAIL}`} className="font-bold text-(--link) hover:underline">
       {CONTACT_EMAIL}
     </a>
   );

@@ -21,7 +21,7 @@ export function GlobalSettingsButton({ isAuthenticated }: { isAuthenticated?: bo
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="rounded-lg border border-(--border) bg-(--surface)/90 p-2.5 text-(--foreground) shadow-sm backdrop-blur transition hover:border-blue-400"
+        className="rounded-lg border border-(--border) bg-(--surface)/90 p-2.5 text-(--foreground) shadow-sm backdrop-blur transition hover:border-(--link)"
         aria-label={t.nav.settingsA11y}
       >
         <Settings className="h-5 w-5" aria-hidden="true" />

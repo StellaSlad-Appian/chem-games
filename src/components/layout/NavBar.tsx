@@ -50,12 +50,12 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
           name through the sr-only span.
         */}
         <LocaleLink href="/" className="flex shrink-0 items-center gap-2 font-black text-xl">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-500 text-white shadow-md">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-(--action) text-white shadow-md">
             <Beaker className="h-5 w-5" aria-hidden="true" />
           </span>
           <span className="sr-only sm:hidden">{t.meta.siteName}</span>
           <span aria-hidden="true" className="hidden sm:inline">
-            Chem<span className="text-blue-500">Games</span>
+            Chem<span className="text-(--link)">Games</span>
           </span>
         </LocaleLink>
 
@@ -93,7 +93,7 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
               // absorbed the difference, so `scrollWidth <= innerWidth` passed
               // while the row was genuinely over-full. Dropping `lg:px-3` gives
               // 4px back per link, 16px across the four.
-              className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-blue-500"
+              className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-(--link)"
             >
               <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
               {label}

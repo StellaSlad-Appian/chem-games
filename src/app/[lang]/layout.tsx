@@ -70,7 +70,7 @@ export default async function RootLayout(props: LayoutProps<'/[lang]'>) {
     // shells — see docs/i18n/README.md § Adding a locale.
     <html lang={locale}>
       {fontStylesheet && <link rel="stylesheet" href={fontStylesheet} precedence="high" />}
-      <body className="flex min-h-screen flex-col bg-(--background) font-sans text-(--foreground) antialiased selection:bg-blue-500 selection:text-white">
+      <body className="flex min-h-screen flex-col bg-(--background) font-sans text-(--foreground) antialiased selection:bg-(--action) selection:text-white">
         <I18nProvider locale={locale} dictionary={dictionary}>
           <AppProviders>{props.children}</AppProviders>
         </I18nProvider>

@@ -38,7 +38,7 @@ export const scientistHref = (id: string): string => `/explore/scientists/${id}`
  * of small links, read on a phone, with a second link right beside them.
  */
 const rowClass =
-  'group flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-(--border) bg-(--background) px-3 py-2 transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400';
+  'group flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-(--border) bg-(--background) px-3 py-2 transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)';
 
 /*
  * `min-w-0` on the flex item and `truncate` on the name: a long compound name
@@ -47,12 +47,12 @@ const rowClass =
  * accessible name, because it is the element's text content.
  */
 const nameClass =
-  'min-w-0 flex-1 truncate text-sm font-bold text-(--foreground) group-hover:text-blue-500';
+  'min-w-0 flex-1 truncate text-sm font-bold text-(--foreground) group-hover:text-(--link)';
 
 export function MoleculeEntryLink({ molecule }: { molecule: LocalizedMolecule }) {
   return (
     <LocaleLink href={moleculeHref(molecule.id)} className={rowClass}>
-      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-blue-500/10 text-blue-500">
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-blue-500/10 text-(--link)">
         <FlaskConical className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
       <span className={nameClass}>{molecule.name}</span>

@@ -29,7 +29,7 @@ export function InwardLink({
   return (
     <LocaleLink
       href={href}
-      className="group mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl bg-blue-500 px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+      className="group mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl bg-(--action) px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-(--action-hover) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
     >
       <span>{format(pattern, { target: title })}</span>
       <ArrowRight

@@ -26,7 +26,7 @@ interface CompoundCardProps {
 }
 
 const arrowClass = (touch: boolean) =>
-  `flex items-center justify-center rounded-lg border-2 border-(--border) bg-(--background) text-(--foreground) shadow-sm transition-all duration-150 hover:border-blue-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${
+  `flex items-center justify-center rounded-lg border-2 border-(--border) bg-(--background) text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) ${
     touch ? 'h-11 w-full' : 'h-8 w-full'
   }`;
 
@@ -113,7 +113,7 @@ export default function CompoundCard({
           onBlur={() => setDraft(null)}
           disabled={disabled}
           aria-label={M.card.coefficient(species.name, species.bare)}
-          className="h-10 w-10 rounded-lg border-2 border-(--border) bg-(--background) text-center text-lg font-black text-amber-500 placeholder:text-(--muted) transition-all focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-10 w-10 rounded-lg border-2 border-(--border) bg-(--background) text-center text-lg font-black text-amber-500 placeholder:text-(--muted) transition-all focus:border-(--link) focus:outline-none focus:ring-2 focus:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-50"
         />
         <button
           type="button"
@@ -121,7 +121,7 @@ export default function CompoundCard({
           onClick={onTapSubscript}
           disabled={disabled}
           aria-label={M.card.formulaTap(species.name)}
-          className="cursor-pointer rounded-lg px-1 py-1 text-(--foreground) transition hover:bg-(--surface-2) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed"
+          className="cursor-pointer rounded-lg px-1 py-1 text-(--foreground) transition hover:bg-(--surface-2) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed"
         >
           <MoleculeText formula={species.formula} className="flex-nowrap! whitespace-nowrap text-lg sm:text-xl" />
         </button>

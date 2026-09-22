@@ -55,10 +55,10 @@ export function FeedbackWidget() {
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="flex items-center gap-2 rounded-full border border-(--border) bg-(--surface) px-4 py-2.5 text-sm font-bold text-(--foreground) shadow-lg backdrop-blur transition hover:scale-105 hover:border-blue-500 active:scale-95"
+          className="flex items-center gap-2 rounded-full border border-(--border) bg-(--surface) px-4 py-2.5 text-sm font-bold text-(--foreground) shadow-lg backdrop-blur transition hover:scale-105 hover:border-(--link) active:scale-95"
           aria-label={t.feedback.openA11y}
         >
-          <MessageSquarePlus className="h-4 w-4 text-blue-500" aria-hidden="true" />
+          <MessageSquarePlus className="h-4 w-4 text-(--link)" aria-hidden="true" />
           <span className="hidden sm:inline">{t.feedback.trigger}</span>
         </button>
       </div>
@@ -102,7 +102,7 @@ export function FeedbackWidget() {
                     onClick={() => setType(id as FeedbackType)}
                     className={`flex items-center justify-center gap-1.5 rounded-lg py-1.5 text-xs font-bold transition ${
                       type === id
-                        ? 'bg-blue-500 text-white shadow-sm'
+                        ? 'bg-(--action) text-white shadow-sm'
                         : 'text-muted hover:text-(--foreground)'
                     }`}
                   >
@@ -126,7 +126,7 @@ export function FeedbackWidget() {
                 rows={3}
                 required
                 maxLength={FEEDBACK_MESSAGE_MAX_LENGTH}
-                className="w-full resize-none rounded-xl border border-(--border) bg-(--background) p-3 text-xs text-(--foreground) outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="w-full resize-none rounded-xl border border-(--border) bg-(--background) p-3 text-xs text-(--foreground) outline-none focus:border-(--link) focus:ring-1 focus:ring-(--link)"
               />
 
               {/*

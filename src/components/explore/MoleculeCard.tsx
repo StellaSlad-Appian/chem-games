@@ -84,7 +84,7 @@ export function MoleculeCard({
           30px heading. */}
       {standalone && (
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/10 text-(--link)">
             <FlaskConical className="h-4 w-4" aria-hidden="true" />
           </span>
           <p className="text-xs font-black uppercase tracking-widest text-(--muted)">
@@ -137,7 +137,7 @@ export function MoleculeCard({
           <span aria-hidden="true">
             <MoleculeText
               formula={molecule.formula}
-              className="font-mono text-2xl font-bold text-blue-500"
+              className="font-mono text-2xl font-bold text-(--link)"
             />
           </span>
         </p>

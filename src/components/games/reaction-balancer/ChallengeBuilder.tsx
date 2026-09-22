@@ -19,8 +19,8 @@ interface ChallengeBuilderProps {
 }
 
 const sideButton = (active: boolean) =>
-  `cursor-pointer rounded-lg px-3 py-1.5 text-xs font-black uppercase tracking-wider transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${
-    active ? 'bg-blue-500 text-white shadow-sm' : 'text-(--muted) hover:text-(--foreground)'
+  `cursor-pointer rounded-lg px-3 py-1.5 text-xs font-black uppercase tracking-wider transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) ${
+    active ? 'bg-(--action) text-white shadow-sm' : 'text-(--muted) hover:text-(--foreground)'
   }`;
 
 /**
@@ -56,7 +56,7 @@ export default function ChallengeBuilder({ game, disabled, touch, onAdd }: Chall
             onClick={() => actions.removeSpecies(side, bare)}
             disabled={disabled}
             aria-label={M.challenge.remove(species.name, species.bare)}
-            className="cursor-pointer rounded-md p-0.5 text-(--muted) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="cursor-pointer rounded-md p-0.5 text-(--muted) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             <X className="h-3.5 w-3.5" aria-hidden="true" />
           </button>
@@ -76,7 +76,7 @@ export default function ChallengeBuilder({ game, disabled, touch, onAdd }: Chall
 
       <div className="flex flex-wrap items-center justify-center gap-2 rounded-2xl border-2 border-(--border) bg-(--background) p-3" aria-label={M.ui.equationLabel(round.reaction.name)} data-testid="built-equation">
         {placedReactants.length > 0 ? placed(placedReactants, 'reactant') : placeholder('reactant')}
-        <span className="text-2xl font-black text-blue-500" aria-hidden="true">
+        <span className="text-2xl font-black text-(--link)" aria-hidden="true">
           →
         </span>
         {placedProducts.length > 0 ? placed(placedProducts, 'product') : placeholder('product')}
@@ -106,7 +106,7 @@ export default function ChallengeBuilder({ game, disabled, touch, onAdd }: Chall
                 aria-label={M.challenge.addAs(species.name, species.bare, pickerSide)}
                 data-testid="compound-tile"
                 data-formula={species.bare}
-                className={`flex w-full cursor-pointer flex-col items-center gap-0.5 rounded-xl border-2 border-(--border) bg-(--surface) px-2 text-(--foreground) shadow-sm transition-all duration-150 hover:border-blue-500 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-40 ${
+                className={`flex w-full cursor-pointer flex-col items-center gap-0.5 rounded-xl border-2 border-(--border) bg-(--surface) px-2 text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-40 ${
                   touch ? 'min-h-14 py-2' : 'min-h-11 py-1.5'
                 }`}
               >

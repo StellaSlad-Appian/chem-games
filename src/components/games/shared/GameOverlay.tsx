@@ -67,7 +67,7 @@ interface GameOverlayProps {
 }
 
 const STATE_STYLES: Record<Exclude<GameState, 'playing'>, { accent: string }> = {
-  paused: { accent: 'text-blue-500' },
+  paused: { accent: 'text-(--link)' },
   failed: { accent: 'text-rose-500' },
   victory: { accent: 'text-emerald-500' },
   levelUp: { accent: 'text-amber-500' },
@@ -208,7 +208,7 @@ export default function GameOverlay({
           {textConfig?.title}
         </h2>
 
-        <p className="mt-1 text-sm font-black text-blue-500 uppercase tracking-wide">
+        <p className="mt-1 text-sm font-black text-(--link) uppercase tracking-wide">
           {textConfig?.subtitle}
         </p>
 
@@ -276,7 +276,7 @@ export default function GameOverlay({
             key={action.label}
             type="button"
             onClick={action.onClick}
-            className="mt-2 w-full cursor-pointer rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="mt-2 w-full cursor-pointer rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             {action.label}
           </button>
@@ -315,7 +315,7 @@ function ActionButtons({
       <button
         ref={primaryRef}
         onClick={onPrimary}
-        className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+        className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-(--action) px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-(--action-hover) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
       >
         {gameState === 'paused' || gameState === 'levelUp' ? (
           <Play className="h-4 w-4 shrink-0 fill-current" aria-hidden="true" />
@@ -327,7 +327,7 @@ function ActionButtons({
 
       <LocaleLink
         href="/games"
-        className="flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+        className="flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
       >
         <LogOut className="h-4 w-4 shrink-0" aria-hidden="true" /> {quitLabel}
       </LocaleLink>

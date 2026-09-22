@@ -46,7 +46,7 @@ export function FeedbackBanner({
         className={`flex items-start justify-between gap-3 rounded-2xl border-2 p-4 shadow-xl backdrop-blur-md ${
           isError
             ? 'border-rose-500/40 bg-[var(--surface)] text-rose-500'
-            : 'border-blue-500/40 bg-[var(--surface)] text-blue-500'
+            : 'border-blue-500/40 bg-[var(--surface)] text-(--link)'
         }`}
       >
         <div className="flex items-start gap-3">
@@ -59,7 +59,7 @@ export function FeedbackBanner({
           <div className="space-y-1">
             <h5
               className={`text-xs font-black uppercase tracking-wider ${
-                isError ? 'text-rose-500' : 'text-blue-500'
+                isError ? 'text-rose-500' : 'text-(--link)'
               }`}
             >
               {isError ? t.games.shared.reactionError : t.games.shared.labHint}

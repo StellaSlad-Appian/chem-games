@@ -26,7 +26,7 @@ interface CoachPanelProps {
 }
 
 const TONES: Record<CoachTone, { border: string; text: string; Icon: LucideIcon }> = {
-  coach: { border: 'border-blue-500/50', text: 'text-blue-500', Icon: MessageCircle },
+  coach: { border: 'border-blue-500/50', text: 'text-(--link)', Icon: MessageCircle },
   error: { border: 'border-(--wrong)', text: 'text-(--wrong)', Icon: AlertCircle },
   success: { border: 'border-(--correct)', text: 'text-(--correct)', Icon: CheckCircle2 },
   guide: { border: 'border-amber-500/60', text: 'text-amber-500', Icon: Sparkles },

@@ -127,7 +127,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
   const privacyLink = (
     <LocaleLink
       href={PRIVACY_PATH}
-      className="font-bold text-blue-500 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+      className="font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
     >
       {p.privacyLinkLabel}
     </LocaleLink>
@@ -138,7 +138,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
       href={supportUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1 font-bold text-blue-500 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+      className="inline-flex items-center gap-1 font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
     >
       {p.supportLinkLabel}
       <ExternalLink className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
@@ -151,14 +151,14 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
       <div className="mx-auto max-w-3xl">
         <LocaleLink
           href="/"
-          className="inline-flex min-h-6 items-center gap-2 py-1 text-sm font-bold text-(--muted) transition hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+          className="inline-flex min-h-6 items-center gap-2 py-1 text-sm font-bold text-(--muted) transition hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
         >
           <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.common.backToDashboard}
         </LocaleLink>
 
         <div className="mt-6">
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-500 text-white">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--action) text-white">
               <GraduationCap className="h-5 w-5" aria-hidden="true" />
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
@@ -203,7 +203,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
                   <dt>
                     <LocaleLink
                       href={game.href}
-                      className="inline-block py-1 font-bold text-blue-500 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                      className="inline-block py-1 font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                     >
                       {game.title}
                     </LocaleLink>
@@ -225,7 +225,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
                 <li key={sheet.slug}>
                   <LocaleLink
                     href={`/cheat-sheets/${sheet.slug}`}
-                    className="inline-block py-1 font-bold text-blue-500 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+                    className="inline-block py-1 font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                   >
                     {sheet.title}
                   </LocaleLink>
@@ -329,7 +329,7 @@ function Section({
   return (
     <section className="space-y-3 border-b border-(--border) pb-6 last:border-b-0 last:pb-0">
       <h2 className="flex items-center gap-2 text-2xl font-black text-(--foreground)">
-        <Icon className="h-5 w-5 shrink-0 text-blue-500" aria-hidden="true" />
+        <Icon className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
         {title}
       </h2>
       <div className="max-w-[70ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted)">

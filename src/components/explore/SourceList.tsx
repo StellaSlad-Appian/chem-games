@@ -57,7 +57,7 @@ export function SourceList({
               href={source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-start gap-1.5 text-xs text-(--muted) transition hover:text-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+              className="group inline-flex items-start gap-1.5 text-xs text-(--muted) transition hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             >
               <span>{source.label}</span>
               <ExternalLink

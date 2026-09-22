@@ -245,7 +245,7 @@ export function PeriodicTable({ cells, modes, fullTableHref }: PeriodicTableProp
         <p className="mt-3 text-sm">
           <LocaleLink
             href={fullTableHref}
-            className="font-bold text-blue-500 underline underline-offset-2 hover:text-blue-600"
+            className="font-bold text-(--link) underline underline-offset-2 hover:text-(--link)"
           >
             {t.periodicTable.fullTableLink}
           </LocaleLink>

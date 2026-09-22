@@ -16,7 +16,7 @@ export function AuthButton({ isAuthenticated }: { isAuthenticated: boolean }) {
     return (
       <LocaleLink
         href="/auth"
-        className="whitespace-nowrap rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-wider text-[var(--foreground)] shadow-sm transition hover:border-blue-500 hover:text-blue-500"
+        className="whitespace-nowrap rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-2 text-xs font-black uppercase tracking-wider text-[var(--foreground)] shadow-sm transition hover:border-(--link) hover:text-(--link)"
       >
         {t.nav.login}
       </LocaleLink>

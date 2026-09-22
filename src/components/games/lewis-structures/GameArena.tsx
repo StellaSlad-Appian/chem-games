@@ -59,9 +59,9 @@ interface GameArenaProps {
 }
 
 const buttonClass =
-  'cursor-pointer rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-blue-600 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50';
+  'cursor-pointer rounded-xl bg-(--action) px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-(--action-hover) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-50';
 const ghostClass =
-  'cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-blue-500 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50';
+  'cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-50';
 
 export default function LewisStructuresArena({ game, level, isPaused }: GameArenaProps) {
   const { M, glossary, labels } = useLewisCanvas();
@@ -134,7 +134,7 @@ export default function LewisStructuresArena({ game, level, isPaused }: GameAren
             type="button"
             onClick={actions.dismissHint}
             aria-label={M.ui.dismissHint}
-            className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--background) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--background) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>

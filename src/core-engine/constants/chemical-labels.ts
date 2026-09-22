@@ -30,7 +30,7 @@ export const CLASSIFICATION_OPTIONS = [
     classification: 'Basic' as ChemicalClassification,
     order: 2,
     iconType: 'flask',
-    colorClass: 'text-blue-500',
+    colorClass: 'text-(--link)',
     bgHoverClass: 'hover:bg-blue-950/30',
   },
 ];

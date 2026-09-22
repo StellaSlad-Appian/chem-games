@@ -150,7 +150,7 @@ export function LanguageSwitcher({ variant = 'nav' }: { variant?: 'nav' | 'panel
           // header past the viewport. It relaxes to its natural width at sm,
           // and the panel variant (inside the game settings modal) is always
           // full width.
-          className={`cursor-pointer appearance-none truncate rounded-lg border border-(--border) bg-(--surface) py-2 pr-2 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:opacity-60 ${
+          className={`cursor-pointer appearance-none truncate rounded-lg border border-(--border) bg-(--surface) py-2 pr-2 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:opacity-60 ${
             isPanel
               ? 'w-full px-4 py-3 text-sm normal-case tracking-normal'
               : 'w-[4.5rem] pl-8 sm:w-auto sm:pr-3'

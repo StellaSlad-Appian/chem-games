@@ -133,15 +133,15 @@ export function ExploreTabs({
                 touch; two lines of content put it well past that anyway, and
                 the floor is what matters when a subtitle is short.
               */
-              className={`flex min-h-11 min-w-0 max-w-full flex-col justify-center gap-0.5 rounded-xl border-2 bg-(--surface) px-3 py-2 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${
+              className={`flex min-h-11 min-w-0 max-w-full flex-col justify-center gap-0.5 rounded-xl border-2 bg-(--surface) px-3 py-2 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) ${
                 isActive
-                  ? 'border-blue-500'
-                  : 'border-(--border) hover:border-blue-500'
+                  ? 'border-(--link)'
+                  : 'border-(--border) hover:border-(--link)'
               }`}
             >
               <span
                 className={`flex items-center gap-1.5 text-xs font-black uppercase tracking-wider ${
-                  isActive ? 'text-blue-500' : 'text-(--foreground)'
+                  isActive ? 'text-(--link)' : 'text-(--foreground)'
                 }`}
               >
                 <tab.Icon className="h-4 w-4 shrink-0" aria-hidden="true" />

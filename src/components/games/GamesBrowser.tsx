@@ -84,7 +84,7 @@ export function GamesBrowser() {
             onChange={(event) => setQuery(event.target.value)}
             aria-label={t.gamesHub.searchLabel}
             placeholder={t.gamesHub.searchPlaceholder}
-            className="w-full rounded-xl border border-(--border) bg-(--surface) py-2.5 pr-3 pl-9 text-sm font-medium text-(--foreground) placeholder:text-(--muted) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="w-full rounded-xl border border-(--border) bg-(--surface) py-2.5 pr-3 pl-9 text-sm font-medium text-(--foreground) placeholder:text-(--muted) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           />
         </div>
         <YearFilter
@@ -110,7 +110,7 @@ export function GamesBrowser() {
           <button
             type="button"
             onClick={clear}
-            className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-xl bg-blue-500 px-4 py-2 text-xs font-black text-white transition hover:bg-blue-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="mt-4 inline-flex cursor-pointer items-center gap-1.5 rounded-xl bg-(--action) px-4 py-2 text-xs font-black text-white transition hover:bg-(--action-hover) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             <X className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {t.gamesHub.clearFilters}

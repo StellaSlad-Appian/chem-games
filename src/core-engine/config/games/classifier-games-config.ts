@@ -60,7 +60,7 @@ export const ACID_CLASSIFICATION_CONFIG = {
       id: 'base',
       label: 'Basic / Alkaline',
       description: 'pH > 7 (Releases OH⁻ ions)',
-      colorClass: 'border-blue-500 text-blue-400 bg-blue-500/10 hover:bg-blue-500/20',
+      colorClass: 'border-(--link) text-(--link) bg-blue-500/10 hover:bg-blue-500/20',
       iconName: 'TestTube',
     },
     {
@@ -138,7 +138,7 @@ export const REACTION_TYPE_CONFIG = {
       id: 'replacement',
       label: 'Replacement',
       description: 'Single/Double Displacement',
-      colorClass: 'border-blue-500 text-blue-400 bg-blue-500/10 hover:bg-blue-500/20',
+      colorClass: 'border-(--link) text-(--link) bg-blue-500/10 hover:bg-blue-500/20',
       iconName: 'Repeat',
     },
   ] as const,
@@ -252,7 +252,7 @@ export const POLARITY_CLASSIFICATION_CONFIG = {
       id: 'polar',
       label: 'Polar Molecule',
       description: 'Asymmetric dipole moment',
-      colorClass: 'border-blue-500 text-blue-400 bg-blue-500/10 hover:bg-blue-500/20',
+      colorClass: 'border-(--link) text-(--link) bg-blue-500/10 hover:bg-blue-500/20',
       iconName: 'Compass',
     },
     {

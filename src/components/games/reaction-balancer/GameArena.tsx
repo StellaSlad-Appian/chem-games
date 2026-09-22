@@ -24,9 +24,9 @@ interface GameArenaProps {
 }
 
 const buttonClass =
-  'cursor-pointer rounded-xl bg-blue-500 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-blue-600 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50';
+  'cursor-pointer rounded-xl bg-(--action) px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-(--action-hover) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-50';
 const ghostClass =
-  'cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-blue-500 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 disabled:cursor-not-allowed disabled:opacity-50';
+  'cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-50';
 
 /**
  * Presentational: the equation as cards, the ledger, the mass beam, the
@@ -125,7 +125,7 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
             type="button"
             onClick={actions.dismissHint}
             aria-label={M.ui.dismissHint}
-            className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--background) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--background) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -144,7 +144,7 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
         className="flex w-full flex-col items-center gap-4 rounded-2xl border-2 border-(--border) bg-(--surface) p-4 shadow-xl sm:p-6"
       >
         <div className="text-center">
-          <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-blue-500">
+          <span className="rounded-full bg-blue-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-(--link)">
             {M.reactionType(round.reaction.type)}
           </span>
           <h2 className="mt-2 text-2xl font-black text-(--foreground) sm:text-3xl">{round.reaction.name}</h2>
@@ -158,7 +158,7 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
               <div className="flex flex-wrap items-center justify-center gap-2" data-testid="reactants">
                 {parsed.reactants.flatMap((_, i) => (i > 0 ? [plus(`plus-r-${i}`), card(i)] : [card(i)]))}
               </div>
-              <span className="text-3xl font-black text-blue-500" aria-hidden="true">
+              <span className="text-3xl font-black text-(--link)" aria-hidden="true">
                 →
               </span>
               <div className="flex flex-wrap items-center justify-center gap-2" data-testid="products">

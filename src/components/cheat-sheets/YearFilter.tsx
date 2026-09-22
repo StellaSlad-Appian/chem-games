@@ -94,9 +94,9 @@ export function YearFilter({
             type="button"
             onClick={() => onSelectYear(year)}
             aria-pressed={isActive}
-            className={`cursor-pointer rounded-xl px-4 py-2 text-xs font-black transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${
+            className={`cursor-pointer rounded-xl px-4 py-2 text-xs font-black transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) ${
               isActive
-                ? 'bg-blue-500 text-white shadow-md'
+                ? 'bg-(--action) text-white shadow-md'
                 : 'border border-(--border) bg-(--surface) text-muted hover:text-(--foreground)'
             }`}
           >

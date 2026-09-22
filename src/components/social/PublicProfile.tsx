@@ -25,7 +25,7 @@ interface PublicProfileProps {
 const elementColors: Record<string, string> = {
   alkali: 'border-red-400 bg-red-500/15 text-red-500',
   'noble-gas': 'border-purple-400 bg-purple-500/15 text-purple-500',
-  'transition-metal': 'border-blue-400 bg-blue-500/15 text-blue-500',
+  'transition-metal': 'border-(--link) bg-blue-500/15 text-(--link)',
   halogen: 'border-emerald-400 bg-emerald-500/15 text-emerald-500',
   nonmetal: 'border-amber-400 bg-amber-500/15 text-amber-500',
 };
@@ -60,7 +60,7 @@ export function PublicProfile({ profile }: PublicProfileProps) {
               <UserRound className="h-6 w-6 text-violet-500" />
               <h1 className="text-4xl font-black">{profile.alias}</h1>
               {profile.country && profile.privacy.showCountry && (
-                <span className="flex items-center gap-1 rounded-md bg-blue-500/10 px-2 py-1 text-xs font-bold text-blue-500">
+                <span className="flex items-center gap-1 rounded-md bg-blue-500/10 px-2 py-1 text-xs font-bold text-(--link)">
                   <MapPin className="h-3 w-3" />
                   {profile.country}
                 </span>
@@ -115,7 +115,7 @@ export function PublicProfile({ profile }: PublicProfileProps) {
           <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-2)] p-4">
             <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--muted)]">{t.profile.favouriteCompound}</h3>
             <div className="mt-2 flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-500">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-(--link)">
                 <FlaskConical className="h-5 w-5" />
               </div>
               <div>

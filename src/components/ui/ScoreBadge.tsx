@@ -18,7 +18,7 @@ export function ScoreBadge({ score }: ScoreBadgeProps) {
       role="status"
       aria-label={f(t.games.shared.finalScoreA11y, { score })}
     >
-      {t.games.shared.finalScore} <span className="text-blue-500 font-extrabold">{score}</span>
+      {t.games.shared.finalScore} <span className="text-(--link) font-extrabold">{score}</span>
     </div>
   );
 }

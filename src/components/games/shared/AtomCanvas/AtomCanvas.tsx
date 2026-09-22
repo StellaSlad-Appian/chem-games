@@ -527,7 +527,7 @@ export default function AtomCanvas({
               aria-label={`${labels.bondName(nameA, nameB, bond.order)} — ${action}`}
               aria-pressed={mode === 'countBonds' ? selected : undefined}
               onClick={() => (mode === 'build' ? onUnpair?.(bond.id) : onToggleBond?.(bond.id))}
-              className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full transition-all duration-150 hover:bg-(--game-glow)/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 active:scale-95"
+              className="absolute z-10 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full transition-all duration-150 hover:bg-(--game-glow)/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) active:scale-95"
               style={{ left: (a.x + b.x) / 2, top: (a.y + b.y) / 2, width: hit, height: hit }}
             />
           );
@@ -568,7 +568,7 @@ export default function AtomCanvas({
                 compact ? 'text-sm' : 'text-2xl'
               } ${isSelected ? 'border-(--game-glow)' : 'border-(--border)'} ${
                 inspectable
-                  ? 'cursor-pointer hover:border-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 active:scale-95'
+                  ? 'cursor-pointer hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) active:scale-95'
                   : ''
               }`}
             >
@@ -627,7 +627,7 @@ export default function AtomCanvas({
                     }`}
                     aria-pressed={countable ? selectedPair : undefined}
                     onClick={() => (countable ? onToggleLonePair?.(atom.id, slot.index) : onReject?.('pairedDot', atom.id))}
-                    className="absolute cursor-pointer rounded-full transition-all duration-150 hover:bg-(--game-glow)/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 active:scale-95"
+                    className="absolute cursor-pointer rounded-full transition-all duration-150 hover:bg-(--game-glow)/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) active:scale-95"
                     style={{ left: cx - hit / 2, top: cy - hit / 2, width: hit, height: hit }}
                   >
                     {dots}
@@ -676,7 +676,7 @@ export default function AtomCanvas({
                   }}
                   onClick={() => onLonerClick(atom.id)}
                   onKeyDown={(e) => onLonerKeyDown(e, atom, slot.index)}
-                  className="absolute z-20 cursor-grab touch-none rounded-full transition-all duration-150 hover:bg-(--game-glow)/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 active:cursor-grabbing"
+                  className="absolute z-20 cursor-grab touch-none rounded-full transition-all duration-150 hover:bg-(--game-glow)/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) active:cursor-grabbing"
                   style={{ left: cx - hit / 2, top: cy - hit / 2, width: hit, height: hit }}
                 >
                   {dot}

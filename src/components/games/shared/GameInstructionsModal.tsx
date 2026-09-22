@@ -75,7 +75,7 @@ export default function GameInstructionsModal({
             type="button"
             onClick={onClose}
             aria-label={t.games.shared.closeInstructionsA11y}
-            className="shrink-0 cursor-pointer rounded-xl p-1 text-(--muted) transition-colors hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+            className="shrink-0 cursor-pointer rounded-xl p-1 text-(--muted) transition-colors hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             <X className="h-6 w-6" aria-hidden="true" />
           </button>
@@ -86,7 +86,7 @@ export default function GameInstructionsModal({
         <button
           type="button"
           onClick={onClose}
-          className="mt-8 w-full cursor-pointer rounded-lg bg-emerald-600 py-3 font-bold text-white transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400"
+          className="mt-8 w-full cursor-pointer rounded-lg bg-emerald-600 py-3 font-bold text-white transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
         >
           {t.games.shared.gotIt}
         </button>

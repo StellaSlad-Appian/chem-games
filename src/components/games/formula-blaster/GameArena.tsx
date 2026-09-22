@@ -55,7 +55,7 @@ export default function GameArena({
               <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
 
               <div className="space-y-1">
-                <h5 className="text-xs font-black uppercase tracking-wider text-blue-500">
+                <h5 className="text-xs font-black uppercase tracking-wider text-(--link)">
                   {t.games.formulaBlaster.hintHeading}
                 </h5>
 

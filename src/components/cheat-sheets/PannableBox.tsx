@@ -111,7 +111,7 @@ export function PannableBox({
     <div className={className}>
       <div
         ref={boxRef}
-        className={`overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400 ${boxClassName ?? ''}`}
+        className={`overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) ${boxClassName ?? ''}`}
         /*
          * Only while it pans, and only then.
          *

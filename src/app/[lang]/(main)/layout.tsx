@@ -44,7 +44,7 @@ export default async function MainLayout(props: LayoutProps<'/[lang]'>) {
           <div className="flex items-center gap-3 text-xs font-medium text-(--muted)">
             <p>{format(t.footer.copyright, { year: new Date().getFullYear() })}</p>
             <span aria-hidden="true">&middot;</span>
-            <LocaleLink href="/privacy" className="font-bold transition hover:text-blue-500">
+            <LocaleLink href="/privacy" className="font-bold transition hover:text-(--link)">
               {t.footer.privacy}
             </LocaleLink>
             <span aria-hidden="true">&middot;</span>
@@ -54,7 +54,7 @@ export default async function MainLayout(props: LayoutProps<'/[lang]'>) {
               content at 1280px (NavBar.tsx), and the page is for adults who
               will go looking rather than for the students the nav serves.
             */}
-            <LocaleLink href="/teachers" className="font-bold transition hover:text-blue-500">
+            <LocaleLink href="/teachers" className="font-bold transition hover:text-(--link)">
               {t.footer.teachers}
             </LocaleLink>
           </div>

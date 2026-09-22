@@ -54,7 +54,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             required
             autoComplete="off"
             aria-describedby="alias-hint"
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
           />
           <p id="alias-hint" className="mt-2 text-xs font-medium text-(--muted)">
             {t.profile.aliasHelp}
@@ -72,7 +72,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             defaultValue={initialData.title || ''}
             placeholder={t.profile.customTitlePlaceholder}
             maxLength={30}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
           />
         </div>
 
@@ -87,7 +87,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             defaultValue={initialData.country || ''}
             placeholder={t.profile.countryPlaceholder}
             maxLength={30}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
           />
           <div className="mt-4">
             <BlockToggle
@@ -106,7 +106,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             id="yearLevel"
             name="yearLevel"
             defaultValue={initialData.yearLevel || ''}
-            className="w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+            className="w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
           >
             <option value="">{t.profile.academicLevelPlaceholder}</option>
             {yearLevels.map((level) => (
@@ -137,7 +137,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
           defaultValue={initialData.labNotes}
           rows={3}
           maxLength={500}
-          className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-blue-500"
+          className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
         />
         <div className="mt-4">
           <BlockToggle
@@ -198,7 +198,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         <button
           type="submit"
           disabled={isPending}
-          className="rounded-xl bg-blue-500 px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-blue-600 disabled:opacity-60"
+          className="rounded-xl bg-(--action) px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition hover:bg-(--action-hover) disabled:opacity-60"
         >
           {isPending ? t.profile.saving : t.profile.save}
         </button>
