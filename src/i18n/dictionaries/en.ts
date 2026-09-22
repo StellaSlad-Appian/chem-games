@@ -153,6 +153,12 @@ export const en = {
   gamesHub: {
     heading: 'Games',
     intro: 'Choose an experiment to begin.',
+    searchLabel: 'Search games',
+    searchPlaceholder: 'Search games and concepts',
+    filterA11y: 'Filter games by year level',
+    noResultsTitle: 'No games match.',
+    noResultsBody: 'Try another year level, or a different word.',
+    clearFilters: 'Clear filters',
     playNow: 'Play now →',
     acidTitle: 'Acid or Base?',
     acidDescription: 'Classify materials by their properties.',

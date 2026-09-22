@@ -5,6 +5,8 @@ import { PersonalScoreSummary } from '@/components/social/PersonalScoreSummary';
 import { PublicLeaderboard } from '@/components/social/PublicLeaderboard';
 import { PublicProfile } from '@/components/social/PublicProfile';
 import { LocaleLink } from '@/components/layout/LocaleLink';
+import { GameCard } from '@/components/games/GameCard';
+import { TEASED_GAMES } from '@/lib/games-data';
 import type { UserProfile } from '@/core-engine/types/general';
 import { getPersonalScores, getPublicLeaderboards } from '@/lib/dashboard-data';
 import { toUserProfile } from '@/lib/profile';
@@ -68,26 +70,6 @@ export default async function Home(props: PageProps<'/[lang]'>) {
     getPublicLeaderboards(),
   ]);
 
-  const teasers = [
-    {
-      href: '/games/acid-classification',
-      name: t.gamesHub.acidTitle,
-      detail: t.home.teaserAcidDetail,
-      color: 'bg-purple-500',
-    },
-    {
-      href: '/games/formula-blaster',
-      name: t.gamesHub.blasterTitle,
-      detail: t.home.teaserBlasterDetail,
-      color: 'bg-blue-500',
-    },
-    {
-      href: '/games/neutralise',
-      name: t.gamesHub.neutraliseTitle,
-      detail: t.home.teaserNeutraliseDetail,
-      color: 'bg-emerald-500',
-    },
-  ];
 
   return (
     <main className="min-h-screen bg-(--background) text-(--foreground)">
@@ -166,28 +148,15 @@ export default async function Home(props: PageProps<'/[lang]'>) {
             link="/games"
             linkLabel={t.home.gamesLink}
           />
+          {/*
+            The same `GameCard` the hub renders, from the same registry. These
+            three used to be a separate array with a colour bar and no icon, so
+            the dashboard and the hub showed the same five games as two
+            unrelated features.
+          */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {teasers.map((game) => (
-              <LocaleLink
-                key={game.href}
-                href={game.href}
-                className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl"
-              >
-                <div>
-                  <span className={`block h-2 w-16 rounded-full ${game.color}`} />
-                  <h3 className="mt-5 text-2xl font-black text-(--foreground) transition group-hover:text-blue-500">
-                    {game.name}
-                  </h3>
-                  <p className="mt-2 text-sm text-(--muted)">{game.detail}</p>
-                </div>
-                <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-blue-500">
-                  <span>{t.common.playNow}</span>
-                  <ArrowRight
-                    className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"
-                    aria-hidden="true"
-                  />
-                </div>
-              </LocaleLink>
+            {TEASED_GAMES.map((slug) => (
+              <GameCard key={slug} slug={slug} />
             ))}
           </div>
         </section>

@@ -37,7 +37,19 @@ const YEAR_ORDER: YearFilterOption[] = ['All', 'Year 7', 'Year 8', 'Year 9', 'Ye
  * the reader, this one is about the content.
  */
 export function yearFilterOptions(sheets: readonly CheatSheetTopic[]): YearFilterOption[] {
-  const present = new Set<string>(sheets.map((sheet) => sheet.yearLevel));
+  return yearFilterOptionsFrom(sheets.map((sheet) => sheet.yearLevel));
+}
+
+/**
+ * The same offer, from bare year levels rather than from sheets.
+ *
+ * The games hub needs this: a game carries `yearLevels` (plural — `neutralise`
+ * is both Year 9 and Year 10), so there is no single `.yearLevel` to read. The
+ * rule above is unchanged and is worth keeping in one place, because "only
+ * offer a filter that can return something" is the part that is easy to lose.
+ */
+export function yearFilterOptionsFrom(levels: Iterable<YearLevel>): YearFilterOption[] {
+  const present = new Set<string>(levels);
   return YEAR_ORDER.filter((year) => year === 'All' || present.has(year));
 }
 
@@ -54,18 +66,25 @@ export function YearFilter({
   years,
   selectedYear,
   onSelectYear,
+  label,
 }: {
   /** From `yearFilterOptions`, so the offer follows the sheets that exist. */
   years: readonly YearFilterOption[];
   selectedYear: string;
   onSelectYear: (year: string) => void;
+  /**
+   * Accessible name for the button group. Defaults to the cheat-sheet wording,
+   * which is where this component started; the games hub passes its own, so a
+   * screen-reader user on that page is not told they are filtering sheets.
+   */
+  label?: string;
 }) {
   const { t } = useI18n();
   return (
     <div
       className="flex flex-wrap items-center gap-2"
       role="group"
-      aria-label={t.cheatSheets.filterA11y}
+      aria-label={label ?? t.cheatSheets.filterA11y}
     >
       {years.map((year) => {
         const isActive = selectedYear === year;

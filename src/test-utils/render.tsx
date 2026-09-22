@@ -29,6 +29,22 @@ export function TestProviders({
   );
 }
 
-export function renderWithProviders(ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) {
-  return render(ui, { wrapper: TestProviders, ...options });
+export function renderWithProviders(
+  ui: ReactElement,
+  {
+    locale,
+    dictionary,
+    ...options
+  }: Omit<RenderOptions, 'wrapper'> & { locale?: Locale; dictionary?: Dictionary } = {}
+) {
+  // `TestProviders` has taken `locale` and `dictionary` since it was written,
+  // and its comment says to pass them — but this helper had no way to, so every
+  // test that wanted a translation had to reach past it and render
+  // `<TestProviders>` by hand. Now it forwards them.
+  const wrapper = ({ children }: { children: ReactNode }) => (
+    <TestProviders locale={locale} dictionary={dictionary}>
+      {children}
+    </TestProviders>
+  );
+  return render(ui, { wrapper, ...options });
 }

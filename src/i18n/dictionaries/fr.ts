@@ -145,6 +145,12 @@ export const fr = {
   gamesHub: {
     heading: 'Jeux',
     intro: 'Choisis une expérience pour commencer.',
+    searchLabel: 'Rechercher un jeu',
+    searchPlaceholder: 'Rechercher un jeu ou une notion',
+    filterA11y: 'Filtrer les jeux par niveau scolaire',
+    noResultsTitle: 'Aucun jeu ne correspond.',
+    noResultsBody: 'Essaie un autre niveau ou un autre mot.',
+    clearFilters: 'Effacer les filtres',
     playNow: 'Jouer →',
 
     // Every title below is rated low in fr-review.md: these are product-naming

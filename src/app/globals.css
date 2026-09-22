@@ -64,6 +64,24 @@
     --neutral-color: #10b981; /* emerald-500 */
     --amphoteric-color: #a855f7; /* purple-500 */
 
+    /*
+     * --- Per-game accents ---
+     *
+     * One colour per game, so a row of cards is not five identical blue icons.
+     * Unlike the four above, these DO change with the theme: they are used for
+     * the icon and for the "Play now" link, and link text has to clear 4.5:1
+     * against the card it sits on. A single value cannot: violet-600 reads well
+     * on white and is nearly invisible on #18181b.
+     *
+     * Measured against --surface, which is what both the hub cards (.game-card)
+     * and the dashboard teasers use. Dark values first, light below.
+     */
+    --game-accent-violet:  #a78bfa; /* violet-400  — 6.51:1 on #18181b */
+    --game-accent-sky:     #38bdf8; /* sky-400     — 8.27:1 */
+    --game-accent-emerald: #34d399; /* emerald-400 — 9.22:1 */
+    --game-accent-amber:   #fbbf24; /* amber-400   — 10.61:1 */
+    --game-accent-rose:    #fb7185; /* rose-400    — 6.58:1 */
+
     /* --- Feedback states --- */
     --correct: #10b981;
     --wrong:   #ef4444;
@@ -98,6 +116,19 @@
     --base-color: #3b82f6;
     --neutral-color: #10b981;
     --amphoteric-color: #a855f7;
+
+    /*
+     * The same five accents, darkened for white.
+     *
+     * Not simply the 600 of each ramp: sky-600 is 4.10:1, emerald-600 is 3.77:1
+     * and amber-600 only 3.19:1 on #ffffff, all of which fail text contrast. The
+     * ones that fail are pushed to 700.
+     */
+    --game-accent-violet:  #7c3aed; /* violet-600  — 5.70:1 on #ffffff */
+    --game-accent-sky:     #0369a1; /* sky-700     — 5.93:1 */
+    --game-accent-emerald: #047857; /* emerald-700 — 5.48:1 */
+    --game-accent-amber:   #b45309; /* amber-700   — 5.02:1 */
+    --game-accent-rose:    #e11d48; /* rose-600    — 4.70:1 */
     --correct: #10b981;
     --wrong: #ef4444;
     --game-success: #10b981;

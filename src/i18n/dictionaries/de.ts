@@ -139,6 +139,12 @@ export const de = {
   gamesHub: {
     heading: 'Spiele',
     intro: 'Wähle ein Experiment, um zu starten.',
+    searchLabel: 'Spiele durchsuchen',
+    searchPlaceholder: 'Spiele und Themen durchsuchen',
+    filterA11y: 'Spiele nach Klassenstufe filtern',
+    noResultsTitle: 'Kein Spiel passt dazu.',
+    noResultsBody: 'Probier eine andere Klassenstufe oder ein anderes Wort.',
+    clearFilters: 'Filter zurücksetzen',
     playNow: 'Jetzt spielen →',
     acidTitle: 'Säure oder Base?',
     acidDescription: 'Ordne Stoffe nach ihren Eigenschaften ein.',

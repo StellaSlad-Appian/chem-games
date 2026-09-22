@@ -38,4 +38,30 @@ export function gameTitle(t: Dictionary, gameId: string, fallback: string): stri
   return key ? t.gamesHub[key] : fallback;
 }
 
-export { TITLE_KEYS as GAME_TITLE_KEYS };
+/**
+ * The one-line description under each title, keyed the same way.
+ *
+ * Here rather than in `games-data.ts` for the reason at the top of that file:
+ * the registry holds structure, and prose belongs to the dictionaries. A *key*
+ * is not prose, and keeping it beside the title map means one file to touch
+ * when a game is added rather than two.
+ *
+ * There is no fallback. Unlike a title, a description has no database column to
+ * fall back to — a game the dictionary does not know simply has no blurb, and
+ * `undefined` lets the card omit the paragraph rather than print a key name.
+ */
+const DESCRIPTION_KEYS: Partial<Record<GameName, keyof Dictionary['gamesHub']>> = {
+  'acid-classification': 'acidDescription',
+  'formula-blaster': 'blasterDescription',
+  neutralise: 'neutraliseDescription',
+  'reaction-balancer': 'balancerDescription',
+  'lewis-structures': 'lewisDescription',
+  'bond-builder': 'bondsDescription',
+};
+
+export function gameDescription(t: Dictionary, gameId: string): string | undefined {
+  const key = DESCRIPTION_KEYS[gameId as GameName];
+  return key ? t.gamesHub[key] : undefined;
+}
+
+export { TITLE_KEYS as GAME_TITLE_KEYS, DESCRIPTION_KEYS as GAME_DESCRIPTION_KEYS };

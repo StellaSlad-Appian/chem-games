@@ -163,6 +163,12 @@ export const it = {
   gamesHub: {
     heading: 'Giochi',
     intro: 'Scegli un esperimento per cominciare.',
+    searchLabel: 'Cerca i giochi',
+    searchPlaceholder: 'Cerca giochi e concetti',
+    filterA11y: 'Filtra i giochi per classe',
+    noResultsTitle: 'Nessun gioco corrisponde.',
+    noResultsBody: 'Prova con un’altra classe o con un’altra parola.',
+    clearFilters: 'Togli i filtri',
     playNow: 'Gioca →',
 
     // Every title below is rated low in it-review.md: these are product-naming

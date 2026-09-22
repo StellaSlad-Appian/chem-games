@@ -163,6 +163,12 @@ export const ru = {
   gamesHub: {
     heading: 'Игры',
     intro: 'Выбери опыт, с которого начнёшь.',
+    searchLabel: 'Поиск игр',
+    searchPlaceholder: 'Найди игру или тему',
+    filterA11y: 'Отобрать игры по классу',
+    noResultsTitle: 'Подходящих игр нет.',
+    noResultsBody: 'Попробуй другой класс или другое слово.',
+    clearFilters: 'Сбросить фильтры',
     playNow: 'Играть →',
 
     // Every title below is rated low in ru-review.md: these are product-naming
