@@ -177,6 +177,31 @@ schedule's bookkeeping to a reader who had not asked and could not act on it.
 
 ---
 
+## Done since: the molecule heading
+
+"Why it works" presumed the compound had a job to do — true of Kevlar and
+artemisinin, false of benzene, water and adenine, whose cards are about
+structure. The benzene entry was already fighting it, opening "What makes it
+unusual is..." under a heading promising a mechanism.
+
+Now **"What makes it special"**, and the five translations were *written* as
+headings rather than translated, because every one had inherited the same
+presumption and two had a pronoun-agreement trap recorded in `review-notes.ts`:
+
+| | was | now |
+| --- | --- | --- |
+| de | So funktioniert es | Das Besondere daran |
+| es | Por qué funciona | Lo que tiene de especial |
+| fr | Pourquoi ça marche | Ce qu'il y a de particulier |
+| it | Perché funziona | Che cosa ha di speciale |
+| ru | Почему это работает | Что в этом особенного |
+
+German "daran" and the impersonal "il" in French "il y a" both dodge agreement
+with whichever compound the week shows. Both translator notes were rewritten to
+ask for a fresh native read rather than a check against the old wording — the
+French one in particular, because it is a register step up from the spoken
+"ça marche" it replaces and the audience is fourteen.
+
 ## Unrelated, raised mid-session and not acted on
 
 The molecule card heading **"Why it works"** presumes the molecule has a job.

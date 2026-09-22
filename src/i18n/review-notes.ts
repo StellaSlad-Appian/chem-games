@@ -63,7 +63,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'explore',
       confidence: 'medium',
-      note: 'Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "So funktioniert es" for "Why it works" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows. Worth a native read for register — these are section headings a student skims, so they should sound like a magazine, not a textbook.',
+      note: 'Page chrome for the weekly Explore page. The headings were written as German headings rather than translated word for word: "Im Alltag" for "Where you meet it" and "Das Besondere daran" for "What makes it special" both avoid an "es/sie/er" that would have to agree with whichever compound the week shows — "daran" carries the reference with no gender at all. That second heading replaced "So funktioniert es" when the English stopped claiming the compound had a job to do, so it needs a fresh native read rather than a check against the old one. Worth reading for register too — these are section headings a student skims, so they should sound like a magazine, not a textbook.',
     },
     {
       prefix: 'explore.scientistHeading',
@@ -367,7 +367,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'explore',
       confidence: 'medium',
-      note: 'Page chrome for the weekly Explore page. Both section titles are written without an article — "Molécule de la semaine", "Scientifique de la semaine" — which is the usual French headline register and, for the second, avoids choosing "la" or "le" depending on who that week features. "Pourquoi ça marche" is deliberately spoken French rather than "Pourquoi cela fonctionne": the audience is fourteen. Worth a native read for that register choice.',
+      note: 'Page chrome for the weekly Explore page. Both section titles are written without an article — "Molécule de la semaine", "Scientifique de la semaine" — which is the usual French headline register and, for the second, avoids choosing "la" or "le" depending on who that week features. "Ce qu’il y a de particulier" replaced "Pourquoi ça marche" when the English heading stopped claiming the compound had a job; the "il" in "il y a" is impersonal, so it never agrees with the week’s compound. It is a register step up from the spoken "ça marche" it replaces, and the audience is fourteen — so it needs a native read on exactly that: is it still a heading a teenager skims, or has it turned textbook?',
     },
     {
       prefix: 'explore.sourcesHeading',

@@ -720,7 +720,7 @@ export const it = {
     formulaLabel: 'Formula',
     formulaA11y: '{name}, formula {formula}',
     everydayHeading: 'Dove la incontri',
-    chemistryHeading: 'Perché funziona',
+    chemistryHeading: 'Che cosa ha di speciale',
     workHeading: 'Il suo lavoro',
     // «Perché ha contato», non «Perché è stato importante»: il participio
     // concorderebbe con la persona della settimana, e su dieci delle venti

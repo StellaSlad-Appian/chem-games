@@ -707,7 +707,7 @@ export const es = {
     formulaLabel: 'Fórmula',
     formulaA11y: '{name}, fórmula {formula}',
     everydayHeading: 'Dónde la encuentras',
-    chemistryHeading: 'Por qué funciona',
+    chemistryHeading: 'Lo que tiene de especial',
     workHeading: 'Su trabajo',
     legacyHeading: 'Por qué importó',
     creditHeading: 'A quién se debe el mérito',

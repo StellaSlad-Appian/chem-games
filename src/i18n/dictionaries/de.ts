@@ -619,7 +619,7 @@ export const de = {
     formulaLabel: 'Formel',
     formulaA11y: '{name}, Formel {formula}',
     everydayHeading: 'Im Alltag',
-    chemistryHeading: 'So funktioniert es',
+    chemistryHeading: 'Das Besondere daran',
     workHeading: 'Die Arbeit',
     legacyHeading: 'Warum das wichtig war',
     creditHeading: 'Wer die Anerkennung bekam',

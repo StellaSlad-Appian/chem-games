@@ -739,7 +739,18 @@ export const en = {
     /** Accessible name for the formula, read before the name of the compound. */
     formulaA11y: '{name}, formula {formula}',
     everydayHeading: 'Where you meet it',
-    chemistryHeading: 'Why it works',
+    /*
+     * Not "Why it works". That presumed the compound had a job to do,
+     * which is true of Kevlar and artemisinin and false of benzene, water
+     * and adenine — cards that are about structure, not function. The
+     * benzene entry was already fighting it, opening with "What makes it
+     * unusual is…" under a heading promising a mechanism.
+     *
+     * "Special" covers both, and stays a heading rather than a question:
+     * the other three on the page are noun phrases, and a question mark
+     * over a 180-word block reads as a quiz prompt.
+     */
+    chemistryHeading: 'What makes it special',
     workHeading: 'What they did',
     legacyHeading: 'Why it mattered',
     /**

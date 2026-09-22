@@ -671,7 +671,7 @@ export const fr = {
     formulaLabel: 'Formule',
     formulaA11y: '{name}, formule {formula}',
     everydayHeading: 'Où on la rencontre',
-    chemistryHeading: 'Pourquoi ça marche',
+    chemistryHeading: 'Ce qu’il y a de particulier',
     workHeading: 'Ses travaux',
     legacyHeading: 'Pourquoi c’était important',
     creditHeading: 'À qui revient le mérite',

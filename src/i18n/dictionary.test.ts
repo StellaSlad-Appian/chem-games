@@ -108,7 +108,11 @@ const IDENTICAL_BY_DESIGN: Record<string, RegExp[]> = {
     // "Sources" is the French word for sources. Reaching for "Références" only
     // to make the two differ would name something slightly else — the section
     // lists where the entry's facts came from, not a bibliography.
-    /^explore\.sourcesHeading$/,
+    //
+    // `imageSourceLabel` is the singular of the same word, on the link in a
+    // picture's credit line that goes to the file's page on Wikimedia. Same
+    // reasoning, and it has to match the heading above it.
+    /^explore\.(sourcesHeading|imageSourceLabel)$/,
     // Keyboard glyphs and single digits used as <kbd> labels. The first column
     // of an instructions key table is the physical key, so it never translates;
     // the second column, which says what the key does, always does.

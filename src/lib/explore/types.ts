@@ -159,7 +159,7 @@ export interface ExploreMolecule extends ExploreProvenance {
   /** Optional diagram, shown under the formula. */
   image?: ExploreImage;
   everyday: string;
-  /** The chemistry that makes it work. */
+  /** The chemistry that makes it what it is. Rendered under `chemistryHeading`. */
   chemistry: string;
   link: ExploreLink;
 }

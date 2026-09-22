@@ -576,7 +576,7 @@ export const ru = {
     // itself stays Latin, as Russian chemistry writes it.
     formulaA11y: '{name}, формула {formula}',
     everydayHeading: 'Где это встречается в жизни',
-    chemistryHeading: 'Почему это работает',
+    chemistryHeading: 'Что в этом особенного',
     workHeading: 'Вклад в науку',
     legacyHeading: 'Почему это важно',
     /*
