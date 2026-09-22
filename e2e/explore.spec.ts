@@ -123,6 +123,42 @@ test.describe('getting there', () => {
     await expect(page).toHaveURL(/\/en\/explore$/);
   });
 
+  /**
+   * The regression guard for the shape of the section, which the test above
+   * cannot give: its `.first()` is satisfied by any number of Explore
+   * sections, and for two days there were three.
+   *
+   * `1618358` moved the section to the end of the dashboard by cutting it and
+   * pasting it back one nesting level too deep — inside the `<div>` of a game
+   * teaser card, which is itself a `LocaleLink`. It compiled, it type-checked,
+   * and the section still rendered, so every existing test passed. What it
+   * cost was an `<a href="/explore">` inside an `<a href="/games/...">`, which
+   * no browser will parse: the parser reparents the inner anchor, the client
+   * tree stops matching the server's, and **hydration failed for the whole
+   * dashboard** — the site's landing page, in every language.
+   *
+   * So the two things asserted here are the two things that were wrong, and
+   * neither is specific to Explore. A duplicated `id` and an anchor inside an
+   * anchor are what mis-nesting looks like from the outside, whatever gets
+   * mis-nested next.
+   */
+  test('the dashboard has one Explore section, outside the game cards', async ({ page }) => {
+    await page.goto(path('/'));
+    await waitForHydration(page);
+
+    await expect(page.locator('#explore')).toHaveCount(1);
+
+    // A section, not a descendant of one of the teaser links.
+    expect(
+      await page.evaluate(() => Boolean(document.querySelector('#games #explore')))
+    ).toBe(false);
+
+    const nested = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('a a')).map((a) => a.getAttribute('href'))
+    );
+    expect(nested, `these links sit inside another link:\n${JSON.stringify(nested)}`).toEqual([]);
+  });
+
   test('the language switcher keeps you on Explore', async ({ page }) => {
     const en = await getDictionary('en');
     const fr = await getDictionary('fr');
