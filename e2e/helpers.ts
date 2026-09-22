@@ -123,6 +123,27 @@ export async function languageSwitcher(page: Page, label: string): Promise<Locat
   return select;
 }
 
+/**
+ * How long to give the URL to catch up with a language change.
+ *
+ * Deliberately far above the 10s `expect.timeout` in `playwright.config.ts`,
+ * and it is not papering over a race. The switcher's handler writes the
+ * NEXT_LOCALE cookie in ~370ms; what takes the remaining time is
+ * `router.replace()`, a transition that does not move the URL until the
+ * destination locale's RSC payload has been fetched, and under parallel load
+ * on a dev server that payload is queued behind every other worker's
+ * compile. Serially these specs have never failed. The failure is load, not
+ * logic, so the fix is a budget rather than a retry.
+ *
+ * Use `expectLocaleUrl()` rather than this constant directly.
+ */
+export const LOCALE_SWITCH_TIMEOUT = 30_000;
+
+/** Assert the URL followed a language change, with the budget above. */
+export function expectLocaleUrl(page: Page, url: RegExp): Promise<void> {
+  return expect(page).toHaveURL(url, { timeout: LOCALE_SWITCH_TIMEOUT });
+}
+
 /** The pause / level-up / game-over card (role="dialog", labelled by its title). */
 export const overlay = (page: Page, name?: string): Locator =>
   name ? page.getByRole('dialog', { name }) : page.getByRole('dialog');

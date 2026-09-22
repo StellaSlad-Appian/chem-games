@@ -20,7 +20,7 @@ import { en as enTeachers } from '../src/i18n/teachers/en';
 import { de as deTeachers } from '../src/i18n/teachers/de';
 import { lewisMessages } from '../src/i18n/game-messages/lewis-structures';
 import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-balancer';
-import { languageSwitcher, openGame, path, waitForHydration } from './helpers';
+import { expectLocaleUrl, languageSwitcher, openGame, path, waitForHydration } from './helpers';
 
 const htmlLang = (page: Page) => page.locator('html').getAttribute('lang');
 
@@ -136,7 +136,7 @@ test.describe('language switcher', () => {
     const select = await languageSwitcher(page, en.language.label);
     await select.selectOption('de');
 
-    await expect(page).toHaveURL(/\/de\/cheat-sheets$/);
+    await expectLocaleUrl(page, /\/de\/cheat-sheets$/);
     await expect(
       page.getByRole('heading', { level: 1, name: de.cheatSheets.heading })
     ).toBeVisible();
@@ -149,13 +149,13 @@ test.describe('language switcher', () => {
     await select.focus();
     await expect(select).toBeFocused();
     await select.selectOption('de');
-    await expect(page).toHaveURL(/\/de\/games$/);
+    await expectLocaleUrl(page, /\/de\/games$/);
   });
 
   test('remembers the choice for a later visit to an unprefixed URL', async ({ page }) => {
     await page.goto(path('/games'));
     await (await languageSwitcher(page, en.language.label)).selectOption('de');
-    await expect(page).toHaveURL(/\/de\/games$/);
+    await expectLocaleUrl(page, /\/de\/games$/);
 
     // A bookmark, a shared link, or just typing the bare domain.
     await page.goto('/cheat-sheets');
@@ -455,7 +455,7 @@ test.describe('French negotiation and routing', () => {
   test('the switcher moves the reader to French and remembers it', async ({ page }) => {
     await page.goto(path('/games'));
     await (await languageSwitcher(page, en.language.label)).selectOption('fr');
-    await expect(page).toHaveURL(/\/fr\/games$/);
+    await expectLocaleUrl(page, /\/fr\/games$/);
 
     // A bookmark, a shared link, or just typing the bare domain.
     await page.goto('/cheat-sheets');
@@ -695,7 +695,7 @@ test.describe('Spanish negotiation and routing', () => {
   test('an unprefixed URL redirects and the switcher remembers Spanish', async ({ page }) => {
     await page.goto(path('/games'));
     await (await languageSwitcher(page, en.language.label)).selectOption('es');
-    await expect(page).toHaveURL(/\/es\/games$/);
+    await expectLocaleUrl(page, /\/es\/games$/);
 
     // A bookmark, a shared link, or just typing the bare domain.
     await page.goto('/cheat-sheets');
@@ -966,7 +966,7 @@ test.describe('Italian negotiation and routing', () => {
   test('an unprefixed URL redirects and the switcher remembers Italian', async ({ page }) => {
     await page.goto(path('/games'));
     await (await languageSwitcher(page, en.language.label)).selectOption('it');
-    await expect(page).toHaveURL(/\/it\/games$/);
+    await expectLocaleUrl(page, /\/it\/games$/);
 
     // A bookmark, a shared link, or just typing the bare domain.
     await page.goto('/cheat-sheets');
@@ -1223,7 +1223,7 @@ test.describe('Russian negotiation and routing', () => {
   test('an unprefixed URL redirects and the switcher remembers Russian', async ({ page }) => {
     await page.goto(path('/games'));
     await (await languageSwitcher(page, en.language.label)).selectOption('ru');
-    await expect(page).toHaveURL(/\/ru\/games$/);
+    await expectLocaleUrl(page, /\/ru\/games$/);
 
     // A bookmark, a shared link, or just typing the bare domain.
     await page.goto('/cheat-sheets');
