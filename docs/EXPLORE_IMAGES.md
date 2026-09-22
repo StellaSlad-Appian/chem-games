@@ -79,9 +79,29 @@ never the size of the slot. Measured off the rendered card on 2026-09-22:
 So 555 CSS px is the ceiling, and it happens on a *small* screen, where the
 float has not kicked in yet. 900 px is about 1.6× that — enough for a 2×
 display at the widest case, without the weight of the ~1440 this document
-used to guess at. **Nothing is ever enlarged past its native width**: four of
-the historical portraits are smaller than 900 px and stay smaller, because
-upscaling only adds bytes.
+used to guess at.
+
+#### A picture is never drawn larger than it is
+
+Two separate rules, and both matter:
+
+1. **The script never enlarges a file past its native width.** Six of the
+   nineteen are smaller than 900 px and stay smaller — they are the best that
+   survives of a chemist who died decades ago, and upscaling only adds bytes.
+2. **The card never renders one wider than it is.** The `<figure>` publishes
+   the file’s own width as a `--iw` custom property and every width cap is a
+   `min()` against it, so a small file simply sits at its own size in a
+   larger slot.
+
+Without the second rule the first is cosmetic. Johanna Döbereiner’s portrait
+is 180 px wide — the only free picture of her anywhere — and was being
+stretched to 210 px on a laptop, 306 px on a phone and 555 px at the widest,
+with Søren Sørensen’s and Paul Sabatier’s going the same way on small
+screens. A photograph blown up past its own resolution reads as a mistake,
+and nothing on the page tells the reader it is the archive’s limit and not
+ours. Measured after the cap landed, hers renders at 180 px at 390, 639 and
+1280 alike, and the large files are untouched: Lonsdale still 210 px on a
+laptop, Blodgett still 331 px.
 
 - `width` and `height` in the data are measured off the finished file, so the
   browser reserves the right space and the prose does not jump as it loads.

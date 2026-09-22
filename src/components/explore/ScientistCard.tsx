@@ -1,5 +1,6 @@
 // src/components/explore/ScientistCard.tsx
 
+import type { CSSProperties } from 'react';
 import { Microscope, Scale } from 'lucide-react';
 import { InwardLink } from './InwardLink';
 import { format } from '@/i18n/format';
@@ -93,11 +94,13 @@ export function ScientistCard({
         It matters more here than on a molecule. A portrait is the tall shape,
         and in a fixed column a tall picture holds the text in a narrow ribbon
         for its whole height; floated, the text wraps past the chin of the
-        photograph and then runs full width underneath it. This is also the
-        half of the pool still mostly on placeholders, so the orientation rule
-        below has to be right on the day a real photograph lands rather than
-        tested only against the 720×400 placeholder, which is landscape and so
-        is *not* representative of what will replace it.
+        photograph and then runs full width underneath it.
+
+        The orientation rule below is now exercised by the real files rather
+        than by a placeholder: eighteen of the nineteen are portrait, and
+        Katharine Blodgett's is the near-square one that takes the landscape
+        branch. It used to be tested only against a 720×400 placeholder, which
+        was landscape and so tested exactly the wrong branch.
       */}
       <div className="mt-6">
         {scientist.image && (
@@ -117,10 +120,29 @@ export function ScientistCard({
           // wrapping into the prose on its own. `<figcaption>` is what ties
           // the two together for a screen reader.
           <figure
-            className={`mb-4 sm:float-left sm:mr-6 sm:mb-3 ${
+            // `--iw` is the file's own width in pixels, and every cap below is
+            // a `min()` against it, so **the picture is never drawn larger
+            // than it really is.**
+            //
+            // That is not a refinement. Six of the nineteen files are smaller
+            // than the slot they sit in, because they are the best that
+            // survives of a chemist who died decades ago and there is no
+            // larger version to fetch. Before this, Johanna Döbereiner's 180 px
+            // portrait — the only free picture of her anywhere — was blown up
+            // to 210 px on a laptop and 306 px on a phone, and Søren Sørensen's
+            // and Paul Sabatier's went the same way on small screens. A
+            // photograph stretched past its own resolution looks like a
+            // mistake, and the reader has no way to tell it is the archive's
+            // limit rather than ours.
+            //
+            // Capping here rather than in the data keeps it a rendering rule:
+            // nothing has to be decided per entry, and a small file added
+            // later is handled the day it lands.
+            style={{ '--iw': `${scientist.image.width}px` } as CSSProperties}
+            className={`mb-4 max-w-[var(--iw)] sm:float-left sm:mr-6 sm:mb-3 ${
               scientist.image.height > scientist.image.width
-                ? 'sm:w-1/3 sm:max-w-[210px]'
-                : 'sm:w-2/5 sm:max-w-sm'
+                ? 'sm:w-1/3 sm:max-w-[min(210px,var(--iw))]'
+                : 'sm:w-2/5 sm:max-w-[min(24rem,var(--iw))]'
             }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

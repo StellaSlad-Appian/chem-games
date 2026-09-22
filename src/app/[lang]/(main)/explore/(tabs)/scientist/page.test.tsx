@@ -172,6 +172,35 @@ describe('the scientist tab', () => {
     expect(prose.className).not.toContain('overflow-hidden');
   });
 
+  it('never draws a picture wider than the file really is', async () => {
+    // Six of the nineteen files are smaller than the slot they sit in,
+    // because they are the best that survives of a chemist who died decades
+    // ago. Johanna Döbereiner’s is 180 px wide and was being blown up to
+    // 210 px on a laptop and 306 px on a phone before the cap existed.
+    //
+    // jsdom does not run Tailwind, so this checks the mechanism rather than
+    // the painted pixels: the figure publishes the file’s own width as
+    // `--iw`, and every width cap on it is a `min()` against that variable.
+    // The rendered widths were measured in a real browser when the cap
+    // landed — 180 px at 390, 639 and 1280 — and the numbers are in
+    // docs/EXPLORE_IMAGES.md.
+    const { container } = await renderPage('en');
+
+    const image = container.querySelector('section img') as HTMLImageElement | null;
+    if (image) {
+      const figure = image.closest('figure')!;
+
+      const declared = image.getAttribute('width');
+      expect(declared).toBeTruthy();
+      expect(figure.getAttribute('style')).toContain(`--iw: ${declared}px`);
+
+      // Both the base cap and the breakpoint cap have to honour it, because
+      // the picture is full-width below `sm` and floated above it.
+      expect(figure.className).toContain('max-w-[var(--iw)]');
+      expect(figure.className).toMatch(/sm:max-w-\[min\([^)]+,var\(--iw\)\)\]/);
+    }
+  });
+
   it('keeps the locale on every internal link', async () => {
     await renderPage('de');
 
