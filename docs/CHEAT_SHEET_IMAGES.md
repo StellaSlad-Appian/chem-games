@@ -80,7 +80,7 @@ in that file to match**, or the diagram will be stretched.
 **Always 512 CSS px, at every screen size.** A 640-unit file is therefore always
 drawn at 0.8×, and the 20-unit floor the diagrams hold their text to always
 lands at 16 CSS px. That is the number
-`docs/feature-briefs/atomic-structure-redesign.md` §12 sizes diagram type
+`docs/feature-briefs/atomic-structure-redesign.md` §12.3 sizes diagram type
 against, and it is the reason it can be trusted: a diagram that is legible on
 the desktop layout is legible everywhere.
 
