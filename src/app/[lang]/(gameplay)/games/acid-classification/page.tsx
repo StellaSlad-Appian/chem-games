@@ -88,6 +88,10 @@ export default function ClassificationGame() {
   const startTimeRef = useRef<number>(0);
   // Prevents the same run from being recorded twice.
   const sessionSavedRef = useRef(false);
+  // True while a modal is the *reason* the game is paused, so closing it
+  // resumes — and closing a modal opened over an already-paused game does not.
+  // Same pattern as formula-blaster and neutralise.
+  const pausedByModalRef = useRef(false);
 
   // The clock starts when the page mounts (set in an effect: render must stay pure).
   useEffect(() => {
@@ -143,9 +147,35 @@ export default function ClassificationGame() {
   const handleOpenSettings = () => {
     playSound('click');
     if (gameState === GAME_STATE.PLAYING) {
+      pausedByModalRef.current = true;
       togglePause();
     }
     setIsSettingsOpen(true);
+  };
+
+  const handleCloseSettings = () => {
+    setIsSettingsOpen(false);
+    if (pausedByModalRef.current) {
+      pausedByModalRef.current = false;
+      togglePause();
+    }
+  };
+
+  const handleOpenInstructions = () => {
+    playSound('click');
+    if (gameState === GAME_STATE.PLAYING) {
+      pausedByModalRef.current = true;
+      togglePause();
+    }
+    setIsInstructionsOpen(true);
+  };
+
+  const handleCloseInstructions = () => {
+    setIsInstructionsOpen(false);
+    if (pausedByModalRef.current) {
+      pausedByModalRef.current = false;
+      togglePause();
+    }
   };
 
   const handleSelection = (selectedType: ChemicalClassification) => {
@@ -268,13 +298,13 @@ export default function ClassificationGame() {
 
       <GameSettingsModal 
         isOpen={isSettingsOpen} 
-        onClose={() => setIsSettingsOpen(false)}
+        onClose={handleCloseSettings}
         gameId="acid-classification"
       />
 
       <GameInstructionsModal 
         isOpen={isInstructionsOpen} 
-        onClose={() => setIsInstructionsOpen(false)}
+        onClose={handleCloseInstructions}
         title={t.games.acidClassification.instructionsTitle}
         compact={<AcidCompactInstructions />}
       >
@@ -304,7 +334,7 @@ export default function ClassificationGame() {
 
       <GameFooter 
         onOpenSettings={handleOpenSettings}
-        onOpenInstructions={() => setIsInstructionsOpen(true)}
+        onOpenInstructions={handleOpenInstructions}
         isPaused={gameState !== GAME_STATE.PLAYING}
         onTogglePause={togglePause}
       />

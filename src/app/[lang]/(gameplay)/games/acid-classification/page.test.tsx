@@ -203,6 +203,29 @@ describe('Acid classification page (game flow)', () => {
     expect(screen.getByTitle('Resume Game')).toBeInTheDocument();
   });
 
+  // The bug: opening Settings paused, closing it left the game paused, so the
+  // player was dropped straight onto the pause overlay they never asked for.
+  it('closing the settings resumes the game', () => {
+    fireEvent.click(screen.getByTitle('Settings'));
+    expect(screen.getByTitle('Resume Game')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: en.settings.closeA11y }));
+    expect(screen.queryByRole('heading', { name: /Game Settings/ })).not.toBeInTheDocument();
+    expect(screen.getByTitle('Pause Game')).toBeInTheDocument();
+    expect(vessel('Acid')).toBeEnabled();
+  });
+
+  // The other half of the same guard: a modal opened over an already-paused
+  // game must not resume it on the way out.
+  it('closing the settings over an already-paused game leaves it paused', () => {
+    fireEvent.click(screen.getByTitle('Pause Game'));
+    fireEvent.click(screen.getByTitle('Settings'));
+    fireEvent.click(screen.getByRole('button', { name: en.settings.closeA11y }));
+
+    expect(screen.getByRole('dialog', { name: 'Game Paused' })).toBeInTheDocument();
+    expect(vessel('Acid')).toBeDisabled();
+  });
+
   it('the instructions modal shows the configured steps', () => {
     fireEvent.click(screen.getByTitle('How to Play'));
     expect(
