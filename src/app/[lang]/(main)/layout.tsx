@@ -25,7 +25,15 @@ export default async function MainLayout(props: LayoutProps<'/[lang]'>) {
     <>
       <NavBar isAuthenticated={isAuthenticated} />
 
-      <main className="flex-1">{props.children}</main>
+      {/*
+        A `<div>`, not a `<main>`. Every page under this group renders its own
+        `<main>` with its own layout classes, so a `<main>` here made two main
+        landmarks on every page — one more than a screen reader should be
+        offered, and a strict-mode violation for a bare `page.locator('main')`
+        in Playwright, which is how it was found. The wrapper still exists for
+        `flex-1`: it is what pushes the footer down on a short page.
+      */}
+      <div className="flex-1">{props.children}</div>
 
       <footer className="border-t-2 border-(--border) bg-(--surface) py-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:px-6 sm:text-left">
