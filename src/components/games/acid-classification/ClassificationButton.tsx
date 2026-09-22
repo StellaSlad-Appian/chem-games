@@ -1,12 +1,12 @@
 // src/components/games/acid-classification/ClassificationButton.tsx
 'use client';
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { ANSWER_STATUS, AnswerStatus } from '@/src/core-engine/constants/ui-constants';
 
 interface Props {
   label: string;
-  icon: any;
+  icon: LucideIcon;
   colorVar: string;
   status: AnswerStatus;
   onClick: () => void;

@@ -33,7 +33,7 @@
 // OPTION 1: "Smooth Flow" (RECOMMENDED DEFAULT)
 // Balanced speed (~10% slower) with rapid trickle spawns.
 // -------------------------------------------------------------
-const OPTION_1_SMOOTH = {
+export const OPTION_1_SMOOTH = {
   levels: { maxLevel: 5, targetsRequiredPerLevel: 3 },
   mechanics: { baseWaveTimeSeconds: 45, pointsPerLevelMultiplier: 100, pityThreshold: 5, initialBurstCount: 3 },
   lanes: [12, 28, 44, 60, 76, 88],
@@ -53,7 +53,7 @@ const OPTION_1_SMOOTH = {
 // -------------------------------------------------------------
 // OPTION 2: "Arcade Rapid" (Packed Screen / High Energy)
 // -------------------------------------------------------------
-const OPTION_2_ARCADE = {
+export const OPTION_2_ARCADE = {
   levels: { maxLevel: 5, targetsRequiredPerLevel: 3 },
   mechanics: { baseWaveTimeSeconds: 45, pointsPerLevelMultiplier: 100, pityThreshold: 5, initialBurstCount: 4 },
   lanes: [12, 28, 44, 60, 76, 88],

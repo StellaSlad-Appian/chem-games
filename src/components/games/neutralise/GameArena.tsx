@@ -174,7 +174,7 @@ export default function NeutralizeArena({
     const gameLoop = setInterval(() => {
       let currentInvaders = [...invadersRef.current];
 
-      let currentProjectiles = projectilesRef.current
+      const currentProjectiles = projectilesRef.current
         .map((p) => ({ ...p, y: p.y + p.speed }))
         .filter((p) => p.y > -50);
 
@@ -305,7 +305,7 @@ export default function NeutralizeArena({
           <MoleculeParticle key={invader.id} data={invader} />
         ))}
         {projectiles.map((proj) => (
-          <IonProjectile key={proj.id} projectile={proj as any} />
+          <IonProjectile key={proj.id} projectile={proj} />
         ))}
         <PlayerCannon x={playerX} activeMissile={activeMissile} />
       </div>

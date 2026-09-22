@@ -66,7 +66,12 @@ export default function LabVesselCard({
   const styles = COLOR_CLASSES[color];
   const shapeClass = SHAPE_CLASSES[shape];
 
-  const CardContent = () => (
+  // A JSX value, not a component. Declaring a component inside render gives it
+  // a new identity every render, so React unmounts and remounts the whole
+  // subtree each time — `react-hooks/static-components` is flagging a real
+  // remount, not a style preference. It closes over the props above, so
+  // hoisting it to module scope would mean threading all nine through.
+  const cardContent = (
     <div className={`group flex flex-col items-center text-center transition-transform hover:scale-105 duration-300 ${isLocked ? 'opacity-40 select-none' : ''}`}>
       
       {/* 🔮 Vessel Glass Silhouette - Downsized down to roughly 75-80% (h-44 -> h-34, w-36 -> w-28, w-20 -> w-16) */}
@@ -116,12 +121,12 @@ export default function LabVesselCard({
   );
 
   if (isLocked || !href) {
-    return <div className={className}><CardContent /></div>;
+    return <div className={className}>{cardContent}</div>;
   }
 
   return (
     <Link href={href} className={className}>
-      <CardContent />
+      {cardContent}
     </Link>
   );
 }

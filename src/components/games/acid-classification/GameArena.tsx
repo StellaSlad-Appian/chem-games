@@ -13,7 +13,6 @@ import type { Dictionary } from '@/i18n/dictionaries/en';
 
 interface GameArenaProps {
   currentChemical: CompoundData | undefined;
-  currentLevel: number;
   gameState: string;
   feedback: {
     status: AnswerStatus | null;
@@ -39,7 +38,6 @@ const VESSEL_LABEL_KEY: Record<string, keyof Dictionary['chemistry']> = {
 
 export default function GameArena({
   currentChemical,
-  currentLevel,
   gameState,
   feedback,
   showChemicalName,

@@ -324,7 +324,6 @@ export default function ClassificationGame() {
       <div className="relative mx-auto my-8 flex min-h-0 w-full max-w-3xl flex-1 flex-col items-center justify-center">
         <GameArena 
           currentChemical={currentChemical}
-          currentLevel={currentLevel}
           gameState={gameState}
           feedback={feedback}
           showChemicalName={showChemicalName}

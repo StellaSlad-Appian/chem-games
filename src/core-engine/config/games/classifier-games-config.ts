@@ -26,13 +26,13 @@ const OPTION_1_BALANCED = {
   timing: { successTransitionMs: 1000, mistakeTransitionMs: 1500, failStateDelayMs: 800 },
 } as const;
 
-const OPTION_2_LEARNING = {
+export const OPTION_2_LEARNING = {
   levels: { maxLevel: 5, minPassingItems: 3 },
   mechanics: { maxMistakes: 5, pointsPerLevelMultiplier: 100 },
   timing: { successTransitionMs: 1200, mistakeTransitionMs: 2000, failStateDelayMs: 1000 },
 } as const;
 
-const OPTION_3_ARCADE = {
+export const OPTION_3_ARCADE = {
   levels: { maxLevel: 5, minPassingItems: 5 },
   mechanics: { maxMistakes: 3, pointsPerLevelMultiplier: 150 },
   timing: { successTransitionMs: 600, mistakeTransitionMs: 1200, failStateDelayMs: 600 },

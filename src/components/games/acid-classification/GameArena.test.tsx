@@ -11,7 +11,6 @@ function renderArena(overrides: Partial<Parameters<typeof GameArena>[0]> = {}) {
   renderWithProviders(
     <GameArena
       currentChemical={compoundByFormula('HCl')}
-      currentLevel={1}
       gameState="playing"
       feedback={idle}
       showChemicalName={false}
@@ -41,7 +40,6 @@ describe('Acid classification GameArena', () => {
     const { rerender } = renderWithProviders(
       <GameArena
         currentChemical={compoundByFormula('H2SO4')}
-        currentLevel={1}
         gameState="playing"
         feedback={idle}
         showChemicalName={false}
@@ -54,7 +52,6 @@ describe('Acid classification GameArena', () => {
     rerender(
       <GameArena
         currentChemical={compoundByFormula('H2SO4')}
-        currentLevel={1}
         gameState="playing"
         feedback={idle}
         showChemicalName
