@@ -147,7 +147,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Los electrones ocupan niveles de energía alrededor del núcleo. El primero admite hasta 2, el siguiente hasta 8, y otros 8 en los veinte primeros elementos. Tu profesorado y el currículo quizá digan capas: es lo mismo. Contar los electrones así se llama modelo de Bohr: es útil, y no es una foto de un átomo de verdad. Cuántos hay en el nivel exterior determina cómo reacciona un átomo. Dos elementos van en el mismo grupo cuando tienen el mismo número fuera. Por eso un grupo se comporta de forma parecida.',
         imageAlt:
-          'Un átomo de sodio dibujado con tres niveles de energía que contienen 2, 8 y 1 electrones, junto a la tabla periódica con el grupo 1 resaltado.',
+          'Un núcleo de sodio con 11 protones y 12 neutrones, rodeado de tres bandas difusas que contienen 2, 8 y 1 electrones, dibujados como marcas en ángulos irregulares y no como puntos sobre círculos. Al lado, la disposición 2, 8, 1 con el nivel externo al final. La propia figura dice que es una forma de contar electrones y no una imagen de un átomo, y que el núcleo está dibujado unas 100 000 veces demasiado grande.',
       },
       {
         heading: 'Grupos y periodos',
@@ -185,34 +185,6 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
           ['Protón', '+1', '1', 'en el núcleo'],
           ['Neutrón', '0', '1', 'en el núcleo'],
           ['Electrón', '−1', 'unos 1/1836', 'alrededor del núcleo'],
-        ],
-      },
-      {
-        heading: 'Los veinte primeros elementos',
-        caption:
-          'La distribución electrónica se escribe del nivel interior al exterior: el sodio es 2, 8, 1.',
-        columns: ['Elemento', 'Símbolo', 'Número atómico', 'Distribución electrónica'],
-        rows: [
-          ['Hidrógeno', 'H', '1', '1'],
-          ['Helio', 'He', '2', '2'],
-          ['Litio', 'Li', '3', '2, 1'],
-          ['Berilio', 'Be', '4', '2, 2'],
-          ['Boro', 'B', '5', '2, 3'],
-          ['Carbono', 'C', '6', '2, 4'],
-          ['Nitrógeno', 'N', '7', '2, 5'],
-          ['Oxígeno', 'O', '8', '2, 6'],
-          ['Flúor', 'F', '9', '2, 7'],
-          ['Neón', 'Ne', '10', '2, 8'],
-          ['Sodio', 'Na', '11', '2, 8, 1'],
-          ['Magnesio', 'Mg', '12', '2, 8, 2'],
-          ['Aluminio', 'Al', '13', '2, 8, 3'],
-          ['Silicio', 'Si', '14', '2, 8, 4'],
-          ['Fósforo', 'P', '15', '2, 8, 5'],
-          ['Azufre', 'S', '16', '2, 8, 6'],
-          ['Cloro', 'Cl', '17', '2, 8, 7'],
-          ['Argón', 'Ar', '18', '2, 8, 8'],
-          ['Potasio', 'K', '19', '2, 8, 8, 1'],
-          ['Calcio', 'Ca', '20', '2, 8, 8, 2'],
         ],
       },
     ],
@@ -261,7 +233,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Una muestra de un elemento es una mezcla de sus isótopos, en proporciones fijas. La masa atómica relativa es la media de esa mezcla, ponderada según lo común que es cada isótopo. El cloro es aproximadamente tres cuartas partes cloro-35 y una cuarta parte cloro-37. La media sale 35,5. Ningún átomo de cloro pesa eso. Esta sección es una ampliación: la masa atómica relativa es materia de bachillerato, y está aquí porque sin ella los isótopos no tienen sentido.',
         imageAlt:
-          'Una barra que muestra un 75 por ciento de cloro-35 y un 25 por ciento de cloro-37, con la media ponderada 35,5 marcada más cerca del extremo del 35.',
+          'Una barra que muestra un 75 por ciento de cloro-35 y un 25 por ciento de cloro-37, con la parte más pequeña además rayada. Debajo, una escala de masas de 35 a 37 marca la media en 35,5, a un cuarto del recorrido y no en el centro, y la suma está escrita entera: 0,75 por 35 más 0,25 por 37 da 35,5 y no 36. Una nota avisa de que el reparto está redondeado y de que las abundancias medidas son del 75,8 y del 24,2 por ciento.',
       },
       {
         heading: 'Núcleos inestables y las tres clases de radiación',
@@ -273,7 +245,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Es el tiempo que tarda en desintegrarse la mitad de una muestra. Tras un periodo queda la mitad, tras dos un cuarto y tras tres un octavo. Para cada isótopo es fijo: calentarlo o hacerlo reaccionar no lo cambia. El carbono-14 tiene un periodo de unos 5730 años. El uranio-238 lo tiene de unos 4500 millones de años, y por eso todavía queda uranio en el suelo.',
         imageAlt:
-          'Una curva de desintegración que se reduce a la mitad en cada periodo, junto a las últimas filas de la tabla periódica con los elementos que solo existen cuando se fabrican resaltados.',
+          'Una curva de desintegración que baja del 100 por ciento al 50, al 25 y al 12,5 por ciento tras uno, dos y tres periodos de semidesintegración, con una línea discontinua hasta el eje en cada punto. Tras tres periodos queda una octava parte. Un periodo son 5730 años para el carbono-14 y unos 4500 millones de años para el uranio-238.',
       },
       {
         heading: 'Datar el pasado, y 65 000 años en Australia',

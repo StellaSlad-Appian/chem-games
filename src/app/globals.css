@@ -109,6 +109,91 @@
     --chem-amphoteric-bg: #3b0764;
   }
 
+/* --- Periodic-table tones -------------------------------------------------
+ *
+ * One tone per thing a view mode can say about a cell, in both themes. The
+ * widget holds no colour of its own: src/components/periodic-table/view-modes.ts
+ * returns the *name* of a tone and the cell renders
+ * `background: var(--pt-tone-<name>)`, so the palette is checkable in one
+ * place rather than scattered across five components.
+ *
+ * **What these values are chosen against.** Every tone carries `--foreground`
+ * as its text, and every one of the fifty combinations below meets 4.5:1 with
+ * it — the worst is seq-8 in the dark theme at 5.7:1, the best is 15.8:1. That
+ * is the constraint that sets the luminance band: pale tints on a light page,
+ * deep tints on a dark one.
+ *
+ * **What they cannot be chosen against, and why.** A tone does not reach 3:1
+ * with its neighbouring tones, and it cannot. Two colours are 3:1 apart only
+ * if their relative luminances differ by roughly a factor of three, and the
+ * whole usable range is a factor of twenty-one — so at most three or four
+ * mutually-distinguishable levels exist, against ten families in one mode and
+ * eight outer-shell counts in another. Meeting 4.5:1 for text on every tone
+ * pins them all into one narrow band on top of that.
+ *
+ * So the cell boundary is carried by a 1px `--border` grid line and the
+ * meaning is carried by the text badge every mode prints, with the tone as a
+ * third, redundant cue. That is WCAG 1.4.1 satisfied — colour is never alone —
+ * and 1.4.11 does not bite, because nothing about identifying a cell or its
+ * state depends on the tone.
+ */
+  :root,
+  [data-theme='dark'] {
+    --pt-tone-alkali-metal: #652929;
+    --pt-tone-alkaline-earth: #603d24;
+    --pt-tone-transition-metal: #564925;
+    --pt-tone-post-transition-metal: #3d502b;
+    --pt-tone-lanthanide: #632c4c;
+    --pt-tone-actinide: #544036;
+    --pt-tone-metalloid: #25564e;
+    --pt-tone-nonmetal: #264f64;
+    --pt-tone-halogen: #383276;
+    --pt-tone-noble-gas: #5b2f6a;
+    --pt-tone-metal: #294a70;
+    --pt-tone-non-metal: #604c24;
+    --pt-tone-natural: #285336;
+    --pt-tone-synthetic: #673267;
+    --pt-tone-cation: #6b3629;
+    --pt-tone-anion: #2b4973;
+    --pt-tone-none: #3f3f46;
+    --pt-tone-seq-1: #27303a;
+    --pt-tone-seq-2: #2a3847;
+    --pt-tone-seq-3: #2b4054;
+    --pt-tone-seq-4: #2c4763;
+    --pt-tone-seq-5: #2c4f72;
+    --pt-tone-seq-6: #2b5782;
+    --pt-tone-seq-7: #2a5e93;
+    --pt-tone-seq-8: #2766a5;
+  }
+
+  [data-theme='light'] {
+    --pt-tone-alkali-metal: #f9c8c8;
+    --pt-tone-alkaline-earth: #f9d3b8;
+    --pt-tone-transition-metal: #f7e2a1;
+    --pt-tone-post-transition-metal: #d1eab8;
+    --pt-tone-lanthanide: #f9d2e9;
+    --pt-tone-actinide: #dfcdc3;
+    --pt-tone-metalloid: #b0e8df;
+    --pt-tone-nonmetal: #bae3f7;
+    --pt-tone-halogen: #d6d2f9;
+    --pt-tone-noble-gas: #eed5f6;
+    --pt-tone-metal: #bfd9f8;
+    --pt-tone-non-metal: #fadfa8;
+    --pt-tone-natural: #c0edcf;
+    --pt-tone-synthetic: #f5d6f5;
+    --pt-tone-cation: #facdc2;
+    --pt-tone-anion: #c6dcfa;
+    --pt-tone-none: #e2e4e9;
+    --pt-tone-seq-1: #ebf2fa;
+    --pt-tone-seq-2: #d9e8f7;
+    --pt-tone-seq-3: #c7def5;
+    --pt-tone-seq-4: #b4d4f3;
+    --pt-tone-seq-5: #a2c9f1;
+    --pt-tone-seq-6: #8fbff0;
+    --pt-tone-seq-7: #7bb5ef;
+    --pt-tone-seq-8: #68abee;
+  }
+
 /* --- Cyrillic locales -----------------------------------------------------
  *
  * Bebas Neue and DM Sans ship `latin` and `latin-ext` only — verified against

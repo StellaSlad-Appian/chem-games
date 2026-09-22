@@ -87,6 +87,13 @@ const NUMERIC_PLACEHOLDERS = new Set([
   // with plain String() rather than through Intl on purpose — "2 026" is not
   // a year in any locale.
   'year',
+  // A column and a row of the periodic table. Both are labels rather than
+  // counts — "group 17" names the column, it does not count seventeen of
+  // anything — but they are numerals, and a numeral in Russian governs the
+  // case of whatever follows it whether it is counting or not. Listing them
+  // here is what puts the strings that carry them under the rule below.
+  'group',
+  'period',
 ]);
 
 /** Placeholders known to take a string, so the list above stays honest. */
@@ -140,6 +147,10 @@ const TEXT_PLACEHOLDERS = new Set([
   // remove, that the colon label pulls.
   'bonds',
   'lonePairs',
+  // The localised name of an element's family, filled into the accessible
+  // name of an f-block cell — "Lanthanum, symbol La, atomic number 57,
+  // Lanthanide, period 6". A noun in apposition, governing nothing.
+  'family',
 ]);
 
 const SOURCES: Record<string, unknown> = {
@@ -185,6 +196,17 @@ const COUNT_BEARING = [
   'dictionary:games.shared.levelValue',
   'dictionary:games.shared.lives',
   'dictionary:games.shared.scoreValue',
+  // The periodic table. All five are phrased so that nothing agrees with the
+  // numeral: the two cell labels are comma-separated appositions
+  // ("…, атомный номер 11, группа 1, период 3"), the two header labels are a
+  // noun followed by a bare numeral, and the legend row puts its count after
+  // a colon — the invariant shape docs/i18n/GAMES.md § Count-bearing strings
+  // prescribes.
+  'dictionary:periodicTable.cellA11y',
+  'dictionary:periodicTable.cellA11yFBlock',
+  'dictionary:periodicTable.groupHeaderA11y',
+  'dictionary:periodicTable.legend.outer-count',
+  'dictionary:periodicTable.periodHeaderA11y',
   'dictionary:serverMessages.aliasLength',
   'dictionary:serverMessages.collaboratorTooLong',
   'dictionary:serverMessages.feedbackMessageTooLong',

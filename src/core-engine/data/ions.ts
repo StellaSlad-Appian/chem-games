@@ -17,7 +17,7 @@ export const MONOATOMIC_IONS: MonoatomicIonData[] = [
   { type: 'monoatomic-ion', id: '15', symbol: 'Li', charge: 1, name: 'Lithium Ion' },
   { type: 'monoatomic-ion', id: '17', symbol: 'Br', charge: -1, name: 'Bromide' },
   { type: 'monoatomic-ion', id: '20', symbol: 'I', charge: -1, name: 'Iodide' },
-  { type: 'monoatomic-ion', id: '21', symbol: 'Cs', charge: 1, name: 'Cesium Ion' }
+  { type: 'monoatomic-ion', id: '21', symbol: 'Cs', charge: 1, name: 'Caesium Ion' }
 ];
 
 // ============================================================================

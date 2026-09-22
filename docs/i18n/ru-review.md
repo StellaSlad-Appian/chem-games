@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Russian
 translation, so a native speaker or a chemistry teacher can review the Russian
 without reading any code.
 
-**910 strings** — 396 high confidence,
-376 medium, 138 low.
+**1002 strings** — 405 high confidence,
+459 medium, 138 low.
 
 The confidence column is a judgement about *this* translation, not about Russian
 in general:
@@ -474,6 +474,88 @@ quotation marks and are enforced by a gate rather than remembered.
 | `cheatSheets.curriculum` | Curriculum:  | Программа:  | high | Index-page furniture. cheatSheets.count is a four-form plural record (one / few / many / other), which is the shape Russian needs and the reason the whole plural system was rebuilt before this locale was written. |
 | `cheatSheets.filterA11y` | Filter topics by year level | Отобрать темы по классу | high | Index-page furniture. cheatSheets.count is a four-form plural record (one / few / many / other), which is the shape Russian needs and the reason the whole plural system was rebuilt before this locale was written. |
 
+### `periodicTable`
+
+| Key | English | Russian | Confidence | Notes |
+|---|---|---|---|---|
+| `periodicTable.caption` | The periodic table — all 118 elements, arranged by atomic number | Периодическая таблица — все 118 элементов по возрастанию атомного номера | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modeLabel` | Colour the table by | Раскрасить таблицу по признаку | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legendHeading` | Key | Обозначения | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.scrollHint` | The table is wider than a phone screen, so it scrolls sideways on its own. Group 1 is on the left and group 18 on the right. | Таблица шире экрана телефона, поэтому она прокручивается вбок отдельно от страницы. Группа 1 слева, группа 18 справа. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.keyboardHint` | Arrow keys move between elements. Home and End go to the ends of a period, Page Up and Page Down to the ends of a group, and Enter or Space opens an element. | Стрелки переводят от элемента к элементу. Клавиши Home и End ведут к краям периода, Page Up и Page Down — к краям группы, а Enter или пробел открывает элемент. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.cellA11y` | {name}, symbol {symbol}, atomic number {n}, group {group}, period {period} | {name}, символ {symbol}, атомный номер {n}, группа {group}, период {period} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.cellA11yFBlock` | {name}, symbol {symbol}, atomic number {n}, {family}, period {period} | {name}, символ {symbol}, атомный номер {n}, {family}, период {period} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.groupHeaderA11y` | Group {group} | Группа {group} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.periodHeaderA11y` | Period {period} | Период {period} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.detailHeading` | Selected element | Выбранный элемент | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.previous` | Previous element | Предыдущий элемент | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.next` | Next element | Следующий элемент | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fullTableLink` | All six views of the table are on the Year 9 sheet | Все шесть режимов таблицы — на шпаргалке для 8 класса | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.reactivityNote` | Reactivity is compared inside a group only. A 3 in group 1 and a 3 in group 17 are not the same reaction. | Реактивность сравнивается только внутри одной группы. Тройка в группе 1 и тройка в группе 17 — это совсем разные реакции. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.sizeNote` | Each badge is that atom’s radius in picometres. | На каждой метке — радиус этого атома в пикометрах. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.metals` | Metals and non-metals | Металлы и неметаллы | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.families` | Families | Семейства | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.outerShell` | Outer shell | Внешний уровень | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.atomicSize` | Atomic size | Размер атома | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.reactivity` | Reactivity | Реактивность | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.ionFormed` | Ion formed | Образуемый ион | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.occurrence` | Natural or made | Природный или полученный | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.metal` | M | Ме | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.nonMetal` | NM | НМе | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.metalloid` | MD | ПМе | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.alkali` | Alk | ЩМ | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.alkalineEarth` | AE | ЩЗМ | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.transition` | TM | ПерМ | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.postTransition` | PTM | ПпМ | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.lanthanide` | Ln | Лан | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.actinide` | An | Акт | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.halogen` | Hal | Гал | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.nobleGas` | NG | БГ | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.natural` | nat | прир | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.synthetic` | lab | лаб | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.none` | — | — | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.metal` | Metal | Металл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.non-metal` | Non-metal | Неметалл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.metalloid` | Metalloid — behaves partly like each (extension) | Полуметалл — ведёт себя отчасти как один, отчасти как другой (расширение) | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.alkali-metal` | Alkali metal | Щелочной металл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.alkaline-earth` | Alkaline earth metal | Щёлочноземельный металл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.transition-metal` | Transition metal | Переходный металл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.lanthanide` | Lanthanide | Лантаноид | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.actinide` | Actinide | Актиноид | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.post-transition-metal` | Other metal | Другой металл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.other-non-metal` | Other non-metal | Другой неметалл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.halogen` | Halogen | Галоген | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.noble-gas` | Noble gas | Благородный газ | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.outer-count` | Electrons in the outer shell: {n} | Электронов на внешнем уровне: {n} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.outer-none` | Not a simple count at this level — the transition metals and the two bottom rows fill an inner shell, so there is no single outer number to give. | На этом уровне простого числа нет — у переходных металлов и в двух нижних строках заполняется внутренний уровень, поэтому единого внешнего числа не назвать. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-smallest` | Smallest — under 100 pm | Самые маленькие — меньше 100 пм | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-small` | Small — 100 to 150 pm | Маленькие — от 100 до 150 пм | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-medium` | Medium — 150 to 200 pm | Средние — от 150 до 200 пм | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-large` | Large — 200 to 250 pm | Большие — от 200 до 250 пм | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-largest` | Largest — over 250 pm | Самые большие — больше 250 пм | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-unreactive` | 0 — reacts with almost nothing | 0 — почти ни с чем не реагирует | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-low` | 1 — reacts slowly | 1 — реагирует медленно | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-moderate` | 2 — reacts steadily | 2 — реагирует ровно | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-high` | 3 — reacts quickly | 3 — реагирует быстро | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-very-high` | 4 — reacts violently | 4 — реагирует бурно | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-none` | Not graded — reactivity is only this simple in groups 1, 2, 17 and 18 | Без оценки — настолько просто реактивность выглядит только в группах 1, 2, 17 и 18 | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.ion-positive` | Loses electrons and forms a positive ion | Отдаёт электроны и образует положительный ион | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.ion-negative` | Gains electrons and forms a negative ion | Принимает электроны и образует отрицательный ион | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.ion-none` | No single ion — the noble gases form none, and a transition metal forms more than one | Единого иона нет — благородные газы не образуют ни одного, а переходный металл образует несколько | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.natural` | Found in nature | Встречается в природе | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.synthetic` | Made in a laboratory | Получен в лаборатории | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.symbol` | Symbol | Символ | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.atomicNumber` | Atomic number | Атомный номер | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.mass` | Relative atomic mass | Относительная атомная масса | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.arrangement` | Electron arrangement | Распределение электронов | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.group` | Group | Группа | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.period` | Period | Период | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.metalClass` | Metal or non-metal | Металл или неметалл | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.family` | Family | Семейство | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.ion` | Ion formed | Образуемый ион | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.occurrence` | Natural or made | Природный или полученный | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.values.fBlockGroup` | Outside the numbered groups | Вне пронумерованных групп | medium | No specific note; reviewed as ordinary UI copy. |
+
 ### `explore`
 
 | Key | English | Russian | Confidence | Notes |
@@ -583,6 +665,9 @@ quotation marks and are enforced by a gate rather than remembered.
 | `games.acidClassification.registryError` | Error: Compounds Registry not found. | Ошибка: справочник соединений не найден. | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
 | `games.acidClassification.instructionsTitle` | How to Play: Chemical Classifier | Как играть: Кислота или основание? | medium | Quotes the game title, so it changes with it. |
 | `games.acidClassification.instructionsSubtitle` | Analyze the chemical formula and identify its properties! | Посмотри на формулу и определи свойства вещества. | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
+| `games.acidClassification.instructionsCompact[0]` | Read the formula in the bubble. | Прочитай формулу в пузырьке. | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
+| `games.acidClassification.instructionsCompact[1]` | Say whether it is an acid, a base, neutral or amphoteric. | Скажи, что это: кислота, основание, нейтральное или амфотерное вещество. | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
+| `games.acidClassification.instructionsCompact[2]` | Three mistakes and the beaker breaks. The lightbulb gives you the name. | Три ошибки — и стакан разбит. Лампочка подскажет название. | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
 | `games.acidClassification.stepIdentifyLabel` | Identify: | Посмотри: | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
 | `games.acidClassification.stepIdentifyText` | Look at the compound shown in the center bubble. | В пузырьке по центру показано соединение. | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
 | `games.acidClassification.stepClassifyLabel` | Classify: | Определи: | medium | Arena copy. "Определи вещество" as the subtitle rather than a literal "Классифицируй молекулу", which is register a fourteen-year-old would not use. |
@@ -599,6 +684,9 @@ quotation marks and are enforced by a gate rather than remembered.
 | `games.formulaBlaster.instructionsBullet1` | Click the correct formula to add a hit toward the current target. | Нажми на верную формулу — попадание засчитано. | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
 | `games.formulaBlaster.instructionsBullet2` | Use the lightbulb in the header if you need a clue about elemental breakdown. | Нажми на лампочку наверху, если нужна подсказка про состав молекулы. | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
 | `games.formulaBlaster.instructionsBullet3` | Tapping an incorrect molecule reveals what element you should look for instead. | Если лопнешь не ту молекулу, игра подскажет, какой элемент искать. | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
+| `games.formulaBlaster.instructionsCompact[0]` | The target molecule is in the header. | Нужная молекула указана наверху. | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
+| `games.formulaBlaster.instructionsCompact[1]` | Tap the bubbles whose formula matches it. | Нажимай пузырьки, формула которых совпадает. | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
+| `games.formulaBlaster.instructionsCompact[2]` | A wrong bubble tells you which element to look for instead. | Неверный пузырёк подскажет, какой элемент искать. | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
 | `games.formulaBlaster.hintTemplate` | {compound} consists of the elements: {elements}. | Состав вещества {compound}: {elements}. | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
 | `games.formulaBlaster.wrongPick` | That's {compound} ({formula})! | Это {compound} ({formula}). | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
 | `games.formulaBlaster.wrongPickLookFor` | That's {compound} ({formula})! Look for {element} ({symbol}) atoms instead. | Это {compound} ({formula}). Ищи атомы другого элемента: {element} ({symbol}). | high | Short arena copy. The wrong-pick feedback names the compound after a colon rather than as a verb's object, so no case agreement is needed. |
@@ -613,6 +701,9 @@ quotation marks and are enforced by a gate rather than remembered.
 | `games.neutralise.switchIonA11yBase` | Switch ion, currently OH- base | Сменить ион, сейчас OH- (основание) | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
 | `games.neutralise.instructionsTitle` | How to Play: Neutralize! | Как играть: Нейтрализуй! | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
 | `games.neutralise.instructionsIntro` | Defend the lab from incoming chemical hazards! | Защити лабораторию от химической угрозы! | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
+| `games.neutralise.instructionsCompact[0]` | Acids and bases fly in from the top. | Сверху летят кислоты и основания. | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
+| `games.neutralise.instructionsCompact[1]` | Load the ion that cancels the one coming at you. | Заряди ион, который гасит то, что летит на тебя. | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
+| `games.neutralise.instructionsCompact[2]` | Fire. A hit neutralises it; a miss lets it through. | Стреляй. Попал — вещество нейтрализовано, промахнулся — оно прошло. | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
 | `games.neutralise.keyOneLabel` | 1 | 1 | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
 | `games.neutralise.keyOneText` | Load {ion} to neutralize Bases. | Зарядить {ion}, чтобы гасить основания. | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
 | `games.neutralise.keyOneIon` | H⁺ (Acid) | H⁺ (кислота) | high | Arena copy and the key table. The ion labels keep Latin notation (H⁺, OH⁻) with Russian words beside them, which is what Russian chemistry does. |
@@ -656,6 +747,9 @@ quotation marks and are enforced by a gate rather than remembered.
 | `games.reactionBalancer.instructions.touch[0][1]` | ▲ / ▼ on a card to change a coefficient. | на ▲ / ▼ на карточке, чтобы изменить коэффициент. | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
 | `games.reactionBalancer.instructions.touch[1][0]` | Tap | Нажми | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
 | `games.reactionBalancer.instructions.touch[1][1]` | the number to type one. | на число, чтобы ввести своё. | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
+| `games.reactionBalancer.instructions.compact[0]` | Change the **big numbers** in front of a formula. The small ones are locked. | Меняй **большие числа** перед формулой. Маленькие менять нельзя. | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
+| `games.reactionBalancer.instructions.compact[1]` | Make every row of the **atom ledger** equal and the equation locks. | Сделай все строки **баланса атомов** равными — уравнение закрепится. | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
+| `games.reactionBalancer.instructions.compact[2]` | Stuck? Tap the **lightbulb**. The first hint is free. | Не получается? Нажми на **лампочку**. Первая подсказка бесплатная. | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
 | `games.reactionBalancer.instructions.glossaryTitle` | Words the game uses | Слова, которые встретятся в игре | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
 | `games.reactionBalancer.guided.stepLabel` | Guided step {step} of {total} | Шаг {step} из {total} | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
 | `games.reactionBalancer.guided.steps[0]` | Look at the ledger. Hydrogen: 2 on the left, 2 on the right — balanced. Oxygen: 2 on the left, 1 on the right. Oxygen needs fixing. | Посмотри на баланс атомов. Водород: слева 2, справа 2 — поровну. Кислород: слева 2, справа 1. Вот его и надо уравнять. | high | Glossary-fixed throughout: коэффициент vs индекс (the distinction the whole game teaches, and Russian makes it with exactly the two words a textbook uses), реагенты / продукты, уравнять, баланс атомов. |
@@ -837,6 +931,9 @@ quotation marks and are enforced by a gate rather than remembered.
 | `games.lewisStructures.instructions.touch[0][1]` | an unpaired electron, then tap one on another atom. | на неспаренный электрон, потом на неспаренный электрон другого атома. | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
 | `games.lewisStructures.instructions.touch[1][0]` | Tap | Нажми | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
 | `games.lewisStructures.instructions.touch[1][1]` | a shared pair to undo it. | на общую пару, чтобы разорвать её. | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
+| `games.lewisStructures.instructions.compact[0]` | Tap an unpaired dot, then tap one on another atom. | Нажми на неспаренную точку, потом на точку другого атома. | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
+| `games.lewisStructures.instructions.compact[1]` | An atom is full at 8 dots — hydrogen at 2. | Атом заполнен при 8 точках, водороду хватает двух. | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
+| `games.lewisStructures.instructions.compact[2]` | It locks itself when every atom is full. No button needed. | Закрепляется само, когда все атомы заполнены. Кнопка не нужна. | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
 | `games.lewisStructures.instructions.glossaryTitle` | Words the game uses | Слова, которые встретятся в игре | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
 | `games.lewisStructures.guided.stepLabel` | Guided step {step} of {total} | Шаг {step} из {total} | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |
 | `games.lewisStructures.guided.h2[0]` | Two hydrogen atoms. Each has 1 outer electron — an unpaired electron. Drag one onto the other. | Два атома водорода. У каждого один неспаренный электрон — он же единственный внешний. Перетащи один на другой. | medium | The whole game rests on «неспаренный электрон» - see the note on the glossary entry. Everything else is glossary-fixed: неподелённая пара, общая пара, октет, дублет. |

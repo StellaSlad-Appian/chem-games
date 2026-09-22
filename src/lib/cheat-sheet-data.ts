@@ -172,11 +172,25 @@ export const GAME_LINKS: Partial<Record<GameName, { title: string; href: string 
 /**
  * Folder holding this sheet's diagrams, under `public/`.
  *
- * Every section below points at a file in here. The files that ship are
- * placeholders — a dashed frame saying what the diagram should show — so the
- * page has its final shape and its final alt text from the first commit, and
- * providing a real diagram is replacing one file. No code changes, no rebuild
- * of the data. docs/CHEAT_SHEET_IMAGES.md lists every slot and its size.
+ * Every section below points at a file in here, and every one of those files is
+ * **generated** by `scripts/cheat-sheet-diagrams.mts`:
+ *
+ * ```
+ * npm run cheat-sheets:diagrams              write the files
+ * npm run cheat-sheets:diagrams -- --check   fail if a file on disk is stale
+ * ```
+ *
+ * So changing a diagram is changing that script's drawing function and
+ * re-running it — not editing the SVG, which the next run overwrites. The
+ * `--check` mode is what stops a hand-edit surviving unnoticed.
+ *
+ * Note this is not how a *new* sheet's diagrams have to work: the page shows
+ * whatever is at the filename, so dropping a file in still works elsewhere.
+ * These seven are generated because they have to hold one measured palette
+ * across both themes and keep their numbers agreeing with the prose.
+ *
+ * docs/CHEAT_SHEET_IMAGES.md lists every slot and its size, and the script's
+ * own header carries the reasoning.
  */
 const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
 
@@ -185,9 +199,16 @@ const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
  * into. Three of the original seven diagrams teach isotopes, the weighted
  * average and decay, so they moved with the prose rather than being served to
  * the new sheet out of the old sheet's folder. One folder per slug is what
- * docs/CHEAT_SHEET_IMAGES.md documents, and the M7 diagram milestone renames
- * and re-splits these; keeping the folder honest now is what makes that a
- * one-folder change later.
+ * docs/CHEAT_SHEET_IMAGES.md documents.
+ *
+ * The redesign brief wanted slot 7 renamed to `07-half-life.svg` and its
+ * synthetic-element half split into a second file. Neither happened, and
+ * neither should: the filename is the contract the images doc is built on, and
+ * the synthetic elements moved to the periodic table widget's *natural or made*
+ * view mode rather than to another diagram. `07-decay-and-made-elements.svg` is
+ * now the decay curve alone, under the Half-life section. The note under "The
+ * slots on Isotopes & Radioactivity" in docs/CHEAT_SHEET_IMAGES.md is the
+ * current version of this.
  */
 const ISOTOPE_DIAGRAMS = '/cheat-sheets/isotopes-and-radioactivity/';
 
@@ -249,9 +270,23 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         image: {
           src: `${ATOMIC_STRUCTURE_DIAGRAMS}05-energy-levels.svg`,
           width: 640,
-          height: 360,
-          alt: 'A sodium atom drawn as three energy levels holding 2, 8 and 1 electrons, next to the periodic table with group 1 highlighted.',
+          height: 300,
+          alt: 'A sodium nucleus of 11 protons and 12 neutrons, surrounded by three soft bands holding 2, 8 and 1 electrons as marks at irregular angles rather than dots on circles. Beside it, the arrangement 2, 8, 1 with the outer level last. The diagram says it is a way to count electrons, not a picture of an atom, and that the nucleus is drawn about 100,000 times too big.',
         },
+        /*
+         * The interactive table, all six modes. It sits here rather than under
+         * "Groups and periods" because this is the paragraph that says the
+         * outer count is what the columns are built on, and *Outer shell* is
+         * the mode that shows a student that claim is true — one column at a
+         * time, for all 118 elements.
+         *
+         * It replaces the twenty-element lookup table this sheet used to
+         * carry. Everything in that table — symbol, atomic number, electron
+         * arrangement — is in the widget for every element, and the first
+         * twenty arrangements are pinned in
+         * src/core-engine/tests/periodic-table.test.ts so they cannot drift.
+         */
+        widget: 'periodic-table',
       },
       {
         heading: 'Groups and periods',
@@ -295,34 +330,17 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           ['Electron', '−1', 'about 1/1836', 'around the nucleus'],
         ],
       },
-      {
-        heading: 'The first twenty elements',
-        caption: 'Electron arrangement is written outer level last: sodium is 2, 8, 1.',
-        columns: ['Element', 'Symbol', 'Atomic number', 'Electron arrangement'],
-        formulaColumns: [1],
-        rows: [
-          ['Hydrogen', 'H', '1', '1'],
-          ['Helium', 'He', '2', '2'],
-          ['Lithium', 'Li', '3', '2, 1'],
-          ['Beryllium', 'Be', '4', '2, 2'],
-          ['Boron', 'B', '5', '2, 3'],
-          ['Carbon', 'C', '6', '2, 4'],
-          ['Nitrogen', 'N', '7', '2, 5'],
-          ['Oxygen', 'O', '8', '2, 6'],
-          ['Fluorine', 'F', '9', '2, 7'],
-          ['Neon', 'Ne', '10', '2, 8'],
-          ['Sodium', 'Na', '11', '2, 8, 1'],
-          ['Magnesium', 'Mg', '12', '2, 8, 2'],
-          ['Aluminium', 'Al', '13', '2, 8, 3'],
-          ['Silicon', 'Si', '14', '2, 8, 4'],
-          ['Phosphorus', 'P', '15', '2, 8, 5'],
-          ['Sulfur', 'S', '16', '2, 8, 6'],
-          ['Chlorine', 'Cl', '17', '2, 8, 7'],
-          ['Argon', 'Ar', '18', '2, 8, 8'],
-          ['Potassium', 'K', '19', '2, 8, 8, 1'],
-          ['Calcium', 'Ca', '20', '2, 8, 8, 2'],
-        ],
-      },
+      /*
+       * "The first twenty elements" was the second table here, and the widget
+       * above replaced it. Every column it carried — element, symbol, atomic
+       * number, electron arrangement — the widget gives for all 118, and it
+       * can *show* the repeating pattern the list could only assert. The
+       * arrangements themselves live on as an assertion in
+       * src/core-engine/tests/periodic-table.test.ts.
+       *
+       * It was deleted from all five overlays in the same commit. It had to
+       * be: src/i18n/cheat-sheets.test.ts compares tables row for row.
+       */
     ],
     commonMistakes: [
       'Drawing electrons on circular tracks, like planets. They are not on tracks. A level is an energy, and an electron is somewhere in a region around the nucleus, not at a point on a line.',
@@ -387,8 +405,8 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         image: {
           src: `${ISOTOPE_DIAGRAMS}04-weighted-average.svg`,
           width: 640,
-          height: 300,
-          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, with the weighted average 35.5 marked closer to the 35 end.',
+          height: 340,
+          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, the smaller part hatched as well as differently filled. Below it, a mass scale from 35 to 37 marks the average at 35.5, a quarter of the way along rather than in the middle, and the sum is written out: 0.75 times 35 plus 0.25 times 37 makes 35.5, not 36. A note says the split is rounded, and that the measured abundances are 75.8 and 24.2 per cent.',
         },
       },
       {
@@ -404,7 +422,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           src: `${ISOTOPE_DIAGRAMS}07-decay-and-made-elements.svg`,
           width: 640,
           height: 320,
-          alt: 'A decay curve halving at each half-life, beside the bottom rows of the periodic table with the elements that exist only when they are made highlighted.',
+          alt: 'A decay curve falling from 100 per cent to 50, 25 and 12.5 per cent at one, two and three half-lives, with a dashed line down to the axis at each. After three half-lives an eighth is left. One half-life is 5730 years for carbon-14 and about 4.5 billion years for uranium-238.',
         },
       },
       {
@@ -421,6 +439,13 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         heading: 'Elements that had to be made',
         content:
           'Elements past uranium have no stable isotopes and are not found in nature. They are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. This is an extension: the curriculum does not ask for made elements. They are here because they are how the bottom rows of the periodic table were filled in.',
+        /*
+         * The same component as the Year 9 sheet, gated to two modes: *natural
+         * or made*, which is this paragraph, and *metals* for orientation. The
+         * other four belong to VC2S10U07, so the widget links back to the
+         * sheet that teaches them rather than teaching them twice.
+         */
+        widget: 'periodic-table-occurrence',
       },
     ],
     commonMistakes: [

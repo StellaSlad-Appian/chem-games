@@ -1,9 +1,9 @@
 // src/components/cheat-sheets/CheatSheetGrid.tsx
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CheatSheetCard } from './CheatSheetCard';
-import { YearFilter } from './YearFilter';
+import { YearFilter, yearFilterOptions } from './YearFilter';
 import type { CheatSheetTopic } from '@/core-engine/types/general';
 import { useI18n } from '@/i18n/client';
 
@@ -14,13 +14,17 @@ export function CheatSheetGrid({ sheets }: { sheets: CheatSheetTopic[] }) {
   // button labels are translated, in YearFilter.
   const [selectedYear, setSelectedYear] = useState<string>('All');
 
+  // Only the years that have a sheet. Year 7 and Year 8 have none today, and
+  // offering them meant two buttons whose only effect was an empty grid.
+  const years = useMemo(() => yearFilterOptions(sheets), [sheets]);
+
   const visible =
     selectedYear === 'All' ? sheets : sheets.filter((sheet) => sheet.yearLevel === selectedYear);
 
   return (
     <>
       <div className="mt-8">
-        <YearFilter selectedYear={selectedYear} onSelectYear={setSelectedYear} />
+        <YearFilter years={years} selectedYear={selectedYear} onSelectYear={setSelectedYear} />
       </div>
 
       <p className="mt-4 text-xs font-bold text-(--muted)" aria-live="polite">

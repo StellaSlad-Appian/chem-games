@@ -500,6 +500,11 @@ the split.
 | noble gas | **благородный газ** | *Инертный газ* is the older Russian school term and is still common; *благородный* is the current one and matches the other five locales. **Rated medium.** |
 | atomic size / atomic radius | **атомный радиус** | *Размер атома* is the everyday phrase and is used once in running prose. |
 | reactivity | **химическая активность** | Not *реакционная способность*, which is correct but is upper-secondary register. *Активность* alone is ambiguous on this sheet, because it also means radioactive activity — so the adjective is not optional here. |
+| alkaline earth metal | **щёлочноземельный металл** | With **ё**, per the typography rule at the top of this file. Added with the interactive periodic table, whose *Семейства* mode names all ten families. |
+| transition metal | **переходный металл** | — |
+| lanthanide | **лантаноид** | *Лантанид* is the older Russian form and is still met; *лантаноид* is what current textbooks print, and it matches the IUPAC-aligned choice made for German. **Rated medium.** |
+| actinide | **актиноид** | Same decision as *лантаноид*. |
+| picometre (pm) | **пикометр (пм)** | **The unit symbol is Cyrillic here**, unlike the element symbols: Russian writes *пм*, not *pm*, and the widget's *Размер атома* legend uses *пм*. This is the one place on the site where a unit symbol is not left in Latin, and it is not an oversight. |
 | radioactive decay | **радиоактивный распад** | Verb: *распадаться*. Note **распад**, not *разложение*, which is chemical decomposition. |
 | alpha particle | **альфа-частица** | Written out rather than as α, with a hyphen, as Russian compounds it. |
 | beta particle | **бета-частица** | — |

@@ -387,6 +387,11 @@ the split.
 | noble gas | **gas noble** | — |
 | atomic size / atomic radius | **radio atómico** | *Tamaño del átomo* is the everyday phrase and is used once in running prose. |
 | reactivity | **reactividad** | — |
+| alkaline earth metal | **metal alcalinotérreo** | One word, no hyphen — the spelling Spanish textbooks and the RAE use. Added with the interactive periodic table, whose *Familias* mode names all ten families. |
+| transition metal | **metal de transición** | — |
+| lanthanide | **lantánido** | *Lantanoide* is the IUPAC form; Spanish school material writes *lantánido*, so that is what a reader will have been taught. **Rated medium.** |
+| actinide | **actínido** | Same decision as *lantánido*. |
+| picometre (pm) | **picómetro (pm)** | The word is Spanish, the unit symbol stays Latin — as every unit symbol does. |
 | radioactive decay | **desintegración radiactiva** | **Note the spelling: *radiactivo*, not *radioactivo*.** Spanish drops the o, and the sheet must be consistent about it — this is the single easiest thing to get wrong in this whole table. |
 | alpha particle | **partícula alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **partícula beta** | — |

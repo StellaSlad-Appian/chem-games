@@ -70,6 +70,7 @@ import { fileURLToPath } from 'node:url';
 import * as OCL from 'openchemlib';
 import sharp from 'sharp';
 import { EXPLORE_MOLECULES } from '../src/lib/explore/molecules.ts';
+import { ACID_RED, AMPHOTERIC_PURPLE, BASE_BLUE, EMERALD, INK } from './diagram-palette.mts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'public', 'explore', 'molecules');
@@ -300,23 +301,22 @@ const NOT_FROM_SMILES: Record<string, string> = {
  * An unmapped colour throws rather than falling back. A new molecule with,
  * say, bromine in it should force a deliberate choice here, not inherit a
  * default nobody looked at.
- */
-const INK = '#64748b'; // slate-500: bonds, carbon, hydrogen, charges
-/**
- * Chlorine and sodium, shared with the drawn diagrams below so that a chloride
- * ion is the same colour whether it was drawn by the depictor or by hand.
  *
- * Emerald-600 rather than the `--neutral-color` emerald-500 the games use:
- * emerald-500 measures 2.3:1 on white, which is fine for a filled shape and
- * too weak for a two-letter label. 600 clears 3:1 on both surfaces.
+ * The five that the cheat-sheet diagrams also use now live in
+ * `scripts/diagram-palette.mts`, with the measurement against all four
+ * surfaces written out there. The values did not change; only their home did.
+ * The element colours below are kept here because nothing else has an opinion
+ * about what colour fluorine should be.
  */
-const OXYGEN = '#ef4444'; // globals.css --acid-color
-const ION_CHLORIDE = '#059669';
-const ION_SODIUM = '#a855f7'; // globals.css --amphoteric-color
+/** Chlorine and sodium, shared with the drawn diagrams below so that a chloride
+ * ion is the same colour whether it was drawn by the depictor or by hand. */
+const OXYGEN = ACID_RED;
+const ION_CHLORIDE = EMERALD;
+const ION_SODIUM = AMPHOTERIC_PURPLE;
 const PALETTE: Record<string, string> = {
   'rgb(0,0,0)': INK,
   'rgb(255,13,13)': OXYGEN,
-  'rgb(48,80,248)': '#3b82f6', // N — globals.css --base-color
+  'rgb(48,80,248)': BASE_BLUE, // N
   'rgb(31,240,31)': ION_CHLORIDE,
   'rgb(144,224,80)': '#0891b2', // F — cyan-600, kept clearly apart from Cl
   'rgb(171,92,242)': ION_SODIUM,
@@ -889,7 +889,7 @@ function drawGlauberCycle(): string {
   const BOTTOM = TOP + H;
   const LEFT = [30, 286, 542];
   const SALT = ION_SODIUM;
-  const SOLUTION = '#3b82f6';
+  const SOLUTION = BASE_BLUE;
   const n = (v: number) => Number(v.toFixed(1));
 
   const parts: string[] = [];

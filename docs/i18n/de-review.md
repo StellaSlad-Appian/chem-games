@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**910 strings** — 404 high confidence,
-367 medium, 139 low.
+**1002 strings** — 413 high confidence,
+450 medium, 139 low.
 
 The confidence column is a judgement about *this* translation, not about German
 in general:
@@ -449,6 +449,88 @@ invisible here.
 | `cheatSheets.curriculum` | Curriculum:  | Lehrplan:  | high | Section headings for the reference pages. |
 | `cheatSheets.filterA11y` | Filter topics by year level | Themen nach Klassenstufe filtern | high | Section headings for the reference pages. |
 
+### `periodicTable`
+
+| Key | English | German | Confidence | Notes |
+|---|---|---|---|---|
+| `periodicTable.caption` | The periodic table — all 118 elements, arranged by atomic number | Das Periodensystem – alle 118 Elemente, nach Ordnungszahl geordnet | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modeLabel` | Colour the table by | Tabelle einfärben nach | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legendHeading` | Key | Legende | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.scrollHint` | The table is wider than a phone screen, so it scrolls sideways on its own. Group 1 is on the left and group 18 on the right. | Die Tabelle ist breiter als ein Handybildschirm und lässt sich deshalb für sich allein seitlich schieben. Gruppe 1 steht links, Gruppe 18 rechts. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.keyboardHint` | Arrow keys move between elements. Home and End go to the ends of a period, Page Up and Page Down to the ends of a group, and Enter or Space opens an element. | Mit den Pfeiltasten gehst du von Element zu Element. Pos1 und Ende springen an die Enden einer Periode, Bild-auf und Bild-ab an die Enden einer Gruppe, und Eingabe oder Leertaste öffnet ein Element. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.cellA11y` | {name}, symbol {symbol}, atomic number {n}, group {group}, period {period} | {name}, Symbol {symbol}, Ordnungszahl {n}, Gruppe {group}, Periode {period} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.cellA11yFBlock` | {name}, symbol {symbol}, atomic number {n}, {family}, period {period} | {name}, Symbol {symbol}, Ordnungszahl {n}, {family}, Periode {period} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.groupHeaderA11y` | Group {group} | Gruppe {group} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.periodHeaderA11y` | Period {period} | Periode {period} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.detailHeading` | Selected element | Ausgewähltes Element | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.previous` | Previous element | Vorheriges Element | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.next` | Next element | Nächstes Element | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fullTableLink` | All six views of the table are on the Year 9 sheet | Alle sechs Ansichten der Tabelle stehen auf dem Spickzettel für Klasse 9 | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.reactivityNote` | Reactivity is compared inside a group only. A 3 in group 1 and a 3 in group 17 are not the same reaction. | Die Reaktivität wird nur innerhalb einer Gruppe verglichen. Eine 3 in Gruppe 1 und eine 3 in Gruppe 17 stehen nicht für dieselbe Reaktion. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.sizeNote` | Each badge is that atom’s radius in picometres. | Jede Marke ist der Radius dieses Atoms in Pikometern. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.metals` | Metals and non-metals | Metalle und Nichtmetalle | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.families` | Families | Familien | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.outerShell` | Outer shell | Äußerste Stufe | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.atomicSize` | Atomic size | Atomgröße | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.reactivity` | Reactivity | Reaktivität | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.ionFormed` | Ion formed | Gebildetes Ion | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.modes.occurrence` | Natural or made | Natürlich oder gemacht | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.metal` | M | M | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.nonMetal` | NM | NM | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.metalloid` | MD | HM | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.alkali` | Alk | Alk | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.alkalineEarth` | AE | EA | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.transition` | TM | ÜM | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.postTransition` | PTM | NÜM | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.lanthanide` | Ln | Ln | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.actinide` | An | An | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.halogen` | Hal | Hal | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.nobleGas` | NG | EG | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.natural` | nat | nat | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.synthetic` | lab | künstl | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.badge.none` | — | — | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.metal` | Metal | Metall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.non-metal` | Non-metal | Nichtmetall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.metalloid` | Metalloid — behaves partly like each (extension) | Halbmetall – verhält sich teils wie das eine, teils wie das andere (Erweiterung) | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.alkali-metal` | Alkali metal | Alkalimetall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.alkaline-earth` | Alkaline earth metal | Erdalkalimetall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.transition-metal` | Transition metal | Übergangsmetall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.lanthanide` | Lanthanide | Lanthanoid | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.actinide` | Actinide | Actinoid | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.post-transition-metal` | Other metal | Anderes Metall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.other-non-metal` | Other non-metal | Anderes Nichtmetall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.halogen` | Halogen | Halogen | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.noble-gas` | Noble gas | Edelgas | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.outer-count` | Electrons in the outer shell: {n} | Elektronen auf der äußersten Stufe: {n} | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.outer-none` | Not a simple count at this level — the transition metals and the two bottom rows fill an inner shell, so there is no single outer number to give. | Auf dieser Stufe keine einfache Zahl – bei den Übergangsmetallen und den beiden unteren Reihen wird eine innere Stufe aufgefüllt, deshalb gibt es keine einzelne äußere Zahl. | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-smallest` | Smallest — under 100 pm | Am kleinsten – unter 100 pm | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-small` | Small — 100 to 150 pm | Klein – 100 bis 150 pm | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-medium` | Medium — 150 to 200 pm | Mittel – 150 bis 200 pm | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-large` | Large — 200 to 250 pm | Groß – 200 bis 250 pm | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.size-largest` | Largest — over 250 pm | Am größten – über 250 pm | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-unreactive` | 0 — reacts with almost nothing | 0 – reagiert mit fast nichts | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-low` | 1 — reacts slowly | 1 – reagiert langsam | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-moderate` | 2 — reacts steadily | 2 – reagiert stetig | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-high` | 3 — reacts quickly | 3 – reagiert schnell | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-very-high` | 4 — reacts violently | 4 – reagiert heftig | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.reactivity-none` | Not graded — reactivity is only this simple in groups 1, 2, 17 and 18 | Nicht eingestuft – so einfach ist die Reaktivität nur in den Gruppen 1, 2, 17 und 18 | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.ion-positive` | Loses electrons and forms a positive ion | Gibt Elektronen ab und bildet ein positives Ion | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.ion-negative` | Gains electrons and forms a negative ion | Nimmt Elektronen auf und bildet ein negatives Ion | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.ion-none` | No single ion — the noble gases form none, and a transition metal forms more than one | Kein einzelnes Ion – die Edelgase bilden keines, und ein Übergangsmetall bildet mehrere | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.natural` | Found in nature | Kommt in der Natur vor | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.legend.synthetic` | Made in a laboratory | Im Labor hergestellt | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.symbol` | Symbol | Symbol | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.atomicNumber` | Atomic number | Ordnungszahl | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.mass` | Relative atomic mass | Relative Atommasse | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.arrangement` | Electron arrangement | Elektronenverteilung | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.group` | Group | Gruppe | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.period` | Period | Periode | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.metalClass` | Metal or non-metal | Metall oder Nichtmetall | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.family` | Family | Familie | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.ion` | Ion formed | Gebildetes Ion | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.fields.occurrence` | Natural or made | Natürlich oder gemacht | medium | No specific note; reviewed as ordinary UI copy. |
+| `periodicTable.values.fBlockGroup` | Outside the numbered groups | Außerhalb der nummerierten Gruppen | medium | No specific note; reviewed as ordinary UI copy. |
+
 ### `explore`
 
 | Key | English | German | Confidence | Notes |
@@ -558,6 +640,9 @@ invisible here.
 | `games.acidClassification.registryError` | Error: Compounds Registry not found. | Fehler: Verbindungsregister nicht gefunden. | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
 | `games.acidClassification.instructionsTitle` | How to Play: Chemical Classifier | Spielanleitung: Chemie-Sortierer | low | "Chemie-Sortierer" is a coinage for "Chemical Classifier". Understandable, but check it does not sound like a machine for sorting chemicals. |
 | `games.acidClassification.instructionsSubtitle` | Analyze the chemical formula and identify its properties! | Untersuche die chemische Formel und bestimme ihre Eigenschaften! | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
+| `games.acidClassification.instructionsCompact[0]` | Read the formula in the bubble. | Lies die Formel in der Blase. | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
+| `games.acidClassification.instructionsCompact[1]` | Say whether it is an acid, a base, neutral or amphoteric. | Sag, ob der Stoff sauer, basisch, neutral oder amphoter ist. | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
+| `games.acidClassification.instructionsCompact[2]` | Three mistakes and the beaker breaks. The lightbulb gives you the name. | Nach 3 Fehlern zerbricht das Becherglas. Die Glühbirne verrät den Namen. | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
 | `games.acidClassification.stepIdentifyLabel` | Identify: | Erkennen: | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
 | `games.acidClassification.stepIdentifyText` | Look at the compound shown in the center bubble. | Sieh dir die Verbindung in der mittleren Blase an. | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
 | `games.acidClassification.stepClassifyLabel` | Classify: | Einordnen: | medium | Instruction steps for a Year 9-10 reader; the chemistry vocabulary is glossary-fixed but the phrasing is mine. |
@@ -574,6 +659,9 @@ invisible here.
 | `games.formulaBlaster.instructionsBullet1` | Click the correct formula to add a hit toward the current target. | Klicke die richtige Formel an, um einen Treffer für das aktuelle Ziel zu sammeln. | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
 | `games.formulaBlaster.instructionsBullet2` | Use the lightbulb in the header if you need a clue about elemental breakdown. | Nutze die Glühbirne oben, wenn du einen Hinweis zur Zusammensetzung brauchst. | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
 | `games.formulaBlaster.instructionsBullet3` | Tapping an incorrect molecule reveals what element you should look for instead. | Wenn du ein falsches Molekül antippst, erfährst du, nach welchem Element du stattdessen suchen solltest. | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
+| `games.formulaBlaster.instructionsCompact[0]` | The target molecule is in the header. | Das Zielmolekül steht in der Kopfzeile. | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
+| `games.formulaBlaster.instructionsCompact[1]` | Tap the bubbles whose formula matches it. | Tipp die Blasen an, deren Formel dazu passt. | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
+| `games.formulaBlaster.instructionsCompact[2]` | A wrong bubble tells you which element to look for instead. | Eine falsche Blase verrät dir, nach welchem Element du suchen sollst. | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
 | `games.formulaBlaster.hintTemplate` | {compound} consists of the elements: {elements}. | {compound} besteht aus den Elementen: {elements}. | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
 | `games.formulaBlaster.wrongPick` | That's {compound} ({formula})! | Das ist {compound} ({formula})! | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
 | `games.formulaBlaster.wrongPickLookFor` | That's {compound} ({formula})! Look for {element} ({symbol}) atoms instead. | Das ist {compound} ({formula})! Suche stattdessen nach {element}-Atomen ({symbol}). | high | The feedback templates keep {formula} and {symbol} untranslated by design; only {compound} and {element} are localised names. |
@@ -588,6 +676,9 @@ invisible here.
 | `games.neutralise.switchIonA11yBase` | Switch ion, currently OH- base | Ion wechseln, aktuell OH- (Base) | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
 | `games.neutralise.instructionsTitle` | How to Play: Neutralize! | Spielanleitung: Neutralisieren! | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
 | `games.neutralise.instructionsIntro` | Defend the lab from incoming chemical hazards! | Verteidige das Labor gegen anfliegende Gefahrstoffe! | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
+| `games.neutralise.instructionsCompact[0]` | Acids and bases fly in from the top. | Von oben fliegen Säuren und Basen heran. | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
+| `games.neutralise.instructionsCompact[1]` | Load the ion that cancels the one coming at you. | Lade das Ion, das den ankommenden Stoff aufhebt. | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
+| `games.neutralise.instructionsCompact[2]` | Fire. A hit neutralises it; a miss lets it through. | Feuer. Ein Treffer neutralisiert ihn, ein Fehlschuss lässt ihn durch. | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
 | `games.neutralise.keyOneLabel` | 1 | 1 | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
 | `games.neutralise.keyOneText` | Load {ion} to neutralize Bases. | Lade {ion}, um Basen zu neutralisieren. | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
 | `games.neutralise.keyOneIon` | H⁺ (Acid) | H⁺ (Säure) | high | Ion notation (H⁺, OH⁻) left as-is. "Leertaste" is the German name for the space bar. |
@@ -631,6 +722,9 @@ invisible here.
 | `games.reactionBalancer.instructions.touch[0][1]` | ▲ / ▼ on a card to change a coefficient. | auf ▲ / ▼ einer Karte ändert den Koeffizienten. | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
 | `games.reactionBalancer.instructions.touch[1][0]` | Tap | Tippen | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
 | `games.reactionBalancer.instructions.touch[1][1]` | the number to type one. | auf die Zahl, um sie einzugeben. | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
+| `games.reactionBalancer.instructions.compact[0]` | Change the **big numbers** in front of a formula. The small ones are locked. | Ändere die **großen Zahlen** vor einer Formel. Die kleinen sind gesperrt. | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
+| `games.reactionBalancer.instructions.compact[1]` | Make every row of the **atom ledger** equal and the equation locks. | Sind alle Zeilen der **Atombilanz** gleich, rastet die Gleichung ein. | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
+| `games.reactionBalancer.instructions.compact[2]` | Stuck? Tap the **lightbulb**. The first hint is free. | Du kommst nicht weiter? Tipp auf die **Glühbirne**. Der erste Tipp ist umsonst. | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
 | `games.reactionBalancer.instructions.glossaryTitle` | Words the game uses | Wörter, die im Spiel vorkommen | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
 | `games.reactionBalancer.guided.stepLabel` | Guided step {step} of {total} | Schritt {step} von {total} | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
 | `games.reactionBalancer.guided.steps[0]` | Look at the ledger. Hydrogen: 2 on the left, 2 on the right — balanced. Oxygen: 2 on the left, 1 on the right. Oxygen needs fixing. | Schau auf die Atombilanz. Wasserstoff: 2 links, 2 rechts – ausgeglichen. Sauerstoff: 2 links, 1 rechts. Beim Sauerstoff stimmt es noch nicht. | high | Rewritten from scratch for the redesigned game: the old copy described coefficient arrows and an atom-balance panel that no longer exist. Uses the glossary terms Edukte / Produkte / Koeffizient / Index / Atombilanz / ausgleichen. "Edukte" is the standard German school word for reactants; some Länder teach "Ausgangsstoffe" instead, which is equally correct. |
@@ -812,6 +906,9 @@ invisible here.
 | `games.lewisStructures.instructions.touch[0][1]` | an unpaired electron, then tap one on another atom. | auf ein ungepaartes Elektron, dann auf eines an einem anderen Atom. | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
 | `games.lewisStructures.instructions.touch[1][0]` | Tap | Tippen | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
 | `games.lewisStructures.instructions.touch[1][1]` | a shared pair to undo it. | auf ein bindendes Elektronenpaar löst es wieder. | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
+| `games.lewisStructures.instructions.compact[0]` | Tap an unpaired dot, then tap one on another atom. | Tipp einen ungepaarten Punkt an, dann einen an einem anderen Atom. | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
+| `games.lewisStructures.instructions.compact[1]` | An atom is full at 8 dots — hydrogen at 2. | Ein Atom ist bei 8 Punkten voll – Wasserstoff schon bei 2. | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
+| `games.lewisStructures.instructions.compact[2]` | It locks itself when every atom is full. No button needed. | Es rastet von selbst ein, sobald jedes Atom voll ist. Kein Knopf nötig. | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
 | `games.lewisStructures.instructions.glossaryTitle` | Words the game uses | Wörter, die im Spiel vorkommen | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
 | `games.lewisStructures.guided.stepLabel` | Guided step {step} of {total} | Schritt {step} von {total} | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |
 | `games.lewisStructures.guided.h2[0]` | Two hydrogen atoms. Each has 1 outer electron — an unpaired electron. Drag one onto the other. | Zwei Wasserstoffatome. Jedes hat 1 Außenelektron – ein ungepaartes Elektron. Zieh den einen auf den anderen. | medium | A whole new game. The chemistry terms are glossary-fixed (Lewis-Formel, freies Elektronenpaar, bindendes Elektronenpaar, Atombindung, Oktettregel, Valenzelektronen), but the game deliberately writes around the jargon for a Year 9 reader, and that plain-language layer is mine rather than a textbook’s. Rated medium as a body of work; the specific risks are listed below. |

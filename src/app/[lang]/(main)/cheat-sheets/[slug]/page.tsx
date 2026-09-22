@@ -14,7 +14,15 @@ import { CHEAT_SHEETS, GAME_LINKS } from '@/lib/cheat-sheet-data';
 import { ChemIcon } from '@/components/ui/ChemIcon';
 import MoleculeText from '@/components/ui/MoleculeText';
 import { LocaleLink } from '@/components/layout/LocaleLink';
-import type { CheatSheetResource, CheatSheetTable } from '@/core-engine/types/general';
+import {
+  PeriodicTableOccurrenceWidget,
+  PeriodicTableWidget,
+} from '@/components/periodic-table/PeriodicTableWidget';
+import type {
+  CheatSheetResource,
+  CheatSheetTable,
+  CheatSheetWidgetName,
+} from '@/core-engine/types/general';
 import { getCheatSheet, getGlobalTeacherResources } from '@/i18n/cheat-sheets';
 import { getDictionary, type Dictionary } from '@/i18n/dictionaries';
 import { gameTitle } from '@/i18n/game-titles';
@@ -54,6 +62,28 @@ export async function generateMetadata(props: PageProps<'/[lang]/cheat-sheets/[s
 
 const panelClass =
   'mt-8 rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8';
+
+/**
+ * Widget name -> component, exactly as `ChemIcon`'s `ICON_REGISTRY` maps an
+ * icon name (D4).
+ *
+ * The alternative this rejects is branching on the slug —
+ * `if (slug === 'atomic-structure')`. That is unfindable, untyped, and it puts
+ * page-specific chemistry in the route. A section opting in by name keeps the
+ * sheet as data and keeps this file ignorant of which sheet is which.
+ *
+ * A name is structural metadata, so it is not in the translation overlay and
+ * `cheat-sheets.test.ts` never sees it.
+ */
+const WIDGET_REGISTRY = {
+  'periodic-table': PeriodicTableWidget,
+  'periodic-table-occurrence': PeriodicTableOccurrenceWidget,
+} satisfies Record<CheatSheetWidgetName, React.ComponentType<{ locale: Locale }>>;
+
+function SectionWidget({ name, locale }: { name: CheatSheetWidgetName; locale: Locale }) {
+  const Widget = WIDGET_REGISTRY[name];
+  return <Widget locale={locale} />;
+}
 
 function PanelHeading({ icon, children }: { icon?: React.ReactNode; children: React.ReactNode }) {
   return (
@@ -314,6 +344,7 @@ export default async function CheatSheetDetailPage(
                     />
                   </div>
                 )}
+                {section.widget && <SectionWidget name={section.widget} locale={locale} />}
                 {section.examples && section.examples.length > 0 && (
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {section.examples.map((example) => (

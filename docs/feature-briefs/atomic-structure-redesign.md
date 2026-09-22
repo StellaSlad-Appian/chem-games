@@ -850,35 +850,89 @@ Each is independently shippable and leaves the sheet in a working state.
 
 ## 12. Diagrams — and prompts for generating them
 
-### 11.1 The inventory after the redesign
+### 12.1 The inventory after the redesign
 
-| # | File | Size | Status | What it shows |
-|---|---|---|---|---|
-| 1 | `01-inside-an-atom.svg` | 640×360 | unchanged | Nucleus + probability cloud + scale note |
-| 2 | `02-atomic-and-mass-number.svg` | 640×320 | unchanged | The nuclide symbol, labelled |
-| 3 | `03-isotopes-of-hydrogen.svg` | 640×280 | unchanged | Three hydrogen isotopes |
-| 4 | `04-weighted-average.svg` | 640×340 | **reworked** | The bar **plus the arithmetic** |
-| 5 | `05-energy-levels.svg` | 640×300 | **narrowed** | Sodium 2, 8, 1 only — the widget does the table |
-| 6 | `06-ordered-by-atomic-number.svg` | 640×300 | unchanged | Te before I |
-| 7 | `07-half-life.svg` | 640×320 | **split + renamed** | The decay curve with numbers; synthetic elements move to the widget |
-| 8 | `08-reading-a-table-cell.svg` | 640×300 | **new** | Cell anatomy |
-| 9 | `09-isotope-or-ion.svg` | 640×340 | **new** | The contrast pair |
-| 10 | `10-why-groups-form-ions.svg` | 640×340 | **new** | Na → Na+, Cl → Cl− |
+**Updated after the split shipped.** The seven original slots now live in two
+folders under `public/cheat-sheets/`, and slot 07 kept its original filename
+rather than being renamed — so the "split + renamed" this table first specified
+is half done. All ten are still placeholders.
 
-Renaming 07 and changing sizes means editing `src/lib/cheat-sheet-data.ts` and
-the `imageAlt` in all five overlays. `CHEAT_SHEET_IMAGES.md` says so; it is the
-step people forget.
+| # | Sheet / folder | File | Size | Status | What it shows |
+|---|---|---|---|---|---|
+| 1 | Y9 `atomic-structure/` | `01-inside-an-atom.svg` | 640×360 | placeholder | Nucleus + probability cloud + scale note |
+| 2 | Y9 `atomic-structure/` | `02-atomic-and-mass-number.svg` | 640×320 | placeholder | The nuclide symbol, labelled |
+| 3 | Y10 `isotopes-and-radioactivity/` | `03-isotopes-of-hydrogen.svg` | 640×280 | placeholder | Three hydrogen isotopes |
+| 4 | Y10 `isotopes-and-radioactivity/` | `04-weighted-average.svg` | 640×340 | **rework** | The bar **plus the arithmetic** |
+| 5 | Y9 `atomic-structure/` | `05-energy-levels.svg` | 640×300 | **narrow** | Sodium 2, 8, 1 only — the widget does the table |
+| 6 | Y9 `atomic-structure/` | `06-ordered-by-atomic-number.svg` | 640×300 | placeholder | Te before I |
+| 7 | Y10 `isotopes-and-radioactivity/` | `07-decay-and-made-elements.svg` | 640×320 | **rework** | The decay curve with numbers. Filename unchanged; the synthetic-element half moves to the widget's *natural or made* mode |
+| 8 | Y9 `atomic-structure/` | `08-reading-a-table-cell.svg` | 640×300 | **new** | Cell anatomy |
+| 9 | Y10 `isotopes-and-radioactivity/` | `09-isotope-or-ion.svg` | 640×340 | **new** | The contrast pair |
+| 10 | Y9 `atomic-structure/` | `10-why-groups-form-ions.svg` | 640×340 | **new** | Na → Na+, Cl → Cl− |
 
-### 11.2 Generate SVG source, not raster images
+Slots 3, 4 and 7 were `git mv`'d into the Year 10 folder by the split; the path
+constants `ATOMIC_STRUCTURE_DIAGRAMS` and `ISOTOPE_DIAGRAMS` in
+`src/lib/cheat-sheet-data.ts` already point at the right folders, and all seven
+files are referenced and present. Slots 8, 9 and 10 do not exist yet — they
+arrive with the sections that carry them.
 
-**Use a code-generating model and ask it for SVG source. Do not use an
-image-generation model for any of these.** Every one is label-heavy, must be
-exactly sized, must stay under 200 KB, must have a transparent background and
-must contain chemically exact numbers. Image models get labels wrong, cannot hit
-an exact viewBox, and bake in a background. The house rules in
-`CHEAT_SHEET_IMAGES.md` are, in effect, a specification for hand-written SVG.
+Changing a slot's size means editing `src/lib/cheat-sheet-data.ts` and the
+`imageAlt` in all five overlays. `CHEAT_SHEET_IMAGES.md` says so; it is the step
+people forget.
 
-### 11.3 Two constraints the existing placeholders get wrong
+### 12.2 Generate them from a script — the repo already does this
+
+**Corrected after the fact.** This section originally said to prompt a
+code-generating model for SVG source. That is still better than an image model,
+but it is the wrong first choice, because **the repo already has a diagram
+generator and an already-solved palette**, and this section was written without
+knowing it.
+
+`scripts/molecule-images.mts` (`npm run explore:images`) makes every Explore
+picture by three routes, in descending order of how much the script knows about
+the chemistry:
+
+- **STRUCTURES** — a SMILES string drawn by **OpenChemLib** (`openchemlib`,
+  already a devDependency at ^9.25.0);
+- **DIAGRAMS** — a hand-written drawing function in the script returning SVG
+  (`drawRockSalt`, `drawWater`, `drawPolypropylene`, `drawGlauberCycle`);
+- **SOURCED** — a public-domain file, recoloured and refitted.
+
+Its header already argues the case in this repo's own words: an `<img>`-loaded
+SVG cannot see `data-theme`, cannot inherit `currentColor` and cannot read a CSS
+variable, so a picture must be legible on white *and* on the dark surface with
+no help; found diagrams are twenty house styles; and a generated picture is
+checkable, because `draw` re-derives the molecular formula from the SMILES and
+fails the run if it disagrees with the entry.
+
+All three arguments apply to the ten diagrams on these two sheets. So:
+
+> **Add a `DIAGRAMS`-style route for the cheat sheets** — a
+> `scripts/cheat-sheet-diagrams.mts` modelled on `molecule-images.mts`, one
+> drawing function per slot, run by its own `npm run` script. The files it emits
+> go to the paths `CHEAT_SHEET_IMAGES.md` already names, so the "replacing a
+> diagram is replacing a file" contract is unchanged; what changes is that the
+> file now has a source you can diff, review and re-run.
+
+**Reuse that script's palette rather than the one invented in §12.4.** It is
+already measured against both surfaces, with the reasoning recorded in the
+source: `INK = '#64748b'` (slate-500) for bonds, carbon, hydrogen and charges;
+`OXYGEN = '#ef4444'`; nitrogen `#3b82f6`; chloride `#059669` — emerald-**600**
+rather than the emerald-500 the games use, because "emerald-500 measures 2.3:1
+on white, which is fine for a filled shape and too weak for a two-letter label.
+600 clears 3:1 on both surfaces." That is the problem §12.3 works through from
+first principles, already solved and already measured.
+
+**OpenChemLib itself will not draw any of these ten.** It depicts molecules from
+SMILES, and none of the ten is a molecule — they are nuclei, probability clouds,
+a proportion bar, a decay curve, a table cell and two comparison panels. It is
+the right tool for Explore's molecule pictures and the wrong tool here. What
+transfers is the *script*, its palette and its checkability, not the depictor.
+
+The prompts in §12.5 stay useful, but as a way to draft the geometry and wording
+for a drawing function — not as the thing that ships.
+
+### 12.3 Two constraints the existing placeholders get wrong
 
 Both belong in every prompt.
 
@@ -905,7 +959,7 @@ Both belong in every prompt.
    load-bearing can live in the right-hand third alone — is in
    `docs/CHEAT_SHEET_IMAGES.md` under *How wide the page draws it*.
 
-### 11.4 The shared preamble
+### 12.4 The shared preamble
 
 Paste this above every per-diagram prompt.
 
@@ -956,7 +1010,7 @@ Pedagogical constraints, non-negotiable:
 British/IUPAC spelling: sulfur, aluminium, caesium, neutralise.
 ```
 
-### 11.5 The per-diagram prompts
+### 12.5 The per-diagram prompts
 
 > **04 — the weighted average, with the arithmetic** — `04-weighted-average.svg`, 640×340
 >
@@ -1071,7 +1125,7 @@ Diagrams 01, 02, 03 and 06 are unchanged in specification — generate them from
 the preamble plus the "what it should show" column in `CHEAT_SHEET_IMAGES.md`,
 which already describes them precisely.
 
-### 11.6 After generating each file
+### 12.6 After generating each file
 
 1. Open it on `#f8fafc` and on `#09090b`. Anything that vanishes fails.
 2. Check the rendered size: 640 wide into a 512px column. Read it at that size,

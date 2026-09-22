@@ -122,7 +122,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Deine Lehrkraft und der Lehrplan sagen dazu vielleicht Schalen – gemeint ist dasselbe. Elektronen so zu zählen heißt bohrsches Atommodell: nützlich, und kein Bild eines echten Atoms. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.',
         imageAlt:
-          'Ein Natriumatom mit drei Energiestufen, die 2, 8 und 1 Elektronen tragen, daneben das Periodensystem mit hervorgehobener Gruppe 1.',
+          'Ein Natriumkern aus 11 Protonen und 12 Neutronen, darum drei weiche Bänder mit 2, 8 und 1 Elektronen, gezeichnet als Punkte in unregelmäßigen Winkeln und nicht als Punkte auf Kreisbahnen. Daneben die Anordnung 2, 8, 1 mit der äußersten Stufe zuletzt. Die Abbildung sagt selbst, dass sie eine Art ist, Elektronen zu zählen, und kein Bild eines Atoms, und dass der Kern etwa 100 000-mal zu groß gezeichnet ist.',
       },
       {
         heading: 'Gruppen und Perioden',
@@ -160,34 +160,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
           ['Proton', '+1', '1', 'im Kern'],
           ['Neutron', '0', '1', 'im Kern'],
           ['Elektron', '−1', 'etwa 1/1836', 'um den Kern herum'],
-        ],
-      },
-      {
-        heading: 'Die ersten zwanzig Elemente',
-        caption:
-          'Die Elektronenverteilung wird von innen nach außen geschrieben: Natrium ist 2, 8, 1.',
-        columns: ['Element', 'Symbol', 'Ordnungszahl', 'Elektronenverteilung'],
-        rows: [
-          ['Wasserstoff', 'H', '1', '1'],
-          ['Helium', 'He', '2', '2'],
-          ['Lithium', 'Li', '3', '2, 1'],
-          ['Beryllium', 'Be', '4', '2, 2'],
-          ['Bor', 'B', '5', '2, 3'],
-          ['Kohlenstoff', 'C', '6', '2, 4'],
-          ['Stickstoff', 'N', '7', '2, 5'],
-          ['Sauerstoff', 'O', '8', '2, 6'],
-          ['Fluor', 'F', '9', '2, 7'],
-          ['Neon', 'Ne', '10', '2, 8'],
-          ['Natrium', 'Na', '11', '2, 8, 1'],
-          ['Magnesium', 'Mg', '12', '2, 8, 2'],
-          ['Aluminium', 'Al', '13', '2, 8, 3'],
-          ['Silicium', 'Si', '14', '2, 8, 4'],
-          ['Phosphor', 'P', '15', '2, 8, 5'],
-          ['Schwefel', 'S', '16', '2, 8, 6'],
-          ['Chlor', 'Cl', '17', '2, 8, 7'],
-          ['Argon', 'Ar', '18', '2, 8, 8'],
-          ['Kalium', 'K', '19', '2, 8, 8, 1'],
-          ['Calcium', 'Ca', '20', '2, 8, 8, 2'],
         ],
       },
     ],
@@ -236,7 +208,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Eine Probe eines Elements ist eine Mischung seiner Isotope, in festen Anteilen. Die relative Atommasse ist der Mittelwert über diese Mischung, gewichtet danach, wie häufig jedes Isotop ist. Chlor besteht zu etwa drei Vierteln aus Chlor-35 und zu einem Viertel aus Chlor-37. Im Mittel ergibt das 35,5. Kein einzelnes Chloratom wiegt so viel. Dieser Abschnitt ist eine Erweiterung: Die relative Atommasse gehört in die Oberstufe, und sie steht hier, weil Isotope ohne sie keinen Sinn ergeben.',
         imageAlt:
-          'Ein Balken mit 75 Prozent Chlor-35 und 25 Prozent Chlor-37, darauf der gewichtete Mittelwert 35,5, näher am Ende mit 35.',
+          'Ein Balken mit 75 Prozent Chlor-35 und 25 Prozent Chlor-37, wobei der kleinere Teil zusätzlich schraffiert ist. Darunter eine Massenskala von 35 bis 37, auf der der Mittelwert 35,5 bei einem Viertel der Strecke liegt und nicht in der Mitte, dazu die ausgeschriebene Rechnung: 0,75 mal 35 plus 0,25 mal 37 ergibt 35,5 und nicht 36. Ein Hinweis sagt, dass die Aufteilung gerundet ist und die gemessenen Häufigkeiten 75,8 und 24,2 Prozent betragen.',
       },
       {
         heading: 'Instabile Kerne und die drei Arten von Strahlung',
@@ -248,7 +220,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Die Halbwertszeit ist die Zeit, in der die Hälfte einer Probe zerfällt. Nach einer Halbwertszeit ist die Hälfte übrig, nach zweien ein Viertel und nach dreien ein Achtel. Für jedes Isotop liegt sie fest: Erhitzen oder eine Reaktion ändern nichts daran. Kohlenstoff-14 hat eine Halbwertszeit von etwa 5730 Jahren. Uran-238 hat eine von etwa 4,5 Milliarden Jahren, und deshalb steckt überhaupt noch Uran im Boden.',
         imageAlt:
-          'Eine Zerfallskurve, die sich mit jeder Halbwertszeit halbiert, daneben die unteren Reihen des Periodensystems mit den hervorgehobenen Elementen, die es nur gibt, wenn man sie herstellt.',
+          'Eine Zerfallskurve, die von 100 Prozent auf 50, 25 und 12,5 Prozent nach einer, zwei und drei Halbwertszeiten fällt, mit einer gestrichelten Linie hinunter zur Achse an jeder Stelle. Nach drei Halbwertszeiten ist ein Achtel übrig. Eine Halbwertszeit sind 5730 Jahre bei Kohlenstoff-14 und etwa 4,5 Milliarden Jahre bei Uran-238.',
       },
       {
         heading: 'Die Vergangenheit datieren, und 65 000 Jahre in Australien',

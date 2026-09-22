@@ -1,12 +1,45 @@
 // src/components/cheat-sheets/YearFilter.tsx
 'use client';
 
-import type { YearLevel } from '@/core-engine/types/general';
+import type { CheatSheetTopic, YearLevel } from '@/core-engine/types/general';
 import { useI18n } from '@/i18n/client';
+
+export type YearFilterOption = 'All' | YearLevel;
 
 // Values, not labels: these are compared against `sheet.yearLevel`, which is
 // canonical English. The dictionary maps each one to its label.
-const years: ('All' | YearLevel)[] = ['All', 'Year 7', 'Year 8', 'Year 9', 'Year 10', 'Senior'];
+//
+// This is the ORDER, not the offer. Which of these a reader actually sees is
+// derived from the sheets that exist — see `yearFilterOptions`.
+const YEAR_ORDER: YearFilterOption[] = ['All', 'Year 7', 'Year 8', 'Year 9', 'Year 10', 'Senior'];
+
+/**
+ * The year buttons to show, given the sheets on the page.
+ *
+ * Only years that have at least one sheet are offered. A filter that can return
+ * nothing is not a filter, it is a dead end: pressing "Year 7" emptied the grid
+ * and told the reader the site had no Year 7 content in the least helpful way
+ * available — after a click, with no way to tell a filter miss from a broken
+ * page.
+ *
+ * Derived rather than hardcoded so it cannot go stale in either direction. The
+ * day a Year 7 sheet is added the button appears on its own, and the day the
+ * last Year 9 sheet is retitled to something else the button leaves. That also
+ * means there is nothing here to remember to update, which is the part a
+ * hardcoded list gets wrong.
+ *
+ * 'All' is always offered, even with one year present, because it is the reset
+ * and its absence would strand a reader on whatever they last pressed.
+ *
+ * Note this is NOT the same list as `YEAR_LEVEL_OPTIONS` in
+ * src/lib/validation/profile.ts. A student in Year 7 can say so on their
+ * profile whether or not any sheet is written for them yet; that list is about
+ * the reader, this one is about the content.
+ */
+export function yearFilterOptions(sheets: readonly CheatSheetTopic[]): YearFilterOption[] {
+  const present = new Set<string>(sheets.map((sheet) => sheet.yearLevel));
+  return YEAR_ORDER.filter((year) => year === 'All' || present.has(year));
+}
 
 const LABEL_KEY = {
   All: 'all',
@@ -18,9 +51,12 @@ const LABEL_KEY = {
 } as const;
 
 export function YearFilter({
+  years,
   selectedYear,
   onSelectYear,
 }: {
+  /** From `yearFilterOptions`, so the offer follows the sheets that exist. */
+  years: readonly YearFilterOption[];
   selectedYear: string;
   onSelectYear: (year: string) => void;
 }) {

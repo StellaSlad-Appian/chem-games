@@ -533,6 +533,147 @@ export const en = {
   },
 
   /**
+   * The interactive periodic table's chrome: mode names, legend rows, the
+   * detail panel's field labels and the two hints.
+   *
+   * **Element names are not here.** All 118 are already localised in
+   * `src/i18n/chemistry-names/`, with a test asserting completeness against
+   * the live registry, and the widget reads them from there. Nor are the
+   * chemistry facts: those are data, in `src/core-engine/data/periodic-table.ts`.
+   * What is left is UI chrome, which is what belongs in a dictionary — so the
+   * widget added no rows to the cheat-sheet translation overlays at all.
+   *
+   * The `legend` keys are literally the `LegendKey` union in
+   * `src/components/periodic-table/view-modes.ts`. That is deliberate: a mode
+   * that returns a key with no row here is a compile error at the call site,
+   * and `view-modes.test.ts` checks the same thing from the other direction.
+   */
+  periodicTable: {
+    caption: 'The periodic table — all 118 elements, arranged by atomic number',
+    modeLabel: 'Colour the table by',
+    legendHeading: 'Key',
+    /**
+     * Read by the grid's `aria-describedby`. Eighteen columns at the minimum
+     * target size is 432px, so the grid cannot fit a 320px screen and gets its
+     * own scroll region; WCAG 1.4.10 exempts content that needs a
+     * two-dimensional layout. The page itself never scrolls sideways.
+     */
+    scrollHint:
+      'The table is wider than a phone screen, so it scrolls sideways on its own. Group 1 is on the left and group 18 on the right.',
+    keyboardHint:
+      'Arrow keys move between elements. Home and End go to the ends of a period, Page Up and Page Down to the ends of a group, and Enter or Space opens an element.',
+    /**
+     * A cell's accessible name. A bare symbol is not a name — docs/ACCESSIBILITY.md
+     * §3 requires the element's own name on any control whose only visible
+     * content is notation, and two letters of Latin is exactly that.
+     *
+     * Every part is a plain apposition, so nothing in the sentence agrees with
+     * a number or with the interpolated name — which is what lets Russian use
+     * the same shape. See docs/i18n/README.md § Where a placeholder may sit.
+     */
+    cellA11y: '{name}, symbol {symbol}, atomic number {n}, group {group}, period {period}',
+    /** The f-block rows sit outside the eighteen columns, so they have no group. */
+    cellA11yFBlock: '{name}, symbol {symbol}, atomic number {n}, {family}, period {period}',
+    groupHeaderA11y: 'Group {group}',
+    periodHeaderA11y: 'Period {period}',
+    detailHeading: 'Selected element',
+    previous: 'Previous element',
+    next: 'Next element',
+    /** On the Year 10 sheet, where the widget is gated to two modes. */
+    fullTableLink: 'All six views of the table are on the Year 9 sheet',
+    /** Under the *Reactivity* legend, because the scale means nothing across groups. */
+    reactivityNote:
+      'Reactivity is compared inside a group only. A 3 in group 1 and a 3 in group 17 are not the same reaction.',
+    /** Under the *Atomic size* legend: the badge is a measurement, not a rank. */
+    sizeNote: 'Each badge is that atom’s radius in picometres.',
+    modes: {
+      metals: 'Metals and non-metals',
+      families: 'Families',
+      outerShell: 'Outer shell',
+      atomicSize: 'Atomic size',
+      reactivity: 'Reactivity',
+      ionFormed: 'Ion formed',
+      occurrence: 'Natural or made',
+    },
+    /**
+     * The text in the cell. Short by necessity — a cell is about 44px wide —
+     * and translated, because every one of them is an abbreviation of a word.
+     * `none` is the shared "no value here" badge for the three modes that have
+     * one, so the em dash is written once rather than three times.
+     */
+    badge: {
+      metal: 'M',
+      nonMetal: 'NM',
+      metalloid: 'MD',
+      alkali: 'Alk',
+      alkalineEarth: 'AE',
+      transition: 'TM',
+      postTransition: 'PTM',
+      lanthanide: 'Ln',
+      actinide: 'An',
+      halogen: 'Hal',
+      nobleGas: 'NG',
+      natural: 'nat',
+      synthetic: 'lab',
+      none: '—',
+    },
+    legend: {
+      metal: 'Metal',
+      'non-metal': 'Non-metal',
+      metalloid: 'Metalloid — behaves partly like each (extension)',
+      'alkali-metal': 'Alkali metal',
+      'alkaline-earth': 'Alkaline earth metal',
+      'transition-metal': 'Transition metal',
+      lanthanide: 'Lanthanide',
+      actinide: 'Actinide',
+      'post-transition-metal': 'Other metal',
+      'other-non-metal': 'Other non-metal',
+      halogen: 'Halogen',
+      'noble-gas': 'Noble gas',
+      /**
+       * One row per count, filled in 1 to 8. A colon label, so the numeral
+       * governs nothing after it — see src/i18n/count-strings.test.ts.
+       */
+      'outer-count': 'Electrons in the outer shell: {n}',
+      'outer-none':
+        'Not a simple count at this level — the transition metals and the two bottom rows fill an inner shell, so there is no single outer number to give.',
+      'size-smallest': 'Smallest — under 100 pm',
+      'size-small': 'Small — 100 to 150 pm',
+      'size-medium': 'Medium — 150 to 200 pm',
+      'size-large': 'Large — 200 to 250 pm',
+      'size-largest': 'Largest — over 250 pm',
+      'reactivity-unreactive': '0 — reacts with almost nothing',
+      'reactivity-low': '1 — reacts slowly',
+      'reactivity-moderate': '2 — reacts steadily',
+      'reactivity-high': '3 — reacts quickly',
+      'reactivity-very-high': '4 — reacts violently',
+      'reactivity-none': 'Not graded — reactivity is only this simple in groups 1, 2, 17 and 18',
+      'ion-positive': 'Loses electrons and forms a positive ion',
+      'ion-negative': 'Gains electrons and forms a negative ion',
+      'ion-none':
+        'No single ion — the noble gases form none, and a transition metal forms more than one',
+      natural: 'Found in nature',
+      synthetic: 'Made in a laboratory',
+    },
+    fields: {
+      symbol: 'Symbol',
+      atomicNumber: 'Atomic number',
+      mass: 'Relative atomic mass',
+      arrangement: 'Electron arrangement',
+      group: 'Group',
+      period: 'Period',
+      metalClass: 'Metal or non-metal',
+      family: 'Family',
+      ion: 'Ion formed',
+      occurrence: 'Natural or made',
+    },
+    values: {
+      /** The group cell of an f-block element's detail panel. */
+      fBlockGroup: 'Outside the numbered groups',
+    },
+  },
+
+  /**
    * Page chrome for /explore — headings, labels, the dateline pattern and the
    * calls to action. **The entries themselves are not here**, and must not be:
    * the root layout hands this whole dictionary to `I18nProvider`, so every
