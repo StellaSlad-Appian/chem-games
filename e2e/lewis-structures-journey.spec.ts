@@ -13,7 +13,7 @@ import { en } from '../src/i18n/dictionaries/en';
 import { getLewisMolecule } from '../src/core-engine/data/lewis-molecules';
 import type { BondOrder, LewisMoleculeData, LewisStructure } from '../src/core-engine/types/chemistry';
 import { createAtom, diagnose, matchesTarget, nextMove, pairAtoms } from '../src/core-engine/utils/lewis-utils';
-import { openGame, overlay } from './helpers';
+import { expectNoOverflow, openGame, overlay } from './helpers';
 
 /** These specs drive the default locale, so the copy they assert is English. */
 const M = lewisMessages(en, 'en');
@@ -152,7 +152,10 @@ test.describe('Share to Fill journeys', () => {
       await openGame(page, 'lewis-structures', { showLewisIntro: true });
       await page.screenshot({ path: 'test-results/lewis-phone-instructions.png' });
       await page.getByRole('button', { name: 'GOT IT' }).tap();
-      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true);
+      // Not a bare scrollWidth check: an over-full flex row compresses rather
+      // than scrolling, so that assertion passes while the row overhangs.
+      // `expectNoOverflow` runs both halves — see ./helpers.
+      await expectNoOverflow(page);
       const box = await loner(page, 'a0').boundingBox();
       expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
       expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);

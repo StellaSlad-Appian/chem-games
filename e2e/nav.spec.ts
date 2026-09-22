@@ -12,7 +12,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { en } from '../src/i18n/dictionaries/en';
 import { de } from '../src/i18n/dictionaries/de';
 import { LOCALES } from '../src/i18n/config';
-import { path, waitForHydration } from './helpers';
+import { path, scrollsSideways, waitForHydration } from './helpers';
 
 const PHONE = { width: 360, height: 740 };
 
@@ -27,9 +27,6 @@ const PHONE = { width: 360, height: 740 };
 const menuTrigger = (page: Page, label: string) =>
   page.getByRole('banner').getByRole('button', { name: label, exact: true });
 
-/** True when the document is wider than the window — WCAG 1.4.10's failure. */
-const scrollsSideways = (page: Page) =>
-  page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
 
 test.describe('phone navigation', () => {
   test.use({ viewport: PHONE });

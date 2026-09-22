@@ -38,37 +38,15 @@
 //     `max-content` gives the floor the row genuinely needs, which is the
 //     quantity the nav check is about.
 
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { LOCALES } from '../src/i18n/config';
 import { getDictionary } from '../src/i18n/dictionaries';
 import { findLocalizedMolecule } from '../src/i18n/explore';
 import { EXPLORE_MOLECULES } from '../src/lib/explore/molecules';
 import { EXPLORE_SCIENTISTS } from '../src/lib/explore/scientists';
-import { path, waitForHydration } from './helpers';
+import { expectNoOverflow, path, waitForHydration } from './helpers';
 
 const NARROW = { width: 320, height: 740 };
-
-const scrollsSideways = (page: Page) =>
-  page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
-
-/** Every element whose right edge is past the viewport, with what it is. */
-const overhangingElements = (page: Page) =>
-  page.evaluate(() => {
-    const out: Array<{ tag: string; className: string; right: number }> = [];
-    for (const node of Array.from(document.body.querySelectorAll('*'))) {
-      const box = node.getBoundingClientRect();
-      // Zero-sized and off-screen-by-design nodes (sr-only) are not overhang.
-      if (box.width === 0 || box.height === 0) continue;
-      if (box.right > window.innerWidth + 1) {
-        out.push({
-          tag: node.tagName.toLowerCase(),
-          className: typeof node.className === 'string' ? node.className.slice(0, 80) : '',
-          right: Math.ceil(box.right),
-        });
-      }
-    }
-    return out;
-  });
 
 test.describe('the permalinks', () => {
   for (const locale of LOCALES) {
@@ -287,15 +265,9 @@ test.describe('reflow', () => {
         await page.goto(path(appPath, locale));
         await waitForHydration(page);
 
-        expect(await scrollsSideways(page)).toBe(false);
-
-        // The check scrollWidth cannot make: a compressed row whose
-        // non-shrinking child still hangs over the edge.
-        const overhanging = await overhangingElements(page);
-        expect(
-          overhanging,
-          `these elements hang past the 320px viewport:\n${JSON.stringify(overhanging, null, 2)}`
-        ).toEqual([]);
+        // Both halves: scrollWidth, plus the check it cannot make — a
+        // compressed row whose non-shrinking child still hangs over the edge.
+        await expectNoOverflow(page);
       });
     }
   }

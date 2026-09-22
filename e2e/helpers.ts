@@ -133,6 +133,63 @@ export const footerButton = (page: Page, title: FooterButtonTitle): Locator =>
 
 export const hintButton = (page: Page): Locator => page.getByTitle('Get Hint');
 
+// ---------------------------------------------------------------------------
+// Reflow (WCAG 1.4.10)
+//
+// Two checks, and they catch different failures. Use both.
+//
+// `scrollsSideways()` is the classic one, and on its own it is **not enough**:
+// a flex row that is over-full does not scroll, it *compresses*, so the
+// document's scrollWidth never moves and the assertion passes while the row is
+// unreadable. That is how the German header shipped needing 1033px in a 1024px
+// viewport with every locale green (docs/TODO.md, `e2e/nav.spec.ts`).
+//
+// `overhangingElements()` is what sees that case: it asks every element for its
+// own right edge, so a compressed row whose `shrink-0` child hangs past the
+// viewport is reported by name.
+//
+// A third tool, forcing `width: max-content` on a row, belongs only where
+// nothing may shrink or wrap — `e2e/nav.spec.ts` has it, and
+// `e2e/explore-archive.spec.ts` explains at length why it is the wrong tool on
+// a page of truncating links.
+// ---------------------------------------------------------------------------
+
+/** True when the document is wider than the window — WCAG 1.4.10's failure. */
+export const scrollsSideways = (page: Page): Promise<boolean> =>
+  page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
+
+/** Every element whose right edge is past the viewport, with what it is. */
+export const overhangingElements = (
+  page: Page
+): Promise<Array<{ tag: string; className: string; right: number }>> =>
+  page.evaluate(() => {
+    const out: Array<{ tag: string; className: string; right: number }> = [];
+    for (const node of Array.from(document.body.querySelectorAll('*'))) {
+      const box = node.getBoundingClientRect();
+      // Zero-sized and off-screen-by-design nodes (sr-only) are not overhang.
+      if (box.width === 0 || box.height === 0) continue;
+      if (box.right > window.innerWidth + 1) {
+        out.push({
+          tag: node.tagName.toLowerCase(),
+          className: typeof node.className === 'string' ? node.className.slice(0, 80) : '',
+          right: Math.ceil(box.right),
+        });
+      }
+    }
+    return out;
+  });
+
+/** Both reflow checks at once, with a failure message that names the offenders. */
+export async function expectNoOverflow(page: Page): Promise<void> {
+  expect(await scrollsSideways(page)).toBe(false);
+  const overhanging = await overhangingElements(page);
+  expect(
+    overhanging,
+    `these elements hang past the viewport:
+${JSON.stringify(overhanging, null, 2)}`
+  ).toEqual([]);
+}
+
 export function compoundByFormula(formula: string): CompoundData {
   const compound = COMPOUNDS_REGISTRY.find((c) => c.formula === formula);
   if (!compound) throw new Error(`No compound with formula "${formula}"`);

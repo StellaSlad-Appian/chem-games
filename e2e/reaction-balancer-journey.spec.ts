@@ -13,7 +13,7 @@ import { reactionBalancerMessages } from '../src/i18n/game-messages/reaction-bal
 import { en } from '../src/i18n/dictionaries/en';
 import { getReaction } from '../src/core-engine/data/reactions';
 import { answerCoefficients, parseReaction } from '../src/core-engine/utils/balancer-utils';
-import { openGame, overlay } from './helpers';
+import { expectNoOverflow, openGame, overlay } from './helpers';
 
 /** These specs drive the default locale, so the copy they assert is English. */
 const M = reactionBalancerMessages(en, 'en');
@@ -117,7 +117,10 @@ test.describe('Reaction Balancer journeys', () => {
       await openGame(page, 'reaction-balancer', { showBalancerIntro: true });
       await page.screenshot({ path: 'test-results/balancer-phone-instructions.png' });
       await page.getByRole('button', { name: 'GOT IT' }).tap();
-      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true);
+      // Not a bare scrollWidth check: an over-full flex row compresses rather
+      // than scrolling, so that assertion passes while the row overhangs.
+      // `expectNoOverflow` runs both halves — see ./helpers.
+      await expectNoOverflow(page);
       const up = card(page, 'H2O').getByRole('button', { name: M.card.increase('water') });
       const box = await up.boundingBox();
       expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);

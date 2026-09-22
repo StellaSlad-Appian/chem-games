@@ -51,6 +51,41 @@ written reason), **COULD** (nice to have).
 - **SHOULD** Do not rely on Unicode subscripts (`H₂O`) in interactive UI — many screen readers
   read them as ordinary digits or skip them.
 
+### Reflow: `min-w-0`, and why `break-words` is not the fix
+
+This one pattern has caused four separate 1.4.10 failures, so it gets its own heading
+rather than a fifth bug.
+
+**The rule.** A flex item that contains text needs `min-w-0`. Its automatic minimum size
+is its *min-content* width — the longest unbreakable word — so a long word does not wrap,
+it widens the item and pushes the whole page sideways. `break-words` alone does nothing,
+because the item never gets narrow enough for the break to matter.
+
+**Apply it to the flex item, not the text.** This is what made the fourth bug take two
+attempts. In
+
+```
+<div class="flex …">        ← the flex item: min-w-0 goes HERE
+  <div>
+    <h2 class="min-w-0">…   ← too shallow: fixed the column, left the row broken
+```
+
+the `h2` already had `min-w-0` and the row still overflowed at 768px in every locale.
+Walk up to the child of the flex container and put it there. Pair it with `shrink-0` on
+whatever must keep its size (an icon, a "read more" link).
+
+**The four:** the Spanish dashboard heading at 320px, every German cheat sheet, English
+`stoichiometry`, and the dashboard's `SectionHeading` row at 768px in every locale. All
+four are fixed; the worked example with the reasoning is in the comment at
+`src/app/[lang]/(main)/page.tsx`.
+
+**Testing it.** A 320px check would have passed the fourth bug — it failed at 768px and
+1024px, because German needs more room, not less. Check the widths the content demands,
+not one canonical narrow viewport. And use `expectNoOverflow()` from `e2e/helpers.ts`
+rather than a bare `scrollWidth` comparison: an over-full flex row **compresses** instead
+of scrolling, so `scrollWidth <= innerWidth` passes while the row is unreadable. That is
+how the German header shipped needing 1033px in a 1024px viewport with every locale green.
+
 ## 4. Operable
 
 ### Keyboard (2.1.1, 2.1.2, 2.4.3, 2.4.7)

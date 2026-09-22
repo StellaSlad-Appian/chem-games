@@ -10,16 +10,13 @@
 // link lands on a page that really renders, and nothing scrolls sideways on a
 // phone in the language whose text is longest.
 
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { LOCALES } from '../src/i18n/config';
 import { getDictionary } from '../src/i18n/dictionaries';
-import { path, waitForHydration } from './helpers';
+import { path, scrollsSideways, waitForHydration } from './helpers';
 
 const PHONE = { width: 360, height: 740 };
 
-/** True when the document is wider than the window — WCAG 1.4.10's failure. */
-const scrollsSideways = (page: Page) =>
-  page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
 
 test.describe('the Explore page', () => {
   for (const locale of LOCALES) {
