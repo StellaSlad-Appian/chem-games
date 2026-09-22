@@ -5,6 +5,7 @@
 // render (with their empty states) instead of crashing.
 
 import { createClient } from '@/lib/supabase/server';
+import { SAMPLE_LEADERBOARDS, hasNoRealEntries } from '@/lib/sample-leaderboards';
 import type {
   GameLeaderboard,
   GameName,
@@ -77,8 +78,28 @@ async function getPrimaryConceptTitles(
  * view (best victory score per player, ranked with ties). Games with no
  * victories yet are included with an empty list so their tab still appears.
  */
+/**
+ * The public boards, or a stand-in when there is nothing to show.
+ *
+ * The substitution is all-or-nothing and only fires when *every* game has zero
+ * entries — which also covers the unconfigured-Supabase case, where the read
+ * below returns `[]`. One real score anywhere and the readers see only real
+ * scores, so nobody is ever ranked against `SAMPLE_LEADERBOARDS`. Read the
+ * header of that file before changing this.
+ */
 export async function getPublicLeaderboards(
   entriesPerGame: number = DEFAULT_LEADERBOARD_SIZE
+): Promise<GameLeaderboard[]> {
+  const boards = await readPublicLeaderboards(entriesPerGame);
+  if (!hasNoRealEntries(boards)) return boards;
+  return SAMPLE_LEADERBOARDS.map((board) => ({
+    ...board,
+    entries: board.entries.slice(0, entriesPerGame),
+  }));
+}
+
+async function readPublicLeaderboards(
+  entriesPerGame: number
 ): Promise<GameLeaderboard[]> {
   const supabase = await createClient();
   if (!supabase) return [];
