@@ -82,6 +82,18 @@
     --game-accent-amber:   #fbbf24; /* amber-400   — 10.61:1 */
     --game-accent-rose:    #fb7185; /* rose-400    — 6.58:1 */
 
+    /*
+     * Explore is NOT a game, and deliberately does not take one of the five
+     * above. Those encode which game a card is; a sixth from the same set would
+     * say Explore is a sixth game, and the five hues already span the wheel, so
+     * a distinct sixth would have to crowd one of them.
+     *
+     * It gets the site's own blue instead, which is what its section link and
+     * the nav already use — but as a token, because the bare `text-blue-500`
+     * used elsewhere is only 3.68:1 on white and fails text contrast.
+     */
+    --accent-explore: #60a5fa; /* blue-400 — 6.97:1 on #18181b */
+
     /* --- Feedback states --- */
     --correct: #10b981;
     --wrong:   #ef4444;
@@ -129,6 +141,7 @@
     --game-accent-emerald: #047857; /* emerald-700 — 5.48:1 */
     --game-accent-amber:   #b45309; /* amber-700   — 5.02:1 */
     --game-accent-rose:    #e11d48; /* rose-600    — 4.70:1 */
+    --accent-explore:      #2563eb; /* blue-600    — 5.17:1 */
     --correct: #10b981;
     --wrong: #ef4444;
     --game-success: #10b981;

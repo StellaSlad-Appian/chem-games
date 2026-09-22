@@ -131,9 +131,6 @@ export const de = {
     emptyProfileAnonymousBody:
       'Melde dich an, um deinen Fortschritt zu speichern, deine Labornotizen zu verwalten und dein Forschungsprofil aufzubauen.',
     emptyProfileCta: 'Anmelden / Registrieren',
-    teaserAcidDetail: 'Stoffe und pH-Werte einordnen',
-    teaserBlasterDetail: 'Verbindungen zerplatzen lassen, Ionen ausgleichen',
-    teaserNeutraliseDetail: 'Schütze das Labor vor außer Kontrolle geratenen Reaktionen',
   },
 
   gamesHub: {

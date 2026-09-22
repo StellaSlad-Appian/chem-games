@@ -186,13 +186,19 @@ export default async function Home(props: PageProps<'/[lang]'>) {
           />
           <LocaleLink
             href="/explore"
-            className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-blue-500 hover:shadow-xl"
+            className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-(--accent-explore) hover:shadow-xl"
           >
             <div>
-              <span className="block h-2 w-16 rounded-full bg-blue-500" />
+              {/*
+                The same icon as the section heading above, so the card and its
+                heading agree. Blue rather than one of the five game accents:
+                Explore is a section, not a sixth game — see the note on
+                `--accent-explore` in globals.css.
+              */}
+              <Compass className="h-8 w-8 shrink-0 text-(--accent-explore)" aria-hidden="true" />
               <p className="mt-5 max-w-2xl text-sm text-(--muted)">{t.home.exploreDetail}</p>
             </div>
-            <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-blue-500">
+            <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-(--accent-explore)">
               <span>{t.home.exploreLink}</span>
               <ArrowRight
                 className="h-4 w-4 shrink-0 transition group-hover:translate-x-1"

@@ -137,9 +137,6 @@ export const fr = {
     emptyProfileAnonymousBody:
       'Connecte-toi pour garder tes progrès, gérer tes notes de labo et construire ton profil de scientifique.',
     emptyProfileCta: 'Connexion / Inscription',
-    teaserAcidDetail: 'Classer les substances et les valeurs de pH',
-    teaserBlasterDetail: 'Faire éclater des composés, équilibrer des ions',
-    teaserNeutraliseDetail: 'Défendre le labo contre des réactions incontrôlées',
   },
 
   gamesHub: {

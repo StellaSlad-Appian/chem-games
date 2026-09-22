@@ -154,9 +154,6 @@ export const es = {
     emptyProfileAnonymousBody:
       'Inicia sesión para guardar tu progreso, gestionar tus notas de laboratorio y construir tu perfil científico.',
     emptyProfileCta: 'Iniciar sesión / Registrarse',
-    teaserAcidDetail: 'Clasifica sustancias y valores de pH',
-    teaserBlasterDetail: 'Revienta compuestos y ajusta iones',
-    teaserNeutraliseDetail: 'Defiende el laboratorio de reacciones descontroladas',
   },
 
   gamesHub: {

@@ -145,9 +145,6 @@ export const en = {
     emptyProfileAnonymousBody:
       'Log in to save your progress, manage your lab notes, and build your scientist profile.',
     emptyProfileCta: 'Log in / Register',
-    teaserAcidDetail: 'Classify materials & pH levels',
-    teaserBlasterDetail: 'Pop compounds & balance ions',
-    teaserNeutraliseDetail: 'Defend the lab from runaway reactions',
   },
 
   gamesHub: {

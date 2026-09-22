@@ -155,9 +155,6 @@ export const ru = {
     emptyProfileAnonymousBody:
       'Войди, чтобы сохранять прогресс, вести лабораторные записи и собрать профиль исследователя.',
     emptyProfileCta: 'Войти / Зарегистрироваться',
-    teaserAcidDetail: 'Разбери вещества и уровни pH',
-    teaserBlasterDetail: 'Лопай соединения и собирай ионы',
-    teaserNeutraliseDetail: 'Защити лабораторию от бурных реакций',
   },
 
   gamesHub: {

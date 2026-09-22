@@ -155,9 +155,6 @@ export const it = {
     emptyProfileAnonymousBody:
       'Accedi per salvare i tuoi progressi, gestire i tuoi appunti di laboratorio e costruire il tuo profilo scientifico.',
     emptyProfileCta: 'Accedi / Registrati',
-    teaserAcidDetail: 'Classifica le sostanze e i valori di pH',
-    teaserBlasterDetail: 'Fai scoppiare i composti e bilancia gli ioni',
-    teaserNeutraliseDetail: 'Difendi il laboratorio dalle reazioni fuori controllo',
   },
 
   gamesHub: {
