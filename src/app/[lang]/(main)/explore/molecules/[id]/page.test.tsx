@@ -128,57 +128,52 @@ describe('a molecule permalink', () => {
   });
 
   // -------------------------------------------------------------------------
-  // The date sentence — the part most likely to be wrong
+  // Rotation dates: the permalink says nothing about them
   // -------------------------------------------------------------------------
 
-  it('says "not yet" before the entry has ever run', async () => {
-    // Week 1, asking about the pair due in week 2.
-    vi.setSystemTime(midWeek(1));
-    await renderPage('en', THIRD.molecule.id);
+  it('never tells the reader where the entry sits in the rotation', async () => {
+    // There used to be a box here saying how many times the entry had run
+    // and when it was next due — “Last featured in the week of 7 September
+    // 2026. It comes round again in the week of 25 January 2027.” It was
+    // removed: it explained the schedule's bookkeeping to a reader who had
+    // not asked and could do nothing with the answer.
+    //
+    // Checked at three points in the cycle, because the old box said three
+    // different things depending on how many times the pair had run, and a
+    // partial revert would show up at exactly one of them.
+    for (const week of [1, 2, POOL + 5]) {
+      vi.setSystemTime(midWeek(week));
+      const { container, unmount } = await renderPage('en', THIRD.molecule.id);
+      const text = container.textContent ?? '';
 
-    expect(screen.getByText(/Not featured yet/)).toBeInTheDocument();
-    expect(screen.queryByText(/Last featured/)).not.toBeInTheDocument();
-  });
-
-  it('names a single week only when the entry has run exactly once', async () => {
-    vi.setSystemTime(midWeek(2));
-    await renderPage('en', THIRD.molecule.id);
-
-    expect(screen.getByText(/^Featured in the week of /)).toBeInTheDocument();
-    expect(screen.queryByText(/comes round again/)).not.toBeInTheDocument();
-  });
-
-  it('names both weeks once the entry has run more than once', async () => {
-    // **The trap.** Week 2 and week 22 are the same pair. A page read in week
-    // 25 that said "Featured in the week of 19 January" would be pointing a
-    // reader at a week five months before the one that actually happened.
-    vi.setSystemTime(midWeek(POOL + 5));
-    const { container } = await renderPage('en', THIRD.molecule.id);
-
-    const text = container.textContent ?? '';
-    expect(text).toMatch(/Last featured in the week of /);
-    expect(text).toMatch(/comes round again in the week of /);
-    // Two different dates, not the same one twice.
-    const dates = text.match(/\d{1,2} \w+ \d{4}/g) ?? [];
-    expect(new Set(dates).size).toBeGreaterThanOrEqual(2);
+      expect(text).not.toMatch(/Not featured yet/);
+      expect(text).not.toMatch(/Featured in the week of/);
+      expect(text).not.toMatch(/Last featured/);
+      expect(text).not.toMatch(/comes round again/);
+      unmount();
+    }
   });
 
   it('never dates a permalink with a <time> element', async () => {
-    // A `<time datetime>` on a sentence holding two dates tells a crawler the
-    // page is about one day. For an entry that runs every twenty weeks there is
-    // no such day, so the page makes no machine-readable claim. The dateline on
-    // /explore and the archive rows, which really are one week each, still do.
+    // Predates the removal above and outlives it. An entry runs every
+    // twenty weeks, so there is no one day the page is “about”, and it makes
+    // no machine-readable claim that there is. The dateline on /explore and
+    // the archive rows, which really are one week each, still do.
     const { container } = await renderPage('en', THIRD.molecule.id);
     expect(container.querySelectorAll('time')).toHaveLength(0);
   });
 
-  it('formats its dates in the reader’s language, through formattingLocale', async () => {
+  it('formats its remaining dates in the reader’s language', async () => {
+    // The sources line is the only date left on a permalink now that the
+    // rotation box is gone. It still has to go through `formattingLocale`.
     const { container } = await renderPage('de', THIRD.molecule.id);
     const text = container.textContent ?? '';
 
-    expect(text).toContain('Zuletzt vorgestellt');
-    // German month names, not English ones. The specific month depends on the
-    // week, so the assertion is that no English month survived.
+    // German month names, not English ones. The specific month depends on
+    // the entry, so the assertion is that no English month survived.
+    // "19. Sept. 2026" — German ordinal day, abbreviated month, and Intl
+    // keeps the dot on the abbreviation.
+    expect(text).toMatch(/\d{1,2}\. \w+\.? \d{4}/);
     expect(text).not.toMatch(/January|February|September|October/);
   });
 

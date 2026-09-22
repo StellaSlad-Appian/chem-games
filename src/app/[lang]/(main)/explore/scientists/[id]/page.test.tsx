@@ -141,12 +141,18 @@ describe('a scientist permalink', () => {
     );
   });
 
-  it('dates itself the same way its molecule does', async () => {
-    // The two are scheduled together, so a reader who opens one and then the
-    // other must not be told two different things about the same week.
+  it('says nothing about the rotation, exactly as its molecule does not', async () => {
+    // The two are scheduled together and must stay consistent: neither
+    // permalink carries the rotation box any more. See the fuller note in
+    // the molecule permalink's test.
     vi.setSystemTime(midWeek(2));
     const { container } = await renderPage('en', THIRD.scientist.id);
-    expect(container.textContent).toMatch(/Featured in the week of /);
+    const text = container.textContent ?? '';
+
+    expect(text).not.toMatch(/Featured in the week of/);
+    expect(text).not.toMatch(/Last featured/);
+    expect(text).not.toMatch(/comes round again/);
+    expect(text).not.toMatch(/Not featured yet/);
   });
 
   it('calls notFound for an id that is not in the pool', async () => {

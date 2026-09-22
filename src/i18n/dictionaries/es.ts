@@ -715,6 +715,8 @@ export const es = {
     scientistCta: 'La química detrás: {target}',
     moleculeImageA11y: 'Esquema: {name}',
     scientistImageA11y: 'Imagen: {name}',
+    scientistWorkImageA11y: 'Imagen de su trabajo: {name}',
+    imageSourceLabel: 'Fuente',
     sourcesHeading: 'Fuentes',
     sourcesNote: 'Enlaces comprobados por última vez el {date}.',
 
@@ -729,8 +731,6 @@ export const es = {
     // «De la misma semana» y no «Emparejada con»: el encabezado va delante de
     // un nombre, y el participio tendría que concordar con él. Véase en.ts.
     sameWeekHeading: 'De la misma semana',
-    featuredOnce: 'Apareció la semana del {date}.',
-    featuredAgain: 'Última aparición la semana del {date}. Vuelve la semana del {nextDate}.',
     featuredNever: 'Todavía no ha aparecido. Primera aparición la semana del {date}.',
   },
 

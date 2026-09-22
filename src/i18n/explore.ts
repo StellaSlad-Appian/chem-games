@@ -39,6 +39,7 @@ import type {
   ExploreLink,
   ExploreMolecule,
   ExploreScientist,
+  ExploreScientistImage,
   ExploreSource,
 } from '@/lib/explore/types';
 import { compoundName } from './chemistry-names';
@@ -137,7 +138,7 @@ export interface LocalizedScientist {
   id: string;
   name: string;
   lifespan: string;
-  image?: ExploreImage;
+  image?: ExploreScientistImage;
   work: string;
   legacy: string;
   credit?: string;

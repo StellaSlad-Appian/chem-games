@@ -135,24 +135,29 @@ describe('the scientist tab', () => {
 
     const image = container.querySelector('section img') as HTMLImageElement | null;
     if (image) {
-      expect(image.className).toContain('sm:float-left');
+      // The float lives on the <figure>, not the <img>. It moved there when
+      // the licence credit arrived: the credit has to travel with the
+      // picture it credits, and a <figcaption> outside the floated box
+      // would wrap into the prose on its own.
+      const figure = image.closest('figure')!;
+      expect(figure).not.toBeNull();
+      expect(figure.className).toContain('sm:float-left');
 
-      // The width is picked from the file's own dimensions, so the rule has to
-      // be checked against whichever shape this slot currently holds. The
-      // placeholders are landscape 720x400; the real photographs that replace
-      // them will not be, and that is the case the narrow width exists for.
+      // The width is picked from the file's own dimensions, so the rule has
+      // to be checked against whichever shape this slot currently holds.
+      // Most are portraits now that the placeholders are gone; the landscape
+      // branch still covers the ones that are not, such as a manuscript.
       const isPortrait = Number(image.getAttribute('height')) > Number(image.getAttribute('width'));
-      expect(image.className).toContain(isPortrait ? 'sm:w-1/3' : 'sm:w-2/5');
+      expect(figure.className).toContain(isPortrait ? 'sm:w-1/3' : 'sm:w-2/5');
 
       // Height is never capped on a float — `object-contain` would letterbox
       // it and the prose would wrap around the dead space.
       expect(image.className).not.toContain('max-h-80');
 
-      const figureParent = image.parentElement!;
-      expect(figureParent.className).not.toContain('grid');
-      // The credit block sits right below; a licence line wrapping around the
-      // photograph it credits is the thing `clear-both` prevents.
-      expect(figureParent.querySelector('.clear-both')).not.toBeNull();
+      expect(figure.parentElement!.className).not.toContain('grid');
+      // A licence line wrapping around the photograph it credits is the
+      // thing `clear-both` prevents.
+      expect(figure.parentElement!.querySelector('.clear-both')).not.toBeNull();
     }
     // With no picture there is simply no float to wrap, so the prose fills the
     // width on its own — half the chemists still have no picture at all, so

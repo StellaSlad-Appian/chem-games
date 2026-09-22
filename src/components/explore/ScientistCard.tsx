@@ -104,18 +104,85 @@ export function ScientistCard({
           // The alt is built from the name, which is never translated, so this
           // one string reads the same in every locale apart from the word in
           // front of it.
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={scientist.image.src}
-            alt={format(t.explore.scientistImageA11y, { name: scientist.name })}
-            width={scientist.image.width}
-            height={scientist.image.height}
-            className={`mb-4 h-auto w-full rounded-2xl border border-(--border) bg-(--background) sm:float-left sm:mr-6 sm:mb-3 ${
+          //
+          // Which string depends on what the picture is *of*. Most entries
+          // carry a portrait; a few carry a picture of the person's work
+          // instead, because no free portrait of them exists. Calling a
+          // photograph of a 1902 manuscript "Picture: Gilbert N. Lewis" would
+          // be a lie told to exactly the readers who cannot see it to check —
+          // so `subject` picks the string, and the two are translated
+          // separately in all six locales.
+          // A `<figure>`, and the float moved onto it from the picture, so the
+          // credit below travels with the picture it credits instead of
+          // wrapping into the prose on its own. `<figcaption>` is what ties
+          // the two together for a screen reader.
+          <figure
+            className={`mb-4 sm:float-left sm:mr-6 sm:mb-3 ${
               scientist.image.height > scientist.image.width
                 ? 'sm:w-1/3 sm:max-w-[210px]'
                 : 'sm:w-2/5 sm:max-w-sm'
             }`}
-          />
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={scientist.image.src}
+              alt={format(
+                scientist.image.subject === 'work'
+                  ? t.explore.scientistWorkImageA11y
+                  : t.explore.scientistImageA11y,
+                { name: scientist.name },
+              )}
+              width={scientist.image.width}
+              height={scientist.image.height}
+              className="h-auto w-full rounded-2xl border border-(--border) bg-(--background)"
+            />
+            {scientist.image.credit && (
+              /*
+                The licence credit, and it is not optional decoration: most of
+                the free photographs of 20th-century chemists are CC BY or CC
+                BY-SA, and both require the credit to reach the reader. This
+                line is the condition on which the picture above may be shown
+                at all. An entry whose licence asks for nothing — a
+                public-domain file — still names the photographer here, which
+                costs one line and is the same courtesy the sources list pays.
+
+                Assembled from fields rather than stored as a sentence: every
+                piece is a proper name or a URL, so there is nothing here to
+                translate, and docs/i18n/README.md forbids building a sentence
+                out of parts in any case. The separators are the card's, not
+                the data's.
+              */
+              <figcaption className="mt-1.5 text-[11px] leading-snug text-(--muted)">
+                <span>{scientist.image.credit.author}</span>
+                {' · '}
+                {scientist.image.credit.licenceUrl ? (
+                  <a
+                    href={scientist.image.credit.licenceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer license"
+                    className="underline decoration-dotted underline-offset-2 transition hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+                  >
+                    {scientist.image.credit.licence}
+                    <span className="sr-only"> {t.common.opensInNewTab}</span>
+                  </a>
+                ) : (
+                  // Public domain: a statement, not a licence, so there are no
+                  // terms to link to.
+                  <span>{scientist.image.credit.licence}</span>
+                )}
+                {' · '}
+                <a
+                  href={scientist.image.credit.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-dotted underline-offset-2 transition hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+                >
+                  {t.explore.imageSourceLabel}
+                  <span className="sr-only"> {t.common.opensInNewTab}</span>
+                </a>
+              </figcaption>
+            )}
+          </figure>
         )}
 
         {/* A bare `<div>`: anything that establishes a block formatting context

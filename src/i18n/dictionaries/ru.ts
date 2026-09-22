@@ -598,6 +598,8 @@ export const ru = {
     scientistCta: 'Химия за этим: {target}',
     moleculeImageA11y: 'Изображение: {name}',
     scientistImageA11y: 'Фото: {name}',
+    scientistWorkImageA11y: 'Изображение работы: {name}',
+    imageSourceLabel: 'Источник',
     sourcesHeading: 'Источники',
     /*
      * **No full stop after {date}, here or in any string below.**
@@ -634,14 +636,7 @@ export const ru = {
     archiveThisWeek: 'Эта неделя',
     backToExplore: 'Назад к разделу «Открывай»',
     sameWeekHeading: 'Из той же недели',
-    /*
-     * No full stop after a date — see `sourcesNote` above. In `featuredAgain`
-     * the «г.» that closes the first date is also what separates the two
-     * sentences, which is why there is no stop before «Следующая». It is not a
-     * missing one.
-     */
-    featuredOnce: 'Неделя показа — {date}',
-    featuredAgain: 'Последняя неделя показа — {date} Следующая — {nextDate}',
+    /* No full stop after a date — see `sourcesNote` above. */
     featuredNever: 'Показов ещё не было. Первая неделя — {date}',
   },
 

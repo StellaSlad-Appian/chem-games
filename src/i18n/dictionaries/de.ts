@@ -627,6 +627,8 @@ export const de = {
     scientistCta: 'Die Chemie dazu: {target}',
     moleculeImageA11y: 'Abbildung: {name}',
     scientistImageA11y: 'Bild: {name}',
+    scientistWorkImageA11y: 'Bild ihrer Arbeit: {name}',
+    imageSourceLabel: 'Quelle',
     sourcesHeading: 'Quellen',
     sourcesNote: 'Links zuletzt geprüft am {date}.',
 
@@ -641,9 +643,6 @@ export const de = {
     // einem Namen, und „gepaart mit“ verlangt einen Dativ, in dem der Name
     // nicht steht. Siehe den Kommentar in en.ts.
     sameWeekHeading: 'Aus derselben Woche',
-    featuredOnce: 'Vorgestellt in der Woche vom {date}.',
-    featuredAgain:
-      'Zuletzt vorgestellt in der Woche vom {date}. Wieder an der Reihe in der Woche vom {nextDate}.',
     featuredNever: 'Noch nicht vorgestellt. Erstmals in der Woche vom {date}.',
   },
 

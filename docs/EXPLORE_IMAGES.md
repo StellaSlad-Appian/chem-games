@@ -1,65 +1,95 @@
 # Pictures on the Explore page
 
-Where the image files live, how to replace one, and what belongs in each slot.
+Where the image files live, which script owns them, and what belongs in each
+slot.
 
 ---
 
 ## The short version
 
 Both Explore cards — **Molecule of the Week** and **Scientist of the Week** —
-carry a picture. The files sit under `public/`, so **providing a picture is
-replacing a file**: no code changes, no new entry anywhere, no rebuild.
+can carry a picture. The files sit under `public/`, and the page rotates
+weekly, so **each entry has its own**: 20 molecules and 20 scientists for the
+current pool.
 
-The page rotates weekly, so **each entry has its own picture** — 20 molecules
-and 20 scientists for the current pool.
+**Every picture in both folders is produced by a script.** Nothing in either
+folder should be edited or replaced by hand — the next run overwrites it. The
+two scripts are:
 
-All twenty molecule slots are **produced by a script** and should
-not be edited by hand — see [Molecule pictures are generated](#molecule-pictures-are-generated)
-below. Every other slot is a placeholder: a dashed frame showing which entry it
-belongs to, its path and its size. That is deliberate. The card has its final
-layout from the first commit, so nothing shifts when a real picture arrives, and
-you can see the slot on the page before filling it.
+```bash
+npm run explore:images             # molecules — drawn
+npm run explore:scientist-images   # scientists — fetched, licence-checked
+```
 
-**The scientist slots are all still placeholders** and are yours to fill by
-hand, as described below.
+There are no placeholders left anywhere. There used to be twenty, one per
+scientist — a dashed frame reading PICTURE TO COME — and they shipped to
+readers. They are gone, and the rule that replaced them is below.
+
+### An entry with no picture shows no picture
+
+For a scientist the rule is:
+
+> **a free portrait → else a free picture of their work → else nothing at all**
+
+"Nothing at all" means the entry has no `image` and the card renders with no
+picture and no gap — **not** a placeholder, and not a stand-in. One of the
+twenty is in that state today (Marie Maynard Daly; the reasoning is in
+`NO_PICTURE` in the script). `scientist-images.test.ts` holds all three arms
+of the rule.
 
 ---
 
-## Where to put the files
-
-Open one of these folders:
+## Where the files are
 
 ```
-C:\Users\stella.slad\Documents\GitHub\chem-games\public\explore\molecules\
-C:\Users\stella.slad\Documents\GitHub\chem-games\public\explore\scientists\
+public/explore/molecules/     served at /explore/molecules/<file>
+public/explore/scientists/    served at /explore/scientists/<file>
 ```
 
-Each file is named after its entry — `sodium-sulfate.svg`, `maria-telkes.svg`
-and so on. **Replace a file, keep the filename**, and the page picks it up. In
-the repository the folders are `public/explore/molecules/` and
-`public/explore/scientists/`; in the browser they are served at
-`/explore/molecules/<file>` and `/explore/scientists/<file>`.
+Each file is named after its entry's `id` — `sodium-sulfate.svg`,
+`maria-telkes.jpg` — so a slot is findable without a lookup table.
 
-To see which slot is which, open the page and look — every placeholder prints
-its own path.
+**Do not edit or replace these by hand.** Both folders are script output.
+To change a picture, change the script and re-run it; that is also the only
+way the licence check and the measured dimensions stay honest.
 
 ### Format and size
 
-- **720 × 400** is the declared size for every slot.
-- **SVG** for diagrams — sharp at any size, small, and it stays crisp on a
-  phone. **PNG or JPEG** for photographs, at roughly twice the listed size so it
-  is sharp on a high-density screen.
-- If you supply a format other than SVG, change the extension in the entry's
-  `image.src` in `src/lib/explore/molecules.ts` or `scientists.ts` — the `src`
-  names the file.
-- If your file is a different size, update `width` and `height` in the same
-  place, or the picture will be stretched. Those numbers exist so the browser
-  reserves the space before the image loads; without them the text jumps down as
-  each picture arrives.
-- Keep files under about 300 KB. These load on school wifi.
-- **Do not bake a white background into the image.** The card is white in the
-  light theme and near-black in the dark one, so a transparent background with
-  mid-tone lines works in both. A white rectangle looks like a sticker on dark.
+| | molecules | scientists |
+| --- | --- | --- |
+| format | SVG | JPEG |
+| size | 720 × 400, every slot | ≤ 900 px wide, height varies |
+| source | drawn, from SMILES or in code | photographs, fetched from Wikimedia |
+
+A diagram is drawn, so it can be any size and SVG stays sharp. A photograph
+is whatever shape it is, so the scientist files keep their own aspect ratio
+and only the width is normalised.
+
+**Where 900 px comes from.** It is measured, not inherited. The old
+placeholders declared 720 × 400, but that was the placeholder's own size and
+never the size of the slot. Measured off the rendered card on 2026-09-22:
+
+| viewport | slot width | why |
+| --- | --- | --- |
+| 390 (phone) | 306 px | `w-full` inside the card padding |
+| 639 (just under `sm`) | **555 px** | still `w-full` — the widest it ever gets |
+| 1280, landscape file | 331 px | `sm:w-2/5`, capped by `sm:max-w-sm` |
+| 1280, portrait file | 210 px | `sm:w-1/3 sm:max-w-[210px]` |
+
+So 555 CSS px is the ceiling, and it happens on a *small* screen, where the
+float has not kicked in yet. 900 px is about 1.6× that — enough for a 2×
+display at the widest case, without the weight of the ~1440 this document
+used to guess at. **Nothing is ever enlarged past its native width**: four of
+the historical portraits are smaller than 900 px and stay smaller, because
+upscaling only adds bytes.
+
+- `width` and `height` in the data are measured off the finished file, so the
+  browser reserves the right space and the prose does not jump as it loads.
+- Keep files under about 300 KB. These load on school wifi. Both scripts
+  fail the run if a file goes over.
+- **Do not bake a white background into a diagram.** The card is white in the
+  light theme and near-black in the dark one. Photographs are exempt — they
+  have backgrounds of their own and are framed by a border.
 
 ---
 
@@ -150,12 +180,16 @@ Wikimedia Commons' own metadata on 2026-09-20. Each one's entry in the script
 records the Commons page, the licence and the author.
 
 That is not a coincidence. Public domain and CC0 are the only terms that let
-you recolour a file and use it with no attribution line — and the card has
-nowhere to put one. Several better-looking candidates were passed over for
-being CC BY-SA, and the sodium chloride lattice was drawn from scratch for the
-same reason. If you ever do want a CC BY-SA picture, say so: the card needs an
-attribution line first, and that is a real change, not a caption you can tuck
-into the alt text.
+you recolour a file and use it with no attribution line, and the **molecule**
+card still has nowhere to put one. Several better-looking candidates were
+passed over for being CC BY-SA, and the sodium chloride lattice was drawn from
+scratch for the same reason.
+
+The scientist card is now different: it grew a credit line when the portraits
+arrived, because most free photographs of 20th-century chemists are CC BY or
+CC BY-SA. If you want a CC BY-SA picture in a **molecule** slot, say so — the
+molecule card would need the same treatment first, and that is a real change,
+not a caption you can tuck into the alt text.
 
 ### The palette, and why it is not black
 
@@ -191,60 +225,135 @@ Two notes on colour specifically:
 
 ---
 
-## What belongs in each slot
+## Scientist pictures are generated too
 
-**Molecule** — a diagram, not a photograph. A structural formula, a
-ball-and-stick model, or the thing you meet it as. Whatever the card's chemistry
-section is actually about: the sodium sulfate card is about storing heat, so a
-picture of Glauber's salt crystals earns its place more than a generic 3D model.
+```bash
+npm run explore:scientist-images
+```
 
-**Scientist** — a portrait, or their apparatus, or the thing they made.
+`scripts/scientist-images.mts` does three things, and the second is why it
+exists:
+
+1. Fetches each source file from Wikimedia at full resolution and normalises
+   it — ≤900 px wide, JPEG, EXIF stripped.
+2. **Re-checks every licence against Wikimedia on every run, and fails if it
+   moved.** Commons files get re-tagged, relicensed and occasionally deleted
+   as copyright problems come to light. A picture that quietly stopped being
+   free is exactly the failure nobody notices, and the credit line on the
+   card would go on telling readers the old terms.
+3. Writes `src/lib/explore/scientist-images.ts`, which is generated and
+   **must not be hand-edited**. The entries in `scientists.ts` carry no
+   picture data at all; they get whatever the generated map has for their id.
+
+Run it with ids to do a subset: `node scripts/scientist-images.mts tu-youyou`.
+A partial run deliberately does not rewrite the generated module.
+
+### What is in the twenty slots
+
+| | count |
+| --- | --- |
+| Public domain | 6 |
+| CC BY | 3 |
+| CC BY-SA | 7 |
+| Flickr Commons, "no known copyright restrictions" | 2 |
+| a picture of their work, no free portrait existing | 1 |
+| **no picture at all** | **1** |
 
 ### ⚠ Portraits are the part to be careful about
 
-Most of the pool worked in the 20th century, and **a photograph of a 20th-century
-person is very likely still in copyright.** "It was on the internet" is not a
-licence. Before using a portrait, check that it is one of:
+Most of the pool worked in the 20th century, and **a photograph of a
+20th-century person is very likely still in copyright.** "It was on the
+internet" is not a licence, and neither is "it is on Wikipedia" — English
+Wikipedia hosts non-free files under fair use, which is a doctrine we cannot
+rely on. That is exactly what rules out the only portrait of Gilbert N.
+Lewis: `en:File:Gilbert N Lewis.jpg` is tagged non-free, so his slot holds
+his own 1902 memorandum instead.
+
+Before adding a portrait, check that it is one of:
 
 - public domain because of its age or because the rights holder released it;
-- a Creative Commons licence you can actually comply with — most require
-  attribution, and some forbid commercial use;
+- a Creative Commons licence you can actually comply with;
 - yours, or licensed to you.
 
-Wikimedia Commons states a licence on every file, which makes it the least
-painful place to start. If a usable portrait does not exist, the slot is better
-left as a placeholder, or filled with their apparatus or their result — a
-diffraction pattern, a drum of Glauber's salt, a molecule they made.
+Then put it in `MANIFEST` in the script, with its licence and author, and let
+the run verify it. Do not drop a file into `public/` by hand: it will have no
+credit line, no licence check, and the next run will delete it.
 
-There is no attribution line on the card yet. If you use a picture that requires
-attribution, say so and I will add one — that is a real change, not a caption
-you can tuck into the alt text.
+### There is a credit line on the card now
+
+This document used to say there was not, and that using a picture needing
+attribution was "a real change, not a caption you can tuck into the alt
+text". **That change was made.** `ScientistCard` renders the picture in a
+`<figure>` with a `<figcaption>` under it, carrying:
+
+> author · licence (linked to the deed) · Source (linked to the file page)
+
+Ten of the nineteen pictures are CC BY or CC BY-SA, and for those the credit
+is **the condition on which the picture may be shown at all** — not styling.
+Removing the caption means removing those ten pictures. Public-domain files
+still name the photographer there, which costs one line and is the same
+courtesy the sources list pays.
+
+Two licence notes worth keeping in view:
+
+- **"No known copyright restrictions"** (Lonsdale, Blodgett) is a statement by
+  the holding institution that it is unaware of restrictions. It is not a
+  licence grant, and it is weaker than public domain.
+- **ShareAlike** (7 pictures) attaches to the image and to derivatives of it,
+  not to the site. Resizing and converting to JPEG makes a derivative, so
+  those files are themselves CC BY-SA; the credit line says so.
+
+---
+
+## What belongs in each slot
+
+**Molecule** — a diagram, not a photograph. A structural formula, a
+ball-and-stick model, or the thing you meet it as. Whatever the card’s
+chemistry section is actually about: the sodium sulfate card is about storing
+heat, so a picture of Glauber’s salt crystals earns its place more than a
+generic 3D model.
+
+**Scientist** — a portrait. Failing that, their apparatus or their result: a
+diffraction pattern, a drum of Glauber’s salt, a molecule they made. Failing
+that, nothing. Set `subject: 'work'` on the picture when it is the second
+kind, so the alt text says so.
 
 ---
 
 ## Alt text
 
-You do not write it. The alt is built from the entry's own name through
-`explore.moleculeImageA11y` and `explore.scientistImageA11y` in the
-dictionaries, so it already exists in all six languages and cannot go stale when
-the rotation moves on. A German reader gets "Abbildung: Natriumsulfat"; a
-Russian reader gets «Фото: Mária Telkes».
+You do not write it. The alt is built from the entry’s own name through the
+dictionaries, so it already exists in all six languages and cannot go stale
+when the rotation moves on. A German reader gets "Abbildung: Natriumsulfat";
+a Russian reader gets «Фото: Mária Telkes».
 
-That is deliberately generic, and it is the right trade while the pictures do not
-exist: a specific alt describing a picture nobody has chosen yet would be
-fiction, and 40 entries × 5 languages of it would be fiction at scale.
+Three strings, and which one is used is not a style choice:
+
+| key | used for |
+| --- | --- |
+| `moleculeImageA11y` | every molecule diagram |
+| `scientistImageA11y` | a picture **of the person** |
+| `scientistWorkImageA11y` | a picture **of their work** (`subject: 'work'`) |
+
+The third exists because the second would otherwise lie. "Picture: Gilbert N.
+Lewis" over a photograph of a 1902 manuscript tells something false to
+exactly the readers who cannot see the picture to check it. `subject` on the
+image picks the string, and the script requires it.
+
+That is deliberately generic, and it is the right trade while the pictures
+are portraits and plain diagrams.
 
 **If a picture ends up carrying information the prose does not** — a labelled
-diagram, a graph — a generic alt is no longer good enough, and that slot needs a
-real per-entry, per-locale description. That means adding an `imageAlt` field to
-the overlay, the way the cheat sheets do it. Ask for it when you get there; it
-is a small change, but it is a translation job, not a code one.
+diagram, a graph — a generic alt is no longer good enough, and that slot needs
+a real per-entry, per-locale description. That means adding an `imageAlt`
+field to the overlay, the way the cheat sheets do it. Ask for it when you get
+there; it is a small change, but it is a translation job, not a code one.
 
 ---
 
 ## Adding a slot to a new entry
 
-When a new pair is written, give each entry an `image`:
+**A molecule**: give the entry an `image` in `molecules.ts` —
 
 ```ts
 image: {
@@ -254,9 +363,13 @@ image: {
 },
 ```
 
-The filename is the entry's `id`, so the slot is findable without a lookup
-table. `src`, `width` and `height` are structure, never translated, and they sit
-in the English data only — there is nothing to add to any overlay.
+— and add it to `STRUCTURES` or `NOT_FROM_SMILES` in the molecule script.
 
-The field is optional: an entry with no `image` renders as it did before, with
-no gap. So a new pair can ship before its picture exists.
+**A scientist**: add the entry to `MANIFEST` in `scripts/scientist-images.mts`
+and run it. Nothing is added to `scientists.ts` — the generated map is wired
+in for you, and the width, height and licence are measured and checked rather
+than typed.
+
+If no free picture exists, add the id to `NO_PICTURE` **with the reason**,
+and the entry ships with no picture. That is a supported state, not a gap to
+paper over: it is the third arm of the rule, and it is tested.

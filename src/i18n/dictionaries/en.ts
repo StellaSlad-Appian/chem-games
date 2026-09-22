@@ -759,6 +759,16 @@ export const en = {
      */
     moleculeImageA11y: 'Diagram: {name}',
     scientistImageA11y: 'Picture: {name}',
+    /*
+     * Used when the entry's picture is of the person's work rather than of
+     * the person, because no freely licensed portrait of them exists. It has
+     * to say so: a reader who cannot see the picture is told what it shows,
+     * and "Picture: Gilbert N. Lewis" over a photograph of a manuscript would
+     * tell them something false.
+     */
+    scientistWorkImageA11y: 'Picture of their work: {name}',
+    /** The link in an image credit, pointing at the file's page on Wikimedia. */
+    imageSourceLabel: 'Source',
     sourcesHeading: 'Sources',
     sourcesNote: 'Source links last checked {date}.',
 
@@ -787,15 +797,14 @@ export const en = {
      */
     sameWeekHeading: 'From the same week',
     /**
-     * What a permalink says about dates. **Three patterns, not one**, because
-     * an entry runs again every twenty weeks and "Week of 21 September" is
-     * false the second time round. `EntryRotation` in lib/explore/archive.ts
-     * has the full reasoning; the short version is that only an entry which has
-     * run exactly once may be dated with a single date.
+     * The archive's label for a row that has not run yet.
+     *
+     * This used to be one of three sentences that also ran on the permalinks,
+     * where a box said how many times an entry had been featured and when it
+     * was next due. That box is gone: it explained the rotation's bookkeeping
+     * to a reader who had not asked and could not act on it. The archive keeps
+     * this one because a row with no date at all would look like an error.
      */
-    featuredOnce: 'Featured in the week of {date}.',
-    featuredAgain:
-      'Last featured in the week of {date}. It comes round again in the week of {nextDate}.',
     featuredNever: 'Not featured yet. First up in the week of {date}.',
   },
 

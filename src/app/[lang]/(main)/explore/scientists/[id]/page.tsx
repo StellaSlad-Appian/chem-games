@@ -18,7 +18,6 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { ScientistCard } from '@/components/explore/ScientistCard';
-import { EntryDates } from '@/components/explore/EntryDates';
 import { MoleculeEntryLink, scientistHref } from '@/components/explore/EntryLink';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -102,8 +101,6 @@ export default async function ScientistPermalinkPage(
           headingId="explore-entry"
           standalone
         />
-
-        {rotation && <EntryDates rotation={rotation} locale={locale} t={t} />}
 
         {rotation && (
           <section aria-labelledby="explore-pair" className="mt-8">

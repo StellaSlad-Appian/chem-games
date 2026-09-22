@@ -83,6 +83,58 @@ export interface ExploreImage {
   src: string;
   width: number;
   height: number;
+  /**
+   * Who made the picture and under what terms, when the licence asks to be
+   * named. Absent means nothing has to be said — a public-domain file, or one
+   * we drew ourselves.
+   *
+   * Rendered by the card, visibly, under the picture. That is the point: most
+   * of the free photographs of 20th-century chemists are CC BY or CC BY-SA,
+   * and both require the credit to reach the reader. Tucking it into the alt
+   * text or a comment is not compliance, and dropping the field is not either
+   * — it just means the picture cannot be used.
+   *
+   * Every field is structure, never translated: two of them are proper names
+   * and two are URLs. See `ExploreImageCredit`.
+   */
+  credit?: ExploreImageCredit;
+}
+
+/**
+ * An image credit, split into fields rather than kept as one sentence.
+ *
+ * A prose credit would have to be assembled somewhere, and assembling a
+ * sentence out of parts is the one thing `docs/i18n/README.md` forbids. Split,
+ * each piece is either a name or a URL — none of it is translatable — and the
+ * card lays them out with its own punctuation in whatever order the locale's
+ * typography wants.
+ */
+export interface ExploreImageCredit {
+  /** The photographer or holding institution, exactly as upstream names them. */
+  author: string;
+  /** `CC BY-SA 4.0`, `Public domain`, and so on. A licence name, never translated. */
+  licence: string;
+  /**
+   * The licence deed. Absent for `Public domain`, which has no terms to read,
+   * and the card then renders the licence as plain text instead of a link.
+   */
+  licenceUrl?: string;
+  /** The Wikimedia file page, so a reader can check all of the above. */
+  sourceUrl: string;
+}
+
+/**
+ * A scientist's picture, which is not always a picture of the scientist.
+ *
+ * See the rule in `scripts/scientist-images.mts`: a free portrait if one
+ * exists, otherwise a free picture of their work, otherwise no picture at all
+ * and no placeholder. `subject` records which of the first two happened, and
+ * the card uses it to pick the alt text — "Picture: Gilbert N. Lewis" over a
+ * photograph of a manuscript would be a lie told to exactly the readers who
+ * cannot see the picture to check it.
+ */
+export interface ExploreScientistImage extends ExploreImage {
+  subject: 'person' | 'work';
 }
 
 export interface ExploreMolecule extends ExploreProvenance {
@@ -132,8 +184,12 @@ export interface ExploreScientist extends ExploreProvenance {
    */
   represents: 'woman' | 'man' | 'other';
   /** What they did — leads with the science. With `legacy`, 120–180 English words. */
-  /** Optional portrait or illustration, shown beside the prose. */
-  image?: ExploreImage;
+  /**
+   * Optional portrait, or a picture of their work when no free portrait
+   * exists. Absent means the card shows no picture and no placeholder — see
+   * `ExploreScientistImage`.
+   */
+  image?: ExploreScientistImage;
   work: string;
   /** Why it mattered. */
   legacy: string;

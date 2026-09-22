@@ -43,7 +43,6 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { MoleculeCard } from '@/components/explore/MoleculeCard';
-import { EntryDates } from '@/components/explore/EntryDates';
 import { moleculeHref, ScientistEntryLink } from '@/components/explore/EntryLink';
 import { DEFAULT_LOCALE, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -143,7 +142,6 @@ export default async function MoleculePermalinkPage(
           standalone
         />
 
-        {rotation && <EntryDates rotation={rotation} locale={locale} t={t} />}
 
         {/*
           The other half of the week. The molecule and the scientist are

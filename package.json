@@ -16,6 +16,7 @@
     "e2e:report": "playwright show-report",
     "i18n:review": "node scripts/i18n-review.mts",
     "explore:images": "node scripts/molecule-images.mts",
+    "explore:scientist-images": "node scripts/scientist-images.mts",
     "cheat-sheets:diagrams": "node scripts/cheat-sheet-diagrams.mts",
     "check": "npm run lint && npm run typecheck && npm run test && npm run e2e"
   },

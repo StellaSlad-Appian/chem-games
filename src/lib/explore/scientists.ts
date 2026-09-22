@@ -27,6 +27,7 @@
 // Reading age ~12, one idea per sentence, `work` + `legacy` between 120 and 180
 // words — all three asserted by the tests next door.
 
+import { SCIENTIST_IMAGES } from './scientist-images';
 import type { ExploreScientist } from './types';
 
 /**
@@ -43,14 +44,25 @@ const NOBEL = (year: string, slug: string, label: string) => ({
   url: `https://www.nobelprize.org/prizes/chemistry/${year}/${slug}/facts/`,
 });
 
-export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
+/**
+ * The entries, before their pictures are attached.
+ *
+ * The prose lives here and the picture does not, because the two are
+ * maintained by different things. `scripts/scientist-images.mts` owns every
+ * picture: it fetches the file, re-checks the licence against Wikimedia and
+ * measures the result, then writes `scientist-images.ts`. A `width` typed in
+ * here by hand would be a guess, and a `licence` typed in here by hand would
+ * go stale the first time Commons re-tagged a file — silently, while the card
+ * went on telling readers the old terms.
+ *
+ * So an entry says nothing about its picture at all, and gets whatever the
+ * generated map has for its id. An id absent from that map has no picture,
+ * and the card then renders no picture and no placeholder. That is the whole
+ * of the rule — there is no third state to get wrong.
+ */
+const ENTRIES: ExploreScientist[] = [
   {
     id: 'kathleen-lonsdale',
-    image: {
-      src: '/explore/scientists/kathleen-lonsdale.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Kathleen Lonsdale',
     lifespan: '1903–1971',
     represents: 'woman',
@@ -75,11 +87,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'soren-sorensen',
-    image: {
-      src: '/explore/scientists/soren-sorensen.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Søren Sørensen',
     lifespan: '1868–1939',
     represents: 'man',
@@ -101,11 +108,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'katharine-blodgett',
-    image: {
-      src: '/explore/scientists/katharine-blodgett.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Katharine Blodgett',
     lifespan: '1898–1979',
     represents: 'woman',
@@ -130,11 +132,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'kikunae-ikeda',
-    image: {
-      src: '/explore/scientists/kikunae-ikeda.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Kikunae Ikeda',
     lifespan: '1864–1936',
     represents: 'man',
@@ -159,11 +156,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'susan-solomon',
-    image: {
-      src: '/explore/scientists/susan-solomon.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Susan Solomon',
     lifespan: 'b. 1956',
     represents: 'woman',
@@ -185,11 +177,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'fritz-haber',
-    image: {
-      src: '/explore/scientists/fritz-haber.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Fritz Haber',
     lifespan: '1868–1934',
     represents: 'man',
@@ -211,11 +198,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'marie-maynard-daly',
-    image: {
-      src: '/explore/scientists/marie-maynard-daly.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Marie Maynard Daly',
     lifespan: '1921–2003',
     represents: 'woman',
@@ -239,11 +221,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'paul-sabatier',
-    image: {
-      src: '/explore/scientists/paul-sabatier.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Paul Sabatier',
     lifespan: '1854–1941',
     represents: 'man',
@@ -270,11 +247,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'reatha-clark-king',
-    image: {
-      src: '/explore/scientists/reatha-clark-king.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Reatha Clark King',
     lifespan: 'b. 1938',
     represents: 'woman',
@@ -299,11 +271,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'gilbert-lewis',
-    image: {
-      src: '/explore/scientists/gilbert-lewis.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Gilbert N. Lewis',
     lifespan: '1875–1946',
     represents: 'man',
@@ -325,11 +292,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'stephanie-kwolek',
-    image: {
-      src: '/explore/scientists/stephanie-kwolek.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Stephanie Kwolek',
     lifespan: '1923–2014',
     represents: 'woman',
@@ -351,11 +313,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'akira-yoshino',
-    image: {
-      src: '/explore/scientists/akira-yoshino.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Akira Yoshino',
     lifespan: 'b. 1948',
     represents: 'man',
@@ -380,11 +337,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'margarita-salas',
-    image: {
-      src: '/explore/scientists/margarita-salas.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Margarita Salas',
     lifespan: '1938–2019',
     represents: 'woman',
@@ -409,11 +361,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'alfred-werner',
-    image: {
-      src: '/explore/scientists/alfred-werner.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Alfred Werner',
     lifespan: '1866–1919',
     represents: 'man',
@@ -438,11 +385,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'johanna-dobereiner',
-    image: {
-      src: '/explore/scientists/johanna-dobereiner.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Johanna Döbereiner',
     lifespan: '1924–2000',
     represents: 'woman',
@@ -467,11 +409,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'vladimir-prelog',
-    image: {
-      src: '/explore/scientists/vladimir-prelog.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Vladimir Prelog',
     lifespan: '1906–1998',
     represents: 'man',
@@ -493,11 +430,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'maria-telkes',
-    image: {
-      src: '/explore/scientists/maria-telkes.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Mária Telkes',
     lifespan: '1900–1995',
     represents: 'woman',
@@ -522,11 +454,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'giulio-natta',
-    image: {
-      src: '/explore/scientists/giulio-natta.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Giulio Natta',
     lifespan: '1903–1979',
     represents: 'man',
@@ -553,11 +480,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'tu-youyou',
-    image: {
-      src: '/explore/scientists/tu-youyou.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Tu Youyou',
     lifespan: 'b. 1930',
     represents: 'woman',
@@ -584,11 +506,6 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
 
   {
     id: 'dan-shechtman',
-    image: {
-      src: '/explore/scientists/dan-shechtman.svg',
-      width: 720,
-      height: 400,
-    },
     name: 'Dan Shechtman',
     lifespan: 'b. 1941',
     represents: 'man',
@@ -611,3 +528,16 @@ export const EXPLORE_SCIENTISTS: ExploreScientist[] = [
     isActive: true,
   },
 ];
+
+/**
+ * The pool, each entry carrying whatever picture the generator found for it.
+ *
+ * `image` stays optional on the way out: the spread only adds the key when
+ * there is one, so `marie-maynard-daly` has no `image` property rather than an
+ * `image` set to `undefined`. `ScientistCard` tests the field, and the two are
+ * not the same thing to anything that enumerates keys.
+ */
+export const EXPLORE_SCIENTISTS: ExploreScientist[] = ENTRIES.map((entry) => {
+  const image = SCIENTIST_IMAGES[entry.id];
+  return image ? { ...entry, image } : entry;
+});

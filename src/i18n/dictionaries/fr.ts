@@ -680,6 +680,8 @@ export const fr = {
     scientistCta: 'La chimie derrière : {target}',
     moleculeImageA11y: 'Schéma\u00a0: {name}',
     scientistImageA11y: 'Image\u00a0: {name}',
+    scientistWorkImageA11y: 'Image de ses travaux\u00a0: {name}',
+    imageSourceLabel: 'Source',
     sourcesHeading: 'Sources',
     sourcesNote: 'Liens vérifiés le {date}.',
 
@@ -695,9 +697,6 @@ export const fr = {
     // un nom, et la formulation reste vraie même quand la paire est déjà
     // passée cinq fois. Voir le commentaire dans en.ts.
     sameWeekHeading: 'De la même semaine',
-    featuredOnce: 'À l’affiche la semaine du {date}.',
-    featuredAgain:
-      'Dernière apparition la semaine du {date}. De retour la semaine du {nextDate}.',
     featuredNever: 'Pas encore à l’affiche. Première apparition la semaine du {date}.',
   },
 

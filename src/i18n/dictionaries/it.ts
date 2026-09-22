@@ -732,6 +732,8 @@ export const it = {
     scientistCta: 'La chimica dietro: {target}',
     moleculeImageA11y: 'Schema: {name}',
     scientistImageA11y: 'Immagine: {name}',
+    scientistWorkImageA11y: 'Immagine del suo lavoro: {name}',
+    imageSourceLabel: 'Fonte',
     sourcesHeading: 'Fonti',
     sourcesNote: 'Link controllati l’ultima volta il {date}.',
 
@@ -747,9 +749,6 @@ export const it = {
     // con il nome che segue, che può essere una molecola o una persona. È lo
     // stesso problema di `legacyHeading` qui sopra; vedi il commento in en.ts.
     sameWeekHeading: 'Della stessa settimana',
-    featuredOnce: 'In evidenza nella settimana del {date}.',
-    featuredAgain:
-      'Ultima apparizione nella settimana del {date}. Torna nella settimana del {nextDate}.',
     featuredNever: 'Non ancora in evidenza. Prima apparizione nella settimana del {date}.',
   },
 
