@@ -189,8 +189,6 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Dibujar los electrones en órbitas circulares, como planetas. No van por una trayectoria. Un nivel es una energía, y un electrón está en algún punto de una región alrededor del núcleo, no sobre una línea.',
-      'Creerse el tamaño de los dibujos. Si el núcleo fuera un guisante, el átomo sería un campo de deporte. Cualquier esquema aplasta esa diferencia para que quepa en la página, también los de esta chuleta.',
       'Confundir el número atómico con el número másico. El número atómico son los protones y da nombre al elemento. El número másico son protones más neutrones.',
       'Pensar que un ion es otro elemento. Perder o ganar un electrón cambia la carga, no el número de protones. El sodio y Na+ son los dos sodio.',
     ],
@@ -229,13 +227,6 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
           'Tres átomos de hidrógeno uno al lado del otro: uno con un protón, otro con un protón y un neutrón, y otro con un protón y dos neutrones. Los tres tienen un solo electrón.',
       },
       {
-        heading: 'Por qué la masa atómica relativa casi nunca es un número entero',
-        content:
-          'Una muestra de un elemento es una mezcla de sus isótopos, en proporciones fijas. La masa atómica relativa es la media de esa mezcla, ponderada según lo común que es cada isótopo. El cloro es aproximadamente tres cuartas partes cloro-35 y una cuarta parte cloro-37. La media sale 35,5. Ningún átomo de cloro pesa eso. Esta sección es una ampliación: la masa atómica relativa es materia de bachillerato, y está aquí porque sin ella los isótopos no tienen sentido.',
-        imageAlt:
-          'Una barra que muestra un 75 por ciento de cloro-35 y un 25 por ciento de cloro-37, con la parte más pequeña además rayada. Debajo, una escala de masas de 35 a 37 marca la media en 35,5, a un cuarto del recorrido y no en el centro, y la suma está escrita entera: 0,75 por 35 más 0,25 por 37 da 35,5 y no 36. Una nota avisa de que el reparto está redondeado y de que las abundancias medidas son del 75,8 y del 24,2 por ciento.',
-      },
-      {
         heading: 'Núcleos inestables y las tres clases de radiación',
         content:
           'Algunos núcleos son inestables. Se desintegran por su cuenta, emiten radiación y dejan detrás un átomo más estable. El radón-222 expulsa una partícula alfa, que son dos protones y dos neutrones juntos. El yodo-131 emite una partícula beta, que es un electrón rápido salido del núcleo. El cobalto-60 emite radiación gamma, que es energía y no una partícula. Un papel detiene la alfa, una lámina de aluminio detiene la beta, y la gamma necesita plomo u hormigón grueso.',
@@ -264,8 +255,6 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Dibujar los electrones en órbitas circulares, como planetas. No van por una trayectoria. Un nivel es una energía, y un electrón está en algún punto de una región alrededor del núcleo, no sobre una línea.',
-      'Creerse el tamaño de los dibujos. Si el núcleo fuera un guisante, el átomo sería un campo de deporte. Cualquier esquema aplasta esa diferencia para que quepa en la página, también los de esta chuleta.',
       'Leer la masa atómica relativa como un recuento de partículas. Es una media entre isótopos: el 35,5 del cloro no es ningún átomo que puedas encontrar.',
       'Sumar las dos masas de los isótopos y dividir entre dos. Para el cloro sale 36, y está mal, porque el cloro-35 es tres veces más abundante que el cloro-37.',
     ],

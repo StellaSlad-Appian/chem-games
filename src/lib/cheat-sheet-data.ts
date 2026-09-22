@@ -343,8 +343,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
        */
     ],
     commonMistakes: [
-      'Drawing electrons on circular tracks, like planets. They are not on tracks. A level is an energy, and an electron is somewhere in a region around the nucleus, not at a point on a line.',
-      'Believing the pictures about size. If the nucleus were a pea, the atom would be a sports field. Every diagram shrinks that gap to fit on a page, including the ones on this sheet.',
       'Confusing atomic number with mass number. Atomic number is protons and names the element. Mass number is protons plus neutrons.',
       'Thinking an ion is a different element. Losing or gaining an electron changes the charge, not the number of protons. Sodium and Na+ are both sodium.',
     ],
@@ -399,17 +397,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         },
       },
       {
-        heading: 'Why relative atomic mass is rarely a whole number',
-        content:
-          'A sample of an element is a mixture of its isotopes, in fixed proportions. Relative atomic mass is the average across that mixture, weighted by how common each isotope is. Chlorine is about three-quarters chlorine-35 and one-quarter chlorine-37, which averages to 35.5. No single chlorine atom weighs that. This section is an extension: relative atomic mass is VCE Unit 1 work, and it is here because isotopes make no sense without it.',
-        image: {
-          src: `${ISOTOPE_DIAGRAMS}04-weighted-average.svg`,
-          width: 640,
-          height: 340,
-          alt: 'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, the smaller part hatched as well as differently filled. Below it, a mass scale from 35 to 37 marks the average at 35.5, a quarter of the way along rather than in the middle, and the sum is written out: 0.75 times 35 plus 0.25 times 37 makes 35.5, not 36. A note says the split is rounded, and that the measured abundances are 75.8 and 24.2 per cent.',
-        },
-      },
-      {
         heading: 'Unstable nuclei, and the three kinds of radiation',
         content:
           'Some nuclei are unstable. They break down on their own, give out radiation, and leave a more stable atom behind. Radon-222 throws out an alpha particle, which is two protons and two neutrons stuck together. Iodine-131 gives out a beta particle, which is a fast electron thrown from the nucleus. Cobalt-60 gives out gamma radiation, which is energy rather than a particle. Paper stops alpha, a sheet of aluminium stops beta, and gamma needs lead or thick concrete.',
@@ -449,8 +436,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
     ],
     commonMistakes: [
-      'Drawing electrons on circular tracks, like planets. They are not on tracks. A level is an energy, and an electron is somewhere in a region around the nucleus, not at a point on a line.',
-      'Believing the pictures about size. If the nucleus were a pea, the atom would be a sports field. Every diagram shrinks that gap to fit on a page, including the ones on this sheet.',
       'Reading relative atomic mass as a count of particles. It is an average over isotopes, so chlorine’s 35.5 is not any atom you could find.',
       'Adding the two isotope masses and halving them. That gives 36 for chlorine, and it is wrong because chlorine-35 is three times as common as chlorine-37.',
     ],

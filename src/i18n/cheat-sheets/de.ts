@@ -164,8 +164,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Elektronen auf Kreisbahnen zeichnen, wie Planeten. Sie laufen nicht auf Bahnen. Eine Stufe ist eine Energie, und ein Elektron ist irgendwo in einem Bereich um den Kern, nicht an einem Punkt einer Linie.',
-      'Den Bildern die Größe glauben. Wäre der Kern eine Erbse, wäre das Atom ein Sportplatz. Jede Zeichnung schrumpft diesen Abstand, damit sie auf die Seite passt – auch die auf diesem Spickzettel.',
       'Ordnungszahl und Massenzahl verwechseln. Die Ordnungszahl sind die Protonen und benennt das Element. Die Massenzahl sind Protonen plus Neutronen.',
       'Ein Ion für ein anderes Element halten. Ein Elektron abzugeben oder aufzunehmen ändert die Ladung, nicht die Zahl der Protonen. Natrium und Na+ sind beides Natrium.',
     ],
@@ -204,13 +202,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
           'Drei Wasserstoffatome nebeneinander: eines mit einem Proton, eines mit einem Proton und einem Neutron, eines mit einem Proton und zwei Neutronen. Alle drei haben ein Elektron.',
       },
       {
-        heading: 'Warum die relative Atommasse selten eine ganze Zahl ist',
-        content:
-          'Eine Probe eines Elements ist eine Mischung seiner Isotope, in festen Anteilen. Die relative Atommasse ist der Mittelwert über diese Mischung, gewichtet danach, wie häufig jedes Isotop ist. Chlor besteht zu etwa drei Vierteln aus Chlor-35 und zu einem Viertel aus Chlor-37. Im Mittel ergibt das 35,5. Kein einzelnes Chloratom wiegt so viel. Dieser Abschnitt ist eine Erweiterung: Die relative Atommasse gehört in die Oberstufe, und sie steht hier, weil Isotope ohne sie keinen Sinn ergeben.',
-        imageAlt:
-          'Ein Balken mit 75 Prozent Chlor-35 und 25 Prozent Chlor-37, wobei der kleinere Teil zusätzlich schraffiert ist. Darunter eine Massenskala von 35 bis 37, auf der der Mittelwert 35,5 bei einem Viertel der Strecke liegt und nicht in der Mitte, dazu die ausgeschriebene Rechnung: 0,75 mal 35 plus 0,25 mal 37 ergibt 35,5 und nicht 36. Ein Hinweis sagt, dass die Aufteilung gerundet ist und die gemessenen Häufigkeiten 75,8 und 24,2 Prozent betragen.',
-      },
-      {
         heading: 'Instabile Kerne und die drei Arten von Strahlung',
         content:
           'Manche Kerne sind instabil. Sie zerfallen von selbst, geben Strahlung ab und lassen ein stabileres Atom zurück. Radon-222 schleudert ein Alphateilchen heraus, also zwei Protonen und zwei Neutronen zusammen. Iod-131 gibt ein Betateilchen ab, also ein schnelles Elektron aus dem Kern. Cobalt-60 gibt Gammastrahlung ab, und das ist Energie statt eines Teilchens. Papier hält Alpha auf, ein Blech aus Aluminium hält Beta auf, und für Gamma braucht man Blei oder dicken Beton.',
@@ -239,8 +230,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Elektronen auf Kreisbahnen zeichnen, wie Planeten. Sie laufen nicht auf Bahnen. Eine Stufe ist eine Energie, und ein Elektron ist irgendwo in einem Bereich um den Kern, nicht an einem Punkt einer Linie.',
-      'Den Bildern die Größe glauben. Wäre der Kern eine Erbse, wäre das Atom ein Sportplatz. Jede Zeichnung schrumpft diesen Abstand, damit sie auf die Seite passt – auch die auf diesem Spickzettel.',
       'Die relative Atommasse als Anzahl von Teilchen lesen. Sie ist ein Mittelwert über Isotope. Die 35,5 von Chlor gehört zu keinem Atom, das du finden könntest.',
       'Die beiden Isotopenmassen addieren und halbieren. Für Chlor kommt dann 36 heraus, und das ist falsch, weil Chlor-35 dreimal so häufig ist wie Chlor-37.',
     ],

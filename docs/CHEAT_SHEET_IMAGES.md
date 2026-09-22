@@ -145,7 +145,6 @@ browser from `/cheat-sheets/isotopes-and-radioactivity/<file>`.
 | # | File | Size | What it should show |
 |---|---|---|---|
 | 3 | `03-isotopes-of-hydrogen.svg` | 640×280 | Three hydrogen atoms: 1 proton; 1 proton + 1 neutron; 1 proton + 2 neutrons. One electron on each. |
-| 4 | `04-weighted-average.svg` | 640×340 | One bar, 75% chlorine-35 and 25% chlorine-37, a separate mass scale with 35.5 marked a quarter of the way from 35, and the arithmetic written out. |
 | 7 | `07-decay-and-made-elements.svg` | 640×320 | A half-life curve halving at each step, with 100%, 50%, 25% and 12.5% marked, and carbon-14 and uranium-238 named underneath. |
 
 **Slot 7 sits under the *Half-life* section, and is now the curve alone.** The
@@ -155,12 +154,14 @@ file renamed to `07-half-life.svg`; it was not, and it should not be. The
 filename is the whole contract this document is built on, and renaming it buys
 nothing that the section heading above the diagram does not already give.
 
-**Slot 4's split is drawn at 75 / 25 and says so.** The measured abundances are
-75.8% and 24.2%, which the figure prints; it draws the rounded pair because the
-sheet's prose says "about three-quarters" and its common-mistakes list says
-"three times as common", and because 75 / 25 is the split whose arithmetic comes
-out at exactly the 35.5 the rest of the sheet states. The long version of that
-argument is on `CHLORINE` in the script.
+**Slot 4 is gone, with the section it belonged to.** The owner removed *Why
+relative atomic mass is rarely a whole number* from the sheet on 2026-09-22, and
+the diagram went with it — from this table, from the generating script, and from
+`public/`. It was the weighted-average figure: a 75 / 25 chlorine bar over a
+separate mass scale with 35.5 marked a quarter of the way from 35. It is in git
+if the section ever comes back; `CHLORINE` is still in the script, because slot 8
+uses it too. Nothing renumbers — the numbers are filenames, not positions, and
+the sheet now runs 3, 7.
 
 The three sections the split added — the three kinds of radiation, the
 65,000-year dating section, and the medical and industrial applications —
@@ -180,6 +181,22 @@ likely to break it.
   are.
 - Say the scale. A nucleus is about 1/100,000 of the atom's width, and no
   diagram that fits on a page can show that honestly. Slot 1 carries the note.
+
+**These three are now the diagrams' own job, and that is a change.** Until
+2026-09-22 both atom sheets ended with common-mistakes bullets that did the work
+instead — *"Drawing electrons on circular tracks, like planets"* and *"Believing
+the pictures about size … including the ones on this sheet"*. The owner removed
+them from *Atoms & the Periodic Table* and *Isotopes & Radioactivity* in all six
+languages, deliberately: **a figure that has to be apologised for in a bullet at
+the bottom of the sheet is a figure worth redrawing.** A reader meets the picture
+long before the bullet, and most never reach the bullet at all.
+
+So the caveat belongs **on the figure** from here on — a printed note, a scale
+break, a label saying a ring is a way to count and not a place to stand — not in
+the prose underneath. Improving the two atom diagrams to carry their own caveats
+is an open item in [`TODO.md`](./TODO.md) § Atoms cheat sheet; the work is in
+`scripts/cheat-sheet-diagrams.mts`, and nothing on the page needs to change for
+it.
 
 The alt text already on the page describes each diagram as specified above, so a
 diagram that shows something else will disagree with what a screen-reader user is

@@ -32,7 +32,7 @@
 // neutrons, 2-8-1, 75%, 35.5, 5730 years. In a hand-drawn file a wrong one is
 // invisible until a student has learnt it. Here each is a named constant next
 // to the source it was checked against, and the arithmetic that has to agree is
-// computed rather than typed — see `CHLORINE` and `drawWeightedAverage`.
+// computed rather than typed — see `CHLORINE`.
 //
 // **Type size.** The page draws a 640-wide file into a `max-w-lg` (512px)
 // column, so everything renders at about 0.8x. `label()` refuses to emit text
@@ -79,7 +79,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { ACID_RED, BASE_BLUE, EMERALD, INK } from './diagram-palette.mts';
+import { ACID_RED, BASE_BLUE, INK } from './diagram-palette.mts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'public', 'cheat-sheets');
@@ -87,7 +87,7 @@ const outDir = join(root, 'public', 'cheat-sheets');
 // --- The chemistry, and where each number was checked ----------------------
 
 /**
- * Chlorine's two stable isotopes, as `04-weighted-average` draws them.
+ * Chlorine's two stable isotopes.
  *
  * **The abundances are rounded, and that is the decision** — open question 2 in
  * §16 of the redesign brief, which asks whether the prose or the diagram moves.
@@ -678,140 +678,6 @@ function drawIsotopesOfHydrogen(slot: Slot): string {
   return svgDocument(slot, parts);
 }
 
-// --- 04. The weighted average ----------------------------------------------
-
-/**
- * Why chlorine's relative atomic mass is 35.5 and not 36.
- *
- * Two figures, deliberately at different widths so they cannot be read as one.
- * The bar on top is *how common* each isotope is and has no mass axis. The
- * short line below is the mass scale from 35 to 37, and the marker on it is the
- * answer — a quarter of the way along, nowhere near the middle, which is the
- * whole argument. Sharing one x-extent between the two would have invited
- * reading the 75% boundary as a mass.
- *
- * The sum is computed from `CHLORINE` and checked against the number the sheet
- * states, so the figure cannot drift from the prose or from itself. See the
- * note on `CHLORINE` for why the split is drawn at 75 / 25 and printed as
- * rounded.
- */
-function drawWeightedAverage(slot: Slot): string {
-  const light = CHLORINE.lightAbundance;
-  const heavy = 1 - light;
-  const mean = light * CHLORINE.lightMassNumber + heavy * CHLORINE.heavyMassNumber;
-  if (mean !== CHLORINE.relativeAtomicMass) {
-    throw new Error(
-      `The bar averages to ${mean}, but both sheets say chlorine is ` +
-        `${CHLORINE.relativeAtomicMass}. One of the two is wrong, and the ` +
-        'figure would be teaching the disagreement.',
-    );
-  }
-
-  const barLeft = 60;
-  const barWidth = 520;
-  const split = barLeft + barWidth * light;
-  const hatch = `${slot.id}-hatch`;
-
-  // The mass line is narrower than the bar, and centred under it, so that the
-  // two are visibly separate figures.
-  const axisLeft = 150;
-  const axisWidth = 340;
-  const axisY = 176;
-  const span = CHLORINE.heavyMassNumber - CHLORINE.lightMassNumber;
-  const massAt = (value: number) =>
-    axisLeft + (axisWidth * (value - CHLORINE.lightMassNumber)) / span;
-  const meanX = massAt(mean);
-  const middle = (CHLORINE.lightMassNumber + CHLORINE.heavyMassNumber) / 2;
-
-  return svgDocument(slot, [
-    `<defs><pattern id="${hatch}" width="14" height="14" patternUnits="userSpaceOnUse" ` +
-      `patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="14" stroke="${INK}" ` +
-      'stroke-width="3" /></pattern></defs>',
-
-    label(320, 30, 'Why chlorine comes out at 35.5', {
-      size: 23,
-      bold: true,
-      anchor: 'middle',
-    }),
-
-    // Tinted fills rather than solid ones, so the segments read on both
-    // surfaces: over #f8fafc a low-opacity fill lightens and over #09090b it
-    // darkens, and either way the boundary and the hatch survive.
-    `<rect x="${barLeft}" y="50" width="${n(split - barLeft)}" height="42" fill="${EMERALD}" ` +
-      `fill-opacity="0.28" stroke="${INK}" stroke-width="2.5" />`,
-    `<rect x="${n(split)}" y="50" width="${n(barLeft + barWidth - split)}" height="42" ` +
-      `fill="${BASE_BLUE}" fill-opacity="0.24" />`,
-    `<rect x="${n(split)}" y="50" width="${n(barLeft + barWidth - split)}" height="42" ` +
-      `fill="url(#${hatch})" fill-opacity="0.5" stroke="${INK}" stroke-width="2.5" />`,
-
-    label(n((barLeft + split) / 2), 71, `${n(light * 100)}%`, {
-      size: 26,
-      bold: true,
-      anchor: 'middle',
-      central: true,
-    }),
-    label(n((split + barLeft + barWidth) / 2), 71, `${n(heavy * 100)}%`, {
-      size: 26,
-      bold: true,
-      anchor: 'middle',
-      central: true,
-    }),
-    label(n((barLeft + split) / 2), 118, `chlorine-${CHLORINE.lightMassNumber}`, {
-      size: 21,
-      bold: true,
-      anchor: 'middle',
-    }),
-    label(n((split + barLeft + barWidth) / 2), 118, `chlorine-${CHLORINE.heavyMassNumber}`, {
-      size: 21,
-      bold: true,
-      anchor: 'middle',
-    }),
-
-    `<path d="M ${axisLeft} ${axisY} L ${n(axisLeft + axisWidth)} ${axisY}" fill="none" ` +
-      `stroke="${INK}" stroke-width="2.5" stroke-linecap="round" />`,
-    ...[CHLORINE.lightMassNumber, middle, CHLORINE.heavyMassNumber].flatMap((value) => [
-      `<path d="M ${n(massAt(value))} ${axisY} L ${n(massAt(value))} ${axisY + 10}" ` +
-        `fill="none" stroke="${INK}" stroke-width="2.5" stroke-linecap="round" />`,
-      label(n(massAt(value)), 204, String(value), {
-        size: 21,
-        bold: true,
-        anchor: 'middle',
-      }),
-    ]),
-    `<path d="M ${n(meanX)} ${axisY} L ${n(meanX - 11)} ${axisY - 17} L ${n(meanX + 11)} ` +
-      `${axisY - 17} Z" fill="${ACID_RED}" />`,
-    label(n(meanX), 148, String(mean), {
-      size: 26,
-      bold: true,
-      anchor: 'middle',
-      fill: ACID_RED,
-    }),
-
-    label(320, 232, `Nearer ${CHLORINE.lightMassNumber}, because ${CHLORINE.lightMassNumber} is the common one.`, {
-      size: 20,
-      bold: true,
-      anchor: 'middle',
-    }),
-    label(
-      320,
-      270,
-      `(${light} × ${CHLORINE.lightMassNumber}) + (${heavy} × ${CHLORINE.heavyMassNumber}) = ${mean}`,
-      { size: 25, bold: true, anchor: 'middle', mono: true },
-    ),
-    label(
-      320,
-      300,
-      `Not (${CHLORINE.lightMassNumber} + ${CHLORINE.heavyMassNumber}) ÷ 2 = ${middle}. No atom weighs ${mean}.`,
-      { size: 20, bold: true, anchor: 'middle' },
-    ),
-    label(320, 326, `The split is rounded: measured, it is ${CHLORINE.measured}.`, {
-      size: 20,
-      bold: true,
-      anchor: 'middle',
-    }),
-  ]);
-}
-
 // --- 05. Sodium's energy levels --------------------------------------------
 
 /**
@@ -1096,21 +962,6 @@ const SLOTS: Slot[] = [
     draw: drawIsotopesOfHydrogen,
   },
   {
-    id: '04-weighted-average',
-    sheet: 'isotopes-and-radioactivity',
-    width: 640,
-    height: 340,
-    title: "Why chlorine's relative atomic mass is 35.5",
-    desc:
-      'A bar showing 75 per cent chlorine-35 and 25 per cent chlorine-37, the ' +
-      'smaller part hatched as well as differently filled. Below it a mass scale ' +
-      'from 35 to 37 marks the average at 35.5, a quarter of the way along rather ' +
-      'than in the middle, and the sum is written out: 0.75 times 35 plus 0.25 ' +
-      'times 37 makes 35.5, not 36. A note says the split is rounded and the ' +
-      'measured abundances are 75.8 and 24.2 per cent.',
-    draw: drawWeightedAverage,
-  },
-  {
     id: '05-energy-levels',
     sheet: 'atomic-structure',
     width: 640,
@@ -1174,7 +1025,8 @@ const NOT_YET_WRITTEN: Record<string, string> = {
     'isotopes, not a mass number and not a whole number. Along the bottom: mass ' +
     'number belongs to one atom, relative atomic mass belongs to the element. ' +
     'The brief calls this the highest-value of the ten. Note the 35.45 here ' +
-    'against the 35.5 in slot 04 — that difference is the point of the figure, ' +
+    'against the rounded 35.5 the sheets use elsewhere — that difference is ' +
+    'the point of the figure, ' +
     'and it needs a sentence on the sheet before it ships.',
   '09-isotope-or-ion.svg':
     '640×340, atomic-structure. Two columns. ISOTOPE: Cl-35 to Cl-37, neutrons ' +

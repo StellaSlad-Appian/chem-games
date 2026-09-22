@@ -179,8 +179,6 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Dessiner les électrons sur des orbites circulaires, comme des planètes. Ils ne suivent pas de trajectoire. Un niveau est une énergie, et un électron se trouve quelque part dans une région autour du noyau, pas en un point sur une ligne.',
-      'Croire les images sur la taille. Si le noyau était un petit pois, l’atome serait un terrain de sport. Chaque schéma écrase cet écart pour tenir sur la page, y compris ceux de cette antisèche.',
       'Confondre numéro atomique et nombre de masse. Le numéro atomique, ce sont les protons, et il nomme l’élément. Le nombre de masse, ce sont les protons plus les neutrons.',
       'Prendre un ion pour un autre élément. Perdre ou gagner un électron change la charge, pas le nombre de protons. Le sodium et Na+ sont tous les deux du sodium.',
     ],
@@ -219,13 +217,6 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
           'Trois atomes d’hydrogène côte à côte : un proton, puis un proton et un neutron, puis un proton et deux neutrons. Tous les trois ont un seul électron.',
       },
       {
-        heading: 'Pourquoi la masse atomique relative est rarement un nombre entier',
-        content:
-          'Un échantillon d’un élément est un mélange de ses isotopes, en proportions fixes. La masse atomique relative est la moyenne sur ce mélange, pondérée par l’abondance de chaque isotope. Le chlore est à peu près pour trois quarts du chlore 35 et pour un quart du chlore 37. La moyenne donne 35,5. Aucun atome de chlore ne pèse cela. Cette partie est un prolongement : la masse atomique relative est une notion de lycée, et elle est ici parce que sans elle les isotopes n’ont aucun sens.',
-        imageAlt:
-          'Une barre montrant 75 pour cent de chlore 35 et 25 pour cent de chlore 37, la plus petite partie étant en plus hachurée. En dessous, une échelle de masse de 35 à 37 où la moyenne 35,5 est marquée au quart du parcours et non au milieu, et le calcul est écrit en entier : 0,75 fois 35 plus 0,25 fois 37 donne 35,5 et non 36. Une note précise que la répartition est arrondie et que les abondances mesurées sont de 75,8 et 24,2 pour cent.',
-      },
-      {
         heading: 'Noyaux instables et les trois sortes de rayonnement',
         content:
           'Certains noyaux sont instables. Ils se désintègrent tout seuls, émettent un rayonnement et laissent derrière eux un atome plus stable. Le radon 222 éjecte une particule alpha, c’est-à-dire deux protons et deux neutrons ensemble. L’iode 131 émet une particule bêta, c’est-à-dire un électron rapide parti du noyau. Le cobalt 60 émet un rayonnement gamma, qui est de l’énergie et pas une particule. Une feuille de papier arrête l’alpha, une plaque d’aluminium arrête le bêta, et le gamma demande du plomb ou du béton épais.',
@@ -254,8 +245,6 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Dessiner les électrons sur des orbites circulaires, comme des planètes. Ils ne suivent pas de trajectoire. Un niveau est une énergie, et un électron se trouve quelque part dans une région autour du noyau, pas en un point sur une ligne.',
-      'Croire les images sur la taille. Si le noyau était un petit pois, l’atome serait un terrain de sport. Chaque schéma écrase cet écart pour tenir sur la page, y compris ceux de cette antisèche.',
       'Lire la masse atomique relative comme un compte de particules. C’est une moyenne sur les isotopes : les 35,5 du chlore ne correspondent à aucun atome que tu pourrais trouver.',
       'Additionner les deux masses des isotopes et diviser par deux. Cela donne 36 pour le chlore, et c’est faux, parce que le chlore 35 est trois fois plus abondant que le chlore 37.',
     ],
