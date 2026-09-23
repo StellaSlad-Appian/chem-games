@@ -1,11 +1,19 @@
 # Scientist of the Week pictures — handover
 
-Branch: `scientist-images`. Paused 2026-09-22, part-done. Nothing is committed
-yet.
+Landed on `master` 2026-09-23, across three commits:
 
-**Stop before running anything that hits the network.** The work that remains
-is mostly local. The one task that needs the internet is flagged as such, and
-it is optional.
+| | |
+| --- | --- |
+| `6b265fe` | the pictures, the rule, the credit line, and the rotation box removed |
+| `89c9ba8` | stop stretching portraits smaller than their slot |
+| `d53b5bd` | "Why it works" → "What makes it special" |
+
+This file was written as a mid-work handover while the job was paused, and is
+kept as the record of why each decision went the way it did. The "what still
+needs doing" list below is **live** — the items not struck through are real.
+
+**Most of what is left needs no network.** The one task that does is flagged
+and is optional.
 
 ---
 
@@ -101,13 +109,19 @@ fallback is PD-only, which drops it to 8 pictures and empties 11 slots.
 ### ~~1. Finish the test run~~ — done
 
 ```bash
-npx vitest run --no-isolate src/lib/explore src/components/explore "src/app/[lang]/(main)/explore"
+npx vitest run --no-isolate src/i18n src/lib/explore src/components/explore "src/app/[lang]/(main)/explore"
 ```
 
-**508 passed, 15 files, 11 seconds.** Use `--no-isolate`: without it vitest
-spawns a worker per file at ~58 s each and the run takes 20 minutes and times
-out. That was the whole of the earlier "4 failed" — worker spawn, never an
-assertion.
+**1242 passed, 31 files, ~18 seconds.**
+
+Two traps, both of which caught me:
+
+- Use `--no-isolate`. Without it vitest spawns a worker per file at ~58 s each,
+  the run takes 20 minutes and times out. That was the whole of the earlier
+  "4 failed" — worker spawn, never an assertion.
+- **Include `src/i18n`.** Scoping to the explore folders alone passes while
+  `dictionary.test.ts` is failing, which is how a French string identical to
+  the English one shipped in `6b265fe` and was only fixed in `d53b5bd`.
 
 ### ~~2. Check the card in a browser~~ — done
 
@@ -165,11 +179,11 @@ schedule's bookkeeping to a reader who had not asked and could not act on it.
 
 ### 6. Housekeeping
 
-- Nothing committed yet. The branch was cut from
-  `fix/cheat-sheet-diagram-mobile-width` and **62 unrelated modified files from
-  another session are sitting in the working tree** — do not sweep them into
-  this commit. Stage only the files listed in the table above plus
-  `public/explore/scientists/`.
+- All committed and on local `master`; nothing pushed. The other session's 62
+  in-flight files went in separately as `4a3b6e5`, so the working tree is clean.
+- **`master` is checked out in a sibling worktree** at `../chem-games-master`,
+  so `git switch master` fails here. Land work by committing on a branch and
+  then `git -C ../chem-games-master merge --ff-only <branch>`.
 - Run `npm run lint -- src e2e` before opening the PR (lint the folders, not
   the root).
 - `src/components/explore/EntryDates.tsx` is a deletion — make sure it is
