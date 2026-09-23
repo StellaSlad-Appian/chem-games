@@ -50,7 +50,7 @@
 // originals would buy nothing. What ships is the processed file in `public/`;
 // this script rebuilds it from upstream on demand.
 
-import { mkdir, writeFile, readdir, unlink } from 'node:fs/promises';
+import { mkdir, writeFile, readdir, unlink, stat } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -165,35 +165,6 @@ const enwiki = (f: string) =>
  * this file, and the run prints it so the decision stays visible.
  */
 const MANIFEST: Record<string, Entry> = {
-  'kathleen-lonsdale': {
-    file: 'Kathleen Yardley Lonsdale (1903-1971).jpg',
-    wiki: 'commons',
-    page: commons('Kathleen Yardley Lonsdale (1903-1971).jpg'),
-    licence: 'No known copyright restrictions',
-    upstream: 'No restrictions',
-    author: 'F. C. Livingstone — Smithsonian Institution, via Flickr Commons',
-    subject: 'person',
-    why: 'At the bench. The Smithsonian releases it with no known restrictions.',
-  },
-  'soren-sorensen': {
-    file: 'SPL Sorensen.jpg',
-    wiki: 'commons',
-    page: commons('SPL Sorensen.jpg'),
-    licence: 'Public domain',
-    author: 'Unknown photographer',
-    subject: 'person',
-    why: 'The standard portrait. Small, but it is the one that exists.',
-  },
-  'katharine-blodgett': {
-    file: 'Katharine Burr Blodgett (1898-1979), demonstrating equipment in lab.jpg',
-    wiki: 'commons',
-    page: commons('Katharine Burr Blodgett (1898-1979), demonstrating equipment in lab.jpg'),
-    licence: 'No known copyright restrictions',
-    upstream: 'No restrictions',
-    author: 'Smithsonian Institution, via Flickr Commons',
-    subject: 'person',
-    why: 'Demonstrating her own apparatus — the portrait and the work in one frame.',
-  },
   'kikunae-ikeda': {
     file: 'Kikunae Ikeda.jpg',
     wiki: 'commons',
@@ -320,15 +291,6 @@ const MANIFEST: Record<string, Entry> = {
     subject: 'person',
     why: 'The NYWT&S press photograph — the collection was dedicated to the public.',
   },
-  'giulio-natta': {
-    file: 'Giulio Natta 1960s.jpg',
-    wiki: 'commons',
-    page: commons('Giulio Natta 1960s.jpg'),
-    licence: 'Public domain',
-    author: 'Unknown photographer (Mondadori Publishers)',
-    subject: 'person',
-    why: 'A 1960s portrait, from the period of the Nobel.',
-  },
   'tu-youyou': {
     file: 'D810 4987 Tu Youyou, medicine (22945001843) (cropped).jpg',
     wiki: 'commons',
@@ -361,6 +323,30 @@ const MANIFEST: Record<string, Entry> = {
  * asserts every id here has no `image` in `scientists.ts`.
  */
 const NO_PICTURE: Record<string, string> = {
+  'kathleen-lonsdale':
+    'commons:File:Kathleen Yardley Lonsdale (1903-1971).jpg carries {{Flickr-no '
+    + 'known copyright restrictions}}, which is the Smithsonian reporting that it '
+    + 'is unaware of a restriction - not a grant of anything, and not a set of '
+    + 'terms a reader or a lawyer could check. A genuine loss: it is a photograph '
+    + 'of her at the bench. If a clearly licensed one turns up, it should go '
+    + 'straight back in.',
+  'katharine-blodgett':
+    'Same tag as Lonsdale, from the same Smithsonian Flickr Commons stream. '
+    + 'Also a real loss - she is demonstrating her own apparatus in it, which is '
+    + 'the portrait and the work in one frame.',
+  'soren-sorensen':
+    'commons:File:SPL Sorensen.jpg claims {{PD-old}} with the author given as '
+    + '{{unknown}} and no date at all. PD-old is the generic tag; without a death '
+    + 'date or a publication date there is nothing behind it, and Commons flags '
+    + 'the file for a more specific tag itself. Public domain is very likely true '
+    + 'of a portrait of a man who died in 1939 - but likely is not the standard '
+    + 'here.',
+  'giulio-natta':
+    'commons:File:Giulio Natta 1960s.jpg claims {{PD-Italy}}, the 20-year term '
+    + 'for a \'simple photograph\'. Whether a 1960s press portrait counts as a '
+    + 'simple photograph rather than a creative work is exactly the contested '
+    + 'question that tag turns on, and it says nothing about the status of the '
+    + 'file outside Italy.',
   'marie-maynard-daly':
     'No free portrait. commons:File:Marie Maynard Daly.jpg is tagged public domain, '
     + 'but its stated provenance is a 1942 Queens College yearbook reached through a '
@@ -504,6 +490,20 @@ async function main() {
   const idsArg = process.argv.slice(2).filter((a) => !a.startsWith('-'));
   const only = idsArg.length ? new Set(idsArg) : null;
 
+  /**
+   * `--offline`: touch the network for nothing, and rebuild the module from
+   * the files already in `public/`, measuring each one with sharp.
+   *
+   * For the case where the *decision* changed but no picture did — dropping
+   * an entry whose licence turned out not to say anything, most of all. A
+   * full run would re-fetch seventeen megabytes to answer a question nobody
+   * asked, and on a metered connection that is a real cost.
+   *
+   * The trade is explicit: **an offline run re-checks no licences.** It
+   * prints that, and it is not the run to make before shipping.
+   */
+  const offline = process.argv.includes('--offline');
+
   await mkdir(OUT_DIR, { recursive: true });
 
   const results: {
@@ -519,6 +519,24 @@ async function main() {
     if (only && !only.has(id)) continue;
     process.stdout.write(`${id.padEnd(22)} `);
     try {
+      if (offline) {
+        // Measure what is already there; write nothing, fetch nothing.
+        const dest = join(OUT_DIR, `${id}.jpg`);
+        const meta = await sharp(dest).metadata();
+        const { size } = await stat(dest);
+        results.push({
+          id,
+          width: meta.width!,
+          height: meta.height!,
+          kb: Math.round(size / 1024),
+          entry,
+        });
+        console.log(
+          `kept (offline)  ${meta.width}x${meta.height}  ${Math.round(size / 1024)} KB  ${entry.licence}`,
+        );
+        continue;
+      }
+
       const up = await upstream(entry);
 
       // (2) The licence check. A mismatch is a failure, not a warning.
@@ -592,6 +610,12 @@ ${problems.length} entry/entries failed, so ${GENERATED_REL} was left `
       );
     } else {
       await writeFile(join(ROOT, GENERATED_REL), generatedModule(results), 'utf8');
+      if (offline) {
+        console.log(
+          '\nNOTE: --offline. No licence was re-checked on this run. Run without it '
+            + 'before shipping.',
+        );
+      }
       console.log(`
 wrote ${GENERATED_REL}`);
     }

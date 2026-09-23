@@ -8,17 +8,39 @@
 // A scientist absent from this map has no picture, on purpose, and their
 // card renders with no picture and no placeholder:
 //
+// **kathleen-lonsdale** — commons:File:Kathleen Yardley Lonsdale (1903-1971).jpg carries {{Flickr-no
+//   known copyright restrictions}}, which is the Smithsonian reporting that it
+//   is unaware of a restriction - not a grant of anything, and not a set of terms
+//   a reader or a lawyer could check. A genuine loss: it is a photograph of her
+//   at the bench. If a clearly licensed one turns up, it should go straight back
+//   in.
+//
+// **katharine-blodgett** — Same tag as Lonsdale, from the same Smithsonian Flickr Commons stream. Also
+//   a real loss - she is demonstrating her own apparatus in it, which is the portrait
+//   and the work in one frame.
+//
+// **soren-sorensen** — commons:File:SPL Sorensen.jpg claims {{PD-old}} with the author given as {{unknown}}
+//   and no date at all. PD-old is the generic tag; without a death date or a publication
+//   date there is nothing behind it, and Commons flags the file for a more specific
+//   tag itself. Public domain is very likely true of a portrait of a man who died
+//   in 1939 - but likely is not the standard here.
+//
+// **giulio-natta** — commons:File:Giulio Natta 1960s.jpg claims {{PD-Italy}}, the 20-year term for
+//   a 'simple photograph'. Whether a 1960s press portrait counts as a simple photograph
+//   rather than a creative work is exactly the contested question that tag turns
+//   on, and it says nothing about the status of the file outside Italy.
+//
 // **marie-maynard-daly** — No free portrait. commons:File:Marie Maynard Daly.jpg is tagged public domain,
-//   but its stated provenance is a 1942 Queens College yearbook reached through a
-//   blog mirror, with no evidence of non-renewal recorded — a 1942 US copyright claim
-//   nobody has actually checked. It is also 250x290, below the 306 px this slot needs
-//   on the narrowest phone. English Wikipedia does not use it either. Her work was
-//   not used instead: the nuclear half of her card is histones, and every free nucleosome
-//   diagram on Commons is a ribbon model that says nothing a reader at 12 can follow,
-//   while the arteries half is cholesterol — which is the molecule card she is paired
-//   with that week, so it would put the same picture on the page twice. A named,
-//   sourced portrait would be very welcome; this is a real gap and not a settled
-//   decision.
+//   but its stated provenance is a 1942 Queens College yearbook reached through
+//   a blog mirror, with no evidence of non-renewal recorded — a 1942 US copyright
+//   claim nobody has actually checked. It is also 250x290, below the 306 px this
+//   slot needs on the narrowest phone. English Wikipedia does not use it either.
+//   Her work was not used instead: the nuclear half of her card is histones, and
+//   every free nucleosome diagram on Commons is a ribbon model that says nothing
+//   a reader at 12 can follow, while the arteries half is cholesterol — which is
+//   the molecule card she is paired with that week, so it would put the same picture
+//   on the page twice. A named, sourced portrait would be very welcome; this is
+//   a real gap and not a settled decision.
 
 import type { ExploreScientistImage } from './types';
 
@@ -86,18 +108,6 @@ export const SCIENTIST_IMAGES: Record<string, ExploreScientistImage> = {
       sourceUrl: "https://en.wikipedia.org/wiki/File:Lewis-cubic-notes.jpg",
     },
   },
-  // A 1960s portrait, from the period of the Nobel.
-  'giulio-natta': {
-    src: '/explore/scientists/giulio-natta.jpg',
-    width: 648,
-    height: 878,
-    subject: 'person',
-    credit: {
-      author: "Unknown photographer (Mondadori Publishers)",
-      licence: "Public domain",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:Giulio_Natta_1960s.jpg",
-    },
-  },
   // The only free portrait of her that exists. Small — 180 px wide, so it is not enlarged and is soft at full width on a phone.
   'johanna-dobereiner': {
     src: '/explore/scientists/johanna-dobereiner.jpg',
@@ -109,32 +119,6 @@ export const SCIENTIST_IMAGES: Record<string, ExploreScientistImage> = {
       licence: "CC BY-SA 4.0",
       licenceUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
       sourceUrl: "https://commons.wikimedia.org/wiki/File:Johanna-D%C3%B6bereiner.jpg",
-    },
-  },
-  // Demonstrating her own apparatus — the portrait and the work in one frame.
-  'katharine-blodgett': {
-    src: '/explore/scientists/katharine-blodgett.jpg',
-    width: 900,
-    height: 882,
-    subject: 'person',
-    credit: {
-      author: "Smithsonian Institution, via Flickr Commons",
-      licence: "No known copyright restrictions",
-      licenceUrl: "https://www.flickr.com/commons/usage/",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:Katharine_Burr_Blodgett_(1898-1979)%2C_demonstrating_equipment_in_lab.jpg",
-    },
-  },
-  // At the bench. The Smithsonian releases it with no known restrictions.
-  'kathleen-lonsdale': {
-    src: '/explore/scientists/kathleen-lonsdale.jpg',
-    width: 900,
-    height: 1279,
-    subject: 'person',
-    credit: {
-      author: "F. C. Livingstone — Smithsonian Institution, via Flickr Commons",
-      licence: "No known copyright restrictions",
-      licenceUrl: "https://www.flickr.com/commons/usage/",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:Kathleen_Yardley_Lonsdale_(1903-1971).jpg",
     },
   },
   // The standard portrait.
@@ -197,18 +181,6 @@ export const SCIENTIST_IMAGES: Record<string, ExploreScientistImage> = {
       licence: "CC BY-SA 2.0",
       licenceUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
       sourceUrl: "https://commons.wikimedia.org/wiki/File:Reatha_King_2009.jpg",
-    },
-  },
-  // The standard portrait. Small, but it is the one that exists.
-  'soren-sorensen': {
-    src: '/explore/scientists/soren-sorensen.jpg',
-    width: 248,
-    height: 362,
-    subject: 'person',
-    credit: {
-      author: "Unknown photographer",
-      licence: "Public domain",
-      sourceUrl: "https://commons.wikimedia.org/wiki/File:SPL_Sorensen.jpg",
     },
   },
   // In the lab, 1986. The source is a TIFF and is converted to JPEG.
