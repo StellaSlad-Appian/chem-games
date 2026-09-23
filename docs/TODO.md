@@ -50,14 +50,31 @@ editorial decisions in
       2026-09-21: all twenty are generated from SMILES by `npm run explore:images`
       rather than hunted for, which sidesteps the licensing problem entirely for that
       half. `scripts/molecule-images.mts`, and do not edit the files by hand.
-- [ ] **Provide the twenty scientist pictures.** Still placeholders, each printing its
-      own path on the page. [`EXPLORE_IMAGES.md`](./EXPLORE_IMAGES.md) has the folder
-      and the sizes. **Read its portrait warning first**: most of this pool worked in
-      the 20th century, so their photographs are very likely still in copyright, and
-      there is no attribution line on the card — if you use something that needs one,
-      it has to be built. A portrait cannot be generated the way a structure can, so
-      this half stays manual. Their apparatus or their result is a legitimate answer
-      where no usable portrait exists.
+- [x] ~~**Provide the twenty scientist pictures.**~~ **Done** 2026-09-23. Fifteen of
+      the twenty have one; five show no picture at all, which is a supported state and
+      not a gap. The rule is *a free portrait → else a free picture of their work →
+      else nothing, and never a placeholder*, and all three arms are tested.
+      `npm run explore:scientist-images` fetches each file, **re-checks its licence
+      against Wikimedia on every run**, and generates `src/lib/explore/scientist-images.ts`;
+      do not edit that file or the JPEGs by hand. The attribution line this item warned
+      would have to be built *was* built — ten of the fifteen are CC BY or CC BY-SA and
+      the credit is the condition on which they may be shown at all.
+- [ ] **Find a portrait for Marie Maynard Daly, and for the four dropped on licence.**
+      Lonsdale, Blodgett, Sørensen and Natta had pictures and lost them before launch:
+      two were Flickr Commons "no known copyright restrictions", which reports that
+      nobody has objected rather than granting anything, and two had public-domain
+      claims with nothing behind them (`{{PD-old}}` with no author and no date;
+      `{{PD-Italy}}`, whose "simple photograph" term is exactly the contested
+      question). Daly has never had one. Each rejection is recorded with its reason in
+      `NO_PICTURE` in `scripts/scientist-images.mts` — **read it before re-adding a
+      file, so the same one is not re-litigated.** A clearly licensed replacement for
+      any of the five is a straight win; Lonsdale at the bench and Blodgett
+      demonstrating her own apparatus are the two worth most.
+- [ ] **Revisit Mária Telkes’s picture if anyone wants a stricter line.** It is kept
+      on `{{PD-NYWT&S}}`, a documented rights donation by the newspaper, but the same
+      file also carries the Library of Congress’s weaker "no known copyright
+      restrictions" tag — the species of claim the four above were dropped for. It is
+      the closest call in the set and the first thing to cut if the standard tightens.
 - [ ] **Decide whether entries 21–104 get written.** Twenty pairs is a twenty-week
       cycle: about five months before anything repeats. The remaining 84 are roughly
       67,000 words once the translations are counted, which is why this is a decision
@@ -84,6 +101,21 @@ editorial decisions in
       change that actually answers the complaint is not the tabs — it is capping the
       picture height and putting the figure beside the prose, which is worth doing
       even if the tabs are dropped.
+- [ ] **Filter the archive by what an entry links to. After launch** — decided
+      2026-09-23, deliberately not built before it.
+
+      The question a student actually has is "what is here about bonding?", and
+      today the only way to answer it is to read all twenty rows. Every entry
+      already carries an `ExploreLink` — `{ kind: 'cheat-sheet', slug }` or
+      `{ kind: 'game', game }` — so the facet exists in the data and needs no new
+      field, no migration and no editorial work. `YearFilter` on the cheat sheets is
+      the pattern to copy, down to keeping the filter in the URL so a filtered view
+      is shareable and the back button behaves.
+
+      **Not a search box.** Forty items is too few to type at: a text input over a
+      list that fits on one page is more chrome than help, and it only answers a
+      question you can ask if you already know the name — which is the opposite of
+      the problem. Revisit if the pool ever passes the 21–104 decision above.
 - [ ] **Look at the tab strip on real hardware before calling it done.** Each entry
       pill carries this week's entry name, so on the active tab the name appears twice
       — once muted at 13px in the pill, once at ~30px as the card heading. Judged

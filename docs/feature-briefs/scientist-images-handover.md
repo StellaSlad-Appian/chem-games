@@ -33,17 +33,21 @@ today.
 
 ### The pictures
 
-19 files in `public/explore/scientists/`, 1.6 MB total, every placeholder SVG
-deleted. Sourced from Wikimedia, normalised to ≤900 px wide, JPEG q82, EXIF
-stripped, every one under the 300 KB budget.
+15 files in `public/explore/scientists/`, every placeholder SVG deleted. Sourced
+from Wikimedia, normalised to ≤900 px wide, JPEG q82, EXIF stripped, every one
+under the 300 KB budget.
 
 | licence | count |
 | --- | --- |
-| Public domain | 6 |
-| CC BY | 3 |
 | CC BY-SA | 7 |
-| Flickr Commons "no known copyright restrictions" | 2 |
-| **no picture** | **1** |
+| CC BY | 3 |
+| Public domain, with a specific named rationale | 4 |
+| **no picture** | **5** |
+
+It was 19 files until launch prep. Four were cut on 2026-09-23 because their
+licence did not actually state terms — two Flickr Commons "no known copyright
+restrictions", one bare `{{PD-old}}` with no author and no date, one
+`{{PD-Italy}}`. See `019d9a4` and `NO_PICTURE` in the script.
 
 ### The size question, answered by measuring
 
@@ -144,23 +148,32 @@ It still says *"The scientist slots are all still placeholders and are yours to
 fill by hand."* Needs rewriting to describe the script, the rule, the 900 px
 target and the credit line. **Do this before anyone reads it.**
 
-### 4. Two licence judgements worth a second pair of eyes — no network
+### ~~4. Two licence judgements worth a second pair of eyes~~ — decided
 
-- **Flickr Commons "no known copyright restrictions"** (Lonsdale, Blodgett) is
-  a statement by the Smithsonian that it is unaware of restrictions — *not* a
-  licence grant. Commons hosts both and `AttributionRequired` is false. Fine
-  for a school site in my view, but weaker than PD and worth a conscious yes.
-- **CC BY-SA ShareAlike** (7 pictures) — the obligation attaches to the image
-  and any derivative of it, not to the site. The resize/JPEG conversion is a
-  derivative, so those files are themselves CC BY-SA. The credit line states
-  it. Standard practice, but flagging it rather than burying it.
+- **Flickr Commons "no known copyright restrictions"** — **rejected** before
+  launch. It reports that the Smithsonian is unaware of a restriction; it grants
+  nothing and states no terms. Lonsdale and Blodgett were dropped, and every
+  other non-CC file was re-read at the template level at the same time, which
+  cost Sørensen and Natta as well.
+- **CC BY-SA ShareAlike** (7 pictures) — **kept.** The obligation attaches to the
+  image and to derivatives of it, not to the site. The resize and JPEG conversion
+  make a derivative, so those files are themselves CC BY-SA, and the credit line
+  says so. Standard practice.
 
-### 5. Optional, needs network — a portrait for Daly
+### 5. Needs network — a portrait for any of the five
 
-The only real gap. A properly sourced, freely licensed portrait would be very
-welcome; the current position is "we could not find one we could stand behind",
-not "she does not get a picture". Would need a clear provenance chain, not a
-blog mirror.
+Daly never had one; Lonsdale, Blodgett, Sørensen and Natta lost theirs to the
+licence audit. In every case the position is "we could not find one we could
+stand behind", never "they do not get a picture". A clearly licensed replacement
+is a straight win — Lonsdale at the bench and Blodgett demonstrating her own
+apparatus are the two worth most.
+
+**Read `NO_PICTURE` in the script before re-adding anything**, so the same file
+is not re-litigated.
+
+This and the rest of the live list now live in [`../TODO.md`](../TODO.md) under
+**Explore**, which is where anyone will actually look. This file stays as the
+record of why each decision went the way it did.
 
 ### Also changed in this session: the rotation box is gone
 
