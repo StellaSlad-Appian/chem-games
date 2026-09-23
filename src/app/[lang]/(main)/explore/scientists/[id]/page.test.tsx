@@ -38,12 +38,16 @@ const midWeek = (n: number) => new Date(ROTATION_EPOCH + n * WEEK_MS + 3 * 24 * 
 const PAIRS = schedulablePairs();
 const THIRD = PAIRS[2];
 
-async function renderPage(lang: string, id: string) {
+async function renderPage(
+  lang: string,
+  id: string,
+  searchParams: Record<string, string> = {}
+) {
   const locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
   const dictionary = await getDictionary(locale);
   const ui = await Page({
     params: Promise.resolve({ lang, id }),
-    searchParams: Promise.resolve({}),
+    searchParams: Promise.resolve(searchParams),
   });
   return render(
     <TestProviders locale={locale} dictionary={dictionary}>
@@ -153,6 +157,33 @@ describe('a scientist permalink', () => {
     expect(text).not.toMatch(/Last featured/);
     expect(text).not.toMatch(/comes round again/);
     expect(text).not.toMatch(/Not featured yet/);
+  });
+
+  it('offers the way back the reader actually came', async () => {
+    // A reader who opened this from the archive should be sent back to the
+    // archive, not dropped on /explore — a page they were never on, and one
+    // that does not have the row they were reading.
+    const fromArchive = await renderPage('en', 'tu-youyou', { from: 'archive' });
+    const back = fromArchive.container.querySelector('a[href^="/en/explore"]')!;
+    expect(back.getAttribute('href')).toBe('/en/explore/archive');
+    expect(back.textContent).toContain(en.explore.backToArchive);
+    fromArchive.unmount();
+
+    // Arriving any other way — the weekly page, a shared link, a search
+    // result — still goes to Explore.
+    const direct = await renderPage('en', 'tu-youyou');
+    const plain = direct.container.querySelector('a[href^="/en/explore"]')!;
+    expect(plain.getAttribute('href')).toBe('/en/explore');
+    expect(plain.textContent).toContain(en.explore.backToExplore);
+    direct.unmount();
+  });
+
+  it('ignores a `from` it does not recognise', async () => {
+    // The parameter is a hint from our own markup, not input to trust. A
+    // hand-edited or stale value must not produce a broken back link.
+    const { container } = await renderPage('en', 'tu-youyou', { from: 'nonsense' });
+    const back = container.querySelector('a[href^="/en/explore"]')!;
+    expect(back.getAttribute('href')).toBe('/en/explore');
   });
 
   it('calls notFound for an id that is not in the pool', async () => {

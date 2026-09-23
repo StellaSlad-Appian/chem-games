@@ -797,6 +797,7 @@ export const en = {
     /** Marks the one row in the archive that is the week the reader is in. */
     archiveThisWeek: 'This week',
     backToExplore: 'Back to Explore',
+    backToArchive: 'Back to Archive',
     /**
      * Above the link to the other half of a pair, on a permalink.
      *

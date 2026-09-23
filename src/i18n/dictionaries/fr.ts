@@ -693,6 +693,7 @@ export const fr = {
       'Toutes les molécules et toutes les personnes de la chimie, les plus récentes d’abord.',
     archiveThisWeek: 'Cette semaine',
     backToExplore: 'Retour à Explorer',
+    backToArchive: 'Retour aux Archives',
     // « De la même semaine » plutôt que « En binôme avec » : le titre précède
     // un nom, et la formulation reste vraie même quand la paire est déjà
     // passée cinq fois. Voir le commentaire dans en.ts.

@@ -728,6 +728,7 @@ export const es = {
       'Todas las moléculas y todas las personas de la química, empezando por lo más reciente.',
     archiveThisWeek: 'Esta semana',
     backToExplore: 'Volver a Explorar',
+    backToArchive: 'Volver al Archivo',
     // «De la misma semana» y no «Emparejada con»: el encabezado va delante de
     // un nombre, y el participio tendría que concordar con él. Véase en.ts.
     sameWeekHeading: 'De la misma semana',

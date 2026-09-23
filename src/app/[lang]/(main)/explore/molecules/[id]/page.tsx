@@ -112,6 +112,13 @@ export default async function MoleculePermalinkPage(
   const locale: Locale = isLocale(lang) ? lang : DEFAULT_LOCALE;
   const t = await getDictionary(locale);
 
+  // The way back the reader actually came. Only the archive marks its links;
+  // anything else, including a hand-edited value, falls through to Explore.
+  const { from } = await props.searchParams;
+  const cameFromArchive = from === 'archive';
+  const backHref = cameFromArchive ? '/explore/archive' : '/explore';
+  const backLabel = cameFromArchive ? t.explore.backToArchive : t.explore.backToExplore;
+
   const molecule = findLocalizedMolecule(locale, id);
   if (!molecule) notFound();
 
@@ -124,11 +131,11 @@ export default async function MoleculePermalinkPage(
     <main className="min-h-screen bg-(--background) px-4 py-8 text-(--foreground) md:px-8">
       <div className="mx-auto max-w-4xl">
         <LocaleLink
-          href="/explore"
+          href={backHref}
           className="mb-6 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
         >
           <ArrowLeft className="h-4 w-4 shrink-0" aria-hidden="true" />
-          {t.explore.backToExplore}
+          {backLabel}
         </LocaleLink>
 
 

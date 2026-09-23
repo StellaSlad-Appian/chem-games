@@ -639,6 +639,7 @@ export const de = {
     archiveIntro: 'Alle Moleküle und Forschenden der Rotation, das Neueste zuerst.',
     archiveThisWeek: 'Diese Woche',
     backToExplore: 'Zurück zu Entdecken',
+    backToArchive: 'Zurück zum Archiv',
     // „Aus derselben Woche“ statt „Gepaart mit“: die Überschrift steht über
     // einem Namen, und „gepaart mit“ verlangt einen Dativ, in dem der Name
     // nicht steht. Siehe den Kommentar in en.ts.

@@ -47,8 +47,14 @@ export function WeekRow({
         {badge}
       </div>
       <div className="mt-2 flex flex-col gap-2 sm:flex-row">
-        <MoleculeEntryLink molecule={molecule} />
-        <ScientistEntryLink scientist={scientist} />
+        {/* `from="archive"` on both: this component is only ever rendered by
+            the archive page, so every row in it is a row the reader reached
+            from the archive, and the permalink should offer the way back
+            there. If WeekRow is ever reused elsewhere, this has to become a
+            prop — a row on some other page would be lying about where the
+            reader came from. */}
+        <MoleculeEntryLink molecule={molecule} from="archive" />
+        <ScientistEntryLink scientist={scientist} from="archive" />
       </div>
     </li>
   );

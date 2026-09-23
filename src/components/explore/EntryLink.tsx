@@ -33,6 +33,25 @@ export const moleculeHref = (id: string): string => `/explore/molecules/${id}`;
 export const scientistHref = (id: string): string => `/explore/scientists/${id}`;
 
 /**
+ * Where the reader was when they clicked, carried in the URL.
+ *
+ * Only the archive sets it, and only so the permalink's back link can offer
+ * the way back the reader actually came — "Back to Archive", to the archive —
+ * instead of dropping them on /explore, which is a different page they were
+ * not on.
+ *
+ * In the URL rather than inferred from `Referer`, because a header is not
+ * there on a client-side navigation, is stripped by some privacy settings,
+ * and cannot survive the reader sharing the link. A query parameter is
+ * visible, shareable and testable. It is also a *hint*: anything unrecognised
+ * falls back to Explore, so a hand-edited URL cannot produce a broken link.
+ */
+export type EntryOrigin = 'archive';
+
+const withOrigin = (href: string, from?: EntryOrigin): string =>
+  from ? `${href}?from=${from}` : href;
+
+/**
  * `min-h-11` is a 44px tap target, which docs/ACCESSIBILITY.md requires and
  * which matters more here than anywhere else on the page: these rows are a list
  * of small links, read on a phone, with a second link right beside them.
@@ -49,9 +68,15 @@ const rowClass =
 const nameClass =
   'min-w-0 flex-1 truncate text-sm font-bold text-(--foreground) group-hover:text-(--link)';
 
-export function MoleculeEntryLink({ molecule }: { molecule: LocalizedMolecule }) {
+export function MoleculeEntryLink({
+  molecule,
+  from,
+}: {
+  molecule: LocalizedMolecule;
+  from?: EntryOrigin;
+}) {
   return (
-    <LocaleLink href={moleculeHref(molecule.id)} className={rowClass}>
+    <LocaleLink href={withOrigin(moleculeHref(molecule.id), from)} className={rowClass}>
       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-blue-500/10 text-(--link)">
         <FlaskConical className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
@@ -63,9 +88,15 @@ export function MoleculeEntryLink({ molecule }: { molecule: LocalizedMolecule })
   );
 }
 
-export function ScientistEntryLink({ scientist }: { scientist: LocalizedScientist }) {
+export function ScientistEntryLink({
+  scientist,
+  from,
+}: {
+  scientist: LocalizedScientist;
+  from?: EntryOrigin;
+}) {
   return (
-    <LocaleLink href={scientistHref(scientist.id)} className={rowClass}>
+    <LocaleLink href={withOrigin(scientistHref(scientist.id), from)} className={rowClass}>
       <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-500">
         <Microscope className="h-3.5 w-3.5" aria-hidden="true" />
       </span>

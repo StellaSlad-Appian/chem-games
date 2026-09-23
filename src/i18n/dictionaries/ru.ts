@@ -635,6 +635,7 @@ export const ru = {
     archiveIntro: 'Все вещества и химики из ротации — сначала самые свежие.',
     archiveThisWeek: 'Эта неделя',
     backToExplore: 'Назад к разделу «Открывай»',
+    backToArchive: 'Назад к архиву',
     sameWeekHeading: 'Из той же недели',
     /* No full stop after a date — see `sourcesNote` above. */
     featuredNever: 'Показов ещё не было. Первая неделя — {date}',

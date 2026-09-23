@@ -357,8 +357,28 @@ describe('the recent list', () => {
     for (const row of rows) {
       const hrefs = Array.from(row.querySelectorAll('a')).map((a) => a.getAttribute('href'));
       expect(hrefs).toHaveLength(2);
-      expect(hrefs[0]).toMatch(/^\/de\/explore\/molecules\/[a-z0-9-]+$/);
-      expect(hrefs[1]).toMatch(/^\/de\/explore\/scientists\/[a-z0-9-]+$/);
+      // `?from=archive` is asserted on its own below; what this test is
+      // about is that the locale prefix survives.
+      expect(hrefs[0]).toMatch(/^\/de\/explore\/molecules\/[a-z0-9-]+(\?|$)/);
+      expect(hrefs[1]).toMatch(/^\/de\/explore\/scientists\/[a-z0-9-]+(\?|$)/);
+    }
+  });
+
+  it('tells each permalink the reader arrived from the archive', async () => {
+    // The permalink turns this into "Back to Archive" pointing at the
+    // archive, rather than dropping the reader on /explore — a page they
+    // were not on. Carried in the URL rather than sniffed from `Referer`,
+    // which is absent on a client-side navigation and strippable besides.
+    vi.setSystemTime(midWeek(12));
+    await renderPage('de');
+
+    const rows = recentRows(de.explore.recentHeading);
+    expect(rows.length).toBeGreaterThan(0);
+
+    for (const row of rows) {
+      for (const a of Array.from(row.querySelectorAll('a'))) {
+        expect(a.getAttribute('href')).toMatch(/\?from=archive$/);
+      }
     }
   });
 

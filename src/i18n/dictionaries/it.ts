@@ -745,6 +745,7 @@ export const it = {
       'Tutte le molecole e tutte le persone della chimica, dalle più recenti.',
     archiveThisWeek: 'Questa settimana',
     backToExplore: 'Torna a Esplora',
+    backToArchive: 'Torna all’Archivio',
     // «Della stessa settimana» e non «Abbinata a»: il participio concorderebbe
     // con il nome che segue, che può essere una molecola o una persona. È lo
     // stesso problema di `legacyHeading` qui sopra; vedi il commento in en.ts.
