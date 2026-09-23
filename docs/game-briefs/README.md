@@ -76,6 +76,12 @@ language (`docs/i18n/README.md` § Adding a locale).
 
 ## Overlaps to keep resolved
 
+- **Organic chemistry and energetics for German Klasse 10–12** have a framework plan:
+  [`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md) (Draft). It proposes the shared
+  molecular graph, renderer, curriculum tagging (Bavaria first) and a catalogue that includes
+  Chain Namer, Synthesis Router and a revived Reagent Bench. Curriculum references are in
+  [`../curriculum/`](../curriculum/).
+
 - **Synthesis Router, Organic Naming** (and any spectra game) share one dataset:
   `src/core-engine/data/organic-molecules.ts`. Design it once (see the plan's §7).
 - **Slug consistency**: `classifier-games-config.ts` uses ids like `acid-base-classifier` while
