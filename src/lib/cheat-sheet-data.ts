@@ -881,11 +881,11 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Mr is the same idea for an ionic compound as for a molecule, which is why it is formula mass and not molecular mass: NaCl has no molecule to weigh.',
     ],
     formulaExamples: [
-      { name: 'Water', formula: 'H2O', description: '2 x 1 + 16 = 18' },
-      { name: 'Carbon dioxide', formula: 'CO2', description: '12 + 2 x 16 = 44' },
-      { name: 'Calcium carbonate', formula: 'CaCO3', description: '40 + 12 + 3 x 16 = 100' },
-      { name: 'Magnesium hydroxide', formula: 'Mg(OH)2', description: '24 + 2 x (16 + 1) = 58' },
-      { name: 'Calcium nitrate', formula: 'Ca(NO3)2', description: '40 + 2 x (14 + 3 x 16) = 164' },
+      { name: 'Water', formula: 'H2O', description: '2 × 1 + 16 = 18' },
+      { name: 'Carbon dioxide', formula: 'CO2', description: '12 + 2 × 16 = 44' },
+      { name: 'Calcium carbonate', formula: 'CaCO3', description: '40 + 12 + 3 × 16 = 100' },
+      { name: 'Magnesium hydroxide', formula: 'Mg(OH)2', description: '24 + 2 × (16 + 1) = 58' },
+      { name: 'Calcium nitrate', formula: 'Ca(NO3)2', description: '40 + 2 × (14 + 3 × 16) = 164' },
     ],
     sections: [
       {
@@ -898,17 +898,17 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         content:
           'Relative formula mass (Mr) is the Ar of every atom in the formula, added together. Work left to right, one element at a time, and write the working down: H2O is 2 hydrogens at 1 each, plus 1 oxygen at 16, so 2 + 16 = 18. The order does not matter and nothing gets multiplied at the end — if you are reaching for a calculator for anything harder than a sum, something has gone wrong.',
         examples: [
-          { name: 'Ammonia', formula: 'NH3', description: '14 + 3 x 1 = 17' },
-          { name: 'Methane', formula: 'CH4', description: '12 + 4 x 1 = 16' },
-          { name: 'Sulfuric acid', formula: 'H2SO4', description: '2 x 1 + 32 + 4 x 16 = 98' },
+          { name: 'Ammonia', formula: 'NH3', description: '14 + 3 × 1 = 17' },
+          { name: 'Methane', formula: 'CH4', description: '12 + 4 × 1 = 16' },
+          { name: 'Sulfuric acid', formula: 'H2SO4', description: '2 × 1 + 32 + 4 × 16 = 98' },
         ],
       },
       {
         heading: 'Subscripts and brackets',
         content:
-          'A subscript multiplies only the atom it follows: the 2 in CO2 means two oxygens, not two of everything. A bracket multiplies the whole group inside it: Mg(OH)2 is one magnesium plus two OH units, so 24 + 2 x 17 = 58, not 24 + 16 + 1. When you see a bracket, work out the group once and then multiply.',
+          'A subscript multiplies only the atom it follows: the 2 in CO2 means two oxygens, not two of everything. A bracket multiplies the whole group inside it: Mg(OH)2 is one magnesium plus two OH units, so 24 + 2 × 17 = 58, not 24 + 16 + 1. When you see a bracket, work out the group once and then multiply.',
         examples: [
-          { name: 'Aluminium sulfate', formula: 'Al2(SO4)3', description: '2 x 27 + 3 x (32 + 4 x 16) = 342' },
+          { name: 'Aluminium sulfate', formula: 'Al2(SO4)3', description: '2 × 27 + 3 × (32 + 4 × 16) = 342' },
         ],
       },
       {
@@ -949,16 +949,16 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         heading: 'Worked examples',
         columns: ['Formula', 'Adding up', 'Mr'],
         rows: [
-          ['H2', '2 x 1', '2'],
-          ['O2', '2 x 16', '32'],
-          ['H2O', '2 x 1 + 16', '18'],
+          ['H2', '2 × 1', '2'],
+          ['O2', '2 × 16', '32'],
+          ['H2O', '2 × 1 + 16', '18'],
           ['NaCl', '23 + 35.5', '58.5'],
           ['MgO', '24 + 16', '40'],
-          ['CO2', '12 + 2 x 16', '44'],
-          ['CaCO3', '40 + 12 + 3 x 16', '100'],
-          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
-          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
-          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+          ['CO2', '12 + 2 × 16', '44'],
+          ['CaCO3', '40 + 12 + 3 × 16', '100'],
+          ['H2SO4', '2 × 1 + 32 + 4 × 16', '98'],
+          ['Mg(OH)2', '24 + 2 × (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 × (14 + 3 × 16)', '164'],
         ],
         formulaColumns: [0],
       },

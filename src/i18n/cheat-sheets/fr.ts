@@ -116,6 +116,11 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Chlore 37',
       'Ion hydrogène',
     ],
+    formulaExampleDescriptions: [
+      '17 protons, 18 neutrons',
+      '17 protons, 20 neutrons',
+      'un atome d’hydrogène qui a perdu son unique électron – il ne reste qu’un proton',
+    ],
     sections: [
       {
         heading: 'De quoi un atome est fait',
@@ -202,6 +207,14 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Cobalt 60',
       'Carbone 14',
       'Uranium 238',
+    ],
+    formulaExampleDescriptions: [
+      'l’étalon auquel on compare toutes les autres masses',
+      'se désintègre en émettant une particule alpha',
+      'se désintègre en émettant une particule bêta',
+      'émet un rayonnement gamma',
+      'demi-vie d’environ 5730 ans',
+      'demi-vie d’environ 4,5 milliards d’années',
     ],
     sections: [
       {
@@ -649,6 +662,13 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Hydroxyde de magnésium',
       'Nitrate de calcium',
     ],
+    formulaExampleDescriptions: [
+      '2 × 1 + 16 = 18',
+      '12 + 2 × 16 = 44',
+      '40 + 12 + 3 × 16 = 100',
+      '24 + 2 × (16 + 1) = 58',
+      '40 + 2 × (14 + 3 × 16) = 164',
+    ],
     sections: [
       {
         heading: 'Ce que « relative » veut dire',
@@ -660,12 +680,20 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'La masse formulaire relative (Mr) est la somme des Ar de tous les atomes de la formule. Va de gauche à droite, un élément à la fois, et écris le calcul : H2O, c’est 2 hydrogènes à 1 chacun, plus 1 oxygène à 16, donc 2 + 16 = 18. L’ordre n’a pas d’importance et on ne multiplie rien à la fin — si tu sors la calculatrice pour autre chose qu’une addition, quelque chose cloche.',
         exampleNames: ['Ammoniac', 'Méthane', 'Acide sulfurique'],
+        exampleDescriptions: [
+          '14 + 3 × 1 = 17',
+          '12 + 4 × 1 = 16',
+          '2 × 1 + 32 + 4 × 16 = 98',
+        ],
       },
       {
         heading: 'Indices et parenthèses',
         content:
           'Un indice ne multiplie que l’atome qu’il suit : le 2 de CO2 veut dire deux oxygènes, pas deux de tout. Une parenthèse multiplie tout le groupe qu’elle contient : Mg(OH)2, c’est un magnésium plus deux groupes OH, donc 24 + 2 × 17 = 58, et non 24 + 16 + 1. Quand tu vois une parenthèse, calcule le groupe une fois, puis multiplie.',
         exampleNames: ['Sulfate d’aluminium'],
+        exampleDescriptions: [
+          '2 × 27 + 3 × (32 + 4 × 16) = 342',
+        ],
       },
       {
         heading: 'Pourquoi le tableau de la classe ne colle pas à Internet',
@@ -693,27 +721,27 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
           ['magnésium', 'Mg', '24'],
           ['aluminium', 'Al', '27'],
           ['soufre', 'S', '32'],
-          ['chlore', 'Cl', '35.5'],
+          ['chlore', 'Cl', '35,5'],
           ['potassium', 'K', '39'],
           ['calcium', 'Ca', '40'],
           ['fer', 'Fe', '56'],
-          ['cuivre', 'Cu', '63.5'],
+          ['cuivre', 'Cu', '63,5'],
         ],
       },
       {
         heading: 'Exemples résolus',
         columns: ['Formule', 'Calcul', 'Mr'],
         rows: [
-          ['H2', '2 x 1', '2'],
-          ['O2', '2 x 16', '32'],
-          ['H2O', '2 x 1 + 16', '18'],
-          ['NaCl', '23 + 35.5', '58.5'],
+          ['H2', '2 × 1', '2'],
+          ['O2', '2 × 16', '32'],
+          ['H2O', '2 × 1 + 16', '18'],
+          ['NaCl', '23 + 35,5', '58,5'],
           ['MgO', '24 + 16', '40'],
-          ['CO2', '12 + 2 x 16', '44'],
-          ['CaCO3', '40 + 12 + 3 x 16', '100'],
-          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
-          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
-          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+          ['CO2', '12 + 2 × 16', '44'],
+          ['CaCO3', '40 + 12 + 3 × 16', '100'],
+          ['H2SO4', '2 × 1 + 32 + 4 × 16', '98'],
+          ['Mg(OH)2', '24 + 2 × (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 × (14 + 3 × 16)', '164'],
         ],
       },
     ],

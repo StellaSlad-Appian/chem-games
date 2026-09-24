@@ -233,3 +233,37 @@ test.describe('the periodic table on the isotopes sheet', () => {
     await expect(page.locator(cell('Og'))).toContainText('lab');
   });
 });
+
+test.describe('the example cards', () => {
+  test('show the description, and put the name and formula on separate lines', async ({
+    page,
+  }) => {
+    await page.goto(path(SHEET));
+    // The formula-example panel: the line under Cl-35 used to be in the data
+    // and nowhere in the DOM.
+    await expect(page.getByText('17 protons, 18 neutrons', { exact: true })).toBeVisible();
+
+    // The section card read "Chlorine-35Cl-35": the formula ran on from the
+    // name because the card was a plain block and MoleculeText is inline.
+    // Asserted on geometry, since the text content is the same either way.
+    const section = page
+      .locator('article')
+      .filter({ has: page.getByRole('heading', { name: 'Atomic number and mass number' }) });
+    const name = section.getByText('Chlorine-35', { exact: true });
+    const formula = name.locator('xpath=following-sibling::*[1]');
+    const [nameBox, formulaBox] = [await name.boundingBox(), await formula.boundingBox()];
+    expect(nameBox && formulaBox).toBeTruthy();
+    expect(formulaBox!.y).toBeGreaterThanOrEqual(nameBox!.y + nameBox!.height - 1);
+  });
+
+  test('show the working on the formula-mass sheet with the German number format', async ({
+    page,
+  }) => {
+    await page.goto(path('/cheat-sheets/relative-formula-mass', 'de'));
+    await expect(page.getByText('2 × 1 + 16 = 18', { exact: true })).toBeVisible();
+    await expect(
+      page.getByText('2 × 27 + 3 × (32 + 4 × 16) = 342', { exact: true })
+    ).toBeVisible();
+    await expect(page.getByRole('cell', { name: '23 + 35,5', exact: true })).toBeVisible();
+  });
+});

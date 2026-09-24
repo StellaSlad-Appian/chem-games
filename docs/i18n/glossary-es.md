@@ -84,6 +84,9 @@ setting.
 | Apostrophe | Spanish does not use one. Nothing to escape inside single-quoted TypeScript strings, which is a small mercy after French. |
 | Decimals | **Comma**: 6,02 × 10²³, not 6.02. (Prose only; code and formulae keep their own notation.) |
 | Thousands | A no-break space, per the RAE since 2010: 1 000. Never `1,000` and never `1.000`. |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 años*. The RAE (*Ortografía*, 2010) writes four-digit numbers without the space; it starts at five digits (*65 000*). |
+| billion (10⁹) | **mil millones**, so 4.5 billion years is *4500 millones de años*. Never *billón*, which in Spanish is 10¹² — a thousand times too old for uranium-238. |
 | Accents on capitals | **Kept**: *Á*, *É*, *Ó*, *Ñ*. *Acidos* is a spelling mistake; *Ácidos* is not. |
 | Ordinals | *3º*, *4º* with the masculine ordinal indicator (U+00BA), which is one character and does not need a superscript font — the same reasoning that made French write *3e* rather than *3ᵉ*. |
 | Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `es` (see below). |

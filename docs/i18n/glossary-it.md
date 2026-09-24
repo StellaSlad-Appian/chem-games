@@ -36,6 +36,8 @@ way Spanish's did.
 | Ellipsis | **…** as a single character. |
 | Decimals | **Comma**: 6,02 × 10²³, not 6.02. (Prose only; code and formulae keep their own notation.) |
 | Thousands | A no-break space: 1 000. The traditional Italian point (1.000) was rejected because the same sheets print decimal commas and the two conventions collide for a reader who meets both in one worked example; the SI space is unambiguous and matches the Spanish decision. |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 anni*. The SI space starts at five digits (*65 000*); a four-digit number may stand unseparated, and it is what the isotopes prose already printed. |
 | Accents on capitals | **Kept, and this one is a spelling rule.** *È* is a letter, and *E’* is a typewriter workaround that Italian style guides reject. Every sentence-initial *È* on the site is U+00C8. |
 | Accents, generally | Italian accents are **final** (*perché*, *città*, *più*, *lunedì*), and the grave/acute distinction matters: *perché*, *poiché*, *né*, *sé* take an acute; *è*, *città*, *però*, *più* take a grave. |
 | Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `it` (see below). |

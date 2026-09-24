@@ -33,6 +33,8 @@ suite rather than failing silently on screen.
 | Ellipsis | **…** as a single character. |
 | Units and abbreviations | Non-breaking space (` `) before a unit and inside `z. B.`, so "8,0 g" and "z. B." never wrap. |
 | Decimals | German **comma**: 6,02 × 10²³, not 6.02. (Applies to prose; code and formulae keep their own notation.) |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 Jahre*. A no-break space groups from five digits on (*65 000*), which is how the sheets already write it. DIN 5008 allows either for four digits; unseparated matches the isotopes prose. |
 | Nouns | Capitalised, including nominalised adjectives (*das Ausgleichen*). |
 | Gender | Prefer a neutral plural or a role noun (*Forschende*, *Lehrkräfte*, *Schülerinnen und Schüler*) over a gendered singular. No asterisk or colon forms. |
 

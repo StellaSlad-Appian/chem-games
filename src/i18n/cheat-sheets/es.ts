@@ -126,6 +126,11 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Cloro-37',
       'Ion hidrógeno',
     ],
+    formulaExampleDescriptions: [
+      '17 protones, 18 neutrones',
+      '17 protones, 20 neutrones',
+      'un átomo de hidrógeno que ha perdido su único electrón – solo queda un protón',
+    ],
     sections: [
       {
         heading: 'De qué está hecho un átomo',
@@ -212,6 +217,14 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Cobalto-60',
       'Carbono-14',
       'Uranio-238',
+    ],
+    formulaExampleDescriptions: [
+      'el patrón con el que se comparan todas las demás masas',
+      'se desintegra emitiendo una partícula alfa',
+      'se desintegra emitiendo una partícula beta',
+      'emite radiación gamma',
+      'periodo de semidesintegración de unos 5730 años',
+      'periodo de semidesintegración de unos 4500 millones de años',
     ],
     sections: [
       {
@@ -643,6 +656,13 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Hidróxido de magnesio',
       'Nitrato de calcio',
     ],
+    formulaExampleDescriptions: [
+      '2 × 1 + 16 = 18',
+      '12 + 2 × 16 = 44',
+      '40 + 12 + 3 × 16 = 100',
+      '24 + 2 × (16 + 1) = 58',
+      '40 + 2 × (14 + 3 × 16) = 164',
+    ],
     sections: [
       {
         heading: 'Qué quiere decir «relativa»',
@@ -654,12 +674,20 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'La masa fórmula relativa (Mr) es la Ar de cada átomo de la fórmula, sumadas. Ve de izquierda a derecha, un elemento cada vez, y escribe el desarrollo: H2O son 2 hidrógenos de 1 cada uno, más 1 oxígeno de 16, o sea 2 + 16 = 18. El orden da igual y al final no se multiplica nada; si necesitas la calculadora para algo más que una suma, algo va mal.',
         exampleNames: ['Amoniaco', 'Metano', 'Ácido sulfúrico'],
+        exampleDescriptions: [
+          '14 + 3 × 1 = 17',
+          '12 + 4 × 1 = 16',
+          '2 × 1 + 32 + 4 × 16 = 98',
+        ],
       },
       {
         heading: 'Subíndices y paréntesis',
         content:
           'Un subíndice multiplica solo al átomo al que sigue: el 2 de CO2 significa dos oxígenos, no dos de todo. Un paréntesis multiplica todo el grupo que encierra: Mg(OH)2 es un magnesio más dos unidades OH, así que 24 + 2 × 17 = 58, no 24 + 16 + 1. Cuando veas un paréntesis, calcula el grupo una vez y luego multiplica.',
         exampleNames: ['Sulfato de aluminio'],
+        exampleDescriptions: [
+          '2 × 27 + 3 × (32 + 4 × 16) = 342',
+        ],
       },
       {
         heading: 'Por qué la tabla de clase no coincide con internet',
@@ -687,27 +715,27 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
           ['magnesio', 'Mg', '24'],
           ['aluminio', 'Al', '27'],
           ['azufre', 'S', '32'],
-          ['cloro', 'Cl', '35.5'],
+          ['cloro', 'Cl', '35,5'],
           ['potasio', 'K', '39'],
           ['calcio', 'Ca', '40'],
           ['hierro', 'Fe', '56'],
-          ['cobre', 'Cu', '63.5'],
+          ['cobre', 'Cu', '63,5'],
         ],
       },
       {
         heading: 'Ejemplos resueltos',
         columns: ['Fórmula', 'Desarrollo', 'Mr'],
         rows: [
-          ['H2', '2 x 1', '2'],
-          ['O2', '2 x 16', '32'],
-          ['H2O', '2 x 1 + 16', '18'],
-          ['NaCl', '23 + 35.5', '58.5'],
+          ['H2', '2 × 1', '2'],
+          ['O2', '2 × 16', '32'],
+          ['H2O', '2 × 1 + 16', '18'],
+          ['NaCl', '23 + 35,5', '58,5'],
           ['MgO', '24 + 16', '40'],
-          ['CO2', '12 + 2 x 16', '44'],
-          ['CaCO3', '40 + 12 + 3 x 16', '100'],
-          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
-          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
-          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+          ['CO2', '12 + 2 × 16', '44'],
+          ['CaCO3', '40 + 12 + 3 × 16', '100'],
+          ['H2SO4', '2 × 1 + 32 + 4 × 16', '98'],
+          ['Mg(OH)2', '24 + 2 × (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 × (14 + 3 × 16)', '164'],
         ],
       },
     ],

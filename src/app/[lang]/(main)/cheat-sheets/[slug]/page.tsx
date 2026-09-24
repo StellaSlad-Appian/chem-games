@@ -95,6 +95,17 @@ function PanelHeading({ icon, children }: { icon?: React.ReactNode; children: Re
   );
 }
 
+/**
+ * The line under an example's formula: "17 protons, 18 neutrons", or on the
+ * formula-mass sheet the whole sum ("2 × 1 + 16 = 18"), which is the point of
+ * the card. Plain text rather than MoleculeText: it is prose and arithmetic,
+ * not notation.
+ */
+function ExampleDescription({ text }: { text?: string }) {
+  if (!text) return null;
+  return <span className="mt-1 text-xs text-(--muted)">{text}</span>;
+}
+
 function LookupTable({ table }: { table: CheatSheetTable }) {
   const formulaColumns = new Set(table.formulaColumns ?? []);
   return (
@@ -282,7 +293,15 @@ export default async function CheatSheetDetailPage(
             {sheet.formulaExamples.map((item, index) => (
               <div key={index} className="flex flex-col justify-between rounded-2xl border border-(--border) bg-(--background) p-4">
                 <span className="text-xs font-bold text-(--muted)">{item.name}</span>
-                <MoleculeText formula={item.formula} className="mt-2 text-base font-bold text-(--link) md:text-lg" />
+                {/*
+                  Formula and description stay together at the foot of the
+                  card, so `justify-between` still lines the formulae up along
+                  a row whose names wrap differently.
+                */}
+                <div className="mt-2 flex flex-col">
+                  <MoleculeText formula={item.formula} className="text-base font-bold text-(--link) md:text-lg" />
+                  <ExampleDescription text={item.description} />
+                </div>
               </div>
             ))}
           </div>
@@ -364,9 +383,16 @@ export default async function CheatSheetDetailPage(
                 {section.examples && section.examples.length > 0 && (
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {section.examples.map((example) => (
-                      <div key={example.name} className="rounded-2xl border border-(--border) bg-(--background) p-3">
+                      /*
+                        `flex flex-col`, like the formula-example cards above.
+                        `MoleculeText` is an inline-flex span, so in a plain
+                        block its `mt-1` did nothing and the card read
+                        "Chlorine-35Cl-35".
+                      */
+                      <div key={example.name} className="flex flex-col rounded-2xl border border-(--border) bg-(--background) p-3">
                         <span className="text-xs font-bold text-(--muted)">{example.name}</span>
                         <MoleculeText formula={example.formula} className="mt-1 text-sm font-bold text-(--link)" />
+                        <ExampleDescription text={example.description} />
                       </div>
                     ))}
                   </div>

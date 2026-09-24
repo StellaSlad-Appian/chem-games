@@ -128,6 +128,11 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Cloro-37',
       'Ione idrogeno',
     ],
+    formulaExampleDescriptions: [
+      '17 protoni, 18 neutroni',
+      '17 protoni, 20 neutroni',
+      'un atomo di idrogeno che ha perso il suo unico elettrone – resta solo un protone',
+    ],
     sections: [
       {
         heading: 'Di che cosa è fatto un atomo',
@@ -214,6 +219,14 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Cobalto-60',
       'Carbonio-14',
       'Uranio-238',
+    ],
+    formulaExampleDescriptions: [
+      'lo standard con cui si confrontano tutte le altre masse',
+      'decade emettendo una particella alfa',
+      'decade emettendo una particella beta',
+      'emette radiazione gamma',
+      'tempo di dimezzamento di circa 5730 anni',
+      'tempo di dimezzamento di circa 4,5 miliardi di anni',
     ],
     sections: [
       {
@@ -652,6 +665,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Idrossido di magnesio',
       'Nitrato di calcio',
     ],
+    formulaExampleDescriptions: [
+      '2 × 1 + 16 = 18',
+      '12 + 2 × 16 = 44',
+      '40 + 12 + 3 × 16 = 100',
+      '24 + 2 × (16 + 1) = 58',
+      '40 + 2 × (14 + 3 × 16) = 164',
+    ],
     sections: [
       {
         heading: 'Che cosa vuol dire «relativa»',
@@ -663,12 +683,20 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'La massa formula relativa (Mr) è la somma delle Ar di tutti gli atomi della formula. Procedi da sinistra a destra, un elemento alla volta, e scrivi il passaggio: H2O sono 2 idrogeni da 1 ciascuno più 1 ossigeno da 16, quindi 2 + 16 = 18. L’ordine non conta e alla fine non si moltiplica niente: se ti serve la calcolatrice per qualcosa di più di una somma, c’è qualcosa che non va.',
         exampleNames: ['Ammoniaca', 'Metano', 'Acido solforico'],
+        exampleDescriptions: [
+          '14 + 3 × 1 = 17',
+          '12 + 4 × 1 = 16',
+          '2 × 1 + 32 + 4 × 16 = 98',
+        ],
       },
       {
         heading: 'Pedici e parentesi',
         content:
           'Un pedice moltiplica solo l’atomo che segue: il 2 di CO2 vuol dire due ossigeni, non due di tutto. Una parentesi moltiplica l’intero gruppo che racchiude: Mg(OH)2 è un magnesio più due unità OH, quindi 24 + 2 × 17 = 58, non 24 + 16 + 1. Quando vedi una parentesi, calcola il gruppo una volta e poi moltiplica.',
         exampleNames: ['Solfato di alluminio'],
+        exampleDescriptions: [
+          '2 × 27 + 3 × (32 + 4 × 16) = 342',
+        ],
       },
       {
         heading: 'Perché la tavola di classe non coincide con internet',
@@ -696,27 +724,27 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
           ['magnesio', 'Mg', '24'],
           ['alluminio', 'Al', '27'],
           ['zolfo', 'S', '32'],
-          ['cloro', 'Cl', '35.5'],
+          ['cloro', 'Cl', '35,5'],
           ['potassio', 'K', '39'],
           ['calcio', 'Ca', '40'],
           ['ferro', 'Fe', '56'],
-          ['rame', 'Cu', '63.5'],
+          ['rame', 'Cu', '63,5'],
         ],
       },
       {
         heading: 'Esempi svolti',
         columns: ['Formula', 'Calcolo', 'Mr'],
         rows: [
-          ['H2', '2 x 1', '2'],
-          ['O2', '2 x 16', '32'],
-          ['H2O', '2 x 1 + 16', '18'],
-          ['NaCl', '23 + 35.5', '58.5'],
+          ['H2', '2 × 1', '2'],
+          ['O2', '2 × 16', '32'],
+          ['H2O', '2 × 1 + 16', '18'],
+          ['NaCl', '23 + 35,5', '58,5'],
           ['MgO', '24 + 16', '40'],
-          ['CO2', '12 + 2 x 16', '44'],
-          ['CaCO3', '40 + 12 + 3 x 16', '100'],
-          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
-          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
-          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+          ['CO2', '12 + 2 × 16', '44'],
+          ['CaCO3', '40 + 12 + 3 × 16', '100'],
+          ['H2SO4', '2 × 1 + 32 + 4 × 16', '98'],
+          ['Mg(OH)2', '24 + 2 × (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 × (14 + 3 × 16)', '164'],
         ],
       },
     ],

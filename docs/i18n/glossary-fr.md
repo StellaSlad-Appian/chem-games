@@ -42,6 +42,8 @@ the suite rather than failing silently on screen.
 | Apostrophe | **’** (U+2019), the typographic apostrophe, not `'`. It also saves escaping inside single-quoted TypeScript strings. |
 | Decimals | French **comma**: 6,02 × 10²³, not 6.02. (Prose only; code and formulae keep their own notation.) |
 | Thousands | Narrow no-break space (U+202F): 1 000, not 1,000 and not 1.000. |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 ans*, while *65 000* keeps its space. The SI brochure lets a four-digit number stand unseparated, and it is what the isotopes prose already printed. **Rated medium**: many French textbooks write *5 730 ans*; if a native reviewer prefers that, change the prose and the example card together. |
 | Accents on capitals | **Kept**: *É*, *À*, *Ê*. *Equations* is a spelling mistake; *Équations* is not. |
 | Ligatures | **œ** where French uses it: *stœchiométrie*, *cœur*. |
 | Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `fr` (see below). |
