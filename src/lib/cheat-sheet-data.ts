@@ -981,7 +981,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     summary: 'Mole conversions, mole ratios, limiting reagents and percentage yield in one place.',
     iconName: 'Gauge',
     colorTheme: 'border-orange-500 text-orange-500',
-    curriculumRef: 'VCE Unit 2 AoS 1–2 (the mole, concentration, stoichiometry); Unit 3 AoS 2 (yield).',
+    curriculumRef: 'VCE Unit 1 AoS 2 (the mole, Avogadro\'s constant, molar mass); Unit 2 AoS 2 (concentration, solution and gas stoichiometry); Unit 3 AoS 1 (limiting reactants); Unit 4 AoS 1 (percentage yield).',
     relatedGames: ['reaction-balancer'],
     keyTakeaways: [
       'One mole is 6.02 × 10^23 particles (Avogadro\'s number, N_A). Molar mass M (g/mol) is the mass of one mole — add up the atomic masses from the periodic table.',
