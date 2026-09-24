@@ -3,7 +3,7 @@
 **Status:** Draft. Needs your review at every `YOU DECIDE` mark. Not buildable until `Approved`
 (`BUILD_PLAN.md` §0 rule 1).
 **Owner / reviewer:** Stella (pedagogy owner).
-**Last updated:** 2026-09-24
+**Last updated:** 2026-09-24 (Australian curricula added)
 **Scope:** the shared foundation that every organic chemistry, kinetics and thermodynamics game
 is built on, for German students in **Klasse 10–12**, with **Bavaria (LehrplanPLUS, G9) as the
 pilot curriculum**. It covers:
@@ -18,6 +18,10 @@ pilot curriculum**. It covers:
   standards and five other Länder compared. It also holds the skill ids (O/K/T/G), the
   misconception list (M1–M35) and a German–English glossary of about 110 terms that this plan
   uses.
+- [`curriculum/australia-overview.md`](./curriculum/australia-overview.md): the Australian states
+  and territories compared (with one document per jurisdiction in `curriculum/`). It covers the same
+  skill ids, a shared numbering for the extra skills (O11–O21, T11–T14) and how each planned game
+  fits Australian courses.
 - Existing briefs this plan absorbs: [`game-briefs/organic-naming.md`](./game-briefs/organic-naming.md),
   [`game-briefs/synthesis-router.md`](./game-briefs/synthesis-router.md),
   [`game-briefs/functional-groups.md`](./game-briefs/functional-groups.md).
@@ -90,6 +94,23 @@ The KMK standards and every Land checked agree on this core (ids from the overvi
 - **T9:** entropy and Gibbs–Helmholtz, qualitative (12 LB8 gA)
 - **T10:** Gibbs–Helmholtz, quantitative (eA)
 
+### 2.3 Australia in one paragraph
+
+[`curriculum/australia-overview.md`](./curriculum/australia-overview.md) has the detail. Years 7–10
+lay no organic or energetics groundwork, so every game here is `Senior` in Australia.
+- **Organic chemistry is broader than in Germany but has no mechanisms:** reaction pathways,
+  yield, polymers, spectroscopy.
+- **Thermodynamics is narrower:**
+  - Hess's law is core only in NSW (until 2028) and Tasmania.
+  - Gibbs energy is only in NSW until 2028.
+  - Fuels and food energy take their place.
+- **Placement differs by state:** kinetics and energetics are Year 11 in NSW, Queensland, WA and
+  ACT, and Year 12 in Victoria, SA/NT and Tasmania.
+- **Game fit:**
+  - Hess Puzzle (G8) and Spontaneity Quadrant (G10) are German-first.
+  - Calorimeter (G9) gains fuels and food-energy modes.
+  - A spectroscopy game is better supported in Australia than several games in §4.
+
 ---
 
 ## 3. Architecture overview
@@ -118,7 +139,10 @@ alongside `YearLevel`. `YearLevel` itself stays, and the hub keeps using it.
 
 ```ts
 // src/core-engine/curriculum/types.ts
-export type CurriculumId = 'de-by-gym' | 'de-kmk-ahr' | 'de-nw' | 'de-ni' | 'de-bw' | 'de-be' | 'de-he' | 'au-vce';
+export type CurriculumId =
+  | 'de-by-gym' | 'de-kmk-ahr' | 'de-nw' | 'de-ni' | 'de-bw' | 'de-be' | 'de-he'
+  | 'au-ac9' | 'au-vic' | 'au-nsw' | 'au-qld' | 'au-wa' | 'au-sace' | 'au-tas' | 'au-act';
+  // NSW carries two anchor sets: 2017 syllabus (HSC until 2028) and 2025 syllabus (from 2028)
 export type CourseLevel = 'gA' | 'eA';                  // alias GK/LK, Basisfach/Leistungsfach
 export type SkillId = `O${number}` | `K${number}` | `T${number}` | `G${number}`;
 
@@ -540,7 +564,10 @@ Follows `docs/TESTING.md`; targeted tests by default, the full Playwright suite 
 9. Audience band: widen to Klasse 9–12, or a separate Oberstufe section? (§8)
 10. Who reviews the Bavarian curriculum document: a Bavarian chemistry teacher, ideally one
     who teaches both NTG and non-NTG classes?
-11. Other Länder: Bavaria first, then KMK core tagging for all. Nine Länder are not yet
+11. Australian profiles: which states to support first (Victoria is the platform's existing
+    curriculum; NSW and Queensland have the most students), and should a spectroscopy game join the
+    catalogue for Australian students? (See `curriculum/australia-overview.md` §6.)
+12. Other Länder: Bavaria first, then KMK core tagging for all. Nine Länder are not yet
     researched (Saxony, Thuringia, Saxony-Anhalt, Mecklenburg-Western Pomerania,
     Schleswig-Holstein, Hamburg, Bremen, Rhineland-Palatinate, Saarland). Research them when
     teachers from those Länder show interest?
