@@ -201,7 +201,6 @@ export const de = {
     statExperiments: 'Experimente',
     statLevel: 'Klasse',
     statStreak: 'Tage in Folge',
-    statAccuracy: 'Trefferquote',
 
     editHeading: 'Ausrüstung einstellen',
     editIntro:
@@ -244,7 +243,6 @@ export const de = {
     showYearLevel: 'Klassenstufe öffentlich zeigen',
     showLabNotes: 'Labornotizen öffentlich zeigen',
     showTotalSyntheses: 'Anzahl der Synthesen anzeigen',
-    showAccuracy: 'Trefferquote in Prozent anzeigen',
     showCurrentStreak: 'Tagesserie anzeigen',
   },
 

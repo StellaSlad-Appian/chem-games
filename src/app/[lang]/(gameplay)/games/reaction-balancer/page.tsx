@@ -146,7 +146,7 @@ export default function ReactionBalancerPage() {
     sessionSavedRef.current = false;
     startTimeRef.current = Date.now();
     setCurrentLevel(CFG.levels.challengeLevel);
-    startLevel(CFG.levels.challengeLevel);
+    startLevel(CFG.levels.challengeLevel, { newSession: true });
     setGameState('playing');
   }, [setCurrentLevel, startLevel, setGameState]);
 

@@ -69,7 +69,6 @@ export async function updateProfileAction(
     const showYearLevel = formData.get('showYearLevel') === 'on';
     const showLabNotes = formData.get('showLabNotes') === 'on';
     const showTotalSyntheses = formData.get('showTotalSyntheses') === 'on';
-    const showAccuracy = formData.get('showAccuracy') === 'on';
     const showCurrentStreak = formData.get('showCurrentStreak') === 'on';
 
     // 3. Send the properly formatted data to Supabase
@@ -85,7 +84,6 @@ export async function updateProfileAction(
         show_year_level: showYearLevel,
         show_lab_notes: showLabNotes,
         show_total_syntheses: showTotalSyntheses,
-        show_accuracy: showAccuracy,
         show_current_streak: showCurrentStreak,
         updated_at: new Date().toISOString(),
       })

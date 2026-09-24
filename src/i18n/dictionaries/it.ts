@@ -281,7 +281,6 @@ export const it = {
     statExperiments: 'Esperimenti',
     statLevel: 'Livello',
     statStreak: 'Giorni di fila',
-    statAccuracy: 'Precisione',
 
     editHeading: 'Configura l’attrezzatura',
     editIntro:
@@ -324,7 +323,6 @@ export const it = {
     showYearLevel: 'Rendi pubblica la classe',
     showLabNotes: 'Rendi pubblici gli appunti di laboratorio',
     showTotalSyntheses: 'Mostra il numero di sintesi',
-    showAccuracy: 'Mostra la percentuale di risposte esatte',
     showCurrentStreak: 'Mostra i giorni di gioco di fila',
   },
 
