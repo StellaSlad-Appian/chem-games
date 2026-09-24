@@ -45,11 +45,11 @@ or intermediate — the most common exam format).
 |---|---|---|---|---|---|
 | R1 | alkene | H₂, Ni catalyst | alkane | addition (hydrogenation) | |
 | R2 | alkene | X₂ (Cl₂/Br₂) | dihaloalkane | addition | Br₂ water decolourises |
-| R3 | alkene | HX | haloalkane | addition | Position: symmetric alkenes only until Level 5 |
+| R3 | alkene | HX, catalyst | haloalkane | addition | Position: symmetric alkenes only until Level 5 (see §11, question 2). The catalyst is on the card because the June 2024 sample exam (MC Q20) gives "hydrogen chloride in the presence of a catalyst" for 1-hexene → 2-chlorohexane; it names no specific catalyst, so the card doesn't either |
 | R4 | alkene | H₂O, H₃PO₄ catalyst (or dilute H₂SO₄), heat | alcohol | addition (hydration) | |
 | R5 | alkane | X₂, UV light | haloalkane | substitution | Mixture of products — flag as "low yield" |
 | R6 | haloalkane | OH⁻ (NaOH aq), heat | alcohol | substitution | |
-| R7 | haloalkane | NH₃ (excess) | primary amine | substitution | |
+| R7 | haloalkane | NH₃ (excess) | primary amine | substitution | Exam mode (Level 6) also accepts primary alcohol + NH₃ → primary amine as a correct answer: the 2025 exam report accepted both 1-chloropropane + ammonia and propan-1-ol + ammonia for propan-1-amine. Forward play keeps the haloalkane route only |
 | R8 | primary alcohol | Cr₂O₇²⁻/H⁺ (or MnO₄⁻/H⁺), distil | aldehyde | oxidation | Mild/partial. **Enrichment:** aldehydes are named and drawn in VCE, but no key knowledge dot point covers partial oxidation or the distil-vs-reflux choice |
 | R9 | primary alcohol | Cr₂O₇²⁻/H⁺, reflux | carboxylic acid | oxidation | Via aldehyde |
 | R10 | aldehyde | Cr₂O₇²⁻/H⁺ | carboxylic acid | oxidation | |
