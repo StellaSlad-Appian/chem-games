@@ -9,12 +9,24 @@ Levels 2–5 content in both modes rather than a game of their own. The ion *loo
 in Cheat Sheets, not in a game.
 **Target concept(s):** Writing formulas of ionic compounds by charge balance (incl. brackets for
 polyatomic ions and Roman numerals for variable-charge metals); IUPAC naming of ionic compounds;
-binary molecular (Greek prefix) and acid naming as a contrast at the top levels.
+binary molecular (Greek prefix) and acid naming as a contrast at the top levels (enrichment —
+not VCE key knowledge, see below).
 **Target year level:** Year 10 → Senior (VCE Unit 1)
 > YOU DECIDE: Mode B Levels 4–5 (molecular prefixes, acids) may be Senior-only. Confirm against
 > the VCE Unit 1 key knowledge.
+>
+> Evidence (check against the VCE Chemistry Study Design, Units 1–2 from 2023, on 2026-09-24):
+> Unit 1 AoS 1 key knowledge covers deducing the formula and name of an ionic compound from its
+> component ions, including NH₄⁺, OH⁻, NO₃⁻, HCO₃⁻, CO₃²⁻, SO₄²⁻, PO₄³⁻ and transition metal
+> ions — so Mode B Level 4 (Roman numerals) is in scope. Binary molecular (Greek-prefix) naming
+> and acid naming are **not in Unit 1 key knowledge, and were not found in any VCE unit**, so
+> they are not "Senior-only" but **enrichment** at every level. In the table below they sit in
+> Mode B Level 5 only. Whether to keep them as enrichment, drop them, or defer them (open
+> question 3) is yours.
 **Curriculum reference:** Victorian Curriculum Science Level 10 (chemical sciences); VCE Chemistry
-Unit 1 AoS 1 — _confirm exact dot points_.
+Unit 1 AoS 1 — formulas and names of ionic compounds from their component ions, including seven
+polyatomic ions and transition metal ions. The VCE Data Book's ion table is longer than the
+study design's list.
 
 ## Two modes, one engine
 
@@ -62,7 +74,7 @@ for two non-metals").
 | 2 | One polyatomic ion, no brackets: NaNO₃, K₂SO₄, NH₄Cl | Ionic with polyatomic ions; `-ate`/`-ite` distractors | Charges + ion names shown |
 | 3 | Brackets required: Mg(OH)₂, Ca(NO₃)₂, Al₂(SO₄)₃, (NH₄)₂CO₃ | Same compounds, name from formula | Charges hidden until hover |
 | 4 | Variable-charge metals: FeSO₄ vs Fe₂(SO₄)₃, Cu(NO₃)₂, PbO₂ | Roman numerals deduced from anion charge | Hint explains oxidation state |
-| 5 | Reverse recognition: chlorate/chlorite/hypochlorite/perchlorate, sulfate/sulfite | Contrast: binary molecular (CO₂, N₂O₄, PCl₅) with prefixes and the `mono-` rule; acids (HCl → hydrochloric, H₂SO₄ → sulfuric, H₂SO₃ → sulfurous) | None |
+| 5 | Reverse recognition: chlorate/chlorite/hypochlorite/perchlorate, sulfate/sulfite | **Enrichment (not VCE key knowledge):** contrast: binary molecular (CO₂, N₂O₄, PCl₅) with prefixes and the `mono-` rule; acids (HCl → hydrochloric, H₂SO₄ → sulfuric, H₂SO₃ → sulfurous) | None |
 
 ## Known misconceptions to guard against
 
