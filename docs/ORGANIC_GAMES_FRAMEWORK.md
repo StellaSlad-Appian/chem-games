@@ -134,6 +134,11 @@ existing F1–F9 in `BUILD_PLAN.md` §4.
 
 ### OF1: Curriculum layer (skills, anchors, profile)
 
+> **Proposed replacement (Draft, 2026-09-24):** [`curriculum/ALIGNMENT.md`](./curriculum/ALIGNMENT.md)
+> proposes making the cross-country curriculum map the single curriculum model. The skill ids and
+> `CurriculumAnchor` below would retire in favour of canonical concepts and jurisdiction records
+> (`DE-BY`, `AU-VIC`, …). Read that first; this section stands until it is approved.
+
 The German curriculum cannot be expressed as a year level, so the framework adds a tagging layer
 alongside `YearLevel`. `YearLevel` itself stays, and the hub keeps using it.
 
