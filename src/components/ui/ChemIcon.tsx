@@ -48,7 +48,7 @@ interface ChemIconProps extends Omit<LucideProps, 'ref'> {
 }
 
 /**
- * Reusable server-safe icon component for ChemGames.
+ * Reusable server-safe icon component for Games in Chemistry.
  * Fallbacks cleanly to `BookOpen` if an unmapped icon name is passed.
  */
 export function ChemIcon({ name, ...props }: ChemIconProps) {

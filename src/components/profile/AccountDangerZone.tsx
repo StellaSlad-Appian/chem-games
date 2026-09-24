@@ -38,7 +38,7 @@ export function AccountDangerZone() {
         {/* A plain anchor (not <Link>) because the target is a file download, not a page. */}
         <a
           href="/account/export"
-          download="chemgames-data.json"
+          download="games-in-chemistry-data.json"
           className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) hover:text-(--link)"
         >
           <Download className="h-4 w-4 shrink-0" aria-hidden="true" />

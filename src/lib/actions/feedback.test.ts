@@ -154,7 +154,7 @@ describe('submitFeedbackAction', () => {
       expect(sendMock).toHaveBeenCalledTimes(1);
       const email = lastEmail();
       expect(email.to).toEqual([RECIPIENT]);
-      expect(email.subject).toBe('[ChemGames CHEMISTRY] New Feedback Submission');
+      expect(email.subject).toBe('[Games in Chemistry CHEMISTRY] New Feedback Submission');
       expect(email.html).toContain('NaCl is listed as an acid');
       expect(email.html).toContain('/games/acid-classification');
       expect(email.html).toContain('anonymous');

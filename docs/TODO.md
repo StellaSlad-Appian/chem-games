@@ -170,6 +170,26 @@ scientists — the Explore pool is now 104 ready, 0 blocked.
       `bondsTitle` / `bondsDescription` strings and the `'bond-builder'` entry in
       `GameName` were deliberately kept for whenever it is built.
 
+### Landing page
+
+**Redesigned and merged** 2026-09-24: two-column hero with periodic-table tiles, games
+first ("Pick your game"), profile folded into the scores section, the site following
+the device's light/dark setting, and the rename to "Games in Chemistry".
+
+- [ ] **Font change across the site — the agreed second step.** The landing page
+      headings are set in DM Sans (`font-sans`) to match the template; every other
+      heading is still Bebas Neue, so the two currently disagree between pages. The
+      recommendation is one face with Cyrillic, such as Nunito, for the whole site,
+      which would also retire the Oswald/Manrope pair Russian loads today
+      (`src/i18n/fonts.ts`). Needs the 1024px header re-measured in all six locales:
+      German has 20px to spare with the current face.
+- [ ] **Maybe later: motion on the hero tiles.** Decided 2026-09-24 to leave them still
+      for now. Two options were offered, both plain CSS, no library: a small lift on
+      hover, or a slow float. Either must be switched off under
+      `prefers-reduced-motion` like the other animations in `globals.css`, and the
+      tiles stay `aria-hidden` decoration. The tiles are `ElementTiles` in
+      `src/app/[lang]/(main)/page.tsx`.
+
 ---
 
 ## Before the site goes in front of a class

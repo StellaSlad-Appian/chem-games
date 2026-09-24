@@ -66,12 +66,12 @@ async function storeCollaborator(
   try {
     supabase = await createClient();
   } catch (err) {
-    console.error('[ChemGames] Supabase client initialisation failed:', err);
+    console.error('[Games in Chemistry] Supabase client initialisation failed:', err);
     return 'failed';
   }
 
   if (!supabase) {
-    console.warn('[ChemGames] Supabase is not configured; the sign-up will not be stored.');
+    console.warn('[Games in Chemistry] Supabase is not configured; the sign-up will not be stored.');
     return 'unconfigured';
   }
 
@@ -98,11 +98,11 @@ async function storeCollaborator(
   // The action validated already, so a PT400 here means the two validators
   // disagree — worth a distinct outcome so the log says which one to fix.
   if (error.code === INVALID_SQLSTATE) {
-    console.error('[ChemGames] submit_collaborator rejected input the action accepted:', error.message);
+    console.error('[Games in Chemistry] submit_collaborator rejected input the action accepted:', error.message);
     return 'invalid';
   }
 
-  console.error('[ChemGames] Storing the collaborator sign-up failed:', error.code, error.message);
+  console.error('[Games in Chemistry] Storing the collaborator sign-up failed:', error.code, error.message);
   return 'failed';
 }
 
@@ -124,7 +124,7 @@ async function sendCollaboratorEmail(
 
   if (!apiKey || !recipientEmail) {
     console.warn(
-      `[ChemGames] Collaborator notification skipped: ${!apiKey ? 'RESEND_API_KEY' : 'FEEDBACK_RECIPIENT_EMAIL'} is not set.`
+      `[Games in Chemistry] Collaborator notification skipped: ${!apiKey ? 'RESEND_API_KEY' : 'FEEDBACK_RECIPIENT_EMAIL'} is not set.`
     );
     return 'unconfigured';
   }
@@ -143,7 +143,7 @@ async function sendCollaboratorEmail(
   // in the maintainer's inbox, so all of it is escaped.
   const html = `
     <div style="font-family: Arial, sans-serif; padding: 24px; background-color: #f8fafc; color: #0f172a; border-radius: 12px; max-width: 600px;">
-      <h2 style="color: #3b82f6; margin-top: 0; font-weight: 800;">New ChemGames teacher collaborator</h2>
+      <h2 style="color: #3b82f6; margin-top: 0; font-weight: 800;">New Games in Chemistry teacher collaborator</h2>
       ${rows
         .map(
           ([label, value]) =>
@@ -161,7 +161,7 @@ async function sendCollaboratorEmail(
   `;
 
   const text = [
-    'New ChemGames teacher collaborator',
+    'New Games in Chemistry teacher collaborator',
     '',
     ...rows.map(([label, value]) => `${label}: ${value}`),
     '',
@@ -171,20 +171,20 @@ async function sendCollaboratorEmail(
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from: 'ChemGames Collaborators <onboarding@resend.dev>',
+      from: 'Games in Chemistry Collaborators <onboarding@resend.dev>',
       to: [recipientEmail],
-      subject: '[ChemGames] New teacher collaborator sign-up',
+      subject: '[Games in Chemistry] New teacher collaborator sign-up',
       html,
       text,
     });
 
     if (error) {
-      console.error('[ChemGames] Resend delivery failed:', error.name, error.message);
+      console.error('[Games in Chemistry] Resend delivery failed:', error.name, error.message);
       return 'failed';
     }
     return 'sent';
   } catch (err) {
-    console.error('[ChemGames] Resend delivery threw:', err);
+    console.error('[Games in Chemistry] Resend delivery threw:', err);
     return 'failed';
   }
 }
@@ -258,7 +258,7 @@ export async function submitCollaboratorAction(
           : CLIENT_MESSAGES.emailFailedAfterStore,
     };
   } catch (err) {
-    console.error('[ChemGames] Failed to submit the collaborator sign-up:', err);
+    console.error('[Games in Chemistry] Failed to submit the collaborator sign-up:', err);
     return { success: false, error: m.collaboratorUnexpected };
   }
 }

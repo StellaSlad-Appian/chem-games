@@ -18,6 +18,8 @@ export interface NavSection {
   href: string;
   label: string;
   Icon: LucideIcon;
+  /** The reader is on this section's page; rendered as aria-current. */
+  current?: boolean;
 }
 
 /**
@@ -250,14 +252,15 @@ export function NavPanel({
                 </div>
 
                 <nav aria-label={t.nav.sectionsA11y} className="flex flex-col gap-1 p-4">
-                  {sections.map(({ href, label, Icon }) => (
+                  {sections.map(({ href, label, Icon, current }) => (
                     <LocaleLink
                       key={href}
                       href={href}
+                      aria-current={current ? 'page' : undefined}
                       onClick={close}
                       // min-h-11 is 44px: the target size docs/ACCESSIBILITY.md asks
                       // for, which the horizontal row cannot give on a phone.
-                      className="flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:bg-blue-500/10 hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+                      className="flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:bg-blue-500/10 hover:text-(--link) aria-[current=page]:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                     >
                       <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
                       {label}

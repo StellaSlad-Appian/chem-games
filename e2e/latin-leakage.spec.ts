@@ -109,7 +109,7 @@ const ALLOWED_PATTERNS: { why: string; pattern: RegExp }[] = [
   },
   {
     why: 'Brand, product and company names.',
-    pattern: /\b(?:ChemGames|Supabase|Resend|Google|Vercel|Next\.js|GitHub)\b/g,
+    pattern: /\b(?:Games in Chemistry|Supabase|Resend|Google|Vercel|Next\.js|GitHub)\b/g,
   },
   {
     why: 'Australian legal proper nouns, which the privacy page keeps in English by policy — see the header of privacy/page.tsx.',
@@ -325,7 +325,7 @@ test.describe('the leakage check itself', () => {
 
   test('lets formulae, state symbols and brand names through', () => {
     expect(englishIn('Wasser ist H2O(l), Natronlauge NaOH(aq). pH 7.')).toEqual([]);
-    expect(englishIn('ChemGames verwendet Supabase, Resend und Google.')).toEqual([]);
+    expect(englishIn('Games in Chemistry verwendet Supabase, Resend und Google.')).toEqual([]);
   });
 
   test('works when the surrounding text is Cyrillic', () => {

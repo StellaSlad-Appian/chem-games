@@ -23,7 +23,7 @@ export function isSupabaseConfigured(): boolean {
 export function getSupabaseConfig() {
   if (!isSupabaseConfigured()) {
     console.warn(
-      '⚠️ [ChemGames] Supabase is not configured. Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY.'
+      '⚠️ [Games in Chemistry] Supabase is not configured. Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY.'
     );
     return null;
   }

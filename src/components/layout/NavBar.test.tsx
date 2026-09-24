@@ -29,8 +29,8 @@ describe('NavBar', () => {
     // `/en/#games` is what LocaleLink builds; next/link normalises the slash
     // before a fragment away, so that is what the DOM carries.
     const expected: Array<[string, string]> = [
-      [en.nav.leaderboards, '/en#leaderboards'],
       [en.nav.games, '/en#games'],
+      [en.nav.leaderboards, '/en#leaderboards'],
       [en.nav.cheatSheets, '/en/cheat-sheets'],
       [en.nav.explore, '/en/explore'],
     ];
@@ -66,9 +66,10 @@ describe('NavBar', () => {
       a.textContent?.trim()
     );
 
+    // Games first: it is what the site is for.
     expect(rowLabels).toEqual([
-      en.nav.leaderboards,
       en.nav.games,
+      en.nav.leaderboards,
       en.nav.cheatSheets,
       en.nav.explore,
     ]);

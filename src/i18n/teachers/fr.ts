@@ -29,11 +29,11 @@ import type { TeachersCopy } from './en';
 export const fr = {
   heading: 'Pour les enseignants',
   intro:
-    'Ce qu’est ChemGames, ce qu’on y trouve et comment vous pouvez contribuer à le façonner. Toutes les autres pages sont écrites pour les élèves qui jouent ; celle-ci est écrite pour vous.',
+    'Ce qu’est Games in Chemistry, ce qu’on y trouve et comment vous pouvez contribuer à le façonner. Toutes les autres pages sont écrites pour les élèves qui jouent ; celle-ci est écrite pour vous.',
 
   betaHeading: 'Le site est en bêta',
   betaBody:
-    'ChemGames est encore en construction. Les jeux changent, d’autres arrivent, et la formulation d’une astuce ou d’une antisèche peut être différente le mois prochain. Tout fonctionne et tout est gratuit – mais faites vous-même une partie avant de proposer un jeu à une classe.',
+    'Games in Chemistry est encore en construction. Les jeux changent, d’autres arrivent, et la formulation d’une astuce ou d’une antisèche peut être différente le mois prochain. Tout fonctionne et tout est gratuit – mais faites vous-même une partie avant de proposer un jeu à une classe.',
 
   whatHeading: 'De quoi il s’agit',
   whatBody1:

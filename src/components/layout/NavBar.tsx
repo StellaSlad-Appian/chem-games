@@ -1,6 +1,7 @@
 // src/components/layout/NavBar.tsx
 'use client';
 
+import { usePathname } from 'next/navigation';
 import { Beaker, Compass, Trophy, Gamepad2, FileText } from 'lucide-react';
 import { AuthButton } from '@/components/auth/AuthButton';
 import { GlobalSettingsButton } from '@/components/ui/GlobalSettingsButton';
@@ -31,12 +32,20 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
   // is and which is already in this same header row. The dashboard keeps its
   // own `#profile` section and `/profile` keeps its route; only the nav chip
   // moved. See docs/feature-briefs/nav-profile-to-settings.md §2.
+  //
+  // Games comes first: it is what the site is for, and the dashboard's own
+  // sections now run in the same order (games, scores, guides, explore).
+  //
+  // `section` is the route whose pages count as "here" for aria-current. The
+  // two hash links point at dashboard sections, so they are current on the
+  // full pages those sections summarise.
+  const here = currentSection(usePathname());
   const sections: NavSection[] = [
-    { href: '/#leaderboards', label: t.nav.leaderboards, Icon: Trophy },
-    { href: '/#games', label: t.nav.games, Icon: Gamepad2 },
-    { href: '/cheat-sheets', label: t.nav.cheatSheets, Icon: FileText },
-    { href: '/explore', label: t.nav.explore, Icon: Compass },
-  ];
+    { href: '/#games', section: '/games', label: t.nav.games, Icon: Gamepad2 },
+    { href: '/#leaderboards', section: '/leaderboards', label: t.nav.leaderboards, Icon: Trophy },
+    { href: '/cheat-sheets', section: '/cheat-sheets', label: t.nav.cheatSheets, Icon: FileText },
+    { href: '/explore', section: '/explore', label: t.nav.explore, Icon: Compass },
+  ].map(({ section, ...rest }) => ({ ...rest, current: here === section }));
 
   return (
     <header className="sticky top-0 z-40 border-b border-(--border) bg-(--surface)/90 backdrop-blur-md">
@@ -49,13 +58,18 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
           switcher made it impossible to ignore. The link keeps its accessible
           name through the sr-only span.
         */}
-        <LocaleLink href="/" className="flex shrink-0 items-center gap-2 font-black text-xl">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-(--action) text-white shadow-md">
+        {/*
+          The wordmark is English in every locale — it is the product's name —
+          so it is written out here rather than read from the dictionary; the
+          accessible name still comes from `meta.siteName`.
+        */}
+        <LocaleLink href="/" className="flex shrink-0 items-center gap-3 text-xl font-extrabold">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--action) text-white shadow-md shadow-blue-600/25">
             <Beaker className="h-5 w-5" aria-hidden="true" />
           </span>
           <span className="sr-only sm:hidden">{t.meta.siteName}</span>
-          <span aria-hidden="true" className="hidden sm:inline">
-            Chem<span className="text-(--link)">Games</span>
+          <span aria-hidden="true" className="hidden whitespace-nowrap sm:inline">
+            Games in <span className="text-(--link)">Chemistry</span>
           </span>
         </LocaleLink>
 
@@ -80,10 +94,11 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
           and 1280px in all five locales, signed in and signed out.
         */}
         <nav aria-label={t.nav.sectionsA11y} className="hidden items-center gap-1 lg:flex">
-          {sections.map(({ href, label, Icon }) => (
+          {sections.map(({ href, label, current }) => (
             <LocaleLink
               key={href}
               href={href}
+              aria-current={current ? 'page' : undefined}
               // Tighter horizontal padding than the app's usual buttons, and
               // it no longer relaxes at lg. Measured with the row forced to
               // `width: max-content` — which is the only way to see the real
@@ -93,9 +108,12 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
               // absorbed the difference, so `scrollWidth <= innerWidth` passed
               // while the row was genuinely over-full. Dropping `lg:px-3` gives
               // 4px back per link, 16px across the four.
-              className="flex items-center gap-1.5 whitespace-nowrap rounded-xl px-2.5 py-2 text-xs font-black uppercase tracking-wider text-(--muted) transition hover:bg-blue-500/10 hover:text-(--link)"
+              //
+              // No icon and no uppercase in the row since the redesign: those
+              // two gave back the ~90px the longer "Games in Chemistry"
+              // wordmark took. The phone panel keeps its icons.
+              className="whitespace-nowrap rounded-xl px-3 py-2 text-[15px] font-bold text-(--muted) transition hover:text-(--link) aria-[current=page]:text-(--link)"
             >
-              <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />
               {label}
             </LocaleLink>
           ))}
@@ -125,4 +143,10 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
       </div>
     </header>
   );
+}
+
+/** `/de/games/foo` → `/games`: the first path segment after the locale. */
+function currentSection(pathname: string | null): string {
+  const [, , first] = (pathname ?? '/').split('/');
+  return first ? `/${first}` : '/';
 }
