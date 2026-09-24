@@ -238,7 +238,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Elemente, die gemacht werden mussten',
         content:
-          'Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur höchstens in winzigen Spuren vor. Die ersten, zum Beispiel Plutonium, entstehen in Kernreaktoren: Dort fängt Uran Neutronen ein und wandelt sich durch Zerfall in sie um. Die schwereren werden in Beschleunigern gebaut, indem man einen Kern auf einen anderen schießt, manchmal wenige Atome auf einmal. Viele halten weniger als eine Sekunde durch und zerfallen dann. So wurden die unteren Zeilen des Periodensystems gefüllt.',
+          'Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur höchstens in winzigen Spuren vor. Die ersten, zum Beispiel Plutonium, entstehen in Kernreaktoren: Uran fängt dort Neutronen ein, und durch Betazerfall wird daraus erst Neptunium, dann Plutonium. Die schwereren werden in Beschleunigern gebaut, indem man einen Kern auf einen anderen schießt, manchmal wenige Atome auf einmal. Viele halten weniger als eine Sekunde durch und zerfallen dann. So wurden die unteren Zeilen des Periodensystems gefüllt.',
       },
     ],
   },

@@ -424,7 +424,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Elements that had to be made',
         content:
-          'Elements past uranium have no stable isotopes and are not found in nature in any useful amount. The first few, such as plutonium, are made in nuclear reactors, where uranium takes in neutrons and then decays into them. The heavier ones are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. Making them is how the bottom rows of the periodic table were filled in.',
+          'Elements past uranium have no stable isotopes and are not found in nature in any useful amount. The first few, such as plutonium, are made in nuclear reactors: uranium takes in neutrons, and beta decay then turns it into neptunium and plutonium. The heavier ones are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. Making them is how the bottom rows of the periodic table were filled in.',
         /*
          * The same component as the Year 9 sheet, gated to two modes: *natural
          * or made*, which is this paragraph, and *metals* for orientation. The

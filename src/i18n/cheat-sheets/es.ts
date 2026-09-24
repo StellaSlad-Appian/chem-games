@@ -263,7 +263,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Elementos que hubo que fabricar',
         content:
-          'Los elementos posteriores al uranio no tienen isótopos estables y no se encuentran en la naturaleza en ninguna cantidad aprovechable. Los primeros, como el plutonio, se producen en reactores nucleares: allí el uranio captura neutrones y después, al desintegrarse, se transforma en ellos. Los más pesados se construyen en aceleradores lanzando un núcleo contra otro, a veces unos pocos átomos cada vez. Muchos duran menos de un segundo y luego se desintegran. Fabricándolos se rellenaron las últimas filas de la tabla periódica.',
+          'Los elementos posteriores al uranio no tienen isótopos estables y no se encuentran en la naturaleza en ninguna cantidad aprovechable. Los primeros, como el plutonio, se producen en reactores nucleares: allí el uranio captura neutrones y después la desintegración beta lo convierte en neptunio y plutonio. Los más pesados se construyen en aceleradores lanzando un núcleo contra otro, a veces unos pocos átomos cada vez. Muchos duran menos de un segundo y luego se desintegran. Fabricándolos se rellenaron las últimas filas de la tabla periódica.',
       },
     ],
   },

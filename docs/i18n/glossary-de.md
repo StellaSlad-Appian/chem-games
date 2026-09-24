@@ -131,6 +131,7 @@ new with the split.
 | radioactive decay | **radioaktiver Zerfall** | Verb: *zerfallen*. Not *Verfall*, which is decay in the sense of a building falling down. |
 | alpha particle | **Alphateilchen** | Written out rather than as α, so a screen reader says something. |
 | beta particle | **Betateilchen** | — |
+| beta decay | **Betazerfall** | Added 2026-09-25, for how reactors make neptunium and plutonium. Formed like *Betateilchen*; *β-Zerfall* is the same word in symbols and is fine in a formula context. |
 | gamma radiation | **Gammastrahlung** | Gamma is radiation, not a particle, and the German word keeps that straight where the English "gamma ray" does not. |
 | shielding gamma ("reduces, never stops") | **abschwächen**: *Blei oder dicker Beton schwächen sie stark ab* | Added 2026-09-24. Gamma radiation is attenuated, not stopped, and German physics and chemistry books say *abschwächen* for exactly that (*Abschwächung von Gammastrahlung*). Alpha and beta keep *aufhalten*. |
 | half-life | **Halbwertszeit** | — |

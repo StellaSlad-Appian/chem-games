@@ -399,6 +399,7 @@ the split.
 | radioactive decay | **desintegración radiactiva** | **Note the spelling: *radiactivo*, not *radioactivo*.** Spanish drops the o, and the sheet must be consistent about it — this is the single easiest thing to get wrong in this whole table. |
 | alpha particle | **partícula alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **partícula beta** | — |
+| beta decay | **desintegración beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *partícula beta*. |
 | gamma radiation | **radiación gamma** | *Radiación*, not *rayo*: gamma is radiation, not a particle. |
 | shielding gamma ("reduces, never stops") | **atenuar**: *el plomo o el hormigón grueso la atenúan mucho* | Added 2026-09-24. *Atenuación* is the textbook word for gamma passing through matter; alpha and beta keep *detener*. |
 | half-life | **periodo de semidesintegración** | The term Spanish textbooks use, and the one the sheet already used. *Semivida* is shorter and is also correct; it was rejected because the longer form says what it measures and the sheet has room. Note it collides with *periodo* (a row of the table) — the sheet never uses the bare word for either. |

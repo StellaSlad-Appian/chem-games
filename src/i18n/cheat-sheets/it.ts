@@ -265,7 +265,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Elementi che è stato necessario fabbricare',
         content:
-          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura in quantità apprezzabili. I primi, come il plutonio, si producono nei reattori nucleari: lì l’uranio cattura neutroni e poi, decadendo, si trasforma in questi elementi. Quelli più pesanti vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. È fabbricandoli che sono state riempite le ultime righe della tavola periodica.',
+          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura in quantità apprezzabili. I primi, come il plutonio, si producono nei reattori nucleari: lì l’uranio cattura neutroni e poi il decadimento beta lo trasforma in nettunio e plutonio. Quelli più pesanti vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. È fabbricandoli che sono state riempite le ultime righe della tavola periodica.',
       },
     ],
   },

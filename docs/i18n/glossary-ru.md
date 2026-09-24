@@ -511,6 +511,7 @@ the split.
 | radioactive decay | **радиоактивный распад** | Verb: *распадаться*. Note **распад**, not *разложение*, which is chemical decomposition. |
 | alpha particle | **альфа-частица** | Written out rather than as α, with a hyphen, as Russian compounds it. |
 | beta particle | **бета-частица** | — |
+| beta decay | **бета-распад** | Added 2026-09-25, for how reactors make neptunium and plutonium. Hyphenated like *бета-частица*. |
 | gamma radiation | **гамма-излучение** | *Излучение*, not *луч*: gamma is radiation, not a particle. |
 | shielding gamma ("reduces, never stops") | **ослаблять**: *свинец или толстый бетон лишь сильно его ослабляют* | Added 2026-09-24. *Ослабление гамма-излучения* is how Russian school physics puts it; alpha and beta keep *задерживать*. |
 | half-life | **период полураспада** | The standard term. Long, but there is no short form. |

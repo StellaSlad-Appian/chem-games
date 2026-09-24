@@ -450,6 +450,7 @@ the split.
 | radioactive decay | **decadimento radioattivo** | Verb: *decadere*. — |
 | alpha particle | **particella alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **particella beta** | — |
+| beta decay | **decadimento beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particella beta*; *decadimento* is the school word, not *disintegrazione*. |
 | gamma radiation | **radiazione gamma** | *Radiazione*, not *raggio*: gamma is radiation, not a particle. |
 | shielding gamma ("reduces, never stops") | **attenuare**: *il piombo o il cemento spesso la attenuano molto* | Added 2026-09-24. *Attenuazione* is the textbook word for gamma passing through matter; alpha and beta keep *fermare*. |
 | half-life | **tempo di dimezzamento** | The term Italian textbooks use, and the one the sheet already used. *Emivita* is the medical and pharmacological word; it is understood but reads clinical. |

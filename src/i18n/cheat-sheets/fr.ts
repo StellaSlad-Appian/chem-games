@@ -253,7 +253,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Les éléments qu’il a fallu fabriquer',
         content:
-          'Les éléments après l’uranium n’ont aucun isotope stable et ne se trouvent pas dans la nature en quantité utilisable. Les premiers, comme le plutonium, sont produits dans des réacteurs nucléaires : l’uranium y capte des neutrons, puis se transforme en ces éléments en se désintégrant. Les plus lourds sont construits dans des accélérateurs en projetant un noyau sur un autre, parfois quelques atomes à la fois. Beaucoup tiennent moins d’une seconde avant de se désintégrer. C’est en les fabriquant qu’on a rempli les dernières lignes du tableau périodique.',
+          'Les éléments après l’uranium n’ont aucun isotope stable et ne se trouvent pas dans la nature en quantité utilisable. Les premiers, comme le plutonium, sont produits dans des réacteurs nucléaires : l’uranium y capte des neutrons, puis la désintégration bêta le transforme en neptunium et en plutonium. Les plus lourds sont construits dans des accélérateurs en projetant un noyau sur un autre, parfois quelques atomes à la fois. Beaucoup tiennent moins d’une seconde avant de se désintégrer. C’est en les fabriquant qu’on a rempli les dernières lignes du tableau périodique.',
       },
     ],
   },
