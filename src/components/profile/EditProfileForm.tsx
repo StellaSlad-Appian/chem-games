@@ -169,11 +169,6 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             defaultChecked={initialData.privacy.showTotalSyntheses}
           />
           <SwitchRow
-            name="showAccuracy"
-            label={t.profileToggles.showAccuracy}
-            defaultChecked={initialData.privacy.showAccuracy}
-          />
-          <SwitchRow
             name="showCurrentStreak"
             label={t.profileToggles.showCurrentStreak}
             defaultChecked={initialData.privacy.showCurrentStreak}

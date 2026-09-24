@@ -214,7 +214,6 @@ export const en = {
     statExperiments: 'Experiments',
     statLevel: 'Level',
     statStreak: 'Day Streak',
-    statAccuracy: 'Accuracy',
 
     editHeading: 'Configure Equipment',
     editIntro: 'Customize your laboratory preferences and public stats visibility.',
@@ -253,7 +252,6 @@ export const en = {
     showYearLevel: 'Make academic level public',
     showLabNotes: 'Make lab notes public',
     showTotalSyntheses: 'Show total syntheses count',
-    showAccuracy: 'Show answer accuracy %',
     showCurrentStreak: 'Show daily play streak',
   },
 

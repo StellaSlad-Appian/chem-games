@@ -271,7 +271,6 @@ export const ru = {
     statExperiments: 'Опыты',
     statLevel: 'Уровень',
     statStreak: 'Дней подряд',
-    statAccuracy: 'Точность',
 
     editHeading: 'Настройка оборудования',
     editIntro: 'Настрой лабораторию под себя и реши, что видно другим.',
@@ -309,7 +308,6 @@ export const ru = {
     showYearLevel: 'Показывать класс',
     showLabNotes: 'Показывать лабораторные заметки',
     showTotalSyntheses: 'Показывать число синтезов',
-    showAccuracy: 'Показывать точность ответов в процентах',
     showCurrentStreak: 'Показывать серию дней подряд',
   },
 

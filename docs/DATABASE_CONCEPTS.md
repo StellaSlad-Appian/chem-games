@@ -93,7 +93,8 @@ the UI:
   `is_active`, `badges` and every stat column are read-only over the API.
 - **Stats are maintained by a trigger.** `game_sessions_apply_to_profile` (after insert on
   `game_sessions`) updates `current_streak` and `max_streak` (UTC calendar days), `accuracy`
-  (running average of the session's `accuracy` column), `total_syntheses` (+1 per victory),
+  (a 50/50 blend of the stored value and the session's `accuracy`, not a true running average;
+  hidden from profiles since 2026-09-24, see [`ACCURACY_REVIEW.md`](./ACCURACY_REVIEW.md)), `total_syntheses` (+1 per victory),
   `last_played_at` and `updated_at`. `recordGameSession()` only inserts the session and upserts
   `game_progress`.
 
