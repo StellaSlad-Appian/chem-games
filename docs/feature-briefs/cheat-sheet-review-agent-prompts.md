@@ -374,6 +374,20 @@ FUNCTIONAL GROUPS (functional-groups)
 21. The Ester row's "General formula" is "—". → "CₙH₂ₙO₂" (the same as
     carboxylic acids, which makes a good isomer point).
 
+TWO LEFTOVERS FROM THE ATOM SHEETS (found by the previous agent)
+22. Isotopes & Radioactivity, "Elements that had to be made": "They are built
+    in accelerators by firing one nucleus at another". That is wrong for the
+    first ones: neptunium and plutonium are made in nuclear reactors, when
+    uranium captures neutrons. Only the heavier ones come from accelerators.
+    Suggested: "The first few, such as plutonium, are made in nuclear reactors
+    by adding neutrons to uranium. The heavier ones are built in accelerators
+    by firing one nucleus at another, sometimes a few atoms at a time."
+23. Atoms & the Periodic Table, "Electrons, energy levels…": "Your teacher and
+    the curriculum may call these shells, and it means the same thing." This
+    is curriculum commentary too. → "Your teacher may call these shells; it
+    means the same thing." Use each language's school word for "shell" (see
+    the glossary).
+
 As on the atom sheets, remove any curriculum commentary from the student
 prose on these sheets (it belongs in `curriculumRef`). Report where you found
 it.
