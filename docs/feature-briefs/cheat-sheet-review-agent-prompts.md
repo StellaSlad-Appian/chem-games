@@ -19,7 +19,7 @@ When you are happy with them, I'll launch them exactly as written.
 | 7 | New diagrams: States of Matter | script, data, 6 locales | 6 |
 | 8 | New diagrams: Lewis Structures | script, data, 6 locales | 7 |
 | 9 | New diagram: Functional Groups reaction map | script, data, 6 locales | 8 |
-| 10a / 10b | The remaining P3 diagrams, four each | script, data, 6 locales | 9 |
+| 10a / 10b | The remaining P3 diagrams, four each (**on hold**) | script, data, 6 locales | 9, plus the owner's go-ahead |
 
 **They run one after another, each branch cut from the previous one's tip.**
 Every agent edits some of the same six files (`cheat-sheet-data.ts` and the five
@@ -35,25 +35,19 @@ free, and fill in the `<WORKTREE>`, `<BRANCH>`, `<BASE>` and `<PORT>` placeholde
 After each agent finishes, I bring you its report before starting the next one,
 so you can stop the chain at any point.
 
-### Decisions I need from you before launch
+### Decisions (taken 2026-09-24)
 
-Each one is also marked **DECIDE** in the prompt it belongs to, together with the
-default I'll use if you don't change it.
-
-1. **Isotopes sheet, common mistakes (prompt 2).** Put a short weighted-average
-   section back, or replace the takeaway and both mistakes with radioactivity
-   ones? *Default: replace.*
-2. **Curriculum commentary in student prose (prompts 2 and 3).** Lines like "Both
-   terms are an extension here: the curriculum… names neither" appear to have
-   been written on purpose. Remove them from the prose (they are already in
-   `curriculumRef`), or keep them? *Default: remove.*
-3. **Diagram text in other languages (prompt 4).** Generate one SVG per language,
-   or keep diagrams to numbers and symbols only? *Default: one per language.*
-4. **Which P3 diagrams (prompts 7–10).** All of them, or a subset? *Default: 7, 8
-   and 9, with 10a/10b held until you have seen the first three.*
-5. **Translation review.** Every prompt writes German, French, Spanish, Italian
-   and Russian text, and no native speaker has checked any of it. Each agent
-   lists its new strings in its report so you can pass them on.
+1. **Isotopes sheet, common mistakes (prompt 2).** Remove the outdated parts
+   only: the weighted-average key takeaway and both relative-atomic-mass
+   mistakes. Add no replacements and do not restore the section, for now.
+2. **Curriculum commentary in student prose (prompts 2 and 3).** Remove it from
+   the prose. It is already in `curriculumRef`.
+3. **Diagram text in other languages (prompt 4).** One output per language.
+4. **Which P3 diagrams.** Prompts 7, 8 and 9. **10a/10b are on hold** until the
+   owner has seen the first three.
+5. **Translation review.** Still open. Every prompt writes German, French,
+   Spanish, Italian and Russian text that no native speaker has checked. Each
+   agent lists its new strings in its report so they can be passed on.
 
 ---
 
@@ -203,7 +197,7 @@ ATOMS & THE PERIODIC TABLE
    down to a new row."
 3. "Reactivity…": "The same metals with an acid give off hydrogen, faster
    still." Add that this is far too violent to try in a school lab.
-4. DECIDE (default: remove) — remove curriculum commentary from the student
+4. Remove curriculum commentary from the student
    prose: "Both terms are an extension here: the curriculum for these years
    names neither, and you cannot read a table cell without them." and
    "…They are called metalloids, which is a word the curriculum does not
@@ -211,21 +205,20 @@ ATOMS & THE PERIODIC TABLE
    the curriculum point.
 
 ISOTOPES & RADIOACTIVITY
-5. DECIDE (default: replace). The two common mistakes, key takeaway 2, and the
-   Carbon-12 example card are about relative atomic mass as a weighted
-   average. The section that taught it was removed on 2026-09-22 (see
-   docs/CHEAT_SHEET_IMAGES.md, "Slot 4 is gone").
-   Default: replace takeaway 2 with a radioactivity takeaway, and replace both
-   mistakes with:
-   - Thinking that after two half-lives everything has decayed; a quarter is
-     still left.
-   - Thinking an object that has been irradiated becomes radioactive;
-     irradiation is not contamination.
-   - Thinking isotopes are different elements; same protons, same element.
-   Leave the Carbon-12 card, but check it still makes sense on its own.
-   (Alternative, if the user picked it: write a short "Relative atomic mass"
-   section of 3–4 sentences back in, using chlorine 75 % Cl-35 / 25 % Cl-37 →
-   35.5, and keep the mistakes.)
+5. Key takeaway 2 ("Relative atomic mass is a weighted average…") and both
+   common mistakes are about relative atomic mass as a weighted average. The
+   section that taught it was removed on 2026-09-22 (see
+   docs/CHEAT_SHEET_IMAGES.md, "Slot 4 is gone"), so they refer to something
+   the sheet no longer explains.
+   The owner's decision: REMOVE takeaway 2 and both common mistakes, in
+   English and all five overlays. Do NOT write replacements and do NOT restore
+   the section. If that leaves `commonMistakes` empty, check that the page
+   hides the "Watch out for" panel cleanly (page.tsx renders it only when the
+   list is non-empty) and that the overlay shape test still passes; adjust
+   the overlays (omit the key, or use an empty array) to match whatever the
+   English ends up as.
+   Leave the Carbon-12 example card, but check it still makes sense on its
+   own, and report if it does not.
 6. "Elements that had to be made": "Elements past uranium have no stable
    isotopes and are not found in nature". Np and Pu occur in trace amounts in
    uranium ores. Suggested: "…are not found in nature in any useful amount."
@@ -338,9 +331,9 @@ FUNCTIONAL GROUPS (functional-groups)
 21. The Ester row's "General formula" is "—". → "CₙH₂ₙO₂" (the same as
     carboxylic acids, which makes a good isomer point).
 
-DECIDE (default: remove), same as on the atom sheets: remove any
-curriculum-meta commentary in student prose on these sheets. Report where you
-found it.
+As on the atom sheets, remove any curriculum commentary from the student
+prose on these sheets (it belongs in `curriculumRef`). Report where you found
+it.
 
 PLAYWRIGHT SPEC: none specific. Run e2e/cheat-sheet-atomic-structure.spec.ts
 as a smoke test.
@@ -389,7 +382,7 @@ GOAL
    for a slot's single focal item. Replace MIN_TEXT/MIN_LARGE with rules that
    match, still enforced mechanically by the script (it should refuse a label
    below the floor, and refuse more than one bold "focal" element per slot).
-3. Labels per language (DECIDE, default: per-language output). The drawing
+3. Labels per language (decided: one output per language). The drawing
    functions take their strings from a per-slot strings table with en, de, fr,
    es, it, ru entries, and the script writes one output per slot per locale.
    The page picks the reader's locale. Missing strings must fail the script,

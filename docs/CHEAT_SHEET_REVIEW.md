@@ -179,8 +179,9 @@ and big. The type size is a symptom of the loading method.
 - **P1** **The two common mistakes are about a topic the sheet no longer
   teaches.** Both are about relative atomic mass / chlorine 35.5. That section
   (and diagram 04) was removed on 2026-09-22, and key takeaway 2 still promises
-  it. Either put a short weighted-average section back, or replace the takeaway
-  and both mistakes with radioactivity ones, for example:
+  it. **Decided 2026-09-24: remove the takeaway and both mistakes for now,
+  without replacements.** The options that were considered were putting a
+  short weighted-average section back, or writing radioactivity mistakes such as:
   - "Thinking that after two half-lives everything has decayed. A quarter is
     still left."
   - "Thinking an object that has been irradiated becomes radioactive.
