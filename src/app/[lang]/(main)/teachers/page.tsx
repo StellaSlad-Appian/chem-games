@@ -48,6 +48,7 @@ import {
 } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { CollaboratorForm } from '@/components/teachers/CollaboratorForm';
+import { aboutCopy } from '@/i18n/about';
 import { getCheatSheets } from '@/i18n/cheat-sheets';
 import { DEFAULT_LOCALE, isLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -55,6 +56,9 @@ import { teachersCopy } from '@/i18n/teachers';
 import { format } from '@/i18n/format';
 
 const PRIVACY_PATH = '/privacy';
+
+const INLINE_LINK_CLASS =
+  'font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)';
 
 /**
  * Where a collaborator writes to have their details deleted. The same address
@@ -103,6 +107,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
   const t = await getDictionary(locale);
   const p = teachersCopy(locale);
   const sheets = getCheatSheets(locale);
+  const about = aboutCopy(locale);
 
   // Read as a bare `process.env.NEXT_PUBLIC_…` reference so Next can inline it
   // at build time (see the environment-variables guide). Unset means the whole
@@ -125,10 +130,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
   ];
 
   const privacyLink = (
-    <LocaleLink
-      href={PRIVACY_PATH}
-      className="font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
-    >
+    <LocaleLink href={PRIVACY_PATH} className={INLINE_LINK_CLASS}>
       {p.privacyLinkLabel}
     </LocaleLink>
   );
@@ -193,6 +195,22 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             <p>{p.whatBody1}</p>
             <p>{p.whatBody2}</p>
             <p>{p.whatBody3}</p>
+            {/*
+              The case for the site — why it exists and how the games are meant
+              to help — lives on the About page, not here. Shown only in a
+              locale that has an About page; see src/i18n/about.ts.
+            */}
+            {about && (
+              <p>
+                {withPlaceholder(
+                  about.teachersPagePointer,
+                  'link',
+                  <LocaleLink href="/about" className={INLINE_LINK_CLASS}>
+                    {about.teachersPagePointerLinkLabel}
+                  </LocaleLink>
+                )}
+              </p>
+            )}
           </Section>
 
           <Section icon={Gamepad2} title={p.onSiteHeading}>
