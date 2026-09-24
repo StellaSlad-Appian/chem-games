@@ -56,6 +56,23 @@ First-time setup on a new machine: `npm install` then `npx playwright install ch
 | Translated copy | `src/i18n/dictionary.test.ts`, `game-messages.test.ts`, `teachers.test.ts`, `cheat-sheets.test.ts` | The five parity gates from `src/test-utils/i18n-parity.ts`, run against every translated source wherever it is stored: missing or extra keys, empty values, strings left identical to the English, dropped placeholders, formulae altered in translation. `dictionary.test.ts` also guards the payload budget — it fails if a game namespace or a whole page's copy reappears in the shared dictionary. |
 | Content pages | `src/app/[lang]/(main)/<page>/page.test.tsx` | Pages that are prose rather than gameplay (privacy, For Teachers): every section renders, in more than one locale, with the right link targets and metadata. |
 | End-to-end | `e2e/<game>.spec.ts`, `e2e/hub.spec.ts`, `e2e/nav.spec.ts`, `e2e/teachers.spec.ts`, `e2e/i18n.spec.ts` | The same journeys in a real browser against the running app. No Supabase credentials needed. |
+| Cross-country curriculum map (**not needed until phase 2**, see below) | `src/core-engine/tests/curriculum-map.test.ts` (67 tests) | The internal consistency of `src/core-engine/data/curriculum/`: concept ids are unique and fit the `concepts.id` constraint, every country covers Years 7–12, tracks and year ranges are valid, and the cheat-sheet slugs in the crosswalk exist. |
+
+**The curriculum-map tests can be skipped for now.** Nothing in the app imports
+`src/core-engine/data/curriculum/` yet, so these 67 tests guard reference data only, not
+anything a player sees. They become necessary at **phase 2** of the migration in
+[`curriculum/CROSS_COUNTRY_MAP.md`](./curriculum/CROSS_COUNTRY_MAP.md) §6.4, when cheat
+sheets and games are first tagged with canonical concept ids. From then on, run them like any
+other test. Until then:
+
+- they still run as part of `npm test` and in CI, because the Vitest config includes every
+  `src/**/*.test.ts`. They take well under a second, so leaving them in costs nothing;
+- to leave them out of a targeted run, add
+  `--exclude "**/curriculum-map.test.ts"`, e.g.
+  `npx vitest run src/core-engine --exclude "**/curriculum-map.test.ts"`;
+- the one exception: if you rename or delete a cheat sheet, and `npm test` fails in
+  `curriculum-map.test.ts` on "name only cheat sheets that exist", update the `legacy`
+  slugs in `src/core-engine/data/curriculum/concepts.ts` rather than skipping the failure.
 
 The bugs this suite surfaced when it was first written have been fixed; their regression
 tests live in the files above (see "Bugs the suite found" below).
@@ -534,7 +551,9 @@ and unit-test steps still gate), and remove it once lint is clean.
 
 ## Agent workflow
 
-1. Touched `src/core-engine`? Run `npx vitest run src/core-engine`.
+1. Touched `src/core-engine`? Run `npx vitest run src/core-engine`. Until phase 2 of the
+   curriculum map, you can add `--exclude "**/curriculum-map.test.ts"` unless you touched
+   `src/core-engine/data/curriculum/` itself (see "What runs where").
 2. Touched a game? Run `npx vitest run <slug>` and then `npx playwright test e2e/<slug>.spec.ts`.
 3. Before declaring done: `npm run check`.
 4. A failing Vitest test prints the assertion diff and the test file location. A failing

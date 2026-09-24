@@ -390,6 +390,7 @@ A proposed tagging for the five games is below. Each cell is the earliest year i
 Each step can ship alone, and none of them breaks the one before.
 
 1. **Done: data and docs, no runtime use.** The map lives in `src/core-engine/data/curriculum/`, nothing imports it yet, and the tests keep it consistent. `YearLevel` is untouched.
+   **Testing:** the 67 tests in `src/core-engine/tests/curriculum-map.test.ts` are not needed until phase 2, because they check reference data that nothing reads yet. They can be left out of targeted runs; see [`../TESTING.md`](../TESTING.md), "What runs where". Run them again whenever the curriculum data itself is edited.
 2. **Tag content with canonical concepts.** Add `conceptIds: ConceptId[]` to `CheatSheetTopic` and `GameTopic`, filled from the crosswalk above. Keep `yearLevel`/`yearLevels` and `CheatSheetCategory`: they still drive the filters. Add a test that every tagged id exists. Nothing user-visible changes.
 3. **Put Australia into the map.** The site's existing tags are Victorian, so adding `AU` as an eleventh country (Victorian Curriculum 2.0 Levels 7–10, VCE Units 1–4) makes every current `YearLevel` a query over the map instead of a hand-maintained value. Only after that can `yearLevel` be *derived* rather than stored. This needs one more research pass.
 4. **Database (optional; keep the data in code by default).** The map is static, reviewed, version-controlled reference data, so code is the right home for it until an admin UI needs to edit it. If reporting needs it in SQL:
