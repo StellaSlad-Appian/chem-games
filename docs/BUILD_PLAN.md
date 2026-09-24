@@ -95,7 +95,7 @@ this table, which is a snapshot.
 | 3 | `stoichiometry-game.md` | `reaction-factory` | Draft rev 2; all six locale titles decided 2026-09-21 | **No — needs `Approved`** | F, Stella's approval incl. the "Languages" table; reuses the bracket-aware parser from 1 |
 | 4 | `ion-forge.md` | `ion-forge` | Draft, 3 `YOU DECIDE` | No | Stella resolves tray size, hydrates, molecular/acid naming placement |
 | 5 | `stoichiometry.md` (Mole Foundry) | `mole-foundry` | Draft, open questions | No | Stella; should be re-aligned with Reaction Factory Level 9 first |
-| 6 | `synthesis-router.md` | `synthesis-router` | Planned, 4 open questions | No | Stella confirms R15/R16, Markovnikov, exam-mode placement |
+| 6 | `synthesis-router.md` | `synthesis-router` | Planned, 4 open questions | No | Stella confirms R15/R16, Markovnikov, R17 (biodiesel) level, exam-mode placement |
 | 7 | `organic-naming.md` | `chain-namer` | Draft | No | Stella; reuses the organic dataset from 6 |
 | — | `functional-groups.md` | — | Superseded (options record) | Never | — |
 

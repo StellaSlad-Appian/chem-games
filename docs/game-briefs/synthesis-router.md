@@ -50,15 +50,16 @@ or intermediate — the most common exam format).
 | R5 | alkane | X₂, UV light | haloalkane | substitution | Mixture of products — flag as "low yield" |
 | R6 | haloalkane | OH⁻ (NaOH aq), heat | alcohol | substitution | |
 | R7 | haloalkane | NH₃ (excess) | primary amine | substitution | |
-| R8 | primary alcohol | Cr₂O₇²⁻/H⁺ (or MnO₄⁻/H⁺), distil | aldehyde | oxidation | Mild/partial |
+| R8 | primary alcohol | Cr₂O₇²⁻/H⁺ (or MnO₄⁻/H⁺), distil | aldehyde | oxidation | Mild/partial. **Enrichment:** aldehydes are named and drawn in VCE, but no key knowledge dot point covers partial oxidation or the distil-vs-reflux choice |
 | R9 | primary alcohol | Cr₂O₇²⁻/H⁺, reflux | carboxylic acid | oxidation | Via aldehyde |
 | R10 | aldehyde | Cr₂O₇²⁻/H⁺ | carboxylic acid | oxidation | |
 | R11 | secondary alcohol | Cr₂O₇²⁻/H⁺ | ketone | oxidation | |
 | R12 | tertiary alcohol | Cr₂O₇²⁻/H⁺ | *no reaction* | — | Deliberate trap |
 | R13 | carboxylic acid + alcohol | conc. H₂SO₄ catalyst, reflux | ester + water | condensation (esterification) | Two inputs |
 | R14 | ester | H⁺/H₂O or OH⁻, heat | carboxylic acid (or carboxylate) + alcohol | hydrolysis | Reverse of R13 |
-| R15 | carboxylic acid + amine | heat | amide + water | condensation | > **YOU DECIDE:** confirm amide formation is in the current SD key knowledge |
-| R16 | alcohol | conc. H₂SO₄, heat | alkene | elimination (dehydration) | > **YOU DECIDE:** in scope? Often examined |
+| R15 | carboxylic acid + amine | heat | amide + water | condensation | > **YOU DECIDE:** confirm amide formation is in the current SD key knowledge. Check 2026-09-24: not in the key knowledge (evidence under §11, question 1) |
+| R16 | alcohol | conc. H₂SO₄, heat | alkene | elimination (dehydration) | > **YOU DECIDE:** in scope? Often examined. Check 2026-09-24: in no key knowledge dot point (evidence under §11, question 1) |
+| R17 | triglyceride (plant oil) + methanol | KOH or NaOH catalyst _(catalyst unverified)_ | biodiesel (methyl esters) + glycerol | transesterification | Verbatim VCE Unit 4 AoS 1 dot point; missing from rev 1. Needs a triglyceride node outside the C1–C4 molecule scope. Scores well on the green chemistry principle (renewable feedstock). > **YOU DECIDE:** which level — the check suggests a Level 4 or 5 "renewable feedstock" order |
 
 Molecule scope for the MVP: C1–C4 straight chains + propan-2-ol / propanone / 2-methylpropan-2-ol
 (the 1°/2°/3° contrast) — roughly 35 molecules. Everything is precomputed data; no naming engine.
@@ -76,7 +77,7 @@ Molecule scope for the MVP: C1–C4 straight chains + propan-2-ol / propanone / 
 |---|---|---|
 | 1 — One step | alkene → alcohol, alkene → alkane, haloalkane → alcohol | Shelf shows only valid reagents; each card names the reaction type |
 | 2 — Two steps | alkene → haloalkane → alcohol; alcohol → aldehyde → acid | Full shelf; hint button reveals the next functional group needed (not the reagent) |
-| 3 — Choose the oxidation | 1° vs 2° vs 3° alcohols; distil vs reflux | No hints by default; tertiary trap active |
+| 3 — Choose the oxidation | 1° vs 2° vs 3° alcohols; distil vs reflux (enrichment, see R8) | No hints by default; tertiary trap active |
 | 4 — Esters (two branches) | Make acid *and* alcohol from given starts, then combine | Pathway track supports two lanes merging |
 | 5 — Optimise | Same target, scored on yield and atom economy; alternative routes exist | Route comparison shown after completion |
 | 6 — Exam mode (reverse) | Pathway shown with blanks (reagent, condition, or intermediate); fill them in | Timerless; mirrors exam layout exactly |
@@ -113,7 +114,8 @@ export type FunctionalGroup =
 // src/core-engine/data/organic-reactions.ts  (edges)
 export interface OrganicReaction {
   id: string;                   // 'R4'
-  type: 'addition' | 'substitution' | 'oxidation' | 'condensation' | 'hydrolysis' | 'elimination';
+  type: 'addition' | 'substitution' | 'oxidation' | 'condensation' | 'hydrolysis' | 'elimination'
+      | 'transesterification';
   reagent: ReagentId;           // 'H2O/H3PO4'
   conditions?: string;          // 'heat'
   inputs: string[];             // molecule ids (1 or 2)
@@ -178,7 +180,28 @@ functional-groups and organic-nomenclature sheets.
 ## 11. Open questions for you
 
 1. R15 (amides) and R16 (dehydration) — in or out for the current study design?
+   > Evidence (check against the VCE Chemistry Study Design, Units 3–4 from 2024, the June 2024
+   > sample exam and the 2023–2025 exam reports, on 2026-09-24):
+   > - **R15 is not in the key knowledge.** The reaction list is: substitution to primary
+   >   haloalkanes and primary alcohols, addition to alkenes, esterification, ester hydrolysis,
+   >   pathways to primary amines and carboxylic acids, and transesterification to biodiesel.
+   >   Amides are drawn ("primary amides") and identified by IR/NMR but not named, and the 2026
+   >   Data Book dropped `-amide`. The amide link appears only as the **peptide link** in the
+   >   condensation of amino acids to proteins. Options the check lists: keep an amide edge only
+   >   as amino acid + amino acid → dipeptide + H₂O in a biomolecule level, or drop R15.
+   > - **R16 is not in the key knowledge.** Dehydration is in no dot point, and not in the
+   >   sample exam or any 2023–2025 report checked. Options: enrichment only, or omit.
 2. Markovnikov (major/minor product) for unsymmetrical alkenes — Level 5 only, or out?
+   > Evidence (same check):
+   > - Neither the study design nor any 2023–2025 exam report (main and NHT) or the sample exam
+   >   mentions Markovnikov's rule. The 2024 exam has no text layer and was not searched.
+   > - The June 2024 sample exam treats but-1-ene + steam as giving two products, butan-1-ol
+   >   and butan-2-ol, "structural isomers of each other"; its MC Q20 treats 1-hexene + HCl as a
+   >   route that "could be used" to make 2-chlorohexane.
+   > - So VCAA expects students to know that an unsymmetrical alkene gives **both** isomers, not
+   >   a major/minor prediction. The check recommends that unsymmetrical additions (R3, R4)
+   >   output both isomers — with a lower yield for the wanted one, or a separation step — and
+   >   that "major product" rules are not taught as VCE content.
 3. Should exam mode (Level 6) be a separate entry on the hub ("Pathway Practice") so students
    can go straight to it before the exam?
 4. Structure display: condensed formulas via `MoleculeText` for the MVP, or wait for the shared
@@ -200,7 +223,7 @@ Resolve the table before `Approved`.
 **Terms to fix in each glossary before translating:** reaction pathway (de: *Syntheseweg* /
 *Reaktionsweg*), reagent (*Reagenz*), catalyst, functional group and the group names (already
 in the glossary), addition / substitution / oxidation / esterification / hydrolysis
-(*Veresterung*, *Hydrolyse*), primary / secondary / tertiary alcohol, yield and **atom economy**
+(*Veresterung*, *Hydrolyse*), transesterification (*Umesterung*) and biodiesel, primary / secondary / tertiary alcohol, yield and **atom economy**
 (*Atomökonomie*), the coined **reagent shelf**, **track** and **order**, *exam mode*.
 **Chemistry names the game introduces:** every molecule in the new `organic-molecules.ts` —
 name per locale by molecule id, following that language's IUPAC conventions (de esters are
