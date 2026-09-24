@@ -188,4 +188,17 @@ describe('queries', () => {
     expect(firstYear('AU-NSW', 'geometric-isomerism', { track: 'chemistry' })).toBeNull();
     expect(firstYear('AU-NSW', 'geometric-isomerism', { track: 'chemistry', includePlanned: true })).toBe(12);
   });
+
+  it('place the same topic differently across German Länder', () => {
+    // E/Z isomerism: Jgst. 10 in Bavaria, the Oberstufe in Rheinland-Pfalz, and in
+    // Baden-Württemberg only with the G9 plan's compulsory Kl. 11 (cis/trans there).
+    expect(firstYear('DE-BY', 'geometric-isomerism')).toBe(10);
+    expect(firstYear('DE-RP', 'geometric-isomerism')).toBeNull();
+    expect(firstYear('DE-RP', 'geometric-isomerism', { track: 'ga' })).toBe(11);
+    expect(firstYear('DE-BW', 'geometric-isomerism')).toBeNull();
+    expect(firstYear('DE-BW', 'geometric-isomerism', { includePlanned: true })).toBe(11);
+    // Full records know what they do not teach: nuclear chemistry is Physik in both Länder.
+    expect(firstYear('DE-BW', 'radioactivity')).toBe('unknown');
+    expect(firstYear('DE-RP', 'mole-concept', { track: 'ga' })).toBe(11);
+  });
 });

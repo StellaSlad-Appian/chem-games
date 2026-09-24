@@ -244,6 +244,8 @@ The KC prints eA-only competences in **bold** and adds "(eA)" as a text marker. 
 - **Not named:** RGT-Regel, rate law/order, Maxwell–Boltzmann.
 
 ### 2.3 Baden-Württemberg: Bildungsplan 2016 Gymnasium Chemie V2 (2022). Verified from web pages
+
+> Superseded by [`countries/germany-baden-wuerttemberg.md`](./countries/germany-baden-wuerttemberg.md) (2026-09-25), which verifies this section against the full plan text, corrects it (no isomerism standard in V2; the G9 plan V3.0 exists) and covers the G9 transition.
 **Klassen 8/9/10 (Sek I band). Organic chemistry and basic energetics are taught here, which is earlier than in the other Länder.**
 - Energetics (3.2.2.3, https://www.bildungsplaene-bw.de/,Lde/BP2016BW_ALLG_GYM_CH.V2_IK_8-9-10_02_03):
   - exotherm/endotherm

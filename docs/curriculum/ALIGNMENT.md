@@ -402,8 +402,8 @@ In order; each step ships alone.
   codes and the new queries.
 - **Docs:** the per-jurisdiction research documents moved to `countries/` and every link was
   rewritten; each §3 table points at its record.
-- **Not yet done:** framework OF1 rewrite is limited to a pointer (§4.4); `DE-BW` and `DE-RP`
-  await their research; `AU-VIC` still needs the full-area pass.
+- **Not yet done:** framework OF1 rewrite is limited to a pointer (§4.4); `AU-VIC` still needs the
+  full-area pass; England's and Italy's Year 13 content is not placed.
 
 Steps 1–3 touch only reference data that nothing in the app reads yet (map step 1), so there is
 no user-visible change and no migration risk. Per [`../TESTING.md`](../TESTING.md), the map's
@@ -424,4 +424,7 @@ tests run whenever its data is edited.
    next, because Stella knows teachers there who can review them. BW has partial research in
    `germany-sek2-overview.md`; RP has none yet, so both get a research pass in the Bavarian
    document's shape first. NRW, Niedersachsen, Berlin/Brandenburg and Hessen wait until a teacher
-   from that Land is involved. (Decided 2026-09-25.)
+   from that Land is involved. (Decided 2026-09-25. Done the same day: `de-bw.ts` and `de-rp.ts`,
+   from [`countries/germany-baden-wuerttemberg.md`](./countries/germany-baden-wuerttemberg.md) and
+   [`countries/germany-rheinland-pfalz.md`](./countries/germany-rheinland-pfalz.md), both researched
+   across every area except nuclear.)

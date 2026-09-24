@@ -26,7 +26,9 @@ import { AU_SA } from './countries/au-sa';
 import { AU_TAS } from './countries/au-tas';
 import { AU_VIC } from './countries/au-vic';
 import { AU_WA } from './countries/au-wa';
+import { DE_BW } from './countries/de-bw';
 import { DE_BY } from './countries/de-by';
+import { DE_RP } from './countries/de-rp';
 import { ES } from './countries/es';
 import { FR } from './countries/fr';
 import { GB } from './countries/gb';
@@ -49,7 +51,9 @@ export const CURRICULA: Readonly<Partial<Record<JurisdictionCode, JurisdictionCu
   'AU-TAS': AU_TAS,
   'AU-VIC': AU_VIC,
   'AU-WA': AU_WA,
+  'DE-BW': DE_BW,
   'DE-BY': DE_BY,
+  'DE-RP': DE_RP,
 };
 
 /** The jurisdictions that have a record of their own. */
