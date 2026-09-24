@@ -8,15 +8,16 @@
 // 2º and 3º ESO only, so Year 7 has no chemistry and Years 8–9 are `typical`.
 // From Year 10 every chemistry placement is on an optional route, hence tracks.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at, typical } from '../placement';
 
 const eso4 = { track: 'fyq-4eso' } as const;
 const bach = { track: 'bach-ct' } as const;
 const qui = { track: 'quimica' } as const;
 
-export const ES: CountryCurriculum = {
+export const ES: JurisdictionCurriculum = {
   code: 'ES',
+  country: 'ES',
   name: 'Spain',
   basis: 'LOMLOE minimums: RD 217/2022 (ESO) and RD 243/2022 (Bachillerato); Comunidad de Madrid decrees as the worked example; PAU (RD 534/2024).',
   researchedOn: '2026-09-24',
@@ -29,6 +30,7 @@ export const ES: CountryCurriculum = {
     { year: 10, localLabel: '4º ESO', localLabelEn: 'cuarto de ESO', typicalAgeAtStart: 15, stage: 'ESO (last compulsory year)', delivery: 'optional', note: 'FyQ is one of three option subjects.' },
     { year: 11, localLabel: '1º Bachillerato', localLabelEn: 'primero de Bachillerato', typicalAgeAtStart: 16, stage: 'Bachillerato', delivery: 'optional', note: 'Física y Química, a modality subject in Ciencias y Tecnología.' },
     { year: 12, localLabel: '2º Bachillerato', localLabelEn: 'segundo de Bachillerato (PAU)', typicalAgeAtStart: 17, stage: 'Bachillerato', delivery: 'optional', note: 'Química, the only chemistry-only subject.' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'School ends after 2º Bachillerato.' },
   ],
   tracks: {
     'fyq-4eso': 'Física y Química, option subject in 4º ESO',
@@ -132,7 +134,7 @@ export const ES: CountryCurriculum = {
     'functional-groups': [at(11, 'develop', bach)],
     'homologous-series': [at(11, 'develop', bach)],
     isomerism: [at(12, 'extend', qui)],
-    stereoisomerism: [at(12, 'extend', { ...qui, note: 'cis–trans' })],
+    'geometric-isomerism': [at(12, 'extend', { ...qui, note: 'cis–trans' })],
     'organic-reaction-types': [at(12, 'extend', qui)],
     'polymers-intro': [at(12, 'develop', qui)],
     'plastics-and-recycling': [at(12, 'develop', qui)],

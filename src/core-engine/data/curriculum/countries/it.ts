@@ -9,7 +9,7 @@
 // The istituti tecnici cover almost all general chemistry in Years 9–10; that is
 // the `tecnico` track.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at, typical } from '../placement';
 
 const tec = { track: 'tecnico' } as const;
@@ -18,8 +18,9 @@ const lssa = { track: 'ls-sa' } as const;
 /** From the Nuove Indicazioni 2025, which reach 3ª media only in 2028/29. */
 const newPrimoCiclo = { status: 'planned', note: 'Nuove Indicazioni 2025; applies to this year from 2027/28 (Y7) or 2028/29 (Y8)' } as const;
 
-export const IT: CountryCurriculum = {
+export const IT: JurisdictionCurriculum = {
   code: 'IT',
+  country: 'IT',
   name: 'Italy',
   basis: 'Indicazioni nazionali primo ciclo (2012; Nuove Indicazioni 2025 phasing in); Indicazioni nazionali licei (DM 211/2010); Linee guida istituti tecnici (2010) and the 2026 tecnici reform.',
   researchedOn: '2026-09-24',
@@ -32,6 +33,7 @@ export const IT: CountryCurriculum = {
     { year: 10, localLabel: '2º anno', localLabelEn: 'secondo anno', typicalAgeAtStart: 15, stage: 'Primo biennio', delivery: 'integrated-science' },
     { year: 11, localLabel: '3º anno', localLabelEn: 'terzo anno', typicalAgeAtStart: 16, stage: 'Secondo biennio', delivery: 'integrated-science', note: 'Formal chemistry starts in the licei.' },
     { year: 12, localLabel: '4º anno', localLabelEn: 'quarto anno', typicalAgeAtStart: 17, stage: 'Secondo biennio', delivery: 'integrated-science' },
+    { year: 13, localLabel: '5º anno', localLabelEn: 'quinto anno (maturità)', typicalAgeAtStart: 18, stage: 'Quinto anno', delivery: 'integrated-science', note: 'Content still listed in outsideRange, not yet placed.' },
   ],
   tracks: {
     tecnico: 'Istituti tecnici, primo biennio (Scienze integrate – Chimica; Scienze sperimentali from 2026)',
@@ -122,7 +124,8 @@ export const IT: CountryCurriculum = {
     'organic-intro': [at([11, 12], 'intro', typical)],
     hydrocarbons: [at([9, 10], 'intro', tec)],
     'functional-groups': [at([11, 12], 'intro', typical), at([11, 12], 'develop', lssa)],
-    stereoisomerism: [at([11, 12], 'extend', cmb)],
+    'geometric-isomerism': [at([11, 12], 'extend', { ...cmb, note: 'E/Z' })],
+    'optical-isomerism': [at([11, 12], 'extend', { ...cmb, note: 'R/S' })],
     'reaction-mechanisms': [at([11, 12], 'extend', cmb)],
     'polymers-intro': [at([11, 12], 'extend', cmb)],
     alloys: [at([7, 8], 'intro', { note: 'In Tecnologia' })],

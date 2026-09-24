@@ -1,6 +1,6 @@
 # Kinetics, thermodynamics and organic chemistry in German upper-secondary chemistry (Sek II)
 
-Scope: KMK standards plus NRW, Niedersachsen, Baden-Württemberg, Berlin/Brandenburg and Hessen. Bavaria, the pilot curriculum, is in [`bavaria-gymnasium-chemie.md`](./bavaria-gymnasium-chemie.md). Research date: 2026-09-24 (desk research by an agent, from primary sources; not yet reviewed by a teacher).
+Scope: KMK standards plus NRW, Niedersachsen, Baden-Württemberg, Berlin/Brandenburg and Hessen. Bavaria, the pilot curriculum, is in [`countries/germany-bavaria.md`](./countries/germany-bavaria.md). Research date: 2026-09-24 (desk research by an agent, from primary sources; not yet reviewed by a teacher).
 Purpose: tagging game content by Land, year and course level (gA/eA, GK/LK) for the games planned in [`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md). The skill ids (K1–K6, T1–T8, G1–G5, O1–O7) and misconception ids (M1–M35) below are the ones the framework uses.
 
 **Verification convention.** "Verified" means the passage was read in the primary document (curriculum PDF or official web page). Anything marked **(unverified)** comes from secondary sources, from textbook convention or from general background knowledge.
@@ -416,6 +416,9 @@ Abbreviations: gA = GK/Basisfach. eA = LK/Leistungsfach only.
 
 ## 3. Learning objectives: safe core vs advanced
 
+> These skill ids (K, T, G, O) are research labels. The curriculum map uses canonical concepts
+> instead; [`ALIGNMENT.md`](./ALIGNMENT.md) §2 maps every id onto them.
+
 ### 3.1 Safe core: basic kinetics (in KMK gA and every Land checked)
 K1. Define reaction rate as the change in concentration per unit time (v = Δc/Δt, mean rate). Take it from a c–t table or graph.
 K2. Name and explain the factors: concentration, temperature, Zerteilungsgrad/surface area, catalyst (and pressure for gases).
@@ -746,7 +749,7 @@ Anforderungsniveau (grundlegend/erhöht) = course level (basic/advanced). Grundk
 5. Accept name variants: Propan-2-ol / 2-Propanol; Ethylethanoat / Ethansäureethylester / Essigsäureethylester; Konstitutions-/Strukturisomerie; Carboxy-/Carboxylgruppe.
 
 ## 7. Open items / not verified
-- Bavaria is covered separately in [`bavaria-gymnasium-chemie.md`](./bavaria-gymnasium-chemie.md).
+- Bavaria is covered separately in [`countries/germany-bavaria.md`](./countries/germany-bavaria.md).
 - Not checked at all: Saxony, Thuringia, Saxony-Anhalt, Mecklenburg-Vorpommern, Schleswig-Holstein, Hamburg, Bremen, Rhineland-Palatinate, Saarland.
 - Hessen Erlass fixing the binding content of Q2–Q4 was not checked, so it is unclear whether Q3.5 is binding.
 - Niedersachsen Abitur Prüfungsschwerpunkte (which semester carries which topic) were not checked.

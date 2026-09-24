@@ -1,14 +1,14 @@
 # Aligning the curriculum map and the organic games framework
 
-**Status:** Draft. All decisions made (§7, 2026-09-24/25). Nothing here is implemented;
-§6 lists the changes it would make.
+**Status:** Approved (§7, 2026-09-24/25). §6 steps 1–3 implemented on 2026-09-25; see §6.1 for
+where the implementation differs from the proposal.
 **Date:** 2026-09-24
 **Covers:** two curriculum models that were written at the same time, on the same day, without
 knowing about each other:
 
 | | Curriculum map | Organic games framework |
 |---|---|---|
-| Docs | [`CROSS_COUNTRY_MAP.md`](./CROSS_COUNTRY_MAP.md), [`countries/`](./countries/) | [`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md) (OF1), [`bavaria-gymnasium-chemie.md`](./bavaria-gymnasium-chemie.md), [`germany-sek2-overview.md`](./germany-sek2-overview.md), [`australia-overview.md`](./australia-overview.md) and the eight `australia-*.md` |
+| Docs | [`CROSS_COUNTRY_MAP.md`](./CROSS_COUNTRY_MAP.md), [`countries/`](./countries/) | [`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md) (OF1), [`countries/germany-bavaria.md`](./countries/germany-bavaria.md), [`germany-sek2-overview.md`](./germany-sek2-overview.md), [`australia-overview.md`](./australia-overview.md) and the eight `countries/australia-*.md` |
 | Code | `src/core-engine/types/curriculum.ts`, `src/core-engine/data/curriculum/` (160 concepts, 10 country files, 67 tests) | none yet; OF1 is a proposal |
 | Unit of content | **canonical concept** (`hess-law`, `maxwell-boltzmann`) across all of chemistry | **skill id** (`T5`, `K7`) for organic, kinetics, thermodynamics, equilibrium only |
 | Unit of place | **country** (ISO alpha-2), plus `track` | **curriculum** (`de-by-gym`, `au-vic`…), plus `track` and `level` (gA/eA) |
@@ -184,7 +184,7 @@ export interface CountryCurriculum {          // rename to JurisdictionCurriculu
 - **The Years 7–10 records:**
   - QLD, SA, TAS and ACT use the national Australian Curriculum v9 directly. Their Years 7–10
     placements come from one shared constant, `AC9_YEARS_7_10`, built from
-    [`australian-curriculum-v9-science-7-10.md`](./australian-curriculum-v9-science-7-10.md)
+    [`countries/australia-curriculum-v9-7-10.md`](./countries/australia-curriculum-v9-7-10.md)
     and spread into each record.
   - VIC (Victorian Curriculum 2.0), NSW (Science 7–10, 2023) and WA (its v9 version) use their
     own adaptations.
@@ -375,6 +375,36 @@ In order; each step ships alone.
 4. **Framework data.** When framework phase P1 starts, add `data/misconceptions.ts` keyed to
    concepts. There is no `skills.ts`.
 
+### 6.1 What was implemented (2026-09-25), and where it differs
+
+- **Types** (`types/curriculum.ts`): `SchoolYear` 7–13, `CountryCode` with `AU` and `DE`,
+  `JurisdictionCode` (including `AU-NT`, `DE-BW`, `DE-RP`), `JurisdictionCurriculum` with
+  `country`, `alsoCovers` and `coveredAreas`. The registry is `CURRICULA` / `JURISDICTION_CODES`,
+  with `curriculumFor()` resolving `AU-NT` to `AU-SA` and `isKnown()` for partial records;
+  `firstYear()` returns `'unknown'` where a record has not been researched.
+- **Concepts:** `functional-group-tests`, `geometric-isomerism`, `optical-isomerism` added.
+  **Differs:** `stereoisomerism` was removed rather than kept as an umbrella. Nothing referenced
+  it, the map has no parent field, and an id with no placements would fail the "placed by at
+  least one jurisdiction" test. Its five placements moved: England, Spain → geometric; Israel →
+  both; Italy (technical CMB: "E/Z and R/S") → both; Argentina (CABA "chirality", PBA Fischer
+  projections) → optical.
+- **Year 13:** every existing record has a Year 13 row (`no-such-year` except England and Italy).
+  England's and Italy's Year 13 content is still text in `outsideRange`, not yet placed.
+- **Coverage rule. Differs:** a placement always counts as known, even outside `coveredAreas`.
+  Bavaria's organic naming sits in the map's `nomenclature` area and its functional-group tests in
+  `analytical`; forbidding those placements would have thrown away researched facts. Only the
+  *absence* of a placement outside the covered areas means "unknown".
+- **Records:** `de-by.ts`, `au-common.ts` (Australian year rows and the Years 7–10 v9 placements),
+  `au-vic.ts`, `au-nsw.ts`, `au-qld.ts`, `au-wa.ts`, `au-sa.ts` (covers `AU-NT`), `au-tas.ts`,
+  `au-act.ts`. Bavaria models NTG as a track on top of the non-NTG main route, and places content
+  common to gA and eA once per course.
+- **Tests:** 190 in `curriculum-map.test.ts` (was 67), including coverage, `alsoCovers`, country
+  codes and the new queries.
+- **Docs:** the per-jurisdiction research documents moved to `countries/` and every link was
+  rewritten; each §3 table points at its record.
+- **Not yet done:** framework OF1 rewrite is limited to a pointer (§4.4); `DE-BW` and `DE-RP`
+  await their research; `AU-VIC` still needs the full-area pass.
+
 Steps 1–3 touch only reference data that nothing in the app reads yet (map step 1), so there is
 no user-visible change and no migration risk. Per [`../TESTING.md`](../TESTING.md), the map's
 tests run whenever its data is edited.
@@ -390,7 +420,6 @@ tests run whenever its data is edited.
    briefed. (§3.5)
 4. The merged player profile: jurisdiction · year · track; device first, database copy later,
    only when a feature needs it across devices, after the privacy review. (§5)
-
 5. Other German Länder: add **Baden-Württemberg (`DE-BW`)** and **Rheinland-Pfalz (`DE-RP`)**
    next, because Stella knows teachers there who can review them. BW has partial research in
    `germany-sek2-overview.md`; RP has none yet, so both get a research pass in the Bavarian

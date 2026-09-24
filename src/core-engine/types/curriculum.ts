@@ -16,13 +16,28 @@
 
 import type { CONCEPTS } from '../data/curriculum/concepts';
 
-/** The school years the map covers. */
-export type SchoolYear = 7 | 8 | 9 | 10 | 11 | 12;
+/**
+ * The school years the map covers. Year 13 exists in England (A level year 2),
+ * Italy (5º anno) and Germany (the last Oberstufe year); elsewhere it is a
+ * `no-such-year` entry.
+ */
+export type SchoolYear = 7 | 8 | 9 | 10 | 11 | 12 | 13;
 
-export const SCHOOL_YEARS: readonly SchoolYear[] = [7, 8, 9, 10, 11, 12];
+export const SCHOOL_YEARS: readonly SchoolYear[] = [7, 8, 9, 10, 11, 12, 13];
 
 /** ISO 3166-1 alpha-2. `GB` is the United Kingdom (England unless a track says otherwise). */
-export type CountryCode = 'AR' | 'ES' | 'FR' | 'GB' | 'IL' | 'IT' | 'MX' | 'RU' | 'UA' | 'US';
+export type CountryCode = 'AR' | 'AU' | 'DE' | 'ES' | 'FR' | 'GB' | 'IL' | 'IT' | 'MX' | 'RU' | 'UA' | 'US';
+
+/**
+ * What a curriculum record is keyed by. Most countries have one national
+ * curriculum and use their ISO 3166-1 code. Germany and Australia do not: each
+ * Land or state is its own school system, so they enter only through ISO 3166-2
+ * subdivision codes. See docs/curriculum/ALIGNMENT.md §3.
+ */
+export type JurisdictionCode =
+  | Exclude<CountryCode, 'AU' | 'DE'>
+  | 'AU-VIC' | 'AU-NSW' | 'AU-QLD' | 'AU-WA' | 'AU-SA' | 'AU-NT' | 'AU-TAS' | 'AU-ACT'
+  | 'DE-BY' | 'DE-BW' | 'DE-RP';
 
 /**
  * Topic areas. Every concept sits in exactly one. The first nineteen are
@@ -156,8 +171,19 @@ export interface ChangeCadence {
   recheckBy: string;
 }
 
-export interface CountryCurriculum {
-  code: CountryCode;
+export interface JurisdictionCurriculum {
+  code: JurisdictionCode;
+  /** The country the jurisdiction belongs to; equal to `code` for national records. */
+  country: CountryCode;
+  /** Other jurisdictions that follow this record, e.g. the Northern Territory uses South Australia's SACE. */
+  alsoCovers?: readonly JurisdictionCode[];
+  /**
+   * The areas this record has been researched in full. Absent means all of them.
+   * Placements outside these areas are still facts; but a concept with no
+   * placement in an area not listed is *unknown* for this jurisdiction, not
+   * absent: see `isKnown` in data/curriculum/index.ts.
+   */
+  coveredAreas?: readonly CurriculumArea[];
   name: string;
   /** Which documents the data describes, one line. */
   basis: string;
@@ -175,6 +201,6 @@ export interface CountryCurriculum {
    * include it — not that no school ever teaches it.
    */
   placements: Readonly<Partial<Record<ConceptId, readonly Placement[]>>>;
-  /** Content that falls just outside 7–12 and matters for games (Year 13, Grade 6). */
+  /** Content that falls just outside the placed years and matters for games (Grade 6, unplaced Year 13 content). */
   outsideRange?: readonly string[];
 }

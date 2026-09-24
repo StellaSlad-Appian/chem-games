@@ -1,8 +1,8 @@
 # Bavarian Gymnasium chemistry curriculum (LehrplanPLUS, G9): upper years, organic chemistry, kinetics, thermodynamics
 
 **Purpose:** the reference curriculum for the organic chemistry and energetics games planned in
-[`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md). Bavaria is the pilot German
-curriculum; the other Länder are compared in [`germany-sek2-overview.md`](./germany-sek2-overview.md).
+[`../ORGANIC_GAMES_FRAMEWORK.md`](../../ORGANIC_GAMES_FRAMEWORK.md). Bavaria is the pilot German
+curriculum; the other Länder are compared in [`germany-sek2-overview.md`](../germany-sek2-overview.md).
 **Research date:** 24 Sept 2026 (desk research by an agent, from primary sources).
 **Review status:** not yet checked by a teacher who teaches in Bavaria. > YOU DECIDE: who reviews it.
 
@@ -333,6 +333,9 @@ The page is titled "Chemie 11 (NTG)".
 ---
 
 ## 3. Where each topic sits: summary for game design
+
+> The data record is `src/core-engine/data/curriculum/countries/de-by.ts`, built from §2 and this
+> table through the crosswalk in [`../ALIGNMENT.md`](../ALIGNMENT.md) §2.
 
 | Topic | Non-NTG | NTG | Oberstufe |
 |---|---|---|---|

@@ -1,8 +1,8 @@
 # Victoria: Victorian Curriculum F–10 Version 2.0 Science (Levels 9–10) and VCE Chemistry Units 1–4: organic chemistry, kinetics, energetics, equilibrium
 
 **Purpose:** the reference curriculum for the organic chemistry and energetics games planned in
-[`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md). The other Australian
-jurisdictions are compared in [`australia-overview.md`](./australia-overview.md).
+[`../ORGANIC_GAMES_FRAMEWORK.md`](../../ORGANIC_GAMES_FRAMEWORK.md). The other Australian
+jurisdictions are compared in [`australia-overview.md`](../australia-overview.md).
 **Research date:** 24 Sept 2026 (desk research by an agent, from primary sources).
 **Review status:** not yet checked by a teacher who teaches VCE Chemistry in Victoria. > YOU DECIDE: who reviews it.
 
@@ -439,6 +439,10 @@ organic analysis or synthesis). It may run across Units 3 and 4.
 ---
 
 ## 3. Where each topic sits
+
+> The skill ids in this table are the framework's research labels. The data record is
+> `src/core-engine/data/curriculum/countries/au-vic.ts`, built from this table through the
+> crosswalk in [`../ALIGNMENT.md`](../ALIGNMENT.md) §2.
 
 "L9–10" = Victorian Curriculum Levels 9–10; "U1–U4" = VCE units; AoS = area of study.
 

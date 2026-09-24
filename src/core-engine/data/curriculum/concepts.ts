@@ -481,9 +481,15 @@ export const CONCEPTS = [
     id: 'isomerism', area: 'organic', kind: 'concept', title: 'Structural isomerism',
     scope: 'Chain, position and functional-group isomers; Butlerov\'s theory of structure.',
   },
+  // `stereoisomerism` was split in two on 2026-09-25 (docs/curriculum/ALIGNMENT.md §2.3):
+  // curricula place geometric and optical isomerism in different years.
   {
-    id: 'stereoisomerism', area: 'organic', kind: 'concept', title: 'Stereoisomerism',
-    scope: 'cis/trans and E/Z isomers; optical isomers, chirality, R/S.',
+    id: 'geometric-isomerism', area: 'organic', kind: 'concept', title: 'Geometric (cis/trans, E/Z) isomerism',
+    scope: 'cis/trans and E/Z isomers of alkenes and other rigid structures; conditions for them to exist.',
+  },
+  {
+    id: 'optical-isomerism', area: 'organic', kind: 'concept', title: 'Optical isomerism and chirality',
+    scope: 'Chiral centres, enantiomers, optical activity; Fischer projections and D/L; R/S at the extended level.',
   },
   {
     id: 'organic-reaction-types', area: 'organic', kind: 'concept', title: 'Organic reaction types',
@@ -592,6 +598,10 @@ export const CONCEPTS = [
   {
     id: 'spectrophotometry', area: 'analytical', kind: 'concept', title: 'Colorimetry and UV–vis spectroscopy',
     scope: 'Absorbance, colour, Beer–Lambert law, calibration curves.',
+  },
+  {
+    id: 'functional-group-tests', area: 'analytical', kind: 'concept', title: 'Tests for functional groups',
+    scope: 'Identifying organic families by their reactions: bromine water, acidified dichromate or permanganate, carbonate, Tollens, Fehling, Schiff, 2,4-DNP.',
   },
   {
     id: 'ir-nmr-ms', area: 'analytical', kind: 'concept', title: 'IR, NMR and mass spectrometry',

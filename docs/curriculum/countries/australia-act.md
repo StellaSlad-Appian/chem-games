@@ -1,8 +1,8 @@
 # Australian Capital Territory chemistry curriculum (BSSS Chemistry T, Australian Curriculum 7–10): organic chemistry, kinetics, energetics, equilibrium
 
 **Purpose:** the reference curriculum for the organic chemistry and energetics games planned in
-[`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md). The Australian states and
-territories are compared in [`australia-overview.md`](./australia-overview.md).
+[`../ORGANIC_GAMES_FRAMEWORK.md`](../../ORGANIC_GAMES_FRAMEWORK.md). The Australian states and
+territories are compared in [`australia-overview.md`](../australia-overview.md).
 **Research date:** 24 Sept 2026 (desk research by an agent, from primary sources).
 **Review status:** not yet checked by a teacher who teaches in the ACT.
 
@@ -168,7 +168,7 @@ most common sequence is Units 1–2 in Year 11 and Units 3–4 in Year 12, as in
   - Year 9: reactions, including energy transfer and combustion
   - Year 10: the periodic table, types of chemical reactions and factors affecting reaction rates
   - Organic chemistry beyond simple hydrocarbons is not expected before Year 11.
-- Cross-check against the national/AC section of [`australia-overview.md`](./australia-overview.md).
+- Cross-check against the national/AC section of [`australia-overview.md`](../australia-overview.md).
 
 ### 2.2 Unit 1: Chemical Fundamentals (the energetics unit)
 
@@ -311,6 +311,10 @@ and NMR.
 ---
 
 ## 3. Where each topic sits
+
+> The skill ids in this table are the framework's research labels. The data record is
+> `src/core-engine/data/curriculum/countries/au-act.ts`, built from this table through the
+> crosswalk in [`../ALIGNMENT.md`](../ALIGNMENT.md) §2.
 
 "U1" to "U4" = Chemistry T units. "Core" means the topic is in a content description that "must" be
 taught.

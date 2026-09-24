@@ -1,8 +1,8 @@
 # Australian Curriculum v9.0 Science, Years 7–10 (ACARA): the national chemistry foundations
 
 **Purpose:** the reference curriculum for the organic chemistry and energetics games planned in
-[`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md). The Australian jurisdictions
-are compared in [`australia-overview.md`](./australia-overview.md).
+[`../ORGANIC_GAMES_FRAMEWORK.md`](../../ORGANIC_GAMES_FRAMEWORK.md). The Australian jurisdictions
+are compared in [`australia-overview.md`](../australia-overview.md).
 **Research date:** 24 Sept 2026 (desk research by an agent, from primary sources).
 **Review status:** not yet checked by a teacher. This is the national layer; no single state
 teaches it unchanged in every sector.
@@ -175,6 +175,10 @@ Elaborations are paraphrased.
 ---
 
 ## 3. Where each topic sits
+
+> The skill ids in this table are the framework's research labels. The data record is
+> `src/core-engine/data/curriculum/countries/au-common.ts`, built from this table through the
+> crosswalk in [`../ALIGNMENT.md`](../ALIGNMENT.md) §2.
 
 | Skill id | Topic | Year | Status | Notes |
 |---|---|---|---|---|

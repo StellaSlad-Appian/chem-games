@@ -13,14 +13,15 @@
 //
 // The school year runs March to December; "2026/27" here means school year 2026.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at } from '../placement';
 
 const csnat = { track: 'cs-nat' } as const;
 const caba = { track: 'caba' } as const;
 
-export const AR: CountryCurriculum = {
+export const AR: JurisdictionCurriculum = {
   code: 'AR',
+  country: 'AR',
   name: 'Argentina',
   basis: 'Federal NAP Ciencias Naturales (ciclo básico and orientado); Provincia de Buenos Aires diseños curriculares 2006–2011; CABA NES (2014–2015) as contrast.',
   researchedOn: '2026-09-24',
@@ -33,6 +34,7 @@ export const AR: CountryCurriculum = {
     { year: 10, localLabel: '4º año ES', localLabelEn: 'fourth year (PBA); 3º año NES in CABA', typicalAgeAtStart: 15, stage: 'Secundaria superior (orientada)', delivery: 'optional', note: 'PBA: Introducción a la Química in the Ciencias Naturales orientation only. CABA: Físico-Química for all.' },
     { year: 11, localLabel: '5º año ES', localLabelEn: 'fifth year (PBA); 4º año NES in CABA', typicalAgeAtStart: 16, stage: 'Secundaria superior', delivery: 'separate', note: 'Every PBA orientation has one chemistry subject.' },
     { year: 12, localLabel: '6º año ES', localLabelEn: 'sixth year (PBA); 5º año NES in CABA', typicalAgeAtStart: 17, stage: 'Secundaria superior (final year)', delivery: 'optional', note: 'PBA: Química del Carbono (Ciencias Naturales only). CABA: Química for all.' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'School ends after 6º año ES (PBA) or 5º año NES (CABA).' },
   ],
   tracks: {
     'cs-nat': 'PBA Bachiller en Ciencias Naturales orientation',
@@ -123,7 +125,7 @@ export const AR: CountryCurriculum = {
     'crude-oil-fuels': [at(10, 'intro', csnat), at(11, 'intro'), at(12, 'intro', caba)],
     'functional-groups': [at(10, 'intro', csnat), at(11, 'intro')],
     isomerism: [at(10, 'intro', csnat), at(11, 'intro')],
-    stereoisomerism: [at(12, 'intro', caba), at(12, 'extend', { ...csnat, note: 'Fischer projections' })],
+    'optical-isomerism': [at(12, 'intro', { ...caba, note: 'isomerism and chirality' }), at(12, 'extend', { ...csnat, note: 'Fischer projections' })],
     'organic-reaction-types': [at(12, 'extend', csnat)],
     'reaction-mechanisms': [at(12, 'extend', csnat)],
     carbohydrates: [at(10, 'intro', csnat), at(11, 'intro'), at(12, 'intro', caba)],
