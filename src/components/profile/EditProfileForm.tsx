@@ -2,10 +2,11 @@
 'use client';
 
 import { useActionState } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { useI18n } from '@/i18n/client';
 import { updateProfileAction, type ProfileActionState } from '@/lib/actions/profile-actions';
-import { BlockToggle } from '@/components/ui/BlockToggle';
+import { SwitchList, SwitchRow } from '@/components/ui/Switch';
 import { ALIAS_MAX_LENGTH, ALIAS_MIN_LENGTH } from '@/lib/validation/profile';
 import type { UserProfile } from '@/core-engine/types/general';
 
@@ -14,6 +15,13 @@ interface EditProfileFormProps {
 }
 
 const initialState: ProfileActionState = null;
+
+const SECTION_HEADING = 'text-xs font-black uppercase tracking-wider text-(--foreground)';
+const FIELD_LABEL = 'mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)';
+// A focus ring as well as the border change, so focus is visible on its own
+// (docs/ACCESSIBILITY.md §4 rules out `outline-none` with nothing to replace it).
+const FIELD =
+  'w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-3 text-sm font-bold text-(--foreground) outline-none transition placeholder:font-medium placeholder:text-(--muted) hover:border-(--muted) focus:border-(--link) focus:ring-3 focus:ring-(--link)/25';
 
 export function EditProfileForm({ initialData }: EditProfileFormProps) {
   const { t } = useI18n();
@@ -26,21 +34,21 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
   return (
     <form
       action={formAction}
-      className="mx-auto flex w-full max-w-2xl flex-col gap-6 rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-8 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8"
     >
-      <div className="border-b border-[var(--border)] pb-4">
-        <h2 className="text-2xl font-black text-(--foreground)">{t.profile.editHeading}</h2>
+      <div className="border-b border-(--border) pb-5">
+        <h2 className="text-2xl font-black text-(--foreground) md:text-3xl">{t.profile.editHeading}</h2>
         <p className="mt-1 text-sm font-medium text-(--muted)">{t.profile.editIntro}</p>
       </div>
 
-      {/* Identity Block */}
-      <div className="flex flex-col gap-4 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
-        <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">
+      {/* Identity: each field that can be hidden carries its own switch */}
+      <section aria-labelledby="identity-heading" className="flex flex-col gap-5">
+        <h3 id="identity-heading" className={SECTION_HEADING}>
           {t.profile.identityHeading}
         </h3>
 
         <div>
-          <label htmlFor="alias" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
+          <label htmlFor="alias" className={FIELD_LABEL}>
             {t.profile.alias}
           </label>
           <input
@@ -54,7 +62,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             required
             autoComplete="off"
             aria-describedby="alias-hint"
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
+            className={FIELD}
           />
           <p id="alias-hint" className="mt-2 text-xs font-medium text-(--muted)">
             {t.profile.aliasHelp}
@@ -62,7 +70,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         </div>
 
         <div>
-          <label htmlFor="title" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
+          <label htmlFor="title" className={FIELD_LABEL}>
             {t.profile.customTitle}
           </label>
           <input
@@ -72,63 +80,66 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
             defaultValue={initialData.title || ''}
             placeholder={t.profile.customTitlePlaceholder}
             maxLength={30}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
+            className={FIELD}
           />
         </div>
 
-        <div>
-          <label htmlFor="country" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
-            {t.profile.country}
-          </label>
-          <input
-            id="country"
-            name="country"
-            type="text"
-            defaultValue={initialData.country || ''}
-            placeholder={t.profile.countryPlaceholder}
-            maxLength={30}
-            className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
-          />
-          <div className="mt-4">
-            <BlockToggle
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label htmlFor="country" className={FIELD_LABEL}>
+              {t.profile.country}
+            </label>
+            <input
+              id="country"
+              name="country"
+              type="text"
+              defaultValue={initialData.country || ''}
+              placeholder={t.profile.countryPlaceholder}
+              maxLength={30}
+              className={FIELD}
+            />
+            <SwitchRow
               name="showCountry"
               label={t.profileToggles.showCountry}
               defaultChecked={initialData.privacy.showCountry}
             />
           </div>
-        </div>
 
-        <div className="border-t border-[var(--border)] pt-4 mt-2">
-          <label htmlFor="yearLevel" className="mb-2 block text-xs font-black uppercase tracking-wider text-(--muted)">
-            {t.profile.academicLevel}
-          </label>
-          <select
-            id="yearLevel"
-            name="yearLevel"
-            defaultValue={initialData.yearLevel || ''}
-            className="w-full appearance-none rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
-          >
-            <option value="">{t.profile.academicLevelPlaceholder}</option>
-            {yearLevels.map((level) => (
-              <option key={level} value={level}>
-                {t.yearLevels[level]}
-              </option>
-            ))}
-          </select>
-          
-          <div className="mt-4">
-            <BlockToggle
+          <div>
+            <label htmlFor="yearLevel" className={FIELD_LABEL}>
+              {t.profile.academicLevel}
+            </label>
+            <div className="relative">
+              <select
+                id="yearLevel"
+                name="yearLevel"
+                defaultValue={initialData.yearLevel || ''}
+                className={`${FIELD} appearance-none pr-10`}
+              >
+                <option value="">{t.profile.academicLevelPlaceholder}</option>
+                {yearLevels.map((level) => (
+                  <option key={level} value={level}>
+                    {t.yearLevels[level]}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-(--muted)"
+                aria-hidden="true"
+              />
+            </div>
+            <SwitchRow
               name="showYearLevel"
               label={t.profileToggles.showYearLevel}
               defaultChecked={initialData.privacy.showYearLevel}
             />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Lab Notes Block */}
-      <div className="flex flex-col gap-3 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
-        <label htmlFor="labNotes" className="text-xs font-black uppercase tracking-wider text-(--foreground)">
+      {/* Lab notes */}
+      <section className="flex flex-col gap-2 border-t border-(--border) pt-6">
+        <label htmlFor="labNotes" className={`${SECTION_HEADING} mb-2`}>
           {t.profile.labNotesField}
         </label>
         <textarea
@@ -137,41 +148,38 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
           defaultValue={initialData.labNotes}
           rows={3}
           maxLength={500}
-          className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface)] p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
+          className={`${FIELD} resize-y`}
         />
-        <div className="mt-4">
-          <BlockToggle
-            name="showLabNotes"
-            label={t.profileToggles.showLabNotes}
-            defaultChecked={initialData.privacy.showLabNotes}
-          />
-        </div>
-      </div>
+        <SwitchRow
+          name="showLabNotes"
+          label={t.profileToggles.showLabNotes}
+          defaultChecked={initialData.privacy.showLabNotes}
+        />
+      </section>
 
-      {/* Game Stats Block */}
-      <div className="flex flex-col gap-4 rounded-xl border border-[var(--border)] bg-[var(--background)] p-4">
-        <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">
+      {/* Public stats: one settings list */}
+      <section aria-labelledby="visibility-heading" className="flex flex-col gap-3 border-t border-(--border) pt-6">
+        <h3 id="visibility-heading" className={SECTION_HEADING}>
           {t.profile.visibilityHeading}
         </h3>
-        
-        <BlockToggle
-          name="showTotalSyntheses"
-          label={t.profileToggles.showTotalSyntheses}
-          defaultChecked={initialData.privacy.showTotalSyntheses}
-        />
-        
-        <BlockToggle
-          name="showAccuracy"
-          label={t.profileToggles.showAccuracy}
-          defaultChecked={initialData.privacy.showAccuracy}
-        />
-        
-        <BlockToggle
-          name="showCurrentStreak"
-          label={t.profileToggles.showCurrentStreak}
-          defaultChecked={initialData.privacy.showCurrentStreak}
-        />
-      </div>
+        <SwitchList className="rounded-xl border border-(--border) bg-(--background) px-4">
+          <SwitchRow
+            name="showTotalSyntheses"
+            label={t.profileToggles.showTotalSyntheses}
+            defaultChecked={initialData.privacy.showTotalSyntheses}
+          />
+          <SwitchRow
+            name="showAccuracy"
+            label={t.profileToggles.showAccuracy}
+            defaultChecked={initialData.privacy.showAccuracy}
+          />
+          <SwitchRow
+            name="showCurrentStreak"
+            label={t.profileToggles.showCurrentStreak}
+            defaultChecked={initialData.privacy.showCurrentStreak}
+          />
+        </SwitchList>
+      </section>
 
       {/* Feedback State */}
       {state?.message && (
