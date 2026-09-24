@@ -106,7 +106,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Un atome, c’est un noyau de protons et de neutrons, avec des électrons répartis autour.',
       'Le nombre de protons – le numéro atomique – fait qu’un atome est cet élément-là. Change-le et tu as un autre élément.',
-      'Les électrons occupent des niveaux d’énergie. Le nombre d’électrons du niveau extérieur est ce qui range le tableau périodique.',
+      'Les électrons occupent des niveaux d’énergie. Le nombre d’électrons du niveau extérieur décide du groupe (la colonne) dans lequel se trouve l’élément.',
       'Un groupe est une colonne, une période est une ligne. Les éléments d’un groupe ont autant d’électrons à l’extérieur, donc ils réagissent pareil.',
       'Les métaux sont à gauche, les non-métaux à droite. Les atomes rétrécissent vers la droite et grandissent vers le bas.',
       'Un atome est presque entièrement vide. Toutes les images d’atome se trompent sur l’échelle, y compris celles d’ici.',
@@ -132,7 +132,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Numéro atomique et nombre de masse',
         content:
-          'Le numéro atomique est le nombre de protons, et c’est lui qui fait qu’un atome est cet élément. Tout atome de chlore a 17 protons ; tout ce qui a 17 protons est du chlore. Le nombre de masse, c’est les protons plus les neutrons. Le nombre de neutrons peut varier sans changer l’élément. Les deux mots sont ici un prolongement : le programme de ces années-là n’en nomme aucun, et sans eux tu ne peux pas lire une case du tableau.',
+          'Le numéro atomique est le nombre de protons, et c’est lui qui fait qu’un atome est cet élément. Tout atome de chlore a 17 protons ; tout ce qui a 17 protons est du chlore. Le nombre de masse, c’est les protons plus les neutrons. Le nombre de neutrons peut varier sans changer l’élément.',
         exampleNames: ['Chlore 35', 'Chlore 37'],
         imageAlt:
           'Le symbole du chlore 35 avec le nombre de masse 35 écrit au-dessus du numéro atomique 17, et des flèches : 17 protons, et 35 moins 17 donne 18 neutrons.',
@@ -147,12 +147,12 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Groupes et périodes',
         content:
-          'Un groupe est une colonne du tableau et une période est une ligne. Les éléments d’un même groupe ont le même nombre d’électrons au niveau extérieur. La colonne prévoit donc la façon dont un élément réagit. Le groupe 1, ce sont les métaux alcalins, le groupe 17 les halogènes et le groupe 18 les gaz nobles. La période dit combien de niveaux d’énergie sont utilisés : un élément de la période 3 en utilise trois. La ligne te dit donc à peu près quelle est la taille de l’atome.',
+          'Un groupe est une colonne du tableau et une période est une ligne. Les éléments d’un même groupe ont le même nombre d’électrons au niveau extérieur. La colonne prévoit donc la façon dont un élément réagit. Le groupe 1, ce sont les métaux alcalins, le groupe 17 les halogènes et le groupe 18 les gaz nobles. La période dit combien de niveaux d’énergie sont utilisés : un élément de la période 3 en utilise trois. Les atomes sont donc plus gros à chaque nouvelle ligne quand on descend.',
       },
       {
         heading: 'Métaux et non-métaux',
         content:
-          'Les métaux remplissent la gauche et le milieu du tableau, et les non-métaux occupent le coin en haut à droite. Un métal conduit l’électricité et la chaleur, a une surface brillante, et se laisse marteler en feuille sans se briser. Presque tous les métaux sont solides à température ambiante ; le mercure est celui qui est liquide. Un non-métal conduit mal, est terne, et casse net s’il est solide. Beaucoup de non-métaux sont des gaz. Prolongement : quelques éléments situés sur l’escalier entre les deux, comme le silicium, se comportent un peu comme l’un et un peu comme l’autre. On les appelle semi-métaux, un mot que le programme n’emploie pas.',
+          'Les métaux remplissent la gauche et le milieu du tableau, et les non-métaux occupent le coin en haut à droite. Un métal conduit l’électricité et la chaleur, a une surface brillante, et se laisse marteler en feuille sans se briser. Presque tous les métaux sont solides à température ambiante ; le mercure est celui qui est liquide. Un non-métal conduit mal, est terne, et casse net s’il est solide. Beaucoup de non-métaux sont des gaz. Quelques éléments situés sur l’escalier entre les deux, comme le silicium, se comportent un peu comme l’un et un peu comme l’autre. On les appelle semi-métaux.',
       },
       {
         heading: 'Rayon atomique',
@@ -162,7 +162,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'La réactivité, et pourquoi un groupe se comporte pareil',
         content:
-          'Tu peux tester un groupe en faisant réagir ses éléments avec le dioxygène, l’eau et les acides : entre eux, ils se comportent de la même façon. Les métaux du groupe 1 réagissent avec l’eau et deviennent plus violents vers le bas : le lithium pétille, le sodium file à la surface, le potassium prend feu. Les mêmes métaux dégagent du dihydrogène avec un acide, et encore plus vite. Les éléments du groupe 17 vont dans l’autre sens et deviennent moins réactifs vers le bas. Le groupe 18 a déjà un niveau extérieur plein, donc les gaz nobles ne réagissent presque avec rien.',
+          'Tu peux tester un groupe en faisant réagir ses éléments avec le dioxygène, l’eau et les acides : entre eux, ils se comportent de la même façon. Les métaux du groupe 1 réagissent avec l’eau et deviennent plus violents vers le bas : le lithium pétille, le sodium file à la surface, le potassium prend feu. Les mêmes métaux dégagent du dihydrogène avec un acide, et encore plus vite : c’est bien trop violent pour être fait en classe. Les éléments du groupe 17 vont dans l’autre sens et deviennent moins réactifs vers le bas. Le groupe 18 a déjà un niveau extérieur plein, donc les gaz nobles ne réagissent presque avec rien.',
       },
       {
         heading: 'Rangé par numéro atomique, pas par masse',
@@ -194,7 +194,6 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Ce qui change quand le nombre de neutrons change : isotopes, désintégration, demi-vie, et les éléments qu’il a fallu fabriquer.',
     keyTakeaways: [
       'Les isotopes sont des atomes du même élément avec des nombres de neutrons différents. Chimiquement, ils se comportent pareil.',
-      'La masse atomique relative est une moyenne pondérée sur les isotopes d’un élément. C’est pour cela que si peu sont des nombres entiers.',
       'Un noyau instable se désintègre en émettant un rayonnement, et il laisse derrière lui un atome plus stable.',
       'Il y a trois sortes – alpha, bêta et gamma – et elles diffèrent par ce qui sort et par ce qui l’arrête.',
       'La demi-vie est le temps qu’il faut pour que la moitié d’un échantillon se désintègre. Après trois demi-vies, il reste un huitième.',
@@ -212,7 +211,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'l’étalon auquel on compare toutes les autres masses',
       'se désintègre en émettant une particule alpha',
       'se désintègre en émettant une particule bêta',
-      'émet un rayonnement gamma',
+      'émet des rayonnements bêta et gamma – on l’utilise pour le gamma',
       'demi-vie d’environ 5730 ans',
       'demi-vie d’environ 4,5 milliards d’années',
     ],
@@ -220,7 +219,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Les deux nombres dont cette antisèche a besoin',
         content:
-          'Le numéro atomique est le nombre de protons, et c’est lui qui fixe l’élément. Le nombre de masse, c’est les protons plus les neutrons. Toute cette antisèche parle du deuxième nombre qui change pendant que le premier reste en place. Les deux mots sont un prolongement : le programme de ces années-là n’en nomme aucun, et sans eux rien ici ne fonctionne.',
+          'Le numéro atomique est le nombre de protons, et c’est lui qui fixe l’élément. Le nombre de masse, c’est les protons plus les neutrons. Toute cette antisèche parle du deuxième nombre qui change pendant que le premier reste en place.',
       },
       {
         heading: 'Les isotopes',
@@ -232,7 +231,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Noyaux instables et les trois sortes de rayonnement',
         content:
-          'Certains noyaux sont instables. Ils se désintègrent tout seuls, émettent un rayonnement et laissent derrière eux un atome plus stable. Le radon 222 éjecte une particule alpha, c’est-à-dire deux protons et deux neutrons ensemble. L’iode 131 émet une particule bêta, c’est-à-dire un électron rapide parti du noyau. Le cobalt 60 émet un rayonnement gamma, qui est de l’énergie et pas une particule. Une feuille de papier arrête l’alpha, une plaque d’aluminium arrête le bêta, et le gamma demande du plomb ou du béton épais.',
+          'Certains noyaux sont instables. Ils se désintègrent tout seuls, émettent un rayonnement et laissent derrière eux un atome plus stable. Le radon 222 éjecte une particule alpha, c’est-à-dire deux protons et deux neutrons ensemble. L’iode 131 émet une particule bêta, c’est-à-dire un électron rapide parti du noyau. Le cobalt 60 émet des rayonnements bêta et gamma, et on l’utilise pour son rayonnement gamma, qui est de l’énergie et pas une particule. Une feuille de papier arrête l’alpha et une plaque d’aluminium arrête le bêta. Rien n’arrête complètement le gamma : le plomb ou le béton épais l’atténuent fortement.',
       },
       {
         heading: 'La demi-vie',
@@ -254,12 +253,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Les éléments qu’il a fallu fabriquer',
         content:
-          'Les éléments après l’uranium n’ont aucun isotope stable et ne se trouvent pas dans la nature. On les construit dans des accélérateurs en projetant un noyau sur un autre, parfois quelques atomes à la fois. Beaucoup tiennent moins d’une seconde avant de se désintégrer. C’est un prolongement : le programme ne demande pas les éléments fabriqués. Ils sont ici parce que c’est ainsi que les dernières lignes du tableau périodique ont été remplies.',
+          'Les éléments après l’uranium n’ont aucun isotope stable et ne se trouvent pas dans la nature en quantité utilisable. On les construit dans des accélérateurs en projetant un noyau sur un autre, parfois quelques atomes à la fois. Beaucoup tiennent moins d’une seconde avant de se désintégrer. C’est en les fabriquant qu’on a rempli les dernières lignes du tableau périodique.',
       },
-    ],
-    commonMistakes: [
-      'Lire la masse atomique relative comme un compte de particules. C’est une moyenne sur les isotopes : les 35,5 du chlore ne correspondent à aucun atome que tu pourrais trouver.',
-      'Additionner les deux masses des isotopes et diviser par deux. Cela donne 36 pour le chlore, et c’est faux, parce que le chlore 35 est trois fois plus abondant que le chlore 37.',
     ],
   },
   'states-of-matter': {

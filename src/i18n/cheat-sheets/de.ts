@@ -91,7 +91,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Ein Atom besteht aus einem Kern aus Protonen und Neutronen, um den herum sich Elektronen verteilen.',
       'Die Zahl der Protonen – die Ordnungszahl – macht ein Atom zu diesem Element. Ändere sie, und du hast ein anderes Element.',
-      'Elektronen sitzen in Energiestufen. Wie viele in der äußersten sitzen, danach ist das Periodensystem geordnet.',
+      'Elektronen sitzen in Energiestufen. Wie viele in der äußersten sitzen, entscheidet, in welcher Gruppe (Spalte) ein Element steht.',
       'Eine Gruppe ist eine Spalte, eine Periode eine Zeile. Elemente einer Gruppe haben außen gleich viele Elektronen und reagieren deshalb ähnlich.',
       'Metalle stehen links, Nichtmetalle rechts. Atome werden nach rechts kleiner und nach unten größer.',
       'Ein Atom ist fast vollständig leerer Raum. Jedes Bild davon stimmt im Maßstab nicht, auch die hier.',
@@ -117,7 +117,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Ordnungszahl und Massenzahl',
         content:
-          'Die Ordnungszahl ist die Zahl der Protonen, und sie macht ein Atom zu diesem Element. Jedes Chloratom hat 17 Protonen; alles mit 17 Protonen ist Chlor. Die Massenzahl ist Protonen plus Neutronen. Die Zahl der Neutronen kann sich ändern, ohne dass sich das Element ändert. Beide Begriffe sind hier eine Erweiterung: Der Lehrplan dieser Jahrgänge nennt keinen von beiden, und ohne sie kannst du kein Feld im Periodensystem lesen.',
+          'Die Ordnungszahl ist die Zahl der Protonen, und sie macht ein Atom zu diesem Element. Jedes Chloratom hat 17 Protonen; alles mit 17 Protonen ist Chlor. Die Massenzahl ist Protonen plus Neutronen. Die Zahl der Neutronen kann sich ändern, ohne dass sich das Element ändert.',
         exampleNames: ['Chlor-35', 'Chlor-37'],
         imageAlt:
           'Das Symbol für Chlor-35 mit der Massenzahl 35 über der Ordnungszahl 17, dazu Pfeile: 17 Protonen, und 35 minus 17 ergibt 18 Neutronen.',
@@ -132,12 +132,12 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Gruppen und Perioden',
         content:
-          'Eine Gruppe ist eine Spalte des Periodensystems, eine Periode eine Zeile. Elemente einer Gruppe haben gleich viele Elektronen in der äußersten Stufe. Die Spalte sagt dir also vorher, wie ein Element reagiert. Gruppe 1 sind die Alkalimetalle, Gruppe 17 die Halogene und Gruppe 18 die Edelgase. Die Periode sagt, wie viele Energiestufen benutzt werden: Ein Element der 3. Periode benutzt drei davon. Die Zeile sagt dir damit ungefähr, wie groß das Atom ist.',
+          'Eine Gruppe ist eine Spalte des Periodensystems, eine Periode eine Zeile. Elemente einer Gruppe haben gleich viele Elektronen in der äußersten Stufe. Die Spalte sagt dir also vorher, wie ein Element reagiert. Gruppe 1 sind die Alkalimetalle, Gruppe 17 die Halogene und Gruppe 18 die Edelgase. Die Periode sagt, wie viele Energiestufen benutzt werden: Ein Element der 3. Periode benutzt drei davon. Mit jeder neuen Zeile nach unten werden die Atome deshalb größer.',
       },
       {
         heading: 'Metalle und Nichtmetalle',
         content:
-          'Metalle füllen die linke Seite und die Mitte des Periodensystems, Nichtmetalle stehen oben rechts. Ein Metall leitet Strom und Wärme, hat eine glänzende Oberfläche und lässt sich zu einem Blech hämmern, ohne zu zerspringen. Fast jedes Metall ist bei Raumtemperatur fest; Quecksilber ist das flüssige. Ein Nichtmetall leitet meist schlecht, ist matt und zerbricht, wenn es überhaupt fest ist. Viele Nichtmetalle sind Gase. Erweiterung: Ein paar Elemente auf der Treppe dazwischen, zum Beispiel Silicium, verhalten sich teils wie das eine und teils wie das andere. Man nennt sie Halbmetalle – ein Wort, das im Lehrplan nicht vorkommt.',
+          'Metalle füllen die linke Seite und die Mitte des Periodensystems, Nichtmetalle stehen oben rechts. Ein Metall leitet Strom und Wärme, hat eine glänzende Oberfläche und lässt sich zu einem Blech hämmern, ohne zu zerspringen. Fast jedes Metall ist bei Raumtemperatur fest; Quecksilber ist das flüssige. Ein Nichtmetall leitet meist schlecht, ist matt und zerbricht, wenn es überhaupt fest ist. Viele Nichtmetalle sind Gase. Ein paar Elemente auf der Treppe dazwischen, zum Beispiel Silicium, verhalten sich teils wie das eine und teils wie das andere. Man nennt sie Halbmetalle.',
       },
       {
         heading: 'Atomradius',
@@ -147,7 +147,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Reaktivität, und warum sich eine Gruppe ähnlich verhält',
         content:
-          'Du kannst eine Gruppe prüfen, indem du ihre Elemente mit Sauerstoff, Wasser und Säuren reagieren lässt. Untereinander verhalten sie sich gleich. Die Metalle der Gruppe 1 reagieren mit Wasser und werden nach unten heftiger: Lithium zischt, Natrium flitzt herum, Kalium fängt Feuer. Dieselben Metalle geben mit einer Säure Wasserstoff ab, und das noch schneller. Die Elemente der Gruppe 17 laufen andersherum und werden nach unten reaktionsträger. Gruppe 18 hat die äußerste Stufe schon voll, deshalb reagieren die Edelgase mit fast nichts.',
+          'Du kannst eine Gruppe prüfen, indem du ihre Elemente mit Sauerstoff, Wasser und Säuren reagieren lässt. Untereinander verhalten sie sich gleich. Die Metalle der Gruppe 1 reagieren mit Wasser und werden nach unten heftiger: Lithium zischt, Natrium flitzt herum, Kalium fängt Feuer. Dieselben Metalle geben mit einer Säure Wasserstoff ab, und das noch schneller – viel zu heftig für einen Schulversuch. Die Elemente der Gruppe 17 laufen andersherum und werden nach unten reaktionsträger. Gruppe 18 hat die äußerste Stufe schon voll, deshalb reagieren die Edelgase mit fast nichts.',
       },
       {
         heading: 'Geordnet nach der Ordnungszahl, nicht nach der Masse',
@@ -179,7 +179,6 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Was sich ändert, wenn sich die Neutronenzahl ändert: Isotope, Zerfall, Halbwertszeit und die Elemente, die gemacht werden mussten.',
     keyTakeaways: [
       'Isotope sind Atome desselben Elements mit unterschiedlich vielen Neutronen. Chemisch verhalten sie sich gleich.',
-      'Die relative Atommasse ist ein gewichteter Mittelwert über die Isotope eines Elements. Deshalb sind so wenige davon ganze Zahlen.',
       'Ein instabiler Kern zerfällt und gibt Strahlung ab. Zurück bleibt ein stabileres Atom.',
       'Es gibt drei Arten – Alpha, Beta und Gamma. Sie unterscheiden sich darin, was herauskommt und was sie aufhält.',
       'Die Halbwertszeit ist die Zeit, in der die Hälfte einer Probe zerfällt. Nach drei Halbwertszeiten ist ein Achtel übrig.',
@@ -197,7 +196,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'der Standard, an dem alle anderen Massen gemessen werden',
       'zerfällt und gibt dabei ein Alphateilchen ab',
       'zerfällt und gibt dabei ein Betateilchen ab',
-      'gibt Gammastrahlung ab',
+      'gibt Beta- und Gammastrahlung ab – genutzt wird die Gammastrahlung',
       'Halbwertszeit etwa 5730 Jahre',
       'Halbwertszeit etwa 4,5 Milliarden Jahre',
     ],
@@ -205,7 +204,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Die zwei Zahlen, die dieser Spickzettel braucht',
         content:
-          'Die Ordnungszahl ist die Zahl der Protonen, und sie legt fest, welches Element es ist. Die Massenzahl ist Protonen plus Neutronen. Auf diesem Spickzettel geht es überall darum, dass sich die zweite Zahl ändert und die erste bleibt. Beide Begriffe sind eine Erweiterung: Der Lehrplan dieser Jahrgänge nennt keinen von beiden, und ohne sie funktioniert hier nichts.',
+          'Die Ordnungszahl ist die Zahl der Protonen, und sie legt fest, welches Element es ist. Die Massenzahl ist Protonen plus Neutronen. Auf diesem Spickzettel geht es überall darum, dass sich die zweite Zahl ändert und die erste bleibt.',
       },
       {
         heading: 'Isotope',
@@ -217,7 +216,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Instabile Kerne und die drei Arten von Strahlung',
         content:
-          'Manche Kerne sind instabil. Sie zerfallen von selbst, geben Strahlung ab und lassen ein stabileres Atom zurück. Radon-222 schleudert ein Alphateilchen heraus, also zwei Protonen und zwei Neutronen zusammen. Iod-131 gibt ein Betateilchen ab, also ein schnelles Elektron aus dem Kern. Cobalt-60 gibt Gammastrahlung ab, und das ist Energie statt eines Teilchens. Papier hält Alpha auf, ein Blech aus Aluminium hält Beta auf, und für Gamma braucht man Blei oder dicken Beton.',
+          'Manche Kerne sind instabil. Sie zerfallen von selbst, geben Strahlung ab und lassen ein stabileres Atom zurück. Radon-222 schleudert ein Alphateilchen heraus, also zwei Protonen und zwei Neutronen zusammen. Iod-131 gibt ein Betateilchen ab, also ein schnelles Elektron aus dem Kern. Cobalt-60 gibt Beta- und Gammastrahlung ab und wird wegen der Gammastrahlung eingesetzt. Sie ist Energie statt eines Teilchens. Papier hält Alpha auf, ein Blech aus Aluminium hält Beta auf. Gammastrahlung lässt sich nie ganz aufhalten: Blei oder dicker Beton schwächen sie stark ab.',
       },
       {
         heading: 'Halbwertszeit',
@@ -239,12 +238,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Elemente, die gemacht werden mussten',
         content:
-          'Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur nicht vor. Sie werden in Beschleunigern gebaut, indem man einen Kern auf einen anderen schießt, manchmal wenige Atome auf einmal. Viele halten weniger als eine Sekunde durch und zerfallen dann. Das ist eine Erweiterung: Der Lehrplan verlangt gemachte Elemente nicht. Sie stehen hier, weil so die unteren Zeilen des Periodensystems gefüllt wurden.',
+          'Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur höchstens in winzigen Spuren vor. Sie werden in Beschleunigern gebaut, indem man einen Kern auf einen anderen schießt, manchmal wenige Atome auf einmal. Viele halten weniger als eine Sekunde durch und zerfallen dann. So wurden die unteren Zeilen des Periodensystems gefüllt.',
       },
-    ],
-    commonMistakes: [
-      'Die relative Atommasse als Anzahl von Teilchen lesen. Sie ist ein Mittelwert über Isotope. Die 35,5 von Chlor gehört zu keinem Atom, das du finden könntest.',
-      'Die beiden Isotopenmassen addieren und halbieren. Für Chlor kommt dann 36 heraus, und das ist falsch, weil Chlor-35 dreimal so häufig ist wie Chlor-37.',
     ],
   },
   'states-of-matter': {

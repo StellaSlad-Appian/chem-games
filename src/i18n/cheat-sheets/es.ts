@@ -116,7 +116,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Un átomo es un núcleo de protones y neutrones, con electrones repartidos a su alrededor.',
       'El número de protones —el número atómico— es lo que hace que un átomo sea ese elemento. Cámbialo y tienes otro elemento.',
-      'Los electrones ocupan niveles de energía, y cuántos hay en el nivel exterior es el criterio con el que está ordenada la tabla.',
+      'Los electrones ocupan niveles de energía, y cuántos hay en el nivel exterior decide en qué grupo (columna) está un elemento.',
       'Un grupo es una columna y un periodo es una fila. Los elementos de un grupo tienen los mismos electrones fuera, así que reaccionan igual.',
       'Los metales están a la izquierda y los no metales a la derecha. Los átomos se encogen hacia la derecha y crecen hacia abajo.',
       'Casi todo el átomo es espacio vacío. Cualquier dibujo de un átomo se equivoca en la escala, también los de aquí.',
@@ -142,7 +142,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Número atómico y número másico',
         content:
-          'El número atómico es el número de protones, y es lo que hace que un átomo sea ese elemento. Todo átomo de cloro tiene 17 protones; cualquier cosa con 17 protones es cloro. El número másico es protones más neutrones. Los neutrones pueden variar sin que cambie el elemento. Los dos términos son aquí una ampliación: el currículo de estos cursos no nombra ninguno, y sin ellos no puedes leer una casilla de la tabla.',
+          'El número atómico es el número de protones, y es lo que hace que un átomo sea ese elemento. Todo átomo de cloro tiene 17 protones; cualquier cosa con 17 protones es cloro. El número másico es protones más neutrones. Los neutrones pueden variar sin que cambie el elemento.',
         exampleNames: ['Cloro-35', 'Cloro-37'],
         imageAlt:
           'El símbolo del cloro-35 con el número másico 35 escrito encima del número atómico 17, y flechas que señalan: 17 protones, y 35 menos 17 da 18 neutrones.',
@@ -157,12 +157,12 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Grupos y periodos',
         content:
-          'Un grupo es una columna de la tabla y un periodo es una fila. Los elementos de un mismo grupo tienen el mismo número de electrones en el nivel exterior. La columna predice, por tanto, cómo reacciona un elemento. El grupo 1 son los metales alcalinos, el grupo 17 los halógenos y el grupo 18 los gases nobles. El periodo dice cuántos niveles de energía se usan: un elemento del periodo 3 usa tres. La fila te dice así, más o menos, lo grande que es el átomo.',
+          'Un grupo es una columna de la tabla y un periodo es una fila. Los elementos de un mismo grupo tienen el mismo número de electrones en el nivel exterior. La columna predice, por tanto, cómo reacciona un elemento. El grupo 1 son los metales alcalinos, el grupo 17 los halógenos y el grupo 18 los gases nobles. El periodo dice cuántos niveles de energía se usan: un elemento del periodo 3 usa tres. Así que los átomos son más grandes cada vez que bajas a una fila nueva.',
       },
       {
         heading: 'Metales y no metales',
         content:
-          'Los metales ocupan la izquierda y el centro de la tabla, y los no metales están en la esquina superior derecha. Un metal conduce la electricidad y el calor, tiene la superficie brillante y se deja golpear hasta formar una lámina sin romperse. Casi todos los metales son sólidos a temperatura ambiente; el mercurio es el líquido. Un no metal suele conducir mal, es mate y se rompe si es que llega a ser sólido. Muchos no metales son gases. Ampliación: unos pocos elementos de la escalera que hay entre unos y otros, como el silicio, se comportan en parte como cada uno. Se llaman semimetales, una palabra que el currículo no usa.',
+          'Los metales ocupan la izquierda y el centro de la tabla, y los no metales están en la esquina superior derecha. Un metal conduce la electricidad y el calor, tiene la superficie brillante y se deja golpear hasta formar una lámina sin romperse. Casi todos los metales son sólidos a temperatura ambiente; el mercurio es el líquido. Un no metal suele conducir mal, es mate y se rompe si es que llega a ser sólido. Muchos no metales son gases. Unos pocos elementos de la escalera que hay entre unos y otros, como el silicio, se comportan en parte como cada uno. Se llaman semimetales.',
       },
       {
         heading: 'Radio atómico',
@@ -172,7 +172,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'La reactividad, y por qué un grupo se comporta igual',
         content:
-          'Puedes poner a prueba un grupo haciendo reaccionar sus elementos con oxígeno, agua y ácidos: entre ellos se comportan igual. Los metales del grupo 1 reaccionan con el agua y se vuelven más violentos hacia abajo: el litio burbujea, el sodio corretea por la superficie, el potasio se incendia. Esos mismos metales desprenden hidrógeno con un ácido, y todavía más deprisa. Los elementos del grupo 17 van al revés y son menos reactivos hacia abajo. El grupo 18 ya tiene el nivel exterior lleno, así que los gases nobles no reaccionan casi con nada.',
+          'Puedes poner a prueba un grupo haciendo reaccionar sus elementos con oxígeno, agua y ácidos: entre ellos se comportan igual. Los metales del grupo 1 reaccionan con el agua y se vuelven más violentos hacia abajo: el litio burbujea, el sodio corretea por la superficie, el potasio se incendia. Esos mismos metales desprenden hidrógeno con un ácido, y todavía más deprisa: es demasiado violento para probarlo en clase. Los elementos del grupo 17 van al revés y son menos reactivos hacia abajo. El grupo 18 ya tiene el nivel exterior lleno, así que los gases nobles no reaccionan casi con nada.',
       },
       {
         heading: 'Ordenada por número atómico, no por masa',
@@ -204,7 +204,6 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Qué cambia cuando cambia el número de neutrones: isótopos, desintegración, semidesintegración y los elementos que hubo que fabricar.',
     keyTakeaways: [
       'Los isótopos son átomos del mismo elemento con distinto número de neutrones. Químicamente se comportan igual.',
-      'La masa atómica relativa es una media ponderada entre los isótopos de un elemento. Por eso tan pocas son números enteros.',
       'Un núcleo inestable se desintegra y emite radiación, y deja detrás un átomo más estable.',
       'Hay tres clases —alfa, beta y gamma— y se diferencian en qué sale y en qué las detiene.',
       'El periodo de semidesintegración es el tiempo que tarda en desintegrarse la mitad de una muestra. Tras tres periodos queda un octavo.',
@@ -222,7 +221,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'el patrón con el que se comparan todas las demás masas',
       'se desintegra emitiendo una partícula alfa',
       'se desintegra emitiendo una partícula beta',
-      'emite radiación gamma',
+      'emite radiación beta y gamma – se usa por la gamma',
       'periodo de semidesintegración de unos 5730 años',
       'periodo de semidesintegración de unos 4500 millones de años',
     ],
@@ -230,7 +229,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Los dos números que necesita esta chuleta',
         content:
-          'El número atómico es cuántos protones tiene un átomo, y es lo que fija de qué elemento se trata. El número másico es protones más neutrones. Toda esta chuleta va de que el segundo número cambia mientras el primero se queda quieto. Los dos términos son una ampliación: el currículo de estos cursos no nombra ninguno, y sin ellos aquí no funciona nada.',
+          'El número atómico es cuántos protones tiene un átomo, y es lo que fija de qué elemento se trata. El número másico es protones más neutrones. Toda esta chuleta va de que el segundo número cambia mientras el primero se queda quieto.',
       },
       {
         heading: 'Isótopos',
@@ -242,7 +241,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Núcleos inestables y las tres clases de radiación',
         content:
-          'Algunos núcleos son inestables. Se desintegran por su cuenta, emiten radiación y dejan detrás un átomo más estable. El radón-222 expulsa una partícula alfa, que son dos protones y dos neutrones juntos. El yodo-131 emite una partícula beta, que es un electrón rápido salido del núcleo. El cobalto-60 emite radiación gamma, que es energía y no una partícula. Un papel detiene la alfa, una lámina de aluminio detiene la beta, y la gamma necesita plomo u hormigón grueso.',
+          'Algunos núcleos son inestables. Se desintegran por su cuenta, emiten radiación y dejan detrás un átomo más estable. El radón-222 expulsa una partícula alfa, que son dos protones y dos neutrones juntos. El yodo-131 emite una partícula beta, que es un electrón rápido salido del núcleo. El cobalto-60 emite radiación beta y gamma, y se usa por su radiación gamma, que es energía y no una partícula. Un papel detiene la alfa y una lámina de aluminio detiene la beta. Nada detiene del todo la gamma: el plomo o el hormigón grueso la atenúan mucho.',
       },
       {
         heading: 'Periodo de semidesintegración',
@@ -264,12 +263,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Elementos que hubo que fabricar',
         content:
-          'Los elementos posteriores al uranio no tienen isótopos estables y no se encuentran en la naturaleza. Se construyen en aceleradores lanzando un núcleo contra otro, a veces unos pocos átomos cada vez. Muchos duran menos de un segundo y luego se desintegran. Esto es una ampliación: el currículo no pide los elementos fabricados. Están aquí porque así se rellenaron las últimas filas de la tabla periódica.',
+          'Los elementos posteriores al uranio no tienen isótopos estables y no se encuentran en la naturaleza en ninguna cantidad aprovechable. Se construyen en aceleradores lanzando un núcleo contra otro, a veces unos pocos átomos cada vez. Muchos duran menos de un segundo y luego se desintegran. Fabricándolos se rellenaron las últimas filas de la tabla periódica.',
       },
-    ],
-    commonMistakes: [
-      'Leer la masa atómica relativa como un recuento de partículas. Es una media entre isótopos: el 35,5 del cloro no es ningún átomo que puedas encontrar.',
-      'Sumar las dos masas de los isótopos y dividir entre dos. Para el cloro sale 36, y está mal, porque el cloro-35 es tres veces más abundante que el cloro-37.',
     ],
   },
   'states-of-matter': {

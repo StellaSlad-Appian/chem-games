@@ -226,7 +226,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     keyTakeaways: [
       'An atom is a nucleus of protons and neutrons, with electrons spread around it.',
       'The number of protons — the atomic number — is what makes an atom that element. Change it and you have a different element.',
-      'Electrons sit in energy levels, and how many are in the outer level is what the periodic table is arranged by.',
+      'Electrons sit in energy levels, and how many are in the outer level decides which group (column) an element is in.',
       'A group is a column and a period is a row. Elements in one group share an outer-level count, so they react alike.',
       'Metals sit on the left and non-metals on the right. Atoms shrink across a period and grow down a group.',
       'Almost all of an atom is empty space. Every picture of one, including the ones here, is wrong about scale.',
@@ -251,7 +251,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Atomic number and mass number',
         content:
-          'The atomic number is the number of protons, and it is what makes an atom that element. Every chlorine atom has 17 protons; anything with 17 protons is chlorine. The mass number is protons plus neutrons. Neutrons can vary without changing which element it is. Both terms are an extension here: the curriculum for these years names neither, and you cannot read a table cell without them.',
+          'The atomic number is the number of protons, and it is what makes an atom that element. Every chlorine atom has 17 protons; anything with 17 protons is chlorine. The mass number is protons plus neutrons. Neutrons can vary without changing which element it is.',
         examples: [
           { name: 'Chlorine-35', formula: 'Cl-35' },
           { name: 'Chlorine-37', formula: 'Cl-37' },
@@ -291,12 +291,12 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Groups and periods',
         content:
-          'A group is a column of the table and a period is a row. Elements in one group have the same number of electrons in their outer level, so the column predicts how an element reacts. Group 1 is the alkali metals, group 17 the halogens and group 18 the noble gases. A period tells you how many energy levels are in use: an element in period 3 uses three of them. So the row tells you roughly how big the atom is.',
+          'A group is a column of the table and a period is a row. Elements in one group have the same number of electrons in their outer level, so the column predicts how an element reacts. Group 1 is the alkali metals, group 17 the halogens and group 18 the noble gases. A period tells you how many energy levels are in use: an element in period 3 uses three of them. So atoms get bigger as you go down to a new row.',
       },
       {
         heading: 'Metals and non-metals',
         content:
-          'Metals fill the left and the middle of the table, and non-metals sit in the top right corner. A metal conducts electricity and heat, has a shiny surface, and can be hammered into a sheet without shattering. Almost every metal is solid at room temperature; mercury is the liquid one. A non-metal is usually a poor conductor, dull, and brittle if it is solid at all. Many non-metals are gases. Extension: a few elements along the staircase between the two, such as silicon, behave partly like each. They are called metalloids, which is a word the curriculum does not use.',
+          'Metals fill the left and the middle of the table, and non-metals sit in the top right corner. A metal conducts electricity and heat, has a shiny surface, and can be hammered into a sheet without shattering. Almost every metal is solid at room temperature; mercury is the liquid one. A non-metal is usually a poor conductor, dull, and brittle if it is solid at all. Many non-metals are gases. A few elements along the staircase between the two, such as silicon, behave partly like each. They are called metalloids.',
       },
       {
         heading: 'Atomic size',
@@ -306,7 +306,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Reactivity, and why a group behaves alike',
         content:
-          'You can test a group by reacting its elements with oxygen, water and acids, and they behave the same way as each other. Group 1 metals react with water and get more violent down the group: lithium fizzes, sodium darts about, potassium catches fire. The same metals with an acid give off hydrogen, faster still. Group 17 elements run the other way and get less reactive down the group. Group 18 already has a full outer level, so the noble gases react with almost nothing.',
+          'You can test a group by reacting its elements with oxygen, water and acids, and they behave the same way as each other. Group 1 metals react with water and get more violent down the group: lithium fizzes, sodium darts about, potassium catches fire. The same metals with an acid give off hydrogen faster still, which is far too violent to try in a school lab. Group 17 elements run the other way and get less reactive down the group. Group 18 already has a full outer level, so the noble gases react with almost nothing.',
       },
       {
         heading: 'Ordered by atomic number, not by mass',
@@ -365,7 +365,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Victorian Curriculum F–10 Version 2.0, Science VC2S10U06: the model of the atom changed following the discovery of electrons, protons and neutrons, and natural radioactive decay results in a change from unstable to stable atoms. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 10 description, so “Year 10” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Atoms & the Periodic Table takes VC2S10U07 from the same band. Atomic number, mass number and relative atomic mass are this site’s extension — Version 2.0 names none of them, and relative atomic mass is VCE Unit 1.',
     keyTakeaways: [
       'Isotopes are atoms of the same element with different numbers of neutrons. They behave the same chemically.',
-      'Relative atomic mass is a weighted average across an element’s isotopes, which is why so few are whole numbers.',
       'An unstable nucleus decays and gives out radiation, leaving a more stable atom behind.',
       'The three kinds are alpha, beta and gamma, and they differ in what comes out and what stops it.',
       'Half-life is the time for half a sample to decay. After three half-lives, an eighth is left.',
@@ -375,7 +374,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       { name: 'Carbon-12', formula: 'C-12', description: 'the standard all other masses are measured against' },
       { name: 'Radon-222', formula: 'Rn-222', description: 'decays by giving out an alpha particle' },
       { name: 'Iodine-131', formula: 'I-131', description: 'decays by giving out a beta particle' },
-      { name: 'Cobalt-60', formula: 'Co-60', description: 'gives out gamma radiation' },
+      { name: 'Cobalt-60', formula: 'Co-60', description: 'gives out beta and gamma radiation — used for its gamma' },
       { name: 'Carbon-14', formula: 'C-14', description: 'half-life about 5730 years' },
       { name: 'Uranium-238', formula: 'U-238', description: 'half-life about 4.5 billion years' },
     ],
@@ -383,7 +382,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'The two numbers this sheet needs',
         content:
-          'The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Both terms are an extension: the curriculum for these years names neither, and nothing here works without them.',
+          'The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put.',
       },
       {
         heading: 'Isotopes',
@@ -399,7 +398,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Unstable nuclei, and the three kinds of radiation',
         content:
-          'Some nuclei are unstable. They break down on their own, give out radiation, and leave a more stable atom behind. Radon-222 throws out an alpha particle, which is two protons and two neutrons stuck together. Iodine-131 gives out a beta particle, which is a fast electron thrown from the nucleus. Cobalt-60 gives out gamma radiation, which is energy rather than a particle. Paper stops alpha, a sheet of aluminium stops beta, and gamma needs lead or thick concrete.',
+          'Some nuclei are unstable. They break down on their own, give out radiation, and leave a more stable atom behind. Radon-222 throws out an alpha particle, which is two protons and two neutrons stuck together. Iodine-131 gives out a beta particle, which is a fast electron thrown from the nucleus. Cobalt-60 gives out beta and gamma radiation, and it is used for its gamma, which is energy rather than a particle. Paper stops alpha and a sheet of aluminium stops beta. Nothing stops gamma completely: lead or thick concrete cuts it down a long way.',
       },
       {
         heading: 'Half-life',
@@ -425,7 +424,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Elements that had to be made',
         content:
-          'Elements past uranium have no stable isotopes and are not found in nature. They are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. This is an extension: the curriculum does not ask for made elements. They are here because they are how the bottom rows of the periodic table were filled in.',
+          'Elements past uranium have no stable isotopes and are not found in nature in any useful amount. They are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. Making them is how the bottom rows of the periodic table were filled in.',
         /*
          * The same component as the Year 9 sheet, gated to two modes: *natural
          * or made*, which is this paragraph, and *metals* for orientation. The
@@ -434,10 +433,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
          */
         widget: 'periodic-table-occurrence',
       },
-    ],
-    commonMistakes: [
-      'Reading relative atomic mass as a count of particles. It is an average over isotopes, so chlorine’s 35.5 is not any atom you could find.',
-      'Adding the two isotope masses and halving them. That gives 36 for chlorine, and it is wrong because chlorine-35 is three times as common as chlorine-37.',
     ],
     resources: [
       PHET('isotopes-and-atomic-mass', 'Isotopes and Atomic Mass', 'Mix isotopes in different proportions and see the relative atomic mass move.'),

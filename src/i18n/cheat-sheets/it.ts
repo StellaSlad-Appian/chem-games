@@ -118,7 +118,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Un atomo è un nucleo di protoni e neutroni, con gli elettroni distribuiti tutt’intorno.',
       'Il numero di protoni — il numero atomico — è ciò che rende un atomo quell’elemento. Cambialo e hai un elemento diverso.',
-      'Gli elettroni stanno su livelli di energia, e quanti ce ne sono sul livello esterno è il criterio con cui la tavola è ordinata.',
+      'Gli elettroni stanno su livelli di energia, e quanti ce ne sono sul livello esterno decide in quale gruppo (colonna) si trova un elemento.',
       'Un gruppo è una colonna e un periodo è una riga. Gli elementi di un gruppo hanno gli stessi elettroni all’esterno, quindi reagiscono allo stesso modo.',
       'I metalli stanno a sinistra e i non metalli a destra. Gli atomi rimpiccioliscono verso destra e crescono verso il basso.',
       'Un atomo è quasi tutto spazio vuoto. Ogni immagine di un atomo sbaglia la scala, comprese quelle qui sopra.',
@@ -144,7 +144,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Numero atomico e numero di massa',
         content:
-          'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento. Qui i due termini sono un ampliamento: il programma di questi anni non ne nomina nessuno, e senza di essi non puoi leggere una casella della tavola.',
+          'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento.',
         exampleNames: ['Cloro-35', 'Cloro-37'],
         imageAlt:
           'Il simbolo del cloro-35 con il numero di massa 35 scritto sopra il numero atomico 17, e delle frecce: 17 protoni, e 35 meno 17 dà 18 neutroni.',
@@ -159,12 +159,12 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Gruppi e periodi',
         content:
-          'Un gruppo è una colonna della tavola e un periodo è una riga. Gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni sul livello esterno. La colonna prevede quindi come reagisce un elemento. Il gruppo 1 sono i metalli alcalini, il gruppo 17 gli alogeni e il gruppo 18 i gas nobili. Il periodo dice quanti livelli di energia sono in uso: un elemento del periodo 3 ne usa tre. La riga ti dice così, all’incirca, quanto è grande l’atomo.',
+          'Un gruppo è una colonna della tavola e un periodo è una riga. Gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni sul livello esterno. La colonna prevede quindi come reagisce un elemento. Il gruppo 1 sono i metalli alcalini, il gruppo 17 gli alogeni e il gruppo 18 i gas nobili. Il periodo dice quanti livelli di energia sono in uso: un elemento del periodo 3 ne usa tre. Per questo gli atomi diventano più grandi ogni volta che scendi a una nuova riga.',
       },
       {
         heading: 'Metalli e non metalli',
         content:
-          'I metalli riempiono la sinistra e il centro della tavola, e i non metalli stanno nell’angolo in alto a destra. Un metallo conduce l’elettricità e il calore, ha una superficie lucida e si lascia battere in lamina senza rompersi. Quasi tutti i metalli sono solidi a temperatura ambiente; il mercurio è quello liquido. Un non metallo di solito conduce male, è opaco e si spezza, ammesso che sia solido. Molti non metalli sono gas. Ampliamento: alcuni elementi sulla scala che sta fra gli uni e gli altri, come il silicio, si comportano un po’ come entrambi. Si chiamano semimetalli, una parola che il programma non usa.',
+          'I metalli riempiono la sinistra e il centro della tavola, e i non metalli stanno nell’angolo in alto a destra. Un metallo conduce l’elettricità e il calore, ha una superficie lucida e si lascia battere in lamina senza rompersi. Quasi tutti i metalli sono solidi a temperatura ambiente; il mercurio è quello liquido. Un non metallo di solito conduce male, è opaco e si spezza, ammesso che sia solido. Molti non metalli sono gas. Alcuni elementi sulla scala che sta fra gli uni e gli altri, come il silicio, si comportano un po’ come entrambi. Si chiamano semimetalli.',
       },
       {
         heading: 'Raggio atomico',
@@ -174,7 +174,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'La reattività, e perché un gruppo si comporta allo stesso modo',
         content:
-          'Puoi mettere alla prova un gruppo facendo reagire i suoi elementi con ossigeno, acqua e acidi: fra loro si comportano allo stesso modo. I metalli del gruppo 1 reagiscono con l’acqua e diventano più violenti scendendo: il litio sfrigola, il sodio sfreccia in superficie, il potassio prende fuoco. Gli stessi metalli con un acido liberano idrogeno, e ancora più in fretta. Gli elementi del gruppo 17 vanno nel verso opposto e diventano meno reattivi scendendo. Il gruppo 18 ha già il livello esterno pieno, quindi i gas nobili non reagiscono quasi con niente.',
+          'Puoi mettere alla prova un gruppo facendo reagire i suoi elementi con ossigeno, acqua e acidi: fra loro si comportano allo stesso modo. I metalli del gruppo 1 reagiscono con l’acqua e diventano più violenti scendendo: il litio sfrigola, il sodio sfreccia in superficie, il potassio prende fuoco. Gli stessi metalli con un acido liberano idrogeno ancora più in fretta, con una reazione troppo violenta per farla a scuola. Gli elementi del gruppo 17 vanno nel verso opposto e diventano meno reattivi scendendo. Il gruppo 18 ha già il livello esterno pieno, quindi i gas nobili non reagiscono quasi con niente.',
       },
       {
         heading: 'Ordinata per numero atomico, non per massa',
@@ -206,7 +206,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Che cosa cambia quando cambia il numero di neutroni: isotopi, decadimento, tempo di dimezzamento e gli elementi che è stato necessario fabbricare.',
     keyTakeaways: [
       'Gli isotopi sono atomi dello stesso elemento con un numero diverso di neutroni. Dal punto di vista chimico si comportano allo stesso modo.',
-      'La massa atomica relativa è una media pesata sugli isotopi di un elemento. È per questo che così poche sono numeri interi.',
       'Un nucleo instabile decade ed emette radiazione, e lascia dietro di sé un atomo più stabile.',
       'Le specie sono tre — alfa, beta e gamma — e si distinguono per che cosa esce e per che cosa le ferma.',
       'Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Dopo tre, ne resta un ottavo.',
@@ -224,7 +223,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'lo standard con cui si confrontano tutte le altre masse',
       'decade emettendo una particella alfa',
       'decade emettendo una particella beta',
-      'emette radiazione gamma',
+      'emette radiazione beta e gamma – si usa per la gamma',
       'tempo di dimezzamento di circa 5730 anni',
       'tempo di dimezzamento di circa 4,5 miliardi di anni',
     ],
@@ -232,7 +231,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'I due numeri che servono a questo bigino',
         content:
-          'Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo. I due termini sono un ampliamento: il programma di questi anni non ne nomina nessuno, e senza di essi qui non funziona niente.',
+          'Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo.',
       },
       {
         heading: 'Isotopi',
@@ -244,7 +243,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Nuclei instabili e le tre specie di radiazione',
         content:
-          'Alcuni nuclei sono instabili. Decadono da soli, emettono radiazione e lasciano dietro di sé un atomo più stabile. Il radon-222 scaglia fuori una particella alfa, cioè due protoni e due neutroni insieme. Lo iodio-131 emette una particella beta, cioè un elettrone veloce uscito dal nucleo. Il cobalto-60 emette radiazione gamma, che è energia e non una particella. Un foglio di carta ferma l’alfa, una lamina di alluminio ferma la beta, e la gamma richiede piombo o cemento spesso.',
+          'Alcuni nuclei sono instabili. Decadono da soli, emettono radiazione e lasciano dietro di sé un atomo più stabile. Il radon-222 scaglia fuori una particella alfa, cioè due protoni e due neutroni insieme. Lo iodio-131 emette una particella beta, cioè un elettrone veloce uscito dal nucleo. Il cobalto-60 emette radiazione beta e gamma, e si usa per la gamma, che è energia e non una particella. Un foglio di carta ferma l’alfa e una lamina di alluminio ferma la beta. Niente ferma del tutto la gamma: il piombo o il cemento spesso la attenuano molto.',
       },
       {
         heading: 'Tempo di dimezzamento',
@@ -266,12 +265,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Elementi che è stato necessario fabbricare',
         content:
-          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura. Vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. Questo è un ampliamento: il programma non chiede gli elementi fabbricati. Sono qui perché è così che sono state riempite le ultime righe della tavola periodica.',
+          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura in quantità apprezzabili. Vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. È fabbricandoli che sono state riempite le ultime righe della tavola periodica.',
       },
-    ],
-    commonMistakes: [
-      'Leggere la massa atomica relativa come un conteggio di particelle. È una media sugli isotopi: il 35,5 del cloro non è un atomo che potresti trovare.',
-      'Sommare le due masse degli isotopi e dividere per due. Per il cloro viene 36, ed è sbagliato, perché il cloro-35 è tre volte più abbondante del cloro-37.',
     ],
   },
   'states-of-matter': {

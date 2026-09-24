@@ -511,6 +511,7 @@ the split.
 | alpha particle | **альфа-частица** | Written out rather than as α, with a hyphen, as Russian compounds it. |
 | beta particle | **бета-частица** | — |
 | gamma radiation | **гамма-излучение** | *Излучение*, not *луч*: gamma is radiation, not a particle. |
+| shielding gamma ("reduces, never stops") | **ослаблять**: *свинец или толстый бетон лишь сильно его ослабляют* | Added 2026-09-24. *Ослабление гамма-излучения* is how Russian school physics puts it; alpha and beta keep *задерживать*. |
 | half-life | **период полураспада** | The standard term. Long, but there is no short form. |
 | synthetic element / made element | **искусственно полученный элемент** | Or *искусственный элемент* where the sentence needs it shorter. Not *синтетический*, which in Russian suggests a manufactured material. |
 | radiocarbon dating | **радиоуглеродное датирование** | *Датирование*, not *датировка*: the first is the method, the second is the resulting date. |

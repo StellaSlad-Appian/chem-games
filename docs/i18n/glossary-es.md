@@ -399,6 +399,7 @@ the split.
 | alpha particle | **partícula alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **partícula beta** | — |
 | gamma radiation | **radiación gamma** | *Radiación*, not *rayo*: gamma is radiation, not a particle. |
+| shielding gamma ("reduces, never stops") | **atenuar**: *el plomo o el hormigón grueso la atenúan mucho* | Added 2026-09-24. *Atenuación* is the textbook word for gamma passing through matter; alpha and beta keep *detener*. |
 | half-life | **periodo de semidesintegración** | The term Spanish textbooks use, and the one the sheet already used. *Semivida* is shorter and is also correct; it was rejected because the longer form says what it measures and the sheet has room. Note it collides with *periodo* (a row of the table) — the sheet never uses the bare word for either. |
 | synthetic element / made element | **elemento artificial** | *Elemento sintético* is also correct; *artificial* is what Spanish uses for the transuranium elements. |
 | radiocarbon dating | **datación por carbono-14** | Spanish writes the isotope with a hyphen, as the sheet already does for *cloro-35*. |

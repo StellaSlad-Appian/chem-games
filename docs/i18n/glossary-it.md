@@ -450,6 +450,7 @@ the split.
 | alpha particle | **particella alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **particella beta** | — |
 | gamma radiation | **radiazione gamma** | *Radiazione*, not *raggio*: gamma is radiation, not a particle. |
+| shielding gamma ("reduces, never stops") | **attenuare**: *il piombo o il cemento spesso la attenuano molto* | Added 2026-09-24. *Attenuazione* is the textbook word for gamma passing through matter; alpha and beta keep *fermare*. |
 | half-life | **tempo di dimezzamento** | The term Italian textbooks use, and the one the sheet already used. *Emivita* is the medical and pharmacological word; it is understood but reads clinical. |
 | synthetic element / made element | **elemento artificiale** | *Elemento sintetico* is also correct; *artificiale* is what Italian uses for the transuranium elements. |
 | radiocarbon dating | **datazione al radiocarbonio** | The standard Italian phrase. *Datazione al carbonio-14* is equally clear and is used once, where the sheet names the isotope. |

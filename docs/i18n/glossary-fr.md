@@ -264,6 +264,7 @@ the split.
 | alpha particle | **particule alpha** | Written out rather than as α. |
 | beta particle | **particule bêta** | With the circumflex, which is how French spells the Greek letter's name. |
 | gamma radiation | **rayonnement gamma** | *Rayonnement*, not *rayon*: gamma is radiation, not a particle, and French keeps that straight where "gamma ray" does not. |
+| shielding gamma ("reduces, never stops") | **atténuer**: *le plomb ou le béton épais l'atténuent fortement* | Added 2026-09-24. *Atténuation* is the word French physique-chimie uses for gamma passing through matter; alpha and beta keep *arrêter*. |
 | half-life | **demi-vie** | *Période radioactive* is the term used in French physics teaching and in the programme; *demi-vie* is transparent for a fourteen-year-old and is what the sheet already used. **Rated medium** — a physics teacher may prefer *période*. |
 | synthetic element / made element | **élément artificiel** | *Élément synthétique* is also correct; *artificiel* is the word French uses for the transuranium elements and pairs with the sheet's "had to be made". |
 | radiocarbon dating | **datation au carbone 14** | French writes the isotope as *carbone 14*, with a space and no hyphen, which is why the sheet's prose does too while the formula stays `C-14`. |

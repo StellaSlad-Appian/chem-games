@@ -131,6 +131,7 @@ new with the split.
 | alpha particle | **Alphateilchen** | Written out rather than as α, so a screen reader says something. |
 | beta particle | **Betateilchen** | — |
 | gamma radiation | **Gammastrahlung** | Gamma is radiation, not a particle, and the German word keeps that straight where the English "gamma ray" does not. |
+| shielding gamma ("reduces, never stops") | **abschwächen**: *Blei oder dicker Beton schwächen sie stark ab* | Added 2026-09-24. Gamma radiation is attenuated, not stopped, and German physics and chemistry books say *abschwächen* for exactly that (*Abschwächung von Gammastrahlung*). Alpha and beta keep *aufhalten*. |
 | half-life | **Halbwertszeit** | — |
 | synthetic element / made element | **künstlich erzeugtes Element** | Not *synthetisches Element*, which in German suggests a manufactured material rather than a nucleus built in an accelerator. |
 | radiocarbon dating | **Radiokarbonmethode** | Also *C-14-Methode*, which is shorter and is what a museum label says. Either is fine; do not use both on one sheet. |
