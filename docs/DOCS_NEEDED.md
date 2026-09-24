@@ -79,7 +79,7 @@ or auth-gated behavior — which the Definition of Done in `AGENT_INSTRUCTIONS.m
 > inconsistencies" and decide on the `tailwind.config.ts` question.
 
 `globals.css` has a real but implicit design system (the `--game-*` custom properties, the
-`Bebas Neue` + `DM Sans` font pairing, per-chemistry-class colors for acid/base/neutral/
+single Nunito typeface, per-chemistry-class colors for acid/base/neutral/
 amphoteric). There's no written style guide. A short one — even just "here are the tokens, here's
 what a new game's accent color should and shouldn't clash with, here's the icon library
 (`lucide-react`) we standardize on" — would stop an agent from inventing a one-off palette or

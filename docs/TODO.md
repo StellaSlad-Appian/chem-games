@@ -176,13 +176,11 @@ scientists — the Explore pool is now 104 ready, 0 blocked.
 first ("Pick your game"), profile folded into the scores section, the site following
 the device's light/dark setting, and the rename to "Games in Chemistry".
 
-- [ ] **Font change across the site — the agreed second step.** The landing page
-      headings are set in DM Sans (`font-sans`) to match the template; every other
-      heading is still Bebas Neue, so the two currently disagree between pages. The
-      recommendation is one face with Cyrillic, such as Nunito, for the whole site,
-      which would also retire the Oswald/Manrope pair Russian loads today
-      (`src/i18n/fonts.ts`). Needs the 1024px header re-measured in all six locales:
-      German has 20px to spare with the current face.
+- [x] **Font change across the site.** Done 2026-09-24: Nunito for headings and body in
+      all six languages, games included, self-hosted by `next/font` (no more runtime
+      request to Google Fonts). Bebas Neue, DM Sans and the Russian-only Oswald/Manrope
+      pair are gone. The 1024px header was re-measured in all six locales: German is
+      the widest at 985px of 1009px.
 - [ ] **Maybe later: motion on the hero tiles.** Decided 2026-09-24 to leave them still
       for now. Two options were offered, both plain CSS, no library: a small lift on
       hover, or a slow float. Either must be switched off under

@@ -84,11 +84,6 @@ export default async function Home(props: PageProps<'/[lang]'>) {
         Hero. Two columns from lg: the copy, and a cluster of periodic-table
         tiles that is pure decoration (aria-hidden) and so is dropped below lg
         rather than squeezed.
-
-        Headings on this page are set in the body face (`font-sans`) rather
-        than the global Bebas Neue display face — the landing page's look is a
-        heavy geometric sans. Whether the rest of the site follows is the
-        separate font decision, not this page's.
       */}
       <section className="border-b border-(--border) bg-[radial-gradient(ellipse_at_top_right,rgba(99,102,241,0.14),transparent_55%),linear-gradient(135deg,rgba(59,130,246,0.07),transparent_60%)] py-16 lg:py-24">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 md:px-8 lg:grid-cols-[minmax(0,1fr)_auto]">
@@ -96,7 +91,7 @@ export default async function Home(props: PageProps<'/[lang]'>) {
             <p className="text-sm font-extrabold tracking-[0.18em] text-(--link) uppercase">
               {t.home.eyebrow}
             </p>
-            <h1 className="mt-4 max-w-2xl font-sans text-5xl leading-[1.05] font-black tracking-tight break-words md:text-7xl">
+            <h1 className="mt-4 max-w-2xl text-5xl leading-[1.05] font-black tracking-tight break-words md:text-7xl">
               {t.home.heading}
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed font-medium text-(--muted)">
@@ -284,7 +279,7 @@ function SectionHeading({
           `text-3xl` — a real WCAG 1.4.10 failure on the dashboard. Nothing here
           can wrap a single word without it.
         */}
-        <h2 className="font-sans text-3xl font-black tracking-tight break-words text-(--foreground) md:text-4xl">
+        <h2 className="text-3xl font-black tracking-tight break-words text-(--foreground) md:text-4xl">
           {title}
         </h2>
         <p className="mt-2 text-sm font-medium text-(--muted)">{description}</p>
@@ -310,7 +305,7 @@ function ProfilePrompt({ isAuthenticated, t }: { isAuthenticated: boolean; t: Di
   return (
     <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border-2 border-dashed border-(--border) bg-(--surface) p-5 sm:flex-row sm:items-center">
       <div className="min-w-0">
-        <h3 className="font-sans text-lg font-black tracking-normal text-(--foreground)">
+        <h3 className="text-lg font-black tracking-normal text-(--foreground)">
           {isAuthenticated
             ? t.home.emptyProfileAuthenticatedTitle
             : t.home.emptyProfileAnonymousTitle}
@@ -363,7 +358,7 @@ function ElementTiles({ locale }: { locale: string }) {
       {HERO_TILES.map(({ symbol, number, mass, digits, cell, tone }) => (
         <div key={symbol} className={`${cell} ${TILE_TONES[tone]} flex flex-col rounded-2xl border p-3`}>
           <span className="text-xs font-semibold opacity-75">{number}</span>
-          <span className="mt-1 font-sans text-4xl leading-none font-bold">{symbol}</span>
+          <span className="mt-1 text-4xl leading-none font-bold">{symbol}</span>
           <span className="mt-auto text-xs font-semibold opacity-75">
             {mass.toLocaleString(locale, {
               minimumFractionDigits: digits,

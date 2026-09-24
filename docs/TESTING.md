@@ -371,7 +371,7 @@ decisions rather than test tweaks.
 | **Plural completeness**: every plural record carries every CLDR category its language needs, derived from `Intl.PluralRules` | `src/test-utils/i18n-parity.ts` via `dictionary.test.ts` and `game-messages.test.ts` |
 | **Count-bearing strings**: the set of count-interpolating non-plural keys is closed at 57, so a new one has to be considered | `src/i18n/count-strings.test.ts` |
 | **Cyrillic presence and Russian typography**, dormant until `ru` ships but proven against a fixture now | `src/i18n/cyrillic.test.ts`, `src/test-utils/i18n-russian.ts` |
-| **Fonts**: no shipped locale downloads an extra stylesheet; `html[lang="ru"]` overrides both faces | `src/i18n/fonts.test.ts` |
+| **Fonts**: one self-hosted face (Nunito) in every locale, no per-locale override, no font request to Google | `src/i18n/fonts.test.ts` |
 | **Dates, numbers, percentages**: `en` formats as en-AU, each locale gets its own separators, `%` takes a no-break space where the language wants one | `src/i18n/number-format.test.ts` |
 | **Untranslated English on a rendered page**, five page shapes in de/fr/es/it | `e2e/latin-leakage.spec.ts` |
 | Cheat-sheet overlays line up with the English structure; formulae, slugs and URLs unchanged | `src/i18n/cheat-sheets.test.ts` |
@@ -404,7 +404,7 @@ motivated it, because a gate without one tends to be a gate nobody maintains.
 | `src/i18n/cyrillic.test.ts` | **A string edited slightly and left in English.** The parity gates only catch a value left *byte-identical* to the English; `"Reaction Balancer"` becoming `"Reaction Balancer!"` passes all of them. In Cyrillic the absence of Cyrillic is decisive. The typography half catches straight quotes where Russian wants « », three-dot ellipses, ё folded to е, and a decimal point where Russian writes a comma. |
 | `describePluralCompleteness()` | **A Russian dictionary with only `one` and `other`** — the shape copying `en.ts` produces. Grammatically wrong on almost every count, and invisible: no key missing, nothing empty, nothing identical to the English, every placeholder intact. The runtime still falls back, deliberately; the build refuses. |
 | `src/i18n/count-strings.test.ts` | **The seven Italian agreement bugs.** `"{count} corrette"` agrees with its number and is wrong at 1; they compile and pass everything. The inventory turned out to be 57 strings, not seven, and the set is now closed so a new one fails the suite rather than waiting for a translator. |
-| `src/i18n/fonts.test.ts` | **Bebas Neue and DM Sans have no Cyrillic subset.** Headings would have fallen back from a condensed all-caps face to bare `sans-serif` — not a blemish but a broken layout. Also asserts no Latin locale pays for the replacement stylesheet. |
+| `src/i18n/fonts.test.ts` | **Bebas Neue and DM Sans had no Cyrillic subset**, so Russian needed a second pair. Since the switch to Nunito it guards the opposite regressions: a per-locale override creeping back, the CSS and the loader disagreeing on the variable, and a runtime font request to Google, which would send readers' IP addresses there. |
 | `src/i18n/number-format.test.ts` | **A bare `en` is en-US.** The leaderboard rendered "Sep 14, 2026" on a site that spells *neutralise* and cites the Victorian Curriculum. |
 
 Two of these found bugs in *themselves* on their first run, which is the argument for the

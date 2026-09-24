@@ -163,7 +163,7 @@ how the German header shipped needing 1033px in a 1024px viewport with every loc
 - Failure is low-stakes: instant retry, no lives lost for opening help, no countdown on the
   fail screen.
 - Sound is never the only feedback channel (mute is a first-class setting already).
-- Dyslexia-friendly defaults: DM Sans body, generous line-height (`leading-relaxed`), left-aligned
+- Dyslexia-friendly defaults: Nunito (open, rounded letterforms), generous line-height (`leading-relaxed`), left-aligned
   text, no italics for emphasis in instructions.
 
 ## 8. Per-game sign-off checklist

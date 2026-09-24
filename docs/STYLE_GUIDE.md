@@ -16,8 +16,10 @@ guide for new code, and fix old code opportunistically when you're already in th
   (the default); `[data-theme='light']` overrides it. `game-settings-context.tsx` sets
   `document.documentElement.dataset.theme`, with a per-game override. Any new color token
   **must be defined in both blocks** or it will silently fall back in one theme.
-- **Fonts:** `Bebas Neue` (display, applied automatically to `h1`–`h3`) and `DM Sans` (body),
-  loaded via Google Fonts in `globals.css`. Formulas render in `font-mono` via `MoleculeText`.
+- **Font:** `Nunito` for everything — headings and body, in all six languages (it has Cyrillic).
+  Self-hosted by `next/font` in `src/app/[lang]/layout.tsx`, never loaded from Google at
+  runtime. `h1`–`h3` take `--font-display`, which currently equals `--font-body`. Formulas
+  render in `font-mono` via `MoleculeText`.
 
 ## 2. Design tokens
 
@@ -74,7 +76,7 @@ them. Never build class names by string concatenation (`border-${hue}-500`) — 
 
 | Role | Classes |
 |---|---|
-| Page/game title | `h1` (Bebas Neue automatic) `text-3xl sm:text-4xl font-black tracking-tight` |
+| Page/game title | `h1` `text-3xl sm:text-4xl font-black tracking-tight` |
 | Micro-caps label (Progress, Level, section headers) | `text-[10px] md:text-xs font-bold uppercase tracking-wider text-(--muted)` |
 | Big stat value | `text-sm md:text-lg font-black text-(--foreground)` |
 | Body / instructions | `text-sm font-medium text-(--muted)` inside `space-y-4`, bullets `list-disc pl-5` |

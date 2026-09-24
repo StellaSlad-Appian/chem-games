@@ -1237,42 +1237,47 @@ test.describe('Russian negotiation and routing', () => {
   });
 });
 
-test.describe('Russian fonts', () => {
-  // The half of the non-Latin preparation that only a browser can check.
-  // `src/i18n/fonts.test.ts` asserts the map and the CSS agree; it cannot see
-  // whether the <link> is actually emitted, or whether a Latin page picked up
-  // a request it has no glyph to draw from. Both failures are silent: a font
-  // with no glyph falls back rather than erroring.
-  test('a Russian page requests the Cyrillic faces and an English page does not', async ({
-    page,
-  }) => {
-    const cyrillic = 'link[rel="stylesheet"][href*="family=Oswald"]';
-
-    await page.goto(path('/games', 'ru'));
-    await expect(page.locator(cyrillic)).toHaveCount(1);
-    await expect(page.locator(cyrillic)).toHaveAttribute('href', /family=Manrope/);
+test.describe('fonts', () => {
+  // The half of the font setup only a browser can check.
+  // `src/i18n/fonts.test.ts` asserts the loader and the CSS agree; it cannot
+  // see what the page actually fetched, or whether a glyph was drawn from the
+  // site's face rather than a fallback. Both failures are silent.
+  test('no page asks Google for a font, in English or in Russian', async ({ page }) => {
+    // next/font self-hosts Nunito. A request to fonts.googleapis.com or
+    // fonts.gstatic.com would send the reader's IP address to Google.
+    const thirdParty: string[] = [];
+    page.on('request', (request) => {
+      if (/fonts\.(googleapis|gstatic)\.com/.test(request.url())) thirdParty.push(request.url());
+    });
 
     await page.goto(path('/games'));
-    await expect(page.locator(cyrillic)).toHaveCount(0);
+    await page.evaluate(() => document.fonts.ready);
+    await page.goto(path('/games', 'ru'));
+    await page.evaluate(() => document.fonts.ready);
+
+    expect(thirdParty).toEqual([]);
   });
 
-  test('a Russian heading is drawn in Oswald, not in a fallback', async ({ page }) => {
-    // The failure this catches is the one the README calls out: Bebas Neue is
-    // a *condensed all-caps* face with no Cyrillic, so a Russian heading in it
-    // renders in bare `sans-serif` at a completely different width, and the
-    // layout tuned around the design breaks. Nothing throws.
+  test('a Russian heading is drawn in Nunito, not in a fallback', async ({ page }) => {
+    // Russian used to need a second family, because the Latin faces had no
+    // Cyrillic and a Russian heading fell back to bare `sans-serif`. Nunito
+    // has it — this proves the Cyrillic file is the one that loaded, not just
+    // that the CSS names Nunito, since a face with no glyph falls back without
+    // an error.
     await page.goto(path('/games', 'ru'));
     const heading = page.getByRole('heading', { level: 1, name: ru.gamesHub.heading });
     await expect(heading).toBeVisible();
 
     await page.evaluate(() => document.fonts.ready);
-    const drawnInOswald = await page.evaluate(
-      () =>
-        [...document.fonts].some(
-          (face) => face.family.includes('Oswald') && face.status === 'loaded'
-        ) && getComputedStyle(document.querySelector('h1')!).fontFamily.startsWith('Oswald')
-    );
-    expect(drawnInOswald).toBe(true);
+    const drawn = await page.evaluate(() => ({
+      family: getComputedStyle(document.querySelector('h1')!).fontFamily,
+      cyrillicLoaded: [...document.fonts].some(
+        (face) =>
+          face.family === 'Nunito' && face.status === 'loaded' && face.unicodeRange.includes('U+400')
+      ),
+    }));
+    expect(drawn.family).toMatch(/^"?Nunito"?,/);
+    expect(drawn.cyrillicLoaded).toBe(true);
   });
 });
 

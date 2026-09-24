@@ -1,96 +1,70 @@
 // src/i18n/fonts.test.ts
 //
-// The font side of "the first non-Latin locale".
+// One typeface, self-hosted, for every locale.
+//
+// The site used to load Bebas Neue and DM Sans with an `@import` from
+// fonts.googleapis.com, and a second stylesheet (Oswald and Manrope) for
+// Russian only, because neither Latin face had Cyrillic. Nunito has, so all of
+// that went, and next/font now serves it from this origin.
 //
 // Nothing here can prove a glyph renders — that needs a browser, and
-// e2e/i18n.spec.ts does the visible half. What it can prove is the two things
-// that would go wrong silently:
+// e2e/i18n.spec.ts does the visible half. What this can prove is the two
+// regressions that would go unnoticed:
 //
-//   * a Latin locale quietly acquiring a stylesheet request it has no use for,
-//     which is the cost that made `@import`-everything the wrong answer; and
-//   * the CSS and the loader disagreeing about which families a locale uses,
-//     which renders as the *fallback* face rather than as an error.
+//   * a web font request to a third party creeping back in, which sends every
+//     reader's IP address to that party on every page load; and
+//   * the CSS and the loader disagreeing about the variable name, which renders
+//     as the *fallback* face rather than as an error.
 
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { LOCALES } from './config';
-import { LOCALES_WITH_EXTRA_FONTS, extraFontStylesheet } from './fonts';
 
-const globalsCss = readFileSync(join(process.cwd(), 'src/app/globals.css'), 'utf8');
+const read = (path: string) => readFileSync(join(process.cwd(), path), 'utf8');
+const globalsCss = read('src/app/globals.css');
+const rootLayout = read('src/app/[lang]/layout.tsx');
 
-describe('extra font stylesheets', () => {
-  it('gives every Latin-script locale nothing extra to download', () => {
-    // en/de/fr/es/it are covered by the `@import` in globals.css. If one of
-    // them starts returning a URL, a page that draws no glyph from that face
-    // has gained a render-blocking request.
-    //
-    // This used to read "every shipped locale", which was true while Russian
-    // was only planned. Russian shipping is the event the whole file was
-    // written for, so the assertion is now the one that was always meant:
-    // exactly the locales that need a different script get a stylesheet, and
-    // no others.
-    const withExtras = LOCALES.filter((locale) => extraFontStylesheet(locale) !== undefined);
-    expect(withExtras).toEqual(['ru']);
+describe('the site typeface', () => {
+  it('is loaded by next/font in the root layout and exposed as --font-nunito', () => {
+    expect(rootLayout).toMatch(/import \{ Nunito \} from 'next\/font\/google'/);
+    expect(rootLayout).toContain("variable: '--font-nunito'");
+    // On <html>, so the variable is defined on the same element as `:root`,
+    // where globals.css reads it.
+    expect(rootLayout).toMatch(/<html [^>]*className=\{nunito\.variable\}/);
   });
 
-  it('has the Cyrillic stylesheet ready before `ru` is a locale', () => {
-    // The point of preparing: the fonts are wired the day the translation
-    // starts, not discovered on the day someone looks at a Russian page.
-    const ru = extraFontStylesheet('ru');
-    expect(ru).toBeDefined();
-    expect(ru).toContain('family=Oswald');
-    expect(ru).toContain('family=Manrope');
-    // Never blank the text while a font loads — same policy as globals.css.
-    expect(ru).toContain('display=swap');
+  it('is what both font tokens resolve to, with a system fallback', () => {
+    expect(globalsCss).toContain(
+      '--font-body:    var(--font-nunito), ui-sans-serif, system-ui, sans-serif;'
+    );
+    expect(globalsCss).toContain('--font-display: var(--font-body);');
   });
 
-  it('names only locales that ship or are on the roadmap', () => {
-    // The map is keyed by `string`, because 'ru' has to be in it before 'ru'
-    // is a `Locale`. This is what stops that loose key hiding a typo.
-    const PLANNED = ['ru'];
-    const known = new Set<string>([...LOCALES, ...PLANNED]);
-    expect(LOCALES_WITH_EXTRA_FONTS.filter((code) => !known.has(code))).toEqual([]);
+  it('is the same face in every locale: no per-language override', () => {
+    // Russian used to re-point both tokens under `html[lang='ru']`. Nunito
+    // ships Cyrillic, so any such block now would only make one locale drift.
+    expect(globalsCss).not.toMatch(/html\[lang=/);
+  });
+
+  it('is not overridden by the light theme', () => {
+    // `:root:not([data-theme='dark'])` is (0,2,0) and beats `:root`, where the
+    // font tokens live, so a font variable in it would win in light mode only.
+    const lightBlock = /:root:not\(\[data-theme='dark'\]\)\s*\{([^}]*)\}/.exec(globalsCss);
+    expect(lightBlock).not.toBeNull();
+    expect(lightBlock?.[1]).not.toContain('--font-');
   });
 });
 
-describe('globals.css font variables', () => {
-  it('still points the five Latin locales at Bebas Neue and DM Sans', () => {
-    expect(globalsCss).toContain("--font-display: 'Bebas Neue', sans-serif;");
-    expect(globalsCss).toContain("--font-body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;");
-  });
-
-  it('overrides both faces under html[lang="ru"], and only there', () => {
-    // Scoped by attribute selector rather than by a class or a data flag, so
-    // it keys off the one thing the layout already sets per locale and the
-    // other five need no opt-out.
-    const ruBlock = /html\[lang='ru'\]\s*\{([^}]*)\}/.exec(globalsCss);
-    expect(ruBlock).not.toBeNull();
-    expect(ruBlock?.[1]).toContain("--font-display: 'Oswald'");
-    expect(ruBlock?.[1]).toContain("--font-body: 'Manrope'");
-
-    // `html[lang='ru']` is (0,1,1) and beats `:root` / `[data-theme='dark']`
-    // (0,1,0), where the Latin faces are declared. The light theme's
-    // `:root:not([data-theme='dark'])` is (0,2,0) and would win — which is why
-    // it sets no font variables. The override therefore holds in either theme
-    // without !important — and if someone ever moves it inside a theme block,
-    // this is the assertion that notices.
-    // Locate the rule, not the first mention: a comment naming the selector
-    // used to satisfy indexOf() and slice this check off at the wrong point.
-    const ruRuleAt = globalsCss.search(/^html\[lang='ru'\]\s*\{/m);
-    expect(ruRuleAt).toBeGreaterThan(-1);
-    const themeBlocks = globalsCss.slice(0, ruRuleAt);
-    expect(themeBlocks).toContain("@media (prefers-color-scheme: light)");
-    const lightBlock = /:root:not\(\[data-theme='dark'\]\)\s*\{([^}]*)\}/.exec(themeBlocks);
-    expect(lightBlock?.[1]).not.toContain('--font-');
-  });
-
-  it('keeps the default families as the last resort for Russian too', () => {
-    // If the Cyrillic stylesheet fails to load, a Latin-script string on a
-    // Russian page (a formula, an element symbol, a brand name) should still
-    // come out in the site's own faces rather than in Times New Roman.
-    const ruBlock = /html\[lang='ru'\]\s*\{([^}]*)\}/.exec(globalsCss)?.[1] ?? '';
-    expect(ruBlock).toContain("'Bebas Neue'");
-    expect(ruBlock).toContain('system-ui');
+describe('third-party font requests', () => {
+  it('never loads a font stylesheet from Google, anywhere in src', () => {
+    // next/font downloads the files at build time. A runtime request to
+    // fonts.googleapis.com or fonts.gstatic.com would hand the reader's IP
+    // address to Google, which the privacy page does not list — and which a
+    // German court has held to need consent (LG München I, 3 O 17493/20).
+    // Matches a URL, not a mention: comments naming the domain are fine.
+    const offenders = readdirSync(join(process.cwd(), 'src'), { recursive: true, encoding: 'utf8' })
+      .filter((file) => /\.(css|tsx?|mts)$/.test(file) && !file.endsWith('fonts.test.ts'))
+      .filter((file) => /https?:\/\/fonts\.(googleapis|gstatic)\.com/.test(read(join('src', file))));
+    expect(offenders).toEqual([]);
   });
 });

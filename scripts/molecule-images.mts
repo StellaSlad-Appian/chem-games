@@ -499,7 +499,7 @@ function reframe(raw: string, id: string, smiles: string): string {
  * The one shape every file in the slot shares.
  *
  * The font stack is a system one on purpose: an SVG loaded through `<img>` is
- * its own document and never sees the page's DM Sans, so naming a web font
+ * its own document and never sees the page's Nunito, so naming a web font
  * here would silently fall back to something different on every machine.
  */
 function svgDocument(

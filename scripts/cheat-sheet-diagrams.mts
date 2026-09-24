@@ -218,7 +218,7 @@ const MIN_LARGE = 24;
  * A system font stack, on purpose.
  *
  * An SVG loaded through `<img>` is its own document and never sees the page's
- * DM Sans, so naming a web font here would silently fall back to something
+ * Nunito, so naming a web font here would silently fall back to something
  * different on every machine. The redesign brief's preamble suggests
  * `DM Sans, ui-sans-serif, system-ui, sans-serif`; the first name in it can
  * never resolve, so it is dropped rather than left in to look deliberate.

@@ -486,7 +486,7 @@ Ask with a full Chrome user agent, because the response depends on it:
 ```bash
 curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \
   (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
-  "https://fonts.googleapis.com/css2?family=Oswald:wght@400..700" \
+  "https://fonts.googleapis.com/css2?family=Nunito" \
   | grep -oE "/\* [a-z-]+ \*/" | sort -u
 ```
 
@@ -494,45 +494,29 @@ curl -s -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 \
 /* cyrillic */  /* cyrillic-ext */  /* latin */  /* latin-ext */  /* vietnamese */
 ```
 
-The site's own two faces answer `/* latin */ /* latin-ext */` and nothing
-else. So on a Russian page **Bebas Neue and DM Sans render no glyph at all**.
-Body copy falling back to system-ui is off-brand but readable; headings
-falling back to bare `sans-serif` is a broken layout, because Bebas Neue is a
-*condensed all-caps* face and the substitute is neither. Every heading would
-come out at a different width from the five languages the design is tuned for.
+The site uses one face, **Nunito**, for headings and body in every locale. It
+answers `cyrillic cyrillic-ext latin latin-ext vietnamese`, so Russian needs no
+second family. (Until 2026-09-24 the site used Bebas Neue and DM Sans, which
+have Latin only, and Russian loaded Oswald and Manrope from a separate
+stylesheet. Nunito replaced all four.)
 
-The fix has two halves, deliberately in different files:
+It is loaded by `next/font/google` in the root layout, which downloads the files
+at build time and serves them from the site's own origin — no request to
+fonts.googleapis.com at runtime, so a reader's IP address never reaches Google.
+Every subset is served with a `unicode-range`, so a browser fetches the Cyrillic
+file only on a page that draws a Cyrillic glyph; `subsets` in the loader call
+only decides what is preloaded (Latin, which every locale draws first).
 
-- **`src/app/globals.css`** re-points `--font-display` and `--font-body` under
-  `html[lang="ru"]`. That selector is (0,1,1), which beats `:root` and both
-  `[data-theme]` blocks at (0,1,0), so it wins in either theme without
-  `!important` and changes nothing for the other five locales.
-- **`src/i18n/fonts.ts`** says which stylesheet a locale needs, and the root
-  layout emits a `<link>` only when there is one. Widening the `@import` in
-  globals.css would also have worked, but it would put the request on every
-  page in every language; this way a Latin locale requests nothing extra.
+**Adding a locale in a new script** (Greek, Arabic, …) means checking Nunito's
+subsets with the command above first. If Nunito lacks the script, the choice is
+a second family for that locale or a new face for the whole site — not a silent
+fallback, because a missing glyph is not an error: it is text in the wrong font
+at the wrong width.
 
-`src/i18n/fonts.test.ts` asserts both halves; `e2e/i18n.spec.ts` asserts the
-half only a browser can see — that a Russian page requests the two faces, that
-an English page requests nothing extra, and that a Russian `h1` is actually
-*drawn* in Oswald rather than falling back. That last one matters because a
-missing glyph is not an error: it is a heading at the wrong width.
-
-> **The body half does not currently reach the page, and it never has — in any
-> locale.** `@layer base { body { font-family: var(--font-body) } }` is
-> overridden by the Tailwind utility `font-sans` on the `<body>` element in the
-> root layout, and a utility beats a base rule. So **DM Sans has never been
-> applied to body text either**: measured in a browser, `/en` and `/ru` both
-> compute `ui-sans-serif, system-ui, …` and neither DM Sans nor Manrope is
-> ever fetched as a used face. The display half is unaffected and works, which
-> is the half that breaks a layout.
->
-> This is pre-existing and site-wide, not something Russian introduced, and
-> Russian is therefore no worse off than the five Latin locales. It is left
-> alone deliberately: removing `font-sans` from the body class changes the
-> typography of every page in every language, which is the owner's call and
-> not a translation pass's. If it is ever fixed, `--font-body` starts working
-> and the Russian entry is already correct.
+`src/i18n/fonts.test.ts` asserts the loader and `globals.css` agree and that no
+file in `src` loads a font from Google; `e2e/i18n.spec.ts` asserts, in a
+browser, that no page requests one and that a Russian `h1` is actually *drawn*
+from Nunito's Cyrillic file.
 
 ### 3. Plural completeness is a *build-time* gate
 
