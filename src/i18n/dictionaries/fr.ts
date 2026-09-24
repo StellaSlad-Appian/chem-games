@@ -251,7 +251,6 @@ export const fr = {
     statExperiments: 'Expériences',
     statLevel: 'Niveau',
     statStreak: 'Jours d’affilée',
-    statAccuracy: 'Précision',
 
     editHeading: 'Régler le matériel',
     editIntro:
@@ -294,7 +293,6 @@ export const fr = {
     showYearLevel: 'Rendre le niveau scolaire public',
     showLabNotes: 'Rendre les notes de labo publiques',
     showTotalSyntheses: 'Afficher le nombre de synthèses',
-    showAccuracy: 'Afficher le pourcentage de bonnes réponses',
     showCurrentStreak: 'Afficher la série de jours joués',
   },
 

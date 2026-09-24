@@ -276,7 +276,6 @@ export const es = {
     statExperiments: 'Experimentos',
     statLevel: 'Nivel',
     statStreak: 'Días seguidos',
-    statAccuracy: 'Precisión',
 
     // "Ajustar el equipo" would be the literal rendering and is avoided: this
     // site reserves *ajustar* for balancing an equation.
@@ -320,7 +319,6 @@ export const es = {
     showYearLevel: 'Hacer público el curso',
     showLabNotes: 'Hacer públicas las notas de laboratorio',
     showTotalSyntheses: 'Mostrar el número de síntesis',
-    showAccuracy: 'Mostrar el porcentaje de aciertos',
     showCurrentStreak: 'Mostrar la racha de días jugados',
   },
 

@@ -214,7 +214,6 @@ export const en = {
     statExperiments: 'Experiments',
     statLevel: 'Level',
     statStreak: 'Day Streak',
-    statAccuracy: 'Accuracy',
 
     editHeading: 'Configure Equipment',
     editIntro: 'Customize your laboratory preferences and public stats visibility.',
@@ -249,12 +248,11 @@ export const en = {
 
   /** Labels on the visibility switches in the profile editor. */
   profileToggles: {
-    showCountry: 'Show Country on Profile',
-    showYearLevel: 'Make Academic Level Public',
-    showLabNotes: 'Make Lab Notes Public',
-    showTotalSyntheses: 'Show Total Syntheses Count',
-    showAccuracy: 'Show Answer Accuracy %',
-    showCurrentStreak: 'Show Daily Play Streak',
+    showCountry: 'Show country on profile',
+    showYearLevel: 'Make academic level public',
+    showLabNotes: 'Make lab notes public',
+    showTotalSyntheses: 'Show total syntheses count',
+    showCurrentStreak: 'Show daily play streak',
   },
 
   /**

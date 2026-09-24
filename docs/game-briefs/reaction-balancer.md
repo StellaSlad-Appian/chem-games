@@ -8,9 +8,11 @@
 **Cheat sheets:** `balancing-equations` (primary), `reaction-types`
 **Target year level:** Year 10 (Victorian Curriculum Science Level 10); the optional Challenge
 level reaches into VCE Unit 1–2
-**Curriculum reference:** Victorian Curriculum Science Level 10 — "chemical reactions … can be
-represented by balanced chemical equations"; VCE Chemistry Unit 1 AoS 1 / Unit 2 AoS 1 (writing
-balanced equations with state symbols)
+**Curriculum reference:** Victorian Curriculum Science Levels 9–10 (v2.0), VC2S10U08 —
+"chemical reactions are described by the Law of Conservation of Mass and involve the
+rearrangement of atoms; they can be modelled using a range of representations, including word
+and simple balanced chemical equations"; VCE Chemistry Unit 1 AoS 1 (precipitation equations
+with state symbols) / Unit 2 AoS 1 (acid–base and redox equations with state symbols)
 
 ## Why redesign the existing game
 

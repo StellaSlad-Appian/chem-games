@@ -6,6 +6,7 @@ import { X, Volume2, VolumeX, Moon, Sun, LifeBuoy, User } from 'lucide-react';
 import { GameThemeScope, Theme, useGameSettings } from '../../../context/game-settings-context';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { LocaleLink } from '@/components/layout/LocaleLink';
+import { SwitchRow } from '@/components/ui/Switch';
 import { useI18n } from '@/i18n/client';
 import { formatPercent } from '@/i18n/format';
 import type { Dictionary } from '@/i18n/dictionaries/en';
@@ -217,34 +218,13 @@ export default function GameSettingsModal({
                     <LifeBuoy className="h-4 w-4" aria-hidden="true" />
                     {t.settings.support}
                   </h3>
-                  <div className="flex flex-row items-center justify-between gap-4 w-full rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
-                    <div>
-                      <span id="support-mode-label" className="block text-sm font-semibold text-[var(--foreground)] select-none">
-                        {supportMode.label}
-                      </span>
-                      <span className="mt-1 block text-xs leading-relaxed text-[var(--muted)]">
-                        {supportMode.description}
-                      </span>
-                    </div>
-                    <button
-                      type="button"
-                      role="switch"
-                      aria-checked={isSupportOn}
-                      aria-labelledby="support-mode-label"
-                      onClick={() => setSupportMode(gameId, !isSupportOn)}
-                      style={{ width: '48px', minWidth: '48px', maxWidth: '48px', height: '28px' }}
-                      className={`relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors p-1 outline-none border focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-                        isSupportOn
-                          ? 'bg-[var(--game-success)] border-emerald-600'
-                          : 'bg-[var(--game-highlight-surface)] border-[var(--game-highlight-border)]'
-                      }`}
-                    >
-                      <span
-                        className={`pointer-events-none inline-block h-5 w-5 rounded-full transition-all duration-200 ${
-                          isSupportOn ? 'translate-x-5 bg-white shadow-md' : 'translate-x-0 bg-slate-400'
-                        }`}
-                      />
-                    </button>
+                  <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-1">
+                    <SwitchRow
+                      label={supportMode.label}
+                      description={supportMode.description}
+                      checked={isSupportOn}
+                      onCheckedChange={(on) => setSupportMode(gameId, on)}
+                    />
                   </div>
                 </section>
               )}
@@ -257,31 +237,12 @@ export default function GameSettingsModal({
                 </h3>
 
                 {/* Toggle Row */}
-                <div className="flex flex-row items-center justify-between w-full rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
-                  <span className="text-sm font-semibold text-[var(--foreground)] select-none">
-                    {t.settings.soundEffects}
-                  </span>
-
-                  <button
-                    type="button"
-                    role="switch"
-                    aria-checked={isSoundEnabled}
-                    onClick={toggleMute}
-                    style={{ width: '48px', minWidth: '48px', maxWidth: '48px', height: '28px' }}
-                    className={`relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors p-1 outline-none border focus-visible:ring-2 focus-visible:ring-emerald-500 ${
-                      isSoundEnabled 
-                        ? 'bg-[var(--game-success)] border-emerald-600' 
-                        : 'bg-[var(--game-highlight-surface)] border-[var(--game-highlight-border)]'
-                    }`}
-                  >
-                    <span
-                      className={`pointer-events-none inline-block h-5 w-5 rounded-full transition-all duration-200 ${
-                        isSoundEnabled 
-                          ? 'translate-x-5 bg-white shadow-md' 
-                          : 'translate-x-0 bg-slate-400'
-                      }`}
-                    />
-                  </button>
+                <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-1">
+                  <SwitchRow
+                    label={t.settings.soundEffects}
+                    checked={isSoundEnabled}
+                    onCheckedChange={toggleMute}
+                  />
                 </div>
 
                 {/* Volume Row */}
