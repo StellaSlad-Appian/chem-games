@@ -24,9 +24,28 @@
 /* --- @import "tailwindcss/preflight";  --- */
 /* ---  @import "tailwindcss/utilities"; --- */
 
+/*
+ * --- Themes -----------------------------------------------------------------
+ *
+ * The site follows the reader's device: light when the OS asks for light, dark
+ * otherwise. Pure CSS, so there is no script, no stored choice and no flash of
+ * the wrong theme on first paint.
+ *
+ * Dark stays the fallback (`:root`) because it is what the games were designed
+ * in, and a browser that reports no preference gets the tested appearance.
+ * `[data-theme='dark']` still forces dark on any subtree or page that wants it.
+ * There is deliberately no `[data-theme='light']` any more: nothing set it, and
+ * keeping it would mean every light token written twice. The e2e specs force a
+ * theme with Playwright's `emulateMedia({ colorScheme })`, which exercises the
+ * real mechanism rather than a side door.
+ *
+ * `color-scheme` makes the browser's own chrome — scrollbars, form controls,
+ * autofill — match, which the tokens alone cannot reach.
+ */
   :root,
   [data-theme='dark'] {
-    /* Dark is the default and preserves the existing game appearance. */
+    /* Dark is the fallback and preserves the existing game appearance. */
+    color-scheme: dark;
     --background: #09090b;
     --surface: #18181b;
     --surface-2: #27272a;
@@ -118,7 +137,11 @@
     --shadow-lg: 0 8px 40px 0 rgb(0 0 0 / 0.6);
   }
 
-  [data-theme='light'] {
+  /* (0,2,0) beats `:root`'s (0,1,0), so light wins without !important, and
+     loses again under an explicit `[data-theme='dark']`. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    color-scheme: light;
     --background: #f8fafc;
     --surface: #ffffff;
     --surface-2: #f1f5f9;
@@ -168,6 +191,7 @@
     --chem-neutral-bg: #052e16;
     --chem-amphoteric-bg: #3b0764;
   }
+}
 
 /* --- Periodic-table tones -------------------------------------------------
  *
@@ -226,7 +250,8 @@
     --pt-tone-seq-8: #2766a5;
   }
 
-  [data-theme='light'] {
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
     --pt-tone-alkali-metal: #f9c8c8;
     --pt-tone-alkaline-earth: #f9d3b8;
     --pt-tone-transition-metal: #f7e2a1;
@@ -253,6 +278,7 @@
     --pt-tone-seq-7: #7bb5ef;
     --pt-tone-seq-8: #68abee;
   }
+}
 
 /* --- Cyrillic locales -----------------------------------------------------
  *

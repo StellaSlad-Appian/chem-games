@@ -43,8 +43,8 @@ import type { Dictionary } from './en';
 
 export const ru = {
   meta: {
-    siteName: 'ChemGames',
-    title: 'ChemGames | Химия в интерактивных играх',
+    siteName: 'Games in Chemistry',
+    title: 'Games in Chemistry | Химия в интерактивных играх',
     description:
       'Разбирайся в химии играя: наглядные мини-игры, тренажёры и шпаргалки по каждой теме.',
     // Keyword lists are chosen per language, not translated. The age band is
@@ -61,18 +61,18 @@ export const ru = {
       'химические реакции',
       'шпаргалки по химии',
     ],
-    privacyTitle: 'Конфиденциальность | ChemGames',
+    privacyTitle: 'Конфиденциальность | Games in Chemistry',
     privacyDescription:
-      'Что ChemGames хранит о тебе, что видят другие, кто обрабатывает данные и как их скачать или удалить.',
+      'Что Games in Chemistry хранит о тебе, что видят другие, кто обрабатывает данные и как их скачать или удалить.',
     // The one page on the site written for an adult, so this description and
     // the copy it summarises use «вы» rather than the site-wide «ты» — the
     // argument is at the top of src/i18n/teachers/ru.ts.
-    teachersTitle: 'Учителям | ChemGames',
+    teachersTitle: 'Учителям | Games in Chemistry',
     teachersDescription:
-      'Что такое ChemGames, на каких шести языках он выходит, как он обращается с данными учеников, на каком уровне доступность и как учителя могут помочь развивать его во время беты.',
-    cheatSheetTitle: 'Шпаргалка: {title} | ChemGames',
-    cheatSheetNotFound: 'Тема не найдена — ChemGames',
-    exploreEntryNotFound: 'Материал не найден — ChemGames',
+      'Что такое Games in Chemistry, на каких шести языках он выходит, как он обращается с данными учеников, на каком уровне доступность и как учителя могут помочь развивать его во время беты.',
+    cheatSheetTitle: 'Шпаргалка: {title} | Games in Chemistry',
+    cheatSheetNotFound: 'Тема не найдена — Games in Chemistry',
+    exploreEntryNotFound: 'Материал не найден — Games in Chemistry',
   },
 
   common: {
@@ -120,8 +120,8 @@ export const ru = {
   },
 
   footer: {
-    tagline: 'ChemGames — химия наглядно, с интересом и без зубрёжки.',
-    copyright: '© {year} ChemGames. Все права защищены.',
+    tagline: 'Games in Chemistry — химия наглядно, с интересом и без зубрёжки.',
+    copyright: '© {year} Games in Chemistry. Все права защищены.',
     privacy: 'Конфиденциальность',
     teachers: 'Учителям',
   },
@@ -133,16 +133,14 @@ export const ru = {
       'Ставь опыты, следи за личными рекордами, запоминай формулы и сравнивай свои результаты с чужими.',
     exploreGames: 'Выбрать игру',
     viewLeaderboards: 'Смотреть таблицу лидеров',
-    profileHeading: 'Профиль',
-    profileDescription: 'Твоё лабораторное имя и личный прогресс в опытах.',
     profileLinkAuthenticated: 'Открыть профиль',
-    profileLinkAnonymous: 'Войти, чтобы сохранять прогресс',
     leaderboardsHeading: 'Таблица лидеров',
     leaderboardsDescription: 'Лучшие исследователи во всех химических опытах.',
     leaderboardsLink: 'Открыть полную таблицу',
-    gamesHeading: 'Интерактивные мини-игры',
+    gamesHeading: 'Выбери игру',
     gamesDescription: 'Выбери опыт и разберись в реакциях и формулах.',
     gamesLink: 'Все игры',
+    cheatSheetsLink: 'Все шпаргалки',
     // The section heading and description reuse explore.heading and
     // explore.intro, so only these two strings are new.
     exploreLink: 'Открыть раздел',
@@ -232,7 +230,7 @@ export const ru = {
     backToGames: '← К играм',
     loginTitle: 'С возвращением',
     loginSubtitle: 'Продолжай с того места, где остановились опыты.',
-    registerTitle: 'Присоединяйся к ChemGames',
+    registerTitle: 'Присоединяйся к Games in Chemistry',
     registerSubtitle: 'Заведи аккаунт, чтобы сохранять прогресс.',
     continueWithGoogle: 'Войти через Google',
     or: 'или',
@@ -242,11 +240,11 @@ export const ru = {
     passwordPlaceholder: 'Не меньше 6 символов',
     loginAction: 'Войти',
     registerAction: 'Создать аккаунт',
-    switchToRegisterPrompt: 'Впервые на ChemGames?',
+    switchToRegisterPrompt: 'Впервые на Games in Chemistry?',
     switchToRegisterAction: 'Зарегистрироваться',
     switchToLoginPrompt: 'Уже есть аккаунт?',
     switchToLoginAction: 'Войти',
-    checkInbox: 'Загляни в почту, чтобы активировать аккаунт ChemGames.',
+    checkInbox: 'Загляни в почту, чтобы активировать аккаунт Games in Chemistry.',
     unconfiguredClient: 'Вход сейчас не настроен.',
     unconfiguredNotice:
       'Для входа нужны ключи Supabase. Скопируй .env.example в .env.local и заполни значения.',
@@ -294,7 +292,7 @@ export const ru = {
     saving: 'Сохраняем…',
 
     dataHeading: 'Твои данные',
-    dataIntro: 'Скачай копию того, что ChemGames хранит о тебе, или удали аккаунт.',
+    dataIntro: 'Скачай копию того, что Games in Chemistry хранит о тебе, или удали аккаунт.',
     exportHeading: 'Скачать мои данные',
     exportBody: 'Файл JSON с данными аккаунта, профилем, сыгранными партиями и прогрессом.',
     exportAction: 'Скачать мои данные',
@@ -372,7 +370,7 @@ export const ru = {
 
   privacy: {
     heading: 'Конфиденциальность',
-    intro: 'Что ChemGames хранит о тебе, кто это видит и как скачать или удалить данные.',
+    intro: 'Что Games in Chemistry хранит о тебе, кто это видит и как скачать или удалить данные.',
     // No full stop: `Intl` renders a long Russian date as «14 сентября 2026 г.»
     // — the «г.» abbreviation already ends the sentence, and adding one gave
     // «…2026 г..» on the rendered page. The other five locales need theirs.
@@ -380,7 +378,7 @@ export const ru = {
 
     whoWeAreHeading: 'Кто мы',
     whoWeAreBody:
-      'ChemGames ведёт Stella Slad — она и отвечает за данные, описанные на этой странице. Написать можно на {email}.',
+      'Games in Chemistry ведёт Stella Slad — она и отвечает за данные, описанные на этой странице. Написать можно на {email}.',
 
     collectHeading: 'Что мы собираем',
     collectAccountLabel: 'Аккаунт.',
@@ -450,7 +448,7 @@ export const ru = {
 
     childrenHeading: 'Дети и школьники',
     childrenBody1:
-      'ChemGames сделан для школьников, поэтому мы собираем только то, без чего игры и таблица лидеров не работают.',
+      'Games in Chemistry сделан для школьников, поэтому мы собираем только то, без чего игры и таблица лидеров не работают.',
     childrenBody2:
       'Настоящее имя не нужно. Псевдоним придумывается автоматически, не содержит настоящего имени, и его можно поменять здесь: {link}.',
     childrenBody3:
@@ -510,10 +508,10 @@ export const ru = {
   feedback: {
     openA11y: 'Открыть меню отзыва',
     trigger: 'Отзыв',
-    heading: 'Отзыв о ChemGames',
+    heading: 'Отзыв о Games in Chemistry',
     closeA11y: 'Закрыть отзыв',
     sentTitle: 'Отзыв отправлен!',
-    sentBody: 'Спасибо, что помогаешь сделать ChemGames лучше.',
+    sentBody: 'Спасибо, что помогаешь сделать Games in Chemistry лучше.',
     categoryBug: 'Ошибка',
     categoryChemistry: 'Данные',
     categoryFeature: 'Идея',

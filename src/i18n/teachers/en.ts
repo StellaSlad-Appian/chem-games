@@ -35,11 +35,11 @@ import type { Translated } from '../format';
 export const en = {
   heading: 'For Teachers',
   intro:
-    'What ChemGames is, what is on it, and how you can help shape it. Every other page is written for the students playing; this one is written for you.',
+    'What Games in Chemistry is, what is on it, and how you can help shape it. Every other page is written for the students playing; this one is written for you.',
 
   betaHeading: 'The site is in beta',
   betaBody:
-    'ChemGames is still being built. Games change, new ones arrive, and the wording of a hint or a cheat sheet may be different next month. Everything here works and everything is free — but play a game through yourself before you put it in front of a class.',
+    'Games in Chemistry is still being built. Games change, new ones arrive, and the wording of a hint or a cheat sheet may be different next month. Everything here works and everything is free — but play a game through yourself before you put it in front of a class.',
 
   whatHeading: 'What this is',
   whatBody1:

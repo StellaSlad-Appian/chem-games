@@ -7,7 +7,7 @@
 // bounding box and knows nothing about a clipping ancestor — a spec on this
 // repo once passed against content that was clipped out of the page. So reflow
 // is asserted on `document.documentElement.scrollWidth`, and contrast on the
-// colours the browser actually computed with `data-theme` forced, not on the
+// colours the browser actually computed with the colour scheme forced, not on the
 // OS setting.
 
 import { expect, test } from '@playwright/test';
@@ -121,7 +121,8 @@ test.describe('the periodic table on the atomic-structure sheet', () => {
       // Forced, not inherited from the OS: the assertion is about the theme
       // named, and a machine that prefers the other one would otherwise make
       // this test pass by testing the same theme twice.
-      await page.evaluate((value) => document.documentElement.setAttribute('data-theme', value), theme);
+      // The site follows prefers-color-scheme, so emulating it is the real switch.
+      await page.emulateMedia({ colorScheme: theme });
 
       const modes = page.locator('button[aria-pressed]:not([data-symbol])');
       const count = await modes.count();

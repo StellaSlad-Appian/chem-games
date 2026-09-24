@@ -29,8 +29,8 @@ import type { Dictionary } from './en';
 
 export const de = {
   meta: {
-    siteName: 'ChemGames',
-    title: 'ChemGames | Chemie interaktiv lernen',
+    siteName: 'Games in Chemistry',
+    title: 'Games in Chemistry | Chemie interaktiv lernen',
     description:
       'Chemie verstehen durch Spielen: visuelle, interaktive Minispiele und Nachschlagehilfen.',
     keywords: [
@@ -42,15 +42,15 @@ export const de = {
       'Titration',
       'Chemie Klasse 9',
     ],
-    privacyTitle: 'Datenschutz | ChemGames',
+    privacyTitle: 'Datenschutz | Games in Chemistry',
     privacyDescription:
-      'Was ChemGames über dich speichert, was öffentlich ist, wer die Daten verarbeitet und wie du sie herunterlädst oder löschst.',
-    teachersTitle: 'Für Lehrkräfte | ChemGames',
+      'Was Games in Chemistry über dich speichert, was öffentlich ist, wer die Daten verarbeitet und wie du sie herunterlädst oder löschst.',
+    teachersTitle: 'Für Lehrkräfte | Games in Chemistry',
     teachersDescription:
-      'Was ChemGames ist, in welchen sechs Sprachen es erscheint, wie es mit den Daten von Lernenden umgeht, wo die Barrierefreiheit steht und wie Lehrkräfte die Beta mitgestalten können.',
-    cheatSheetTitle: 'Spickzettel {title} | ChemGames',
-    cheatSheetNotFound: 'Thema nicht gefunden – ChemGames',
-    exploreEntryNotFound: 'Eintrag nicht gefunden – ChemGames',
+      'Was Games in Chemistry ist, in welchen sechs Sprachen es erscheint, wie es mit den Daten von Lernenden umgeht, wo die Barrierefreiheit steht und wie Lehrkräfte die Beta mitgestalten können.',
+    cheatSheetTitle: 'Spickzettel {title} | Games in Chemistry',
+    cheatSheetNotFound: 'Thema nicht gefunden – Games in Chemistry',
+    exploreEntryNotFound: 'Eintrag nicht gefunden – Games in Chemistry',
   },
 
   common: {
@@ -98,8 +98,8 @@ export const de = {
   },
 
   footer: {
-    tagline: 'ChemGames – Chemie sichtbar, spielerisch und verständlich.',
-    copyright: '© {year} ChemGames. Alle Rechte vorbehalten.',
+    tagline: 'Games in Chemistry – Chemie sichtbar, spielerisch und verständlich.',
+    copyright: '© {year} Games in Chemistry. Alle Rechte vorbehalten.',
     privacy: 'Datenschutz',
     teachers: 'Für Lehrkräfte',
   },
@@ -111,16 +111,14 @@ export const de = {
       'Erkunde interaktive Experimente, verfolge deine persönlichen Bestwerte, beherrsche Formeln und vergleiche deine Laborergebnisse mit anderen.',
     exploreGames: 'Spiele entdecken',
     viewLeaderboards: 'Bestenlisten ansehen',
-    profileHeading: 'Profil',
-    profileDescription: 'Deine Laboridentität und dein persönlicher Forschungsfortschritt.',
     profileLinkAuthenticated: 'Profil öffnen',
-    profileLinkAnonymous: 'Anmelden und Fortschritt speichern',
     leaderboardsHeading: 'Bestenlisten',
     leaderboardsDescription: 'Die besten Forschenden aus allen interaktiven Chemie-Experimenten.',
     leaderboardsLink: 'Alle Bestenlisten öffnen',
-    gamesHeading: 'Interaktive Minispiele',
+    gamesHeading: 'Wähle dein Spiel',
     gamesDescription: 'Wähle ein Experiment und meistere chemische Reaktionen und Formeln.',
     gamesLink: 'Alle Spiele ansehen',
+    cheatSheetsLink: 'Alle Spickzettel öffnen',
     exploreLink: 'Zu „Entdecken“',
     exploreDetail:
       'Jeden Montag ein neues Molekül und eine neue Person aus der Chemie – und jedes Mal ein Weg zur Chemie dahinter.',
@@ -161,7 +159,7 @@ export const de = {
     backToGames: '← Zurück zu den Spielen',
     loginTitle: 'Willkommen zurück',
     loginSubtitle: 'Mach dort weiter, wo deine Experimente aufgehört haben.',
-    registerTitle: 'Bei ChemGames mitmachen',
+    registerTitle: 'Bei Games in Chemistry mitmachen',
     registerSubtitle: 'Erstelle ein Konto, um deinen Fortschritt zu speichern.',
     continueWithGoogle: 'Weiter mit Google',
     or: 'oder',
@@ -171,11 +169,11 @@ export const de = {
     passwordPlaceholder: 'Mindestens 6 Zeichen',
     loginAction: 'Anmelden',
     registerAction: 'Konto erstellen',
-    switchToRegisterPrompt: 'Neu bei ChemGames?',
+    switchToRegisterPrompt: 'Neu bei Games in Chemistry?',
     switchToRegisterAction: 'Registrieren',
     switchToLoginPrompt: 'Du hast schon ein Konto?',
     switchToLoginAction: 'Anmelden',
-    checkInbox: 'Schau in dein Postfach, um dein ChemGames-Konto zu aktivieren.',
+    checkInbox: 'Schau in dein Postfach, um dein Konto zu aktivieren.',
     unconfiguredClient: 'Die Anmeldung ist zurzeit nicht konfiguriert.',
     unconfiguredNotice:
       'Für die Anmeldung werden Supabase-Zugangsdaten benötigt. Kopiere .env.example nach .env.local und trage die Werte ein.',
@@ -226,7 +224,7 @@ export const de = {
 
     dataHeading: 'Deine Daten',
     dataIntro:
-      'Lade eine Kopie der Daten herunter, die ChemGames über dich speichert, oder lösche dein Konto.',
+      'Lade eine Kopie der Daten herunter, die Games in Chemistry über dich speichert, oder lösche dein Konto.',
     exportHeading: 'Meine Daten herunterladen',
     exportBody:
       'Eine JSON-Datei mit deinen Kontodaten, deinem Profil, deinen Spielsitzungen und deinem Fortschritt.',
@@ -308,12 +306,12 @@ export const de = {
   privacy: {
     heading: 'Datenschutz',
     intro:
-      'Was ChemGames über dich speichert, wer es sehen kann und wie du es herunterlädst oder löschst.',
+      'Was Games in Chemistry über dich speichert, wer es sehen kann und wie du es herunterlädst oder löschst.',
     effectiveDate: 'Gültig ab: {date}.',
 
     whoWeAreHeading: 'Wer wir sind',
     whoWeAreBody:
-      'ChemGames wird von Stella Slad betrieben. Sie ist für die auf dieser Seite beschriebenen Daten verantwortlich. Du erreichst uns unter {email}.',
+      'Games in Chemistry wird von Stella Slad betrieben. Sie ist für die auf dieser Seite beschriebenen Daten verantwortlich. Du erreichst uns unter {email}.',
 
     collectHeading: 'Was wir erheben',
     collectAccountLabel: 'Konto.',
@@ -383,7 +381,7 @@ export const de = {
 
     childrenHeading: 'Kinder und Jugendliche',
     childrenBody1:
-      'ChemGames ist für die Sekundarstufe gemacht. Deshalb erheben wir nur das Nötigste, um die Spiele zu betreiben und Punkte zu speichern.',
+      'Games in Chemistry ist für die Sekundarstufe gemacht. Deshalb erheben wir nur das Nötigste, um die Spiele zu betreiben und Punkte zu speichern.',
     childrenBody2:
       'Ein echter Name ist nicht erforderlich. Aliasse werden für dich erzeugt, enthalten keinen echten Namen und lassen sich unter {link} ändern.',
     childrenBody3:
@@ -443,10 +441,10 @@ export const de = {
   feedback: {
     openA11y: 'Feedback-Menü öffnen',
     trigger: 'Feedback',
-    heading: 'ChemGames-Feedback',
+    heading: 'Feedback zu Games in Chemistry',
     closeA11y: 'Feedback schließen',
     sentTitle: 'Feedback gesendet!',
-    sentBody: 'Danke, dass du hilfst, ChemGames besser zu machen.',
+    sentBody: 'Danke, dass du hilfst, Games in Chemistry besser zu machen.',
     categoryBug: 'Fehler',
     categoryChemistry: 'Daten',
     categoryFeature: 'Idee',

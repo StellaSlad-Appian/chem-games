@@ -69,16 +69,20 @@ describe('globals.css font variables', () => {
     expect(ruBlock?.[1]).toContain("--font-display: 'Oswald'");
     expect(ruBlock?.[1]).toContain("--font-body: 'Manrope'");
 
-    // `html[lang='ru']` is (0,1,1); `:root`, `[data-theme='dark']` and
-    // `[data-theme='light']` are all (0,1,0). The override therefore wins in
-    // either theme without !important — and if someone ever moves it inside a
-    // theme block, this is the assertion that notices.
+    // `html[lang='ru']` is (0,1,1) and beats `:root` / `[data-theme='dark']`
+    // (0,1,0), where the Latin faces are declared. The light theme's
+    // `:root:not([data-theme='dark'])` is (0,2,0) and would win — which is why
+    // it sets no font variables. The override therefore holds in either theme
+    // without !important — and if someone ever moves it inside a theme block,
+    // this is the assertion that notices.
     // Locate the rule, not the first mention: a comment naming the selector
     // used to satisfy indexOf() and slice this check off at the wrong point.
     const ruRuleAt = globalsCss.search(/^html\[lang='ru'\]\s*\{/m);
     expect(ruRuleAt).toBeGreaterThan(-1);
     const themeBlocks = globalsCss.slice(0, ruRuleAt);
-    expect(themeBlocks).toContain("[data-theme='light']");
+    expect(themeBlocks).toContain("@media (prefers-color-scheme: light)");
+    const lightBlock = /:root:not\(\[data-theme='dark'\]\)\s*\{([^}]*)\}/.exec(themeBlocks);
+    expect(lightBlock?.[1]).not.toContain('--font-');
   });
 
   it('keeps the default families as the last resort for Russian too', () => {

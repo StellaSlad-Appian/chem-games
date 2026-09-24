@@ -28,8 +28,8 @@ import type { Translated } from '../format';
 
 export const en = {
   meta: {
-    siteName: 'ChemGames',
-    title: 'ChemGames | Interactive Chemistry Learning',
+    siteName: 'Games in Chemistry',
+    title: 'Games in Chemistry | Interactive Chemistry Learning',
     description:
       'Master chemistry concepts through fun, visual, and interactive mini-games and reference guides.',
     keywords: [
@@ -41,21 +41,21 @@ export const en = {
       'titration',
       'high school chemistry',
     ],
-    privacyTitle: 'Privacy | ChemGames',
+    privacyTitle: 'Privacy | Games in Chemistry',
     privacyDescription:
-      'What ChemGames stores about you, what is public, who processes it, and how to download or delete your data.',
-    teachersTitle: 'For Teachers | ChemGames',
+      'What Games in Chemistry stores about you, what is public, who processes it, and how to download or delete your data.',
+    teachersTitle: 'For Teachers | Games in Chemistry',
     teachersDescription:
-      'What ChemGames is, the six languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta.',
-    cheatSheetTitle: '{title} Cheat Sheet | ChemGames',
-    cheatSheetNotFound: 'Topic Not Found - ChemGames',
+      'What Games in Chemistry is, the six languages it ships in, how it handles student data, where accessibility stands, and how teachers can help shape it during the beta.',
+    cheatSheetTitle: '{title} Cheat Sheet | Games in Chemistry',
+    cheatSheetNotFound: 'Topic Not Found - Games in Chemistry',
     /**
      * An Explore permalink whose id is not in the pool. `generateStaticParams`
      * covers every entry, so this is only reachable by typing a URL — but
      * `generateMetadata` runs before `notFound()` does, and a page that titles
      * itself after the site while showing a 404 is worse than one that says so.
      */
-    exploreEntryNotFound: 'Entry Not Found - ChemGames',
+    exploreEntryNotFound: 'Entry Not Found - Games in Chemistry',
   },
 
   common: {
@@ -106,8 +106,8 @@ export const en = {
   },
 
   footer: {
-    tagline: 'ChemGames — Making chemistry visual, playful, and intuitive.',
-    copyright: '© {year} ChemGames. All rights reserved.',
+    tagline: 'Games in Chemistry — Making chemistry visual, playful, and intuitive.',
+    copyright: '© {year} Games in Chemistry. All rights reserved.',
     privacy: 'Privacy',
     teachers: 'For Teachers',
   },
@@ -119,16 +119,14 @@ export const en = {
       'Explore interactive experiments, track your personal best scores, master formulas, and see how your lab results compare.',
     exploreGames: 'Explore Games',
     viewLeaderboards: 'View Leaderboards',
-    profileHeading: 'Profile',
-    profileDescription: 'Your laboratory identity and personal experiment progress.',
     profileLinkAuthenticated: 'Open profile',
-    profileLinkAnonymous: 'Log in to save progress',
     leaderboardsHeading: 'Leaderboards',
     leaderboardsDescription: 'Top scientists across all interactive chemistry experiments.',
     leaderboardsLink: 'Open full leaderboards',
-    gamesHeading: 'Interactive Mini-Games',
+    gamesHeading: 'Pick your game',
     gamesDescription: 'Select an experiment to master chemical reactions and formulas.',
     gamesLink: 'Browse all games',
+    cheatSheetsLink: 'Open cheat sheets',
     /**
      * The dashboard's way into /explore. Belt and braces: the nav panel is new
      * code, and the dashboard is where a phone reader already is.
@@ -175,7 +173,7 @@ export const en = {
     backToGames: '← Back to games',
     loginTitle: 'Welcome back',
     loginSubtitle: 'Pick up where your experiments left off.',
-    registerTitle: 'Join ChemGames',
+    registerTitle: 'Join Games in Chemistry',
     registerSubtitle: 'Create an account to save your progress.',
     continueWithGoogle: 'Continue with Google',
     or: 'or',
@@ -185,11 +183,11 @@ export const en = {
     passwordPlaceholder: 'At least 6 characters',
     loginAction: 'Log in',
     registerAction: 'Create account',
-    switchToRegisterPrompt: 'New to ChemGames?',
+    switchToRegisterPrompt: 'New to Games in Chemistry?',
     switchToRegisterAction: 'Register',
     switchToLoginPrompt: 'Already have an account?',
     switchToLoginAction: 'Log in',
-    checkInbox: 'Check your inbox to activate your ChemGames account.',
+    checkInbox: 'Check your inbox to activate your Games in Chemistry account.',
     unconfiguredClient: 'Authentication client is currently unconfigured.',
     unconfiguredNotice:
       'Authentication needs Supabase credentials. Copy .env.example to .env.local and fill in its values.',
@@ -237,7 +235,7 @@ export const en = {
     saving: 'Saving...',
 
     dataHeading: 'Your Data',
-    dataIntro: 'Download a copy of what ChemGames stores about you, or delete your account.',
+    dataIntro: 'Download a copy of what Games in Chemistry stores about you, or delete your account.',
     exportHeading: 'Download my data',
     exportBody: 'A JSON file with your account details, profile, game sessions and progress.',
     exportAction: 'Download my data',
@@ -325,12 +323,12 @@ export const en = {
   // in every locale — see docs/i18n/de-review.md.
   privacy: {
     heading: 'Privacy',
-    intro: 'What ChemGames stores about you, who can see it, and how to download or delete it.',
+    intro: 'What Games in Chemistry stores about you, who can see it, and how to download or delete it.',
     effectiveDate: 'Effective date: {date}.',
 
     whoWeAreHeading: 'Who we are',
     whoWeAreBody:
-      'ChemGames is run by Stella Slad, who is the data controller for the information described on this page. You can reach us at {email}.',
+      'Games in Chemistry is run by Stella Slad, who is the data controller for the information described on this page. You can reach us at {email}.',
 
     collectHeading: 'What we collect',
     collectAccountLabel: 'Account.',
@@ -402,7 +400,7 @@ export const en = {
 
     childrenHeading: 'Children and students',
     childrenBody1:
-      'ChemGames is designed for secondary-school students, so we collect the minimum needed to run the games and keep scores.',
+      'Games in Chemistry is designed for secondary-school students, so we collect the minimum needed to run the games and keep scores.',
     childrenBody2:
       'No real name is required. Aliases are generated for you, contain no real name, and can be changed at {link}.',
     childrenBody3:
@@ -467,10 +465,10 @@ export const en = {
   feedback: {
     openA11y: 'Open feedback menu',
     trigger: 'Feedback',
-    heading: 'ChemGames Feedback',
+    heading: 'Games in Chemistry Feedback',
     closeA11y: 'Close feedback',
     sentTitle: 'Feedback sent!',
-    sentBody: 'Thank you for helping us refine ChemGames.',
+    sentBody: 'Thank you for helping us refine Games in Chemistry.',
     categoryBug: 'Bug',
     categoryChemistry: 'Data',
     categoryFeature: 'Idea',

@@ -31,7 +31,7 @@ function getHashSalt(): string {
   if (!warnedAboutFallbackSalt) {
     warnedAboutFallbackSalt = true;
     console.warn(
-      '[ChemGames] FEEDBACK_HASH_SALT is not set; deriving a fallback salt from NEXT_PUBLIC_SUPABASE_URL. Set FEEDBACK_HASH_SALT in production.'
+      '[Games in Chemistry] FEEDBACK_HASH_SALT is not set; deriving a fallback salt from NEXT_PUBLIC_SUPABASE_URL. Set FEEDBACK_HASH_SALT in production.'
     );
   }
   return `chem-games-feedback-fallback:${process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''}`;
@@ -46,7 +46,7 @@ async function getClientIp(purpose: string): Promise<string> {
     const realIp = requestHeaders.get('x-real-ip')?.trim();
     if (realIp) return realIp;
   } catch (err) {
-    console.error(`[ChemGames] Could not read request headers for ${purpose}:`, err);
+    console.error(`[Games in Chemistry] Could not read request headers for ${purpose}:`, err);
   }
   return 'unknown';
 }

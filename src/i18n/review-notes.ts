@@ -730,7 +730,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'auth',
       confidence: 'high',
-      note: 'Standard sign-in vocabulary. The placeholder email was localised to a .es domain. Two strings were rewritten rather than translated because Spanish adjectives agree with the reader: "Welcome back" is "¡Hola de nuevo!" (not *Bienvenido*, which addresses a boy) and "New to ChemGames?" asks about the visit rather than the person.',
+      note: 'Standard sign-in vocabulary. The placeholder email was localised to a .es domain. Two strings were rewritten rather than translated because Spanish adjectives agree with the reader: "Welcome back" is "¡Hola de nuevo!" (not *Bienvenido*, which addresses a boy) and "New to Games in Chemistry?" asks about the visit rather than the person.',
     },
     {
       prefix: 'feedback',
@@ -1098,7 +1098,7 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     {
       prefix: 'auth',
       confidence: 'high',
-      note: 'Standard sign-in vocabulary. The placeholder email was localised to a .it domain. Two strings were rewritten rather than translated because Italian participles agree with the reader: "Welcome back" is "Ciao di nuovo!" (not *Bentornato*, which addresses a boy) and "New to ChemGames?" asks about the visit rather than about the person. "Password" is genuinely the Italian word and is allowlisted rather than replaced by the archaic *parola d’ordine*.',
+      note: 'Standard sign-in vocabulary. The placeholder email was localised to a .it domain. Two strings were rewritten rather than translated because Italian participles agree with the reader: "Welcome back" is "Ciao di nuovo!" (not *Bentornato*, which addresses a boy) and "New to Games in Chemistry?" asks about the visit rather than about the person. "Password" is genuinely the Italian word and is allowlisted rather than replaced by the archaic *parola d’ordine*.',
     },
     {
       prefix: 'feedback',

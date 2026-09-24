@@ -59,12 +59,12 @@ async function storeFeedback(
   try {
     supabase = await createClient();
   } catch (err) {
-    console.error('[ChemGames] Supabase client initialisation failed:', err);
+    console.error('[Games in Chemistry] Supabase client initialisation failed:', err);
     return { outcome: 'failed', userId: null };
   }
 
   if (!supabase) {
-    console.warn('[ChemGames] Supabase is not configured; feedback will not be stored.');
+    console.warn('[Games in Chemistry] Supabase is not configured; feedback will not be stored.');
     return { outcome: 'unconfigured', userId: null };
   }
 
@@ -93,7 +93,7 @@ async function storeFeedback(
     return { outcome: 'rate_limited', userId };
   }
 
-  console.error('[ChemGames] Storing feedback failed:', error.code, error.message);
+  console.error('[Games in Chemistry] Storing feedback failed:', error.code, error.message);
   return { outcome: 'failed', userId };
 }
 
@@ -106,7 +106,7 @@ async function sendFeedbackEmail(
 
   if (!apiKey || !recipientEmail) {
     console.warn(
-      `[ChemGames] Feedback email skipped: ${!apiKey ? 'RESEND_API_KEY' : 'FEEDBACK_RECIPIENT_EMAIL'} is not set.`
+      `[Games in Chemistry] Feedback email skipped: ${!apiKey ? 'RESEND_API_KEY' : 'FEEDBACK_RECIPIENT_EMAIL'} is not set.`
     );
     return 'unconfigured';
   }
@@ -117,7 +117,7 @@ async function sendFeedbackEmail(
   // attacker-controlled and this HTML is rendered in the maintainer's inbox.
   const html = `
     <div style="font-family: Arial, sans-serif; padding: 24px; background-color: #f8fafc; color: #0f172a; border-radius: 12px; max-width: 600px;">
-      <h2 style="color: #3b82f6; margin-top: 0; font-weight: 800;">New ChemGames Feedback</h2>
+      <h2 style="color: #3b82f6; margin-top: 0; font-weight: 800;">New Games in Chemistry Feedback</h2>
       <p style="font-size: 14px; margin: 6px 0;"><strong>Category:</strong> ${escapeHtml(feedback.type)}</p>
       <p style="font-size: 14px; margin: 6px 0;"><strong>Page URL:</strong> ${escapeHtml(feedback.pageUrl)}</p>
       <p style="font-size: 14px; margin: 6px 0;"><strong>Submitted by:</strong> ${escapeHtml(submittedBy)}</p>
@@ -128,7 +128,7 @@ async function sendFeedbackEmail(
   `;
 
   const text = [
-    'New ChemGames Feedback',
+    'New Games in Chemistry Feedback',
     '',
     `Category: ${feedback.type}`,
     `Page URL: ${feedback.pageUrl}`,
@@ -140,20 +140,20 @@ async function sendFeedbackEmail(
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from: 'ChemGames Feedback <onboarding@resend.dev>',
+      from: 'Games in Chemistry Feedback <onboarding@resend.dev>',
       to: [recipientEmail],
-      subject: `[ChemGames ${feedback.type.toUpperCase()}] New Feedback Submission`,
+      subject: `[Games in Chemistry ${feedback.type.toUpperCase()}] New Feedback Submission`,
       html,
       text,
     });
 
     if (error) {
-      console.error('[ChemGames] Resend delivery failed:', error.name, error.message);
+      console.error('[Games in Chemistry] Resend delivery failed:', error.name, error.message);
       return 'failed';
     }
     return 'sent';
   } catch (err) {
-    console.error('[ChemGames] Resend delivery threw:', err);
+    console.error('[Games in Chemistry] Resend delivery threw:', err);
     return 'failed';
   }
 }
@@ -222,7 +222,7 @@ export async function submitFeedbackAction(
       error: emailed === 'unconfigured' ? m.feedbackUnconfigured : m.feedbackEmailFailed,
     };
   } catch (err) {
-    console.error('[ChemGames] Failed to submit feedback:', err);
+    console.error('[Games in Chemistry] Failed to submit feedback:', err);
     return { success: false, error: m.feedbackUnexpected };
   }
 }

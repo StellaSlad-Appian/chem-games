@@ -67,7 +67,7 @@ const RUSSIAN_SOURCES: Record<string, unknown> = {
  *     `(s) (l) (g) (aq)`, `pH`. Russian chemistry writes formulae in Latin
  *     exactly as English does. Element *names* are Cyrillic (кислород) — only
  *     the symbols are not.
- *   * **Brand and company names.** ChemGames, Supabase, Resend, Google.
+ *   * **Brand and company names.** Games in Chemistry, Supabase, Resend, Google.
  *   * **Keyboard glyphs.** The first column of an instructions key table is
  *     the physical key: `Tab`, `H`, `P`.
  *   * **Loanwords Russian writes in Latin.** Much rarer than in Italian or
@@ -80,7 +80,7 @@ const RUSSIAN_SOURCES: Record<string, unknown> = {
  */
 const LATIN_BY_DESIGN: RegExp[] = [
   // --- Brand, product and company names ----------------------------------
-  // "ChemGames" is the product; it is never translated and never
+  // "Games in Chemistry" is the product; it is never translated and never
   // transliterated, so every string that names it carries a Latin run.
   // Supabase, Resend and Google are companies.
   //

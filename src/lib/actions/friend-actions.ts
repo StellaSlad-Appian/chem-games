@@ -9,7 +9,7 @@ export interface FriendActionResult {
 }
 
 /**
- * Server Action to send a friend request to another ChemGames scientist.
+ * Server Action to send a friend request to another Games in Chemistry scientist.
  */
 export async function sendFriendRequestAction(
   targetUserId: string
@@ -54,7 +54,7 @@ export async function sendFriendRequestAction(
     });
 
     if (insertError) {
-      console.error('⚠️ [ChemGames Friend Action Error]:', insertError.message);
+      console.error('⚠️ [Games in Chemistry Friend Action Error]:', insertError.message);
       return {
         status: 'error',
         message: 'Failed to send friend request or request already exists.',

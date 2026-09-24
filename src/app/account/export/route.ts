@@ -1,7 +1,7 @@
 // src/app/account/export/route.ts
 //
 // GET /account/export
-// Returns everything ChemGames stores about the signed-in user as a JSON
+// Returns everything Games in Chemistry stores about the signed-in user as a JSON
 // download. All reads go through the user's own cookie-scoped Supabase client,
 // so row level security limits the result to their own rows.
 
@@ -75,7 +75,7 @@ export async function GET() {
     headers: {
       ...NO_STORE,
       'Content-Type': 'application/json; charset=utf-8',
-      'Content-Disposition': 'attachment; filename="chemgames-data.json"',
+      'Content-Disposition': 'attachment; filename="games-in-chemistry-data.json"',
     },
   });
 }
