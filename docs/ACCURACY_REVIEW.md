@@ -66,18 +66,22 @@ These were the reasons to hide it. Each one showed a student a wrong number.
 - **The privacy switch did almost nothing.** Accuracy was only ever shown to the student
   themselves.
 
-### Still open: these corrupt the per-run data
+### Fixed 2026-09-24: these corrupted the per-run data
 
-These matter now even though nothing is displayed. Every run recorded with them is a
-bad row for any future framework to read.
+These mattered even with nothing displayed, because every run recorded with them was a
+bad row for any future framework to read. Rows saved before the fix are still affected.
 
-1. **The reaction-balancer Challenge double-counts rounds.** `handleStartChallenge` in
+1. ~~**The reaction-balancer Challenge double-counts rounds.**~~ **Fixed:** the
+   Challenge now starts with `startLevel(challengeLevel, { newSession: true })`, which
+   resets the round counters and keeps `results` for the notebook. Originally: `handleStartChallenge` in
    `src/app/[lang]/(gameplay)/games/reaction-balancer/page.tsx` calls
    `startLevel(challengeLevel)` without `{ resetRun: true }`. `roundsPlayed` and
    `roundsWithoutTier3` therefore carry over, and the Challenge session is saved with the
    main run's 12 rounds folded in. Fix: reset the two round counters (not the score) when
    the Challenge starts. lewis-structures has no Challenge, so it is not affected.
-2. **Support mode is read only at save time** (`useReactionBalancer.ts:540`,
+2. ~~**Support mode is read only at save time**~~ **Fixed:** both hooks latch
+   `supportUsed` and withhold accuracy for the whole session; a restart (or the
+   Challenge) clears it. Originally: (`useReactionBalancer.ts:540`,
    `useLewisStructures.ts:749`). Switching it off just before the end records a
    percentage for a run played with support. Switching it on erases a bad run. Fix: latch
    "support was on at any point this run" and record null if so.

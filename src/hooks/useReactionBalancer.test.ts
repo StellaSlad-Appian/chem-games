@@ -32,6 +32,19 @@ function setup(overrides: Partial<UseReactionBalancerOptions> = {}) {
 
 const markGuideSeen = () => localStorage.setItem(GUIDED_SEEN_KEY, 'true');
 
+/** Solves the current round with no hints, straight from the answer key. */
+function playCurrentRound(result: { current: ReturnType<typeof useReactionBalancer> }) {
+  const answer = answerCoefficients(result.current.parsed);
+  for (let i = 0; i < answer.length && result.current.phase !== 'done'; i++) {
+    if (result.current.coefficients[i] !== answer[i]) {
+      act(() => {
+        result.current.actions.setCoefficient(i, answer[i]);
+      });
+    }
+  }
+  expect(result.current.phase).toBe('done');
+}
+
 describe('guideStepFor', () => {
   it('follows the water script and leaves it when the player wanders off', () => {
     expect(guideStepFor([1, 1, 1], false, false)).toBe(0);
@@ -354,6 +367,47 @@ describe('useReactionBalancer: scaffolding by level', () => {
     }
     expect(result.current.phase).toBe('done');
     expect(result.current.accuracy).toBeNull();
+  });
+
+  it('withholds accuracy for the whole session once Support mode has been on, until a restart', () => {
+    const { result, rerender } = renderHook(
+      ({ supportMode }: { supportMode: boolean }) => useReactionBalancer({ level: 1, supportMode, isPaused: false, rng: zero }),
+      { wrapper: TestProviders, initialProps: { supportMode: true } }
+    );
+    // Switched off before the round is finished: the run was still supported.
+    rerender({ supportMode: false });
+    playCurrentRound(result);
+    expect(result.current.roundsPlayed).toBe(1);
+    expect(result.current.accuracy).toBeNull();
+
+    // A restart is a new session, and this one never had support.
+    act(() => result.current.actions.startLevel(1, { resetRun: true }));
+    playCurrentRound(result);
+    expect(result.current.accuracy).toBe(100);
+  });
+
+  it('switching Support mode on mid-session withholds accuracy the session had earned', () => {
+    const { result, rerender } = renderHook(
+      ({ supportMode }: { supportMode: boolean }) => useReactionBalancer({ level: 1, supportMode, isPaused: false, rng: zero }),
+      { wrapper: TestProviders, initialProps: { supportMode: false } }
+    );
+    playCurrentRound(result);
+    expect(result.current.accuracy).toBe(100);
+    rerender({ supportMode: true });
+    rerender({ supportMode: false });
+    expect(result.current.accuracy).toBeNull();
+  });
+
+  it('the Challenge is a new session: its accuracy starts from zero rounds but the notebook keeps the run', () => {
+    const { result } = setup();
+    playCurrentRound(result);
+    expect(result.current.roundsPlayed).toBe(1);
+    expect(result.current.results).toHaveLength(1);
+
+    act(() => result.current.actions.startLevel(CFG.levels.challengeLevel, { newSession: true }));
+    expect(result.current.roundsPlayed).toBe(0);
+    expect(result.current.accuracy).toBeNull();
+    expect(result.current.results).toHaveLength(1);
   });
 
   it('finishing the last round of a level reports the level; the plan resets with the run', () => {

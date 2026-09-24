@@ -298,6 +298,13 @@ export function useLewisStructures({
   const [results, setResults] = useState<RoundResult[]>([]);
   const [roundsPlayed, setRoundsPlayed] = useState(0);
   const [roundsWithoutTier3, setRoundsWithoutTier3] = useState(0);
+  // Whether Support mode was on at any point in this session. Accuracy is
+  // withheld for the whole session if so, so switching it off just before the
+  // end cannot turn a supported run into a scored one, and switching it on
+  // cannot wipe out a bad one. Latched during render rather than in an effect
+  // so the value is never a render behind.
+  const [supportUsed, setSupportUsed] = useState(supportMode);
+  if (supportMode && !supportUsed) setSupportUsed(true);
   const [lastActivityAt, setLastActivityAt] = useState(() => Date.now());
   const [announcement, setAnnouncement] = useState('');
   const [lockAnnouncement, setLockAnnouncement] = useState('');
@@ -343,6 +350,7 @@ export function useLewisStructures({
         setResults([]);
         setRoundsPlayed(0);
         setRoundsWithoutTier3(0);
+        setSupportUsed(false);
       }
       startRound(nextPlan, 0);
     },
@@ -746,7 +754,7 @@ export function useLewisStructures({
     }
   })();
 
-  const accuracy = supportMode || roundsPlayed === 0 ? null : Math.round((roundsWithoutTier3 / roundsPlayed) * 100);
+  const accuracy = supportMode || supportUsed || roundsPlayed === 0 ? null : Math.round((roundsWithoutTier3 / roundsPlayed) * 100);
 
   return {
     level: plan.level,

@@ -197,10 +197,10 @@ the device's light/dark setting, and the rename to "Games in Chemistry".
 **Hidden from profiles** 2026-09-24 until it measures something consistent. The findings
 and fix list are in [`ACCURACY_REVIEW.md`](./ACCURACY_REVIEW.md).
 
-- [ ] **Stop the reaction-balancer Challenge double-counting rounds**: reset
+- [x] **Stop the reaction-balancer Challenge double-counting rounds**: reset
       `roundsPlayed` and `roundsWithoutTier3` when the Challenge starts. This corrupts
       `game_sessions.accuracy` today, while the number is hidden.
-- [ ] **Latch Support mode per run** in `useReactionBalancer` and `useLewisStructures`, so
+- [x] **Latch Support mode per run** in `useReactionBalancer` and `useLewisStructures`, so
       switching it at the end cannot rewrite the run's accuracy.
 - [ ] **Decide the framework** (per-game correct ÷ all attempts, pooled from
       `game_sessions`) before the stat comes back. Review items 3–7.
