@@ -22,11 +22,14 @@ the Senior `stoichiometry` sheet is linked only from Level 9
 | Balanced equations as a ratio of particles | Level 9–10 (with Reaction Balancer as the prerequisite game) | Levels 1–2 |
 | Relative atomic mass (Ar) and relative formula mass (Mr) | **Not mandated in F–10**; taught in most Year 10 courses as pre-VCE extension; formally VCE Unit 1 | **Taught from scratch** in Levels 3–5 — the game never assumes a student has met Ar |
 | Mass-to-mass by proportion (no mole) | Year 10 extension in many schools | Levels 6–8 |
-| The mole, `n = m / M` | **VCE Unit 2** | Level 9 only, badged "Senior preview", never required |
+| The mole, `n = m / M` | **VCE Unit 1** AoS 2 ("Avogadro's constant … determination of the amount, in moles, of atoms (or molecules) in a pure sample of known mass"); Unit 2 adds solution and gas stoichiometry | Level 9 only, badged "Senior preview", never required |
 
 (Confirm the exact content descriptions against the current VCAA Victorian Curriculum 2.0
 Science document for Levels 9–10 before the game is built; the placement above follows the
-long-standing 1.0 descriptions and common Year 10 practice.)
+long-standing 1.0 descriptions and common Year 10 practice. Check against v2.0 and the VCE
+Study Design, 2026-09-24: v2.0 bands Levels 9 and 10 together, so the Level 9 / Level 10 split
+in the first two rows no longer exists — conservation of mass (VC2S10U08) and reaction types
+(VC2S10U09) are both in the Levels 9–10 list; moles are not in Levels 9–10 at all.)
 
 ## Learning goals
 
@@ -216,7 +219,7 @@ Config: `src/core-engine/config/games/reaction-factory-config.ts` — `levels.ro
 | `success.round` | | "Order filled: {order}." |
 | `overlay.levelUp` | `customMessages.levelUp` | badge "Order complete" · title "Level cleared" · subtitle "{skill}" · description "Level {n}: {what changes}." |
 | `overlay.victory` | | badge "All objectives complete" · title "Factory manager" · description "Try the Senior preview (the mole shortcut), or open your production log." |
-| `overlay.bonusIntro` | entering Level 9 | badge "Senior preview" · title "The mole shortcut" · description "This is VCE Unit 2 content. Everything you did in Levels 7–8 still works — this is just faster." |
+| `overlay.bonusIntro` | entering Level 9 | badge "Senior preview" · title "The mole shortcut" · description "This is VCE Unit 1 content. Everything you did in Levels 7–8 still works — this is just faster." |
 | `notebook.header` | end summary | "Your production log" (each order: equation, amounts, product, waste, masses, hint tier) |
 
 Glossary: **reactant / product** · **coefficient** "the big number: how many of that substance
