@@ -427,11 +427,12 @@ the split.
 | atomic number | **numero atomico** | — |
 | mass number | **numero di massa** | — |
 | energy level | **livello di energia** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **guscio elettronico** | VC2S10U07 says "electron shells", so the sheet names *guscio* once as the word the reader's teacher uses, and keeps *livello di energia* as its own term. |
+| electron shell (the curriculum's word) | **guscio elettronico** | VC2S10U07 says "electron shells", so the sheet names *guscio* once as the word the reader's teacher uses, and keeps *livello di energia* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Chi ti insegna può chiamarli gusci*); it no longer mentions the programma. |
 | outer level / outer shell | **livello esterno** / **guscio esterno** | *Livello esterno* throughout, to stay consistent with *livello di energia*. |
 | Bohr model | **modello di Bohr** | Named as a *model* every time, per the sheet's own contract. |
 | isotope | **isotopo** | — |
 | group (a column) | **gruppo** | The sheet always writes *gruppo 1*, *gruppo 17*, never a bare *gruppo*, because *gruppo* also names a functional group. |
+| valence electrons from the group number | **l’ultima cifra del numero del gruppo** (*il Cl è nel gruppo 17: 7 elettroni di valenza*) | Added 2026-09-25. The sheets number the groups 1–18, where *numero del gruppo = elettroni di valenza* only holds for groups 1 and 2. Some Italian textbooks still print the I–VIII A-group numbering, where the plain rule works; the last-digit rule is correct in both. **Rated medium**: a teacher using an older book may prefer to name the Roman numeral too. |
 | period (a row) | **periodo** | Not *riga*, which is the layout word; *periodo* is the term and pairs with *tavola periodica*. |
 | metal | **metallo** | — |
 | non metal | **non metallo** | Two words, no hyphen, as Italian chemistry writes it. Plural *non metalli*. |
@@ -483,6 +484,7 @@ the split.
 | precipitation reaction | **reazione di precipitazione** | — |
 | oxidation / reduction | **ossidazione / riduzione** | — |
 | oxidising agent | **ossidante** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *cloruro di sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Italian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 
 ## The mole and stoichiometry
 
@@ -498,6 +500,8 @@ the split.
 | in excess | **in eccesso** | — |
 | theoretical / actual yield | **resa teorica / resa effettiva** | **Italian does not have the structural problem French has here.** French *rendement* is only a ratio, so the two masses had to be renamed; Italian *resa* is used for both the mass and the ratio, exactly as English "yield" and Spanish *rendimiento* are. The stoichiometry sheet can therefore follow the English structure directly. |
 | percentage yield | **resa percentuale** | *Resa (%) = resa effettiva ÷ resa teorica × 100.* |
+| significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
 
 ## Organic chemistry
 

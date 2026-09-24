@@ -125,7 +125,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Elektronen, Energiestufen und die Form des Periodensystems',
         content:
-          'Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Deine Lehrkraft und der Lehrplan sagen dazu vielleicht Schalen – gemeint ist dasselbe. Elektronen so zu zählen heißt bohrsches Atommodell: nützlich, und kein Bild eines echten Atoms. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.',
+          'Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Deine Lehrkraft sagt dazu vielleicht Schalen – gemeint ist dasselbe. Elektronen so zu zählen heißt bohrsches Atommodell: nützlich, und kein Bild eines echten Atoms. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.',
         imageAlt:
           'Ein Natriumkern aus 11 Protonen und 12 Neutronen, darum drei weiche Bänder mit 2, 8 und 1 Elektronen, gezeichnet als Punkte in unregelmäßigen Winkeln und nicht als Punkte auf Kreisbahnen. Daneben die Anordnung 2, 8, 1 mit der äußersten Stufe zuletzt. Die Abbildung sagt selbst, dass sie eine Art ist, Elektronen zu zählen, und kein Bild eines Atoms, und dass der Kern etwa 100 000-mal zu groß gezeichnet ist.',
       },
@@ -238,7 +238,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Elemente, die gemacht werden mussten',
         content:
-          'Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur höchstens in winzigen Spuren vor. Sie werden in Beschleunigern gebaut, indem man einen Kern auf einen anderen schießt, manchmal wenige Atome auf einmal. Viele halten weniger als eine Sekunde durch und zerfallen dann. So wurden die unteren Zeilen des Periodensystems gefüllt.',
+          'Elemente nach Uran haben keine stabilen Isotope und kommen in der Natur höchstens in winzigen Spuren vor. Die ersten, zum Beispiel Plutonium, entstehen in Kernreaktoren: Dort fängt Uran Neutronen ein und wandelt sich durch Zerfall in sie um. Die schwereren werden in Beschleunigern gebaut, indem man einen Kern auf einen anderen schießt, manchmal wenige Atome auf einmal. Viele halten weniger als eine Sekunde durch und zerfallen dann. So wurden die unteren Zeilen des Periodensystems gefüllt.',
       },
     ],
   },
@@ -248,7 +248,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Feststoffe: Die Teilchen schwingen an festen Plätzen – feste Form und festes Volumen.',
       'Flüssigkeiten: Die Teilchen gleiten aneinander vorbei – festes Volumen, die Form passt sich dem Gefäß an.',
-      'Gase: Die Teilchen bewegen sich frei und schnell – sie füllen jedes Gefäß und lassen sich leicht zusammendrücken.',
+      'Gase: Die Teilchen bewegen sich frei und sind weit voneinander entfernt – sie füllen jedes Gefäß und lassen sich leicht zusammendrücken.',
       'Die Temperatur ist ein Maß für die mittlere kinetische Energie der Teilchen.',
       'Während einer Zustandsänderung bleibt die Temperatur konstant: Die Energie wird gebraucht, um Anziehungskräfte zwischen den Teilchen zu lösen oder zu bilden, nicht um die Teilchen schneller zu machen.',
     ],
@@ -297,9 +297,9 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Säure: ein Protonendonator (gibt H+ ab). In Wasser entstehen Oxonium-Ionen, H3O+. pH < 7.',
       'Base: ein Protonenakzeptor. Lösliche Basen (Laugen) geben in Wasser Hydroxid-Ionen, OH-, ab. pH > 7.',
-      'Neutral: pH 7 bei 25 °C – reines Wasser und die meisten Salze.',
+      'Neutral: pH 7 bei 25 °C – reines Wasser und Lösungen von Salzen wie NaCl.',
       'Neutralisation: Säure + Base → Salz + Wasser. Die Ionengleichung ist immer H+ + OH- → H2O.',
-      'Jede Stufe auf der pH-Skala bedeutet den Faktor 10 in der H+-Konzentration: pH 2 ist 100-mal saurer als pH 4.',
+      'Jede Stufe auf der pH-Skala bedeutet den Faktor 10 in der H+-Konzentration: Bei pH 2 ist die H+-Konzentration 100-mal so groß wie bei pH 4.',
     ],
     formulaExampleNames: [
       'Salzsäure (stark)',
@@ -353,7 +353,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Schreib in die fertige Gleichung immer die Zustandssymbole.',
     ],
     formulaExampleNames: [
-      'Nicht ausgeglichen',
+      'Nicht ausgeglichen (noch ohne Zustandssymbole)',
       'Ausgeglichen',
       'Mit einem mehratomigen Ion als Einheit',
     ],
@@ -379,7 +379,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Synthese (Vereinigung): Zwei oder mehr Stoffe verbinden sich – A + B → AB.',
       'Zersetzung: Ein Stoff zerfällt – AB → A + B (braucht oft Wärme oder Strom).',
-      'Verbrennung: Brennstoff + Sauerstoff → Kohlenstoffdioxid + Wasser (vollständig) – dabei wird Wärme frei.',
+      'Verbrennung: Brennstoff + Sauerstoff → Kohlenstoffdioxid + Wasser (bei einem Kohlenwasserstoff als Brennstoff und vollständiger Verbrennung) – dabei wird Wärme frei.',
       'Einfache Verdrängung: Ein reaktionsfreudigeres Element nimmt den Platz eines weniger reaktionsfreudigen ein – A + BC → AC + B.',
       'Doppelte Verdrängung: Die Ionen tauschen die Partner – AB + CD → AD + CB (Fällung und Neutralisation sind Sonderfälle davon).',
     ],
@@ -424,7 +424,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     summary:
       'Ionenbindung, Atombindung und Metallbindung – und wie die Struktur die Eigenschaften erklärt.',
     keyTakeaways: [
-      'Atome gehen Bindungen ein, um eine stabile, volle Außenschale zu erreichen (Edelgaskonfiguration). Bei den Hauptgruppenelementen sagt dir die Hauptgruppennummer, wie viele Valenzelektronen ein Atom hat.',
+      'Atome gehen Bindungen ein, um eine stabile, volle Außenschale zu erreichen (Edelgaskonfiguration). Bei den Hauptgruppenelementen sagt dir die letzte Ziffer der Gruppennummer, wie viele Valenzelektronen ein Atom hat (Cl steht in Gruppe 17: 7 Valenzelektronen). Das ist dieselbe Zahl wie die Nummer der Hauptgruppe (Cl: VII. Hauptgruppe).',
       'Ionenbindung: Metall + Nichtmetall. Elektronen werden übertragen; die entstehenden Ionen werden im dreidimensionalen Ionengitter durch elektrostatische Anziehung zusammengehalten.',
       'Atombindung (kovalente Bindung): Nichtmetall + Nichtmetall. Elektronen werden paarweise geteilt; jedes gemeinsame Paar ist eine Bindung.',
       'Metallbindung: Metall-Atomrümpfe in einem Gitter aus Kationen, umgeben von einem „See“ frei beweglicher Elektronen.',
@@ -502,13 +502,12 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Häufige Ionenladungen aus dem Periodensystem',
         content:
-          'Hauptgruppe 1 → +1, Hauptgruppe 2 → +2, Al → +3, Hauptgruppe 17 → −1, Hauptgruppe 16 → −2, N und P → −3. Bei den Nebengruppenmetallen wechselt die Ladung – der Name sagt sie dir. Für mehratomige Ionen benutzt du die Nachschlagetabelle.',
+          'Gruppe 1 → +1, Gruppe 2 → +2, Al → +3, Gruppe 17 → −1, Gruppe 16 → −2, N und P → −3. Bei den Nebengruppenmetallen wechselt die Ladung – der Name sagt sie dir. Für mehratomige Ionen benutzt du die Nachschlagetabelle.',
       },
     ],
     commonMistakes: [
       'Zu vergessen zu kürzen: Aus Mg2O2 muss MgO werden.',
       'Klammern um ein einzelnes mehratomiges Ion: NaOH, nicht Na(OH).',
-      'Das Anion zuerst zu schreiben, weil es in der Umgangssprache zuerst genannt wird.',
     ],
   },
 
@@ -518,10 +517,10 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Die Nachschlagetabelle – und die Namensmuster, dank derer du viel weniger auswendig lernen musst, als du denkst.',
     keyTakeaways: [
       'Ein mehratomiges Ion ist eine Gruppe von Atomen, die durch Atombindungen zusammenhängt, insgesamt eine Ladung trägt und in Reaktionen als Einheit auftritt.',
-      'Das einzige häufige mehratomige Kation ist Ammonium, NH4+. Alle anderen sind Anionen.',
+      'Das einzige häufige mehratomige Kation ist Ammonium, NH4+ (abgesehen vom Oxonium-Ion H3O+, das dir bei den Säuren begegnet). Alle anderen sind Anionen.',
       'Die Endung „-at“ bedeutet mehr Sauerstoff als „-it“: Sulfat SO4 2− gegenüber Sulfit SO3 2−; Nitrat NO3− gegenüber Nitrit NO2−. Die Ladung bleibt gleich.',
       '„Per-…-at“ hat ein Sauerstoffatom mehr als „-at“, „Hypo-…-it“ eines weniger als „-it“ (Perchlorat ClO4−, Chlorat ClO3−, Chlorit ClO2−, Hypochlorit ClO−).',
-      'Ein zusätzliches H+ am Anion erhöht dessen Ladung um eins und setzt „Hydrogen“ vor den Namen: Carbonat CO3 2− → Hydrogencarbonat HCO3−.',
+      'Ein zusätzliches H+ am Anion macht dessen Ladung um eins weniger negativ und setzt „Hydrogen“ vor den Namen: Carbonat CO3 2− → Hydrogencarbonat HCO3−.',
     ],
     formulaExampleNames: [
       'Natriumnitrat',
@@ -538,12 +537,12 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Wo sie dir begegnen',
         content:
-          'Säuren: Schwefelsäure ist H2SO4, weil Sulfat 2− trägt; Salpetersäure ist HNO3, weil Nitrat 1− trägt. Fällung: Fast alle Nitrate und alle Ammoniumsalze sind löslich, deshalb sind sie die üblichen Zuschauer-Ionen. Redox: Permanganat und Dichromat sind die klassischen Oxidationsmittel.',
+          'Säuren: Schwefelsäure ist H2SO4, weil Sulfat 2− trägt; Salpetersäure ist HNO3, weil Nitrat 1− trägt. Fällung: Alle Nitrate und alle Ammoniumsalze sind löslich, deshalb sind sie die üblichen Zuschauer-Ionen. Redox: Permanganat und Dichromat sind die klassischen Oxidationsmittel.',
       },
     ],
     tables: [
       {
-        heading: 'Mehratomige Ionen (Auswahl des VCE-Datenhefts)',
+        heading: 'Die wichtigsten mehratomigen Ionen',
         caption:
           'Zuerst die Kationen, dann die Anionen nach Ladung gruppiert. Namen in Klammern sind ältere Bezeichnungen, die dir noch begegnen können.',
         columns: ['Name', 'Formel', 'Ladung'],
@@ -553,7 +552,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     commonMistakes: [
       'Das Ion in der Formel auseinanderzureißen (Ca(OH)2 als CaO2H2 zu schreiben) – es bleibt zusammen.',
       'Die Ladung nur dem letzten Atom zuzuschreiben – sie gehört zur ganzen Gruppe.',
-      'Die Ladung (−2) mit der Anzahl der Sauerstoffatome zu verwechseln – Sulfat hat 4 O und die Ladung 2−.',
+      'Die Ladung (2−) mit der Anzahl der Sauerstoffatome zu verwechseln – Sulfat hat 4 O und die Ladung 2−.',
     ],
   },
 
@@ -716,12 +715,10 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Zu sagen, ein Kohlenstoffatom „wiegt 12“ – 12 was? Die Ar ist ein Vergleich mit Wasserstoff und hat keine Einheit. Gramm kommen erst ins Spiel, wenn du auf eine echte Menge hochrechnest.',
+      'Zu sagen, ein Kohlenstoffatom „wiegt 12“ – 12 was? Die Ar ist ein Vergleich und hat keine Einheit. Gramm kommen erst ins Spiel, wenn du auf eine echte Menge hochrechnest.',
       'Den Index auf die ganze Formel anzuwenden: In CO2 gehört die 2 allein zum Sauerstoff.',
       'Eine Klammer zu übersehen, sodass für Mg(OH)2 41 statt 58 herauskommt.',
       'Die Mr bei NaCl oder MgO „Molekülmasse“ zu nennen. Dort gibt es kein Molekül – genau deshalb heißt sie Formelmasse.',
-      'Einen Wert aus dem Tafelwerk in eine Aufgabe zu mischen, die auf der Klassentabelle beruht, und sich dann zu wundern, warum das Ergebnis um einen Bruchteil vom Arbeitsblatt abweicht.',
-      'Die Ar-Werte zu mitteln statt sie zu addieren.',
     ],
   },
 
@@ -730,7 +727,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     summary:
       'Umrechnungen mit der Stoffmenge, Stoffmengenverhältnisse, begrenzendes Edukt und prozentuale Ausbeute an einem Ort.',
     keyTakeaways: [
-      'Ein Mol sind 6,02 × 10^23 Teilchen (Avogadro-Konstante, N_A). Die molare Masse M (g/mol) ist die Masse eines Mols – addiere dazu die Atommassen aus dem Periodensystem.',
+      'Ein Mol sind 6,02 × 10²³ Teilchen (Avogadro-Konstante, N_A). Die molare Masse M (g/mol) ist die Masse eines Mols – addiere dazu die Atommassen aus dem Periodensystem.',
       'Alle Wege führen über die Stoffmenge: Rechne das Gegebene in Mol um, benutze das Stoffmengenverhältnis aus der ausgeglichenen Gleichung und rechne dann zurück in die gesuchte Größe.',
       'Das Stoffmengenverhältnis ist das Verhältnis der Koeffizienten – sonst nichts.',
       'Begrenzendes Edukt: Der Ausgangsstoff, der zuerst aufgebraucht ist, bestimmt, wie viel Produkt entsteht. Bestimm die Stoffmenge jedes Edukts und teile sie durch seinen Koeffizienten; der kleinste Wert gehört zum begrenzenden Edukt.',
@@ -770,7 +767,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Das Massenverhältnis statt des Stoffmengenverhältnisses zu benutzen – 2 g H2 reagieren nicht mit 1 g O2.',
       'Das Edukt mit der kleineren Masse als begrenzend anzunehmen, ohne in Mol umzurechnen.',
       'Einheiten zu mischen: Volumen in mL zusammen mit c in mol/L ergibt eine 1000-mal zu große Stoffmenge.',
-      'Zu früh zu runden – rechne bis zum Schluss mit voller Genauigkeit und gib dann drei signifikante Stellen an.',
+      'Zu früh zu runden – rechne bis zum Schluss mit voller Genauigkeit und runde dann auf so viele gültige Ziffern, wie die ungenaueste gegebene Größe hat.',
     ],
   },
 
@@ -779,7 +776,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     summary:
       'Valenzelektronen zählen, so verteilen, dass die Oktettregel erfüllt ist, und mit der Formalladung prüfen.',
     keyTakeaways: [
-      'Valenzelektronen = Hauptgruppennummer bei den Hauptgruppenelementen (H 1, C 4, N 5, O 6, Halogene 7). Pro negativer Ladung kommt ein Elektron dazu, pro positiver Ladung fällt eins weg.',
+      'Valenzelektronen = letzte Ziffer der Gruppennummer bei den Hauptgruppenelementen (H 1, C 4, N 5, O 6, Halogene 7 – Stickstoff steht in Gruppe 15, Chlor in Gruppe 17). Pro negativer Ladung kommt ein Elektron dazu, pro positiver Ladung fällt eins weg.',
       'Jede Bindung ist ein gemeinsames Elektronenpaar (2 Elektronen). Einfachbindung = 1 Paar, Doppelbindung = 2, Dreifachbindung = 3. Elektronen, die nicht binden, sitzen als freie Elektronenpaare am Atom.',
       'Oktettregel: Die meisten Atome streben 8 Valenzelektronen an. Wasserstoff kommt mit 2 aus (Duett).',
       'Fehlt dem Zentralatom nach dem Verteilen aller Elektronen noch etwas zum Oktett, mach aus freien Elektronenpaaren der äußeren Atome zusätzliche Bindungen.',
@@ -795,10 +792,10 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Grundlagen für Klasse 10',
         content:
-          'Jedes Atom bringt seine Außenelektronen als Punkte mit. Ein Punkt, der allein steht, ist ein Einzelelektron (formal: ein ungepaartes Elektron); zwei Einzelelektronen aus zwei verschiedenen Atomen ergeben ein bindendes Elektronenpaar, also eine Bindung (gezeichnet als Strich). Paare, die an einem Atom bleiben, sind freie Elektronenpaare. Ein Atom ist mit 8 Punkten um sich herum voll (ein Oktett) – Wasserstoff ist schon mit 2 voll (ein Duett). Teilst du zwischen denselben zwei Atomen zweimal, wird daraus eine Doppelbindung, dreimal eine Dreifachbindung. Die Zahl der Einzelelektronen sagt dir, wie viele Bindungen ein Atom eingeht: H 1, C 4, N 3, O 2, Cl 1. Schwefel verhält sich wie Sauerstoff und Phosphor wie Stickstoff, weil sie in denselben Hauptgruppen stehen. Alles unterhalb dieses Abschnitts (Formalladung, VSEPR-Formen, Ausnahmen von der Oktettregel) ist Stoff der Oberstufe.',
+          'Jedes Atom bringt seine Außenelektronen als Punkte mit. Ein Punkt, der allein steht, ist ein ungepaartes Elektron; zwei ungepaarte Elektronen aus zwei verschiedenen Atomen ergeben ein bindendes Elektronenpaar, also eine Bindung (gezeichnet als Strich). Paare, die an einem Atom bleiben, sind freie Elektronenpaare. Ein Atom ist mit 8 Punkten um sich herum voll (ein Oktett) – Wasserstoff ist schon mit 2 voll (ein Duett). Teilst du zwischen denselben zwei Atomen zweimal, wird daraus eine Doppelbindung, dreimal eine Dreifachbindung. Die Zahl der ungepaarten Elektronen sagt dir, wie viele Bindungen ein Atom eingeht: H 1, C 4, N 3, O 2, Cl 1. Schwefel verhält sich wie Sauerstoff und Phosphor wie Stickstoff, weil sie in denselben Hauptgruppen stehen. Alles unterhalb dieses Abschnitts (Formalladung, VSEPR-Formen, Ausnahmen von der Oktettregel) ist Stoff der Oberstufe.',
         exampleNames: [
           'Wasser – Sauerstoff teilt zweimal und behält 2 freie Elektronenpaare',
-          'Methan – Kohlenstoff teilt alle vier Einzelelektronen',
+          'Methan – Kohlenstoff teilt alle vier ungepaarten Elektronen',
           'Sauerstoff – zwei bindende Elektronenpaare ergeben eine Doppelbindung',
         ],
       },
@@ -820,8 +817,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     ],
     tables: [
       {
-        heading: 'Valenzelektronen nach Hauptgruppe',
-        columns: ['Hauptgruppe', 'Valenz-e⁻', 'Übliche Bindungszahl', 'Beispiele'],
+        heading: 'Valenzelektronen nach Gruppe',
+        columns: ['Gruppe', 'Valenz-e⁻', 'Übliche Bindungszahl', 'Beispiele'],
         rows: [
           ['1 (H)', '1', '1', 'H'],
           ['14', '4', '4', 'C, Si'],
@@ -875,6 +872,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         rows: [
           ['Carbonsäure', '-säure', 'Propansäure'],
           ['Ester', '-yl …-oat', 'Ethansäuremethylester'],
+          ['Amid', '-amid', 'Ethanamid'],
           ['Aldehyd', '-al', 'Ethanal'],
           ['Keton', '-on', 'Propan-2-on'],
           ['Alkohol', '-ol', 'Butan-2-ol'],
@@ -895,7 +893,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Die waagerecht gezeichnete Kette zu nehmen statt der längsten Kette.',
       'Vom falschen Ende zu nummerieren – die funktionelle Gruppe hat Vorrang vor den Substituenten.',
       'Nach der Vervielfachungssilbe zu sortieren: „Dimethyl“ steht unter M, nicht unter D.',
-      'Bei Ketten ab 4 Kohlenstoffatomen die Nummer für -en, -ol oder -on zu vergessen.',
+      'Die Nummer für -en, -ol oder -on zu vergessen, wenn die Gruppe an mehr als einer Stelle sitzen könnte (Propan-1-ol oder Propan-2-ol).',
     ],
   },
 
@@ -936,7 +934,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
           ['Aldehyd', '–CHO', '-al', 'CₙH₂ₙO', 'Wird zur Carbonsäure oxidiert'],
           ['Keton', 'C=O (innen)', '-on', 'CₙH₂ₙO', 'Lässt sich kaum oxidieren'],
           ['Carbonsäure', '–COOH', '-säure', 'CₙH₂ₙO₂', 'Schwache Säure; Veresterung mit Alkohol'],
-          ['Ester', '–COO–', '…-ester', '—', 'Hydrolyse zurück zu Säure + Alkohol'],
+          ['Ester', '–COO–', '…-ester', 'CₙH₂ₙO₂', 'Hydrolyse zurück zu Säure + Alkohol'],
           ['Amin', '–NH₂', '-amin', 'CₙH₂ₙ₊₁NH₂', 'Schwache Base; bildet mit Säuren Amide'],
           ['Amid', '–CONH₂', '-amid', '—', 'Hydrolyse'],
         ],
@@ -951,11 +949,11 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Gruppen im Spektrum erkennen',
         content:
-          'IR: Eine breite O–H-Bande um 3200–3550 cm⁻¹ bedeutet Alkohol (oder, sehr breit und über die C–H-Banden gelegt, Carbonsäure); eine starke C=O-Bande bei 1670–1750 cm⁻¹ bedeutet Aldehyd, Keton, Säure, Ester oder Amid. Die genauen Bereiche stehen im VCE-Datenheft – benutz es.',
+          'IR: Eine breite O–H-Bande um 3200–3550 cm⁻¹ bedeutet Alkohol (oder, sehr breit und über die C–H-Banden gelegt, Carbonsäure); eine starke C=O-Bande bei 1670–1750 cm⁻¹ bedeutet Aldehyd, Keton, Säure, Ester oder Amid. Die genauen Bereiche findest du in einer IR-Tabelle – benutz sie.',
       },
     ],
     commonMistakes: [
-      'Ein Molekül mit –OH am Benzolring Alkohol zu nennen (es ist ein Phenol) – außerhalb des VCE-Stoffs, aber eine häufige Falle.',
+      'Ein Molekül mit –OH am Benzolring Alkohol zu nennen (es ist ein Phenol) – eine häufige Falle.',
       'Einen Aldehyd (C=O am Ende) mit einem Keton (C=O in der Mitte) zu verwechseln.',
       'Ester für Säuren zu halten, weil sie –COO– enthalten – sie haben kein saures H.',
     ],

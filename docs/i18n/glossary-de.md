@@ -108,11 +108,12 @@ new with the split.
 | atomic number | **Ordnungszahl** | *Kernladungszahl* is equally correct and says more (it is the nuclear charge), but *Ordnungszahl* is the word a Year 9 textbook prints and the one the sheet already used. |
 | mass number | **Massenzahl** | — |
 | energy level | **Energiestufe** | The sheet deliberately says *level*, not *shell*, because a shell is a picture and a level is an energy. See the next row. |
-| electron shell (the curriculum's word) | **Schale** / **Elektronenschale** | VC2S10U07 says "electron shells", so the sheet names *Schale* once as the word the reader's teacher will use and keeps *Energiestufe* as its own term. Do not swap one for the other halfway through a sheet. |
+| electron shell (the curriculum's word) | **Schale** / **Elektronenschale** | VC2S10U07 says "electron shells", so the sheet names *Schale* once as the word the reader's teacher will use and keeps *Energiestufe* as its own term. Do not swap one for the other halfway through a sheet. Since 2026-09-25 the sentence credits the word to the teacher alone (*Deine Lehrkraft sagt dazu vielleicht Schalen*); it no longer mentions the Lehrplan. |
 | outer level / outer shell | **äußerste Stufe**, electrons in it: **Außenelektronen** | Follows the *Außenelektron* row above. |
 | Bohr model | **Bohrsches Atommodell** | Named as a *model* every time it appears, per the sheet's own contract: it is how you count electrons, not what an atom looks like. |
 | isotope | **Isotop** | — |
 | group (a column) | **Gruppe** | German uses the same word for a column of the table and for a functional group; context separates them, and the sheet always writes *Gruppe 1*, *Gruppe 17*, never bare *Gruppe*. |
+| valence electrons from the group number | **die letzte Ziffer der Gruppennummer** (*Cl steht in Gruppe 17: 7 Valenzelektronen*), einmal ergänzt um *das ist die Nummer der Hauptgruppe (VII. Hauptgruppe)* | Added 2026-09-25. The site numbers the groups 1–18, so the old sentence *die Hauptgruppennummer sagt dir, wie viele Valenzelektronen …* was only true in the I–VIII Hauptgruppen system German textbooks also use. The bonding and Lewis sheets now state the 1–18 rule and name the Hauptgruppe once, on the bonding sheet, as the bridge to the textbook. **Never write *Hauptgruppe 17*:** it mixes the two systems. The Lewis table's column is *Gruppe* for the same reason. |
 | period (a row) | **Periode** | Not *Reihe*. *Periode* is the technical term and pairs with *Periodensystem*. |
 | metal | **Metall** | — |
 | non-metal | **Nichtmetall** | One word, no hyphen. |
@@ -178,6 +179,8 @@ new with the split.
 | in excess | **im Überschuss** | — |
 | theoretical / actual yield | **theoretische / tatsächliche Ausbeute** | — |
 | percentage yield | **prozentuale Ausbeute** | — |
+| significant figures | **gültige Ziffern** | Added 2026-09-25. The phrase German physics and chemistry lessons use for the rounding rule (*so viele gültige Ziffern wie die ungenaueste Angabe*). *Signifikante Stellen*, which the stoichiometry sheet used before, is understood but reads like a translation. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence on the functional-groups sheet now points to *eine IR-Tabelle*, and the polyatomic-ion table is headed *Die wichtigsten mehratomigen Ionen*. The *Tafelwerk* is the German equivalent for most data, but it was not named for IR ranges because not every Tafelwerk prints them. |
 
 ## Organic chemistry
 

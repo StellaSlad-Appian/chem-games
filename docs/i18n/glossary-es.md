@@ -376,11 +376,12 @@ the split.
 | atomic number | **número atómico** | — |
 | mass number | **número másico** | Not *número de masa*, which is the calque; *másico* is what a Spanish textbook prints. |
 | energy level | **nivel de energía** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **capa electrónica** | VC2S10U07 says "electron shells", so the sheet names *capa* once as the word the reader's teacher uses, and keeps *nivel de energía* as its own term. |
+| electron shell (the curriculum's word) | **capa electrónica** | VC2S10U07 says "electron shells", so the sheet names *capa* once as the word the reader's teacher uses, and keeps *nivel de energía* as its own term. Since 2026-09-25 the sentence is *Puede que en clase oigas llamarlos capas*: it credits the word to the classroom alone, no longer to the curriculum, and it avoids a gendered *tu profesor*. |
 | outer level / outer shell | **nivel exterior** / **última capa** | *Última capa* is what a Spanish classroom says; the sheet uses *nivel exterior* to stay consistent with *nivel de energía*. |
 | Bohr model | **modelo de Bohr** | Named as a *model* every time, per the sheet's own contract. |
 | isotope | **isótopo** | — |
 | group (a column) | **grupo** | The sheet always writes *grupo 1*, *grupo 17*, never a bare *grupo*, because *grupo* also names a functional group. |
+| valence electrons from the group number | **la última cifra del número de grupo** (*el Cl está en el grupo 17: 7 electrones de valencia*) | Added 2026-09-25. Spanish textbooks number the groups 1–18, where *número de grupo = electrones de valencia* only holds for groups 1 and 2. The bonding and Lewis sheets now state the last-digit rule. |
 | period (a row) | **periodo** | Without the accent: the RAE lists *periodo* and *período* as equally valid, and current Spanish chemistry writing prefers the unaccented form. Not *fila*, which is the layout word. |
 | metal | **metal** | — |
 | non-metal | **no metal** | Two words, no hyphen. Plural *no metales*. |
@@ -432,6 +433,7 @@ the split.
 | precipitation reaction | **reacción de precipitación** | — |
 | oxidation / reduction | **oxidación / reducción** | — |
 | oxidising agent | **oxidante** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *cloruro de sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Spanish the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 
 ## The mole and stoichiometry
 
@@ -447,6 +449,8 @@ the split.
 | in excess | **en exceso** | — |
 | theoretical / actual yield | **rendimiento teórico / rendimiento real** | **Spanish does not have the structural problem French has here.** French *rendement* is only a ratio, so the two masses had to be renamed; Spanish *rendimiento* is used for both the mass and the ratio, exactly as English "yield" is. The stoichiometry sheet can therefore follow the English structure directly. |
 | percentage yield | **rendimiento porcentual** | *Rendimiento (%) = rendimiento real ÷ rendimiento teórico × 100.* |
+| significant figures | **cifras significativas** | Added 2026-09-25. The rule is phrased *al mismo número de cifras significativas que el dato menos preciso*, not a fixed three. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
 
 ## Organic chemistry
 

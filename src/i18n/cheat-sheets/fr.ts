@@ -140,7 +140,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Électrons, niveaux d’énergie et forme du tableau',
         content:
-          'Les électrons occupent des niveaux d’énergie autour du noyau. Le premier en contient jusqu’à 2, le suivant jusqu’à 8, puis 8 encore pour les vingt premiers éléments. Ton prof et le programme disent peut-être couches : c’est la même chose. Compter les électrons ainsi s’appelle le modèle de Bohr : il est utile, et ce n’est pas une image d’un vrai atome. Le nombre d’électrons du niveau extérieur décide de la façon dont un atome réagit. Deux éléments sont dans le même groupe quand ils en ont autant à l’extérieur. C’est pour cela qu’un groupe se comporte de la même manière.',
+          'Les électrons occupent des niveaux d’énergie autour du noyau. Le premier en contient jusqu’à 2, le suivant jusqu’à 8, puis 8 encore pour les vingt premiers éléments. Ton prof parle peut-être de couches : c’est la même chose. Compter les électrons ainsi s’appelle le modèle de Bohr : il est utile, et ce n’est pas une image d’un vrai atome. Le nombre d’électrons du niveau extérieur décide de la façon dont un atome réagit. Deux éléments sont dans le même groupe quand ils en ont autant à l’extérieur. C’est pour cela qu’un groupe se comporte de la même manière.',
         imageAlt:
           'Un noyau de sodium de 11 protons et 12 neutrons, entouré de trois bandes floues portant 2, 8 et 1 électrons, dessinés comme des marques à des angles irréguliers et non comme des points sur des cercles. À côté, l’arrangement 2, 8, 1 avec le niveau externe en dernier. La figure précise elle-même qu’elle est une façon de compter les électrons et non une image d’un atome, et que le noyau est dessiné environ 100 000 fois trop gros.',
       },
@@ -253,7 +253,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Les éléments qu’il a fallu fabriquer',
         content:
-          'Les éléments après l’uranium n’ont aucun isotope stable et ne se trouvent pas dans la nature en quantité utilisable. On les construit dans des accélérateurs en projetant un noyau sur un autre, parfois quelques atomes à la fois. Beaucoup tiennent moins d’une seconde avant de se désintégrer. C’est en les fabriquant qu’on a rempli les dernières lignes du tableau périodique.',
+          'Les éléments après l’uranium n’ont aucun isotope stable et ne se trouvent pas dans la nature en quantité utilisable. Les premiers, comme le plutonium, sont produits dans des réacteurs nucléaires : l’uranium y capte des neutrons, puis se transforme en ces éléments en se désintégrant. Les plus lourds sont construits dans des accélérateurs en projetant un noyau sur un autre, parfois quelques atomes à la fois. Beaucoup tiennent moins d’une seconde avant de se désintégrer. C’est en les fabriquant qu’on a rempli les dernières lignes du tableau périodique.',
       },
     ],
   },
@@ -263,7 +263,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Solides : les particules vibrent à des positions fixes – forme fixe et volume fixe.',
       'Liquides : les particules glissent les unes sur les autres – volume fixe, mais la forme est celle du récipient.',
-      'Gaz : les particules se déplacent librement et vite – ils remplissent tout récipient et se compriment facilement.',
+      'Gaz : les particules se déplacent librement et sont très éloignées les unes des autres – ils remplissent tout récipient et se compriment facilement.',
       'La température mesure l’énergie cinétique moyenne des particules.',
       'Pendant un changement d’état, la température reste constante : l’énergie sert à rompre ou à former des interactions entre les particules, pas à les accélérer.',
     ],
@@ -312,9 +312,9 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Acide : un donneur de proton (H+). Dans l’eau, il forme des ions oxonium, H3O+. pH < 7.',
       'Base : un accepteur de proton. Les bases solubles libèrent des ions hydroxyde, OH-, dans l’eau. pH > 7.',
-      'Neutre : pH 7 à 25 °C – l’eau pure et la plupart des sels.',
+      'Neutre : pH 7 à 25 °C – l’eau pure, et les solutions de sels comme NaCl.',
       'Neutralisation : acide + base → sel + eau. L’équation ionique est toujours H+ + OH- → H2O.',
-      'Chaque graduation de l’échelle de pH correspond à un facteur 10 sur la concentration en H+ : un pH 2 est 100 fois plus acide qu’un pH 4.',
+      'Chaque graduation de l’échelle de pH correspond à un facteur 10 sur la concentration en H+ : à pH 2, la concentration en H+ est 100 fois plus grande qu’à pH 4.',
     ],
     formulaExampleNames: [
       'Acide chlorhydrique (fort)',
@@ -368,7 +368,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Écris toujours les symboles d’état dans l’équation finale.',
     ],
     formulaExampleNames: [
-      'Non équilibrée',
+      'Non équilibrée (sans symboles d’état pour l’instant)',
       'Équilibrée',
       'Avec un ion polyatomique traité comme une unité',
     ],
@@ -394,7 +394,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Synthèse (combinaison) : deux substances ou plus s’assemblent – A + B → AB.',
       'Décomposition : une substance se sépare – AB → A + B (il faut souvent de la chaleur ou du courant).',
-      'Combustion : combustible + dioxygène → dioxyde de carbone + eau (combustion complète) – de la chaleur est libérée.',
+      'Combustion : combustible + dioxygène → dioxyde de carbone + eau (pour un hydrocarbure, en combustion complète) – de la chaleur est libérée.',
       'Déplacement simple : un élément plus réactif prend la place d’un élément moins réactif – A + BC → AC + B.',
       'Double déplacement : les ions échangent leurs partenaires – AB + CD → AD + CB (la précipitation et la neutralisation en sont des cas particuliers).',
     ],
@@ -443,7 +443,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Liaison ionique, covalente et métallique – et comment la structure explique les propriétés.',
     keyTakeaways: [
-      'Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le numéro de colonne donne le nombre d’électrons de valence.',
+      'Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro de colonne donne le nombre d’électrons de valence (Cl est dans la colonne 17 : 7 électrons de valence).',
       'Ionique : métal + non-métal. Des électrons sont transférés ; les ions formés sont maintenus dans un réseau à trois dimensions par l’attraction électrostatique.',
       'Covalente : non-métal + non-métal. Les électrons sont partagés par doublets ; chaque doublet partagé est une liaison.',
       'Métallique : des cations métalliques dans un réseau, entourés d’une « mer » d’électrons libres.',
@@ -505,7 +505,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Équilibre les charges : le cation d’abord, les charges en croix, des parenthèses autour d’un ion polyatomique répété.',
     keyTakeaways: [
       'Un composé ionique n’a pas de charge globale : la charge positive totale égale la charge négative totale.',
-      'Écris le cation (le métal ou NH4+) en premier dans la formule, puis l’anion.',
+      'Écris le cation (le métal ou NH4+) en premier dans la formule, puis l’anion – même si le nom commence par l’anion : chlorure de sodium, NaCl.',
       'Méthode de la croix : la valeur absolue de la charge de chaque ion devient l’indice de l’autre, puis on simplifie au plus petit rapport.',
       'Un ion polyatomique forme une unité. S’il t’en faut plus d’un, mets-le entre parenthèses : Ca(OH)2, et non CaOH2.',
       'Les métaux à charge variable (Fe, Cu, Pb, Sn) portent leur charge en chiffres romains dans le nom : fer(III) = Fe 3+.',
@@ -533,7 +533,6 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     commonMistakes: [
       'Oublier de simplifier : Mg2O2 doit devenir MgO.',
       'Mettre des parenthèses autour d’un ion polyatomique unique : NaOH, et non Na(OH).',
-      'Écrire l’anion en premier dans la formule parce qu’on le nomme en premier à l’oral.',
     ],
   },
 
@@ -543,10 +542,10 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Le tableau de référence, et les schémas de nommage qui font que tu as bien moins à apprendre par cœur que tu ne le crois.',
     keyTakeaways: [
       'Un ion polyatomique est un groupe d’atomes liés par des liaisons covalentes, qui porte une charge globale et se déplace comme une seule unité au cours d’une réaction.',
-      'Le seul cation polyatomique courant est l’ammonium, NH4+. Tous les autres sont des anions.',
+      'Le seul cation polyatomique courant est l’ammonium, NH4+ (à part l’ion oxonium, H3O+, que tu rencontres avec les acides). Tous les autres sont des anions.',
       'La terminaison « -ate » signifie plus d’oxygène que « -ite » : sulfate SO4 2− contre sulfite SO3 2− ; nitrate NO3− contre nitrite NO2−. La charge, elle, ne change pas.',
       '« Per-…-ate » a un oxygène de plus que « -ate », et « hypo-…-ite » un de moins que « -ite » (perchlorate ClO4−, chlorate ClO3−, chlorite ClO2−, hypochlorite ClO−).',
-      'Ajouter un H+ à un anion augmente sa charge de un et met « hydrogéno » devant son nom : carbonate CO3 2− → hydrogénocarbonate HCO3−.',
+      'Ajouter un H+ à un anion rend sa charge moins négative d’une unité et met « hydrogéno » devant son nom : carbonate CO3 2− → hydrogénocarbonate HCO3−.',
     ],
     formulaExampleNames: [
       'Nitrate de sodium',
@@ -563,12 +562,12 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Où tu les rencontres',
         content:
-          'Les acides : l’acide sulfurique est H2SO4 parce que le sulfate porte 2− ; l’acide nitrique est HNO3 parce que le nitrate porte 1−. La précipitation : presque tous les nitrates et tous les sels d’ammonium sont solubles, ce sont donc les ions spectateurs habituels. L’oxydoréduction : le permanganate et le dichromate sont les oxydants classiques.',
+          'Les acides : l’acide sulfurique est H2SO4 parce que le sulfate porte 2− ; l’acide nitrique est HNO3 parce que le nitrate porte 1−. La précipitation : tous les nitrates et tous les sels d’ammonium sont solubles, ce sont donc les ions spectateurs habituels. L’oxydoréduction : le permanganate et le dichromate sont les oxydants classiques.',
       },
     ],
     tables: [
       {
-        heading: 'Ions polyatomiques (sélection du livret de données du VCE)',
+        heading: 'Les principaux ions polyatomiques',
         caption:
           'Les cations d’abord, puis les anions groupés par charge. Les noms entre parenthèses sont des noms plus anciens que tu peux encore rencontrer.',
         columns: ['Nom', 'Formule', 'Charge'],
@@ -578,7 +577,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     commonMistakes: [
       'Couper l’ion dans la formule (écrire Ca(OH)2 sous la forme CaO2H2) – il reste d’un seul tenant.',
       'Attribuer la charge au dernier atome seulement – elle appartient au groupe entier.',
-      'Confondre la charge (−2) avec le nombre d’atomes d’oxygène – le sulfate a 4 O et une charge de 2−.',
+      'Confondre la charge (2−) avec le nombre d’atomes d’oxygène – le sulfate a 4 O et une charge de 2−.',
     ],
   },
 
@@ -741,12 +740,10 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Dire qu’un atome de carbone « pèse 12 » — 12 quoi ? Ar est une comparaison avec l’hydrogène et n’a pas d’unité. Les grammes n’arrivent qu’au moment où tu passes à une quantité réelle.',
+      'Dire qu’un atome de carbone « pèse 12 » — 12 quoi ? Ar est une comparaison et n’a pas d’unité. Les grammes n’arrivent qu’au moment où tu passes à une quantité réelle.',
       'Appliquer l’indice à toute la formule : dans CO2, le 2 ne concerne que l’oxygène.',
       'Oublier une parenthèse, si bien que Mg(OH)2 donne 41 au lieu de 58.',
       'Appeler la Mr « masse moléculaire » pour NaCl ou MgO. Il n’y a pas de molécule, et c’est précisément pour cela qu’on dit masse formulaire.',
-      'Mélanger une valeur du recueil de données à un exercice bâti sur le tableau de la classe, puis s’étonner que le résultat diffère d’une fraction de celui du corrigé.',
-      'Faire la moyenne des Ar au lieu de les additionner.',
     ],
   },
 
@@ -755,7 +752,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Conversions avec la mole, rapports molaires, réactif limitant et rendement, au même endroit.',
     keyTakeaways: [
-      'Une mole, c’est 6,02 × 10^23 entités (constante d’Avogadro, N_A). La masse molaire M (g/mol) est la masse d’une mole – additionne les masses atomiques lues dans le tableau périodique.',
+      'Une mole, c’est 6,02 × 10²³ entités (constante d’Avogadro, N_A). La masse molaire M (g/mol) est la masse d’une mole – additionne les masses atomiques lues dans le tableau périodique.',
       'Tous les chemins passent par la quantité de matière : convertis la donnée en moles, utilise le rapport molaire lu dans l’équation équilibrée, puis reconvertis vers la grandeur demandée.',
       'Le rapport molaire est le rapport des coefficients – rien d’autre.',
       'Réactif limitant : le réactif qui s’épuise en premier décide de la quantité de produit formée. Calcule la quantité de matière de chaque réactif et divise-la par son coefficient ; le plus petit résultat désigne le réactif limitant.',
@@ -795,7 +792,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Utiliser le rapport des masses au lieu du rapport molaire – 2 g de H2 ne réagissent pas avec 1 g de O2.',
       'Désigner comme limitant le réactif dont la masse est la plus petite, sans convertir en moles.',
       'Mélanger les unités : un volume en mL avec une c en mol/L donne une quantité de matière 1 000 fois trop grande.',
-      'Arrondir trop tôt – garde toute la précision jusqu’au résultat final, puis donne trois chiffres significatifs.',
+      'Arrondir trop tôt – garde toute la précision jusqu’au résultat final, puis arrondis-le avec autant de chiffres significatifs que la donnée la moins précise.',
     ],
   },
 
@@ -804,7 +801,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Compter les électrons de valence, les partager pour satisfaire l’octet, puis vérifier avec la charge formelle.',
     keyTakeaways: [
-      'Électrons de valence = numéro de colonne pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7). Ajoute un électron par charge négative, enlève-en un par charge positive.',
+      'Électrons de valence = chiffre des unités du numéro de colonne pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans la colonne 15, le chlore dans la colonne 17). Ajoute un électron par charge négative, enlève-en un par charge positive.',
       'Chaque liaison est un doublet partagé (2 électrons). Simple = 1 doublet, double = 2, triple = 3. Les électrons qui ne sont pas dans une liaison forment des doublets non liants.',
       'Règle de l’octet : la plupart des atomes veulent 8 électrons de valence autour d’eux. L’hydrogène en veut 2 (règle du duet).',
       'S’il manque des électrons à l’atome central pour compléter son octet une fois tous les électrons placés, transforme des doublets non liants des atomes périphériques en liaisons supplémentaires.',
@@ -825,10 +822,10 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'L’essentiel pour la 2de',
         content:
-          'Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un solitaire ; deux solitaires venant de deux atomes différents forment un doublet partagé, c’est-à-dire une liaison (dessinée par un trait). Les doublets qui restent sur un seul atome sont des doublets non liants. Un atome est complet avec 8 points autour de lui (un octet) – l’hydrogène est complet à 2 (un duet). Partage deux fois entre les deux mêmes atomes pour une liaison double, trois fois pour une liaison triple. Le nombre de solitaires te dit combien de liaisons un atome forme : H 1, C 4, N 3, O 2, Cl 1. Le soufre se comporte comme l’oxygène et le phosphore comme l’azote, parce qu’ils sont dans les mêmes colonnes. Tout ce qui suit cette section (charge formelle, formes VSEPR, exceptions à l’octet) relève du lycée.',
+          'Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un électron célibataire ; deux électrons célibataires venant de deux atomes différents forment un doublet partagé, c’est-à-dire une liaison (dessinée par un trait). Les doublets qui restent sur un seul atome sont des doublets non liants. Un atome est complet avec 8 points autour de lui (un octet) – l’hydrogène est complet à 2 (un duet). Partage deux fois entre les deux mêmes atomes pour une liaison double, trois fois pour une liaison triple. Le nombre d’électrons célibataires te dit combien de liaisons un atome forme : H 1, C 4, N 3, O 2, Cl 1. Le soufre se comporte comme l’oxygène et le phosphore comme l’azote, parce qu’ils sont dans les mêmes colonnes. Tout ce qui suit cette section (charge formelle, formes VSEPR, exceptions à l’octet) relève du lycée.',
         exampleNames: [
           'Eau – l’oxygène partage deux fois et garde 2 doublets non liants',
-          'Méthane – le carbone partage ses quatre solitaires',
+          'Méthane – le carbone partage ses quatre électrons célibataires',
           'Dioxygène – deux doublets partagés font une liaison double',
         ],
       },
@@ -907,6 +904,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
           // French names an ester the other way round from English: the acid
           // part first, then "de" and the alkyl group.
           ['Ester', '…-oate de …-yle', 'éthanoate de méthyle'],
+          ['Amide', '-amide', 'éthanamide'],
           ['Aldéhyde', '-al', 'éthanal'],
           ['Cétone', '-one', 'propan-2-one'],
           ['Alcool', '-ol', 'butan-2-ol'],
@@ -927,7 +925,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Prendre la chaîne dessinée à l’horizontale au lieu de la chaîne la plus longue.',
       'Numéroter par la mauvaise extrémité – le groupe caractéristique passe avant les substituants.',
       'Classer par le multiplicateur : « diméthyl » se classe à m, pas à d.',
-      'Oublier le numéro de position de -ène, -ol ou -one quand la chaîne a 4 carbones ou plus.',
+      'Oublier le numéro de position de -ène, -ol ou -one dès que le groupe peut occuper plusieurs positions (propan-1-ol ou propan-2-ol).',
     ],
   },
 
@@ -986,7 +984,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
             'CₙH₂ₙO₂',
             'Acide faible ; estérification avec un alcool',
           ],
-          ['Ester', '–COO–', '…-oate de …-yle', '—', 'Hydrolyse en acide + alcool'],
+          ['Ester', '–COO–', '…-oate de …-yle', 'CₙH₂ₙO₂', 'Hydrolyse en acide + alcool'],
           [
             'Amine',
             '–NH₂',
@@ -1007,11 +1005,11 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Repérer les groupes sur un spectre',
         content:
-          'IR : une bande O–H large vers 3200–3550 cm⁻¹ signale un alcool (ou, très large et superposée aux C–H, un acide carboxylique) ; une bande C=O intense vers 1670–1750 cm⁻¹ signale un aldéhyde, une cétone, un acide, un ester ou un amide. Les intervalles exacts sont dans le livret de données du VCE – sers-t’en.',
+          'IR : une bande O–H large vers 3200–3550 cm⁻¹ signale un alcool (ou, très large et superposée aux C–H, un acide carboxylique) ; une bande C=O intense vers 1670–1750 cm⁻¹ signale un aldéhyde, une cétone, un acide, un ester ou un amide. Les intervalles exacts figurent dans une table de données IR – sers-t’en.',
       },
     ],
     commonMistakes: [
-      'Appeler alcool une molécule qui porte un –OH sur un cycle benzénique (c’est un phénol) – hors programme VCE, mais c’est un piège classique.',
+      'Appeler alcool une molécule qui porte un –OH sur un cycle benzénique (c’est un phénol) – c’est un piège classique.',
       'Confondre un aldéhyde (C=O en bout de chaîne) et une cétone (C=O au milieu).',
       'Prendre les esters pour des acides parce qu’ils contiennent –COO– – ils n’ont pas de H acide.',
     ],

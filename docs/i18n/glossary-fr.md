@@ -241,11 +241,12 @@ the split.
 | atomic number | **numéro atomique** | — |
 | mass number | **nombre de masse** | Note the asymmetry French keeps and English does not: *numéro* for the one that identifies, *nombre* for the one that counts. |
 | energy level | **niveau d'énergie** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **couche électronique** | VC2S10U07 says "electron shells", so the sheet names *couche* once as the word the reader's teacher uses, and keeps *niveau d'énergie* as its own term. |
+| electron shell (the curriculum's word) | **couche électronique** | VC2S10U07 says "electron shells", so the sheet names *couche* once as the word the reader's teacher uses, and keeps *niveau d'énergie* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Ton prof parle peut-être de couches*); it no longer mentions the programme. |
 | outer level / outer shell | **niveau extérieur** / **couche externe** | *Couche externe* is the standard French phrase; the sheet uses *niveau extérieur* to stay consistent with *niveau d'énergie* and glosses the other once. |
 | Bohr model | **modèle de Bohr** | Named as a *model* every time, per the sheet's own contract. |
 | isotope | **isotope** | — |
 | group (a column) | **groupe** | The sheet always writes *groupe 1*, *groupe 17*, never a bare *groupe*, because *groupe* also names a functional group. |
+| valence electrons from the group number | **le chiffre des unités du numéro de colonne** (*Cl est dans la colonne 17 : 7 électrons de valence*) | Added 2026-09-25. With columns numbered 1–18, *numéro de colonne = électrons de valence* is only true for columns 1 and 2, and the bonding and Lewis sheets said exactly that. *Chiffre des unités* is plain school French for "last digit". The sheets keep *colonne* where they already used it; a French classroom says both. |
 | period (a row) | **période** | Not *ligne*, which is the layout word; *période* is the term and pairs with *tableau périodique*. |
 | metal | **métal** | — |
 | non-metal | **non-métal** | With the hyphen. Plural *non-métaux*. |
@@ -296,6 +297,7 @@ the split.
 | precipitation reaction | **réaction de précipitation** | — |
 | oxidation / reduction | **oxydation / réduction** | Note the **y**: *oxydation*, *oxydant*, but *oxygène* and *oxyde*. |
 | oxidising agent | **oxydant** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *chlorure de sodium*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In French the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 
 ## The mole and stoichiometry
 
@@ -311,6 +313,8 @@ the split.
 | in excess | **en excès** | — |
 | theoretical / actual yield | **quantité théorique / quantité obtenue** | **A real structural difference.** English "yield" is both a *mass* ("the theoretical yield is 72 g") and a *ratio* ("percentage yield"). French *rendement* is only the ratio — *« le rendement théorique est de 72 g »* is wrong French. So the two masses are *quantité théorique* and *quantité obtenue*, and *rendement* is reserved for the percentage. The stoichiometry sheet is written that way. |
 | percentage yield | **rendement** | *Rendement (en %) = quantité obtenue ÷ quantité théorique × 100.* |
+| significant figures | **chiffres significatifs** | Added 2026-09-25. The lycée rule is *autant de chiffres significatifs que la donnée la moins précise*, and the stoichiometry sheet now says that rather than a fixed three. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *une table de données IR*, which is what a French exercise supplies, and the polyatomic-ion table is headed *Les principaux ions polyatomiques*. |
 
 ## Organic chemistry
 

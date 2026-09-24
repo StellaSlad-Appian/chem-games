@@ -488,11 +488,12 @@ the split.
 | atomic number | **атомный номер** | *Порядковый номер* is the standard Russian school term and is arguably the better one. **The sheet already shipped with *атомный номер***, so that is what this table records; changing it means changing both sheets and the review file together, not one sentence. **Rated medium** for that reason, not because the term is wrong. |
 | mass number | **массовое число** | — |
 | energy level | **энергетический уровень** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **электронная оболочка** | VC2S10U07 says "electron shells", so the sheet names *оболочка* once as the word the reader's teacher uses, and keeps *энергетический уровень* as its own term. |
+| electron shell (the curriculum's word) | **электронная оболочка** | VC2S10U07 says "electron shells", so the sheet names *оболочка* once as the word the reader's teacher uses, and keeps *энергетический уровень* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Учитель может называть их электронными оболочками*); it no longer mentions the программа. |
 | outer level / outer shell | **внешний уровень** | Consistent with *энергетический уровень*. |
 | Bohr model | **модель Бора** | Named as a *model* every time, per the sheet's own contract. Note the genitive: *модель Бора*, never *модель Бор*. |
 | isotope | **изотоп** | — |
 | group (a column) | **группа** | The sheet always writes *группа 1*, *группа 17*, never a bare *группа*. Russian numbers the groups with Arabic numerals here rather than the older Roman-numeral-plus-letter system, because that is what the periodic table in the rest of the site shows. |
+| valence electrons from the group number | **последняя цифра номера группы** (*Cl в группе 17 — 7 валентных электронов*), once with *в короткой таблице это VII группа* | Added 2026-09-25. Russian schools still teach from the short table (groups I–VIII with main and secondary subgroups), where the group number itself is the valence-electron count of a main-subgroup element. The site shows groups 1–18, so the bonding and Lewis sheets state the last-digit rule, and the bonding sheet names the short-table group once as the bridge to the textbook. *Главная подгруппа* is kept: it is the term a Russian student knows for main-group elements. |
 | period (a row) | **период** | Collides with *период полураспада* below; the sheet never uses the bare word for the half-life. |
 | metal | **металл** | Two л. |
 | non-metal | **неметалл** | One word, no hyphen. |
@@ -554,6 +555,7 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | oxidation / reduction | **окисление / восстановление** | — |
 | redox | **окислительно-восстановительная** | Thirty characters, and the badge is CSS-uppercased — the longest string in the file that sits in a fixed-width control, so it is the one to re-check on the rendered card at 360 px. *Редокс* exists in Russian (*редокс-реакция*) and would have been five characters, but it is laboratory jargon rather than school vocabulary, and the other seven badges are all the words a textbook prints. |
 | oxidising agent | **окислитель** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *хлорид натрия*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Russian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 
 ## The mole and stoichiometry
 
@@ -569,6 +571,8 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | in excess | **в избытке** | — |
 | theoretical / actual yield | **теоретический / практический выход** | Russian says *практический*, not *фактический*, for the measured yield. |
 | percentage yield | **выход в процентах** | — |
+| significant figures | **значащие цифры** | Added 2026-09-25. The stoichiometry sheet phrases the rule as *столько значащих цифр, сколько их в наименее точном из данных значений*, not a fixed three. Russian school chemistry drills this less than the English-speaking systems do, but the term and the rule are the physics-class ones. **Rated medium.** |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet (the sheets had called it *справочник VCE*). The IR sentence now points to *таблицы ИК-спектроскопии*, and the polyatomic-ion table is headed *Основные многоатомные ионы*. |
 
 ## Organic chemistry
 

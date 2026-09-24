@@ -266,7 +266,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Electrons, energy levels and the shape of the table',
         content:
-          'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. Your teacher and the curriculum may call these shells, and it means the same thing. Counting electrons this way is called the Bohr model: it is useful, and it is not a picture of a real atom. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
+          'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. Your teacher may call these shells; it means the same thing. Counting electrons this way is called the Bohr model: it is useful, and it is not a picture of a real atom. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
         image: {
           src: `${ATOMIC_STRUCTURE_DIAGRAMS}05-energy-levels.svg`,
           width: 640,
@@ -424,7 +424,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Elements that had to be made',
         content:
-          'Elements past uranium have no stable isotopes and are not found in nature in any useful amount. They are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. Making them is how the bottom rows of the periodic table were filled in.',
+          'Elements past uranium have no stable isotopes and are not found in nature in any useful amount. The first few, such as plutonium, are made in nuclear reactors, where uranium takes in neutrons and then decays into them. The heavier ones are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. Making them is how the bottom rows of the periodic table were filled in.',
         /*
          * The same component as the Year 9 sheet, gated to two modes: *natural
          * or made*, which is this paragraph, and *metals* for orientation. The
@@ -453,7 +453,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     keyTakeaways: [
       'Solids: particles vibrate in fixed positions — fixed shape and fixed volume.',
       'Liquids: particles slide past each other — fixed volume, takes the shape of the container.',
-      'Gases: particles move freely and fast — fills any container, easily compressed.',
+      'Gases: particles move freely and are far apart — fills any container, easily compressed.',
       'Temperature is a measure of the average kinetic energy of the particles.',
       'During a phase change the temperature stays constant: energy goes into breaking or forming attractions between particles, not into speeding them up.',
     ],
@@ -510,9 +510,9 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     keyTakeaways: [
       'Acid: a proton (H+) donor. In water it produces hydronium ions, H3O+. pH < 7.',
       'Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH-, in water. pH > 7.',
-      'Neutral: pH 7 at 25 °C — pure water and most salts.',
+      'Neutral: pH 7 at 25 °C — pure water, and solutions of salts like NaCl.',
       'Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH- → H2O.',
-      'Each step on the pH scale is a ×10 change in H+ concentration: pH 2 is 100× more acidic than pH 4.',
+      'Each step on the pH scale is a ×10 change in H+ concentration: pH 2 has 100× the H+ concentration of pH 4.',
     ],
     formulaExamples: [
       { name: 'Hydrochloric acid (strong)', formula: 'HCl' },
@@ -581,9 +581,9 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Always include state symbols in the final equation.',
     ],
     formulaExamples: [
-      { name: 'Unbalanced', formula: 'H2 + O2 -> H2O' },
+      { name: 'Unbalanced (no states yet)', formula: 'H2 + O2 -> H2O' },
       { name: 'Balanced', formula: '2H2 (g) + O2 (g) -> 2H2O (l)' },
-      { name: 'With a polyatomic ion as a unit', formula: 'Al2(SO4)3 + 3Ba(NO3)2 -> 2Al(NO3)3 + 3BaSO4' },
+      { name: 'With a polyatomic ion as a unit', formula: 'Al2(SO4)3 (aq) + 3Ba(NO3)2 (aq) -> 2Al(NO3)3 (aq) + 3BaSO4 (s)' },
     ],
     sections: [
       {
@@ -617,12 +617,12 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     keyTakeaways: [
       'Synthesis (combination): two or more substances join — A + B → AB.',
       'Decomposition: one substance breaks apart — AB → A + B (often needs heat or electricity).',
-      'Combustion: fuel + oxygen → carbon dioxide + water (complete) — releases heat.',
+      'Combustion: fuel + oxygen → carbon dioxide + water (for a hydrocarbon fuel, burning completely) — releases heat.',
       'Single displacement: a more reactive element takes the place of a less reactive one — A + BC → AC + B.',
       'Double displacement: ions swap partners — AB + CD → AD + CB (precipitation and neutralisation are special cases).',
     ],
     formulaExamples: [
-      { name: 'Synthesis', formula: '2Mg (s) + O2 (g) -> 2MgO (s)' },
+      { name: 'Synthesis', formula: 'Fe (s) + S (s) -> FeS (s)' },
       { name: 'Decomposition', formula: 'CaCO3 (s) -> CaO (s) + CO2 (g)' },
       { name: 'Combustion', formula: 'CH4 (g) + 2O2 (g) -> CO2 (g) + 2H2O (l)' },
       { name: 'Single displacement', formula: 'Zn (s) + CuSO4 (aq) -> ZnSO4 (aq) + Cu (s)' },
@@ -666,7 +666,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     colorTheme: 'border-cyan-500 text-cyan-500',
     curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1 (metals, ionic compounds, covalent substances).',
     keyTakeaways: [
-      'Atoms bond to reach a stable, full outer shell (a noble-gas configuration). The group number tells you how many valence electrons a main-group element has.',
+      'Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons).',
       'Ionic: metal + non-metal. Electrons are transferred, forming ions held in a 3D lattice by electrostatic attraction.',
       'Covalent: non-metal + non-metal. Electrons are shared in pairs; each shared pair is one bond.',
       'Metallic: metal atoms in a lattice of cations surrounded by a "sea" of delocalised electrons.',
@@ -746,7 +746,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     commonMistakes: [
       'Forgetting to simplify: Mg2O2 must become MgO.',
       'Brackets around a single polyatomic ion: NaOH, not Na(OH).',
-      'Writing the anion first because it sounds first in casual speech.',
     ],
     resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM],
   },
@@ -762,10 +761,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     relatedGames: ['neutralise', 'formula-blaster'],
     keyTakeaways: [
       'A polyatomic ion is a group of covalently bonded atoms that carries an overall charge and moves as one unit in reactions.',
-      'The only common polyatomic cation is ammonium, NH4+. All the rest are anions.',
+      'The only common polyatomic cation is ammonium, NH4+ (apart from hydronium, H3O+, which you meet in acids). All the rest are anions.',
       '"-ate" has more oxygen than "-ite": sulfate SO4 2− vs sulfite SO3 2−; nitrate NO3− vs nitrite NO2−. The charge stays the same.',
       '"per-…-ate" is one more oxygen than -ate; "hypo-…-ite" is one fewer than -ite (perchlorate ClO4−, chlorate ClO3−, chlorite ClO2−, hypochlorite ClO−).',
-      'Adding H+ to an anion raises its charge by one and adds "hydrogen" to the name: carbonate CO3 2− → hydrogen carbonate HCO3−.',
+      'Adding H+ to an anion makes its charge one less negative and adds "hydrogen" to the name: carbonate CO3 2− → hydrogen carbonate HCO3−.',
     ],
     formulaExamples: [
       { name: 'Sodium nitrate', formula: 'NaNO3' },
@@ -781,13 +780,13 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
       {
         heading: 'Where they show up',
-        content: 'Acids: sulfuric acid is H2SO4 because sulfate is 2−; nitric acid is HNO3 because nitrate is 1−. Precipitation: most nitrates and all ammonium salts are soluble, so they are the usual "spectator" partners. Redox: permanganate and dichromate are the classic oxidising agents.',
+        content: 'Acids: sulfuric acid is H2SO4 because sulfate is 2−; nitric acid is HNO3 because nitrate is 1−. Precipitation: all nitrates and all ammonium salts are soluble, so they are the usual "spectator" partners. Redox: permanganate and dichromate are the classic oxidising agents.',
       },
     ],
     commonMistakes: [
       'Splitting the ion in a formula (writing Ca(OH)2 as CaO2H2) — it stays together.',
       'Treating the charge as belonging to the last atom only — it belongs to the whole group.',
-      'Confusing the charge (−2) with the number of oxygens — sulfate has 4 O and charge 2−.',
+      'Confusing the charge (2−) with the number of oxygens — sulfate has 4 O and charge 2−.',
     ],
     resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM, IUPAC_GOLD_BOOK],
   },
@@ -959,12 +958,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
     ],
     commonMistakes: [
-      'Saying an atom of carbon "weighs 12" — 12 what? Ar is a comparison with hydrogen and has no unit. Grams only appear once you scale up to a real amount.',
+      'Saying an atom of carbon "weighs 12" — 12 what? Ar is a comparison and has no unit. Grams only appear once you scale up to a real amount.',
       'Applying a subscript to the whole formula: in CO2 the 2 belongs to the oxygen alone.',
       'Ignoring a bracket, so Mg(OH)2 comes out as 41 instead of 58.',
       'Calling Mr the "molecular mass" for something like NaCl or MgO. There is no molecule there, which is exactly why it is called formula mass.',
-      'Mixing a data-book value into a question built on the class table, then wondering why the answer disagrees with the worksheet by a fraction.',
-      'Averaging the Ar values instead of adding them.',
     ],
     resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM],
   },
@@ -979,7 +976,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     curriculumRef: 'VCE Unit 2 AoS 1–2 (the mole, concentration, stoichiometry); Unit 3 AoS 2 (yield).',
     relatedGames: ['reaction-balancer'],
     keyTakeaways: [
-      'One mole is 6.02 × 10^23 particles (Avogadro\'s number, N_A). Molar mass M (g/mol) is the mass of one mole — add up the atomic masses from the periodic table.',
+      'One mole is 6.02 × 10²³ particles (Avogadro\'s number, N_A). Molar mass M (g/mol) is the mass of one mole — add up the atomic masses from the periodic table.',
       'All roads go through moles: convert what you are given into moles, use the mole ratio from the balanced equation, then convert back to what is asked.',
       'The mole ratio is the ratio of coefficients — nothing else.',
       'Limiting reagent: the reactant that runs out first decides how much product forms. Find moles of each reactant, divide by its coefficient; the smallest result is limiting.',
@@ -1016,7 +1013,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Using the mass ratio instead of the mole ratio — 2 g of H2 does not react with 1 g of O2.',
       'Picking the reactant with the smaller mass as limiting without converting to moles.',
       'Mixing units: volume in mL with c in mol/L gives moles ×1000 too big.',
-      'Rounding early — keep full precision until the final answer, then give 3 significant figures.',
+      'Rounding early — keep full precision until the final answer, then round to the same number of significant figures as the least precise value you were given.',
     ],
     resources: [
       PHET('reactants-products-and-leftovers', 'Reactants, Products and Leftovers', 'Sandwiches first, then real reactions — the clearest limiting-reagent visual there is.'),
@@ -1035,7 +1032,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     colorTheme: 'border-teal-500 text-teal-500',
     curriculumRef: 'VCE Unit 1 AoS 1 (covalent bonding, Lewis structures, VSEPR shapes).',
     keyTakeaways: [
-      'Valence electrons = group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7). Add one electron per negative charge, remove one per positive charge.',
+      'Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17). Add one electron per negative charge, remove one per positive charge.',
       'Each bond is a shared pair (2 electrons). Single = 1 pair, double = 2, triple = 3. Electrons not in bonds sit as lone pairs.',
       'Octet rule: most atoms want 8 valence electrons around them. Hydrogen wants 2 (duet).',
       'If the central atom is short of an octet after using all electrons, convert lone pairs on outer atoms into extra bonds.',
@@ -1051,7 +1048,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Year 10 essentials',
         content:
-          'Every atom brings its outer electrons as dots. A dot on its own is a loner; two loners from two different atoms make a shared pair, which is one bond (drawn as a line). Pairs that stay on one atom are lone pairs. An atom is full at 8 dots around it (an octet) — hydrogen is full at 2 (a duet). Share twice between the same two atoms for a double bond, three times for a triple. The number of loners tells you how many bonds an atom makes: H 1, C 4, N 3, O 2, Cl 1. Sulfur behaves like oxygen and phosphorus like nitrogen because they are in the same groups. Everything below this section (formal charge, VSEPR shapes, octet exceptions) is Senior content.',
+          'Every atom brings its outer electrons as dots. A dot on its own is an unpaired electron (a "loner"); two loners from two different atoms make a shared pair, which is one bond (drawn as a line). Pairs that stay on one atom are lone pairs. An atom is full at 8 dots around it (an octet) — hydrogen is full at 2 (a duet). Share twice between the same two atoms for a double bond, three times for a triple. The number of loners tells you how many bonds an atom makes: H 1, C 4, N 3, O 2, Cl 1. Sulfur behaves like oxygen and phosphorus like nitrogen because they are in the same groups. Everything below this section (formal charge, VSEPR shapes, octet exceptions) is Senior content.',
         examples: [
           { name: 'Water — oxygen shares twice, keeps 2 lone pairs', formula: 'H2O' },
           { name: 'Methane — carbon shares all four loners', formula: 'CH4' },
@@ -1144,6 +1141,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         rows: [
           ['Carboxylic acid', '-oic acid', 'propanoic acid'],
           ['Ester', '-yl …-oate', 'methyl ethanoate'],
+          ['Amide', '-amide', 'ethanamide'],
           ['Aldehyde', '-al', 'ethanal'],
           ['Ketone', '-one', 'propan-2-one'],
           ['Alcohol', '-ol', 'butan-2-ol'],
@@ -1163,7 +1161,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Taking the chain as drawn horizontally instead of the longest chain.',
       'Numbering from the wrong end — the functional group beats the substituents.',
       'Alphabetising by the multiplier: "dimethyl" files under m, not d.',
-      'Forgetting the locant for -ene, -ol, -one when the chain has 4 or more carbons.',
+      'Forgetting the locant for -ene, -ol or -one whenever the group could sit in more than one position (propan-1-ol vs propan-2-ol).',
     ],
     resources: [CHEMGUIDE, MOLVIEW, PUBCHEM, KHAN_HS_CHEM, IUPAC_GOLD_BOOK],
   },
@@ -1203,7 +1201,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           ['Aldehyde', '–CHO', '-al', 'CₙH₂ₙO', 'Oxidises to carboxylic acid'],
           ['Ketone', 'C=O (internal)', '-one', 'CₙH₂ₙO', 'Resists oxidation'],
           ['Carboxylic acid', '–COOH', '-oic acid', 'CₙH₂ₙO₂', 'Weak acid; esterification with alcohol'],
-          ['Ester', '–COO–', 'alkyl …-oate', '—', 'Hydrolysis back to acid + alcohol'],
+          ['Ester', '–COO–', 'alkyl …-oate', 'CₙH₂ₙO₂', 'Hydrolysis back to acid + alcohol'],
           ['Amine', '–NH₂', '-amine', 'CₙH₂ₙ₊₁NH₂', 'Weak base; forms amides with acids'],
           ['Amide', '–CONH₂', '-amide', '—', 'Hydrolysis'],
         ],
@@ -1220,7 +1218,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
     ],
     commonMistakes: [
-      'Calling a molecule with –OH on a benzene ring an alcohol (it is a phenol) — outside VCE scope, but a common trap.',
+      'Calling a molecule with –OH on a benzene ring an alcohol (it is a phenol) — a common trap.',
       'Confusing an aldehyde (C=O at the end) with a ketone (C=O in the middle).',
       'Thinking esters are acids because they contain –COO– — they have no acidic H.',
     ],

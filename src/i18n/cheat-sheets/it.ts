@@ -152,7 +152,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Elettroni, livelli di energia e forma della tavola',
         content:
-          'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna, e anche il programma, può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
+          'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
         imageAlt:
           'Un nucleo di sodio con 11 protoni e 12 neutroni, circondato da tre bande sfumate che contengono 2, 8 e 1 elettroni, disegnati come segni ad angoli irregolari e non come punti su cerchi. Accanto, la disposizione 2, 8, 1 con il livello esterno per ultimo. La figura stessa dice che è un modo per contare gli elettroni e non l’immagine di un atomo, e che il nucleo è disegnato circa 100 000 volte troppo grande.',
       },
@@ -265,7 +265,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Elementi che è stato necessario fabbricare',
         content:
-          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura in quantità apprezzabili. Vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. È fabbricandoli che sono state riempite le ultime righe della tavola periodica.',
+          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura in quantità apprezzabili. I primi, come il plutonio, si producono nei reattori nucleari: lì l’uranio cattura neutroni e poi, decadendo, si trasforma in questi elementi. Quelli più pesanti vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. È fabbricandoli che sono state riempite le ultime righe della tavola periodica.',
       },
     ],
   },
@@ -276,7 +276,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Solidi: le particelle vibrano in posizioni fisse; forma fissa e volume fisso.',
       'Liquidi: le particelle scivolano le une sulle altre; volume fisso, ma la forma è quella del recipiente.',
-      'Gas: le particelle si muovono liberamente e in fretta; riempiono qualsiasi recipiente e si comprimono facilmente.',
+      'Gas: le particelle si muovono liberamente e sono molto distanti fra loro; riempiono qualsiasi recipiente e si comprimono facilmente.',
       'La temperatura misura l’energia cinetica media delle particelle.',
       'Durante un passaggio di stato la temperatura non cambia: l’energia serve a rompere o a formare le attrazioni fra le particelle, non ad accelerarle.',
     ],
@@ -325,9 +325,9 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Acido: un donatore di protoni (H+). In acqua forma ioni idronio, H3O+. pH < 7.',
       'Base: un accettore di protoni. Le basi solubili (alcali) liberano ioni idrossido, OH-, in acqua. pH > 7.',
-      'Neutro: pH 7 a 25 °C; l’acqua pura e quasi tutti i sali.',
+      'Neutro: pH 7 a 25 °C; l’acqua pura e le soluzioni di sali come NaCl.',
       'Neutralizzazione: acido + base → sale + acqua. L’equazione ionica è sempre H+ + OH- → H2O.',
-      'Ogni gradino della scala del pH è un fattore 10 nella concentrazione di H+: un pH 2 è 100 volte più acido di un pH 4.',
+      'Ogni gradino della scala del pH è un fattore 10 nella concentrazione di H+: a pH 2 la concentrazione di H+ è 100 volte quella a pH 4.',
     ],
     formulaExampleNames: [
       'Acido cloridrico (forte)',
@@ -381,7 +381,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Scrivi sempre i simboli di stato nell’equazione finale.',
     ],
     formulaExampleNames: [
-      'Non bilanciata',
+      'Non bilanciata (ancora senza simboli di stato)',
       'Bilanciata',
       'Con uno ione poliatomico trattato come un’unità',
     ],
@@ -407,7 +407,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Sintesi (combinazione): due o più sostanze si uniscono; A + B → AB.',
       'Decomposizione: una sostanza si separa; AB → A + B (spesso serve calore o corrente elettrica).',
-      'Combustione: combustibile + ossigeno → diossido di carbonio + acqua (combustione completa); si libera calore.',
+      'Combustione: combustibile + ossigeno → diossido di carbonio + acqua (per un idrocarburo, con combustione completa); si libera calore.',
       'Scambio semplice: un elemento più reattivo prende il posto di uno meno reattivo; A + BC → AC + B.',
       'Doppio scambio: gli ioni si scambiano il partner; AB + CD → AD + CB (la precipitazione e la neutralizzazione sono casi particolari).',
     ],
@@ -452,7 +452,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Legame ionico, covalente e metallico, e come la struttura spiega le proprietà.',
     keyTakeaways: [
-      'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). Il numero del gruppo ti dice quanti elettroni di valenza ha un elemento rappresentativo.',
+      'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). In un elemento rappresentativo, l’ultima cifra del numero del gruppo ti dice quanti elettroni di valenza ha (il Cl è nel gruppo 17: 7 elettroni di valenza).',
       'Ionico: metallo + non metallo. Si trasferiscono elettroni e si formano ioni tenuti insieme in un reticolo tridimensionale dall’attrazione elettrostatica.',
       'Covalente: non metallo + non metallo. Gli elettroni si condividono a due a due: ogni doppietto in comune fra due atomi è un legame.',
       'Metallico: atomi di metallo in un reticolo di cationi circondati da un «mare» di elettroni liberi.',
@@ -508,7 +508,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Pareggia le cariche: prima il catione, incrocia le cariche e metti le parentesi agli ioni poliatomici ripetuti.',
     keyTakeaways: [
       'Un composto ionico non ha carica complessiva: la carica positiva totale è uguale alla carica negativa totale.',
-      'Nella formula scrivi prima il catione (il metallo o NH4+) e poi l’anione.',
+      'Nella formula scrivi prima il catione (il metallo o NH4+) e poi l’anione, anche se nel nome l’anione viene prima: cloruro di sodio, NaCl.',
       'Metodo dell’incrocio: il valore della carica di ogni ione diventa il pedice dell’altro ione; poi si semplifica al rapporto più piccolo.',
       'Uno ione poliatomico è un’unità. Se te ne serve più di uno, va fra parentesi: Ca(OH)2, non CaOH2.',
       'I metalli con più cariche possibili (Fe, Cu, Pb, Sn) indicano la propria con un numero romano nel nome: ferro(III) = Fe 3+.',
@@ -536,7 +536,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     commonMistakes: [
       'Dimenticare di semplificare: Mg2O2 deve diventare MgO.',
       'Mettere le parentesi a uno ione poliatomico che sta da solo: NaOH, non Na(OH).',
-      'Scrivere prima l’anione nella formula perché in italiano si nomina per primo.',
     ],
   },
 
@@ -546,10 +545,10 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'La tabella di consultazione, più gli schemi di nomenclatura che fanno sì che ci sia molto meno da imparare a memoria di quanto sembri.',
     keyTakeaways: [
       'Uno ione poliatomico è un gruppo di atomi uniti da legami covalenti che ha una carica complessiva e si muove come un’unità nelle reazioni.',
-      'L’unico catione poliatomico comune è l’ammonio, NH4+. Tutti gli altri sono anioni.',
+      'L’unico catione poliatomico comune è l’ammonio, NH4+ (a parte lo ione idronio, H3O+, che incontri negli acidi). Tutti gli altri sono anioni.',
       '«-ato» ha più ossigeno di «-ito»: solfato SO4 2− contro solfito SO3 2−; nitrato NO3− contro nitrito NO2−. La carica non cambia.',
       '«per-…-ato» è un ossigeno in più di -ato; «ipo-…-ito» è uno in meno di -ito (perclorato ClO4−, clorato ClO3−, clorito ClO2−, ipoclorito ClO−).',
-      'Aggiungere H+ a un anione ne alza la carica di un’unità e aggiunge «idrogeno» al nome: carbonato CO3 2− → idrogenocarbonato HCO3−.',
+      'Aggiungere H+ a un anione ne rende la carica meno negativa di un’unità e aggiunge «idrogeno» al nome: carbonato CO3 2− → idrogenocarbonato HCO3−.',
     ],
     formulaExampleNames: [
       'Nitrato di sodio',
@@ -559,7 +558,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     ],
     tables: [
       {
-        heading: 'Ioni poliatomici (quelli del libro dei dati di VCE)',
+        heading: 'Gli ioni poliatomici più comuni',
         caption:
           'Prima i cationi e poi gli anioni, raggruppati per carica. I nomi fra parentesi sono nomi vecchi che si incontrano ancora.',
         columns: ['Nome', 'Formula', 'Carica'],
@@ -575,13 +574,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Dove compaiono',
         content:
-          'Acidi: l’acido solforico è H2SO4 perché il solfato è 2−; l’acido nitrico è HNO3 perché il nitrato è 1−. Precipitazione: quasi tutti i nitrati e tutti i sali di ammonio sono solubili, quindi sono le coppie «spettatrici» di sempre. Redox: il permanganato e il dicromato sono gli ossidanti classici.',
+          'Acidi: l’acido solforico è H2SO4 perché il solfato è 2−; l’acido nitrico è HNO3 perché il nitrato è 1−. Precipitazione: tutti i nitrati e tutti i sali di ammonio sono solubili, quindi sono le coppie «spettatrici» di sempre. Redox: il permanganato e il dicromato sono gli ossidanti classici.',
       },
     ],
     commonMistakes: [
       'Spezzare lo ione dentro una formula (scrivere Ca(OH)2 come CaO2H2): sta sempre insieme.',
       'Trattare la carica come se fosse solo dell’ultimo atomo: è di tutto il gruppo.',
-      'Confondere la carica (−2) con il numero di ossigeni: il solfato ha 4 O e carica 2−.',
+      'Confondere la carica (2−) con il numero di ossigeni: il solfato ha 4 O e carica 2−.',
     ],
   },
 
@@ -744,12 +743,10 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       },
     ],
     commonMistakes: [
-      'Dire che un atomo di carbonio «pesa 12»: 12 che cosa? Ar è un confronto con l’idrogeno e non ha unità. I grammi arrivano solo quando passi a una quantità reale.',
+      'Dire che un atomo di carbonio «pesa 12»: 12 che cosa? Ar è un confronto e non ha unità. I grammi arrivano solo quando passi a una quantità reale.',
       'Applicare il pedice a tutta la formula: in CO2 il 2 riguarda solo l’ossigeno.',
       'Non vedere una parentesi, così Mg(OH)2 viene 41 invece di 58.',
       'Chiamare la Mr «massa molecolare» per NaCl o MgO. Lì non c’è nessuna molecola, ed è esattamente per questo che si chiama massa formula.',
-      'Mescolare un valore del libro dei dati in un esercizio costruito sulla tavola di classe e poi stupirsi che il risultato differisca di una frazione.',
-      'Fare la media delle Ar invece di sommarle.',
     ],
   },
 
@@ -758,7 +755,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Conversioni con la mole, rapporti molari, reagente limitante e resa percentuale, tutto in un posto.',
     keyTakeaways: [
-      'Una mole è 6,02 × 10^23 particelle (la costante di Avogadro, N_A). La massa molare M (g/mol) è la massa di una mole: si sommano le masse atomiche della tavola periodica.',
+      'Una mole è 6,02 × 10²³ particelle (la costante di Avogadro, N_A). La massa molare M (g/mol) è la massa di una mole: si sommano le masse atomiche della tavola periodica.',
       'Tutte le strade passano per la mole: converti in moli quello che ti danno, usa il rapporto molare dell’equazione bilanciata e riconverti in quello che ti chiedono.',
       'Il rapporto molare è il rapporto fra i coefficienti, e nient’altro.',
       'Reagente limitante: il reagente che finisce per primo decide quanto prodotto si forma. Calcola le moli di ogni reagente e dividile per il suo coefficiente; il risultato più piccolo è il limitante.',
@@ -794,7 +791,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Usare il rapporto fra le masse invece del rapporto molare: 2 g di H2 non reagiscono con 1 g di O2.',
       'Scegliere come limitante il reagente che ha meno massa, senza passare prima alle moli.',
       'Mescolare le unità: un volume in mL con una c in mol/L dà moli 1000 volte più grandi.',
-      'Arrotondare presto: tieni tutta la precisione fino al risultato finale e dai allora 3 cifre significative.',
+      'Arrotondare presto: tieni tutta la precisione fino al risultato finale e poi arrotonda allo stesso numero di cifre significative del dato meno preciso.',
     ],
   },
 
@@ -803,7 +800,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Conta gli elettroni di valenza, condividi fino a completare gli ottetti e verifica con la carica formale.',
     keyTakeaways: [
-      'Elettroni di valenza = numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
+      'Elettroni di valenza = ultima cifra del numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7; l’azoto è nel gruppo 15 e il cloro nel 17). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
       'Ogni legame è un doppietto in comune fra due atomi (2 elettroni). Singolo = 1 doppietto, doppio = 2, triplo = 3. Gli elettroni che non formano legami restano come doppietti solitari.',
       'Regola dell’ottetto: quasi tutti gli atomi vogliono 8 elettroni di valenza intorno. L’idrogeno ne vuole 2 (il duetto).',
       'Se all’atomo centrale manca qualcosa per l’ottetto dopo aver distribuito tutti gli elettroni, trasforma doppietti solitari degli atomi esterni in legami aggiuntivi.',
@@ -819,10 +816,10 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'L’essenziale di terza media',
         content:
-          'Ogni atomo porta i suoi elettroni esterni sotto forma di punti. Un punto da solo è un dispari; due dispari di due atomi diversi formano un doppietto di legame, cioè un legame (si disegna come una linea). I doppietti che restano su un solo atomo sono doppietti solitari. Un atomo è completo con 8 punti intorno (un ottetto); l’idrogeno è completo con 2 (un duetto). Condividi due volte fra gli stessi due atomi per un legame doppio, e tre per uno triplo. Il numero di dispari ti dice quanti legami forma un atomo: H 1, C 4, N 3, O 2, Cl 1. Lo zolfo si comporta come l’ossigeno e il fosforo come l’azoto, perché stanno negli stessi gruppi. Tutto quello che viene sotto questa sezione (carica formale, geometria VSEPR, eccezioni all’ottetto) è materia delle superiori.',
+          'Ogni atomo porta i suoi elettroni esterni sotto forma di punti. Un punto da solo è un elettrone spaiato; due elettroni spaiati di due atomi diversi formano un doppietto di legame, cioè un legame (si disegna come una linea). I doppietti che restano su un solo atomo sono doppietti solitari. Un atomo è completo con 8 punti intorno (un ottetto); l’idrogeno è completo con 2 (un duetto). Condividi due volte fra gli stessi due atomi per un legame doppio, e tre per uno triplo. Il numero di elettroni spaiati ti dice quanti legami forma un atomo: H 1, C 4, N 3, O 2, Cl 1. Lo zolfo si comporta come l’ossigeno e il fosforo come l’azoto, perché stanno negli stessi gruppi. Tutto quello che viene sotto questa sezione (carica formale, geometria VSEPR, eccezioni all’ottetto) è materia delle superiori.',
         exampleNames: [
           'Acqua: l’ossigeno condivide due volte e si tiene 2 doppietti solitari',
-          'Metano: il carbonio condivide i suoi quattro dispari',
+          'Metano: il carbonio condivide i suoi quattro elettroni spaiati',
           'Ossigeno: due doppietti di legame fanno un legame doppio',
         ],
       },
@@ -899,6 +896,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         rows: [
           ['Acido carbossilico', 'acido …-oico', 'acido propanoico'],
           ['Estere', '-oato di -ile', 'etanoato di metile'],
+          ['Ammide', '-ammide', 'etanammide'],
           ['Aldeide', '-ale', 'etanale'],
           ['Chetone', '-one', 'propan-2-one'],
           ['Alcol', '-olo', 'butan-2-olo'],
@@ -919,7 +917,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Prendere la catena così com’è disegnata in orizzontale invece della catena più lunga.',
       'Numerare dall’estremità sbagliata: il gruppo funzionale comanda sui sostituenti.',
       'Mettere in ordine alfabetico partendo dal moltiplicatore: «dimetil» va sotto la m, non sotto la d.',
-      'Dimenticare il numero di -ene, -olo o -one quando la catena ha 4 carboni o più.',
+      'Dimenticare il numero di -ene, -olo o -one ogni volta che il gruppo potrebbe stare in più di una posizione (propan-1-olo o propan-2-olo).',
     ],
   },
 
@@ -965,7 +963,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
             'CₙH₂ₙO₂',
             'Acido debole; esterificazione con un alcol',
           ],
-          ['Estere', '–COO–', '-oato di -ile', '—', 'Idrolisi, che restituisce l’acido e l’alcol'],
+          ['Estere', '–COO–', '-oato di -ile', 'CₙH₂ₙO₂', 'Idrolisi, che restituisce l’acido e l’alcol'],
           ['Ammina', '–NH₂', '-ammina', 'CₙH₂ₙ₊₁NH₂', 'Base debole; forma ammidi con gli acidi'],
           ['Ammide', '–CONH₂', '-ammide', '—', 'Idrolisi'],
         ],
@@ -980,11 +978,11 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Riconoscere un gruppo in uno spettro',
         content:
-          'IR: una banda larga di O–H verso 3200–3550 cm⁻¹ indica un alcol (oppure, se è molto larga e si sovrappone al C–H, un acido carbossilico); un C=O intenso vicino a 1670–1750 cm⁻¹ indica un’aldeide, un chetone, un acido, un estere o un’ammide. Il libro dei dati di VCE dà gli intervalli esatti: usalo.',
+          'IR: una banda larga di O–H verso 3200–3550 cm⁻¹ indica un alcol (oppure, se è molto larga e si sovrappone al C–H, un acido carbossilico); un C=O intenso vicino a 1670–1750 cm⁻¹ indica un’aldeide, un chetone, un acido, un estere o un’ammide. Gli intervalli esatti li trovi in una tabella IR: usala.',
       },
     ],
     commonMistakes: [
-      'Chiamare alcol una molecola con –OH su un anello benzenico (è un fenolo): è fuori dal programma di VCE, ma è una trappola frequente.',
+      'Chiamare alcol una molecola con –OH su un anello benzenico (è un fenolo): è una trappola frequente.',
       'Confondere un’aldeide (C=O all’estremità) con un chetone (C=O in mezzo).',
       'Credere che gli esteri siano acidi perché contengono –COO–: non hanno nessun H acido.',
     ],
