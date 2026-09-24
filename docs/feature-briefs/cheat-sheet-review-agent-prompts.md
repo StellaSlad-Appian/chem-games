@@ -90,6 +90,49 @@ CHANGING TEXT IN SIX LANGUAGES
   say so in your report.
 - Formulae, element symbols, state symbols and charges are never translated.
 
+LOCALISE, DON'T JUST TRANSLATE
+Write each language the way a chemistry teacher in that country would write
+it for their own students, not as a word-for-word rendering of the English.
+- The glossary decides first. docs/i18n/glossary-<lang>.md already settles
+  many conventions: group numbering 1–18, the × sign, decimal commas, year
+  labels (Klasse 10, 2ᵈᵉ, 9 класс…), and terms such as "groupe
+  caractéristique" or "сложный эфир". Where it has decided, follow it even if
+  your instinct differs. Where it is silent, choose what that country's school
+  textbooks use, and ADD the decision to the glossary (term | choice | reason)
+  in the same commit, so the next agent inherits it.
+- Numbers, units and typography, following docs/i18n/README.md §4 and each
+  glossary:
+  - decimal comma in de/fr/es/it/ru (35,5; 12,5 %; 6,02 × 10²³);
+  - that language's thousands separator (100 000 or 100.000, as the glossary
+    says);
+  - a no-break space between a number and its unit, and before % where the
+    language uses one;
+  - the language's own quotation marks („…“, « … », «…»);
+  - French no-break spaces before : ; ! ?
+  Formulae and equations keep their own notation.
+- Chemical names in the form students meet in that country's school: the
+  local IUPAC form and the usual school name where they differ, e.g.
+  Eisen(III)-chlorid, acide éthanoïque, этановая кислота. Use the country's own
+  word order for esters and Roman-numeral names; do not copy the English
+  order.
+- Everyday examples (household products, foods, places) should be familiar in
+  that country. Swap an example only if the chemistry stays exactly the same
+  (same pH band, same reaction), and report each swap.
+- Anything tied to Australia or to English (Victorian Curriculum, VCE, "the
+  VCE data book", "Year 10 class table", English-only resources) is
+  withheld or adapted, never translated. See docs/i18n/README.md §
+  "Locale-appropriate content". "Use the data book" becomes whatever that
+  country's students actually have (for example the German Tafelwerk or
+  Formelsammlung), or it is dropped. Never invent a local curriculum
+  reference.
+- Diagram labels and other text in fixed spaces: measure the text in the
+  browser for every language. If a label does not fit, change the layout (see
+  README §3a: "a fixed-slot measurement constrains the layout that created the
+  slot, not the vocabulary"). Do not use an abbreviation nobody uses.
+- In your report, list every place where you localised rather than
+  translated (a different example, a changed convention, withheld content),
+  with the reason, separately from the plain list of strings.
+
 CHEMISTRY
 - You are writing for students aged 14–18. Every statement must be correct at
   that level, and not merely simplified into something false. If one of the
