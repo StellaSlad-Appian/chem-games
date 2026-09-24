@@ -2,8 +2,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { X, Volume2, VolumeX, Moon, Sun, LifeBuoy, User } from 'lucide-react';
-import { GameThemeScope, Theme, useGameSettings } from '../../../context/game-settings-context';
+import { X, Volume2, VolumeX, Moon, Sun, LifeBuoy, User, MonitorSmartphone } from 'lucide-react';
+import { GameThemeScope, ThemePreference, useGameSettings } from '../../../context/game-settings-context';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { SwitchRow } from '@/components/ui/Switch';
@@ -144,15 +144,18 @@ export default function GameSettingsModal({
                     t={t}
                     label={t.settings.thisGame}
                     value={gameThemes[gameId] ?? 'global'}
-                    onChange={(theme) => setGameTheme(gameId, theme)}
+                    onChange={(theme) => { if (theme !== 'device') setGameTheme(gameId, theme); }}
                     includeGlobal
                   />
                 )}
+                {/* The site-wide choice offers Device, the default; a single game
+                    offers "Use global" instead, which already follows it. */}
                 <ThemeSelector
                   t={t}
                   label={gameId ? t.settings.allGamesDefault : t.settings.allGames}
                   value={globalTheme}
                   onChange={(theme) => { if (theme !== 'global') setGlobalTheme(theme); }}
+                  includeDevice
                 />
                 {gameId && (
                   <p className="text-xs leading-relaxed text-[var(--muted)]">
@@ -281,9 +284,10 @@ export default function GameSettingsModal({
 }
 
 
-function ThemeSelector({ t, label, value, onChange, includeGlobal = false }: { t: Dictionary; label: string; value: Theme | 'global'; onChange: (theme: Theme | 'global') => void; includeGlobal?: boolean }) {
-  const choices: Array<{ value: Theme | 'global'; label: string; icon?: typeof Sun }> = [
+function ThemeSelector({ t, label, value, onChange, includeGlobal = false, includeDevice = false }: { t: Dictionary; label: string; value: ThemePreference | 'global'; onChange: (theme: ThemePreference | 'global') => void; includeGlobal?: boolean; includeDevice?: boolean }) {
+  const choices: Array<{ value: ThemePreference | 'global'; label: string; icon?: typeof Sun }> = [
     ...(includeGlobal ? [{ value: 'global' as const, label: t.settings.useGlobal }] : []),
+    ...(includeDevice ? [{ value: 'device' as const, label: t.settings.device, icon: MonitorSmartphone }] : []),
     { value: 'dark', label: t.settings.dark, icon: Moon },
     { value: 'light', label: t.settings.light, icon: Sun },
   ];

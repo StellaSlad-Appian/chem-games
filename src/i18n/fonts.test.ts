@@ -47,9 +47,9 @@ describe('the site typeface', () => {
   });
 
   it('is not overridden by the light theme', () => {
-    // `:root:not([data-theme='dark'])` is (0,2,0) and beats `:root`, where the
-    // font tokens live, so a font variable in it would win in light mode only.
-    const lightBlock = /:root:not\(\[data-theme='dark'\]\)\s*\{([^}]*)\}/.exec(globalsCss);
+    // `[data-theme='light']` comes after `:root`, where the font tokens live,
+    // so a font variable in it would win in light mode only.
+    const lightBlock = /\[data-theme='light'\]\s*\{([^}]*)\}/.exec(globalsCss);
     expect(lightBlock).not.toBeNull();
     expect(lightBlock?.[1]).not.toContain('--font-');
   });

@@ -490,6 +490,7 @@ export const en = {
     useGlobal: 'Use global',
     dark: 'Dark',
     light: 'Light',
+    device: 'Device',
     overrideHelp:
       'A game-specific choice overrides the all-games default. Choose “Use global” to follow it again.',
     audio: 'Audio',

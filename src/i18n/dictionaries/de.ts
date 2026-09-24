@@ -466,6 +466,7 @@ export const de = {
     useGlobal: 'Standard nutzen',
     dark: 'Dunkel',
     light: 'Hell',
+    device: 'Gerät',
     overrideHelp:
       'Eine Einstellung für ein einzelnes Spiel hat Vorrang vor dem Standard für alle Spiele. Wähle „Standard nutzen“, um wieder dem Standard zu folgen.',
     audio: 'Audio',

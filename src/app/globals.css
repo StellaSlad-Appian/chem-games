@@ -25,17 +25,25 @@
 /*
  * --- Themes -----------------------------------------------------------------
  *
- * The site follows the reader's device: light when the OS asks for light, dark
- * otherwise. Pure CSS, so there is no script, no stored choice and no flash of
- * the wrong theme on first paint.
+ * The reader chooses Device (the default), Light or Dark in Settings.
+ * GameSettingsProvider puts an explicit choice on <html> as `data-theme`, and
+ * *removes* the attribute for Device. So:
  *
- * Dark stays the fallback (`:root`) because it is what the games were designed
- * in, and a browser that reports no preference gets the tested appearance.
- * `[data-theme='dark']` still forces dark on any subtree or page that wants it.
- * There is deliberately no `[data-theme='light']` any more: nothing set it, and
- * keeping it would mean every light token written twice. The e2e specs force a
- * theme with Playwright's `emulateMedia({ colorScheme })`, which exercises the
- * real mechanism rather than a side door.
+ *   data-theme='dark'   → the dark block below (also `:root`, the fallback)
+ *   data-theme='light'  → the light block
+ *   no attribute        → light if the OS prefers light, via the media-query
+ *                         copy of the light block; otherwise dark
+ *
+ * That makes Device right on the very first paint — no script, no flash — and
+ * lets an explicit Light beat a dark OS. The price is that each light block is
+ * written twice (the plain one and the media-query copy). They must stay
+ * identical; src/app/theme-css.test.ts fails if they drift. (An inline <head>
+ * script could avoid the copy, but React 19 errors on a <script> rendered by a
+ * component.)
+ *
+ * The e2e specs force a theme with Playwright's `emulateMedia({ colorScheme })`,
+ * which drives the Device path. Any new colour token goes in the dark block,
+ * the light block AND its copy.
  *
  * `color-scheme` makes the browser's own chrome — scrollbars, form controls,
  * autofill — match, which the tokens alone cannot reach.
@@ -138,10 +146,7 @@
     --shadow-lg: 0 8px 40px 0 rgb(0 0 0 / 0.6);
   }
 
-  /* (0,2,0) beats `:root`'s (0,1,0), so light wins without !important, and
-     loses again under an explicit `[data-theme='dark']`. */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme='dark']) {
+  [data-theme='light'] {
     color-scheme: light;
     --background: #f8fafc;
     --surface: #ffffff;
@@ -192,7 +197,63 @@
     --chem-neutral-bg: #052e16;
     --chem-amphoteric-bg: #3b0764;
   }
-}
+
+  /* The same values for a reader on Device (no data-theme attribute) whose
+     OS prefers light. Must match the block above exactly — theme-css.test.ts
+     fails if the two drift. */
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme]) {
+      color-scheme: light;
+      --background: #f8fafc;
+      --surface: #ffffff;
+      --surface-2: #f1f5f9;
+      --border: #cbd5e1;
+      --foreground: #0f172a;
+      --muted: #475569;
+      --game-bg-start: #e0f2fe;
+      --game-bg-end: #f8fafc;
+      --game-panel: #ffffff;
+      --game-panel-border: #94a3b8;
+      --game-highlight-surface: #e2e8f0;
+      --game-highlight-border: #64748b;
+      --game-panel-text: #0f172a;
+      --game-panel-muted: #475569;
+      --game-modal-header: rgb(226 232 240 / 0.75);
+      --game-modal-row: rgb(241 245 249 / 0.9);
+      --game-modal-control: #cbd5e1;
+      --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
+      --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);
+  
+      /* Theme-neutral game semantics remain intentionally unchanged. */
+      --acid-color: #ef4444;
+      --base-color: #3b82f6;
+      --neutral-color: #10b981;
+      --amphoteric-color: #a855f7;
+  
+      /*
+       * The same five accents, darkened for white.
+       *
+       * Not simply the 600 of each ramp: sky-600 is 4.10:1, emerald-600 is 3.77:1
+       * and amber-600 only 3.19:1 on #ffffff, all of which fail text contrast. The
+       * ones that fail are pushed to 700.
+       */
+      --game-accent-violet:  #7c3aed; /* violet-600  — 5.70:1 on #ffffff */
+      --game-accent-sky:     #0369a1; /* sky-700     — 5.93:1 */
+      --game-accent-emerald: #047857; /* emerald-700 — 5.48:1 */
+      --game-accent-amber:   #b45309; /* amber-700   — 5.02:1 */
+      --game-accent-rose:    #e11d48; /* rose-600    — 4.70:1 */
+      --link: #2563eb; /* blue-600 — 5.17:1 on #ffffff, 4.94:1 on the page, 4.72:1 on --surface-2 */
+      --correct: #10b981;
+      --wrong: #ef4444;
+      --game-success: #10b981;
+      --game-error: #ef4444;
+      --game-glow: #8b5cf6;
+      --chem-acid-bg: #450a0a;
+      --chem-base-bg: #172554;
+      --chem-neutral-bg: #052e16;
+      --chem-amphoteric-bg: #3b0764;
+    }
+  }
 
 /* --- Periodic-table tones -------------------------------------------------
  *
@@ -251,8 +312,7 @@
     --pt-tone-seq-8: #2766a5;
   }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme='dark']) {
+  [data-theme='light'] {
     --pt-tone-alkali-metal: #f9c8c8;
     --pt-tone-alkaline-earth: #f9d3b8;
     --pt-tone-transition-metal: #f7e2a1;
@@ -279,7 +339,39 @@
     --pt-tone-seq-7: #7bb5ef;
     --pt-tone-seq-8: #68abee;
   }
-}
+
+  /* The same values for a reader on Device (no data-theme attribute) whose
+     OS prefers light. Must match the block above exactly — theme-css.test.ts
+     fails if the two drift. */
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme]) {
+      --pt-tone-alkali-metal: #f9c8c8;
+      --pt-tone-alkaline-earth: #f9d3b8;
+      --pt-tone-transition-metal: #f7e2a1;
+      --pt-tone-post-transition-metal: #d1eab8;
+      --pt-tone-lanthanide: #f9d2e9;
+      --pt-tone-actinide: #dfcdc3;
+      --pt-tone-metalloid: #b0e8df;
+      --pt-tone-nonmetal: #bae3f7;
+      --pt-tone-halogen: #d6d2f9;
+      --pt-tone-noble-gas: #eed5f6;
+      --pt-tone-metal: #bfd9f8;
+      --pt-tone-non-metal: #fadfa8;
+      --pt-tone-natural: #c0edcf;
+      --pt-tone-synthetic: #f5d6f5;
+      --pt-tone-cation: #facdc2;
+      --pt-tone-anion: #c6dcfa;
+      --pt-tone-none: #e2e4e9;
+      --pt-tone-seq-1: #ebf2fa;
+      --pt-tone-seq-2: #d9e8f7;
+      --pt-tone-seq-3: #c7def5;
+      --pt-tone-seq-4: #b4d4f3;
+      --pt-tone-seq-5: #a2c9f1;
+      --pt-tone-seq-6: #8fbff0;
+      --pt-tone-seq-7: #7bb5ef;
+      --pt-tone-seq-8: #68abee;
+    }
+  }
 
 @layer base {
   :root {

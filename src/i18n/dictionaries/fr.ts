@@ -518,6 +518,7 @@ export const fr = {
     useGlobal: 'Valeur par défaut',
     dark: 'Sombre',
     light: 'Clair',
+    device: 'Appareil',
     overrideHelp:
       'Un réglage propre à un jeu l’emporte sur la valeur par défaut de tous les jeux. Choisis « Valeur par défaut » pour la suivre à nouveau.',
     audio: 'Audio',

@@ -545,6 +545,7 @@ export const es = {
     useGlobal: 'Valor por defecto',
     dark: 'Oscuro',
     light: 'Claro',
+    device: 'Dispositivo',
     overrideHelp:
       'La elección de un juego concreto tiene prioridad sobre el valor por defecto de todos los juegos. Elige «Valor por defecto» para volver a seguirlo.',
     audio: 'Audio',

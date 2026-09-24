@@ -9,14 +9,76 @@ const wrapper = ({ children }: { children: ReactNode }) => (
 
 const renderSettings = () => renderHook(() => useGameSettings(), { wrapper });
 
+/**
+ * A device that prefers light or dark. The setup stub answers `false` to
+ * every query, i.e. a dark device, so only the light case strictly needs this;
+ * `flip` fires the change listeners the way a real OS switch does.
+ */
+function deviceTheme(initial: 'light' | 'dark') {
+  let matches = initial === 'light';
+  const listeners = new Set<() => void>();
+  const spy = vi.spyOn(window, 'matchMedia').mockImplementation(
+    (query: string) =>
+      ({
+        get matches() {
+          return query === '(prefers-color-scheme: light)' ? matches : false;
+        },
+        media: query,
+        addEventListener: (_: string, fn: () => void) => listeners.add(fn),
+        removeEventListener: (_: string, fn: () => void) => listeners.delete(fn),
+      }) as unknown as MediaQueryList
+  );
+  return {
+    flip(to: 'light' | 'dark') {
+      matches = to === 'light';
+      listeners.forEach((fn) => fn());
+    },
+    restore: () => spy.mockRestore(),
+  };
+}
+
 describe('GameSettingsProvider', () => {
-  it('defaults to sound on at 20% volume and the light theme', () => {
+  it('defaults to sound on at 20% volume and to following the device', () => {
     const { result } = renderSettings();
     expect(result.current.isMuted).toBe(false);
     expect(result.current.volume).toBe(0.2);
-    expect(result.current.globalTheme).toBe('light');
+    expect(result.current.globalTheme).toBe('device');
     expect(result.current.gameThemes).toEqual({});
+    // No attribute: the CSS's prefers-color-scheme rule decides.
+    expect(document.documentElement.dataset.theme).toBeUndefined();
+  });
+
+  it('reports the device theme, live, while the choice is Device', () => {
+    const device = deviceTheme('light');
+    const { result } = renderHook(() => useGameTheme(), { wrapper });
+    expect(result.current).toBe('light');
+
+    act(() => device.flip('dark'));
+    expect(result.current).toBe('dark');
+    expect(document.documentElement.dataset.theme).toBeUndefined();
+    device.restore();
+  });
+
+  it('lets an explicit Light beat a dark device, and Device hand control back', () => {
+    // The bug this pins: with the light tokens only inside a
+    // prefers-color-scheme query, choosing Light on a dark device did nothing.
+    const device = deviceTheme('dark');
+    const { result } = renderSettings();
+
+    act(() => result.current.setGlobalTheme('light'));
     expect(document.documentElement.dataset.theme).toBe('light');
+    expect(localStorage.getItem('chem-games-theme')).toBe('light');
+
+    act(() => result.current.setGlobalTheme('device'));
+    expect(document.documentElement.dataset.theme).toBeUndefined();
+    expect(localStorage.getItem('chem-games-theme')).toBe('device');
+    device.restore();
+  });
+
+  it('restores a saved Device choice', () => {
+    localStorage.setItem('chem-games-theme', 'device');
+    const { result } = renderSettings();
+    expect(result.current.globalTheme).toBe('device');
   });
 
   it('throws when used outside the provider', () => {
@@ -75,6 +137,7 @@ describe('GameSettingsProvider', () => {
   });
 
   it('a per-game theme overrides the global one only while that game is active', () => {
+    localStorage.setItem('chem-games-theme', 'light');
     const { result } = renderHook(
       () => ({ settings: useGameSettings(), theme: useGameTheme('neutralise') }),
       { wrapper }

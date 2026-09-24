@@ -555,6 +555,7 @@ export const it = {
     useGlobal: 'Valore predefinito',
     dark: 'Scuro',
     light: 'Chiaro',
+    device: 'Dispositivo',
     overrideHelp:
       'La scelta fatta per un singolo gioco ha la precedenza sul valore predefinito di tutti i giochi. Scegli «Valore predefinito» per tornare a seguirlo.',
     audio: 'Audio',

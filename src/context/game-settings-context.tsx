@@ -2,8 +2,18 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
+/** The media query `'device'` follows — the same one globals.css uses. */
+const PREFERS_LIGHT = '(prefers-color-scheme: light)';
+
+/** A theme the page can actually be in. */
 export type Theme = 'dark' | 'light';
+/**
+ * What the reader chose for the whole site. `'device'` — the default — follows
+ * the operating system's light/dark setting, live; Light and Dark override it.
+ */
+export type ThemePreference = Theme | 'device';
 
 export type GameThemeScope =
   | 'acid-classification'
@@ -22,9 +32,9 @@ type SettingsState = {
   volume: number; // 0.0 to 1.0
   toggleMute: () => void;
   setVolume: (vol: number) => void;
-  globalTheme: Theme;
+  globalTheme: ThemePreference;
   gameThemes: GameThemePreferences;
-  setGlobalTheme: (theme: Theme) => void;
+  setGlobalTheme: (theme: ThemePreference) => void;
   setGameTheme: (game: GameThemeScope, theme: Theme | 'global') => void;
   setActiveGame: (game?: GameThemeScope) => void;
   supportModes: GameSupportPreferences;
@@ -38,9 +48,9 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
   const [isMuted, setIsMuted] = useState<boolean>(false);
   // Default volume level: 20%
   const [volume, setVolumeState] = useState<number>(0.2);
-  // Light mode is the default for first-time / unregistered visitors,
-  // unless overridden by a saved preference below.
-  const [globalTheme, setGlobalThemeState] = useState<Theme>('light');
+  // Following the device is the default for first-time visitors, unless
+  // overridden by a saved preference below.
+  const [globalTheme, setGlobalThemeState] = useState<ThemePreference>('device');
   const [gameThemes, setGameThemes] = useState<GameThemePreferences>({});
   const [supportModes, setSupportModes] = useState<GameSupportPreferences>({});
   const [activeGame, setActiveGame] = useState<GameThemeScope | undefined>();
@@ -60,7 +70,7 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
     if (savedVolume !== null) {
       setVolumeState(parseFloat(savedVolume));
     }
-    if (savedTheme === 'light' || savedTheme === 'dark') {
+    if (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'device') {
       setGlobalThemeState(savedTheme);
     }
     if (savedGameThemes) {
@@ -81,9 +91,15 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
     setIsInitialized(true);
   }, []);
 
+  // An explicit Light or Dark goes on <html> as `data-theme`, which the CSS
+  // obeys over the device. Device *removes* the attribute, so the CSS's own
+  // prefers-color-scheme rule decides — which also makes Device correct on the
+  // very first paint, before any of this runs, and live when the OS flips.
   useEffect(() => {
-    const effectiveTheme = activeGame ? gameThemes[activeGame] ?? globalTheme : globalTheme;
-    document.documentElement.dataset.theme = effectiveTheme;
+    const preference = activeGame ? gameThemes[activeGame] ?? globalTheme : globalTheme;
+    const root = document.documentElement;
+    if (preference === 'device') delete root.dataset.theme;
+    else root.dataset.theme = preference;
   }, [activeGame, gameThemes, globalTheme]);
 
   const toggleMute = () => {
@@ -109,7 +125,7 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
     }
   };
 
-  const setGlobalTheme = (theme: Theme) => {
+  const setGlobalTheme = (theme: ThemePreference) => {
     setGlobalThemeState(theme);
     localStorage.setItem('chem-games-theme', theme);
   };
@@ -162,9 +178,11 @@ export function useSupportMode(game: GameThemeScope): [boolean, (enabled: boolea
   return [supportModes[game] === true, (enabled: boolean) => setSupportMode(game, enabled)];
 }
 
-export function useGameTheme(game?: GameThemeScope) {
+export function useGameTheme(game?: GameThemeScope): Theme {
   const { globalTheme, gameThemes, setActiveGame } = useGameSettings();
-  const effectiveTheme = game ? gameThemes[game] ?? globalTheme : globalTheme;
+  const deviceTheme: Theme = useMediaQuery(PREFERS_LIGHT) ? 'light' : 'dark';
+  const preference = game ? gameThemes[game] ?? globalTheme : globalTheme;
+  const effectiveTheme = preference === 'device' ? deviceTheme : preference;
 
   useEffect(() => {
     setActiveGame(game);

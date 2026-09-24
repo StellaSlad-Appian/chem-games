@@ -13,9 +13,13 @@ guide for new code, and fix old code opportunistically when you're already in th
   `.shake-animation` utility in `globals.css` instead. (Either delete the config file or wire it
   with `@config "../../tailwind.config.ts";` — don't leave it ambiguous.)
 - **Theming is CSS-custom-property based.** `:root, [data-theme='dark']` defines the dark palette
-  (the default); `[data-theme='light']` overrides it. `game-settings-context.tsx` sets
-  `document.documentElement.dataset.theme`, with a per-game override. Any new color token
-  **must be defined in both blocks** or it will silently fall back in one theme.
+  (the fallback); `[data-theme='light']` overrides it, and an identical copy of the light block
+  under `@media (prefers-color-scheme: light) { :root:not([data-theme]) }` serves readers on
+  **Device**, the default Settings choice. `game-settings-context.tsx` sets
+  `document.documentElement.dataset.theme` for an explicit Light/Dark (with a per-game override)
+  and removes it for Device. Any new color token **must be defined in the dark block, the light
+  block and its copy**, or it will silently fall back in one theme; `src/app/theme-css.test.ts`
+  fails if the two light copies differ.
 - **Font:** `Nunito` for everything — headings and body, in all six languages (it has Cyrillic).
   Self-hosted by `next/font` in `src/app/[lang]/layout.tsx`, never loaded from Google at
   runtime. `h1`–`h3` take `--font-display`, which currently equals `--font-body`. Formulas
