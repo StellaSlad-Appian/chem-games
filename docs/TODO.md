@@ -183,9 +183,13 @@ has been pushed:
 | 3 Science fixes, other 13 sheets | `cheatsheet/3-other-sheet-fixes` | done, `533b228` + `685bdd0` + `4727cb9` (French *groupe*, added after step 4 had branched: carry it into step 5) |
 | 4 Diagram display (inline SVG, lighter type, per language) | `cheatsheet/4-diagram-pipeline` | done, `03c165d` |
 | 5 Redraw diagrams 01, 02, 05, 06 | `cheatsheet/5-atom-diagrams` (includes the French *groupe* commit) | done, `f857013` |
-| 6 Diagram boxes sized to their drawings; redraw diagrams 03, 07 | `cheatsheet/6-isotope-diagrams` | running |
-| 7–9 New diagrams | — | not started |
-| 10a/10b Eight smaller diagrams | — | **on hold** until the owner has seen 7–9 |
+| 6 Diagram boxes sized to their drawings; redraw diagrams 03, 07 | `cheatsheet/6-isotope-diagrams` | done, `bf03a4a` + `85e7f58` |
+| 7 New diagrams: States of Matter | `cheatsheet/7-states-of-matter-diagrams` | running (parallel with 8, 9) |
+| 8 New diagrams: Lewis Structures | `cheatsheet/8-lewis-diagrams` | running (parallel with 7, 9) |
+| 9 New diagram: Functional Groups reaction map | `cheatsheet/9-functional-groups-diagrams` | running (parallel with 7, 8) |
+| E Easy fixes and the owner's four decisions (Sonnet) | — | waiting for the SLC decision |
+| — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | — | after 7–9 and E |
+| 10a/10b Eight smaller diagrams | — | after the merge; **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
 
 Owner to-dos from this work:
 
@@ -199,13 +203,16 @@ Owner to-dos from this work:
       each language has its own section, with the English, the new text, the text
       before, and a tick box. It covers steps 1–3 and 5 (340 strings and 100 diagram
       labels) and gets extended after each later step.
-- [ ] **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**
+- [x] **Decided 2026-09-25 (4b): remove the leftovers, point to the formula-mass sheet.**
+      Being applied by step E. Was: **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**
       The section was removed on 2026-09-22, and its takeaway and mistakes were
       removed on 2026-09-24. Three things still point at it: the Carbon-12 example
       card ("the standard all other masses are measured against"), the sheet's
       `curriculumRef`, and the PhET link "Isotopes and Atomic Mass". Bring a short
-      section back, or remove all three.
-- [ ] **Decide whether to mention helium** as the exception to the new "last digit
+      section back, or remove all three. The Carbon-12 card is replaced by a
+      hydrogen-3 (tritium) card (3a).
+- [x] **Decided 2026-09-25 (1a): add a short helium exception.** Being applied by
+      step E. Was: **Decide whether to mention helium** as the exception to the new "last digit
       of the group number = valence electrons" rule (group 18, but 2 valence
       electrons). It is on *Chemical Bonds* and *Lewis Structures*, and was left
       unstated to keep the takeaways short.
