@@ -246,7 +246,7 @@ the split.
 | Bohr model | **modèle de Bohr** | Named as a *model* every time, per the sheet's own contract. |
 | isotope | **isotope** | — |
 | group (a column) | **groupe** | The sheet always writes *groupe 1*, *groupe 17*, never a bare *groupe*, because *groupe* also names a functional group. |
-| valence electrons from the group number | **le chiffre des unités du numéro de colonne** (*Cl est dans la colonne 17 : 7 électrons de valence*) | Added 2026-09-25. With columns numbered 1–18, *numéro de colonne = électrons de valence* is only true for columns 1 and 2, and the bonding and Lewis sheets said exactly that. *Chiffre des unités* is plain school French for "last digit". The sheets keep *colonne* where they already used it; a French classroom says both. |
+| valence electrons from the group number | **le chiffre des unités du numéro du groupe** (*Cl est dans le groupe 17 : 7 électrons de valence*) | Added 2026-09-25. With groups numbered 1–18, *numéro du groupe = électrons de valence* is only true for groups 1 and 2, so the bonding and Lewis sheets state the last-digit rule. *Chiffre des unités* is plain school French for "last digit". **Numbered, it is always *groupe*, never *colonne*** (owner's decision, 2026-09-25): *groupe 17*, *le groupe 1*, and the Lewis table is headed *Électrons de valence par groupe*. *Colonne* stays only where a sentence explains what a group is (*un groupe est une colonne*). |
 | period (a row) | **période** | Not *ligne*, which is the layout word; *période* is the term and pairs with *tableau périodique*. |
 | metal | **métal** | — |
 | non-metal | **non-métal** | With the hyphen. Plural *non-métaux*. |

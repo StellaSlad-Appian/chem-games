@@ -443,7 +443,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Liaison ionique, covalente et métallique – et comment la structure explique les propriétés.',
     keyTakeaways: [
-      'Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro de colonne donne le nombre d’électrons de valence (Cl est dans la colonne 17 : 7 électrons de valence).',
+      'Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro du groupe donne le nombre d’électrons de valence (Cl est dans le groupe 17 : 7 électrons de valence).',
       'Ionique : métal + non-métal. Des électrons sont transférés ; les ions formés sont maintenus dans un réseau à trois dimensions par l’attraction électrostatique.',
       'Covalente : non-métal + non-métal. Les électrons sont partagés par doublets ; chaque doublet partagé est une liaison.',
       'Métallique : des cations métalliques dans un réseau, entourés d’une « mer » d’électrons libres.',
@@ -527,7 +527,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Les charges courantes lues dans le tableau périodique',
         content:
-          'Colonne 1 → +1, colonne 2 → +2, Al → +3, colonne 17 → −1, colonne 16 → −2, N et P → −3. Les métaux de transition varient – le nom te le dit. Pour les ions polyatomiques, utilise le tableau de référence.',
+          'Groupe 1 → +1, groupe 2 → +2, Al → +3, groupe 17 → −1, groupe 16 → −2, N et P → −3. Les métaux de transition varient – le nom te le dit. Pour les ions polyatomiques, utilise le tableau de référence.',
       },
     ],
     commonMistakes: [
@@ -602,7 +602,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Déterminer un chiffre romain',
         content:
-          'Pour Fe2(SO4)3 : le sulfate porte 2−, et il y en a trois, donc les anions totalisent −6. Les deux ions fer doivent totaliser +6, chacun est donc en +3 → sulfate de fer(III). Seuls les métaux qui ont plus d’une charge courante (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) ont besoin du chiffre ; la colonne 1, la colonne 2, Al, Zn et Ag n’en ont jamais besoin.',
+          'Pour Fe2(SO4)3 : le sulfate porte 2−, et il y en a trois, donc les anions totalisent −6. Les deux ions fer doivent totaliser +6, chacun est donc en +3 → sulfate de fer(III). Seuls les métaux qui ont plus d’une charge courante (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) ont besoin du chiffre ; le groupe 1, le groupe 2, Al, Zn et Ag n’en ont jamais besoin.',
       },
     ],
     tables: [
@@ -801,7 +801,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Compter les électrons de valence, les partager pour satisfaire l’octet, puis vérifier avec la charge formelle.',
     keyTakeaways: [
-      'Électrons de valence = chiffre des unités du numéro de colonne pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans la colonne 15, le chlore dans la colonne 17). Ajoute un électron par charge négative, enlève-en un par charge positive.',
+      'Électrons de valence = chiffre des unités du numéro du groupe pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans le groupe 15, le chlore dans le groupe 17). Ajoute un électron par charge négative, enlève-en un par charge positive.',
       'Chaque liaison est un doublet partagé (2 électrons). Simple = 1 doublet, double = 2, triple = 3. Les électrons qui ne sont pas dans une liaison forment des doublets non liants.',
       'Règle de l’octet : la plupart des atomes veulent 8 électrons de valence autour d’eux. L’hydrogène en veut 2 (règle du duet).',
       'S’il manque des électrons à l’atome central pour compléter son octet une fois tous les électrons placés, transforme des doublets non liants des atomes périphériques en liaisons supplémentaires.',
@@ -822,7 +822,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'L’essentiel pour la 2de',
         content:
-          'Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un électron célibataire ; deux électrons célibataires venant de deux atomes différents forment un doublet partagé, c’est-à-dire une liaison (dessinée par un trait). Les doublets qui restent sur un seul atome sont des doublets non liants. Un atome est complet avec 8 points autour de lui (un octet) – l’hydrogène est complet à 2 (un duet). Partage deux fois entre les deux mêmes atomes pour une liaison double, trois fois pour une liaison triple. Le nombre d’électrons célibataires te dit combien de liaisons un atome forme : H 1, C 4, N 3, O 2, Cl 1. Le soufre se comporte comme l’oxygène et le phosphore comme l’azote, parce qu’ils sont dans les mêmes colonnes. Tout ce qui suit cette section (charge formelle, formes VSEPR, exceptions à l’octet) relève du lycée.',
+          'Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un électron célibataire ; deux électrons célibataires venant de deux atomes différents forment un doublet partagé, c’est-à-dire une liaison (dessinée par un trait). Les doublets qui restent sur un seul atome sont des doublets non liants. Un atome est complet avec 8 points autour de lui (un octet) – l’hydrogène est complet à 2 (un duet). Partage deux fois entre les deux mêmes atomes pour une liaison double, trois fois pour une liaison triple. Le nombre d’électrons célibataires te dit combien de liaisons un atome forme : H 1, C 4, N 3, O 2, Cl 1. Le soufre se comporte comme l’oxygène et le phosphore comme l’azote, parce qu’ils sont dans les mêmes groupes. Tout ce qui suit cette section (charge formelle, formes VSEPR, exceptions à l’octet) relève du lycée.',
         exampleNames: [
           'Eau – l’oxygène partage deux fois et garde 2 doublets non liants',
           'Méthane – le carbone partage ses quatre électrons célibataires',
@@ -847,8 +847,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     ],
     tables: [
       {
-        heading: 'Électrons de valence par colonne',
-        columns: ['Colonne', 'e⁻ de valence', 'Liaisons formées d’habitude', 'Exemples'],
+        heading: 'Électrons de valence par groupe',
+        columns: ['Groupe', 'e⁻ de valence', 'Liaisons formées d’habitude', 'Exemples'],
         rows: [
           ['1 (H)', '1', '1', 'H'],
           ['14', '4', '4', 'C, Si'],
