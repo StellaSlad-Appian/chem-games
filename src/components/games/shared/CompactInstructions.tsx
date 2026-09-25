@@ -69,8 +69,8 @@ export default function CompactInstructions({
               <span
                 className={
                   inputMethod === 'pointer'
-                    ? 'shrink-0 rounded border border-(--border) bg-(--background) px-2 py-1 font-mono text-xs text-(--foreground)'
-                    : 'shrink-0 rounded border border-(--border) bg-(--background) px-2 py-1 text-xs font-bold text-(--foreground)'
+                    ? 'shrink-0 rounded border border-(--border) bg-(--surface-2) px-2 py-1 font-mono text-xs text-(--foreground)'
+                    : 'shrink-0 rounded border border-(--border) bg-(--surface-2) px-2 py-1 text-xs font-bold text-(--foreground)'
                 }
               >
                 {key}

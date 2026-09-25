@@ -70,11 +70,11 @@ export default function ChallengeBuilder({ game, disabled, touch, onAdd }: Chall
 
   return (
     <div className="flex w-full flex-col gap-3" data-testid="challenge-builder">
-      <p className="rounded-2xl border-2 border-(--accent)/60 bg-(--surface) p-4 text-base font-bold leading-relaxed text-(--foreground)" data-testid="challenge-prompt">
+      <p className="rounded-2xl border-2 border-(--accent)/60 bg-(--accent-surface) p-4 text-base font-bold leading-relaxed text-(--foreground)" data-testid="challenge-prompt">
         {M.challenge.prompt(round.reaction.prompt ?? round.reaction.description)}
       </p>
 
-      <div className="flex flex-wrap items-center justify-center gap-2 rounded-2xl border-2 border-(--border) bg-(--background) p-3" aria-label={M.ui.equationLabel(round.reaction.name)} data-testid="built-equation">
+      <div className="flex flex-wrap items-center justify-center gap-2 rounded-2xl border-2 border-(--border) bg-(--surface-2) p-3" aria-label={M.ui.equationLabel(round.reaction.name)} data-testid="built-equation">
         {placedReactants.length > 0 ? placed(placedReactants, 'reactant') : placeholder('reactant')}
         <span className="text-2xl font-black text-(--link)" aria-hidden="true">
           →
@@ -84,7 +84,7 @@ export default function ChallengeBuilder({ game, disabled, touch, onAdd }: Chall
 
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-[10px] font-black uppercase tracking-wider text-(--muted)">{M.challenge.sideLabel}</span>
-        <div role="group" aria-label={M.challenge.sideLabel} className="flex gap-1 rounded-lg border border-(--border) bg-(--background) p-1">
+        <div role="group" aria-label={M.challenge.sideLabel} className="flex gap-1 rounded-lg border border-(--border) bg-(--surface-2) p-1">
           <button type="button" aria-pressed={pickerSide === 'reactant'} onClick={() => actions.pickSide('reactant')} disabled={disabled} className={sideButton(pickerSide === 'reactant')}>
             {M.challenge.reactants}
           </button>

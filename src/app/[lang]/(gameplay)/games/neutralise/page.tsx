@@ -411,7 +411,7 @@ export default function NeutralizePage() {
           </p>
 
           {/* Control method selector */}
-          <div className="flex gap-2 rounded-lg bg-(--background) p-1 border border-(--border) w-fit">
+          <div className="flex gap-2 rounded-lg bg-(--surface-2) p-1 border border-(--border) w-fit">
             <button
               type="button"
               onClick={() =>
@@ -448,7 +448,7 @@ export default function NeutralizePage() {
                 { key: t.games.neutralise.keyTwoLabel, node: t.games.neutralise.keyTwoText.split('{ion}'), ion: t.games.neutralise.keyTwoIon, tone: 'text-(--hue-rose)' },
               ].map(({ key, node, ion, tone }) => (
                 <li key={key} className="flex items-center gap-3">
-                  <kbd className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                  <kbd className="shrink-0 rounded bg-(--surface-2) px-2 py-1 font-mono text-xs border border-(--border)">
                     {key}
                   </kbd>
                   <span>
@@ -460,14 +460,14 @@ export default function NeutralizePage() {
               ))}
 
               <li className="flex items-center gap-3">
-                <kbd className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                <kbd className="shrink-0 rounded bg-(--surface-2) px-2 py-1 font-mono text-xs border border-(--border)">
                   {t.games.neutralise.keySpaceLabel}
                 </kbd>
                 <span>{t.games.neutralise.keySpaceText}</span>
               </li>
 
               <li className="flex items-center gap-3">
-                <kbd className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                <kbd className="shrink-0 rounded bg-(--surface-2) px-2 py-1 font-mono text-xs border border-(--border)">
                   {t.games.neutralise.keyArrowsLabel}
                 </kbd>
                 <span>{t.games.neutralise.keyArrowsText}</span>
@@ -476,14 +476,14 @@ export default function NeutralizePage() {
           ) : (
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
-                <span className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                <span className="shrink-0 rounded bg-(--surface-2) px-2 py-1 font-mono text-xs border border-(--border)">
                   {t.games.neutralise.touchDragLabel}
                 </span>
                 <span>{t.games.neutralise.touchDragText}</span>
               </li>
 
               <li className="flex items-center gap-3">
-                <span className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                <span className="shrink-0 rounded bg-(--surface-2) px-2 py-1 font-mono text-xs border border-(--border)">
                   {t.games.neutralise.touchFireLabel}
                 </span>
                 <span>
@@ -494,7 +494,7 @@ export default function NeutralizePage() {
               </li>
 
               <li className="flex items-center gap-3">
-                <span className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">
+                <span className="shrink-0 rounded bg-(--surface-2) px-2 py-1 font-mono text-xs border border-(--border)">
                   {t.games.neutralise.touchSwitchLabel}
                 </span>
                 <span>{t.games.neutralise.touchSwitchText}</span>

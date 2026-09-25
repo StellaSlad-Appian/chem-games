@@ -107,7 +107,7 @@ const EMPTY: Record<TextField, string> = {
 // always and ≥ 44×44 on touch, and an input tall enough for a thumb is not
 // worse for a mouse, so this does not branch on `useInputMethod()`.
 const INPUT_CLASS =
-  'w-full min-h-11 rounded-xl border border-(--border-strong) bg-(--background) px-3 py-2 text-sm text-(--foreground) outline-none transition focus-visible:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) aria-[invalid=true]:border-(--danger)';
+  'w-full min-h-11 rounded-xl border border-(--border-strong) bg-(--surface) px-3 py-2 text-sm text-(--foreground) outline-none transition focus-visible:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) aria-[invalid=true]:border-(--danger)';
 
 export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) {
   const formId = useId();

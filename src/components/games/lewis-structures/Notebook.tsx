@@ -36,7 +36,7 @@ export default function LewisNotebook({ results, marking = false, onBack, onPlay
           <button
             type="button"
             onClick={onBack}
-            className="cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-2 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="cursor-pointer rounded-xl border-2 border-(--border) bg-(--surface-2) px-4 py-2 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             {M.ui.closeMarkingSheet}
           </button>
@@ -59,7 +59,7 @@ export default function LewisNotebook({ results, marking = false, onBack, onPlay
           {results.map((result, index) => (
             <li
               key={`${result.moleculeId}-${index}`}
-              className="rounded-xl border border-(--border) bg-(--background) p-3"
+              className="rounded-xl border border-(--border) bg-(--surface-2) p-3"
               data-testid="notebook-entry"
             >
               <p className="text-lg font-black text-(--foreground)">

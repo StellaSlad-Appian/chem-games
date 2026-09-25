@@ -56,7 +56,7 @@ export function ViewModeSwitch({
                 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)',
                 isActive
                   ? 'border-(--link) bg-(--action) text-white'
-                  : 'border-(--border) bg-(--background) text-(--foreground) hover:border-(--link)',
+                  : 'border-(--border) bg-(--surface-2) text-(--foreground) hover:border-(--link)',
               ].join(' ')}
             >
               {t.periodicTable.modes[MODE_LABEL_KEY[mode]]}

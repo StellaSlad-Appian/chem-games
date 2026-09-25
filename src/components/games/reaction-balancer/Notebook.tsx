@@ -33,7 +33,7 @@ export default function BalancerNotebook({ results, onBack, onPlayAgain }: Noteb
           <button
             type="button"
             onClick={onBack}
-            className="cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-2 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="cursor-pointer rounded-xl border-2 border-(--border) bg-(--surface-2) px-4 py-2 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             {M.ui.closeNotebook}
           </button>
@@ -54,7 +54,7 @@ export default function BalancerNotebook({ results, onBack, onPlayAgain }: Noteb
       ) : (
         <ol className="mt-4 space-y-2">
           {results.map((result, index) => (
-            <li key={`${result.reactionId}-${index}`} className="rounded-xl border border-(--border) bg-(--background) p-3" data-testid="notebook-entry">
+            <li key={`${result.reactionId}-${index}`} className="rounded-xl border border-(--border) bg-(--surface-2) p-3" data-testid="notebook-entry">
               <p className="text-xs font-bold text-(--muted)">
                 {index + 1}. {result.name}
                 {result.mode === 'challenge' && <span className="ml-2 rounded-full border border-(--border) px-2 py-0.5">{M.notebook.challenge}</span>}

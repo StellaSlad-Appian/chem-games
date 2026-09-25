@@ -26,7 +26,7 @@ export default function AtomLedger({ rows, highlightElement }: AtomLedgerProps) 
   const name = (row: LedgerRow) => elementName(locale, row.element);
 
   return (
-    <section aria-label={M.ledger.title} data-testid="atom-ledger" className="w-full rounded-2xl border-2 border-(--border) bg-(--surface) p-3 shadow-md sm:p-4">
+    <section aria-label={M.ledger.title} data-testid="atom-ledger" className="w-full rounded-2xl border-2 border-(--border) bg-(--surface-2) p-3 sm:p-4">
       <div className="grid grid-cols-[minmax(0,1fr)_3rem_3rem_minmax(0,1.4fr)] items-center gap-x-2 text-[10px] font-black uppercase tracking-wider text-(--muted)">
         <span>{M.ledger.title}</span>
         <span className="text-center">{M.ledger.left}</span>
@@ -46,8 +46,8 @@ export default function AtomLedger({ rows, highlightElement }: AtomLedgerProps) 
               data-balanced={row.balanced}
               aria-label={`${M.ledger.row(name(row), row.left, row.right)}, ${status}${next ? `, ${M.ledger.nextUp}` : ''}`}
               className={`grid grid-cols-[minmax(0,1fr)_3rem_3rem_minmax(0,1.4fr)] items-center gap-x-2 rounded-xl border-2 px-2 py-1.5 text-sm ${
-                row.balanced ? 'border-(--correct)/40 bg-(--background)' : 'border-(--wrong)/40 bg-(--background)'
-              } ${next ? 'ring-2 ring-(--hint) ring-offset-2 ring-offset-(--surface)' : ''}`}
+                row.balanced ? 'border-(--correct)/40 bg-(--surface)' : 'border-(--wrong)/40 bg-(--surface)'
+              } ${next ? 'ring-2 ring-(--hint) ring-offset-2 ring-offset-(--surface-2)' : ''}`}
             >
               <span className="font-black leading-tight text-(--foreground)">
                 {name(row)} <span className="font-mono text-xs text-(--muted)">{row.element}</span>

@@ -57,7 +57,7 @@ const withOrigin = (href: string, from?: EntryOrigin): string =>
  * of small links, read on a phone, with a second link right beside them.
  */
 const rowClass =
-  'group flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-(--border) bg-(--background) px-3 py-2 transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)';
+  'group flex min-h-11 min-w-0 flex-1 items-center gap-2 rounded-xl border border-(--border) bg-(--surface-2) px-3 py-2 transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)';
 
 /*
  * `min-w-0` on the flex item and `truncate` on the name: a long compound name

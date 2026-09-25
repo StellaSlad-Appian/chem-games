@@ -132,7 +132,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
         type="button"
         onClick={signInWithGoogle}
         disabled={!configured || pending}
-        className="flex w-full items-center justify-center gap-3 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex w-full items-center justify-center gap-3 rounded-xl border border-(--border) bg-(--surface-2) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) disabled:cursor-not-allowed disabled:opacity-50"
       >
         <GoogleMark /> {t.auth.continueWithGoogle}
       </button>
@@ -160,7 +160,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-(--border-strong) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="mt-1.5 w-full rounded-xl border border-(--border-strong) bg-(--surface) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             placeholder={t.auth.emailPlaceholder}
           />
         </div>
@@ -180,7 +180,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-(--border-strong) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="mt-1.5 w-full rounded-xl border border-(--border-strong) bg-(--surface) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             placeholder={t.auth.passwordPlaceholder}
           />
         </div>

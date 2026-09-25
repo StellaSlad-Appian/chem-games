@@ -58,7 +58,7 @@ export default function ParticleClusters({ composition, count, label }: Particle
       {Array.from({ length: visible }).map((_, cluster) => (
         <span
           key={cluster}
-          className="flex items-center gap-0.5 rounded-full border border-(--border) bg-(--background) px-1 py-0.5"
+          className="flex items-center gap-0.5 rounded-full border border-(--border) bg-(--surface-2) px-1 py-0.5"
         >
           {atoms.map((element, i) => {
             const style = ATOM_STYLES[element] ?? FALLBACK_STYLE;

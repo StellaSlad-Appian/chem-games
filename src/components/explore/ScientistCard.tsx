@@ -156,7 +156,7 @@ export function ScientistCard({
               )}
               width={scientist.image.width}
               height={scientist.image.height}
-              className="h-auto w-full rounded-2xl border border-(--border) bg-(--background)"
+              className="h-auto w-full rounded-2xl border border-(--border) bg-(--surface-2)"
             />
             {scientist.image.credit && (
               /*
@@ -239,7 +239,7 @@ export function ScientistCard({
       </div>
 
       {scientist.credit && (
-        <div className="mt-6 rounded-2xl border border-(--border) bg-(--background) p-4">
+        <div className="mt-6 rounded-2xl border border-(--border) bg-(--surface-2) p-4">
           <SubTag className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-(--muted)">
             <Scale className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
             {t.explore.creditHeading}

@@ -25,11 +25,14 @@ interface CoachPanelProps {
   className?: string;
 }
 
-const TONES: Record<CoachTone, { border: string; text: string; Icon: LucideIcon }> = {
-  coach: { border: 'border-(--link)/50', text: 'text-(--link)', Icon: MessageCircle },
-  error: { border: 'border-(--wrong)', text: 'text-(--wrong)', Icon: AlertCircle },
-  success: { border: 'border-(--correct)', text: 'text-(--correct)', Icon: CheckCircle2 },
-  guide: { border: 'border-(--hint)/60', text: 'text-(--hint)', Icon: Sparkles },
+// Each tone is a tinted fill as well as a coloured edge, so the strip reads as
+// a note laid on the card rather than another card. The tone's text colour
+// clears 4.5:1 on its own tint in both themes (see the -surface tokens).
+const TONES: Record<CoachTone, { border: string; fill: string; text: string; Icon: LucideIcon }> = {
+  coach: { border: 'border-(--link)/50', fill: 'bg-(--info-surface)', text: 'text-(--link)', Icon: MessageCircle },
+  error: { border: 'border-(--wrong)', fill: 'bg-(--danger-surface)', text: 'text-(--wrong)', Icon: AlertCircle },
+  success: { border: 'border-(--correct)', fill: 'bg-(--success-surface)', text: 'text-(--correct)', Icon: CheckCircle2 },
+  guide: { border: 'border-(--hint)/60', fill: 'bg-(--hint-surface)', text: 'text-(--hint)', Icon: Sparkles },
 };
 
 /**
@@ -47,14 +50,14 @@ export default function CoachPanel({
   regionLabel,
   className = '',
 }: CoachPanelProps) {
-  const { border, text, Icon } = TONES[tone];
+  const { border, fill, text, Icon } = TONES[tone];
 
   return (
     <section aria-live="polite" aria-atomic="true" aria-label={regionLabel} className={className} data-testid="coach-panel">
       {message && (
         <div
           data-tone={tone}
-          className={`flex items-start gap-3 rounded-2xl border-2 bg-(--surface) p-4 shadow-md ${border}`}
+          className={`flex items-start gap-3 rounded-2xl border-2 p-4 shadow-md ${fill} ${border}`}
         >
           <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${text}`} aria-hidden="true" />
           <div className="min-w-0 flex-1">

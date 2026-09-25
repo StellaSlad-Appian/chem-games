@@ -29,7 +29,7 @@ interface InstructionsProps {
 /** The body of the "How to Play" modal — every word comes from the messages catalogue. */
 export default function LewisInstructions({ tab, onTabChange }: InstructionsProps) {
   const M = useLewisMessages();
-  const kbd = 'rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border) text-(--foreground)';
+  const kbd = 'rounded bg-(--surface-2) px-2 py-1 font-mono text-xs border border-(--border) text-(--foreground)';
   return (
     <div className="space-y-4 text-sm font-medium leading-relaxed text-(--muted)">
       <p>
@@ -44,7 +44,7 @@ export default function LewisInstructions({ tab, onTabChange }: InstructionsProp
 
       <p className="italic">{M.instructions.disclaimer}</p>
 
-      <div className="flex w-fit gap-2 rounded-lg border border-(--border) bg-(--background) p-1" role="tablist">
+      <div className="flex w-fit gap-2 rounded-lg border border-(--border) bg-(--surface-2) p-1" role="tablist">
         <button
           type="button"
           role="tab"

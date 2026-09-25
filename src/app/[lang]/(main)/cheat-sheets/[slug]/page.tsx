@@ -110,7 +110,7 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
       */}
       <PannableBox className="mt-3" boxClassName="rounded-2xl border border-(--border)">
         <table className="w-full min-w-[28rem] text-left text-sm">
-          <thead className="bg-(--background) text-[10px] font-black uppercase tracking-wider text-(--muted)">
+          <thead className="bg-(--surface-2) text-[10px] font-black uppercase tracking-wider text-(--muted)">
             <tr>
               {table.columns.map((column) => (
                 <th key={column} scope="col" className="px-4 py-3">
@@ -121,7 +121,7 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
           </thead>
           <tbody>
             {table.rows.map((row, rowIndex) => (
-              <tr key={rowIndex} className="border-t border-(--border) odd:bg-(--surface) even:bg-(--background)">
+              <tr key={rowIndex} className="border-t border-(--border) odd:bg-(--surface) even:bg-(--surface-2)">
                 {row.map((cell, cellIndex) => (
                   <td key={cellIndex} className="px-4 py-2.5 font-semibold text-(--foreground)">
                     {formulaColumns.has(cellIndex) ? (
@@ -160,7 +160,7 @@ function ResourceList({
               href={resource.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex h-full flex-col rounded-2xl border border-(--border) bg-(--background) p-4 transition hover:border-(--link)"
+              className="group flex h-full flex-col rounded-2xl border border-(--border) bg-(--surface-2) p-4 transition hover:border-(--link)"
             >
               <span className="flex items-center gap-2 text-sm font-black text-(--link)">
                 {resource.label}
@@ -280,7 +280,7 @@ export default async function CheatSheetDetailPage(
           <PanelHeading>{t.cheatSheets.exampleFormulas}</PanelHeading>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {sheet.formulaExamples.map((item, index) => (
-              <div key={index} className="flex flex-col justify-between rounded-2xl border border-(--border) bg-(--background) p-4">
+              <div key={index} className="flex flex-col justify-between rounded-2xl border border-(--border) bg-(--surface-2) p-4">
                 <span className="text-xs font-bold text-(--muted)">{item.name}</span>
                 <MoleculeText formula={item.formula} className="mt-2 text-base font-bold text-(--link) md:text-lg" />
               </div>
@@ -356,7 +356,7 @@ export default async function CheatSheetDetailPage(
                       alt={section.image.alt}
                       width={section.image.width}
                       height={section.image.height}
-                      className="h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--background)"
+                      className="h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--surface-2)"
                     />
                   </PannableBox>
                 )}
@@ -364,7 +364,7 @@ export default async function CheatSheetDetailPage(
                 {section.examples && section.examples.length > 0 && (
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {section.examples.map((example) => (
-                      <div key={example.name} className="rounded-2xl border border-(--border) bg-(--background) p-3">
+                      <div key={example.name} className="rounded-2xl border border-(--border) bg-(--surface-2) p-3">
                         <span className="text-xs font-bold text-(--muted)">{example.name}</span>
                         <MoleculeText formula={example.formula} className="mt-1 text-sm font-bold text-(--link)" />
                       </div>

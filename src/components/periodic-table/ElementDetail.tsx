@@ -68,7 +68,7 @@ export function ElementDetail({
   return (
     <section
       aria-labelledby="periodic-table-detail-heading"
-      className="mt-4 rounded-2xl border border-(--border) bg-(--background) p-4"
+      className="mt-4 rounded-2xl border border-(--border) bg-(--surface-2) p-4"
     >
       <div className="flex items-center justify-between gap-3">
         <h4

@@ -26,7 +26,7 @@ interface CompoundCardProps {
 }
 
 const arrowClass = (touch: boolean) =>
-  `flex items-center justify-center rounded-lg border-2 border-(--border) bg-(--background) text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) ${
+  `flex items-center justify-center rounded-lg border-2 border-(--border) bg-(--surface-2) text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) ${
     touch ? 'h-11 w-full' : 'h-8 w-full'
   }`;
 
@@ -87,7 +87,7 @@ export default function CompoundCard({
       data-formula={species.bare}
       data-coefficient={coefficient}
       className={`flex w-28 shrink-0 flex-col items-center gap-1.5 rounded-2xl border-2 border-(--border) bg-(--surface) p-2 shadow-md sm:w-32 ${
-        pulse ? 'card-pulse border-amber-500' : ''
+        pulse ? 'card-pulse border-(--hint)' : ''
       }`}
     >
       <button
@@ -113,7 +113,7 @@ export default function CompoundCard({
           onBlur={() => setDraft(null)}
           disabled={disabled}
           aria-label={M.card.coefficient(species.name, species.bare)}
-          className="h-10 w-10 rounded-lg border-2 border-(--border) bg-(--background) text-center text-lg font-black text-(--accent) placeholder:text-(--muted) transition-all focus:border-(--link) focus:outline-none focus:ring-2 focus:ring-(--link)/30 disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-10 w-10 rounded-lg border-2 border-(--border-strong) bg-(--surface) text-center text-lg font-black text-(--accent) placeholder:text-(--muted) transition-all focus:border-(--link) focus:outline-none focus:ring-2 focus:ring-(--link)/30 disabled:cursor-not-allowed disabled:opacity-50"
         />
         <button
           type="button"

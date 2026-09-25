@@ -50,9 +50,9 @@ export default function GameArena({
     <div data-testid="blaster-arena" className="relative mt-4 flex-1 w-full h-full rounded-2xl border-2 border-(--border) bg-(--surface)/30 overflow-hidden">
       {activeHint && (
         <div data-testid="blaster-hint" className="absolute top-4 left-1/2 z-40 w-full max-w-md -translate-x-1/2 px-4">
-          <div className="flex items-start justify-between gap-3 rounded-2xl border-2 border-blue-500/40 bg-(--surface) p-4 shadow-xl backdrop-blur-md">
+          <div className="flex items-start justify-between gap-3 rounded-2xl border-2 border-(--hint)/60 bg-(--hint-surface) p-4 shadow-xl backdrop-blur-md">
             <div className="flex items-start gap-3">
-              <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+              <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-(--hint)" />
 
               <div className="space-y-1">
                 <h5 className="text-xs font-black uppercase tracking-wider text-(--link)">

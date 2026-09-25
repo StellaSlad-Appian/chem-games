@@ -26,7 +26,7 @@ interface GameArenaProps {
 const buttonClass =
   'cursor-pointer rounded-xl bg-(--action) px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-(--action-hover) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-50';
 const ghostClass =
-  'cursor-pointer rounded-xl border-2 border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-50';
+  'cursor-pointer rounded-xl border-2 border-(--border) bg-(--surface-2) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition-all duration-150 hover:border-(--link) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) disabled:cursor-not-allowed disabled:opacity-50';
 
 /**
  * Presentational: the equation as cards, the ledger, the mass beam, the
@@ -114,18 +114,18 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
           role="status"
           data-testid="balancer-hint"
           data-tier={hint.tier}
-          className="flex items-start gap-3 rounded-2xl border-2 border-amber-500/60 bg-(--surface) p-4 shadow-md"
+          className="flex items-start gap-3 rounded-2xl border-2 border-(--hint)/60 bg-(--hint-surface) p-4 shadow-md"
         >
-          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
+          <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-(--hint)" aria-hidden="true" />
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-black uppercase tracking-wider text-amber-500">{M.hint.tierLabel(hint.tier)}</p>
+            <p className="text-[10px] font-black uppercase tracking-wider text-(--hint)">{M.hint.tierLabel(hint.tier)}</p>
             <p className="mt-1 text-sm font-bold leading-relaxed text-(--foreground)">{richText(hint.text)}</p>
           </div>
           <button
             type="button"
             onClick={actions.dismissHint}
             aria-label={M.ui.dismissHint}
-            className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--background) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="cursor-pointer rounded-lg p-1 text-(--muted) transition hover:bg-(--surface-2) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             <X className="h-4 w-4" aria-hidden="true" />
           </button>
@@ -133,7 +133,7 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
       )}
       {game.offerTier2 && !hint.text && (
         <button type="button" onClick={actions.requestHint} className={`${ghostClass} flex items-center justify-center gap-2 normal-case tracking-normal`}>
-          <Lightbulb className="h-4 w-4 text-amber-500" aria-hidden="true" />
+          <Lightbulb className="h-4 w-4 text-(--hint)" aria-hidden="true" />
           {M.stuck.offer}
         </button>
       )}
@@ -208,7 +208,7 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
         <section
           data-testid="round-complete"
           aria-labelledby="balancer-round-complete-title"
-          className="rounded-2xl border-2 border-(--correct) bg-(--surface) p-4 shadow-md"
+          className="rounded-2xl border-2 border-(--correct) bg-(--success-surface) p-4 shadow-md"
         >
           <p className="text-[10px] font-black uppercase tracking-wider text-(--correct)">{M.success.label}</p>
           <h2 id="balancer-round-complete-title" className="mt-1 text-2xl font-black text-(--foreground)">
@@ -216,7 +216,7 @@ export default function ReactionBalancerArena({ game, isPaused }: GameArenaProps
           </h2>
           {coach.message && <p className="mt-2 text-sm font-bold leading-relaxed text-(--foreground)">{richText(coach.message)}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <span className="rounded-full border border-(--border) bg-(--background) px-3 py-1 text-xs font-black text-(--foreground)">
+            <span className="rounded-full border border-(--border) bg-(--surface-2) px-3 py-1 text-xs font-black text-(--foreground)">
               {M.success.points(game.lastPoints)}
             </span>
             {game.lastPoints > CFG.mechanics.pointsPerLevelMultiplier * game.level && (

@@ -197,7 +197,7 @@ export function MoleculeCard({
             alt={format(t.explore.moleculeImageA11y, { name: molecule.name })}
             width={molecule.image.width}
             height={molecule.image.height}
-            className={`mb-4 h-auto w-full rounded-2xl border border-(--border) bg-(--background) sm:float-left sm:mr-6 sm:mb-3 ${
+            className={`mb-4 h-auto w-full rounded-2xl border border-(--border) bg-(--surface-2) sm:float-left sm:mr-6 sm:mb-3 ${
               molecule.image.height > molecule.image.width
                 ? 'sm:w-1/3 sm:max-w-[210px]'
                 : 'sm:w-2/5 sm:max-w-sm'

@@ -47,7 +47,7 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
 
         {/* Formula Example Preview */}
         {firstExample && (
-          <div className="mt-4 rounded-xl border border-(--border) bg-(--background) p-3">
+          <div className="mt-4 rounded-xl border border-(--border) bg-(--surface-2) p-3">
             <p className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
               {t.cheatSheets.exampleFormula}
             </p>

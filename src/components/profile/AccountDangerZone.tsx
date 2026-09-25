@@ -28,7 +28,7 @@ export function AccountDangerZone() {
       </div>
 
       {/* Export block */}
-      <div className="flex flex-col gap-4 rounded-xl border border-(--border) bg-(--background) p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 rounded-xl border border-(--border) bg-(--surface-2) p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-xs font-black uppercase tracking-wider text-(--foreground)">
             {t.profile.exportHeading}

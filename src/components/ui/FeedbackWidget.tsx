@@ -126,7 +126,7 @@ export function FeedbackWidget() {
                 rows={3}
                 required
                 maxLength={FEEDBACK_MESSAGE_MAX_LENGTH}
-                className="w-full resize-none rounded-xl border border-(--border-strong) bg-(--background) p-3 text-xs text-(--foreground) outline-none focus:border-(--link) focus:ring-1 focus:ring-(--link)"
+                className="w-full resize-none rounded-xl border border-(--border-strong) bg-(--surface) p-3 text-xs text-(--foreground) outline-none focus:border-(--link) focus:ring-1 focus:ring-(--link)"
               />
 
               {/*

@@ -26,7 +26,7 @@ export default function MassBeam({ left, right }: MassBeamProps) {
     <figure
       data-testid="mass-beam"
       data-level={level}
-      className="flex w-full flex-col items-center rounded-2xl border-2 border-(--border) bg-(--surface) p-3 shadow-md"
+      className="flex w-full flex-col items-center rounded-2xl border-2 border-(--border) bg-(--surface-2) p-3"
     >
       <figcaption className="text-[10px] font-black uppercase tracking-wider text-(--muted)">{M.beam.label}</figcaption>
       <svg width="220" height="64" viewBox="0 0 220 64" role="img" aria-label={readout} className="mt-1">

@@ -21,7 +21,7 @@ const FIELD_LABEL = 'mb-2 block text-xs font-black uppercase tracking-wider text
 // A focus ring as well as the border change, so focus is visible on its own
 // (docs/ACCESSIBILITY.md §4 rules out `outline-none` with nothing to replace it).
 const FIELD =
-  'w-full rounded-xl border border-(--border-strong) bg-(--background) px-3.5 py-3 text-sm font-bold text-(--foreground) outline-none transition placeholder:font-medium placeholder:text-(--muted) hover:border-(--muted) focus:border-(--link) focus:ring-3 focus:ring-(--link)/25';
+  'w-full rounded-xl border border-(--border-strong) bg-(--surface) px-3.5 py-3 text-sm font-bold text-(--foreground) outline-none transition placeholder:font-medium placeholder:text-(--muted) hover:border-(--muted) focus:border-(--link) focus:ring-3 focus:ring-(--link)/25';
 
 export function EditProfileForm({ initialData }: EditProfileFormProps) {
   const { t } = useI18n();
@@ -162,7 +162,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
         <h3 id="visibility-heading" className={SECTION_HEADING}>
           {t.profile.visibilityHeading}
         </h3>
-        <SwitchList className="rounded-xl border border-(--border) bg-(--background) px-4">
+        <SwitchList className="rounded-xl border border-(--border) bg-(--surface-2) px-4">
           <SwitchRow
             name="showTotalSyntheses"
             label={t.profileToggles.showTotalSyntheses}
@@ -194,7 +194,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
       <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
         <LocaleLink
           href="/profile"
-          className="flex items-center justify-center rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:bg-(--background)"
+          className="flex items-center justify-center rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:bg-(--surface-2)"
         >
           {t.common.cancel}
         </LocaleLink>
