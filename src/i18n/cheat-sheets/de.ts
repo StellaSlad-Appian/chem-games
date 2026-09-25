@@ -376,11 +376,27 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     sections: [
       {
         heading: 'Ein Verfahren, das immer funktioniert',
-        content:
-          '1. Schreib für jedes Edukt und jedes Produkt die richtige Formel auf. 2. Zähle für jedes Element die Atome auf beiden Seiten. 3. Fang mit dem Element an, das in den wenigsten Formeln vorkommt. 4. Ändere nur die Koeffizienten. 5. Wenn ein Bruch herauskommt (z. B. 7/2 O2), multipliziere alles mit 2. 6. Zähle jedes Element noch einmal nach. 7. Ergänze die Zustandssymbole.',
+        content: 'Folge diesen Schritten, immer in dieser Reihenfolge:',
+        steps: [
+          'Schreib für jedes Edukt und jedes Produkt die richtige Formel auf.',
+          'Zähle für jedes Element die Atome auf beiden Seiten.',
+          'Fang mit dem Element an, das in den wenigsten Formeln vorkommt.',
+          'Ändere nur die Koeffizienten.',
+          'Wenn ein Bruch herauskommt (z. B. 7/2 O2), multipliziere alles mit 2.',
+          'Zähle jedes Element noch einmal nach.',
+          'Ergänze die Zustandssymbole.',
+        ],
         exampleNames: ['Verbrennung von Propan'],
         imageAlt:
-          'Die Reaktion 2H₂ + O₂ → 2H₂O als Teilchenbild. Links die Edukte: zwei Wasserstoffmoleküle aus je zwei sich berührenden Atomen mit H, dazu ein Sauerstoffmolekül aus zwei Atomen mit O. Ein Pfeil zeigt auf die Produkte: zwei Wassermoleküle, je ein O-Atom mit zwei H-Atomen. Unter den Teilchen steht die Gleichung und darunter die Atombilanz beider Seiten: H 4 und 4, O 2 und 2.',
+          'Die Reaktion 2H₂ + O₂ → 2H₂O als Teilchenbild. Links die Edukte: zwei Wasserstoffmoleküle aus je zwei sich berührenden Atomen mit H, dazu ein Sauerstoffmolekül aus zwei Atomen mit O. Ein Pfeil zeigt auf die Produkte: zwei Wassermoleküle, je ein O-Atom mit zwei H-Atomen. Unter den Teilchen steht die Gleichung.',
+        table: {
+          heading: 'Atombilanz',
+          columns: ['Element', 'Edukte', 'Produkte'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
+        },
       },
     ],
     commonMistakes: [
@@ -517,14 +533,25 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         heading: 'Beispiel Schritt für Schritt: Aluminiumsulfat',
         content:
           'Al 3+ und SO4 2−. Über Kreuz: Al bekommt den Index 2, Sulfat den Index 3. Sulfat ist mehratomig und kommt mehrfach vor, also braucht es Klammern: Al2(SO4)3. Probe: 2 × (+3) = +6 und 3 × (−2) = −6. Insgesamt ungeladen.',
-        exampleNames: ['Aluminiumsulfat'],
         imageAlt:
           'Aluminiumsulfat nach der Kreuzregel. Oben das Aluminium-Ion Al³⁺, beschriftet mit „Kation“, und das Sulfat-Ion SO₄²⁻, beschriftet mit „Anion“. Zwei sich kreuzende Pfeile tragen jede Ladungszahl nach unten, wo sie zum Index des anderen Ions wird: Die 3 von Al³⁺ wird zur 3 hinter dem eingeklammerten Sulfat, die 2 von SO₄²⁻ zur 2 hinter Al. Unten die Verhältnisformel Al₂(SO₄)₃ und die Probe: 2 × (+3) = +6 und 3 × (−2) = −6.',
       },
       {
         heading: 'Häufige Ionenladungen aus dem Periodensystem',
         content:
-          'Gruppe 1 → +1, Gruppe 2 → +2, Al → +3, Gruppe 17 → −1, Gruppe 16 → −2, N und P → −3. Bei den Nebengruppenmetallen wechselt die Ladung – der Name sagt sie dir. Für mehratomige Ionen benutzt du die Nachschlagetabelle.',
+          'Bei den Nebengruppenmetallen wechselt die Ladung – der Name sagt sie dir. Für mehratomige Ionen benutzt du die Nachschlagetabelle.',
+        table: {
+          heading: 'Häufige Ionenladungen',
+          columns: ['Gruppe / Element', 'Ladung'],
+          rows: [
+            ['Gruppe 1', '+1'],
+            ['Gruppe 2', '+2'],
+            ['Al', '+3'],
+            ['N und P', '−3'],
+            ['Gruppe 16', '−2'],
+            ['Gruppe 17', '−1'],
+          ],
+        },
       },
     ],
     commonMistakes: [

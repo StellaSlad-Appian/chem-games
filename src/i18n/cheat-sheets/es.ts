@@ -401,11 +401,27 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     sections: [
       {
         heading: 'Un método que funciona siempre',
-        content:
-          '1. Escribe la fórmula correcta de cada reactivo y de cada producto. 2. Cuenta los átomos de cada elemento a cada lado. 3. Empieza por el elemento que aparece en menos fórmulas. 4. Cambia solo los coeficientes. 5. Si te sale una fracción (por ejemplo 7/2 O2), multiplica todo por 2. 6. Vuelve a contar cada elemento. 7. Añade los símbolos de estado.',
+        content: 'Sigue estos pasos, siempre en este orden:',
+        steps: [
+          'Escribe la fórmula correcta de cada reactivo y de cada producto.',
+          'Cuenta los átomos de cada elemento a cada lado.',
+          'Empieza por el elemento que aparece en menos fórmulas.',
+          'Cambia solo los coeficientes.',
+          'Si te sale una fracción (por ejemplo 7/2 O2), multiplica todo por 2.',
+          'Vuelve a contar cada elemento.',
+          'Añade los símbolos de estado.',
+        ],
         exampleNames: ['Combustión del propano'],
         imageAlt:
-          'La reacción 2H₂ + O₂ → 2H₂O dibujada con partículas. A la izquierda, los reactivos: dos moléculas de dihidrógeno, cada una con dos átomos marcados con H que se tocan, más una molécula de dioxígeno, dos átomos marcados con O. Una flecha lleva a los productos: dos moléculas de agua, cada una un átomo de O con dos átomos de H. Debajo de las partículas está la ecuación y, debajo de ella, el recuento de átomos de cada lado: H 4 y 4, O 2 y 2.',
+          'La reacción 2H₂ + O₂ → 2H₂O dibujada con partículas. A la izquierda, los reactivos: dos moléculas de dihidrógeno, cada una con dos átomos marcados con H que se tocan, más una molécula de dioxígeno, dos átomos marcados con O. Una flecha lleva a los productos: dos moléculas de agua, cada una un átomo de O con dos átomos de H. Debajo de las partículas está la ecuación.',
+        table: {
+          heading: 'Recuento de átomos',
+          columns: ['Elemento', 'Reactivos', 'Productos'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
+        },
       },
     ],
     commonMistakes: [
@@ -536,14 +552,25 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'Ejemplo resuelto: sulfato de aluminio',
         content:
           'Al 3+ y SO4 2−. Cruza las cargas: el Al se lleva el subíndice 2 y el sulfato el subíndice 3. El sulfato es poliatómico y se repite, así que necesita paréntesis: Al2(SO4)3. Comprueba: 2 × (+3) = +6 y 3 × (−2) = −6. Neutro.',
-        exampleNames: ['Sulfato de aluminio'],
         imageAlt:
           'El sulfato de aluminio por el método del aspa. Arriba, el ion aluminio Al³⁺, rotulado «catión», y el ion sulfato SO₄²⁻, rotulado «anión». Dos flechas que se cruzan bajan cada número de carga, que pasa a ser el subíndice del otro ion: el 3 del Al³⁺ pasa a ser el 3 tras el sulfato entre paréntesis, y el 2 del SO₄²⁻, el 2 tras el Al. Abajo, la fórmula Al₂(SO₄)₃ y la comprobación: 2 × (+3) = +6 y 3 × (−2) = −6.',
       },
       {
         heading: 'Las cargas más comunes, leídas en la tabla periódica',
         content:
-          'Grupo 1 → +1, grupo 2 → +2, Al → +3, grupo 17 → −1, grupo 16 → −2, N y P → −3. Los metales de transición varían: te lo dirá el nombre. Para los iones poliatómicos, usa la tabla de consulta.',
+          'Los metales de transición varían: te lo dirá el nombre. Para los iones poliatómicos, usa la tabla de consulta.',
+        table: {
+          heading: 'Cargas iónicas comunes',
+          columns: ['Grupo / elemento', 'Carga'],
+          rows: [
+            ['Grupo 1', '+1'],
+            ['Grupo 2', '+2'],
+            ['Al', '+3'],
+            ['N y P', '−3'],
+            ['Grupo 16', '−2'],
+            ['Grupo 17', '−1'],
+          ],
+        },
       },
     ],
     commonMistakes: [

@@ -493,13 +493,6 @@ export const markup: Record<CheatSheetDiagramId, string> = {
     '<path d="M 178 96 L 206 96" style="fill:none;stroke:var(--diagram-ink)" stroke-width="2.5" stroke-linecap="round" /><path d="M 218 96 L 206 90 L 206 102 Z" style="fill:var(--diagram-ink)" />',
     '<path d="M 81 170 L 95 170 M 88 163 L 88 177" style="fill:none;stroke:var(--diagram-ink)" stroke-width="2.5" stroke-linecap="round" />',
     '<path d="M 178 170 L 206 170" style="fill:none;stroke:var(--diagram-ink)" stroke-width="2.5" stroke-linecap="round" /><path d="M 218 170 L 206 164 L 206 176 Z" style="fill:var(--diagram-ink)" />',
-    '<text x="16" y="206" dominant-baseline="central" font-size="17.5" style="fill:var(--diagram-ink)">H</text>',
-    '<text x="90" y="206" text-anchor="middle" dominant-baseline="central" font-size="17.5" style="fill:var(--diagram-ink)">4</text>',
-    '<text x="264" y="206" text-anchor="middle" dominant-baseline="central" font-size="17.5" style="fill:var(--diagram-ink)">4</text>',
-    '<text x="16" y="236" dominant-baseline="central" font-size="17.5" style="fill:var(--diagram-ink)">O</text>',
-    '<text x="90" y="236" text-anchor="middle" dominant-baseline="central" font-size="17.5" style="fill:var(--diagram-ink)">2</text>',
-    '<text x="264" y="236" text-anchor="middle" dominant-baseline="central" font-size="17.5" style="fill:var(--diagram-ink)">2</text>',
-    '<path d="M 198 190 L 198 252" style="fill:none;stroke:var(--diagram-ink)" stroke-width="2" stroke-linecap="round" />',
   ].join('\n'),
   'chemical-bonds/01-bonding-models': [
     '<rect x="184" y="16" width="159" height="150" rx="16" style="fill:none;stroke:var(--diagram-ink)" stroke-width="2" />',

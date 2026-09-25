@@ -45,6 +45,10 @@ export interface CheatSheetTableOverlay {
 export interface CheatSheetSectionOverlay {
   heading: string;
   content: string;
+  /** The section's numbered procedure, in the English order, when it has one. */
+  steps?: string[];
+  /** The section's own small table, when it has one. Same rules as `tables`. */
+  table?: CheatSheetTableOverlay;
   /**
    * Alt text for this section's diagram, when it has one.
    *
@@ -214,6 +218,8 @@ function localizeSheet(sheet: CheatSheetTopic, overlay: CheatSheetOverlay): Chea
         ...section,
         heading: sectionOverlay.heading,
         content: sectionOverlay.content,
+        steps: section.steps ? (sectionOverlay.steps ?? section.steps) : undefined,
+        table: section.table ? localizeTable(section.table, sectionOverlay.table) : undefined,
         examples: section.examples?.map((example, exampleIndex) => ({
           ...example,
           name: sectionOverlay.exampleNames?.[exampleIndex] ?? example.name,

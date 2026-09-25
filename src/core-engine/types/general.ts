@@ -201,9 +201,24 @@ export type CheatSheetWidgetName = 'periodic-table' | 'periodic-table-occurrence
 export interface CheatSheetSection {
   heading: string;
   content: string;
+  /**
+   * A numbered procedure, rendered as an `<ol>` under `content` — for a
+   * section whose point is "do these steps, in this order", where a single
+   * prose paragraph reading "1. ... 2. ... 3. ..." made the numbering
+   * decorative text a screen reader speaks as one run instead of a list.
+   * Optional because most sections are prose only.
+   */
+  steps?: string[];
   examples?: FormulaExample[];
   /** Optional diagram, rendered under the prose. */
   image?: CheatSheetImage;
+  /**
+   * A small table scoped to this section, rendered under its diagram —
+   * for data that belongs beside one worked example (an atom tally) rather
+   * than in the sheet-wide "Lookup tables" panel. Same shape as `tables` on
+   * `CheatSheetTopic`.
+   */
+  table?: CheatSheetTable;
   /**
    * Renders an interactive widget under the prose. See `WIDGET_REGISTRY` in
    * src/app/[lang]/(main)/cheat-sheets/[slug]/page.tsx.

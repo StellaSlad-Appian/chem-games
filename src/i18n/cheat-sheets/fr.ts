@@ -391,11 +391,27 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     sections: [
       {
         heading: 'Une méthode qui marche à tous les coups',
-        content:
-          '1. Écris la formule correcte de chaque réactif et de chaque produit. 2. Compte les atomes de chaque élément de chaque côté. 3. Commence par l’élément qui apparaît dans le moins de formules. 4. Ne change que les coefficients. 5. Si tu obtiens une fraction (par exemple 7/2 O2), multiplie tout par 2. 6. Recompte chaque élément. 7. Ajoute les symboles d’état.',
+        content: 'Suis ces étapes, toujours dans cet ordre :',
+        steps: [
+          'Écris la formule correcte de chaque réactif et de chaque produit.',
+          'Compte les atomes de chaque élément de chaque côté.',
+          'Commence par l’élément qui apparaît dans le moins de formules.',
+          'Ne change que les coefficients.',
+          'Si tu obtiens une fraction (par exemple 7/2 O2), multiplie tout par 2.',
+          'Recompte chaque élément.',
+          'Ajoute les symboles d’état.',
+        ],
         exampleNames: ['Combustion du propane'],
         imageAlt:
-          'La réaction 2H₂ + O₂ → 2H₂O représentée par des particules. À gauche, les réactifs : deux molécules de dihydrogène, chacune formée de deux atomes marqués H qui se touchent, plus une molécule de dioxygène, deux atomes marqués O. Une flèche mène aux produits : deux molécules d’eau, chacune un atome O lié à deux atomes H. L’équation est écrite sous les particules et, en dessous, les atomes sont comptés de chaque côté : H 4 et 4, O 2 et 2.',
+          'La réaction 2H₂ + O₂ → 2H₂O représentée par des particules. À gauche, les réactifs : deux molécules de dihydrogène, chacune formée de deux atomes marqués H qui se touchent, plus une molécule de dioxygène, deux atomes marqués O. Une flèche mène aux produits : deux molécules d’eau, chacune un atome O lié à deux atomes H. L’équation est écrite sous les particules.',
+        table: {
+          heading: 'Bilan des atomes',
+          columns: ['Élément', 'Réactifs', 'Produits'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
+        },
       },
     ],
     commonMistakes: [
@@ -542,14 +558,25 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         heading: 'Exemple guidé : le sulfate d’aluminium',
         content:
           'Al 3+ et SO4 2−. En croix : Al prend l’indice 2, le sulfate prend l’indice 3. Le sulfate est polyatomique et répété, il lui faut donc des parenthèses : Al2(SO4)3. Vérification : 2 × (+3) = +6 et 3 × (−2) = −6. L’ensemble est neutre.',
-        exampleNames: ['Sulfate d’aluminium'],
         imageAlt:
           'Le sulfate d’aluminium par la méthode de la croix. En haut, l’ion aluminium Al³⁺, marqué « cation », et l’ion sulfate SO₄²⁻, marqué « anion ». Deux flèches qui se croisent font descendre chaque nombre de charges, qui devient l’indice de l’autre ion : le 3 de Al³⁺ devient le 3 après le sulfate entre parenthèses, et le 2 de SO₄²⁻ devient le 2 après Al. En bas, la formule statistique Al₂(SO₄)₃ et la vérification : 2 × (+3) = +6 et 3 × (−2) = −6.',
       },
       {
         heading: 'Les charges courantes lues dans le tableau périodique',
         content:
-          'Groupe 1 → +1, groupe 2 → +2, Al → +3, groupe 17 → −1, groupe 16 → −2, N et P → −3. Les métaux de transition varient – le nom te le dit. Pour les ions polyatomiques, utilise le tableau de référence.',
+          'Les métaux de transition varient – le nom te le dit. Pour les ions polyatomiques, utilise le tableau de référence.',
+        table: {
+          heading: 'Charges ioniques courantes',
+          columns: ['Groupe / élément', 'Charge'],
+          rows: [
+            ['Groupe 1', '+1'],
+            ['Groupe 2', '+2'],
+            ['Al', '+3'],
+            ['N et P', '−3'],
+            ['Groupe 16', '−2'],
+            ['Groupe 17', '−1'],
+          ],
+        },
       },
     ],
     commonMistakes: [

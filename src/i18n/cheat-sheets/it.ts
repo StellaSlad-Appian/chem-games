@@ -404,11 +404,27 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     sections: [
       {
         heading: 'Un metodo che funziona sempre',
-        content:
-          '1. Scrivi la formula corretta di ogni reagente e di ogni prodotto. 2. Conta gli atomi di ogni elemento per lato. 3. Comincia dall’elemento che compare in meno formule. 4. Cambia solo i coefficienti. 5. Se ti viene una frazione (per esempio 7/2 O2), moltiplica tutto per 2. 6. Ricontrolla ogni elemento. 7. Aggiungi i simboli di stato.',
+        content: 'Segui questi passaggi, sempre in quest’ordine:',
+        steps: [
+          'Scrivi la formula corretta di ogni reagente e di ogni prodotto.',
+          'Conta gli atomi di ogni elemento per lato.',
+          'Comincia dall’elemento che compare in meno formule.',
+          'Cambia solo i coefficienti.',
+          'Se ti viene una frazione (per esempio 7/2 O2), moltiplica tutto per 2.',
+          'Ricontrolla ogni elemento.',
+          'Aggiungi i simboli di stato.',
+        ],
         exampleNames: ['Combustione del propano'],
         imageAlt:
-          'La reazione 2H₂ + O₂ → 2H₂O disegnata con le particelle. A sinistra i reagenti: due molecole di idrogeno, ognuna di due atomi con la H che si toccano, più una molecola di ossigeno, due atomi con la O. Una freccia porta ai prodotti: due molecole d’acqua, ognuna un atomo di O con due atomi di H. Sotto le particelle c’è l’equazione e, sotto ancora, il conteggio degli atomi dei due lati: H 4 e 4, O 2 e 2.',
+          'La reazione 2H₂ + O₂ → 2H₂O disegnata con le particelle. A sinistra i reagenti: due molecole di idrogeno, ognuna di due atomi con la H che si toccano, più una molecola di ossigeno, due atomi con la O. Una freccia porta ai prodotti: due molecole d’acqua, ognuna un atomo di O con due atomi di H. Sotto le particelle c’è l’equazione.',
+        table: {
+          heading: 'Conteggio degli atomi',
+          columns: ['Elemento', 'Reagenti', 'Prodotti'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
+        },
       },
     ],
     commonMistakes: [
@@ -545,14 +561,25 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Esempio svolto: solfato di alluminio',
         content:
           'Al 3+ e SO4 2−. Incrocia le cariche: l’Al prende il pedice 2 e il solfato il pedice 3. Il solfato è poliatomico e si ripete, quindi ha bisogno delle parentesi: Al2(SO4)3. Verifica: 2 × (+3) = +6 e 3 × (−2) = −6. Neutro.',
-        exampleNames: ['Solfato di alluminio'],
         imageAlt:
           'Il solfato di alluminio con il metodo dell’incrocio. In alto, lo ione alluminio Al³⁺, indicato come «catione», e lo ione solfato SO₄²⁻, indicato come «anione». Due frecce che si incrociano portano in basso ciascun numero di carica, che diventa il pedice dell’altro ione: il 3 di Al³⁺ diventa il 3 dopo il solfato tra parentesi, e il 2 di SO₄²⁻ il 2 dopo Al. In basso, la formula Al₂(SO₄)₃ e la verifica: 2 × (+3) = +6 e 3 × (−2) = −6.',
       },
       {
         heading: 'Le cariche più comuni, lette sulla tavola periodica',
         content:
-          'Gruppo 1 → +1, gruppo 2 → +2, Al → +3, gruppo 17 → −1, gruppo 16 → −2, N e P → −3. I metalli di transizione variano: te lo dice il nome. Per gli ioni poliatomici, usa la tabella di consultazione.',
+          'I metalli di transizione variano: te lo dice il nome. Per gli ioni poliatomici, usa la tabella di consultazione.',
+        table: {
+          heading: 'Cariche ioniche comuni',
+          columns: ['Gruppo / elemento', 'Carica'],
+          rows: [
+            ['Gruppo 1', '+1'],
+            ['Gruppo 2', '+2'],
+            ['Al', '+3'],
+            ['N e P', '−3'],
+            ['Gruppo 16', '−2'],
+            ['Gruppo 17', '−1'],
+          ],
+        },
       },
     ],
     commonMistakes: [

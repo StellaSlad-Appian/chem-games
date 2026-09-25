@@ -580,13 +580,30 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     sections: [
       {
         heading: 'A method that always works',
-        content: '1. Write correct formulas for every reactant and product. 2. Count atoms of each element on each side. 3. Start with the element that appears in the fewest formulas. 4. Adjust coefficients only. 5. If you end up with a fraction (e.g. 7/2 O2), multiply everything by 2. 6. Recount every element. 7. Add state symbols.',
+        content: 'Follow these steps every time:',
+        steps: [
+          'Write correct formulas for every reactant and product.',
+          'Count atoms of each element on each side.',
+          'Start with the element that appears in the fewest formulas.',
+          'Adjust coefficients only.',
+          'If you end up with a fraction (e.g. 7/2 O2), multiply everything by 2.',
+          'Recount every element.',
+          'Add state symbols.',
+        ],
         examples: [
           { name: 'Combustion of propane', formula: 'C3H8 (g) + 5O2 (g) -> 3CO2 (g) + 4H2O (l)' },
         ],
         image: {
           diagram: 'balancing-equations/01-particle-equation',
-          alt: 'The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.',
+          alt: 'The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles.',
+        },
+        table: {
+          heading: 'Atom count',
+          columns: ['Element', 'Reactants', 'Products'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
         },
       },
     ],
@@ -736,7 +753,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Worked example: aluminium sulfate',
         content: 'Al 3+ and SO4 2−. Cross over: Al gets subscript 2, sulfate gets subscript 3. Sulfate is polyatomic and repeated, so it needs brackets: Al2(SO4)3. Check: 2 × (+3) = +6 and 3 × (−2) = −6. Neutral.',
-        examples: [{ name: 'Aluminium sulfate', formula: 'Al2(SO4)3' }],
         image: {
           diagram: 'chemical-formulas/01-cross-over',
           alt: 'Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.',
@@ -744,7 +760,19 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
       {
         heading: 'Common ion charges from the periodic table',
-        content: 'Group 1 → +1, Group 2 → +2, Al → +3, Group 17 → −1, Group 16 → −2, N and P → −3. Transition metals vary — the name will tell you. For polyatomic ions use the lookup table.',
+        content: 'Transition metals vary — the name will tell you. For polyatomic ions use the lookup table.',
+        table: {
+          heading: 'Common ion charges',
+          columns: ['Group / element', 'Charge'],
+          rows: [
+            ['Group 1', '+1'],
+            ['Group 2', '+2'],
+            ['Al', '+3'],
+            ['N and P', '−3'],
+            ['Group 16', '−2'],
+            ['Group 17', '−1'],
+          ],
+        },
       },
     ],
     commonMistakes: [
