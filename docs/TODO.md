@@ -184,13 +184,13 @@ has been pushed:
 | 4 Diagram display (inline SVG, lighter type, per language) | `cheatsheet/4-diagram-pipeline` | done, `03c165d` |
 | 5 Redraw diagrams 01, 02, 05, 06 | `cheatsheet/5-atom-diagrams` (includes the French *groupe* commit) | done, `f857013` |
 | 6 Diagram boxes sized to their drawings; redraw diagrams 03, 07 | `cheatsheet/6-isotope-diagrams` | done, `bf03a4a` + `85e7f58` |
-| 7 New diagrams: States of Matter | `cheatsheet/7-states-of-matter-diagrams` | running (parallel with 8, 9) |
-| 8 New diagrams: Lewis Structures | `cheatsheet/8-lewis-diagrams` | running (parallel with 7, 9) |
-| 9 New diagram: Functional Groups reaction map | `cheatsheet/9-functional-groups-diagrams` | running (parallel with 7, 8) |
-| E Easy fixes and the owner's four decisions (Sonnet) | `cheatsheet/e-easy-fixes` | running (parallel with 7–9) |
-| — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | — | after 7–9 and E |
-| F Formulas in prose render with sub- and superscripts (`ChemText`) | — | after the merge, in parallel with 10a/10b (Opus). Found by the owner 2026-09-25: key concepts, paragraphs and common mistakes print "SO4 2−", "NH4+" as plain text on every sheet |
-| 10a/10b Eight smaller diagrams | — | after the merge; **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
+| 7 New diagrams: States of Matter | `cheatsheet/7-states-of-matter-diagrams` | done, `af92e63` |
+| 8 New diagrams: Lewis Structures | `cheatsheet/8-lewis-diagrams` | done, `67d96cb` |
+| 9 New diagram: Functional Groups reaction map | `cheatsheet/9-functional-groups-diagrams` | done, `4efa19b` |
+| E Easy fixes and the owner's four decisions (Sonnet) | `cheatsheet/e-easy-fixes` | done, `f453a74` |
+| — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | `cheatsheet/wave1-merge` | merged; typecheck, 1437 unit tests, diagram check pass; build and full suite running |
+| F Formulas in prose render with sub- and superscripts (`ChemText`) | `cheatsheet/f-chem-text` | running, parallel with 10a/10b (Opus). Found by the owner 2026-09-25: key concepts, paragraphs and common mistakes print "SO4 2−", "NH4+" as plain text on every sheet |
+| 10a/10b Eight smaller diagrams | `cheatsheet/10a-small-diagrams-a`, `cheatsheet/10b-small-diagrams-b` | running (Opus), from the merge; **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
 
 Owner to-dos from this work:
 
@@ -204,7 +204,7 @@ Owner to-dos from this work:
       each language has its own section, with the English, the new text, the text
       before, and a tick box. It covers steps 1–6 (350 strings and 180 diagram
       labels) and gets extended after each later step.
-- [x] **Decided 2026-09-25 (4b): remove the leftovers, point to the formula-mass sheet.**
+- [x] **Decided 2026-09-25 (4b), done in step E: remove the leftovers, point to the formula-mass sheet.**
       Being applied by step E. Was: **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**
       The section was removed on 2026-09-22, and its takeaway and mistakes were
       removed on 2026-09-24. Three things still point at it: the Carbon-12 example
@@ -212,22 +212,21 @@ Owner to-dos from this work:
       `curriculumRef`, and the PhET link "Isotopes and Atomic Mass". Bring a short
       section back, or remove all three. The Carbon-12 card is replaced by a
       hydrogen-3 (tritium) card (3a).
-- [x] **Decided 2026-09-25 (1a): add a short helium exception.** Being applied by
-      step E. Was: **Decide whether to mention helium** as the exception to the new "last digit
+- [x] **Decided 2026-09-25 (1a): add a short helium exception.** Done in step E. Was: **Decide whether to mention helium** as the exception to the new "last digit
       of the group number = valence electrons" rule (group 18, but 2 valence
       electrons). It is on *Chemical Bonds* and *Lewis Structures*, and was left
       unstated to keep the takeaways short.
 - [x] **Decided 2026-09-25: German uses the Abitur values (24,5 L/mol at 25 °C and
       1013 hPa, and 22,4 L/mol at 0 °C); fr, es, it and ru spell out "25 °C and 100 kPa"
-      with 24,8 L/mol.** Being applied by step E. Was: **Decide what to do with "SLC"** in the translated stoichiometry table. It is
+      with 24,8 L/mol.** Done in step E. Was: **Decide what to do with "SLC"** in the translated stoichiometry table. It is
       the Australian VCE abbreviation for standard laboratory conditions (25 °C,
       100 kPa), and no other country's students will know it. Spell it out, or use
       each country's own term.
-- [ ] **Fix the wrapped equation on *Balancing Chemical Equations*.** With state
+- [x] **Done in step E** (a species and its state symbol never split). Was: **Fix the wrapped equation on *Balancing Chemical Equations*.** With state
       symbols added, the polyatomic-ion example wraps "(aq)" onto a second line
       inside its half-width card at desktop width. Make that card full width or let
       the formula scale down.
-- [ ] **Fix German titles breaking mid-word on phones** ("Periodensys|tem",
+- [x] **Done in step E** (`hyphens-auto` on the title). Was: **Fix German titles breaking mid-word on phones** ("Periodensys|tem",
       "Radioaktivit|ät" at 375 px). Use `hyphens: auto` with the page's `lang` set, or
       a smaller title on phones. This was there before the review.
 
