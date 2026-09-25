@@ -18,7 +18,13 @@ export function PublicLeaderboard({ leaderboards }: PublicLeaderboardProps) {
   // Prefer the rank from the database view (ties share a rank); fall back to position.
   const rankedEntries = useMemo(() => activeData ? [...activeData.entries].sort((a, b) => b.score - a.score).map((entry, index) => ({ ...entry, rank: entry.rank ?? index + 1 })) : [], [activeData]);
 
-  return <section className="game-card overflow-hidden"><div className="border-b border-(--border) bg-[linear-gradient(135deg,color-mix(in_srgb,var(--accent)_18%,transparent),transparent_65%)] p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-2"><Trophy className="h-6 w-6 shrink-0 text-(--accent)" aria-hidden="true" /><h2 className="text-2xl font-black">{t.leaderboards.topScientists}</h2></div><span className="inline-flex items-center gap-1 rounded-full border border-(--border) bg-(--surface) px-3 py-1 text-xs font-bold text-muted"><UsersRound className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />{t.leaderboards.globalNetwork}</span></div><div className="mt-5 flex flex-wrap gap-2">{leaderboards.map((leaderboard) => {
+  return <section className="game-card overflow-hidden">{/*
+        The card opens like every card on the dashboard — an icon tile, the
+        title, a neutral pill — rather than with the amber gradient header it
+        used to have, which made it the one section that looked like another
+        site.
+      */}
+      <div className="border-b border-(--border) p-5"><div className="flex flex-wrap items-center justify-between gap-3"><div className="flex min-w-0 items-center gap-3"><span className="icon-tile bg-(--accent-surface) text-(--accent)" aria-hidden="true"><Trophy className="h-5 w-5" /></span><h2 className="min-w-0 text-xl font-black break-words text-(--foreground)">{t.leaderboards.topScientists}</h2></div><span className="pill"><UsersRound className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />{t.leaderboards.globalNetwork}</span></div><div className="mt-5 flex flex-wrap gap-2">{leaderboards.map((leaderboard) => {
             const selected = activeTab === leaderboard.gameId;
             // The game's own icon, as everywhere else. On the selected tab (the
             // site's --action fill) it sits on a white tile so the accent still
@@ -37,7 +43,7 @@ export function PublicLeaderboard({ leaderboards }: PublicLeaderboardProps) {
                 {gameTitle(t, leaderboard.gameId, leaderboard.gameTitle)}
               </button>
             );
-          })}</div></div><div className="p-4 sm:p-6"><h3 className="flex items-center gap-2 text-lg font-black">{activeData ? <><GameIcon slug={activeData.gameId} size="sm" />{gameTitle(t, activeData.gameId, activeData.gameTitle)}</> : null}</h3>{rankedEntries.length === 0 ? <div className="mt-4 rounded-xl border border-dashed border-(--border) bg-(--surface-2) p-8 text-center"><Trophy className="mx-auto h-7 w-7 text-(--accent)" aria-hidden="true" /><p className="mt-3 font-black">{t.leaderboards.emptyTitle}</p><p className="mt-1 text-sm text-muted">{t.leaderboards.emptyBody}</p></div> : <ol className="mt-4 space-y-3">{rankedEntries.map((entry) => <LeaderboardRow key={entry.id} entry={entry} t={t} f={f} locale={locale} />)}</ol>}</div></section>;
+          })}</div></div><div className="p-4 sm:p-6"><h3 className="flex items-center gap-2 text-lg font-black">{activeData ? <><GameIcon slug={activeData.gameId} size="sm" />{gameTitle(t, activeData.gameId, activeData.gameTitle)}</> : null}</h3>{rankedEntries.length === 0 ? <div className="panel mt-4 border-dashed p-8 text-center"><Trophy className="mx-auto h-7 w-7 text-(--accent)" aria-hidden="true" /><p className="mt-3 font-black">{t.leaderboards.emptyTitle}</p><p className="mt-1 text-sm text-muted">{t.leaderboards.emptyBody}</p></div> : <ol className="mt-4 space-y-3">{rankedEntries.map((entry) => <LeaderboardRow key={entry.id} entry={entry} t={t} f={f} locale={locale} />)}</ol>}</div></section>;
 }
 
 function LeaderboardRow({ entry, t, f, locale }: { entry: { id: string; alias: string; score: number; timestamp: string; rank: number }; t: Dictionary; f: (template: string, values?: Record<string, string | number>) => string; locale: Locale }) {

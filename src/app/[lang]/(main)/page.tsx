@@ -1,6 +1,6 @@
 // src/app/[lang]/(main)/page.tsx
 
-import { ArrowRight, Compass } from 'lucide-react';
+import { ArrowRight, Compass, UserRound } from 'lucide-react';
 import { PersonalScoreSummary } from '@/components/social/PersonalScoreSummary';
 import { PublicLeaderboard } from '@/components/social/PublicLeaderboard';
 import { LocaleLink } from '@/components/layout/LocaleLink';
@@ -120,15 +120,18 @@ export default async function Home(props: PageProps<'/[lang]'>) {
       </section>
 
       {/*
-        Games first — it is what a student came for, and what a teacher or
-        parent needs to see to understand the site. A full-width band, so it
-        reads as the page's main content rather than one section of four.
+        Every section below shares one look: the same SectionHeading, white
+        cards (.game-card) on the tinted page, the same icon tiles and pills,
+        and the same spacing between sections. Games used to be a full-width
+        band of its own colour; it now leads by being first, not by looking
+        like a different page.
       */}
-      <section
-        id="games"
-        className="scroll-mt-24 border-b border-(--border) bg-(--surface-2)/50 py-14"
-      >
-        <div className="mx-auto max-w-6xl px-4 md:px-8">
+      <div className="mx-auto max-w-6xl space-y-20 px-4 py-14 md:px-8">
+        {/*
+          Games first — it is what a student came for, and what a teacher or
+          parent needs to see to understand the site.
+        */}
+        <section id="games" className="scroll-mt-24">
           <SectionHeading
             title={t.home.gamesHeading}
             description={t.home.gamesDescription}
@@ -146,10 +149,8 @@ export default async function Home(props: PageProps<'/[lang]'>) {
               <GameCard key={slug} slug={slug} />
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div className="mx-auto max-w-6xl space-y-20 px-4 py-14 md:px-8">
         {/*
           Scores. The profile used to be a section of its own at the top of the
           page, and for a signed-out visitor — most of them, and every parent
@@ -223,7 +224,7 @@ export default async function Home(props: PageProps<'/[lang]'>) {
           />
           <LocaleLink
             href="/explore"
-            className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-(--accent-explore) hover:shadow-xl"
+            className="group flex flex-col justify-between game-card card-lift p-6 hover:border-(--accent-explore)"
           >
             <div>
               {/*
@@ -231,8 +232,10 @@ export default async function Home(props: PageProps<'/[lang]'>) {
                 section, not a sixth game — see the note on `--accent-explore`
                 in globals.css.
               */}
-              <Compass className="h-8 w-8 shrink-0 text-(--accent-explore)" aria-hidden="true" />
-              <p className="mt-5 max-w-2xl text-sm text-(--muted)">{t.home.exploreDetail}</p>
+              <span className="icon-tile bg-(--info-surface) text-(--accent-explore)" aria-hidden="true">
+                <Compass className="h-5 w-5" />
+              </span>
+              <p className="mt-4 max-w-2xl text-sm text-(--muted)">{t.home.exploreDetail}</p>
             </div>
             <div className="mt-6 flex items-center gap-1.5 text-xs font-black text-(--accent-explore)">
               <span>{t.home.exploreLink}</span>
@@ -306,16 +309,25 @@ function SectionHeading({
  */
 function ProfilePrompt({ isAuthenticated, t }: { isAuthenticated: boolean; t: Dictionary }) {
   return (
-    <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border-2 border-dashed border-(--border) bg-(--surface) p-5 sm:flex-row sm:items-center">
-      <div className="min-w-0">
-        <h3 className="text-lg font-black tracking-normal text-(--foreground)">
-          {isAuthenticated
-            ? t.home.emptyProfileAuthenticatedTitle
-            : t.home.emptyProfileAnonymousTitle}
-        </h3>
-        <p className="mt-1 max-w-2xl text-sm text-(--muted)">
-          {isAuthenticated ? t.home.emptyProfileAuthenticatedBody : t.home.emptyProfileAnonymousBody}
-        </p>
+    // A secondary panel, not a card: tinted (--surface-2) and flat, with a
+    // dashed edge, so it reads as a note above the leaderboard card rather
+    // than a second thing competing with it. It opens with an icon tile like
+    // every card on the page.
+    <div className="flex flex-col items-start justify-between gap-4 rounded-2xl border-2 border-dashed border-(--border) bg-(--surface-2) p-5 sm:flex-row sm:items-center">
+      <div className="flex min-w-0 items-start gap-3">
+        <span className="icon-tile bg-(--info-surface) text-(--link)" aria-hidden="true">
+          <UserRound className="h-5 w-5" />
+        </span>
+        <div className="min-w-0">
+          <h3 className="text-lg font-black tracking-normal text-(--foreground)">
+            {isAuthenticated
+              ? t.home.emptyProfileAuthenticatedTitle
+              : t.home.emptyProfileAnonymousTitle}
+          </h3>
+          <p className="mt-1 max-w-2xl text-sm text-(--muted)">
+            {isAuthenticated ? t.home.emptyProfileAuthenticatedBody : t.home.emptyProfileAnonymousBody}
+          </p>
+        </div>
       </div>
       {!isAuthenticated && (
         <LocaleLink

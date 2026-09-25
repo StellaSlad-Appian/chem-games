@@ -113,7 +113,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
   };
 
   return (
-    <div className="w-full max-w-md rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
+    <div className="w-full max-w-md game-card p-6 md:p-8">
       {/* Header */}
       <div className="mb-6 text-center">
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-(--link)/30 bg-(--info-surface) text-(--link)">

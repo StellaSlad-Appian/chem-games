@@ -17,37 +17,33 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
   return (
     <LocaleLink
       href={`/cheat-sheets/${topic.slug}`}
-      className="group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:border-(--link) hover:shadow-xl"
+      className="group flex flex-col justify-between game-card card-lift p-6 hover:border-(--link)"
     >
       <div>
-        {/* Header badges */}
-        <div className="flex items-center justify-between gap-2">
-          <span
-            className={`inline-block rounded-full border px-3 py-1 text-xs font-black uppercase tracking-wider ${topic.colorTheme}`}
-          >
-            {t.yearLevels[topic.yearLevel]}
+        {/*
+          The dashboard's card anatomy, shared with the game and Explore cards:
+          the icon on a tile of the item's colour top left, a neutral pill top
+          right, then the title. The sheet's hue lives on the tile only; the
+          year is the same neutral pill as every other label on the site.
+        */}
+        <div className="flex items-start justify-between gap-2">
+          <span className={`icon-tile ${topic.colorTheme}`} aria-hidden="true">
+            <ChemIcon name={topic.iconName} className="h-5 w-5" />
           </span>
-          <span className="text-xs font-bold text-(--muted)">
-            {t.cheatSheetCategories[topic.category]}
-          </span>
+          <span className="pill uppercase tracking-wider">{t.yearLevels[topic.yearLevel]}</span>
         </div>
 
-        {/* Icon & Title */}
-        <div className="mt-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--info-surface) text-(--link) transition group-hover:bg-(--action) group-hover:text-white">
-            <ChemIcon name={topic.iconName} className="h-5 w-5" />
-          </div>
-          <h3 className="hyphens-auto break-words text-xl font-black text-(--foreground) transition group-hover:text-(--link) sm:text-2xl">
-            {topic.title}
-          </h3>
-        </div>
+        <h3 className="mt-4 hyphens-auto break-words text-xl font-black text-(--foreground) transition group-hover:text-(--link)">
+          {topic.title}
+        </h3>
+        <p className="mt-1 text-xs font-bold text-(--muted)">{t.cheatSheetCategories[topic.category]}</p>
 
         {/* Summary */}
-        <p className="mt-3 hyphens-auto text-sm text-(--muted)">{topic.summary}</p>
+        <p className="mt-2 hyphens-auto text-sm text-(--muted)">{topic.summary}</p>
 
         {/* Formula Example Preview */}
         {firstExample && (
-          <div className="mt-4 rounded-xl border border-(--border) bg-(--surface-2) p-3">
+          <div className="panel mt-4 p-3">
             <p className="text-[10px] font-black uppercase tracking-widest text-(--muted)">
               {t.cheatSheets.exampleFormula}
             </p>

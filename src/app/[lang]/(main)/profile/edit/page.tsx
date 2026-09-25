@@ -39,7 +39,7 @@ export default async function EditProfilePage(props: PageProps<'/[lang]'>) {
   if (error || !data) {
     return (
       <main className="min-h-screen bg-(--background) p-8 text-(--foreground)">
-        <div className="mx-auto max-w-xl rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md">
+        <div className="mx-auto max-w-xl game-card p-6">
           <h1 className="text-xl font-black text-(--danger)">{t.profile.editMissingTitle}</h1>
           <p className="mt-2 text-sm font-medium text-(--muted)">{t.profile.editMissingBody}</p>
         </div>

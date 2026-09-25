@@ -18,7 +18,7 @@ export function AccountDangerZone() {
   return (
     <section
       aria-labelledby="account-data-heading"
-      className="mx-auto flex w-full max-w-2xl flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-6 game-card p-6 md:p-8"
     >
       <div className="border-b border-(--border) pb-4">
         <h2 id="account-data-heading" className="text-2xl font-black text-(--foreground)">

@@ -87,7 +87,7 @@ export default async function ExploreTabsLayout(props: LayoutProps<'/[lang]/expl
       <div className="mx-auto max-w-4xl">
         <header>
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--action) text-white">
+            <span className="icon-tile bg-(--info-surface) text-(--link)">
               <Compass className="h-5 w-5" aria-hidden="true" />
             </span>
             {/*

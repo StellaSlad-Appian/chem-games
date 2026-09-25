@@ -76,7 +76,7 @@ export function MoleculeCard({
   return (
     <section
       aria-labelledby={headingId}
-      className="rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8"
+      className="game-card p-6 md:p-8"
     >
       {/* The `FlaskConical` badge goes with the eyebrow. In a tab it lives on
           the Molecule pill instead, where it gives the strip its identity;

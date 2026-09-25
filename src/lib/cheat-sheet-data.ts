@@ -220,7 +220,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Fundamentals',
     summary: 'What an atom is made of, why atomic number defines the element, and what the table’s arrangement predicts.',
     iconName: 'Atom',
-    colorTheme: 'border-(--hue-violet) text-(--hue-violet)',
+    colorTheme: 'bg-(--hue-violet)/12 text-(--hue-violet)',
     curriculumRef:
       'Victorian Curriculum F–10 Version 2.0, Science VC2S10U07: the organisation of the elements in the periodic table is related to the structure and properties of atoms — rows and periods, metallic and non-metallic properties, atomic size and reactivity. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 9 description, so “Year 9” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Isotopes & Radioactivity takes VC2S10U06 from the same band. Atomic number, mass number, metalloid and ion formation are this site’s extension — Version 2.0 names none of them.',
     keyTakeaways: [
@@ -360,7 +360,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Fundamentals',
     summary: 'What changes when the neutron count changes: isotopes, decay, half-life, and the elements that had to be made.',
     iconName: 'Timer',
-    colorTheme: 'border-(--hue-red) text-(--hue-red)',
+    colorTheme: 'bg-(--hue-red)/12 text-(--hue-red)',
     curriculumRef:
       'Victorian Curriculum F–10 Version 2.0, Science VC2S10U06: the model of the atom changed following the discovery of electrons, protons and neutrons, and natural radioactive decay results in a change from unstable to stable atoms. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 10 description, so “Year 10” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Atoms & the Periodic Table takes VC2S10U07 from the same band. Atomic number, mass number and relative atomic mass are this site’s extension — Version 2.0 names none of them, and relative atomic mass is VCE Unit 1.',
     keyTakeaways: [
@@ -453,7 +453,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Fundamentals',
     summary: 'Particle arrangement, kinetic energy, and the six phase changes.',
     iconName: 'Shapes',
-    colorTheme: 'border-(--link) text-(--link)',
+    colorTheme: 'bg-(--info-surface) text-(--link)',
     curriculumRef: 'Victorian Curriculum Science: particle model (Levels 7–8), revisited in Year 9–10 chemical sciences.',
     keyTakeaways: [
       'Solids: particles vibrate in fixed positions — fixed shape and fixed volume.',
@@ -509,7 +509,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Acids & Bases',
     summary: 'pH, proton donors and acceptors, strong vs weak, and neutralisation.',
     iconName: 'TestTube',
-    colorTheme: 'border-(--hue-purple) text-(--hue-purple)',
+    colorTheme: 'bg-(--hue-purple)/12 text-(--hue-purple)',
     curriculumRef: 'Victorian Curriculum Science Level 10 (chemical reactions incl. acids); VCE Unit 2 AoS 1 (Brønsted–Lowry).',
     relatedGames: ['acid-classification', 'neutralise'],
     keyTakeaways: [
@@ -575,7 +575,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Equations',
     summary: 'Conservation of mass: same atoms in, same atoms out — change coefficients, never subscripts.',
     iconName: 'Scale',
-    colorTheme: 'border-(--hue-emerald) text-(--hue-emerald)',
+    colorTheme: 'bg-(--hue-emerald)/12 text-(--hue-emerald)',
     curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1–2 (writing balanced equations with states).',
     relatedGames: ['reaction-balancer'],
     keyTakeaways: [
@@ -616,7 +616,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Reactions',
     summary: 'Recognise synthesis, decomposition, combustion, displacement, precipitation and neutralisation from their patterns.',
     iconName: 'Flame',
-    colorTheme: 'border-(--hue-amber) text-(--hue-amber)',
+    colorTheme: 'bg-(--hue-amber)/12 text-(--hue-amber)',
     curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 2 AoS 1–2.',
     relatedGames: ['reaction-balancer', 'neutralise'],
     keyTakeaways: [
@@ -668,7 +668,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Bonding',
     summary: 'Ionic, covalent and metallic bonding — and how the structure explains the properties.',
     iconName: 'Atom',
-    colorTheme: 'border-(--hue-cyan) text-(--hue-cyan)',
+    colorTheme: 'bg-(--hue-cyan)/12 text-(--hue-cyan)',
     curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1 (metals, ionic compounds, covalent substances).',
     keyTakeaways: [
       'Atoms bond to reach a stable, full outer shell (a noble-gas configuration). The group number tells you how many valence electrons a main-group element has.',
@@ -720,7 +720,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Nomenclature',
     summary: 'Balance the charges: cation first, cross-over the charges, brackets around repeated polyatomic ions.',
     iconName: 'Zap',
-    colorTheme: 'border-(--hue-rose) text-(--hue-rose)',
+    colorTheme: 'bg-(--hue-rose)/12 text-(--hue-rose)',
     curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1.',
     relatedGames: ['formula-blaster'],
     keyTakeaways: [
@@ -762,7 +762,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Nomenclature',
     summary: 'The lookup table, plus the naming patterns that mean you memorise far less than you think.',
     iconName: 'Orbit',
-    colorTheme: 'border-(--hue-indigo) text-(--hue-indigo)',
+    colorTheme: 'bg-(--hue-indigo)/12 text-(--hue-indigo)',
     curriculumRef: 'VCE Unit 1 AoS 1 (formulas and naming of ionic compounds). The VCE data book provides this table in the exam.',
     relatedGames: ['neutralise', 'formula-blaster'],
     keyTakeaways: [
@@ -803,7 +803,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Nomenclature',
     summary: 'Three naming systems — ionic, molecular, acids — and how to tell which one applies.',
     iconName: 'TestTubes',
-    colorTheme: 'border-(--hue-fuchsia) text-(--hue-fuchsia)',
+    colorTheme: 'bg-(--hue-fuchsia)/12 text-(--hue-fuchsia)',
     curriculumRef: 'VCE Unit 1 AoS 1 (IUPAC naming of ionic and covalent compounds).',
     relatedGames: ['formula-blaster'],
     keyTakeaways: [
@@ -865,7 +865,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     summary:
       'What Ar really means, and how to add atoms up to get the Mr of any formula — subscripts and brackets included.',
     iconName: 'Scale',
-    colorTheme: 'border-(--hue-sky) text-(--hue-sky)',
+    colorTheme: 'bg-(--hue-sky)/12 text-(--hue-sky)',
     curriculumRef:
       'Not in the Victorian Curriculum F–10: Levels 9 and 10 cover conservation of mass and balanced equations (VC2S10U08), and relative atomic mass is not named. Most Year 10 courses teach it as pre-VCE extension, and it is formally VCE Unit 1.',
     // No relatedGames yet: the game that practises this (Mass Production,
@@ -980,7 +980,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Stoichiometry',
     summary: 'Mole conversions, mole ratios, limiting reagents and percentage yield in one place.',
     iconName: 'Gauge',
-    colorTheme: 'border-(--hue-orange) text-(--hue-orange)',
+    colorTheme: 'bg-(--hue-orange)/12 text-(--hue-orange)',
     curriculumRef: 'VCE Unit 1 AoS 2 (the mole, Avogadro\'s constant, molar mass); Unit 2 AoS 2 (concentration, solution and gas stoichiometry); Unit 3 AoS 1 (limiting reactants); Unit 4 AoS 1 (percentage yield).',
     relatedGames: ['reaction-balancer'],
     keyTakeaways: [
@@ -1037,7 +1037,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Bonding',
     summary: 'Count the valence electrons, share to satisfy octets, check with formal charge.',
     iconName: 'Atom',
-    colorTheme: 'border-(--hue-teal) text-(--hue-teal)',
+    colorTheme: 'bg-(--hue-teal)/12 text-(--hue-teal)',
     curriculumRef: 'VCE Unit 1 AoS 1 (covalent bonding, Lewis structures, VSEPR shapes).',
     keyTakeaways: [
       'Valence electrons = group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7). Add one electron per negative charge, remove one per positive charge.',
@@ -1111,7 +1111,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Organic',
     summary: 'IUPAC names step by step: longest chain, lowest locants, alphabetical substituents, functional-group suffix.',
     iconName: 'Dna',
-    colorTheme: 'border-(--hue-lime) text-(--hue-lime)',
+    colorTheme: 'bg-(--hue-lime)/12 text-(--hue-lime)',
     curriculumRef: 'VCE Unit 4 AoS 1 (IUPAC systematic naming of organic compounds).',
     keyTakeaways: [
       'Find the longest continuous carbon chain that includes the highest-priority functional group — it might bend around corners of the drawing.',
@@ -1179,7 +1179,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     category: 'Organic',
     summary: 'What each group looks like, how it is named, and the reactions it undergoes.',
     iconName: 'FlaskConical',
-    colorTheme: 'border-(--hue-pink) text-(--hue-pink)',
+    colorTheme: 'bg-(--hue-pink)/12 text-(--hue-pink)',
     curriculumRef: 'VCE Unit 4 AoS 1 (functional groups, homologous series, reaction pathways) and AoS 2 (identification by IR/NMR).',
     keyTakeaways: [
       'A functional group is the atom or group of atoms that gives a molecule its characteristic reactions. Molecules with the same group react in the same way.',

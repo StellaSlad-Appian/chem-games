@@ -53,7 +53,7 @@ export function ScientistCard({
   return (
     <section
       aria-labelledby={headingId}
-      className="rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8"
+      className="game-card p-6 md:p-8"
     >
       {/* The microscope badge goes with the eyebrow — inside the tabs it lives
           on the Scientist pill instead. See the note in `MoleculeCard`. */}

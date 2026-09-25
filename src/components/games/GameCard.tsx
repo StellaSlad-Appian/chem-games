@@ -38,7 +38,7 @@ export function GameCard({ slug }: { slug: GameName }) {
   return (
     <LocaleLink
       href={game.href}
-      className={`group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 ${accent.hoverBorder}`}
+      className={`group flex flex-col justify-between game-card card-lift p-6 focus-visible:outline-2 focus-visible:outline-offset-2 ${accent.hoverBorder}`}
     >
       <div>
         {/* The same mark the game wears everywhere else: its icon on a tile of its accent. */}
@@ -48,7 +48,7 @@ export function GameCard({ slug }: { slug: GameName }) {
           German titles are long single words. See ACCESSIBILITY.md § 3.
         */}
         <div className="min-w-0">
-          <h3 className="mt-5 text-2xl font-black break-words text-(--foreground)">
+          <h3 className="mt-4 text-xl font-black break-words text-(--foreground)">
             {gameTitle(t, game.slug, game.slug)}
           </h3>
           {description ? <p className="mt-2 text-sm text-(--muted)">{description}</p> : null}

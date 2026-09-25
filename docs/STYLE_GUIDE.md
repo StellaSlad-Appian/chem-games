@@ -150,12 +150,32 @@ Reserve ALL-CAPS for labels ≤ 3 words; long uppercase text hurts readability (
 
 ## 4. Shape, spacing, elevation
 
-- Cards/panels: `rounded-2xl border-2 border-(--border) bg-(--surface)` — or the `.game-card`
-  component class. Inner rows: `rounded-xl`. Pills/badges: `rounded-full`.
+- **Three levels, always visible:** the page (`--background`, tinted) → a card on it →
+  a panel inside the card. Use the component classes in `globals.css` rather than
+  re-spelling them:
+  - `.game-card` — every card on every page (the name is historical): `--surface`, a
+    hairline `--border`, `rounded-2xl`, the lifted `--shadow-card`. Add `.card-lift` when
+    the whole card is a link (it rises and takes `--shadow-lg` on hover; reduced motion
+    keeps the shadow and drops the movement).
+  - `.panel` — a secondary panel inside a card, or a quiet note on the page:
+    `--surface-2`, flat. The atom ledger, the mass beam, formula examples, empty states.
+  - `.icon-tile` — how any card shows its icon: a 2.5rem rounded square tinted with the
+    item's colour (`GameIcon` for a game, a sheet's `colorTheme`, `--info-surface` +
+    `--link` for the site's own sections, `--accent-surface` + `--accent` for scores).
+  - `.pill` — the one neutral label pill (a year level, "Global network"). Colour on a
+    card belongs to its icon tile, not its pills.
+- **Card anatomy** (games, cheat sheets, Explore): icon tile top left, optional pill top
+  right, `text-xl font-black` title, `text-sm text-(--muted)` body, a footer link in the
+  item's colour with an arrow. A card that is a section of the dashboard (the leaderboard)
+  opens with the same icon tile + title + pill row.
+- **Every landing-page section** uses `SectionHeading` and sits in the one container
+  (`max-w-6xl`, `space-y-20` between sections). No section gets a band or background of
+  its own.
 - Padding rhythm: `p-4` (rows) → `p-6` (cards) → `p-8` (modal content). Section gaps `gap-4`,
   page-level gaps `gap-6`/`gap-8`.
-- Borders are **2px** for anything interactive or card-like, 1px for internal dividers.
-- Elevation: `shadow-md` on buttons, `shadow-xl`/`shadow-2xl` on modals and the HUD header.
+- Borders are 1px on cards (the shadow does the lifting), **2px** on interactive controls
+  and modals.
+- Elevation: `--shadow-card` on cards, `shadow-md` on buttons, `shadow-2xl` on modals.
 - Modal scrim: `fixed inset-0 bg-(--scrim) backdrop-blur-sm` (`backdrop-blur-md` for the
   overlay). The scrim is deliberately dark in both themes.
 - **One modal look** — `GameOverlay`, `GameInstructionsModal`, `GameSettingsModal` (also

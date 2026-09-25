@@ -84,7 +84,7 @@ export function GamesBrowser() {
             onChange={(event) => setQuery(event.target.value)}
             aria-label={t.gamesHub.searchLabel}
             placeholder={t.gamesHub.searchPlaceholder}
-            className="w-full rounded-xl border border-(--border) bg-(--surface) py-2.5 pr-3 pl-9 text-sm font-medium text-(--foreground) placeholder:text-(--muted) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="w-full rounded-xl border border-(--border-strong) bg-(--surface) py-2.5 pr-3 pl-9 text-sm font-medium text-(--foreground) placeholder:text-(--muted) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           />
         </div>
         <YearFilter

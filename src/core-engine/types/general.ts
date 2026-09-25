@@ -221,6 +221,7 @@ export interface CheatSheetTopic {
   category: CheatSheetCategory;
   summary: string;
   iconName: ChemIconName;
+  /** Classes for the sheet's icon tile — a tint and a text colour, written out in full. */
   colorTheme: string;
   keyTakeaways: string[];
   formulaExamples?: FormulaExample[];

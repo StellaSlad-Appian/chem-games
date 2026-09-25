@@ -62,7 +62,7 @@ export async function generateMetadata(props: PageProps<'/[lang]/cheat-sheets/[s
 }
 
 const panelClass =
-  'mt-8 rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8';
+  'mt-8 game-card p-6 md:p-8';
 
 /**
  * Widget name -> component, exactly as `ChemIcon`'s `ICON_REGISTRY` maps an
@@ -210,9 +210,9 @@ export default async function CheatSheetDetailPage(
         {t.cheatSheets.backToList}
       </LocaleLink>
 
-      <header className="rounded-3xl border-2 border-(--border) bg-(--surface) p-6 shadow-xl md:p-8">
+      <header className="game-card p-6 md:p-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <span className={`rounded-full border px-4 py-1 text-xs font-black uppercase tracking-wider ${sheet.colorTheme}`}>
+          <span className="pill uppercase tracking-wider">
             {t.yearLevels[sheet.yearLevel]}
           </span>
           <span className="text-xs font-bold text-(--muted)">
@@ -221,7 +221,7 @@ export default async function CheatSheetDetailPage(
         </div>
 
         <div className="mt-6 flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-(--info-surface) text-(--link)">
+          <div className={`icon-tile h-14 w-14 rounded-2xl ${sheet.colorTheme}`}>
             <ChemIcon name={sheet.iconName} className="h-8 w-8" aria-hidden="true" />
           </div>
           {/*

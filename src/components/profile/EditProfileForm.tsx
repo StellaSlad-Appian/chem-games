@@ -34,7 +34,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
   return (
     <form
       action={formAction}
-      className="mx-auto flex w-full max-w-2xl flex-col gap-8 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8"
+      className="mx-auto flex w-full max-w-2xl flex-col gap-8 game-card p-6 md:p-8"
     >
       <div className="border-b border-(--border) pb-5">
         <h2 className="text-2xl font-black text-(--foreground) md:text-3xl">{t.profile.editHeading}</h2>

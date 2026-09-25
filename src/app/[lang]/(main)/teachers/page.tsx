@@ -158,7 +158,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
 
         <div className="mt-6">
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--action) text-white">
+            <span className="icon-tile bg-(--info-surface) text-(--link)">
               <GraduationCap className="h-5 w-5" aria-hidden="true" />
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
@@ -174,7 +174,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
         */}
         <section
           aria-labelledby="teachers-beta"
-          className="mt-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
+          className="mt-6 game-card p-6"
         >
           <h2
             id="teachers-beta"
@@ -188,7 +188,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
           </p>
         </section>
 
-        <article className="mt-6 flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
+        <article className="mt-6 flex flex-col gap-6 game-card p-6 md:p-8">
           <Section icon={GraduationCap} title={p.whatHeading}>
             <p>{p.whatBody1}</p>
             <p>{p.whatBody2}</p>

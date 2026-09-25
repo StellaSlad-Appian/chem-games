@@ -27,7 +27,7 @@ export default async function CheatSheetsPage(props: PageProps<'/[lang]'>) {
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--action) text-white">
+              <span className="icon-tile bg-(--info-surface) text-(--link)">
                 <BookMarked className="h-5 w-5" aria-hidden="true" />
               </span>
               <h1 className="text-4xl font-black md:text-5xl">{t.cheatSheets.heading}</h1>
