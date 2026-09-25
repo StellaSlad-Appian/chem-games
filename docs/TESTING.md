@@ -329,6 +329,8 @@ test by checking that theme twice.
 | Timer formatting and urgency, lives hearts | `GameTimer.test.tsx` |
 | Formula typography (subscripts, charges, arrows, states) | `MoleculeText.test.tsx` |
 | Settings persistence, volume clamping, per-game theme override | `game-settings-context.test.tsx` |
+| Text contrast (4.5:1, 3:1 large) on every site page, the game header, overlay, How to Play and Settings, and 3:1 for the footer icons — light and dark, each reached through the device setting and through an explicit choice; a per-game dark override on a light site; the game header at 320px | `e2e/theme-contrast.spec.ts` |
+| The dark and light theme blocks define the same tokens, the two light copies match, fixed tokens live once | `src/app/theme-css.test.ts` |
 | Pause/reset state machine | `useGameState.test.ts` |
 | Touch vs pointer detection | `useInputMethod.test.ts` |
 

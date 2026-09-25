@@ -188,6 +188,34 @@ the device's light/dark setting, and the rename to "Games in Chemistry".
       tiles stay `aria-hidden` decoration. The tiles are `ElementTiles` in
       `src/app/[lang]/(main)/page.tsx`.
 
+### Colour scheme
+
+**Unified** 2026-09-25 on `feature/unified-colours`: one token system (surfaces, text-safe
+hues, roles — see `docs/STYLE_GUIDE.md` §2), every page, the game header/footer and every
+popup on it, contrast measured in both themes by `e2e/theme-contrast.spec.ts`. Left on
+purpose, for a later pass:
+
+- [ ] **Hints.** The hint panels in Share to Fill, Reaction Balancer and Formula Blaster
+      (`Lightbulb` + `amber-500` / `amber-400` text, `border-amber-500/60`,
+      `border-blue-500/40`), the `card-pulse` keyframe's hard-coded `#f59e0b` and
+      `CompoundCard`'s `border-amber-500` pulse still use palette classes; `amber-500` text
+      is 2.2:1 on white. `--hint` and `--hint-surface` exist for this, and CoachPanel's
+      tones already use them.
+- [ ] **A flash of the device theme** when an explicit Light/Dark differs from the OS:
+      `data-theme` is set in an effect after hydration, and every `transition` on the
+      page then animates across. Visible for ~150ms on load. Fixing it needs the theme
+      before first paint (a cookie read on the server, or a blocking `<head>` script
+      once React allows one); `e2e/helpers.ts` waits the transitions out.
+- [ ] **`classifier-games-config.ts`** is unused by code but kept, because three game
+      briefs plan to reuse it; its `colorClass` strings are still `-400` palette text
+      that fails on white. Move them to `--hue-*` tokens when a game adopts it.
+- [ ] **`chemical-labels.ts` `bgHoverClass`** is never read. Delete it or use it.
+- [ ] **Neutralise's phone "Switch to OH⁻ / H⁺" button** is English in every locale — a
+      hard-coded string, not a colour, spotted in passing.
+- [ ] **Signed-in pages were not screenshotted.** `/profile` needs a session and the e2e
+      server has no Supabase, so `PublicProfile`'s new colours were type-checked and
+      reviewed but never seen rendered.
+
 ---
 
 ### Accuracy

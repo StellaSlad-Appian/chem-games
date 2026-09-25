@@ -23,14 +23,15 @@ written reason), **COULD** (nice to have).
 ## 2. Gaps found in the current codebase (platform-level TODOs, in priority order)
 
 1. ~~No `prefers-reduced-motion` support~~ — `globals.css` now disables shake, glow-pulse,
-   slide-in, overlay-enter and the Share to Fill loner pulse / atom slide under the media query.
+   overlay-enter, the nav panel slide and the Share to Fill loner pulse / atom slide under the media query.
    `floatUp` (Formula Blaster) is still unconditional.
 2. ~~Icon-only buttons rely on `title`~~ — the footer help/pause/settings buttons and the header
    hint button now carry `aria-label`s too.
 3. **Timers cannot be extended or disabled** (Formula Blaster/Neutralise wave timers). WCAG 2.2.1.
 4. **No live regions**: score changes, hints, and error banners are not announced to screen readers.
-5. **Contrast**: `text-slate-500` on the dark game background is ~4:1 — below 4.5:1 for small
-   text. Use `--muted` (passes in both themes).
+5. ~~**Contrast**: palette classes in the game chrome and on the site pages~~ — moved to tokens
+   that pass in both themes, measured by `e2e/theme-contrast.spec.ts`. The hint panels are
+   the remaining exception (docs/TODO.md, Colour scheme).
 6. **Keyboard access to game arenas** is undefined per game — bubbles/invaders are pointer-only.
 7. `tailwind.config.ts` "shake" is inert (see `STYLE_GUIDE.md`) — motion lives in `globals.css`,
    which is where the reduced-motion guard must go.
@@ -38,7 +39,11 @@ written reason), **COULD** (nice to have).
 ## 3. Perceivable
 
 - **MUST** Text contrast ≥ 4.5:1 (≥ 3:1 for text ≥ 24px or bold ≥ 19px); UI component and
-  focus-ring contrast ≥ 3:1 against adjacent colours (1.4.3, 1.4.11). Check both themes.
+  focus-ring contrast ≥ 3:1 against adjacent colours (1.4.3, 1.4.11). Check both themes:
+  `e2e/theme-contrast.spec.ts` measures every visible piece of text on a page against what
+  is painted behind it (`expectReadable()` in `e2e/helpers.ts`) — use it on any new page
+  or popup. `--border` is decoration (1.5:1); a control edge that must be seen uses
+  `--border-strong`.
 - **MUST** Colour is never the only carrier of meaning (1.4.1). Acid-red vs neutral-green is the
   classic red/green confusion — always pair with an icon, label, pattern, or position. This
   applies to game entities too (e.g. an "acid invader" needs a glyph, not just a red tint).

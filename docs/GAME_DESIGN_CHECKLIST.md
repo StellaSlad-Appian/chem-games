@@ -92,9 +92,10 @@ not just compile and run.
       goes through `LocaleLink` / `href()`.
 - [ ] New sound effects are registered in `useSound.ts`'s `SoundEffect` union and `SOUND_PATHS`
       (or `SOUND_FALLBACK_MAP` if the asset isn't ready yet).
-- [ ] All game colors reference the shared CSS custom properties in `globals.css`, not new
-      hardcoded hex values, unless intentionally introducing a new themed token (and if so, it's
-      added to both the `:root`/`[data-theme='dark']` and `[data-theme='light']` blocks).
+- [ ] All game colors reference the shared CSS custom properties in `globals.css`, not
+      palette classes or hex values, unless intentionally introducing a new token — and if so,
+      it follows the three-block rule in `docs/STYLE_GUIDE.md` §2 and carries its measured
+      contrast in a comment.
 - [ ] A Supabase migration inserts the game's row into `public.games` (idempotent
       `on conflict ... do update`, new migration file, not an edit to an old one).
 - [ ] The game is listed in `src/app/(main)/games/page.tsx`'s `games` array with a working `href`

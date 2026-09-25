@@ -108,6 +108,7 @@ export default function GameSettingsModal({
       >
         {/* Shell Container */}
         <div
+          data-testid="settings-panel"
           className={`relative pointer-events-auto rounded-2xl border-2 border-(--border) bg-(--surface) shadow-2xl animate-in fade-in zoom-in-95 duration-200 ${
             isModal
               ? "my-auto w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-h-[calc(100dvh-3rem)]"

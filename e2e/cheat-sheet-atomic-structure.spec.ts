@@ -11,26 +11,10 @@
 // OS setting.
 
 import { expect, test } from '@playwright/test';
-import { path } from './helpers';
+import { CONTRAST, path } from './helpers';
 
 const SHEET = '/cheat-sheets/atomic-structure';
 const cell = (symbol: string) => `[data-symbol="${symbol}"]`;
-
-/** WCAG relative luminance and contrast, over an `rgb(...)` string. */
-const CONTRAST = `
-  (a, b) => {
-    const parse = (s) => s.match(/\\d+/g).slice(0, 3).map(Number);
-    const lum = (rgb) => {
-      const [r, g, bl] = rgb.map((v) => {
-        const c = v / 255;
-        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-      });
-      return 0.2126 * r + 0.7152 * g + 0.0722 * bl;
-    };
-    const [x, y] = [lum(parse(a)), lum(parse(b))].sort((p, q) => q - p);
-    return (x + 0.05) / (y + 0.05);
-  }
-`;
 
 test.describe('the periodic table on the atomic-structure sheet', () => {
   test('renders all 118 elements in one semantic table', async ({ page }) => {

@@ -17,9 +17,10 @@ guide for new code, and fix old code opportunistically when you're already in th
   under `@media (prefers-color-scheme: light) { :root:not([data-theme]) }` serves readers on
   **Device**, the default Settings choice. `game-settings-context.tsx` sets
   `document.documentElement.dataset.theme` for an explicit Light/Dark (with a per-game override)
-  and removes it for Device. Any new color token **must be defined in the dark block, the light
-  block and its copy**, or it will silently fall back in one theme; `src/app/theme-css.test.ts`
-  fails if the two light copies differ.
+  and removes it for Device. A colour token that changes with the theme **must be defined in
+  the dark block, the light block and its copy**, or it will silently fall back in one theme;
+  one that never changes goes once in the fixed `:root` block (§2, the three-block rule).
+  `src/app/theme-css.test.ts` enforces both.
 - **Font:** `Nunito` for everything — headings and body, in all six languages (it has Cyrillic).
   Self-hosted by `next/font` in `src/app/[lang]/layout.tsx`, never loaded from Google at
   runtime. `h1`–`h3` take `--font-display`, which currently equals `--font-body`. Formulas
@@ -28,53 +29,106 @@ guide for new code, and fix old code opportunistically when you're already in th
 ## 2. Design tokens
 
 Reference tokens with Tailwind's v4 shorthand: `bg-(--surface)`, `text-(--muted)`,
-`border-(--border)`. The older `bg-[var(--surface)]` form also appears in the codebase and works;
-**prefer the shorthand** in new code. For values computed at runtime, use inline `style`
-(`style={{ borderColor: 'var(--correct)' }}`), as `ClassificationButton.tsx` does.
+`border-(--border)`, and `bg-(--link)/10` for a translucent tint of one. The older
+`bg-[var(--surface)]` form still works; **use the shorthand** in new code. A shadow colour
+needs the `color:` hint: `shadow-(color:--action)/25`. For values computed at runtime, use
+inline `style` (`style={{ borderColor: 'var(--correct)' }}`), as `ClassificationButton.tsx`
+does.
 
-### Surface & text
+**Never write a palette class** (`text-amber-500`, `bg-slate-800`, `border-rose-400`) in a
+component. A palette colour does not change with the theme, and most of the 400/500 shades
+fail 4.5:1 as text on white (amber-500 is 2.2:1, emerald-500 2.5:1). If no token fits, add
+one. The only palette-looking class allowed is `text-white`, and only on the fixed fills
+`--action` and `--danger-action`.
 
-| Token | Use for |
+### The three-block rule
+
+`globals.css` defines the tokens in four places:
+
+| Block | Holds |
 |---|---|
-| `--background` | Page background (also painted by `GameShell`) |
-| `--surface` / `--surface-2` | Cards, panels / nested rows and hover fills |
-| `--border` | Default 2px borders on cards, buttons, inputs |
-| `--foreground` / `--muted` | Primary text / secondary labels, helper text |
-| `--game-panel` / `--game-panel-border` | Modal shells and HUD panels (Settings modal) |
-| `--game-modal-header` / `--game-modal-row` / `--game-modal-control` | Modal internals |
-| `--game-highlight-surface` / `--game-highlight-border` | Emphasised-but-inactive controls (e.g. toggle "off" state) |
-| `--game-panel-text` / `--game-panel-muted` | Text inside `--game-panel` surfaces |
-| `--game-bg-start` / `--game-bg-end` | The `.game-shell` vertical gradient |
-| `--shadow-card` / `--shadow-lg` | Elevation (`.game-card`) |
+| `:root, [data-theme='dark']` | Every token that **changes** with the theme — dark values |
+| `[data-theme='light']` | The same tokens, light values |
+| `@media (prefers-color-scheme: light) { :root:not([data-theme]) }` | An identical copy of the light block, for readers on Device |
+| `:root` (the fixed block) | Tokens that **never** change, and role names that point at a themed token |
 
-### Chemistry semantics — theme-neutral, never restyle per theme
+A token that changes goes in the first three; one that does not goes once in the fourth.
+`src/app/theme-css.test.ts` fails if the dark and light blocks define different tokens, if
+the two light copies differ, or if a token appears in both a themed block and the fixed
+one. Put the measured contrast in a comment beside every new colour, as the existing ones
+have it.
+
+### Three layers
+
+1. **Surfaces and text** — what almost everything uses.
+2. **Hues** (`--hue-*`) — one text-safe value per hue per theme. Reach for these only when
+   the colour means "a distinct colour" and nothing more (a cheat sheet's badge, a
+   Formula Blaster bubble).
+3. **Roles** — the meaning. `--success` *is* `--hue-emerald`, but a component that shows a
+   right answer says `--success`, so the day the green changes it changes in one place.
+
+### Surfaces and text
+
+| Token | Use for | Light | Dark |
+|---|---|---|---|
+| `--background` | The page, and GameShell's backdrop | `#f8fafc` | `#09090b` |
+| `--surface` | Cards, panels, modals, the header bar | `#ffffff` | `#18181b` |
+| `--surface-2` | Nested rows inside a card or modal, hover fills | `#f1f5f9` | `#27272a` |
+| `--border` | Card and panel edges — **decoration only** (1.5:1) | `#cbd5e1` | `#3f3f46` |
+| `--border-strong` | The edge of a control that has to be seen: text inputs, the pause button, invaders (≥ 3:1) | `#64748b` | `#71717a` |
+| `--foreground` | Body text and headings | `#0f172a` | `#fafafa` |
+| `--muted` | Secondary text, labels, icon buttons at rest | `#475569` | `#a1a1aa` |
+| `--link` | Links, the site blue as text or an icon, focus rings | `#2563eb` | `#60a5fa` |
+| `--shadow-card` / `--shadow-lg` | Elevation (`.game-card`) | | |
+
+### Roles
+
+| Token | Meaning | Surface pair |
+|---|---|---|
+| `--action` / `--action-hover` | Primary button fill; white text on it (5.17:1). **Fixed.** Selected choices use it too | — |
+| `--danger-action` / `--danger-action-hover` | Destructive button fill (Exit, Delete account); white text on it (4.83:1). **Fixed** | — |
+| `--success` | Right answer, done, saved | `--success-surface` |
+| `--danger` | Wrong answer, error, destructive (as text or an edge) | `--danger-surface` |
+| `--accent` | The one amber accent: scores, trophies, the game task | `--accent-surface` |
+| `--info` (= `--link`) | Neutral notices, icon tiles | `--info-surface` |
+| `--hint` / `--hint-surface` | Hints and scaffolding (amber, like the lightbulb) | |
+| `--correct` / `--wrong`, `--game-success` / `--game-error` | The names games already use; aliases of `--success` / `--danger` | |
+| `--rank-gold` / `-silver` / `-bronze` | Leaderboard podium, each with a `-surface` | |
+| `--game-accent-violet` / `-sky` / `-emerald` / `-amber` / `-rose` | One colour per game (hub cards, "Play now"); aliases of the hues | |
+| `--accent-explore` | Explore's blue (= `--link`), deliberately not a sixth game colour | |
+| `--accent-fill` + `--on-bright-fill` | An amber *block* with dark ink on it (the hero's chlorine tile). **Fixed** | |
+| `--scrim` | Behind every modal: `rgb(2 6 23 / 0.8)`, **deliberately dark in both themes** | |
+
+Every role text colour clears 4.5:1 on `--surface`, `--background`, `--surface-2` and its
+own `-surface` tint, in both themes — the ratios are beside each value in `globals.css`.
+
+### Chemistry semantics — fixed, never restyle per theme
 
 | Token | Meaning |
 |---|---|
-| `--acid-color` (rose) / `--base-color` (blue) / `--neutral-color` (emerald) / `--amphoteric-color` (purple) | Classification identity |
-| `--chem-acid-bg` etc. | Deep tinted backgrounds for the same classes |
-| `--correct` / `--wrong` (`--game-success` / `--game-error`) | Answer feedback |
+| `--acid-color` (red) / `--base-color` (blue) / `--neutral-color` (emerald) / `--amphoteric-color` (purple) | Classification identity, as fills and strokes (not small text) |
+| `--chem-acid-bg` etc. | Tinted backgrounds for the same classes — deep in dark, pale in light |
+| `--ion-h` / `--ion-oh` | Neutralise's H⁺ (rose) and OH⁻ (indigo); white text on both |
 | `--game-glow` | Ambient highlight (violet) |
+| `--pt-tone-*` | The periodic table's family tones; `--foreground` on each ≥ 4.5:1 |
 
-Rule from `globals.css`: "game meaning never changes with appearance." A new chemistry concept
-that needs an identity color (e.g. oxidation vs reduction, polar vs non-polar) gets a new
-theme-neutral token pair here, not an ad-hoc Tailwind color in a component.
+Rule from `globals.css`: "game meaning never changes with appearance." A new chemistry
+concept that needs an identity colour (oxidation vs reduction, polar vs non-polar) gets a
+new token pair here, not an ad-hoc Tailwind colour in a component.
 
 ### Game-state accents (from `GameOverlay.tsx`)
 
-`paused` → `blue-500`, `failed` → `rose-500`, `victory` → `emerald-500`, `levelUp` → `amber-500`.
-The header's hero "task" panel is `amber-500`-tinted. Keep these; they're how players learn state.
+`paused` → `--link`, `failed` → `--danger`, `victory` → `--success`, `levelUp` →
+`--accent`. The header's task panel uses `--accent`. Keep these; they're how players learn
+state. Each state also has its own icon and badge text, so colour is never the only cue.
 
-### Category color pattern (from `classifier-games-config.ts`)
+### Colour classes stored as data
 
-Config-driven categories use a single Tailwind string in this shape:
-
-```
-border-{hue}-500 text-{hue}-400 bg-{hue}-500/10 hover:bg-{hue}-500/20
-```
-
-Because these are complete class strings in config (not composed at runtime), Tailwind can see
-them. Never build class names by string concatenation (`border-${hue}-500`) — they'll be purged.
+`lib/cheat-sheet-data.ts` `colorTheme`, `formula-blaster-config.ts` `spawnColorPool` and
+`chemical-labels.ts` `colorClass` hold complete class strings, e.g.
+`'border-(--hue-violet) text-(--hue-violet)'`. Tailwind can see them because they are
+written out in full. Never build a class name by concatenation (`` `text-(--hue-${x})` ``)
+— Tailwind will not generate it.
 
 ## 3. Typography
 
@@ -101,8 +155,17 @@ Reserve ALL-CAPS for labels ≤ 3 words; long uppercase text hurts readability (
   page-level gaps `gap-6`/`gap-8`.
 - Borders are **2px** for anything interactive or card-like, 1px for internal dividers.
 - Elevation: `shadow-md` on buttons, `shadow-xl`/`shadow-2xl` on modals and the HUD header.
-- Modal scrim: `fixed inset-0 bg-slate-950/80 backdrop-blur-sm` (`backdrop-blur-md` for the
-  overlay). This scrim is deliberately dark in both themes.
+- Modal scrim: `fixed inset-0 bg-(--scrim) backdrop-blur-sm` (`backdrop-blur-md` for the
+  overlay). The scrim is deliberately dark in both themes.
+- **One modal look** — `GameOverlay`, `GameInstructionsModal`, `GameSettingsModal` (also
+  the header's Settings popover), `FeedbackWidget` and `NavPanel` share it; copy it for a
+  new one:
+  - panel: `rounded-2xl border-2 border-(--border) bg-(--surface) shadow-2xl`
+  - header row: title in `text-(--foreground)`, `border-b border-(--border)` below it
+  - close button: `rounded-xl p-2 text-(--muted) hover:bg-(--surface-2) hover:text-(--foreground)`
+    plus the focus ring and an `aria-label`
+  - inner rows: `rounded-2xl border border-(--border) bg-(--surface-2)`
+  - primary / secondary buttons: see §5
 
 ### z-index ladder (do not improvise)
 
@@ -118,35 +181,40 @@ Game arena elements live between `z-0` and `z-30`.
 ## 5. Interactive elements
 
 - Primary action: `.btn-primary` (page-level) or, inside games,
-  `rounded-xl bg-blue-500 hover:bg-blue-600 px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition`.
-- Secondary: `.btn-ghost` or `border border-(--border) bg-(--background) text-(--foreground) hover:border-blue-500`.
-- Destructive/exit: `bg-rose-600 hover:bg-rose-500 text-white` (Header exit) or `.btn-danger-ghost`.
+  `rounded-xl bg-(--action) hover:bg-(--action-hover) px-4 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition`.
+- Secondary: `.btn-ghost` or `border border-(--border) bg-(--surface) text-(--foreground) hover:border-(--link)`.
+- Destructive/exit: `bg-(--danger-action) hover:bg-(--danger-action-hover) text-white` (the
+  header's Exit, Delete account). Hover goes *darker*: white on a lighter red fails.
+- Selected choice in a group (theme picker, leaderboard tabs, filters):
+  `border-(--link) bg-(--action) text-white`; unselected `border-(--border) bg-(--surface) text-(--foreground)`.
+- Text inputs: `border-(--border-strong)` — `--border` is too faint to show where a field is.
 - Icon-only buttons: `p-2 rounded-full transition` with hover fill — **and an `aria-label`**
   (see `ACCESSIBILITY.md`; `title` alone is not enough).
 - Every button gets `cursor-pointer` explicitly (Tailwind v4 removed the default),
   `active:scale-95`, and `transition-all duration-150`.
-- Focus ring: `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-400`
-  (the pattern already in `GameOverlay`). Never `outline-none` without a `focus-visible` replacement.
+- Focus ring: `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)`
+  (the pattern in `GameOverlay`; ≥ 4.7:1 against every surface in both themes). Never `outline-none` without a `focus-visible` replacement.
 - Disabled: `disabled:opacity-50 disabled:cursor-not-allowed` (`.chem-btn:disabled`).
-- Toggle switches follow `GameSettingsModal`: `role="switch" aria-checked`, `--game-success`
-  when on, `--game-highlight-surface` when off.
+- Toggle switches: `SwitchRow` from `components/ui/Switch.tsx` — `role="switch" aria-checked`,
+  `--action` when on, a `--muted` outline when off.
 
 ## 6. Motion
 
 Available in `globals.css`: `.shake-animation` (wrong answer, 0.4s), `.glow-pulse` (ambient,
-2.4s loop), `floatUp` (Formula Blaster bubbles), `.animate-slide-in` (banners), `.overlay-enter`.
+2.4s loop), `floatUp` (Formula Blaster bubbles), `.overlay-enter`, `.nav-panel-in`.
 Conventions: micro-interactions 150–300ms, entrances ≤ 400ms, `ease-out` for entrances.
 
 `globals.css` ends with a `prefers-reduced-motion: reduce` block that switches off
-`.shake-animation`, `.glow-pulse`, `.animate-slide-in`, `.overlay-enter`, `.loner-pulse` and the
-`.atom-move` slide. Add every new animation class to that block. Never convey information *only*
+`.shake-animation`, `.glow-pulse`, `.overlay-enter`, `.loner-pulse`, `.card-pulse`,
+`.ledger-tick`, `.nav-panel-in` and the `.atom-move` / `.beam-tilt` transitions. Add every new animation class to that block. Never convey information *only*
 through motion (loners are hollow dots as well as pulsing ones).
 
 ## 7. Layout
 
 - `GameShell` is the root: `fullBleed` for arena-style games (Formula Blaster), centered
   (`items-center justify-between`) for board-style games (Acid Classification).
-- Header: 3-column grid (`grid-cols-1 md:grid-cols-3`) — progress | task | stats/exit.
+- Header: progress (and lives / timer) | task | hint, level & score, exit. It sits on
+  `--surface` with a `--border` edge and follows the site theme like every other bar.
 - Footer: `max-w-3xl grid-cols-3` — instructions | pause | settings. Keep these slots; players
   rely on the same controls being in the same place in every game.
 - Mobile-first; the only breakpoints in use are `sm:` and `md:` (occasionally `lg:` for padding).
@@ -163,13 +231,10 @@ Decorative icons get `aria-hidden="true"`. Name-based lookups go through `ChemIc
 
 ## 9. Known inconsistencies (fix when you touch the file)
 
-- `GamesHeader.tsx` and `GameFooter.tsx` hardcode `slate-*`/`text-white` and therefore do not
-  adapt to the light theme. They should move to `--game-panel` / `--game-panel-border` /
-  `--foreground` tokens.
 - `ClassificationButton.tsx` types `icon: any` (should be `LucideIcon`, which it already imports)
   and imports from `@/src/core-engine/...` — verify that alias resolves; every other file uses
   `@/core-engine/...`.
 - Mixed `bg-(--x)` and `bg-[var(--x)]` syntax — standardise on the shorthand as you go.
 - `tailwind.config.ts` (see §1) — decide: delete, or wire with `@config`.
-- `text-slate-500` on dark backgrounds (footer icons) is borderline on contrast; use
-  `text-(--muted)`.
+- The hint panels still use `amber-500` / `blue-500` palette classes — see docs/TODO.md,
+  Colour scheme. Build new hint UI on `--hint` / `--hint-surface`.

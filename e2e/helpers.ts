@@ -211,6 +211,204 @@ ${JSON.stringify(overhanging, null, 2)}`
   ).toEqual([]);
 }
 
+// ---------------------------------------------------------------------------
+// Contrast (WCAG 1.4.3)
+// ---------------------------------------------------------------------------
+
+/**
+ * WCAG relative luminance and contrast, over two `rgb(...)` strings. A string
+ * of source rather than a function because it runs inside `page.evaluate`,
+ * which cannot close over anything from this file.
+ */
+export const CONTRAST = `
+  (a, b) => {
+    const parse = (s) => s.match(/\\d+/g).slice(0, 3).map(Number);
+    const lum = (rgb) => {
+      const [r, g, bl] = rgb.map((v) => {
+        const c = v / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * r + 0.7152 * g + 0.0722 * bl;
+    };
+    const [x, y] = [lum(parse(a)), lum(parse(b))].sort((p, q) => q - p);
+    return (x + 0.05) / (y + 0.05);
+  }
+`;
+
+/**
+ * Waits for running CSS transitions to land. An explicit theme is applied
+ * after hydration, and every `transition` on the page then animates from the
+ * device theme's colours to the chosen one's: measured mid-way, a light button
+ * reads as grey-on-grey. Only transitions — `animate-pulse` and friends never
+ * finish.
+ */
+async function settleTransitions(page: Page): Promise<void> {
+  await page.evaluate(() =>
+    Promise.all(
+      document
+        .getAnimations()
+        .filter((animation) => animation instanceof CSSTransition)
+        .map((animation) => animation.finished.catch(() => undefined))
+    )
+  );
+}
+
+export interface ContrastFailure {
+  text: string;
+  ratio: number;
+  needs: number;
+  color: string;
+  background: string;
+  element: string;
+}
+
+/**
+ * Every piece of visible text inside `scope` whose computed colour, against the
+ * background actually behind it, misses WCAG AA: 4.5:1, or 3:1 for large text
+ * (24px, or 18.66px bold).
+ *
+ * `CONTRAST` above expects `rgb(...)`, and a Tailwind v4 class like
+ * `bg-(--x)/10` computes to `color-mix(...)`, `oklab(...)` or
+ * `color(srgb ...)`. So every colour is first painted onto a 1×1 canvas and
+ * read back as sRGB bytes, which the browser does for any colour syntax it
+ * can render. The background is found by walking up from the text and
+ * compositing each translucent layer over the first opaque one, the way the
+ * page is actually painted; the text colour and any ancestor `opacity` are then
+ * composited over that.
+ *
+ * Deliberately not measured, as WCAG itself exempts them: text inside
+ * `aria-hidden` decoration, disabled controls, and invisible or clipped
+ * (sr-only) text. Gradient layers are treated as transparent — every gradient
+ * on the site is a wash of 18% or less over an opaque surface, and the tints
+ * are checked at their full strength by the token ratios in globals.css.
+ */
+export async function contrastFailures(page: Page, scope = 'body'): Promise<ContrastFailure[]> {
+  await settleTransitions(page);
+  return page.evaluate(
+    ([scopeSelector, contrastSource]) => {
+      const contrast = eval(contrastSource) as (a: string, b: string) => number;
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
+      const rgba = (css: string): [number, number, number, number] => {
+        ctx.clearRect(0, 0, 1, 1);
+        ctx.fillStyle = '#000';
+        ctx.fillStyle = css;
+        ctx.fillRect(0, 0, 1, 1);
+        const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+        return [r, g, b, a / 255];
+      };
+      const over = (top: number[], bottom: number[]) => {
+        const a = top[3];
+        return [0, 1, 2].map((i) => top[i] * a + bottom[i] * (1 - a)).concat(1);
+      };
+      const background = (node: Element) => {
+        const layers: number[][] = [];
+        for (let el: Element | null = node; el; el = el.parentElement) {
+          const layer = rgba(getComputedStyle(el).backgroundColor);
+          if (layer[3] > 0) layers.push(layer);
+          if (layer[3] >= 1) break;
+        }
+        // Nothing opaque up to <html>: the canvas behind it is --background,
+        // which <body> paints, so start from white only as a last resort.
+        let result = [255, 255, 255, 1];
+        for (const layer of layers.reverse()) result = over(layer, result);
+        return result;
+      };
+      const opacity = (node: Element) => {
+        let value = 1;
+        for (let el: Element | null = node; el; el = el.parentElement) {
+          value *= Number(getComputedStyle(el).opacity);
+        }
+        return value;
+      };
+      const rgb = (c: number[]) => `rgb(${c.slice(0, 3).map(Math.round).join(', ')})`;
+
+      const root = document.querySelector(scopeSelector);
+      if (!root) throw new Error(`No element matches ${scopeSelector}`);
+      const failures = [];
+      const seen = new Set<Element>();
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      for (let text = walker.nextNode(); text; text = walker.nextNode()) {
+        const node = text.parentElement;
+        if (!node || seen.has(node) || !text.textContent?.trim()) continue;
+        seen.add(node);
+        if (node.closest('[aria-hidden="true"], :disabled, script, style, noscript')) continue;
+        const box = node.getBoundingClientRect();
+        const style = getComputedStyle(node);
+        if (box.width <= 1 || box.height <= 1 || style.visibility !== 'visible') continue;
+        const alpha = opacity(node);
+        if (alpha === 0) continue;
+
+        const bg = background(node);
+        const fg = rgba(style.color);
+        const ink = over([fg[0], fg[1], fg[2], fg[3] * alpha], bg);
+        const size = parseFloat(style.fontSize);
+        const large = size >= 24 || (size >= 18.66 && Number(style.fontWeight) >= 700);
+        const needs = large ? 3 : 4.5;
+        const ratio = contrast(rgb(ink), rgb(bg));
+        if (ratio + 0.005 < needs) {
+          failures.push({
+            text: text.textContent.trim().slice(0, 40),
+            ratio: Math.round(ratio * 100) / 100,
+            needs,
+            color: rgb(ink),
+            background: rgb(bg),
+            element: `${node.tagName.toLowerCase()}.${String(node.className).slice(0, 80)}`,
+          });
+        }
+      }
+      return failures;
+    },
+    [scope, CONTRAST] as const
+  );
+}
+
+/**
+ * A non-text control's contrast (WCAG 1.4.11): its `color` — which is what an
+ * icon's `currentColor` strokes with — against the background behind it,
+ * composited the same way `contrastFailures` does.
+ */
+export async function uiContrast(target: Locator): Promise<number> {
+  await settleTransitions(target.page());
+  return target.evaluate(
+    (node, contrastSource) => {
+      const contrast = eval(contrastSource) as (a: string, b: string) => number;
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 1;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true })!;
+      const rgba = (css: string) => {
+        ctx.clearRect(0, 0, 1, 1);
+        ctx.fillStyle = '#000';
+        ctx.fillStyle = css;
+        ctx.fillRect(0, 0, 1, 1);
+        const [r, g, b, a] = ctx.getImageData(0, 0, 1, 1).data;
+        return [r, g, b, a / 255];
+      };
+      const over = (top: number[], bottom: number[]) =>
+        [0, 1, 2].map((i) => top[i] * top[3] + bottom[i] * (1 - top[3])).concat(1);
+      const layers: number[][] = [];
+      for (let el: Element | null = node; el; el = el.parentElement) {
+        const layer = rgba(getComputedStyle(el).backgroundColor);
+        if (layer[3] > 0) layers.push(layer);
+        if (layer[3] >= 1) break;
+      }
+      let bg = [255, 255, 255, 1];
+      for (const layer of layers.reverse()) bg = over(layer, bg);
+      const ink = over(rgba(getComputedStyle(node).color), bg);
+      const rgb = (c: number[]) => `rgb(${c.slice(0, 3).map(Math.round).join(', ')})`;
+      return contrast(rgb(ink), rgb(bg));
+    },
+    CONTRAST
+  );
+}
+
+/** `contrastFailures`, as an assertion that names every offender. */
+export async function expectReadable(page: Page, scope = 'body', label = scope): Promise<void> {
+  const failures = await contrastFailures(page, scope);
+  expect(failures, `${label}: text below WCAG AA contrast\n${JSON.stringify(failures, null, 2)}`).toEqual([]);
+}
+
 export function compoundByFormula(formula: string): CompoundData {
   const compound = COMPOUNDS_REGISTRY.find((c) => c.formula === formula);
   if (!compound) throw new Error(`No compound with formula "${formula}"`);

@@ -240,13 +240,15 @@ must exist before `recordGameSession` will succeed, because `game_id` is a forei
    `SOUND_FALLBACK_MAP` pointing at the closest existing sound rather than leaving it silent —
    that's the established pattern for missing assets, not a hack to avoid.
 
-9. **Theming:** use the existing CSS custom properties in `src/app/globals.css`
-   (`--game-panel`, `--game-panel-border`, `--surface`, `--foreground`, `--muted`,
-   `--correct`/`--wrong`, `--acid-color`/`--base-color`/`--neutral-color`/`--amphoteric-color`,
-   etc.) for both light and dark themes. Don't hardcode hex colors in components except for
-   one-off accent classes already used elsewhere (e.g. Tailwind's `amber-500` for a hero panel).
-   `--acid-color`/`--base-color`/etc. are explicitly "theme-neutral" — chemistry meaning must
-   never change appearance between light/dark, per the comment in `globals.css`.
+9. **Theming:** use the tokens in `src/app/globals.css` — `--surface`, `--surface-2`,
+   `--border`, `--foreground`, `--muted`, `--link`, `--action`, the roles `--success` /
+   `--danger` / `--accent` / `--hint` (with their `-surface` tints), `--correct`/`--wrong`,
+   and `--acid-color`/`--base-color`/`--neutral-color`/`--amphoteric-color`. The table of
+   which is for what is `docs/STYLE_GUIDE.md` §2. No palette classes (`text-amber-500`,
+   `bg-slate-800`) and no hex in components: they do not follow the theme and most fail
+   contrast on white. `--acid-color`/`--base-color`/etc. are explicitly "theme-neutral" —
+   chemistry meaning must never change appearance between light/dark. Add your game to
+   `GAMES` in `e2e/theme-contrast.spec.ts` if it has UI the shared chrome does not.
 
 10. **Register the game with the database.** `game_sessions.game_id` and `game_progress.game_id`
     are foreign keys against `public.games.id` (see
