@@ -191,8 +191,6 @@ export async function getPersonalScores(userId: string): Promise<PersonalScore[]
         gameTitle: game.title,
         highestScore,
         globalRank,
-        themeColor: game.theme_color,
-        icon: game.icon,
         conceptTitle: conceptTitles[game.id] ?? null,
       };
     })

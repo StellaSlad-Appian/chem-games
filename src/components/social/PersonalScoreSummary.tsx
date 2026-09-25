@@ -2,12 +2,23 @@
 
 import { Medal, Play, Trophy } from 'lucide-react';
 import type { PersonalScore } from '@/core-engine/types/general';
+import { GameIcon } from '@/components/games/GameIcon';
 import { LocaleLink } from '@/components/layout/LocaleLink';
+import { ScoreFigure, ScoreRow } from '@/components/social/ScoreRow';
 import { useI18n } from '@/i18n/client';
 import { gameTitle } from '@/i18n/game-titles';
 
 interface PersonalScoreSummaryProps { scores: PersonalScore[]; }
 
+/**
+ * The signed-in student's best score and global rank in every game, one row
+ * per game, in the same row as the public leaderboard (ScoreRow) — the game's
+ * icon where the leaderboard has the rank badge.
+ *
+ * The rank sits under the game's name as the leaderboard's badge does: a medal
+ * and the number, with `rankA11y` read before it. A game not yet played shows
+ * a nudge and a "Play now" link where the score would be.
+ */
 export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
   const { t } = useI18n();
 
@@ -17,62 +28,46 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
         <Trophy className="h-5 w-5 shrink-0 text-(--accent)" aria-hidden="true" />
         <h2 className="text-3xl font-black">{t.leaderboards.myResults}</h2>
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {scores.map((score) => (
-          <article key={score.gameId} className="game-card flex min-h-55 flex-col p-5 transition hover:-translate-y-1 hover:border-(--accent)">
-            <div className="flex items-start justify-between gap-3">
-              <span className="text-3xl" aria-hidden="true">{score.icon}</span>
-              {/*
-                `conceptTitle` is a concept name stored in Supabase and has no
-                translated column, so it is shown as the database has it. This
-                is the same limitation as the game titles — see
-                src/i18n/game-titles.ts and docs/i18n/README.md § Known gaps.
-              */}
-              <span
-                className="rounded-full px-2.5 py-1 text-xs font-black text-(--on-bright-fill) uppercase tracking-wider"
-                style={{ backgroundColor: score.themeColor }}
-              >
-                {score.conceptTitle ?? score.gameId.replace(/-/g, ' ')}
-              </span>
-            </div>
-            <h3 className="mt-4 text-xl font-black">
-              {gameTitle(t, score.gameId, score.gameTitle)}
-            </h3>
-            {score.highestScore !== null ? (
-              <div className="mt-auto flex items-end justify-between gap-2 border-t border-(--border) pt-4">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-wide text-muted">
-                    {t.leaderboards.highScore}
-                  </p>
-                  <p className="text-3xl font-black">{score.highestScore}</p>
-                </div>
-                <div className="text-right">
-                  <p className="flex items-center justify-end gap-1 text-xs font-bold uppercase tracking-wide text-muted">
-                    <Medal className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                    {t.leaderboards.rank}
-                  </p>
-                  <p className="text-xl font-black text-(--accent)">
-                    {score.globalRank === null
-                      ? t.leaderboards.unranked
-                      : `#${score.globalRank}`}
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <div className="mt-auto rounded-xl border border-dashed border-(--border) bg-(--surface-2) p-3 text-sm">
-                <p className="font-bold">{t.leaderboards.firstResultTitle}</p>
-                <p className="mt-1 text-muted">{t.leaderboards.firstResultBody}</p>
-                <LocaleLink
-                  href={`/games/${score.gameId}`}
-                  className="mt-3 inline-flex items-center gap-1 font-bold text-(--link) hover:underline"
-                >
-                  <Play className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                  {t.common.playNow}
-                </LocaleLink>
-              </div>
-            )}
-          </article>
-        ))}
+      <div className="game-card p-4 sm:p-6">
+        <ul className="space-y-3">
+          {scores.map((score) => {
+            const played = score.highestScore !== null;
+            return (
+              <ScoreRow
+                key={score.gameId}
+                rank={score.globalRank}
+                lead={<GameIcon slug={score.gameId} />}
+                title={gameTitle(t, score.gameId, score.gameTitle)}
+                detail={
+                  !played ? (
+                    t.leaderboards.firstResultBody
+                  ) : score.globalRank === null ? (
+                    t.leaderboards.unranked
+                  ) : (
+                    <span className="inline-flex items-center gap-0.5 font-bold">
+                      <Medal className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                      <span className="sr-only">{t.leaderboards.rankA11y} </span>
+                      {`#${score.globalRank}`}
+                    </span>
+                  )
+                }
+                aside={
+                  played ? (
+                    <ScoreFigure value={score.highestScore} label={t.leaderboards.highScore} />
+                  ) : (
+                    <LocaleLink
+                      href={`/games/${score.gameId}`}
+                      className="inline-flex items-center gap-1 text-sm font-bold whitespace-nowrap text-(--link) hover:underline"
+                    >
+                      <Play className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                      {t.common.playNow}
+                    </LocaleLink>
+                  )
+                }
+              />
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

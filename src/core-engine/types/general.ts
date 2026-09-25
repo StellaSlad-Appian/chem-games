@@ -23,8 +23,6 @@ export interface PersonalScore {
   gameTitle: string;
   highestScore: number | null;
   globalRank: number | null;
-  themeColor: string;
-  icon: string;
   /** Title of the concept this game is primary for (from concept_games), if known. */
   conceptTitle?: string | null;
 }
