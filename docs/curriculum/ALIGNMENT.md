@@ -402,8 +402,11 @@ In order; each step ships alone.
   codes and the new queries.
 - **Docs:** the per-jurisdiction research documents moved to `countries/` and every link was
   rewritten; each §3 table points at its record.
-- **Not yet done:** framework OF1 rewrite is limited to a pointer (§4.4); `AU-VIC` still needs the
-  full-area pass; England's and Italy's Year 13 content is not placed.
+- **Victoria completed (2026-09-25):** `AU-VIC` is now a full record (all areas, Years 7–12), from
+  [`countries/australia-victoria-7-10.md`](./countries/australia-victoria-7-10.md) and
+  [`countries/australia-victoria-vce.md`](./countries/australia-victoria-vce.md).
+- **Not yet done:** framework OF1 rewrite is limited to a pointer (§4.4); England's and Italy's
+  Year 13 content is not placed; the site's tags are not yet derived from the map (map step 3).
 
 Steps 1–3 touch only reference data that nothing in the app reads yet (map step 1), so there is
 no user-visible change and no migration risk. Per [`../TESTING.md`](../TESTING.md), the map's

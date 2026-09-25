@@ -18,6 +18,11 @@ marked **(unverified)**.
 Victoria is chem-games' home curriculum: existing briefs already tag games with Victorian
 Curriculum levels and VCE units (`docs/game-briefs/`). Section 8 checks those claims.
 
+> **Completed 2026-09-25 across all areas.** Years 7–10 in full: [`australia-victoria-7-10.md`](./australia-victoria-7-10.md)
+> (with a check of the site's current year tags in its §9). VCE Chemistry in full: [`australia-victoria-vce.md`](./australia-victoria-vce.md).
+> The record `src/core-engine/data/curriculum/countries/au-vic.ts` is built from both; this document stays the
+> in-depth source for organic chemistry, kinetics, energetics and equilibrium.
+
 ## What this means for chem-games (summary)
 
 - **Levels 9–10 contain no organic chemistry at all.** Organic chemistry first appears in

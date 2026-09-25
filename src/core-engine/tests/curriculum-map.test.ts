@@ -189,6 +189,15 @@ describe('queries', () => {
     expect(firstYear('AU-NSW', 'geometric-isomerism', { track: 'chemistry', includePlanned: true })).toBe(12);
   });
 
+  it('know Victoria in full, so absence means not taught', () => {
+    // The mole is VCE Unit 1, not Years 7–10: absent on the main route, not unknown.
+    expect(firstYear('AU-VIC', 'mole-concept')).toBeNull();
+    expect(firstYear('AU-VIC', 'mole-concept', { track: 'chemistry' })).toBe(11);
+    // States of matter is Levels 7–8 content, not Year 9 as the site tags it today.
+    expect(firstYear('AU-VIC', 'states-of-matter')).toBe(7);
+    expect(firstYear('AU-VIC', 'hess-law', { track: 'chemistry' })).toBeNull();
+  });
+
   it('place the same topic differently across German Länder', () => {
     // E/Z isomerism: Jgst. 10 in Bavaria, the Oberstufe in Rheinland-Pfalz, and in
     // Baden-Württemberg only with the G9 plan's compulsory Kl. 11 (cis/trans there).
