@@ -391,11 +391,27 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     sections: [
       {
         heading: 'Une méthode qui marche à tous les coups',
-        content:
-          '1. Écris la formule correcte de chaque réactif et de chaque produit. 2. Compte les atomes de chaque élément de chaque côté. 3. Commence par l’élément qui apparaît dans le moins de formules. 4. Ne change que les coefficients. 5. Si tu obtiens une fraction (par exemple 7/2 O2), multiplie tout par 2. 6. Recompte chaque élément. 7. Ajoute les symboles d’état.',
+        content: 'Suis ces étapes, toujours dans cet ordre :',
+        steps: [
+          'Écris la formule correcte de chaque réactif et de chaque produit.',
+          'Compte les atomes de chaque élément de chaque côté.',
+          'Commence par l’élément qui apparaît dans le moins de formules.',
+          'Ne change que les coefficients.',
+          'Si tu obtiens une fraction (par exemple 7/2 O2), multiplie tout par 2.',
+          'Recompte chaque élément.',
+          'Ajoute les symboles d’état.',
+        ],
         exampleNames: ['Combustion du propane'],
         imageAlt:
-          'La réaction 2H₂ + O₂ → 2H₂O représentée par des particules. À gauche, les réactifs : deux molécules de dihydrogène, chacune formée de deux atomes marqués H qui se touchent, plus une molécule de dioxygène, deux atomes marqués O. Une flèche mène aux produits : deux molécules d’eau, chacune un atome O lié à deux atomes H. L’équation est écrite sous les particules et, en dessous, les atomes sont comptés de chaque côté : H 4 et 4, O 2 et 2.',
+          'La réaction 2H₂ + O₂ → 2H₂O représentée par des particules. À gauche, les réactifs : deux molécules de dihydrogène, chacune formée de deux atomes marqués H qui se touchent, plus une molécule de dioxygène, deux atomes marqués O. Une flèche mène aux produits : deux molécules d’eau, chacune un atome O lié à deux atomes H. L’équation est écrite sous les particules.',
+        table: {
+          heading: 'Bilan des atomes',
+          columns: ['Élément', 'Réactifs', 'Produits'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
+        },
       },
     ],
     commonMistakes: [

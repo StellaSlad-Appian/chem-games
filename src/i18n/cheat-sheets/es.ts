@@ -401,11 +401,27 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     sections: [
       {
         heading: 'Un método que funciona siempre',
-        content:
-          '1. Escribe la fórmula correcta de cada reactivo y de cada producto. 2. Cuenta los átomos de cada elemento a cada lado. 3. Empieza por el elemento que aparece en menos fórmulas. 4. Cambia solo los coeficientes. 5. Si te sale una fracción (por ejemplo 7/2 O2), multiplica todo por 2. 6. Vuelve a contar cada elemento. 7. Añade los símbolos de estado.',
+        content: 'Sigue estos pasos, siempre en este orden:',
+        steps: [
+          'Escribe la fórmula correcta de cada reactivo y de cada producto.',
+          'Cuenta los átomos de cada elemento a cada lado.',
+          'Empieza por el elemento que aparece en menos fórmulas.',
+          'Cambia solo los coeficientes.',
+          'Si te sale una fracción (por ejemplo 7/2 O2), multiplica todo por 2.',
+          'Vuelve a contar cada elemento.',
+          'Añade los símbolos de estado.',
+        ],
         exampleNames: ['Combustión del propano'],
         imageAlt:
-          'La reacción 2H₂ + O₂ → 2H₂O dibujada con partículas. A la izquierda, los reactivos: dos moléculas de dihidrógeno, cada una con dos átomos marcados con H que se tocan, más una molécula de dioxígeno, dos átomos marcados con O. Una flecha lleva a los productos: dos moléculas de agua, cada una un átomo de O con dos átomos de H. Debajo de las partículas está la ecuación y, debajo de ella, el recuento de átomos de cada lado: H 4 y 4, O 2 y 2.',
+          'La reacción 2H₂ + O₂ → 2H₂O dibujada con partículas. A la izquierda, los reactivos: dos moléculas de dihidrógeno, cada una con dos átomos marcados con H que se tocan, más una molécula de dioxígeno, dos átomos marcados con O. Una flecha lleva a los productos: dos moléculas de agua, cada una un átomo de O con dos átomos de H. Debajo de las partículas está la ecuación.',
+        table: {
+          heading: 'Recuento de átomos',
+          columns: ['Elemento', 'Reactivos', 'Productos'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
+        },
       },
     ],
     commonMistakes: [

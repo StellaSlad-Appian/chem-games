@@ -2852,8 +2852,7 @@ function minusSign(x: number, y: number, half: number, stroke: Token, width = 2)
 }
 
 /**
- * The reactants and the products as particles, the equation under them, and
- * under that the atoms counted on each side.
+ * The reactants and the products as particles, with the equation under them.
  *
  * **Every atom is a ring with its symbol in it**, hydrogen smaller than
  * oxygen (11 and 14 units, about their van der Waals radii), and oxygen
@@ -2861,14 +2860,20 @@ function minusSign(x: number, y: number, half: number, stroke: Token, width = 2)
  * size and the symbol carry the difference, so the tint is never needed. The
  * coefficient is *how many molecules are drawn*, stacked: two H₂, one O₂, two
  * H₂O. That is the point of the picture — a coefficient makes more of the
- * molecule, and a subscript is part of it.
+ * molecule, and a subscript is part of it. "Reactants" and "products" head
+ * the two sides, in each glossary's word for them.
  *
- * **The tally is the check made visible**: each element's symbol, its count
- * on the left, a rule under the arrow, its count on the right. "Reactants" and
- * "products" head the two sides, in each glossary's word for them.
+ * The atom-by-atom tally used to be drawn under the equation, but a table of
+ * numbers in an SVG cannot line its columns up against a text baseline the
+ * way an HTML `<table>` can, and it is not tallied by anything a screen
+ * reader can navigate a row at a time. It is the cheat sheet's own
+ * `CheatSheetTable` on this section now (src/lib/cheat-sheet-data.ts), a real
+ * `<table>` next to this drawing rather than baked into it — this function
+ * still checks that what it draws agrees with what that table (and the
+ * equation) count, so the picture cannot drift from the numbers beside it.
  */
 function drawParticleEquation(pen: Pen): string[] {
-  const { t, symbol, whole, label } = pen;
+  const { t, symbol, label } = pen;
   const middleY = 96;
   const formulaY = 176;
   /** The centre of each species' column, left to right, and of each side. */
@@ -2876,7 +2881,6 @@ function drawParticleEquation(pen: Pen): string[] {
   const sides = { reactants: 90, products: 264 };
   const plusX = 88;
   const [arrowFrom, arrowTo] = [178, 218];
-  const dividerX = (arrowFrom + arrowTo) / 2;
   /** How far apart two copies of one molecule are stacked. */
   const stack: Record<string, number> = { H2: 40, O2: 40, H2O: 48 };
   const parts: string[] = [];
@@ -2916,29 +2920,18 @@ function drawParticleEquation(pen: Pen): string[] {
     parts.push(plusSign(plusX, y, 7, TOKEN.ink), arrow(arrowFrom, y, arrowTo, y));
   }
 
-  // The tally: what the run counted from the equation, which must also be
-  // what was drawn.
+  // What was drawn must still be what the equation counts, even with the
+  // tally itself drawn elsewhere (the cheat sheet's atom-count table, not
+  // this picture) — this check is what would catch a drawing that drifted
+  // from its own equation.
   const counted = { reactants: atomsOnSide(WATER_FORMATION.reactants), products: atomsOnSide(WATER_FORMATION.products) };
-  const elements = [...counted.reactants.keys()];
-  const tallyTop = 206;
-  const rowStep = 30;
-  elements.forEach((element, row) => {
-    const y = tallyTop + row * rowStep;
+  for (const element of counted.reactants.keys()) {
     for (const side of ['reactants', 'products'] as const) {
       if (drawnAtoms[side].get(element) !== counted[side].get(element)) {
         throw new Error(`01-particle-equation: the ${side} show a different number of ${element} than the equation.`);
       }
     }
-    parts.push(
-      label(16, y, symbol(element), { room: 30, central: true }),
-      label(sides.reactants, y, whole(counted.reactants.get(element)!), { room: 40, anchor: 'middle', central: true }),
-      label(sides.products, y, whole(counted.products.get(element)!), { room: 40, anchor: 'middle', central: true }),
-    );
-  });
-  parts.push(
-    `<path d="M ${dividerX} ${tallyTop - 16} L ${dividerX} ${tallyTop + (elements.length - 1) * rowStep + 16}" ` +
-      `${paint('none', TOKEN.ink)} stroke-width="2" stroke-linecap="round" />`,
-  );
+  }
 
   return parts;
 }

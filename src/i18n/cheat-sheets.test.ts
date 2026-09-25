@@ -70,11 +70,15 @@ function readerStrings(sheet: CheatSheetTopic): [where: string, text: string][] 
   });
   sheet.sections.forEach((section, i) => {
     out.push([`sections[${i}].content`, section.content]);
+    section.steps?.forEach((step, j) => out.push([`sections[${i}].steps[${j}]`, step]));
     section.examples?.forEach((example, j) => {
       if (example.description) {
         out.push([`sections[${i}].examples[${j}].description`, example.description]);
       }
     });
+    section.table?.rows.forEach((row, r) =>
+      row.forEach((cell, c) => out.push([`sections[${i}].table.rows[${r}][${c}]`, cell]))
+    );
   });
   sheet.tables?.forEach((table, i) => {
     table.rows.forEach((row, r) =>
@@ -130,8 +134,11 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
         formulaExampleNames: overlay.formulaExampleNames?.length ?? 0,
         formulaExampleDescriptions: overlay.formulaExampleDescriptions?.length ?? 0,
         sections: overlay.sections.length,
+        sectionSteps: overlay.sections.map((s) => s.steps?.length ?? 0),
         sectionExampleNames: overlay.sections.map((s) => s.exampleNames?.length ?? 0),
         sectionExampleDescriptions: overlay.sections.map((s) => s.exampleDescriptions?.length ?? 0),
+        sectionTableColumns: overlay.sections.map((s) => s.table?.columns.length ?? 0),
+        sectionTableRows: overlay.sections.map((s) => s.table?.rows.length ?? 0),
         tables: overlay.tables?.length ?? 0,
         tableColumns: overlay.tables?.map((t) => t.columns.length) ?? [],
         tableRows: overlay.tables?.map((t) => t.rows.length) ?? [],
@@ -141,8 +148,11 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
         formulaExampleNames: source.formulaExamples?.length ?? 0,
         formulaExampleDescriptions: descriptionCount(source.formulaExamples),
         sections: source.sections.length,
+        sectionSteps: source.sections.map((s) => s.steps?.length ?? 0),
         sectionExampleNames: source.sections.map((s) => s.examples?.length ?? 0),
         sectionExampleDescriptions: source.sections.map((s) => descriptionCount(s.examples)),
+        sectionTableColumns: source.sections.map((s) => s.table?.columns.length ?? 0),
+        sectionTableRows: source.sections.map((s) => s.table?.rows.length ?? 0),
         tables: source.tables?.length ?? 0,
         tableColumns: source.tables?.map((t) => t.columns.length) ?? [],
         tableRows: source.tables?.map((t) => t.rows.length) ?? [],
@@ -172,6 +182,19 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
 
     source.sections.forEach((section, index) => {
       expect(target.sections[index].examples?.length ?? 0).toBe(section.examples?.length ?? 0);
+      expect(target.sections[index].steps?.length ?? 0).toBe(section.steps?.length ?? 0);
+
+      const table = section.table;
+      const localizedTable = target.sections[index].table;
+      if (table) {
+        expect(localizedTable?.columns).toHaveLength(table.columns.length);
+        expect(localizedTable?.rows).toHaveLength(table.rows.length);
+        localizedTable?.rows.forEach((row, rowIndex) => {
+          expect(row).toHaveLength(table.rows[rowIndex].length);
+        });
+      } else {
+        expect(localizedTable).toBeUndefined();
+      }
     });
   });
 
@@ -202,6 +225,13 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
         table.formulaColumns?.forEach((column) => {
           table.rows.forEach((row, rowIndex) => {
             expect(target.tables![index].rows[rowIndex][column]).toBe(row[column]);
+          });
+        });
+      });
+      source.sections.forEach((section, index) => {
+        section.table?.formulaColumns?.forEach((column) => {
+          section.table!.rows.forEach((row, rowIndex) => {
+            expect(target.sections[index].table!.rows[rowIndex][column]).toBe(row[column]);
           });
         });
       });
@@ -280,6 +310,7 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
       sheet.sections.forEach((section) => {
         expect(section.heading.trim()).not.toBe('');
         expect(section.content.trim()).not.toBe('');
+        section.steps?.forEach((step) => expect(step.trim()).not.toBe(''));
       });
     }
   });
@@ -395,6 +426,21 @@ describe('worked sums', () => {
             const same = numbersIn(translated).join(' ') === numbersIn(cell).join(' ');
             if (!same || /\d\.\d/.test(translated)) {
               mismatches.push(`${source.slug} tables[${t}] ${cell} → ${translated}`);
+            }
+          })
+        );
+      });
+      source.sections.forEach((section, s) => {
+        const table = section.table;
+        if (!table) return;
+        table.rows.forEach((row, r) =>
+          row.forEach((cell, c) => {
+            if (table.formulaColumns?.includes(c) || !/^[\d\s.,+\-×()]+$/.test(cell)) return;
+            if (exceptions.has(`${source.slug}:sections[${s}].table.rows[${r}][${c}]`)) return;
+            const translated = target.sections[s].table!.rows[r][c];
+            const same = numbersIn(translated).join(' ') === numbersIn(cell).join(' ');
+            if (!same || /\d\.\d/.test(translated)) {
+              mismatches.push(`${source.slug} sections[${s}].table ${cell} → ${translated}`);
             }
           })
         );

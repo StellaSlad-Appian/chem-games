@@ -376,11 +376,27 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     sections: [
       {
         heading: 'Ein Verfahren, das immer funktioniert',
-        content:
-          '1. Schreib für jedes Edukt und jedes Produkt die richtige Formel auf. 2. Zähle für jedes Element die Atome auf beiden Seiten. 3. Fang mit dem Element an, das in den wenigsten Formeln vorkommt. 4. Ändere nur die Koeffizienten. 5. Wenn ein Bruch herauskommt (z. B. 7/2 O2), multipliziere alles mit 2. 6. Zähle jedes Element noch einmal nach. 7. Ergänze die Zustandssymbole.',
+        content: 'Folge diesen Schritten, immer in dieser Reihenfolge:',
+        steps: [
+          'Schreib für jedes Edukt und jedes Produkt die richtige Formel auf.',
+          'Zähle für jedes Element die Atome auf beiden Seiten.',
+          'Fang mit dem Element an, das in den wenigsten Formeln vorkommt.',
+          'Ändere nur die Koeffizienten.',
+          'Wenn ein Bruch herauskommt (z. B. 7/2 O2), multipliziere alles mit 2.',
+          'Zähle jedes Element noch einmal nach.',
+          'Ergänze die Zustandssymbole.',
+        ],
         exampleNames: ['Verbrennung von Propan'],
         imageAlt:
-          'Die Reaktion 2H₂ + O₂ → 2H₂O als Teilchenbild. Links die Edukte: zwei Wasserstoffmoleküle aus je zwei sich berührenden Atomen mit H, dazu ein Sauerstoffmolekül aus zwei Atomen mit O. Ein Pfeil zeigt auf die Produkte: zwei Wassermoleküle, je ein O-Atom mit zwei H-Atomen. Unter den Teilchen steht die Gleichung und darunter die Atombilanz beider Seiten: H 4 und 4, O 2 und 2.',
+          'Die Reaktion 2H₂ + O₂ → 2H₂O als Teilchenbild. Links die Edukte: zwei Wasserstoffmoleküle aus je zwei sich berührenden Atomen mit H, dazu ein Sauerstoffmolekül aus zwei Atomen mit O. Ein Pfeil zeigt auf die Produkte: zwei Wassermoleküle, je ein O-Atom mit zwei H-Atomen. Unter den Teilchen steht die Gleichung.',
+        table: {
+          heading: 'Atombilanz',
+          columns: ['Element', 'Edukte', 'Produkte'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
+        },
       },
     ],
     commonMistakes: [

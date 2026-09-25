@@ -443,11 +443,21 @@ export default async function CheatSheetDetailPage(
                 <p className="mt-2 text-sm leading-relaxed text-(--muted)">
                   <ChemText text={section.content} />
                 </p>
+                {section.steps && section.steps.length > 0 && (
+                  <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-(--muted)">
+                    {section.steps.map((step, index) => (
+                      <li key={index}>
+                        <ChemText text={step} />
+                      </li>
+                    ))}
+                  </ol>
+                )}
                 {section.image && (
                   <PannableBox className="mt-3">
                     <SectionImage image={section.image} diagrams={diagrams} />
                   </PannableBox>
                 )}
+                {section.table && <LookupTable table={section.table} />}
                 {section.widget && <SectionWidget name={section.widget} locale={locale} />}
                 {section.examples && section.examples.length > 0 && (
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">

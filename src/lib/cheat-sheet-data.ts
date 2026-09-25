@@ -580,13 +580,30 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     sections: [
       {
         heading: 'A method that always works',
-        content: '1. Write correct formulas for every reactant and product. 2. Count atoms of each element on each side. 3. Start with the element that appears in the fewest formulas. 4. Adjust coefficients only. 5. If you end up with a fraction (e.g. 7/2 O2), multiply everything by 2. 6. Recount every element. 7. Add state symbols.',
+        content: 'Follow these steps every time:',
+        steps: [
+          'Write correct formulas for every reactant and product.',
+          'Count atoms of each element on each side.',
+          'Start with the element that appears in the fewest formulas.',
+          'Adjust coefficients only.',
+          'If you end up with a fraction (e.g. 7/2 O2), multiply everything by 2.',
+          'Recount every element.',
+          'Add state symbols.',
+        ],
         examples: [
           { name: 'Combustion of propane', formula: 'C3H8 (g) + 5O2 (g) -> 3CO2 (g) + 4H2O (l)' },
         ],
         image: {
           diagram: 'balancing-equations/01-particle-equation',
-          alt: 'The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.',
+          alt: 'The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles.',
+        },
+        table: {
+          heading: 'Atom count',
+          columns: ['Element', 'Reactants', 'Products'],
+          rows: [
+            ['H', '4', '4'],
+            ['O', '2', '2'],
+          ],
         },
       },
     ],
