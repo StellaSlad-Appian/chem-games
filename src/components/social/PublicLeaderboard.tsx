@@ -1,9 +1,10 @@
 'use client';
 
-import { Medal, Trophy, UsersRound } from 'lucide-react';
+import { Trophy, UsersRound } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type { GameLeaderboard, GameName } from '@/core-engine/types/general';
 import { GameIcon } from '@/components/games/GameIcon';
+import { RankBadge, ScoreFigure, ScoreRow } from '@/components/social/ScoreRow';
 import { useI18n } from '@/i18n/client';
 import { gameTitle } from '@/i18n/game-titles';
 import { formattingLocale, type Locale } from '@/i18n/config';
@@ -47,9 +48,17 @@ export function PublicLeaderboard({ leaderboards }: PublicLeaderboardProps) {
 }
 
 function LeaderboardRow({ entry, t, f, locale }: { entry: { id: string; alias: string; score: number; timestamp: string; rank: number }; t: Dictionary; f: (template: string, values?: Record<string, string | number>) => string; locale: Locale }) {
-  // The podium is told by the rank number and the medal as well as the tint.
-  const accent = entry.rank === 1 ? 'border-(--rank-gold) bg-(--rank-gold-surface)' : entry.rank === 2 ? 'border-(--rank-silver) bg-(--rank-silver-surface)' : entry.rank === 3 ? 'border-(--rank-bronze) bg-(--rank-bronze-surface)' : 'border-(--border) bg-(--surface-2)';
-  return <li className={`flex items-center gap-3 rounded-xl border p-3 ${accent}`}><span className="flex h-10 w-10 shrink-0 items-center justify-center gap-0.5 rounded-lg border border-current font-black"><Medal className="h-4 w-4" aria-hidden="true" /><span className="sr-only">{t.leaderboards.rankA11y} </span>{entry.rank}</span><div className="min-w-0 flex-1"><p className="truncate font-black">{entry.alias}</p><p className="text-xs text-muted">{f(t.leaderboards.recorded, { date: formatLeaderboardDate(entry.timestamp, locale) })}</p></div><div className="text-right"><p className="text-xl font-black">{entry.score}</p><p className="text-xs font-bold uppercase tracking-wide text-muted">{t.leaderboards.points}</p></div></li>;
+  // The row itself (and its podium tint) is ScoreRow, shared with the
+  // personal high scores so the two lists look the same.
+  return (
+    <ScoreRow
+      rank={entry.rank}
+      lead={<RankBadge rank={entry.rank} labelA11y={t.leaderboards.rankA11y} />}
+      title={entry.alias}
+      detail={f(t.leaderboards.recorded, { date: formatLeaderboardDate(entry.timestamp, locale) })}
+      aside={<ScoreFigure value={entry.score} label={t.leaderboards.points} />}
+    />
+  );
 }
 
 /**
