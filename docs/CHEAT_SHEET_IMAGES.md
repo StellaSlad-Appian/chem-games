@@ -260,6 +260,23 @@ disagree with what a screen-reader user is told. If you change what a diagram
 shows, change the `alt` in `src/lib/cheat-sheet-data.ts` **and** the `imageAlt`
 in each of `src/i18n/cheat-sheets/{de,fr,es,it,ru}.ts`.
 
+## The slots on *Lewis Structures* — `lewis-structures`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `lewis-structures/01-lewis-structures` | 360×415 | Under *Year 10 essentials*: H₂O, NH₃, CO₂ and CH₄ as Lewis structures, two by two, each with its formula underneath. Bonds are lines (CO₂'s are double), lone pairs are two dots in the electron colour on a free side of their atom, laid out as Share to Fill lays them out: O in H₂O has 2, N in NH₃ has 1, each O in CO₂ has 2 and C none. One leader to "lone pair" and one to "shared pair" (the sheet's term for a bond). |
+| 2 | `lewis-structures/02-vsepr-shapes` | 360×665 | Under *From Lewis structure to shape (VSEPR)*: CO₂ linear 180°, BF₃ trigonal planar 120°, CH₄ tetrahedral 109.5°, NH₃ trigonal pyramidal 107°, H₂O bent 104.5°, two to a row. Solid and hashed wedges for 3D; the central atom's lone pairs as lobes holding two dots; an arc marking the angle between the two bonds in the page; under each, its formula and then its shape and angle. |
+
+**The chemistry is checked before anything is drawn.** Every structure is data
+in `LEWIS_MOLECULES` in the script, and the run fails unless the formula names
+the atoms drawn, the atoms' valence electrons add up to the stated total (CO₂
+16, H₂O 8, NH₃ 8, CH₄ 8, BF₃ 24), bonds and lone pairs use exactly those
+electrons, every atom ends with a duet, an octet or (boron) six, and no lone
+pair sits on a bonded side. Slot 2 also checks each shape against the sheet's
+rule (regions and lone pairs → shape), that the angle falls as lone pairs
+replace bonds, and that the two atoms drawn in the page really are the stated
+angle apart.
+
 ---
 
 ## Adding a diagram to a sheet

@@ -269,6 +269,10 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | formal charge | **carga formal** | — |
 | electronegativity | **electronegatividad** | — |
 | delocalised electrons | **electrones libres** | The literal *electrones deslocalizados* is correct and is upper-secondary register; *electrones libres* is the school phrasing for the "sea" in a metal. **And it is a second reason *libre* could not be the game's word for a loner** — *electrón libre* already means something else, and something a student meets on the bonding sheet. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineal, triangular plana, tetraédrica, piramidal trigonal, angular** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometría*, as a Bachillerato textbook writes them, and the ones the sheet's RPECV paragraph already used. *Trigonal plana* is also seen. The model is **RPECV** in Spanish, never *VSEPR* in running text. Angles: *109,5°*. |
+| bond angle | **ángulo de enlace** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuña rellena / cuña rayada** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lóbulo** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: Spanish's own two-tier pair, and the trap it had to avoid — historical, and why it is kept
 

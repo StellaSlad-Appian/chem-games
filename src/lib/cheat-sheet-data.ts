@@ -1024,6 +1024,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           { name: 'Methane — carbon shares all four loners', formula: 'CH4' },
           { name: 'Oxygen — two shared pairs make a double bond', formula: 'O2' },
         ],
+        image: {
+          diagram: 'lewis-structures/01-lewis-structures',
+          alt: 'Lewis structures of four molecules, each with its formula underneath. Water, H₂O: H–O–H with two lone pairs on the oxygen, one above it and one below. Ammonia, NH₃: nitrogen with single bonds to three hydrogens and one lone pair. Carbon dioxide, CO₂: O=C=O, two double bonds, with two lone pairs on each oxygen and none on the carbon. Methane, CH₄: carbon with single bonds to four hydrogens and no lone pairs. Bonds are lines and lone pairs are pairs of dots. Labels point to one lone pair, on the oxygen in water, and to one shared pair, a bond in ammonia.',
+        },
       },
       {
         heading: 'The five steps',
@@ -1032,6 +1036,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'From Lewis structure to shape (VSEPR)',
         content: 'Count electron regions around the central atom (each bond, single or multiple, counts once; each lone pair counts once). 4 regions → tetrahedral (109.5°); with 1 lone pair → trigonal pyramidal (NH3); with 2 lone pairs → bent (H2O). 3 regions → trigonal planar (120°). 2 regions → linear (180°).',
+        image: {
+          diagram: 'lewis-structures/02-vsepr-shapes',
+          alt: 'The five VSEPR shapes, each with its formula, shape and bond angle underneath, drawn in 3D: a solid wedge is a bond coming out of the page and a hashed wedge a bond going behind it. CO₂ is linear, 180°. BF₃ is trigonal planar, 120°. CH₄ is tetrahedral, 109.5°. NH₃ is trigonal pyramidal, 107°, with its lone pair drawn as a lobe on the nitrogen. H₂O is bent, 104.5°, with two lone-pair lobes on the oxygen. NH₃ and H₂O are drawn like CH₄ with one, then two, of its bonds replaced by a lone pair. A small arc marks the angle between the two bonds that lie in the page.',
+        },
       },
       {
         heading: 'Exceptions to the octet',

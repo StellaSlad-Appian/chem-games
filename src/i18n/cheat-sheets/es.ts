@@ -813,6 +813,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
           'Metano: el carbono comparte sus cuatro electrones desapareados',
           'Dioxígeno: dos pares compartidos hacen un enlace doble',
         ],
+        imageAlt:
+          'Estructuras de Lewis de cuatro moléculas, cada una con su fórmula debajo. Agua, H₂O: H–O–H con dos pares solitarios en el oxígeno, uno encima y otro debajo. Amoniaco, NH₃: el nitrógeno unido a tres hidrógenos por enlaces simples, con un par solitario. Dióxido de carbono, CO₂: O=C=O, dos enlaces dobles, con dos pares solitarios en cada oxígeno y ninguno en el carbono. Metano, CH₄: el carbono unido a cuatro hidrógenos por enlaces simples, sin pares solitarios. Los enlaces son rayas y los pares solitarios, parejas de puntos. Unas etiquetas señalan un par solitario, en el oxígeno del agua, y un par enlazante, un enlace del amoniaco.',
       },
       {
         heading: 'Los cinco pasos',
@@ -823,6 +825,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'De la estructura de Lewis a la geometría (RPECV)',
         content:
           'Cuenta las regiones de electrones alrededor del átomo central (cada enlace, simple o múltiple, cuenta una vez; cada par solitario cuenta una vez). 4 regiones → tetraédrica (109,5°); con 1 par solitario → piramidal trigonal (NH3); con 2 pares solitarios → angular (H2O). 3 regiones → triangular plana (120°). 2 regiones → lineal (180°).',
+        imageAlt:
+          'Las cinco geometrías RPECV, cada una con su fórmula, su geometría y su ángulo de enlace debajo, dibujadas en 3D: una cuña rellena es un enlace que sale del plano hacia delante y una cuña rayada, uno que va hacia atrás. CO₂: lineal, 180°. BF₃: triangular plana, 120°. CH₄: tetraédrica, 109,5°. NH₃: piramidal trigonal, 107°, con su par solitario dibujado como un lóbulo en el nitrógeno. H₂O: angular, 104,5°, con dos lóbulos en el oxígeno. El NH₃ y el H₂O se dibujan como el CH₄, con uno y luego dos de sus enlaces sustituidos por un par solitario. Un pequeño arco marca el ángulo entre los dos enlaces que están en el plano de la página.',
       },
       {
         heading: 'Excepciones al octeto',

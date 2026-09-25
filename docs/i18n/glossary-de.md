@@ -93,6 +93,10 @@ suite rather than failing silently on screen.
 | formal charge | **Formalladung** | — |
 | electronegativity | **Elektronegativität** | — |
 | delocalised electrons | **frei bewegliche Elektronen** | The literal *delokalisierte Elektronen* is correct but is upper-secondary register; the school phrasing is clearer at this level. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **linear, trigonal-planar, tetraedrisch, trigonal-pyramidal, gewinkelt** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). The terms German school books print, and the ones the sheet's VSEPR paragraph already used, so the drawing and the prose above it agree. *V-förmig* for bent is also seen and is not used. The compounds keep their hyphen (*trigonal-planar*); the diagram never breaks a line at it. Angles take the decimal comma and no space before the degree sign: *109,5°*, *104,5°*. |
+| bond angle | **Bindungswinkel** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **Keil / gestrichelter Keil** | Added 2026-09-25, for alt text. The drawing convention is the *Keilstrichformel*. |
+| lone-pair lobe (in a VSEPR drawing) | **Keule** | Added 2026-09-25, for alt text: *das freie Elektronenpaar ist als Keule gezeichnet*. The word German uses for an orbital's lobe. |
 
 ## Atomic structure, the periodic table and radioactivity
 

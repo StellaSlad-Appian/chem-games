@@ -311,6 +311,9 @@ and big. The type size is a symptom of the loading method.
 - **P3, high value.** A sheet about drawing structures has no drawings. Add one
   diagram with H₂O, CO₂ and NH₃ as Lewis structures (lone pairs shown), and
   ideally a second one with the VSEPR shapes and angles.
+  **Done 2026-09-25:** `lewis-structures/01-lewis-structures` (H₂O, NH₃, CO₂,
+  CH₄) and `lewis-structures/02-vsepr-shapes` (the five shapes with angles);
+  see `docs/CHEAT_SHEET_IMAGES.md`.
 - **P2** "Loner" is a made-up term. Introduce it as "an unpaired electron (a
   'loner')" the first time, so students can match it to their textbook.
 

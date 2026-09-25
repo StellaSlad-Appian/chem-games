@@ -154,6 +154,10 @@ Two more consequences worth knowing:
 | formal charge | **charge formelle** | — |
 | electronegativity | **électronégativité** | — |
 | delocalised electrons | **électrons libres** | The literal *électrons délocalisés* is correct and is upper-secondary register; *électrons libres* is the school phrasing for the "sea" in a metal and is clearer at this level. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **linéaire, triangulaire plane, tétraédrique, pyramidale à base triangulaire, coudée** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). The adjectives agree with *géométrie* (feminine), as a lycée textbook writes them, and they are the ones the sheet's VSEPR paragraph already used. *Trigonale plane* and *pyramide trigonale* are also in circulation and are not used. Angles: *109,5°*, no space before the degree sign. |
+| bond angle | **angle de liaison** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **triangle plein / triangle hachuré** (*représentation de Cram*) | Added 2026-09-25, for alt text. French lycée books name the convention after Cram and call the wedges triangles; *coin* is a calque. |
+| lone-pair lobe (in a VSEPR drawing) | **lobe** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: French's own two-tier pair — historical, and why it is kept
 

@@ -822,6 +822,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
           'Metano: il carbonio condivide i suoi quattro elettroni spaiati',
           'Ossigeno: due doppietti di legame fanno un legame doppio',
         ],
+        imageAlt:
+          'Le strutture di Lewis di quattro molecole, ognuna con la sua formula sotto. Acqua, H₂O: H–O–H con due doppietti solitari sull’ossigeno, uno sopra e uno sotto. Ammoniaca, NH₃: l’azoto legato a tre idrogeni con legami singoli, con un doppietto solitario. Diossido di carbonio, CO₂: O=C=O, due legami doppi, con due doppietti solitari su ogni ossigeno e nessuno sul carbonio. Metano, CH₄: il carbonio legato a quattro idrogeni con legami singoli, senza doppietti solitari. I legami sono linee e i doppietti solitari coppie di punti. Due etichette indicano un doppietto solitario, sull’ossigeno dell’acqua, e un doppietto di legame, un legame dell’ammoniaca.',
       },
       {
         heading: 'I cinque passi',
@@ -832,6 +834,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Dalla struttura di Lewis alla geometria (VSEPR)',
         content:
           'Conta le regioni di elettroni intorno all’atomo centrale (ogni legame, singolo o multiplo, conta una volta; ogni doppietto solitario conta una volta). 4 regioni → tetraedrica (109,5°); con 1 doppietto solitario → piramidale trigonale (NH3); con 2 doppietti solitari → angolare (H2O). 3 regioni → trigonale planare (120°). 2 regioni → lineare (180°).',
+        imageAlt:
+          'Le cinque geometrie VSEPR, ognuna con la sua formula, la geometria e l’angolo di legame sotto, disegnate in 3D: un cuneo pieno è un legame che esce dal piano verso chi guarda, un cuneo tratteggiato uno che va dietro. CO₂: lineare, 180°. BF₃: trigonale planare, 120°. CH₄: tetraedrica, 109,5°. NH₃: piramidale trigonale, 107°, con il suo doppietto solitario disegnato come un lobo sull’azoto. H₂O: angolare, 104,5°, con due lobi sull’ossigeno. NH₃ e H₂O sono disegnate come CH₄, con uno e poi due dei suoi legami sostituiti da un doppietto solitario. Un piccolo arco segna l’angolo fra i due legami che stanno nel piano della pagina.',
       },
       {
         heading: 'Eccezioni all’ottetto',

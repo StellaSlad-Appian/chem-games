@@ -282,6 +282,10 @@ than failing silently on screen.
 | formal charge | **carica formale** | — |
 | electronegativity | **elettronegatività** | Final accent — fine in prose, but **never usable as a glossary match word** (see above). |
 | delocalised electrons | **elettroni delocalizzati** | The school phrasing for the "sea" in a metal is *mare di elettroni*; *elettroni liberi* is also used, **and that is the second reason *libero* could not be the game's word for a loner** — it already means something else, and something a student meets on the bonding sheet. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineare, trigonale planare, tetraedrica, piramidale trigonale, angolare** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometria*. **Bent is *angolare*, not *piegata***: both are in Italian textbooks, and *angolare* is the word the sheet's VSEPR paragraph already used directly above the drawing, so the two agree. Angles: *109,5°*. |
+| bond angle | **angolo di legame** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuneo pieno / cuneo tratteggiato** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lobo** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: Italian's own two-tier pair, and the three words it could not use — historical, and why it is kept
 
