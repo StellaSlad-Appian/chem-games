@@ -149,9 +149,15 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
           can take — not the substance of the policy. Children's privacy stays
           in the main column deliberately even though it is short-ish: it is
           the single most load-bearing section on this page, not a pointer.
+
+          `lg:sticky lg:top-20`: the sidebar is much shorter than the main
+          column, and a grid track reserves its width for the whole row
+          height regardless, so without this its three cards would end a
+          screen or two down and leave an empty gutter for the rest of the
+          policy.
         */}
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
-          <div className="flex flex-col gap-6 lg:order-2">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-20 lg:order-2">
             <section
               aria-labelledby="privacy-who"
               className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"

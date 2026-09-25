@@ -104,10 +104,14 @@ export default async function AboutPage(props: PageProps<'/[lang]/about'>) {
           renders first in source order and is pushed right with `lg:order-2`
           — DOM order is reading order and tab order for every reader, not
           only the one who can see it beside the story visually. Same layout
-          and the same reasoning as the For Teachers page's.
+          and the same reasoning as the For Teachers page's, including
+          `lg:sticky lg:top-20` on the sidebar: it is much shorter than the
+          main column, and a grid track reserves its width for the whole row
+          height regardless, so without this the two pointer cards would end
+          a screen down and leave an empty gutter for the rest of the page.
         */}
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
-          <div className="flex flex-col gap-6 lg:order-2">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-20 lg:order-2">
             {/*
               Both of these are a pointer, not content of their own — one
               short paragraph each and a link to the page that actually

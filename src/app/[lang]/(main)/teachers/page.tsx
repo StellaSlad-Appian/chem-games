@@ -195,9 +195,19 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
           for the beta notice without needing it outside the grid the way it
           used to sit: it is simply the first thing in the document after the
           heading.
+
+          `lg:sticky lg:top-20` on the sidebar: it is much shorter than the
+          main column (three short cards against seven sections), and a grid
+          track reserves its width for the *whole* row height regardless —
+          without this, the sidebar's cards end a screen or two down and
+          everything below them is just an empty 320px gutter on the right,
+          which reads as a lopsided right margin rather than as a sidebar.
+          Sticky keeps it in view alongside whatever section the reader has
+          scrolled to instead. `top-20` clears the site header (measured at
+          66px) with a little breathing room.
         */}
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
-          <div className="flex flex-col gap-6 lg:order-2">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-20 lg:order-2">
             <section
               aria-labelledby="teachers-beta"
               className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
@@ -289,7 +299,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
 
             <Section icon={Gamepad2} title={p.onSiteHeading}>
               <p>{p.gamesIntro}</p>
-              <dl className="space-y-3">
+              <dl className="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
                 {games.map((game) => (
                   <div key={game.href}>
                     <dt>
