@@ -507,12 +507,58 @@
     background: var(--surface-2);
   }
 
-  /* --- Cards / Panels --- */
+  /* --- Cards / Panels ---------------------------------------------------
+     The one card look, for every card on every page: white (--surface) on
+     the tinted page, a hairline --border and the lifted --shadow-card. The
+     name is historical — it is not only for games. A card that is a link
+     adds `.card-lift`. A panel *inside* a card is `.panel`: tinted, flat. */
   .game-card {
     background: var(--surface);
-    border: 2px solid var(--border);
+    border: 1px solid var(--border);
     border-radius: 1rem;
     box-shadow: var(--shadow-card);
+  }
+  .card-lift {
+    transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out;
+  }
+  .card-lift:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-lg);
+  }
+  .panel {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+  }
+
+  /* The one label pill: a year level, "Global network", a count. Neutral on
+     purpose — colour on a card belongs to its icon tile. --muted on
+     --surface-2 is 6.92:1 light, 6.75:1 dark. */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    background: var(--surface-2);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 800;
+    color: var(--muted);
+  }
+
+  /* The one icon tile: a rounded square tinted with the item's colour. The
+     colour classes come from the caller (a game's accent, a cheat sheet's
+     hue, the site blue). */
+  .icon-tile {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.75rem;
   }
 
   /* --- Classification buttons --- */
@@ -675,6 +721,10 @@
     .atom-move,
     .beam-tilt {
       transition: none;
+    }
+    /* The card still gains its larger shadow on hover; it just does not move. */
+    .card-lift:hover {
+      transform: none;
     }
   }
 }

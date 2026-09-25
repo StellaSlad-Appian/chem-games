@@ -3,7 +3,8 @@
 
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { ArrowRight } from 'lucide-react';
-import { ACCENT_CLASSES, GAMES } from '@/lib/games-data';
+import { ACCENT_CLASSES, gameTopic } from '@/lib/games-data';
+import { GameIcon } from './GameIcon';
 import type { GameName } from '@/core-engine/types/general';
 import { gameDescription, gameTitle } from '@/i18n/game-titles';
 import { useI18n } from '@/i18n/client';
@@ -29,7 +30,7 @@ import { useI18n } from '@/i18n/client';
  */
 export function GameCard({ slug }: { slug: GameName }) {
   const { t } = useI18n();
-  const game = GAMES.find((candidate) => candidate.slug === slug);
+  const game = gameTopic(slug);
   if (!game) return null;
   const accent = ACCENT_CLASSES[game.accent];
   const description = gameDescription(t, game.slug);
@@ -40,7 +41,8 @@ export function GameCard({ slug }: { slug: GameName }) {
       className={`group flex flex-col justify-between rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline-2 focus-visible:outline-offset-2 ${accent.hoverBorder}`}
     >
       <div>
-        <game.Icon className={`h-8 w-8 shrink-0 ${accent.text}`} aria-hidden="true" />
+        {/* The same mark the game wears everywhere else: its icon on a tile of its accent. */}
+        <GameIcon slug={game.slug} size="lg" />
         {/*
           `min-w-0` is not decoration here: this is a flex column, and the
           German titles are long single words. See ACCESSIBILITY.md § 3.

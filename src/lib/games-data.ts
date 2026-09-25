@@ -136,26 +136,59 @@ export const GAME_CONCEPTS: CheatSheetCategory[] = GAMES.flatMap((game) => game.
  * classes by scanning source text: `text-(--game-accent-${accent})` would
  * produce nothing at all. Every string below has to appear literally somewhere,
  * and here is the one place it does.
+ *
+ * - `text`: the accent as text or an icon (≥ 4.5:1 on every surface).
+ * - `tint`: a 12% wash of the accent — the icon tile, the header's task panel.
+ *   The accent itself stays ≥ 4.6:1 on it, --foreground ≥ 12:1, in both themes.
+ * - `edge`: a soft accent border for a tinted panel.
+ * - `fill`: the solid accent, for a stripe or bar that carries no text.
  */
-export const ACCENT_CLASSES: Record<GameAccent, { text: string; hoverBorder: string }> = {
+export interface AccentClasses {
+  text: string;
+  hoverBorder: string;
+  tint: string;
+  edge: string;
+  fill: string;
+}
+
+export const ACCENT_CLASSES: Record<GameAccent, AccentClasses> = {
   violet: {
     text: 'text-(--game-accent-violet)',
     hoverBorder: 'hover:border-(--game-accent-violet)',
+    tint: 'bg-(--game-accent-violet)/12',
+    edge: 'border-(--game-accent-violet)/40',
+    fill: 'bg-(--game-accent-violet)',
   },
   sky: {
     text: 'text-(--game-accent-sky)',
     hoverBorder: 'hover:border-(--game-accent-sky)',
+    tint: 'bg-(--game-accent-sky)/12',
+    edge: 'border-(--game-accent-sky)/40',
+    fill: 'bg-(--game-accent-sky)',
   },
   emerald: {
     text: 'text-(--game-accent-emerald)',
     hoverBorder: 'hover:border-(--game-accent-emerald)',
+    tint: 'bg-(--game-accent-emerald)/12',
+    edge: 'border-(--game-accent-emerald)/40',
+    fill: 'bg-(--game-accent-emerald)',
   },
   amber: {
     text: 'text-(--game-accent-amber)',
     hoverBorder: 'hover:border-(--game-accent-amber)',
+    tint: 'bg-(--game-accent-amber)/12',
+    edge: 'border-(--game-accent-amber)/40',
+    fill: 'bg-(--game-accent-amber)',
   },
   rose: {
     text: 'text-(--game-accent-rose)',
     hoverBorder: 'hover:border-(--game-accent-rose)',
+    tint: 'bg-(--game-accent-rose)/12',
+    edge: 'border-(--game-accent-rose)/40',
+    fill: 'bg-(--game-accent-rose)',
   },
 };
+
+/** The registry entry for a game, or undefined for one not built yet (bond-builder). */
+export const gameTopic = (slug: GameName): GameTopic | undefined =>
+  GAMES.find((candidate) => candidate.slug === slug);
