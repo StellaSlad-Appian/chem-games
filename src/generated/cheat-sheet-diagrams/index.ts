@@ -26,6 +26,10 @@ export const CHEAT_SHEET_DIAGRAMS = {
   'balancing-equations/01-particle-equation': { width: 325, height: 270 },
   'chemical-bonds/01-bonding-models': { width: 360, height: 515 },
   'acids-and-bases/01-ph-scale': { width: 330, height: 410 },
+  'chemical-formulas/01-cross-over': { width: 280, height: 315 },
+  'naming-compounds/01-which-system': { width: 360, height: 295 },
+  'stoichiometry/01-mole-map': { width: 360, height: 475 },
+  'organic-nomenclature/01-numbered-chain': { width: 275, height: 230 },
 } as const;
 
 export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;

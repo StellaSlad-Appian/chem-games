@@ -546,6 +546,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Al 3+ e SO4 2−. Incrocia le cariche: l’Al prende il pedice 2 e il solfato il pedice 3. Il solfato è poliatomico e si ripete, quindi ha bisogno delle parentesi: Al2(SO4)3. Verifica: 2 × (+3) = +6 e 3 × (−2) = −6. Neutro.',
         exampleNames: ['Solfato di alluminio'],
+        imageAlt:
+          'Il solfato di alluminio con il metodo dell’incrocio. In alto, lo ione alluminio Al³⁺, indicato come «catione», e lo ione solfato SO₄²⁻, indicato come «anione». Due frecce che si incrociano portano in basso ciascun numero di carica, che diventa il pedice dell’altro ione: il 3 di Al³⁺ diventa il 3 dopo il solfato tra parentesi, e il 2 di SO₄²⁻ il 2 dopo Al. In basso, la formula Al₂(SO₄)₃ e la verifica: 2 × (+3) = +6 e 3 × (−2) = −6.',
       },
       {
         heading: 'Le cariche più comuni, lette sulla tavola periodica',
@@ -622,6 +624,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Acido nitroso (acido, dal nitrito)',
     ],
     sections: [
+      {
+        heading: 'Quale sistema di nomenclatura?',
+        content:
+          'Guarda prima di che cosa è fatto il composto. Un metallo (o NH4+) con un non metallo forma un composto ionico: prima l’anione, poi «di» e il catione, senza prefissi (cloruro di sodio). Due non metalli formano un composto molecolare, che si nomina con i prefissi greci (diossido di zolfo); ma se l’H sta davanti e il composto è sciolto in acqua, è un acido, e il suo nome si ricava dall’anione: acido cloridrico.',
+        imageAlt:
+          'Un diagramma di flusso per scegliere il sistema di nomenclatura. Da «metallo + non metallo» una freccia porta a «ionico», per esempio cloruro di sodio. Da «due non metalli» una freccia porta a «molecolare», per esempio diossido di zolfo. Da «due non metalli» scende anche una freccia verso «H davanti, in acqua», e da lì ad «acido», per esempio acido cloridrico.',
+      },
       {
         heading: 'Come si ricava il numero romano',
         content:
@@ -802,6 +811,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Esempio svolto: massa → massa',
         content:
           'Che massa di acqua si forma quando bruciano del tutto 8,0 g di idrogeno? 2H2 + O2 → 2H2O. n(H2) = 8,0 ÷ 2,0 = 4,0 mol. Il rapporto H2 : H2O è 2 : 2, quindi n(H2O) = 4,0 mol. m(H2O) = 4,0 × 18,0 = 72 g.',
+        imageAlt:
+          'La mappa della mole. A sinistra, quattro riquadri uno sotto l’altro – massa, numero di particelle, volume di gas e soluzione – sono collegati ciascuno a un riquadro alto, «moli di reagente», da una doppia freccia con la sua formula: n = m/M, n = N/N_A, n = V/V_m e n = cV. Dalle moli di reagente, una freccia con la scritta «rapporto molare (coefficienti)» scende alle moli di prodotto.',
       },
       {
         heading: 'Esempio svolto: reagente limitante',
@@ -937,6 +948,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Esempio svolto',
         content:
           'Una catena di 5 carboni con un OH sul carbonio 2 e un metile sul carbonio 3. Radice: pent-. Suffisso: -olo con il numero 2 (numerando dall’estremità più vicina all’OH). Sostituente: 3-metil. Nome: 3-metilpentan-2-olo.',
+        imageAlt:
+          'La formula scheletrica del 3-metilpentan-2-olo: una catena a zigzag di cinque carboni, numerati da 1 a 5 da sinistra a destra. Dal carbonio 2 sale un legame verso l’OH, dal carbonio 3 scende un breve tratto: il gruppo metile, indicato come «metile». Sotto, il nome 3-metilpentan-2-olo.',
       },
     ],
     commonMistakes: [

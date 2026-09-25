@@ -543,6 +543,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'Al 3+ et SO4 2−. En croix : Al prend l’indice 2, le sulfate prend l’indice 3. Le sulfate est polyatomique et répété, il lui faut donc des parenthèses : Al2(SO4)3. Vérification : 2 × (+3) = +6 et 3 × (−2) = −6. L’ensemble est neutre.',
         exampleNames: ['Sulfate d’aluminium'],
+        imageAlt:
+          'Le sulfate d’aluminium par la méthode de la croix. En haut, l’ion aluminium Al³⁺, marqué « cation », et l’ion sulfate SO₄²⁻, marqué « anion ». Deux flèches qui se croisent font descendre chaque nombre de charges, qui devient l’indice de l’autre ion : le 3 de Al³⁺ devient le 3 après le sulfate entre parenthèses, et le 2 de SO₄²⁻ devient le 2 après Al. En bas, la formule statistique Al₂(SO₄)₃ et la vérification : 2 × (+3) = +6 et 3 × (−2) = −6.',
       },
       {
         heading: 'Les charges courantes lues dans le tableau périodique',
@@ -619,6 +621,13 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Acide nitreux (acide, à partir du nitrite)',
     ],
     sections: [
+      {
+        heading: 'Quel système de nommage ?',
+        content:
+          'Regarde d’abord de quoi le composé est fait. Un métal (ou NH4+) avec un non-métal donne un composé ionique : l’anion d’abord, puis « de » et le cation, sans préfixe – chlorure de sodium. Deux non-métaux donnent un composé moléculaire, nommé avec des préfixes grecs (dioxyde de soufre) ; mais si H vient en tête et que le composé est dissous dans l’eau, c’est un acide, nommé d’après son anion : acide chlorhydrique.',
+        imageAlt:
+          'Un organigramme pour choisir le système de nommage. De « métal + non-métal », une flèche mène à « ionique », par exemple chlorure de sodium. De « deux non-métaux », une flèche mène à « moléculaire », par exemple dioxyde de soufre. De « deux non-métaux », une autre flèche descend vers « H en tête, dans l’eau », puis mène à « acide », par exemple acide chlorhydrique.',
+      },
       {
         heading: 'Déterminer un chiffre romain',
         content:
@@ -803,6 +812,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         heading: 'Exemple guidé : masse → masse',
         content:
           'Quelle masse d’eau se forme quand 8,0 g de dihydrogène brûlent complètement ? 2H2 + O2 → 2H2O. n(H2) = 8,0 ÷ 2,0 = 4,0 mol. Rapport H2 : H2O = 2 : 2, donc n(H2O) = 4,0 mol. m(H2O) = 4,0 × 18,0 = 72 g.',
+        imageAlt:
+          'La carte des conversions par la quantité de matière. À gauche, quatre cases l’une sous l’autre – masse, nombre d’entités, volume de gaz et solution – sont reliées chacune à une grande case, « quantité de matière du réactif », par une double flèche qui porte sa formule : n = m/M, n = N/N_A, n = V/V_m et n = cV. De la quantité de matière du réactif, une flèche marquée « rapport molaire (coefficients) » descend vers la quantité de matière du produit.',
       },
       {
         heading: 'Exemple guidé : réactif limitant',
@@ -945,6 +956,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         heading: 'Exemple guidé',
         content:
           'Une chaîne de 5 carbones, avec un OH sur le carbone 2 et un méthyle sur le carbone 3. Racine : pent-. Terminaison : -ol avec le numéro 2 (en numérotant depuis l’extrémité la plus proche du OH). Substituant : 3-méthyl. Nom : 3-méthylpentan-2-ol.',
+        imageAlt:
+          'La formule topologique du 3-méthylpentan-2-ol : une chaîne en zigzag de cinq carbones, numérotés de 1 à 5 de gauche à droite. Sur le carbone 2, une liaison monte vers OH ; sur le carbone 3, un trait court descend : c’est le groupe méthyle, marqué « méthyle ». En dessous, le nom 3-méthylpentan-2-ol.',
       },
     ],
     commonMistakes: [

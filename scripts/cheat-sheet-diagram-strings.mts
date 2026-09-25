@@ -843,4 +843,262 @@ export const DIAGRAM_STRINGS: Record<string, SlotStrings> = {
     },
   },
   // end of task 10a strings
+
+  // --- Task 10b: four small diagrams ---
+  //
+  // The cross-over's formulae and its two neutral checks are the same in every
+  // language; only the two ion names are not. Formulae are written as
+  // `MoleculeText` takes them, a charge after a no-break space: `SO4 2−`.
+  'chemical-formulas/01-cross-over': {
+    en: {
+      cation: 'cation',
+      anion: 'anion',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    de: {
+      cation: 'Kation',
+      anion: 'Anion',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    fr: {
+      cation: 'cation',
+      anion: 'anion',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    es: {
+      cation: 'catión',
+      anion: 'anión',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    it: {
+      cation: 'catione',
+      anion: 'anione',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    ru: {
+      cation: 'катион',
+      anion: 'анион',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+  },
+
+  // The kinds of compound are the words each overlay's own first takeaway
+  // uses (German's summary: Ionenverbindungen, molekulare Stoffe, Säuren).
+  // The examples are named the locale's way, which is the point of them:
+  // anion first in fr, es, it and ru, one word in de, the Stock numeral for a
+  // molecular oxide in ru, and German's traditional Salzsäure.
+  'naming-compounds/01-which-system': {
+    en: {
+      metalNonMetal: 'metal + non-metal',
+      twoNonMetals: 'two non-metals',
+      hydrogenInWater: 'H first, in water',
+      ionic: 'ionic',
+      molecular: 'molecular',
+      acid: 'acid',
+      ionicExample: 'sodium chloride',
+      molecularExample: 'sulfur dioxide',
+      acidExample: 'hydrochloric acid',
+    },
+    de: {
+      metalNonMetal: 'Metall + Nichtmetall',
+      twoNonMetals: 'zwei Nichtmetalle',
+      hydrogenInWater: 'H vorn, in Wasser',
+      ionic: 'Ionenverbindung',
+      molecular: 'molekularer Stoff',
+      acid: 'Säure',
+      ionicExample: 'Natriumchlorid',
+      molecularExample: 'Schwefeldioxid',
+      acidExample: 'Salzsäure',
+    },
+    fr: {
+      metalNonMetal: 'métal + non-métal',
+      twoNonMetals: 'deux non-métaux',
+      hydrogenInWater: 'H en tête, dans l’eau',
+      ionic: 'ionique',
+      molecular: 'moléculaire',
+      acid: 'acide',
+      ionicExample: 'chlorure de sodium',
+      molecularExample: 'dioxyde de soufre',
+      acidExample: 'acide chlorhydrique',
+    },
+    es: {
+      metalNonMetal: 'metal + no metal',
+      twoNonMetals: 'dos no metales',
+      hydrogenInWater: 'H delante, en agua',
+      ionic: 'iónico',
+      molecular: 'molecular',
+      acid: 'ácido',
+      ionicExample: 'cloruro de sodio',
+      molecularExample: 'dióxido de azufre',
+      acidExample: 'ácido clorhídrico',
+    },
+    it: {
+      metalNonMetal: 'metallo + non metallo',
+      twoNonMetals: 'due non metalli',
+      hydrogenInWater: 'H davanti, in acqua',
+      ionic: 'ionico',
+      molecular: 'molecolare',
+      acid: 'acido',
+      ionicExample: 'cloruro di sodio',
+      molecularExample: 'diossido di zolfo',
+      acidExample: 'acido cloridrico',
+    },
+    ru: {
+      metalNonMetal: 'металл + неметалл',
+      twoNonMetals: 'два неметалла',
+      hydrogenInWater: 'H впереди, в воде',
+      ionic: 'ионное',
+      molecular: 'молекулярное',
+      acid: 'кислота',
+      ionicExample: 'хлорид натрия',
+      molecularExample: 'оксид серы(IV)',
+      acidExample: 'соляная кислота',
+    },
+  },
+
+  // The formulae are symbols and the same everywhere; `NA` and `Vm` are set
+  // as N_A and V_m. The hub is "moles of" in es and it, as their overlays say
+  // it ("convierte a moles", "converti in moli"), and the glossary's amount
+  // of substance in de, fr and ru.
+  'stoichiometry/01-mole-map': {
+    en: {
+      mass: 'mass',
+      particles: 'particles',
+      gasVolume: 'gas volume',
+      solution: 'solution',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'moles of reactant',
+      moleRatio: 'mole ratio (coefficients)',
+      productMoles: 'moles of product',
+    },
+    de: {
+      mass: 'Masse',
+      particles: 'Teilchenzahl',
+      gasVolume: 'Gasvolumen',
+      solution: 'Lösung',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'Stoffmenge des Edukts',
+      moleRatio: 'Stoffmengenverhältnis (Koeffizienten)',
+      productMoles: 'Stoffmenge des Produkts',
+    },
+    fr: {
+      mass: 'masse',
+      particles: 'nombre d’entités',
+      gasVolume: 'volume de gaz',
+      solution: 'solution',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'quantité de matière du réactif',
+      moleRatio: 'rapport molaire (coefficients)',
+      productMoles: 'quantité de matière du produit',
+    },
+    es: {
+      mass: 'masa',
+      particles: 'número de partículas',
+      gasVolume: 'volumen de gas',
+      solution: 'disolución',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'moles de reactivo',
+      moleRatio: 'relación molar (coeficientes)',
+      productMoles: 'moles de producto',
+    },
+    it: {
+      mass: 'massa',
+      particles: 'numero di particelle',
+      gasVolume: 'volume di gas',
+      solution: 'soluzione',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'moli di reagente',
+      moleRatio: 'rapporto molare (coefficienti)',
+      productMoles: 'moli di prodotto',
+    },
+    ru: {
+      mass: 'масса',
+      particles: 'число частиц',
+      gasVolume: 'объём газа',
+      solution: 'раствор',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'количество вещества реагента',
+      moleRatio: 'мольное соотношение (коэффициенты)',
+      productMoles: 'количество вещества продукта',
+    },
+  },
+
+  // The name is each language's IUPAC form, with the two numbers filled from
+  // the drawing: Italian alcohols end in -olo, and German capitalises the
+  // first letter of the name.
+  'organic-nomenclature/01-numbered-chain': {
+    en: {
+      hydroxyl: 'OH',
+      methyl: 'methyl',
+      name: '{methylAt}-methylpentan-{hydroxylAt}-ol',
+    },
+    de: {
+      hydroxyl: 'OH',
+      methyl: 'Methylgruppe',
+      name: '{methylAt}-Methylpentan-{hydroxylAt}-ol',
+    },
+    fr: {
+      hydroxyl: 'OH',
+      methyl: 'méthyle',
+      name: '{methylAt}-méthylpentan-{hydroxylAt}-ol',
+    },
+    es: {
+      hydroxyl: 'OH',
+      methyl: 'metilo',
+      name: '{methylAt}-metilpentan-{hydroxylAt}-ol',
+    },
+    it: {
+      hydroxyl: 'OH',
+      methyl: 'metile',
+      name: '{methylAt}-metilpentan-{hydroxylAt}-olo',
+    },
+    ru: {
+      hydroxyl: 'OH',
+      methyl: 'метил',
+      name: '{methylAt}-метилпентан-{hydroxylAt}-ол',
+    },
+  },
+  // end of task 10b strings
 };

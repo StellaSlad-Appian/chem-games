@@ -258,6 +258,8 @@ and big. The type size is a symptom of the loading method.
   chloride"). Either explain it or remove it.
 - **P3** A small cross-over diagram (Al³⁺ and SO₄²⁻ with the charges crossing
   down to subscripts) is the standard visual and needs almost no text.
+  **Done 2026-09-25:** `chemical-formulas/01-cross-over`; see
+  `docs/CHEAT_SHEET_IMAGES.md`.
 
 ## Polyatomic Ions (`polyatomic-ions`, Year 10)
 
@@ -274,6 +276,9 @@ and big. The type size is a symptom of the loading method.
 
 - **P3** Takeaway 1 is a decision tree written out as prose (ionic / molecular /
   acid). A small flowchart diagram would carry it with about 10 words.
+  **Done 2026-09-25:** `naming-compounds/01-which-system`, under a new first
+  section, *Which naming system?*, with one example name per result in each
+  locale's own naming system.
 
 ## Relative Atomic & Formula Mass (`relative-formula-mass`, Year 10)
 
@@ -302,6 +307,8 @@ and big. The type size is a symptom of the loading method.
 - **P3** A "mole map" diagram (mass ↔ moles ↔ particles / gas volume /
   concentration, with the mole ratio bridging reactant and product) is the
   standard summary for this topic.
+  **Done 2026-09-25:** `stoichiometry/01-mole-map`, under the worked mass → mass
+  example.
 
 ## Lewis Structures (`lewis-structures`, Senior)
 
@@ -328,6 +335,7 @@ and big. The type size is a symptom of the loading method.
 - **P3** The worked example ("a 5-carbon chain with an OH on carbon 2 and a methyl
   on carbon 3") needs a skeletal or condensed structure with the chain numbered.
   Naming is a visual skill.
+  **Done 2026-09-25:** `organic-nomenclature/01-numbered-chain` (skeletal).
 
 ## Functional Groups (`functional-groups`, Senior)
 

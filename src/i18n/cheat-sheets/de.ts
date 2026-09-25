@@ -518,6 +518,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Al 3+ und SO4 2−. Über Kreuz: Al bekommt den Index 2, Sulfat den Index 3. Sulfat ist mehratomig und kommt mehrfach vor, also braucht es Klammern: Al2(SO4)3. Probe: 2 × (+3) = +6 und 3 × (−2) = −6. Insgesamt ungeladen.',
         exampleNames: ['Aluminiumsulfat'],
+        imageAlt:
+          'Aluminiumsulfat nach der Kreuzregel. Oben das Aluminium-Ion Al³⁺, beschriftet mit „Kation“, und das Sulfat-Ion SO₄²⁻, beschriftet mit „Anion“. Zwei sich kreuzende Pfeile tragen jede Ladungszahl nach unten, wo sie zum Index des anderen Ions wird: Die 3 von Al³⁺ wird zur 3 hinter dem eingeklammerten Sulfat, die 2 von SO₄²⁻ zur 2 hinter Al. Unten die Verhältnisformel Al₂(SO₄)₃ und die Probe: 2 × (+3) = +6 und 3 × (−2) = −6.',
       },
       {
         heading: 'Häufige Ionenladungen aus dem Periodensystem',
@@ -594,6 +596,13 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Salpetrige Säure (Säure, vom Nitrit)',
     ],
     sections: [
+      {
+        heading: 'Welches Benennungssystem?',
+        content:
+          'Schau zuerst, woraus die Verbindung besteht. Metall (oder NH4+) und Nichtmetall bilden eine Ionenverbindung: Kation und Anion werden zu einem Wort, ohne Zahlwörter – Natriumchlorid. Zwei Nichtmetalle bilden einen molekularen Stoff mit griechischen Zahlwörtern (Schwefeldioxid); steht aber H vorn und ist der Stoff in Wasser gelöst, ist er eine Säure, und Säuren heißen im Deutschen nach ihrem Säurerest oder tragen alte Namen wie Salzsäure.',
+        imageAlt:
+          'Ein Flussdiagramm zur Wahl des Benennungssystems. Von „Metall + Nichtmetall“ führt ein Pfeil zu „Ionenverbindung“, Beispiel Natriumchlorid. Von „zwei Nichtmetalle“ führt ein Pfeil zu „molekularer Stoff“, Beispiel Schwefeldioxid. Von „zwei Nichtmetalle“ führt außerdem ein Pfeil nach unten zu „H vorn, in Wasser“ und von dort zu „Säure“, Beispiel Salzsäure.',
+      },
       {
         heading: 'Eine römische Ziffer bestimmen',
         content:
@@ -778,6 +787,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         heading: 'Beispiel Schritt für Schritt: Masse → Masse',
         content:
           'Welche Masse Wasser entsteht, wenn 8,0 g Wasserstoff vollständig verbrennen? 2H2 + O2 → 2H2O. n(H2) = 8,0 ÷ 2,0 = 4,0 mol. Verhältnis H2 : H2O = 2 : 2, also n(H2O) = 4,0 mol. m(H2O) = 4,0 × 18,0 = 72 g.',
+        imageAlt:
+          'Eine Übersicht der Umrechnungen über die Stoffmenge. Links untereinander vier Kästen – Masse, Teilchenzahl, Gasvolumen und Lösung –, jeder durch einen Doppelpfeil mit seiner Formel mit einem hohen Kasten „Stoffmenge des Edukts“ verbunden: n = m/M, n = N/N_A, n = V/V_m und n = cV. Von der Stoffmenge des Edukts führt ein Pfeil, beschriftet mit „Stoffmengenverhältnis (Koeffizienten)“, nach unten zur Stoffmenge des Produkts.',
       },
       {
         heading: 'Beispiel Schritt für Schritt: begrenzendes Edukt',
@@ -913,6 +924,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         heading: 'Beispiel Schritt für Schritt',
         content:
           'Eine Kette aus 5 Kohlenstoffatomen mit einer OH-Gruppe am Kohlenstoff 2 und einer Methylgruppe am Kohlenstoff 3. Stamm: Pent-. Endung: -ol mit der Nummer 2 (gezählt von dem Ende, das der OH-Gruppe am nächsten liegt). Substituent: 3-Methyl. Name: 3-Methylpentan-2-ol.',
+        imageAlt:
+          'Die Skelettformel von 3-Methylpentan-2-ol: eine Zickzackkette aus fünf Kohlenstoffatomen, von links nach rechts mit 1 bis 5 nummeriert. Am Kohlenstoff 2 zeigt eine Bindung nach oben zur OH-Gruppe, am Kohlenstoff 3 ein kurzer Strich nach unten zur Methylgruppe, beschriftet mit „Methylgruppe“. Darunter der Name 3-Methylpentan-2-ol.',
       },
     ],
     commonMistakes: [

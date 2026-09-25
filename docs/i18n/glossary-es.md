@@ -455,6 +455,7 @@ the split.
 | oxidation / reduction | **oxidación / reducción** | — |
 | oxidising agent | **oxidante** | — |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro de sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Spanish the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **método del aspa** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
 
 ## The mole and stoichiometry
 
@@ -474,6 +475,9 @@ the split.
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
 | CLE (condiciones estándar de laboratorio) | **withheld — spell out "a 25 °C y 100 kPa"** | Added 2026-09-25. "CLE" is a VCE (Australian) abbreviation with no Spanish equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
 | a two-pan balance (the relative-mass picture) | **balanza de dos platillos**; level is **equilibrada** | *La balanza* as fixed above for the game's beam; the pans are *platillos*. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **relación molar** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **número de partículas** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **moles de reactivo / de producto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Moles de*, as the overlay says it (*convierte a moles*) and as a Spanish class does; *cantidad de sustancia del reactivo* would not fit the box and no student says it. |
 
 ## Organic chemistry
 
@@ -496,6 +500,8 @@ the split.
 | locant (position number) | **localizador** / **número** | Prose uses *número* at this level. |
 | primary / secondary / tertiary alcohol | **alcohol primario / secundario / terciario** | Added 2026-09-25 with the reaction-map diagram. |
 | catalyst | **catalizador** | Added 2026-09-25. On the reaction map: *H₃PO₄ como catalizador*. |
+| skeletal formula | **fórmula de esqueleto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Also *fórmula de líneas y ángulos* in some textbooks. **Rated medium.** |
+| methyl (group), as a diagram label | **metilo** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Metilo* as a noun (*un metilo*, *grupo metilo*); *metil-* inside a name (*3-metilpentan-2-ol*). |
 
 ---
 

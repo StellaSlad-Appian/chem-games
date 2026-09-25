@@ -737,6 +737,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         heading: 'Worked example: aluminium sulfate',
         content: 'Al 3+ and SO4 2−. Cross over: Al gets subscript 2, sulfate gets subscript 3. Sulfate is polyatomic and repeated, so it needs brackets: Al2(SO4)3. Check: 2 × (+3) = +6 and 3 × (−2) = −6. Neutral.',
         examples: [{ name: 'Aluminium sulfate', formula: 'Al2(SO4)3' }],
+        image: {
+          diagram: 'chemical-formulas/01-cross-over',
+          alt: 'Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.',
+        },
       },
       {
         heading: 'Common ion charges from the periodic table',
@@ -814,6 +818,14 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       { name: 'Nitrous acid (acid, from nitrite)', formula: 'HNO2' },
     ],
     sections: [
+      {
+        heading: 'Which naming system?',
+        content: 'Look at what the compound is made of before you name it. A metal (or NH4+) with a non-metal is ionic: the cation, then the anion, with no prefixes. Two non-metals make a molecular compound, named with Greek prefixes — but if H comes first and it is dissolved in water, it is an acid, and acids have names of their own.',
+        image: {
+          diagram: 'naming-compounds/01-which-system',
+          alt: 'A flowchart for choosing a naming system. Metal + non-metal leads to ionic, for example sodium chloride. Two non-metals leads to molecular, for example sulfur dioxide. An arrow down from two non-metals leads to H first, in water, and from there to acid, for example hydrochloric acid.',
+        },
+      },
       {
         heading: 'Working out a Roman numeral',
         content: 'For Fe2(SO4)3: sulfate is 2−, and there are three, so the anions total −6. Two iron ions must total +6, so each is +3 → iron(III) sulfate. Only metals with more than one common charge (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) need the numeral; Group 1, Group 2, Al, Zn and Ag never do.',
@@ -1007,6 +1019,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Worked example: mass → mass',
         content: 'What mass of water forms when 8.0 g of hydrogen burns completely? 2H2 + O2 → 2H2O. n(H2) = 8.0 ÷ 2.0 = 4.0 mol. Ratio H2 : H2O = 2 : 2, so n(H2O) = 4.0 mol. m(H2O) = 4.0 × 18.0 = 72 g.',
+        image: {
+          diagram: 'stoichiometry/01-mole-map',
+          alt: 'The mole map. Four boxes down the left, mass, particles, gas volume and solution, are each joined to a tall box, moles of reactant, by a two-way arrow carrying its formula: n = m/M, n = N/N_A, n = V/V_m and n = cV. From moles of reactant, an arrow labelled mole ratio (coefficients) leads down to moles of product.',
+        },
       },
       {
         heading: 'Worked example: limiting reagent',
@@ -1167,6 +1183,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Worked example',
         content: 'A 5-carbon chain with an OH on carbon 2 and a methyl on carbon 3. Root: pent-. Suffix: -ol with locant 2 (numbering from the end nearest the OH). Substituent: 3-methyl. Name: 3-methylpentan-2-ol.',
+        image: {
+          diagram: 'organic-nomenclature/01-numbered-chain',
+          alt: 'The skeletal structure of 3-methylpentan-2-ol: a zigzag chain of five carbons, numbered 1 to 5 from left to right, with OH at the end of a bond up from carbon 2 and a methyl group as a short line down from carbon 3, labelled methyl. Underneath, the name 3-methylpentan-2-ol.',
+        },
       },
     ],
     commonMistakes: [

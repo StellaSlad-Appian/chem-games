@@ -187,6 +187,8 @@ new with the split.
 | precipitation reaction | **Fällungsreaktion** | — |
 | oxidation / reduction | **Oxidation / Reduktion** | — |
 | oxidising agent | **Oxidationsmittel** | — |
+| cross-over method (charges → subscripts) | **Kreuzregel** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The name German textbooks give the method, and the one the sheet already used. |
+| ionic / molecular (the kind of compound, as a label) | **Ionenverbindung / molekularer Stoff** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Nouns, as the German summary of *Naming Inorganic Compounds* already names the three systems (*Ionenverbindungen, molekulare Stoffe, Säuren*). *Molekülverbindung* is also taught; *molekularer Stoff* is the sheet's word and fits the flowchart box. *Salz* was considered for the ionic box: right at this level, but the summary names the system *Ionenverbindungen*, and the box has to match the prose round it. |
 
 ## The mole and stoichiometry
 
@@ -206,6 +208,9 @@ new with the split.
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence on the functional-groups sheet now points to *eine IR-Tabelle*, and the polyatomic-ion table is headed *Die wichtigsten mehratomigen Ionen*. The *Tafelwerk* is the German equivalent for most data, but it was not named for IR ranges because not every Tafelwerk prints them. |
 | molar gas volume (V_m), reference conditions | **V_m = 24,5 L/mol bei 25 °C und 1013 hPa (bei 0 °C: 22,4 L/mol)**, table cell says **das Volumen eines Gases** (no "bei SLC") | Added 2026-09-25. English "SLC" (standard laboratory conditions, 25 °C / 100 kPa) is the Australian VCE convention and has no German equivalent, so it is dropped rather than translated. German Abitur formula sheets (NRW 2024, Baden-Württemberg 2025, "Festgelegte Bedingungen", p = 101 325 Pa) instead give **two** reference points: V_m = 22,414 L/mol at 273,15 K (0 °C) and 24,466 L/mol at 298,15 K (25 °C), rounded here to 22,4 and 24,5. `cheat-sheets.test.ts` carries a narrow, commented exception for exactly this cell, because the German number now legitimately differs from the English 24,8 L/mol at 100 kPa. |
 | a two-pan balance (the relative-mass picture) | **Balkenwaage**, its pans **Waagschalen**; level is **im Gleichgewicht** | *Die Waage steht gerade* is how the sheet's prose says it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **Stoffmengenverhältnis** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's word; on the mole map it reads *Stoffmengenverhältnis (Koeffizienten)*. |
+| number of particles (N) | **Teilchenzahl** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Pairs with *Teilchen* above. |
+| moles of reactant / product (mole-map boxes) | **Stoffmenge des Edukts / des Produkts** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). German says *Stoffmenge*, not "Mol von …", which is a calque. |
 
 ## Organic chemistry
 
@@ -228,6 +233,8 @@ new with the split.
 | locant (position number) | **Nummer** / **Stellungsziffer** | Prose uses "Nummer" at this level. |
 | primary / secondary / tertiary alcohol | **primärer / sekundärer / tertiärer Alkohol** | Added 2026-09-25 with the reaction-map diagram. The adjective is declined (*primärer Alkohol*, *primäre Alkohole*), not the English "primary" left as is. |
 | catalyst | **Katalysator** | Added 2026-09-25. Written out on the reaction map (*H₃PO₄ als Katalysator*); the textbook abbreviation *Kat.* was not used. |
+| skeletal formula | **Skelettformel** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Strichformel* is also heard; *Skelettformel* is the textbook term. |
+| methyl (group), as a diagram label | **Methylgruppe** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The German worked example says *eine Methylgruppe*; the bare prefix *Methyl-* is only used inside a name. |
 
 ---
 
