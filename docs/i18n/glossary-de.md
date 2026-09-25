@@ -33,6 +33,8 @@ suite rather than failing silently on screen.
 | Ellipsis | **…** as a single character. |
 | Units and abbreviations | Non-breaking space (` `) before a unit and inside `z. B.`, so "8,0 g" and "z. B." never wrap. |
 | Decimals | German **comma**: 6,02 × 10²³, not 6.02. (Applies to prose; code and formulae keep their own notation.) |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 Jahre*. A no-break space groups from five digits on (*65 000*), which is how the sheets already write it. DIN 5008 allows either for four digits; unseparated matches the isotopes prose. |
 | Nouns | Capitalised, including nominalised adjectives (*das Ausgleichen*). |
 | Gender | Prefer a neutral plural or a role noun (*Forschende*, *Lehrkräfte*, *Schülerinnen und Schüler*) over a gendered singular. No asterisk or colon forms. |
 
@@ -55,6 +57,9 @@ suite rather than failing silently on screen.
 | strong / weak acid | **starke / schwache Säure** | — |
 | concentrated / dilute | **konzentriert / verdünnt** | — |
 | salt | **Salz** | — |
+| universal indicator | **Universalindikator** | One word, as on the bottle in a German school lab. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **pH-Skala** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **Magensäure** (1), **Essig** (3), **reines Wasser** (7), **Natron** (8), **Backofenreiniger** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Natron*, not *Backpulver*: see *baking soda* below. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -91,6 +96,14 @@ suite rather than failing silently on screen.
 | formal charge | **Formalladung** | — |
 | electronegativity | **Elektronegativität** | — |
 | delocalised electrons | **frei bewegliche Elektronen** | The literal *delokalisierte Elektronen* is correct but is upper-secondary register; the school phrasing is clearer at this level. |
+| particle (the particle model) | **Teilchen** (*Teilchenmodell*) | The school word; *Partikel* is the register of dust and physics papers. Added 2026-09-25 for the States of Matter diagrams. The new section is headed *Die Aggregatzustände im Teilchenmodell*, because *Teilchenmodell* is what German teaching calls this picture. |
+| melting / boiling (a heating curve's plateaus) | **Schmelzen / Sieden** | Nominalised verbs, as the sheet's table of phase changes already has them. *Sieden*, not *Kochen*, which is the kitchen word. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **Erwärmungskurve** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **zugeführte Energie** | The German physics phrasing, as in *zugeführte Wärme*. *Hinzugefügte Energie* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **linear, trigonal-planar, tetraedrisch, trigonal-pyramidal, gewinkelt** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). The terms German school books print, and the ones the sheet's VSEPR paragraph already used, so the drawing and the prose above it agree. *V-förmig* for bent is also seen and is not used. The compounds keep their hyphen (*trigonal-planar*); the diagram never breaks a line at it. Angles take the decimal comma and no space before the degree sign: *109,5°*, *104,5°*. |
+| bond angle | **Bindungswinkel** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **Keil / gestrichelter Keil** | Added 2026-09-25, for alt text. The drawing convention is the *Keilstrichformel*. |
+| lone-pair lobe (in a VSEPR drawing) | **Keule** | Added 2026-09-25, for alt text: *das freie Elektronenpaar ist als Keule gezeichnet*. The word German uses for an orbital's lobe. |
 
 ## Atomic structure, the periodic table and radioactivity
 
@@ -106,11 +119,12 @@ new with the split.
 | atomic number | **Ordnungszahl** | *Kernladungszahl* is equally correct and says more (it is the nuclear charge), but *Ordnungszahl* is the word a Year 9 textbook prints and the one the sheet already used. |
 | mass number | **Massenzahl** | — |
 | energy level | **Energiestufe** | The sheet deliberately says *level*, not *shell*, because a shell is a picture and a level is an energy. See the next row. |
-| electron shell (the curriculum's word) | **Schale** / **Elektronenschale** | VC2S10U07 says "electron shells", so the sheet names *Schale* once as the word the reader's teacher will use and keeps *Energiestufe* as its own term. Do not swap one for the other halfway through a sheet. |
+| electron shell (the curriculum's word) | **Schale** / **Elektronenschale** | VC2S10U07 says "electron shells", so the sheet names *Schale* once as the word the reader's teacher will use and keeps *Energiestufe* as its own term. Do not swap one for the other halfway through a sheet. Since 2026-09-25 the sentence credits the word to the teacher alone (*Deine Lehrkraft sagt dazu vielleicht Schalen*); it no longer mentions the Lehrplan. |
 | outer level / outer shell | **äußerste Stufe**, electrons in it: **Außenelektronen** | Follows the *Außenelektron* row above. |
 | Bohr model | **Bohrsches Atommodell** | Named as a *model* every time it appears, per the sheet's own contract: it is how you count electrons, not what an atom looks like. |
 | isotope | **Isotop** | — |
 | group (a column) | **Gruppe** | German uses the same word for a column of the table and for a functional group; context separates them, and the sheet always writes *Gruppe 1*, *Gruppe 17*, never bare *Gruppe*. |
+| valence electrons from the group number | **die letzte Ziffer der Gruppennummer** (*Cl steht in Gruppe 17: 7 Valenzelektronen*), einmal ergänzt um *das ist die Nummer der Hauptgruppe (VII. Hauptgruppe)* | Added 2026-09-25. The site numbers the groups 1–18, so the old sentence *die Hauptgruppennummer sagt dir, wie viele Valenzelektronen …* was only true in the I–VIII Hauptgruppen system German textbooks also use. The bonding and Lewis sheets now state the 1–18 rule and name the Hauptgruppe once, on the bonding sheet, as the bridge to the textbook. **Never write *Hauptgruppe 17*:** it mixes the two systems. The Lewis table's column is *Gruppe* for the same reason. |
 | period (a row) | **Periode** | Not *Reihe*. *Periode* is the technical term and pairs with *Periodensystem*. |
 | metal | **Metall** | — |
 | non-metal | **Nichtmetall** | One word, no hyphen. |
@@ -128,11 +142,24 @@ new with the split.
 | radioactive decay | **radioaktiver Zerfall** | Verb: *zerfallen*. Not *Verfall*, which is decay in the sense of a building falling down. |
 | alpha particle | **Alphateilchen** | Written out rather than as α, so a screen reader says something. |
 | beta particle | **Betateilchen** | — |
+| beta decay | **Betazerfall** | Added 2026-09-25, for how reactors make neptunium and plutonium. Formed like *Betateilchen*; *β-Zerfall* is the same word in symbols and is fine in a formula context. |
 | gamma radiation | **Gammastrahlung** | Gamma is radiation, not a particle, and the German word keeps that straight where the English "gamma ray" does not. |
+| shielding gamma ("reduces, never stops") | **abschwächen**: *Blei oder dicker Beton schwächen sie stark ab* | Added 2026-09-24. Gamma radiation is attenuated, not stopped, and German physics and chemistry books say *abschwächen* for exactly that (*Abschwächung von Gammastrahlung*). Alpha and beta keep *aufhalten*. |
 | half-life | **Halbwertszeit** | — |
 | synthetic element / made element | **künstlich erzeugtes Element** | Not *synthetisches Element*, which in German suggests a manufactured material rather than a nucleus built in an accelerator. |
 | radiocarbon dating | **Radiokarbonmethode** | Also *C-14-Methode*, which is shorter and is what a museum label says. Either is fine; do not use both on one sheet. |
 | optically stimulated luminescence (OSL) | **optisch stimulierte Lumineszenz (OSL)** | The established German term; the abbreviation is the English one and stays Latin. **Rated low** — this is a specialist archaeological dating method and the phrase is rare in German school material. |
+| electron cloud (diagram label) | **Elektronenwolke** | Added 2026-09-25 with the redrawn atom diagrams. The textbook word for the probability picture of the Atomhülle. |
+| not to scale (diagram caveat) | **nicht maßstabsgetreu**, and the ratio as **1/100 000 des Atomdurchmessers** | Added 2026-09-25 with the redrawn atom diagrams. Says *Durchmesser* on purpose: "1/100 000 des Atoms" is ambiguous, and by volume the ratio is about 10⁻¹⁵. *100 000-mal kleiner* was rejected: common in class, but it does not say what is being compared. |
+| heavier, but first / lighter, but second (06) | **schwerer, steht aber vorn** / **leichter, steht aber dahinter** | Added 2026-09-25 with the redrawn atom diagrams. *steht vorn* is how a German teacher talks about a place in the Periodensystem; a literal *aber zuerst / aber an zweiter Stelle* reads like a race. |
+| the counting-model caveat (05) | **Eine Art, Elektronen zu zählen – kein Bild eines Atoms.** | Added 2026-09-25 with the redrawn atom diagrams. A no-break space sits before the dash, so a wrapped line never starts with it. |
+| electron arrangement written out | **2, 8, 1** | Added 2026-09-25 with the redrawn atom diagrams. The comma list is kept in a decimal-comma locale: every item is a whole number and a space follows each comma, so it cannot be read as a decimal. **Rated medium**: some German textbooks write the shells as K2 L8 M1; the sheet does not use shell letters anywhere. |
+| a cell of the periodic table (alt text) | **Feld** (*das Tellur-Feld*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **Wasserstoff-1**, **Wasserstoff-2**, **Wasserstoff-3** | Added 2026-09-25 with the redrawn isotope diagrams. The mass-number form the sheet already uses for *Kohlenstoff-14*. |
+| protium / deuterium / tritium (03) | **Protium** / **Deuterium** / **Tritium** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name, because German textbooks name hydrogen's isotopes this way (*schwerer Wasserstoff* is Deuterium). |
+| stable / radioactive, of one isotope (03) | **stabil** / **radioaktiv** | Added 2026-09-25 with the redrawn isotope diagrams. Predicative, so uninflected. |
+| undecayed nuclei (07, vertical axis) | **noch nicht zerfallene Kerne** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity German physics plots in the decay law (*Anzahl der noch nicht zerfallenen Kerne N(t)*). Replaces "how much is left", which suggests the sample itself disappears. *Unzerfallene Kerne* is shorter and also used; *noch nicht* says they will. |
+| time in half-lives (07, horizontal axis) | **Zeit in Halbwertszeiten** | Added 2026-09-25 with the redrawn isotope diagrams. Localised, not translated: a German axis is labelled *Größe in Einheit*, as in *Zeit t in Halbwertszeiten*, rather than with the bare unit. |
 
 ## Formulae, equations and naming
 
@@ -160,6 +187,8 @@ new with the split.
 | precipitation reaction | **Fällungsreaktion** | — |
 | oxidation / reduction | **Oxidation / Reduktion** | — |
 | oxidising agent | **Oxidationsmittel** | — |
+| cross-over method (charges → subscripts) | **Kreuzregel** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The name German textbooks give the method, and the one the sheet already used. |
+| ionic / molecular (the kind of compound, as a label) | **Ionenverbindung / molekularer Stoff** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Nouns, as the German summary of *Naming Inorganic Compounds* already names the three systems (*Ionenverbindungen, molekulare Stoffe, Säuren*). *Molekülverbindung* is also taught; *molekularer Stoff* is the sheet's word and fits the flowchart box. *Salz* was considered for the ionic box: right at this level, but the summary names the system *Ionenverbindungen*, and the box has to match the prose round it. |
 
 ## The mole and stoichiometry
 
@@ -175,6 +204,13 @@ new with the split.
 | in excess | **im Überschuss** | — |
 | theoretical / actual yield | **theoretische / tatsächliche Ausbeute** | — |
 | percentage yield | **prozentuale Ausbeute** | — |
+| significant figures | **gültige Ziffern** | Added 2026-09-25. The phrase German physics and chemistry lessons use for the rounding rule (*so viele gültige Ziffern wie die ungenaueste Angabe*). *Signifikante Stellen*, which the stoichiometry sheet used before, is understood but reads like a translation. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence on the functional-groups sheet now points to *eine IR-Tabelle*, and the polyatomic-ion table is headed *Die wichtigsten mehratomigen Ionen*. The *Tafelwerk* is the German equivalent for most data, but it was not named for IR ranges because not every Tafelwerk prints them. |
+| molar gas volume (V_m), reference conditions | **V_m = 24,5 L/mol bei 25 °C und 1013 hPa (bei 0 °C: 22,4 L/mol)**, table cell says **das Volumen eines Gases** (no "bei SLC") | Added 2026-09-25. English "SLC" (standard laboratory conditions, 25 °C / 100 kPa) is the Australian VCE convention and has no German equivalent, so it is dropped rather than translated. German Abitur formula sheets (NRW 2024, Baden-Württemberg 2025, "Festgelegte Bedingungen", p = 101 325 Pa) instead give **two** reference points: V_m = 22,414 L/mol at 273,15 K (0 °C) and 24,466 L/mol at 298,15 K (25 °C), rounded here to 22,4 and 24,5. `cheat-sheets.test.ts` carries a narrow, commented exception for exactly this cell, because the German number now legitimately differs from the English 24,8 L/mol at 100 kPa. |
+| a two-pan balance (the relative-mass picture) | **Balkenwaage**, its pans **Waagschalen**; level is **im Gleichgewicht** | *Die Waage steht gerade* is how the sheet's prose says it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **Stoffmengenverhältnis** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's word; on the mole map it reads *Stoffmengenverhältnis (Koeffizienten)*. |
+| number of particles (N) | **Teilchenzahl** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Pairs with *Teilchen* above. |
+| moles of reactant / product (mole-map boxes) | **Stoffmenge des Edukts / des Produkts** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). German says *Stoffmenge*, not "Mol von …", which is a calque. |
 
 ## Organic chemistry
 
@@ -195,6 +231,10 @@ new with the split.
 | substituent | **Substituent** | — |
 | chain (carbon chain) | **Kette / Kohlenstoffkette** | — |
 | locant (position number) | **Nummer** / **Stellungsziffer** | Prose uses "Nummer" at this level. |
+| primary / secondary / tertiary alcohol | **primärer / sekundärer / tertiärer Alkohol** | Added 2026-09-25 with the reaction-map diagram. The adjective is declined (*primärer Alkohol*, *primäre Alkohole*), not the English "primary" left as is. |
+| catalyst | **Katalysator** | Added 2026-09-25. Written out on the reaction map (*H₃PO₄ als Katalysator*); the textbook abbreviation *Kat.* was not used. |
+| skeletal formula | **Skelettformel** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Strichformel* is also heard; *Skelettformel* is the textbook term. |
+| methyl (group), as a diagram label | **Methylgruppe** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The German worked example says *eine Methylgruppe*; the bare prefix *Methyl-* is only used inside a name. |
 
 ---
 

@@ -42,6 +42,8 @@ the suite rather than failing silently on screen.
 | Apostrophe | **’** (U+2019), the typographic apostrophe, not `'`. It also saves escaping inside single-quoted TypeScript strings. |
 | Decimals | French **comma**: 6,02 × 10²³, not 6.02. (Prose only; code and formulae keep their own notation.) |
 | Thousands | Narrow no-break space (U+202F): 1 000, not 1,000 and not 1.000. |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 ans*, while *65 000* keeps its space. The SI brochure lets a four-digit number stand unseparated, and it is what the isotopes prose already printed. **Rated medium**: many French textbooks write *5 730 ans*; if a native reviewer prefers that, change the prose and the example card together. |
 | Accents on capitals | **Kept**: *É*, *À*, *Ê*. *Equations* is a spelling mistake; *Équations* is not. |
 | Ligatures | **œ** where French uses it: *stœchiométrie*, *cœur*. |
 | Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `fr` (see below). |
@@ -116,6 +118,9 @@ Two more consequences worth knowing:
 | strong / weak acid | **acide fort / acide faible** | — |
 | concentrated / dilute | **concentré / dilué** | — |
 | salt | **sel** | — |
+| universal indicator | **indicateur universel** | The one place *coloré* is dropped: *universel* already says which indicator. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **échelle de pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **suc gastrique** (1), **vinaigre** (3), **eau pure** (7), **bicarbonate** (8), **décapant four** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Suc gastrique*, not *acide gastrique*: it is what a French SVT and chemistry textbook calls it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -152,6 +157,15 @@ Two more consequences worth knowing:
 | formal charge | **charge formelle** | — |
 | electronegativity | **électronégativité** | — |
 | delocalised electrons | **électrons libres** | The literal *électrons délocalisés* is correct and is upper-secondary register; *électrons libres* is the school phrasing for the "sea" in a metal and is clearer at this level. |
+| particle | **particule** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusion / ébullition** | As in the sheet's table of phase changes. A French textbook calls the flat stretches *paliers*. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **courbe de chauffage** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **énergie reçue** | French physique-chimie puts the energy on the system's side (*l’eau reçoit de l’énergie*). *Énergie ajoutée* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| the three states at particle scale | **compact et ordonné / compact et désordonné / dispersé et désordonné** | The triad French collège textbooks use for solid, liquid and gas *à l’échelle microscopique*. The new section uses it, and its heading uses *échelle microscopique*. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **linéaire, triangulaire plane, tétraédrique, pyramidale à base triangulaire, coudée** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). The adjectives agree with *géométrie* (feminine), as a lycée textbook writes them, and they are the ones the sheet's VSEPR paragraph already used. *Trigonale plane* and *pyramide trigonale* are also in circulation and are not used. Angles: *109,5°*, no space before the degree sign. |
+| bond angle | **angle de liaison** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **triangle plein / triangle hachuré** (*représentation de Cram*) | Added 2026-09-25, for alt text. French lycée books name the convention after Cram and call the wedges triangles; *coin* is a calque. |
+| lone-pair lobe (in a VSEPR drawing) | **lobe** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: French's own two-tier pair — historical, and why it is kept
 
@@ -239,11 +253,12 @@ the split.
 | atomic number | **numéro atomique** | — |
 | mass number | **nombre de masse** | Note the asymmetry French keeps and English does not: *numéro* for the one that identifies, *nombre* for the one that counts. |
 | energy level | **niveau d'énergie** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **couche électronique** | VC2S10U07 says "electron shells", so the sheet names *couche* once as the word the reader's teacher uses, and keeps *niveau d'énergie* as its own term. |
+| electron shell (the curriculum's word) | **couche électronique** | VC2S10U07 says "electron shells", so the sheet names *couche* once as the word the reader's teacher uses, and keeps *niveau d'énergie* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Ton prof parle peut-être de couches*); it no longer mentions the programme. |
 | outer level / outer shell | **niveau extérieur** / **couche externe** | *Couche externe* is the standard French phrase; the sheet uses *niveau extérieur* to stay consistent with *niveau d'énergie* and glosses the other once. |
 | Bohr model | **modèle de Bohr** | Named as a *model* every time, per the sheet's own contract. |
 | isotope | **isotope** | — |
 | group (a column) | **groupe** | The sheet always writes *groupe 1*, *groupe 17*, never a bare *groupe*, because *groupe* also names a functional group. |
+| valence electrons from the group number | **le chiffre des unités du numéro du groupe** (*Cl est dans le groupe 17 : 7 électrons de valence*) | Added 2026-09-25. With groups numbered 1–18, *numéro du groupe = électrons de valence* is only true for groups 1 and 2, so the bonding and Lewis sheets state the last-digit rule. *Chiffre des unités* is plain school French for "last digit". **Numbered, it is always *groupe*, never *colonne*** (owner's decision, 2026-09-25): *groupe 17*, *le groupe 1*, and the Lewis table is headed *Électrons de valence par groupe*. *Colonne* stays only where a sentence explains what a group is (*un groupe est une colonne*). |
 | period (a row) | **période** | Not *ligne*, which is the layout word; *période* is the term and pairs with *tableau périodique*. |
 | metal | **métal** | — |
 | non-metal | **non-métal** | With the hyphen. Plural *non-métaux*. |
@@ -261,11 +276,23 @@ the split.
 | radioactive decay | **désintégration radioactive** | Not *décroissance radioactive*, which names the *decrease* of a sample over time (the curve) rather than the event in one nucleus. The sheet talks about both, so keeping the two words apart matters: *désintégration* for what a nucleus does, *décroissance* only if the curve itself is the subject. |
 | alpha particle | **particule alpha** | Written out rather than as α. |
 | beta particle | **particule bêta** | With the circumflex, which is how French spells the Greek letter's name. |
+| beta decay | **désintégration bêta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particule bêta*, with the circumflex. |
 | gamma radiation | **rayonnement gamma** | *Rayonnement*, not *rayon*: gamma is radiation, not a particle, and French keeps that straight where "gamma ray" does not. |
+| shielding gamma ("reduces, never stops") | **atténuer**: *le plomb ou le béton épais l'atténuent fortement* | Added 2026-09-24. *Atténuation* is the word French physique-chimie uses for gamma passing through matter; alpha and beta keep *arrêter*. |
 | half-life | **demi-vie** | *Période radioactive* is the term used in French physics teaching and in the programme; *demi-vie* is transparent for a fourteen-year-old and is what the sheet already used. **Rated medium** — a physics teacher may prefer *période*. |
 | synthetic element / made element | **élément artificiel** | *Élément synthétique* is also correct; *artificiel* is the word French uses for the transuranium elements and pairs with the sheet's "had to be made". |
 | radiocarbon dating | **datation au carbone 14** | French writes the isotope as *carbone 14*, with a space and no hyphen, which is why the sheet's prose does too while the formula stays `C-14`. |
 | optically stimulated luminescence (OSL) | **luminescence stimulée optiquement (OSL)** | The established French term; the abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in French school material. |
+| electron cloud (diagram label) | **nuage électronique** | Added 2026-09-25 with the redrawn atom diagrams. The standard term in French teaching. |
+| not to scale (diagram caveat) | **Échelle non respectée**, and the ratio as **1/100 000 du diamètre de l’atome** | Added 2026-09-25 with the redrawn atom diagrams. *Échelle non respectée* is the caption French textbooks print under a schematic; *pas à l’échelle* is a calque. Says *diamètre*, because by volume the ratio is about 10⁻¹⁵. |
+| heavier, but first / lighter, but second (06) | **plus lourd, mais placé avant** / **plus léger, mais placé après** | Added 2026-09-25 with the redrawn atom diagrams. Masculine to agree with *tellure* and *iode*, not with the reader. |
+| a cell of the periodic table | **case** (*la case du tellure*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **hydrogène 1**, **hydrogène 2**, **hydrogène 3** | Added 2026-09-25 with the redrawn isotope diagrams. A space and no hyphen, following the *carbone 14* row above. |
+| protium / deuterium / tritium (03) | **protium** / **deutérium** / **tritium** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name; French programmes name all three, and *deutérium* takes the accent. |
+| stable / radioactive, of one isotope (03) | **stable** / **radioactif** | Added 2026-09-25 with the redrawn isotope diagrams. Masculine, agreeing with *hydrogène*. |
+| undecayed nuclei (07, vertical axis) | **noyaux non désintégrés** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity French physique-chimie plots (*nombre de noyaux non désintégrés N(t)*), and *désintégré* per the *désintégration* row above. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **temps, en demi-vies** | Added 2026-09-25 with the redrawn isotope diagrams. |
+| the decay curve (07 alt text) | **courbe de décroissance radioactive** | Added 2026-09-25 with the redrawn isotope diagrams. *Décroissance*, because here the curve itself is the subject — see the *désintégration* row. |
 
 ## Formulae, equations and naming
 
@@ -293,6 +320,8 @@ the split.
 | precipitation reaction | **réaction de précipitation** | — |
 | oxidation / reduction | **oxydation / réduction** | Note the **y**: *oxydation*, *oxydant*, but *oxygène* and *oxyde*. |
 | oxidising agent | **oxydant** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *chlorure de sodium*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In French the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **méthode de la croix** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term (*Méthode de la croix* in the takeaways). |
 
 ## The mole and stoichiometry
 
@@ -308,6 +337,13 @@ the split.
 | in excess | **en excès** | — |
 | theoretical / actual yield | **quantité théorique / quantité obtenue** | **A real structural difference.** English "yield" is both a *mass* ("the theoretical yield is 72 g") and a *ratio* ("percentage yield"). French *rendement* is only the ratio — *« le rendement théorique est de 72 g »* is wrong French. So the two masses are *quantité théorique* and *quantité obtenue*, and *rendement* is reserved for the percentage. The stoichiometry sheet is written that way. |
 | percentage yield | **rendement** | *Rendement (en %) = quantité obtenue ÷ quantité théorique × 100.* |
+| significant figures | **chiffres significatifs** | Added 2026-09-25. The lycée rule is *autant de chiffres significatifs que la donnée la moins précise*, and the stoichiometry sheet now says that rather than a fixed three. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *une table de données IR*, which is what a French exercise supplies, and the polyatomic-ion table is headed *Les principaux ions polyatomiques*. |
+| SLC (standard laboratory conditions) | **withheld — spell out "à 25 °C et 100 kPa"** | Added 2026-09-25. "SLC" is a VCE (Australian) abbreviation with no French equivalent, so the conversion-table cell now names the conditions instead of naming the abbreviation, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **balance à deux plateaux**; level is **en équilibre** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **rapport molaire** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **nombre d’entités** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The lycée term (*entités chimiques*), and the one the conversion table already uses; *nombre de particules* is understood but is not what the programme prints. |
+| moles of reactant / product (mole-map boxes) | **quantité de matière du réactif / du produit** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Built on the glossary's *quantité de matière*; "moles de réactif" is spoken but is not how a French textbook writes it. |
 
 ## Organic chemistry
 
@@ -328,6 +364,10 @@ the split.
 | substituent | **substituant** | Note the **a**: *substituant*, not "substituent". |
 | chain (carbon chain) | **chaîne / chaîne carbonée** | With the circumflex. |
 | locant (position number) | **indice de position** / **numéro** | Prose uses *numéro* at this level. |
+| primary / secondary / tertiary alcohol | **alcool primaire / secondaire / tertiaire** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalyseur** | Added 2026-09-25. On the reaction map it comes before the formula: *catalyseur H₃PO₄*. |
+| skeletal formula | **formule topologique** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The lycée term; *formule squelettique* is a calque. |
+| methyl (group), as a diagram label | **méthyle** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). With the final *-e* as a noun (*un groupe méthyle*); *méthyl-* without it inside a name (*3-méthylpentan-2-ol*). |
 
 ---
 

@@ -56,6 +56,11 @@ export interface CheatSheetSectionOverlay {
   imageAlt?: string;
   /** Names of the worked examples, in the English order. Formulae are not here. */
   exampleNames?: string[];
+  /**
+   * The line under each worked example's formula, in the English order. Same
+   * shape and rules as `CheatSheetOverlay.formulaExampleDescriptions`.
+   */
+  exampleDescriptions?: string[];
 }
 
 export interface CheatSheetOverlay {
@@ -64,6 +69,20 @@ export interface CheatSheetOverlay {
   keyTakeaways: string[];
   /** Names of `formulaExamples`, in the English order. */
   formulaExampleNames?: string[];
+  /**
+   * The line under each of `formulaExamples`' formulae — "17 protons,
+   * 18 neutrons", or on the formula-mass sheet the whole sum — in the English
+   * order.
+   *
+   * A parallel array like the names beside it, rather than turning both into
+   * `{ name, description }` objects: the names are already parallel arrays in
+   * five files, and one shape for both keeps an overlay readable as a
+   * translation unit. Present only when the English list has descriptions,
+   * and then exactly as long as it, with `''` for an example the English
+   * leaves bare. A sum keeps the English numbers and writes them the
+   * locale's way (decimal comma). `cheat-sheets.test.ts` enforces all three.
+   */
+  formulaExampleDescriptions?: string[];
   sections: CheatSheetSectionOverlay[];
   tables?: CheatSheetTableOverlay[];
   commonMistakes?: string[];
@@ -154,6 +173,22 @@ function localizeTable(
   };
 }
 
+/**
+ * An example's description in the locale.
+ *
+ * Only where the English has one. A description is part of the chemistry of
+ * the card — on the formula-mass sheet it *is* the card — so an overlay cannot
+ * add one the English lacks. A missing or empty translation falls back to the
+ * English like every other field here, and the test treats that as a failure.
+ */
+function localizeDescription(
+  english: string | undefined,
+  translated: string | undefined
+): string | undefined {
+  if (!english) return english;
+  return translated?.trim() ? translated : english;
+}
+
 function localizeSheet(sheet: CheatSheetTopic, overlay: CheatSheetOverlay): CheatSheetTopic {
   return {
     ...sheet,
@@ -167,6 +202,10 @@ function localizeSheet(sheet: CheatSheetTopic, overlay: CheatSheetOverlay): Chea
     formulaExamples: sheet.formulaExamples?.map((example, index) => ({
       ...example,
       name: overlay.formulaExampleNames?.[index] ?? example.name,
+      description: localizeDescription(
+        example.description,
+        overlay.formulaExampleDescriptions?.[index]
+      ),
     })),
     sections: sheet.sections.map((section, index) => {
       const sectionOverlay = overlay.sections[index];
@@ -178,9 +217,14 @@ function localizeSheet(sheet: CheatSheetTopic, overlay: CheatSheetOverlay): Chea
         examples: section.examples?.map((example, exampleIndex) => ({
           ...example,
           name: sectionOverlay.exampleNames?.[exampleIndex] ?? example.name,
+          description: localizeDescription(
+            example.description,
+            sectionOverlay.exampleDescriptions?.[exampleIndex]
+          ),
         })),
-        // The image itself is structure — same file, same size, every locale.
-        // Only the alt text is prose.
+        // The image itself is structure — the same slot or file in every
+        // locale. Only the alt text is prose here; the words inside a
+        // generated diagram are localised by scripts/cheat-sheet-diagrams.mts.
         image: section.image
           ? { ...section.image, alt: sectionOverlay.imageAlt ?? section.image.alt }
           : undefined,

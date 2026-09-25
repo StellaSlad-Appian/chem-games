@@ -169,48 +169,30 @@ export const GAME_LINKS: Partial<Record<GameName, { title: string; href: string 
 // Cheat sheets
 // ---------------------------------------------------------------------------
 
-/**
- * Folder holding this sheet's diagrams, under `public/`.
- *
- * Every section below points at a file in here, and every one of those files is
- * **generated** by `scripts/cheat-sheet-diagrams.mts`:
+/*
+ * The diagrams on the two atom sheets are **generated**, by
+ * `scripts/cheat-sheet-diagrams.mts`, once per locale:
  *
  * ```
- * npm run cheat-sheets:diagrams              write the files
- * npm run cheat-sheets:diagrams -- --check   fail if a file on disk is stale
+ * npm run cheat-sheets:diagrams              write the modules
+ * npm run cheat-sheets:diagrams -- --check   fail if a module on disk is stale
  * ```
  *
- * So changing a diagram is changing that script's drawing function and
- * re-running it — not editing the SVG, which the next run overwrites. The
- * `--check` mode is what stops a hand-edit surviving unnoticed.
+ * A section names its slot with `image.diagram` — `<sheet slug>/<slot>` — and
+ * the page draws that slot inline, in the reader's language, with the section's
+ * `alt` as its accessible name. Changing a diagram is changing the script's
+ * drawing function, or its words in `scripts/cheat-sheet-diagram-strings.mts`,
+ * and re-running it; never the generated output, which the next run overwrites.
  *
- * Note this is not how a *new* sheet's diagrams have to work: the page shows
- * whatever is at the filename, so dropping a file in still works elsewhere.
- * These seven are generated because they have to hold one measured palette
- * across both themes and keep their numbers agreeing with the prose.
+ * Slot 7 keeps its name, `07-decay-and-made-elements`, although it is now the
+ * decay curve alone: the synthetic elements that were its other half moved to
+ * the periodic table widget's *natural or made* view mode, and the name is the
+ * key the data, the strings and the page share.
  *
- * docs/CHEAT_SHEET_IMAGES.md lists every slot and its size, and the script's
- * own header carries the reasoning.
+ * A hand-made file still works on any sheet: `image: { src, width, height, alt }`
+ * shows whatever is at `src` under `public/`. docs/CHEAT_SHEET_IMAGES.md has
+ * both routes, every slot and its size.
  */
-const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
-
-/**
- * The same arrangement for the Year 10 sheet the atomic-structure sheet split
- * into. Three of the original seven diagrams teach isotopes, the weighted
- * average and decay, so they moved with the prose rather than being served to
- * the new sheet out of the old sheet's folder. One folder per slug is what
- * docs/CHEAT_SHEET_IMAGES.md documents.
- *
- * The redesign brief wanted slot 7 renamed to `07-half-life.svg` and its
- * synthetic-element half split into a second file. Neither happened, and
- * neither should: the filename is the contract the images doc is built on, and
- * the synthetic elements moved to the periodic table widget's *natural or made*
- * view mode rather than to another diagram. `07-decay-and-made-elements.svg` is
- * now the decay curve alone, under the Half-life section. The note under "The
- * slots on Isotopes & Radioactivity" in docs/CHEAT_SHEET_IMAGES.md is the
- * current version of this.
- */
-const ISOTOPE_DIAGRAMS = '/cheat-sheets/isotopes-and-radioactivity/';
 
 export const CHEAT_SHEETS: CheatSheetTopic[] = [
   {
@@ -226,7 +208,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     keyTakeaways: [
       'An atom is a nucleus of protons and neutrons, with electrons spread around it.',
       'The number of protons — the atomic number — is what makes an atom that element. Change it and you have a different element.',
-      'Electrons sit in energy levels, and how many are in the outer level is what the periodic table is arranged by.',
+      'Electrons sit in energy levels, and how many are in the outer level decides which group (column) an element is in.',
       'A group is a column and a period is a row. Elements in one group share an outer-level count, so they react alike.',
       'Metals sit on the left and non-metals on the right. Atoms shrink across a period and grow down a group.',
       'Almost all of an atom is empty space. Every picture of one, including the ones here, is wrong about scale.',
@@ -242,36 +224,30 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         content:
           'An atom has a nucleus of protons and neutrons, with electrons around it. Protons carry a positive charge and electrons an equal negative one, so a neutral atom has the same number of each. Neutrons carry no charge. Nearly all the mass is in the nucleus, because an electron weighs almost nothing next to a proton.',
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}01-inside-an-atom.svg`,
-          width: 640,
-          height: 360,
-          alt: 'A nucleus of protons and neutrons at the centre, with a fuzzy cloud around it showing where electrons are likely to be. A note says the nucleus is drawn far too large to be seen at all.',
+          diagram: 'atomic-structure/01-inside-an-atom',
+          alt: 'An atom: a nucleus of three protons (filled circles) and four neutrons (hollow circles), with an electron cloud around it that is densest right next to the nucleus and thins out, with no edge, further away. Three protons and four neutrons would make it lithium-7, but the picture stands for any atom. Labels name the electron cloud, the nucleus, a proton and a neutron. A note says it is not to scale: the nucleus is about 1/100,000 of the atom’s width.',
         },
       },
       {
         heading: 'Atomic number and mass number',
         content:
-          'The atomic number is the number of protons, and it is what makes an atom that element. Every chlorine atom has 17 protons; anything with 17 protons is chlorine. The mass number is protons plus neutrons. Neutrons can vary without changing which element it is. Both terms are an extension here: the curriculum for these years names neither, and you cannot read a table cell without them.',
+          'The atomic number is the number of protons, and it is what makes an atom that element. Every chlorine atom has 17 protons; anything with 17 protons is chlorine. The mass number is protons plus neutrons. Neutrons can vary without changing which element it is.',
         examples: [
           { name: 'Chlorine-35', formula: 'Cl-35' },
           { name: 'Chlorine-37', formula: 'Cl-37' },
         ],
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}02-atomic-and-mass-number.svg`,
-          width: 640,
-          height: 320,
-          alt: 'The symbol for chlorine-35 with the mass number 35 written above the atomic number 17, and arrows labelling each: 17 protons, and 35 minus 17 giving 18 neutrons.',
+          diagram: 'atomic-structure/02-atomic-and-mass-number',
+          alt: 'The symbol for chlorine-35: the mass number 35 above the atomic number 17, to the left of Cl. A line joins the 35 to “mass number = protons + neutrons” and another joins the 17 to “atomic number = protons”. Underneath: 35 − 17 = 18 neutrons.',
         },
       },
       {
         heading: 'Electrons, energy levels and the shape of the table',
         content:
-          'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. Your teacher and the curriculum may call these shells, and it means the same thing. Counting electrons this way is called the Bohr model: it is useful, and it is not a picture of a real atom. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
+          'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. Your teacher may call these shells; it means the same thing. Counting electrons this way is called the Bohr model: it is useful, and it is not a picture of a real atom. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}05-energy-levels.svg`,
-          width: 640,
-          height: 300,
-          alt: 'A sodium nucleus of 11 protons and 12 neutrons, surrounded by three soft bands holding 2, 8 and 1 electrons as marks at irregular angles rather than dots on circles. Beside it, the arrangement 2, 8, 1 with the outer level last. The diagram says it is a way to count electrons, not a picture of an atom, and that the nucleus is drawn about 100,000 times too big.',
+          diagram: 'atomic-structure/05-energy-levels',
+          alt: 'Sodium, Na, drawn as a model for counting electrons: a disc marked Na for the nucleus, inside three bands with visible edges that hold 2, 8 and 1 electrons at irregular angles. The single electron in the outer band is circled and labelled “outer level”. Below, the arrangement 2, 8, 1 and the total, 11 electrons. A note says it is a way to count electrons, not a picture of an atom.',
         },
         /*
          * The interactive table, all six modes. It sits here rather than under
@@ -291,12 +267,12 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Groups and periods',
         content:
-          'A group is a column of the table and a period is a row. Elements in one group have the same number of electrons in their outer level, so the column predicts how an element reacts. Group 1 is the alkali metals, group 17 the halogens and group 18 the noble gases. A period tells you how many energy levels are in use: an element in period 3 uses three of them. So the row tells you roughly how big the atom is.',
+          'A group is a column of the table and a period is a row. Elements in one group have the same number of electrons in their outer level, so the column predicts how an element reacts. Group 1 is the alkali metals, group 17 the halogens and group 18 the noble gases. A period tells you how many energy levels are in use: an element in period 3 uses three of them. So atoms get bigger as you go down to a new row.',
       },
       {
         heading: 'Metals and non-metals',
         content:
-          'Metals fill the left and the middle of the table, and non-metals sit in the top right corner. A metal conducts electricity and heat, has a shiny surface, and can be hammered into a sheet without shattering. Almost every metal is solid at room temperature; mercury is the liquid one. A non-metal is usually a poor conductor, dull, and brittle if it is solid at all. Many non-metals are gases. Extension: a few elements along the staircase between the two, such as silicon, behave partly like each. They are called metalloids, which is a word the curriculum does not use.',
+          'Metals fill the left and the middle of the table, and non-metals sit in the top right corner. A metal conducts electricity and heat, has a shiny surface, and can be hammered into a sheet without shattering. Almost every metal is solid at room temperature; mercury is the liquid one. A non-metal is usually a poor conductor, dull, and brittle if it is solid at all. Many non-metals are gases. A few elements along the staircase between the two, such as silicon, behave partly like each. They are called metalloids.',
       },
       {
         heading: 'Atomic size',
@@ -306,17 +282,15 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Reactivity, and why a group behaves alike',
         content:
-          'You can test a group by reacting its elements with oxygen, water and acids, and they behave the same way as each other. Group 1 metals react with water and get more violent down the group: lithium fizzes, sodium darts about, potassium catches fire. The same metals with an acid give off hydrogen, faster still. Group 17 elements run the other way and get less reactive down the group. Group 18 already has a full outer level, so the noble gases react with almost nothing.',
+          'You can test a group by reacting its elements with oxygen, water and acids, and they behave the same way as each other. Group 1 metals react with water and get more violent down the group: lithium fizzes, sodium darts about, potassium catches fire. The same metals with an acid give off hydrogen faster still, which is far too violent to try in a school lab. Group 17 elements run the other way and get less reactive down the group. Group 18 already has a full outer level, so the noble gases react with almost nothing.',
       },
       {
         heading: 'Ordered by atomic number, not by mass',
         content:
           'Mendeleev arranged the table by mass, and a few elements came out in the wrong place. In 1913 Henry Moseley measured the charge on the nucleus and found the order that works: atomic number. Tellurium is heavier than iodine but comes before it, because it has one proton fewer.',
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}06-ordered-by-atomic-number.svg`,
-          width: 640,
-          height: 300,
-          alt: 'Tellurium and iodine side by side. Tellurium has the larger relative atomic mass but the smaller atomic number, and the table places it first.',
+          diagram: 'atomic-structure/06-ordered-by-atomic-number',
+          alt: 'Two periodic-table cells side by side, with an arrow from the first to the second for the order in the table. Tellurium: atomic number 52, relative atomic mass 127.60, labelled “heavier, but first”. Iodine: atomic number 53, relative atomic mass 126.90, labelled “lighter, but second”. In the tellurium cell the two numbers are labelled atomic number and relative atomic mass.',
         },
       },
     ],
@@ -362,20 +336,19 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     iconName: 'Timer',
     colorTheme: 'bg-(--hue-red)/12 text-(--hue-red)',
     curriculumRef:
-      'Victorian Curriculum F–10 Version 2.0, Science VC2S10U06: the model of the atom changed following the discovery of electrons, protons and neutrons, and natural radioactive decay results in a change from unstable to stable atoms. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 10 description, so “Year 10” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Atoms & the Periodic Table takes VC2S10U07 from the same band. Atomic number, mass number and relative atomic mass are this site’s extension — Version 2.0 names none of them, and relative atomic mass is VCE Unit 1.',
+      'Victorian Curriculum F–10 Version 2.0, Science VC2S10U06: the model of the atom changed following the discovery of electrons, protons and neutrons, and natural radioactive decay results in a change from unstable to stable atoms. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 10 description, so “Year 10” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Atoms & the Periodic Table takes VC2S10U07 from the same band. Atomic number and mass number are this site’s extension — Version 2.0 names neither of them.',
     keyTakeaways: [
       'Isotopes are atoms of the same element with different numbers of neutrons. They behave the same chemically.',
-      'Relative atomic mass is a weighted average across an element’s isotopes, which is why so few are whole numbers.',
       'An unstable nucleus decays and gives out radiation, leaving a more stable atom behind.',
       'The three kinds are alpha, beta and gamma, and they differ in what comes out and what stops it.',
       'Half-life is the time for half a sample to decay. After three half-lives, an eighth is left.',
       'Half-lives run from seconds to billions of years, which is what makes dating the distant past possible.',
     ],
     formulaExamples: [
-      { name: 'Carbon-12', formula: 'C-12', description: 'the standard all other masses are measured against' },
+      { name: 'Hydrogen-3 (tritium)', formula: 'H-3', description: 'radioactive: half-life about 12 years' },
       { name: 'Radon-222', formula: 'Rn-222', description: 'decays by giving out an alpha particle' },
       { name: 'Iodine-131', formula: 'I-131', description: 'decays by giving out a beta particle' },
-      { name: 'Cobalt-60', formula: 'Co-60', description: 'gives out gamma radiation' },
+      { name: 'Cobalt-60', formula: 'Co-60', description: 'gives out beta and gamma radiation — used for its gamma' },
       { name: 'Carbon-14', formula: 'C-14', description: 'half-life about 5730 years' },
       { name: 'Uranium-238', formula: 'U-238', description: 'half-life about 4.5 billion years' },
     ],
@@ -383,33 +356,29 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'The two numbers this sheet needs',
         content:
-          'The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Both terms are an extension: the curriculum for these years names neither, and nothing here works without them.',
+          'The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Why an element\'s relative atomic mass, such as chlorine\'s 35.5, is not a whole number is on the Relative Atomic & Formula Mass sheet.',
       },
       {
         heading: 'Isotopes',
         content:
           'Isotopes are atoms of one element with different numbers of neutrons. Chemistry is done by electrons, and isotopes have the same number of those, so they react identically. What differs is mass, and sometimes stability: some isotopes are radioactive and some are not.',
         image: {
-          src: `${ISOTOPE_DIAGRAMS}03-isotopes-of-hydrogen.svg`,
-          width: 640,
-          height: 280,
-          alt: 'Three hydrogen atoms side by side: one proton, one proton and one neutron, and one proton and two neutrons. All three have a single electron.',
+          diagram: 'isotopes-and-radioactivity/03-isotopes-of-hydrogen',
+          alt: 'Three hydrogen atoms, one above another. Each has one proton (a filled circle) and one electron in a soft band around the nucleus. Hydrogen-1 (protium) has no neutrons, hydrogen-2 (deuterium) has one and hydrogen-3 (tritium) has two (hollow circles). Hydrogen-1 and hydrogen-2 are labelled stable, and hydrogen-3 radioactive. Labels name the electron, the proton and the neutron.',
         },
       },
       {
         heading: 'Unstable nuclei, and the three kinds of radiation',
         content:
-          'Some nuclei are unstable. They break down on their own, give out radiation, and leave a more stable atom behind. Radon-222 throws out an alpha particle, which is two protons and two neutrons stuck together. Iodine-131 gives out a beta particle, which is a fast electron thrown from the nucleus. Cobalt-60 gives out gamma radiation, which is energy rather than a particle. Paper stops alpha, a sheet of aluminium stops beta, and gamma needs lead or thick concrete.',
+          'Some nuclei are unstable. They break down on their own, give out radiation, and leave a more stable atom behind. Radon-222 throws out an alpha particle, which is two protons and two neutrons stuck together. Iodine-131 gives out a beta particle, which is a fast electron thrown from the nucleus. Cobalt-60 gives out beta and gamma radiation, and it is used for its gamma, which is energy rather than a particle. Paper stops alpha and a sheet of aluminium stops beta. Nothing stops gamma completely: lead or thick concrete cuts it down a long way.',
       },
       {
         heading: 'Half-life',
         content:
           'Half-life is the time it takes for half of a sample to decay. After one half-life half is left, after two a quarter, and after three an eighth. The number is fixed for each isotope, and heating it or reacting it does not change it. Carbon-14 has a half-life of about 5730 years. Uranium-238 has one of about 4.5 billion years, which is why there is still uranium in the ground.',
         image: {
-          src: `${ISOTOPE_DIAGRAMS}07-decay-and-made-elements.svg`,
-          width: 640,
-          height: 320,
-          alt: 'A decay curve falling from 100 per cent to 50, 25 and 12.5 per cent at one, two and three half-lives, with a dashed line down to the axis at each. After three half-lives an eighth is left. One half-life is 5730 years for carbon-14 and about 4.5 billion years for uranium-238.',
+          diagram: 'isotopes-and-radioactivity/07-decay-and-made-elements',
+          alt: 'A decay curve of undecayed nuclei against time, in half-lives. It falls from 100 per cent to 50, 25, 12.5 and 6.25 per cent at one, two, three and four half-lives, with a dashed line down to the time axis at each point, and keeps falling after the fourth without reaching zero.',
         },
       },
       {
@@ -425,7 +394,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Elements that had to be made',
         content:
-          'Elements past uranium have no stable isotopes and are not found in nature. They are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. This is an extension: the curriculum does not ask for made elements. They are here because they are how the bottom rows of the periodic table were filled in.',
+          'Elements past uranium have no stable isotopes and are not found in nature in any useful amount. The first few, such as plutonium, are made in nuclear reactors: uranium takes in neutrons, and beta decay then turns it into neptunium and plutonium. The heavier ones are built in accelerators by firing one nucleus at another, sometimes a few atoms at a time. Many last less than a second before they decay. Making them is how the bottom rows of the periodic table were filled in.',
         /*
          * The same component as the Year 9 sheet, gated to two modes: *natural
          * or made*, which is this paragraph, and *metals* for orientation. The
@@ -435,12 +404,8 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         widget: 'periodic-table-occurrence',
       },
     ],
-    commonMistakes: [
-      'Reading relative atomic mass as a count of particles. It is an average over isotopes, so chlorine’s 35.5 is not any atom you could find.',
-      'Adding the two isotope masses and halving them. That gives 36 for chlorine, and it is wrong because chlorine-35 is three times as common as chlorine-37.',
-    ],
     resources: [
-      PHET('isotopes-and-atomic-mass', 'Isotopes and Atomic Mass', 'Mix isotopes in different proportions and see the relative atomic mass move.'),
+      PHET('radioactive-dating-game', 'Radioactive Dating Game', 'Watch samples of different half-lives decay, and see how carbon dating works.'),
       MADJEDBEBE,
       VCAA_DATA_BOOK,
       KHAN_HS_CHEM,
@@ -458,7 +423,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     keyTakeaways: [
       'Solids: particles vibrate in fixed positions — fixed shape and fixed volume.',
       'Liquids: particles slide past each other — fixed volume, takes the shape of the container.',
-      'Gases: particles move freely and fast — fills any container, easily compressed.',
+      'Gases: particles move freely and are far apart — fills any container, easily compressed.',
       'Temperature is a measure of the average kinetic energy of the particles.',
       'During a phase change the temperature stays constant: energy goes into breaking or forming attractions between particles, not into speeding them up.',
     ],
@@ -470,12 +435,25 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     ],
     sections: [
       {
+        heading: 'Particles in each state',
+        content:
+          'In a solid the particles touch in a regular pattern and vibrate in place. In a liquid they still touch, but they are jumbled and slide past one another; in a gas they are far apart and move freely in every direction. The particles are the same size in all three states: only their arrangement and the spaces between them change.',
+        image: {
+          diagram: 'states-of-matter/01-particles-in-each-state',
+          alt: 'Three boxes, one above another, with particles of the same size in each. Solid: particles touching in a regular block of rows and columns, resting on the floor of the box. Liquid: the same number of particles, still touching but jumbled, with small gaps, spread across the bottom of the box. Gas: five particles far apart across the whole box, each with two short marks behind it to show that it is moving.',
+        },
+      },
+      {
         heading: 'State symbols in equations',
         content: 'Every species in a chemical equation carries a state symbol: (s) solid, (l) liquid, (g) gas, (aq) dissolved in water. "Aqueous" is not a fourth state of matter — it means a solute dissolved in liquid water.',
       },
       {
         heading: 'Heating and cooling curves',
         content: 'On a heating curve the flat sections are phase changes (melting, boiling). The sloped sections are one state warming up. The flat section for boiling is longer than for melting because separating particles completely takes more energy than loosening them.',
+        image: {
+          diagram: 'states-of-matter/02-heating-curve',
+          alt: 'A heating curve for water: temperature up the side and energy added along the bottom, with no numbers on the energy axis. The line climbs steeply through the solid, stays flat at 0 °C for melting, climbs less steeply through the liquid, stays flat at 100 °C for boiling, then climbs steeply again through the gas. The boiling plateau is drawn to scale, almost seven times as long as the melting plateau: about 2260 J against 334 J for each gram.',
+        },
       },
     ],
     tables: [
@@ -514,10 +492,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     relatedGames: ['acid-classification', 'neutralise'],
     keyTakeaways: [
       'Acid: a proton (H+) donor. In water it produces hydronium ions, H3O+. pH < 7.',
-      'Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH-, in water. pH > 7.',
-      'Neutral: pH 7 at 25 °C — pure water and most salts.',
-      'Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH- → H2O.',
-      'Each step on the pH scale is a ×10 change in H+ concentration: pH 2 is 100× more acidic than pH 4.',
+      'Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH−, in water. pH > 7.',
+      'Neutral: pH 7 at 25 °C — pure water, and solutions of salts like NaCl.',
+      'Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH− → H2O.',
+      'Each step on the pH scale is a ×10 change in H+ concentration: pH 2 has 100× the H+ concentration of pH 4.',
     ],
     formulaExamples: [
       { name: 'Hydrochloric acid (strong)', formula: 'HCl' },
@@ -526,6 +504,15 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       { name: 'Ammonia (weak base)', formula: 'NH3' },
     ],
     sections: [
+      {
+        heading: 'The pH scale',
+        content:
+          'pH says how acidic or alkaline a solution is. At 25 °C, below 7 is acidic, 7 is neutral and above 7 is alkaline, and most solutions you will meet lie between 0 and 14. Universal indicator turns a different colour at each pH: red at the acidic end, green at 7 and purple at the alkaline end.',
+        image: {
+          diagram: 'acids-and-bases/01-ph-scale',
+          alt: 'The pH scale as a bar from 0 at the top to 14 at the bottom, each step in its universal-indicator colour with its number printed beside it: red at 0, orange at 1, yellow at 2 and 3, green from 4 to 8, blue-green at 9, blue at 10 and 11 and purple from 12 to 14. Five everyday solutions are marked at their pH: stomach acid at 1, vinegar at 3, pure water at 7, baking soda at 8 and oven cleaner at 13.',
+        },
+      },
       {
         heading: 'Strong vs weak is not the same as concentrated vs dilute',
         content: 'Strong acids ionise completely in water (HCl, HNO3, H2SO4). Weak acids only partly ionise (CH3COOH, H2CO3). "Concentrated" and "dilute" describe how much acid is dissolved, not how much of it ionises — you can have a dilute strong acid or a concentrated weak acid.',
@@ -586,9 +573,9 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Always include state symbols in the final equation.',
     ],
     formulaExamples: [
-      { name: 'Unbalanced', formula: 'H2 + O2 -> H2O' },
+      { name: 'Unbalanced (no states yet)', formula: 'H2 + O2 -> H2O' },
       { name: 'Balanced', formula: '2H2 (g) + O2 (g) -> 2H2O (l)' },
-      { name: 'With a polyatomic ion as a unit', formula: 'Al2(SO4)3 + 3Ba(NO3)2 -> 2Al(NO3)3 + 3BaSO4' },
+      { name: 'With a polyatomic ion as a unit', formula: 'Al2(SO4)3 (aq) + 3Ba(NO3)2 (aq) -> 2Al(NO3)3 (aq) + 3BaSO4 (s)' },
     ],
     sections: [
       {
@@ -597,6 +584,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         examples: [
           { name: 'Combustion of propane', formula: 'C3H8 (g) + 5O2 (g) -> 3CO2 (g) + 4H2O (l)' },
         ],
+        image: {
+          diagram: 'balancing-equations/01-particle-equation',
+          alt: 'The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.',
+        },
       },
     ],
     commonMistakes: [
@@ -622,12 +613,12 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     keyTakeaways: [
       'Synthesis (combination): two or more substances join — A + B → AB.',
       'Decomposition: one substance breaks apart — AB → A + B (often needs heat or electricity).',
-      'Combustion: fuel + oxygen → carbon dioxide + water (complete) — releases heat.',
+      'Combustion: fuel + oxygen → carbon dioxide + water (for a hydrocarbon fuel, burning completely) — releases heat.',
       'Single displacement: a more reactive element takes the place of a less reactive one — A + BC → AC + B.',
       'Double displacement: ions swap partners — AB + CD → AD + CB (precipitation and neutralisation are special cases).',
     ],
     formulaExamples: [
-      { name: 'Synthesis', formula: '2Mg (s) + O2 (g) -> 2MgO (s)' },
+      { name: 'Synthesis', formula: 'Fe (s) + S (s) -> FeS (s)' },
       { name: 'Decomposition', formula: 'CaCO3 (s) -> CaO (s) + CO2 (g)' },
       { name: 'Combustion', formula: 'CH4 (g) + 2O2 (g) -> CO2 (g) + 2H2O (l)' },
       { name: 'Single displacement', formula: 'Zn (s) + CuSO4 (aq) -> ZnSO4 (aq) + Cu (s)' },
@@ -671,7 +662,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     colorTheme: 'bg-(--hue-cyan)/12 text-(--hue-cyan)',
     curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1 (metals, ionic compounds, covalent substances).',
     keyTakeaways: [
-      'Atoms bond to reach a stable, full outer shell (a noble-gas configuration). The group number tells you how many valence electrons a main-group element has.',
+      'Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons; helium, in group 18, has only 2).',
       'Ionic: metal + non-metal. Electrons are transferred, forming ions held in a 3D lattice by electrostatic attraction.',
       'Covalent: non-metal + non-metal. Electrons are shared in pairs; each shared pair is one bond.',
       'Metallic: metal atoms in a lattice of cations surrounded by a "sea" of delocalised electrons.',
@@ -687,6 +678,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Why ionic compounds conduct only when molten or dissolved',
         content: 'In the solid lattice the ions are locked in place, so no charged particles can move. Melting or dissolving frees the ions, and the liquid conducts. Metals conduct in all states because their delocalised electrons are always free to move.',
+        image: {
+          diagram: 'chemical-bonds/01-bonding-models',
+          alt: 'Three boxes, one above another. Ionic: a grid of small positive ions and large negative ions, alternating, each marked + or −. Covalent: one hydrogen molecule, two atoms marked H whose circles overlap, with two electron dots in the overlap, labelled shared pair. Metallic: a grid of positive metal ions with as many small electron dots scattered between them, labelled delocalised electrons.',
+        },
       },
     ],
     tables: [
@@ -742,6 +737,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         heading: 'Worked example: aluminium sulfate',
         content: 'Al 3+ and SO4 2−. Cross over: Al gets subscript 2, sulfate gets subscript 3. Sulfate is polyatomic and repeated, so it needs brackets: Al2(SO4)3. Check: 2 × (+3) = +6 and 3 × (−2) = −6. Neutral.',
         examples: [{ name: 'Aluminium sulfate', formula: 'Al2(SO4)3' }],
+        image: {
+          diagram: 'chemical-formulas/01-cross-over',
+          alt: 'Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.',
+        },
       },
       {
         heading: 'Common ion charges from the periodic table',
@@ -751,7 +750,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     commonMistakes: [
       'Forgetting to simplify: Mg2O2 must become MgO.',
       'Brackets around a single polyatomic ion: NaOH, not Na(OH).',
-      'Writing the anion first because it sounds first in casual speech.',
     ],
     resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM],
   },
@@ -767,10 +765,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     relatedGames: ['neutralise', 'formula-blaster'],
     keyTakeaways: [
       'A polyatomic ion is a group of covalently bonded atoms that carries an overall charge and moves as one unit in reactions.',
-      'The only common polyatomic cation is ammonium, NH4+. All the rest are anions.',
+      'The only common polyatomic cation is ammonium, NH4+ (apart from hydronium, H3O+, which you meet in acids). All the rest are anions.',
       '"-ate" has more oxygen than "-ite": sulfate SO4 2− vs sulfite SO3 2−; nitrate NO3− vs nitrite NO2−. The charge stays the same.',
       '"per-…-ate" is one more oxygen than -ate; "hypo-…-ite" is one fewer than -ite (perchlorate ClO4−, chlorate ClO3−, chlorite ClO2−, hypochlorite ClO−).',
-      'Adding H+ to an anion raises its charge by one and adds "hydrogen" to the name: carbonate CO3 2− → hydrogen carbonate HCO3−.',
+      'Adding H+ to an anion makes its charge one less negative and adds "hydrogen" to the name: carbonate CO3 2− → hydrogen carbonate HCO3−.',
     ],
     formulaExamples: [
       { name: 'Sodium nitrate', formula: 'NaNO3' },
@@ -786,13 +784,13 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
       {
         heading: 'Where they show up',
-        content: 'Acids: sulfuric acid is H2SO4 because sulfate is 2−; nitric acid is HNO3 because nitrate is 1−. Precipitation: most nitrates and all ammonium salts are soluble, so they are the usual "spectator" partners. Redox: permanganate and dichromate are the classic oxidising agents.',
+        content: 'Acids: sulfuric acid is H2SO4 because sulfate is 2−; nitric acid is HNO3 because nitrate is 1−. Precipitation: all nitrates and all ammonium salts are soluble, so they are the usual "spectator" partners. Redox: permanganate and dichromate are the classic oxidising agents.',
       },
     ],
     commonMistakes: [
       'Splitting the ion in a formula (writing Ca(OH)2 as CaO2H2) — it stays together.',
       'Treating the charge as belonging to the last atom only — it belongs to the whole group.',
-      'Confusing the charge (−2) with the number of oxygens — sulfate has 4 O and charge 2−.',
+      'Confusing the charge (2−) with the number of oxygens — sulfate has 4 O and charge 2−.',
     ],
     resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM, IUPAC_GOLD_BOOK],
   },
@@ -820,6 +818,14 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       { name: 'Nitrous acid (acid, from nitrite)', formula: 'HNO2' },
     ],
     sections: [
+      {
+        heading: 'Which naming system?',
+        content: 'Look at what the compound is made of before you name it. A metal (or NH4+) with a non-metal is ionic: the cation, then the anion, with no prefixes. Two non-metals make a molecular compound, named with Greek prefixes — but if H comes first and it is dissolved in water, it is an acid, and acids have names of their own.',
+        image: {
+          diagram: 'naming-compounds/01-which-system',
+          alt: 'A flowchart for choosing a naming system. Metal + non-metal leads to ionic, for example sodium chloride. Two non-metals leads to molecular, for example sulfur dioxide. An arrow down from two non-metals leads to H first, in water, and from there to acid, for example hydrochloric acid.',
+        },
+      },
       {
         heading: 'Working out a Roman numeral',
         content: 'For Fe2(SO4)3: sulfate is 2−, and there are three, so the anions total −6. Two iron ions must total +6, so each is +3 → iron(III) sulfate. Only metals with more than one common charge (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) need the numeral; Group 1, Group 2, Al, Zn and Ag never do.',
@@ -881,34 +887,38 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Mr is the same idea for an ionic compound as for a molecule, which is why it is formula mass and not molecular mass: NaCl has no molecule to weigh.',
     ],
     formulaExamples: [
-      { name: 'Water', formula: 'H2O', description: '2 x 1 + 16 = 18' },
-      { name: 'Carbon dioxide', formula: 'CO2', description: '12 + 2 x 16 = 44' },
-      { name: 'Calcium carbonate', formula: 'CaCO3', description: '40 + 12 + 3 x 16 = 100' },
-      { name: 'Magnesium hydroxide', formula: 'Mg(OH)2', description: '24 + 2 x (16 + 1) = 58' },
-      { name: 'Calcium nitrate', formula: 'Ca(NO3)2', description: '40 + 2 x (14 + 3 x 16) = 164' },
+      { name: 'Water', formula: 'H2O', description: '2 × 1 + 16 = 18' },
+      { name: 'Carbon dioxide', formula: 'CO2', description: '12 + 2 × 16 = 44' },
+      { name: 'Calcium carbonate', formula: 'CaCO3', description: '40 + 12 + 3 × 16 = 100' },
+      { name: 'Magnesium hydroxide', formula: 'Mg(OH)2', description: '24 + 2 × (16 + 1) = 58' },
+      { name: 'Calcium nitrate', formula: 'Ca(NO3)2', description: '40 + 2 × (14 + 3 × 16) = 164' },
     ],
     sections: [
       {
         heading: 'What "relative" actually means',
         content:
           'Atoms are far too light to weigh one at a time, so chemists compare them instead. Put one carbon atom on one pan of a balance and hydrogen atoms on the other: it takes 12 hydrogens to make it level. That is the whole idea — carbon is 12 times as heavy as hydrogen, so we say its relative atomic mass is 12. The number answers "how many hydrogens?", which is why it has no unit: it is a comparison, not a measurement. Strictly, the standard is carbon-12, not hydrogen: every Ar compares an atom against one twelfth of a carbon-12 atom. Hydrogen lands on almost exactly 1, which is why the balance picture works.',
+        image: {
+          diagram: 'relative-formula-mass/01-carbon-hydrogen-balance',
+          alt: 'A balance with two hanging pans, level. On the left pan is one carbon atom, a circle marked C. On the right pan are twelve hydrogen atoms, smaller circles marked H, piled in rows of five, four and three. Carbon is drawn bigger than hydrogen, but nowhere near twelve times the size. Labels under the pans say 1 carbon atom and 12 hydrogen atoms, and a note says the picture is not to scale.',
+        },
       },
       {
         heading: 'Adding the atoms up',
         content:
           'Relative formula mass (Mr) is the Ar of every atom in the formula, added together. Work left to right, one element at a time, and write the working down: H2O is 2 hydrogens at 1 each, plus 1 oxygen at 16, so 2 + 16 = 18. The order does not matter and nothing gets multiplied at the end — if you are reaching for a calculator for anything harder than a sum, something has gone wrong.',
         examples: [
-          { name: 'Ammonia', formula: 'NH3', description: '14 + 3 x 1 = 17' },
-          { name: 'Methane', formula: 'CH4', description: '12 + 4 x 1 = 16' },
-          { name: 'Sulfuric acid', formula: 'H2SO4', description: '2 x 1 + 32 + 4 x 16 = 98' },
+          { name: 'Ammonia', formula: 'NH3', description: '14 + 3 × 1 = 17' },
+          { name: 'Methane', formula: 'CH4', description: '12 + 4 × 1 = 16' },
+          { name: 'Sulfuric acid', formula: 'H2SO4', description: '2 × 1 + 32 + 4 × 16 = 98' },
         ],
       },
       {
         heading: 'Subscripts and brackets',
         content:
-          'A subscript multiplies only the atom it follows: the 2 in CO2 means two oxygens, not two of everything. A bracket multiplies the whole group inside it: Mg(OH)2 is one magnesium plus two OH units, so 24 + 2 x 17 = 58, not 24 + 16 + 1. When you see a bracket, work out the group once and then multiply.',
+          'A subscript multiplies only the atom it follows: the 2 in CO2 means two oxygens, not two of everything. A bracket multiplies the whole group inside it: Mg(OH)2 is one magnesium plus two OH units, so 24 + 2 × 17 = 58, not 24 + 16 + 1. When you see a bracket, work out the group once and then multiply.',
         examples: [
-          { name: 'Aluminium sulfate', formula: 'Al2(SO4)3', description: '2 x 27 + 3 x (32 + 4 x 16) = 342' },
+          { name: 'Aluminium sulfate', formula: 'Al2(SO4)3', description: '2 × 27 + 3 × (32 + 4 × 16) = 342' },
         ],
       },
       {
@@ -949,27 +959,25 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         heading: 'Worked examples',
         columns: ['Formula', 'Adding up', 'Mr'],
         rows: [
-          ['H2', '2 x 1', '2'],
-          ['O2', '2 x 16', '32'],
-          ['H2O', '2 x 1 + 16', '18'],
+          ['H2', '2 × 1', '2'],
+          ['O2', '2 × 16', '32'],
+          ['H2O', '2 × 1 + 16', '18'],
           ['NaCl', '23 + 35.5', '58.5'],
           ['MgO', '24 + 16', '40'],
-          ['CO2', '12 + 2 x 16', '44'],
-          ['CaCO3', '40 + 12 + 3 x 16', '100'],
-          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
-          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
-          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+          ['CO2', '12 + 2 × 16', '44'],
+          ['CaCO3', '40 + 12 + 3 × 16', '100'],
+          ['H2SO4', '2 × 1 + 32 + 4 × 16', '98'],
+          ['Mg(OH)2', '24 + 2 × (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 × (14 + 3 × 16)', '164'],
         ],
         formulaColumns: [0],
       },
     ],
     commonMistakes: [
-      'Saying an atom of carbon "weighs 12" — 12 what? Ar is a comparison with hydrogen and has no unit. Grams only appear once you scale up to a real amount.',
+      'Saying an atom of carbon "weighs 12" — 12 what? Ar is a comparison and has no unit. Grams only appear once you scale up to a real amount.',
       'Applying a subscript to the whole formula: in CO2 the 2 belongs to the oxygen alone.',
       'Ignoring a bracket, so Mg(OH)2 comes out as 41 instead of 58.',
       'Calling Mr the "molecular mass" for something like NaCl or MgO. There is no molecule there, which is exactly why it is called formula mass.',
-      'Mixing a data-book value into a question built on the class table, then wondering why the answer disagrees with the worksheet by a fraction.',
-      'Averaging the Ar values instead of adding them.',
     ],
     resources: [VCAA_DATA_BOOK, KHAN_HS_CHEM],
   },
@@ -984,7 +992,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     curriculumRef: 'VCE Unit 1 AoS 2 (the mole, Avogadro\'s constant, molar mass); Unit 2 AoS 2 (concentration, solution and gas stoichiometry); Unit 3 AoS 1 (limiting reactants); Unit 4 AoS 1 (percentage yield).',
     relatedGames: ['reaction-balancer'],
     keyTakeaways: [
-      'One mole is 6.02 × 10^23 particles (Avogadro\'s number, N_A). Molar mass M (g/mol) is the mass of one mole — add up the atomic masses from the periodic table.',
+      'One mole is 6.02 × 10²³ particles (Avogadro\'s number, N_A). Molar mass M (g/mol) is the mass of one mole — add up the atomic masses from the periodic table.',
       'All roads go through moles: convert what you are given into moles, use the mole ratio from the balanced equation, then convert back to what is asked.',
       'The mole ratio is the ratio of coefficients — nothing else.',
       'Limiting reagent: the reactant that runs out first decides how much product forms. Find moles of each reactant, divide by its coefficient; the smallest result is limiting.',
@@ -1011,6 +1019,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Worked example: mass → mass',
         content: 'What mass of water forms when 8.0 g of hydrogen burns completely? 2H2 + O2 → 2H2O. n(H2) = 8.0 ÷ 2.0 = 4.0 mol. Ratio H2 : H2O = 2 : 2, so n(H2O) = 4.0 mol. m(H2O) = 4.0 × 18.0 = 72 g.',
+        image: {
+          diagram: 'stoichiometry/01-mole-map',
+          alt: 'The mole map. Four boxes down the left, mass, particles, gas volume and solution, are each joined to a tall box, moles of reactant, by a two-way arrow carrying its formula: n = m/M, n = N/N_A, n = V/V_m and n = cV. From moles of reactant, an arrow labelled mole ratio (coefficients) leads down to moles of product.',
+        },
       },
       {
         heading: 'Worked example: limiting reagent',
@@ -1021,7 +1033,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Using the mass ratio instead of the mole ratio — 2 g of H2 does not react with 1 g of O2.',
       'Picking the reactant with the smaller mass as limiting without converting to moles.',
       'Mixing units: volume in mL with c in mol/L gives moles ×1000 too big.',
-      'Rounding early — keep full precision until the final answer, then give 3 significant figures.',
+      'Rounding early — keep full precision until the final answer, then round to the same number of significant figures as the least precise value you were given.',
     ],
     resources: [
       PHET('reactants-products-and-leftovers', 'Reactants, Products and Leftovers', 'Sandwiches first, then real reactions — the clearest limiting-reagent visual there is.'),
@@ -1040,7 +1052,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     colorTheme: 'bg-(--hue-teal)/12 text-(--hue-teal)',
     curriculumRef: 'VCE Unit 1 AoS 1 (covalent bonding, Lewis structures, VSEPR shapes).',
     keyTakeaways: [
-      'Valence electrons = group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7). Add one electron per negative charge, remove one per positive charge.',
+      'Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17; helium, in group 18, has only 2). Add one electron per negative charge, remove one per positive charge.',
       'Each bond is a shared pair (2 electrons). Single = 1 pair, double = 2, triple = 3. Electrons not in bonds sit as lone pairs.',
       'Octet rule: most atoms want 8 valence electrons around them. Hydrogen wants 2 (duet).',
       'If the central atom is short of an octet after using all electrons, convert lone pairs on outer atoms into extra bonds.',
@@ -1056,12 +1068,16 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Year 10 essentials',
         content:
-          'Every atom brings its outer electrons as dots. A dot on its own is a loner; two loners from two different atoms make a shared pair, which is one bond (drawn as a line). Pairs that stay on one atom are lone pairs. An atom is full at 8 dots around it (an octet) — hydrogen is full at 2 (a duet). Share twice between the same two atoms for a double bond, three times for a triple. The number of loners tells you how many bonds an atom makes: H 1, C 4, N 3, O 2, Cl 1. Sulfur behaves like oxygen and phosphorus like nitrogen because they are in the same groups. Everything below this section (formal charge, VSEPR shapes, octet exceptions) is Senior content.',
+          'Every atom brings its outer electrons as dots. A dot on its own is an unpaired electron (a "loner"); two loners from two different atoms make a shared pair, which is one bond (drawn as a line). Pairs that stay on one atom are lone pairs. An atom is full at 8 dots around it (an octet) — hydrogen is full at 2 (a duet). Share twice between the same two atoms for a double bond, three times for a triple. The number of loners tells you how many bonds an atom makes: H 1, C 4, N 3, O 2, Cl 1. Sulfur behaves like oxygen and phosphorus like nitrogen because they are in the same groups. Everything below this section (formal charge, VSEPR shapes, octet exceptions) is Senior content.',
         examples: [
           { name: 'Water — oxygen shares twice, keeps 2 lone pairs', formula: 'H2O' },
           { name: 'Methane — carbon shares all four loners', formula: 'CH4' },
           { name: 'Oxygen — two shared pairs make a double bond', formula: 'O2' },
         ],
+        image: {
+          diagram: 'lewis-structures/01-lewis-structures',
+          alt: 'Lewis structures of four molecules, each with its formula underneath. Water, H₂O: H–O–H with two lone pairs on the oxygen, one above it and one below. Ammonia, NH₃: nitrogen with single bonds to three hydrogens and one lone pair. Carbon dioxide, CO₂: O=C=O, two double bonds, with two lone pairs on each oxygen and none on the carbon. Methane, CH₄: carbon with single bonds to four hydrogens and no lone pairs. Bonds are lines and lone pairs are pairs of dots. Labels point to one lone pair, on the oxygen in water, and to one shared pair, a bond in ammonia.',
+        },
       },
       {
         heading: 'The five steps',
@@ -1070,6 +1086,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'From Lewis structure to shape (VSEPR)',
         content: 'Count electron regions around the central atom (each bond, single or multiple, counts once; each lone pair counts once). 4 regions → tetrahedral (109.5°); with 1 lone pair → trigonal pyramidal (NH3); with 2 lone pairs → bent (H2O). 3 regions → trigonal planar (120°). 2 regions → linear (180°).',
+        image: {
+          diagram: 'lewis-structures/02-vsepr-shapes',
+          alt: 'The five VSEPR shapes, each with its formula, shape and bond angle underneath, drawn in 3D: a solid wedge is a bond coming out of the page and a hashed wedge a bond going behind it. CO₂ is linear, 180°. BF₃ is trigonal planar, 120°. CH₄ is tetrahedral, 109.5°. NH₃ is trigonal pyramidal, 107°, with its lone pair drawn as a lobe on the nitrogen. H₂O is bent, 104.5°, with two lone-pair lobes on the oxygen. NH₃ and H₂O are drawn like CH₄ with one, then two, of its bonds replaced by a lone pair. A small arc marks the angle between the two bonds that lie in the page.',
+        },
       },
       {
         heading: 'Exceptions to the octet',
@@ -1149,6 +1169,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         rows: [
           ['Carboxylic acid', '-oic acid', 'propanoic acid'],
           ['Ester', '-yl …-oate', 'methyl ethanoate'],
+          ['Amide', '-amide', 'ethanamide'],
           ['Aldehyde', '-al', 'ethanal'],
           ['Ketone', '-one', 'propan-2-one'],
           ['Alcohol', '-ol', 'butan-2-ol'],
@@ -1162,13 +1183,17 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Worked example',
         content: 'A 5-carbon chain with an OH on carbon 2 and a methyl on carbon 3. Root: pent-. Suffix: -ol with locant 2 (numbering from the end nearest the OH). Substituent: 3-methyl. Name: 3-methylpentan-2-ol.',
+        image: {
+          diagram: 'organic-nomenclature/01-numbered-chain',
+          alt: 'The skeletal structure of 3-methylpentan-2-ol: a zigzag chain of five carbons, numbered 1 to 5 from left to right, with OH at the end of a bond up from carbon 2 and a methyl group as a short line down from carbon 3, labelled methyl. Underneath, the name 3-methylpentan-2-ol.',
+        },
       },
     ],
     commonMistakes: [
       'Taking the chain as drawn horizontally instead of the longest chain.',
       'Numbering from the wrong end — the functional group beats the substituents.',
       'Alphabetising by the multiplier: "dimethyl" files under m, not d.',
-      'Forgetting the locant for -ene, -ol, -one when the chain has 4 or more carbons.',
+      'Forgetting the locant for -ene, -ol or -one whenever the group could sit in more than one position (propan-1-ol vs propan-2-ol).',
     ],
     resources: [CHEMGUIDE, MOLVIEW, PUBCHEM, KHAN_HS_CHEM, IUPAC_GOLD_BOOK],
   },
@@ -1208,7 +1233,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           ['Aldehyde', '–CHO', '-al', 'CₙH₂ₙO', 'Oxidises to carboxylic acid'],
           ['Ketone', 'C=O (internal)', '-one', 'CₙH₂ₙO', 'Resists oxidation'],
           ['Carboxylic acid', '–COOH', '-oic acid', 'CₙH₂ₙO₂', 'Weak acid; esterification with alcohol'],
-          ['Ester', '–COO–', 'alkyl …-oate', '—', 'Hydrolysis back to acid + alcohol'],
+          ['Ester', '–COO–', 'alkyl …-oate', 'CₙH₂ₙO₂', 'Hydrolysis back to acid + alcohol'],
           ['Amine', '–NH₂', '-amine', 'CₙH₂ₙ₊₁NH₂', 'Weak base; forms amides with acids'],
           ['Amide', '–CONH₂', '-amide', '—', 'Hydrolysis'],
         ],
@@ -1217,7 +1242,11 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     sections: [
       {
         heading: 'The reaction pathway you must know',
-        content: 'Alkene → (H2O, H+ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH−) → alcohol → (Cr2O7 2−/H+) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H2SO4 catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.',
+        content: 'Alkene → (H₂O, H₃PO₄ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H₂SO₄ catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.',
+        image: {
+          diagram: 'functional-groups/01-reaction-map',
+          alt: 'A reaction map, read from the top down. Down the left: an alkene gives a primary alcohol with H₂O and an H₃PO₄ catalyst; the primary alcohol gives an aldehyde with Cr₂O₇²⁻/H⁺, the aldehyde a carboxylic acid with Cr₂O₇²⁻/H⁺, and the carboxylic acid an ester with an alcohol and an H₂SO₄ catalyst. On the right: the alkene can instead take HX to give a haloalkane, which gives the same primary alcohol with OH⁻(aq); and beside the primary alcohol, a secondary alcohol oxidises to a ketone with Cr₂O₇²⁻/H⁺.',
+        },
       },
       {
         heading: 'Spotting groups in a spectrum',
@@ -1225,7 +1254,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
     ],
     commonMistakes: [
-      'Calling a molecule with –OH on a benzene ring an alcohol (it is a phenol) — outside VCE scope, but a common trap.',
+      'Calling a molecule with –OH on a benzene ring an alcohol (it is a phenol) — a common trap.',
       'Confusing an aldehyde (C=O at the end) with a ketone (C=O in the middle).',
       'Thinking esters are acids because they contain –COO– — they have no acidic H.',
     ],

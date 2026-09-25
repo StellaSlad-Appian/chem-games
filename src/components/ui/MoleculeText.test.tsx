@@ -17,6 +17,11 @@ describe('MoleculeText', () => {
     ['O2-', [], ['2-']],
     ['NH4+', ['4'], ['+']],
     ['SO4 2-', ['4'], ['2-']],
+    // The typographic minus (U+2212) the cheat-sheet prose uses.
+    ['OH−', [], ['−']],
+    ['O2−', [], ['2−']],
+    ['HCO3−', ['3'], ['−']],
+    ['SO4 2−', ['4'], ['2−']],
   ])('renders %s with subscripts %j and superscripts %j', (formula, subs, sups) => {
     const { container } = render(<MoleculeText formula={formula} />);
     expect(Array.from(container.querySelectorAll('sub')).map((s) => s.textContent)).toEqual(subs);
@@ -27,7 +32,11 @@ describe('MoleculeText', () => {
     const { container } = render(<MoleculeText formula="2H2O" />);
     expect(container.textContent).toBe('2H2O');
     expect(container.querySelectorAll('sub')).toHaveLength(1);
-    expect(container.querySelector('span > span')?.textContent).toBe('2');
+    // The whole species — coefficient, symbols and subscript — is one
+    // non-wrapping cluster (see MoleculeText's `clusterTokens`), so the
+    // coefficient is the first element *inside* that cluster, not a direct
+    // child of the outer span.
+    expect(container.querySelector('span > span > span')?.textContent).toBe('2');
   });
 
   it('renders state symbols and reaction arrows', () => {

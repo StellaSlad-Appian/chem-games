@@ -14,16 +14,24 @@ import { CHEAT_SHEETS, GAME_LINKS } from '@/lib/cheat-sheet-data';
 import { PannableBox } from '@/components/cheat-sheets/PannableBox';
 import { ChemIcon } from '@/components/ui/ChemIcon';
 import MoleculeText from '@/components/ui/MoleculeText';
+import ChemText from '@/components/ui/ChemText';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import {
   PeriodicTableOccurrenceWidget,
   PeriodicTableWidget,
 } from '@/components/periodic-table/PeriodicTableWidget';
 import type {
+  CheatSheetImage,
   CheatSheetResource,
   CheatSheetTable,
   CheatSheetWidgetName,
 } from '@/core-engine/types/general';
+import {
+  CSS_PX_PER_UNIT,
+  getCheatSheetDiagrams,
+  type CheatSheetDiagram,
+  type CheatSheetDiagramId,
+} from '@/lib/cheat-sheet-diagrams';
 import { getCheatSheet, getGlobalTeacherResources } from '@/i18n/cheat-sheets';
 import { getDictionary, type Dictionary } from '@/i18n/dictionaries';
 import { gameTitle } from '@/i18n/game-titles';
@@ -95,6 +103,21 @@ function PanelHeading({ icon, children }: { icon?: React.ReactNode; children: Re
   );
 }
 
+/**
+ * The line under an example's formula: "17 protons, 18 neutrons", or on the
+ * formula-mass sheet the whole sum ("2 × 1 + 16 = 18"), which is the point of
+ * the card. ChemText rather than MoleculeText: it is prose and arithmetic,
+ * and only a formula inside it, if there is one, is typeset.
+ */
+function ExampleDescription({ text }: { text?: string }) {
+  if (!text) return null;
+  return (
+    <span className="mt-1 text-xs text-(--muted)">
+      <ChemText text={text} />
+    </span>
+  );
+}
+
 function LookupTable({ table }: { table: CheatSheetTable }) {
   const formulaColumns = new Set(table.formulaColumns ?? []);
   return (
@@ -127,7 +150,9 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
                     {formulaColumns.has(cellIndex) ? (
                       <MoleculeText formula={cell} className="text-base text-(--link)" />
                     ) : (
-                      cell
+                      // A prose cell may still name a formula; ChemText
+                      // typesets only that part ("Cations + anions" stays).
+                      <ChemText text={cell} />
                     )}
                   </td>
                 ))}
@@ -137,6 +162,91 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
         </table>
       </PannableBox>
     </div>
+  );
+}
+
+/**
+ * A section's diagram, drawn at a fixed scale.
+ *
+ * **The size.** A generated diagram is drawn at `CSS_PX_PER_UNIT` (0.8 CSS px
+ * per unit) on every screen, so its 17.5-unit labels are 14 CSS px — the size
+ * of the paragraph above. Its canvas is measured from what it draws
+ * (scripts/cheat-sheet-diagrams.mts), so the box, which is the `<svg>`'s own
+ * border and background, hugs the drawing and sits at the left of the column.
+ * `box-content` keeps the 1 px border outside that size, so the scale is exact.
+ *
+ * It pans sideways inside its `PannableBox` when the column is narrower than
+ * the drawing, exactly as the lookup tables above do, rather than shrinking:
+ * shrunk into the 236 px column a 320 px phone gives, a 400-unit drawing's
+ * labels would be 10 CSS px, and nothing in the drawing can fix that — the
+ * limiter is the column. WCAG 1.4.10 exempts content that needs a
+ * two-dimensional layout from the no-sideways-scrolling rule, which is the
+ * exemption the tables rely on; the page itself still reflows at 320 px.
+ * `PannableBox` says the figure continues past the edge, and makes the box a
+ * tab stop while, and only while, it pans — so a drawing that fits the column
+ * has neither.
+ *
+ * **A generated diagram is inline SVG**, so that its colours are the
+ * `--diagram-*` tokens in globals.css and follow `[data-theme]` — which an
+ * `<img>` cannot — and so that its words are the reader's language. This
+ * component owns the `<svg>` element: its size, its surface, and its
+ * accessible name, which is the section's translated `alt`, so no English
+ * `<title>` in the drawing competes with it (`role="img"` makes the drawing
+ * one image to assistive technology, not a heap of loose words).
+ * `dangerouslySetInnerHTML` inserts markup that scripts/cheat-sheet-diagrams.mts
+ * generated at build time from strings in this repository — never user input —
+ * with every string XML-escaped; ids inside it carry the slot's name, so they
+ * are unique on the page.
+ *
+ * **A hand-made file is a plain `<img>`**, not next/image: there is nothing for
+ * the optimiser to do to an SVG, and next/image would add a config surface
+ * (remotePatterns, dangerouslyAllowSVG) for no gain. Its width/height are the
+ * file's intrinsic size, set so the paragraph below does not jump when it
+ * arrives, and it is pinned at 512 CSS px, as every diagram was before the
+ * generated ones were measured. It cannot follow the theme, which
+ * docs/CHEAT_SHEET_IMAGES.md explains to whoever draws one.
+ */
+/** Drawing units to CSS px. Rounded, because 0.8 is not exact in binary. */
+const toCssPx = (units: number) => Math.round(units * CSS_PX_PER_UNIT * 100) / 100;
+
+function SectionImage({
+  image,
+  diagrams,
+}: {
+  image: CheatSheetImage;
+  diagrams?: Record<CheatSheetDiagramId, CheatSheetDiagram>;
+}) {
+  const surface = 'rounded-2xl border border-(--border) bg-(--diagram-bg)';
+
+  if ('diagram' in image) {
+    const diagram = diagrams?.[image.diagram];
+    // Unreachable while the types hold: `diagram` is typed by the generated
+    // index, and every locale module is generated from the same slot list.
+    if (!diagram) throw new Error(`No generated diagram named ${image.diagram}.`);
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={`0 0 ${diagram.width} ${diagram.height}`}
+        width={toCssPx(diagram.width)}
+        height={toCssPx(diagram.height)}
+        role="img"
+        aria-label={image.alt}
+        data-diagram={diagram.id}
+        className={`${surface} box-content font-normal`}
+        dangerouslySetInnerHTML={{ __html: diagram.markup }}
+      />
+    );
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+      className={`${surface} h-auto w-full min-w-lg max-w-lg`}
+    />
   );
 }
 
@@ -193,6 +303,10 @@ export default async function CheatSheetDetailPage(
     ...(sheet.resources ?? []).filter((r) => r.audience === 'teacher'),
     ...getGlobalTeacherResources(locale),
   ];
+  // Only a sheet that has a generated diagram loads the locale's drawings.
+  const diagrams = sheet.sections.some((section) => section.image && 'diagram' in section.image)
+    ? await getCheatSheetDiagrams(locale)
+    : undefined;
   const relatedGames = (sheet.relatedGames ?? [])
     .map((gameId) => {
       const link = GAME_LINKS[gameId];
@@ -236,7 +350,18 @@ export default async function CheatSheetDetailPage(
             than the column it has been given.
           */}
           <div className="min-w-0">
-            <h1 className="text-3xl font-black break-words text-(--foreground) md:text-4xl">
+            {/*
+              `hyphens-auto` lets the browser break a long German or Russian
+              compound word at a syllable ("Perioden-\nsystem",
+              "Radioaktivi-\ntät") instead of `break-words`' last resort of
+              cutting it anywhere ("Periodensys-\ntem"). It needs the page's
+              `lang` to pick the right hyphenation dictionary, which the
+              locale `<html lang>` on the root layout already sets; English
+              words are short enough here that it makes no visible
+              difference. `break-words` stays as the fallback for the one
+              word `hyphens-auto` cannot break on its own.
+            */}
+            <h1 className="text-3xl font-black break-words hyphens-auto text-(--foreground) md:text-4xl">
               {sheet.title}
             </h1>
             <p className="mt-1 text-sm font-medium break-words text-(--muted) md:text-base">
@@ -269,7 +394,9 @@ export default async function CheatSheetDetailPage(
           {sheet.keyTakeaways.map((takeaway, index) => (
             <li key={index} className="flex items-start gap-3 text-sm font-semibold text-(--foreground) md:text-base">
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-(--success)" aria-hidden="true" />
-              <span>{takeaway}</span>
+              <span>
+                <ChemText text={takeaway} />
+              </span>
             </li>
           ))}
         </ul>
@@ -282,7 +409,15 @@ export default async function CheatSheetDetailPage(
             {sheet.formulaExamples.map((item, index) => (
               <div key={index} className="flex flex-col justify-between rounded-2xl border border-(--border) bg-(--surface-2) p-4">
                 <span className="text-xs font-bold text-(--muted)">{item.name}</span>
-                <MoleculeText formula={item.formula} className="mt-2 text-base font-bold text-(--link) md:text-lg" />
+                {/*
+                  Formula and description stay together at the foot of the
+                  card, so `justify-between` still lines the formulae up along
+                  a row whose names wrap differently.
+                */}
+                <div className="mt-2 flex flex-col">
+                  <MoleculeText formula={item.formula} className="text-base font-bold text-(--link) md:text-lg" />
+                  <ExampleDescription text={item.description} />
+                </div>
               </div>
             ))}
           </div>
@@ -305,68 +440,28 @@ export default async function CheatSheetDetailPage(
             {sheet.sections.map((section) => (
               <article key={section.heading}>
                 <h3 className="text-base font-black text-(--foreground)">{section.heading}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
+                <p className="mt-2 text-sm leading-relaxed text-(--muted)">
+                  <ChemText text={section.content} />
+                </p>
                 {section.image && (
-                  /*
-                   * The diagram is pinned at 512px and pans sideways inside
-                   * this box when the column is narrower than that, exactly as
-                   * the lookup tables above do. It is not free to shrink with
-                   * the column, because below a certain width it stops being a
-                   * diagram and becomes a grey smudge:
-                   *
-                   * The files are 640 units wide, and the generator holds their
-                   * text to a 20-unit floor (scripts/cheat-sheet-diagrams.mts).
-                   * At the 512px cap that is 16 CSS px — the figure
-                   * docs/feature-briefs/atomic-structure-redesign.md §12.3
-                   * sizes the type against. In the 236px column a 320px phone
-                   * actually gave it, the same text drew at 7.4 CSS px, and no
-                   * change to the SVG could fix that: the limiter is the
-                   * column, not the file. Letting the image break out of the
-                   * section padding instead would have bought 320px — 10 CSS
-                   * px — which is not legible either.
-                   *
-                   * WCAG 1.4.10 exempts content that needs a two-dimensional
-                   * layout from the no-sideways-scrolling rule, which is the
-                   * same exemption the tables rely on. The page itself still
-                   * reflows at 320px; only this box scrolls.
-                   *
-                   * `PannableBox` is the box. It tells the reader the figure
-                   * continues past the edge — a 320px phone shows 236 of the
-                   * 512, and the right-hand side of that slice is sometimes
-                   * empty, so the clipping is not always visible in itself —
-                   * and it makes the box a tab stop while it pans. The lookup
-                   * tables above use the same component; an affordance here
-                   * and not there would read as an inconsistency.
-                   *
-                   * A plain <img>, not next/image. These are small static SVGs
-                   * served straight from public/ — there is nothing for the
-                   * optimiser to do to an SVG, and next/image would add a
-                   * config surface (remotePatterns, dangerouslyAllowSVG) for no
-                   * gain. width/height are the file's intrinsic size and are
-                   * set so the paragraph below does not jump when the diagram
-                   * arrives.
-                   *
-                   * Replacing a diagram is replacing the file at `src`; no code
-                   * changes. See docs/CHEAT_SHEET_IMAGES.md.
-                   */
-                  <PannableBox className="mt-3 max-w-lg">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={section.image.src}
-                      alt={section.image.alt}
-                      width={section.image.width}
-                      height={section.image.height}
-                      className="h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--surface-2)"
-                    />
+                  <PannableBox className="mt-3">
+                    <SectionImage image={section.image} diagrams={diagrams} />
                   </PannableBox>
                 )}
                 {section.widget && <SectionWidget name={section.widget} locale={locale} />}
                 {section.examples && section.examples.length > 0 && (
                   <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {section.examples.map((example) => (
-                      <div key={example.name} className="rounded-2xl border border-(--border) bg-(--surface-2) p-3">
+                      /*
+                        `flex flex-col`, like the formula-example cards above.
+                        `MoleculeText` is an inline-flex span, so in a plain
+                        block its `mt-1` did nothing and the card read
+                        "Chlorine-35Cl-35".
+                      */
+                      <div key={example.name} className="flex flex-col rounded-2xl border border-(--border) bg-(--surface-2) p-3">
                         <span className="text-xs font-bold text-(--muted)">{example.name}</span>
                         <MoleculeText formula={example.formula} className="mt-1 text-sm font-bold text-(--link)" />
+                        <ExampleDescription text={example.description} />
                       </div>
                     ))}
                   </div>
@@ -384,7 +479,9 @@ export default async function CheatSheetDetailPage(
             {sheet.commonMistakes.map((mistake, index) => (
               <li key={index} className="flex items-start gap-3 text-sm text-(--foreground)">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--danger)" aria-hidden="true" />
-                <span>{mistake}</span>
+                <span>
+                  <ChemText text={mistake} />
+                </span>
               </li>
             ))}
           </ul>

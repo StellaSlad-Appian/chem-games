@@ -1,0 +1,1104 @@
+// scripts/cheat-sheet-diagram-strings.mts
+//
+// Every word and number printed inside a cheat-sheet diagram, in every locale.
+// `scripts/cheat-sheet-diagrams.mts` reads this table and writes one drawing
+// per slot per locale; the page shows the reader's. This is a module, not a
+// runnable script: importing it must have no effect.
+//
+// ## Writing a locale's strings
+//
+// Localise, do not translate: write each label the way a chemistry teacher in
+// that country would, using the terms in `docs/i18n/glossary-<lang>.md`, and
+// follow `docs/i18n/README.md` §4 for numbers — a decimal comma in de, fr, es,
+// it and ru, and a no-break space (U+00A0) before `%` in de, fr, es and ru, and none in it (`12,5%`).
+//
+// - **Every locale has exactly the keys `en` has.** A missing or extra key
+//   fails the run; nothing falls back to English.
+// - **`{name}` is a whole number the script fills in** from the chemistry
+//   constants at the top of the drawing script (17 protons, 35, 2 8 1 …). Move
+//   it wherever the sentence needs it, but keep it. Only whole numbers under
+//   1000 are ever filled in this way, because those are written the same in all
+//   six languages. The words around a placeholder are yours, for that number:
+//   Russian writes «11 протонов», not a plural rule.
+// - **Every other number is written out here, in the locale's own format** —
+//   `12,5 %`, `127,60`, `1/100 000`. The script parses it back with that
+//   locale's separators and fails if it no longer equals the constant, so a
+//   typo in a number is caught just as a missing key is. (A string still
+//   identical to the English is parsed as English.)
+// - **Each label has a fixed amount of room** in the drawing. The script
+//   estimates every label's width and fails the run when one is wider than its
+//   room, naming the slot, locale and key. Before shortening a word to fit,
+//   read README §3a: the measurement constrains the layout that made the slot,
+//   not the vocabulary, and moving or re-flowing the label is often the fix.
+//   Each run prints the tightest label per slot so near-misses are visible.
+// - A line that says `// TODO translate (task 5/6)` is still the English. Take
+//   the marker off when the string is written; the run counts what is left.
+
+import type { Locale } from '../src/i18n/config.ts';
+
+export type SlotStrings = Record<Locale, Record<string, string>>;
+
+/** Keyed by `<sheet slug>/<slot>`, the same key the page and the data use. */
+export const DIAGRAM_STRINGS: Record<string, SlotStrings> = {
+  'atomic-structure/01-inside-an-atom': {
+    en: {
+      electronCloud: 'electron cloud',
+      nucleus: 'nucleus',
+      proton: 'proton',
+      neutron: 'neutron',
+      scale: 'Not to scale: the nucleus is about 1/100,000 of the atom’s width.',
+    },
+    de: {
+      electronCloud: 'Elektronenwolke',
+      nucleus: 'Atomkern',
+      proton: 'Proton',
+      neutron: 'Neutron',
+      scale: 'Nicht maßstabsgetreu: Der Kern hat nur etwa 1/100 000 des Atomdurchmessers.',
+    },
+    fr: {
+      electronCloud: 'nuage électronique',
+      nucleus: 'noyau',
+      proton: 'proton',
+      neutron: 'neutron',
+      scale: 'Échelle non respectée : le noyau mesure environ 1/100 000 du diamètre de l’atome.',
+    },
+    es: {
+      electronCloud: 'nube electrónica',
+      nucleus: 'núcleo',
+      proton: 'protón',
+      neutron: 'neutrón',
+      scale: 'No está a escala: el núcleo mide cerca de 1/100 000 del diámetro del átomo.',
+    },
+    it: {
+      electronCloud: 'nube elettronica',
+      nucleus: 'nucleo',
+      proton: 'protone',
+      neutron: 'neutrone',
+      scale: 'Non in scala: il nucleo misura circa 1/100 000 del diametro dell’atomo.',
+    },
+    ru: {
+      electronCloud: 'электронное облако',
+      nucleus: 'ядро',
+      proton: 'протон',
+      neutron: 'нейтрон',
+      scale: 'Масштаб не соблюдён: ядро примерно в 100 000 раз меньше атома по диаметру.',
+    },
+  },
+  'atomic-structure/02-atomic-and-mass-number': {
+    en: {
+      massNumber: 'mass number = protons + neutrons',
+      atomicNumber: 'atomic number = protons',
+      subtraction: '{mass} − {atomic} = {neutrons} neutrons',
+    },
+    de: {
+      massNumber: 'Massenzahl = Protonen + Neutronen',
+      atomicNumber: 'Ordnungszahl = Protonen',
+      subtraction: '{mass} − {atomic} = {neutrons} Neutronen',
+    },
+    fr: {
+      massNumber: 'nombre de masse = protons + neutrons',
+      atomicNumber: 'numéro atomique = protons',
+      subtraction: '{mass} − {atomic} = {neutrons} neutrons',
+    },
+    es: {
+      massNumber: 'número másico = protones + neutrones',
+      atomicNumber: 'número atómico = protones',
+      subtraction: '{mass} − {atomic} = {neutrons} neutrones',
+    },
+    it: {
+      massNumber: 'numero di massa = protoni + neutroni',
+      atomicNumber: 'numero atomico = protoni',
+      subtraction: '{mass} − {atomic} = {neutrons} neutroni',
+    },
+    ru: {
+      massNumber: 'массовое число = протоны + нейтроны',
+      atomicNumber: 'атомный номер = протоны',
+      subtraction: '{mass} − {atomic} = {neutrons} нейтронов',
+    },
+  },
+  'atomic-structure/05-energy-levels': {
+    en: {
+      outerLevel: 'outer level',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} electrons',
+      countNote: 'A way to count electrons, not a picture of an atom.',
+    },
+    de: {
+      outerLevel: 'äußerste Stufe',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} Elektronen',
+      countNote: 'Eine Art, Elektronen zu zählen – kein Bild eines Atoms.',
+    },
+    fr: {
+      outerLevel: 'niveau extérieur',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} électrons',
+      countNote: 'Une façon de compter les électrons, pas une image de l’atome.',
+    },
+    es: {
+      outerLevel: 'nivel exterior',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} electrones',
+      countNote: 'Una forma de contar electrones, no una imagen del átomo.',
+    },
+    it: {
+      outerLevel: 'livello esterno',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} elettroni',
+      countNote: 'Un modo per contare gli elettroni, non un’immagine dell’atomo.',
+    },
+    ru: {
+      outerLevel: 'внешний уровень',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} электронов',
+      countNote: 'Схема для подсчёта электронов, а не рисунок атома.',
+    },
+  },
+  'atomic-structure/06-ordered-by-atomic-number': {
+    en: {
+      atomicNumber: 'atomic number',
+      relativeAtomicMass: 'relative atomic mass',
+      telluriumName: 'Tellurium',
+      telluriumMass: '127.60',
+      telluriumRank: 'heavier, but first',
+      iodineName: 'Iodine',
+      iodineMass: '126.90',
+      iodineRank: 'lighter, but second',
+    },
+    de: {
+      atomicNumber: 'Ordnungszahl',
+      relativeAtomicMass: 'relative Atommasse',
+      telluriumName: 'Tellur',
+      telluriumMass: '127,60',
+      telluriumRank: 'schwerer, steht aber vorn',
+      iodineName: 'Iod',
+      iodineMass: '126,90',
+      iodineRank: 'leichter, steht aber dahinter',
+    },
+    fr: {
+      atomicNumber: 'numéro atomique',
+      relativeAtomicMass: 'masse atomique relative',
+      telluriumName: 'Tellure',
+      telluriumMass: '127,60',
+      telluriumRank: 'plus lourd, mais placé avant',
+      iodineName: 'Iode',
+      iodineMass: '126,90',
+      iodineRank: 'plus léger, mais placé après',
+    },
+    es: {
+      atomicNumber: 'número atómico',
+      relativeAtomicMass: 'masa atómica relativa',
+      telluriumName: 'Teluro',
+      telluriumMass: '127,60',
+      telluriumRank: 'más pesado, pero va antes',
+      iodineName: 'Yodo',
+      iodineMass: '126,90',
+      iodineRank: 'más ligero, pero va después',
+    },
+    it: {
+      atomicNumber: 'numero atomico',
+      relativeAtomicMass: 'massa atomica relativa',
+      telluriumName: 'Tellurio',
+      telluriumMass: '127,60',
+      telluriumRank: 'più pesante, ma viene prima',
+      iodineName: 'Iodio',
+      iodineMass: '126,90',
+      iodineRank: 'più leggero, ma viene dopo',
+    },
+    ru: {
+      atomicNumber: 'атомный номер',
+      relativeAtomicMass: 'относительная атомная масса',
+      telluriumName: 'Теллур',
+      telluriumMass: '127,60',
+      telluriumRank: 'тяжелее, но стоит первым',
+      iodineName: 'Иод',
+      iodineMass: '126,90',
+      iodineRank: 'легче, но стоит вторым',
+    },
+  },
+  'isotopes-and-radioactivity/03-isotopes-of-hydrogen': {
+    en: {
+      proton: 'proton',
+      neutron: 'neutron',
+      electron: 'electron',
+      isotopeName: 'hydrogen-{mass}',
+      protium: 'protium',
+      deuterium: 'deuterium',
+      tritium: 'tritium',
+      stable: 'stable',
+      radioactive: 'radioactive',
+    },
+    de: {
+      proton: 'Proton',
+      neutron: 'Neutron',
+      electron: 'Elektron',
+      isotopeName: 'Wasserstoff-{mass}',
+      protium: 'Protium',
+      deuterium: 'Deuterium',
+      tritium: 'Tritium',
+      stable: 'stabil',
+      radioactive: 'radioaktiv',
+    },
+    fr: {
+      proton: 'proton',
+      neutron: 'neutron',
+      electron: 'électron',
+      isotopeName: 'hydrogène {mass}',
+      protium: 'protium',
+      deuterium: 'deutérium',
+      tritium: 'tritium',
+      stable: 'stable',
+      radioactive: 'radioactif',
+    },
+    es: {
+      proton: 'protón',
+      neutron: 'neutrón',
+      electron: 'electrón',
+      isotopeName: 'hidrógeno-{mass}',
+      protium: 'protio',
+      deuterium: 'deuterio',
+      tritium: 'tritio',
+      stable: 'estable',
+      radioactive: 'radiactivo',
+    },
+    it: {
+      proton: 'protone',
+      neutron: 'neutrone',
+      electron: 'elettrone',
+      isotopeName: 'idrogeno-{mass}',
+      protium: 'prozio',
+      deuterium: 'deuterio',
+      tritium: 'trizio',
+      stable: 'stabile',
+      radioactive: 'radioattivo',
+    },
+    ru: {
+      proton: 'протон',
+      neutron: 'нейтрон',
+      electron: 'электрон',
+      isotopeName: 'водород-{mass}',
+      protium: 'протий',
+      deuterium: 'дейтерий',
+      tritium: 'тритий',
+      stable: 'стабильный',
+      radioactive: 'радиоактивный',
+    },
+  },
+  'isotopes-and-radioactivity/07-decay-and-made-elements': {
+    en: {
+      axisAmount: 'undecayed nuclei',
+      axisTime: 'time, in half-lives',
+      percent0: '100%',
+      percent1: '50%',
+      percent2: '25%',
+      percent3: '12.5%',
+      percent4: '6.25%',
+    },
+    de: {
+      axisAmount: 'noch nicht zerfallene Kerne',
+      axisTime: 'Zeit in Halbwertszeiten',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
+    },
+    fr: {
+      axisAmount: 'noyaux non désintégrés',
+      axisTime: 'temps, en demi-vies',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
+    },
+    es: {
+      axisAmount: 'núcleos sin desintegrar',
+      axisTime: 'tiempo, en periodos de semidesintegración',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
+    },
+    it: {
+      axisAmount: 'nuclei non ancora decaduti',
+      axisTime: 'tempo, in tempi di dimezzamento',
+      percent0: '100%',
+      percent1: '50%',
+      percent2: '25%',
+      percent3: '12,5%',
+      percent4: '6,25%',
+    },
+    ru: {
+      axisAmount: 'нераспавшиеся ядра',
+      axisTime: 'время в периодах полураспада',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
+    },
+  },
+  'states-of-matter/01-particles-in-each-state': {
+    en: {
+      solid: 'solid',
+      liquid: 'liquid',
+      gas: 'gas',
+    },
+    de: {
+      solid: 'fest',
+      liquid: 'flüssig',
+      gas: 'gasförmig',
+    },
+    fr: {
+      solid: 'solide',
+      liquid: 'liquide',
+      gas: 'gaz',
+    },
+    es: {
+      solid: 'sólido',
+      liquid: 'líquido',
+      gas: 'gas',
+    },
+    it: {
+      solid: 'solido',
+      liquid: 'liquido',
+      gas: 'gas',
+    },
+    ru: {
+      solid: 'твёрдое',
+      liquid: 'жидкое',
+      gas: 'газообразное',
+    },
+  },
+  'states-of-matter/02-heating-curve': {
+    en: {
+      axisTemperature: 'temperature',
+      axisEnergy: 'energy added',
+      degrees: '{t} °C',
+      melting: 'melting',
+      boiling: 'boiling',
+      solid: 'solid',
+      liquid: 'liquid',
+      gas: 'gas',
+    },
+    de: {
+      axisTemperature: 'Temperatur',
+      axisEnergy: 'zugeführte Energie',
+      degrees: '{t} °C',
+      melting: 'Schmelzen',
+      boiling: 'Sieden',
+      solid: 'fest',
+      liquid: 'flüssig',
+      gas: 'gasförmig',
+    },
+    fr: {
+      axisTemperature: 'température',
+      axisEnergy: 'énergie reçue',
+      degrees: '{t} °C',
+      melting: 'fusion',
+      boiling: 'ébullition',
+      solid: 'solide',
+      liquid: 'liquide',
+      gas: 'gaz',
+    },
+    es: {
+      axisTemperature: 'temperatura',
+      axisEnergy: 'energía suministrada',
+      degrees: '{t} °C',
+      melting: 'fusión',
+      boiling: 'ebullición',
+      solid: 'sólido',
+      liquid: 'líquido',
+      gas: 'gas',
+    },
+    it: {
+      axisTemperature: 'temperatura',
+      axisEnergy: 'energia fornita',
+      degrees: '{t} °C',
+      melting: 'fusione',
+      boiling: 'ebollizione',
+      solid: 'solido',
+      liquid: 'liquido',
+      gas: 'gas',
+    },
+    ru: {
+      axisTemperature: 'температура',
+      axisEnergy: 'полученная энергия',
+      degrees: '{t} °C',
+      melting: 'плавление',
+      boiling: 'кипение',
+      solid: 'твёрдое',
+      liquid: 'жидкое',
+      gas: 'газообразное',
+    },
+  },
+
+  // The formulas are the same in every language; the script checks each one
+  // against the molecule it stands under. The two terms are each locale's
+  // glossary words for a lone pair and a bonding (shared) pair.
+  'lewis-structures/01-lewis-structures': {
+    en: {
+      lonePair: 'lone pair',
+      sharedPair: 'shared pair',
+      water: 'H₂O',
+      ammonia: 'NH₃',
+      carbonDioxide: 'CO₂',
+      methane: 'CH₄',
+    },
+    de: {
+      lonePair: 'freies Elektronenpaar',
+      sharedPair: 'bindendes Elektronenpaar',
+      water: 'H₂O',
+      ammonia: 'NH₃',
+      carbonDioxide: 'CO₂',
+      methane: 'CH₄',
+    },
+    fr: {
+      lonePair: 'doublet non liant',
+      sharedPair: 'doublet liant',
+      water: 'H₂O',
+      ammonia: 'NH₃',
+      carbonDioxide: 'CO₂',
+      methane: 'CH₄',
+    },
+    es: {
+      lonePair: 'par solitario',
+      sharedPair: 'par enlazante',
+      water: 'H₂O',
+      ammonia: 'NH₃',
+      carbonDioxide: 'CO₂',
+      methane: 'CH₄',
+    },
+    it: {
+      lonePair: 'doppietto solitario',
+      sharedPair: 'doppietto di legame',
+      water: 'H₂O',
+      ammonia: 'NH₃',
+      carbonDioxide: 'CO₂',
+      methane: 'CH₄',
+    },
+    ru: {
+      lonePair: 'неподелённая электронная пара',
+      sharedPair: 'общая электронная пара',
+      water: 'H₂O',
+      ammonia: 'NH₃',
+      carbonDioxide: 'CO₂',
+      methane: 'CH₄',
+    },
+  },
+  // One caption per shape: its formula, and under it the shape and the bond
+  // angle. The shape names are the ones each overlay's VSEPR paragraph already
+  // uses, directly above the drawing.
+  'lewis-structures/02-vsepr-shapes': {
+    en: {
+      carbonDioxide: 'CO₂',
+      boronTrifluoride: 'BF₃',
+      methane: 'CH₄',
+      ammonia: 'NH₃',
+      water: 'H₂O',
+      linear: 'linear, 180°',
+      trigonalPlanar: 'trigonal planar, 120°',
+      tetrahedral: 'tetrahedral, 109.5°',
+      trigonalPyramidal: 'trigonal pyramidal, 107°',
+      bent: 'bent, 104.5°',
+    },
+    de: {
+      carbonDioxide: 'CO₂',
+      boronTrifluoride: 'BF₃',
+      methane: 'CH₄',
+      ammonia: 'NH₃',
+      water: 'H₂O',
+      linear: 'linear, 180°',
+      trigonalPlanar: 'trigonal-planar, 120°',
+      tetrahedral: 'tetraedrisch, 109,5°',
+      trigonalPyramidal: 'trigonal-pyramidal, 107°',
+      bent: 'gewinkelt, 104,5°',
+    },
+    fr: {
+      carbonDioxide: 'CO₂',
+      boronTrifluoride: 'BF₃',
+      methane: 'CH₄',
+      ammonia: 'NH₃',
+      water: 'H₂O',
+      linear: 'linéaire, 180°',
+      trigonalPlanar: 'triangulaire plane, 120°',
+      tetrahedral: 'tétraédrique, 109,5°',
+      trigonalPyramidal: 'pyramidale à base triangulaire, 107°',
+      bent: 'coudée, 104,5°',
+    },
+    es: {
+      carbonDioxide: 'CO₂',
+      boronTrifluoride: 'BF₃',
+      methane: 'CH₄',
+      ammonia: 'NH₃',
+      water: 'H₂O',
+      linear: 'lineal, 180°',
+      trigonalPlanar: 'triangular plana, 120°',
+      tetrahedral: 'tetraédrica, 109,5°',
+      trigonalPyramidal: 'piramidal trigonal, 107°',
+      bent: 'angular, 104,5°',
+    },
+    it: {
+      carbonDioxide: 'CO₂',
+      boronTrifluoride: 'BF₃',
+      methane: 'CH₄',
+      ammonia: 'NH₃',
+      water: 'H₂O',
+      linear: 'lineare, 180°',
+      trigonalPlanar: 'trigonale planare, 120°',
+      tetrahedral: 'tetraedrica, 109,5°',
+      trigonalPyramidal: 'piramidale trigonale, 107°',
+      bent: 'angolare, 104,5°',
+    },
+    ru: {
+      carbonDioxide: 'CO₂',
+      boronTrifluoride: 'BF₃',
+      methane: 'CH₄',
+      ammonia: 'NH₃',
+      water: 'H₂O',
+      linear: 'линейная форма, 180°',
+      trigonalPlanar: 'плоский треугольник, 120°',
+      tetrahedral: 'тетраэдр, 109,5°',
+      trigonalPyramidal: 'тригональная пирамида, 107°',
+      bent: 'уголковая форма, 104,5°',
+    },
+  },
+
+  // Formulae are written as `MoleculeText` takes them — plain digits, a charge
+  // at the end — and the script sets them with real sub- and superscripts
+  // (`formulaLabel`). A charge with digits follows its formula after a
+  // no-break space, written ` ` so it can be seen: `Cr2O7 2−`.
+  // Formulae and the state symbol (aq) are the same in every language; the
+  // words round them are not.
+  'functional-groups/01-reaction-map': {
+    en: {
+      alkene: 'alkene',
+      haloalkane: 'haloalkane',
+      primaryAlcohol: 'primary alcohol',
+      secondaryAlcohol: 'secondary alcohol',
+      aldehyde: 'aldehyde',
+      ketone: 'ketone',
+      carboxylicAcid: 'carboxylic acid',
+      ester: 'ester',
+      hydration: 'H2O, H3PO4 catalyst',
+      addition: 'HX',
+      substitution: 'OH− (aq)',
+      oxidation: 'Cr2O7 2−/H+',
+      esterification: 'alcohol, H2SO4 catalyst',
+    },
+    de: {
+      alkene: 'Alken',
+      haloalkane: 'Halogenalkan',
+      primaryAlcohol: 'primärer Alkohol',
+      secondaryAlcohol: 'sekundärer Alkohol',
+      aldehyde: 'Aldehyd',
+      ketone: 'Keton',
+      carboxylicAcid: 'Carbonsäure',
+      ester: 'Ester',
+      hydration: 'H2O, H3PO4 als Katalysator',
+      addition: 'HX',
+      substitution: 'OH− (aq)',
+      oxidation: 'Cr2O7 2−/H+',
+      esterification: 'Alkohol, H2SO4 als Katalysator',
+    },
+    fr: {
+      alkene: 'alcène',
+      haloalkane: 'halogénoalcane',
+      primaryAlcohol: 'alcool primaire',
+      secondaryAlcohol: 'alcool secondaire',
+      aldehyde: 'aldéhyde',
+      ketone: 'cétone',
+      carboxylicAcid: 'acide carboxylique',
+      ester: 'ester',
+      hydration: 'H2O, catalyseur H3PO4',
+      addition: 'HX',
+      substitution: 'OH− (aq)',
+      oxidation: 'Cr2O7 2−/H+',
+      esterification: 'alcool, catalyseur H2SO4',
+    },
+    es: {
+      alkene: 'alqueno',
+      haloalkane: 'haloalcano',
+      primaryAlcohol: 'alcohol primario',
+      secondaryAlcohol: 'alcohol secundario',
+      aldehyde: 'aldehído',
+      ketone: 'cetona',
+      carboxylicAcid: 'ácido carboxílico',
+      ester: 'éster',
+      hydration: 'H2O, H3PO4 como catalizador',
+      addition: 'HX',
+      substitution: 'OH− (aq)',
+      oxidation: 'Cr2O7 2−/H+',
+      esterification: 'alcohol, H2SO4 como catalizador',
+    },
+    it: {
+      alkene: 'alchene',
+      haloalkane: 'alogenuro alchilico',
+      primaryAlcohol: 'alcol primario',
+      secondaryAlcohol: 'alcol secondario',
+      aldehyde: 'aldeide',
+      ketone: 'chetone',
+      carboxylicAcid: 'acido carbossilico',
+      ester: 'estere',
+      hydration: 'H2O, H3PO4 come catalizzatore',
+      addition: 'HX',
+      substitution: 'OH− (aq)',
+      oxidation: 'Cr2O7 2−/H+',
+      esterification: 'alcol, H2SO4 come catalizzatore',
+    },
+    ru: {
+      alkene: 'алкен',
+      haloalkane: 'галогеналкан',
+      primaryAlcohol: 'первичный спирт',
+      secondaryAlcohol: 'вторичный спирт',
+      aldehyde: 'альдегид',
+      ketone: 'кетон',
+      carboxylicAcid: 'карбоновая кислота',
+      ester: 'сложный эфир',
+      hydration: 'H2O, катализатор H3PO4',
+      addition: 'HX',
+      substitution: 'OH− (aq)',
+      oxidation: 'Cr2O7 2−/H+',
+      esterification: 'спирт, катализатор H2SO4',
+    },
+  },
+  // One carbon atom balancing twelve hydrogen atoms. The script prints the
+  // two counts, 1 and 12, large and on a line of their own; these are the
+  // words under them, so write the noun as it goes with that count:
+  // Russian «1 атом углерода», «12 атомов водорода». `notToScale` is each
+  // glossary's own diagram caveat, the one the atom diagrams already print.
+  'relative-formula-mass/01-carbon-hydrogen-balance': {
+    en: {
+      carbonAtom: 'carbon atom',
+      hydrogenAtoms: 'hydrogen atoms',
+      notToScale: 'Not to scale',
+    },
+    de: {
+      carbonAtom: 'Kohlenstoffatom',
+      hydrogenAtoms: 'Wasserstoffatome',
+      notToScale: 'Nicht maßstabsgetreu',
+    },
+    fr: {
+      carbonAtom: 'atome de carbone',
+      hydrogenAtoms: 'atomes d’hydrogène',
+      notToScale: 'Échelle non respectée',
+    },
+    es: {
+      carbonAtom: 'átomo de carbono',
+      hydrogenAtoms: 'átomos de hidrógeno',
+      notToScale: 'No está a escala',
+    },
+    it: {
+      carbonAtom: 'atomo di carbonio',
+      hydrogenAtoms: 'atomi di idrogeno',
+      notToScale: 'Non in scala',
+    },
+    ru: {
+      carbonAtom: 'атом углерода',
+      hydrogenAtoms: 'атомов водорода',
+      notToScale: 'Масштаб не соблюдён',
+    },
+  },
+  // 2H2 + O2 → 2H2O. The three formulas are the same in every language and
+  // are written as MoleculeText writes them, plain digits; the script sets
+  // the subscripts and checks each against the equation it counts atoms from.
+  'balancing-equations/01-particle-equation': {
+    en: {
+      reactants: 'reactants',
+      products: 'products',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    de: {
+      reactants: 'Edukte',
+      products: 'Produkte',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    fr: {
+      reactants: 'réactifs',
+      products: 'produits',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    es: {
+      reactants: 'reactivos',
+      products: 'productos',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    it: {
+      reactants: 'reagenti',
+      products: 'prodotti',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    ru: {
+      reactants: 'реагенты',
+      products: 'продукты',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+  },
+  // The three bonding models. The names are each country's school name for
+  // the bond, as the sheet's own takeaways give them; English heads the
+  // three with the bare adjective, as its table does.
+  'chemical-bonds/01-bonding-models': {
+    en: {
+      ionic: 'ionic',
+      covalent: 'covalent',
+      metallic: 'metallic',
+      sharedPair: 'shared pair',
+      delocalised: 'delocalised electrons',
+    },
+    de: {
+      ionic: 'Ionenbindung',
+      covalent: 'Atombindung',
+      metallic: 'Metallbindung',
+      sharedPair: 'bindendes Elektronenpaar',
+      delocalised: 'frei bewegliche Elektronen',
+    },
+    fr: {
+      ionic: 'liaison ionique',
+      covalent: 'liaison covalente',
+      metallic: 'liaison métallique',
+      sharedPair: 'doublet liant',
+      delocalised: 'électrons libres',
+    },
+    es: {
+      ionic: 'enlace iónico',
+      covalent: 'enlace covalente',
+      metallic: 'enlace metálico',
+      sharedPair: 'par enlazante',
+      delocalised: 'electrones libres',
+    },
+    it: {
+      ionic: 'legame ionico',
+      covalent: 'legame covalente',
+      metallic: 'legame metallico',
+      sharedPair: 'doppietto di legame',
+      delocalised: 'elettroni delocalizzati',
+    },
+    ru: {
+      ionic: 'ионная связь',
+      covalent: 'ковалентная связь',
+      metallic: 'металлическая связь',
+      sharedPair: 'общая электронная пара',
+      delocalised: 'свободные электроны',
+    },
+  },
+  // Five everyday examples beside the pH they sit at. The pH numbers are
+  // drawn by the script; these are only the names, in the words each
+  // overlay's own pH table already uses.
+  'acids-and-bases/01-ph-scale': {
+    en: {
+      stomachAcid: 'stomach acid',
+      vinegar: 'vinegar',
+      pureWater: 'pure water',
+      bakingSoda: 'baking soda',
+      ovenCleaner: 'oven cleaner',
+    },
+    de: {
+      stomachAcid: 'Magensäure',
+      vinegar: 'Essig',
+      pureWater: 'reines Wasser',
+      bakingSoda: 'Natron',
+      ovenCleaner: 'Backofenreiniger',
+    },
+    fr: {
+      stomachAcid: 'suc gastrique',
+      vinegar: 'vinaigre',
+      pureWater: 'eau pure',
+      bakingSoda: 'bicarbonate',
+      ovenCleaner: 'décapant four',
+    },
+    es: {
+      stomachAcid: 'jugo gástrico',
+      vinegar: 'vinagre',
+      pureWater: 'agua pura',
+      bakingSoda: 'bicarbonato',
+      ovenCleaner: 'limpiahornos',
+    },
+    it: {
+      stomachAcid: 'succhi gastrici',
+      vinegar: 'aceto',
+      pureWater: 'acqua pura',
+      bakingSoda: 'bicarbonato',
+      ovenCleaner: 'sgrassatore per forni',
+    },
+    ru: {
+      stomachAcid: 'желудочный сок',
+      vinegar: 'уксус',
+      pureWater: 'чистая вода',
+      bakingSoda: 'пищевая сода',
+      ovenCleaner: 'средство для духовок',
+    },
+  },
+  // end of task 10a strings
+
+  // --- Task 10b: four small diagrams ---
+  //
+  // The cross-over's formulae and its two neutral checks are the same in every
+  // language; only the two ion names are not. Formulae are written as
+  // `MoleculeText` takes them, a charge after a no-break space: `SO4 2−`.
+  'chemical-formulas/01-cross-over': {
+    en: {
+      cation: 'cation',
+      anion: 'anion',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    de: {
+      cation: 'Kation',
+      anion: 'Anion',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    fr: {
+      cation: 'cation',
+      anion: 'anion',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    es: {
+      cation: 'catión',
+      anion: 'anión',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    it: {
+      cation: 'catione',
+      anion: 'anione',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+    ru: {
+      cation: 'катион',
+      anion: 'анион',
+      cationFormula: 'Al 3+',
+      anionFormula: 'SO4 2−',
+      formula: 'Al2(SO4)3',
+      positive: '{count} × (+{charge}) = +{total}',
+      negative: '{count} × (−{charge}) = −{total}',
+    },
+  },
+
+  // The kinds of compound are the words each overlay's own first takeaway
+  // uses (German's summary: Ionenverbindungen, molekulare Stoffe, Säuren).
+  // The examples are named the locale's way, which is the point of them:
+  // anion first in fr, es, it and ru, one word in de, the Stock numeral for a
+  // molecular oxide in ru, and German's traditional Salzsäure.
+  'naming-compounds/01-which-system': {
+    en: {
+      metalNonMetal: 'metal + non-metal',
+      twoNonMetals: 'two non-metals',
+      hydrogenInWater: 'H first, in water',
+      ionic: 'ionic',
+      molecular: 'molecular',
+      acid: 'acid',
+      ionicExample: 'sodium chloride',
+      molecularExample: 'sulfur dioxide',
+      acidExample: 'hydrochloric acid',
+    },
+    de: {
+      metalNonMetal: 'Metall + Nichtmetall',
+      twoNonMetals: 'zwei Nichtmetalle',
+      hydrogenInWater: 'H vorn, in Wasser',
+      ionic: 'Ionenverbindung',
+      molecular: 'molekularer Stoff',
+      acid: 'Säure',
+      ionicExample: 'Natriumchlorid',
+      molecularExample: 'Schwefeldioxid',
+      acidExample: 'Salzsäure',
+    },
+    fr: {
+      metalNonMetal: 'métal + non-métal',
+      twoNonMetals: 'deux non-métaux',
+      hydrogenInWater: 'H en tête, dans l’eau',
+      ionic: 'ionique',
+      molecular: 'moléculaire',
+      acid: 'acide',
+      ionicExample: 'chlorure de sodium',
+      molecularExample: 'dioxyde de soufre',
+      acidExample: 'acide chlorhydrique',
+    },
+    es: {
+      metalNonMetal: 'metal + no metal',
+      twoNonMetals: 'dos no metales',
+      hydrogenInWater: 'H delante, en agua',
+      ionic: 'iónico',
+      molecular: 'molecular',
+      acid: 'ácido',
+      ionicExample: 'cloruro de sodio',
+      molecularExample: 'dióxido de azufre',
+      acidExample: 'ácido clorhídrico',
+    },
+    it: {
+      metalNonMetal: 'metallo + non metallo',
+      twoNonMetals: 'due non metalli',
+      hydrogenInWater: 'H davanti, in acqua',
+      ionic: 'ionico',
+      molecular: 'molecolare',
+      acid: 'acido',
+      ionicExample: 'cloruro di sodio',
+      molecularExample: 'diossido di zolfo',
+      acidExample: 'acido cloridrico',
+    },
+    ru: {
+      metalNonMetal: 'металл + неметалл',
+      twoNonMetals: 'два неметалла',
+      hydrogenInWater: 'H впереди, в воде',
+      ionic: 'ионное',
+      molecular: 'молекулярное',
+      acid: 'кислота',
+      ionicExample: 'хлорид натрия',
+      molecularExample: 'оксид серы(IV)',
+      acidExample: 'соляная кислота',
+    },
+  },
+
+  // The formulae are symbols and the same everywhere; `NA` and `Vm` are set
+  // as N_A and V_m. The hub is "moles of" in es and it, as their overlays say
+  // it ("convierte a moles", "converti in moli"), and the glossary's amount
+  // of substance in de, fr and ru.
+  'stoichiometry/01-mole-map': {
+    en: {
+      mass: 'mass',
+      particles: 'particles',
+      gasVolume: 'gas volume',
+      solution: 'solution',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'moles of reactant',
+      moleRatio: 'mole ratio (coefficients)',
+      productMoles: 'moles of product',
+    },
+    de: {
+      mass: 'Masse',
+      particles: 'Teilchenzahl',
+      gasVolume: 'Gasvolumen',
+      solution: 'Lösung',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'Stoffmenge des Edukts',
+      moleRatio: 'Stoffmengenverhältnis (Koeffizienten)',
+      productMoles: 'Stoffmenge des Produkts',
+    },
+    fr: {
+      mass: 'masse',
+      particles: 'nombre d’entités',
+      gasVolume: 'volume de gaz',
+      solution: 'solution',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'quantité de matière du réactif',
+      moleRatio: 'rapport molaire (coefficients)',
+      productMoles: 'quantité de matière du produit',
+    },
+    es: {
+      mass: 'masa',
+      particles: 'número de partículas',
+      gasVolume: 'volumen de gas',
+      solution: 'disolución',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'moles de reactivo',
+      moleRatio: 'relación molar (coeficientes)',
+      productMoles: 'moles de producto',
+    },
+    it: {
+      mass: 'massa',
+      particles: 'numero di particelle',
+      gasVolume: 'volume di gas',
+      solution: 'soluzione',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'moli di reagente',
+      moleRatio: 'rapporto molare (coefficienti)',
+      productMoles: 'moli di prodotto',
+    },
+    ru: {
+      mass: 'масса',
+      particles: 'число частиц',
+      gasVolume: 'объём газа',
+      solution: 'раствор',
+      fromMass: 'n = m/M',
+      fromParticles: 'n = N/NA',
+      fromGasVolume: 'n = V/Vm',
+      fromSolution: 'n = cV',
+      reactantMoles: 'количество вещества реагента',
+      moleRatio: 'мольное соотношение (коэффициенты)',
+      productMoles: 'количество вещества продукта',
+    },
+  },
+
+  // The name is each language's IUPAC form, with the two numbers filled from
+  // the drawing: Italian alcohols end in -olo, and German capitalises the
+  // first letter of the name.
+  'organic-nomenclature/01-numbered-chain': {
+    en: {
+      hydroxyl: 'OH',
+      methyl: 'methyl',
+      name: '{methylAt}-methylpentan-{hydroxylAt}-ol',
+    },
+    de: {
+      hydroxyl: 'OH',
+      methyl: 'Methylgruppe',
+      name: '{methylAt}-Methylpentan-{hydroxylAt}-ol',
+    },
+    fr: {
+      hydroxyl: 'OH',
+      methyl: 'méthyle',
+      name: '{methylAt}-méthylpentan-{hydroxylAt}-ol',
+    },
+    es: {
+      hydroxyl: 'OH',
+      methyl: 'metilo',
+      name: '{methylAt}-metilpentan-{hydroxylAt}-ol',
+    },
+    it: {
+      hydroxyl: 'OH',
+      methyl: 'metile',
+      name: '{methylAt}-metilpentan-{hydroxylAt}-olo',
+    },
+    ru: {
+      hydroxyl: 'OH',
+      methyl: 'метил',
+      name: '{methylAt}-метилпентан-{hydroxylAt}-ол',
+    },
+  },
+  // end of task 10b strings
+};

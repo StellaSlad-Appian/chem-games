@@ -36,6 +36,8 @@ way Spanish's did.
 | Ellipsis | **…** as a single character. |
 | Decimals | **Comma**: 6,02 × 10²³, not 6.02. (Prose only; code and formulae keep their own notation.) |
 | Thousands | A no-break space: 1 000. The traditional Italian point (1.000) was rejected because the same sheets print decimal commas and the two conventions collide for a reader who meets both in one worked example; the SI space is unambiguous and matches the Spanish decision. |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 anni*. The SI space starts at five digits (*65 000*); a four-digit number may stand unseparated, and it is what the isotopes prose already printed. |
 | Accents on capitals | **Kept, and this one is a spelling rule.** *È* is a letter, and *E’* is a typewriter workaround that Italian style guides reject. Every sentence-initial *È* on the site is U+00C8. |
 | Accents, generally | Italian accents are **final** (*perché*, *città*, *più*, *lunedì*), and the grave/acute distinction matters: *perché*, *poiché*, *né*, *sé* take an acute; *è*, *città*, *però*, *più* take a grave. |
 | Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `it` (see below). |
@@ -245,6 +247,8 @@ than failing silently on screen.
 | concentrated / dilute | **concentrato / diluito** | — |
 | salt | **sale** | Plural *sali*. |
 | ion | **ione** | *Ione*, plural *ioni*; *catione* / *anione*. Italian keeps the final *-e* where Spanish drops it, so none of the RAE accent question arises. |
+| pH scale | **scala del pH** | With the article, as the sheet's own table heading has it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **succhi gastrici** (1), **aceto** (3), **acqua pura** (7), **bicarbonato** (8), **sgrassatore per forni** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Succhi gastrici* is plural, as Italian says it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -280,6 +284,15 @@ than failing silently on screen.
 | formal charge | **carica formale** | — |
 | electronegativity | **elettronegatività** | Final accent — fine in prose, but **never usable as a glossary match word** (see above). |
 | delocalised electrons | **elettroni delocalizzati** | The school phrasing for the "sea" in a metal is *mare di elettroni*; *elettroni liberi* is also used, **and that is the second reason *libero* could not be the game's word for a loner** — it already means something else, and something a student meets on the bonding sheet. |
+| particle | **particella** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusione / ebollizione** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **curva di riscaldamento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **energia fornita** | Italian textbooks say *calore fornito*; *energia* keeps the sheet's word. *Energia aggiunta* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| gas, as a state name in a diagram | **gas** | Italian school books also call the state *aeriforme*. Kept *gas*, per the row above and the sheet's own prose, so the diagram and the paragraph agree. **Rated medium.** Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineare, trigonale planare, tetraedrica, piramidale trigonale, angolare** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometria*. **Bent is *angolare*, not *piegata***: both are in Italian textbooks, and *angolare* is the word the sheet's VSEPR paragraph already used directly above the drawing, so the two agree. Angles: *109,5°*. |
+| bond angle | **angolo di legame** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuneo pieno / cuneo tratteggiato** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lobo** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: Italian's own two-tier pair, and the three words it could not use — historical, and why it is kept
 
@@ -425,11 +438,12 @@ the split.
 | atomic number | **numero atomico** | — |
 | mass number | **numero di massa** | — |
 | energy level | **livello di energia** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **guscio elettronico** | VC2S10U07 says "electron shells", so the sheet names *guscio* once as the word the reader's teacher uses, and keeps *livello di energia* as its own term. |
+| electron shell (the curriculum's word) | **guscio elettronico** | VC2S10U07 says "electron shells", so the sheet names *guscio* once as the word the reader's teacher uses, and keeps *livello di energia* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Chi ti insegna può chiamarli gusci*); it no longer mentions the programma. |
 | outer level / outer shell | **livello esterno** / **guscio esterno** | *Livello esterno* throughout, to stay consistent with *livello di energia*. |
 | Bohr model | **modello di Bohr** | Named as a *model* every time, per the sheet's own contract. |
 | isotope | **isotopo** | — |
 | group (a column) | **gruppo** | The sheet always writes *gruppo 1*, *gruppo 17*, never a bare *gruppo*, because *gruppo* also names a functional group. |
+| valence electrons from the group number | **l’ultima cifra del numero del gruppo** (*il Cl è nel gruppo 17: 7 elettroni di valenza*) | Added 2026-09-25. The sheets number the groups 1–18, where *numero del gruppo = elettroni di valenza* only holds for groups 1 and 2. Some Italian textbooks still print the I–VIII A-group numbering, where the plain rule works; the last-digit rule is correct in both. **Rated medium**: a teacher using an older book may prefer to name the Roman numeral too. |
 | period (a row) | **periodo** | Not *riga*, which is the layout word; *periodo* is the term and pairs with *tavola periodica*. |
 | metal | **metallo** | — |
 | non metal | **non metallo** | Two words, no hyphen, as Italian chemistry writes it. Plural *non metalli*. |
@@ -447,11 +461,23 @@ the split.
 | radioactive decay | **decadimento radioattivo** | Verb: *decadere*. — |
 | alpha particle | **particella alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **particella beta** | — |
+| beta decay | **decadimento beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particella beta*; *decadimento* is the school word, not *disintegrazione*. |
 | gamma radiation | **radiazione gamma** | *Radiazione*, not *raggio*: gamma is radiation, not a particle. |
+| shielding gamma ("reduces, never stops") | **attenuare**: *il piombo o il cemento spesso la attenuano molto* | Added 2026-09-24. *Attenuazione* is the textbook word for gamma passing through matter; alpha and beta keep *fermare*. |
 | half-life | **tempo di dimezzamento** | The term Italian textbooks use, and the one the sheet already used. *Emivita* is the medical and pharmacological word; it is understood but reads clinical. |
 | synthetic element / made element | **elemento artificiale** | *Elemento sintetico* is also correct; *artificiale* is what Italian uses for the transuranium elements. |
 | radiocarbon dating | **datazione al radiocarbonio** | The standard Italian phrase. *Datazione al carbonio-14* is equally clear and is used once, where the sheet names the isotope. |
 | optically stimulated luminescence (OSL) | **luminescenza otticamente stimolata (OSL)** | The abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in Italian school material. |
+| electron cloud (diagram label) | **nube elettronica** | Added 2026-09-25 with the redrawn atom diagrams. *Nuvola elettronica* is also in circulation; *nube* is the textbook form and is shorter. The old alt text said *nuvola sfumata*; the new one follows the label. |
+| not to scale (diagram caveat) | **Non in scala**, and the ratio as **1/100 000 del diametro dell’atomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diametro*, because by volume the ratio is about 10⁻¹⁵. |
+| heavier, but first / lighter, but second (06) | **più pesante, ma viene prima** / **più leggero, ma viene dopo** | Added 2026-09-25 with the redrawn atom diagrams. *Venire prima / dopo* is the natural Italian for a place in a sequence. |
+| a cell of the periodic table | **casella** | Added 2026-09-25 with the redrawn atom diagrams. |
+| percentages | **12,5%**, with no space before the sign | Added 2026-09-25 with the redrawn isotope diagrams. The glossary was silent. Italian school books and the Italian CLDR format write the sign straight after the number, so Italian differs from de, fr, es and ru here. |
+| hydrogen-1, -2, -3 (03) | **idrogeno-1**, **idrogeno-2**, **idrogeno-3** | Added 2026-09-25 with the redrawn isotope diagrams. With a hyphen, like *carbonio-14*. |
+| protium / deuterium / tritium (03) | **prozio** / **deuterio** / **trizio** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name. Note the Italian spellings *prozio* and *trizio*, not *protio* / *tritio*. |
+| stable / radioactive, of one isotope (03) | **stabile** / **radioattivo** | Added 2026-09-25 with the redrawn isotope diagrams. Masculine, agreeing with *idrogeno*. |
+| undecayed nuclei (07, vertical axis) | **nuclei non ancora decaduti** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Italian textbooks plot in the decay law, with *decadere* per the row above. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **tempo, in tempi di dimezzamento** | Added 2026-09-25 with the redrawn isotope diagrams. |
 
 ## Formulae, equations and naming
 
@@ -480,6 +506,8 @@ the split.
 | precipitation reaction | **reazione di precipitazione** | — |
 | oxidation / reduction | **ossidazione / riduzione** | — |
 | oxidising agent | **ossidante** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *cloruro di sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Italian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **metodo dell’incrocio** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
 
 ## The mole and stoichiometry
 
@@ -495,6 +523,13 @@ the split.
 | in excess | **in eccesso** | — |
 | theoretical / actual yield | **resa teorica / resa effettiva** | **Italian does not have the structural problem French has here.** French *rendement* is only a ratio, so the two masses had to be renamed; Italian *resa* is used for both the mass and the ratio, exactly as English "yield" and Spanish *rendimiento* are. The stoichiometry sheet can therefore follow the English structure directly. |
 | percentage yield | **resa percentuale** | *Resa (%) = resa effettiva ÷ resa teorica × 100.* |
+| significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
+| CSA (condizioni standard ambiente) | **withheld — spell out "a 25 °C e 100 kPa"** | Added 2026-09-25. "CSA" is a VCE (Australian) abbreviation with no Italian equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **bilancia a due piatti**; level is **in equilibrio** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **rapporto molare** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **numero di particelle** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **moli di reagente / di prodotto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Moli di*, as the overlay says it (*converti in moli*); *quantità di sostanza del reagente* is correct and too long for the box. |
 
 ## Organic chemistry
 
@@ -515,6 +550,10 @@ the split.
 | substituent | **sostituente** | Note *sostituente*, not "substituente". |
 | chain (carbon chain) | **catena / catena carboniosa** | — |
 | locant (position number) | **numero di posizione** / **numero** | Prose uses *numero* at this level. |
+| primary / secondary / tertiary alcohol | **alcol primario / secondario / terziario** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalizzatore** | Added 2026-09-25. On the reaction map: *H₃PO₄ come catalizzatore*. |
+| skeletal formula | **formula scheletrica** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Formula topologica* is also used. **Rated medium.** |
+| methyl (group), as a diagram label | **metile** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Metile* as a noun; *metil-* inside a name. The alcohol suffix is **-olo** (*3-metilpentan-2-olo*), as the sheet already writes it. |
 
 ---
 

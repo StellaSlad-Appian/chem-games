@@ -1,0 +1,704 @@
+{
+  "en": {
+    "atomic-structure": [
+      "Na+"
+    ],
+    "acids-and-bases": [
+      "H+",
+      "H3O+",
+      "OH−",
+      "H+ + OH− → H2O",
+      "H+",
+      "H+",
+      "HNO3",
+      "H2SO4",
+      "CH3COOH",
+      "H2CO3",
+      "H+",
+      "H+",
+      "H3O+",
+      "NH3"
+    ],
+    "balancing-equations": [
+      "O2",
+      "H2O",
+      "H2O2",
+      "2Ca(OH)2"
+    ],
+    "reaction-types": [
+      "O2",
+      "CO2",
+      "H2O",
+      "CO2"
+    ],
+    "chemical-formulas": [
+      "NH4+",
+      "Ca(OH)2",
+      "CaOH2",
+      "Fe 3+",
+      "Al 3+",
+      "SO4 2−",
+      "Al2(SO4)3",
+      "Mg2O2"
+    ],
+    "polyatomic-ions": [
+      "NH4+",
+      "H3O+",
+      "SO4 2−",
+      "SO3 2−",
+      "NO3−",
+      "NO2−",
+      "ClO4−",
+      "ClO3−",
+      "ClO2−",
+      "ClO−",
+      "H+",
+      "CO3 2−",
+      "HCO3−",
+      "OH−",
+      "CN−",
+      "NH4+",
+      "O2 2−",
+      "H2SO4",
+      "HNO3",
+      "Ca(OH)2",
+      "CaO2H2"
+    ],
+    "naming-compounds": [
+      "NH4+",
+      "FeCl2",
+      "FeCl3",
+      "CO2",
+      "N2O4",
+      "H2SO4",
+      "H2SO3",
+      "NH4+",
+      "Fe2(SO4)3",
+      "CaCl2"
+    ],
+    "relative-formula-mass": [
+      "H2O",
+      "CO2",
+      "Mg(OH)2",
+      "CO2",
+      "Mg(OH)2"
+    ],
+    "stoichiometry": [
+      "2H2 + O2 → 2H2O",
+      "H2",
+      "H2",
+      "H2O",
+      "H2O",
+      "H2O",
+      "H2",
+      "O2",
+      "H2",
+      "O2",
+      "H2O",
+      "O2",
+      "H2",
+      "H2",
+      "O2"
+    ],
+    "lewis-structures": [
+      "NH3",
+      "H2O",
+      "BF3",
+      "PCl5",
+      "SF6",
+      "NO2",
+      "CO2"
+    ],
+    "functional-groups": [
+      "CH2",
+      "NH2",
+      "CONH2"
+    ]
+  },
+  "de": {
+    "atomic-structure": [
+      "Na+"
+    ],
+    "acids-and-bases": [
+      "H+",
+      "H3O+",
+      "OH−",
+      "H+ + OH− → H2O",
+      "H+",
+      "H+",
+      "HNO3",
+      "H2SO4",
+      "CH3COOH",
+      "H2CO3",
+      "H+",
+      "H+",
+      "H3O+",
+      "NH3"
+    ],
+    "balancing-equations": [
+      "O2",
+      "H2O",
+      "H2O2",
+      "2Ca(OH)2"
+    ],
+    "reaction-types": [
+      "O2",
+      "CO2",
+      "H2O",
+      "CO2"
+    ],
+    "chemical-formulas": [
+      "NH4+",
+      "Ca(OH)2",
+      "CaOH2",
+      "Fe 3+",
+      "Al 3+",
+      "SO4 2−",
+      "Al2(SO4)3",
+      "Mg2O2"
+    ],
+    "polyatomic-ions": [
+      "NH4+",
+      "H3O+",
+      "SO4 2−",
+      "SO3 2−",
+      "NO3−",
+      "NO2−",
+      "ClO4−",
+      "ClO3−",
+      "ClO2−",
+      "ClO−",
+      "H+",
+      "CO3 2−",
+      "HCO3−",
+      "OH−",
+      "CN−",
+      "NH4+",
+      "O2 2−",
+      "H2SO4",
+      "HNO3",
+      "Ca(OH)2",
+      "CaO2H2"
+    ],
+    "naming-compounds": [
+      "NH4+",
+      "FeCl2",
+      "FeCl3",
+      "CO2",
+      "N2O4",
+      "H2SO4",
+      "H2SO3",
+      "HNO3",
+      "HNO2",
+      "NH4+",
+      "Fe2(SO4)3",
+      "CaCl2"
+    ],
+    "relative-formula-mass": [
+      "H2O",
+      "CO2",
+      "Mg(OH)2",
+      "CO2",
+      "Mg(OH)2"
+    ],
+    "stoichiometry": [
+      "2H2 + O2 → 2H2O",
+      "H2",
+      "H2",
+      "H2O",
+      "H2O",
+      "H2O",
+      "H2",
+      "O2",
+      "H2",
+      "O2",
+      "H2O",
+      "O2",
+      "H2",
+      "H2",
+      "O2"
+    ],
+    "lewis-structures": [
+      "NH3",
+      "H2O",
+      "BF3",
+      "PCl5",
+      "SF6",
+      "NO2",
+      "CO2"
+    ],
+    "functional-groups": [
+      "CH2",
+      "NH2",
+      "CONH2"
+    ]
+  },
+  "fr": {
+    "atomic-structure": [
+      "Na+"
+    ],
+    "acids-and-bases": [
+      "H+",
+      "H3O+",
+      "OH−",
+      "H+ + OH− → H2O",
+      "H+",
+      "H+",
+      "HNO3",
+      "H2SO4",
+      "CH3COOH",
+      "H2CO3",
+      "H+",
+      "H+",
+      "H3O+",
+      "NH3"
+    ],
+    "balancing-equations": [
+      "O2",
+      "H2O",
+      "H2O2",
+      "2Ca(OH)2"
+    ],
+    "reaction-types": [
+      "O2",
+      "CO2",
+      "H2O",
+      "CO2"
+    ],
+    "chemical-formulas": [
+      "NH4+",
+      "Ca(OH)2",
+      "CaOH2",
+      "Fe 3+",
+      "Al 3+",
+      "SO4 2−",
+      "Al2(SO4)3",
+      "Mg2O2"
+    ],
+    "polyatomic-ions": [
+      "NH4+",
+      "H3O+",
+      "SO4 2−",
+      "SO3 2−",
+      "NO3−",
+      "NO2−",
+      "ClO4−",
+      "ClO3−",
+      "ClO2−",
+      "ClO−",
+      "H+",
+      "CO3 2−",
+      "HCO3−",
+      "OH−",
+      "CN−",
+      "NH4+",
+      "O2 2−",
+      "H2SO4",
+      "HNO3",
+      "Ca(OH)2",
+      "CaO2H2"
+    ],
+    "naming-compounds": [
+      "NH4+",
+      "FeCl2",
+      "FeCl3",
+      "CO2",
+      "N2O4",
+      "SO4 2−",
+      "H2SO4",
+      "NO2−",
+      "HNO2",
+      "NH4+",
+      "Fe2(SO4)3",
+      "CaCl2"
+    ],
+    "relative-formula-mass": [
+      "H2O",
+      "CO2",
+      "Mg(OH)2",
+      "CO2",
+      "Mg(OH)2"
+    ],
+    "stoichiometry": [
+      "2H2 + O2 → 2H2O",
+      "H2",
+      "H2",
+      "H2O",
+      "H2O",
+      "H2O",
+      "H2",
+      "O2",
+      "H2",
+      "O2",
+      "H2O",
+      "O2",
+      "H2",
+      "H2",
+      "O2"
+    ],
+    "lewis-structures": [
+      "NH3",
+      "H2O",
+      "BF3",
+      "PCl5",
+      "SF6",
+      "NO2",
+      "CO2"
+    ],
+    "functional-groups": [
+      "CH2",
+      "NH2",
+      "CONH2"
+    ]
+  },
+  "es": {
+    "atomic-structure": [
+      "Na+"
+    ],
+    "acids-and-bases": [
+      "H+",
+      "H3O+",
+      "OH−",
+      "H+ + OH− → H2O",
+      "H+",
+      "H+",
+      "HNO3",
+      "H2SO4",
+      "CH3COOH",
+      "H2CO3",
+      "H+",
+      "H+",
+      "H3O+",
+      "NH3"
+    ],
+    "balancing-equations": [
+      "O2",
+      "H2O",
+      "H2O2",
+      "2Ca(OH)2"
+    ],
+    "reaction-types": [
+      "O2",
+      "CO2",
+      "H2O",
+      "CO2"
+    ],
+    "chemical-formulas": [
+      "NH4+",
+      "Ca(OH)2",
+      "CaOH2",
+      "Fe 3+",
+      "Al 3+",
+      "SO4 2−",
+      "Al2(SO4)3",
+      "Mg2O2"
+    ],
+    "polyatomic-ions": [
+      "NH4+",
+      "H3O+",
+      "SO4 2−",
+      "SO3 2−",
+      "NO3−",
+      "NO2−",
+      "ClO4−",
+      "ClO3−",
+      "ClO2−",
+      "ClO−",
+      "H+",
+      "CO3 2−",
+      "HCO3−",
+      "OH−",
+      "CN−",
+      "NH4+",
+      "O2 2−",
+      "H2SO4",
+      "HNO3",
+      "Ca(OH)2",
+      "CaO2H2"
+    ],
+    "naming-compounds": [
+      "NH4+",
+      "FeCl2",
+      "FeCl3",
+      "CO2",
+      "N2O4",
+      "H2SO4",
+      "H2SO3",
+      "NH4+",
+      "Fe2(SO4)3",
+      "CaCl2"
+    ],
+    "relative-formula-mass": [
+      "H2O",
+      "CO2",
+      "Mg(OH)2",
+      "CO2",
+      "Mg(OH)2"
+    ],
+    "stoichiometry": [
+      "2H2 + O2 → 2H2O",
+      "H2",
+      "H2",
+      "H2O",
+      "H2O",
+      "H2O",
+      "H2",
+      "O2",
+      "H2",
+      "O2",
+      "H2O",
+      "O2",
+      "H2",
+      "H2",
+      "O2"
+    ],
+    "lewis-structures": [
+      "NH3",
+      "H2O",
+      "BF3",
+      "PCl5",
+      "SF6",
+      "NO2",
+      "CO2"
+    ],
+    "functional-groups": [
+      "CH2",
+      "NH2",
+      "CONH2"
+    ]
+  },
+  "it": {
+    "atomic-structure": [
+      "Na+"
+    ],
+    "acids-and-bases": [
+      "H+",
+      "H3O+",
+      "OH−",
+      "H+ + OH− → H2O",
+      "H+",
+      "H+",
+      "HNO3",
+      "H2SO4",
+      "CH3COOH",
+      "H2CO3",
+      "H+",
+      "H+",
+      "H3O+",
+      "NH3"
+    ],
+    "balancing-equations": [
+      "O2",
+      "H2O",
+      "H2O2",
+      "2Ca(OH)2"
+    ],
+    "reaction-types": [
+      "O2",
+      "CO2",
+      "H2O",
+      "CO2"
+    ],
+    "chemical-formulas": [
+      "NH4+",
+      "Ca(OH)2",
+      "CaOH2",
+      "Fe 3+",
+      "Al 3+",
+      "SO4 2−",
+      "Al2(SO4)3",
+      "Mg2O2"
+    ],
+    "polyatomic-ions": [
+      "NH4+",
+      "H3O+",
+      "SO4 2−",
+      "SO3 2−",
+      "NO3−",
+      "NO2−",
+      "ClO4−",
+      "ClO3−",
+      "ClO2−",
+      "ClO−",
+      "H+",
+      "CO3 2−",
+      "HCO3−",
+      "OH−",
+      "CN−",
+      "NH4+",
+      "O2 2−",
+      "H2SO4",
+      "HNO3",
+      "Ca(OH)2",
+      "CaO2H2"
+    ],
+    "naming-compounds": [
+      "NH4+",
+      "FeCl2",
+      "FeCl3",
+      "CO2",
+      "N2O4",
+      "H2SO4",
+      "H2SO3",
+      "NH4+",
+      "Fe2(SO4)3",
+      "CaCl2"
+    ],
+    "relative-formula-mass": [
+      "H2O",
+      "CO2",
+      "Mg(OH)2",
+      "CO2",
+      "Mg(OH)2"
+    ],
+    "stoichiometry": [
+      "2H2 + O2 → 2H2O",
+      "H2",
+      "H2",
+      "H2O",
+      "H2O",
+      "H2O",
+      "H2",
+      "O2",
+      "H2",
+      "O2",
+      "H2O",
+      "O2",
+      "H2",
+      "H2",
+      "O2"
+    ],
+    "lewis-structures": [
+      "NH3",
+      "H2O",
+      "BF3",
+      "PCl5",
+      "SF6",
+      "NO2",
+      "CO2"
+    ],
+    "functional-groups": [
+      "CH2",
+      "NH2",
+      "CONH2"
+    ]
+  },
+  "ru": {
+    "atomic-structure": [
+      "Na+"
+    ],
+    "acids-and-bases": [
+      "H+",
+      "H3O+",
+      "OH−",
+      "H+ + OH− → H2O",
+      "H+",
+      "H+",
+      "HNO3",
+      "H2SO4",
+      "CH3COOH",
+      "H2CO3",
+      "H+",
+      "H+",
+      "H3O+",
+      "NH3"
+    ],
+    "balancing-equations": [
+      "O2",
+      "H2O",
+      "H2O2",
+      "2Ca(OH)2"
+    ],
+    "reaction-types": [
+      "O2",
+      "CO2",
+      "H2O",
+      "CO2"
+    ],
+    "chemical-formulas": [
+      "NH4+",
+      "Ca(OH)2",
+      "CaOH2",
+      "Fe 3+",
+      "Al 3+",
+      "SO4 2−",
+      "Al2(SO4)3",
+      "Mg2O2"
+    ],
+    "polyatomic-ions": [
+      "NH4+",
+      "H3O+",
+      "SO4 2−",
+      "SO3 2−",
+      "NO3−",
+      "NO2−",
+      "ClO4−",
+      "ClO3−",
+      "ClO2−",
+      "ClO−",
+      "H+",
+      "CO3 2−",
+      "HCO3−",
+      "OH−",
+      "CN−",
+      "NH4+",
+      "O2 2−",
+      "H2SO4",
+      "HNO3",
+      "Ca(OH)2",
+      "CaO2H2"
+    ],
+    "naming-compounds": [
+      "NH4+",
+      "FeCl2",
+      "FeCl3",
+      "CO2",
+      "N2O4",
+      "H2S",
+      "H2SO4",
+      "H2SO3",
+      "NH4+",
+      "Fe2(SO4)3",
+      "CaCl2",
+      "Fe2O3"
+    ],
+    "relative-formula-mass": [
+      "H2O",
+      "CO2",
+      "Mg(OH)2",
+      "CO2",
+      "Mg(OH)2"
+    ],
+    "stoichiometry": [
+      "2H2 + O2 → 2H2O",
+      "H2",
+      "H2",
+      "H2O",
+      "H2O",
+      "H2O",
+      "H2",
+      "O2",
+      "H2",
+      "O2",
+      "H2O",
+      "O2",
+      "H2",
+      "H2",
+      "O2"
+    ],
+    "lewis-structures": [
+      "NH3",
+      "H2O",
+      "BF3",
+      "PCl5",
+      "SF6",
+      "NO2",
+      "CO2"
+    ],
+    "functional-groups": [
+      "CH2",
+      "NH2",
+      "CONH2"
+    ]
+  }
+}

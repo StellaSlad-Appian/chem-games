@@ -84,6 +84,9 @@ setting.
 | Apostrophe | Spanish does not use one. Nothing to escape inside single-quoted TypeScript strings, which is a small mercy after French. |
 | Decimals | **Comma**: 6,02 × 10²³, not 6.02. (Prose only; code and formulae keep their own notation.) |
 | Thousands | A no-break space, per the RAE since 2010: 1 000. Never `1,000` and never `1.000`. |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 años*. The RAE (*Ortografía*, 2010) writes four-digit numbers without the space; it starts at five digits (*65 000*). |
+| billion (10⁹) | **mil millones**, so 4.5 billion years is *4500 millones de años*. Never *billón*, which in Spanish is 10¹² — a thousand times too old for uranium-238. |
 | Accents on capitals | **Kept**: *Á*, *É*, *Ó*, *Ñ*. *Acidos* is a spelling mistake; *Ácidos* is not. |
 | Ordinals | *3º*, *4º* with the masculine ordinal indicator (U+00BA), which is one character and does not need a superscript font — the same reasoning that made French write *3e* rather than *3ᵉ*. |
 | Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `es` (see below). |
@@ -231,6 +234,8 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | concentrated / dilute | **concentrado / diluido** | — |
 | salt | **sal** | — |
 | ion | **ion** | Without an accent. The RAE now prints *ion* (a monosyllable); *ión* is the older spelling and still widespread. Consistency matters more than either choice here, so: *ion*, everywhere, including *catión* and *anión*, which **do** carry their accent because they are stressed on the last syllable. |
+| pH scale | **escala de pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **jugo gástrico** (1), **vinagre** (3), **agua pura** (7), **bicarbonato** (8), **limpiahornos** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Jugo gástrico* is the school term in Spain as well as in Latin America. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -266,6 +271,14 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | formal charge | **carga formal** | — |
 | electronegativity | **electronegatividad** | — |
 | delocalised electrons | **electrones libres** | The literal *electrones deslocalizados* is correct and is upper-secondary register; *electrones libres* is the school phrasing for the "sea" in a metal. **And it is a second reason *libre* could not be the game's word for a loner** — *electrón libre* already means something else, and something a student meets on the bonding sheet. |
+| particle | **partícula** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusión / ebullición** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **curva de calentamiento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **energía suministrada** | Spanish textbooks label this axis *calor suministrado*; *energía* keeps the sheet's word. *Energía añadida* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineal, triangular plana, tetraédrica, piramidal trigonal, angular** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometría*, as a Bachillerato textbook writes them, and the ones the sheet's RPECV paragraph already used. *Trigonal plana* is also seen. The model is **RPECV** in Spanish, never *VSEPR* in running text. Angles: *109,5°*. |
+| bond angle | **ángulo de enlace** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuña rellena / cuña rayada** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lóbulo** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: Spanish's own two-tier pair, and the trap it had to avoid — historical, and why it is kept
 
@@ -373,11 +386,12 @@ the split.
 | atomic number | **número atómico** | — |
 | mass number | **número másico** | Not *número de masa*, which is the calque; *másico* is what a Spanish textbook prints. |
 | energy level | **nivel de energía** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **capa electrónica** | VC2S10U07 says "electron shells", so the sheet names *capa* once as the word the reader's teacher uses, and keeps *nivel de energía* as its own term. |
+| electron shell (the curriculum's word) | **capa electrónica** | VC2S10U07 says "electron shells", so the sheet names *capa* once as the word the reader's teacher uses, and keeps *nivel de energía* as its own term. Since 2026-09-25 the sentence is *Puede que en clase oigas llamarlos capas*: it credits the word to the classroom alone, no longer to the curriculum, and it avoids a gendered *tu profesor*. |
 | outer level / outer shell | **nivel exterior** / **última capa** | *Última capa* is what a Spanish classroom says; the sheet uses *nivel exterior* to stay consistent with *nivel de energía*. |
 | Bohr model | **modelo de Bohr** | Named as a *model* every time, per the sheet's own contract. |
 | isotope | **isótopo** | — |
 | group (a column) | **grupo** | The sheet always writes *grupo 1*, *grupo 17*, never a bare *grupo*, because *grupo* also names a functional group. |
+| valence electrons from the group number | **la última cifra del número de grupo** (*el Cl está en el grupo 17: 7 electrones de valencia*) | Added 2026-09-25. Spanish textbooks number the groups 1–18, where *número de grupo = electrones de valencia* only holds for groups 1 and 2. The bonding and Lewis sheets now state the last-digit rule. |
 | period (a row) | **periodo** | Without the accent: the RAE lists *periodo* and *período* as equally valid, and current Spanish chemistry writing prefers the unaccented form. Not *fila*, which is the layout word. |
 | metal | **metal** | — |
 | non-metal | **no metal** | Two words, no hyphen. Plural *no metales*. |
@@ -395,11 +409,23 @@ the split.
 | radioactive decay | **desintegración radiactiva** | **Note the spelling: *radiactivo*, not *radioactivo*.** Spanish drops the o, and the sheet must be consistent about it — this is the single easiest thing to get wrong in this whole table. |
 | alpha particle | **partícula alfa** | Written out rather than as α, and *alfa* with an f. |
 | beta particle | **partícula beta** | — |
+| beta decay | **desintegración beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *partícula beta*. |
 | gamma radiation | **radiación gamma** | *Radiación*, not *rayo*: gamma is radiation, not a particle. |
+| shielding gamma ("reduces, never stops") | **atenuar**: *el plomo o el hormigón grueso la atenúan mucho* | Added 2026-09-24. *Atenuación* is the textbook word for gamma passing through matter; alpha and beta keep *detener*. |
 | half-life | **periodo de semidesintegración** | The term Spanish textbooks use, and the one the sheet already used. *Semivida* is shorter and is also correct; it was rejected because the longer form says what it measures and the sheet has room. Note it collides with *periodo* (a row of the table) — the sheet never uses the bare word for either. |
 | synthetic element / made element | **elemento artificial** | *Elemento sintético* is also correct; *artificial* is what Spanish uses for the transuranium elements. |
 | radiocarbon dating | **datación por carbono-14** | Spanish writes the isotope with a hyphen, as the sheet already does for *cloro-35*. |
 | optically stimulated luminescence (OSL) | **luminiscencia ópticamente estimulada (OSL)** | Note *luminiscencia*, with an i. The abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in Spanish school material. |
+| electron cloud (diagram label) | **nube electrónica** | Added 2026-09-25 with the redrawn atom diagrams. The standard term in ESO textbooks. |
+| not to scale (diagram caveat) | **No está a escala**, and the ratio as **1/100 000 del diámetro del átomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diámetro*, because by volume the ratio is about 10⁻¹⁵. *100 000 veces menor* was rejected: common, but it does not say what is compared, and *veces menor* is a construction style guides object to. |
+| heavier, but first / lighter, but second (06) | **más pesado, pero va antes** / **más ligero, pero va después** | Added 2026-09-25 with the redrawn atom diagrams. *Ir antes / después* is how a Spanish classroom says where an element sits in the table. |
+| a cell of the periodic table | **casilla** | Added 2026-09-25 with the redrawn atom diagrams. |
+| percentages | **12,5 %**, with a no-break space (U+00A0) before the sign | Added 2026-09-25 with the redrawn isotope diagrams. The glossary was silent. The RAE's *Ortografía* (2010) writes a space between the number and *%*, and current Spanish textbooks follow it, so Spanish joins de, fr and ru here, not it. |
+| hydrogen-1, -2, -3 (03) | **hidrógeno-1**, **hidrógeno-2**, **hidrógeno-3** | Added 2026-09-25 with the redrawn isotope diagrams. With a hyphen, following the *carbono-14* row above. |
+| protium / deuterium / tritium (03) | **protio** / **deuterio** / **tritio** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name; the forms Spanish ESO and Bachillerato textbooks use. |
+| stable / radioactive, of one isotope (03) | **estable** / **radiactivo** | Added 2026-09-25 with the redrawn isotope diagrams. *Radiactivo* without the o, per the row above; masculine, agreeing with *hidrógeno*. |
+| undecayed nuclei (07, vertical axis) | **núcleos sin desintegrar** | Added 2026-09-25 with the redrawn isotope diagrams. The phrase Spanish physics uses for *N(t)* in the decay law. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **tiempo, en periodos de semidesintegración** | Added 2026-09-25 with the redrawn isotope diagrams. Wraps onto two lines in the diagram, which leaves room for it; the term is not shortened to *semivida* to fit. |
 
 ## Formulae, equations and naming
 
@@ -428,6 +454,8 @@ the split.
 | precipitation reaction | **reacción de precipitación** | — |
 | oxidation / reduction | **oxidación / reducción** | — |
 | oxidising agent | **oxidante** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *cloruro de sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Spanish the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **método del aspa** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
 
 ## The mole and stoichiometry
 
@@ -443,6 +471,13 @@ the split.
 | in excess | **en exceso** | — |
 | theoretical / actual yield | **rendimiento teórico / rendimiento real** | **Spanish does not have the structural problem French has here.** French *rendement* is only a ratio, so the two masses had to be renamed; Spanish *rendimiento* is used for both the mass and the ratio, exactly as English "yield" is. The stoichiometry sheet can therefore follow the English structure directly. |
 | percentage yield | **rendimiento porcentual** | *Rendimiento (%) = rendimiento real ÷ rendimiento teórico × 100.* |
+| significant figures | **cifras significativas** | Added 2026-09-25. The rule is phrased *al mismo número de cifras significativas que el dato menos preciso*, not a fixed three. |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
+| CLE (condiciones estándar de laboratorio) | **withheld — spell out "a 25 °C y 100 kPa"** | Added 2026-09-25. "CLE" is a VCE (Australian) abbreviation with no Spanish equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **balanza de dos platillos**; level is **equilibrada** | *La balanza* as fixed above for the game's beam; the pans are *platillos*. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **relación molar** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **número de partículas** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **moles de reactivo / de producto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Moles de*, as the overlay says it (*convierte a moles*) and as a Spanish class does; *cantidad de sustancia del reactivo* would not fit the box and no student says it. |
 
 ## Organic chemistry
 
@@ -463,6 +498,10 @@ the split.
 | substituent | **sustituyente** | Note: *sustituyente*, not "substituyente". |
 | chain (carbon chain) | **cadena / cadena carbonada** | — |
 | locant (position number) | **localizador** / **número** | Prose uses *número* at this level. |
+| primary / secondary / tertiary alcohol | **alcohol primario / secundario / terciario** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalizador** | Added 2026-09-25. On the reaction map: *H₃PO₄ como catalizador*. |
+| skeletal formula | **fórmula de esqueleto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Also *fórmula de líneas y ángulos* in some textbooks. **Rated medium.** |
+| methyl (group), as a diagram label | **metilo** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Metilo* as a noun (*un metilo*, *grupo metilo*); *metil-* inside a name (*3-metilpentan-2-ol*). |
 
 ---
 

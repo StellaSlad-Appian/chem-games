@@ -2,19 +2,22 @@
 //
 // Two properties of the boxes on a cheat-sheet detail page that pan sideways.
 //
-// **One: a cheat-sheet diagram is drawn 512 CSS px wide on every screen, and
-// the page still reflows at 320.**
+// **One: a cheat-sheet diagram is drawn at 0.8 CSS px per unit on every
+// screen, in a box that hugs the drawing, and the page still reflows at 320.**
 //
-// The two are in tension, which is the whole reason this file exists. The
-// files are 640 units wide and their text is held to a 20-unit floor by
-// `scripts/cheat-sheet-diagrams.mts`, so 512 px is what turns that floor into
-// 16 CSS px — the size
-// `docs/feature-briefs/atomic-structure-redesign.md` §12.3 reasons about. The
-// image used to be `w-full max-w-lg`, which gave it whatever the column had:
-// 512 on a desktop and 236 on a 320 px phone, where the same text drew at 7.4
-// CSS px. Pinning the width fixes the type and makes the image wider than its
-// column, so the check that the *page* does not scroll sideways has to come
-// with it — otherwise the cure is an accessibility regression.
+// The scale and the reflow are in tension, which is the whole reason this file
+// exists. `scripts/cheat-sheet-diagrams.mts` sets every label at 17.5 units,
+// so 0.8 px per unit is what makes a label 14 CSS px — the size of the
+// paragraph above it. Left to shrink with the column, a 400-unit diagram on a
+// 320 px phone would get 236 px and the same label 10 CSS px. Fixing the scale
+// fixes the type and makes some diagrams wider than their column, so the check
+// that the *page* does not scroll sideways has to come with it — otherwise the
+// cure is an accessibility regression.
+//
+// The width is not fixed: the script measures each canvas from what it draws,
+// so the box ends where the drawing does. That is checked here in a browser,
+// in every locale, against the real glyphs rather than the script's estimate:
+// nothing is cut off, and nothing leaves an empty strip down the right.
 //
 // `docs/ACCESSIBILITY.md` requires 320 px (1.4.10), not 360. The 375 is an
 // iPhone, which is what most of these readers actually hold.
@@ -34,8 +37,14 @@
 // user pays for on every table on the page — so `nothing carries a tab stop on
 // a desktop layout` is not a formality.
 //
-// **The overhang check skips anything inside a clipping box on purpose.** The
-// diagram's own `getBoundingClientRect()` reports all 512 px, hanging well
+// **Three: a generated diagram is inline SVG in the reader's language and
+// theme.** Its words come from `scripts/cheat-sheet-diagram-strings.mts`, so
+// the German page is checked against that table's German entries rather than
+// against a literal, and its colours are `--diagram-*` custom properties that
+// have to change when the theme does — the thing an `<img>` could not do.
+//
+// **The overhang check skips anything inside a clipping box on purpose.** A
+// wide diagram's own `getBoundingClientRect()` reports its full width, hanging
 // past a 320 px viewport, and it is supposed to: it sits in an
 // `overflow-x-auto` box that clips it, exactly as the lookup tables above it
 // do. A generic "nothing overhangs" sweep — the one
@@ -47,9 +56,22 @@ import { CHEAT_SHEETS } from '../src/lib/cheat-sheet-data';
 import { en } from '../src/i18n/dictionaries/en';
 import { de } from '../src/i18n/dictionaries/de';
 import { path, waitForHydration } from './helpers';
+import { DIAGRAM_STRINGS } from '../scripts/cheat-sheet-diagram-strings.mts';
+import { CSS_PX_PER_UNIT } from '../src/generated/cheat-sheet-diagrams';
+import { LOCALES } from '../src/i18n/config';
 
-/** `max-w-lg` / `min-w-lg`, the width the 20-unit text floor is sized for. */
-const DRAWN_WIDTH = 512;
+/**
+ * The most a drawing may stop short of its canvas's right-hand edge, in units:
+ * the script's 16-unit margin, its rounding up to 5, and what its per-letter
+ * estimate overshoots the real glyphs by on the widest label (about 8%).
+ */
+const RIGHT_SLACK = 48;
+
+/**
+ * A generated section diagram, drawn inline. (A hand-made file would be an
+ * `<img>`; no sheet has one, and it is pinned at 512 px, not measured.)
+ */
+const DIAGRAM = 'svg[data-diagram]';
 
 const SHEETS_WITH_DIAGRAMS = CHEAT_SHEETS.filter((sheet) =>
   sheet.sections.some((section) => section.image)
@@ -57,25 +79,58 @@ const SHEETS_WITH_DIAGRAMS = CHEAT_SHEETS.filter((sheet) =>
 
 type Diagram = {
   file: string;
-  imgWidth: number;
+  /** The canvas, in units. */
+  canvas: { width: number; height: number };
+  /** The drawing inside it, in units, as the browser lays out the real glyphs. */
+  drawn: { left: number; top: number; right: number; bottom: number };
+  /** CSS px inside the border. */
+  contentWidth: number;
+  contentHeight: number;
+  /** CSS px, border included: what the reader sees as the box. */
+  outerWidth: number;
   boxClientWidth: number;
   boxScrollWidth: number;
 };
 
 const diagrams = (page: Page): Promise<Diagram[]> =>
-  page.evaluate(() =>
-    Array.from(document.querySelectorAll<HTMLImageElement>('img[src^="/cheat-sheets/"]')).map(
-      (img) => {
-        const box = img.parentElement!;
+  page.evaluate(
+    (selector) =>
+      Array.from(document.querySelectorAll<SVGSVGElement>(selector)).map((svg) => {
+        const box = svg.parentElement!;
+        const style = getComputedStyle(svg);
+        const rect = svg.getBoundingClientRect();
+        const bbox = svg.getBBox();
+        const border = (side: string) => parseFloat(style.getPropertyValue(`border-${side}-width`));
         return {
-          file: img.getAttribute('src')!.split('/').pop()!,
-          imgWidth: Math.round(img.getBoundingClientRect().width),
+          file: svg.getAttribute('data-diagram')!,
+          canvas: { width: svg.viewBox.baseVal.width, height: svg.viewBox.baseVal.height },
+          drawn: {
+            left: bbox.x,
+            top: bbox.y,
+            right: bbox.x + bbox.width,
+            bottom: bbox.y + bbox.height,
+          },
+          contentWidth: rect.width - border('left') - border('right'),
+          contentHeight: rect.height - border('top') - border('bottom'),
+          outerWidth: rect.width,
           boxClientWidth: box.clientWidth,
           boxScrollWidth: box.scrollWidth,
         };
-      }
-    )
+      }),
+    DIAGRAM
   );
+
+/** Drawn at the fixed scale, in both directions. */
+const expectAtScale = (diagram: Diagram) => {
+  expect(diagram.contentWidth, `${diagram.file} is not drawn at ${CSS_PX_PER_UNIT} px per unit`).toBeCloseTo(
+    diagram.canvas.width * CSS_PX_PER_UNIT,
+    1
+  );
+  expect(diagram.contentHeight, `${diagram.file} is stretched`).toBeCloseTo(
+    diagram.canvas.height * CSS_PX_PER_UNIT,
+    1
+  );
+};
 
 /**
  * Elements hanging past the viewport, ignoring those a scrolling ancestor
@@ -122,24 +177,24 @@ type PanBox = {
 };
 
 const panBoxes = (page: Page): Promise<PanBox[]> =>
-  page.evaluate(() =>
-    Array.from(
-      document.querySelectorAll<HTMLElement>(
-        'table[class*="min-w-"], img[src^="/cheat-sheets/"]'
-      )
-    ).map((content) => {
-      const box = content.parentElement!;
-      const hint = box.parentElement!.querySelector('p[aria-hidden="true"]');
-      return {
-        kind: content.tagName === 'TABLE' ? ('table' as const) : ('diagram' as const),
-        pans: box.scrollWidth - box.clientWidth > 1,
-        tabIndex: box.getAttribute('tabindex'),
-        role: box.getAttribute('role'),
-        label: box.getAttribute('aria-label'),
-        hint: hint?.textContent?.trim() ?? null,
-        hintOpacity: hint ? getComputedStyle(hint).opacity : null,
-      };
-    })
+  page.evaluate(
+    (diagram) =>
+      Array.from(document.querySelectorAll<Element>(`table[class*="min-w-"], ${diagram}`)).map(
+        (content) => {
+          const box = content.parentElement!;
+          const hint = box.parentElement!.querySelector('p[aria-hidden="true"]');
+          return {
+            kind: content.tagName === 'TABLE' ? ('table' as const) : ('diagram' as const),
+            pans: box.scrollWidth - box.clientWidth > 1,
+            tabIndex: box.getAttribute('tabindex'),
+            role: box.getAttribute('role'),
+            label: box.getAttribute('aria-label'),
+            hint: hint?.textContent?.trim() ?? null,
+            hintOpacity: hint ? getComputedStyle(hint).opacity : null,
+          };
+        }
+      ),
+    DIAGRAM
   );
 
 /**
@@ -192,6 +247,33 @@ test.describe('cheat-sheet pan affordance', () => {
     }
   });
 
+  // A box hugs its drawing now, so on a 375 px phone some diagrams fit the
+  // column outright. Those must look like any other figure: no hint, no tab
+  // stop. The ones that do not fit still say so.
+  test(`${BOTH_KINDS}: at 375px a diagram that fits has no affordance, and one that does not has it`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 740 });
+    await page.goto(path(`/cheat-sheets/${BOTH_KINDS}`));
+    await waitForHydration(page);
+
+    const settled = await settledPanBoxes(page, (await panBoxes(page)).length);
+    const fitting = settled.filter((box) => box.kind === 'diagram' && !box.pans);
+    expect(fitting.length, 'no diagram fits a 375px phone, so this checks nothing').toBeGreaterThan(0);
+
+    for (const box of settled) {
+      if (box.pans) {
+        expect(box.tabIndex, `a ${box.kind} that pans is not a tab stop`).toBe('0');
+        expect(box.hint).toBe(en.cheatSheets.panHint);
+      } else {
+        expect(box.tabIndex, `a ${box.kind} that fits is a tab stop`).toBeNull();
+        expect(box.role).toBeNull();
+        expect(box.label).toBeNull();
+        expect(box.hint, `a ${box.kind} that fits shows a hint`).toBeNull();
+      }
+    }
+  });
+
   // This expectation is also what the server-rendered HTML says before the
   // component has measured anything, so on its own it would pass against a
   // page that never hydrated. The 320px tests above are what prove the
@@ -223,11 +305,13 @@ test.describe('cheat-sheet pan affordance', () => {
     await settledPanBoxes(page, (await panBoxes(page)).length);
 
     const scrollFirstDiagram = (to: 'end' | 'start') =>
-      page.evaluate((target) => {
-        const box = document.querySelector<HTMLImageElement>('img[src^="/cheat-sheets/"]')!
-          .parentElement!;
-        box.scrollLeft = target === 'end' ? box.scrollWidth : 0;
-      }, to);
+      page.evaluate(
+        ({ target, diagram }) => {
+          const box = document.querySelector(diagram)!.parentElement!;
+          box.scrollLeft = target === 'end' ? box.scrollWidth : 0;
+        },
+        { target: to, diagram: DIAGRAM }
+      );
 
     const firstDiagram = async () =>
       (await panBoxes(page)).find((box) => box.kind === 'diagram')!;
@@ -272,7 +356,9 @@ test.describe('cheat-sheet diagrams', () => {
 
   for (const slug of SHEETS_WITH_DIAGRAMS) {
     for (const width of [320, 375]) {
-      test(`${slug}: every diagram is drawn ${DRAWN_WIDTH}px at ${width}px`, async ({ page }) => {
+      test(`${slug}: every diagram keeps its scale at ${width}px, and pans only if wider than the column`, async ({
+        page,
+      }) => {
         await page.setViewportSize({ width, height: 740 });
         await page.goto(path(`/cheat-sheets/${slug}`));
         await waitForHydration(page);
@@ -281,14 +367,18 @@ test.describe('cheat-sheet diagrams', () => {
         expect(found.length).toBeGreaterThan(0);
 
         for (const diagram of found) {
-          expect(diagram.imgWidth, `${diagram.file} is not drawn at ${DRAWN_WIDTH}px`).toBe(
-            DRAWN_WIDTH
-          );
-          // The box is narrower than the diagram, and scrolls to reach the
-          // rest of it. Without the second half the reader is simply shown a
-          // cropped figure.
-          expect(diagram.boxClientWidth).toBeLessThan(DRAWN_WIDTH);
-          expect(diagram.boxScrollWidth).toBeGreaterThanOrEqual(DRAWN_WIDTH);
+          expectAtScale(diagram);
+          if (diagram.outerWidth > diagram.boxClientWidth + 1) {
+            // Wider than the column: the box scrolls to reach the rest of it.
+            // Without this the reader is simply shown a cropped figure.
+            expect(diagram.boxScrollWidth, `${diagram.file} is cropped, not panned`).toBeGreaterThanOrEqual(
+              Math.floor(diagram.outerWidth)
+            );
+          } else {
+            expect(diagram.boxScrollWidth, `${diagram.file} fits and still scrolls`).toBe(
+              diagram.boxClientWidth
+            );
+          }
         }
       });
 
@@ -315,11 +405,158 @@ test.describe('cheat-sheet diagrams', () => {
       await waitForHydration(page);
 
       for (const diagram of await diagrams(page)) {
-        expect(diagram.imgWidth).toBe(DRAWN_WIDTH);
+        expectAtScale(diagram);
         expect(diagram.boxScrollWidth, `${diagram.file} scrolls on a desktop layout`).toBe(
           diagram.boxClientWidth
         );
       }
     });
+
+    // The script sizes each canvas from its estimate of the glyphs; this is the
+    // same claim against the glyphs a browser actually lays out, in every
+    // locale, since the canvas is the largest any of them needs.
+    test(`${slug}: every box hugs its drawing, in every locale`, async ({ page }) => {
+      await page.setViewportSize({ width: 1280, height: 900 });
+      const furthest = new Map<string, { right: number; width: number }>();
+
+      for (const locale of LOCALES) {
+        await page.goto(path(`/cheat-sheets/${slug}`, locale));
+        await page.evaluate(() => document.fonts.ready);
+        for (const diagram of await diagrams(page)) {
+          const { drawn, canvas, file } = diagram;
+          const where = `${file} [${locale}]`;
+          // Nothing is cut off at any edge.
+          expect(drawn.left, `${where} is cut off on the left`).toBeGreaterThanOrEqual(0);
+          expect(drawn.top, `${where} is cut off at the top`).toBeGreaterThanOrEqual(0);
+          expect(drawn.right, `${where} is cut off on the right`).toBeLessThanOrEqual(canvas.width);
+          expect(drawn.bottom, `${where} is cut off at the bottom`).toBeLessThanOrEqual(canvas.height);
+          const seen = furthest.get(file);
+          if (!seen || drawn.right > seen.right) furthest.set(file, { right: drawn.right, width: canvas.width });
+        }
+      }
+
+      expect(furthest.size).toBeGreaterThan(0);
+      // And the widest locale reaches the right-hand edge, less the margin:
+      // the box ends where the drawing does, with no empty strip beyond it.
+      for (const [file, { right, width }] of furthest) {
+        expect(right, `${file} leaves ${Math.round(width - right)} empty units on the right`).toBeGreaterThanOrEqual(
+          width - RIGHT_SLACK
+        );
+      }
+    });
   }
+});
+
+/** A `{name}` placeholder is filled with a whole number by the script. */
+const asPattern = (entry: string) =>
+  new RegExp(`^${entry.replace(/[.*+?^$()|[\]\\]/g, '\\$&').replace(/\{\w+\}/g, '\\d+')}$`);
+
+type Rgb = [number, number, number];
+
+const parseRgb = (css: string): Rgb => {
+  const match = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(css);
+  if (!match) throw new Error(`not an rgb() colour: ${css}`);
+  return [Number(match[1]), Number(match[2]), Number(match[3])];
+};
+
+const contrast = (a: Rgb, b: Rgb): number => {
+  const luminance = (rgb: Rgb) => {
+    const [r, g, b] = rgb.map((v) => {
+      const c = v / 255;
+      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (light + 0.05) / (dark + 0.05);
+};
+
+test.describe('generated diagrams: language and theme', () => {
+  const GENERATED = CHEAT_SHEETS.filter((sheet) =>
+    sheet.sections.some((section) => section.image && 'diagram' in section.image)
+  ).map((sheet) => sheet.slug);
+
+  test('there are generated diagrams to check', () => {
+    expect(GENERATED.length).toBeGreaterThan(0);
+  });
+
+  for (const slug of GENERATED) {
+    test(`${slug}: /de draws every diagram from its German strings`, async ({ page }) => {
+      // Until the German labels are written the German entries equal the
+      // English ones, so this compares with the strings table and not with a
+      // literal: the claim is that the page draws the `de` entry, whatever
+      // it currently says.
+      await page.goto(path(`/cheat-sheets/${slug}`, 'de'));
+
+      const found = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('svg[data-diagram]')).map((svg) => ({
+          id: svg.getAttribute('data-diagram')!,
+          label: svg.getAttribute('aria-label'),
+          role: svg.getAttribute('role'),
+          texts: Array.from(svg.querySelectorAll('text')).map((text) => text.textContent ?? ''),
+        }))
+      );
+      expect(found.length).toBeGreaterThan(0);
+
+      const sheet = CHEAT_SHEETS.find((candidate) => candidate.slug === slug)!;
+      for (const diagram of found) {
+        const table = DIAGRAM_STRINGS[diagram.id];
+        expect(table, `no strings table for ${diagram.id}`).toBeDefined();
+        for (const [key, entry] of Object.entries(table.de)) {
+          expect(
+            diagram.texts.some((text) => asPattern(entry).test(text)),
+            `${diagram.id} does not draw de.${key} ("${entry}")`
+          ).toBe(true);
+        }
+
+        // The accessible name is the section's translated alt, not anything
+        // English inside the drawing.
+        expect(diagram.role).toBe('img');
+        const section = sheet.sections.find(
+          (candidate) =>
+            candidate.image && 'diagram' in candidate.image && candidate.image.diagram === diagram.id
+        )!;
+        expect(diagram.label).toBeTruthy();
+        expect(diagram.label, `${diagram.id} is named in English on /de`).not.toBe(section.image!.alt);
+      }
+
+      // Ids inside inline SVG share the page's id space.
+      const ids = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('[id]')).map((element) => element.id)
+      );
+      expect(ids.length, 'an id on this page is used twice').toBe(new Set(ids).size);
+    });
+  }
+
+  test('a diagram follows the theme toggle', async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem('chem-games-theme', 'light'));
+    await page.goto(path(`/cheat-sheets/${GENERATED[0]}`));
+    await expect.poll(() => page.evaluate(() => document.documentElement.dataset.theme)).toBe('light');
+
+    const colours = () =>
+      page.evaluate(() => {
+        const svg = document.querySelector('svg[data-diagram]')!;
+        return {
+          background: getComputedStyle(svg).backgroundColor,
+          text: Array.from(svg.querySelectorAll('text')).map((text) => getComputedStyle(text).fill),
+        };
+      });
+
+    const light = await colours();
+    // What the settings toggle does: flip the attribute in place, no reload.
+    await page.evaluate(() => {
+      document.documentElement.dataset.theme = 'dark';
+    });
+    const dark = await colours();
+
+    expect(dark.background).not.toBe(light.background);
+    expect(dark.text[0]).not.toBe(light.text[0]);
+    // Every label clears normal-text contrast in both themes, which is what
+    // lets it be regular weight at 14 px.
+    for (const { background, text } of [light, dark]) {
+      for (const fill of new Set(text)) {
+        expect(contrast(parseRgb(fill), parseRgb(background)), `${fill} on ${background}`).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+  });
 });

@@ -17,6 +17,7 @@
 // other side of it — English keeps both, unchanged.
 
 import { describe, expect, it } from 'vitest';
+import type { CheatSheetTopic } from '@/core-engine/types/general';
 import { CHEAT_SHEETS, GLOBAL_TEACHER_RESOURCES } from '@/lib/cheat-sheet-data';
 import { LOCALES, DEFAULT_LOCALE, type Locale } from './config';
 import {
@@ -29,6 +30,59 @@ import {
 const translatedLocales = LOCALES.filter(
   (locale) => locale !== DEFAULT_LOCALE
 ) as Exclude<Locale, 'en'>[];
+
+type Example = { name: string; description?: string };
+
+/**
+ * How long an overlay's description array must be for this English list: the
+ * list's length when any example in it has a description, otherwise none.
+ */
+const descriptionCount = (examples: Example[] | undefined): number =>
+  examples?.some((example) => example.description) ? examples.length : 0;
+
+/**
+ * A worked sum such as "2 × 1 + 16 = 18": digits, operators and brackets,
+ * with an equals sign. Everything else ("17 protons, 18 neutrons") is prose.
+ */
+const isCalculation = (text: string): boolean => /^[\d\s.,+\-×()=]+$/.test(text) && text.includes('=');
+
+/**
+ * The numbers in a sum, in order, with the decimal separator normalised, so
+ * a German "23 + 35,5 = 58,5" agrees with the English "23 + 35.5 = 58.5".
+ */
+const numbersIn = (text: string): string[] =>
+  (text.match(/\d+(?:[.,]\d+)?/g) ?? []).map((number) => number.replace(',', '.'));
+
+/** A letter x standing for "times" between two numbers: "2 x 16", "2 x (". */
+const LETTER_X_TIMES = /\d\s*x\s*[\d(]/;
+
+/** Every string a sheet shows a reader, labelled with where it came from. */
+function readerStrings(sheet: CheatSheetTopic): [where: string, text: string][] {
+  const out: [string, string][] = [
+    ['title', sheet.title],
+    ['summary', sheet.summary],
+    ...sheet.keyTakeaways.map((text, i): [string, string] => [`keyTakeaways[${i}]`, text]),
+    ...(sheet.commonMistakes ?? []).map((text, i): [string, string] => [`commonMistakes[${i}]`, text]),
+  ];
+  sheet.formulaExamples?.forEach((example, i) => {
+    out.push([`formulaExamples[${i}].name`, example.name]);
+    if (example.description) out.push([`formulaExamples[${i}].description`, example.description]);
+  });
+  sheet.sections.forEach((section, i) => {
+    out.push([`sections[${i}].content`, section.content]);
+    section.examples?.forEach((example, j) => {
+      if (example.description) {
+        out.push([`sections[${i}].examples[${j}].description`, example.description]);
+      }
+    });
+  });
+  sheet.tables?.forEach((table, i) => {
+    table.rows.forEach((row, r) =>
+      row.forEach((cell, c) => out.push([`tables[${i}].rows[${r}][${c}]`, cell]))
+    );
+  });
+  return out;
+}
 
 describe('English', () => {
   it('is the source data, untouched', () => {
@@ -74,8 +128,10 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
       expect({
         keyTakeaways: overlay.keyTakeaways.length,
         formulaExampleNames: overlay.formulaExampleNames?.length ?? 0,
+        formulaExampleDescriptions: overlay.formulaExampleDescriptions?.length ?? 0,
         sections: overlay.sections.length,
         sectionExampleNames: overlay.sections.map((s) => s.exampleNames?.length ?? 0),
+        sectionExampleDescriptions: overlay.sections.map((s) => s.exampleDescriptions?.length ?? 0),
         tables: overlay.tables?.length ?? 0,
         tableColumns: overlay.tables?.map((t) => t.columns.length) ?? [],
         tableRows: overlay.tables?.map((t) => t.rows.length) ?? [],
@@ -83,8 +139,10 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
       }).toEqual({
         keyTakeaways: source.keyTakeaways.length,
         formulaExampleNames: source.formulaExamples?.length ?? 0,
+        formulaExampleDescriptions: descriptionCount(source.formulaExamples),
         sections: source.sections.length,
         sectionExampleNames: source.sections.map((s) => s.examples?.length ?? 0),
+        sectionExampleDescriptions: source.sections.map((s) => descriptionCount(s.examples)),
         tables: source.tables?.length ?? 0,
         tableColumns: source.tables?.map((t) => t.columns.length) ?? [],
         tableRows: source.tables?.map((t) => t.rows.length) ?? [],
@@ -147,6 +205,62 @@ describe.each(translatedLocales)('cheat sheets: %s', (locale) => {
           });
         });
       });
+    }
+  );
+
+  // An example card's description is often the whole point of the card — on
+  // the formula-mass sheet it is the working — so a locale that lost one
+  // would show a formula with no answer, and one that added one would say
+  // something the English sheet does not. `localizeSheet()` falls back to the
+  // English description, so this reads the overlay, not the output.
+  it.each(CHEAT_SHEETS.map((sheet) => sheet.slug))(
+    '%s has a description wherever the English has one, and nowhere else',
+    (slug) => {
+      const source = CHEAT_SHEETS.find((sheet) => sheet.slug === slug)!;
+      const overlay = overlays[slug]!;
+      const present = (text: string | undefined) => Boolean(text?.trim());
+
+      expect({
+        formulaExamples: (source.formulaExamples ?? []).map((_, i) =>
+          present(overlay.formulaExampleDescriptions?.[i])
+        ),
+        sections: source.sections.map((section, s) =>
+          (section.examples ?? []).map((_, i) =>
+            present(overlay.sections[s]?.exampleDescriptions?.[i])
+          )
+        ),
+      }).toEqual({
+        formulaExamples: (source.formulaExamples ?? []).map((e) => present(e.description)),
+        sections: source.sections.map((section) =>
+          (section.examples ?? []).map((e) => present(e.description))
+        ),
+      });
+    }
+  );
+
+  it.each(CHEAT_SHEETS.map((sheet) => sheet.slug))(
+    '%s keeps the numbers of every worked sum',
+    (slug) => {
+      const source = CHEAT_SHEETS.find((sheet) => sheet.slug === slug)!;
+      const target = getCheatSheet(locale, slug)!;
+      const pairs: [english: string | undefined, translated: string | undefined][] = [
+        ...(source.formulaExamples ?? []).map((e, i): [string | undefined, string | undefined] => [
+          e.description,
+          target.formulaExamples![i].description,
+        ]),
+        ...source.sections.flatMap((section, s) =>
+          (section.examples ?? []).map((e, i): [string | undefined, string | undefined] => [
+            e.description,
+            target.sections[s].examples![i].description,
+          ])
+        ),
+      ];
+      for (const [english, translated] of pairs) {
+        if (!english || !isCalculation(english)) continue;
+        expect(numbersIn(translated ?? ''), `${english} → ${translated}`).toEqual(numbersIn(english));
+        // A decimal point in a sum is an untranslated number.
+        expect(translated, 'decimal comma').not.toMatch(/\d\.\d/);
+      }
     }
   );
 
@@ -235,6 +349,58 @@ describe('English keeps everything', () => {
     for (const sheet of cited) {
       expect(getCheatSheet(DEFAULT_LOCALE, sheet.slug)!.curriculumRef).toBe(sheet.curriculumRef);
     }
+  });
+});
+
+describe('worked sums', () => {
+  // "2 x 16" reads as algebra to a student who has just met x as an unknown,
+  // and it is the letter, not the sign. Every locale, English included.
+  it.each(LOCALES)('%s writes × for times, never the letter x', (locale) => {
+    const found = getCheatSheets(locale).flatMap((sheet) =>
+      readerStrings(sheet)
+        .filter(([, text]) => LETTER_X_TIMES.test(text))
+        .map(([where, text]) => `${sheet.slug} ${where}: ${text}`)
+    );
+    expect(found).toEqual([]);
+  });
+
+  /**
+   * The one deliberate exception to "a locale restates the same numbers":
+   * the German stoichiometry sheet's molar-gas-volume cell. English states
+   * V_m at the VCE reference point (25 °C, 100 kPa); German instead follows
+   * the Abitur formula sheets' own two reference points (0 °C and 25 °C, at
+   * 1013 hPa), which give different rounded values (22,4 / 24,5 L/mol, not
+   * 24,8). This is an owner decision (option b for German, see
+   * docs/i18n/glossary-de.md, "molar gas volume (V_m)"), not a translation
+   * slip, so it is named here rather than loosening the check for everyone.
+   */
+  const NUMBER_EXCEPTIONS: Partial<Record<Exclude<Locale, 'en'>, Set<string>>> = {
+    de: new Set(['stoichiometry:tables[0].rows[3][2]']),
+  };
+
+  // The table cells that are numbers or sums ("2 × 1 + 16", "58,5") are
+  // prose columns, so each locale restates them. They must restate the same
+  // numbers, in the locale's own decimal separator.
+  it.each(translatedLocales)('%s keeps the numbers in every table cell that is a sum', (locale) => {
+    const mismatches: string[] = [];
+    const exceptions = NUMBER_EXCEPTIONS[locale] ?? new Set<string>();
+    for (const source of CHEAT_SHEETS) {
+      const target = getCheatSheet(locale, source.slug)!;
+      source.tables?.forEach((table, t) => {
+        table.rows.forEach((row, r) =>
+          row.forEach((cell, c) => {
+            if (table.formulaColumns?.includes(c) || !/^[\d\s.,+\-×()]+$/.test(cell)) return;
+            if (exceptions.has(`${source.slug}:tables[${t}].rows[${r}][${c}]`)) return;
+            const translated = target.tables![t].rows[r][c];
+            const same = numbersIn(translated).join(' ') === numbersIn(cell).join(' ');
+            if (!same || /\d\.\d/.test(translated)) {
+              mismatches.push(`${source.slug} tables[${t}] ${cell} → ${translated}`);
+            }
+          })
+        );
+      });
+    }
+    expect(mismatches).toEqual([]);
   });
 });
 

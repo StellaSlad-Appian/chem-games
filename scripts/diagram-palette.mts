@@ -1,33 +1,38 @@
 // scripts/diagram-palette.mts
 //
-// The colours shared by the two picture-generating scripts, and the
-// measurement that earns each one its place.
-//
-//   scripts/molecule-images.mts        Molecule of the Week, public/explore/
-//   scripts/cheat-sheet-diagrams.mts   cheat-sheet figures, public/cheat-sheets/
+// The colours `scripts/molecule-images.mts` draws with, and the measurement
+// that earns each one its place. That script writes the Molecule of the Week
+// pictures in public/explore/, which a page loads through `<img src>`.
 //
 // This is a module, not a runnable script: importing it must have no effect.
 // (`molecule-images.mts` runs its whole pipeline at the top level, so these
-// could not simply be imported from there.) Colours only one of the two scripts
-// uses — the element colours the depictor needs, the stops in the quartz
-// recolour — stay in that script next to their own reasons.
+// could not simply live there and be imported elsewhere.) Colours only one
+// route in that script uses — the element colours the depictor needs, the
+// stops in the quartz recolour — stay in the script next to their own reasons.
+//
+// `scripts/cheat-sheet-diagrams.mts` used these too until 2026-09-25. Its
+// diagrams are now inline SVG and take their colours from the per-theme
+// `--diagram-*` tokens in `src/app/globals.css`, so nothing here applies to
+// them.
 //
 // ## Why one list, measured once
 //
-// Both scripts write SVG that a page loads through a plain `<img src>`. An SVG
-// loaded that way is its own document: it cannot see the site's `data-theme`
-// attribute, cannot inherit `currentColor` and cannot read a CSS variable from
-// the page. So one file has to be legible on the light surface *and* on the
-// dark one with no help at all, and a `@media (prefers-color-scheme)` block
-// inside it would be worse than useless — the site switches themes on an
-// attribute, so the query would desync for anyone who picks light while their
-// OS is dark.
+// An SVG loaded through `<img>` is its own document: it cannot see the site's
+// `data-theme` attribute, cannot inherit `currentColor` and cannot read a CSS
+// variable from the page. So one file has to be legible on the light surface
+// *and* on the dark one with no help at all, and a
+// `@media (prefers-color-scheme)` block inside it would be worse than useless —
+// the site switches themes on an attribute, so the query would desync for
+// anyone who picks light while their OS is dark.
 //
-// The two scripts draw onto different surfaces, and every colour here clears
-// the threshold on all four:
+// Every colour here clears the threshold on all four surfaces a picture can
+// land on:
 //
 //   explore card      #ffffff   /  #18181b
 //   cheat sheet       #f8fafc   /  #09090b   (globals.css --background)
+//
+// The cheat-sheet pair stays in the list because a hand-made cheat-sheet file
+// (docs/CHEAT_SHEET_IMAGES.md, *Hand-made files*) is under the same constraint.
 //
 // ## The threshold, and why it is 3:1 and not 4.5:1
 //
@@ -55,7 +60,7 @@
 // emphasis is carried by weight, and a neutron is told apart from a proton by
 // fill and by a symbol rather than by a greyer grey.
 //
-// Runs on Node's built-in TypeScript type stripping, like its two importers,
+// Runs on Node's built-in TypeScript type stripping, like its importer,
 // so: no enums, no namespaces, no parameter properties, `import type` for
 // types, and an explicit extension on every relative import.
 

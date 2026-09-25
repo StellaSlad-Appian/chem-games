@@ -49,6 +49,8 @@ genders means longer `matches` arrays than any previous locale needed. See
 | **ё** | **Written explicitly, everywhere.** Russian print often folds ё to е and for adult readers that is defensible; for fourteen-year-olds it is not, because ё is always the stressed vowel. *твёрдый*, *заряжённый*, *неподелённая*, *учёный*, *приведённый*. The gate lists the words this site cannot avoid. |
 | Decimals | Russian **comma**: 6,02 × 10²³, not 6.02. (Prose only; code, formulae and version numbers keep their own notation, and the gate's lookbehind ignores a digit-dot-digit that follows a Latin letter.) |
 | Thousands | **No-break space** (U+00A0): 1 000, not 1,000 and not 1.000. `Intl.NumberFormat('ru-RU')` produces exactly this, so never hand-format. |
+| Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
+| Four-digit numbers | **No separator**: *5730 лет*. Russian typesetting writes four-digit numbers solid and groups from five digits on (*65 000*). |
 | Non-breaking space | Before a unit (`8,0 г`), inside `и т. д.`, and between a numeral and what it counts where the pair must not break. |
 | Nouns | Lower case inside a sentence — which is why `LOWERCASES_NAMES_IN_SENTENCE` is `true` for `ru` (see below). Russian capitalises far less than English: not months, not days, not nationalities, not the names of school subjects. |
 | Gender of the reader | **Never inflected for.** Russian past-tense verbs and short adjectives agree with the speaker's gender, so *«ты насчитал»* is wrong for half the readers. Every such string is rewritten in the present tense or as a noun phrase — see [Adjectives, participles and past tenses that would agree with the reader](#adjectives-participles-and-past-tenses-that-would-agree-with-the-reader). |
@@ -325,6 +327,9 @@ lists are long for a grammatical reason, not a technical one.
 | concentrated / dilute | **концентрированный / разбавленный** | — |
 | salt | **соль** | — |
 | solution | **раствор** | — |
+| universal indicator | **универсальный индикатор** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **шкала pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **желудочный сок** (1), **уксус** (3), **чистая вода** (7), **пищевая сода** (8), **средство для духовок** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -363,6 +368,15 @@ lists are long for a grammatical reason, not a technical one.
 | formal charge | **формальный заряд** | — |
 | electronegativity | **электроотрицательность** | Long (21 letters) but there is no alternative; it appears in prose only, never in a fixed-width control. |
 | delocalised electrons | **свободные электроны** | The school phrasing for the "sea" in a metal (*электронный газ* is the other). The literal *делокализованные электроны* is upper-secondary register. **And this is the second reason *свободный* could not be the game's word for a loner**: it already means something else, and something a student meets on the bonding sheet. |
+| particle | **частица** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **плавление / кипение** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **кривая нагревания** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **полученная энергия** | Russian school physics speaks of the heat a body *receives* (*количество теплоты, полученное телом*). *Добавленная энергия* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| solid / liquid / gas as nouns in prose | **твёрдое тело / жидкость / газ** | The textbook nouns, used in the section *Частицы в разных агрегатных состояниях*. The diagram labels keep the adjectives *твёрдое / жидкое / газообразное*, which match the sheet's takeaways. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **линейная форма, плоский треугольник, тетраэдр, тригональная пирамида, уголковая форма** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Russian names a shape by the figure (*молекула имеет форму тетраэдра*), and these are the words the sheet's paragraph already used. **Bent is *уголковая*, not *угловая***: both are in school books; the paragraph directly above the drawing says *уголковая*, so the drawing does too. The acronym VSEPR is not used on a Russian page (*теория отталкивания электронных пар* if it must be named). Angles: *109,5°*. |
+| bond angle | **валентный угол** | Added 2026-09-25. The school term; *угол связи* is a calque. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **сплошной клин / штрихованный клин** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **электронное облако** | Added 2026-09-25, for alt text: Russian school books draw a lone pair as an *облако*, the word the atom sheets already use for electrons. |
 
 ### The “loner”: Russian's own two-tier pair, and the four words it could not use — historical, and why it is kept
 
@@ -486,11 +500,12 @@ the split.
 | atomic number | **атомный номер** | *Порядковый номер* is the standard Russian school term and is arguably the better one. **The sheet already shipped with *атомный номер***, so that is what this table records; changing it means changing both sheets and the review file together, not one sentence. **Rated medium** for that reason, not because the term is wrong. |
 | mass number | **массовое число** | — |
 | energy level | **энергетический уровень** | The sheet says *level*, not *shell*, deliberately. See the next row. |
-| electron shell (the curriculum's word) | **электронная оболочка** | VC2S10U07 says "electron shells", so the sheet names *оболочка* once as the word the reader's teacher uses, and keeps *энергетический уровень* as its own term. |
+| electron shell (the curriculum's word) | **электронная оболочка** | VC2S10U07 says "electron shells", so the sheet names *оболочка* once as the word the reader's teacher uses, and keeps *энергетический уровень* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Учитель может называть их электронными оболочками*); it no longer mentions the программа. |
 | outer level / outer shell | **внешний уровень** | Consistent with *энергетический уровень*. |
 | Bohr model | **модель Бора** | Named as a *model* every time, per the sheet's own contract. Note the genitive: *модель Бора*, never *модель Бор*. |
 | isotope | **изотоп** | — |
 | group (a column) | **группа** | The sheet always writes *группа 1*, *группа 17*, never a bare *группа*. Russian numbers the groups with Arabic numerals here rather than the older Roman-numeral-plus-letter system, because that is what the periodic table in the rest of the site shows. |
+| valence electrons from the group number | **последняя цифра номера группы** (*Cl в группе 17 — 7 валентных электронов*), once with *в короткой таблице это VII группа* | Added 2026-09-25. Russian schools still teach from the short table (groups I–VIII with main and secondary subgroups), where the group number itself is the valence-electron count of a main-subgroup element. The site shows groups 1–18, so the bonding and Lewis sheets state the last-digit rule, and the bonding sheet names the short-table group once as the bridge to the textbook. *Главная подгруппа* is kept: it is the term a Russian student knows for main-group elements. |
 | period (a row) | **период** | Collides with *период полураспада* below; the sheet never uses the bare word for the half-life. |
 | metal | **металл** | Two л. |
 | non-metal | **неметалл** | One word, no hyphen. |
@@ -508,11 +523,24 @@ the split.
 | radioactive decay | **радиоактивный распад** | Verb: *распадаться*. Note **распад**, not *разложение*, which is chemical decomposition. |
 | alpha particle | **альфа-частица** | Written out rather than as α, with a hyphen, as Russian compounds it. |
 | beta particle | **бета-частица** | — |
+| beta decay | **бета-распад** | Added 2026-09-25, for how reactors make neptunium and plutonium. Hyphenated like *бета-частица*. |
 | gamma radiation | **гамма-излучение** | *Излучение*, not *луч*: gamma is radiation, not a particle. |
+| shielding gamma ("reduces, never stops") | **ослаблять**: *свинец или толстый бетон лишь сильно его ослабляют* | Added 2026-09-24. *Ослабление гамма-излучения* is how Russian school physics puts it; alpha and beta keep *задерживать*. |
 | half-life | **период полураспада** | The standard term. Long, but there is no short form. |
 | synthetic element / made element | **искусственно полученный элемент** | Or *искусственный элемент* where the sentence needs it shorter. Not *синтетический*, which in Russian suggests a manufactured material. |
 | radiocarbon dating | **радиоуглеродное датирование** | *Датирование*, not *датировка*: the first is the method, the second is the resulting date. |
 | optically stimulated luminescence (OSL) | **оптически стимулированная люминесценция (ОСЛ)** | The established Russian term, and the abbreviation is Cyrillic — ОСЛ, not OSL — because Russian archaeology writes it that way. **Rated low** — a specialist dating method, rare in Russian school material, and the abbreviation in particular deserves a check. |
+| electron cloud (diagram label) | **электронное облако** | Added 2026-09-25 with the redrawn atom diagrams. The standard school term. |
+| not to scale (diagram caveat) | **Масштаб не соблюдён**, and the ratio as **в 100 000 раз меньше атома по диаметру** | Added 2026-09-25 with the redrawn atom diagrams. Localised, not translated: a Russian textbook writes a ratio as *в N раз меньше*, not as a fraction *1/100 000*, and *по диаметру* says what is compared (by volume the ratio is about 10⁻¹⁵). *Не в масштабе* is a calque. |
+| the counting-model caveat (05) | **Схема для подсчёта электронов, а не рисунок атома.** | Added 2026-09-25 with the redrawn atom diagrams. *Схема* is the word Russian textbooks use for exactly this kind of drawing (*схема строения атома*), so it says "model, not picture" without a second noun. |
+| heavier, but first / lighter, but second (06) | **тяжелее, но стоит первым** / **легче, но стоит вторым** | Added 2026-09-25 with the redrawn atom diagrams. *Стоять* for a place in the table. *Первым / вторым* agree with *теллур* and *иод*, not with the reader. |
+| atomic number in the diagrams | **атомный номер** | Added 2026-09-25 with the redrawn atom diagrams. The review brief suggested *порядковый номер*; the row above keeps *атомный номер* until both sheets change together, and a diagram label that disagreed with its own heading would be worse than either term. |
+| a cell of the periodic table | **клетка** (*клетка теллура*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **водород-1**, **водород-2**, **водород-3** | Added 2026-09-25 with the redrawn isotope diagrams. Cyrillic with the number after a hyphen, per the typography note below. |
+| protium / deuterium / tritium (03) | **протий** / **дейтерий** / **тритий** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name. In a Russian textbook these names come first — *изотопы водорода: протий, дейтерий, тритий* — so they matter more here than in any other locale. |
+| stable / radioactive, of one isotope (03) | **стабильный** / **радиоактивный** | Added 2026-09-25 with the redrawn isotope diagrams. Full adjectives, agreeing with *водород*; the short form *радиоактивен* would be a sentence, not a label. |
+| undecayed nuclei (07, vertical axis) | **нераспавшиеся ядра** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Russian physics plots in the decay law (*число нераспавшихся ядер N(t)*). Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **время в периодах полураспада** | Added 2026-09-25 with the redrawn isotope diagrams. Localised, not translated: a Russian axis says *величина в единицах*, as a German one does. |
 
 **Typography on this pair of sheets.** Two things recur and both are easy to
 get wrong inside an English-shaped file. Large round numbers take a
@@ -551,6 +579,9 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | oxidation / reduction | **окисление / восстановление** | — |
 | redox | **окислительно-восстановительная** | Thirty characters, and the badge is CSS-uppercased — the longest string in the file that sits in a fixed-width control, so it is the one to re-check on the rendered card at 360 px. *Редокс* exists in Russian (*редокс-реакция*) and would have been five characters, but it is laboratory jargon rather than school vocabulary, and the other seven badges are all the words a textbook prints. |
 | oxidising agent | **окислитель** | — |
+| name order vs formula order | formula **cation first**, name **anion first**: *хлорид натрия*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Russian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **перекрёстное правило** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
+| ionic / molecular (the kind of compound, as a label) | **ионное / молекулярное** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Neuter, agreeing with the implied *соединение*, exactly as the sheet's first takeaway writes them. |
 
 ## The mole and stoichiometry
 
@@ -566,6 +597,13 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | in excess | **в избытке** | — |
 | theoretical / actual yield | **теоретический / практический выход** | Russian says *практический*, not *фактический*, for the measured yield. |
 | percentage yield | **выход в процентах** | — |
+| significant figures | **значащие цифры** | Added 2026-09-25. The stoichiometry sheet phrases the rule as *столько значащих цифр, сколько их в наименее точном из данных значений*, not a fixed three. Russian school chemistry drills this less than the English-speaking systems do, but the term and the rule are the physics-class ones. **Rated medium.** |
+| the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet (the sheets had called it *справочник VCE*). The IR sentence now points to *таблицы ИК-спектроскопии*, and the polyatomic-ion table is headed *Основные многоатомные ионы*. |
+| standard laboratory conditions (SLC) | **withheld — spell out "при 25 °C и 100 кПа"** | Added 2026-09-25. The sheet used to say *при стандартных условиях*, which in Russian schools usually means 0 °C and 101,325 kPa — the wrong conditions for this VCE (Australian) value. Naming the actual conditions avoids both the untranslatable "SLC" and that false-friend phrase, keeping the English value (V_m = 24,8 л/моль). |
+| a two-pan balance (the relative-mass picture) | **рычажные весы**, their pans **чаши**; level is **в равновесии** | The diagram's alt text says *весы с двумя чашами*. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **мольное соотношение** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
+| number of particles (N) | **число частиц** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **количество вещества реагента / продукта** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Built on the glossary's *количество вещества*; «моли реагента» is spoken, not written. |
 
 ## Organic chemistry
 
@@ -586,6 +624,10 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | substituent | **заместитель** | — |
 | chain (carbon chain) | **цепь / углеродная цепь** | — |
 | locant (position number) | **номер** / **цифра положения** | Prose uses *номер* at this level. |
+| primary / secondary / tertiary alcohol | **первичный / вторичный / третичный спирт** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **катализатор** | Added 2026-09-25. On the reaction map it comes before the formula: *катализатор H₃PO₄*. |
+| skeletal formula | **скелетная формула** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| methyl (group), as a diagram label | **метил** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The sheet's worked example says *метил на третьем*; *метильная группа* is used in the alt text. |
 
 ---
 

@@ -118,7 +118,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Un atomo è un nucleo di protoni e neutroni, con gli elettroni distribuiti tutt’intorno.',
       'Il numero di protoni — il numero atomico — è ciò che rende un atomo quell’elemento. Cambialo e hai un elemento diverso.',
-      'Gli elettroni stanno su livelli di energia, e quanti ce ne sono sul livello esterno è il criterio con cui la tavola è ordinata.',
+      'Gli elettroni stanno su livelli di energia, e quanti ce ne sono sul livello esterno decide in quale gruppo (colonna) si trova un elemento.',
       'Un gruppo è una colonna e un periodo è una riga. Gli elementi di un gruppo hanno gli stessi elettroni all’esterno, quindi reagiscono allo stesso modo.',
       'I metalli stanno a sinistra e i non metalli a destra. Gli atomi rimpiccioliscono verso destra e crescono verso il basso.',
       'Un atomo è quasi tutto spazio vuoto. Ogni immagine di un atomo sbaglia la scala, comprese quelle qui sopra.',
@@ -128,38 +128,43 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Cloro-37',
       'Ione idrogeno',
     ],
+    formulaExampleDescriptions: [
+      '17 protoni, 18 neutroni',
+      '17 protoni, 20 neutroni',
+      'un atomo di idrogeno che ha perso il suo unico elettrone – resta solo un protone',
+    ],
     sections: [
       {
         heading: 'Di che cosa è fatto un atomo',
         content:
           'Un atomo ha un nucleo di protoni e neutroni, con gli elettroni intorno. I protoni portano una carica positiva e gli elettroni una carica negativa uguale, quindi un atomo neutro ne ha altrettanti degli uni e degli altri. I neutroni non portano carica. Quasi tutta la massa sta nel nucleo, perché un elettrone non pesa quasi niente accanto a un protone.',
         imageAlt:
-          'Un nucleo di protoni e neutroni al centro, circondato da una nuvola sfumata che mostra dove è probabile trovare gli elettroni. Una nota avverte che il nucleo è disegnato molto più grande del vero, altrimenti non si vedrebbe.',
+          'Un atomo: un nucleo di tre protoni (cerchi pieni) e quattro neutroni (cerchi vuoti), circondato da una nube elettronica molto fitta vicino al nucleo, che si dirada verso l’esterno senza un bordo. Con tre protoni e quattro neutroni sarebbe litio-7, ma il disegno vale per qualsiasi atomo. Le etichette indicano la nube elettronica, il nucleo, un protone e un neutrone. Una nota dice che non è in scala: il nucleo misura circa 1/100 000 del diametro dell’atomo.',
       },
       {
         heading: 'Numero atomico e numero di massa',
         content:
-          'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento. Qui i due termini sono un ampliamento: il programma di questi anni non ne nomina nessuno, e senza di essi non puoi leggere una casella della tavola.',
+          'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento.',
         exampleNames: ['Cloro-35', 'Cloro-37'],
         imageAlt:
-          'Il simbolo del cloro-35 con il numero di massa 35 scritto sopra il numero atomico 17, e delle frecce: 17 protoni, e 35 meno 17 dà 18 neutroni.',
+          'Il simbolo del cloro-35: il numero di massa 35 sopra il numero atomico 17, a sinistra di Cl. Una linea collega il 35 a «numero di massa = protoni + neutroni» e un’altra collega il 17 a «numero atomico = protoni». Sotto: 35 − 17 = 18 neutroni.',
       },
       {
         heading: 'Elettroni, livelli di energia e forma della tavola',
         content:
-          'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna, e anche il programma, può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
+          'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
         imageAlt:
-          'Un nucleo di sodio con 11 protoni e 12 neutroni, circondato da tre bande sfumate che contengono 2, 8 e 1 elettroni, disegnati come segni ad angoli irregolari e non come punti su cerchi. Accanto, la disposizione 2, 8, 1 con il livello esterno per ultimo. La figura stessa dice che è un modo per contare gli elettroni e non l’immagine di un atomo, e che il nucleo è disegnato circa 100 000 volte troppo grande.',
+          'Il sodio, Na, disegnato come modello per contare gli elettroni: un disco con la scritta Na per il nucleo, dentro tre bande dal bordo visibile che contengono 2, 8 e 1 elettroni ad angoli irregolari. L’unico elettrone della banda esterna è cerchiato ed etichettato «livello esterno». Sotto, la disposizione 2, 8, 1 e il totale, 11 elettroni. Una nota dice che è un modo per contare gli elettroni, non un’immagine dell’atomo.',
       },
       {
         heading: 'Gruppi e periodi',
         content:
-          'Un gruppo è una colonna della tavola e un periodo è una riga. Gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni sul livello esterno. La colonna prevede quindi come reagisce un elemento. Il gruppo 1 sono i metalli alcalini, il gruppo 17 gli alogeni e il gruppo 18 i gas nobili. Il periodo dice quanti livelli di energia sono in uso: un elemento del periodo 3 ne usa tre. La riga ti dice così, all’incirca, quanto è grande l’atomo.',
+          'Un gruppo è una colonna della tavola e un periodo è una riga. Gli elementi di uno stesso gruppo hanno lo stesso numero di elettroni sul livello esterno. La colonna prevede quindi come reagisce un elemento. Il gruppo 1 sono i metalli alcalini, il gruppo 17 gli alogeni e il gruppo 18 i gas nobili. Il periodo dice quanti livelli di energia sono in uso: un elemento del periodo 3 ne usa tre. Per questo gli atomi diventano più grandi ogni volta che scendi a una nuova riga.',
       },
       {
         heading: 'Metalli e non metalli',
         content:
-          'I metalli riempiono la sinistra e il centro della tavola, e i non metalli stanno nell’angolo in alto a destra. Un metallo conduce l’elettricità e il calore, ha una superficie lucida e si lascia battere in lamina senza rompersi. Quasi tutti i metalli sono solidi a temperatura ambiente; il mercurio è quello liquido. Un non metallo di solito conduce male, è opaco e si spezza, ammesso che sia solido. Molti non metalli sono gas. Ampliamento: alcuni elementi sulla scala che sta fra gli uni e gli altri, come il silicio, si comportano un po’ come entrambi. Si chiamano semimetalli, una parola che il programma non usa.',
+          'I metalli riempiono la sinistra e il centro della tavola, e i non metalli stanno nell’angolo in alto a destra. Un metallo conduce l’elettricità e il calore, ha una superficie lucida e si lascia battere in lamina senza rompersi. Quasi tutti i metalli sono solidi a temperatura ambiente; il mercurio è quello liquido. Un non metallo di solito conduce male, è opaco e si spezza, ammesso che sia solido. Molti non metalli sono gas. Alcuni elementi sulla scala che sta fra gli uni e gli altri, come il silicio, si comportano un po’ come entrambi. Si chiamano semimetalli.',
       },
       {
         heading: 'Raggio atomico',
@@ -169,14 +174,14 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'La reattività, e perché un gruppo si comporta allo stesso modo',
         content:
-          'Puoi mettere alla prova un gruppo facendo reagire i suoi elementi con ossigeno, acqua e acidi: fra loro si comportano allo stesso modo. I metalli del gruppo 1 reagiscono con l’acqua e diventano più violenti scendendo: il litio sfrigola, il sodio sfreccia in superficie, il potassio prende fuoco. Gli stessi metalli con un acido liberano idrogeno, e ancora più in fretta. Gli elementi del gruppo 17 vanno nel verso opposto e diventano meno reattivi scendendo. Il gruppo 18 ha già il livello esterno pieno, quindi i gas nobili non reagiscono quasi con niente.',
+          'Puoi mettere alla prova un gruppo facendo reagire i suoi elementi con ossigeno, acqua e acidi: fra loro si comportano allo stesso modo. I metalli del gruppo 1 reagiscono con l’acqua e diventano più violenti scendendo: il litio sfrigola, il sodio sfreccia in superficie, il potassio prende fuoco. Gli stessi metalli con un acido liberano idrogeno ancora più in fretta, con una reazione troppo violenta per farla a scuola. Gli elementi del gruppo 17 vanno nel verso opposto e diventano meno reattivi scendendo. Il gruppo 18 ha già il livello esterno pieno, quindi i gas nobili non reagiscono quasi con niente.',
       },
       {
         heading: 'Ordinata per numero atomico, non per massa',
         content:
           'Mendeleev ordinò la tavola per massa, e alcuni elementi finirono nel posto sbagliato. Nel 1913 Henry Moseley misurò la carica del nucleo e trovò l’ordine che funziona: il numero atomico. Il tellurio è più pesante dello iodio, ma viene prima, perché ha un protone in meno.',
         imageAlt:
-          'Il tellurio e lo iodio uno accanto all’altro. Il tellurio ha la massa atomica relativa maggiore ma il numero atomico minore, e la tavola lo mette per primo.',
+          'Due caselle della tavola periodica affiancate, con una freccia dalla prima alla seconda per l’ordine nella tavola. Tellurio: numero atomico 52, massa atomica relativa 127,60, con «più pesante, ma viene prima». Iodio: numero atomico 53, massa atomica relativa 126,90, con «più leggero, ma viene dopo». Nella casella del tellurio i due numeri sono etichettati numero atomico e massa atomica relativa.',
       },
     ],
     tables: [
@@ -201,44 +206,51 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Che cosa cambia quando cambia il numero di neutroni: isotopi, decadimento, tempo di dimezzamento e gli elementi che è stato necessario fabbricare.',
     keyTakeaways: [
       'Gli isotopi sono atomi dello stesso elemento con un numero diverso di neutroni. Dal punto di vista chimico si comportano allo stesso modo.',
-      'La massa atomica relativa è una media pesata sugli isotopi di un elemento. È per questo che così poche sono numeri interi.',
       'Un nucleo instabile decade ed emette radiazione, e lascia dietro di sé un atomo più stabile.',
       'Le specie sono tre — alfa, beta e gamma — e si distinguono per che cosa esce e per che cosa le ferma.',
       'Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Dopo tre, ne resta un ottavo.',
       'Va da pochi secondi a miliardi di anni, ed è esattamente questo che permette di datare un passato lontanissimo.',
     ],
     formulaExampleNames: [
-      'Carbonio-12',
+      'Idrogeno-3 (trizio)',
       'Radon-222',
       'Iodio-131',
       'Cobalto-60',
       'Carbonio-14',
       'Uranio-238',
     ],
+    formulaExampleDescriptions: [
+      'radioattivo: tempo di dimezzamento di circa 12 anni',
+      'decade emettendo una particella alfa',
+      'decade emettendo una particella beta',
+      'emette radiazione beta e gamma – si usa per la gamma',
+      'tempo di dimezzamento di circa 5730 anni',
+      'tempo di dimezzamento di circa 4,5 miliardi di anni',
+    ],
     sections: [
       {
         heading: 'I due numeri che servono a questo bigino',
         content:
-          'Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo. I due termini sono un ampliamento: il programma di questi anni non ne nomina nessuno, e senza di essi qui non funziona niente.',
+          'Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo. Perché la massa atomica relativa di un elemento, per esempio il 35,5 del cloro, non è un numero intero lo spiega il bigino «Massa atomica e massa formula relative».',
       },
       {
         heading: 'Isotopi',
         content:
           'Gli isotopi sono atomi di uno stesso elemento con un numero diverso di neutroni. La chimica la fanno gli elettroni, e gli isotopi ne hanno lo stesso numero, quindi reagiscono allo stesso modo. Quello che cambia è la massa, e a volte la stabilità: alcuni isotopi sono radioattivi, altri no.',
         imageAlt:
-          'Tre atomi di idrogeno uno accanto all’altro: uno con un protone, uno con un protone e un neutrone, uno con un protone e due neutroni. Tutti e tre hanno un solo elettrone.',
+          'Tre atomi di idrogeno, uno sotto l’altro. Ognuno ha un protone (cerchio pieno) e un elettrone in una zona sfumata intorno al nucleo. L’idrogeno-1 (prozio) non ha neutroni, l’idrogeno-2 (deuterio) ne ha uno e l’idrogeno-3 (trizio) due (cerchi vuoti). L’idrogeno-1 e l’idrogeno-2 sono indicati come stabili, l’idrogeno-3 come radioattivo. Le etichette indicano l’elettrone, il protone e il neutrone.',
       },
       {
         heading: 'Nuclei instabili e le tre specie di radiazione',
         content:
-          'Alcuni nuclei sono instabili. Decadono da soli, emettono radiazione e lasciano dietro di sé un atomo più stabile. Il radon-222 scaglia fuori una particella alfa, cioè due protoni e due neutroni insieme. Lo iodio-131 emette una particella beta, cioè un elettrone veloce uscito dal nucleo. Il cobalto-60 emette radiazione gamma, che è energia e non una particella. Un foglio di carta ferma l’alfa, una lamina di alluminio ferma la beta, e la gamma richiede piombo o cemento spesso.',
+          'Alcuni nuclei sono instabili. Decadono da soli, emettono radiazione e lasciano dietro di sé un atomo più stabile. Il radon-222 scaglia fuori una particella alfa, cioè due protoni e due neutroni insieme. Lo iodio-131 emette una particella beta, cioè un elettrone veloce uscito dal nucleo. Il cobalto-60 emette radiazione beta e gamma, e si usa per la gamma, che è energia e non una particella. Un foglio di carta ferma l’alfa e una lamina di alluminio ferma la beta. Niente ferma del tutto la gamma: il piombo o il cemento spesso la attenuano molto.',
       },
       {
         heading: 'Tempo di dimezzamento',
         content:
           'Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Dopo un tempo di dimezzamento ne resta metà, dopo due un quarto e dopo tre un ottavo. Per ogni isotopo è fisso: scaldarlo o farlo reagire non lo cambia. Il carbonio-14 ha un tempo di dimezzamento di circa 5730 anni. L’uranio-238 lo ha di circa 4,5 miliardi di anni, ed è per questo che c’è ancora uranio nel terreno.',
         imageAlt:
-          'Una curva di decadimento che scende dal 100 per cento al 50, al 25 e al 12,5 per cento dopo uno, due e tre tempi di dimezzamento, con una linea tratteggiata fino all’asse a ogni punto. Dopo tre tempi di dimezzamento ne resta un ottavo. Un tempo di dimezzamento è di 5730 anni per il carbonio-14 e di circa 4,5 miliardi di anni per l’uranio-238.',
+          'Una curva di decadimento: i nuclei non ancora decaduti in funzione del tempo, in tempi di dimezzamento. Scende dal 100 per cento al 50, al 25, al 12,5 e al 6,25 per cento dopo uno, due, tre e quattro tempi di dimezzamento, con una linea tratteggiata fino all’asse del tempo a ogni punto, e continua a scendere senza mai arrivare a zero.',
       },
       {
         heading: 'Datare il passato, e 65 000 anni in Australia',
@@ -253,12 +265,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Elementi che è stato necessario fabbricare',
         content:
-          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura. Vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. Questo è un ampliamento: il programma non chiede gli elementi fabbricati. Sono qui perché è così che sono state riempite le ultime righe della tavola periodica.',
+          'Gli elementi dopo l’uranio non hanno isotopi stabili e non si trovano in natura in quantità apprezzabili. I primi, come il plutonio, si producono nei reattori nucleari: lì l’uranio cattura neutroni e poi il decadimento beta lo trasforma in nettunio e plutonio. Quelli più pesanti vengono costruiti negli acceleratori sparando un nucleo contro un altro, a volte pochi atomi alla volta. Molti durano meno di un secondo e poi decadono. È fabbricandoli che sono state riempite le ultime righe della tavola periodica.',
       },
-    ],
-    commonMistakes: [
-      'Leggere la massa atomica relativa come un conteggio di particelle. È una media sugli isotopi: il 35,5 del cloro non è un atomo che potresti trovare.',
-      'Sommare le due masse degli isotopi e dividere per due. Per il cloro viene 36, ed è sbagliato, perché il cloro-35 è tre volte più abbondante del cloro-37.',
     ],
   },
   'states-of-matter': {
@@ -268,7 +276,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Solidi: le particelle vibrano in posizioni fisse; forma fissa e volume fisso.',
       'Liquidi: le particelle scivolano le une sulle altre; volume fisso, ma la forma è quella del recipiente.',
-      'Gas: le particelle si muovono liberamente e in fretta; riempiono qualsiasi recipiente e si comprimono facilmente.',
+      'Gas: le particelle si muovono liberamente e sono molto distanti fra loro; riempiono qualsiasi recipiente e si comprimono facilmente.',
       'La temperatura misura l’energia cinetica media delle particelle.',
       'Durante un passaggio di stato la temperatura non cambia: l’energia serve a rompere o a formare le attrazioni fra le particelle, non ad accelerarle.',
     ],
@@ -280,6 +288,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'Le particelle nei tre stati',
+        content:
+          'In un solido le particelle sono a contatto, disposte in modo regolare, e vibrano sul posto. In un liquido sono ancora a contatto, ma in disordine, e scivolano le une sulle altre; in un gas sono molto distanti fra loro e si muovono liberamente in tutte le direzioni. Le particelle hanno la stessa dimensione nei tre stati: cambiano solo la loro disposizione e gli spazi fra loro.',
+        imageAlt:
+          'Tre scatole una sopra l’altra, con particelle della stessa dimensione in ciascuna. Solido: le particelle sono a contatto e formano un blocco regolare di righe e colonne, appoggiato sul fondo della scatola. Liquido: lo stesso numero di particelle, ancora a contatto ma in disordine, con piccoli spazi, sparse sul fondo della scatola. Gas: cinque particelle molto distanti fra loro in tutta la scatola, ciascuna con due brevi trattini dietro per mostrare che si muove.',
+      },
+      {
         heading: 'I simboli di stato nelle equazioni',
         content:
           'Ogni specie di un’equazione chimica porta un simbolo di stato: (s) solido, (l) liquido, (g) gas, (aq) sciolto in acqua. «Acquoso» non è un quarto stato della materia: vuol dire che c’è un soluto sciolto in acqua liquida.',
@@ -288,6 +303,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Curve di riscaldamento e di raffreddamento',
         content:
           'In una curva di riscaldamento, i tratti orizzontali sono i passaggi di stato (fusione, ebollizione). I tratti che salgono corrispondono a un solo stato che si scalda. Il tratto dell’ebollizione è più lungo di quello della fusione, perché separare del tutto le particelle costa più energia che limitarsi ad allentarle.',
+        imageAlt:
+          'Una curva di riscaldamento dell’acqua: la temperatura sull’asse verticale e l’energia fornita su quello orizzontale, senza numeri sull’asse dell’energia. La linea sale ripida nel solido, resta orizzontale a 0 °C durante la fusione, sale meno ripida nel liquido, resta orizzontale a 100 °C durante l’ebollizione e poi risale ripida nel gas. Il tratto dell’ebollizione è disegnato in scala, quasi sette volte più lungo di quello della fusione: circa 2260 J contro 334 J per grammo.',
       },
     ],
     tables: [
@@ -316,10 +333,10 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary: 'pH, donatori e accettori di protoni, forte o debole, e la neutralizzazione.',
     keyTakeaways: [
       'Acido: un donatore di protoni (H+). In acqua forma ioni idronio, H3O+. pH < 7.',
-      'Base: un accettore di protoni. Le basi solubili (alcali) liberano ioni idrossido, OH-, in acqua. pH > 7.',
-      'Neutro: pH 7 a 25 °C; l’acqua pura e quasi tutti i sali.',
-      'Neutralizzazione: acido + base → sale + acqua. L’equazione ionica è sempre H+ + OH- → H2O.',
-      'Ogni gradino della scala del pH è un fattore 10 nella concentrazione di H+: un pH 2 è 100 volte più acido di un pH 4.',
+      'Base: un accettore di protoni. Le basi solubili (alcali) liberano ioni idrossido, OH−, in acqua. pH > 7.',
+      'Neutro: pH 7 a 25 °C; l’acqua pura e le soluzioni di sali come NaCl.',
+      'Neutralizzazione: acido + base → sale + acqua. L’equazione ionica è sempre H+ + OH− → H2O.',
+      'Ogni gradino della scala del pH è un fattore 10 nella concentrazione di H+: a pH 2 la concentrazione di H+ è 100 volte quella a pH 4.',
     ],
     formulaExampleNames: [
       'Acido cloridrico (forte)',
@@ -328,6 +345,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Ammoniaca (base debole)',
     ],
     sections: [
+      {
+        heading: 'La scala del pH',
+        content:
+          'Il pH dice quanto una soluzione è acida o basica. A 25 °C sotto 7 è acida, a 7 è neutra e sopra 7 è basica, e quasi tutte le soluzioni che incontrerai stanno fra 0 e 14. L’indicatore universale assume un colore diverso a ogni pH: rosso dal lato acido, verde a 7 e viola dal lato basico.',
+        imageAlt:
+          'La scala del pH come una barra, con 0 in alto e 14 in basso, ogni gradino nel suo colore dell’indicatore universale e con il suo numero accanto: rosso a 0, arancione a 1, giallo a 2 e 3, verde da 4 a 8, verde-azzurro a 9, blu a 10 e 11 e viola da 12 a 14. Cinque prodotti di tutti i giorni sono segnati al loro pH: i succhi gastrici a 1, l’aceto a 3, l’acqua pura a 7, il bicarbonato a 8 e lo sgrassatore per forni a 13.',
+      },
       {
         heading: 'Forte e debole non è lo stesso che concentrato e diluito',
         content:
@@ -373,7 +397,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Scrivi sempre i simboli di stato nell’equazione finale.',
     ],
     formulaExampleNames: [
-      'Non bilanciata',
+      'Non bilanciata (ancora senza simboli di stato)',
       'Bilanciata',
       'Con uno ione poliatomico trattato come un’unità',
     ],
@@ -383,6 +407,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           '1. Scrivi la formula corretta di ogni reagente e di ogni prodotto. 2. Conta gli atomi di ogni elemento per lato. 3. Comincia dall’elemento che compare in meno formule. 4. Cambia solo i coefficienti. 5. Se ti viene una frazione (per esempio 7/2 O2), moltiplica tutto per 2. 6. Ricontrolla ogni elemento. 7. Aggiungi i simboli di stato.',
         exampleNames: ['Combustione del propano'],
+        imageAlt:
+          'La reazione 2H₂ + O₂ → 2H₂O disegnata con le particelle. A sinistra i reagenti: due molecole di idrogeno, ognuna di due atomi con la H che si toccano, più una molecola di ossigeno, due atomi con la O. Una freccia porta ai prodotti: due molecole d’acqua, ognuna un atomo di O con due atomi di H. Sotto le particelle c’è l’equazione e, sotto ancora, il conteggio degli atomi dei due lati: H 4 e 4, O 2 e 2.',
       },
     ],
     commonMistakes: [
@@ -399,7 +425,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     keyTakeaways: [
       'Sintesi (combinazione): due o più sostanze si uniscono; A + B → AB.',
       'Decomposizione: una sostanza si separa; AB → A + B (spesso serve calore o corrente elettrica).',
-      'Combustione: combustibile + ossigeno → diossido di carbonio + acqua (combustione completa); si libera calore.',
+      'Combustione: combustibile + ossigeno → diossido di carbonio + acqua (per un idrocarburo, con combustione completa); si libera calore.',
       'Scambio semplice: un elemento più reattivo prende il posto di uno meno reattivo; A + BC → AC + B.',
       'Doppio scambio: gli ioni si scambiano il partner; AB + CD → AD + CB (la precipitazione e la neutralizzazione sono casi particolari).',
     ],
@@ -444,7 +470,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Legame ionico, covalente e metallico, e come la struttura spiega le proprietà.',
     keyTakeaways: [
-      'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). Il numero del gruppo ti dice quanti elettroni di valenza ha un elemento rappresentativo.',
+      'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). In un elemento rappresentativo, l’ultima cifra del numero del gruppo ti dice quanti elettroni di valenza ha (il Cl è nel gruppo 17: 7 elettroni di valenza; l’elio, nel gruppo 18, ne ha solo 2).',
       'Ionico: metallo + non metallo. Si trasferiscono elettroni e si formano ioni tenuti insieme in un reticolo tridimensionale dall’attrazione elettrostatica.',
       'Covalente: non metallo + non metallo. Gli elettroni si condividono a due a due: ogni doppietto in comune fra due atomi è un legame.',
       'Metallico: atomi di metallo in un reticolo di cationi circondati da un «mare» di elettroni liberi.',
@@ -461,6 +487,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Perché i composti ionici conducono solo fusi o sciolti',
         content:
           'Nel reticolo solido gli ioni sono fermi al loro posto, quindi non ci sono particelle cariche che possano muoversi. Fondendo o sciogliendosi, gli ioni si liberano e il liquido conduce. I metalli conducono in tutti gli stati perché i loro elettroni liberi possono sempre muoversi.',
+        imageAlt:
+          'Tre riquadri, uno sotto l’altro. Legame ionico: un reticolo di piccoli ioni positivi e grandi ioni negativi alternati, ognuno segnato con + o −. Legame covalente: una molecola di idrogeno, due atomi con la H i cui cerchi si sovrappongono, con due puntini (gli elettroni) nella zona comune, indicati come doppietto di legame. Legame metallico: un reticolo di ioni metallici positivi con altrettanti puntini (gli elettroni) sparsi fra loro, indicati come elettroni delocalizzati.',
       },
     ],
     tables: [
@@ -500,7 +528,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Pareggia le cariche: prima il catione, incrocia le cariche e metti le parentesi agli ioni poliatomici ripetuti.',
     keyTakeaways: [
       'Un composto ionico non ha carica complessiva: la carica positiva totale è uguale alla carica negativa totale.',
-      'Nella formula scrivi prima il catione (il metallo o NH4+) e poi l’anione.',
+      'Nella formula scrivi prima il catione (il metallo o NH4+) e poi l’anione, anche se nel nome l’anione viene prima: cloruro di sodio, NaCl.',
       'Metodo dell’incrocio: il valore della carica di ogni ione diventa il pedice dell’altro ione; poi si semplifica al rapporto più piccolo.',
       'Uno ione poliatomico è un’unità. Se te ne serve più di uno, va fra parentesi: Ca(OH)2, non CaOH2.',
       'I metalli con più cariche possibili (Fe, Cu, Pb, Sn) indicano la propria con un numero romano nel nome: ferro(III) = Fe 3+.',
@@ -518,6 +546,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Al 3+ e SO4 2−. Incrocia le cariche: l’Al prende il pedice 2 e il solfato il pedice 3. Il solfato è poliatomico e si ripete, quindi ha bisogno delle parentesi: Al2(SO4)3. Verifica: 2 × (+3) = +6 e 3 × (−2) = −6. Neutro.',
         exampleNames: ['Solfato di alluminio'],
+        imageAlt:
+          'Il solfato di alluminio con il metodo dell’incrocio. In alto, lo ione alluminio Al³⁺, indicato come «catione», e lo ione solfato SO₄²⁻, indicato come «anione». Due frecce che si incrociano portano in basso ciascun numero di carica, che diventa il pedice dell’altro ione: il 3 di Al³⁺ diventa il 3 dopo il solfato tra parentesi, e il 2 di SO₄²⁻ il 2 dopo Al. In basso, la formula Al₂(SO₄)₃ e la verifica: 2 × (+3) = +6 e 3 × (−2) = −6.',
       },
       {
         heading: 'Le cariche più comuni, lette sulla tavola periodica',
@@ -528,7 +558,6 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     commonMistakes: [
       'Dimenticare di semplificare: Mg2O2 deve diventare MgO.',
       'Mettere le parentesi a uno ione poliatomico che sta da solo: NaOH, non Na(OH).',
-      'Scrivere prima l’anione nella formula perché in italiano si nomina per primo.',
     ],
   },
 
@@ -538,10 +567,10 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'La tabella di consultazione, più gli schemi di nomenclatura che fanno sì che ci sia molto meno da imparare a memoria di quanto sembri.',
     keyTakeaways: [
       'Uno ione poliatomico è un gruppo di atomi uniti da legami covalenti che ha una carica complessiva e si muove come un’unità nelle reazioni.',
-      'L’unico catione poliatomico comune è l’ammonio, NH4+. Tutti gli altri sono anioni.',
+      'L’unico catione poliatomico comune è l’ammonio, NH4+ (a parte lo ione idronio, H3O+, che incontri negli acidi). Tutti gli altri sono anioni.',
       '«-ato» ha più ossigeno di «-ito»: solfato SO4 2− contro solfito SO3 2−; nitrato NO3− contro nitrito NO2−. La carica non cambia.',
       '«per-…-ato» è un ossigeno in più di -ato; «ipo-…-ito» è uno in meno di -ito (perclorato ClO4−, clorato ClO3−, clorito ClO2−, ipoclorito ClO−).',
-      'Aggiungere H+ a un anione ne alza la carica di un’unità e aggiunge «idrogeno» al nome: carbonato CO3 2− → idrogenocarbonato HCO3−.',
+      'Aggiungere H+ a un anione ne rende la carica meno negativa di un’unità e aggiunge «idrogeno» al nome: carbonato CO3 2− → idrogenocarbonato HCO3−.',
     ],
     formulaExampleNames: [
       'Nitrato di sodio',
@@ -551,7 +580,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     ],
     tables: [
       {
-        heading: 'Ioni poliatomici (quelli del libro dei dati di VCE)',
+        heading: 'Gli ioni poliatomici più comuni',
         caption:
           'Prima i cationi e poi gli anioni, raggruppati per carica. I nomi fra parentesi sono nomi vecchi che si incontrano ancora.',
         columns: ['Nome', 'Formula', 'Carica'],
@@ -567,13 +596,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Dove compaiono',
         content:
-          'Acidi: l’acido solforico è H2SO4 perché il solfato è 2−; l’acido nitrico è HNO3 perché il nitrato è 1−. Precipitazione: quasi tutti i nitrati e tutti i sali di ammonio sono solubili, quindi sono le coppie «spettatrici» di sempre. Redox: il permanganato e il dicromato sono gli ossidanti classici.',
+          'Acidi: l’acido solforico è H2SO4 perché il solfato è 2−; l’acido nitrico è HNO3 perché il nitrato è 1−. Precipitazione: tutti i nitrati e tutti i sali di ammonio sono solubili, quindi sono le coppie «spettatrici» di sempre. Redox: il permanganato e il dicromato sono gli ossidanti classici.',
       },
     ],
     commonMistakes: [
       'Spezzare lo ione dentro una formula (scrivere Ca(OH)2 come CaO2H2): sta sempre insieme.',
       'Trattare la carica come se fosse solo dell’ultimo atomo: è di tutto il gruppo.',
-      'Confondere la carica (−2) con il numero di ossigeni: il solfato ha 4 O e carica 2−.',
+      'Confondere la carica (2−) con il numero di ossigeni: il solfato ha 4 O e carica 2−.',
     ],
   },
 
@@ -595,6 +624,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Acido nitroso (acido, dal nitrito)',
     ],
     sections: [
+      {
+        heading: 'Quale sistema di nomenclatura?',
+        content:
+          'Guarda prima di che cosa è fatto il composto. Un metallo (o NH4+) con un non metallo forma un composto ionico: prima l’anione, poi «di» e il catione, senza prefissi (cloruro di sodio). Due non metalli formano un composto molecolare, che si nomina con i prefissi greci (diossido di zolfo); ma se l’H sta davanti e il composto è sciolto in acqua, è un acido, e il suo nome si ricava dall’anione: acido cloridrico.',
+        imageAlt:
+          'Un diagramma di flusso per scegliere il sistema di nomenclatura. Da «metallo + non metallo» una freccia porta a «ionico», per esempio cloruro di sodio. Da «due non metalli» una freccia porta a «molecolare», per esempio diossido di zolfo. Da «due non metalli» scende anche una freccia verso «H davanti, in acqua», e da lì ad «acido», per esempio acido cloridrico.',
+      },
       {
         heading: 'Come si ricava il numero romano',
         content:
@@ -652,23 +688,40 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Idrossido di magnesio',
       'Nitrato di calcio',
     ],
+    formulaExampleDescriptions: [
+      '2 × 1 + 16 = 18',
+      '12 + 2 × 16 = 44',
+      '40 + 12 + 3 × 16 = 100',
+      '24 + 2 × (16 + 1) = 58',
+      '40 + 2 × (14 + 3 × 16) = 164',
+    ],
     sections: [
       {
         heading: 'Che cosa vuol dire «relativa»',
         content:
           'Gli atomi sono troppo leggeri per pesarli uno alla volta, così i chimici li confrontano. Metti un atomo di carbonio su un piatto e atomi di idrogeno sull’altro: ne servono 12 perché la bilancia sia in equilibrio. L’idea è tutta qui: il carbonio pesa 12 volte l’idrogeno, quindi diciamo che la sua massa atomica relativa è 12. Il numero risponde alla domanda «quanti idrogeni?», ed è per questo che non ha unità: è un confronto, non una misura. A rigore lo standard è il carbonio-12, non l’idrogeno: ogni massa atomica relativa confronta un atomo con un dodicesimo di un atomo di carbonio-12. L’idrogeno viene quasi esattamente 1, ed è per questo che l’immagine della bilancia funziona.',
+        imageAlt:
+          'Una bilancia a due piatti appesi, in equilibrio. Sul piatto di sinistra c’è un atomo di carbonio, un cerchio con la C. Su quello di destra ci sono dodici atomi di idrogeno, cerchi più piccoli con la H, impilati in file da cinque, quattro e tre. Il carbonio è disegnato più grande dell’idrogeno, ma non certo dodici volte tanto. Sotto i piatti c’è scritto «1 atomo di carbonio» e «12 atomi di idrogeno», e una nota avverte che il disegno non è in scala.',
       },
       {
         heading: 'Sommare gli atomi',
         content:
           'La massa formula relativa (Mr) è la somma delle Ar di tutti gli atomi della formula. Procedi da sinistra a destra, un elemento alla volta, e scrivi il passaggio: H2O sono 2 idrogeni da 1 ciascuno più 1 ossigeno da 16, quindi 2 + 16 = 18. L’ordine non conta e alla fine non si moltiplica niente: se ti serve la calcolatrice per qualcosa di più di una somma, c’è qualcosa che non va.',
         exampleNames: ['Ammoniaca', 'Metano', 'Acido solforico'],
+        exampleDescriptions: [
+          '14 + 3 × 1 = 17',
+          '12 + 4 × 1 = 16',
+          '2 × 1 + 32 + 4 × 16 = 98',
+        ],
       },
       {
         heading: 'Pedici e parentesi',
         content:
           'Un pedice moltiplica solo l’atomo che segue: il 2 di CO2 vuol dire due ossigeni, non due di tutto. Una parentesi moltiplica l’intero gruppo che racchiude: Mg(OH)2 è un magnesio più due unità OH, quindi 24 + 2 × 17 = 58, non 24 + 16 + 1. Quando vedi una parentesi, calcola il gruppo una volta e poi moltiplica.',
         exampleNames: ['Solfato di alluminio'],
+        exampleDescriptions: [
+          '2 × 27 + 3 × (32 + 4 × 16) = 342',
+        ],
       },
       {
         heading: 'Perché la tavola di classe non coincide con internet',
@@ -696,37 +749,35 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
           ['magnesio', 'Mg', '24'],
           ['alluminio', 'Al', '27'],
           ['zolfo', 'S', '32'],
-          ['cloro', 'Cl', '35.5'],
+          ['cloro', 'Cl', '35,5'],
           ['potassio', 'K', '39'],
           ['calcio', 'Ca', '40'],
           ['ferro', 'Fe', '56'],
-          ['rame', 'Cu', '63.5'],
+          ['rame', 'Cu', '63,5'],
         ],
       },
       {
         heading: 'Esempi svolti',
         columns: ['Formula', 'Calcolo', 'Mr'],
         rows: [
-          ['H2', '2 x 1', '2'],
-          ['O2', '2 x 16', '32'],
-          ['H2O', '2 x 1 + 16', '18'],
-          ['NaCl', '23 + 35.5', '58.5'],
+          ['H2', '2 × 1', '2'],
+          ['O2', '2 × 16', '32'],
+          ['H2O', '2 × 1 + 16', '18'],
+          ['NaCl', '23 + 35,5', '58,5'],
           ['MgO', '24 + 16', '40'],
-          ['CO2', '12 + 2 x 16', '44'],
-          ['CaCO3', '40 + 12 + 3 x 16', '100'],
-          ['H2SO4', '2 x 1 + 32 + 4 x 16', '98'],
-          ['Mg(OH)2', '24 + 2 x (16 + 1)', '58'],
-          ['Ca(NO3)2', '40 + 2 x (14 + 3 x 16)', '164'],
+          ['CO2', '12 + 2 × 16', '44'],
+          ['CaCO3', '40 + 12 + 3 × 16', '100'],
+          ['H2SO4', '2 × 1 + 32 + 4 × 16', '98'],
+          ['Mg(OH)2', '24 + 2 × (16 + 1)', '58'],
+          ['Ca(NO3)2', '40 + 2 × (14 + 3 × 16)', '164'],
         ],
       },
     ],
     commonMistakes: [
-      'Dire che un atomo di carbonio «pesa 12»: 12 che cosa? Ar è un confronto con l’idrogeno e non ha unità. I grammi arrivano solo quando passi a una quantità reale.',
+      'Dire che un atomo di carbonio «pesa 12»: 12 che cosa? Ar è un confronto e non ha unità. I grammi arrivano solo quando passi a una quantità reale.',
       'Applicare il pedice a tutta la formula: in CO2 il 2 riguarda solo l’ossigeno.',
       'Non vedere una parentesi, così Mg(OH)2 viene 41 invece di 58.',
       'Chiamare la Mr «massa molecolare» per NaCl o MgO. Lì non c’è nessuna molecola, ed è esattamente per questo che si chiama massa formula.',
-      'Mescolare un valore del libro dei dati in un esercizio costruito sulla tavola di classe e poi stupirsi che il risultato differisca di una frazione.',
-      'Fare la media delle Ar invece di sommarle.',
     ],
   },
 
@@ -735,7 +786,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Conversioni con la mole, rapporti molari, reagente limitante e resa percentuale, tutto in un posto.',
     keyTakeaways: [
-      'Una mole è 6,02 × 10^23 particelle (la costante di Avogadro, N_A). La massa molare M (g/mol) è la massa di una mole: si sommano le masse atomiche della tavola periodica.',
+      'Una mole è 6,02 × 10²³ particelle (la costante di Avogadro, N_A). La massa molare M (g/mol) è la massa di una mole: si sommano le masse atomiche della tavola periodica.',
       'Tutte le strade passano per la mole: converti in moli quello che ti danno, usa il rapporto molare dell’equazione bilanciata e riconverti in quello che ti chiedono.',
       'Il rapporto molare è il rapporto fra i coefficienti, e nient’altro.',
       'Reagente limitante: il reagente che finisce per primo decide quanto prodotto si forma. Calcola le moli di ogni reagente e dividile per il suo coefficiente; il risultato più piccolo è il limitante.',
@@ -750,7 +801,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
           ['n = m ÷ M', 'la massa', 'n in mol, m in g, M in g/mol'],
           ['n = N ÷ N_A', 'il numero di particelle', 'N_A = 6,02 × 10²³ mol⁻¹'],
           ['n = c × V', 'la concentrazione di una soluzione', 'c in mol/L, V in L'],
-          ['n = V ÷ V_m', 'il volume di un gas in CSA', 'V_m = 24,8 L/mol a 25 °C e 100 kPa'],
+          ['n = V ÷ V_m', 'il volume di un gas a 25 °C e 100 kPa', 'V_m = 24,8 L/mol a 25 °C e 100 kPa'],
           ['PV = nRT', 'un gas in altre condizioni', 'P in kPa, V in L, T in K, R = 8,31'],
         ],
       },
@@ -760,6 +811,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Esempio svolto: massa → massa',
         content:
           'Che massa di acqua si forma quando bruciano del tutto 8,0 g di idrogeno? 2H2 + O2 → 2H2O. n(H2) = 8,0 ÷ 2,0 = 4,0 mol. Il rapporto H2 : H2O è 2 : 2, quindi n(H2O) = 4,0 mol. m(H2O) = 4,0 × 18,0 = 72 g.',
+        imageAlt:
+          'La mappa della mole. A sinistra, quattro riquadri uno sotto l’altro – massa, numero di particelle, volume di gas e soluzione – sono collegati ciascuno a un riquadro alto, «moli di reagente», da una doppia freccia con la sua formula: n = m/M, n = N/N_A, n = V/V_m e n = cV. Dalle moli di reagente, una freccia con la scritta «rapporto molare (coefficienti)» scende alle moli di prodotto.',
       },
       {
         heading: 'Esempio svolto: reagente limitante',
@@ -771,7 +824,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Usare il rapporto fra le masse invece del rapporto molare: 2 g di H2 non reagiscono con 1 g di O2.',
       'Scegliere come limitante il reagente che ha meno massa, senza passare prima alle moli.',
       'Mescolare le unità: un volume in mL con una c in mol/L dà moli 1000 volte più grandi.',
-      'Arrotondare presto: tieni tutta la precisione fino al risultato finale e dai allora 3 cifre significative.',
+      'Arrotondare presto: tieni tutta la precisione fino al risultato finale e poi arrotonda allo stesso numero di cifre significative del dato meno preciso.',
     ],
   },
 
@@ -780,7 +833,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Conta gli elettroni di valenza, condividi fino a completare gli ottetti e verifica con la carica formale.',
     keyTakeaways: [
-      'Elettroni di valenza = numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
+      'Elettroni di valenza = ultima cifra del numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7; l’azoto è nel gruppo 15 e il cloro nel 17; l’elio, nel gruppo 18, ne ha solo 2). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
       'Ogni legame è un doppietto in comune fra due atomi (2 elettroni). Singolo = 1 doppietto, doppio = 2, triplo = 3. Gli elettroni che non formano legami restano come doppietti solitari.',
       'Regola dell’ottetto: quasi tutti gli atomi vogliono 8 elettroni di valenza intorno. L’idrogeno ne vuole 2 (il duetto).',
       'Se all’atomo centrale manca qualcosa per l’ottetto dopo aver distribuito tutti gli elettroni, trasforma doppietti solitari degli atomi esterni in legami aggiuntivi.',
@@ -796,12 +849,14 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'L’essenziale di terza media',
         content:
-          'Ogni atomo porta i suoi elettroni esterni sotto forma di punti. Un punto da solo è un dispari; due dispari di due atomi diversi formano un doppietto di legame, cioè un legame (si disegna come una linea). I doppietti che restano su un solo atomo sono doppietti solitari. Un atomo è completo con 8 punti intorno (un ottetto); l’idrogeno è completo con 2 (un duetto). Condividi due volte fra gli stessi due atomi per un legame doppio, e tre per uno triplo. Il numero di dispari ti dice quanti legami forma un atomo: H 1, C 4, N 3, O 2, Cl 1. Lo zolfo si comporta come l’ossigeno e il fosforo come l’azoto, perché stanno negli stessi gruppi. Tutto quello che viene sotto questa sezione (carica formale, geometria VSEPR, eccezioni all’ottetto) è materia delle superiori.',
+          'Ogni atomo porta i suoi elettroni esterni sotto forma di punti. Un punto da solo è un elettrone spaiato; due elettroni spaiati di due atomi diversi formano un doppietto di legame, cioè un legame (si disegna come una linea). I doppietti che restano su un solo atomo sono doppietti solitari. Un atomo è completo con 8 punti intorno (un ottetto); l’idrogeno è completo con 2 (un duetto). Condividi due volte fra gli stessi due atomi per un legame doppio, e tre per uno triplo. Il numero di elettroni spaiati ti dice quanti legami forma un atomo: H 1, C 4, N 3, O 2, Cl 1. Lo zolfo si comporta come l’ossigeno e il fosforo come l’azoto, perché stanno negli stessi gruppi. Tutto quello che viene sotto questa sezione (carica formale, geometria VSEPR, eccezioni all’ottetto) è materia delle superiori.',
         exampleNames: [
           'Acqua: l’ossigeno condivide due volte e si tiene 2 doppietti solitari',
-          'Metano: il carbonio condivide i suoi quattro dispari',
+          'Metano: il carbonio condivide i suoi quattro elettroni spaiati',
           'Ossigeno: due doppietti di legame fanno un legame doppio',
         ],
+        imageAlt:
+          'Le strutture di Lewis di quattro molecole, ognuna con la sua formula sotto. Acqua, H₂O: H–O–H con due doppietti solitari sull’ossigeno, uno sopra e uno sotto. Ammoniaca, NH₃: l’azoto legato a tre idrogeni con legami singoli, con un doppietto solitario. Diossido di carbonio, CO₂: O=C=O, due legami doppi, con due doppietti solitari su ogni ossigeno e nessuno sul carbonio. Metano, CH₄: il carbonio legato a quattro idrogeni con legami singoli, senza doppietti solitari. I legami sono linee e i doppietti solitari coppie di punti. Due etichette indicano un doppietto solitario, sull’ossigeno dell’acqua, e un doppietto di legame, un legame dell’ammoniaca.',
       },
       {
         heading: 'I cinque passi',
@@ -812,6 +867,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Dalla struttura di Lewis alla geometria (VSEPR)',
         content:
           'Conta le regioni di elettroni intorno all’atomo centrale (ogni legame, singolo o multiplo, conta una volta; ogni doppietto solitario conta una volta). 4 regioni → tetraedrica (109,5°); con 1 doppietto solitario → piramidale trigonale (NH3); con 2 doppietti solitari → angolare (H2O). 3 regioni → trigonale planare (120°). 2 regioni → lineare (180°).',
+        imageAlt:
+          'Le cinque geometrie VSEPR, ognuna con la sua formula, la geometria e l’angolo di legame sotto, disegnate in 3D: un cuneo pieno è un legame che esce dal piano verso chi guarda, un cuneo tratteggiato uno che va dietro. CO₂: lineare, 180°. BF₃: trigonale planare, 120°. CH₄: tetraedrica, 109,5°. NH₃: piramidale trigonale, 107°, con il suo doppietto solitario disegnato come un lobo sull’azoto. H₂O: angolare, 104,5°, con due lobi sull’ossigeno. NH₃ e H₂O sono disegnate come CH₄, con uno e poi due dei suoi legami sostituiti da un doppietto solitario. Un piccolo arco segna l’angolo fra i due legami che stanno nel piano della pagina.',
       },
       {
         heading: 'Eccezioni all’ottetto',
@@ -876,6 +933,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         rows: [
           ['Acido carbossilico', 'acido …-oico', 'acido propanoico'],
           ['Estere', '-oato di -ile', 'etanoato di metile'],
+          ['Ammide', '-ammide', 'etanammide'],
           ['Aldeide', '-ale', 'etanale'],
           ['Chetone', '-one', 'propan-2-one'],
           ['Alcol', '-olo', 'butan-2-olo'],
@@ -890,13 +948,15 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Esempio svolto',
         content:
           'Una catena di 5 carboni con un OH sul carbonio 2 e un metile sul carbonio 3. Radice: pent-. Suffisso: -olo con il numero 2 (numerando dall’estremità più vicina all’OH). Sostituente: 3-metil. Nome: 3-metilpentan-2-olo.',
+        imageAlt:
+          'La formula scheletrica del 3-metilpentan-2-olo: una catena a zigzag di cinque carboni, numerati da 1 a 5 da sinistra a destra. Dal carbonio 2 sale un legame verso l’OH, dal carbonio 3 scende un breve tratto: il gruppo metile, indicato come «metile». Sotto, il nome 3-metilpentan-2-olo.',
       },
     ],
     commonMistakes: [
       'Prendere la catena così com’è disegnata in orizzontale invece della catena più lunga.',
       'Numerare dall’estremità sbagliata: il gruppo funzionale comanda sui sostituenti.',
       'Mettere in ordine alfabetico partendo dal moltiplicatore: «dimetil» va sotto la m, non sotto la d.',
-      'Dimenticare il numero di -ene, -olo o -one quando la catena ha 4 carboni o più.',
+      'Dimenticare il numero di -ene, -olo o -one ogni volta che il gruppo potrebbe stare in più di una posizione (propan-1-olo o propan-2-olo).',
     ],
   },
 
@@ -942,7 +1002,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
             'CₙH₂ₙO₂',
             'Acido debole; esterificazione con un alcol',
           ],
-          ['Estere', '–COO–', '-oato di -ile', '—', 'Idrolisi, che restituisce l’acido e l’alcol'],
+          ['Estere', '–COO–', '-oato di -ile', 'CₙH₂ₙO₂', 'Idrolisi, che restituisce l’acido e l’alcol'],
           ['Ammina', '–NH₂', '-ammina', 'CₙH₂ₙ₊₁NH₂', 'Base debole; forma ammidi con gli acidi'],
           ['Ammide', '–CONH₂', '-ammide', '—', 'Idrolisi'],
         ],
@@ -952,16 +1012,18 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Il percorso di reazione da sapere',
         content:
-          'Alchene → (H2O, con H+ da catalizzatore) → alcol. Alchene → (HX) → alogenuro alchilico → (OH−) → alcol → (Cr2O7 2−/H+) → aldeide → (altra ossidazione) → acido carbossilico → (alcol, con H2SO4 da catalizzatore) → estere. Gli alcoli primari si ossidano due volte, i secondari si ossidano una volta e danno chetoni, e i terziari non si ossidano.',
+          'Alchene → (H₂O, H₃PO₄ come catalizzatore) → alcol. Alchene → (HX) → alogenuro alchilico → (OH⁻(aq)) → alcol → (Cr₂O₇²⁻/H⁺) → aldeide → (altra ossidazione) → acido carbossilico → (alcol, H₂SO₄ come catalizzatore) → estere. Gli alcoli primari si ossidano due volte, i secondari si ossidano una volta e danno chetoni, e i terziari non si ossidano.',
+        imageAlt:
+          'Una mappa delle reazioni, da leggere dall’alto in basso. A sinistra: un alchene dà un alcol primario con H₂O e H₃PO₄ come catalizzatore; l’alcol primario dà un’aldeide con Cr₂O₇²⁻/H⁺, l’aldeide un acido carbossilico con Cr₂O₇²⁻/H⁺, e l’acido carbossilico un estere con un alcol e H₂SO₄ come catalizzatore. A destra: l’alchene può anche dare un alogenuro alchilico con HX, che con OH⁻(aq) dà lo stesso alcol primario; e accanto all’alcol primario, un alcol secondario si ossida a chetone con Cr₂O₇²⁻/H⁺.',
       },
       {
         heading: 'Riconoscere un gruppo in uno spettro',
         content:
-          'IR: una banda larga di O–H verso 3200–3550 cm⁻¹ indica un alcol (oppure, se è molto larga e si sovrappone al C–H, un acido carbossilico); un C=O intenso vicino a 1670–1750 cm⁻¹ indica un’aldeide, un chetone, un acido, un estere o un’ammide. Il libro dei dati di VCE dà gli intervalli esatti: usalo.',
+          'IR: una banda larga di O–H verso 3200–3550 cm⁻¹ indica un alcol (oppure, se è molto larga e si sovrappone al C–H, un acido carbossilico); un C=O intenso vicino a 1670–1750 cm⁻¹ indica un’aldeide, un chetone, un acido, un estere o un’ammide. Gli intervalli esatti li trovi in una tabella IR: usala.',
       },
     ],
     commonMistakes: [
-      'Chiamare alcol una molecola con –OH su un anello benzenico (è un fenolo): è fuori dal programma di VCE, ma è una trappola frequente.',
+      'Chiamare alcol una molecola con –OH su un anello benzenico (è un fenolo): è una trappola frequente.',
       'Confondere un’aldeide (C=O all’estremità) con un chetone (C=O in mezzo).',
       'Credere che gli esteri siano acidi perché contengono –COO–: non hanno nessun H acido.',
     ],
