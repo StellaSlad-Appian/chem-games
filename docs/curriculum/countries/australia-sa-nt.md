@@ -2,9 +2,9 @@
 
 **Purpose:** the reference curriculum for South Australia and the Northern Territory, for the organic
 chemistry and energetics games planned in
-[`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md). The other states and territories
-are compared in [`australia-overview.md`](./australia-overview.md). Years 7–10 are covered by
-[`australian-curriculum-v9-science-7-10.md`](./australian-curriculum-v9-science-7-10.md).
+[`../ORGANIC_GAMES_FRAMEWORK.md`](../../ORGANIC_GAMES_FRAMEWORK.md). The other states and territories
+are compared in [`australia-overview.md`](../australia-overview.md). Years 7–10 are covered by
+[`australia-curriculum-v9-7-10.md`](./australia-curriculum-v9-7-10.md).
 **Research date:** 24 Sept 2026 (desk research by an agent, from primary sources).
 **Review status:** not yet checked by a teacher who teaches SACE or NTCET Chemistry.
 
@@ -427,6 +427,10 @@ In section 2, content from the second column is marked *(context)*.
 ---
 
 ## 3. Where each topic sits
+
+> The skill ids in this table are the framework's research labels. The data record is
+> `src/core-engine/data/curriculum/countries/au-sa.ts`, built from this table through the
+> crosswalk in [`../ALIGNMENT.md`](../ALIGNMENT.md) §2.
 
 S1 = Stage 1 (Year 11), S2 = Stage 2 (Year 12). "Core" at Stage 1 means core *if the teacher
 selects that topic*: Stage 1 coverage is chosen by the school (section 1.2).

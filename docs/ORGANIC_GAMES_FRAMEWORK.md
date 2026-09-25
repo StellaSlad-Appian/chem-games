@@ -12,7 +12,7 @@ pilot curriculum**. It covers:
 - basic thermodynamics
 
 **Companion documents:**
-- [`curriculum/bavaria-gymnasium-chemie.md`](./curriculum/bavaria-gymnasium-chemie.md): what
+- [`curriculum/countries/germany-bavaria.md`](./curriculum/countries/germany-bavaria.md): what
   Bavaria teaches, where and at which level, with sources.
 - [`curriculum/germany-sek2-overview.md`](./curriculum/germany-sek2-overview.md): the KMK
   standards and five other Länder compared. It also holds the skill ids (O/K/T/G), the
@@ -133,6 +133,13 @@ These foundations are numbered **OF1–OF9** (organic framework) to keep them ap
 existing F1–F9 in `BUILD_PLAN.md` §4.
 
 ### OF1: Curriculum layer (skills, anchors, profile)
+
+> **Superseded (approved 2026-09-25):** [`curriculum/ALIGNMENT.md`](./curriculum/ALIGNMENT.md)
+> makes the curriculum map (`src/core-engine/data/curriculum/`) the single curriculum model. Games
+> tag canonical concepts, jurisdictions are records such as `DE-BY` and `AU-VIC`, and the player
+> profile is jurisdiction · year · track (device first). The skill ids and `CurriculumAnchor` below
+> are kept only as the research record; do not build them. What survives from this section is the
+> misconception registry (re-keyed to concepts) and the vocabulary stage, now derived from the map.
 
 The German curriculum cannot be expressed as a year level, so the framework adds a tagging layer
 alongside `YearLevel`. `YearLevel` itself stays, and the hub keeps using it.

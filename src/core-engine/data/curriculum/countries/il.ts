@@ -13,7 +13,7 @@
 // year through the superintendent's focus list (מיקוד), so placements say what
 // is taught, not what is examined this year.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at } from '../placement';
 
 const major = { track: 'major' } as const;
@@ -21,8 +21,9 @@ const introSci = { track: 'intro-sci' } as const;
 const ext = { track: 'extension' } as const;
 const elective = { track: 'elective' } as const;
 
-export const IL: CountryCurriculum = {
+export const IL: JurisdictionCurriculum = {
   code: 'IL',
+  country: 'IL',
   name: 'Israel',
   basis: 'Ministry of Education Science & Technology curriculum for grades 7–9 (2016/17); Chemistry curriculum for the 5-unit בגרות (70-30 model) with the 2025/26 content update; Intro to Chemistry (מבוא לכימיה).',
   researchedOn: '2026-09-24',
@@ -35,6 +36,7 @@ export const IL: CountryCurriculum = {
     { year: 10, localLabel: 'כיתה י', localLabelEn: 'kita yud (grade 10)', typicalAgeAtStart: 15, stage: 'חטיבה עליונה (high school)', delivery: 'optional', note: '5-unit chemistry major, or one year of intro science for everyone else.' },
     { year: 11, localLabel: 'כיתה יא', localLabelEn: 'kita yud-alef (grade 11)', typicalAgeAtStart: 16, stage: 'חטיבה עליונה', delivery: 'optional', note: 'Heaviest year of the 5-unit major.' },
     { year: 12, localLabel: 'כיתה יב', localLabelEn: 'kita yud-bet (grade 12)', typicalAgeAtStart: 17, stage: 'חטיבה עליונה (בגרות)', delivery: 'optional' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'School ends after grade 12.' },
   ],
   tracks: {
     major: 'Chemistry major, 5 study units (כימיה 5 יח"ל)',
@@ -126,7 +128,8 @@ export const IL: CountryCurriculum = {
     isomerism: [at(10, 'develop', major)],
     'oxygen-organics': [at(10, 'develop', { ...introSci, note: 'Flavours and smells' }), at(11, 'develop', major)],
     'organic-reaction-types': [at(11, 'develop', { ...major, note: 'Esterification, hydrogenation, hydrolysis' })],
-    stereoisomerism: [at(11, 'develop', { ...major, note: 'cis/trans fatty acids' }), at(12, 'extend', { ...elective, note: 'Optical isomers' })],
+    'geometric-isomerism': [at(11, 'develop', { ...major, note: 'cis/trans fatty acids' })],
+    'optical-isomerism': [at(12, 'extend', elective)],
     'reaction-mechanisms': [at(12, 'extend', { ...elective, note: 'SN1/SN2/E1/E2' })],
     'crude-oil-fuels': [at(9, 'intro', ext)],
     'polymers-intro': [at(9, 'intro')],

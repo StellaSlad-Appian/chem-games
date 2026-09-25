@@ -1,10 +1,18 @@
 import { describe, expect, it } from 'vitest';
-import { SCHOOL_YEARS, type CanonicalConcept, type ConceptId, type Placement } from '../types/curriculum';
-import { CONCEPTS } from '../data/curriculum/concepts';
 import {
-  COUNTRY_CODES,
-  COUNTRY_CURRICULA,
+  SCHOOL_YEARS,
+  type CanonicalConcept,
+  type ConceptId,
+  type CurriculumArea,
+  type JurisdictionCurriculum,
+  type Placement,
+} from '../types/curriculum';
+import { CONCEPT_BY_ID, CONCEPTS } from '../data/curriculum/concepts';
+import {
+  CURRICULA,
+  JURISDICTION_CODES,
   conceptsInYear,
+  curriculumFor,
   firstYear,
   localYearLabel,
 } from '../data/curriculum';
@@ -23,12 +31,29 @@ const SEEDED_DB_CONCEPTS = [
 
 const conceptIds = new Set<string>(CONCEPTS.map((concept) => concept.id));
 
+const recordOf = (code: (typeof JURISDICTION_CODES)[number]): JurisdictionCurriculum => {
+  const record = CURRICULA[code];
+  if (!record) throw new Error(`No record for ${code}`);
+  return record;
+};
+
 const allPlacements = () =>
-  COUNTRY_CODES.flatMap((code) =>
-    (Object.entries(COUNTRY_CURRICULA[code].placements) as [ConceptId, readonly Placement[]][]).flatMap(
+  JURISDICTION_CODES.flatMap((code) =>
+    (Object.entries(recordOf(code).placements) as [ConceptId, readonly Placement[]][]).flatMap(
       ([concept, placements]) => placements.map((placement) => ({ code, concept, placement }))
     )
   );
+
+const areaOf = (concept: string): CurriculumArea => {
+  const entry = CONCEPT_BY_ID.get(concept);
+  if (!entry) throw new Error(`Unknown concept ${concept}`);
+  return entry.area;
+};
+
+// A record without `coveredAreas` claims to speak for every area, so it should
+// place concepts in most of them. This catches a partial record that forgot to
+// declare itself partial.
+const MIN_AREAS_FOR_A_FULL_RECORD = 20;
 
 describe('canonical concepts', () => {
   it('have unique ids that the concepts table would accept', () => {
@@ -36,7 +61,7 @@ describe('canonical concepts', () => {
     for (const concept of CONCEPTS) expect(concept.id).toMatch(DB_CONCEPT_ID);
   });
 
-  it('are each placed by at least one country', () => {
+  it('are each placed by at least one jurisdiction', () => {
     const placed = new Set(allPlacements().map(({ concept }) => concept));
     expect(CONCEPTS.filter((concept) => !placed.has(concept.id)).map((c) => c.id)).toEqual([]);
   });
@@ -54,11 +79,34 @@ describe('canonical concepts', () => {
   });
 });
 
-describe.each(COUNTRY_CODES)('%s', (code) => {
-  const country = COUNTRY_CURRICULA[code];
+describe.each(JURISDICTION_CODES)('%s', (code) => {
+  const country = recordOf(code);
 
-  it('describes each of Years 7–12 exactly once, in order', () => {
+  it('describes each of Years 7–13 exactly once, in order', () => {
     expect(country.years.map((entry) => entry.year)).toEqual(SCHOOL_YEARS);
+  });
+
+  it('names its country consistently with its code', () => {
+    if (code.includes('-')) expect(code.startsWith(`${country.country}-`)).toBe(true);
+    else expect(country.country).toBe(code);
+  });
+
+  it('declares itself partial unless it places concepts across most areas', () => {
+    const areas = new Set(Object.keys(country.placements).map(areaOf));
+    if (country.coveredAreas === undefined) expect(areas.size).toBeGreaterThanOrEqual(MIN_AREAS_FOR_A_FULL_RECORD);
+  });
+
+  it('places at least one concept in every area it claims to cover', () => {
+    const areas = new Set(Object.keys(country.placements).map(areaOf));
+    expect((country.coveredAreas ?? []).filter((area) => !areas.has(area))).toEqual([]);
+  });
+
+  it('lists in alsoCovers only jurisdictions of its own country that have no record', () => {
+    for (const covered of country.alsoCovers ?? []) {
+      expect(covered.startsWith(`${country.country}-`)).toBe(true);
+      expect(CURRICULA[covered]).toBeUndefined();
+      expect(curriculumFor(covered)).toBe(country);
+    }
   });
 
   it('only places known concepts', () => {
@@ -110,5 +158,56 @@ describe('queries', () => {
   it('give local year labels', () => {
     expect(localYearLabel('FR', 7)).toBe('5e');
     expect(localYearLabel('ES', 12)).toBe('2º Bachillerato');
+    expect(localYearLabel('DE-BY', 12)).toBe('Q12');
+  });
+
+  it('resolve a jurisdiction that follows another record', () => {
+    // The Northern Territory uses South Australia's SACE.
+    expect(curriculumFor('AU-NT')?.code).toBe('AU-SA');
+    expect(firstYear('AU-NT', 'rate-factors')).toBe(10);
+  });
+
+  it('say unknown, not absent, outside the areas a partial record covers', () => {
+    // Bavaria was researched for organic, kinetics, energetics and equilibrium only.
+    expect(firstYear('DE-BY', 'mole-concept')).toBe('unknown');
+    // A placement outside those areas is still a fact.
+    expect(firstYear('DE-BY', 'organic-nomenclature')).toBe(9);
+    // Inside them, no placement means not taught: no rate law in LehrplanPLUS.
+    expect(firstYear('DE-BY', 'rate-laws')).toBeNull();
+  });
+
+  it('separate tracks and the main route in Germany and Australia', () => {
+    // Enthalpy comes in the Oberstufe in Bavaria, on both courses; the NTG track meets it in Jgst. 10 Profil.
+    expect(firstYear('DE-BY', 'enthalpy-calorimetry')).toBeNull();
+    expect(firstYear('DE-BY', 'enthalpy-calorimetry', { track: 'ga' })).toBe(12);
+    expect(firstYear('DE-BY', 'enthalpy-calorimetry', { track: 'ntg' })).toBe(10);
+    // Kinetics is Year 11 in NSW but Year 12 in Victoria.
+    expect(firstYear('AU-NSW', 'collision-theory', { track: 'chemistry' })).toBe(11);
+    expect(firstYear('AU-VIC', 'collision-theory', { track: 'chemistry' })).toBe(12);
+    // NSW adds geometric isomers only with the 2025 syllabus.
+    expect(firstYear('AU-NSW', 'geometric-isomerism', { track: 'chemistry' })).toBeNull();
+    expect(firstYear('AU-NSW', 'geometric-isomerism', { track: 'chemistry', includePlanned: true })).toBe(12);
+  });
+
+  it('know Victoria in full, so absence means not taught', () => {
+    // The mole is VCE Unit 1, not Years 7–10: absent on the main route, not unknown.
+    expect(firstYear('AU-VIC', 'mole-concept')).toBeNull();
+    expect(firstYear('AU-VIC', 'mole-concept', { track: 'chemistry' })).toBe(11);
+    // States of matter is Levels 7–8 content, not Year 9 as the site tags it today.
+    expect(firstYear('AU-VIC', 'states-of-matter')).toBe(7);
+    expect(firstYear('AU-VIC', 'hess-law', { track: 'chemistry' })).toBeNull();
+  });
+
+  it('place the same topic differently across German Länder', () => {
+    // E/Z isomerism: Jgst. 10 in Bavaria, the Oberstufe in Rheinland-Pfalz, and in
+    // Baden-Württemberg only with the G9 plan's compulsory Kl. 11 (cis/trans there).
+    expect(firstYear('DE-BY', 'geometric-isomerism')).toBe(10);
+    expect(firstYear('DE-RP', 'geometric-isomerism')).toBeNull();
+    expect(firstYear('DE-RP', 'geometric-isomerism', { track: 'ga' })).toBe(11);
+    expect(firstYear('DE-BW', 'geometric-isomerism')).toBeNull();
+    expect(firstYear('DE-BW', 'geometric-isomerism', { includePlanned: true })).toBe(11);
+    // Full records know what they do not teach: nuclear chemistry is Physik in both Länder.
+    expect(firstYear('DE-BW', 'radioactivity')).toBe('unknown');
+    expect(firstYear('DE-RP', 'mole-concept', { track: 'ga' })).toBe(11);
   });
 });

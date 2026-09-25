@@ -8,14 +8,15 @@
 // *repères de progressivité* / common practice. Chemistry is never a subject of
 // its own: it is half of physique-chimie from 5e to Terminale.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at, typical } from '../placement';
 
 const pc = { track: 'spe-pc' } as const;
 const es = { track: 'ens-sci' } as const;
 
-export const FR: CountryCurriculum = {
+export const FR: JurisdictionCurriculum = {
   code: 'FR',
+  country: 'FR',
   name: 'France',
   basis: 'BO programmes: cycle 4 physique-chimie (2020 consolidation); 2nde and 1re (2019); Terminale spécialité (2019); enseignement scientifique (2023); bac and brevet notes for session 2027.',
   researchedOn: '2026-09-24',
@@ -28,6 +29,7 @@ export const FR: CountryCurriculum = {
     { year: 10, localLabel: '2de', localLabelEn: 'seconde', typicalAgeAtStart: 15, stage: 'Lycée (common year)', delivery: 'combined-physical-science', note: 'Physique-chimie 3 h for everyone.' },
     { year: 11, localLabel: '1re', localLabelEn: 'première', typicalAgeAtStart: 16, stage: 'Lycée, cycle terminal', delivery: 'optional', note: 'Spécialité physique-chimie (4 h, chosen); enseignement scientifique for all.' },
     { year: 12, localLabel: 'Terminale', localLabelEn: 'terminale (bac year)', typicalAgeAtStart: 17, stage: 'Lycée, cycle terminal', delivery: 'optional', note: 'Spécialité physique-chimie 6 h if kept.' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'School ends after Terminale.' },
   ],
   tracks: {
     'spe-pc': 'Spécialité physique-chimie (general track, chosen in 1re, kept or dropped for Terminale)',

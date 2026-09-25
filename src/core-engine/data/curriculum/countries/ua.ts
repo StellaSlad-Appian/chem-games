@@ -11,7 +11,7 @@
 // reform (pilot 2028/29, national 2029/30); the only Year 12 placements are
 // `planned`.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at } from '../placement';
 
 const profile = { track: 'profile' } as const;
@@ -19,8 +19,9 @@ const hFirst = { status: 'typical', note: 'Hryhorovych programme; Lashevska a ye
 const lFirst = { status: 'typical', note: 'Lashevska programme; Hryhorovych a year later' } as const;
 const reform = { track: 'nus-profile', status: 'planned', note: 'In-depth chemistry, chemistry-and-biology profiles; programme not yet readable' } as const;
 
-export const UA: CountryCurriculum = {
+export const UA: JurisdictionCurriculum = {
   code: 'UA',
+  country: 'UA',
   name: 'Ukraine',
   basis: 'NUS State Standard of basic secondary education (2020) and model programmes "Хімія 7–9" (Hryhorovych, Lashevska); "Хімія 10–11" standard and profile levels (2017); ZNO/NMT chemistry programme (2018); profile-school Standard (2024) for the reform.',
   researchedOn: '2026-09-24',
@@ -33,6 +34,7 @@ export const UA: CountryCurriculum = {
     { year: 10, localLabel: '10 клас', localLabelEn: '10 klas', typicalAgeAtStart: 15, stage: 'Профільна середня освіта', delivery: 'separate', note: 'Organic chemistry; 1.5 h (standard) or 4 h (profile). 150 pilot lyceums run the new model.' },
     { year: 11, localLabel: '11 клас', localLabelEn: '11 klas (НМТ)', typicalAgeAtStart: 16, stage: 'Профільна середня освіта', delivery: 'separate', note: 'General and inorganic chemistry; 2 h (standard) or 6 h (profile).' },
     { year: 12, localLabel: '12 клас', localLabelEn: '12 klas (from 2029/30)', typicalAgeAtStart: 17, stage: 'Профільна старша школа (reform)', delivery: 'no-such-year', note: 'Pilot lyceums from 2028/29, nationally from 2029/30.' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'The reform adds Year 12 only.' },
   ],
   tracks: {
     profile: 'Профільний рівень (profile level, 2017 programme)',
