@@ -39,7 +39,7 @@ per-run data is kept on purpose, because it is the input to whatever replaces th
 | Game | Counted as "accurate" | When recorded | Caveat |
 |---|---|---|---|
 | acid-classification | correct picks ÷ (correct + wrong picks) | on victory or failure | The run ends at 3 mistakes, so any win is about 92% or higher. |
-| formula-blaster | correct hits ÷ (hits + wrong clicks) | on victory or failure | Targets that float away are not misses, so a timed-out run with no wrong clicks is 100%. |
+| formula-blaster | correct hits ÷ (hits + wrong clicks) | on victory or failure | Targets that float away are not misses. Since 2026-09-25 the clock is only a speed bonus, so a run ends in victory or when the player leaves — never on time. |
 | neutralise | — | never | No accuracy is sent. |
 | reaction-balancer | rounds finished without the tier-3 hint ÷ rounds played (`src/hooks/useReactionBalancer.ts:540`) | on victory, or on exit after ≥1 round | Wrong attempts are never counted, so this measures hint use, not correctness. Support mode → null. |
 | lewis-structures | the same tier-3 rule | on victory, or on exit | The same as reaction-balancer. Mistakes in the Level 5 marking mode are not counted. |

@@ -48,15 +48,12 @@ function overlayMessages(t: Dictionary): Record<string, OverlayMessageConfig> {
   };
 }
 
-export type FailReason = 'mistakes' | 'timeout' | null;
-
 interface GameOverlayProps {
   gameState: GameState;
   score: number;
   correctInRound: number;
   currentLevel: number;
   maxLevel: number;
-  failReason?: FailReason;
   onResume: () => void;
   onRestart: () => void;
   customMessages?: Partial<Record<string, OverlayMessageConfig>>;
@@ -85,7 +82,6 @@ export default function GameOverlay({
   correctInRound,
   currentLevel,
   maxLevel,
-  failReason,
   onResume,
   onRestart,
   customMessages,
@@ -217,9 +213,7 @@ export default function GameOverlay({
         </p>
 
         <p id="game-overlay-description" className="mt-2 text-xs font-bold text-(--muted) leading-relaxed">
-          {gameState === 'failed' && failReason === 'timeout'
-            ? t.games.overlay.timeoutDescription
-            : textConfig?.description}
+          {textConfig?.description}
         </p>
 
         {gameState === 'paused' && (

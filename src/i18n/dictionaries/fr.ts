@@ -756,7 +756,6 @@ export const fr = {
       levelUpTitle: 'Niveau réussi',
       levelUpSubtitle: 'Série terminée !',
       levelUpDescription: 'Prêt pour des défis plus difficiles ?',
-      timeoutDescription: 'Le temps s’est écoulé avant que l’objectif soit atteint.',
       statLevel: 'Niveau',
       statScore: 'Score',
       statRound: 'Manche',
@@ -799,6 +798,8 @@ export const fr = {
       subtitle: 'MOLÉCULE CIBLE',
       progress: 'Cible {phase}/3 • Touches : {hits}/{quota}',
       hintHeading: 'Astuce sur la molécule cible',
+      /** Label above the clock: it is a bonus, never a deadline. */
+      speedBonus: 'Bonus de vitesse',
       instructionsTitle: 'Comment jouer : Éclate-Formules',
       instructionsIntro:
         'Trouve les bulles qui correspondent à la molécule cible affichée en haut et fais-les éclater.',

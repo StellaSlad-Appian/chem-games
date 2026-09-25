@@ -23,9 +23,10 @@
     Lower `mechanics.pityThreshold` (e.g., 5 -> 3)
        Guarantees a correct target bubble spawns sooner after distractor streaks.
 
- 4. IF PLAYERS SAY: "The game ends too quickly / I ran out of time!"
+ 4. IF PLAYERS SAY: "The clock runs out before I can earn a speed bonus"
     Increase `mechanics.baseWaveTimeSeconds` (e.g., 45 -> 60)
-       Gives students extra time to find required molecules before wave timeout.
+       The clock is a speed bonus, not a deadline: at zero it stops and the
+       game carries on (since 2026-09-25). A longer clock makes it easier to earn.
  ==============================================================================
 */
 

@@ -15,14 +15,14 @@ describe('GameTimer', () => {
     expect(screen.getByText('01:05')).toBeInTheDocument();
   });
 
-  it('pulses when fewer than 10 seconds remain', () => {
-    renderWithProviders(<GameTimer timeLeft={9} />);
-    expect(screen.getByText('00:09')).toHaveClass('animate-pulse');
+  it('stays calm near zero: it is a bonus clock, not a deadline', () => {
+    renderWithProviders(<GameTimer timeLeft={3} />);
+    expect(screen.getByText('00:03')).not.toHaveClass('animate-pulse');
   });
 
-  it('does not pulse with time to spare', () => {
-    renderWithProviders(<GameTimer timeLeft={10} />);
-    expect(screen.getByText('00:10')).not.toHaveClass('animate-pulse');
+  it('shows what the clock is for', () => {
+    renderWithProviders(<GameTimer timeLeft={30} label="Speed bonus" />);
+    expect(screen.getByText('Speed bonus')).toBeInTheDocument();
   });
 });
 

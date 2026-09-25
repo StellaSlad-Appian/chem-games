@@ -48,11 +48,6 @@ describe('GameOverlay', () => {
     expect(onRestart).toHaveBeenCalledTimes(1);
   });
 
-  it('explains a timeout', () => {
-    renderOverlay('failed', { failReason: 'timeout' });
-    expect(screen.getByText('Time ran out before reaching the quota.')).toBeInTheDocument();
-  });
-
   it('offers the next level after a level-up', () => {
     const { onResume } = renderOverlay('levelUp');
     expect(screen.getByRole('dialog', { name: 'Level Cleared' })).toBeInTheDocument();

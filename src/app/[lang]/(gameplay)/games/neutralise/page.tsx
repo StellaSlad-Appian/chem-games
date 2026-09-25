@@ -518,11 +518,6 @@ export default function NeutralizePage() {
             correctInRound={enemiesCleared}
             currentLevel={currentLevel}
             maxLevel={10}
-            failReason={
-              enemiesMissed >= 2 || lives <= 0
-                ? 'mistakes'
-                : 'timeout'
-            }
             onResume={handleResume}
             onRestart={handleRestart}
           />

@@ -40,6 +40,13 @@ import { compoundName, elementName } from '@/i18n/chemistry-names';
 import { localizePath } from '@/i18n/routing';
 import type { ChemicalFeedbackCopy } from '@/core-engine/utils/chemical-utils';
 
+/**
+ * Points per second left on the clock when a target's quota is met, before the
+ * level multiplier. A whole unused 45-second clock is worth 225 × level — about
+ * two hits' worth — so speed is rewarded without outweighing accuracy.
+ */
+const SPEED_BONUS_PER_SECOND = 5;
+
 export default function FormulaBlasterPage() {
   const router = useRouter();
   const { t, f, locale } = useI18n();
@@ -78,6 +85,10 @@ export default function FormulaBlasterPage() {
   const [timeLeft, setTimeLeft] = useState<number>(
     FORMULA_BLASTER_CONFIG.mechanics.baseWaveTimeSeconds
   );
+  const timeLeftRef = useRef(timeLeft);
+  useEffect(() => {
+    timeLeftRef.current = timeLeft;
+  }, [timeLeft]);
 
   const [completedTargetIds, setCompletedTargetIds] = useState<string[]>([]);
 
@@ -150,27 +161,25 @@ export default function FormulaBlasterPage() {
   };
 
   // ------------------------------------------------------------
-  // 1. WAVE COUNTDOWN ENGINE
+  // 1. SPEED-BONUS CLOCK
   // ------------------------------------------------------------
+  //
+  // Each target starts a countdown, but it is a bonus, not a deadline: the
+  // seconds left when the quota is met are added to the score (see the
+  // progression watcher), and at zero the clock simply stops. The game used to
+  // end at zero — the only way to lose it — which punished the students who
+  // read formulas slowly, and failed WCAG 2.2.1 (a time limit the player can
+  // neither extend nor turn off). Owner's decision, 2026-09-25.
 
   useEffect(() => {
     if (gameState !== 'playing') return;
 
     const clockInterval = setInterval(() => {
-      setTimeLeft((prev: number) => {
-        if (prev <= 1) {
-          clearInterval(clockInterval);
-          playSound('explosion');
-          setGameState('failed');
-          return 0;
-        }
-
-        return prev - 1;
-      });
+      setTimeLeft((prev: number) => (prev <= 1 ? 0 : prev - 1));
     }, 1000);
 
     return () => clearInterval(clockInterval);
-  }, [gameState, playSound, setGameState]);
+  }, [gameState]);
 
   // ------------------------------------------------------------
   // 2. MOLECULE TARGETING SYSTEM
@@ -236,6 +245,14 @@ export default function FormulaBlasterPage() {
         currentTarget.id,
       ];
 
+      // The speed bonus: whatever is left on the clock, per second, scaled by
+      // level like the hit points are. Read from a ref so the clock ticking
+      // does not re-run this watcher.
+      setScore(
+        (prev) =>
+          prev + timeLeftRef.current * SPEED_BONUS_PER_SECOND * currentLevel
+      );
+
       if (updatedCompleted.length >= targetsRequiredPerLevel) {
         setCompletedTargetIds(updatedCompleted);
 
@@ -268,6 +285,7 @@ export default function FormulaBlasterPage() {
     targetsRequiredPerLevel,
     playSound,
     setGameState,
+    setScore,
   ]);
 
   // ------------------------------------------------------------
@@ -608,6 +626,7 @@ export default function FormulaBlasterPage() {
           onExit={handleExitGame}
           onTriggerHint={handleTriggerManualHint}
           showTimer={true}
+          timerLabel={t.games.formulaBlaster.speedBonus}
           timeLeft={timeLeft}
           showLives={false}
         />
@@ -637,7 +656,6 @@ export default function FormulaBlasterPage() {
           correctInRound={completedTargetIds.length}
           currentLevel={currentLevel}
           maxLevel={maxLevel}
-          failReason="timeout"
           onResume={handleOverlayAdvance}
           onRestart={handleFullReset}
         />

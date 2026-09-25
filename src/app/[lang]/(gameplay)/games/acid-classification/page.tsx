@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 // Shared Components
 import Header from '@/components/games/shared/GamesHeader';
 import GameShell from '@/components/games/shared/GameShell';
-import GameOverlay, { FailReason } from '@/components/games/shared/GameOverlay';
+import GameOverlay from '@/components/games/shared/GameOverlay';
 import GameSettingsModal from '@/components/games/shared/GameSettingsModal'; 
 import GameFooter from '@/components/games/shared/GameFooter';
 import GameInstructionsModal from '@/components/games/shared/GameInstructionsModal';
@@ -69,7 +69,6 @@ export default function ClassificationGame() {
   const [mistakes, setMistakes] = useState<number>(0);
   const [poolIndex, setPoolIndex] = useState<number>(0);
   const [correctInRound, setCorrectInRound] = useState<number>(0);
-  const [failReason, setFailReason] = useState<FailReason>(null);
   const [showChemicalName, setShowChemicalName] = useState<boolean>(false);
   
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
@@ -216,7 +215,6 @@ export default function ClassificationGame() {
       if (newMistakes >= ACID_CLASSIFICATION_CONFIG.mechanics.maxMistakes) {
         playSound('fizzle'); 
         setTimeout(() => {
-          setFailReason('mistakes');
           setGameState(GAME_STATE.FAILED);
           playSound('explosion'); 
         }, ACID_CLASSIFICATION_CONFIG.timing.failStateDelayMs);
@@ -232,7 +230,6 @@ export default function ClassificationGame() {
       setCurrentLevel((prev) => prev + 1);
       setPoolIndex(0);
       setCorrectInRound(0);
-      setFailReason(null);
       setGameState(GAME_STATE.PLAYING);
     } else {
       togglePause();
@@ -245,7 +242,6 @@ export default function ClassificationGame() {
     setPoolIndex(0);
     setCorrectInRound(0);
     setTotalCorrect(0);
-    setFailReason(null);
     setFeedback({ status: ANSWER_STATUS.IDLE, selected: null });
     // A new run gets its own session record.
     sessionSavedRef.current = false;
@@ -272,7 +268,6 @@ export default function ClassificationGame() {
         correctInRound={correctInRound}
         currentLevel={currentLevel}
         maxLevel={ACID_CLASSIFICATION_CONFIG.levels.maxLevel}
-        failReason={failReason}
         onResume={handleOverlayAdvance} 
         onRestart={resetGame}
       />

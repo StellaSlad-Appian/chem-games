@@ -791,7 +791,6 @@ export const es = {
       // "¿Listo para…?" would have to agree with the reader; the first person
       // plural sidesteps it and keeps the encouraging tone.
       levelUpDescription: '¿Seguimos con retos más difíciles?',
-      timeoutDescription: 'Se acabó el tiempo antes de llegar al objetivo.',
       statLevel: 'Nivel',
       statScore: 'Puntos',
       statRound: 'Ronda',
@@ -837,6 +836,8 @@ export const es = {
       subtitle: 'MOLÉCULA OBJETIVO',
       progress: 'Objetivo {phase}/3 • Aciertos: {hits}/{quota}',
       hintHeading: 'Pista sobre la molécula objetivo',
+      /** Label above the clock: it is a bonus, never a deadline. */
+      speedBonus: 'Bonus de velocidad',
       instructionsTitle: 'Cómo jugar: Rompefórmulas',
       instructionsIntro:
         'Busca las burbujas que coinciden con la molécula objetivo de arriba y reviéntalas.',

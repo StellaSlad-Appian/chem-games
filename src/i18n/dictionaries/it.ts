@@ -809,7 +809,6 @@ export const it = {
       // "Pronto per…?" would have to agree with the reader; the first person
       // plural sidesteps it and keeps the encouraging tone.
       levelUpDescription: 'Andiamo avanti con prove più difficili?',
-      timeoutDescription: 'Il tempo è finito prima di raggiungere l’obiettivo.',
       statLevel: 'Livello',
       statScore: 'Punti',
       statRound: 'Turno',
@@ -857,6 +856,8 @@ export const it = {
       subtitle: 'MOLECOLA BERSAGLIO',
       progress: 'Bersaglio {phase}/3 • Centri: {hits}/{quota}',
       hintHeading: 'Indizio sulla molecola bersaglio',
+      /** Label above the clock: it is a bonus, never a deadline. */
+      speedBonus: 'Bonus velocità',
       instructionsTitle: 'Come si gioca: Rompiformule',
       instructionsIntro:
         'Trova le bolle che corrispondono alla molecola bersaglio in alto e falle scoppiare.',

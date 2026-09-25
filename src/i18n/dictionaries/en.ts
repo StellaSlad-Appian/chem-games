@@ -872,7 +872,6 @@ export const en = {
       levelUpTitle: 'Level Cleared',
       levelUpSubtitle: 'Batch complete!',
       levelUpDescription: 'Ready to take on higher level challenges?',
-      timeoutDescription: 'Time ran out before reaching the quota.',
       statLevel: 'Level',
       statScore: 'Score',
       statRound: 'Round',
@@ -920,6 +919,8 @@ export const en = {
       subtitle: 'TARGET MOLECULE',
       progress: 'Target {phase}/3 • Hits: {hits}/{quota}',
       hintHeading: 'Target Molecule Hint',
+      /** Label above the clock: it is a bonus, never a deadline. */
+      speedBonus: 'Speed bonus',
       instructionsTitle: 'How to Play: Formula Blaster',
       instructionsIntro:
         'Find and pop bubbles matching the target molecule shown in the header.',

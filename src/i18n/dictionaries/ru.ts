@@ -837,7 +837,6 @@ export const ru = {
       levelUpTitle: 'Уровень пройден',
       levelUpSubtitle: 'Партия готова!',
       levelUpDescription: 'Пойдём на уровень посложнее?',
-      timeoutDescription: 'Время вышло раньше, чем набралась норма.',
       statLevel: 'Уровень',
       statScore: 'Счёт',
       statRound: 'Раунд',
@@ -882,6 +881,8 @@ export const ru = {
       subtitle: 'НУЖНАЯ МОЛЕКУЛА',
       progress: 'Цель {phase}/3 • попаданий: {hits}/{quota}',
       hintHeading: 'Подсказка по молекуле',
+      /** Label above the clock: it is a bonus, never a deadline. */
+      speedBonus: 'Бонус за скорость',
       instructionsTitle: 'Как играть: Охота на формулы',
       instructionsIntro:
         'Находи и лопай пузырьки с молекулой, которая указана наверху.',

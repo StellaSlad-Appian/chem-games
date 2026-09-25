@@ -36,6 +36,8 @@ interface HeaderProps {
   onTriggerHint?: () => void;
 
   showTimer?: boolean;
+  /** Says what the clock is for ("Speed bonus"), so it doesn't read as a deadline. */
+  timerLabel?: string;
   timeLeft?: number;
   showLives?: boolean;
   lives?: number;
@@ -86,6 +88,7 @@ export default function GamesHeader({
   onExit,
   onTriggerHint,
   showTimer = false,
+  timerLabel,
   timeLeft = 0,
   showLives = false,
   lives = 3,
@@ -130,7 +133,7 @@ export default function GamesHeader({
 
           {showTimer && (
             <div className="flex h-11 items-center">
-              <GameTimer timeLeft={timeLeft} />
+              <GameTimer timeLeft={timeLeft} label={timerLabel} />
             </div>
           )}
 

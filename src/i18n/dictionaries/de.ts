@@ -699,7 +699,6 @@ export const de = {
       levelUpTitle: 'Level geschafft',
       levelUpSubtitle: 'Charge fertig!',
       levelUpDescription: 'Bereit für schwierigere Aufgaben?',
-      timeoutDescription: 'Die Zeit war um, bevor das Ziel erreicht war.',
       statLevel: 'Level',
       statScore: 'Punkte',
       statRound: 'Runde',
@@ -742,6 +741,8 @@ export const de = {
       subtitle: 'ZIELMOLEKÜL',
       progress: 'Ziel {phase}/3 • Treffer: {hits}/{quota}',
       hintHeading: 'Tipp zum Zielmolekül',
+      /** Label above the clock: it is a bonus, never a deadline. */
+      speedBonus: 'Tempobonus',
       instructionsTitle: 'Spielanleitung: Formel-Blaster',
       instructionsIntro:
         'Finde die Blasen mit dem Zielmolekül aus der Kopfzeile und lass sie zerplatzen.',

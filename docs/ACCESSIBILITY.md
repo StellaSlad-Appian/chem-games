@@ -27,7 +27,10 @@ written reason), **COULD** (nice to have).
    `floatUp` (Formula Blaster) is still unconditional.
 2. ~~Icon-only buttons rely on `title`~~ — the footer help/pause/settings buttons and the header
    hint button now carry `aria-label`s too.
-3. **Timers cannot be extended or disabled** (Formula Blaster/Neutralise wave timers). WCAG 2.2.1.
+3. ~~**Timers cannot be extended or disabled**~~ — resolved 2026-09-25 by removing the time
+   limit rather than adding a setting: Formula Blaster's clock is now a speed bonus that stops
+   at zero and never ends the game, and Neutralise has no countdown. WCAG 2.2.1 (and the Timer
+   setting under Timing below) applies again only if a game adds a real time limit.
 4. **No live regions**: score changes, hints, and error banners are not announced to screen readers.
 5. ~~**Contrast**: palette classes in the game chrome and on the site pages~~ — moved to tokens
    that pass in both themes, measured by `e2e/theme-contrast.spec.ts`. The hint panels are
