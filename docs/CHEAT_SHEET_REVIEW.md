@@ -338,6 +338,9 @@ and big. The type size is a symptom of the loading method.
 
 ## Found during the work (added 2026-09-25)
 
+The owner's open to-dos from this review, and the state of each branch, are kept in
+[`TODO.md`](./TODO.md) § Cheat sheet review. That list is the one to keep current.
+
 Found by the agent that fixed the two atom sheets. Two of them were passed
 to the next agent. These two are for later:
 

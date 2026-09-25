@@ -163,6 +163,59 @@ scientists — the Explore pool is now 104 ready, 0 blocked.
       `AGENT_INSTRUCTIONS.md` Part A's ban on solar-system atoms is what is behind both.
       Scope is the script, not the page: nothing here needs new section support.
 
+      **Being done as steps 5 and 6 of the cheat sheet review** (next section), which
+      redraw all six diagrams with their caveats on the figure.
+
+### Cheat sheet review (started 2026-09-24)
+
+The review is [`CHEAT_SHEET_REVIEW.md`](./CHEAT_SHEET_REVIEW.md). The agent prompts
+that carry it out are in
+[`feature-briefs/cheat-sheet-review-agent-prompts.md`](./feature-briefs/cheat-sheet-review-agent-prompts.md).
+The work is a chain of local branches, each cut from the one before, and nothing
+has been pushed:
+
+| Step | Branch | State |
+|---|---|---|
+| 1 Example cards show their descriptions | `cheatsheet/1-example-descriptions` | done, `a8f9cea` |
+| 2 Science fixes, atom sheets | `cheatsheet/2-atom-sheet-fixes` | done, `659d0fb` |
+| 3 Science fixes, other 13 sheets | `cheatsheet/3-other-sheet-fixes` | done, `533b228` + `685bdd0` |
+| 4 Diagram display (inline SVG, lighter type, per language) | `cheatsheet/4-diagram-pipeline` | running |
+| 5–9 Redraw and new diagrams | — | not started |
+| 10a/10b Eight smaller diagrams | — | **on hold** until the owner has seen 7–9 |
+
+Owner to-dos from this work:
+
+- [ ] **Merge the chain** once the last branch you want is done. Only the tip
+      needs merging, because every branch contains the ones before it. Merge
+      `cheatsheet-review` as well: it holds the later changes to this list and the
+      review, which the chain does not have. Run the full
+      Playwright suite first (see [`TESTING.md`](./TESTING.md)).
+- [ ] **Native-speaker review of the new cheat-sheet text** in de, fr, es, it and ru.
+      The new strings for each step are the diff of `src/i18n/cheat-sheets/<lang>.ts` against
+      the previous branch, and the glossary rows each step added say why a word was
+      chosen.
+- [ ] **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**
+      The section was removed on 2026-09-22, and its takeaway and mistakes were
+      removed on 2026-09-24. Three things still point at it: the Carbon-12 example
+      card ("the standard all other masses are measured against"), the sheet's
+      `curriculumRef`, and the PhET link "Isotopes and Atomic Mass". Bring a short
+      section back, or remove all three.
+- [ ] **Decide whether to mention helium** as the exception to the new "last digit
+      of the group number = valence electrons" rule (group 18, but 2 valence
+      electrons). It is on *Chemical Bonds* and *Lewis Structures*, and was left
+      unstated to keep the takeaways short.
+- [ ] **Decide what to do with "SLC"** in the translated stoichiometry table. It is
+      the Australian VCE abbreviation for standard laboratory conditions (25 °C,
+      100 kPa), and no other country's students will know it. Spell it out, or use
+      each country's own term.
+- [ ] **Fix the wrapped equation on *Balancing Chemical Equations*.** With state
+      symbols added, the polyatomic-ion example wraps "(aq)" onto a second line
+      inside its half-width card at desktop width. Make that card full width or let
+      the formula scale down.
+- [ ] **Fix German titles breaking mid-word on phones** ("Periodensys|tem",
+      "Radioaktivit|ät" at 375 px). Use `hyphens: auto` with the page's `lang` set, or
+      a smaller title on phones. This was there before the review.
+
 ### Chemical Bonds
 
 - [ ] Build it, or decide it is not happening. The placeholder card is off the hub and
