@@ -97,6 +97,16 @@ export default async function Home(props: PageProps<'/[lang]'>) {
             <p className="mt-6 max-w-xl text-lg leading-relaxed font-medium text-(--muted)">
               {t.home.intro}
             </p>
+            {/*
+              The hook: short, bold, and printed distinctly larger/heavier
+              than the intro paragraph above it — the same "big statement
+              above the small print" device as the For Teachers page's
+              collaborateHero and the About page's parentsHero, aimed at the
+              student reading this page rather than the adult reading those.
+            */}
+            <p className="mt-4 max-w-xl text-xl leading-snug font-black text-(--link) md:text-2xl">
+              {t.home.heroHook}
+            </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <LocaleLink
                 href="/games"

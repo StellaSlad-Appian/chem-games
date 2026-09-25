@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Italian
 translation, so a native speaker or a chemistry teacher can review the Italian
 without reading any code.
 
-**1019 strings** — 406 high confidence,
-465 medium, 148 low.
+**1020 strings** — 406 high confidence,
+466 medium, 148 low.
 
 The confidence column is a judgement about *this* translation, not about Italian
 in general:
@@ -124,6 +124,7 @@ flat string cannot agree with its number — so *risposte esatte: 1* rather than
 | `home.eyebrow` | Interactive Chemistry Laboratory | Laboratorio di chimica interattivo | medium | Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine. |
 | `home.heading` | Learn chemistry by playing. | Impara la chimica giocando. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine. |
 | `home.intro` | Explore interactive experiments, track your personal best scores, master formulas, and see how your lab results compare. | Esplora esperimenti interattivi, tieni d’occhio i tuoi record personali, impara le formule e confronta i tuoi risultati di laboratorio con quelli degli altri. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine. |
+| `home.heroHook` | Free. No sign-up. Just open a game and start. | Gratis. Senza registrazione. Apri un gioco e comincia. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine. |
 | `home.exploreGames` | Explore Games | Scopri i giochi | medium | Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine. |
 | `home.viewLeaderboards` | View Leaderboards | Vedi le classifiche | medium | Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine. |
 | `home.profileLinkAuthenticated` | Open profile | Apri il profilo | medium | Marketing copy. Accurate, but a native speaker may want to punch it up - promotional register is where translated copy most often reads flat. Note leaderboardsDescription says "i migliori punteggi" rather than "i migliori scienziati", because the person noun would default to masculine. |

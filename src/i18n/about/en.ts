@@ -82,6 +82,15 @@ export const en = {
     'The site is in beta and pitched at Year 9–10, ages 14–16. There is a handful of finished games so far, so it covers part of that syllabus, not all of it, and more are on the way.',
 
   parentsHeading: 'For parents',
+  // The big, bold pull-quote printed as its own section above the smaller
+  // pointer text below it — same device as the For Teachers page's
+  // `collaborateHero`. One line rather than two, combining the two things
+  // parentsBody1/2 say in full: the site is safe (free, private, no
+  // tracking), and it is not just a game — it is built on real learning
+  // research. It does not claim the games themselves raise marks; limitsBody1
+  // says plainly that no study of this site exists, and this line is not
+  // allowed to contradict that.
+  parentsHero: 'Free, private, and built on the science of how practice actually works.',
   parentsBody1:
     'Everything is free. There is no advertising, no analytics and no third-party tracking anywhere on the site, and playing needs no account. A student who does sign up is given a generated alias rather than appearing under a real name; the {link} page sets out exactly what is stored and how to delete it.',
   parentsBody2:

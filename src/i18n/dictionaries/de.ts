@@ -109,6 +109,7 @@ export const de = {
     heading: 'Lerne Chemie beim Spielen.',
     intro:
       'Erkunde interaktive Experimente, verfolge deine persönlichen Bestwerte, beherrsche Formeln und vergleiche deine Laborergebnisse mit anderen.',
+    heroHook: 'Kostenlos. Ohne Anmeldung. Einfach ein Spiel öffnen und loslegen.',
     exploreGames: 'Spiele entdecken',
     viewLeaderboards: 'Bestenlisten ansehen',
     profileLinkAuthenticated: 'Profil öffnen',

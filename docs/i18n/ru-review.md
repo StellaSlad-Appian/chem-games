@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Russian
 translation, so a native speaker or a chemistry teacher can review the Russian
 without reading any code.
 
-**1019 strings** — 405 high confidence,
-465 medium, 149 low.
+**1020 strings** — 405 high confidence,
+466 medium, 149 low.
 
 The confidence column is a judgement about *this* translation, not about Russian
 in general:
@@ -136,6 +136,7 @@ quotation marks and are enforced by a gate rather than remembered.
 | `home.eyebrow` | Interactive Chemistry Laboratory | Интерактивная химическая лаборатория | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 | `home.heading` | Learn chemistry by playing. | Учи химию в игре. | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 | `home.intro` | Explore interactive experiments, track your personal best scores, master formulas, and see how your lab results compare. | Ставь опыты, следи за личными рекордами, запоминай формулы и сравнивай свои результаты с чужими. | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
+| `home.heroHook` | Free. No sign-up. Just open a game and start. | Бесплатно. Без регистрации. Просто открой игру и начни. | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 | `home.exploreGames` | Explore Games | Выбрать игру | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 | `home.viewLeaderboards` | View Leaderboards | Смотреть таблицу лидеров | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 | `home.profileLinkAuthenticated` | Open profile | Открыть профиль | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |

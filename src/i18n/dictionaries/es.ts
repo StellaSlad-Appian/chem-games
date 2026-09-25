@@ -128,6 +128,7 @@ export const es = {
     heading: 'Aprende química jugando.',
     intro:
       'Explora experimentos interactivos, sigue tus mejores puntuaciones, domina las fórmulas y compara tus resultados de laboratorio con los de los demás.',
+    heroHook: 'Gratis. Sin registro. Abre un juego y empieza.',
     exploreGames: 'Descubrir los juegos',
     viewLeaderboards: 'Ver las clasificaciones',
     profileLinkAuthenticated: 'Abrir el perfil',

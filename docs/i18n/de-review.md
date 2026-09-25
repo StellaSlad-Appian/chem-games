@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its German
 translation, so a native speaker or a chemistry teacher can review the German
 without reading any code.
 
-**1019 strings** — 414 high confidence,
-455 medium, 150 low.
+**1020 strings** — 414 high confidence,
+456 medium, 150 low.
 
 The confidence column is a judgement about *this* translation, not about German
 in general:
@@ -111,6 +111,7 @@ invisible here.
 | `home.eyebrow` | Interactive Chemistry Laboratory | Interaktives Chemielabor | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.heading` | Learn chemistry by playing. | Lerne Chemie beim Spielen. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.intro` | Explore interactive experiments, track your personal best scores, master formulas, and see how your lab results compare. | Erkunde interaktive Experimente, verfolge deine persönlichen Bestwerte, beherrsche Formeln und vergleiche deine Laborergebnisse mit anderen. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
+| `home.heroHook` | Free. No sign-up. Just open a game and start. | Kostenlos. Ohne Anmeldung. Einfach ein Spiel öffnen und loslegen. | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.exploreGames` | Explore Games | Spiele entdecken | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.viewLeaderboards` | View Leaderboards | Bestenlisten ansehen | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |
 | `home.profileLinkAuthenticated` | Open profile | Profil öffnen | medium | Marketing copy. Accurate, but a native speaker may want to punch it up — promotional register is where translated copy most often reads flat. |

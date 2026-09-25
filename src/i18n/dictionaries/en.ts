@@ -117,6 +117,12 @@ export const en = {
     heading: 'Learn chemistry by playing.',
     intro:
       'Explore interactive experiments, track your personal best scores, master formulas, and see how your lab results compare.',
+    // The short, bold hook between the intro and the CTA buttons — same
+    // "printed big, above the small print" device as the For Teachers page's
+    // collaborateHero and the About page's parentsHero, aimed at the student
+    // reading this page instead of the adult reading those. Facts only: free
+    // and no sign-up are both already true (playing needs no account).
+    heroHook: 'Free. No sign-up. Just open a game and start.',
     exploreGames: 'Explore Games',
     viewLeaderboards: 'View Leaderboards',
     profileLinkAuthenticated: 'Open profile',

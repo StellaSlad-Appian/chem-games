@@ -129,6 +129,10 @@ export default async function AboutPage(props: PageProps<'/[lang]/about'>) {
                 <Users className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
                 {p.parentsHeading}
               </h2>
+              {/* The pitch, printed big — same device as the For Teachers page's `collaborateHero`. */}
+              <p className="mt-3 rounded-xl bg-(--action) px-4 py-4 text-xl leading-snug font-black text-white shadow-md">
+                {p.parentsHero}
+              </p>
               <div
                 className={`mt-3 space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
               >
