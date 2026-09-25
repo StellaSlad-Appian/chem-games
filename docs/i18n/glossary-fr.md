@@ -275,6 +275,12 @@ the split.
 | not to scale (diagram caveat) | **Échelle non respectée**, and the ratio as **1/100 000 du diamètre de l’atome** | Added 2026-09-25 with the redrawn atom diagrams. *Échelle non respectée* is the caption French textbooks print under a schematic; *pas à l’échelle* is a calque. Says *diamètre*, because by volume the ratio is about 10⁻¹⁵. |
 | heavier, but first / lighter, but second (06) | **plus lourd, mais placé avant** / **plus léger, mais placé après** | Added 2026-09-25 with the redrawn atom diagrams. Masculine to agree with *tellure* and *iode*, not with the reader. |
 | a cell of the periodic table | **case** (*la case du tellure*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **hydrogène 1**, **hydrogène 2**, **hydrogène 3** | Added 2026-09-25 with the redrawn isotope diagrams. A space and no hyphen, following the *carbone 14* row above. |
+| protium / deuterium / tritium (03) | **protium** / **deutérium** / **tritium** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name; French programmes name all three, and *deutérium* takes the accent. |
+| stable / radioactive, of one isotope (03) | **stable** / **radioactif** | Added 2026-09-25 with the redrawn isotope diagrams. Masculine, agreeing with *hydrogène*. |
+| undecayed nuclei (07, vertical axis) | **noyaux non désintégrés** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity French physique-chimie plots (*nombre de noyaux non désintégrés N(t)*), and *désintégré* per the *désintégration* row above. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **temps, en demi-vies** | Added 2026-09-25 with the redrawn isotope diagrams. |
+| the decay curve (07 alt text) | **courbe de décroissance radioactive** | Added 2026-09-25 with the redrawn isotope diagrams. *Décroissance*, because here the curve itself is the subject — see the *désintégration* row. |
 
 ## Formulae, equations and naming
 

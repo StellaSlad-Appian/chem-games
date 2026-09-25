@@ -88,9 +88,9 @@
 //    sans-serif. The monospace a worked sum and two masses were once set in is
 //    gone.
 // 6. **In a `phone` slot, every label ends left of `PHONE`**, the part of the
-//    drawing a phone shows before it is swiped, in every locale. The four
-//    atom slots are. A canvas no wider than 363 units (291 CSS px, the
-//    column of a 375 px phone) does not pan there at all.
+//    drawing a phone shows before it is swiped, in every locale. Every slot
+//    is one. A canvas no wider than 363 units (291 CSS px, the column of a
+//    375 px phone) does not pan there at all.
 //
 // ## The rules that shape every drawing here
 //
@@ -189,18 +189,18 @@ const ORDER_PAIR = [
 ] as const;
 
 /**
- * The two isotopes `07-decay-and-made-elements` names, and their half-lives.
+ * How many half-lives `07-decay-and-made-elements` marks: 100% down to 6.25%.
  *
- * Carbon-14 and uranium-238 rather than any other pair: the Victorian
- * Curriculum elaboration for VC2S10U06 names these two specifically. Both
- * numbers are the ones the sheet's own prose and `formulaExamples` already
- * give — "about 5730 years" and "about 4.5 billion years". The sentences are
- * in the strings table; the numbers each one has to contain are here.
+ * Four, not three, because "after two half-lives it has all gone" is a common
+ * belief, and a curve that stops at an eighth leaves room for it. The fifth
+ * point is 1/16 and the curve runs on past it, still above the axis. Each
+ * point is `0.5 ** n` of the start, computed here, and each percentage in the
+ * strings is checked against it.
+ *
+ * The carbon-14 and uranium-238 half-lives the figure used to print are gone
+ * from it: the paragraph above and the sheet's example cards give both.
  */
-const HALF_LIVES = [
-  { key: 'carbon', numbers: [14, 5730] },
-  { key: 'uranium', numbers: [238, 4.5] },
-] as const;
+const HALF_LIVES_MARKED = 4;
 
 /**
  * Sodium, for `05-energy-levels`.
@@ -222,21 +222,26 @@ const NUCLEUS = 20;
 /**
  * Hydrogen's three isotopes, for `03-isotopes-of-hydrogen`.
  *
- * One electron each, one proton each, and 0, 1, 2 neutrons. The names are the
- * mass-number form the rest of the sheet uses rather than protium / deuterium
- * / tritium, which neither sheet introduces.
+ * One electron each, one proton each, and 0, 1, 2 neutrons. The name is the
+ * mass-number form the rest of the sheet uses, filled from `1 + neutrons`, and
+ * under it the traditional name a student meets in other books and in the
+ * news (deuterium, "heavy water"). Hydrogen-1 and hydrogen-2 are stable;
+ * hydrogen-3 is radioactive, a beta emitter with a half-life of about 12.3
+ * years — which is the paragraph's "some isotopes are radioactive and some are
+ * not", shown on one element.
  */
 const HYDROGEN_ISOTOPES = [
-  { neutrons: 0, countKey: null },
-  { neutrons: 1, countKey: 'oneNeutron' },
-  { neutrons: 2, countKey: 'twoNeutrons' },
+  { neutrons: 0, nameKey: 'protium', stable: true },
+  { neutrons: 1, nameKey: 'deuterium', stable: true },
+  { neutrons: 2, nameKey: 'tritium', stable: false },
 ] as const;
 
 /**
  * How much smaller a nucleus really is than its atom's width.
  *
- * Every figure here that puts a nucleus inside an atom says it, which
- * `docs/CHEAT_SHEET_IMAGES.md` requires. Written out in each locale's strings
+ * `01-inside-an-atom` says it, which `docs/CHEAT_SHEET_IMAGES.md` requires
+ * of slot 1. (03 draws three small atoms without it: its subject is what is
+ * in the nucleus, not how big it is.) Written out in each locale's strings
  * (`1/100,000`, `1/100 000`, …) and checked against this.
  */
 const SCALE = 100000;
@@ -1059,64 +1064,107 @@ function drawAtomicAndMassNumber(pen: Pen): string[] {
  * and the three marks sit at three unrelated angles so that no reader can take
  * the band for a track with a position on it.
  *
- * The key line at the top names fill and position rather than colour, so it
- * still works for a reader who cannot separate the red from the grey.
+ * **Three rows, not three columns.** Side by side, each atom's name had about
+ * 110 units under it, and the German *Wasserstoff-3* needs 125: the layout
+ * would not survive German, let alone the phone rule. Stacked, each row is the
+ * atom in the middle and its words to the right of it, on three lines:
+ * the name, the traditional name, and *stable* or *radioactive*, which is the
+ * paragraph's point shown on one element.
+ *
+ * **The particles are named where they are, once each**, in a column on the
+ * left with a leader to one of each — the electron and proton of hydrogen-1,
+ * the neutron of hydrogen-2 — exactly as `01-inside-an-atom` names them, and
+ * in the same colours: filled proton, hollow neutron. There is no key, and no
+ * "1 proton" under each atom: the reader counts one filled circle in each row,
+ * and 0, 1, 2 hollow ones, which is the comparison the figure is for.
  */
 function drawIsotopesOfHydrogen(pen: Pen): string[] {
   const { t, label } = pen;
-  const centres = [107, 320, 533];
-  /** Each atom's column: the 213 between centres, less a margin. */
-  const column = 200;
-  const cy = 138;
-  const band = 44;
-  /** One bearing per atom, unrelated to each other on purpose. */
-  const electronBearing = [58, 143, 291];
+  /**
+   * The particle labels end here, right-aligned, and their leaders start 6 on.
+   * 85 units is the Russian «электрон».
+   */
+  const nameEnd = 101;
+  const cx = 147;
+  /**
+   * The isotope's words start here, just clear of the band. The widest, the
+   * Russian «радиоактивный» at about 145 units, ends by 344, so the canvas is
+   * 360 units: 288 CSS px, which a 375 px phone shows without panning.
+   */
+  const wordsX = 199;
+  const rows = [62, 172, 282];
+  const band = 34;
+  const nucleon = 12;
+  /** One bearing per atom, unrelated to each other on purpose. Hydrogen-1's is up and left, towards its label. */
+  const electronBearing = [150, 38, 292];
   /** And one radius each, off the middle of the band, for the same reason. */
-  const electronRadius = [band - 6, band + 5, band - 3];
-  const parts: string[] = [
-    label(320, 30, t('title'), { room: 600, anchor: 'middle' }),
-    label(320, 58, t('key'), { room: 600, anchor: 'middle' }),
-  ];
+  const electronRadius = [band - 4, band + 4, band - 2];
+  const electronDot = 6.5;
+  const parts: string[] = [];
 
   HYDROGEN_ISOTOPES.forEach((isotope, index) => {
-    const cx = centres[index];
+    const cy = rows[index];
 
     // A soft band with no edge, and the one electron sitting off the middle of
     // it: a region the electron is likely to be in, which is the most a picture
     // this size can honestly say.
-    parts.push(...softBand(cx, cy, band, 11));
+    parts.push(...softBand(cx, cy, band, 9));
     const [ex, ey] = at(cx, cy, electronBearing[index], electronRadius[index]);
-    parts.push(dot(ex, ey, 6.5, TOKEN.electron));
+    parts.push(dot(ex, ey, electronDot, TOKEN.electron));
 
-    // Proton first, then the neutrons around it.
+    // Proton first, then the neutrons. Hydrogen-2's neutron is on the left,
+    // where its label is.
     const places =
       isotope.neutrons === 0
         ? ([[0, 0]] as const)
         : isotope.neutrons === 1
           ? ([
-              [-12, 0],
-              [12, 0],
+              [nucleon, 0],
+              [-nucleon, 0],
             ] as const)
           : ([
-              [0, -12],
-              [-12, 9],
-              [12, 9],
+              [0, -nucleon],
+              [-nucleon, 9],
+              [nucleon, 9],
             ] as const);
-    parts.push(...nucleons(cx, cy, 12, places, 1));
+    parts.push(...nucleons(cx, cy, nucleon, places, 1));
 
     parts.push(
-      label(cx, 218, t('isotopeName', { values: { mass: 1 + isotope.neutrons } }), {
-        room: column,
-        anchor: 'middle',
+      label(wordsX, cy - LEADING, t('isotopeName', { values: { mass: 1 + isotope.neutrons } }), {
+        room: PHONE - wordsX,
+        central: true,
       }),
-      label(cx, 246, t('oneProton', { numbers: [1] }), { room: column, anchor: 'middle' }),
+      label(wordsX, cy, t(isotope.nameKey), { room: PHONE - wordsX, central: true, fill: TOKEN.inkMuted }),
+      label(wordsX, cy + LEADING, t(isotope.stable ? 'stable' : 'radioactive'), {
+        room: PHONE - wordsX,
+        central: true,
+      }),
     );
-    if (isotope.countKey) {
+
+    if (index === 0) {
+      const edge = electronDot / Math.SQRT2;
+      const protonAt = at(cx, cy, 225, nucleon);
       parts.push(
-        label(cx, 270, t(isotope.countKey, { numbers: [isotope.neutrons] }), {
-          room: column,
-          anchor: 'middle',
+        label(nameEnd, cy - 30, t('electron'), {
+          room: nameEnd - 16,
+          anchor: 'end',
+          central: true,
+          fill: TOKEN.electron,
         }),
+        leader(nameEnd + 6, cy - 30, ex - edge, ey - edge * 0.4),
+        label(nameEnd, cy + 16, t('proton'), {
+          room: nameEnd - 16,
+          anchor: 'end',
+          central: true,
+          fill: TOKEN.proton,
+        }),
+        leader(nameEnd + 6, cy + 16, protonAt[0], protonAt[1]),
+      );
+    }
+    if (index === 1) {
+      parts.push(
+        label(nameEnd, cy, t('neutron'), { room: nameEnd - 16, anchor: 'end', central: true }),
+        leader(nameEnd + 6, cy, cx - 2 * nucleon, cy),
       );
     }
   });
@@ -1313,43 +1361,66 @@ function drawOrderedByAtomicNumber(pen: Pen): string[] {
  * strings and the page all share. So the name stays and the content is the
  * curve alone.
  *
- * The curve is a sampled exponential rather than four straight segments,
- * because the point a student has to take away is that decay does not stop —
- * it is the same fraction again over the next interval, not the same amount.
- * It is drawn past the third half-life for the same reason.
+ * The curve is a sampled exponential rather than straight segments, because
+ * the point a student has to take away is that decay does not stop — it is
+ * the same fraction again over the next interval, not the same amount. So it
+ * is marked to four half-lives (`HALF_LIVES_MARKED`), 6.25%, and drawn on
+ * past the last point, still above the axis.
+ *
+ * **The vertical axis says what is being counted: undecayed nuclei.** "How
+ * much is left" fed the belief that the sample itself disappears; the atoms
+ * that have decayed are still there, as another nuclide. It is a heading over
+ * the top of the axis, read level, rather than a label turned up the side,
+ * which is where a school graph puts it and what a phone can show whole.
+ *
+ * **The time axis is labelled under its numbers, from the left.** At the old
+ * end-of-axis place it had 96 units, and the German *Halbwertszeiten* does not
+ * fit in 96. Under the axis it has the whole width.
+ *
+ * Every percentage sits up and to the right of its point, where the falling
+ * curve never is; the first sits level with its point, clear of the axis it
+ * starts on. Each ends before the next one begins, so they cannot collide at
+ * any height, and the last ends left of `PHONE`: the step between half-lives
+ * is what makes that true, so it is set from `PHONE`, not guessed.
  */
 function drawHalfLife(pen: Pen): string[] {
   const { t, whole, label } = pen;
-  const originX = 90;
-  const step = 138;
-  const baseline = 198;
-  const plotHeight = 140;
-  /** Drawn past three half-lives, so the curve is not seen to stop. */
-  const lastTime = 3.3;
+  const originX = 30;
+  /** The first point, at 100%, is this far below the top of the axis. */
+  const axisTop = 40;
+  const plotTop = 56;
+  const plotHeight = 200;
+  const baseline = plotTop + plotHeight;
+  /** How far right of its point a percentage starts, and how far above it (after the first). */
+  const [offset, lift] = [8, 19];
+  /** The widest percentage, Russian `12,5 %`, is estimated at 61 units. */
+  const percentRoom = 61;
+  // The last percentage ends a margin short of `PHONE`, so the whole canvas is
+  // at most 360 units — 288 CSS px, which a 375 px phone shows without panning.
+  const step = Math.floor((PHONE - MARGIN - originX - offset - percentRoom) / HALF_LIVES_MARKED);
+  if (percentRoom > step) throw new Error('07: a percentage would run into the next one.');
+  /** Drawn on past the last point, so the curve is not seen to stop. */
+  const lastTime = HALF_LIVES_MARKED + 0.4;
   const x = (time: number) => originX + step * time;
   const y = (fraction: number) => baseline - plotHeight * fraction;
 
   const samples: string[] = [];
-  const sampleCount = 66;
+  const sampleCount = 88;
   for (let i = 0; i <= sampleCount; i += 1) {
     const time = (lastTime * i) / sampleCount;
     samples.push(`${n(x(time))},${n(y(Math.pow(0.5, time)))}`);
   }
 
   const parts: string[] = [
-    label(320, 32, t('title'), { room: 600, anchor: 'middle' }),
-
-    `<path d="M ${originX} 48 L ${originX} ${baseline} L ${n(x(lastTime) + 22)} ${baseline}" ` +
+    label(16, 24, t('axisAmount'), { room: PHONE - 16 }),
+    `<path d="M ${originX} ${axisTop} L ${originX} ${baseline} L ${n(x(lastTime) + 14)} ${baseline}" ` +
       `${paint('none', TOKEN.ink)} stroke-width="2.5" stroke-linecap="round" ` +
       'stroke-linejoin="round" />',
-    // Along the axis, whose length is its room.
-    label(66, 123, t('axisAmount'), { room: 150, anchor: 'middle', rotate: 90 }),
-
     `<polyline points="${samples.join(' ')}" ${paint('none', TOKEN.accent)} ` +
       'stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />',
   ];
 
-  [0, 1, 2, 3].forEach((halfLives) => {
+  for (let halfLives = 0; halfLives <= HALF_LIVES_MARKED; halfLives += 1) {
     const fraction = Math.pow(0.5, halfLives);
     const px = x(halfLives);
     const py = y(fraction);
@@ -1361,35 +1432,21 @@ function drawHalfLife(pen: Pen): string[] {
     }
     parts.push(
       dot(px, py, 6, TOKEN.ink),
-      // Percentages, because the axis is a fraction of what there was and a
-      // fraction is what the section's takeaway is written in. The string is
-      // the locale's own (`12,5 %`); the number in it is checked against the
-      // curve.
-      //
-      // Lifted clear of the curve except at the start. By the second half-life
-      // the curve is shallow enough to run straight through a label placed
-      // level with its own point, which is how the first draft read; at time
-      // zero it is steep, so level is the only placement that does not collide
-      // with the heading above. Room runs to the next point, less a margin.
-      label(px + 15, halfLives === 0 ? py : py - 19, t(`percent${halfLives}`, { numbers: [fraction * 100] }), {
-        room: halfLives === 3 ? 100 : step - 30,
-        central: true,
-      }),
-      label(px, 226, whole(halfLives), { room: 40, anchor: 'middle' }),
+      // Percentages, because the axis is a share of what there was, and the
+      // section's takeaway is written in shares. The string is the locale's
+      // own (`12,5 %`); the number in it is checked against the curve.
+      label(
+        px + (halfLives === 0 ? offset + 6 : offset),
+        halfLives === 0 ? py : py - lift,
+        t(`percent${halfLives}`, { numbers: [fraction * 100] }),
+        { room: percentRoom, central: true },
+      ),
+      label(px, baseline + 24, whole(halfLives), { room: 40, anchor: 'middle' }),
     );
-  });
+  }
 
-  parts.push(
-    label(536, 226, t('axisTime'), { room: 96 }),
-    label(320, 250, t('eighth', { numbers: [3] }), { room: 600, anchor: 'middle' }),
-    frame(50, 262, 540, 52),
-    ...HALF_LIVES.map((line, index) =>
-      label(320, 284 + index * 23, t(line.key, { numbers: line.numbers }), {
-        room: 520,
-        anchor: 'middle',
-      }),
-    ),
-  );
+  // Two lines allowed, for the Spanish, whose half-life is four words long.
+  parts.push(label(16, baseline + 52, t('axisTime'), { room: PHONE - 16, lines: 2 }));
 
   return parts;
 }
@@ -1407,15 +1464,14 @@ function drawHalfLife(pen: Pen): string[] {
  */
 const SLOTS: Slot[] = (
   [
-    // The four on Atoms & the Periodic Table keep every label on the left, so
-    // they are held to `PHONE`. 03 and 07 are not, yet. None declares a size:
-    // `measureSize` takes it from the drawing.
+    // Every slot keeps its labels on the left, so every one is held to
+    // `PHONE`. None declares a size: `measureSize` takes it from the drawing.
     ['atomic-structure', '01-inside-an-atom', true, drawInsideAnAtom],
     ['atomic-structure', '02-atomic-and-mass-number', true, drawAtomicAndMassNumber],
-    ['isotopes-and-radioactivity', '03-isotopes-of-hydrogen', false, drawIsotopesOfHydrogen],
+    ['isotopes-and-radioactivity', '03-isotopes-of-hydrogen', true, drawIsotopesOfHydrogen],
     ['atomic-structure', '05-energy-levels', true, drawEnergyLevels],
     ['atomic-structure', '06-ordered-by-atomic-number', true, drawOrderedByAtomicNumber],
-    ['isotopes-and-radioactivity', '07-decay-and-made-elements', false, drawHalfLife],
+    ['isotopes-and-radioactivity', '07-decay-and-made-elements', true, drawHalfLife],
   ] as const
 ).map(([sheet, id, phone, draw]) => ({
   sheet,

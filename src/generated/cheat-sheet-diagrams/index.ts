@@ -13,10 +13,10 @@ export const CSS_PX_PER_UNIT = 0.8;
 export const CHEAT_SHEET_DIAGRAMS = {
   'atomic-structure/01-inside-an-atom': { width: 400, height: 415 },
   'atomic-structure/02-atomic-and-mass-number': { width: 355, height: 310 },
-  'isotopes-and-radioactivity/03-isotopes-of-hydrogen': { width: 605, height: 295 },
+  'isotopes-and-radioactivity/03-isotopes-of-hydrogen': { width: 360, height: 345 },
   'atomic-structure/05-energy-levels': { width: 335, height: 450 },
   'atomic-structure/06-ordered-by-atomic-number': { width: 360, height: 265 },
-  'isotopes-and-radioactivity/07-decay-and-made-elements': { width: 635, height: 335 },
+  'isotopes-and-radioactivity/07-decay-and-made-elements': { width: 360, height: 355 },
 } as const;
 
 export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;

@@ -226,7 +226,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'Les isotopes sont des atomes d’un même élément avec des nombres de neutrons différents. La chimie, ce sont les électrons qui la font, et les isotopes en ont le même nombre. Ils réagissent donc de la même façon. Ce qui change, c’est la masse, et parfois la stabilité : certains isotopes sont radioactifs, d’autres non.',
         imageAlt:
-          'Trois atomes d’hydrogène côte à côte : un proton, puis un proton et un neutron, puis un proton et deux neutrons. Tous les trois ont un seul électron.',
+          'Trois atomes d’hydrogène l’un au-dessous de l’autre. Chacun a un proton (cercle plein) et un électron dans une zone floue autour du noyau. L’hydrogène 1 (protium) n’a pas de neutron, l’hydrogène 2 (deutérium) en a un et l’hydrogène 3 (tritium) deux (cercles vides). L’hydrogène 1 et l’hydrogène 2 sont marqués stables, l’hydrogène 3 radioactif. Des étiquettes nomment l’électron, le proton et le neutron.',
       },
       {
         heading: 'Noyaux instables et les trois sortes de rayonnement',
@@ -238,7 +238,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'La demi-vie est le temps qu’il faut pour que la moitié d’un échantillon se désintègre. Après une demi-vie il en reste la moitié, après deux un quart, après trois un huitième. Elle est fixe pour chaque isotope : chauffer l’échantillon ou le faire réagir n’y change rien. Le carbone 14 a une demi-vie d’environ 5730 ans. L’uranium 238 en a une d’environ 4,5 milliards d’années, et c’est pour cela qu’il y a encore de l’uranium dans le sol.',
         imageAlt:
-          'Une courbe de désintégration qui tombe de 100 pour cent à 50, 25 puis 12,5 pour cent après une, deux et trois demi-vies, avec à chaque fois un trait en pointillés descendant jusqu’à l’axe. Après trois demi-vies, il reste un huitième. Une demi-vie vaut 5730 ans pour le carbone 14 et environ 4,5 milliards d’années pour l’uranium 238.',
+          'Une courbe de décroissance radioactive : les noyaux non désintégrés en fonction du temps, en demi-vies. Elle tombe de 100 pour cent à 50, 25, 12,5 puis 6,25 pour cent après une, deux, trois et quatre demi-vies, avec à chaque point un trait en pointillés descendant jusqu’à l’axe du temps, et continue de baisser au-delà sans jamais atteindre zéro.',
       },
       {
         heading: 'Dater le passé, et 65 000 ans en Australie',

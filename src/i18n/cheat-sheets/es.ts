@@ -236,7 +236,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Los isótopos son átomos de un mismo elemento con distinto número de neutrones. La química la hacen los electrones, y los isótopos tienen el mismo número, así que reaccionan igual. Lo que cambia es la masa y, a veces, la estabilidad: algunos isótopos son radiactivos y otros no.',
         imageAlt:
-          'Tres átomos de hidrógeno uno al lado del otro: uno con un protón, otro con un protón y un neutrón, y otro con un protón y dos neutrones. Los tres tienen un solo electrón.',
+          'Tres átomos de hidrógeno, uno debajo de otro. Cada uno tiene un protón (círculo relleno) y un electrón en una zona difusa alrededor del núcleo. El hidrógeno-1 (protio) no tiene neutrones, el hidrógeno-2 (deuterio) tiene uno y el hidrógeno-3 (tritio), dos (círculos huecos). El hidrógeno-1 y el hidrógeno-2 están marcados como estables, y el hidrógeno-3 como radiactivo. Unas etiquetas nombran el electrón, el protón y el neutrón.',
       },
       {
         heading: 'Núcleos inestables y las tres clases de radiación',
@@ -248,7 +248,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Es el tiempo que tarda en desintegrarse la mitad de una muestra. Tras un periodo queda la mitad, tras dos un cuarto y tras tres un octavo. Para cada isótopo es fijo: calentarlo o hacerlo reaccionar no lo cambia. El carbono-14 tiene un periodo de unos 5730 años. El uranio-238 lo tiene de unos 4500 millones de años, y por eso todavía queda uranio en el suelo.',
         imageAlt:
-          'Una curva de desintegración que baja del 100 por ciento al 50, al 25 y al 12,5 por ciento tras uno, dos y tres periodos de semidesintegración, con una línea discontinua hasta el eje en cada punto. Tras tres periodos queda una octava parte. Un periodo son 5730 años para el carbono-14 y unos 4500 millones de años para el uranio-238.',
+          'Una curva de desintegración: los núcleos sin desintegrar frente al tiempo, en periodos de semidesintegración. Baja del 100 por ciento al 50, al 25, al 12,5 y al 6,25 por ciento tras uno, dos, tres y cuatro periodos, con una línea discontinua hasta el eje del tiempo en cada punto, y sigue bajando después sin llegar a cero.',
       },
       {
         heading: 'Datar el pasado, y 65 000 años en Australia',

@@ -524,6 +524,11 @@ the split.
 | heavier, but first / lighter, but second (06) | **тяжелее, но стоит первым** / **легче, но стоит вторым** | Added 2026-09-25 with the redrawn atom diagrams. *Стоять* for a place in the table. *Первым / вторым* agree with *теллур* and *иод*, not with the reader. |
 | atomic number in the diagrams | **атомный номер** | Added 2026-09-25 with the redrawn atom diagrams. The review brief suggested *порядковый номер*; the row above keeps *атомный номер* until both sheets change together, and a diagram label that disagreed with its own heading would be worse than either term. |
 | a cell of the periodic table | **клетка** (*клетка теллура*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **водород-1**, **водород-2**, **водород-3** | Added 2026-09-25 with the redrawn isotope diagrams. Cyrillic with the number after a hyphen, per the typography note below. |
+| protium / deuterium / tritium (03) | **протий** / **дейтерий** / **тритий** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name. In a Russian textbook these names come first — *изотопы водорода: протий, дейтерий, тритий* — so they matter more here than in any other locale. |
+| stable / radioactive, of one isotope (03) | **стабильный** / **радиоактивный** | Added 2026-09-25 with the redrawn isotope diagrams. Full adjectives, agreeing with *водород*; the short form *радиоактивен* would be a sentence, not a label. |
+| undecayed nuclei (07, vertical axis) | **нераспавшиеся ядра** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Russian physics plots in the decay law (*число нераспавшихся ядер N(t)*). Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **время в периодах полураспада** | Added 2026-09-25 with the redrawn isotope diagrams. Localised, not translated: a Russian axis says *величина в единицах*, as a German one does. |
 
 **Typography on this pair of sheets.** Two things recur and both are easy to
 get wrong inside an English-shaped file. Large round numbers take a

@@ -410,6 +410,12 @@ the split.
 | not to scale (diagram caveat) | **No está a escala**, and the ratio as **1/100 000 del diámetro del átomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diámetro*, because by volume the ratio is about 10⁻¹⁵. *100 000 veces menor* was rejected: common, but it does not say what is compared, and *veces menor* is a construction style guides object to. |
 | heavier, but first / lighter, but second (06) | **más pesado, pero va antes** / **más ligero, pero va después** | Added 2026-09-25 with the redrawn atom diagrams. *Ir antes / después* is how a Spanish classroom says where an element sits in the table. |
 | a cell of the periodic table | **casilla** | Added 2026-09-25 with the redrawn atom diagrams. |
+| percentages | **12,5 %**, with a no-break space (U+00A0) before the sign | Added 2026-09-25 with the redrawn isotope diagrams. The glossary was silent. The RAE's *Ortografía* (2010) writes a space between the number and *%*, and current Spanish textbooks follow it, so Spanish joins de, fr and ru here, not it. |
+| hydrogen-1, -2, -3 (03) | **hidrógeno-1**, **hidrógeno-2**, **hidrógeno-3** | Added 2026-09-25 with the redrawn isotope diagrams. With a hyphen, following the *carbono-14* row above. |
+| protium / deuterium / tritium (03) | **protio** / **deuterio** / **tritio** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name; the forms Spanish ESO and Bachillerato textbooks use. |
+| stable / radioactive, of one isotope (03) | **estable** / **radiactivo** | Added 2026-09-25 with the redrawn isotope diagrams. *Radiactivo* without the o, per the row above; masculine, agreeing with *hidrógeno*. |
+| undecayed nuclei (07, vertical axis) | **núcleos sin desintegrar** | Added 2026-09-25 with the redrawn isotope diagrams. The phrase Spanish physics uses for *N(t)* in the decay law. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **tiempo, en periodos de semidesintegración** | Added 2026-09-25 with the redrawn isotope diagrams. Wraps onto two lines in the diagram, which leaves room for it; the term is not shortened to *semivida* to fit. |
 
 ## Formulae, equations and naming
 

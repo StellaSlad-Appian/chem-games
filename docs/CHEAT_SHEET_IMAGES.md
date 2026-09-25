@@ -91,7 +91,8 @@ per locale. Its header is the full guide; in short:
 - **Localise, not translate.** Write each label as a chemistry teacher in that
   country would, with the terms in `docs/i18n/glossary-<lang>.md`, and follow
   `docs/i18n/README.md` §4 for numbers: a decimal comma in de, fr, es, it and ru,
-  a no-break space before `%` in de, fr and ru (`12,5 %`).
+  a no-break space before `%` in de, fr, es and ru (`12,5 %`), and none in it
+  (`12,5%`).
 - **Every locale has every key.** A missing one fails the run; nothing falls
   back to English.
 - **`{name}` is a whole number the script fills in** from its chemistry
@@ -201,8 +202,8 @@ here would be a slot nobody should fill.
 
 | # | Key | Size | What it should show |
 |---|---|---|---|
-| 3 | `isotopes-and-radioactivity/03-isotopes-of-hydrogen` | 605×295 | Three hydrogen atoms: 1 proton; 1 proton + 1 neutron; 1 proton + 2 neutrons. One electron on each. |
-| 7 | `isotopes-and-radioactivity/07-decay-and-made-elements` | 635×335 | A half-life curve halving at each step, with 100%, 50%, 25% and 12.5% marked, and carbon-14 and uranium-238 named underneath. |
+| 3 | `isotopes-and-radioactivity/03-isotopes-of-hydrogen` | 360×345 | Hydrogen-1, -2 and -3 in three rows: one filled proton and one electron in each, and 0, 1 and 2 hollow neutrons. Beside each atom its name, its traditional name (protium, deuterium, tritium) and *stable* or *radioactive*. The electron, the proton and the neutron are each named once, with a leader, from a column on the left. |
+| 7 | `isotopes-and-radioactivity/07-decay-and-made-elements` | 360×355 | A decay curve of **undecayed nuclei** against time in half-lives, marked at 100%, 50%, 25%, 12.5% and 6.25% and drawn on past the fourth half-life, never reaching the axis. No title, and no half-lives of named isotopes: the paragraph and the example cards give those. |
 
 **Slot 7 sits under the *Half-life* section, and is now the curve alone.** The
 synthetic elements that were the other half of it have moved to the periodic

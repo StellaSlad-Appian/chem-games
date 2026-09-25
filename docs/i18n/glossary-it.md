@@ -461,6 +461,12 @@ the split.
 | not to scale (diagram caveat) | **Non in scala**, and the ratio as **1/100 000 del diametro dell’atomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diametro*, because by volume the ratio is about 10⁻¹⁵. |
 | heavier, but first / lighter, but second (06) | **più pesante, ma viene prima** / **più leggero, ma viene dopo** | Added 2026-09-25 with the redrawn atom diagrams. *Venire prima / dopo* is the natural Italian for a place in a sequence. |
 | a cell of the periodic table | **casella** | Added 2026-09-25 with the redrawn atom diagrams. |
+| percentages | **12,5%**, with no space before the sign | Added 2026-09-25 with the redrawn isotope diagrams. The glossary was silent. Italian school books and the Italian CLDR format write the sign straight after the number, so Italian differs from de, fr, es and ru here. |
+| hydrogen-1, -2, -3 (03) | **idrogeno-1**, **idrogeno-2**, **idrogeno-3** | Added 2026-09-25 with the redrawn isotope diagrams. With a hyphen, like *carbonio-14*. |
+| protium / deuterium / tritium (03) | **prozio** / **deuterio** / **trizio** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name. Note the Italian spellings *prozio* and *trizio*, not *protio* / *tritio*. |
+| stable / radioactive, of one isotope (03) | **stabile** / **radioattivo** | Added 2026-09-25 with the redrawn isotope diagrams. Masculine, agreeing with *idrogeno*. |
+| undecayed nuclei (07, vertical axis) | **nuclei non ancora decaduti** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Italian textbooks plot in the decay law, with *decadere* per the row above. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **tempo, in tempi di dimezzamento** | Added 2026-09-25 with the redrawn isotope diagrams. |
 
 ## Formulae, equations and naming
 

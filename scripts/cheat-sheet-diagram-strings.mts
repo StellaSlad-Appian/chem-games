@@ -10,7 +10,7 @@
 // Localise, do not translate: write each label the way a chemistry teacher in
 // that country would, using the terms in `docs/i18n/glossary-<lang>.md`, and
 // follow `docs/i18n/README.md` §4 for numbers — a decimal comma in de, fr, es,
-// it and ru, and a no-break space (U+00A0) before `%` in de, fr and ru.
+// it and ru, and a no-break space (U+00A0) before `%` in de, fr, es and ru, and none in it (`12,5%`).
 //
 // - **Every locale has exactly the keys `en` has.** A missing or extra key
 //   fails the run; nothing falls back to English.
@@ -218,126 +218,126 @@ export const DIAGRAM_STRINGS: Record<string, SlotStrings> = {
   },
   'isotopes-and-radioactivity/03-isotopes-of-hydrogen': {
     en: {
-      title: 'All three are hydrogen: 1 proton, 1 electron.',
-      key: 'Filled = proton, hollow = neutron, outer mark = electron.',
+      proton: 'proton',
+      neutron: 'neutron',
+      electron: 'electron',
       isotopeName: 'hydrogen-{mass}',
-      oneProton: '1 proton',
-      oneNeutron: '1 neutron',
-      twoNeutrons: '2 neutrons',
+      protium: 'protium',
+      deuterium: 'deuterium',
+      tritium: 'tritium',
+      stable: 'stable',
+      radioactive: 'radioactive',
     },
     de: {
-      title: 'All three are hydrogen: 1 proton, 1 electron.', // TODO translate (task 5/6)
-      key: 'Filled = proton, hollow = neutron, outer mark = electron.', // TODO translate (task 5/6)
-      isotopeName: 'hydrogen-{mass}', // TODO translate (task 5/6)
-      oneProton: '1 proton', // TODO translate (task 5/6)
-      oneNeutron: '1 neutron', // TODO translate (task 5/6)
-      twoNeutrons: '2 neutrons', // TODO translate (task 5/6)
+      proton: 'Proton',
+      neutron: 'Neutron',
+      electron: 'Elektron',
+      isotopeName: 'Wasserstoff-{mass}',
+      protium: 'Protium',
+      deuterium: 'Deuterium',
+      tritium: 'Tritium',
+      stable: 'stabil',
+      radioactive: 'radioaktiv',
     },
     fr: {
-      title: 'All three are hydrogen: 1 proton, 1 electron.', // TODO translate (task 5/6)
-      key: 'Filled = proton, hollow = neutron, outer mark = electron.', // TODO translate (task 5/6)
-      isotopeName: 'hydrogen-{mass}', // TODO translate (task 5/6)
-      oneProton: '1 proton', // TODO translate (task 5/6)
-      oneNeutron: '1 neutron', // TODO translate (task 5/6)
-      twoNeutrons: '2 neutrons', // TODO translate (task 5/6)
+      proton: 'proton',
+      neutron: 'neutron',
+      electron: 'électron',
+      isotopeName: 'hydrogène {mass}',
+      protium: 'protium',
+      deuterium: 'deutérium',
+      tritium: 'tritium',
+      stable: 'stable',
+      radioactive: 'radioactif',
     },
     es: {
-      title: 'All three are hydrogen: 1 proton, 1 electron.', // TODO translate (task 5/6)
-      key: 'Filled = proton, hollow = neutron, outer mark = electron.', // TODO translate (task 5/6)
-      isotopeName: 'hydrogen-{mass}', // TODO translate (task 5/6)
-      oneProton: '1 proton', // TODO translate (task 5/6)
-      oneNeutron: '1 neutron', // TODO translate (task 5/6)
-      twoNeutrons: '2 neutrons', // TODO translate (task 5/6)
+      proton: 'protón',
+      neutron: 'neutrón',
+      electron: 'electrón',
+      isotopeName: 'hidrógeno-{mass}',
+      protium: 'protio',
+      deuterium: 'deuterio',
+      tritium: 'tritio',
+      stable: 'estable',
+      radioactive: 'radiactivo',
     },
     it: {
-      title: 'All three are hydrogen: 1 proton, 1 electron.', // TODO translate (task 5/6)
-      key: 'Filled = proton, hollow = neutron, outer mark = electron.', // TODO translate (task 5/6)
-      isotopeName: 'hydrogen-{mass}', // TODO translate (task 5/6)
-      oneProton: '1 proton', // TODO translate (task 5/6)
-      oneNeutron: '1 neutron', // TODO translate (task 5/6)
-      twoNeutrons: '2 neutrons', // TODO translate (task 5/6)
+      proton: 'protone',
+      neutron: 'neutrone',
+      electron: 'elettrone',
+      isotopeName: 'idrogeno-{mass}',
+      protium: 'prozio',
+      deuterium: 'deuterio',
+      tritium: 'trizio',
+      stable: 'stabile',
+      radioactive: 'radioattivo',
     },
     ru: {
-      title: 'All three are hydrogen: 1 proton, 1 electron.', // TODO translate (task 5/6)
-      key: 'Filled = proton, hollow = neutron, outer mark = electron.', // TODO translate (task 5/6)
-      isotopeName: 'hydrogen-{mass}', // TODO translate (task 5/6)
-      oneProton: '1 proton', // TODO translate (task 5/6)
-      oneNeutron: '1 neutron', // TODO translate (task 5/6)
-      twoNeutrons: '2 neutrons', // TODO translate (task 5/6)
+      proton: 'протон',
+      neutron: 'нейтрон',
+      electron: 'электрон',
+      isotopeName: 'водород-{mass}',
+      protium: 'протий',
+      deuterium: 'дейтерий',
+      tritium: 'тритий',
+      stable: 'стабильный',
+      radioactive: 'радиоактивный',
     },
   },
   'isotopes-and-radioactivity/07-decay-and-made-elements': {
     en: {
-      title: 'Half-life: half of what is left, every time',
-      axisAmount: 'how much is left',
-      axisTime: 'half-lives',
+      axisAmount: 'undecayed nuclei',
+      axisTime: 'time, in half-lives',
       percent0: '100%',
       percent1: '50%',
       percent2: '25%',
       percent3: '12.5%',
-      eighth: 'After 3 half-lives, an eighth is left.',
-      carbon: 'Carbon-14: one half-life is 5730 years.',
-      uranium: 'Uranium-238: one half-life is 4.5 billion years.',
+      percent4: '6.25%',
     },
     de: {
-      title: 'Half-life: half of what is left, every time', // TODO translate (task 5/6)
-      axisAmount: 'how much is left', // TODO translate (task 5/6)
-      axisTime: 'half-lives', // TODO translate (task 5/6)
-      percent0: '100%', // TODO translate (task 5/6)
-      percent1: '50%', // TODO translate (task 5/6)
-      percent2: '25%', // TODO translate (task 5/6)
-      percent3: '12.5%', // TODO translate (task 5/6)
-      eighth: 'After 3 half-lives, an eighth is left.', // TODO translate (task 5/6)
-      carbon: 'Carbon-14: one half-life is 5730 years.', // TODO translate (task 5/6)
-      uranium: 'Uranium-238: one half-life is 4.5 billion years.', // TODO translate (task 5/6)
+      axisAmount: 'noch nicht zerfallene Kerne',
+      axisTime: 'Zeit in Halbwertszeiten',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
     },
     fr: {
-      title: 'Half-life: half of what is left, every time', // TODO translate (task 5/6)
-      axisAmount: 'how much is left', // TODO translate (task 5/6)
-      axisTime: 'half-lives', // TODO translate (task 5/6)
-      percent0: '100%', // TODO translate (task 5/6)
-      percent1: '50%', // TODO translate (task 5/6)
-      percent2: '25%', // TODO translate (task 5/6)
-      percent3: '12.5%', // TODO translate (task 5/6)
-      eighth: 'After 3 half-lives, an eighth is left.', // TODO translate (task 5/6)
-      carbon: 'Carbon-14: one half-life is 5730 years.', // TODO translate (task 5/6)
-      uranium: 'Uranium-238: one half-life is 4.5 billion years.', // TODO translate (task 5/6)
+      axisAmount: 'noyaux non désintégrés',
+      axisTime: 'temps, en demi-vies',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
     },
     es: {
-      title: 'Half-life: half of what is left, every time', // TODO translate (task 5/6)
-      axisAmount: 'how much is left', // TODO translate (task 5/6)
-      axisTime: 'half-lives', // TODO translate (task 5/6)
-      percent0: '100%', // TODO translate (task 5/6)
-      percent1: '50%', // TODO translate (task 5/6)
-      percent2: '25%', // TODO translate (task 5/6)
-      percent3: '12.5%', // TODO translate (task 5/6)
-      eighth: 'After 3 half-lives, an eighth is left.', // TODO translate (task 5/6)
-      carbon: 'Carbon-14: one half-life is 5730 years.', // TODO translate (task 5/6)
-      uranium: 'Uranium-238: one half-life is 4.5 billion years.', // TODO translate (task 5/6)
+      axisAmount: 'núcleos sin desintegrar',
+      axisTime: 'tiempo, en periodos de semidesintegración',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
     },
     it: {
-      title: 'Half-life: half of what is left, every time', // TODO translate (task 5/6)
-      axisAmount: 'how much is left', // TODO translate (task 5/6)
-      axisTime: 'half-lives', // TODO translate (task 5/6)
-      percent0: '100%', // TODO translate (task 5/6)
-      percent1: '50%', // TODO translate (task 5/6)
-      percent2: '25%', // TODO translate (task 5/6)
-      percent3: '12.5%', // TODO translate (task 5/6)
-      eighth: 'After 3 half-lives, an eighth is left.', // TODO translate (task 5/6)
-      carbon: 'Carbon-14: one half-life is 5730 years.', // TODO translate (task 5/6)
-      uranium: 'Uranium-238: one half-life is 4.5 billion years.', // TODO translate (task 5/6)
+      axisAmount: 'nuclei non ancora decaduti',
+      axisTime: 'tempo, in tempi di dimezzamento',
+      percent0: '100%',
+      percent1: '50%',
+      percent2: '25%',
+      percent3: '12,5%',
+      percent4: '6,25%',
     },
     ru: {
-      title: 'Half-life: half of what is left, every time', // TODO translate (task 5/6)
-      axisAmount: 'how much is left', // TODO translate (task 5/6)
-      axisTime: 'half-lives', // TODO translate (task 5/6)
-      percent0: '100%', // TODO translate (task 5/6)
-      percent1: '50%', // TODO translate (task 5/6)
-      percent2: '25%', // TODO translate (task 5/6)
-      percent3: '12.5%', // TODO translate (task 5/6)
-      eighth: 'After 3 half-lives, an eighth is left.', // TODO translate (task 5/6)
-      carbon: 'Carbon-14: one half-life is 5730 years.', // TODO translate (task 5/6)
-      uranium: 'Uranium-238: one half-life is 4.5 billion years.', // TODO translate (task 5/6)
+      axisAmount: 'нераспавшиеся ядра',
+      axisTime: 'время в периодах полураспада',
+      percent0: '100 %',
+      percent1: '50 %',
+      percent2: '25 %',
+      percent3: '12,5 %',
+      percent4: '6,25 %',
     },
   },
 };

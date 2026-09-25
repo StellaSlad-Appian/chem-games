@@ -211,7 +211,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Isotope sind Atome eines Elements mit unterschiedlich vielen Neutronen. Chemie machen die Elektronen, und davon haben Isotope gleich viele. Sie reagieren also gleich. Unterschiedlich sind die Masse und manchmal die Stabilität: Manche Isotope sind radioaktiv, andere nicht.',
         imageAlt:
-          'Drei Wasserstoffatome nebeneinander: eines mit einem Proton, eines mit einem Proton und einem Neutron, eines mit einem Proton und zwei Neutronen. Alle drei haben ein Elektron.',
+          'Drei Wasserstoffatome untereinander. Jedes hat ein Proton (gefüllter Kreis) und ein Elektron in einem unscharfen Bereich um den Kern. Wasserstoff-1 (Protium) hat kein Neutron, Wasserstoff-2 (Deuterium) eines und Wasserstoff-3 (Tritium) zwei (leere Kreise). Wasserstoff-1 und Wasserstoff-2 sind als stabil beschriftet, Wasserstoff-3 als radioaktiv. Beschriftungen benennen Elektron, Proton und Neutron.',
       },
       {
         heading: 'Instabile Kerne und die drei Arten von Strahlung',
@@ -223,7 +223,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Die Halbwertszeit ist die Zeit, in der die Hälfte einer Probe zerfällt. Nach einer Halbwertszeit ist die Hälfte übrig, nach zweien ein Viertel und nach dreien ein Achtel. Für jedes Isotop liegt sie fest: Erhitzen oder eine Reaktion ändern nichts daran. Kohlenstoff-14 hat eine Halbwertszeit von etwa 5730 Jahren. Uran-238 hat eine von etwa 4,5 Milliarden Jahren, und deshalb steckt überhaupt noch Uran im Boden.',
         imageAlt:
-          'Eine Zerfallskurve, die von 100 Prozent auf 50, 25 und 12,5 Prozent nach einer, zwei und drei Halbwertszeiten fällt, mit einer gestrichelten Linie hinunter zur Achse an jeder Stelle. Nach drei Halbwertszeiten ist ein Achtel übrig. Eine Halbwertszeit sind 5730 Jahre bei Kohlenstoff-14 und etwa 4,5 Milliarden Jahre bei Uran-238.',
+          'Eine Zerfallskurve: die noch nicht zerfallenen Kerne gegen die Zeit in Halbwertszeiten. Sie fällt von 100 Prozent auf 50, 25, 12,5 und 6,25 Prozent nach einer, zwei, drei und vier Halbwertszeiten, mit einer gestrichelten Linie hinunter zur Zeitachse an jedem Punkt, und fällt danach weiter, ohne null zu erreichen.',
       },
       {
         heading: 'Die Vergangenheit datieren, und 65 000 Jahre in Australien',

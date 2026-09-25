@@ -238,7 +238,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Gli isotopi sono atomi di uno stesso elemento con un numero diverso di neutroni. La chimica la fanno gli elettroni, e gli isotopi ne hanno lo stesso numero, quindi reagiscono allo stesso modo. Quello che cambia è la massa, e a volte la stabilità: alcuni isotopi sono radioattivi, altri no.',
         imageAlt:
-          'Tre atomi di idrogeno uno accanto all’altro: uno con un protone, uno con un protone e un neutrone, uno con un protone e due neutroni. Tutti e tre hanno un solo elettrone.',
+          'Tre atomi di idrogeno, uno sotto l’altro. Ognuno ha un protone (cerchio pieno) e un elettrone in una zona sfumata intorno al nucleo. L’idrogeno-1 (prozio) non ha neutroni, l’idrogeno-2 (deuterio) ne ha uno e l’idrogeno-3 (trizio) due (cerchi vuoti). L’idrogeno-1 e l’idrogeno-2 sono indicati come stabili, l’idrogeno-3 come radioattivo. Le etichette indicano l’elettrone, il protone e il neutrone.',
       },
       {
         heading: 'Nuclei instabili e le tre specie di radiazione',
@@ -250,7 +250,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Il tempo di dimezzamento è il tempo che serve perché metà di un campione decada. Dopo un tempo di dimezzamento ne resta metà, dopo due un quarto e dopo tre un ottavo. Per ogni isotopo è fisso: scaldarlo o farlo reagire non lo cambia. Il carbonio-14 ha un tempo di dimezzamento di circa 5730 anni. L’uranio-238 lo ha di circa 4,5 miliardi di anni, ed è per questo che c’è ancora uranio nel terreno.',
         imageAlt:
-          'Una curva di decadimento che scende dal 100 per cento al 50, al 25 e al 12,5 per cento dopo uno, due e tre tempi di dimezzamento, con una linea tratteggiata fino all’asse a ogni punto. Dopo tre tempi di dimezzamento ne resta un ottavo. Un tempo di dimezzamento è di 5730 anni per il carbonio-14 e di circa 4,5 miliardi di anni per l’uranio-238.',
+          'Una curva di decadimento: i nuclei non ancora decaduti in funzione del tempo, in tempi di dimezzamento. Scende dal 100 per cento al 50, al 25, al 12,5 e al 6,25 per cento dopo uno, due, tre e quattro tempi di dimezzamento, con una linea tratteggiata fino all’asse del tempo a ogni punto, e continua a scendere senza mai arrivare a zero.',
       },
       {
         heading: 'Datare il passato, e 65 000 anni in Australia',

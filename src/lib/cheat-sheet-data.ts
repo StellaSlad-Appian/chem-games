@@ -364,7 +364,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           'Isotopes are atoms of one element with different numbers of neutrons. Chemistry is done by electrons, and isotopes have the same number of those, so they react identically. What differs is mass, and sometimes stability: some isotopes are radioactive and some are not.',
         image: {
           diagram: 'isotopes-and-radioactivity/03-isotopes-of-hydrogen',
-          alt: 'Three hydrogen atoms side by side: one proton, one proton and one neutron, and one proton and two neutrons. All three have a single electron.',
+          alt: 'Three hydrogen atoms, one above another. Each has one proton (a filled circle) and one electron in a soft band around the nucleus. Hydrogen-1 (protium) has no neutrons, hydrogen-2 (deuterium) has one and hydrogen-3 (tritium) has two (hollow circles). Hydrogen-1 and hydrogen-2 are labelled stable, and hydrogen-3 radioactive. Labels name the electron, the proton and the neutron.',
         },
       },
       {
@@ -378,7 +378,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           'Half-life is the time it takes for half of a sample to decay. After one half-life half is left, after two a quarter, and after three an eighth. The number is fixed for each isotope, and heating it or reacting it does not change it. Carbon-14 has a half-life of about 5730 years. Uranium-238 has one of about 4.5 billion years, which is why there is still uranium in the ground.',
         image: {
           diagram: 'isotopes-and-radioactivity/07-decay-and-made-elements',
-          alt: 'A decay curve falling from 100 per cent to 50, 25 and 12.5 per cent at one, two and three half-lives, with a dashed line down to the axis at each. After three half-lives an eighth is left. One half-life is 5730 years for carbon-14 and about 4.5 billion years for uranium-238.',
+          alt: 'A decay curve of undecayed nuclei against time, in half-lives. It falls from 100 per cent to 50, 25, 12.5 and 6.25 per cent at one, two, three and four half-lives, with a dashed line down to the time axis at each point, and keeps falling after the fourth without reaching zero.',
         },
       },
       {
