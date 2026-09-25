@@ -97,6 +97,13 @@ export const en = {
     '{balancer} and {lewis} are the two that were built keyboard-first and tested that way. If a student in your class works from the keyboard, start there.',
 
   collaborateHeading: 'Teacher collaborators',
+  // The big, bold pull-quote printed as its own section wherever this pitch
+  // appears — the sidebar teaser and the /teachers/collaborate page — set in
+  // a much larger size than the small print around it. Two short sentences,
+  // deliberately: the ask, then the concrete reward, both already stated in
+  // full below (collaborateWhat, collaborateThanks). This is the one line a
+  // skimming reader should walk away with even if they read nothing else.
+  collaborateHero: 'Help shape what we build next. Get version 1.0 and 2.0 free for it.',
   collaborateWhat:
     'I am looking for a few teachers to help shape this. That means either or both of two things: telling me how a game actually went with a class — what confused students, which wording misfired, what was too easy — and suggesting games worth building that are not here yet.',
   collaborateCommitment:

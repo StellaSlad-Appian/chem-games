@@ -94,6 +94,7 @@ export const es = {
     '{balancer} y {lewis} son los dos que se construyeron pensando primero en el teclado y se probaron así. Si en su clase hay alguien que trabaja con el teclado, empiece por ahí.',
 
   collaborateHeading: 'Profesorado colaborador',
+  collaborateHero: 'Ayude a dar forma a lo que viene. A cambio, la versión 1.0 y la 2.0 son gratis.',
   collaborateWhat:
     'Busco a unas cuantas personas que den clase y quieran ayudar a dar forma a esto. Se trata de una de estas dos cosas, o de las dos: contarme cómo fue de verdad un juego con una clase – qué confundió al alumnado, qué redacción no funcionó, qué resultó demasiado fácil – y proponer juegos que faltan y que merecerían la pena.',
   collaborateCommitment:

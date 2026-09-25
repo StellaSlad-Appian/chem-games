@@ -93,6 +93,8 @@ export const it = {
     '{balancer} e {lewis} sono i due giochi costruiti fin dall’inizio per la tastiera e collaudati così. Se in classe c’è chi lavora da tastiera, cominci da lì.',
 
   collaborateHeading: 'Chi insegna e collabora',
+  collaborateHero:
+    'Aiuti a dare forma a ciò che verrà. In cambio, la versione 1.0 e la 2.0 sono gratuite.',
   collaborateWhat:
     'Cerco alcune persone che insegnano e vogliono aiutare a dare forma a questo progetto. Vuol dire una di due cose, o entrambe: raccontarmi com’è andato davvero un gioco con una classe – che cosa ha confuso chi studia, quale formulazione non ha funzionato, che cosa era troppo facile – e proporre giochi che mancano e che varrebbe la pena costruire.',
   collaborateCommitment:

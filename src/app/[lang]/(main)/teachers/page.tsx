@@ -257,6 +257,17 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
                 {p.collaborateHeading}
               </h2>
               {/*
+                The pitch, printed big: everything below this is the same
+                small `text-sm` body copy as every other card on the page, and
+                a skimming reader's eye goes to whatever is largest on it. Two
+                short sentences rather than the full explanation — the ask,
+                then the concrete reward — both stated in full just below for
+                anyone who reads on.
+              */}
+              <p className="mt-3 rounded-xl bg-(--action) px-4 py-4 text-xl leading-snug font-black text-white shadow-md">
+                {p.collaborateHero}
+              </p>
+              {/*
                 Only the pitch lives here. Everything about *how* to sign up —
                 and the form itself — is one click away on its own page, which
                 is what keeps this card sidebar-sized: docs/COLLABORATORS.md § 4

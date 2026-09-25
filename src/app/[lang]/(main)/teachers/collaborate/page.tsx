@@ -77,6 +77,18 @@ export default async function TeachersCollaboratePage(
           <h1 className="text-4xl font-black md:text-5xl">{p.collaborateHeading}</h1>
         </div>
 
+        {/*
+          The pitch, printed big: everything in the card below this is the
+          same small `text-sm` body copy, and a reader landing here — one
+          click from the main page's own teaser of this same line — should
+          see the ask and the reward again immediately, not have to find it
+          in the fourth paragraph. Two short sentences rather than the full
+          explanation, which follows in full in the card below.
+        */}
+        <p className="mt-6 rounded-2xl bg-(--action) px-6 py-6 text-2xl leading-snug font-black text-white shadow-md md:text-3xl">
+          {p.collaborateHero}
+        </p>
+
         <article className="mt-6 flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
           <div className={`space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}>
             <p>{p.collaborateWhat}</p>

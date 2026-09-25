@@ -93,6 +93,8 @@ export const fr = {
     '{balancer} et {lewis} sont les deux jeux conçus d’emblée pour le clavier et testés ainsi. Si un élève de votre classe travaille au clavier, commencez par là.',
 
   collaborateHeading: 'Enseignants collaborateurs',
+  collaborateHero:
+    'Participez à façonner la suite. En échange, les versions 1.0 et 2.0 sont gratuites.',
   collaborateWhat:
     'Je cherche quelques enseignants pour aider à façonner ce projet. Cela veut dire l’une de ces deux choses, ou les deux : me raconter comment un jeu s’est réellement passé avec une classe – ce qui a embrouillé les élèves, quelle formulation est tombée à côté, ce qui était trop facile – et proposer des jeux qui manquent et qui vaudraient la peine.',
   collaborateCommitment:

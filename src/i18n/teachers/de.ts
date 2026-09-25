@@ -98,6 +98,7 @@ export const de = {
     '{balancer} und {lewis} sind die beiden Spiele, die von Anfang an für die Tastatur gebaut und so getestet wurden. Wenn jemand in Ihrer Klasse von der Tastatur aus arbeitet, fangen Sie dort an.',
 
   collaborateHeading: 'Lehrkräfte als Mitgestaltende',
+  collaborateHero: 'Gestalten Sie mit, was als Nächstes kommt. Version 1.0 und 2.0 gibt es dafür kostenlos.',
   collaborateWhat:
     'Ich suche einige Lehrkräfte, die dieses Projekt mitgestalten. Gemeint ist eines von beidem oder beides: mir zu berichten, wie ein Spiel in einer Klasse tatsächlich gelaufen ist – was Lernende verwirrt hat, welche Formulierung danebenging, was zu leicht war –, und Spiele vorzuschlagen, die es noch nicht gibt und die sich lohnen würden.',
   collaborateCommitment:
