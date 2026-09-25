@@ -62,7 +62,7 @@ have it.
 
 1. **Surfaces and text** — what almost everything uses.
 2. **Hues** (`--hue-*`) — one text-safe value per hue per theme. Reach for these only when
-   the colour means "a distinct colour" and nothing more (a cheat sheet's badge, a
+   the colour means "a distinct colour" and nothing more (a cheat sheet's icon tile, a
    Formula Blaster bubble).
 3. **Roles** — the meaning. `--success` *is* `--hue-emerald`, but a component that shows a
    right answer says `--success`, so the day the green changes it changes in one place.
@@ -71,14 +71,14 @@ have it.
 
 | Token | Use for | Light | Dark |
 |---|---|---|---|
-| `--background` | The page, and GameShell's backdrop | `#f8fafc` | `#09090b` |
-| `--surface` | Cards, panels, modals, the header bar | `#ffffff` | `#18181b` |
-| `--surface-2` | Nested rows inside a card or modal, hover fills | `#f1f5f9` | `#27272a` |
-| `--border` | Card and panel edges — **decoration only** (1.5:1) | `#cbd5e1` | `#3f3f46` |
-| `--border-strong` | The edge of a control that has to be seen: text inputs, the pause button, invaders (≥ 3:1) | `#64748b` | `#71717a` |
-| `--foreground` | Body text and headings | `#0f172a` | `#fafafa` |
-| `--muted` | Secondary text, labels, icon buttons at rest | `#475569` | `#a1a1aa` |
-| `--link` | Links, the site blue as text or an icon, focus rings | `#2563eb` | `#60a5fa` |
+| `--background` | The page (tinted), and GameShell's backdrop | `#e8eef6` | `#0b1120` |
+| `--surface` | Cards, modals, the game header — lifted off the page by `--shadow-card` | `#ffffff` | `#131c2e` |
+| `--surface-2` | Panels and rows inside a card, secondary panels, hover fills | `#f1f5fa` | `#1b2740` |
+| `--border` | Card and panel edges — **decoration only** (≈1.4:1) | `#d3dce8` | `#2a3a57` |
+| `--border-strong` | The edge of a control that has to be seen: text inputs, the pause button, invaders (≥ 3:1) | `#64748b` | `#71809a` |
+| `--foreground` | Body text and headings | `#0f172a` | `#f1f5f9` |
+| `--muted` | Secondary text, labels, icon buttons at rest | `#475569` | `#9fb0c8` |
+| `--link` | Links, the site blue as text or an icon, focus rings | `#1d4ed8` | `#60a5fa` |
 | `--shadow-card` / `--shadow-lg` | Elevation (`.game-card`) | | |
 
 ### Roles
@@ -119,8 +119,9 @@ new token pair here, not an ad-hoc Tailwind colour in a component.
 ### Game-state accents (from `GameOverlay.tsx`)
 
 `paused` → `--link`, `failed` → `--danger`, `victory` → `--success`, `levelUp` →
-`--accent`. In the game header, progress is `--success`, the score `--accent` and the
-task's target `--link`. Keep these; they're how players learn
+`--accent`. In the game header, progress is `--success` and the score `--accent`; the
+game's own accent frames the bar (stripe, icon, task panel and target). Keep these;
+they're how players learn
 state. Each state also has its own icon and badge text, so colour is never the only cue.
 
 ### Colour classes stored as data
@@ -234,8 +235,10 @@ through motion (loners are hollow dots as well as pulsing ones).
 
 - `GameShell` is the root: `fullBleed` for arena-style games (Formula Blaster), centered
   (`items-center justify-between`) for board-style games (Acid Classification).
-- Header: progress (and lives / timer) | task | hint, level & score, exit. It sits on
-  `--surface` with a `--border` edge and follows the site theme like every other bar.
+- Header: the game (icon + name), progress, lives / timer | task | hint, level & score, exit.
+  A `--surface` card with `--shadow-lg`, following the site theme, marked as the game's
+  own by its accent from `GAMES` (`src/lib/games-data.ts`): a stripe along the top, the
+  `GameIcon`, and the task panel on the accent's tint. Pass `game="<slug>"`.
 - Footer: `max-w-3xl grid-cols-3` — instructions | pause | settings. Keep these slots; players
   rely on the same controls being in the same place in every game.
 - Mobile-first; the only breakpoints in use are `sm:` and `md:` (occasionally `lg:` for padding).

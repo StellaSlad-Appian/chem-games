@@ -357,6 +357,7 @@ export default function NeutralizePage() {
         {/* Desktop Header */}
         <div className="hidden md:block">
           <GamesHeader
+            game="neutralise"
             gameSubtitle={t.games.neutralise.subtitleFull}
             progressText={f(t.games.neutralise.progressFull, {
               wave: currentWave,
@@ -377,6 +378,7 @@ export default function NeutralizePage() {
         {/* Mobile Header */}
         <div className="block md:hidden">
           <GamesHeader
+            game="neutralise"
             gameSubtitle={t.games.neutralise.subtitleShort}
             progressText={f(t.games.neutralise.progressShort, { wave: currentWave })}
             currentLevel={currentLevel}

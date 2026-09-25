@@ -595,6 +595,7 @@ export default function FormulaBlasterPage() {
     >
       <div className="px-4 md:px-6 lg:px-8">
         <Header
+          game="formula-blaster"
           gameSubtitle={t.games.formulaBlaster.subtitle}
           targetName={currentTarget ? compoundName(locale, currentTarget) : undefined}
           progressText={f(t.games.formulaBlaster.progress, {

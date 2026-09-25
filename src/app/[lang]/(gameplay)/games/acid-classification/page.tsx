@@ -279,6 +279,7 @@ export default function ClassificationGame() {
 
       <div className="mx-auto w-full max-w-5xl px-4 md:px-6 lg:px-8">
         <Header
+          game="acid-classification"
           gameSubtitle={t.games.acidClassification.subtitle}
           progressText={f(t.games.acidClassification.progress, {
             correct: correctInRound,

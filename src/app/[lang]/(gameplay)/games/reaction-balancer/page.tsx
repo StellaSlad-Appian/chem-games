@@ -210,6 +210,7 @@ export default function ReactionBalancerPage() {
     <GameShell fullBleed themeScope={GAME_ID}>
       <div className="px-0 md:px-2">
         <GamesHeader
+          game="reaction-balancer"
           gameSubtitle={M.header.subtitle}
           progressText={progressText}
           currentLevel={currentLevel}
