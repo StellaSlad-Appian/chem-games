@@ -11,7 +11,7 @@
 // client component and reads `useI18n()` — that is also what makes the locale
 // prefix in the asserted hrefs real rather than hard-coded.
 
-import { render, screen, within } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import type { ReactElement } from 'react';
 import TeachersPage, { generateMetadata } from './page';
@@ -23,6 +23,7 @@ import type { Dictionary } from '@/i18n/dictionaries/en';
 import { LOCALES, type Locale } from '@/i18n/config';
 import { en as enTeachers } from '@/i18n/teachers/en';
 import { de as deTeachers } from '@/i18n/teachers/de';
+import { en as enAbout } from '@/i18n/about/en';
 
 const SUPPORT_URL = 'https://example.test/support-chemgames';
 
@@ -225,6 +226,17 @@ describe('For Teachers page', () => {
     for (const sheet of sheets) {
       expect(link(sheet.title)).toHaveAttribute('href', `/en/cheat-sheets/${sheet.slug}`);
     }
+  });
+
+  it('points to the About page in English, and not in a locale that has none', async () => {
+    await renderPage('en');
+    expect(link(enAbout.teachersPagePointerLinkLabel)).toHaveAttribute('href', '/en/about');
+    cleanup();
+
+    // About is English-only for now; /de/about is a 404, so no link to it.
+    await renderPage('de', de);
+    const hrefs = screen.getAllByRole('link').map((anchor) => anchor.getAttribute('href'));
+    expect(hrefs).not.toContain('/de/about');
   });
 
   it('renders in German, with German links', async () => {

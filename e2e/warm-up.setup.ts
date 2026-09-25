@@ -45,6 +45,7 @@ setup('compile every route', async ({ page }) => {
     '/cheat-sheets',
     '/cheat-sheets/acids-and-bases',
     '/teachers',
+    '/about',
     '/auth',
     // Explore: all three tabs and both permalink routes. Every one of them is
     // a separate compile, and leaving them out is what made the permalink

@@ -46,8 +46,10 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
+import { ADULT_PROSE, NOT_PROSE } from '@/components/layout/adult-prose';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { CollaboratorForm } from '@/components/teachers/CollaboratorForm';
+import { aboutCopy } from '@/i18n/about';
 import { getCheatSheets } from '@/i18n/cheat-sheets';
 import { DEFAULT_LOCALE, isLocale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -55,6 +57,9 @@ import { teachersCopy } from '@/i18n/teachers';
 import { format } from '@/i18n/format';
 
 const PRIVACY_PATH = '/privacy';
+
+const INLINE_LINK_CLASS =
+  'font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)';
 
 /**
  * Where a collaborator writes to have their details deleted. The same address
@@ -103,6 +108,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
   const t = await getDictionary(locale);
   const p = teachersCopy(locale);
   const sheets = getCheatSheets(locale);
+  const about = aboutCopy(locale);
 
   // Read as a bare `process.env.NEXT_PUBLIC_…` reference so Next can inline it
   // at build time (see the environment-variables guide). Unset means the whole
@@ -125,10 +131,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
   ];
 
   const privacyLink = (
-    <LocaleLink
-      href={PRIVACY_PATH}
-      className="font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
-    >
+    <LocaleLink href={PRIVACY_PATH} className={INLINE_LINK_CLASS}>
       {p.privacyLinkLabel}
     </LocaleLink>
   );
@@ -163,7 +166,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
           </div>
-          <p className="mt-2 max-w-[70ch] text-base text-(--muted)">{p.intro}</p>
+          <p className={`mt-2 text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
         </div>
 
         {/*
@@ -183,7 +186,9 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             <Construction className="h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
             {p.betaHeading}
           </h2>
-          <p className="mt-3 max-w-[70ch] text-sm font-medium leading-relaxed text-(--muted)">
+          <p
+            className={`mt-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+          >
             {p.betaBody}
           </p>
         </section>
@@ -193,6 +198,22 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             <p>{p.whatBody1}</p>
             <p>{p.whatBody2}</p>
             <p>{p.whatBody3}</p>
+            {/*
+              The case for the site — why it exists and how the games are meant
+              to help — lives on the About page, not here. Shown only in a
+              locale that has an About page; see src/i18n/about.ts.
+            */}
+            {about && (
+              <p>
+                {withPlaceholder(
+                  about.teachersPagePointer,
+                  'link',
+                  <LocaleLink href="/about" className={INLINE_LINK_CLASS}>
+                    {about.teachersPagePointerLinkLabel}
+                  </LocaleLink>
+                )}
+              </p>
+            )}
           </Section>
 
           <Section icon={Gamepad2} title={p.onSiteHeading}>
@@ -269,32 +290,34 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
               bundle. See docs/COLLABORATORS.md § 4 and
               src/i18n/teachers-boundary.test.ts.
             */}
-            <CollaboratorForm
-              contactEmail={CONTACT_EMAIL}
-              copy={{
-                heading: p.formHeading,
-                intro: p.formIntro,
-                use: p.formUse,
-                deletion: p.formDelete,
-                optional: p.formOptional,
-                emailLabel: p.formEmailLabel,
-                emailHelp: p.formEmailHelp,
-                nameLabel: p.formNameLabel,
-                schoolLabel: p.formSchoolLabel,
-                countryLabel: p.formCountryLabel,
-                yearLevelsLabel: p.formYearLevelsLabel,
-                yearLevelsHelp: p.formYearLevelsHelp,
-                subjectsLabel: p.formSubjectsLabel,
-                subjectsHelp: p.formSubjectsHelp,
-                messageLabel: p.formMessageLabel,
-                messageHelp: p.formMessageHelp,
-                submit: p.formSubmit,
-                submitting: p.formSubmitting,
-                successTitle: p.formSuccessTitle,
-                successBody: p.formSuccessBody,
-                genericError: p.formGenericError,
-              }}
-            />
+            <div className={NOT_PROSE}>
+              <CollaboratorForm
+                contactEmail={CONTACT_EMAIL}
+                copy={{
+                  heading: p.formHeading,
+                  intro: p.formIntro,
+                  use: p.formUse,
+                  deletion: p.formDelete,
+                  optional: p.formOptional,
+                  emailLabel: p.formEmailLabel,
+                  emailHelp: p.formEmailHelp,
+                  nameLabel: p.formNameLabel,
+                  schoolLabel: p.formSchoolLabel,
+                  countryLabel: p.formCountryLabel,
+                  yearLevelsLabel: p.formYearLevelsLabel,
+                  yearLevelsHelp: p.formYearLevelsHelp,
+                  subjectsLabel: p.formSubjectsLabel,
+                  subjectsHelp: p.formSubjectsHelp,
+                  messageLabel: p.formMessageLabel,
+                  messageHelp: p.formMessageHelp,
+                  submit: p.formSubmit,
+                  submitting: p.formSubmitting,
+                  successTitle: p.formSuccessTitle,
+                  successBody: p.formSuccessBody,
+                  genericError: p.formGenericError,
+                }}
+              />
+            </div>
           </Section>
 
           <Section icon={MessageSquarePlus} title={p.feedbackHeading}>
@@ -332,7 +355,9 @@ function Section({
         <Icon className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
         {title}
       </h2>
-      <div className="max-w-[70ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted)">
+      <div
+        className={`space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+      >
         {children}
       </div>
     </section>

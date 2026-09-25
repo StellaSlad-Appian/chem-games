@@ -16,6 +16,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ADULT_PROSE } from '@/components/layout/adult-prose';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { DEFAULT_LOCALE, formattingLocale, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -127,7 +128,7 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
           </div>
-          <p className="mt-2 text-base text-(--muted)">{p.intro}</p>
+          <p className={`mt-2 text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
         </div>
 
         <article className="mt-8 flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
@@ -252,7 +253,9 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="space-y-3 border-b border-(--border) pb-6 last:border-b-0 last:pb-0">
       <h2 className="text-2xl font-black text-(--foreground)">{title}</h2>
-      <div className="space-y-3 text-sm font-medium leading-relaxed text-(--muted)">{children}</div>
+      <div className={`space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}>
+        {children}
+      </div>
     </section>
   );
 }
