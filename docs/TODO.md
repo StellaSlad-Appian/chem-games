@@ -187,7 +187,7 @@ has been pushed:
 | 7 New diagrams: States of Matter | `cheatsheet/7-states-of-matter-diagrams` | running (parallel with 8, 9) |
 | 8 New diagrams: Lewis Structures | `cheatsheet/8-lewis-diagrams` | running (parallel with 7, 9) |
 | 9 New diagram: Functional Groups reaction map | `cheatsheet/9-functional-groups-diagrams` | running (parallel with 7, 8) |
-| E Easy fixes and the owner's four decisions (Sonnet) | — | waiting for the SLC decision |
+| E Easy fixes and the owner's four decisions (Sonnet) | `cheatsheet/e-easy-fixes` | running (parallel with 7–9) |
 | — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | — | after 7–9 and E |
 | 10a/10b Eight smaller diagrams | — | after the merge; **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
 
@@ -216,7 +216,9 @@ Owner to-dos from this work:
       of the group number = valence electrons" rule (group 18, but 2 valence
       electrons). It is on *Chemical Bonds* and *Lewis Structures*, and was left
       unstated to keep the takeaways short.
-- [ ] **Decide what to do with "SLC"** in the translated stoichiometry table. It is
+- [x] **Decided 2026-09-25: German uses the Abitur values (24,5 L/mol at 25 °C and
+      1013 hPa, and 22,4 L/mol at 0 °C); fr, es, it and ru spell out "25 °C and 100 kPa"
+      with 24,8 L/mol.** Being applied by step E. Was: **Decide what to do with "SLC"** in the translated stoichiometry table. It is
       the Australian VCE abbreviation for standard laboratory conditions (25 °C,
       100 kPa), and no other country's students will know it. Spell it out, or use
       each country's own term.
