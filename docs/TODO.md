@@ -201,7 +201,7 @@ Owner to-dos from this work:
 - [ ] **Native-speaker review of the new cheat-sheet text** in de, fr, es, it and ru.
       Send reviewers [`i18n/cheat-sheet-review-strings.md`](./i18n/cheat-sheet-review-strings.md):
       each language has its own section, with the English, the new text, the text
-      before, and a tick box. It covers steps 1–3 and 5 (340 strings and 100 diagram
+      before, and a tick box. It covers steps 1–6 (350 strings and 175 diagram
       labels) and gets extended after each later step.
 - [x] **Decided 2026-09-25 (4b): remove the leftovers, point to the formula-mass sheet.**
       Being applied by step E. Was: **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**

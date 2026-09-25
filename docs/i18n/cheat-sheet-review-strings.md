@@ -5,10 +5,10 @@ one who teaches or studied chemistry. You only need your own language's section.
 
 **What this is:** every piece of cheat-sheet text that was written or changed during
 the cheat sheet review of 24–25 September 2026. That covers steps 1–3 (the example
-cards, and the science fixes on all 15 sheets) and step 5 (the four redrawn diagrams
-on *Atoms & the Periodic Table*: their labels, in a table at the top of each
-language, and their descriptions for screen readers). The isotope diagrams and the
-new diagrams will be added in later updates of this file.
+cards, and the science fixes on all 15 sheets) and steps 5–6 (the six redrawn
+diagrams on *Atoms & the Periodic Table* and *Isotopes & Radioactivity*: their
+labels, in a table at the top of each language, and their descriptions for screen
+readers). The new diagrams on other sheets will be added in a later update.
 
 The text was written by an AI agent and has **not been checked by a native
 speaker**. The agent was told to localise rather than translate: write each
@@ -78,6 +78,14 @@ mistakes.
 - **Russian:** the scale note says *в 100 000 раз меньше атома по диаметру* (a ratio,
   as Russian textbooks write it). *Атомный номер* is used, not *порядковый номер*,
   to match the section heading; the glossary rates this medium. Please check.
+- *Undecayed nuclei* on the half-life graph uses the quantity each country's physics
+  books plot (*noch nicht zerfallene Kerne*, *noyaux non désintégrés*, *núcleos sin
+  desintegrar*, *nuclei non ancora decaduti*, *нераспавшиеся ядра*). The time axis
+  in German and Russian uses the "quantity in unit" form (*Zeit in Halbwertszeiten*).
+- Percent signs: *12,5 %* with a no-break space in de, fr, es and ru; *12,5%* with no
+  space in Italian (Italian textbook practice). Please check es and it.
+- The hydrogen isotopes also show the traditional names (*Protium, Deuterium,
+  Tritium*…). Russian treats протий, дейтерий, тритий as the main names.
 - **German:** *2, 8, 1* is kept, although some German textbooks write shells as
   letters (K2 L8 M1). Please check.
 
@@ -106,7 +114,7 @@ mistakes on the formula-mass sheet.
 
 ---
 
-## German (de): 69 strings
+## German (de): 71 strings
 
 ### New or changed glossary decisions
 
@@ -126,6 +134,11 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-de.
 | the counting-model caveat (05) | **Eine Art, Elektronen zu zählen – kein Bild eines Atoms.** | Added 2026-09-25 with the redrawn atom diagrams. A no-break space sits before the dash, so a wrapped line never starts with it. |
 | electron arrangement written out | **2, 8, 1** | Added 2026-09-25 with the redrawn atom diagrams. The comma list is kept in a decimal-comma locale: every item is a whole number and a space follows each comma, so it cannot be read as a decimal. **Rated medium**: some German textbooks write the shells as K2 L8 M1; the sheet does not use shell letters anywhere. |
 | a cell of the periodic table (alt text) | **Feld** (*das Tellur-Feld*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **Wasserstoff-1**, **Wasserstoff-2**, **Wasserstoff-3** | Added 2026-09-25 with the redrawn isotope diagrams. The mass-number form the sheet already uses for *Kohlenstoff-14*. |
+| protium / deuterium / tritium (03) | **Protium** / **Deuterium** / **Tritium** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name, because German textbooks name hydrogen's isotopes this way (*schwerer Wasserstoff* is Deuterium). |
+| stable / radioactive, of one isotope (03) | **stabil** / **radioaktiv** | Added 2026-09-25 with the redrawn isotope diagrams. Predicative, so uninflected. |
+| undecayed nuclei (07, vertical axis) | **noch nicht zerfallene Kerne** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity German physics plots in the decay law (*Anzahl der noch nicht zerfallenen Kerne N(t)*). Replaces "how much is left", which suggests the sample itself disappears. *Unzerfallene Kerne* is shorter and also used; *noch nicht* says they will. |
+| time in half-lives (07, horizontal axis) | **Zeit in Halbwertszeiten** | Added 2026-09-25 with the redrawn isotope diagrams. Localised, not translated: a German axis is labelled *Größe in Einheit*, as in *Zeit t in Halbwertszeiten*, rather than with the bare unit. |
 | significant figures | **gültige Ziffern** | Added 2026-09-25. The phrase German physics and chemistry lessons use for the rounding rule (*so viele gültige Ziffern wie die ungenaueste Angabe*). *Signifikante Stellen*, which the stoichiometry sheet used before, is understood but reads like a translation. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence on the functional-groups sheet now points to *eine IR-Tabelle*, and the polyatomic-ion table is headed *Die wichtigsten mehratomigen Ionen*. The *Tafelwerk* is the German equivalent for most data, but it was not named for IR ranges because not every Tafelwerk prints them. |
 
@@ -172,6 +185,32 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | iodineName | Iodine | Iod | |
 | iodineMass | 126.90 | 126,90 | |
 | iodineRank | lighter, but second | leichter, steht aber dahinter | |
+
+#### Isotopes & Radioactivity — diagram “Isotopes” (hydrogen)
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| proton | proton | Proton | |
+| neutron | neutron | Neutron | |
+| electron | electron | Elektron | |
+| isotopeName | hydrogen-{mass} | Wasserstoff-{mass} | |
+| protium | protium | Protium | |
+| deuterium | deuterium | Deuterium | |
+| tritium | tritium | Tritium | |
+| stable | stable | stabil | |
+| radioactive | radioactive | radioaktiv | |
+
+#### Isotopes & Radioactivity — diagram “Half-life”
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| axisAmount | undecayed nuclei | noch nicht zerfallene Kerne | |
+| axisTime | time, in half-lives | Zeit in Halbwertszeiten | |
+| percent0 | 100% | 100 % | |
+| percent1 | 50% | 50 % | |
+| percent2 | 25% | 25 % | |
+| percent3 | 12.5% | 12,5 % | |
+| percent4 | 6.25% | 6,25 % | |
 
 ### Atoms & the Periodic Table
 
@@ -462,6 +501,22 @@ German, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Isotopes”**
+
+English:
+
+> Three hydrogen atoms, one above another. Each has one proton (a filled circle) and one electron in a soft band around the nucleus. Hydrogen-1 (protium) has no neutrons, hydrogen-2 (deuterium) has one and hydrogen-3 (tritium) has two (hollow circles). Hydrogen-1 and hydrogen-2 are labelled stable, and hydrogen-3 radioactive. Labels name the electron, the proton and the neutron.
+
+German, new:
+
+> Drei Wasserstoffatome untereinander. Jedes hat ein Proton (gefüllter Kreis) und ein Elektron in einem unscharfen Bereich um den Kern. Wasserstoff-1 (Protium) hat kein Neutron, Wasserstoff-2 (Deuterium) eines und Wasserstoff-3 (Tritium) zwei (leere Kreise). Wasserstoff-1 und Wasserstoff-2 sind als stabil beschriftet, Wasserstoff-3 als radioaktiv. Beschriftungen benennen Elektron, Proton und Neutron.
+
+German, before:
+
+> Drei Wasserstoffatome nebeneinander: eines mit einem Proton, eines mit einem Proton und einem Neutron, eines mit einem Proton und zwei Neutronen. Alle drei haben ein Elektron.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Unstable nuclei, and the three kinds of radiation”**
 
 English:
@@ -475,6 +530,22 @@ German, new:
 German, before:
 
 > Manche Kerne sind instabil. Sie zerfallen von selbst, geben Strahlung ab und lassen ein stabileres Atom zurück. Radon-222 schleudert ein Alphateilchen heraus, also zwei Protonen und zwei Neutronen zusammen. Iod-131 gibt ein Betateilchen ab, also ein schnelles Elektron aus dem Kern. Cobalt-60 gibt Gammastrahlung ab, und das ist Energie statt eines Teilchens. Papier hält Alpha auf, ein Blech aus Aluminium hält Beta auf, und für Gamma braucht man Blei oder dicken Beton.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Half-life”**
+
+English:
+
+> A decay curve of undecayed nuclei against time, in half-lives. It falls from 100 per cent to 50, 25, 12.5 and 6.25 per cent at one, two, three and four half-lives, with a dashed line down to the time axis at each point, and keeps falling after the fourth without reaching zero.
+
+German, new:
+
+> Eine Zerfallskurve: die noch nicht zerfallenen Kerne gegen die Zeit in Halbwertszeiten. Sie fällt von 100 Prozent auf 50, 25, 12,5 und 6,25 Prozent nach einer, zwei, drei und vier Halbwertszeiten, mit einer gestrichelten Linie hinunter zur Zeitachse an jedem Punkt, und fällt danach weiter, ohne null zu erreichen.
+
+German, before:
+
+> Eine Zerfallskurve, die von 100 Prozent auf 50, 25 und 12,5 Prozent nach einer, zwei und drei Halbwertszeiten fällt, mit einer gestrichelten Linie hinunter zur Achse an jeder Stelle. Nach drei Halbwertszeiten ist ein Achtel übrig. Eine Halbwertszeit sind 5730 Jahre bei Kohlenstoff-14 und etwa 4,5 Milliarden Jahre bei Uran-238.
 
 - [ ] OK   Comment:
 
@@ -1233,7 +1304,7 @@ German, before:
 
 ---
 
-## French (fr): 71 strings
+## French (fr): 73 strings
 
 ### New or changed glossary decisions
 
@@ -1251,6 +1322,12 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-fr.
 | not to scale (diagram caveat) | **Échelle non respectée**, and the ratio as **1/100 000 du diamètre de l’atome** | Added 2026-09-25 with the redrawn atom diagrams. *Échelle non respectée* is the caption French textbooks print under a schematic; *pas à l’échelle* is a calque. Says *diamètre*, because by volume the ratio is about 10⁻¹⁵. |
 | heavier, but first / lighter, but second (06) | **plus lourd, mais placé avant** / **plus léger, mais placé après** | Added 2026-09-25 with the redrawn atom diagrams. Masculine to agree with *tellure* and *iode*, not with the reader. |
 | a cell of the periodic table | **case** (*la case du tellure*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **hydrogène 1**, **hydrogène 2**, **hydrogène 3** | Added 2026-09-25 with the redrawn isotope diagrams. A space and no hyphen, following the *carbone 14* row above. |
+| protium / deuterium / tritium (03) | **protium** / **deutérium** / **tritium** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name; French programmes name all three, and *deutérium* takes the accent. |
+| stable / radioactive, of one isotope (03) | **stable** / **radioactif** | Added 2026-09-25 with the redrawn isotope diagrams. Masculine, agreeing with *hydrogène*. |
+| undecayed nuclei (07, vertical axis) | **noyaux non désintégrés** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity French physique-chimie plots (*nombre de noyaux non désintégrés N(t)*), and *désintégré* per the *désintégration* row above. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **temps, en demi-vies** | Added 2026-09-25 with the redrawn isotope diagrams. |
+| the decay curve (07 alt text) | **courbe de décroissance radioactive** | Added 2026-09-25 with the redrawn isotope diagrams. *Décroissance*, because here the curve itself is the subject — see the *désintégration* row. |
 | name order vs formula order | formula **cation first**, name **anion first**: *chlorure de sodium*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In French the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **chiffres significatifs** | Added 2026-09-25. The lycée rule is *autant de chiffres significatifs que la donnée la moins précise*, and the stoichiometry sheet now says that rather than a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *une table de données IR*, which is what a French exercise supplies, and the polyatomic-ion table is headed *Les principaux ions polyatomiques*. |
@@ -1298,6 +1375,32 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | iodineName | Iodine | Iode | |
 | iodineMass | 126.90 | 126,90 | |
 | iodineRank | lighter, but second | plus léger, mais placé après | |
+
+#### Isotopes & Radioactivity — diagram “Isotopes” (hydrogen)
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| proton | proton | proton | |
+| neutron | neutron | neutron | |
+| electron | electron | électron | |
+| isotopeName | hydrogen-{mass} | hydrogène {mass} | |
+| protium | protium | protium | |
+| deuterium | deuterium | deutérium | |
+| tritium | tritium | tritium | |
+| stable | stable | stable | |
+| radioactive | radioactive | radioactif | |
+
+#### Isotopes & Radioactivity — diagram “Half-life”
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| axisAmount | undecayed nuclei | noyaux non désintégrés | |
+| axisTime | time, in half-lives | temps, en demi-vies | |
+| percent0 | 100% | 100 % | |
+| percent1 | 50% | 50 % | |
+| percent2 | 25% | 25 % | |
+| percent3 | 12.5% | 12,5 % | |
+| percent4 | 6.25% | 6,25 % | |
 
 ### Atoms & the Periodic Table
 
@@ -1588,6 +1691,22 @@ French, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Isotopes”**
+
+English:
+
+> Three hydrogen atoms, one above another. Each has one proton (a filled circle) and one electron in a soft band around the nucleus. Hydrogen-1 (protium) has no neutrons, hydrogen-2 (deuterium) has one and hydrogen-3 (tritium) has two (hollow circles). Hydrogen-1 and hydrogen-2 are labelled stable, and hydrogen-3 radioactive. Labels name the electron, the proton and the neutron.
+
+French, new:
+
+> Trois atomes d’hydrogène l’un au-dessous de l’autre. Chacun a un proton (cercle plein) et un électron dans une zone floue autour du noyau. L’hydrogène 1 (protium) n’a pas de neutron, l’hydrogène 2 (deutérium) en a un et l’hydrogène 3 (tritium) deux (cercles vides). L’hydrogène 1 et l’hydrogène 2 sont marqués stables, l’hydrogène 3 radioactif. Des étiquettes nomment l’électron, le proton et le neutron.
+
+French, before:
+
+> Trois atomes d’hydrogène côte à côte : un proton, puis un proton et un neutron, puis un proton et deux neutrons. Tous les trois ont un seul électron.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Unstable nuclei, and the three kinds of radiation”**
 
 English:
@@ -1601,6 +1720,22 @@ French, new:
 French, before:
 
 > Certains noyaux sont instables. Ils se désintègrent tout seuls, émettent un rayonnement et laissent derrière eux un atome plus stable. Le radon 222 éjecte une particule alpha, c’est-à-dire deux protons et deux neutrons ensemble. L’iode 131 émet une particule bêta, c’est-à-dire un électron rapide parti du noyau. Le cobalt 60 émet un rayonnement gamma, qui est de l’énergie et pas une particule. Une feuille de papier arrête l’alpha, une plaque d’aluminium arrête le bêta, et le gamma demande du plomb ou du béton épais.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Half-life”**
+
+English:
+
+> A decay curve of undecayed nuclei against time, in half-lives. It falls from 100 per cent to 50, 25, 12.5 and 6.25 per cent at one, two, three and four half-lives, with a dashed line down to the time axis at each point, and keeps falling after the fourth without reaching zero.
+
+French, new:
+
+> Une courbe de décroissance radioactive : les noyaux non désintégrés en fonction du temps, en demi-vies. Elle tombe de 100 pour cent à 50, 25, 12,5 puis 6,25 pour cent après une, deux, trois et quatre demi-vies, avec à chaque point un trait en pointillés descendant jusqu’à l’axe du temps, et continue de baisser au-delà sans jamais atteindre zéro.
+
+French, before:
+
+> Une courbe de désintégration qui tombe de 100 pour cent à 50, 25 puis 12,5 pour cent après une, deux et trois demi-vies, avec à chaque fois un trait en pointillés descendant jusqu’à l’axe. Après trois demi-vies, il reste un huitième. Une demi-vie vaut 5730 ans pour le carbone 14 et environ 4,5 milliards d’années pour l’uranium 238.
 
 - [ ] OK   Comment:
 
@@ -2394,7 +2529,7 @@ French, before:
 
 ---
 
-## Spanish (es): 67 strings
+## Spanish (es): 69 strings
 
 ### New or changed glossary decisions
 
@@ -2413,6 +2548,12 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-es.
 | not to scale (diagram caveat) | **No está a escala**, and the ratio as **1/100 000 del diámetro del átomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diámetro*, because by volume the ratio is about 10⁻¹⁵. *100 000 veces menor* was rejected: common, but it does not say what is compared, and *veces menor* is a construction style guides object to. |
 | heavier, but first / lighter, but second (06) | **más pesado, pero va antes** / **más ligero, pero va después** | Added 2026-09-25 with the redrawn atom diagrams. *Ir antes / después* is how a Spanish classroom says where an element sits in the table. |
 | a cell of the periodic table | **casilla** | Added 2026-09-25 with the redrawn atom diagrams. |
+| percentages | **12,5 %**, with a no-break space (U+00A0) before the sign | Added 2026-09-25 with the redrawn isotope diagrams. The glossary was silent. The RAE's *Ortografía* (2010) writes a space between the number and *%*, and current Spanish textbooks follow it, so Spanish joins de, fr and ru here, not it. |
+| hydrogen-1, -2, -3 (03) | **hidrógeno-1**, **hidrógeno-2**, **hidrógeno-3** | Added 2026-09-25 with the redrawn isotope diagrams. With a hyphen, following the *carbono-14* row above. |
+| protium / deuterium / tritium (03) | **protio** / **deuterio** / **tritio** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name; the forms Spanish ESO and Bachillerato textbooks use. |
+| stable / radioactive, of one isotope (03) | **estable** / **radiactivo** | Added 2026-09-25 with the redrawn isotope diagrams. *Radiactivo* without the o, per the row above; masculine, agreeing with *hidrógeno*. |
+| undecayed nuclei (07, vertical axis) | **núcleos sin desintegrar** | Added 2026-09-25 with the redrawn isotope diagrams. The phrase Spanish physics uses for *N(t)* in the decay law. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **tiempo, en periodos de semidesintegración** | Added 2026-09-25 with the redrawn isotope diagrams. Wraps onto two lines in the diagram, which leaves room for it; the term is not shortened to *semivida* to fit. |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro de sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Spanish the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **cifras significativas** | Added 2026-09-25. The rule is phrased *al mismo número de cifras significativas que el dato menos preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
@@ -2460,6 +2601,32 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | iodineName | Iodine | Yodo | |
 | iodineMass | 126.90 | 126,90 | |
 | iodineRank | lighter, but second | más ligero, pero va después | |
+
+#### Isotopes & Radioactivity — diagram “Isotopes” (hydrogen)
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| proton | proton | protón | |
+| neutron | neutron | neutrón | |
+| electron | electron | electrón | |
+| isotopeName | hydrogen-{mass} | hidrógeno-{mass} | |
+| protium | protium | protio | |
+| deuterium | deuterium | deuterio | |
+| tritium | tritium | tritio | |
+| stable | stable | estable | |
+| radioactive | radioactive | radiactivo | |
+
+#### Isotopes & Radioactivity — diagram “Half-life”
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| axisAmount | undecayed nuclei | núcleos sin desintegrar | |
+| axisTime | time, in half-lives | tiempo, en periodos de semidesintegración | |
+| percent0 | 100% | 100 % | |
+| percent1 | 50% | 50 % | |
+| percent2 | 25% | 25 % | |
+| percent3 | 12.5% | 12,5 % | |
+| percent4 | 6.25% | 6,25 % | |
 
 ### Atoms & the Periodic Table
 
@@ -2750,6 +2917,22 @@ Spanish, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Isotopes”**
+
+English:
+
+> Three hydrogen atoms, one above another. Each has one proton (a filled circle) and one electron in a soft band around the nucleus. Hydrogen-1 (protium) has no neutrons, hydrogen-2 (deuterium) has one and hydrogen-3 (tritium) has two (hollow circles). Hydrogen-1 and hydrogen-2 are labelled stable, and hydrogen-3 radioactive. Labels name the electron, the proton and the neutron.
+
+Spanish, new:
+
+> Tres átomos de hidrógeno, uno debajo de otro. Cada uno tiene un protón (círculo relleno) y un electrón en una zona difusa alrededor del núcleo. El hidrógeno-1 (protio) no tiene neutrones, el hidrógeno-2 (deuterio) tiene uno y el hidrógeno-3 (tritio), dos (círculos huecos). El hidrógeno-1 y el hidrógeno-2 están marcados como estables, y el hidrógeno-3 como radiactivo. Unas etiquetas nombran el electrón, el protón y el neutrón.
+
+Spanish, before:
+
+> Tres átomos de hidrógeno uno al lado del otro: uno con un protón, otro con un protón y un neutrón, y otro con un protón y dos neutrones. Los tres tienen un solo electrón.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Unstable nuclei, and the three kinds of radiation”**
 
 English:
@@ -2763,6 +2946,22 @@ Spanish, new:
 Spanish, before:
 
 > Algunos núcleos son inestables. Se desintegran por su cuenta, emiten radiación y dejan detrás un átomo más estable. El radón-222 expulsa una partícula alfa, que son dos protones y dos neutrones juntos. El yodo-131 emite una partícula beta, que es un electrón rápido salido del núcleo. El cobalto-60 emite radiación gamma, que es energía y no una partícula. Un papel detiene la alfa, una lámina de aluminio detiene la beta, y la gamma necesita plomo u hormigón grueso.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Half-life”**
+
+English:
+
+> A decay curve of undecayed nuclei against time, in half-lives. It falls from 100 per cent to 50, 25, 12.5 and 6.25 per cent at one, two, three and four half-lives, with a dashed line down to the time axis at each point, and keeps falling after the fourth without reaching zero.
+
+Spanish, new:
+
+> Una curva de desintegración: los núcleos sin desintegrar frente al tiempo, en periodos de semidesintegración. Baja del 100 por ciento al 50, al 25, al 12,5 y al 6,25 por ciento tras uno, dos, tres y cuatro periodos, con una línea discontinua hasta el eje del tiempo en cada punto, y sigue bajando después sin llegar a cero.
+
+Spanish, before:
+
+> Una curva de desintegración que baja del 100 por ciento al 50, al 25 y al 12,5 por ciento tras uno, dos y tres periodos de semidesintegración, con una línea discontinua hasta el eje en cada punto. Tras tres periodos queda una octava parte. Un periodo son 5730 años para el carbono-14 y unos 4500 millones de años para el uranio-238.
 
 - [ ] OK   Comment:
 
@@ -3489,7 +3688,7 @@ Spanish, before:
 
 ---
 
-## Italian (it): 67 strings
+## Italian (it): 69 strings
 
 ### New or changed glossary decisions
 
@@ -3507,6 +3706,12 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-it.
 | not to scale (diagram caveat) | **Non in scala**, and the ratio as **1/100 000 del diametro dell’atomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diametro*, because by volume the ratio is about 10⁻¹⁵. |
 | heavier, but first / lighter, but second (06) | **più pesante, ma viene prima** / **più leggero, ma viene dopo** | Added 2026-09-25 with the redrawn atom diagrams. *Venire prima / dopo* is the natural Italian for a place in a sequence. |
 | a cell of the periodic table | **casella** | Added 2026-09-25 with the redrawn atom diagrams. |
+| percentages | **12,5%**, with no space before the sign | Added 2026-09-25 with the redrawn isotope diagrams. The glossary was silent. Italian school books and the Italian CLDR format write the sign straight after the number, so Italian differs from de, fr, es and ru here. |
+| hydrogen-1, -2, -3 (03) | **idrogeno-1**, **idrogeno-2**, **idrogeno-3** | Added 2026-09-25 with the redrawn isotope diagrams. With a hyphen, like *carbonio-14*. |
+| protium / deuterium / tritium (03) | **prozio** / **deuterio** / **trizio** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name. Note the Italian spellings *prozio* and *trizio*, not *protio* / *tritio*. |
+| stable / radioactive, of one isotope (03) | **stabile** / **radioattivo** | Added 2026-09-25 with the redrawn isotope diagrams. Masculine, agreeing with *idrogeno*. |
+| undecayed nuclei (07, vertical axis) | **nuclei non ancora decaduti** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Italian textbooks plot in the decay law, with *decadere* per the row above. Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **tempo, in tempi di dimezzamento** | Added 2026-09-25 with the redrawn isotope diagrams. |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro di sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Italian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
@@ -3554,6 +3759,32 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | iodineName | Iodine | Iodio | |
 | iodineMass | 126.90 | 126,90 | |
 | iodineRank | lighter, but second | più leggero, ma viene dopo | |
+
+#### Isotopes & Radioactivity — diagram “Isotopes” (hydrogen)
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| proton | proton | protone | |
+| neutron | neutron | neutrone | |
+| electron | electron | elettrone | |
+| isotopeName | hydrogen-{mass} | idrogeno-{mass} | |
+| protium | protium | prozio | |
+| deuterium | deuterium | deuterio | |
+| tritium | tritium | trizio | |
+| stable | stable | stabile | |
+| radioactive | radioactive | radioattivo | |
+
+#### Isotopes & Radioactivity — diagram “Half-life”
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| axisAmount | undecayed nuclei | nuclei non ancora decaduti | |
+| axisTime | time, in half-lives | tempo, in tempi di dimezzamento | |
+| percent0 | 100% | 100% | |
+| percent1 | 50% | 50% | |
+| percent2 | 25% | 25% | |
+| percent3 | 12.5% | 12,5% | |
+| percent4 | 6.25% | 6,25% | |
 
 ### Atoms & the Periodic Table
 
@@ -3844,6 +4075,22 @@ Italian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Isotopes”**
+
+English:
+
+> Three hydrogen atoms, one above another. Each has one proton (a filled circle) and one electron in a soft band around the nucleus. Hydrogen-1 (protium) has no neutrons, hydrogen-2 (deuterium) has one and hydrogen-3 (tritium) has two (hollow circles). Hydrogen-1 and hydrogen-2 are labelled stable, and hydrogen-3 radioactive. Labels name the electron, the proton and the neutron.
+
+Italian, new:
+
+> Tre atomi di idrogeno, uno sotto l’altro. Ognuno ha un protone (cerchio pieno) e un elettrone in una zona sfumata intorno al nucleo. L’idrogeno-1 (prozio) non ha neutroni, l’idrogeno-2 (deuterio) ne ha uno e l’idrogeno-3 (trizio) due (cerchi vuoti). L’idrogeno-1 e l’idrogeno-2 sono indicati come stabili, l’idrogeno-3 come radioattivo. Le etichette indicano l’elettrone, il protone e il neutrone.
+
+Italian, before:
+
+> Tre atomi di idrogeno uno accanto all’altro: uno con un protone, uno con un protone e un neutrone, uno con un protone e due neutroni. Tutti e tre hanno un solo elettrone.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Unstable nuclei, and the three kinds of radiation”**
 
 English:
@@ -3857,6 +4104,22 @@ Italian, new:
 Italian, before:
 
 > Alcuni nuclei sono instabili. Decadono da soli, emettono radiazione e lasciano dietro di sé un atomo più stabile. Il radon-222 scaglia fuori una particella alfa, cioè due protoni e due neutroni insieme. Lo iodio-131 emette una particella beta, cioè un elettrone veloce uscito dal nucleo. Il cobalto-60 emette radiazione gamma, che è energia e non una particella. Un foglio di carta ferma l’alfa, una lamina di alluminio ferma la beta, e la gamma richiede piombo o cemento spesso.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Half-life”**
+
+English:
+
+> A decay curve of undecayed nuclei against time, in half-lives. It falls from 100 per cent to 50, 25, 12.5 and 6.25 per cent at one, two, three and four half-lives, with a dashed line down to the time axis at each point, and keeps falling after the fourth without reaching zero.
+
+Italian, new:
+
+> Una curva di decadimento: i nuclei non ancora decaduti in funzione del tempo, in tempi di dimezzamento. Scende dal 100 per cento al 50, al 25, al 12,5 e al 6,25 per cento dopo uno, due, tre e quattro tempi di dimezzamento, con una linea tratteggiata fino all’asse del tempo a ogni punto, e continua a scendere senza mai arrivare a zero.
+
+Italian, before:
+
+> Una curva di decadimento che scende dal 100 per cento al 50, al 25 e al 12,5 per cento dopo uno, due e tre tempi di dimezzamento, con una linea tratteggiata fino all’asse a ogni punto. Dopo tre tempi di dimezzamento ne resta un ottavo. Un tempo di dimezzamento è di 5730 anni per il carbonio-14 e di circa 4,5 miliardi di anni per l’uranio-238.
 
 - [ ] OK   Comment:
 
@@ -4583,7 +4846,7 @@ Italian, before:
 
 ---
 
-## Russian (ru): 66 strings
+## Russian (ru): 68 strings
 
 ### New or changed glossary decisions
 
@@ -4603,6 +4866,11 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-ru.
 | heavier, but first / lighter, but second (06) | **тяжелее, но стоит первым** / **легче, но стоит вторым** | Added 2026-09-25 with the redrawn atom diagrams. *Стоять* for a place in the table. *Первым / вторым* agree with *теллур* and *иод*, not with the reader. |
 | atomic number in the diagrams | **атомный номер** | Added 2026-09-25 with the redrawn atom diagrams. The review brief suggested *порядковый номер*; the row above keeps *атомный номер* until both sheets change together, and a diagram label that disagreed with its own heading would be worse than either term. |
 | a cell of the periodic table | **клетка** (*клетка теллура*) | Added 2026-09-25 with the redrawn atom diagrams. |
+| hydrogen-1, -2, -3 (03) | **водород-1**, **водород-2**, **водород-3** | Added 2026-09-25 with the redrawn isotope diagrams. Cyrillic with the number after a hyphen, per the typography note below. |
+| protium / deuterium / tritium (03) | **протий** / **дейтерий** / **тритий** | Added 2026-09-25 with the redrawn isotope diagrams. Printed under the mass-number name. In a Russian textbook these names come first — *изотопы водорода: протий, дейтерий, тритий* — so they matter more here than in any other locale. |
+| stable / radioactive, of one isotope (03) | **стабильный** / **радиоактивный** | Added 2026-09-25 with the redrawn isotope diagrams. Full adjectives, agreeing with *водород*; the short form *радиоактивен* would be a sentence, not a label. |
+| undecayed nuclei (07, vertical axis) | **нераспавшиеся ядра** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Russian physics plots in the decay law (*число нераспавшихся ядер N(t)*). Replaces "how much is left", which suggests the sample disappears. |
+| time in half-lives (07, horizontal axis) | **время в периодах полураспада** | Added 2026-09-25 with the redrawn isotope diagrams. Localised, not translated: a Russian axis says *величина в единицах*, as a German one does. |
 | name order vs formula order | formula **cation first**, name **anion first**: *хлорид натрия*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Russian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **значащие цифры** | Added 2026-09-25. The stoichiometry sheet phrases the rule as *столько значащих цифр, сколько их в наименее точном из данных значений*, not a fixed three. Russian school chemistry drills this less than the English-speaking systems do, but the term and the rule are the physics-class ones. **Rated medium.** |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet (the sheets had called it *справочник VCE*). The IR sentence now points to *таблицы ИК-спектроскопии*, and the polyatomic-ion table is headed *Основные многоатомные ионы*. |
@@ -4650,6 +4918,32 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | iodineName | Iodine | Иод | |
 | iodineMass | 126.90 | 126,90 | |
 | iodineRank | lighter, but second | легче, но стоит вторым | |
+
+#### Isotopes & Radioactivity — diagram “Isotopes” (hydrogen)
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| proton | proton | протон | |
+| neutron | neutron | нейтрон | |
+| electron | electron | электрон | |
+| isotopeName | hydrogen-{mass} | водород-{mass} | |
+| protium | protium | протий | |
+| deuterium | deuterium | дейтерий | |
+| tritium | tritium | тритий | |
+| stable | stable | стабильный | |
+| radioactive | radioactive | радиоактивный | |
+
+#### Isotopes & Radioactivity — diagram “Half-life”
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| axisAmount | undecayed nuclei | нераспавшиеся ядра | |
+| axisTime | time, in half-lives | время в периодах полураспада | |
+| percent0 | 100% | 100 % | |
+| percent1 | 50% | 50 % | |
+| percent2 | 25% | 25 % | |
+| percent3 | 12.5% | 12,5 % | |
+| percent4 | 6.25% | 6,25 % | |
 
 ### Atoms & the Periodic Table
 
@@ -4940,6 +5234,22 @@ Russian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Isotopes”**
+
+English:
+
+> Three hydrogen atoms, one above another. Each has one proton (a filled circle) and one electron in a soft band around the nucleus. Hydrogen-1 (protium) has no neutrons, hydrogen-2 (deuterium) has one and hydrogen-3 (tritium) has two (hollow circles). Hydrogen-1 and hydrogen-2 are labelled stable, and hydrogen-3 radioactive. Labels name the electron, the proton and the neutron.
+
+Russian, new:
+
+> Три атома водорода один под другим. У каждого один протон (закрашенный кружок) и один электрон в размытой области вокруг ядра. У водорода-1 (протия) нейтронов нет, у водорода-2 (дейтерия) один, у водорода-3 (трития) два (пустые кружки). Водород-1 и водород-2 подписаны как стабильные, водород-3 — как радиоактивный. Подписи называют электрон, протон и нейтрон.
+
+Russian, before:
+
+> Три атома водорода рядом: один протон; протон и нейтрон; протон и два нейтрона. У всех трёх по одному электрону.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Unstable nuclei, and the three kinds of radiation”**
 
 English:
@@ -4953,6 +5263,22 @@ Russian, new:
 Russian, before:
 
 > Некоторые ядра неустойчивы. Они распадаются сами по себе, испускают излучение и оставляют после себя более устойчивый атом. Радон-222 выбрасывает альфа-частицу — это два протона и два нейтрона вместе. Иод-131 испускает бета-частицу — быстрый электрон, вылетевший из ядра. Кобальт-60 даёт гамма-излучение, а это энергия, а не частица. Альфа задерживается листом бумаги, бета — алюминиевой пластиной, а для гаммы нужен свинец или толстый бетон.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Half-life”**
+
+English:
+
+> A decay curve of undecayed nuclei against time, in half-lives. It falls from 100 per cent to 50, 25, 12.5 and 6.25 per cent at one, two, three and four half-lives, with a dashed line down to the time axis at each point, and keeps falling after the fourth without reaching zero.
+
+Russian, new:
+
+> Кривая распада: число нераспавшихся ядер в зависимости от времени в периодах полураспада. Она падает со 100 процентов до 50, 25, 12,5 и 6,25 процента за один, два, три и четыре периода полураспада, в каждой точке от неё идёт пунктир вниз к оси времени, и дальше она продолжает падать, не достигая нуля.
+
+Russian, before:
+
+> Кривая распада, которая падает со 100 процентов до 50, 25 и 12,5 процента за один, два и три периода полураспада, и в каждой точке от неё идёт пунктир вниз к оси. После трёх периодов остаётся одна восьмая. Один период полураспада — это 5730 лет у углерода-14 и около 4,5 миллиарда лет у урана-238.
 
 - [ ] OK   Comment:
 
