@@ -5,8 +5,10 @@ one who teaches or studied chemistry. You only need your own language's section.
 
 **What this is:** every piece of cheat-sheet text that was written or changed during
 the cheat sheet review of 24–25 September 2026. That covers steps 1–3 (the example
-cards, and the science fixes on all 15 sheets). Diagram labels come in a later
-update of this file, once the diagrams are redrawn.
+cards, and the science fixes on all 15 sheets) and step 5 (the four redrawn diagrams
+on *Atoms & the Periodic Table*: their labels, in a table at the top of each
+language, and their descriptions for screen readers). The isotope diagrams and the
+new diagrams will be added in later updates of this file.
 
 The text was written by an AI agent and has **not been checked by a native
 speaker**. The agent was told to localise rather than translate: write each
@@ -65,6 +67,20 @@ mistakes.
   a group is a column. This changed the ion-charge rule, the Roman-numeral sentence,
   the Lewis sheet and its table heading ("Électrons de valence par groupe").
 
+**Diagram labels (all five languages)**
+- The scale note under the atom diagram says the nucleus is 1/100 000 of the atom's
+  **width** (diameter), in the wording each country's textbooks use under a schematic
+  drawing: *Nicht maßstabsgetreu*, *Échelle non respectée*, *No está a escala*, *Non in
+  scala*, *Масштаб не соблюдён*.
+- *Heavier, but first* / *lighter, but second* is phrased the way each language talks
+  about a place in the table (*steht aber vorn*, *placé avant*, *va antes*, *viene
+  prima*, *стоит первым*).
+- **Russian:** the scale note says *в 100 000 раз меньше атома по диаметру* (a ratio,
+  as Russian textbooks write it). *Атомный номер* is used, not *порядковый номер*,
+  to match the section heading; the glossary rates this medium. Please check.
+- **German:** *2, 8, 1* is kept, although some German textbooks write shells as
+  letters (K2 L8 M1). Please check.
+
 **Spanish**
 - "4.5 billion years" is *4500 millones de años*: Spanish *billón* means 10¹².
 - Same anion-first point as French.
@@ -90,7 +106,7 @@ mistakes on the formula-mass sheet.
 
 ---
 
-## German (de): 65 strings
+## German (de): 69 strings
 
 ### New or changed glossary decisions
 
@@ -104,8 +120,58 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-de.
 | valence electrons from the group number | **die letzte Ziffer der Gruppennummer** (*Cl steht in Gruppe 17: 7 Valenzelektronen*), einmal ergänzt um *das ist die Nummer der Hauptgruppe (VII. Hauptgruppe)* | Added 2026-09-25. The site numbers the groups 1–18, so the old sentence *die Hauptgruppennummer sagt dir, wie viele Valenzelektronen …* was only true in the I–VIII Hauptgruppen system German textbooks also use. The bonding and Lewis sheets now state the 1–18 rule and name the Hauptgruppe once, on the bonding sheet, as the bridge to the textbook. **Never write *Hauptgruppe 17*:** it mixes the two systems. The Lewis table's column is *Gruppe* for the same reason. |
 | beta decay | **Betazerfall** | Added 2026-09-25, for how reactors make neptunium and plutonium. Formed like *Betateilchen*; *β-Zerfall* is the same word in symbols and is fine in a formula context. |
 | shielding gamma ("reduces, never stops") | **abschwächen**: *Blei oder dicker Beton schwächen sie stark ab* | Added 2026-09-24. Gamma radiation is attenuated, not stopped, and German physics and chemistry books say *abschwächen* for exactly that (*Abschwächung von Gammastrahlung*). Alpha and beta keep *aufhalten*. |
+| electron cloud (diagram label) | **Elektronenwolke** | Added 2026-09-25 with the redrawn atom diagrams. The textbook word for the probability picture of the Atomhülle. |
+| not to scale (diagram caveat) | **nicht maßstabsgetreu**, and the ratio as **1/100 000 des Atomdurchmessers** | Added 2026-09-25 with the redrawn atom diagrams. Says *Durchmesser* on purpose: "1/100 000 des Atoms" is ambiguous, and by volume the ratio is about 10⁻¹⁵. *100 000-mal kleiner* was rejected: common in class, but it does not say what is being compared. |
+| heavier, but first / lighter, but second (06) | **schwerer, steht aber vorn** / **leichter, steht aber dahinter** | Added 2026-09-25 with the redrawn atom diagrams. *steht vorn* is how a German teacher talks about a place in the Periodensystem; a literal *aber zuerst / aber an zweiter Stelle* reads like a race. |
+| the counting-model caveat (05) | **Eine Art, Elektronen zu zählen – kein Bild eines Atoms.** | Added 2026-09-25 with the redrawn atom diagrams. A no-break space sits before the dash, so a wrapped line never starts with it. |
+| electron arrangement written out | **2, 8, 1** | Added 2026-09-25 with the redrawn atom diagrams. The comma list is kept in a decimal-comma locale: every item is a whole number and a space follows each comma, so it cannot be read as a decimal. **Rated medium**: some German textbooks write the shells as K2 L8 M1; the sheet does not use shell letters anywhere. |
+| a cell of the periodic table (alt text) | **Feld** (*das Tellur-Feld*) | Added 2026-09-25 with the redrawn atom diagrams. |
 | significant figures | **gültige Ziffern** | Added 2026-09-25. The phrase German physics and chemistry lessons use for the rounding rule (*so viele gültige Ziffern wie die ungenaueste Angabe*). *Signifikante Stellen*, which the stoichiometry sheet used before, is understood but reads like a translation. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence on the functional-groups sheet now points to *eine IR-Tabelle*, and the polyatomic-ion table is headed *Die wichtigsten mehratomigen Ionen*. The *Tafelwerk* is the German equivalent for most data, but it was not named for IR ranges because not every Tafelwerk prints them. |
+
+### Diagram labels
+
+Text drawn inside the diagrams. Labels must stay short: they sit in a fixed space. Text in {braces} is filled in with a number.
+
+#### Atoms & the Periodic Table — diagram “What an atom is made of”
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| electronCloud | electron cloud | Elektronenwolke | |
+| nucleus | nucleus | Atomkern | |
+| proton | proton | Proton | |
+| neutron | neutron | Neutron | |
+| scale | Not to scale: the nucleus is about 1/100,000 of the atom’s width. | Nicht maßstabsgetreu: Der Kern hat nur etwa 1/100 000 des Atomdurchmessers. | |
+
+#### Atoms & the Periodic Table — diagram “Atomic number and mass number”
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| massNumber | mass number = protons + neutrons | Massenzahl = Protonen + Neutronen | |
+| atomicNumber | atomic number = protons | Ordnungszahl = Protonen | |
+| subtraction | {mass} − {atomic} = {neutrons} neutrons | {mass} − {atomic} = {neutrons} Neutronen | |
+
+#### Atoms & the Periodic Table — diagram “Electrons, energy levels…” (sodium)
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| outerLevel | outer level | äußerste Stufe | |
+| arrangement | {first}, {second}, {third} | {first}, {second}, {third} | |
+| electrons | {count} electrons | {count} Elektronen | |
+| countNote | A way to count electrons, not a picture of an atom. | Eine Art, Elektronen zu zählen – kein Bild eines Atoms. | |
+
+#### Atoms & the Periodic Table — diagram “Ordered by atomic number”
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| atomicNumber | atomic number | Ordnungszahl | |
+| relativeAtomicMass | relative atomic mass | relative Atommasse | |
+| telluriumName | Tellurium | Tellur | |
+| telluriumMass | 127.60 | 127,60 | |
+| telluriumRank | heavier, but first | schwerer, steht aber vorn | |
+| iodineName | Iodine | Iod | |
+| iodineMass | 126.90 | 126,90 | |
+| iodineRank | lighter, but second | leichter, steht aber dahinter | |
 
 ### Atoms & the Periodic Table
 
@@ -161,6 +227,22 @@ German, new:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “What an atom is made of”**
+
+English:
+
+> An atom: a nucleus of three protons (filled circles) and four neutrons (hollow circles), with an electron cloud around it that is densest right next to the nucleus and thins out, with no edge, further away. Three protons and four neutrons would make it lithium-7, but the picture stands for any atom. Labels name the electron cloud, the nucleus, a proton and a neutron. A note says it is not to scale: the nucleus is about 1/100,000 of the atom’s width.
+
+German, new:
+
+> Ein Atom: ein Kern aus drei Protonen (gefüllte Kreise) und vier Neutronen (hohle Kreise), darum eine Elektronenwolke, die direkt am Kern am dichtesten ist und nach außen ohne Rand immer dünner wird. Mit drei Protonen und vier Neutronen wäre es Lithium-7, die Abbildung steht aber für jedes Atom. Beschriftet sind die Elektronenwolke, der Atomkern, ein Proton und ein Neutron. Ein Hinweis sagt, dass nichts maßstabsgetreu ist: Der Kern hat nur etwa 1/100 000 des Atomdurchmessers.
+
+German, before:
+
+> Ein Kern aus Protonen und Neutronen in der Mitte, darum eine unscharfe Wolke, die zeigt, wo Elektronen wahrscheinlich sind. Ein Hinweis sagt, dass der Kern viel zu groß gezeichnet ist, um überhaupt sichtbar zu sein.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Atomic number and mass number”**
 
 English:
@@ -177,6 +259,22 @@ German, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Atomic number and mass number”**
+
+English:
+
+> The symbol for chlorine-35: the mass number 35 above the atomic number 17, to the left of Cl. A line joins the 35 to “mass number = protons + neutrons” and another joins the 17 to “atomic number = protons”. Underneath: 35 − 17 = 18 neutrons.
+
+German, new:
+
+> Das Symbol für Chlor-35: die Massenzahl 35 über der Ordnungszahl 17, links neben Cl. Eine Linie verbindet die 35 mit „Massenzahl = Protonen + Neutronen“, eine zweite die 17 mit „Ordnungszahl = Protonen“. Darunter steht 35 − 17 = 18 Neutronen.
+
+German, before:
+
+> Das Symbol für Chlor-35 mit der Massenzahl 35 über der Ordnungszahl 17, dazu Pfeile: 17 Protonen, und 35 minus 17 ergibt 18 Neutronen.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Electrons, energy levels and the shape of the table”**
 
 English:
@@ -190,6 +288,22 @@ German, new:
 German, before:
 
 > Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Deine Lehrkraft und der Lehrplan sagen dazu vielleicht Schalen – gemeint ist dasselbe. Elektronen so zu zählen heißt bohrsches Atommodell: nützlich, und kein Bild eines echten Atoms. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Electrons, energy levels and the shape of the table”**
+
+English:
+
+> Sodium, Na, drawn as a model for counting electrons: a disc marked Na for the nucleus, inside three bands with visible edges that hold 2, 8 and 1 electrons at irregular angles. The single electron in the outer band is circled and labelled “outer level”. Below, the arrangement 2, 8, 1 and the total, 11 electrons. A note says it is a way to count electrons, not a picture of an atom.
+
+German, new:
+
+> Natrium als Zählmodell: eine Scheibe mit der Aufschrift Na als Kern, darum drei Bänder mit sichtbarem Rand, in denen 2, 8 und 1 Elektronen in unregelmäßigen Winkeln sitzen. Das einzelne Elektron im äußersten Band ist eingekreist und mit „äußerste Stufe“ beschriftet. Darunter die Anordnung 2, 8, 1 und die Summe, 11 Elektronen. Ein Hinweis sagt, dass es eine Art ist, Elektronen zu zählen, und kein Bild eines Atoms.
+
+German, before:
+
+> Ein Natriumkern aus 11 Protonen und 12 Neutronen, darum drei weiche Bänder mit 2, 8 und 1 Elektronen, gezeichnet als Punkte in unregelmäßigen Winkeln und nicht als Punkte auf Kreisbahnen. Daneben die Anordnung 2, 8, 1 mit der äußersten Stufe zuletzt. Die Abbildung sagt selbst, dass sie eine Art ist, Elektronen zu zählen, und kein Bild eines Atoms, und dass der Kern etwa 100 000-mal zu groß gezeichnet ist.
 
 - [ ] OK   Comment:
 
@@ -238,6 +352,22 @@ German, new:
 German, before:
 
 > Du kannst eine Gruppe prüfen, indem du ihre Elemente mit Sauerstoff, Wasser und Säuren reagieren lässt. Untereinander verhalten sie sich gleich. Die Metalle der Gruppe 1 reagieren mit Wasser und werden nach unten heftiger: Lithium zischt, Natrium flitzt herum, Kalium fängt Feuer. Dieselben Metalle geben mit einer Säure Wasserstoff ab, und das noch schneller. Die Elemente der Gruppe 17 laufen andersherum und werden nach unten reaktionsträger. Gruppe 18 hat die äußerste Stufe schon voll, deshalb reagieren die Edelgase mit fast nichts.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Ordered by atomic number, not by mass”**
+
+English:
+
+> Two periodic-table cells side by side, with an arrow from the first to the second for the order in the table. Tellurium: atomic number 52, relative atomic mass 127.60, labelled “heavier, but first”. Iodine: atomic number 53, relative atomic mass 126.90, labelled “lighter, but second”. In the tellurium cell the two numbers are labelled atomic number and relative atomic mass.
+
+German, new:
+
+> Zwei Felder des Periodensystems nebeneinander, mit einem Pfeil vom ersten zum zweiten für die Reihenfolge im Periodensystem. Tellur: Ordnungszahl 52, relative Atommasse 127,60, darunter „schwerer, steht aber vorn“. Iod: Ordnungszahl 53, relative Atommasse 126,90, darunter „leichter, steht aber dahinter“. Im Tellur-Feld sind die beiden Zahlen als Ordnungszahl und relative Atommasse beschriftet.
+
+German, before:
+
+> Tellur und Iod nebeneinander. Tellur hat die größere relative Atommasse, aber die kleinere Ordnungszahl, und das Periodensystem stellt es zuerst.
 
 - [ ] OK   Comment:
 
@@ -1103,7 +1233,7 @@ German, before:
 
 ---
 
-## French (fr): 67 strings
+## French (fr): 71 strings
 
 ### New or changed glossary decisions
 
@@ -1117,9 +1247,57 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-fr.
 | valence electrons from the group number | **le chiffre des unités du numéro du groupe** (*Cl est dans le groupe 17 : 7 électrons de valence*) | Added 2026-09-25. With groups numbered 1–18, *numéro du groupe = électrons de valence* is only true for groups 1 and 2, so the bonding and Lewis sheets state the last-digit rule. *Chiffre des unités* is plain school French for "last digit". **Numbered, it is always *groupe*, never *colonne*** (owner's decision, 2026-09-25): *groupe 17*, *le groupe 1*, and the Lewis table is headed *Électrons de valence par groupe*. *Colonne* stays only where a sentence explains what a group is (*un groupe est une colonne*). |
 | beta decay | **désintégration bêta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particule bêta*, with the circumflex. |
 | shielding gamma ("reduces, never stops") | **atténuer**: *le plomb ou le béton épais l'atténuent fortement* | Added 2026-09-24. *Atténuation* is the word French physique-chimie uses for gamma passing through matter; alpha and beta keep *arrêter*. |
+| electron cloud (diagram label) | **nuage électronique** | Added 2026-09-25 with the redrawn atom diagrams. The standard term in French teaching. |
+| not to scale (diagram caveat) | **Échelle non respectée**, and the ratio as **1/100 000 du diamètre de l’atome** | Added 2026-09-25 with the redrawn atom diagrams. *Échelle non respectée* is the caption French textbooks print under a schematic; *pas à l’échelle* is a calque. Says *diamètre*, because by volume the ratio is about 10⁻¹⁵. |
+| heavier, but first / lighter, but second (06) | **plus lourd, mais placé avant** / **plus léger, mais placé après** | Added 2026-09-25 with the redrawn atom diagrams. Masculine to agree with *tellure* and *iode*, not with the reader. |
+| a cell of the periodic table | **case** (*la case du tellure*) | Added 2026-09-25 with the redrawn atom diagrams. |
 | name order vs formula order | formula **cation first**, name **anion first**: *chlorure de sodium*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In French the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **chiffres significatifs** | Added 2026-09-25. The lycée rule is *autant de chiffres significatifs que la donnée la moins précise*, and the stoichiometry sheet now says that rather than a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *une table de données IR*, which is what a French exercise supplies, and the polyatomic-ion table is headed *Les principaux ions polyatomiques*. |
+
+### Diagram labels
+
+Text drawn inside the diagrams. Labels must stay short: they sit in a fixed space. Text in {braces} is filled in with a number.
+
+#### Atoms & the Periodic Table — diagram “What an atom is made of”
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| electronCloud | electron cloud | nuage électronique | |
+| nucleus | nucleus | noyau | |
+| proton | proton | proton | |
+| neutron | neutron | neutron | |
+| scale | Not to scale: the nucleus is about 1/100,000 of the atom’s width. | Échelle non respectée : le noyau mesure environ 1/100 000 du diamètre de l’atome. | |
+
+#### Atoms & the Periodic Table — diagram “Atomic number and mass number”
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| massNumber | mass number = protons + neutrons | nombre de masse = protons + neutrons | |
+| atomicNumber | atomic number = protons | numéro atomique = protons | |
+| subtraction | {mass} − {atomic} = {neutrons} neutrons | {mass} − {atomic} = {neutrons} neutrons | |
+
+#### Atoms & the Periodic Table — diagram “Electrons, energy levels…” (sodium)
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| outerLevel | outer level | niveau extérieur | |
+| arrangement | {first}, {second}, {third} | {first}, {second}, {third} | |
+| electrons | {count} electrons | {count} électrons | |
+| countNote | A way to count electrons, not a picture of an atom. | Une façon de compter les électrons, pas une image de l’atome. | |
+
+#### Atoms & the Periodic Table — diagram “Ordered by atomic number”
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| atomicNumber | atomic number | numéro atomique | |
+| relativeAtomicMass | relative atomic mass | masse atomique relative | |
+| telluriumName | Tellurium | Tellure | |
+| telluriumMass | 127.60 | 127,60 | |
+| telluriumRank | heavier, but first | plus lourd, mais placé avant | |
+| iodineName | Iodine | Iode | |
+| iodineMass | 126.90 | 126,90 | |
+| iodineRank | lighter, but second | plus léger, mais placé après | |
 
 ### Atoms & the Periodic Table
 
@@ -1175,6 +1353,22 @@ French, new:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “What an atom is made of”**
+
+English:
+
+> An atom: a nucleus of three protons (filled circles) and four neutrons (hollow circles), with an electron cloud around it that is densest right next to the nucleus and thins out, with no edge, further away. Three protons and four neutrons would make it lithium-7, but the picture stands for any atom. Labels name the electron cloud, the nucleus, a proton and a neutron. A note says it is not to scale: the nucleus is about 1/100,000 of the atom’s width.
+
+French, new:
+
+> Un atome : un noyau de trois protons (disques pleins) et quatre neutrons (cercles creux), entouré d’un nuage électronique très dense contre le noyau, qui s’éclaircit vers l’extérieur sans bord net. Avec trois protons et quatre neutrons, ce serait du lithium 7, mais le schéma vaut pour n’importe quel atome. Des légendes désignent le nuage électronique, le noyau, un proton et un neutron. Une note précise que l’échelle n’est pas respectée : le noyau mesure environ 1/100 000 du diamètre de l’atome.
+
+French, before:
+
+> Un noyau de protons et de neutrons au centre, entouré d’un nuage flou montrant où les électrons se trouvent probablement. Une note précise que le noyau est dessiné bien trop gros pour être visible.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Atomic number and mass number”**
 
 English:
@@ -1191,6 +1385,22 @@ French, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Atomic number and mass number”**
+
+English:
+
+> The symbol for chlorine-35: the mass number 35 above the atomic number 17, to the left of Cl. A line joins the 35 to “mass number = protons + neutrons” and another joins the 17 to “atomic number = protons”. Underneath: 35 − 17 = 18 neutrons.
+
+French, new:
+
+> Le symbole du chlore 35 : le nombre de masse 35 au-dessus du numéro atomique 17, à gauche de Cl. Un trait relie 35 à « nombre de masse = protons + neutrons », un autre relie 17 à « numéro atomique = protons ». En dessous : 35 − 17 = 18 neutrons.
+
+French, before:
+
+> Le symbole du chlore 35 avec le nombre de masse 35 écrit au-dessus du numéro atomique 17, et des flèches : 17 protons, et 35 moins 17 donne 18 neutrons.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Electrons, energy levels and the shape of the table”**
 
 English:
@@ -1204,6 +1414,22 @@ French, new:
 French, before:
 
 > Les électrons occupent des niveaux d’énergie autour du noyau. Le premier en contient jusqu’à 2, le suivant jusqu’à 8, puis 8 encore pour les vingt premiers éléments. Ton prof et le programme disent peut-être couches : c’est la même chose. Compter les électrons ainsi s’appelle le modèle de Bohr : il est utile, et ce n’est pas une image d’un vrai atome. Le nombre d’électrons du niveau extérieur décide de la façon dont un atome réagit. Deux éléments sont dans le même groupe quand ils en ont autant à l’extérieur. C’est pour cela qu’un groupe se comporte de la même manière.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Electrons, energy levels and the shape of the table”**
+
+English:
+
+> Sodium, Na, drawn as a model for counting electrons: a disc marked Na for the nucleus, inside three bands with visible edges that hold 2, 8 and 1 electrons at irregular angles. The single electron in the outer band is circled and labelled “outer level”. Below, the arrangement 2, 8, 1 and the total, 11 electrons. A note says it is a way to count electrons, not a picture of an atom.
+
+French, new:
+
+> Le sodium, Na, dessiné comme un modèle pour compter les électrons : un disque marqué Na pour le noyau, dans trois bandes aux bords visibles qui portent 2, 8 et 1 électrons à des angles irréguliers. L’électron seul de la bande extérieure est entouré d’un cercle, avec la légende « niveau extérieur ». En dessous, l’arrangement 2, 8, 1 et le total, 11 électrons. Une note précise que c’est une façon de compter les électrons, pas une image de l’atome.
+
+French, before:
+
+> Un noyau de sodium de 11 protons et 12 neutrons, entouré de trois bandes floues portant 2, 8 et 1 électrons, dessinés comme des marques à des angles irréguliers et non comme des points sur des cercles. À côté, l’arrangement 2, 8, 1 avec le niveau externe en dernier. La figure précise elle-même qu’elle est une façon de compter les électrons et non une image d’un atome, et que le noyau est dessiné environ 100 000 fois trop gros.
 
 - [ ] OK   Comment:
 
@@ -1252,6 +1478,22 @@ French, new:
 French, before:
 
 > Tu peux tester un groupe en faisant réagir ses éléments avec le dioxygène, l’eau et les acides : entre eux, ils se comportent de la même façon. Les métaux du groupe 1 réagissent avec l’eau et deviennent plus violents vers le bas : le lithium pétille, le sodium file à la surface, le potassium prend feu. Les mêmes métaux dégagent du dihydrogène avec un acide, et encore plus vite. Les éléments du groupe 17 vont dans l’autre sens et deviennent moins réactifs vers le bas. Le groupe 18 a déjà un niveau extérieur plein, donc les gaz nobles ne réagissent presque avec rien.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Ordered by atomic number, not by mass”**
+
+English:
+
+> Two periodic-table cells side by side, with an arrow from the first to the second for the order in the table. Tellurium: atomic number 52, relative atomic mass 127.60, labelled “heavier, but first”. Iodine: atomic number 53, relative atomic mass 126.90, labelled “lighter, but second”. In the tellurium cell the two numbers are labelled atomic number and relative atomic mass.
+
+French, new:
+
+> Deux cases du tableau périodique côte à côte, avec une flèche de la première vers la seconde pour l’ordre dans le tableau. Tellure : numéro atomique 52, masse atomique relative 127,60, avec « plus lourd, mais placé avant ». Iode : numéro atomique 53, masse atomique relative 126,90, avec « plus léger, mais placé après ». Dans la case du tellure, les deux nombres sont légendés numéro atomique et masse atomique relative.
+
+French, before:
+
+> Le tellure et l’iode côte à côte. Le tellure a la masse atomique relative la plus grande mais le numéro atomique le plus petit, et le tableau le place en premier.
 
 - [ ] OK   Comment:
 
@@ -2152,7 +2394,7 @@ French, before:
 
 ---
 
-## Spanish (es): 63 strings
+## Spanish (es): 67 strings
 
 ### New or changed glossary decisions
 
@@ -2167,9 +2409,57 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-es.
 | valence electrons from the group number | **la última cifra del número de grupo** (*el Cl está en el grupo 17: 7 electrones de valencia*) | Added 2026-09-25. Spanish textbooks number the groups 1–18, where *número de grupo = electrones de valencia* only holds for groups 1 and 2. The bonding and Lewis sheets now state the last-digit rule. |
 | beta decay | **desintegración beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *partícula beta*. |
 | shielding gamma ("reduces, never stops") | **atenuar**: *el plomo o el hormigón grueso la atenúan mucho* | Added 2026-09-24. *Atenuación* is the textbook word for gamma passing through matter; alpha and beta keep *detener*. |
+| electron cloud (diagram label) | **nube electrónica** | Added 2026-09-25 with the redrawn atom diagrams. The standard term in ESO textbooks. |
+| not to scale (diagram caveat) | **No está a escala**, and the ratio as **1/100 000 del diámetro del átomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diámetro*, because by volume the ratio is about 10⁻¹⁵. *100 000 veces menor* was rejected: common, but it does not say what is compared, and *veces menor* is a construction style guides object to. |
+| heavier, but first / lighter, but second (06) | **más pesado, pero va antes** / **más ligero, pero va después** | Added 2026-09-25 with the redrawn atom diagrams. *Ir antes / después* is how a Spanish classroom says where an element sits in the table. |
+| a cell of the periodic table | **casilla** | Added 2026-09-25 with the redrawn atom diagrams. |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro de sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Spanish the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **cifras significativas** | Added 2026-09-25. The rule is phrased *al mismo número de cifras significativas que el dato menos preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
+
+### Diagram labels
+
+Text drawn inside the diagrams. Labels must stay short: they sit in a fixed space. Text in {braces} is filled in with a number.
+
+#### Atoms & the Periodic Table — diagram “What an atom is made of”
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| electronCloud | electron cloud | nube electrónica | |
+| nucleus | nucleus | núcleo | |
+| proton | proton | protón | |
+| neutron | neutron | neutrón | |
+| scale | Not to scale: the nucleus is about 1/100,000 of the atom’s width. | No está a escala: el núcleo mide cerca de 1/100 000 del diámetro del átomo. | |
+
+#### Atoms & the Periodic Table — diagram “Atomic number and mass number”
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| massNumber | mass number = protons + neutrons | número másico = protones + neutrones | |
+| atomicNumber | atomic number = protons | número atómico = protones | |
+| subtraction | {mass} − {atomic} = {neutrons} neutrons | {mass} − {atomic} = {neutrons} neutrones | |
+
+#### Atoms & the Periodic Table — diagram “Electrons, energy levels…” (sodium)
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| outerLevel | outer level | nivel exterior | |
+| arrangement | {first}, {second}, {third} | {first}, {second}, {third} | |
+| electrons | {count} electrons | {count} electrones | |
+| countNote | A way to count electrons, not a picture of an atom. | Una forma de contar electrones, no una imagen del átomo. | |
+
+#### Atoms & the Periodic Table — diagram “Ordered by atomic number”
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| atomicNumber | atomic number | número atómico | |
+| relativeAtomicMass | relative atomic mass | masa atómica relativa | |
+| telluriumName | Tellurium | Teluro | |
+| telluriumMass | 127.60 | 127,60 | |
+| telluriumRank | heavier, but first | más pesado, pero va antes | |
+| iodineName | Iodine | Yodo | |
+| iodineMass | 126.90 | 126,90 | |
+| iodineRank | lighter, but second | más ligero, pero va después | |
 
 ### Atoms & the Periodic Table
 
@@ -2225,6 +2515,22 @@ Spanish, new:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “What an atom is made of”**
+
+English:
+
+> An atom: a nucleus of three protons (filled circles) and four neutrons (hollow circles), with an electron cloud around it that is densest right next to the nucleus and thins out, with no edge, further away. Three protons and four neutrons would make it lithium-7, but the picture stands for any atom. Labels name the electron cloud, the nucleus, a proton and a neutron. A note says it is not to scale: the nucleus is about 1/100,000 of the atom’s width.
+
+Spanish, new:
+
+> Un átomo: un núcleo de tres protones (círculos rellenos) y cuatro neutrones (círculos huecos), rodeado de una nube electrónica muy densa junto al núcleo que se va aclarando hacia fuera, sin borde. Con tres protones y cuatro neutrones sería litio-7, pero el dibujo vale para cualquier átomo. Las etiquetas señalan la nube electrónica, el núcleo, un protón y un neutrón. Una nota dice que no está a escala: el núcleo mide cerca de 1/100 000 del diámetro del átomo.
+
+Spanish, before:
+
+> Un núcleo de protones y neutrones en el centro, rodeado de una nube difusa que muestra dónde es probable que estén los electrones. Una nota avisa de que el núcleo está dibujado demasiado grande para poder verse siquiera.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Atomic number and mass number”**
 
 English:
@@ -2241,6 +2547,22 @@ Spanish, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Atomic number and mass number”**
+
+English:
+
+> The symbol for chlorine-35: the mass number 35 above the atomic number 17, to the left of Cl. A line joins the 35 to “mass number = protons + neutrons” and another joins the 17 to “atomic number = protons”. Underneath: 35 − 17 = 18 neutrons.
+
+Spanish, new:
+
+> El símbolo del cloro-35: el número másico 35 encima del número atómico 17, a la izquierda de Cl. Una línea une el 35 con «número másico = protones + neutrones» y otra une el 17 con «número atómico = protones». Debajo: 35 − 17 = 18 neutrones.
+
+Spanish, before:
+
+> El símbolo del cloro-35 con el número másico 35 escrito encima del número atómico 17, y flechas que señalan: 17 protones, y 35 menos 17 da 18 neutrones.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Electrons, energy levels and the shape of the table”**
 
 English:
@@ -2254,6 +2576,22 @@ Spanish, new:
 Spanish, before:
 
 > Los electrones ocupan niveles de energía alrededor del núcleo. El primero admite hasta 2, el siguiente hasta 8, y otros 8 en los veinte primeros elementos. Tu profesorado y el currículo quizá digan capas: es lo mismo. Contar los electrones así se llama modelo de Bohr: es útil, y no es una foto de un átomo de verdad. Cuántos hay en el nivel exterior determina cómo reacciona un átomo. Dos elementos van en el mismo grupo cuando tienen el mismo número fuera. Por eso un grupo se comporta de forma parecida.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Electrons, energy levels and the shape of the table”**
+
+English:
+
+> Sodium, Na, drawn as a model for counting electrons: a disc marked Na for the nucleus, inside three bands with visible edges that hold 2, 8 and 1 electrons at irregular angles. The single electron in the outer band is circled and labelled “outer level”. Below, the arrangement 2, 8, 1 and the total, 11 electrons. A note says it is a way to count electrons, not a picture of an atom.
+
+Spanish, new:
+
+> El sodio, Na, dibujado como un modelo para contar electrones: un disco con Na para el núcleo, dentro de tres bandas de borde visible que contienen 2, 8 y 1 electrones en ángulos irregulares. El único electrón de la banda exterior está rodeado por un círculo y señalado como «nivel exterior». Debajo, la disposición 2, 8, 1 y el total, 11 electrones. Una nota dice que es una forma de contar electrones, no una imagen del átomo.
+
+Spanish, before:
+
+> Un núcleo de sodio con 11 protones y 12 neutrones, rodeado de tres bandas difusas que contienen 2, 8 y 1 electrones, dibujados como marcas en ángulos irregulares y no como puntos sobre círculos. Al lado, la disposición 2, 8, 1 con el nivel externo al final. La propia figura dice que es una forma de contar electrones y no una imagen de un átomo, y que el núcleo está dibujado unas 100 000 veces demasiado grande.
 
 - [ ] OK   Comment:
 
@@ -2302,6 +2640,22 @@ Spanish, new:
 Spanish, before:
 
 > Puedes poner a prueba un grupo haciendo reaccionar sus elementos con oxígeno, agua y ácidos: entre ellos se comportan igual. Los metales del grupo 1 reaccionan con el agua y se vuelven más violentos hacia abajo: el litio burbujea, el sodio corretea por la superficie, el potasio se incendia. Esos mismos metales desprenden hidrógeno con un ácido, y todavía más deprisa. Los elementos del grupo 17 van al revés y son menos reactivos hacia abajo. El grupo 18 ya tiene el nivel exterior lleno, así que los gases nobles no reaccionan casi con nada.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Ordered by atomic number, not by mass”**
+
+English:
+
+> Two periodic-table cells side by side, with an arrow from the first to the second for the order in the table. Tellurium: atomic number 52, relative atomic mass 127.60, labelled “heavier, but first”. Iodine: atomic number 53, relative atomic mass 126.90, labelled “lighter, but second”. In the tellurium cell the two numbers are labelled atomic number and relative atomic mass.
+
+Spanish, new:
+
+> Dos casillas de la tabla periódica, una al lado de la otra, con una flecha de la primera a la segunda que indica el orden en la tabla. Teluro: número atómico 52, masa atómica relativa 127,60, con «más pesado, pero va antes». Yodo: número atómico 53, masa atómica relativa 126,90, con «más ligero, pero va después». En la casilla del teluro, los dos números llevan las etiquetas número atómico y masa atómica relativa.
+
+Spanish, before:
+
+> El teluro y el yodo uno al lado del otro. El teluro tiene mayor masa atómica relativa pero menor número atómico, y la tabla lo coloca primero.
 
 - [ ] OK   Comment:
 
@@ -3135,7 +3489,7 @@ Spanish, before:
 
 ---
 
-## Italian (it): 63 strings
+## Italian (it): 67 strings
 
 ### New or changed glossary decisions
 
@@ -3149,9 +3503,57 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-it.
 | valence electrons from the group number | **l’ultima cifra del numero del gruppo** (*il Cl è nel gruppo 17: 7 elettroni di valenza*) | Added 2026-09-25. The sheets number the groups 1–18, where *numero del gruppo = elettroni di valenza* only holds for groups 1 and 2. Some Italian textbooks still print the I–VIII A-group numbering, where the plain rule works; the last-digit rule is correct in both. **Rated medium**: a teacher using an older book may prefer to name the Roman numeral too. |
 | beta decay | **decadimento beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particella beta*; *decadimento* is the school word, not *disintegrazione*. |
 | shielding gamma ("reduces, never stops") | **attenuare**: *il piombo o il cemento spesso la attenuano molto* | Added 2026-09-24. *Attenuazione* is the textbook word for gamma passing through matter; alpha and beta keep *fermare*. |
+| electron cloud (diagram label) | **nube elettronica** | Added 2026-09-25 with the redrawn atom diagrams. *Nuvola elettronica* is also in circulation; *nube* is the textbook form and is shorter. The old alt text said *nuvola sfumata*; the new one follows the label. |
+| not to scale (diagram caveat) | **Non in scala**, and the ratio as **1/100 000 del diametro dell’atomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diametro*, because by volume the ratio is about 10⁻¹⁵. |
+| heavier, but first / lighter, but second (06) | **più pesante, ma viene prima** / **più leggero, ma viene dopo** | Added 2026-09-25 with the redrawn atom diagrams. *Venire prima / dopo* is the natural Italian for a place in a sequence. |
+| a cell of the periodic table | **casella** | Added 2026-09-25 with the redrawn atom diagrams. |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro di sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Italian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
+
+### Diagram labels
+
+Text drawn inside the diagrams. Labels must stay short: they sit in a fixed space. Text in {braces} is filled in with a number.
+
+#### Atoms & the Periodic Table — diagram “What an atom is made of”
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| electronCloud | electron cloud | nube elettronica | |
+| nucleus | nucleus | nucleo | |
+| proton | proton | protone | |
+| neutron | neutron | neutrone | |
+| scale | Not to scale: the nucleus is about 1/100,000 of the atom’s width. | Non in scala: il nucleo misura circa 1/100 000 del diametro dell’atomo. | |
+
+#### Atoms & the Periodic Table — diagram “Atomic number and mass number”
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| massNumber | mass number = protons + neutrons | numero di massa = protoni + neutroni | |
+| atomicNumber | atomic number = protons | numero atomico = protoni | |
+| subtraction | {mass} − {atomic} = {neutrons} neutrons | {mass} − {atomic} = {neutrons} neutroni | |
+
+#### Atoms & the Periodic Table — diagram “Electrons, energy levels…” (sodium)
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| outerLevel | outer level | livello esterno | |
+| arrangement | {first}, {second}, {third} | {first}, {second}, {third} | |
+| electrons | {count} electrons | {count} elettroni | |
+| countNote | A way to count electrons, not a picture of an atom. | Un modo per contare gli elettroni, non un’immagine dell’atomo. | |
+
+#### Atoms & the Periodic Table — diagram “Ordered by atomic number”
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| atomicNumber | atomic number | numero atomico | |
+| relativeAtomicMass | relative atomic mass | massa atomica relativa | |
+| telluriumName | Tellurium | Tellurio | |
+| telluriumMass | 127.60 | 127,60 | |
+| telluriumRank | heavier, but first | più pesante, ma viene prima | |
+| iodineName | Iodine | Iodio | |
+| iodineMass | 126.90 | 126,90 | |
+| iodineRank | lighter, but second | più leggero, ma viene dopo | |
 
 ### Atoms & the Periodic Table
 
@@ -3207,6 +3609,22 @@ Italian, new:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “What an atom is made of”**
+
+English:
+
+> An atom: a nucleus of three protons (filled circles) and four neutrons (hollow circles), with an electron cloud around it that is densest right next to the nucleus and thins out, with no edge, further away. Three protons and four neutrons would make it lithium-7, but the picture stands for any atom. Labels name the electron cloud, the nucleus, a proton and a neutron. A note says it is not to scale: the nucleus is about 1/100,000 of the atom’s width.
+
+Italian, new:
+
+> Un atomo: un nucleo di tre protoni (cerchi pieni) e quattro neutroni (cerchi vuoti), circondato da una nube elettronica molto fitta vicino al nucleo, che si dirada verso l’esterno senza un bordo. Con tre protoni e quattro neutroni sarebbe litio-7, ma il disegno vale per qualsiasi atomo. Le etichette indicano la nube elettronica, il nucleo, un protone e un neutrone. Una nota dice che non è in scala: il nucleo misura circa 1/100 000 del diametro dell’atomo.
+
+Italian, before:
+
+> Un nucleo di protoni e neutroni al centro, circondato da una nuvola sfumata che mostra dove è probabile trovare gli elettroni. Una nota avverte che il nucleo è disegnato molto più grande del vero, altrimenti non si vedrebbe.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Atomic number and mass number”**
 
 English:
@@ -3223,6 +3641,22 @@ Italian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Atomic number and mass number”**
+
+English:
+
+> The symbol for chlorine-35: the mass number 35 above the atomic number 17, to the left of Cl. A line joins the 35 to “mass number = protons + neutrons” and another joins the 17 to “atomic number = protons”. Underneath: 35 − 17 = 18 neutrons.
+
+Italian, new:
+
+> Il simbolo del cloro-35: il numero di massa 35 sopra il numero atomico 17, a sinistra di Cl. Una linea collega il 35 a «numero di massa = protoni + neutroni» e un’altra collega il 17 a «numero atomico = protoni». Sotto: 35 − 17 = 18 neutroni.
+
+Italian, before:
+
+> Il simbolo del cloro-35 con il numero di massa 35 scritto sopra il numero atomico 17, e delle frecce: 17 protoni, e 35 meno 17 dà 18 neutroni.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Electrons, energy levels and the shape of the table”**
 
 English:
@@ -3236,6 +3670,22 @@ Italian, new:
 Italian, before:
 
 > Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna, e anche il programma, può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Electrons, energy levels and the shape of the table”**
+
+English:
+
+> Sodium, Na, drawn as a model for counting electrons: a disc marked Na for the nucleus, inside three bands with visible edges that hold 2, 8 and 1 electrons at irregular angles. The single electron in the outer band is circled and labelled “outer level”. Below, the arrangement 2, 8, 1 and the total, 11 electrons. A note says it is a way to count electrons, not a picture of an atom.
+
+Italian, new:
+
+> Il sodio, Na, disegnato come modello per contare gli elettroni: un disco con la scritta Na per il nucleo, dentro tre bande dal bordo visibile che contengono 2, 8 e 1 elettroni ad angoli irregolari. L’unico elettrone della banda esterna è cerchiato ed etichettato «livello esterno». Sotto, la disposizione 2, 8, 1 e il totale, 11 elettroni. Una nota dice che è un modo per contare gli elettroni, non un’immagine dell’atomo.
+
+Italian, before:
+
+> Un nucleo di sodio con 11 protoni e 12 neutroni, circondato da tre bande sfumate che contengono 2, 8 e 1 elettroni, disegnati come segni ad angoli irregolari e non come punti su cerchi. Accanto, la disposizione 2, 8, 1 con il livello esterno per ultimo. La figura stessa dice che è un modo per contare gli elettroni e non l’immagine di un atomo, e che il nucleo è disegnato circa 100 000 volte troppo grande.
 
 - [ ] OK   Comment:
 
@@ -3284,6 +3734,22 @@ Italian, new:
 Italian, before:
 
 > Puoi mettere alla prova un gruppo facendo reagire i suoi elementi con ossigeno, acqua e acidi: fra loro si comportano allo stesso modo. I metalli del gruppo 1 reagiscono con l’acqua e diventano più violenti scendendo: il litio sfrigola, il sodio sfreccia in superficie, il potassio prende fuoco. Gli stessi metalli con un acido liberano idrogeno, e ancora più in fretta. Gli elementi del gruppo 17 vanno nel verso opposto e diventano meno reattivi scendendo. Il gruppo 18 ha già il livello esterno pieno, quindi i gas nobili non reagiscono quasi con niente.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Ordered by atomic number, not by mass”**
+
+English:
+
+> Two periodic-table cells side by side, with an arrow from the first to the second for the order in the table. Tellurium: atomic number 52, relative atomic mass 127.60, labelled “heavier, but first”. Iodine: atomic number 53, relative atomic mass 126.90, labelled “lighter, but second”. In the tellurium cell the two numbers are labelled atomic number and relative atomic mass.
+
+Italian, new:
+
+> Due caselle della tavola periodica affiancate, con una freccia dalla prima alla seconda per l’ordine nella tavola. Tellurio: numero atomico 52, massa atomica relativa 127,60, con «più pesante, ma viene prima». Iodio: numero atomico 53, massa atomica relativa 126,90, con «più leggero, ma viene dopo». Nella casella del tellurio i due numeri sono etichettati numero atomico e massa atomica relativa.
+
+Italian, before:
+
+> Il tellurio e lo iodio uno accanto all’altro. Il tellurio ha la massa atomica relativa maggiore ma il numero atomico minore, e la tavola lo mette per primo.
 
 - [ ] OK   Comment:
 
@@ -4117,7 +4583,7 @@ Italian, before:
 
 ---
 
-## Russian (ru): 62 strings
+## Russian (ru): 66 strings
 
 ### New or changed glossary decisions
 
@@ -4131,9 +4597,59 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-ru.
 | valence electrons from the group number | **последняя цифра номера группы** (*Cl в группе 17 — 7 валентных электронов*), once with *в короткой таблице это VII группа* | Added 2026-09-25. Russian schools still teach from the short table (groups I–VIII with main and secondary subgroups), where the group number itself is the valence-electron count of a main-subgroup element. The site shows groups 1–18, so the bonding and Lewis sheets state the last-digit rule, and the bonding sheet names the short-table group once as the bridge to the textbook. *Главная подгруппа* is kept: it is the term a Russian student knows for main-group elements. |
 | beta decay | **бета-распад** | Added 2026-09-25, for how reactors make neptunium and plutonium. Hyphenated like *бета-частица*. |
 | shielding gamma ("reduces, never stops") | **ослаблять**: *свинец или толстый бетон лишь сильно его ослабляют* | Added 2026-09-24. *Ослабление гамма-излучения* is how Russian school physics puts it; alpha and beta keep *задерживать*. |
+| electron cloud (diagram label) | **электронное облако** | Added 2026-09-25 with the redrawn atom diagrams. The standard school term. |
+| not to scale (diagram caveat) | **Масштаб не соблюдён**, and the ratio as **в 100 000 раз меньше атома по диаметру** | Added 2026-09-25 with the redrawn atom diagrams. Localised, not translated: a Russian textbook writes a ratio as *в N раз меньше*, not as a fraction *1/100 000*, and *по диаметру* says what is compared (by volume the ratio is about 10⁻¹⁵). *Не в масштабе* is a calque. |
+| the counting-model caveat (05) | **Схема для подсчёта электронов, а не рисунок атома.** | Added 2026-09-25 with the redrawn atom diagrams. *Схема* is the word Russian textbooks use for exactly this kind of drawing (*схема строения атома*), so it says "model, not picture" without a second noun. |
+| heavier, but first / lighter, but second (06) | **тяжелее, но стоит первым** / **легче, но стоит вторым** | Added 2026-09-25 with the redrawn atom diagrams. *Стоять* for a place in the table. *Первым / вторым* agree with *теллур* and *иод*, not with the reader. |
+| atomic number in the diagrams | **атомный номер** | Added 2026-09-25 with the redrawn atom diagrams. The review brief suggested *порядковый номер*; the row above keeps *атомный номер* until both sheets change together, and a diagram label that disagreed with its own heading would be worse than either term. |
+| a cell of the periodic table | **клетка** (*клетка теллура*) | Added 2026-09-25 with the redrawn atom diagrams. |
 | name order vs formula order | formula **cation first**, name **anion first**: *хлорид натрия*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Russian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
 | significant figures | **значащие цифры** | Added 2026-09-25. The stoichiometry sheet phrases the rule as *столько значащих цифр, сколько их в наименее точном из данных значений*, not a fixed three. Russian school chemistry drills this less than the English-speaking systems do, but the term and the rule are the physics-class ones. **Rated medium.** |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet (the sheets had called it *справочник VCE*). The IR sentence now points to *таблицы ИК-спектроскопии*, and the polyatomic-ion table is headed *Основные многоатомные ионы*. |
+
+### Diagram labels
+
+Text drawn inside the diagrams. Labels must stay short: they sit in a fixed space. Text in {braces} is filled in with a number.
+
+#### Atoms & the Periodic Table — diagram “What an atom is made of”
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| electronCloud | electron cloud | электронное облако | |
+| nucleus | nucleus | ядро | |
+| proton | proton | протон | |
+| neutron | neutron | нейтрон | |
+| scale | Not to scale: the nucleus is about 1/100,000 of the atom’s width. | Масштаб не соблюдён: ядро примерно в 100 000 раз меньше атома по диаметру. | |
+
+#### Atoms & the Periodic Table — diagram “Atomic number and mass number”
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| massNumber | mass number = protons + neutrons | массовое число = протоны + нейтроны | |
+| atomicNumber | atomic number = protons | атомный номер = протоны | |
+| subtraction | {mass} − {atomic} = {neutrons} neutrons | {mass} − {atomic} = {neutrons} нейтронов | |
+
+#### Atoms & the Periodic Table — diagram “Electrons, energy levels…” (sodium)
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| outerLevel | outer level | внешний уровень | |
+| arrangement | {first}, {second}, {third} | {first}, {second}, {third} | |
+| electrons | {count} electrons | {count} электронов | |
+| countNote | A way to count electrons, not a picture of an atom. | Схема для подсчёта электронов, а не рисунок атома. | |
+
+#### Atoms & the Periodic Table — diagram “Ordered by atomic number”
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| atomicNumber | atomic number | атомный номер | |
+| relativeAtomicMass | relative atomic mass | относительная атомная масса | |
+| telluriumName | Tellurium | Теллур | |
+| telluriumMass | 127.60 | 127,60 | |
+| telluriumRank | heavier, but first | тяжелее, но стоит первым | |
+| iodineName | Iodine | Иод | |
+| iodineMass | 126.90 | 126,90 | |
+| iodineRank | lighter, but second | легче, но стоит вторым | |
 
 ### Atoms & the Periodic Table
 
@@ -4189,6 +4705,22 @@ Russian, new:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “What an atom is made of”**
+
+English:
+
+> An atom: a nucleus of three protons (filled circles) and four neutrons (hollow circles), with an electron cloud around it that is densest right next to the nucleus and thins out, with no edge, further away. Three protons and four neutrons would make it lithium-7, but the picture stands for any atom. Labels name the electron cloud, the nucleus, a proton and a neutron. A note says it is not to scale: the nucleus is about 1/100,000 of the atom’s width.
+
+Russian, new:
+
+> Атом: ядро из трёх протонов (закрашенные кружки) и четырёх нейтронов (пустые кружки), вокруг — электронное облако, самое плотное у ядра и редеющее наружу без чёткой границы. Три протона и четыре нейтрона — это был бы литий-7, но рисунок изображает любой атом. Подписи указывают на электронное облако, ядро, один протон и один нейтрон. Внизу сказано, что масштаб не соблюдён: ядро примерно в 100 000 раз меньше атома по диаметру.
+
+Russian, before:
+
+> Ядро из протонов и нейтронов в центре, вокруг него размытое облако — область, где электроны встречаются вероятнее всего. Подпись предупреждает, что ядро нарисовано намного крупнее настоящего, иначе его вообще не было бы видно.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Atomic number and mass number”**
 
 English:
@@ -4205,6 +4737,22 @@ Russian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Atomic number and mass number”**
+
+English:
+
+> The symbol for chlorine-35: the mass number 35 above the atomic number 17, to the left of Cl. A line joins the 35 to “mass number = protons + neutrons” and another joins the 17 to “atomic number = protons”. Underneath: 35 − 17 = 18 neutrons.
+
+Russian, new:
+
+> Обозначение хлора-35: массовое число 35 над атомным номером 17, слева от Cl. Линия соединяет 35 с подписью «массовое число = протоны + нейтроны», другая соединяет 17 с подписью «атомный номер = протоны». Ниже: 35 − 17 = 18 нейтронов.
+
+Russian, before:
+
+> Обозначение хлора-35: массовое число 35 написано над атомным номером 17, стрелки поясняют — 17 протонов, а 35 минус 17 даёт 18 нейтронов.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Electrons, energy levels and the shape of the table”**
 
 English:
@@ -4218,6 +4766,22 @@ Russian, new:
 Russian, before:
 
 > Электроны занимают энергетические уровни вокруг ядра. На первом помещается до 2, на следующем до 8, затем снова 8 — у первых двадцати элементов. Учитель и программа могут называть их электронными оболочками: речь об одном и том же. Такой способ счёта называется моделью Бора: он удобен и не является изображением настоящего атома. Сколько их на внешнем уровне, так атом и реагирует. Элементы попадают в одну группу, когда снаружи у них одинаковое число. Поэтому группа и ведёт себя схоже.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Electrons, energy levels and the shape of the table”**
+
+English:
+
+> Sodium, Na, drawn as a model for counting electrons: a disc marked Na for the nucleus, inside three bands with visible edges that hold 2, 8 and 1 electrons at irregular angles. The single electron in the outer band is circled and labelled “outer level”. Below, the arrangement 2, 8, 1 and the total, 11 electrons. A note says it is a way to count electrons, not a picture of an atom.
+
+Russian, new:
+
+> Натрий, Na, в виде схемы для подсчёта электронов: диск с надписью Na на месте ядра, вокруг три полосы с видимыми границами, в них 2, 8 и 1 электрон под неправильными углами. Единственный электрон во внешней полосе обведён кружком и подписан «внешний уровень». Ниже — запись 2, 8, 1 и сумма, 11 электронов. Подпись внизу говорит, что это схема для подсчёта электронов, а не рисунок атома.
+
+Russian, before:
+
+> Ядро натрия из 11 протонов и 12 нейтронов, вокруг него три размытые полосы, на которых 2, 8 и 1 электрон, нарисованные как метки под неправильными углами, а не как точки на окружностях. Рядом — запись 2, 8, 1, внешний уровень последним. Сама схема говорит, что это способ пересчитать электроны, а не изображение атома, и что ядро нарисовано примерно в 100 000 раз крупнее настоящего.
 
 - [ ] OK   Comment:
 
@@ -4266,6 +4830,22 @@ Russian, new:
 Russian, before:
 
 > Группу можно проверить, дав её элементам прореагировать с кислородом, водой и кислотами: между собой они ведут себя одинаково. Металлы группы 1 реагируют с водой, и вниз по группе всё бурнее: литий шипит, натрий носится по поверхности, калий загорается. Те же металлы с кислотой выделяют водород, и ещё быстрее. Элементы группы 17 идут в обратную сторону: вниз по группе они становятся менее активными. У группы 18 внешний уровень уже полон, поэтому благородные газы почти ни с чем не реагируют.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Ordered by atomic number, not by mass”**
+
+English:
+
+> Two periodic-table cells side by side, with an arrow from the first to the second for the order in the table. Tellurium: atomic number 52, relative atomic mass 127.60, labelled “heavier, but first”. Iodine: atomic number 53, relative atomic mass 126.90, labelled “lighter, but second”. In the tellurium cell the two numbers are labelled atomic number and relative atomic mass.
+
+Russian, new:
+
+> Две клетки периодической таблицы рядом; стрелка от первой ко второй показывает порядок в таблице. Теллур: атомный номер 52, относительная атомная масса 127,60, подпись «тяжелее, но стоит первым». Иод: атомный номер 53, относительная атомная масса 126,90, подпись «легче, но стоит вторым». В клетке теллура оба числа подписаны: атомный номер и относительная атомная масса.
+
+Russian, before:
+
+> Теллур и иод рядом. У теллура относительная атомная масса больше, а атомный номер меньше, и таблица ставит его первым.
 
 - [ ] OK   Comment:
 
