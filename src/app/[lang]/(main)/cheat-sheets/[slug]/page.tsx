@@ -14,6 +14,7 @@ import { CHEAT_SHEETS, GAME_LINKS } from '@/lib/cheat-sheet-data';
 import { PannableBox } from '@/components/cheat-sheets/PannableBox';
 import { ChemIcon } from '@/components/ui/ChemIcon';
 import MoleculeText from '@/components/ui/MoleculeText';
+import ChemText from '@/components/ui/ChemText';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import {
   PeriodicTableOccurrenceWidget,
@@ -105,12 +106,16 @@ function PanelHeading({ icon, children }: { icon?: React.ReactNode; children: Re
 /**
  * The line under an example's formula: "17 protons, 18 neutrons", or on the
  * formula-mass sheet the whole sum ("2 × 1 + 16 = 18"), which is the point of
- * the card. Plain text rather than MoleculeText: it is prose and arithmetic,
- * not notation.
+ * the card. ChemText rather than MoleculeText: it is prose and arithmetic,
+ * and only a formula inside it, if there is one, is typeset.
  */
 function ExampleDescription({ text }: { text?: string }) {
   if (!text) return null;
-  return <span className="mt-1 text-xs text-(--muted)">{text}</span>;
+  return (
+    <span className="mt-1 text-xs text-(--muted)">
+      <ChemText text={text} />
+    </span>
+  );
 }
 
 function LookupTable({ table }: { table: CheatSheetTable }) {
@@ -145,7 +150,9 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
                     {formulaColumns.has(cellIndex) ? (
                       <MoleculeText formula={cell} className="text-base text-(--link)" />
                     ) : (
-                      cell
+                      // A prose cell may still name a formula; ChemText
+                      // typesets only that part ("Cations + anions" stays).
+                      <ChemText text={cell} />
                     )}
                   </td>
                 ))}
@@ -387,7 +394,9 @@ export default async function CheatSheetDetailPage(
           {sheet.keyTakeaways.map((takeaway, index) => (
             <li key={index} className="flex items-start gap-3 text-sm font-semibold text-(--foreground) md:text-base">
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" aria-hidden="true" />
-              <span>{takeaway}</span>
+              <span>
+                <ChemText text={takeaway} />
+              </span>
             </li>
           ))}
         </ul>
@@ -431,7 +440,9 @@ export default async function CheatSheetDetailPage(
             {sheet.sections.map((section) => (
               <article key={section.heading}>
                 <h3 className="text-base font-black text-(--foreground)">{section.heading}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
+                <p className="mt-2 text-sm leading-relaxed text-(--muted)">
+                  <ChemText text={section.content} />
+                </p>
                 {section.image && (
                   <PannableBox className="mt-3">
                     <SectionImage image={section.image} diagrams={diagrams} />
@@ -468,7 +479,9 @@ export default async function CheatSheetDetailPage(
             {sheet.commonMistakes.map((mistake, index) => (
               <li key={index} className="flex items-start gap-3 text-sm text-(--foreground)">
                 <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500" aria-hidden="true" />
-                <span>{mistake}</span>
+                <span>
+                  <ChemText text={mistake} />
+                </span>
               </li>
             ))}
           </ul>

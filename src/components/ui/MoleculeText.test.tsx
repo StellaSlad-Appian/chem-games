@@ -17,6 +17,11 @@ describe('MoleculeText', () => {
     ['O2-', [], ['2-']],
     ['NH4+', ['4'], ['+']],
     ['SO4 2-', ['4'], ['2-']],
+    // The typographic minus (U+2212) the cheat-sheet prose uses.
+    ['OH−', [], ['−']],
+    ['O2−', [], ['2−']],
+    ['HCO3−', ['3'], ['−']],
+    ['SO4 2−', ['4'], ['2−']],
   ])('renders %s with subscripts %j and superscripts %j', (formula, subs, sups) => {
     const { container } = render(<MoleculeText formula={formula} />);
     expect(Array.from(container.querySelectorAll('sub')).map((s) => s.textContent)).toEqual(subs);
