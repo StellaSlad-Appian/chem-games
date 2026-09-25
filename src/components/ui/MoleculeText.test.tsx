@@ -27,7 +27,11 @@ describe('MoleculeText', () => {
     const { container } = render(<MoleculeText formula="2H2O" />);
     expect(container.textContent).toBe('2H2O');
     expect(container.querySelectorAll('sub')).toHaveLength(1);
-    expect(container.querySelector('span > span')?.textContent).toBe('2');
+    // The whole species — coefficient, symbols and subscript — is one
+    // non-wrapping cluster (see MoleculeText's `clusterTokens`), so the
+    // coefficient is the first element *inside* that cluster, not a direct
+    // child of the outer span.
+    expect(container.querySelector('span > span > span')?.textContent).toBe('2');
   });
 
   it('renders state symbols and reaction arrows', () => {

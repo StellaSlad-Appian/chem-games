@@ -185,7 +185,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Halbwertszeiten reichen von Sekunden bis zu Milliarden Jahren. Genau das macht es möglich, die ferne Vergangenheit zu datieren.',
     ],
     formulaExampleNames: [
-      'Kohlenstoff-12',
+      'Wasserstoff-3 (Tritium)',
       'Radon-222',
       'Iod-131',
       'Cobalt-60',
@@ -193,7 +193,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       'Uran-238',
     ],
     formulaExampleDescriptions: [
-      'der Standard, an dem alle anderen Massen gemessen werden',
+      'radioaktiv: Halbwertszeit etwa 12 Jahre',
       'zerfällt und gibt dabei ein Alphateilchen ab',
       'zerfällt und gibt dabei ein Betateilchen ab',
       'gibt Beta- und Gammastrahlung ab – genutzt wird die Gammastrahlung',
@@ -204,7 +204,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Die zwei Zahlen, die dieser Spickzettel braucht',
         content:
-          'Die Ordnungszahl ist die Zahl der Protonen, und sie legt fest, welches Element es ist. Die Massenzahl ist Protonen plus Neutronen. Auf diesem Spickzettel geht es überall darum, dass sich die zweite Zahl ändert und die erste bleibt.',
+          'Die Ordnungszahl ist die Zahl der Protonen, und sie legt fest, welches Element es ist. Die Massenzahl ist Protonen plus Neutronen. Auf diesem Spickzettel geht es überall darum, dass sich die zweite Zahl ändert und die erste bleibt. Warum die relative Atommasse eines Elements, zum Beispiel 35,5 bei Chlor, keine ganze Zahl ist, steht im Spickzettel „Relative Atom- und Formelmasse“.',
       },
       {
         heading: 'Isotope',
@@ -424,7 +424,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     summary:
       'Ionenbindung, Atombindung und Metallbindung – und wie die Struktur die Eigenschaften erklärt.',
     keyTakeaways: [
-      'Atome gehen Bindungen ein, um eine stabile, volle Außenschale zu erreichen (Edelgaskonfiguration). Bei den Hauptgruppenelementen sagt dir die letzte Ziffer der Gruppennummer, wie viele Valenzelektronen ein Atom hat (Cl steht in Gruppe 17: 7 Valenzelektronen). Das ist dieselbe Zahl wie die Nummer der Hauptgruppe (Cl: VII. Hauptgruppe).',
+      'Atome gehen Bindungen ein, um eine stabile, volle Außenschale zu erreichen (Edelgaskonfiguration). Bei den Hauptgruppenelementen sagt dir die letzte Ziffer der Gruppennummer, wie viele Valenzelektronen ein Atom hat (Cl steht in Gruppe 17: 7 Valenzelektronen; Helium steht in Gruppe 18, hat aber nur 2). Das ist dieselbe Zahl wie die Nummer der Hauptgruppe (Cl: VII. Hauptgruppe).',
       'Ionenbindung: Metall + Nichtmetall. Elektronen werden übertragen; die entstehenden Ionen werden im dreidimensionalen Ionengitter durch elektrostatische Anziehung zusammengehalten.',
       'Atombindung (kovalente Bindung): Nichtmetall + Nichtmetall. Elektronen werden paarweise geteilt; jedes gemeinsame Paar ist eine Bindung.',
       'Metallbindung: Metall-Atomrümpfe in einem Gitter aus Kationen, umgeben von einem „See“ frei beweglicher Elektronen.',
@@ -744,8 +744,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
           ['n = c × V', 'die Konzentration einer Lösung', 'c in mol/L, V in L'],
           [
             'n = V ÷ V_m',
-            'das Volumen eines Gases bei SLC',
-            'V_m = 24,8 L/mol bei 25 °C und 100 kPa',
+            'das Volumen eines Gases',
+            'V_m = 24,5 L/mol bei 25 °C und 1013 hPa (bei 0 °C: 22,4 L/mol)',
           ],
           ['PV = nRT', 'ein Gas unter anderen Bedingungen', 'P in kPa, V in L, T in K, R = 8,31'],
         ],
@@ -776,7 +776,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     summary:
       'Valenzelektronen zählen, so verteilen, dass die Oktettregel erfüllt ist, und mit der Formalladung prüfen.',
     keyTakeaways: [
-      'Valenzelektronen = letzte Ziffer der Gruppennummer bei den Hauptgruppenelementen (H 1, C 4, N 5, O 6, Halogene 7 – Stickstoff steht in Gruppe 15, Chlor in Gruppe 17). Pro negativer Ladung kommt ein Elektron dazu, pro positiver Ladung fällt eins weg.',
+      'Valenzelektronen = letzte Ziffer der Gruppennummer bei den Hauptgruppenelementen (H 1, C 4, N 5, O 6, Halogene 7 – Stickstoff steht in Gruppe 15, Chlor in Gruppe 17; Helium steht in Gruppe 18, hat aber nur 2). Pro negativer Ladung kommt ein Elektron dazu, pro positiver Ladung fällt eins weg.',
       'Jede Bindung ist ein gemeinsames Elektronenpaar (2 Elektronen). Einfachbindung = 1 Paar, Doppelbindung = 2, Dreifachbindung = 3. Elektronen, die nicht binden, sitzen als freie Elektronenpaare am Atom.',
       'Oktettregel: Die meisten Atome streben 8 Valenzelektronen an. Wasserstoff kommt mit 2 aus (Duett).',
       'Fehlt dem Zentralatom nach dem Verteilen aller Elektronen noch etwas zum Oktett, mach aus freien Elektronenpaaren der äußeren Atome zusätzliche Bindungen.',

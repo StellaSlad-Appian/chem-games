@@ -336,7 +336,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     iconName: 'Timer',
     colorTheme: 'border-red-500 text-red-500',
     curriculumRef:
-      'Victorian Curriculum F–10 Version 2.0, Science VC2S10U06: the model of the atom changed following the discovery of electrons, protons and neutrons, and natural radioactive decay results in a change from unstable to stable atoms. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 10 description, so “Year 10” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Atoms & the Periodic Table takes VC2S10U07 from the same band. Atomic number, mass number and relative atomic mass are this site’s extension — Version 2.0 names none of them, and relative atomic mass is VCE Unit 1.',
+      'Victorian Curriculum F–10 Version 2.0, Science VC2S10U06: the model of the atom changed following the discovery of electrons, protons and neutrons, and natural radioactive decay results in a change from unstable to stable atoms. Version 2.0 bands Levels 9 and 10 together and writes no separate Level 10 description, so “Year 10” here is this site’s sequencing rather than a curriculum boundary; the companion sheet Atoms & the Periodic Table takes VC2S10U07 from the same band. Atomic number and mass number are this site’s extension — Version 2.0 names neither of them.',
     keyTakeaways: [
       'Isotopes are atoms of the same element with different numbers of neutrons. They behave the same chemically.',
       'An unstable nucleus decays and gives out radiation, leaving a more stable atom behind.',
@@ -345,7 +345,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       'Half-lives run from seconds to billions of years, which is what makes dating the distant past possible.',
     ],
     formulaExamples: [
-      { name: 'Carbon-12', formula: 'C-12', description: 'the standard all other masses are measured against' },
+      { name: 'Hydrogen-3 (tritium)', formula: 'H-3', description: 'radioactive: half-life about 12 years' },
       { name: 'Radon-222', formula: 'Rn-222', description: 'decays by giving out an alpha particle' },
       { name: 'Iodine-131', formula: 'I-131', description: 'decays by giving out a beta particle' },
       { name: 'Cobalt-60', formula: 'Co-60', description: 'gives out beta and gamma radiation — used for its gamma' },
@@ -356,7 +356,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'The two numbers this sheet needs',
         content:
-          'The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put.',
+          'The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Why an element\'s relative atomic mass, such as chlorine\'s 35.5, is not a whole number is on the Relative Atomic & Formula Mass sheet.',
       },
       {
         heading: 'Isotopes',
@@ -405,7 +405,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
     ],
     resources: [
-      PHET('isotopes-and-atomic-mass', 'Isotopes and Atomic Mass', 'Mix isotopes in different proportions and see the relative atomic mass move.'),
+      PHET('radioactive-dating-game', 'Radioactive Dating Game', 'Watch samples of different half-lives decay, and see how carbon dating works.'),
       MADJEDBEBE,
       VCAA_DATA_BOOK,
       KHAN_HS_CHEM,
@@ -636,7 +636,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     colorTheme: 'border-cyan-500 text-cyan-500',
     curriculumRef: 'Victorian Curriculum Science Level 10; VCE Unit 1 AoS 1 (metals, ionic compounds, covalent substances).',
     keyTakeaways: [
-      'Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons).',
+      'Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons; helium, in group 18, has only 2).',
       'Ionic: metal + non-metal. Electrons are transferred, forming ions held in a 3D lattice by electrostatic attraction.',
       'Covalent: non-metal + non-metal. Electrons are shared in pairs; each shared pair is one bond.',
       'Metallic: metal atoms in a lattice of cations surrounded by a "sea" of delocalised electrons.',
@@ -1002,7 +1002,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     colorTheme: 'border-teal-500 text-teal-500',
     curriculumRef: 'VCE Unit 1 AoS 1 (covalent bonding, Lewis structures, VSEPR shapes).',
     keyTakeaways: [
-      'Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17). Add one electron per negative charge, remove one per positive charge.',
+      'Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17; helium, in group 18, has only 2). Add one electron per negative charge, remove one per positive charge.',
       'Each bond is a shared pair (2 electrons). Single = 1 pair, double = 2, triple = 3. Electrons not in bonds sit as lone pairs.',
       'Octet rule: most atoms want 8 valence electrons around them. Hydrogen wants 2 (duet).',
       'If the central atom is short of an octet after using all electrons, convert lone pairs on outer atoms into extra bonds.',

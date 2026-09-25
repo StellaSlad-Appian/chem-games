@@ -462,6 +462,7 @@ the split.
 | percentage yield | **rendimiento porcentual** | *Rendimiento (%) = rendimiento real ÷ rendimiento teórico × 100.* |
 | significant figures | **cifras significativas** | Added 2026-09-25. The rule is phrased *al mismo número de cifras significativas que el dato menos preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
+| CLE (condiciones estándar de laboratorio) | **withheld — spell out "a 25 °C y 100 kPa"** | Added 2026-09-25. "CLE" is a VCE (Australian) abbreviation with no Spanish equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
 
 ## Organic chemistry
 

@@ -212,7 +212,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Va da pochi secondi a miliardi di anni, ed è esattamente questo che permette di datare un passato lontanissimo.',
     ],
     formulaExampleNames: [
-      'Carbonio-12',
+      'Idrogeno-3 (trizio)',
       'Radon-222',
       'Iodio-131',
       'Cobalto-60',
@@ -220,7 +220,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       'Uranio-238',
     ],
     formulaExampleDescriptions: [
-      'lo standard con cui si confrontano tutte le altre masse',
+      'radioattivo: tempo di dimezzamento di circa 12 anni',
       'decade emettendo una particella alfa',
       'decade emettendo una particella beta',
       'emette radiazione beta e gamma – si usa per la gamma',
@@ -231,7 +231,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'I due numeri che servono a questo bigino',
         content:
-          'Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo.',
+          'Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo. Perché la massa atomica relativa di un elemento, per esempio il 35,5 del cloro, non è un numero intero lo spiega il bigino «Massa atomica e massa formula relative».',
       },
       {
         heading: 'Isotopi',
@@ -452,7 +452,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Legame ionico, covalente e metallico, e come la struttura spiega le proprietà.',
     keyTakeaways: [
-      'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). In un elemento rappresentativo, l’ultima cifra del numero del gruppo ti dice quanti elettroni di valenza ha (il Cl è nel gruppo 17: 7 elettroni di valenza).',
+      'Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). In un elemento rappresentativo, l’ultima cifra del numero del gruppo ti dice quanti elettroni di valenza ha (il Cl è nel gruppo 17: 7 elettroni di valenza; l’elio, nel gruppo 18, ne ha solo 2).',
       'Ionico: metallo + non metallo. Si trasferiscono elettroni e si formano ioni tenuti insieme in un reticolo tridimensionale dall’attrazione elettrostatica.',
       'Covalente: non metallo + non metallo. Gli elettroni si condividono a due a due: ogni doppietto in comune fra due atomi è un legame.',
       'Metallico: atomi di metallo in un reticolo di cationi circondati da un «mare» di elettroni liberi.',
@@ -770,7 +770,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
           ['n = m ÷ M', 'la massa', 'n in mol, m in g, M in g/mol'],
           ['n = N ÷ N_A', 'il numero di particelle', 'N_A = 6,02 × 10²³ mol⁻¹'],
           ['n = c × V', 'la concentrazione di una soluzione', 'c in mol/L, V in L'],
-          ['n = V ÷ V_m', 'il volume di un gas in CSA', 'V_m = 24,8 L/mol a 25 °C e 100 kPa'],
+          ['n = V ÷ V_m', 'il volume di un gas a 25 °C e 100 kPa', 'V_m = 24,8 L/mol a 25 °C e 100 kPa'],
           ['PV = nRT', 'un gas in altre condizioni', 'P in kPa, V in L, T in K, R = 8,31'],
         ],
       },
@@ -800,7 +800,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     summary:
       'Conta gli elettroni di valenza, condividi fino a completare gli ottetti e verifica con la carica formale.',
     keyTakeaways: [
-      'Elettroni di valenza = ultima cifra del numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7; l’azoto è nel gruppo 15 e il cloro nel 17). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
+      'Elettroni di valenza = ultima cifra del numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7; l’azoto è nel gruppo 15 e il cloro nel 17; l’elio, nel gruppo 18, ne ha solo 2). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.',
       'Ogni legame è un doppietto in comune fra due atomi (2 elettroni). Singolo = 1 doppietto, doppio = 2, triplo = 3. Gli elettroni che non formano legami restano come doppietti solitari.',
       'Regola dell’ottetto: quasi tutti gli atomi vogliono 8 elettroni di valenza intorno. L’idrogeno ne vuole 2 (il duetto).',
       'Se all’atomo centrale manca qualcosa per l’ottetto dopo aver distribuito tutti gli elettroni, trasforma doppietti solitari degli atomi esterni in legami aggiuntivi.',

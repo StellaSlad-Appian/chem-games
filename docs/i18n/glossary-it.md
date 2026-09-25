@@ -513,6 +513,7 @@ the split.
 | percentage yield | **resa percentuale** | *Resa (%) = resa effettiva ÷ resa teorica × 100.* |
 | significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
+| CSA (condizioni standard ambiente) | **withheld — spell out "a 25 °C e 100 kPa"** | Added 2026-09-25. "CSA" is a VCE (Australian) abbreviation with no Italian equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
 
 ## Organic chemistry
 

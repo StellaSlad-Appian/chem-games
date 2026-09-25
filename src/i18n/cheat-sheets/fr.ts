@@ -200,7 +200,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Les demi-vies vont de la seconde au milliard d’années. C’est exactement ce qui permet de dater un passé lointain.',
     ],
     formulaExampleNames: [
-      'Carbone 12',
+      'Hydrogène 3 (tritium)',
       'Radon 222',
       'Iode 131',
       'Cobalt 60',
@@ -208,7 +208,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       'Uranium 238',
     ],
     formulaExampleDescriptions: [
-      'l’étalon auquel on compare toutes les autres masses',
+      'radioactif : demi-vie d’environ 12 ans',
       'se désintègre en émettant une particule alpha',
       'se désintègre en émettant une particule bêta',
       'émet des rayonnements bêta et gamma – on l’utilise pour le gamma',
@@ -219,7 +219,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Les deux nombres dont cette antisèche a besoin',
         content:
-          'Le numéro atomique est le nombre de protons, et c’est lui qui fixe l’élément. Le nombre de masse, c’est les protons plus les neutrons. Toute cette antisèche parle du deuxième nombre qui change pendant que le premier reste en place.',
+          'Le numéro atomique est le nombre de protons, et c’est lui qui fixe l’élément. Le nombre de masse, c’est les protons plus les neutrons. Toute cette antisèche parle du deuxième nombre qui change pendant que le premier reste en place. Pourquoi la masse atomique relative d’un élément, comme le 35,5 du chlore, n’est pas un nombre entier, c’est expliqué dans l’antisèche « Masse atomique et masse formulaire relatives ».',
       },
       {
         heading: 'Les isotopes',
@@ -443,7 +443,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Liaison ionique, covalente et métallique – et comment la structure explique les propriétés.',
     keyTakeaways: [
-      'Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro du groupe donne le nombre d’électrons de valence (Cl est dans le groupe 17 : 7 électrons de valence).',
+      'Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro du groupe donne le nombre d’électrons de valence (Cl est dans le groupe 17 : 7 électrons de valence ; l’hélium, dans le groupe 18, n’en a que 2).',
       'Ionique : métal + non-métal. Des électrons sont transférés ; les ions formés sont maintenus dans un réseau à trois dimensions par l’attraction électrostatique.',
       'Covalente : non-métal + non-métal. Les électrons sont partagés par doublets ; chaque doublet partagé est une liaison.',
       'Métallique : des cations métalliques dans un réseau, entourés d’une « mer » d’électrons libres.',
@@ -769,7 +769,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
           ['n = c × V', 'la concentration d’une solution', 'c en mol/L, V en L'],
           [
             'n = V ÷ V_m',
-            'le volume d’un gaz dans les conditions SLC',
+            'le volume d’un gaz à 25 °C et 100 kPa',
             'V_m = 24,8 L/mol à 25 °C et 100 kPa',
           ],
           ['PV = nRT', 'un gaz dans d’autres conditions', 'P en kPa, V en L, T en K, R = 8,31'],
@@ -801,7 +801,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary:
       'Compter les électrons de valence, les partager pour satisfaire l’octet, puis vérifier avec la charge formelle.',
     keyTakeaways: [
-      'Électrons de valence = chiffre des unités du numéro du groupe pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans le groupe 15, le chlore dans le groupe 17). Ajoute un électron par charge négative, enlève-en un par charge positive.',
+      'Électrons de valence = chiffre des unités du numéro du groupe pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans le groupe 15, le chlore dans le groupe 17 ; l’hélium, dans le groupe 18, n’en a que 2). Ajoute un électron par charge négative, enlève-en un par charge positive.',
       'Chaque liaison est un doublet partagé (2 électrons). Simple = 1 doublet, double = 2, triple = 3. Les électrons qui ne sont pas dans une liaison forment des doublets non liants.',
       'Règle de l’octet : la plupart des atomes veulent 8 électrons de valence autour d’eux. L’hydrogène en veut 2 (règle du duet).',
       'S’il manque des électrons à l’atome central pour compléter son octet une fois tous les électrons placés, transforme des doublets non liants des atomes périphériques en liaisons supplémentaires.',

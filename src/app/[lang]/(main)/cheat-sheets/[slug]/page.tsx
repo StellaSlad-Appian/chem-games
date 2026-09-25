@@ -343,7 +343,18 @@ export default async function CheatSheetDetailPage(
             than the column it has been given.
           */}
           <div className="min-w-0">
-            <h1 className="text-3xl font-black break-words text-(--foreground) md:text-4xl">
+            {/*
+              `hyphens-auto` lets the browser break a long German or Russian
+              compound word at a syllable ("Perioden-\nsystem",
+              "Radioaktivi-\ntät") instead of `break-words`' last resort of
+              cutting it anywhere ("Periodensys-\ntem"). It needs the page's
+              `lang` to pick the right hyphenation dictionary, which the
+              locale `<html lang>` on the root layout already sets; English
+              words are short enough here that it makes no visible
+              difference. `break-words` stays as the fallback for the one
+              word `hyphens-auto` cannot break on its own.
+            */}
+            <h1 className="text-3xl font-black break-words hyphens-auto text-(--foreground) md:text-4xl">
               {sheet.title}
             </h1>
             <p className="mt-1 text-sm font-medium break-words text-(--muted) md:text-base">
