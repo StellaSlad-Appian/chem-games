@@ -191,9 +191,10 @@ Owner to-dos from this work:
       review, which the chain does not have. Run the full
       Playwright suite first (see [`TESTING.md`](./TESTING.md)).
 - [ ] **Native-speaker review of the new cheat-sheet text** in de, fr, es, it and ru.
-      The new strings for each step are the diff of `src/i18n/cheat-sheets/<lang>.ts` against
-      the previous branch, and the glossary rows each step added say why a word was
-      chosen.
+      Send reviewers [`i18n/cheat-sheet-review-strings.md`](./i18n/cheat-sheet-review-strings.md):
+      each language has its own section, with the English, the new text, the text
+      before, and a tick box. It covers steps 1–3 (316 strings) and gets extended
+      after each later step, with the diagram labels from steps 5–9.
 - [ ] **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**
       The section was removed on 2026-09-22, and its takeaway and mistakes were
       removed on 2026-09-24. Three things still point at it: the Carbon-12 example
