@@ -149,7 +149,7 @@ src/components/games/synthesis-router/
     MoleculeBench.tsx    structure + name + group highlight (MoleculeText for now)
     ReagentShelf.tsx     reagent cards (button + keyboard; no drag-only)
     PathwayTrack.tsx     flow-chart nodes with equations; two lanes at Level 4
-    StepFeedback.tsx     diagnostic messages (FeedbackBanner styling)
+    StepFeedback.tsx     diagnostic messages (CoachPanel styling)
 src/app/(gameplay)/games/synthesis-router/page.tsx
 supabase/migrations/<date>_add_synthesis_router.sql   games row + concept_games link
 ```

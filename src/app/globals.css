@@ -123,11 +123,6 @@
     --game-panel-text: #fde68a;       /* 8.28:1 on --game-highlight-surface */
     --game-panel-muted: #e0cf94;      /* 4.90:1 there, after the 80% opacity it is drawn at */
 
-    /* The .game-shell gradient — painted over by GameShell, so being retired
-       in a later commit on this branch. */
-    --game-bg-start: #0f172a;
-    --game-bg-end: #020617;
-
     --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.4);
     --shadow-lg: 0 8px 40px 0 rgb(0 0 0 / 0.6);
   }
@@ -179,9 +174,6 @@
     --game-highlight-border: #64748b; /* 4.55:1 on the page */
     --game-panel-text: #0f172a;       /* 14.48:1 on --game-highlight-surface */
     --game-panel-muted: #334155;      /* 5.02:1 there, after the 80% opacity */
-
-    --game-bg-start: #e0f2fe;
-    --game-bg-end: #f8fafc;
 
     --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
     --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);
@@ -238,9 +230,6 @@
       --game-highlight-border: #64748b; /* 4.55:1 on the page */
       --game-panel-text: #0f172a;       /* 14.48:1 on --game-highlight-surface */
       --game-panel-muted: #334155;      /* 5.02:1 there, after the 80% opacity */
-
-      --game-bg-start: #e0f2fe;
-      --game-bg-end: #f8fafc;
 
       --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
       --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);
@@ -512,14 +501,6 @@
     background: var(--surface-2);
   }
 
-  .btn-danger-ghost {
-    @apply border-2 border-red-200 hover:bg-red-50 text-red-600
-           dark:border-red-900/50 dark:hover:bg-red-950/20 dark:text-red-400
-           font-extrabold py-3.5 px-6 rounded-xl
-           flex items-center justify-center gap-2
-           active:scale-95 transition-all duration-150 cursor-pointer;
-  }
-
   /* --- Cards / Panels --- */
   .game-card {
     background: var(--surface);
@@ -559,13 +540,9 @@
 
 @layer utilities {
 
+  /* The game root. Its background is painted by GameShell's own
+     --background layer; e2e/helpers.ts finds the shell by this class. */
   .game-shell {
-    background: linear-gradient(
-      to bottom,
-      var(--game-bg-start),
-      var(--game-bg-end)
-    );
-
     color: var(--foreground);
   }
   
@@ -618,21 +595,6 @@
       transform: translateY(-105vh) scale(1);
       opacity: 0;
     }
-  }
-
-  /* 🔔 ADD 2: Error Banner Notification Entrance Dropdown */
-  @keyframes slideIn {
-    from {
-      transform: translate(-50%, -20px);
-      opacity: 0;
-    }
-    to {
-      transform: translate(-50%, 0);
-      opacity: 1;
-    }
-  }
-  .animate-slide-in {
-    animation: slideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   /* The mobile navigation panel slides in from the edge it is anchored to.
@@ -697,7 +659,6 @@
   @media (prefers-reduced-motion: reduce) {
     .shake-animation,
     .glow-pulse,
-    .animate-slide-in,
     .overlay-enter,
     .loner-pulse,
     .card-pulse,

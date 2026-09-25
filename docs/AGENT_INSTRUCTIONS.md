@@ -104,8 +104,8 @@ src/
     games/
       shared/                 GameShell, GamesHeader, GameFooter, GameOverlay,
                                GameSettingsModal, GameInstructionsModal, GameStats,
-                               GameTimer, GameLives, ErrorBanner, FeedbackBanner,
-                               CoachPanel, GlossaryTerm (+ GlossaryText), AtomCanvas/
+                               GameTimer, GameLives, CoachPanel (the feedback and
+                               hint strip), GlossaryTerm (+ GlossaryText), AtomCanvas/
       <game-slug>/             game-specific components (GameArena.tsx + smaller pieces)
     ui/                        generic widgets (ScoreBadge, LevelProgress, ChemIcon, ...)
     social/                    PublicLeaderboard, PublicProfile
