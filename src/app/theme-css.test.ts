@@ -23,7 +23,9 @@ const rulesFor = (selector: string, inMedia: boolean) => {
     const parent = rule.parent;
     const underMedia =
       parent?.type === 'atrule' && (parent as postcss.AtRule).params === '(prefers-color-scheme: light)';
-    if (rule.selector === selector && underMedia === inMedia) found.push(rule);
+    // Selectors are compared with their whitespace collapsed, so a selector
+    // list split over two lines in the stylesheet can be named on one here.
+    if (rule.selector.replace(/\s+/g, ' ') === selector && underMedia === inMedia) found.push(rule);
   });
   return found;
 };
@@ -45,5 +47,44 @@ describe('the two copies of the light theme', () => {
 
   it('switch the browser chrome to light as well', () => {
     expect(declarations(explicit[0])).toContain('color-scheme: light');
+  });
+});
+
+// The other half of the rule: a token that changes with the theme has a value
+// in the dark block AND the light block, and one that does not change lives
+// once in the fixed `:root` block. A token only in the dark block would
+// silently keep its dark value on a light page — the bug that painted
+// `.chem-btn-correct` dark green on white.
+describe('the dark and light themes', () => {
+  const names = (rule: Rule) =>
+    rule.nodes.flatMap((node) => (node.type === 'decl' && node.prop.startsWith('--') ? [node.prop] : []));
+  const dark = rulesFor(":root, [data-theme='dark']", false);
+  const light = rulesFor("[data-theme='light']", false);
+  const fixed = rulesFor(':root', false);
+
+  it('are found (the main tokens and the periodic-table tones)', () => {
+    expect(dark.length).toBe(2);
+    expect(light.length).toBe(dark.length);
+    expect(fixed.length).toBe(1);
+  });
+
+  it('define exactly the same tokens', () => {
+    dark.forEach((rule, index) => {
+      expect([...names(light[index])].sort()).toEqual([...names(rule)].sort());
+    });
+  });
+
+  it('leave the fixed tokens to the fixed block', () => {
+    const themed = new Set(dark.flatMap(names));
+    expect(names(fixed[0]).filter((name) => themed.has(name))).toEqual([]);
+  });
+
+  it('define every token a var() in the fixed block refers to', () => {
+    const defined = new Set([...dark.flatMap(names), ...names(fixed[0])]);
+    const referenced = fixed[0].nodes.flatMap((node) =>
+      node.type === 'decl' ? [...node.value.matchAll(/var\((--[\w-]+)/g)].map((m) => m[1]) : []
+    );
+    // --font-nunito comes from next/font, not from this file.
+    expect(referenced.filter((name) => !defined.has(name) && name !== '--font-nunito')).toEqual([]);
   });
 });

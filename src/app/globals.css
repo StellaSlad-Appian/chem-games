@@ -42,105 +42,93 @@
  * component.)
  *
  * The e2e specs force a theme with Playwright's `emulateMedia({ colorScheme })`,
- * which drives the Device path. Any new colour token goes in the dark block,
- * the light block AND its copy.
+ * which drives the Device path; e2e/theme-contrast.spec.ts also sets an
+ * explicit choice. A colour token that changes with the theme goes in the
+ * dark block, the light block AND its copy. One that must not change goes
+ * once, in the fixed `:root` block after them. theme-css.test.ts enforces both.
+ *
+ * Three layers, from raw to meaning:
+ *
+ *   surfaces & text  --background --surface --surface-2 --border
+ *                    --border-strong --foreground --muted --link
+ *   hues             --hue-<name>: one text-safe value per hue per theme
+ *   roles            --success --danger --accent --info (+ their -surface
+ *                    tints), --correct/--wrong, --hint, --rank-*,
+ *                    --game-accent-*, --action, --danger-action, --scrim
+ *
+ * Components reach for the first and third layers. docs/STYLE_GUIDE.md §2 is
+ * the table of which token is for what.
  *
  * `color-scheme` makes the browser's own chrome — scrollbars, form controls,
  * autofill — match, which the tokens alone cannot reach.
  */
   :root,
   [data-theme='dark'] {
-    /* Dark is the fallback and preserves the existing game appearance. */
+    /* Dark is the fallback (no attribute, OS prefers dark). */
     color-scheme: dark;
+
+    /* --- Surfaces and text ------------------------------------------------
+       Ratios are text on --surface / --background / --surface-2 unless named. */
     --background: #09090b;
     --surface: #18181b;
     --surface-2: #27272a;
-    --border: #3f3f46;
-    --foreground: #fafafa;
-    --muted: #a1a1aa;
+    --border: #3f3f46;        /* decorative card edges only — 1.70:1, not a control boundary */
+    --border-strong: #71717a; /* inputs, unselected choices — 3.67:1 / 4.12:1 / 3.08:1 */
+    --foreground: #fafafa;    /* 17.72:1 / 19.06:1 / 14.94:1 */
+    --muted: #a1a1aa;         /* 6.91:1 / 7.76:1 / 5.81:1 */
+    --link: #60a5fa;          /* blue-400 — 6.97:1 / 7.83:1 / 5.86:1 */
+
+    /* --- Categorical hues --------------------------------------------------
+       One text-safe value per hue per theme: every one clears 4.5:1 as text on
+       --surface, --background and --surface-2 (the lowest is indigo on
+       --surface-2). Components do not use these directly for meaning — the
+       role tokens in the fixed block below point at them (--success is
+       --hue-emerald, --game-accent-sky is --hue-sky) — but data that only
+       needs "a distinct colour", like a cheat sheet's badge, may. */
+    --hue-violet:  #a78bfa; /* violet-400  — 6.51:1 / 7.31:1 / 5.47:1 */
+    --hue-purple:  #c084fc; /* purple-400  — 6.70:1 / 7.53:1 / 5.64:1 */
+    --hue-fuchsia: #e879f9; /* fuchsia-400 — 7.20:1 / 8.09:1 / 6.05:1 */
+    --hue-indigo:  #818cf8; /* indigo-400  — 5.94:1 / 6.67:1 / 4.99:1 */
+    --hue-sky:     #38bdf8; /* sky-400     — 8.27:1 / 9.29:1 / 6.95:1 */
+    --hue-cyan:    #22d3ee; /* cyan-400    — 9.80:1 / 11.01:1 / 8.24:1 */
+    --hue-emerald: #34d399; /* emerald-400 — 9.22:1 / 10.35:1 / 7.75:1 */
+    --hue-amber:   #fbbf24; /* amber-400   — 10.61:1 / 11.92:1 / 8.92:1 */
+    --hue-orange:  #fb923c; /* orange-400  — 7.83:1 / 8.79:1 / 6.58:1 */
+    --hue-red:     #f87171; /* red-400     — 6.40:1 / 7.19:1 / 5.38:1 */
+    --hue-rose:    #fb7185; /* rose-400    — 6.58:1 / 7.39:1 / 5.53:1 */
+
+    /* --- Tinted state surfaces ---------------------------------------------
+       The 15% tint of each state over --surface, as a solid colour so the
+       ratios are exact. Measured: the state's own colour on it / --foreground
+       on it / --muted on it. */
+    --success-surface: #17302a; /* emerald 7.32:1, fg 13.48:1, muted 5.49:1 */
+    --danger-surface:  #381f21; /* red 5.48:1, fg 14.52:1, muted 5.91:1 */
+    --accent-surface:  #392c19; /* amber 8.12:1, fg 12.99:1, muted 5.29:1 */
+    --info-surface:    #1d283c; /* --link 5.81:1, fg 14.16:1, muted 5.77:1 */
+    --rank-bronze-surface: #3a261a; /* orange 6.30:1, fg 13.67:1, muted 5.57:1 */
+
+    /* --- Chemistry classification backgrounds ------------------------------
+       Deep tints of the four identities; --foreground on each is ≥ 14:1. */
+    --chem-acid-bg: #450a0a;
+    --chem-base-bg: #172554;
+    --chem-neutral-bg: #052e16;
+    --chem-amphoteric-bg: #3b0764;
+
+    /* --- In-game pieces (the Acid or Base? molecule orb) -------------------- */
+    --game-highlight-surface: #374151;
+    --game-highlight-border: #6b7280; /* 4.12:1 on the page — UI boundary */
+    --game-panel-text: #fde68a;       /* 8.28:1 on --game-highlight-surface */
+    --game-panel-muted: #e0cf94;      /* 4.90:1 there, after the 80% opacity it is drawn at */
+
+    /* Legacy modal and game-background tokens, being retired (see the commits
+       that follow on this branch). */
+    --game-bg-start: #0f172a;
+    --game-bg-end: #020617;
+    --game-panel: #111827;
+    --game-panel-border: #1f2937;
     --game-modal-header: rgb(30 41 59 / 0.55);
     --game-modal-row: rgb(2 6 23 / 0.4);
     --game-modal-control: #334155;
-
-    /* --- Main Colour Palette --- */
-      --game-bg-start: #0f172a;
-      --game-bg-end: #020617;
-      --game-panel: #111827;
-      --game-panel-border: #1f2937;
-      --game-success: #10b981;
-      --game-error: #ef4444;
-      --game-glow: #8b5cf6;
-
-    /* reserved for important elements */
-      --game-highlight-surface: #374151;
-      --game-highlight-border: #6b7280;
-      --game-panel-text: #fde68a;
-      --game-panel-muted: #71653e;
-
-    /*  --game-highlight-surface: #1e293b;
-      --game-highlight-border: #475569; */
-
-    /* One face for everything, in every locale — Nunito ships Cyrillic, so
-       Russian needs no override. `--font-display` is kept as its own token so
-       headings can take a different face later by changing one line. */
-    --font-body:    var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
-    --font-display: var(--font-body);
-
-    /* Theme-neutral elements: game meaning never changes with appearance. */
-    --acid-color: #ef4444;    /* rose-500 */
-    --base-color: #3b82f6;    /* blue-500 */
-    --neutral-color: #10b981; /* emerald-500 */
-    --amphoteric-color: #a855f7; /* purple-500 */
-
-    /*
-     * --- Per-game accents ---
-     *
-     * One colour per game, so a row of cards is not five identical blue icons.
-     * Unlike the four above, these DO change with the theme: they are used for
-     * the icon and for the "Play now" link, and link text has to clear 4.5:1
-     * against the card it sits on. A single value cannot: violet-600 reads well
-     * on white and is nearly invisible on #18181b.
-     *
-     * Measured against --surface, which is what both the hub cards (.game-card)
-     * and the dashboard teasers use. Dark values first, light below.
-     */
-    --game-accent-violet:  #a78bfa; /* violet-400  — 6.51:1 on #18181b */
-    --game-accent-sky:     #38bdf8; /* sky-400     — 8.27:1 */
-    --game-accent-emerald: #34d399; /* emerald-400 — 9.22:1 */
-    --game-accent-amber:   #fbbf24; /* amber-400   — 10.61:1 */
-    --game-accent-rose:    #fb7185; /* rose-400    — 6.58:1 */
-
-    /*
-     * Explore is NOT a game, and deliberately does not take one of the five
-     * above. Those encode which game a card is; a sixth from the same set would
-     * say Explore is a sixth game, and the five hues already span the wheel, so
-     * a distinct sixth would have to crowd one of them.
-     *
-     * It gets the site's own blue instead, which is what its section link and
-     * the nav already use — but as a token, because the bare `text-blue-500`
-     * used elsewhere is only 3.68:1 on white and fails text contrast.
-     */
-    --link: #60a5fa; /* blue-400 — 6.97:1 on --surface, 7.83:1 on --background */
-
-    /*
-     * Filled controls, and the one pair that does NOT flip with the theme.
-     *
-     * White text sits on these, and white-on-blue does not care what the page
-     * behind it is doing: white on blue-500 is 3.68:1 and fails in *both*
-     * themes, which is what every primary button on the site used to be. Giving
-     * these the theme-flipping `--link` would make it worse in dark mode, where
-     * `--link` is blue-400 — white on that is worse still. So they are fixed.
-     */
-    --action: #2563eb;       /* blue-600 — white on it is 5.17:1 */
-    --action-hover: #1d4ed8; /* blue-700 — white on it is 6.70:1 */
-
-    /* Explore is the site's blue, so it follows the link colour rather than
-     * keeping a second copy of the same two values. */
-    --accent-explore: var(--link);
-
-    /* --- Feedback states --- */
-    --correct: #10b981;
-    --wrong:   #ef4444;
 
     --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.4);
     --shadow-lg: 0 8px 40px 0 rgb(0 0 0 / 0.6);
@@ -148,54 +136,59 @@
 
   [data-theme='light'] {
     color-scheme: light;
+
     --background: #f8fafc;
     --surface: #ffffff;
     --surface-2: #f1f5f9;
-    --border: #cbd5e1;
-    --foreground: #0f172a;
-    --muted: #475569;
+    --border: #cbd5e1;        /* decorative card edges only — 1.48:1, not a control boundary */
+    --border-strong: #64748b; /* slate-500 — 4.76:1 / 4.55:1 / 4.34:1 */
+    --foreground: #0f172a;    /* 17.85:1 / 17.06:1 / 16.30:1 */
+    --muted: #475569;         /* 7.58:1 / 7.24:1 / 6.92:1 */
+    --link: #2563eb;          /* blue-600 — 5.17:1 / 4.94:1 / 4.72:1 */
+
+    /* The same hues, darkened for white. Not simply the 600 of each ramp:
+       emerald-600 is 3.77:1, amber-600 3.19:1 and sky-600 4.10:1 on #ffffff,
+       all of which fail text contrast, so those are pushed to 700. */
+    --hue-violet:  #7c3aed; /* violet-600  — 5.70:1 / 5.45:1 / 5.20:1 */
+    --hue-purple:  #9333ea; /* purple-600  — 5.38:1 / 5.14:1 / 4.91:1 */
+    --hue-fuchsia: #a21caf; /* fuchsia-700 — 6.32:1 / 6.04:1 / 5.77:1 */
+    --hue-indigo:  #4f46e5; /* indigo-600  — 6.29:1 / 6.01:1 / 5.74:1 */
+    --hue-sky:     #0369a1; /* sky-700     — 5.93:1 / 5.67:1 / 5.42:1 */
+    --hue-cyan:    #0e7490; /* cyan-700    — 5.36:1 / 5.12:1 / 4.89:1 */
+    --hue-emerald: #047857; /* emerald-700 — 5.48:1 / 5.24:1 / 5.01:1 */
+    --hue-amber:   #b45309; /* amber-700   — 5.02:1 / 4.80:1 / 4.58:1 */
+    --hue-orange:  #c2410c; /* orange-700  — 5.18:1 / 4.95:1 / 4.73:1 */
+    --hue-red:     #b91c1c; /* red-700     — 6.47:1 / 6.18:1 / 5.91:1 */
+    --hue-rose:    #be123c; /* rose-700    — 6.29:1 / 6.01:1 / 5.74:1 */
+
+    /* The 50 of each ramp. State colour / --foreground / --muted on it. */
+    --success-surface: #ecfdf5; /* emerald 5.21:1, fg 16.95:1, muted 7.19:1 */
+    --danger-surface:  #fef2f2; /* red 5.91:1, fg 16.32:1, muted 6.93:1 */
+    --accent-surface:  #fffbeb; /* amber 4.84:1, fg 17.22:1, muted 7.31:1 */
+    --info-surface:    #eff6ff; /* --link 4.75:1, fg 16.40:1, muted 6.96:1 */
+    --rank-bronze-surface: #fff7ed; /* orange 4.88:1, fg 16.81:1, muted 7.14:1 */
+
+    /* Pale tints, not copies of the dark ones: --foreground on each ≥ 16:1. */
+    --chem-acid-bg: #fef2f2;
+    --chem-base-bg: #eff6ff;
+    --chem-neutral-bg: #ecfdf5;
+    --chem-amphoteric-bg: #faf5ff;
+
+    --game-highlight-surface: #e2e8f0;
+    --game-highlight-border: #64748b; /* 4.55:1 on the page */
+    --game-panel-text: #0f172a;       /* 14.48:1 on --game-highlight-surface */
+    --game-panel-muted: #334155;      /* 5.02:1 there, after the 80% opacity */
+
     --game-bg-start: #e0f2fe;
     --game-bg-end: #f8fafc;
     --game-panel: #ffffff;
     --game-panel-border: #94a3b8;
-    --game-highlight-surface: #e2e8f0;
-    --game-highlight-border: #64748b;
-    --game-panel-text: #0f172a;
-    --game-panel-muted: #475569;
     --game-modal-header: rgb(226 232 240 / 0.75);
     --game-modal-row: rgb(241 245 249 / 0.9);
     --game-modal-control: #cbd5e1;
+
     --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
     --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);
-
-    /* Theme-neutral game semantics remain intentionally unchanged. */
-    --acid-color: #ef4444;
-    --base-color: #3b82f6;
-    --neutral-color: #10b981;
-    --amphoteric-color: #a855f7;
-
-    /*
-     * The same five accents, darkened for white.
-     *
-     * Not simply the 600 of each ramp: sky-600 is 4.10:1, emerald-600 is 3.77:1
-     * and amber-600 only 3.19:1 on #ffffff, all of which fail text contrast. The
-     * ones that fail are pushed to 700.
-     */
-    --game-accent-violet:  #7c3aed; /* violet-600  — 5.70:1 on #ffffff */
-    --game-accent-sky:     #0369a1; /* sky-700     — 5.93:1 */
-    --game-accent-emerald: #047857; /* emerald-700 — 5.48:1 */
-    --game-accent-amber:   #b45309; /* amber-700   — 5.02:1 */
-    --game-accent-rose:    #e11d48; /* rose-600    — 4.70:1 */
-    --link: #2563eb; /* blue-600 — 5.17:1 on #ffffff, 4.94:1 on the page, 4.72:1 on --surface-2 */
-    --correct: #10b981;
-    --wrong: #ef4444;
-    --game-success: #10b981;
-    --game-error: #ef4444;
-    --game-glow: #8b5cf6;
-    --chem-acid-bg: #450a0a;
-    --chem-base-bg: #172554;
-    --chem-neutral-bg: #052e16;
-    --chem-amphoteric-bg: #3b0764;
   }
 
   /* The same values for a reader on Device (no data-theme attribute) whose
@@ -204,56 +197,160 @@
   @media (prefers-color-scheme: light) {
     :root:not([data-theme]) {
       color-scheme: light;
+
       --background: #f8fafc;
       --surface: #ffffff;
       --surface-2: #f1f5f9;
-      --border: #cbd5e1;
-      --foreground: #0f172a;
-      --muted: #475569;
+      --border: #cbd5e1;        /* decorative card edges only — 1.48:1, not a control boundary */
+      --border-strong: #64748b; /* slate-500 — 4.76:1 / 4.55:1 / 4.34:1 */
+      --foreground: #0f172a;    /* 17.85:1 / 17.06:1 / 16.30:1 */
+      --muted: #475569;         /* 7.58:1 / 7.24:1 / 6.92:1 */
+      --link: #2563eb;          /* blue-600 — 5.17:1 / 4.94:1 / 4.72:1 */
+
+      /* The same hues, darkened for white. Not simply the 600 of each ramp:
+         emerald-600 is 3.77:1, amber-600 3.19:1 and sky-600 4.10:1 on #ffffff,
+         all of which fail text contrast, so those are pushed to 700. */
+      --hue-violet:  #7c3aed; /* violet-600  — 5.70:1 / 5.45:1 / 5.20:1 */
+      --hue-purple:  #9333ea; /* purple-600  — 5.38:1 / 5.14:1 / 4.91:1 */
+      --hue-fuchsia: #a21caf; /* fuchsia-700 — 6.32:1 / 6.04:1 / 5.77:1 */
+      --hue-indigo:  #4f46e5; /* indigo-600  — 6.29:1 / 6.01:1 / 5.74:1 */
+      --hue-sky:     #0369a1; /* sky-700     — 5.93:1 / 5.67:1 / 5.42:1 */
+      --hue-cyan:    #0e7490; /* cyan-700    — 5.36:1 / 5.12:1 / 4.89:1 */
+      --hue-emerald: #047857; /* emerald-700 — 5.48:1 / 5.24:1 / 5.01:1 */
+      --hue-amber:   #b45309; /* amber-700   — 5.02:1 / 4.80:1 / 4.58:1 */
+      --hue-orange:  #c2410c; /* orange-700  — 5.18:1 / 4.95:1 / 4.73:1 */
+      --hue-red:     #b91c1c; /* red-700     — 6.47:1 / 6.18:1 / 5.91:1 */
+      --hue-rose:    #be123c; /* rose-700    — 6.29:1 / 6.01:1 / 5.74:1 */
+
+      /* The 50 of each ramp. State colour / --foreground / --muted on it. */
+      --success-surface: #ecfdf5; /* emerald 5.21:1, fg 16.95:1, muted 7.19:1 */
+      --danger-surface:  #fef2f2; /* red 5.91:1, fg 16.32:1, muted 6.93:1 */
+      --accent-surface:  #fffbeb; /* amber 4.84:1, fg 17.22:1, muted 7.31:1 */
+      --info-surface:    #eff6ff; /* --link 4.75:1, fg 16.40:1, muted 6.96:1 */
+      --rank-bronze-surface: #fff7ed; /* orange 4.88:1, fg 16.81:1, muted 7.14:1 */
+
+      /* Pale tints, not copies of the dark ones: --foreground on each ≥ 16:1. */
+      --chem-acid-bg: #fef2f2;
+      --chem-base-bg: #eff6ff;
+      --chem-neutral-bg: #ecfdf5;
+      --chem-amphoteric-bg: #faf5ff;
+
+      --game-highlight-surface: #e2e8f0;
+      --game-highlight-border: #64748b; /* 4.55:1 on the page */
+      --game-panel-text: #0f172a;       /* 14.48:1 on --game-highlight-surface */
+      --game-panel-muted: #334155;      /* 5.02:1 there, after the 80% opacity */
+
       --game-bg-start: #e0f2fe;
       --game-bg-end: #f8fafc;
       --game-panel: #ffffff;
       --game-panel-border: #94a3b8;
-      --game-highlight-surface: #e2e8f0;
-      --game-highlight-border: #64748b;
-      --game-panel-text: #0f172a;
-      --game-panel-muted: #475569;
       --game-modal-header: rgb(226 232 240 / 0.75);
       --game-modal-row: rgb(241 245 249 / 0.9);
       --game-modal-control: #cbd5e1;
+
       --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
       --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);
-  
-      /* Theme-neutral game semantics remain intentionally unchanged. */
-      --acid-color: #ef4444;
-      --base-color: #3b82f6;
-      --neutral-color: #10b981;
-      --amphoteric-color: #a855f7;
-  
-      /*
-       * The same five accents, darkened for white.
-       *
-       * Not simply the 600 of each ramp: sky-600 is 4.10:1, emerald-600 is 3.77:1
-       * and amber-600 only 3.19:1 on #ffffff, all of which fail text contrast. The
-       * ones that fail are pushed to 700.
-       */
-      --game-accent-violet:  #7c3aed; /* violet-600  — 5.70:1 on #ffffff */
-      --game-accent-sky:     #0369a1; /* sky-700     — 5.93:1 */
-      --game-accent-emerald: #047857; /* emerald-700 — 5.48:1 */
-      --game-accent-amber:   #b45309; /* amber-700   — 5.02:1 */
-      --game-accent-rose:    #e11d48; /* rose-600    — 4.70:1 */
-      --link: #2563eb; /* blue-600 — 5.17:1 on #ffffff, 4.94:1 on the page, 4.72:1 on --surface-2 */
-      --correct: #10b981;
-      --wrong: #ef4444;
-      --game-success: #10b981;
-      --game-error: #ef4444;
-      --game-glow: #8b5cf6;
-      --chem-acid-bg: #450a0a;
-      --chem-base-bg: #172554;
-      --chem-neutral-bg: #052e16;
-      --chem-amphoteric-bg: #3b0764;
     }
   }
+
+  /*
+   * --- Fixed tokens: the same in every theme --------------------------------
+   *
+   * Two kinds live here, and only these two:
+   *
+   *  1. Values that must NOT flip. White text sits on --action and
+   *     --danger-action, and white-on-a-colour does not care what the page
+   *     behind it is doing; the chemistry identities and --game-glow mean the
+   *     same thing in either theme; the scrim is dark on purpose.
+   *  2. Role names that point at a per-theme token above. They resolve on
+   *     <html>, where data-theme lives, so they flip with it for free.
+   *
+   * Defined once, here, so there is no light value to forget. Everything in
+   * the dark block above has a light value in both light blocks, and
+   * src/app/theme-css.test.ts fails if a token is in one and not the other.
+   */
+  :root {
+    /* One face for everything, in every locale — Nunito ships Cyrillic, so
+       Russian needs no override. `--font-display` is kept as its own token so
+       headings can take a different face later by changing one line. */
+    --font-body:    var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+    --font-display: var(--font-body);
+
+    /*
+     * Filled controls. White on blue-500 is 3.68:1 and fails in *both* themes,
+     * which is what every primary button on the site used to be; the
+     * theme-flipping --link would be worse still in dark mode. So these are
+     * fixed, and white text is allowed on them and nowhere else.
+     */
+    --action: #2563eb;              /* blue-600 — white on it 5.17:1; 3.43:1 against dark --surface */
+    --action-hover: #1d4ed8;        /* blue-700 — white on it 6.70:1 */
+    --danger-action: #dc2626;       /* red-600  — white on it 4.83:1 */
+    --danger-action-hover: #b91c1c; /* red-700  — white on it 6.47:1 */
+
+    /* The one amber fill, for decoration that wants the accent as a block of
+       colour (the hero's chlorine tile). slate-900 on amber-400 is 10.69:1;
+       the fill itself is only 1.67:1 against white, so it is never a control
+       boundary on its own. */
+    --accent-fill: #fbbf24;
+    --on-accent-fill: #0f172a;
+
+    /* Modal scrim — deliberately dark in both themes (STYLE_GUIDE §4): a light
+       scrim over a light page does not read as "the page is behind this". */
+    --scrim: rgb(2 6 23 / 0.8);
+
+    /* Theme-neutral chemistry identities: game meaning never changes with
+       appearance. Used as fills and strokes, never as small text. */
+    --acid-color: #ef4444;       /* red-500 */
+    --base-color: #3b82f6;       /* blue-500 */
+    --neutral-color: #10b981;    /* emerald-500 */
+    --amphoteric-color: #a855f7; /* purple-500 */
+    --game-glow: #8b5cf6;        /* violet-500 — ambient highlight */
+
+    /* --- Roles -------------------------------------------------------------
+       What a component should reach for. Each is text-safe in both themes
+       because the hue it names is (see the ratios on --hue-* above). */
+    --success: var(--hue-emerald);   /* right answer, done, saved */
+    --danger: var(--hue-red);        /* wrong answer, error, destructive */
+    --accent: var(--hue-amber);      /* the one amber accent: scores, trophies, the task */
+    --info: var(--link);             /* neutral notices, on --info-surface */
+
+    /* Game feedback, as the games already name it. */
+    --correct: var(--success);
+    --wrong: var(--danger);
+    --game-success: var(--success);
+    --game-error: var(--danger);
+
+    /* Hints — amber, like the lightbulb. The hint surfaces are unified in a
+       later change; these two are what it should build on. */
+    --hint: var(--accent);
+    --hint-surface: var(--accent-surface);
+
+    /* Leaderboard podium. Silver is the neutral pair on purpose. */
+    --rank-gold: var(--accent);
+    --rank-gold-surface: var(--accent-surface);
+    --rank-silver: var(--muted);
+    --rank-silver-surface: var(--surface-2);
+    --rank-bronze: var(--hue-orange);
+
+    /*
+     * Per-game accents: one colour per game, so a row of cards is not five
+     * identical blue icons. Used for the icon and for the "Play now" link,
+     * which is why they come from the text-safe hues.
+     */
+    --game-accent-violet:  var(--hue-violet);
+    --game-accent-sky:     var(--hue-sky);
+    --game-accent-emerald: var(--hue-emerald);
+    --game-accent-amber:   var(--hue-amber);
+    --game-accent-rose:    var(--hue-rose);
+
+    /*
+     * Explore is NOT a game, and deliberately does not take one of the five
+     * above. Those encode which game a card is; a sixth from the same set would
+     * say Explore is a sixth game. It gets the site's own blue instead.
+     */
+    --accent-explore: var(--link);
+  }
+
 
 /* --- Periodic-table tones -------------------------------------------------
  *
@@ -374,13 +471,6 @@
   }
 
 @layer base {
-  :root {
-    --chem-acid-bg: #450a0a;
-    --chem-base-bg: #172554;
-    --chem-neutral-bg: #052e16;
-    --chem-amphoteric-bg: #3b0764;
-  }
-
   body {
     background: var(--background);
     color: var(--foreground);
@@ -400,9 +490,13 @@
 @layer components {
   /* --- Buttons --- */
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-extrabold
+    @apply text-white font-extrabold
            py-3.5 px-6 rounded-xl flex items-center justify-center gap-2
            shadow-md active:scale-95 transition-all duration-150 cursor-pointer;
+    background: var(--action);
+  }
+  .btn-primary:hover {
+    background: var(--action-hover);
   }
 
   .btn-ghost {
@@ -452,11 +546,11 @@
 
   /* --- Feedback states on chem-btn --- */
   .chem-btn-correct {
-    background: var(--chem-neutral-bg);
+    background: var(--success-surface);
     border-color: var(--correct);
   }
   .chem-btn-wrong {
-    background: #fef2f2;
+    background: var(--danger-surface);
     border-color: var(--wrong);
   }
 }
