@@ -83,8 +83,8 @@ export default function BlasterBubble({
       <div
         className={`h-20 w-20 rounded-full flex items-center justify-center border-2 shadow-md transition-all duration-150 md:h-28 md:w-28 ${
           hasError
-            ? 'border-rose-500 bg-rose-950 text-rose-100 shadow-rose-500/40 animate-shake'
-            : `bg-[var(--surface)] hover:scale-110 active:scale-95 ${colorClass}`
+            ? 'border-(--danger) bg-(--danger-surface) text-(--danger) shadow-(color:--danger)/40 animate-shake'
+            : `bg-(--surface) hover:scale-110 active:scale-95 ${colorClass}`
         }`}
       >
         <MoleculeText

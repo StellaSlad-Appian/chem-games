@@ -50,7 +50,7 @@ export default function GameArena({
     <div 
       className={`
         relative flex h-full w-full flex-1 flex-col items-center justify-center overflow-hidden rounded-2xl 
-        border-2 border-[var(--border)] bg-[var(--surface)]/30 p-6 z-10 transition-all duration-200
+        border-2 border-(--border) bg-(--surface)/30 p-6 z-10 transition-all duration-200
         ${!isPlaying ? 'pointer-events-none opacity-40 grayscale-[30%]' : 'opacity-100'}
       `}
       aria-hidden={!isPlaying}
@@ -58,7 +58,7 @@ export default function GameArena({
 
       {currentChemical && (
         <div className="mb-12">
-          <span className="mb-2 block text-center text-xs font-black uppercase tracking-widest text-[var(--muted)]">
+          <span className="mb-2 block text-center text-xs font-black uppercase tracking-widest text-(--muted)">
             {t.games.acidClassification.arenaHeading}
           </span>
           <MoleculeBubble

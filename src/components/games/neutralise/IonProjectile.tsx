@@ -23,11 +23,11 @@ export function IonProjectile({ projectile }: IonProjectileProps) {
       }}
       data-testid="projectile"
       data-ion={projectile.damageType}
-      className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center rounded-full border-2 bg-slate-900 shadow-md animate-pulse"
+      className="absolute top-0 left-0 w-8 h-8 flex items-center justify-center rounded-full border-2 border-(--border-strong) bg-(--surface) shadow-md animate-pulse"
     >
       <MoleculeText 
         formula={formulaMap[projectile.damageType]} 
-        className="text-xs font-black font-mono text-white"
+        className="text-xs font-black font-mono text-(--foreground)"
       />
     </div>
   );

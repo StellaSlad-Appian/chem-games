@@ -70,7 +70,7 @@ export default function ChallengeBuilder({ game, disabled, touch, onAdd }: Chall
 
   return (
     <div className="flex w-full flex-col gap-3" data-testid="challenge-builder">
-      <p className="rounded-2xl border-2 border-amber-500/60 bg-(--surface) p-4 text-base font-bold leading-relaxed text-(--foreground)" data-testid="challenge-prompt">
+      <p className="rounded-2xl border-2 border-(--accent)/60 bg-(--surface) p-4 text-base font-bold leading-relaxed text-(--foreground)" data-testid="challenge-prompt">
         {M.challenge.prompt(round.reaction.prompt ?? round.reaction.description)}
       </p>
 

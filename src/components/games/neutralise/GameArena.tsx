@@ -299,7 +299,7 @@ export default function NeutralizeArena({
         // whatever room the page gives it; min-h keeps it from collapsing
         // too small to play; md:max-h caps it back to the original size on
         // roomier screens.
-        className="relative w-full flex-1 min-h-[240px] md:max-h-125 cursor-crosshair overflow-hidden rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)]"
+        className="relative w-full flex-1 min-h-[240px] md:max-h-125 cursor-crosshair overflow-hidden rounded-2xl border-2 border-(--border) bg-(--surface)"
       >
         {invaders.map((invader) => (
           <MoleculeParticle key={invader.id} data={invader} />
@@ -325,8 +325,8 @@ export default function NeutralizeArena({
           }
           className={`flex-1 max-w-40 rounded-xl border-2 py-2 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform ${
             isAcid
-              ? 'bg-rose-500/80 border-rose-400'
-              : 'bg-indigo-500/80 border-indigo-400'
+              ? 'bg-(--ion-h) border-(--ion-h)'
+              : 'bg-(--ion-oh) border-(--ion-oh)'
           }`}
         >
           Switch to {isAcid ? 'OH⁻' : 'H⁺'}
@@ -336,7 +336,7 @@ export default function NeutralizeArena({
           onClick={fireProjectile}
           disabled={isPaused}
           aria-label={t.games.neutralise.fireA11y}
-          className="flex-1 max-w-40 rounded-xl border-2 border-slate-500 bg-slate-800 py-2 font-mono text-sm font-black text-white shadow-lg active:scale-95 transition-transform"
+          className="flex-1 max-w-40 rounded-xl border-2 border-(--border-strong) bg-(--surface-2) py-2 font-mono text-sm font-black text-(--foreground) shadow-lg active:scale-95 transition-transform"
         >
           {t.games.neutralise.fire}
         </button>

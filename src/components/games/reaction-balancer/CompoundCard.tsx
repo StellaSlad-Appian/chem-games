@@ -113,7 +113,7 @@ export default function CompoundCard({
           onBlur={() => setDraft(null)}
           disabled={disabled}
           aria-label={M.card.coefficient(species.name, species.bare)}
-          className="h-10 w-10 rounded-lg border-2 border-(--border) bg-(--background) text-center text-lg font-black text-amber-500 placeholder:text-(--muted) transition-all focus:border-(--link) focus:outline-none focus:ring-2 focus:ring-blue-500/30 disabled:cursor-not-allowed disabled:opacity-50"
+          className="h-10 w-10 rounded-lg border-2 border-(--border) bg-(--background) text-center text-lg font-black text-(--accent) placeholder:text-(--muted) transition-all focus:border-(--link) focus:outline-none focus:ring-2 focus:ring-(--link)/30 disabled:cursor-not-allowed disabled:opacity-50"
         />
         <button
           type="button"

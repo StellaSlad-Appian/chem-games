@@ -445,7 +445,7 @@ export default function NeutralizePage() {
             <ul className="space-y-3">
               {[
                 { key: t.games.neutralise.keyOneLabel, node: t.games.neutralise.keyOneText.split('{ion}') , ion: t.games.neutralise.keyOneIon, tone: 'text-(--link)' },
-                { key: t.games.neutralise.keyTwoLabel, node: t.games.neutralise.keyTwoText.split('{ion}'), ion: t.games.neutralise.keyTwoIon, tone: 'text-rose-500' },
+                { key: t.games.neutralise.keyTwoLabel, node: t.games.neutralise.keyTwoText.split('{ion}'), ion: t.games.neutralise.keyTwoIon, tone: 'text-(--hue-rose)' },
               ].map(({ key, node, ion, tone }) => (
                 <li key={key} className="flex items-center gap-3">
                   <kbd className="shrink-0 rounded bg-(--background) px-2 py-1 font-mono text-xs border border-(--border)">

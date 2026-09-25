@@ -254,7 +254,7 @@ export default function ClassificationGame() {
 
   if (!COMPOUNDS_REGISTRY || COMPOUNDS_REGISTRY.length === 0) {
     return (
-      <div className="flex min-h-screen items-center justify-center font-bold text-red-500">
+      <div className="flex min-h-screen items-center justify-center font-bold text-(--danger)">
         {t.games.acidClassification.registryError}
       </div>
     );

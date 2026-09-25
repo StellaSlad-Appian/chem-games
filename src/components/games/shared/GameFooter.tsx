@@ -26,7 +26,7 @@ export default function GameFooter({
         {onOpenInstructions && (
           <button 
             onClick={onOpenInstructions}
-            className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
+            className="p-2 text-(--muted) hover:text-(--foreground) hover:bg-(--surface-2) rounded-full transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             title={t.games.shared.howToPlay}
             aria-label={t.games.shared.howToPlay}
             type="button"
@@ -41,15 +41,15 @@ export default function GameFooter({
         {onTogglePause && (
           <button
             onClick={onTogglePause}
-            className="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-2xl transition-all shadow-md active:scale-95 border-2 border-slate-700 cursor-pointer"
+            className="bg-(--surface) hover:bg-(--surface-2) text-(--foreground) p-3 rounded-2xl transition-all shadow-md active:scale-95 border-2 border-(--border-strong) cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             title={isPaused ? t.games.shared.resume : t.games.shared.pause}
             aria-label={isPaused ? t.games.shared.resume : t.games.shared.pause}
             type="button"
           >
             {isPaused ? (
-              <Play className="w-5 h-5 fill-emerald-400 text-emerald-400" aria-hidden="true" />
+              <Play className="w-5 h-5 fill-(--success) text-(--success)" aria-hidden="true" />
             ) : (
-              <Pause className="w-5 h-5 fill-amber-400 text-amber-400" aria-hidden="true" />
+              <Pause className="w-5 h-5 fill-(--accent) text-(--accent)" aria-hidden="true" />
             )}
           </button>
         )}
@@ -60,7 +60,7 @@ export default function GameFooter({
         {onOpenSettings && (
           <button 
             onClick={onOpenSettings}
-            className="p-2 text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 rounded-full transition-all cursor-pointer"
+            className="p-2 text-(--muted) hover:text-(--foreground) hover:bg-(--surface-2) rounded-full transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             title={t.games.shared.settings}
             aria-label={t.games.shared.settings}
             type="button"

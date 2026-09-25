@@ -302,6 +302,12 @@
     --amphoteric-color: #a855f7; /* purple-500 */
     --game-glow: #8b5cf6;        /* violet-500 — ambient highlight */
 
+    /* Neutralise's two ions: the cannon barrel and the phone's switch button,
+       which carries white text. Rose for H⁺ and indigo for OH⁻, as before,
+       one step darker so the white label passes. */
+    --ion-h: #e11d48;  /* rose-600   — white on it 4.70:1 */
+    --ion-oh: #4f46e5; /* indigo-600 — white on it 6.29:1 */
+
     /* --- Roles -------------------------------------------------------------
        What a component should reach for. Each is text-safe in both themes
        because the hue it names is (see the ratios on --hue-* above). */

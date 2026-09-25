@@ -14,7 +14,7 @@ export const CLASSIFICATION_OPTIONS = [
     classification: 'Acidic' as ChemicalClassification,
     order: 0,
     iconType: 'droplet',
-    colorClass: 'text-rose-500',
+    colorClass: 'text-(--hue-rose)',
     bgHoverClass: 'hover:bg-rose-950/30',
   },
   {
@@ -22,7 +22,7 @@ export const CLASSIFICATION_OPTIONS = [
     classification: 'Neutral' as ChemicalClassification,
     order: 1,
     iconType: 'beaker',
-    colorClass: 'text-emerald-500',
+    colorClass: 'text-(--hue-emerald)',
     bgHoverClass: 'hover:bg-emerald-950/30',
   },
   {

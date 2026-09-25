@@ -54,7 +54,7 @@ export function GlossaryTerm({ term, definition, children }: GlossaryTermProps) 
         aria-expanded={open}
         aria-describedby={open ? id : undefined}
         onClick={() => setOpen((v) => !v)}
-        className="cursor-pointer rounded-sm border-b-2 border-dotted border-(--link) font-bold text-(--foreground) transition hover:bg-blue-500/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+        className="cursor-pointer rounded-sm border-b-2 border-dotted border-(--link) font-bold text-(--foreground) transition hover:bg-(--info-surface) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
       >
         {children ?? term}
       </button>

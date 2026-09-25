@@ -28,7 +28,7 @@ export default function GamesShell({
       `}
     >
       {/* Explicitly pushes the background down to allow sibling overlays to sit at z-50 */}
-      <div className="absolute inset-0 pointer-events-none bg-[var(--background,theme(colors.slate.950))] -z-10" />
+      <div className="absolute inset-0 pointer-events-none bg-(--background) -z-10" />
       
       {children}
     </main>

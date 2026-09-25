@@ -41,11 +41,11 @@ export const OPTION_1_SMOOTH = {
   physics: { baseSpeed: 7.2, speedLevelDecrement: 0.7, minSpeed: 3.2, baseVariance: 1.5, varianceLevelDecrement: 0.1, minVariance: 0.8 },
   visuals: {
     spawnColorPool: [
-      'border-cyan-400 text-cyan-400 hover:border-cyan-300',
-      'border-pink-500 text-pink-400 hover:border-pink-400',
-      'border-amber-400 text-amber-400 hover:border-amber-300',
-      'border-emerald-400 text-emerald-400 hover:border-emerald-300',
-      'border-(--link) text-(--link) hover:border-(--link)',
+      'border-(--hue-cyan) text-(--hue-cyan)',
+      'border-(--hue-pink) text-(--hue-pink)',
+      'border-(--hue-amber) text-(--hue-amber)',
+      'border-(--hue-emerald) text-(--hue-emerald)',
+      'border-(--link) text-(--link)',
     ],
   },
 } as const;
@@ -61,11 +61,11 @@ export const OPTION_2_ARCADE = {
   physics: { baseSpeed: 7.6, speedLevelDecrement: 0.6, minSpeed: 3.5, baseVariance: 1.2, varianceLevelDecrement: 0.1, minVariance: 0.8 },
   visuals: {
     spawnColorPool: [
-      'border-cyan-400 text-cyan-400 hover:border-cyan-300',
-      'border-pink-500 text-pink-400 hover:border-pink-400',
-      'border-amber-400 text-amber-400 hover:border-amber-300',
-      'border-emerald-400 text-emerald-400 hover:border-emerald-300',
-      'border-(--link) text-(--link) hover:border-(--link)',
+      'border-(--hue-cyan) text-(--hue-cyan)',
+      'border-(--hue-pink) text-(--hue-pink)',
+      'border-(--hue-amber) text-(--hue-amber)',
+      'border-(--hue-emerald) text-(--hue-emerald)',
+      'border-(--link) text-(--link)',
     ],
   },
 } as const;
@@ -81,11 +81,11 @@ const OPTION_3_PRECISION = {
   physics: { baseSpeed: 6.9, speedLevelDecrement: 0.75, minSpeed: 3.0, baseVariance: 1.5, varianceLevelDecrement: 0.1, minVariance: 0.8 },
   visuals: {
     spawnColorPool: [
-      'border-cyan-400 text-cyan-400 hover:border-cyan-300',
-      'border-pink-500 text-pink-400 hover:border-pink-400',
-      'border-amber-400 text-amber-400 hover:border-amber-300',
-      'border-emerald-400 text-emerald-400 hover:border-emerald-300',
-      'border-(--link) text-(--link) hover:border-(--link)',
+      'border-(--hue-cyan) text-(--hue-cyan)',
+      'border-(--hue-pink) text-(--hue-pink)',
+      'border-(--hue-amber) text-(--hue-amber)',
+      'border-(--hue-emerald) text-(--hue-emerald)',
+      'border-(--link) text-(--link)',
     ],
   },
 } as const;

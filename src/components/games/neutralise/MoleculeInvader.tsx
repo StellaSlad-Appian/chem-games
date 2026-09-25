@@ -21,17 +21,17 @@ export function MoleculeParticle({ data }: MoleculeParticleProps) {
       data-testid="invader"
       data-formula={data.formula}
       data-health={data.currentHealth}
-      className="absolute top-0 left-0 w-16 h-16 flex items-center justify-center rounded-2xl bg-slate-800 border-2 border-slate-600 shadow-xl"
+      className="absolute top-0 left-0 w-16 h-16 flex items-center justify-center rounded-2xl bg-(--surface-2) border-2 border-(--border-strong) shadow-xl"
     >
       <MoleculeText 
         formula={data.formula} 
-        className="text-xl font-bold text-white tracking-tight"
+        className="text-xl font-bold text-(--foreground) tracking-tight"
       />
       
       {/* Health Bar Container */}
-      <div className="absolute -bottom-2 w-10 h-1 bg-slate-900 rounded-full overflow-hidden">
+      <div className="absolute -bottom-2 w-10 h-1 bg-(--border) rounded-full overflow-hidden">
         <div 
-          className="h-full bg-emerald-500 transition-all duration-300 ease-out"
+          className="h-full bg-(--success) transition-all duration-300 ease-out"
           style={{ width: `${healthPercentage}%` }}
         />
       </div>

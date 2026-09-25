@@ -47,7 +47,7 @@ export default function AtomLedger({ rows, highlightElement }: AtomLedgerProps) 
               aria-label={`${M.ledger.row(name(row), row.left, row.right)}, ${status}${next ? `, ${M.ledger.nextUp}` : ''}`}
               className={`grid grid-cols-[minmax(0,1fr)_3rem_3rem_minmax(0,1.4fr)] items-center gap-x-2 rounded-xl border-2 px-2 py-1.5 text-sm ${
                 row.balanced ? 'border-(--correct)/40 bg-(--background)' : 'border-(--wrong)/40 bg-(--background)'
-              } ${next ? 'ring-2 ring-amber-500 ring-offset-2 ring-offset-(--surface)' : ''}`}
+              } ${next ? 'ring-2 ring-(--hint) ring-offset-2 ring-offset-(--surface)' : ''}`}
             >
               <span className="font-black leading-tight text-(--foreground)">
                 {name(row)} <span className="font-mono text-xs text-(--muted)">{row.element}</span>

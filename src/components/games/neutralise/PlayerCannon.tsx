@@ -19,10 +19,10 @@ export function PlayerCannon({ x, activeMissile }: PlayerCannonProps) {
       style={{ transform: `translateX(${x}px) translateX(-50%)`, left: 0 }}
     >
       {/* Cannon Barrel */}
-      <div className={`w-4 h-8 rounded-t-lg border-2 border-b-0 ${isAcid ? 'bg-rose-500/80 border-rose-400' : 'bg-indigo-500/80 border-indigo-400'}`} />
+      <div className={`w-4 h-8 rounded-t-lg border-2 border-b-0 ${isAcid ? 'bg-(--ion-h) border-(--ion-h)' : 'bg-(--ion-oh) border-(--ion-oh)'}`} />
       
       {/* Cannon Base */}
-      <div className="w-full h-8 bg-slate-800 border-2 border-slate-600 rounded-xl shadow-lg flex items-center justify-center font-mono text-xs font-black text-white">
+      <div className="w-full h-8 bg-(--surface-2) border-2 border-(--border-strong) rounded-xl shadow-lg flex items-center justify-center font-mono text-xs font-black text-(--foreground)">
         {isAcid ? 'H⁺' : 'OH⁻'}
       </div>
     </div>
