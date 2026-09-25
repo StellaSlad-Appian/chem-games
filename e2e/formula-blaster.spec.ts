@@ -87,12 +87,14 @@ test.describe('Formula Blaster', () => {
     await expect(timer(page)).not.toHaveText(frozen, { timeout: 3_000 });
   });
 
-  test('running out of time ends the game', async ({ page }) => {
+  test('running out of time only ends the speed bonus, never the game', async ({ page }) => {
     await page.clock.install();
     await openGame(page, 'formula-blaster');
     await expect(bubbles(page).first()).toBeAttached();
     await page.clock.runFor((CFG.mechanics.baseWaveTimeSeconds + 1) * 1000);
-    await expect(overlay(page, 'Game Over')).toBeVisible();
-    await expect(page.getByText('Time ran out before reaching the quota.')).toBeVisible();
+    await expect(timer(page)).toHaveText('00:00');
+    await expect(page.locator('header').getByText('Speed bonus')).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(bubbles(page).first()).toBeAttached();
   });
 });

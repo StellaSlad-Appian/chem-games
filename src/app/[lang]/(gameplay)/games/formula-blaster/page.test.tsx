@@ -121,11 +121,16 @@ describe('Formula Blaster page (game flow)', () => {
     expect(recordGameSessionMock).not.toHaveBeenCalled(); // only terminal states are recorded
   });
 
-  it('records a victory once after clearing every level', () => {
-    let expectedScore = 0;
+  it('records a victory once after clearing every level, with a speed bonus on top', () => {
+    // Hit points are exact; the speed bonus depends on how much clock each
+    // target left, so it is bounded: at most a full clock per target, at
+    // 5 points a second, times the level.
+    let hitPoints = 0;
+    let maxBonus = 0;
     for (let level = 1; level <= CFG.levels.maxLevel; level++) {
       for (let target = 0; target < CFG.levels.targetsRequiredPerLevel; target++) {
-        expectedScore += progress().quota * CFG.mechanics.pointsPerLevelMultiplier * level;
+        hitPoints += progress().quota * CFG.mechanics.pointsPerLevelMultiplier * level;
+        maxBonus += CFG.mechanics.baseWaveTimeSeconds * 5 * level;
         completeCurrentTarget();
       }
       if (level < CFG.levels.maxLevel) {
@@ -134,13 +139,15 @@ describe('Formula Blaster page (game flow)', () => {
     }
 
     expect(screen.getByRole('dialog', { name: 'Research Complete' })).toBeInTheDocument();
-    expect(screen.getByText(`Score ${expectedScore}`)).toBeInTheDocument();
     expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
+    const recorded = recordGameSessionMock.mock.calls[0][0] as { score: number };
+    expect(recorded.score).toBeGreaterThan(hitPoints);
+    expect(recorded.score).toBeLessThanOrEqual(hitPoints + maxBonus);
+    expect(screen.getByText(`Score ${recorded.score}`)).toBeInTheDocument();
     expect(recordGameSessionMock).toHaveBeenCalledWith(
       expect.objectContaining({
         gameId: 'formula-blaster',
         outcome: 'victory',
-        score: expectedScore,
         levelReached: CFG.levels.maxLevel,
         accuracy: 100,
       })
@@ -163,40 +170,23 @@ describe('Formula Blaster page (game flow)', () => {
     expect(screen.queryByTestId('blaster-error')).not.toBeInTheDocument();
   });
 
-  it('ends the game when the wave timer runs out and records the failed run; Try Again restarts', () => {
-    popTarget(); // one hit, so the run has a score and an accuracy
-    vi.spyOn(Math, 'random').mockReturnValue(0.1);
-    advance(LEVEL_1_SPAWN_INTERVAL);
-    const distractor = bubbles().find((b) => b.getAttribute('data-formula') !== targetFormula());
-    if (!distractor) throw new Error('No distractor bubble spawned');
-    fireEvent.click(distractor); // one miss
+  it('stops the clock at zero and carries on: time is a bonus, never a game over', () => {
+    popTarget(); // one hit, so there is a score to keep
 
-    advance(CFG.mechanics.baseWaveTimeSeconds * 1000 + 10);
-    expect(screen.getByRole('dialog', { name: 'Game Over' })).toBeInTheDocument();
-    expect(screen.getByText('Time ran out before reaching the quota.')).toBeInTheDocument();
-    expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
-    expect(recordGameSessionMock).toHaveBeenCalledWith(
-      expect.objectContaining({
-        gameId: 'formula-blaster',
-        outcome: 'failed',
-        score: CFG.mechanics.pointsPerLevelMultiplier,
-        levelReached: 1,
-        accuracy: 50,
-      })
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: 'Try Again' }));
+    advance(CFG.mechanics.baseWaveTimeSeconds * 1000 + 5000);
+    expect(screen.getByText('00:00')).toBeInTheDocument();
+    expect(screen.getByText('Speed bonus')).toBeInTheDocument();
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    expect(screen.getByText(FULL_TIMER)).toBeInTheDocument();
-    expect(screen.getByText('Score 0')).toBeInTheDocument();
-    expect(screen.getByText('Level 01')).toBeInTheDocument();
+    expect(recordGameSessionMock).not.toHaveBeenCalled();
+    expect(screen.getByText(`Score ${CFG.mechanics.pointsPerLevelMultiplier}`)).toBeInTheDocument();
 
-    // A second run that times out with no answers is recorded separately.
-    advance(CFG.mechanics.baseWaveTimeSeconds * 1000 + 10);
-    expect(recordGameSessionMock).toHaveBeenCalledTimes(2);
-    expect(recordGameSessionMock).toHaveBeenLastCalledWith(
-      expect.objectContaining({ outcome: 'failed', score: 0, accuracy: undefined })
-    );
+    // Still playable: finishing the target with no time left adds no bonus.
+    const before = CFG.mechanics.pointsPerLevelMultiplier;
+    const remaining = progress().quota - progress().hits;
+    for (let i = 0; i < remaining; i++) popTarget();
+    expect(
+      screen.getByText(`Score ${before + remaining * CFG.mechanics.pointsPerLevelMultiplier}`)
+    ).toBeInTheDocument();
   });
 
   it('pausing freezes the countdown and the spawner', () => {
