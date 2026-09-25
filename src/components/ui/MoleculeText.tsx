@@ -120,8 +120,12 @@ export default function MoleculeText({
             );
 
           case 'operator':
+            // Full strength, not the old `opacity-80`: the formula is often
+            // drawn in --link, and --link at 80% on the page is 3.5:1 — below
+            // the 4.5:1 a "+" or "→" needs as text. The font change already
+            // sets the operators apart.
             return (
-              <span key={index} className="mx-1 font-sans font-black opacity-80">
+              <span key={index} className="mx-1 font-sans font-black">
                 {token.value}
               </span>
             );
