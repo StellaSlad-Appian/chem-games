@@ -59,8 +59,16 @@ export const de = {
     'Eine Gleichung Koeffizient für Koeffizient ausgleichen, mit der Atomzahl beider Seiten im Blick.',
   gameLewis:
     'Ungepaarte Elektronen zu Bindungen und freien Elektronenpaaren zusammenführen und so eine Lewis-Formel bauen.',
+  sheetsHeading: 'Spickzettel',
   sheetsIntro:
-    'Zwölf Spickzettel enthalten das Nachschlagematerial, auf das sich die Spiele stützen. Jeder passt auf eine Seite, lässt sich projizieren und ausdrucken:',
+    'Fünfzehn Spickzettel enthalten das Nachschlagematerial, auf das sich die Spiele stützen. Jeder passt auf eine Seite, lässt sich projizieren und ausdrucken:',
+
+  exploreHeading: 'Entdecken',
+  exploreBody1:
+    'Jeden Montag ein neues Molekül und eine neue Person aus der Chemie, kurz erklärt in ein paar Abschnitten: wo es im Alltag vorkommt, wie es funktioniert und warum die Person dahinter wichtig war.',
+  exploreBody2:
+    'Sobald eine Woche vorbei ist, behält ihr Eintrag einen festen Link, und das Archiv bewahrt sie alle auf – so kann eine Unterrichtsstunde ebenso leicht auf ein Molekül oder eine Person von vor Monaten verweisen wie auf die dieser Woche. Die aktuelle Woche steht auf {link}.',
+  exploreLinkLabel: 'der Seite „Entdecken“',
 
   languagesHeading: 'Sprachen',
   languagesBody1:
@@ -98,6 +106,13 @@ export const de = {
     'Als Dank bekommen Mitgestaltende kostenlosen Zugang zu Version 1.0 und Version 2.0 der Spiele, sobald es diese Versionen gibt.',
   collaborateFreeNow:
     'Damit klar ist, was das wert ist: Zurzeit ist alles auf der Seite kostenlos und bleibt es die ganze Beta über. Das Angebot betrifft die kostenpflichtigen Versionen danach, nicht etwas, wofür Sie heute zahlen würden.',
+  collaborateCta: 'Wenn Sie mitmachen möchten, füllen Sie das Formular auf der Seite {link} aus.',
+  collaborateCtaLinkLabel: 'Anmeldung',
+
+  collaborateMetaTitle: 'Als Mitgestaltende eintragen | Für Lehrkräfte | Games in Chemistry',
+  collaborateMetaDescription:
+    'Geben Sie Rückmeldung zu den Spielen oder schlagen Sie neue vor, und erhalten Sie dafür kostenlosen Zugang zu Version 1.0 und Version 2.0.',
+  backToTeachers: 'Zurück zu „Für Lehrkräfte“',
   collaborateHow:
     'Wenn Sie mitmachen möchten, füllen Sie das Formular unten aus. Die E-Mail-Adresse ist das Einzige, was ich wirklich brauche; alles andere steht dort, damit ich etwas über Ihre Klasse weiß, bevor ich zurückschreibe — und Sie dürfen jedes einzelne Feld davon auslassen.',
   collaborateReply:

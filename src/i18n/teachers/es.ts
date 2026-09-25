@@ -55,8 +55,16 @@ export const es = {
     'Ajustar una ecuación coeficiente a coeficiente, con el recuento de átomos de cada lado a la vista.',
   gameLewis:
     'Emparejar electrones desapareados en enlaces y pares solitarios para construir una estructura de Lewis.',
+  sheetsHeading: 'Chuletas',
   sheetsIntro:
-    'Doce chuletas reúnen el material de consulta en el que se apoyan los juegos. Cada una ocupa una sola página, se ve bien en el proyector y se puede imprimir:',
+    'Quince chuletas reúnen el material de consulta en el que se apoyan los juegos. Cada una ocupa una sola página, se ve bien en el proyector y se puede imprimir:',
+
+  exploreHeading: 'Explorar',
+  exploreBody1:
+    'Cada lunes, una molécula nueva y una persona nueva de la química, explicadas en unas pocas secciones breves: dónde aparece en la vida diaria, cómo funciona y por qué importó la persona que hay detrás.',
+  exploreBody2:
+    'Una vez pasada su semana, cada ficha conserva un enlace permanente, y el archivo las guarda todas, así que una clase puede señalar una molécula o una persona de hace meses con la misma facilidad que la de esta semana. La semana actual está en {link}.',
+  exploreLinkLabel: 'la página de Explorar',
 
   languagesHeading: 'Idiomas',
   languagesBody1:
@@ -94,6 +102,14 @@ export const es = {
     'A cambio, quienes colaboren tendrán acceso gratuito a la versión 1.0 y a la versión 2.0 de los juegos en cuanto esas versiones existan.',
   collaborateFreeNow:
     'Para que quede claro cuánto vale eso: ahora mismo todo el sitio es gratuito y lo seguirá siendo durante toda la beta. La oferta se refiere a las versiones de pago que vendrán después, no a nada por lo que estuviera pagando hoy.',
+  collaborateCta: 'Para ofrecerse, rellene el formulario en la página de {link}.',
+  collaborateCtaLinkLabel: 'alta',
+
+  collaborateMetaTitle:
+    'Darse de alta como docente colaborador | Para el profesorado | Games in Chemistry',
+  collaborateMetaDescription:
+    'Dé su opinión sobre los juegos o proponga otros nuevos, y reciba a cambio acceso gratuito a la versión 1.0 y a la versión 2.0.',
+  backToTeachers: 'Volver a «Para el profesorado»',
   collaborateHow:
     'Para ofrecerse, rellene el formulario de abajo. La dirección de correo electrónico es lo único que necesito de verdad; lo demás está ahí para que yo sepa algo de su clase antes de responderle, y puede dejarlo todo en blanco.',
   collaborateReply:

@@ -64,12 +64,20 @@ a class.
       level of conformance that the gap list in `docs/ACCESSIBILITY.md` contradicts.
 - [ ] **MUST** **Beta notice.** Visible without scrolling at desktop width. Says the site
       is in beta and that games and content are still changing.
-- [ ] **MUST** **Teacher collaborators.** See §3.
+- [ ] **MUST** **Teacher collaborators.** See §3. The main page carries only a short
+      pitch — what collaborating means, and the 1.0/2.0 thank-you — and a link to
+      `/teachers/collaborate`, which carries the full explanation and the form.
 - [ ] **MUST** **Feedback.** Points at the existing feedback button, which is already
       mounted site-wide. Must not duplicate it with a second form.
 - [ ] **MUST** **Support.** See §4.
 - [ ] **SHOULD** **What's on the site.** The shipped games, each with a line on the skill
-      it practises, plus the cheat sheets, each linking to its own page.
+      it practises.
+- [ ] **SHOULD** **Cheat sheets.** Its own section, not folded into "What's on the site" —
+      every sheet, each linking to its own page.
+- [ ] **SHOULD** **Explore.** The weekly molecule-and-chemist feature: that it changes
+      every Monday, that each entry keeps a permanent link once its week has passed, and
+      that the archive holds all of them — the things that make it usable as recurring
+      classroom material rather than a novelty. Links to `/explore`.
 
 ## 3. The teacher-collaborator offer
 
@@ -178,20 +186,32 @@ The offer is a promise to real people, so the copy has to be specific enough to 
       collaborator details.
 - [ ] **SHOULD** Line length ≤ 75 characters. No long ALL-CAPS runs; caps are for labels
       of three words or fewer.
-- [ ] **SHOULD** One `h1`, then `h2` per section, in order, with no levels skipped.
+- [ ] **SHOULD** One `h1`, then `h2` per section, in order, with no levels skipped. A
+      two-column layout at `lg` and up does not exempt this: every section is still an
+      `h2`, sibling to the others, regardless of which column it renders in. The sidebar
+      (Beta, Feedback, Collaborators) is written *first* in source order and pushed right
+      with `lg:order-2` rather than written second and pulled left with CSS — DOM order is
+      reading order and tab order for every reader, so the short, actionable items reach a
+      screen-reader or keyboard user first, not only a sighted one scanning the page.
 
 ## 7. Tests
 
 - [ ] **MUST** `src/app/[lang]/(main)/teachers/page.test.tsx`: renders in English and in
       one other locale; every section heading present; link hrefs correct for
-      `/privacy`, the games and the cheat sheets; the support section present when
-      `NEXT_PUBLIC_SUPPORT_URL` is set and absent when it is not; metadata sourced from
-      the dictionary.
+      `/privacy`, the games, the cheat sheets, `/explore` and `/teachers/collaborate`; the
+      support section present when `NEXT_PUBLIC_SUPPORT_URL` is set and absent when it is
+      not; metadata sourced from the dictionary.
+- [ ] **MUST** `src/app/[lang]/(main)/teachers/collaborate/page.test.tsx`: the sign-up
+      form's own rendering coverage (fields, labels, the form's heading at `h2` since the
+      page's own `h1` is the only thing above it) — moved here from the main page's test
+      when the form did.
 - [ ] **MUST** `e2e/teachers.spec.ts`: reachable from the footer link; the beta notice
-      visible without scrolling at desktop width; the feedback button present; no console
-      errors. The sign-up form's own browser coverage lives in the same file and is
-      specified by `docs/COLLABORATORS.md` § 6; what it can and cannot prove without
-      Supabase credentials is written down in `docs/TESTING.md`.
+      visible without scrolling at desktop width; the feedback button present; a link to
+      `/teachers/collaborate` present and correctly labelled; no console errors.
+- [ ] **MUST** `e2e/teachers-collaborate.spec.ts`: the sign-up form's own browser
+      coverage — moved here from `teachers.spec.ts` when the form did. Specified by
+      `docs/COLLABORATORS.md` § 6; what it can and cannot prove without Supabase
+      credentials is written down in `docs/TESTING.md`.
 - [ ] **SHOULD** Extend `e2e/i18n.spec.ts` to cover `/de/teachers`, asserting
       `<html lang="de">` and translated copy.
 - [ ] **MUST** `npm run check` green. Lint `src e2e`, not the repository root.

@@ -54,8 +54,16 @@ export const fr = {
     'Équilibrer une équation coefficient par coefficient, avec le nombre d’atomes de chaque côté sous les yeux.',
   gameLewis:
     'Apparier les électrons célibataires en liaisons et en doublets non liants pour construire une structure de Lewis.',
+  sheetsHeading: 'Antisèches',
   sheetsIntro:
-    'Douze antisèches rassemblent les références sur lesquelles les jeux s’appuient. Chacune tient sur une page, lisible au vidéoprojecteur et imprimable :',
+    'Quinze antisèches rassemblent les références sur lesquelles les jeux s’appuient. Chacune tient sur une page, lisible au vidéoprojecteur et imprimable :',
+
+  exploreHeading: 'Explorer',
+  exploreBody1:
+    'Une nouvelle molécule et une nouvelle personnalité de la chimie chaque lundi, expliquées en quelques sections courtes : où on la rencontre au quotidien, comment elle fonctionne, et pourquoi la personne derrière elle a compté.',
+  exploreBody2:
+    'Une fois sa semaine passée, chaque fiche garde un lien permanent, et les archives les conservent toutes – une leçon peut ainsi renvoyer vers une molécule ou une personnalité vieille de plusieurs mois aussi facilement que celle de cette semaine. La semaine en cours est sur {link}.',
+  exploreLinkLabel: 'la page « Explorer »',
 
   languagesHeading: 'Langues',
   languagesBody1:
@@ -93,6 +101,14 @@ export const fr = {
     'En remerciement, les collaborateurs reçoivent un accès gratuit à la version 1.0 et à la version 2.0 des jeux, dès que ces versions existeront.',
   collaborateFreeNow:
     'Pour que la valeur de cette offre soit claire : aujourd’hui tout est gratuit sur le site, et le restera pendant toute la bêta. L’offre porte sur les versions payantes qui viendront après, pas sur quoi que ce soit que vous payeriez aujourd’hui.',
+  collaborateCta: 'Pour vous proposer, remplissez le formulaire sur la page {link}.',
+  collaborateCtaLinkLabel: 'Inscription',
+
+  collaborateMetaTitle:
+    'S’inscrire comme enseignant partenaire | Pour les enseignants | Games in Chemistry',
+  collaborateMetaDescription:
+    'Donnez votre avis sur les jeux ou proposez-en de nouveaux, et recevez en échange un accès gratuit à la version 1.0 et à la version 2.0.',
+  backToTeachers: 'Retour à « Pour les enseignants »',
   collaborateHow:
     'Pour vous proposer, remplissez le formulaire ci-dessous. L’adresse e-mail est la seule chose dont j’aie vraiment besoin ; le reste est là pour que je sache quelque chose de votre classe avant de vous répondre, et vous pouvez tout laisser de côté.',
   collaborateReply:

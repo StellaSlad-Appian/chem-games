@@ -19,11 +19,10 @@
 //   - the cheat-sheet titles, which come from `getCheatSheets(locale)` — the
 //     same localized data the cheat-sheet index renders, so a sheet added or
 //     retitled shows up here with no edit;
-//   - the copy for the collaborator sign-up form, which *is* in the catalogue
-//     but is handed to `<CollaboratorForm>` as props. The form is a client
-//     component and the catalogue is server-only: importing it there would put
-//     this whole page's prose into the client bundle. See docs/COLLABORATORS.md
-//     § 4 and the comment at the top of CollaboratorForm.tsx.
+//   - the full collaborator pitch and the sign-up form itself, which live on
+//     their own page at `/teachers/collaborate` — see that route's own file
+//     header for why, and docs/COLLABORATORS.md § 4 for the acceptance
+//     criterion it satisfies. This page keeps only a short teaser and a link.
 //
 // The support section renders only when NEXT_PUBLIC_SUPPORT_URL is set, so the
 // page could ship before the payment account existed. No payment form, widget
@@ -36,6 +35,7 @@ import {
   Accessibility,
   ArrowLeft,
   BookMarked,
+  Compass,
   Construction,
   ExternalLink,
   Gamepad2,
@@ -46,9 +46,8 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
-import { ADULT_PROSE, NOT_PROSE } from '@/components/layout/adult-prose';
+import { ADULT_PROSE } from '@/components/layout/adult-prose';
 import { LocaleLink } from '@/components/layout/LocaleLink';
-import { CollaboratorForm } from '@/components/teachers/CollaboratorForm';
 import { aboutCopy } from '@/i18n/about';
 import { getCheatSheets } from '@/i18n/cheat-sheets';
 import { DEFAULT_LOCALE, isLocale } from '@/i18n/config';
@@ -60,15 +59,6 @@ const PRIVACY_PATH = '/privacy';
 
 const INLINE_LINK_CLASS =
   'font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)';
-
-/**
- * Where a collaborator writes to have their details deleted. The same address
- * the privacy page gives, deliberately: a person should not have to work out
- * which of two addresses their request belongs to. docs/COLLABORATORS.md § 0
- * requires the route to be stated on the form itself, not only in the policy,
- * which is why it is passed into the form rather than only linked from it.
- */
-const CONTACT_EMAIL = 'stella.slad@gmail.com';
 
 export async function generateMetadata(
   props: PageProps<'/[lang]/teachers'>
@@ -136,6 +126,18 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
     </LocaleLink>
   );
 
+  const exploreLink = (
+    <LocaleLink href="/explore" className={INLINE_LINK_CLASS}>
+      {p.exploreLinkLabel}
+    </LocaleLink>
+  );
+
+  const collaborateLink = (
+    <LocaleLink href="/teachers/collaborate" className={INLINE_LINK_CLASS}>
+      {p.collaborateCtaLinkLabel}
+    </LocaleLink>
+  );
+
   const supportLink = supportUrl ? (
     <a
       href={supportUrl}
@@ -151,7 +153,16 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
 
   return (
     <main className="min-h-screen bg-(--background) px-4 py-8 text-(--foreground) md:px-8">
-      <div className="mx-auto max-w-3xl">
+      {/*
+        `max-w-6xl`, matching the home page, not the `max-w-3xl` this page
+        used before the two-column layout: with a sidebar to fill, the wider
+        container means less vertical scrolling rather than longer lines. Line
+        length is capped independently instead, with `max-w-[75ch]` on each
+        block of prose (docs/TEACHERS_PAGE.md § 6's own guideline) — see the
+        comment on `Section` below for why that could not stay implicit in the
+        container width once the container grew.
+      */}
+      <div className="mx-auto max-w-6xl">
         <LocaleLink
           href="/"
           className="inline-flex min-h-6 items-center gap-2 py-1 text-sm font-bold text-(--muted) transition hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
@@ -166,175 +177,190 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
           </div>
-          <p className={`mt-2 text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
+          <p className={`mt-2 max-w-[75ch] text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
         </div>
 
         {/*
-          The beta notice is its own card immediately under the heading, not a
-          section inside the article below, because the acceptance criteria
-          require it to be visible without scrolling at desktop width. At 1280
-          x 720 everything above it is about 160px tall.
+          Two columns from `lg` up, single column below it — the reflow
+          requirement in docs/TEACHERS_PAGE.md § 6 holds automatically rather
+          than needing a second, narrower layout to maintain.
+
+          The sidebar renders *first* in source order and is pushed right with
+          `lg:order-2` rather than being written second and pulled left: DOM
+          order is reading order and tab order for every reader, sighted or
+          not, so Beta and Feedback — short, important, and easy to act on —
+          come immediately after the intro for everyone, not only for the
+          reader who can see them at the top of a visual sidebar. That also
+          satisfies the **MUST** "visible without scrolling at desktop width"
+          for the beta notice without needing it outside the grid the way it
+          used to sit: it is simply the first thing in the document after the
+          heading.
         */}
-        <section
-          aria-labelledby="teachers-beta"
-          className="mt-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
-        >
-          <h2
-            id="teachers-beta"
-            className="flex items-center gap-2 text-2xl font-black text-(--foreground)"
-          >
-            <Construction className="h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
-            {p.betaHeading}
-          </h2>
-          <p
-            className={`mt-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
-          >
-            {p.betaBody}
-          </p>
-        </section>
-
-        <article className="mt-6 flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
-          <Section icon={GraduationCap} title={p.whatHeading}>
-            <p>{p.whatBody1}</p>
-            <p>{p.whatBody2}</p>
-            <p>{p.whatBody3}</p>
-            {/*
-              The case for the site — why it exists and how the games are meant
-              to help — lives on the About page, not here. Shown only in a
-              locale that has an About page; see src/i18n/about.ts.
-            */}
-            {about && (
-              <p>
-                {withPlaceholder(
-                  about.teachersPagePointer,
-                  'link',
-                  <LocaleLink href="/about" className={INLINE_LINK_CLASS}>
-                    {about.teachersPagePointerLinkLabel}
-                  </LocaleLink>
-                )}
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
+          <div className="flex flex-col gap-6 lg:order-2">
+            <section
+              aria-labelledby="teachers-beta"
+              className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
+            >
+              <h2
+                id="teachers-beta"
+                className="flex items-center gap-2 text-2xl font-black text-(--foreground)"
+              >
+                <Construction className="h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
+                {p.betaHeading}
+              </h2>
+              <p
+                className={`mt-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+              >
+                {p.betaBody}
               </p>
-            )}
-          </Section>
+            </section>
 
-          <Section icon={Gamepad2} title={p.onSiteHeading}>
-            <p>{p.gamesIntro}</p>
-            <dl className="space-y-3">
-              {games.map((game) => (
-                <div key={game.href}>
-                  <dt>
+            <section
+              aria-labelledby="teachers-feedback"
+              className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
+            >
+              <h2
+                id="teachers-feedback"
+                className="flex items-center gap-2 text-2xl font-black text-(--foreground)"
+              >
+                <MessageSquarePlus className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
+                {p.feedbackHeading}
+              </h2>
+              <div
+                className={`mt-3 space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+              >
+                <p>{p.feedbackBody1}</p>
+                <p>{p.feedbackBody2}</p>
+              </div>
+            </section>
+
+            <section
+              aria-labelledby="teachers-collaborate"
+              className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
+            >
+              <h2
+                id="teachers-collaborate"
+                className="flex items-center gap-2 text-2xl font-black text-(--foreground)"
+              >
+                <Users className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
+                {p.collaborateHeading}
+              </h2>
+              {/*
+                Only the pitch lives here. Everything about *how* to sign up —
+                and the form itself — is one click away on its own page, which
+                is what keeps this card sidebar-sized: docs/COLLABORATORS.md § 4
+                now names that page rather than this section as where the form
+                is mounted.
+              */}
+              <div
+                className={`mt-3 space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+              >
+                <p>{p.collaborateWhat}</p>
+                <p className="font-bold text-(--foreground)">{p.collaborateThanks}</p>
+                <p>{p.collaborateFreeNow}</p>
+                <p>{withPlaceholder(p.collaborateCta, 'link', collaborateLink)}</p>
+              </div>
+            </section>
+          </div>
+
+          <article className="flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8 lg:order-1">
+            <Section icon={GraduationCap} title={p.whatHeading}>
+              <p>{p.whatBody1}</p>
+              <p>{p.whatBody2}</p>
+              <p>{p.whatBody3}</p>
+              {/*
+                The case for the site — why it exists and how the games are
+                meant to help — lives on the About page, not here. Shown only
+                in a locale that has an About page; see src/i18n/about.ts.
+              */}
+              {about && (
+                <p>
+                  {withPlaceholder(
+                    about.teachersPagePointer,
+                    'link',
+                    <LocaleLink href="/about" className={INLINE_LINK_CLASS}>
+                      {about.teachersPagePointerLinkLabel}
+                    </LocaleLink>
+                  )}
+                </p>
+              )}
+            </Section>
+
+            <Section icon={Gamepad2} title={p.onSiteHeading}>
+              <p>{p.gamesIntro}</p>
+              <dl className="space-y-3">
+                {games.map((game) => (
+                  <div key={game.href}>
+                    <dt>
+                      <LocaleLink
+                        href={game.href}
+                        className="inline-block py-1 font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+                      >
+                        {game.title}
+                      </LocaleLink>
+                    </dt>
+                    <dd>{game.skill}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Section>
+
+            <Section icon={BookMarked} title={p.sheetsHeading}>
+              <p>{p.sheetsIntro}</p>
+              <ul className="grid list-disc grid-cols-1 gap-x-6 gap-y-2 pl-5 sm:grid-cols-2">
+                {sheets.map((sheet) => (
+                  <li key={sheet.slug}>
                     <LocaleLink
-                      href={game.href}
+                      href={`/cheat-sheets/${sheet.slug}`}
                       className="inline-block py-1 font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                     >
-                      {game.title}
+                      {sheet.title}
                     </LocaleLink>
-                  </dt>
-                  <dd>{game.skill}</dd>
-                </div>
-              ))}
-            </dl>
+                  </li>
+                ))}
+              </ul>
+            </Section>
 
-            <p className="flex items-start gap-2">
-              <BookMarked
-                className="mt-0.5 h-4 w-4 shrink-0 text-(--muted)"
-                aria-hidden="true"
-              />
-              {p.sheetsIntro}
-            </p>
-            <ul className="grid list-disc grid-cols-1 gap-x-6 gap-y-2 pl-5 sm:grid-cols-2">
-              {sheets.map((sheet) => (
-                <li key={sheet.slug}>
-                  <LocaleLink
-                    href={`/cheat-sheets/${sheet.slug}`}
-                    className="inline-block py-1 font-bold text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
-                  >
-                    {sheet.title}
-                  </LocaleLink>
-                </li>
-              ))}
-            </ul>
-          </Section>
+            <Section icon={Compass} title={p.exploreHeading}>
+              <p>{p.exploreBody1}</p>
+              <p>{withPlaceholder(p.exploreBody2, 'link', exploreLink)}</p>
+            </Section>
 
-          <Section icon={Languages} title={p.languagesHeading}>
-            <p>{p.languagesBody1}</p>
-            <p>{p.languagesBody2}</p>
-            <p>{p.languagesBody3}</p>
-          </Section>
+            <Section icon={Languages} title={p.languagesHeading}>
+              <p>{p.languagesBody1}</p>
+              <p>{p.languagesBody2}</p>
+              <p>{p.languagesBody3}</p>
+            </Section>
 
-          <Section icon={ShieldCheck} title={p.privacyHeading}>
-            <p>{p.privacyBody1}</p>
-            <p>{p.privacyBody2}</p>
-            <p>{withPlaceholder(p.privacyBody3, 'link', privacyLink)}</p>
-          </Section>
+            <Section icon={ShieldCheck} title={p.privacyHeading}>
+              <p>{p.privacyBody1}</p>
+              <p>{p.privacyBody2}</p>
+              <p>{withPlaceholder(p.privacyBody3, 'link', privacyLink)}</p>
+            </Section>
 
-          <Section icon={Accessibility} title={p.accessibilityHeading}>
-            <p>{p.accessibilityBody1}</p>
-            <p>{p.accessibilityBody2}</p>
-            <p>{format(p.accessibilityBody3, gameNames)}</p>
-            <p>{format(p.accessibilityBody4, gameNames)}</p>
-          </Section>
+            <Section icon={Accessibility} title={p.accessibilityHeading}>
+              <p>{p.accessibilityBody1}</p>
+              <p>{p.accessibilityBody2}</p>
+              <p>{format(p.accessibilityBody3, gameNames)}</p>
+              <p>{format(p.accessibilityBody4, gameNames)}</p>
+            </Section>
+          </article>
+        </div>
 
-          <Section icon={Users} title={p.collaborateHeading}>
-            <p>{p.collaborateWhat}</p>
-            <p>{p.collaborateCommitment}</p>
-            <p className="font-bold text-(--foreground)">{p.collaborateThanks}</p>
-            <p>{p.collaborateFreeNow}</p>
-            <p>{p.collaborateHow}</p>
-            <p>{p.collaborateReply}</p>
-            <p>{p.collaborateRecords}</p>
-
-            {/*
-              The form's strings are read here, in the Server Component, and
-              handed down. `CollaboratorForm` never imports the catalogue:
-              doing so would put this page's whole prose into the client
-              bundle. See docs/COLLABORATORS.md § 4 and
-              src/i18n/teachers-boundary.test.ts.
-            */}
-            <div className={NOT_PROSE}>
-              <CollaboratorForm
-                contactEmail={CONTACT_EMAIL}
-                copy={{
-                  heading: p.formHeading,
-                  intro: p.formIntro,
-                  use: p.formUse,
-                  deletion: p.formDelete,
-                  optional: p.formOptional,
-                  emailLabel: p.formEmailLabel,
-                  emailHelp: p.formEmailHelp,
-                  nameLabel: p.formNameLabel,
-                  schoolLabel: p.formSchoolLabel,
-                  countryLabel: p.formCountryLabel,
-                  yearLevelsLabel: p.formYearLevelsLabel,
-                  yearLevelsHelp: p.formYearLevelsHelp,
-                  subjectsLabel: p.formSubjectsLabel,
-                  subjectsHelp: p.formSubjectsHelp,
-                  messageLabel: p.formMessageLabel,
-                  messageHelp: p.formMessageHelp,
-                  submit: p.formSubmit,
-                  submitting: p.formSubmitting,
-                  successTitle: p.formSuccessTitle,
-                  successBody: p.formSuccessBody,
-                  genericError: p.formGenericError,
-                }}
-              />
-            </div>
-          </Section>
-
-          <Section icon={MessageSquarePlus} title={p.feedbackHeading}>
-            <p>{p.feedbackBody1}</p>
-            <p>{p.feedbackBody2}</p>
-          </Section>
-
-          {/*
-            Omitted entirely — heading and all — while NEXT_PUBLIC_SUPPORT_URL
-            is unset, so the page shipped before the payment account existed.
-          */}
-          {supportLink && (
+        {/*
+          Omitted entirely — heading and all — while NEXT_PUBLIC_SUPPORT_URL is
+          unset, so the page shipped before the payment account existed. Full
+          width below both columns: it is neither a pitch nor a status item,
+          so neither column is the right home for it.
+        */}
+        {supportLink && (
+          <div className="mt-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
             <Section icon={HeartHandshake} title={p.supportHeading}>
               <p>{withPlaceholder(p.supportBody, 'link', supportLink)}</p>
             </Section>
-          )}
-        </article>
+          </div>
+        )}
       </div>
     </main>
   );
@@ -355,8 +381,15 @@ function Section({
         <Icon className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
         {title}
       </h2>
+      {/*
+        `max-w-[75ch]`: the container grew to `max-w-6xl` to match the home
+        page and cut down on scrolling, but line length for justified prose
+        should not grow with it — docs/TEACHERS_PAGE.md § 6's own guideline.
+        Only bites below `lg`, where this column has no sidebar next to it yet
+        to share the width with.
+      */}
       <div
-        className={`space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+        className={`max-w-[75ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
       >
         {children}
       </div>
