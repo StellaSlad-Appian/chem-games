@@ -189,6 +189,7 @@ has been pushed:
 | 9 New diagram: Functional Groups reaction map | `cheatsheet/9-functional-groups-diagrams` | running (parallel with 7, 8) |
 | E Easy fixes and the owner's four decisions (Sonnet) | `cheatsheet/e-easy-fixes` | running (parallel with 7–9) |
 | — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | — | after 7–9 and E |
+| F Formulas in prose render with sub- and superscripts (`ChemText`) | — | after the merge, in parallel with 10a/10b (Opus). Found by the owner 2026-09-25: key concepts, paragraphs and common mistakes print "SO4 2−", "NH4+" as plain text on every sheet |
 | 10a/10b Eight smaller diagrams | — | after the merge; **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
 
 Owner to-dos from this work:

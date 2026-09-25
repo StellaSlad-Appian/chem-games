@@ -356,6 +356,12 @@ to the next agent. These two are for later:
   title size on phones. This was there before the review; it is not a
   regression.
 
+- **P1, page (all sheets, found by the owner 2026-09-25):** formulas in prose are not
+  formatted. Key concepts, section paragraphs and common mistakes are printed as plain
+  strings, so "SO4 2−", "NH4+" and "HCO3−" appear exactly as typed. `MoleculeText` is
+  only used for single-formula fields, and it only knows the ASCII "-" as a charge sign,
+  not the "−" the prose uses. Planned as step F: a `ChemText` component for prose.
+
 ## Suggested order of work
 
 1. The page bug: render `description` on both kinds of example card, and fix the

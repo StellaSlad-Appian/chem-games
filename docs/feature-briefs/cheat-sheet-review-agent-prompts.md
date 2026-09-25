@@ -765,3 +765,54 @@ each to the new-diagram rules; most need 3–5 labels.
    condensed) structure of 3-methylpentan-2-ol, with the main chain numbered
    1–5 and the OH and the methyl marked.
 ```
+
+---
+
+## Prompt F: Formulas in prose (`ChemText`)
+
+Added 2026-09-25. Model: Opus. Runs after wave 1 is merged, in parallel with
+10a/10b (it touches no diagram files). Uses the shared rules above.
+
+```text
+TASK: Formulas inside prose are printed as plain text on every cheat sheet, in
+every language: "sulfate SO4 2− vs sulfite SO3 2−", "ammonium, NH4+",
+"hydrogen carbonate HCO3−". Make them render with real subscripts and
+superscripts, the same way MoleculeText renders a formula field.
+
+WHAT IS WRONG
+- src/app/[lang]/(main)/cheat-sheets/[slug]/page.tsx prints keyTakeaways,
+  section.content and commonMistakes as plain strings. MoleculeText
+  (src/components/ui/MoleculeText.tsx) is used only for single-formula fields.
+- MoleculeText's charge rule only knows ASCII "+"/"-". The prose uses the real
+  minus sign "−" (U+2212), and writes a multi-digit charge after a space
+  ("SO4 2−", "Fe 3+"), which is MoleculeText's own convention.
+
+DO
+1. Add a ChemText component that takes a prose string and renders formula
+   tokens through MoleculeText's parser (export the parser or share it; do
+   not duplicate it). Everything else stays plain text.
+2. A token is a formula only if it is made of valid element symbols (check
+   against the real list of symbols), brackets and digits, AND contains a
+   digit or a charge. A separate charge token ("2−", "3+") joins the formula
+   right before it. Teach MoleculeText the U+2212 minus.
+3. Never touch: ordinary words in any of the six languages (Spanish "NO",
+   French "Co…", Italian "I", Russian text), "pH", group numbers ("Group 2 →
+   +2"), years, units (cm⁻¹, °C), percentages, arithmetic ("2 × 1 + 16 = 18"),
+   anything already in Unicode sub/superscript, and anything inside quotation
+   marks that names a suffix (-ate, -ite, hypo-…-ite).
+4. Use ChemText for key takeaways, section paragraphs and common mistakes,
+   and for non-formula table cells if they contain formulas ("H⁺ + OH⁻ → H₂O"
+   is already fine; "Cations + anions" must stay untouched).
+5. Tests: unit tests for the tokenizer (positive and negative cases,
+   including the ones above), AND a test that runs ChemText's detector over
+   every prose string of every sheet in all six locales and compares the list
+   of detected formula tokens with a checked-in snapshot. Review that
+   snapshot by hand: every entry must be a real formula.
+
+DO NOT change any sheet's text.
+
+VERIFY: typecheck, eslint on touched files, vitest (src/i18n,
+src/components), e2e/cheat-sheet-atomic-structure.spec.ts, and screenshots of
+polyatomic-ions, acids-and-bases and chemical-formulas key concepts in en,
+de and ru.
+```
