@@ -12,8 +12,8 @@ Every UI string on the site, with its English source and its Russian
 translation, so a native speaker or a chemistry teacher can review the Russian
 without reading any code.
 
-**1002 strings** — 405 high confidence,
-459 medium, 138 low.
+**1011 strings** — 405 high confidence,
+468 medium, 138 low.
 
 The confidence column is a judgement about *this* translation, not about Russian
 in general:
@@ -111,7 +111,7 @@ quotation marks and are enforced by a gate rather than remembered.
 | `nav.leaderboards` | Scores | Рейтинг | medium | "Рейтинг" rather than the fuller "Таблица лидеров", which stays on the dashboard heading where there is room. Idiomatic for a leaderboard in Russian apps and games, but it is a width decision as much as a translation one — a native speaker should confirm it does not read as a score rather than a ranking. |
 | `nav.games` | Games | Игры | high | Standard navigation vocabulary. "Шпаргалки" for cheat sheets is the natural Russian school word and exactly the right register for teenagers - the same call German made with Spickzettel. "Выходим…" for "Logging out" is first person plural rather than a past tense, because a Russian past tense agrees with the reader's gender. |
 | `nav.cheatSheets` | Guides | Шпаргалки | high | Standard navigation vocabulary. "Шпаргалки" for cheat sheets is the natural Russian school word and exactly the right register for teenagers - the same call German made with Spickzettel. "Выходим…" for "Logging out" is first person plural rather than a past tense, because a Russian past tense agrees with the reader's gender. |
-| `nav.explore` | Explore | Открывай | high | Standard navigation vocabulary. "Шпаргалки" for cheat sheets is the natural Russian school word and exactly the right register for teenagers - the same call German made with Spickzettel. "Выходим…" for "Logging out" is first person plural rather than a past tense, because a Russian past tense agrees with the reader's gender. |
+| `nav.explore` | Explore | Мир открытий | medium | «Мир открытий» replaces an earlier imperative «Открывай» ("keep opening" — the wrong verb for a page the reader browses rather than opens, and the one imperative among nav labels that are otherwise nouns: Игры, Шпаргалки, Рейтинг). It costs real width in the tightest row on the page; `e2e/nav.spec.ts`'s 1024px headroom test passes signed out with the new phrase in every locale, but that check has not yet been run signed in. Worth a native check on tone before shipping, same as the other fresh judgment calls in this file. |
 | `nav.login` | Log in / Register | Войти | high | "Войти" alone, not the pair "Войти / Зарегистрироваться": the same trade German, French, Spanish and Italian make, and Russian needed it most — the full pair measured 245px against the German 108 and put the 1024px header 128px over. The sign-in page offers both actions. |
 | `nav.logout` | Log out | Выйти | high | Standard navigation vocabulary. "Шпаргалки" for cheat sheets is the natural Russian school word and exactly the right register for teenagers - the same call German made with Spickzettel. "Выходим…" for "Logging out" is first person plural rather than a past tense, because a Russian past tense agrees with the reader's gender. |
 | `nav.loggingOut` | Logging out... | Выходим… | high | Standard navigation vocabulary. "Шпаргалки" for cheat sheets is the natural Russian school word and exactly the right register for teenagers - the same call German made with Spickzettel. "Выходим…" for "Logging out" is first person plural rather than a past tense, because a Russian past tense agrees with the reader's gender. |
@@ -155,9 +155,6 @@ quotation marks and are enforced by a gate rather than remembered.
 | `home.emptyProfileAnonymousTitle` | Your profile starts here | Здесь начинается твой профиль | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 | `home.emptyProfileAnonymousBody` | Log in to save your progress, manage your lab notes, and build your scientist profile. | Войди, чтобы сохранять прогресс, вести лабораторные записи и собрать профиль исследователя. | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 | `home.emptyProfileCta` | Log in / Register | Войти / Зарегистрироваться | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
-| `home.teaserAcidDetail` | Classify materials & pH levels | Разбери вещества и уровни pH | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
-| `home.teaserBlasterDetail` | Pop compounds & balance ions | Лопай соединения и собирай ионы | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
-| `home.teaserNeutraliseDetail` | Defend the lab from runaway reactions | Защити лабораторию от бурных реакций | medium | Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands. |
 
 ### `gamesHub`
 
@@ -165,6 +162,12 @@ quotation marks and are enforced by a gate rather than remembered.
 |---|---|---|---|---|
 | `gamesHub.heading` | Games | Игры | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
 | `gamesHub.intro` | Choose an experiment to begin. | Выбери опыт, с которого начнёшь. | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
+| `gamesHub.searchLabel` | Search games | Поиск игр | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
+| `gamesHub.searchPlaceholder` | Search games and concepts | Найди игру или тему | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
+| `gamesHub.filterA11y` | Filter games by year level | Отобрать игры по классу | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
+| `gamesHub.noResultsTitle` | No games match. | Подходящих игр нет. | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
+| `gamesHub.noResultsBody` | Try another year level, or a different word. | Попробуй другой класс или другое слово. | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
+| `gamesHub.clearFilters` | Clear filters | Сбросить фильтры | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
 | `gamesHub.playNow` | Play now → | Играть → | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
 | `gamesHub.acidTitle` | Acid or Base? | Кислота или основание? | low | Chosen: «Кислота или основание?» - the question the game actually asks. Rejected: «Кислота или щёлочь?» (shorter, but щёлочь is a *soluble* base and the game also sorts ammonia and solid hydroxides) and «Определи вещество» (reads as a worksheet instruction). A product-naming call for the owner. |
 | `gamesHub.acidDescription` | Classify materials by their properties. | Определяй вещества по их свойствам. | medium | Hub headings and card descriptions. The descriptions are free renderings rather than word-for-word, which suits a card. |
@@ -473,6 +476,7 @@ quotation marks and are enforced by a gate rather than remembered.
 | `cheatSheets.forTeachers` | For teachers | Для учителей | high | "Для учителей" - the plural is gender-neutral in Russian, so this needed none of the care German took with Lehrkräfte. |
 | `cheatSheets.curriculum` | Curriculum:  | Программа:  | high | Index-page furniture. cheatSheets.count is a four-form plural record (one / few / many / other), which is the shape Russian needs and the reason the whole plural system was rebuilt before this locale was written. |
 | `cheatSheets.filterA11y` | Filter topics by year level | Отобрать темы по классу | high | Index-page furniture. cheatSheets.count is a four-form plural record (one / few / many / other), which is the shape Russian needs and the reason the whole plural system was rebuilt before this locale was written. |
+| `cheatSheets.panHint` | Scroll sideways to see the rest | Прокрутите вбок, чтобы увидеть остальное | high | Index-page furniture. cheatSheets.count is a four-form plural record (one / few / many / other), which is the shape Russian needs and the reason the whole plural system was rebuilt before this locale was written. |
 
 ### `periodicTable`
 
@@ -560,15 +564,19 @@ quotation marks and are enforced by a gate rather than remembered.
 
 | Key | English | Russian | Confidence | Notes |
 |---|---|---|---|---|
-| `explore.heading` | Explore | Открывай | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.heading` | Explore | Мир открытий | medium | Reuses `nav.explore`'s «Мир открытий» for the page heading. Two words rather than one changes the `min-w-0 break-words` layout note in explore/(tabs)/layout.tsx from "unbreakable word" to "wraps on its own space", which is a layout simplification, not a translation concern. Same open native check as `nav.explore`. |
 | `explore.intro` | One molecule and one chemist, new every Monday. | Одно вещество и один химик — каждый понедельник новые. | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.dateline` | Week of {date} | Неделя — {date} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.moleculeHeading` | Molecule of the Week | Вещество недели | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.scientistHeading` | Scientist of the Week | Химик недели | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.tabsA11y` | Explore sections | Разделы «Мир открытий» | medium | Quotes «Мир открытий» in guillemets for the tab group's accessible name, same as `explore.archiveHeading` and `explore.backToExplore`. Same reasoning and the same open native check as `nav.explore`. |
+| `explore.tabMolecule` | Molecule | Вещество | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.tabScientist` | Scientist | Химик | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.tabArchive` | Archive | Архив | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.formulaLabel` | Formula | Формула | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.formulaA11y` | {name}, formula {formula} | {name}, формула {formula} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.everydayHeading` | Where you meet it | Где это встречается в жизни | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.chemistryHeading` | Why it works | Почему это работает | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.chemistryHeading` | What makes it special | Что в этом особенного | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.workHeading` | What they did | Вклад в науку | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.legacyHeading` | Why it mattered | Почему это важно | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.creditHeading` | Credit where it was due | Кому на самом деле принадлежит заслуга | medium | No specific note; reviewed as ordinary UI copy. |
@@ -576,17 +584,18 @@ quotation marks and are enforced by a gate rather than remembered.
 | `explore.scientistCta` | The chemistry behind this: {target} | Химия за этим: {target} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.moleculeImageA11y` | Diagram: {name} | Изображение: {name} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.scientistImageA11y` | Picture: {name} | Фото: {name} | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.scientistWorkImageA11y` | Picture of their work: {name} | Изображение работы: {name} | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.imageSourceLabel` | Source | Источник | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.sourcesHeading` | Sources | Источники | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.sourcesNote` | Source links last checked {date}. | Ссылки проверены — {date} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.recentHeading` | Recent weeks | Прошлые недели | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.archiveCta` | Browse every entry | Посмотреть все материалы | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.archiveHeading` | Explore archive | Архив раздела «Открывай» | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.archiveHeading` | Explore archive | Архив раздела «Мир открытий» | medium | Quotes «Мир открытий» in guillemets: «Архив раздела «Мир открытий»». Same reasoning and the same open native check as `nav.explore`. |
 | `explore.archiveIntro` | Every molecule and chemist in the rotation, the most recent first. | Все вещества и химики из ротации — сначала самые свежие. | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.archiveThisWeek` | This week | Эта неделя | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.backToExplore` | Back to Explore | Назад к разделу «Открывай» | medium | No specific note; reviewed as ordinary UI copy. |
+| `explore.backToExplore` | Back to Explore | Назад к разделу «Мир открытий» | medium | Quotes «Мир открытий» in guillemets: «Назад к разделу «Мир открытий»». Same reasoning and the same open native check as `nav.explore`. |
+| `explore.backToArchive` | Back to Archive | Назад к архиву | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.sameWeekHeading` | From the same week | Из той же недели | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.featuredOnce` | Featured in the week of {date}. | Неделя показа — {date} | medium | No specific note; reviewed as ordinary UI copy. |
-| `explore.featuredAgain` | Last featured in the week of {date}. It comes round again in the week of {nextDate}. | Последняя неделя показа — {date} Следующая — {nextDate} | medium | No specific note; reviewed as ordinary UI copy. |
 | `explore.featuredNever` | Not featured yet. First up in the week of {date}. | Показов ещё не было. Первая неделя — {date} | medium | No specific note; reviewed as ordinary UI copy. |
 
 ### `chemistry`

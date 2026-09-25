@@ -1664,6 +1664,31 @@ export const REVIEW_NOTES: Record<string, ReviewNote[]> = {
     },
     // -------------------------------------------------------------- medium --
     {
+      prefix: 'nav.explore',
+      confidence: 'medium',
+      note: '«Мир открытий» replaces an earlier imperative «Открывай» ("keep opening" — the wrong verb for a page the reader browses rather than opens, and the one imperative among nav labels that are otherwise nouns: Игры, Шпаргалки, Рейтинг). It costs real width in the tightest row on the page; `e2e/nav.spec.ts`\'s 1024px headroom test passes signed out with the new phrase in every locale, but that check has not yet been run signed in. Worth a native check on tone before shipping, same as the other fresh judgment calls in this file.',
+    },
+    {
+      prefix: 'explore.heading',
+      confidence: 'medium',
+      note: 'Reuses `nav.explore`\'s «Мир открытий» for the page heading. Two words rather than one changes the `min-w-0 break-words` layout note in explore/(tabs)/layout.tsx from "unbreakable word" to "wraps on its own space", which is a layout simplification, not a translation concern. Same open native check as `nav.explore`.',
+    },
+    {
+      prefix: 'explore.tabsA11y',
+      confidence: 'medium',
+      note: 'Quotes «Мир открытий» in guillemets for the tab group\'s accessible name, same as `explore.archiveHeading` and `explore.backToExplore`. Same reasoning and the same open native check as `nav.explore`.',
+    },
+    {
+      prefix: 'explore.archiveHeading',
+      confidence: 'medium',
+      note: 'Quotes «Мир открытий» in guillemets: «Архив раздела «Мир открытий»». Same reasoning and the same open native check as `nav.explore`.',
+    },
+    {
+      prefix: 'explore.backToExplore',
+      confidence: 'medium',
+      note: 'Quotes «Мир открытий» in guillemets: «Назад к разделу «Мир открытий»». Same reasoning and the same open native check as `nav.explore`.',
+    },
+    {
       prefix: 'home',
       confidence: 'medium',
       note: 'Marketing copy. Correct, and marketing copy is where a non-native translation reads flattest; a native speaker should decide whether "Учи химию в игре." lands.',
