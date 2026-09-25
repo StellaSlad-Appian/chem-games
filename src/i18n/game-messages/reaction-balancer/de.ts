@@ -13,7 +13,6 @@ import type { ReactionBalancerMessages } from '@/core-engine/config/games/reacti
 
 export const de = {
   header: {
-    subtitle: 'Reaktions-Balancer',
     balance: 'Gleiche aus: {name}',
     build: 'Aufstellen und ausgleichen: {name}',
     progress: 'Reaktion {round}/{total}',

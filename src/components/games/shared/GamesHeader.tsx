@@ -20,7 +20,12 @@ interface HeaderProps {
    * test can render the header bare; every game page passes it.
    */
   game?: GameName;
-  gameSubtitle: string;
+  /**
+   * A short label above the task ("Classify molecule"). Optional: the game's
+   * name already sits in the left slot, so a game whose only label would be
+   * its own name passes none rather than printing it twice.
+   */
+  gameSubtitle?: string;
   targetName?: string;
 
   progressText: string;
@@ -139,9 +144,11 @@ export default function GamesHeader({
         {/* CENTER SLOT: THE TASK, ON THE GAME'S TINT */}
         {showCenterTask ? (
           <div className={`min-w-0 rounded-xl border px-5 py-2 text-center ${accent.tint} ${accent.edge}`}>
-            <span className={`mb-0.5 block text-[10px] font-black uppercase tracking-widest ${accent.text}`}>
-              {gameSubtitle}
-            </span>
+            {gameSubtitle && (
+              <span className={`mb-0.5 block text-[10px] font-black uppercase tracking-widest ${accent.text}`}>
+                {gameSubtitle}
+              </span>
+            )}
             <h1 className="text-xl leading-snug font-black tracking-tight break-words text-(--foreground) md:text-2xl">
               {customTaskDescription ? (
                 <span>{customTaskDescription}</span>

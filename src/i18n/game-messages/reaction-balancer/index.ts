@@ -86,7 +86,6 @@ export function reactionBalancerMessages(t: Dictionary, locale: Locale) {
 
   return {
     header: {
-      subtitle: d.header.subtitle,
       balance: (name: string) => f(d.header.balance, { name }),
       build: (name: string) => f(d.header.build, { name }),
       progress: (round: number, total: number) => f(d.header.progress, { round, total }),

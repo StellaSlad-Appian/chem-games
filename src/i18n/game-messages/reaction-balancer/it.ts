@@ -48,7 +48,6 @@ import type { ReactionBalancerMessages } from '@/core-engine/config/games/reacti
 
 export const it = {
   header: {
-    subtitle: 'La bilancia degli atomi',
     balance: 'Da bilanciare: {name}',
     build: 'Da costruire e bilanciare: {name}',
     progress: 'Reazione {round}/{total}',

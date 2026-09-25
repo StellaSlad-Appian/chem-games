@@ -42,7 +42,6 @@ import type { ReactionBalancerMessages } from '@/core-engine/config/games/reacti
 
 export const es = {
   header: {
-    subtitle: 'La balanza de átomos',
     balance: 'Para ajustar: {name}',
     build: 'Para construir y ajustar: {name}',
     progress: 'Reacción {round}/{total}',

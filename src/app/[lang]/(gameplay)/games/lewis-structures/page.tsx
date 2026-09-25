@@ -192,7 +192,6 @@ export default function LewisStructuresPage() {
       <div className="px-0 md:px-2">
         <GamesHeader
           game="lewis-structures"
-          gameSubtitle={M.header.subtitle}
           progressText={progressText}
           currentLevel={currentLevel}
           score={score}

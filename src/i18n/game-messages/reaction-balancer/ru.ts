@@ -36,7 +36,6 @@ import type { ReactionBalancerMessages } from '@/core-engine/config/games/reacti
 
 export const ru = {
   header: {
-    subtitle: 'Весы реакций',
     balance: 'Уравняй: {name}',
     build: 'Собери и уравняй: {name}',
     progress: 'Реакция {round}/{total}',

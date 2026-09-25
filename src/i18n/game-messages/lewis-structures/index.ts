@@ -89,7 +89,6 @@ export function lewisMessages(t: Dictionary, locale: Locale) {
 
   return {
     header: {
-      subtitle: d.header.subtitle,
       build: (name: string, formula: string) =>
         f(d.header.build, { name: inSentence(name), formula }),
       inspect: (name: string, formula: string) =>

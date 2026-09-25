@@ -39,7 +39,6 @@ import type { ReactionType } from '@/core-engine/data/reactions';
 
 export const REACTION_BALANCER_MESSAGES = {
   header: {
-    subtitle: 'Reaction Balancer',
     balance: 'Balance: {name}',
     build: 'Build and balance: {name}',
     progress: 'Reaction {round}/{total}',

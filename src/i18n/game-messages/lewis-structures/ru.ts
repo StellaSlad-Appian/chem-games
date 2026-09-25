@@ -46,7 +46,6 @@ import type { LewisStructuresMessages } from '@/core-engine/config/games/lewis-s
 
 export const ru = {
   header: {
-    subtitle: 'Делись и заполняй',
     // Colon rather than a verb's object: «Собери воду» would need the
     // accusative, and the overlay only has «вода».
     build: 'Собери: {name} ({formula})',

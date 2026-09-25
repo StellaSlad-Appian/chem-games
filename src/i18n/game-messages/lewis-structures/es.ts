@@ -41,7 +41,6 @@ import type { LewisStructuresMessages } from '@/core-engine/config/games/lewis-s
 
 export const es = {
   header: {
-    subtitle: 'Comparte y completa',
     build: 'Para construir: {name} ({formula})',
     inspect: 'Para revisar: {name} ({formula})',
     progress: 'Molécula {round}/{total}',

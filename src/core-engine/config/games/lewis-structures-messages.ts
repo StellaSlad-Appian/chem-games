@@ -43,7 +43,6 @@ import type { Translated } from '@/i18n/format';
 
 export const LEWIS_STRUCTURES_MESSAGES = {
   header: {
-    subtitle: 'Share to Fill',
     build: 'Build: {name} ({formula})',
     inspect: 'Check: {name} ({formula})',
     progress: 'Molecule {round}/{total}',
