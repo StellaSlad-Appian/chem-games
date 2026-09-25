@@ -210,7 +210,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Van desde segundos hasta miles de millones de años, y eso es justo lo que permite datar un pasado remoto.',
     ],
     formulaExampleNames: [
-      'Carbono-12',
+      'Hidrógeno-3 (tritio)',
       'Radón-222',
       'Yodo-131',
       'Cobalto-60',
@@ -218,7 +218,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Uranio-238',
     ],
     formulaExampleDescriptions: [
-      'el patrón con el que se comparan todas las demás masas',
+      'radiactivo: periodo de semidesintegración de unos 12 años',
       'se desintegra emitiendo una partícula alfa',
       'se desintegra emitiendo una partícula beta',
       'emite radiación beta y gamma – se usa por la gamma',
@@ -229,7 +229,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'Los dos números que necesita esta chuleta',
         content:
-          'El número atómico es cuántos protones tiene un átomo, y es lo que fija de qué elemento se trata. El número másico es protones más neutrones. Toda esta chuleta va de que el segundo número cambia mientras el primero se queda quieto.',
+          'El número atómico es cuántos protones tiene un átomo, y es lo que fija de qué elemento se trata. El número másico es protones más neutrones. Toda esta chuleta va de que el segundo número cambia mientras el primero se queda quieto. Por qué la masa atómica relativa de un elemento, como el 35,5 del cloro, no es un número entero se explica en la chuleta «Masa atómica y masa fórmula relativas».',
       },
       {
         heading: 'Isótopos',
@@ -458,7 +458,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     summary:
       'Enlace iónico, covalente y metálico, y cómo la estructura explica las propiedades.',
     keyTakeaways: [
-      'Los átomos se enlazan para conseguir una capa externa completa y estable (una configuración de gas noble). En un elemento representativo, la última cifra del número de grupo te dice cuántos electrones de valencia tiene (el Cl está en el grupo 17: 7 electrones de valencia).',
+      'Los átomos se enlazan para conseguir una capa externa completa y estable (una configuración de gas noble). En un elemento representativo, la última cifra del número de grupo te dice cuántos electrones de valencia tiene (el Cl está en el grupo 17: 7 electrones de valencia; el helio, en el grupo 18, solo tiene 2).',
       'Iónico: metal + no metal. Se transfieren electrones y se forman iones que quedan sujetos en una red tridimensional por atracción electrostática.',
       'Covalente: no metal + no metal. Los electrones se comparten por pares; cada par compartido es un enlace.',
       'Metálico: átomos de metal en una red de cationes rodeados por un «mar» de electrones libres.',
@@ -770,7 +770,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
           ['n = m ÷ M', 'la masa', 'n en mol, m en g, M en g/mol'],
           ['n = N ÷ N_A', 'el número de partículas', 'N_A = 6,02 × 10²³ mol⁻¹'],
           ['n = c × V', 'la concentración de una disolución', 'c en mol/L, V en L'],
-          ['n = V ÷ V_m', 'el volumen de un gas en CLE', 'V_m = 24,8 L/mol a 25 °C y 100 kPa'],
+          ['n = V ÷ V_m', 'el volumen de un gas a 25 °C y 100 kPa', 'V_m = 24,8 L/mol a 25 °C y 100 kPa'],
           ['PV = nRT', 'un gas en otras condiciones', 'P en kPa, V en L, T en K, R = 8,31'],
         ],
       },
@@ -800,7 +800,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     summary:
       'Cuenta los electrones de valencia, comparte hasta completar los octetos y comprueba con la carga formal.',
     keyTakeaways: [
-      'Electrones de valencia = última cifra del número de grupo para los elementos representativos (H 1, C 4, N 5, O 6, halógenos 7; el nitrógeno está en el grupo 15 y el cloro en el 17). Suma un electrón por cada carga negativa y quita uno por cada carga positiva.',
+      'Electrones de valencia = última cifra del número de grupo para los elementos representativos (H 1, C 4, N 5, O 6, halógenos 7; el nitrógeno está en el grupo 15 y el cloro en el 17; el helio, en el grupo 18, solo tiene 2). Suma un electrón por cada carga negativa y quita uno por cada carga positiva.',
       'Cada enlace es un par compartido (2 electrones). Simple = 1 par, doble = 2, triple = 3. Los electrones que no forman enlaces se quedan como pares solitarios.',
       'Regla del octeto: casi todos los átomos quieren 8 electrones de valencia a su alrededor. El hidrógeno quiere 2 (el dueto).',
       'Si al átomo central le falta para el octeto después de repartir todos los electrones, convierte pares solitarios de los átomos exteriores en enlaces adicionales.',

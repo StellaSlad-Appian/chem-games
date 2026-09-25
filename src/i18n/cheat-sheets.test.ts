@@ -364,17 +364,33 @@ describe('worked sums', () => {
     expect(found).toEqual([]);
   });
 
+  /**
+   * The one deliberate exception to "a locale restates the same numbers":
+   * the German stoichiometry sheet's molar-gas-volume cell. English states
+   * V_m at the VCE reference point (25 °C, 100 kPa); German instead follows
+   * the Abitur formula sheets' own two reference points (0 °C and 25 °C, at
+   * 1013 hPa), which give different rounded values (22,4 / 24,5 L/mol, not
+   * 24,8). This is an owner decision (option b for German, see
+   * docs/i18n/glossary-de.md, "molar gas volume (V_m)"), not a translation
+   * slip, so it is named here rather than loosening the check for everyone.
+   */
+  const NUMBER_EXCEPTIONS: Partial<Record<Exclude<Locale, 'en'>, Set<string>>> = {
+    de: new Set(['stoichiometry:tables[0].rows[3][2]']),
+  };
+
   // The table cells that are numbers or sums ("2 × 1 + 16", "58,5") are
   // prose columns, so each locale restates them. They must restate the same
   // numbers, in the locale's own decimal separator.
   it.each(translatedLocales)('%s keeps the numbers in every table cell that is a sum', (locale) => {
     const mismatches: string[] = [];
+    const exceptions = NUMBER_EXCEPTIONS[locale] ?? new Set<string>();
     for (const source of CHEAT_SHEETS) {
       const target = getCheatSheet(locale, source.slug)!;
       source.tables?.forEach((table, t) => {
         table.rows.forEach((row, r) =>
           row.forEach((cell, c) => {
             if (table.formulaColumns?.includes(c) || !/^[\d\s.,+\-×()]+$/.test(cell)) return;
+            if (exceptions.has(`${source.slug}:tables[${t}].rows[${r}][${c}]`)) return;
             const translated = target.tables![t].rows[r][c];
             const same = numbersIn(translated).join(' ') === numbersIn(cell).join(' ');
             if (!same || /\d\.\d/.test(translated)) {
