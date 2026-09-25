@@ -188,11 +188,21 @@ has been pushed:
 | 8 New diagrams: Lewis Structures | `cheatsheet/8-lewis-diagrams` | done, `67d96cb` |
 | 9 New diagram: Functional Groups reaction map | `cheatsheet/9-functional-groups-diagrams` | done, `4efa19b` |
 | E Easy fixes and the owner's four decisions (Sonnet) | `cheatsheet/e-easy-fixes` | done, `f453a74` |
-| — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | `cheatsheet/wave1-merge` | merged; typecheck, 1437 unit tests, diagram check pass; build and full suite running |
+| — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | `cheatsheet/wave1-merge` | merged; typecheck, 1437 unit tests, diagram check and `next build` pass; full Playwright suite 367/369 (see the switcher item below) |
 | F Formulas in prose render with sub- and superscripts (`ChemText`) | `cheatsheet/f-chem-text` | running, parallel with 10a/10b (Opus). Found by the owner 2026-09-25: key concepts, paragraphs and common mistakes print "SO4 2−", "NH4+" as plain text on every sheet |
 | 10a/10b Eight smaller diagrams | `cheatsheet/10a-small-diagrams-a`, `cheatsheet/10b-small-diagrams-b` | running (Opus), from the merge; **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
 
 Owner to-dos from this work:
+
+- [ ] **Check two language-switcher e2e failures before merging to `master`.** On the
+      production build of `cheatsheet/wave1-merge` (`next start`), two tests in
+      `e2e/i18n.spec.ts` fail twice in a row: *the switcher moves the reader to French
+      and remembers it* (line 455) and *an unprefixed URL redirects and the switcher
+      remembers Spanish* (line 695). After switching, a bare `/cheat-sheets` redirects
+      to `/en` instead of the chosen language. The cheat sheet review did not touch
+      `LanguageSwitcher.tsx`, `src/proxy.ts` or the locale config, so it is probably
+      not caused by this work; run the same two tests on `master`'s production build
+      to confirm. The German equivalent passes.
 
 - [ ] **Merge the chain** once the last branch you want is done. Only the tip
       needs merging, because every branch contains the ones before it. Merge
