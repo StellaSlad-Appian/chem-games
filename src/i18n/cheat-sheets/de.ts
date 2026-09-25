@@ -112,7 +112,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Ein Atom hat einen Kern aus Protonen und Neutronen, um den herum Elektronen sind. Protonen tragen eine positive Ladung, Elektronen eine gleich große negative. Ein neutrales Atom hat deshalb von beiden gleich viele. Neutronen tragen keine Ladung. Fast die ganze Masse steckt im Kern, denn ein Elektron wiegt neben einem Proton so gut wie nichts.',
         imageAlt:
-          'Ein Kern aus Protonen und Neutronen in der Mitte, darum eine unscharfe Wolke, die zeigt, wo Elektronen wahrscheinlich sind. Ein Hinweis sagt, dass der Kern viel zu groß gezeichnet ist, um überhaupt sichtbar zu sein.',
+          'Ein Atom: ein Kern aus drei Protonen (gefüllte Kreise) und vier Neutronen (hohle Kreise), darum eine Elektronenwolke, die direkt am Kern am dichtesten ist und nach außen ohne Rand immer dünner wird. Mit drei Protonen und vier Neutronen wäre es Lithium-7, die Abbildung steht aber für jedes Atom. Beschriftet sind die Elektronenwolke, der Atomkern, ein Proton und ein Neutron. Ein Hinweis sagt, dass nichts maßstabsgetreu ist: Der Kern hat nur etwa 1/100 000 des Atomdurchmessers.',
       },
       {
         heading: 'Ordnungszahl und Massenzahl',
@@ -120,14 +120,14 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
           'Die Ordnungszahl ist die Zahl der Protonen, und sie macht ein Atom zu diesem Element. Jedes Chloratom hat 17 Protonen; alles mit 17 Protonen ist Chlor. Die Massenzahl ist Protonen plus Neutronen. Die Zahl der Neutronen kann sich ändern, ohne dass sich das Element ändert.',
         exampleNames: ['Chlor-35', 'Chlor-37'],
         imageAlt:
-          'Das Symbol für Chlor-35 mit der Massenzahl 35 über der Ordnungszahl 17, dazu Pfeile: 17 Protonen, und 35 minus 17 ergibt 18 Neutronen.',
+          'Das Symbol für Chlor-35: die Massenzahl 35 über der Ordnungszahl 17, links neben Cl. Eine Linie verbindet die 35 mit „Massenzahl = Protonen + Neutronen“, eine zweite die 17 mit „Ordnungszahl = Protonen“. Darunter steht 35 − 17 = 18 Neutronen.',
       },
       {
         heading: 'Elektronen, Energiestufen und die Form des Periodensystems',
         content:
           'Elektronen besetzen Energiestufen um den Kern. Die erste fasst bis zu 2, die nächste bis zu 8, dann wieder 8 bei den ersten zwanzig Elementen. Deine Lehrkraft sagt dazu vielleicht Schalen – gemeint ist dasselbe. Elektronen so zu zählen heißt bohrsches Atommodell: nützlich, und kein Bild eines echten Atoms. Wie viele in der äußersten Stufe sitzen, bestimmt, wie ein Atom reagiert. Elemente stehen in derselben Gruppe, wenn sie außen gleich viele haben. Deshalb verhält sich eine Gruppe ähnlich.',
         imageAlt:
-          'Ein Natriumkern aus 11 Protonen und 12 Neutronen, darum drei weiche Bänder mit 2, 8 und 1 Elektronen, gezeichnet als Punkte in unregelmäßigen Winkeln und nicht als Punkte auf Kreisbahnen. Daneben die Anordnung 2, 8, 1 mit der äußersten Stufe zuletzt. Die Abbildung sagt selbst, dass sie eine Art ist, Elektronen zu zählen, und kein Bild eines Atoms, und dass der Kern etwa 100 000-mal zu groß gezeichnet ist.',
+          'Natrium als Zählmodell: eine Scheibe mit der Aufschrift Na als Kern, darum drei Bänder mit sichtbarem Rand, in denen 2, 8 und 1 Elektronen in unregelmäßigen Winkeln sitzen. Das einzelne Elektron im äußersten Band ist eingekreist und mit „äußerste Stufe“ beschriftet. Darunter die Anordnung 2, 8, 1 und die Summe, 11 Elektronen. Ein Hinweis sagt, dass es eine Art ist, Elektronen zu zählen, und kein Bild eines Atoms.',
       },
       {
         heading: 'Gruppen und Perioden',
@@ -154,7 +154,7 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           'Mendelejew ordnete das Periodensystem nach der Masse, und einige Elemente landeten am falschen Platz. 1913 maß Henry Moseley die Ladung des Kerns und fand die Ordnung, die funktioniert: die Ordnungszahl. Tellur ist schwerer als Iod, steht aber davor, weil es ein Proton weniger hat.',
         imageAlt:
-          'Tellur und Iod nebeneinander. Tellur hat die größere relative Atommasse, aber die kleinere Ordnungszahl, und das Periodensystem stellt es zuerst.',
+          'Zwei Felder des Periodensystems nebeneinander, mit einem Pfeil vom ersten zum zweiten für die Reihenfolge im Periodensystem. Tellur: Ordnungszahl 52, relative Atommasse 127,60, darunter „schwerer, steht aber vorn“. Iod: Ordnungszahl 53, relative Atommasse 126,90, darunter „leichter, steht aber dahinter“. Im Tellur-Feld sind die beiden Zahlen als Ordnungszahl und relative Atommasse beschriftet.',
       },
     ],
     tables: [

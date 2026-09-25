@@ -457,6 +457,10 @@ the split.
 | synthetic element / made element | **elemento artificiale** | *Elemento sintetico* is also correct; *artificiale* is what Italian uses for the transuranium elements. |
 | radiocarbon dating | **datazione al radiocarbonio** | The standard Italian phrase. *Datazione al carbonio-14* is equally clear and is used once, where the sheet names the isotope. |
 | optically stimulated luminescence (OSL) | **luminescenza otticamente stimolata (OSL)** | The abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in Italian school material. |
+| electron cloud (diagram label) | **nube elettronica** | Added 2026-09-25 with the redrawn atom diagrams. *Nuvola elettronica* is also in circulation; *nube* is the textbook form and is shorter. The old alt text said *nuvola sfumata*; the new one follows the label. |
+| not to scale (diagram caveat) | **Non in scala**, and the ratio as **1/100 000 del diametro dell’atomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diametro*, because by volume the ratio is about 10⁻¹⁵. |
+| heavier, but first / lighter, but second (06) | **più pesante, ma viene prima** / **più leggero, ma viene dopo** | Added 2026-09-25 with the redrawn atom diagrams. *Venire prima / dopo* is the natural Italian for a place in a sequence. |
+| a cell of the periodic table | **casella** | Added 2026-09-25 with the redrawn atom diagrams. |
 
 ## Formulae, equations and naming
 

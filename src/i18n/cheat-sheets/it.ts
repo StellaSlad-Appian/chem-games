@@ -139,7 +139,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Un atomo ha un nucleo di protoni e neutroni, con gli elettroni intorno. I protoni portano una carica positiva e gli elettroni una carica negativa uguale, quindi un atomo neutro ne ha altrettanti degli uni e degli altri. I neutroni non portano carica. Quasi tutta la massa sta nel nucleo, perché un elettrone non pesa quasi niente accanto a un protone.',
         imageAlt:
-          'Un nucleo di protoni e neutroni al centro, circondato da una nuvola sfumata che mostra dove è probabile trovare gli elettroni. Una nota avverte che il nucleo è disegnato molto più grande del vero, altrimenti non si vedrebbe.',
+          'Un atomo: un nucleo di tre protoni (cerchi pieni) e quattro neutroni (cerchi vuoti), circondato da una nube elettronica molto fitta vicino al nucleo, che si dirada verso l’esterno senza un bordo. Con tre protoni e quattro neutroni sarebbe litio-7, ma il disegno vale per qualsiasi atomo. Le etichette indicano la nube elettronica, il nucleo, un protone e un neutrone. Una nota dice che non è in scala: il nucleo misura circa 1/100 000 del diametro dell’atomo.',
       },
       {
         heading: 'Numero atomico e numero di massa',
@@ -147,14 +147,14 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
           'Il numero atomico è il numero di protoni, ed è ciò che rende un atomo quell’elemento. Ogni atomo di cloro ha 17 protoni; qualunque cosa abbia 17 protoni è cloro. Il numero di massa è protoni più neutroni. I neutroni possono cambiare senza che cambi l’elemento.',
         exampleNames: ['Cloro-35', 'Cloro-37'],
         imageAlt:
-          'Il simbolo del cloro-35 con il numero di massa 35 scritto sopra il numero atomico 17, e delle frecce: 17 protoni, e 35 meno 17 dà 18 neutroni.',
+          'Il simbolo del cloro-35: il numero di massa 35 sopra il numero atomico 17, a sinistra di Cl. Una linea collega il 35 a «numero di massa = protoni + neutroni» e un’altra collega il 17 a «numero atomico = protoni». Sotto: 35 − 17 = 18 neutroni.',
       },
       {
         heading: 'Elettroni, livelli di energia e forma della tavola',
         content:
           'Gli elettroni occupano livelli di energia intorno al nucleo. Il primo ne tiene fino a 2, il successivo fino a 8, poi ancora 8 per i primi venti elementi. Chi ti insegna può chiamarli gusci: è la stessa cosa. Contare gli elettroni in questo modo si chiama modello di Bohr: è utile, e non è la fotografia di un atomo vero. Quanti ce ne sono sul livello esterno decide come reagisce un atomo. Due elementi stanno nello stesso gruppo quando ne hanno lo stesso numero all’esterno. È per questo che un gruppo si comporta in modo simile.',
         imageAlt:
-          'Un nucleo di sodio con 11 protoni e 12 neutroni, circondato da tre bande sfumate che contengono 2, 8 e 1 elettroni, disegnati come segni ad angoli irregolari e non come punti su cerchi. Accanto, la disposizione 2, 8, 1 con il livello esterno per ultimo. La figura stessa dice che è un modo per contare gli elettroni e non l’immagine di un atomo, e che il nucleo è disegnato circa 100 000 volte troppo grande.',
+          'Il sodio, Na, disegnato come modello per contare gli elettroni: un disco con la scritta Na per il nucleo, dentro tre bande dal bordo visibile che contengono 2, 8 e 1 elettroni ad angoli irregolari. L’unico elettrone della banda esterna è cerchiato ed etichettato «livello esterno». Sotto, la disposizione 2, 8, 1 e il totale, 11 elettroni. Una nota dice che è un modo per contare gli elettroni, non un’immagine dell’atomo.',
       },
       {
         heading: 'Gruppi e periodi',
@@ -181,7 +181,7 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           'Mendeleev ordinò la tavola per massa, e alcuni elementi finirono nel posto sbagliato. Nel 1913 Henry Moseley misurò la carica del nucleo e trovò l’ordine che funziona: il numero atomico. Il tellurio è più pesante dello iodio, ma viene prima, perché ha un protone in meno.',
         imageAlt:
-          'Il tellurio e lo iodio uno accanto all’altro. Il tellurio ha la massa atomica relativa maggiore ma il numero atomico minore, e la tavola lo mette per primo.',
+          'Due caselle della tavola periodica affiancate, con una freccia dalla prima alla seconda per l’ordine nella tavola. Tellurio: numero atomico 52, massa atomica relativa 127,60, con «più pesante, ma viene prima». Iodio: numero atomico 53, massa atomica relativa 126,90, con «più leggero, ma viene dopo». Nella casella del tellurio i due numeri sono etichettati numero atomico e massa atomica relativa.',
       },
     ],
     tables: [

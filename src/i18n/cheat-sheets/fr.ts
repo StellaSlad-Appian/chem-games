@@ -127,7 +127,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'Un atome a un noyau de protons et de neutrons, avec des électrons autour. Les protons portent une charge positive et les électrons une charge négative égale. Un atome neutre en a donc autant des uns que des autres. Les neutrons ne portent aucune charge. Presque toute la masse est dans le noyau, parce qu’un électron ne pèse presque rien à côté d’un proton.',
         imageAlt:
-          'Un noyau de protons et de neutrons au centre, entouré d’un nuage flou montrant où les électrons se trouvent probablement. Une note précise que le noyau est dessiné bien trop gros pour être visible.',
+          'Un atome : un noyau de trois protons (disques pleins) et quatre neutrons (cercles creux), entouré d’un nuage électronique très dense contre le noyau, qui s’éclaircit vers l’extérieur sans bord net. Avec trois protons et quatre neutrons, ce serait du lithium 7, mais le schéma vaut pour n’importe quel atome. Des légendes désignent le nuage électronique, le noyau, un proton et un neutron. Une note précise que l’échelle n’est pas respectée : le noyau mesure environ 1/100 000 du diamètre de l’atome.',
       },
       {
         heading: 'Numéro atomique et nombre de masse',
@@ -135,14 +135,14 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
           'Le numéro atomique est le nombre de protons, et c’est lui qui fait qu’un atome est cet élément. Tout atome de chlore a 17 protons ; tout ce qui a 17 protons est du chlore. Le nombre de masse, c’est les protons plus les neutrons. Le nombre de neutrons peut varier sans changer l’élément.',
         exampleNames: ['Chlore 35', 'Chlore 37'],
         imageAlt:
-          'Le symbole du chlore 35 avec le nombre de masse 35 écrit au-dessus du numéro atomique 17, et des flèches : 17 protons, et 35 moins 17 donne 18 neutrons.',
+          'Le symbole du chlore 35 : le nombre de masse 35 au-dessus du numéro atomique 17, à gauche de Cl. Un trait relie 35 à « nombre de masse = protons + neutrons », un autre relie 17 à « numéro atomique = protons ». En dessous : 35 − 17 = 18 neutrons.',
       },
       {
         heading: 'Électrons, niveaux d’énergie et forme du tableau',
         content:
           'Les électrons occupent des niveaux d’énergie autour du noyau. Le premier en contient jusqu’à 2, le suivant jusqu’à 8, puis 8 encore pour les vingt premiers éléments. Ton prof parle peut-être de couches : c’est la même chose. Compter les électrons ainsi s’appelle le modèle de Bohr : il est utile, et ce n’est pas une image d’un vrai atome. Le nombre d’électrons du niveau extérieur décide de la façon dont un atome réagit. Deux éléments sont dans le même groupe quand ils en ont autant à l’extérieur. C’est pour cela qu’un groupe se comporte de la même manière.',
         imageAlt:
-          'Un noyau de sodium de 11 protons et 12 neutrons, entouré de trois bandes floues portant 2, 8 et 1 électrons, dessinés comme des marques à des angles irréguliers et non comme des points sur des cercles. À côté, l’arrangement 2, 8, 1 avec le niveau externe en dernier. La figure précise elle-même qu’elle est une façon de compter les électrons et non une image d’un atome, et que le noyau est dessiné environ 100 000 fois trop gros.',
+          'Le sodium, Na, dessiné comme un modèle pour compter les électrons : un disque marqué Na pour le noyau, dans trois bandes aux bords visibles qui portent 2, 8 et 1 électrons à des angles irréguliers. L’électron seul de la bande extérieure est entouré d’un cercle, avec la légende « niveau extérieur ». En dessous, l’arrangement 2, 8, 1 et le total, 11 électrons. Une note précise que c’est une façon de compter les électrons, pas une image de l’atome.',
       },
       {
         heading: 'Groupes et périodes',
@@ -169,7 +169,7 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           'Mendeleïev a rangé le tableau par masse, et quelques éléments se sont retrouvés au mauvais endroit. En 1913, Henry Moseley a mesuré la charge du noyau et a trouvé l’ordre qui marche : le numéro atomique. Le tellure est plus lourd que l’iode, mais il passe avant, parce qu’il a un proton de moins.',
         imageAlt:
-          'Le tellure et l’iode côte à côte. Le tellure a la masse atomique relative la plus grande mais le numéro atomique le plus petit, et le tableau le place en premier.',
+          'Deux cases du tableau périodique côte à côte, avec une flèche de la première vers la seconde pour l’ordre dans le tableau. Tellure : numéro atomique 52, masse atomique relative 127,60, avec « plus lourd, mais placé avant ». Iode : numéro atomique 53, masse atomique relative 126,90, avec « plus léger, mais placé après ». Dans la case du tellure, les deux nombres sont légendés numéro atomique et masse atomique relative.',
       },
     ],
     tables: [

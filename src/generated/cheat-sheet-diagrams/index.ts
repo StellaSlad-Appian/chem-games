@@ -7,11 +7,11 @@
 // sibling modules, loaded by src/lib/cheat-sheet-diagrams.ts.
 
 export const CHEAT_SHEET_DIAGRAMS = {
-  'atomic-structure/01-inside-an-atom': { width: 640, height: 360 },
-  'atomic-structure/02-atomic-and-mass-number': { width: 640, height: 320 },
+  'atomic-structure/01-inside-an-atom': { width: 640, height: 404 },
+  'atomic-structure/02-atomic-and-mass-number': { width: 640, height: 304 },
   'isotopes-and-radioactivity/03-isotopes-of-hydrogen': { width: 640, height: 280 },
-  'atomic-structure/05-energy-levels': { width: 640, height: 300 },
-  'atomic-structure/06-ordered-by-atomic-number': { width: 640, height: 300 },
+  'atomic-structure/05-energy-levels': { width: 640, height: 436 },
+  'atomic-structure/06-ordered-by-atomic-number': { width: 640, height: 256 },
   'isotopes-and-radioactivity/07-decay-and-made-elements': { width: 640, height: 320 },
 } as const;
 

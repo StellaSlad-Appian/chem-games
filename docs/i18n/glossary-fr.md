@@ -271,6 +271,10 @@ the split.
 | synthetic element / made element | **élément artificiel** | *Élément synthétique* is also correct; *artificiel* is the word French uses for the transuranium elements and pairs with the sheet's "had to be made". |
 | radiocarbon dating | **datation au carbone 14** | French writes the isotope as *carbone 14*, with a space and no hyphen, which is why the sheet's prose does too while the formula stays `C-14`. |
 | optically stimulated luminescence (OSL) | **luminescence stimulée optiquement (OSL)** | The established French term; the abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in French school material. |
+| electron cloud (diagram label) | **nuage électronique** | Added 2026-09-25 with the redrawn atom diagrams. The standard term in French teaching. |
+| not to scale (diagram caveat) | **Échelle non respectée**, and the ratio as **1/100 000 du diamètre de l’atome** | Added 2026-09-25 with the redrawn atom diagrams. *Échelle non respectée* is the caption French textbooks print under a schematic; *pas à l’échelle* is a calque. Says *diamètre*, because by volume the ratio is about 10⁻¹⁵. |
+| heavier, but first / lighter, but second (06) | **plus lourd, mais placé avant** / **plus léger, mais placé après** | Added 2026-09-25 with the redrawn atom diagrams. Masculine to agree with *tellure* and *iode*, not with the reader. |
+| a cell of the periodic table | **case** (*la case du tellure*) | Added 2026-09-25 with the redrawn atom diagrams. |
 
 ## Formulae, equations and naming
 

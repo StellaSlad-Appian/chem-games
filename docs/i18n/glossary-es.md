@@ -406,6 +406,10 @@ the split.
 | synthetic element / made element | **elemento artificial** | *Elemento sintético* is also correct; *artificial* is what Spanish uses for the transuranium elements. |
 | radiocarbon dating | **datación por carbono-14** | Spanish writes the isotope with a hyphen, as the sheet already does for *cloro-35*. |
 | optically stimulated luminescence (OSL) | **luminiscencia ópticamente estimulada (OSL)** | Note *luminiscencia*, with an i. The abbreviation is the English one and stays Latin. **Rated low** — a specialist archaeological dating method, rare in Spanish school material. |
+| electron cloud (diagram label) | **nube electrónica** | Added 2026-09-25 with the redrawn atom diagrams. The standard term in ESO textbooks. |
+| not to scale (diagram caveat) | **No está a escala**, and the ratio as **1/100 000 del diámetro del átomo** | Added 2026-09-25 with the redrawn atom diagrams. Says *diámetro*, because by volume the ratio is about 10⁻¹⁵. *100 000 veces menor* was rejected: common, but it does not say what is compared, and *veces menor* is a construction style guides object to. |
+| heavier, but first / lighter, but second (06) | **más pesado, pero va antes** / **más ligero, pero va después** | Added 2026-09-25 with the redrawn atom diagrams. *Ir antes / después* is how a Spanish classroom says where an element sits in the table. |
+| a cell of the periodic table | **casilla** | Added 2026-09-25 with the redrawn atom diagrams. |
 
 ## Formulae, equations and naming
 

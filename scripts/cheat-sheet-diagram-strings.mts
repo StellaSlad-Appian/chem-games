@@ -42,268 +42,178 @@ export type SlotStrings = Record<Locale, Record<string, string>>;
 export const DIAGRAM_STRINGS: Record<string, SlotStrings> = {
   'atomic-structure/01-inside-an-atom': {
     en: {
-      electrons: 'Electrons',
-      electronsLine1: 'are somewhere in this',
-      electronsLine2: 'fuzzy region — never',
-      electronsLine3: 'on a track or an orbit.',
-      nucleus: 'Nucleus',
-      nucleusLine1: 'protons and neutrons,',
-      nucleusLine2: 'and nearly all the mass.',
-      keyProton: 'filled = proton',
-      keyNeutron: 'hollow = neutron',
-      scaleLine1: 'Nothing here is to scale. A real nucleus is about',
-      scaleLine2: '1/100,000 of the atom — far too small to draw.',
+      electronCloud: 'electron cloud',
+      nucleus: 'nucleus',
+      proton: 'proton',
+      neutron: 'neutron',
+      scale: 'Not to scale: the nucleus is about 1/100,000 of the atom’s width.',
     },
     de: {
-      electrons: 'Electrons', // TODO translate (task 5/6)
-      electronsLine1: 'are somewhere in this', // TODO translate (task 5/6)
-      electronsLine2: 'fuzzy region — never', // TODO translate (task 5/6)
-      electronsLine3: 'on a track or an orbit.', // TODO translate (task 5/6)
-      nucleus: 'Nucleus', // TODO translate (task 5/6)
-      nucleusLine1: 'protons and neutrons,', // TODO translate (task 5/6)
-      nucleusLine2: 'and nearly all the mass.', // TODO translate (task 5/6)
-      keyProton: 'filled = proton', // TODO translate (task 5/6)
-      keyNeutron: 'hollow = neutron', // TODO translate (task 5/6)
-      scaleLine1: 'Nothing here is to scale. A real nucleus is about', // TODO translate (task 5/6)
-      scaleLine2: '1/100,000 of the atom — far too small to draw.', // TODO translate (task 5/6)
+      electronCloud: 'Elektronenwolke',
+      nucleus: 'Atomkern',
+      proton: 'Proton',
+      neutron: 'Neutron',
+      scale: 'Nicht maßstabsgetreu: Der Kern hat nur etwa 1/100 000 des Atomdurchmessers.',
     },
     fr: {
-      electrons: 'Electrons', // TODO translate (task 5/6)
-      electronsLine1: 'are somewhere in this', // TODO translate (task 5/6)
-      electronsLine2: 'fuzzy region — never', // TODO translate (task 5/6)
-      electronsLine3: 'on a track or an orbit.', // TODO translate (task 5/6)
-      nucleus: 'Nucleus', // TODO translate (task 5/6)
-      nucleusLine1: 'protons and neutrons,', // TODO translate (task 5/6)
-      nucleusLine2: 'and nearly all the mass.', // TODO translate (task 5/6)
-      keyProton: 'filled = proton', // TODO translate (task 5/6)
-      keyNeutron: 'hollow = neutron', // TODO translate (task 5/6)
-      scaleLine1: 'Nothing here is to scale. A real nucleus is about', // TODO translate (task 5/6)
-      scaleLine2: '1/100,000 of the atom — far too small to draw.', // TODO translate (task 5/6)
+      electronCloud: 'nuage électronique',
+      nucleus: 'noyau',
+      proton: 'proton',
+      neutron: 'neutron',
+      scale: 'Échelle non respectée : le noyau mesure environ 1/100 000 du diamètre de l’atome.',
     },
     es: {
-      electrons: 'Electrons', // TODO translate (task 5/6)
-      electronsLine1: 'are somewhere in this', // TODO translate (task 5/6)
-      electronsLine2: 'fuzzy region — never', // TODO translate (task 5/6)
-      electronsLine3: 'on a track or an orbit.', // TODO translate (task 5/6)
-      nucleus: 'Nucleus', // TODO translate (task 5/6)
-      nucleusLine1: 'protons and neutrons,', // TODO translate (task 5/6)
-      nucleusLine2: 'and nearly all the mass.', // TODO translate (task 5/6)
-      keyProton: 'filled = proton', // TODO translate (task 5/6)
-      keyNeutron: 'hollow = neutron', // TODO translate (task 5/6)
-      scaleLine1: 'Nothing here is to scale. A real nucleus is about', // TODO translate (task 5/6)
-      scaleLine2: '1/100,000 of the atom — far too small to draw.', // TODO translate (task 5/6)
+      electronCloud: 'nube electrónica',
+      nucleus: 'núcleo',
+      proton: 'protón',
+      neutron: 'neutrón',
+      scale: 'No está a escala: el núcleo mide cerca de 1/100 000 del diámetro del átomo.',
     },
     it: {
-      electrons: 'Electrons', // TODO translate (task 5/6)
-      electronsLine1: 'are somewhere in this', // TODO translate (task 5/6)
-      electronsLine2: 'fuzzy region — never', // TODO translate (task 5/6)
-      electronsLine3: 'on a track or an orbit.', // TODO translate (task 5/6)
-      nucleus: 'Nucleus', // TODO translate (task 5/6)
-      nucleusLine1: 'protons and neutrons,', // TODO translate (task 5/6)
-      nucleusLine2: 'and nearly all the mass.', // TODO translate (task 5/6)
-      keyProton: 'filled = proton', // TODO translate (task 5/6)
-      keyNeutron: 'hollow = neutron', // TODO translate (task 5/6)
-      scaleLine1: 'Nothing here is to scale. A real nucleus is about', // TODO translate (task 5/6)
-      scaleLine2: '1/100,000 of the atom — far too small to draw.', // TODO translate (task 5/6)
+      electronCloud: 'nube elettronica',
+      nucleus: 'nucleo',
+      proton: 'protone',
+      neutron: 'neutrone',
+      scale: 'Non in scala: il nucleo misura circa 1/100 000 del diametro dell’atomo.',
     },
     ru: {
-      electrons: 'Electrons', // TODO translate (task 5/6)
-      electronsLine1: 'are somewhere in this', // TODO translate (task 5/6)
-      electronsLine2: 'fuzzy region — never', // TODO translate (task 5/6)
-      electronsLine3: 'on a track or an orbit.', // TODO translate (task 5/6)
-      nucleus: 'Nucleus', // TODO translate (task 5/6)
-      nucleusLine1: 'protons and neutrons,', // TODO translate (task 5/6)
-      nucleusLine2: 'and nearly all the mass.', // TODO translate (task 5/6)
-      keyProton: 'filled = proton', // TODO translate (task 5/6)
-      keyNeutron: 'hollow = neutron', // TODO translate (task 5/6)
-      scaleLine1: 'Nothing here is to scale. A real nucleus is about', // TODO translate (task 5/6)
-      scaleLine2: '1/100,000 of the atom — far too small to draw.', // TODO translate (task 5/6)
+      electronCloud: 'электронное облако',
+      nucleus: 'ядро',
+      proton: 'протон',
+      neutron: 'нейтрон',
+      scale: 'Масштаб не соблюдён: ядро примерно в 100 000 раз меньше атома по диаметру.',
     },
   },
   'atomic-structure/02-atomic-and-mass-number': {
     en: {
-      title: 'Atomic number and mass number',
-      massNumber: 'mass number {mass}',
-      massNumberMeaning: 'protons + neutrons',
-      atomicNumber: 'atomic number {atomic}',
-      atomicLine1: '{atomic} protons, which is',
-      atomicLine2: 'what makes it chlorine',
+      massNumber: 'mass number = protons + neutrons',
+      atomicNumber: 'atomic number = protons',
       subtraction: '{mass} − {atomic} = {neutrons} neutrons',
     },
     de: {
-      title: 'Atomic number and mass number', // TODO translate (task 5/6)
-      massNumber: 'mass number {mass}', // TODO translate (task 5/6)
-      massNumberMeaning: 'protons + neutrons', // TODO translate (task 5/6)
-      atomicNumber: 'atomic number {atomic}', // TODO translate (task 5/6)
-      atomicLine1: '{atomic} protons, which is', // TODO translate (task 5/6)
-      atomicLine2: 'what makes it chlorine', // TODO translate (task 5/6)
-      subtraction: '{mass} − {atomic} = {neutrons} neutrons', // TODO translate (task 5/6)
+      massNumber: 'Massenzahl = Protonen + Neutronen',
+      atomicNumber: 'Ordnungszahl = Protonen',
+      subtraction: '{mass} − {atomic} = {neutrons} Neutronen',
     },
     fr: {
-      title: 'Atomic number and mass number', // TODO translate (task 5/6)
-      massNumber: 'mass number {mass}', // TODO translate (task 5/6)
-      massNumberMeaning: 'protons + neutrons', // TODO translate (task 5/6)
-      atomicNumber: 'atomic number {atomic}', // TODO translate (task 5/6)
-      atomicLine1: '{atomic} protons, which is', // TODO translate (task 5/6)
-      atomicLine2: 'what makes it chlorine', // TODO translate (task 5/6)
-      subtraction: '{mass} − {atomic} = {neutrons} neutrons', // TODO translate (task 5/6)
+      massNumber: 'nombre de masse = protons + neutrons',
+      atomicNumber: 'numéro atomique = protons',
+      subtraction: '{mass} − {atomic} = {neutrons} neutrons',
     },
     es: {
-      title: 'Atomic number and mass number', // TODO translate (task 5/6)
-      massNumber: 'mass number {mass}', // TODO translate (task 5/6)
-      massNumberMeaning: 'protons + neutrons', // TODO translate (task 5/6)
-      atomicNumber: 'atomic number {atomic}', // TODO translate (task 5/6)
-      atomicLine1: '{atomic} protons, which is', // TODO translate (task 5/6)
-      atomicLine2: 'what makes it chlorine', // TODO translate (task 5/6)
-      subtraction: '{mass} − {atomic} = {neutrons} neutrons', // TODO translate (task 5/6)
+      massNumber: 'número másico = protones + neutrones',
+      atomicNumber: 'número atómico = protones',
+      subtraction: '{mass} − {atomic} = {neutrons} neutrones',
     },
     it: {
-      title: 'Atomic number and mass number', // TODO translate (task 5/6)
-      massNumber: 'mass number {mass}', // TODO translate (task 5/6)
-      massNumberMeaning: 'protons + neutrons', // TODO translate (task 5/6)
-      atomicNumber: 'atomic number {atomic}', // TODO translate (task 5/6)
-      atomicLine1: '{atomic} protons, which is', // TODO translate (task 5/6)
-      atomicLine2: 'what makes it chlorine', // TODO translate (task 5/6)
-      subtraction: '{mass} − {atomic} = {neutrons} neutrons', // TODO translate (task 5/6)
+      massNumber: 'numero di massa = protoni + neutroni',
+      atomicNumber: 'numero atomico = protoni',
+      subtraction: '{mass} − {atomic} = {neutrons} neutroni',
     },
     ru: {
-      title: 'Atomic number and mass number', // TODO translate (task 5/6)
-      massNumber: 'mass number {mass}', // TODO translate (task 5/6)
-      massNumberMeaning: 'protons + neutrons', // TODO translate (task 5/6)
-      atomicNumber: 'atomic number {atomic}', // TODO translate (task 5/6)
-      atomicLine1: '{atomic} protons, which is', // TODO translate (task 5/6)
-      atomicLine2: 'what makes it chlorine', // TODO translate (task 5/6)
-      subtraction: '{mass} − {atomic} = {neutrons} neutrons', // TODO translate (task 5/6)
+      massNumber: 'массовое число = протоны + нейтроны',
+      atomicNumber: 'атомный номер = протоны',
+      subtraction: '{mass} − {atomic} = {neutrons} нейтронов',
     },
   },
   'atomic-structure/05-energy-levels': {
     en: {
-      nucleusCounts: '{protons} protons, {neutrons} neutrons',
+      outerLevel: 'outer level',
       arrangement: '{first}, {second}, {third}',
-      outerLast: 'outer level last',
-      level1: 'level 1: {count} electrons',
-      level2: 'level 2: {count} electrons',
-      level3: 'level 3: {count} electron',
+      electrons: '{count} electrons',
       countNote: 'A way to count electrons, not a picture of an atom.',
-      scaleNote: 'The nucleus is drawn about 100,000 times too big.',
     },
     de: {
-      nucleusCounts: '{protons} protons, {neutrons} neutrons', // TODO translate (task 5/6)
-      arrangement: '{first}, {second}, {third}', // TODO translate (task 5/6)
-      outerLast: 'outer level last', // TODO translate (task 5/6)
-      level1: 'level 1: {count} electrons', // TODO translate (task 5/6)
-      level2: 'level 2: {count} electrons', // TODO translate (task 5/6)
-      level3: 'level 3: {count} electron', // TODO translate (task 5/6)
-      countNote: 'A way to count electrons, not a picture of an atom.', // TODO translate (task 5/6)
-      scaleNote: 'The nucleus is drawn about 100,000 times too big.', // TODO translate (task 5/6)
+      outerLevel: 'äußerste Stufe',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} Elektronen',
+      countNote: 'Eine Art, Elektronen zu zählen – kein Bild eines Atoms.',
     },
     fr: {
-      nucleusCounts: '{protons} protons, {neutrons} neutrons', // TODO translate (task 5/6)
-      arrangement: '{first}, {second}, {third}', // TODO translate (task 5/6)
-      outerLast: 'outer level last', // TODO translate (task 5/6)
-      level1: 'level 1: {count} electrons', // TODO translate (task 5/6)
-      level2: 'level 2: {count} electrons', // TODO translate (task 5/6)
-      level3: 'level 3: {count} electron', // TODO translate (task 5/6)
-      countNote: 'A way to count electrons, not a picture of an atom.', // TODO translate (task 5/6)
-      scaleNote: 'The nucleus is drawn about 100,000 times too big.', // TODO translate (task 5/6)
+      outerLevel: 'niveau extérieur',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} électrons',
+      countNote: 'Une façon de compter les électrons, pas une image de l’atome.',
     },
     es: {
-      nucleusCounts: '{protons} protons, {neutrons} neutrons', // TODO translate (task 5/6)
-      arrangement: '{first}, {second}, {third}', // TODO translate (task 5/6)
-      outerLast: 'outer level last', // TODO translate (task 5/6)
-      level1: 'level 1: {count} electrons', // TODO translate (task 5/6)
-      level2: 'level 2: {count} electrons', // TODO translate (task 5/6)
-      level3: 'level 3: {count} electron', // TODO translate (task 5/6)
-      countNote: 'A way to count electrons, not a picture of an atom.', // TODO translate (task 5/6)
-      scaleNote: 'The nucleus is drawn about 100,000 times too big.', // TODO translate (task 5/6)
+      outerLevel: 'nivel exterior',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} electrones',
+      countNote: 'Una forma de contar electrones, no una imagen del átomo.',
     },
     it: {
-      nucleusCounts: '{protons} protons, {neutrons} neutrons', // TODO translate (task 5/6)
-      arrangement: '{first}, {second}, {third}', // TODO translate (task 5/6)
-      outerLast: 'outer level last', // TODO translate (task 5/6)
-      level1: 'level 1: {count} electrons', // TODO translate (task 5/6)
-      level2: 'level 2: {count} electrons', // TODO translate (task 5/6)
-      level3: 'level 3: {count} electron', // TODO translate (task 5/6)
-      countNote: 'A way to count electrons, not a picture of an atom.', // TODO translate (task 5/6)
-      scaleNote: 'The nucleus is drawn about 100,000 times too big.', // TODO translate (task 5/6)
+      outerLevel: 'livello esterno',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} elettroni',
+      countNote: 'Un modo per contare gli elettroni, non un’immagine dell’atomo.',
     },
     ru: {
-      nucleusCounts: '{protons} protons, {neutrons} neutrons', // TODO translate (task 5/6)
-      arrangement: '{first}, {second}, {third}', // TODO translate (task 5/6)
-      outerLast: 'outer level last', // TODO translate (task 5/6)
-      level1: 'level 1: {count} electrons', // TODO translate (task 5/6)
-      level2: 'level 2: {count} electrons', // TODO translate (task 5/6)
-      level3: 'level 3: {count} electron', // TODO translate (task 5/6)
-      countNote: 'A way to count electrons, not a picture of an atom.', // TODO translate (task 5/6)
-      scaleNote: 'The nucleus is drawn about 100,000 times too big.', // TODO translate (task 5/6)
+      outerLevel: 'внешний уровень',
+      arrangement: '{first}, {second}, {third}',
+      electrons: '{count} электронов',
+      countNote: 'Схема для подсчёта электронов, а не рисунок атома.',
     },
   },
   'atomic-structure/06-ordered-by-atomic-number': {
     en: {
-      title: 'Ordered by atomic number, not by mass',
-      subtitle: 'The small number counts the protons.',
+      atomicNumber: 'atomic number',
+      relativeAtomicMass: 'relative atomic mass',
       telluriumName: 'Tellurium',
       telluriumMass: '127.60',
       telluriumRank: 'heavier, but first',
       iodineName: 'Iodine',
       iodineMass: '126.90',
       iodineRank: 'lighter, but second',
-      conclusion: 'Tellurium has one proton fewer, so it goes first.',
     },
     de: {
-      title: 'Ordered by atomic number, not by mass', // TODO translate (task 5/6)
-      subtitle: 'The small number counts the protons.', // TODO translate (task 5/6)
-      telluriumName: 'Tellurium', // TODO translate (task 5/6)
-      telluriumMass: '127.60', // TODO translate (task 5/6)
-      telluriumRank: 'heavier, but first', // TODO translate (task 5/6)
-      iodineName: 'Iodine', // TODO translate (task 5/6)
-      iodineMass: '126.90', // TODO translate (task 5/6)
-      iodineRank: 'lighter, but second', // TODO translate (task 5/6)
-      conclusion: 'Tellurium has one proton fewer, so it goes first.', // TODO translate (task 5/6)
+      atomicNumber: 'Ordnungszahl',
+      relativeAtomicMass: 'relative Atommasse',
+      telluriumName: 'Tellur',
+      telluriumMass: '127,60',
+      telluriumRank: 'schwerer, steht aber vorn',
+      iodineName: 'Iod',
+      iodineMass: '126,90',
+      iodineRank: 'leichter, steht aber dahinter',
     },
     fr: {
-      title: 'Ordered by atomic number, not by mass', // TODO translate (task 5/6)
-      subtitle: 'The small number counts the protons.', // TODO translate (task 5/6)
-      telluriumName: 'Tellurium', // TODO translate (task 5/6)
-      telluriumMass: '127.60', // TODO translate (task 5/6)
-      telluriumRank: 'heavier, but first', // TODO translate (task 5/6)
-      iodineName: 'Iodine', // TODO translate (task 5/6)
-      iodineMass: '126.90', // TODO translate (task 5/6)
-      iodineRank: 'lighter, but second', // TODO translate (task 5/6)
-      conclusion: 'Tellurium has one proton fewer, so it goes first.', // TODO translate (task 5/6)
+      atomicNumber: 'numéro atomique',
+      relativeAtomicMass: 'masse atomique relative',
+      telluriumName: 'Tellure',
+      telluriumMass: '127,60',
+      telluriumRank: 'plus lourd, mais placé avant',
+      iodineName: 'Iode',
+      iodineMass: '126,90',
+      iodineRank: 'plus léger, mais placé après',
     },
     es: {
-      title: 'Ordered by atomic number, not by mass', // TODO translate (task 5/6)
-      subtitle: 'The small number counts the protons.', // TODO translate (task 5/6)
-      telluriumName: 'Tellurium', // TODO translate (task 5/6)
-      telluriumMass: '127.60', // TODO translate (task 5/6)
-      telluriumRank: 'heavier, but first', // TODO translate (task 5/6)
-      iodineName: 'Iodine', // TODO translate (task 5/6)
-      iodineMass: '126.90', // TODO translate (task 5/6)
-      iodineRank: 'lighter, but second', // TODO translate (task 5/6)
-      conclusion: 'Tellurium has one proton fewer, so it goes first.', // TODO translate (task 5/6)
+      atomicNumber: 'número atómico',
+      relativeAtomicMass: 'masa atómica relativa',
+      telluriumName: 'Teluro',
+      telluriumMass: '127,60',
+      telluriumRank: 'más pesado, pero va antes',
+      iodineName: 'Yodo',
+      iodineMass: '126,90',
+      iodineRank: 'más ligero, pero va después',
     },
     it: {
-      title: 'Ordered by atomic number, not by mass', // TODO translate (task 5/6)
-      subtitle: 'The small number counts the protons.', // TODO translate (task 5/6)
-      telluriumName: 'Tellurium', // TODO translate (task 5/6)
-      telluriumMass: '127.60', // TODO translate (task 5/6)
-      telluriumRank: 'heavier, but first', // TODO translate (task 5/6)
-      iodineName: 'Iodine', // TODO translate (task 5/6)
-      iodineMass: '126.90', // TODO translate (task 5/6)
-      iodineRank: 'lighter, but second', // TODO translate (task 5/6)
-      conclusion: 'Tellurium has one proton fewer, so it goes first.', // TODO translate (task 5/6)
+      atomicNumber: 'numero atomico',
+      relativeAtomicMass: 'massa atomica relativa',
+      telluriumName: 'Tellurio',
+      telluriumMass: '127,60',
+      telluriumRank: 'più pesante, ma viene prima',
+      iodineName: 'Iodio',
+      iodineMass: '126,90',
+      iodineRank: 'più leggero, ma viene dopo',
     },
     ru: {
-      title: 'Ordered by atomic number, not by mass', // TODO translate (task 5/6)
-      subtitle: 'The small number counts the protons.', // TODO translate (task 5/6)
-      telluriumName: 'Tellurium', // TODO translate (task 5/6)
-      telluriumMass: '127.60', // TODO translate (task 5/6)
-      telluriumRank: 'heavier, but first', // TODO translate (task 5/6)
-      iodineName: 'Iodine', // TODO translate (task 5/6)
-      iodineMass: '126.90', // TODO translate (task 5/6)
-      iodineRank: 'lighter, but second', // TODO translate (task 5/6)
-      conclusion: 'Tellurium has one proton fewer, so it goes first.', // TODO translate (task 5/6)
+      atomicNumber: 'атомный номер',
+      relativeAtomicMass: 'относительная атомная масса',
+      telluriumName: 'Теллур',
+      telluriumMass: '127,60',
+      telluriumRank: 'тяжелее, но стоит первым',
+      iodineName: 'Иод',
+      iodineMass: '126,90',
+      iodineRank: 'легче, но стоит вторым',
     },
   },
   'isotopes-and-radioactivity/03-isotopes-of-hydrogen': {

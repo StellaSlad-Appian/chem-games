@@ -225,7 +225,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           'An atom has a nucleus of protons and neutrons, with electrons around it. Protons carry a positive charge and electrons an equal negative one, so a neutral atom has the same number of each. Neutrons carry no charge. Nearly all the mass is in the nucleus, because an electron weighs almost nothing next to a proton.',
         image: {
           diagram: 'atomic-structure/01-inside-an-atom',
-          alt: 'A nucleus of protons and neutrons at the centre, with a fuzzy cloud around it showing where electrons are likely to be. A note says the nucleus is drawn far too large to be seen at all.',
+          alt: 'An atom: a nucleus of three protons (filled circles) and four neutrons (hollow circles), with an electron cloud around it that is densest right next to the nucleus and thins out, with no edge, further away. Three protons and four neutrons would make it lithium-7, but the picture stands for any atom. Labels name the electron cloud, the nucleus, a proton and a neutron. A note says it is not to scale: the nucleus is about 1/100,000 of the atom’s width.',
         },
       },
       {
@@ -238,7 +238,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         ],
         image: {
           diagram: 'atomic-structure/02-atomic-and-mass-number',
-          alt: 'The symbol for chlorine-35 with the mass number 35 written above the atomic number 17, and arrows labelling each: 17 protons, and 35 minus 17 giving 18 neutrons.',
+          alt: 'The symbol for chlorine-35: the mass number 35 above the atomic number 17, to the left of Cl. A line joins the 35 to “mass number = protons + neutrons” and another joins the 17 to “atomic number = protons”. Underneath: 35 − 17 = 18 neutrons.',
         },
       },
       {
@@ -247,7 +247,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. Your teacher may call these shells; it means the same thing. Counting electrons this way is called the Bohr model: it is useful, and it is not a picture of a real atom. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
         image: {
           diagram: 'atomic-structure/05-energy-levels',
-          alt: 'A sodium nucleus of 11 protons and 12 neutrons, surrounded by three soft bands holding 2, 8 and 1 electrons as marks at irregular angles rather than dots on circles. Beside it, the arrangement 2, 8, 1 with the outer level last. The diagram says it is a way to count electrons, not a picture of an atom, and that the nucleus is drawn about 100,000 times too big.',
+          alt: 'Sodium, Na, drawn as a model for counting electrons: a disc marked Na for the nucleus, inside three bands with visible edges that hold 2, 8 and 1 electrons at irregular angles. The single electron in the outer band is circled and labelled “outer level”. Below, the arrangement 2, 8, 1 and the total, 11 electrons. A note says it is a way to count electrons, not a picture of an atom.',
         },
         /*
          * The interactive table, all six modes. It sits here rather than under
@@ -290,7 +290,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           'Mendeleev arranged the table by mass, and a few elements came out in the wrong place. In 1913 Henry Moseley measured the charge on the nucleus and found the order that works: atomic number. Tellurium is heavier than iodine but comes before it, because it has one proton fewer.',
         image: {
           diagram: 'atomic-structure/06-ordered-by-atomic-number',
-          alt: 'Tellurium and iodine side by side. Tellurium has the larger relative atomic mass but the smaller atomic number, and the table places it first.',
+          alt: 'Two periodic-table cells side by side, with an arrow from the first to the second for the order in the table. Tellurium: atomic number 52, relative atomic mass 127.60, labelled “heavier, but first”. Iodine: atomic number 53, relative atomic mass 126.90, labelled “lighter, but second”. In the tellurium cell the two numbers are labelled atomic number and relative atomic mass.',
         },
       },
     ],

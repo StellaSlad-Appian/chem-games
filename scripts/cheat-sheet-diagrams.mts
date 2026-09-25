@@ -70,28 +70,46 @@
 // 3. **Every label declares its room**, the width in units it is given, and
 //    fails the run if its estimated width is wider — in *any* locale — or if it
 //    runs off the canvas. The estimate is per character (see `advance()`), and
-//    each run prints the tightest label in each slot.
+//    each run prints the tightest label in each slot. A label may be allowed
+//    more than one line (`lines`); it then wraps in its room, and fails if a
+//    language needs more lines than the drawing left space for.
 // 4. **A label's text comes from the strings table, a whole number, or an
 //    element symbol**, and nothing else — `label()` does not take a bare
 //    string, so an English literal cannot slip into a German drawing.
+// 5. **One typeface.** There is no font option: every label is the page's own
+//    sans-serif. The monospace a worked sum and two masses were once set in is
+//    gone.
+// 6. **In a `phone` slot, every label ends left of `PHONE`**, the part of the
+//    drawing a phone shows before it is swiped, in every locale.
 //
-// ## The three rules that shape every drawing here
+// ## The rules that shape every drawing here
 //
 // 1. **No electron is a dot on a circular track.** `docs/AGENT_INSTRUCTIONS.md`
 //    Part A names "rigid solar-system orbits / solid billiard-ball atoms" as an
 //    anti-pattern that "embeds lasting misconceptions", and these are the
 //    easiest thing on the site to get wrong that way. Electrons are a stipple
-//    whose density falls off, or marks at irregular angles inside a soft band —
-//    never evenly spaced on a line. `05-energy-levels` is the one Bohr-style
-//    figure; it is there to *count* electrons per level, and it carries the
-//    sentence saying so, as `docs/CHEAT_SHEET_IMAGES.md` requires.
+//    whose density falls off from the nucleus with no gap, or marks at
+//    irregular angles inside a band — never evenly spaced on a line.
+//    `05-energy-levels` is the one Bohr-style figure; it is there to *count*
+//    electrons per level, and it carries the sentence saying so, as
+//    `docs/CHEAT_SHEET_IMAGES.md` requires.
 //
-// 2. **Say the scale.** A nucleus is about 1/100,000 of an atom's width. Both
-//    figures here that put a nucleus inside an atom say in the picture that the
-//    scale is wrong.
+// 2. **Say the scale.** A nucleus is about 1/100,000 of an atom's *width*
+//    (by volume it is about 10⁻¹⁵, which is why the word matters).
+//    `01-inside-an-atom` says so in the picture. `05-energy-levels` says instead
+//    that it is not a picture of an atom at all, which is the honest caveat
+//    for a counting model and does not depend on how big its bands are drawn.
 //
 // 3. **Colour is never the only carrier.** Every distinction made with colour
 //    is also made with fill, outline, position or a word.
+//
+// 4. **Name a part where it is.** A particle gets a short leader to one of its
+//    kind and a word, never a key to decode. A proton is filled and a neutron
+//    hollow in every figure on both atom sheets.
+//
+// 5. **No title, and no sentence the paragraph already says.** The section
+//    heading sits directly above every diagram. About six short labels at
+//    most, and a full sentence only where a caveat is required.
 //
 // ## Determinism
 //
@@ -177,11 +195,19 @@ const HALF_LIVES = [
 /**
  * Sodium, for `05-energy-levels`.
  *
- * 2, 8, 1 is what the atomic-structure sheet's own "first twenty elements"
- * table gives for sodium. 11 protons is its atomic number; 12 neutrons is
- * sodium-23, its only stable isotope, so 23 − 11.
+ * 2, 8, 1 is the arrangement the periodic-table widget gives for sodium, and
+ * `src/core-engine/tests/periodic-table.test.ts` pins the first twenty. 11 is
+ * its atomic number, and so the number of electrons in the neutral atom the
+ * figure draws; the run checks that the levels add up to it. The neutrons are
+ * not drawn: they have nothing to do with the electron arrangement.
  */
-const SODIUM = { levels: [2, 8, 1], protons: 11, neutrons: 12 };
+const SODIUM = { levels: [2, 8, 1], protons: 11 };
+if (SODIUM.levels.reduce((sum, count) => sum + count, 0) !== SODIUM.protons) {
+  throw new Error('SODIUM: the levels do not add up to the atomic number, so the atom is not neutral.');
+}
+
+/** The radius of the nucleus disc in `05-energy-levels`, in units. */
+const NUCLEUS = 20;
 
 /**
  * Hydrogen's three isotopes, for `03-isotopes-of-hydrogen`.
@@ -218,11 +244,29 @@ const SCALE = 100000;
 const BODY = 17.5;
 
 /**
- * Monospace, for a worked sum whose columns matter. Everything else inherits
- * the page's own font — DM Sans, or Manrope on a Russian page — which only
- * works because the SVG is inline; an `<img>` could not see it.
+ * The right-hand edge of what a phone shows before the reader swipes, in units.
+ *
+ * The page draws every diagram 512 CSS px wide and pans it sideways inside the
+ * column on a narrow screen (`docs/CHEAT_SHEET_IMAGES.md`, *How wide the page
+ * draws it*). On a 375 px phone the column is 291 px, which is 364 units; on a
+ * 320 px phone it is 236 px, or 295. In a slot marked `phone`, every label
+ * must end left of this line in every locale, and the run fails if one does
+ * not: a figure whose labels are all off to the right is, on a phone, a
+ * picture with no labels.
  */
-const MONO = "ui-monospace, 'Cascadia Mono', Menlo, Consolas, monospace";
+const PHONE = 360;
+
+/**
+ * The space between two lines of one wrapped label, in units. 1.3 × `BODY`,
+ * close to the paragraph's own line height.
+ */
+const LEADING = 23;
+
+// There is one typeface. Every label inherits the page's own font — DM Sans,
+// or Manrope on a Russian page — which only works because the SVG is inline;
+// an `<img>` could not see it. The monospace a worked sum and two masses used
+// to be set in made them look like code, so it is gone, and `label()` has no
+// way to ask for another font.
 
 /**
  * The colours, as the CSS custom properties `src/app/globals.css` defines for
@@ -306,9 +350,16 @@ function seeded(seed: number): () => number {
  * digits and capitals. That is enough to catch the failure that matters, a
  * translation half as long again as the room it was drawn for. Accents are
  * stripped first, so `é` measures as `e`.
+ *
+ * Measured again after the four atom diagrams were redrawn with labels in all
+ * six languages — 195 lines of text, 34 of them Russian — the estimate was
+ * never under, with medians of 6–8% over in the Latin locales and 10% over
+ * in Russian, once the Cyrillic groups below were re-measured.
  */
 const ADVANCE_GROUPS: [string, number][] = [
-  [' ', 0.27],
+  // The no-break space and the narrow one a localised number is grouped with.
+  ['  ', 0.27],
+  [' ', 0.2],
   ['.,:;\'’!|', 0.25],
   ['iljı', 0.25],
   ['I', 0.29],
@@ -321,9 +372,26 @@ const ADVANCE_GROUPS: [string, number][] = [
   ['mw', 0.8],
   ['MW%—', 0.9],
   ['ßkvxy', 0.52],
-  // Cyrillic, set in Manrope on a Russian page; the locale factor below adds
-  // Manrope's extra width.
-  ['жшщюыфмЖШЩЮЫФМ', 0.8],
+  // Cyrillic, set in Manrope on a Russian page, measured in it on 2026-09-25:
+  // each letter ten times over at 100 units, in the page, with
+  // `getComputedTextLength()`. The values are Manrope's advance divided by the
+  // Russian factor below (which is there for the Latin letters and digits a
+  // Russian page also sets in Manrope), rounded up, and grouped so that no
+  // letter is under its group. The one group this replaced guessed 0.8 for
+  // `жшщюыфм` and their capitals, which was 15% over for `м` and `ы` and
+  // under for `Ж`, `Ш`, `Щ` and `Ю`; every other letter fell to the 0.56 and
+  // 0.68 defaults, a few per cent over on average.
+  ['гкзтьух', 0.5],
+  ['всчяэаъ', 0.53],
+  ['ийплеёбнорд', 0.57],
+  ['ц', 0.59],
+  ['ыжмф', 0.68],
+  ['шщю', 0.75],
+  ['ГЕЁКЗБРУХЪЬВЯ', 0.6],
+  ['ЧТЭАИЙНПЛ', 0.66],
+  ['ФСЦОД', 0.7],
+  ['ЫМ', 0.8],
+  ['ЖШЩЮ', 0.88],
 ];
 const ADVANCE = new Map<string, number>();
 for (const [chars, width] of ADVANCE_GROUPS) {
@@ -344,14 +412,65 @@ const SAFETY = 1.04;
 /** Manrope, the Russian page font, is wider than DM Sans. */
 const LOCALE_WIDTH: Partial<Record<Locale, number>> = { ru: 1.06 };
 
-function estimateWidth(
-  text: string,
-  size: number,
-  { bold, mono, locale }: { bold?: boolean; mono?: boolean; locale: Locale },
-): number {
+function estimateWidth(text: string, size: number, { bold, locale }: { bold?: boolean; locale: Locale }): number {
   const chars = Array.from(text.normalize('NFD').replace(/\p{M}/gu, ''));
-  const ems = mono ? chars.length * 0.6 : chars.reduce((sum, char) => sum + advance(char), 0);
-  return ems * size * SAFETY * (bold ? 1.06 : 1) * (mono ? 1 : (LOCALE_WIDTH[locale] ?? 1));
+  const ems = chars.reduce((sum, char) => sum + advance(char), 0);
+  return ems * size * SAFETY * (bold ? 1.06 : 1) * (LOCALE_WIDTH[locale] ?? 1);
+}
+
+/**
+ * Breaks `text` into lines no wider than `room`, at ordinary spaces only — so a
+ * no-break space, which is what holds `100 000` or `Échelle non respectée :`
+ * together, never becomes a line break. Every line but the last keeps its
+ * trailing space, so the lines joined are the string again: that is what the
+ * page's `textContent` is, and what the e2e spec matches.
+ *
+ * Greedy, except that a label which takes two lines breaks after a clause — a
+ * comma, colon, semicolon, dash or `=` — when there is one with both halves
+ * fitting. "A way to count electrons, / not a picture of an atom." reads as
+ * two phrases; the greedy "… not a picture of / an atom." reads as a mistake.
+ * That keeps the strings free of no-break spaces put there only to steer a
+ * line break, in six languages, for a width only this script knows.
+ *
+ * Otherwise a label that wraps is balanced: it is wrapped again in the
+ * narrowest room that still takes the same number of lines, so the last line
+ * is not one stranded word ("… du diamètre de / l’atome.").
+ */
+function wrapLines(text: string, room: number, measure: (line: string) => number): string[] {
+  const words = text.split(' ');
+  const greedy = (width: number) => {
+    const lines: string[] = [];
+    let line = words[0];
+    for (const word of words.slice(1)) {
+      const candidate = `${line} ${word}`;
+      if (measure(candidate) <= width) {
+        line = candidate;
+      } else {
+        lines.push(`${line} `);
+        line = word;
+      }
+    }
+    lines.push(line);
+    return lines;
+  };
+  const lines = greedy(room);
+  if (lines.length === 1) return lines;
+
+  if (lines.length === 2) {
+    for (let split = words.length - 1; split > 0; split -= 1) {
+      const head = words.slice(0, split).join(' ');
+      const tail = words.slice(split).join(' ');
+      if (/[,:;–—=]$/.test(head) && measure(head) <= room && measure(tail) <= room) return [`${head} `, tail];
+    }
+  }
+
+  let [narrow, wide] = [0, room];
+  while (wide - narrow > 1) {
+    const middle = (narrow + wide) / 2;
+    if (greedy(middle).length === lines.length) wide = middle;
+    else narrow = middle;
+  }
+  return greedy(wide);
 }
 
 // --- Numbers inside strings ------------------------------------------------
@@ -396,7 +515,12 @@ interface LabelOptions {
   /** Default `start`, as in SVG. */
   anchor?: 'start' | 'middle' | 'end';
   fill?: Token;
-  mono?: boolean;
+  /**
+   * The most lines this label may wrap onto, each no wider than `room`, the
+   * next one `LEADING` below. The drawing leaves space for all of them; a
+   * language that needs more fails the run. Default 1: no wrapping.
+   */
+  lines?: number;
   /** Centre the glyphs on `y` rather than sitting them on it. */
   central?: boolean;
   /** Degrees anticlockwise about `(x, y)`, for an axis label. */
@@ -423,6 +547,11 @@ interface Pen {
   /** An element symbol, which no locale changes. */
   symbol: (value: string) => Words;
   label: (x: number, y: number, words: Words, options: LabelOptions) => string;
+  /**
+   * How many lines a `BODY` label wraps onto in `room`, in this locale, so a
+   * drawing can put what comes after it below its last line.
+   */
+  lineCount: (words: Words, room: number) => number;
   /** An id unique on the page, derived from the slot's name. */
   id: (name: string) => string;
 }
@@ -486,7 +615,7 @@ function createPen(slot: Slot, locale: Locale, fits: Fit[], focalItems: Set<stri
     },
 
     label(x, y, words, options) {
-      const { room, anchor, fill, mono, central, rotate, focal } = options;
+      const { room, anchor, fill, lines: maxLines = 1, central, rotate, focal } = options;
       const size = focal ? focal.size : BODY;
       const bold = focal?.bold ?? false;
       if (focal) {
@@ -502,21 +631,39 @@ function createPen(slot: Slot, locale: Locale, fits: Fit[], focalItems: Set<stri
         }
       }
 
-      const width = estimateWidth(words.text, size, { bold, mono, locale });
-      fits.push({ source: `${locale} ${words.source}`, width, room });
-      if (width > room) {
+      const measure = (text: string) => estimateWidth(text.trimEnd(), size, { bold, locale });
+      const lines = maxLines > 1 ? wrapLines(words.text, room, measure) : [words.text];
+      if (lines.length > maxLines) {
         throw new Error(
-          `${where(words.source)}: "${words.text}" is about ${Math.round(width)} units wide and ` +
-            `has ${room}. Re-flow or move it — docs/i18n/README.md §3a — before shortening a word.`,
+          `${where(words.source)}: "${words.text}" needs ${lines.length} lines of ${room} units and ` +
+            `has ${maxLines}. Give it more room or another line — docs/i18n/README.md §3a — before ` +
+            'shortening a word.',
         );
       }
-      if (!rotate) {
-        const left = anchor === 'middle' ? x - width / 2 : anchor === 'end' ? x - width : x;
-        if (left < 0 || left + width > slot.width) {
+      for (const line of lines) {
+        const width = measure(line);
+        fits.push({ source: `${locale} ${words.source}`, width, room });
+        if (width > room) {
           throw new Error(
-            `${where(words.source)}: "${words.text}" runs off the ${slot.width}-wide canvas ` +
-              `(about ${Math.round(left)} to ${Math.round(left + width)}).`,
+            `${where(words.source)}: "${line.trimEnd()}" is about ${Math.round(width)} units wide and ` +
+              `has ${room}. Re-flow or move it — docs/i18n/README.md §3a — before shortening a word.`,
           );
+        }
+        if (!rotate) {
+          const left = anchor === 'middle' ? x - width / 2 : anchor === 'end' ? x - width : x;
+          if (left < 0 || left + width > slot.width) {
+            throw new Error(
+              `${where(words.source)}: "${line.trimEnd()}" runs off the ${slot.width}-wide canvas ` +
+                `(about ${Math.round(left)} to ${Math.round(left + width)}).`,
+            );
+          }
+          if (slot.phone && left + width > PHONE) {
+            throw new Error(
+              `${where(words.source)}: "${line.trimEnd()}" ends at about ${Math.round(left + width)}, ` +
+                `past the ${PHONE} units a phone shows before it is swiped. Move it left or under ` +
+                'the thing it names.',
+            );
+          }
         }
       }
 
@@ -526,12 +673,21 @@ function createPen(slot: Slot, locale: Locale, fits: Fit[], focalItems: Set<stri
         anchor ? `text-anchor="${anchor}"` : '',
         central ? 'dominant-baseline="central"' : '',
         rotate ? `transform="rotate(${n(-rotate)} ${n(x)} ${n(y)})"` : '',
-        mono ? `font-family="${MONO}"` : '',
         `font-size="${size}"`,
         bold ? 'font-weight="700"' : '',
         paint(fill ?? TOKEN.ink),
       ].filter(Boolean);
-      return `<text ${attributes.join(' ')}>${esc(words.text)}</text>`;
+      const content =
+        lines.length === 1
+          ? esc(words.text)
+          : lines
+              .map((line, index) => `<tspan x="${n(x)}" dy="${index === 0 ? 0 : LEADING}">${esc(line)}</tspan>`)
+              .join('');
+      return `<text ${attributes.join(' ')}>${content}</text>`;
+    },
+
+    lineCount(words, room) {
+      return wrapLines(words.text, room, (text) => estimateWidth(text.trimEnd(), BODY, { locale })).length;
     },
 
     id(name) {
@@ -550,11 +706,21 @@ function leader(x1: number, y1: number, x2: number, y2: number): string {
   );
 }
 
-/** A horizontal rule between parts of a figure. */
-function rule(x1: number, x2: number, y: number): string {
+/**
+ * An arrow from one point to another: a line, and a filled head drawn as a
+ * path rather than a `<marker>`, so it needs no id and takes its colour from
+ * the same token as the line.
+ */
+function arrow(x1: number, y1: number, x2: number, y2: number, head = 12): string {
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const [cos, sin] = [Math.cos(angle), Math.sin(angle)];
+  const [bx, by] = [x2 - head * cos, y2 - head * sin];
+  const wing = head * 0.5;
   return (
-    `<path d="M ${n(x1)} ${n(y)} L ${n(x2)} ${n(y)}" ${paint('none', TOKEN.inkMuted)} ` +
-    'stroke-width="2" stroke-linecap="round" />'
+    `<path d="M ${n(x1)} ${n(y1)} L ${n(bx)} ${n(by)}" ${paint('none', TOKEN.ink)} ` +
+    'stroke-width="2.5" stroke-linecap="round" />' +
+    `<path d="M ${n(x2)} ${n(y2)} L ${n(bx + wing * sin)} ${n(by - wing * cos)} ` +
+    `L ${n(bx - wing * sin)} ${n(by + wing * cos)} Z" ${paint(TOKEN.ink)} />`
   );
 }
 
@@ -639,6 +805,8 @@ interface Slot {
   key: string;
   width: number;
   height: number;
+  /** Every label must end left of `PHONE`. */
+  phone: boolean;
   draw: (pen: Pen) => string[];
 }
 
@@ -653,44 +821,59 @@ interface Slot {
  * deliberately **no outer boundary** — an edge would be a claim that the atom
  * stops somewhere, which is the next misconception along.
  *
- * The nucleons are drawn one by one because telling them apart is what the
- * section is about, and they are distinguished three ways at once: filled
- * against hollow, red against grey, and a key that spells both out. Fill is the
- * one of the three that survives a red-green colour deficiency.
+ * **The cloud is densest right against the nucleus, with no gap.** The first
+ * version started its marks a fixed distance out and spread them by radius,
+ * which left an empty ring round the nucleus, and a cloud with a hole in the
+ * middle reads as a thick orbit — the picture this one exists to replace. Each
+ * mark is now kept with a probability that falls exponentially with its
+ * distance from the nucleus's edge, so every step outward is thinner than the
+ * one before, all the way in.
+ *
+ * The particles are named where they are, with a leader to one proton and one
+ * neutron, and not through a key: filled is a proton and hollow a neutron in
+ * every figure on both atom sheets. Fill is also what survives a red-green
+ * colour deficiency, which the red and grey alone would not.
  *
  * Seven nucleons, three of them protons — lithium-7, a real and stable nuclide.
- * Nothing in the picture names it, but a student who counts should not find a
- * nucleus that could not exist.
+ * The picture stands for any atom and does not name it (a sixth label for a
+ * detail the paragraph never mentions); the alt text says so, and a student who
+ * counts still finds a nucleus that could exist.
  *
  * The scale note is not a disclaimer bolted on afterwards; it is the reason the
- * picture is allowed to exist. Here the nucleus is about a third of the cloud's
- * radius. At 1/100,000 of the atom's width it would be 0.0024 units across in
- * this coordinate space — thinner than any line the drawing can make.
+ * picture is allowed to exist, and it says *width*, because by volume the ratio
+ * is about 10⁻¹⁵. Here the nucleus is about a quarter of the cloud's width. At
+ * 1/100,000 it would be 0.003 units across in this coordinate space — thinner
+ * than any line the drawing can make.
  */
 function drawInsideAnAtom(pen: Pen): string[] {
   const { t, label } = pen;
-  const cx = 168;
-  const cy = 146;
-  const cloud = 118;
-  /** Marks start outside the nucleus, so the two never overlap. */
-  const clear = 50;
+  const cx = 250;
+  const cy = 176;
+  /** The farthest a mark may be; the cloud has thinned to almost nothing well before. */
+  const reach = 140;
+  /** Just outside the cluster of nucleons (22 + 12 = 34), so no mark hides under a hollow neutron. */
+  const clear = 37;
+  /** How far out the density falls to 1/e of its value at the nucleus. */
+  const falloff = 36;
   const rng = seeded(101);
 
   const marks: string[] = [];
-  for (let i = 0; i < 280; i += 1) {
-    const radius = clear + (cloud - clear) * Math.pow(rng(), 0.6);
-    const [x, y] = at(cx, cy, rng() * 360, radius);
-    // Thins towards the edge rather than stopping at one, for the same reason
-    // there is no boundary circle. The floor is 0.22 and not lower: below that
-    // the outermost marks disappear entirely on the dark theme, and a cloud
-    // that ends abruptly is the edge this is avoiding, drawn by accident.
-    const fade = 1 - Math.pow((radius - clear) / (cloud - clear), 1.8);
+  while (marks.length < 330) {
+    const dx = (rng() * 2 - 1) * reach;
+    const dy = (rng() * 2 - 1) * reach;
+    const radius = Math.hypot(dx, dy);
+    if (radius < clear || radius > reach) continue;
+    const density = Math.exp(-(radius - clear) / falloff);
+    if (rng() > density) continue;
+    // Fainter as well as sparser outward. The floor is 0.3 and not lower:
+    // below about 0.22 the outermost marks disappear on the dark theme, and a
+    // cloud that ends abruptly is the edge this is avoiding, drawn by accident.
     marks.push(
-      `<circle cx="${n(x)}" cy="${n(y)}" r="3.4" fill-opacity="${alpha(0.22 + 0.58 * fade)}" />`,
+      `<circle cx="${n(cx + dx)}" cy="${n(cy + dy)}" r="3.4" fill-opacity="${alpha(0.3 + 0.55 * density)}" />`,
     );
   }
 
-  /** Two, three, two — a compact cluster rather than a ring of seven. */
+  /** Two, three, two — a compact cluster rather than a ring of seven. Protons first. */
   const places = [
     [-11, -20],
     [11, -20],
@@ -700,31 +883,35 @@ function drawInsideAnAtom(pen: Pen): string[] {
     [-11, 20],
     [11, 20],
   ] as const;
+  const radius = 12;
 
-  /** The column to the right of the cloud: 336 to a 16-unit margin. */
-  const column = 288;
+  // The labels sit in a column on the left, right-aligned against their
+  // leaders, because a phone shows the left of the drawing first (see
+  // `PHONE`). The leaders cross the thin outer cloud to reach the nucleus.
+  const column = 116;
+  const leaderStart = column + 7;
+  const [protonX, protonY] = [cx + places[2][0], cy + places[2][1]];
+  const [neutronX, neutronY] = [cx + places[5][0], cy + places[5][1]];
+  const edge = radius / Math.SQRT2;
 
   return [
     `<g ${paint(TOKEN.electron)}>${marks.join('')}</g>`,
-    ...nucleons(cx, cy, 12, places, 3),
+    ...nucleons(cx, cy, radius, places, 3),
 
-    label(336, 66, t('electrons'), { room: column, fill: TOKEN.electron }),
-    label(336, 94, t('electronsLine1'), { room: column }),
-    label(336, 120, t('electronsLine2'), { room: column }),
-    label(336, 146, t('electronsLine3'), { room: column }),
+    label(16, 30, t('electronCloud'), { room: PHONE - 16, fill: TOKEN.electron }),
+    leader(64, 40, 178, 116),
 
-    label(336, 190, t('nucleus'), { room: column, fill: TOKEN.proton }),
-    label(336, 218, t('nucleusLine1'), { room: column }),
-    label(336, 244, t('nucleusLine2'), { room: column }),
+    // To the notch between the two top protons: the cluster, not one particle.
+    label(column, cy - 56, t('nucleus'), { room: column - 16, anchor: 'end', central: true }),
+    leader(leaderStart, cy - 56, cx - 4, cy - 33),
 
-    dot(118, 290, 13, TOKEN.proton),
-    // Up to the neutron's ring, which starts at 325.
-    label(142, 290, t('keyProton'), { room: 170, central: true }),
-    ring(338, 290, 13, TOKEN.neutron),
-    label(362, 290, t('keyNeutron'), { room: 262, central: true }),
+    label(column, cy, t('proton'), { room: column - 16, anchor: 'end', central: true, fill: TOKEN.proton }),
+    leader(leaderStart, cy, protonX - radius, protonY),
 
-    label(320, 326, t('scaleLine1'), { room: 600, anchor: 'middle' }),
-    label(320, 350, t('scaleLine2', { numbers: [SCALE] }), { room: 600, anchor: 'middle' }),
+    label(column, cy + 56, t('neutron'), { room: column - 16, anchor: 'end', central: true }),
+    leader(leaderStart, cy + 56, neutronX - edge, neutronY + edge),
+
+    label(16, 344, t('scale', { numbers: [SCALE] }), { room: PHONE - 16, lines: 3 }),
   ];
 }
 
@@ -739,58 +926,58 @@ function drawInsideAnAtom(pen: Pen): string[] {
  * the redesign brief is about exactly that mismatch. The notation is the focal
  * item: the only large text in the figure.
  *
- * The atomic number is in the proton colour and the subtraction is worked out
- * rather than asserted, so "mass number minus atomic number" is visible as an
- * operation and not as a fact to memorise.
+ * Each label says what its number *is*, as an equation, and sits on the side
+ * of the notation its number is on: the mass number's above, the atomic
+ * number's below, each joined to its number by a short vertical leader. That
+ * keeps both in the left of the drawing, which is all a phone shows at first;
+ * the old layout stacked them to the right of the symbol, where a phone cut
+ * off every one. There are no arrowheads: a leader names a thing here, as in
+ * every other figure on the sheet.
+ *
+ * The atomic number is in the proton colour, and so is its label. The
+ * subtraction is worked out rather than asserted, so "mass number minus atomic
+ * number" is visible as an operation and not as a fact to memorise.
  */
 function drawAtomicAndMassNumber(pen: Pen): string[] {
-  const { t, whole, symbol, label } = pen;
+  const { t, whole, symbol, label, lineCount } = pen;
   const mass = CHLORINE.lightMassNumber;
   const atomic = CHLORINE.protons;
   const neutrons = mass - atomic;
   const notation = { item: 'nuclide notation', bold: true };
-  /** The column the two annotations share: 340 to a 16-unit margin. */
-  const column = 284;
+  /** Where the two numbers end, right-aligned, and the symbol begins. */
+  const numbersEnd = 104;
+  /** Under the middle of the two-digit numbers: where both leaders run. */
+  const stem = 80;
+  const room = PHONE - 16;
+  // The mass number's label may take two lines — only Russian does — and it
+  // is its last line that sits on the leader, so the notation below never
+  // moves. A label that wraps breaks after its "=" (see `wrapLines`).
+  const massLabel = t('massNumber');
+  const massLabelLast = 55;
 
   return [
-    label(320, 34, t('title'), { room: 600, anchor: 'middle' }),
+    label(16, massLabelLast - (lineCount(massLabel, room) - 1) * LEADING, massLabel, { room, lines: 2 }),
+    leader(stem, massLabelLast + 10, stem, 94),
 
-    // The symbol sits left, both annotations stack on the right, and the
-    // subtraction runs across the bottom. The obvious arrangement — one label
-    // up and one down, with the sum boxed beside the symbol — puts the lower
-    // leader through either the "Cl" or the box's corner, whichever way it is
-    // routed. Both leaders approaching from the same side has neither problem
-    // and reads in the order a student asks the questions in.
-    label(188, 120, whole(mass), {
-      room: 120,
+    label(numbersEnd, 115, whole(mass), {
+      room: 88,
       anchor: 'end',
       central: true,
       focal: { ...notation, size: 42 },
     }),
-    label(188, 172, whole(atomic), {
-      room: 120,
+    label(numbersEnd, 173, whole(atomic), {
+      room: 88,
       anchor: 'end',
       central: true,
       fill: TOKEN.proton,
       focal: { ...notation, size: 42 },
     }),
-    label(196, 146, symbol('Cl'), { room: 130, central: true, focal: { ...notation, size: 84 } }),
+    label(numbersEnd + 8, 144, symbol('Cl'), { room: 130, central: true, focal: { ...notation, size: 84 } }),
 
-    leader(194, 112, 326, 96),
-    label(340, 88, t('massNumber', { values: { mass } }), { room: column }),
-    label(340, 116, t('massNumberMeaning'), { room: column }),
+    leader(stem, 194, stem, 220),
+    label(16, 239, t('atomicNumber'), { room, fill: TOKEN.proton }),
 
-    leader(194, 180, 326, 196),
-    label(340, 190, t('atomicNumber', { values: { atomic } }), { room: column, fill: TOKEN.proton }),
-    label(340, 218, t('atomicLine1', { values: { atomic } }), { room: column }),
-    label(340, 244, t('atomicLine2'), { room: column }),
-
-    rule(150, 490, 268),
-    label(320, 300, t('subtraction', { values: { mass, atomic, neutrons } }), {
-      room: 600,
-      anchor: 'middle',
-      mono: true,
-    }),
+    label(16, 285, t('subtraction', { values: { mass, atomic, neutrons } }), { room }),
   ];
 }
 
@@ -877,71 +1064,97 @@ function drawIsotopesOfHydrogen(pen: Pen): string[] {
  *
  * `docs/CHEAT_SHEET_IMAGES.md` permits a ring diagram in exactly one place —
  * where it is being used to *count* electrons per level rather than to say
- * where they are — and only if the picture itself says so. Hence the two lines
- * across the bottom, which are not optional and are the first thing to keep if
+ * where they are — and only if the picture itself says so. Hence the line
+ * across the bottom, which is not optional and is the first thing to keep if
  * this figure is ever redrawn.
  *
- * Three things keep it from becoming a solar system. The levels are wide faint
- * bands, not lines. The electron marks sit at irregular angles and at slightly
- * different radii within their band, so no two are ever symmetric about
- * anything. And the bands are unlabelled in the drawing itself: the counts are
- * read off the list beside it, which is the operation the figure is for. The
- * arrangement `2, 8, 1` is the focal item.
+ * **Each level is a band with a visible edge.** The first version drew only
+ * soft, edgeless bands, to keep them from reading as tracks, and they were too
+ * faint to tell which electron was in which level at 512 px — which is the
+ * whole job of the figure. So each band is now a tinted ring with a solid
+ * edge on both sides in the electron colour, which clears 3:1 as a graphic in
+ * both themes; the tint and the stipple elsewhere do not, by design, so the
+ * edges are what carry it. It still is not a solar system: the electrons sit
+ * at irregular angles and at different depths inside a band, never on a line,
+ * and the caption says in words what the figure is.
  *
- * The periodic table that §12.1 originally put beside the sodium atom is gone —
- * the interactive widget does that job now, and a static table at this size was
- * unreadable anyway.
+ * **The single outer electron is marked**, with a ring round it and the
+ * callout "outer level", because it is the one the paragraph is about.
+ *
+ * **The nucleus is a plain neutral disc with the symbol on it.** Its protons
+ * are not drawn, so it is not a proton-coloured disc either — that would mix
+ * the filled-proton convention of 01 and 03 with a nucleus drawn as a single
+ * proton. `Na` also names the element, which the old figure never did.
+ *
+ * **No scale factor.** The old caveat said the nucleus was drawn about
+ * 100,000 times too big, which was wrong for this drawing: a nucleus a fifth
+ * or a sixth of the atom's width is drawn some 15,000–20,000 times too big,
+ * and the factor moves every time a band does. The honest caveat for a
+ * counting model is that it is not a picture of an atom at all, which covers
+ * size too; `01-inside-an-atom` is where the sheet states the real scale. If a
+ * scale remark ever comes back, compute it from `NUCLEUS` and the outer band
+ * here rather than writing a number into the strings.
+ *
+ * The arrangement `2, 8, 1` is the focal item, and the total, 11 electrons,
+ * sits beside it. The three "level n: x electrons" lines that used to repeat
+ * it are gone.
  */
 function drawEnergyLevels(pen: Pen): string[] {
-  const { t, label } = pen;
-  const cx = 150;
-  const cy = 110;
-  const radii = [30, 55, 80];
+  const { t, symbol, label } = pen;
+  const cx = 146;
+  const cy = 180;
+  /** Each level's inner and outer radius, innermost first. */
+  const bands = [
+    [28, 48],
+    [60, 94],
+    [106, 130],
+  ] as const;
   const rng = seeded(508);
   const parts: string[] = [];
-  /** The list beside the atom: 296 to a 16-unit margin. */
-  const column = 328;
+  let outer: [number, number] = [cx, cy];
 
-  radii.forEach((radius, level) => {
-    parts.push(...softBand(cx, cy, radius, 10));
+  bands.forEach(([inner, outerEdge], level) => {
+    const mid = (inner + outerEdge) / 2;
+    parts.push(
+      `<circle cx="${n(cx)}" cy="${n(cy)}" r="${n(mid)}" ${paint('none', TOKEN.electron)} ` +
+        `stroke-width="${n(outerEdge - inner)}" stroke-opacity="0.1" />`,
+      ...[inner, outerEdge].map((radius) => ring(cx, cy, radius, TOKEN.electron, 1.5)),
+    );
     const count = SODIUM.levels[level];
     for (let i = 0; i < count; i += 1) {
       // A base angle, then pushed off it far enough that the arrangement never
-      // reads as evenly spaced. The single outer electron gets a bearing that
-      // is not on any axis.
-      const base = count === 1 ? 62 : (360 * i) / count;
-      const bearing = base + (rng() - 0.5) * (count === 1 ? 0 : 320 / count);
-      const [x, y] = at(cx, cy, bearing, radius + (rng() - 0.5) * 10);
+      // reads as evenly spaced, and a depth that differs inside the band. The
+      // single outer electron is up and to the left, where its callout is.
+      const base = count === 1 ? 128 : (360 * i) / count + 20;
+      const bearing = base + (count === 1 ? 0 : (rng() - 0.5) * (300 / count));
+      const depth = count === 1 ? 0 : (rng() - 0.5) * (outerEdge - inner - 14);
+      const [x, y] = at(cx, cy, bearing, mid + depth);
       parts.push(dot(x, y, 6, TOKEN.electron));
+      if (count === 1) outer = [x, y];
     }
   });
 
   const [first, second, third] = SODIUM.levels;
+  const [ox, oy] = outer;
+  const halo = 13;
   parts.push(
-    dot(cx, cy, 17, TOKEN.proton),
-    ring(cx, cy, 17, TOKEN.ink, 2),
-    // Under the atom, and clear of the list at 296.
-    label(cx, 230, t('nucleusCounts', { values: { protons: SODIUM.protons, neutrons: SODIUM.neutrons } }), {
-      room: 272,
-      anchor: 'middle',
-    }),
+    // The nucleus: a neutral disc, tinted just enough to read as a thing, with
+    // an edge in ink. Ink text over the 12% tint still clears 6:1.
+    `<circle cx="${n(cx)}" cy="${n(cy)}" r="${NUCLEUS}" ${paint(TOKEN.ink, TOKEN.ink)} ` +
+      'fill-opacity="0.12" stroke-width="2" />',
+    label(cx, cy, symbol('Na'), { room: NUCLEUS * 2 - 6, anchor: 'middle', central: true }),
 
-    label(296, 52, t('arrangement', { values: { first, second, third } }), {
-      room: column,
+    ring(ox, oy, halo, TOKEN.ink, 2),
+    label(16, 26, t('outerLevel'), { room: PHONE - 16 }),
+    leader(40, 36, ox - halo * 0.6, oy - halo * 0.8),
+
+    label(16, 362, t('arrangement', { values: { first, second, third } }), {
+      room: 156,
       focal: { item: 'arrangement', size: 46, bold: true },
     }),
-    label(296, 82, t('outerLast'), { room: column }),
-    ...SODIUM.levels.map((count, level) =>
-      label(296, 126 + level * 30, t(`level${level + 1}`, { values: { count }, numbers: [level + 1] }), {
-        room: column,
-      }),
-    ),
+    label(184, 362, t('electrons', { values: { count: SODIUM.protons } }), { room: PHONE - 184 }),
 
-    // The rule is not decoration. Without it the nucleus label above reads as
-    // the first line of the caveat below, which is how the first draft looked.
-    rule(40, 600, 248),
-    label(320, 270, t('countNote'), { room: 600, anchor: 'middle' }),
-    label(320, 292, t('scaleNote', { numbers: [SCALE] }), { room: 600, anchor: 'middle' }),
+    label(16, 402, t('countNote'), { room: PHONE - 16, lines: 2 }),
   );
 
   return parts;
@@ -954,24 +1167,40 @@ function drawEnergyLevels(pen: Pen): string[] {
  *
  * Two table cells side by side, laid out the way a real cell is, so that the
  * figure doubles as practice at reading one. Tellurium is on the left because
- * that is where the table puts it, and the two lines underneath say why in the
- * order a reader will ask: heavier, and yet first. The two symbols are the
- * focal item.
+ * that is where the table puts it, and an arrow between the cells is the
+ * table's order. The two symbols are the focal item.
  *
- * The atomic numbers are in the proton colour, and the line under the heading
- * says in words what that number counts, so the colour is never carrying the
- * meaning alone.
+ * The two numbers in a cell are named once, on tellurium's: "atomic number"
+ * in the proton colour for the red number, and "relative atomic mass" for the
+ * other, which a Year 9 student would otherwise not know how to read. Both
+ * numbers sit along the top of the cell so that both labels can come from
+ * above, without a leader crossing the cell. The masses are in the prose's own
+ * typeface, not the monospace they used to be set in.
+ *
+ * Under each cell, the point in four words: heavier but first, lighter but
+ * second. The sentence that used to follow them said it a third time.
  */
 function drawOrderedByAtomicNumber(pen: Pen): string[] {
   const { t, whole, symbol, label } = pen;
-  const cellWidth = 190;
-  const cellHeight = 146;
-  const lefts = [108, 342];
+  const cellWidth = 136;
+  const cellHeight = 112;
+  const top = 80;
+  const lefts = [16, 200];
   /** Inside a cell, less an 8-unit margin each side. */
   const inCell = cellWidth - 16;
+  /** Where each cell's two numbers sit: left and right along the top. */
+  const numberY = top + 26;
+  const inset = 10;
+  /** Leaders run from the labels above down to tellurium's two numbers. */
+  const [numberLeader, massLeader] = [34, lefts[0] + cellWidth - inset - 26];
+
   const parts: string[] = [
-    label(320, 30, t('title'), { room: 600, anchor: 'middle' }),
-    label(320, 58, t('subtitle'), { room: 600, anchor: 'middle' }),
+    label(16, 24, t('atomicNumber'), { room: PHONE - 16, fill: TOKEN.proton }),
+    leader(numberLeader, 32, numberLeader, numberY - 17),
+    label(60, 52, t('relativeAtomicMass'), { room: PHONE - 60 }),
+    leader(massLeader, 60, massLeader, numberY - 17),
+
+    arrow(lefts[0] + cellWidth + 10, top + cellHeight / 2, lefts[1] - 10, top + cellHeight / 2),
   ];
 
   ORDER_PAIR.forEach((element, index) => {
@@ -979,21 +1208,22 @@ function drawOrderedByAtomicNumber(pen: Pen): string[] {
     const mid = left + cellWidth / 2;
     const [nameKey, massKey, rankKey] = element.keys;
     parts.push(
-      frame(left, 76, cellWidth, cellHeight),
-      label(left + 16, 108, whole(element.atomicNumber), { room: 80, fill: TOKEN.proton }),
-      label(mid, 154, symbol(element.symbol), {
+      frame(left, top, cellWidth, cellHeight),
+      label(left + inset, numberY, whole(element.atomicNumber), { room: 40, fill: TOKEN.proton }),
+      label(left + cellWidth - inset, numberY, t(massKey, { numbers: [element.mass] }), {
+        room: inCell - 40,
+        anchor: 'end',
+      }),
+      label(mid, top + 78, symbol(element.symbol), {
         room: inCell,
         anchor: 'middle',
         focal: { item: 'element symbols', size: 54, bold: true },
       }),
-      label(mid, 186, t(nameKey), { room: inCell, anchor: 'middle' }),
-      label(mid, 210, t(massKey, { numbers: [element.mass] }), { room: inCell, anchor: 'middle', mono: true }),
-      // Under the cell, where the gap between the two cells is room too.
-      label(mid, 250, t(rankKey), { room: 226, anchor: 'middle' }),
+      label(mid, top + 102, t(nameKey), { room: inCell, anchor: 'middle' }),
+      // Under the cell, on up to two lines, with the gap between cells as room.
+      label(mid, top + cellHeight + 26, t(rankKey), { room: 160, anchor: 'middle', lines: 2 }),
     );
   });
-
-  parts.push(label(320, 282, t('conclusion'), { room: 600, anchor: 'middle' }));
 
   return parts;
 }
@@ -1104,14 +1334,24 @@ function drawHalfLife(pen: Pen): string[] {
  */
 const SLOTS: Slot[] = (
   [
-    ['atomic-structure', '01-inside-an-atom', 640, 360, drawInsideAnAtom],
-    ['atomic-structure', '02-atomic-and-mass-number', 640, 320, drawAtomicAndMassNumber],
-    ['isotopes-and-radioactivity', '03-isotopes-of-hydrogen', 640, 280, drawIsotopesOfHydrogen],
-    ['atomic-structure', '05-energy-levels', 640, 300, drawEnergyLevels],
-    ['atomic-structure', '06-ordered-by-atomic-number', 640, 300, drawOrderedByAtomicNumber],
-    ['isotopes-and-radioactivity', '07-decay-and-made-elements', 640, 320, drawHalfLife],
+    // The four on Atoms & the Periodic Table were redrawn to keep every label
+    // on the left, so they are held to `PHONE`. 03 and 07 are not, yet.
+    ['atomic-structure', '01-inside-an-atom', 640, 404, true, drawInsideAnAtom],
+    ['atomic-structure', '02-atomic-and-mass-number', 640, 304, true, drawAtomicAndMassNumber],
+    ['isotopes-and-radioactivity', '03-isotopes-of-hydrogen', 640, 280, false, drawIsotopesOfHydrogen],
+    ['atomic-structure', '05-energy-levels', 640, 436, true, drawEnergyLevels],
+    ['atomic-structure', '06-ordered-by-atomic-number', 640, 256, true, drawOrderedByAtomicNumber],
+    ['isotopes-and-radioactivity', '07-decay-and-made-elements', 640, 320, false, drawHalfLife],
   ] as const
-).map(([sheet, id, width, height, draw]) => ({ sheet, id, key: `${sheet}/${id}`, width, height, draw }));
+).map(([sheet, id, width, height, phone, draw]) => ({
+  sheet,
+  id,
+  key: `${sheet}/${id}`,
+  width,
+  height,
+  phone,
+  draw,
+}));
 
 /**
  * Slots 8, 9 and 10 from §12.1 of the redesign brief, which are **not** built

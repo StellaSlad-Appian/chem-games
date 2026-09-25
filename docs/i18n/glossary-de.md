@@ -138,6 +138,12 @@ new with the split.
 | synthetic element / made element | **künstlich erzeugtes Element** | Not *synthetisches Element*, which in German suggests a manufactured material rather than a nucleus built in an accelerator. |
 | radiocarbon dating | **Radiokarbonmethode** | Also *C-14-Methode*, which is shorter and is what a museum label says. Either is fine; do not use both on one sheet. |
 | optically stimulated luminescence (OSL) | **optisch stimulierte Lumineszenz (OSL)** | The established German term; the abbreviation is the English one and stays Latin. **Rated low** — this is a specialist archaeological dating method and the phrase is rare in German school material. |
+| electron cloud (diagram label) | **Elektronenwolke** | Added 2026-09-25 with the redrawn atom diagrams. The textbook word for the probability picture of the Atomhülle. |
+| not to scale (diagram caveat) | **nicht maßstabsgetreu**, and the ratio as **1/100 000 des Atomdurchmessers** | Added 2026-09-25 with the redrawn atom diagrams. Says *Durchmesser* on purpose: "1/100 000 des Atoms" is ambiguous, and by volume the ratio is about 10⁻¹⁵. *100 000-mal kleiner* was rejected: common in class, but it does not say what is being compared. |
+| heavier, but first / lighter, but second (06) | **schwerer, steht aber vorn** / **leichter, steht aber dahinter** | Added 2026-09-25 with the redrawn atom diagrams. *steht vorn* is how a German teacher talks about a place in the Periodensystem; a literal *aber zuerst / aber an zweiter Stelle* reads like a race. |
+| the counting-model caveat (05) | **Eine Art, Elektronen zu zählen – kein Bild eines Atoms.** | Added 2026-09-25 with the redrawn atom diagrams. A no-break space sits before the dash, so a wrapped line never starts with it. |
+| electron arrangement written out | **2, 8, 1** | Added 2026-09-25 with the redrawn atom diagrams. The comma list is kept in a decimal-comma locale: every item is a whole number and a space follows each comma, so it cannot be read as a decimal. **Rated medium**: some German textbooks write the shells as K2 L8 M1; the sheet does not use shell letters anywhere. |
+| a cell of the periodic table (alt text) | **Feld** (*das Tellur-Feld*) | Added 2026-09-25 with the redrawn atom diagrams. |
 
 ## Formulae, equations and naming
 

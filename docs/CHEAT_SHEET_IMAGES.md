@@ -141,6 +141,11 @@ Two things follow for anyone drawing one of these:
   that reads left-to-right, or whose right-hand side repeats a pattern the left
   has already established, survives this; one whose conclusion is bottom-right
   does not.
+- **The script enforces the left-hand rule on the four atom diagrams.** A slot
+  marked `phone` fails the run if any label, in any language, ends right of
+  `PHONE` (360 units, what a 375 px phone shows before a swipe). The drawing
+  is still 640 units wide, so on a desktop these four sit in the left of
+  their box; that is the price of every label being readable on a phone.
 - **The 640-unit width is a ceiling, not a target.** A diagram that says what it
   has to say in 520 units, with the remainder as margin, needs less swiping.
 
@@ -167,10 +172,10 @@ deliberately not closed up: the numbers are names, not positions.
 
 | # | Key | Size | What it should show |
 |---|---|---|---|
-| 1 | `atomic-structure/01-inside-an-atom` | 640×360 | A nucleus of protons and neutrons, with a **probability cloud** around it — not electrons on circular tracks. Include a note about the true scale. |
-| 2 | `atomic-structure/02-atomic-and-mass-number` | 640×320 | The Cl-35 notation: mass number 35 above atomic number 17, with arrows labelling 17 protons and 35 − 17 = 18 neutrons. |
-| 5 | `atomic-structure/05-energy-levels` | 640×300 | Sodium drawn as 2, 8, 1 in three soft bands, with the counts listed beside it. The periodic table that was once alongside it is gone: the interactive widget does that job, and a static table at this size was unreadable. |
-| 6 | `atomic-structure/06-ordered-by-atomic-number` | 640×300 | Tellurium and iodine side by side: tellurium heavier, lower atomic number, placed first. |
+| 1 | `atomic-structure/01-inside-an-atom` | 640×404 | A nucleus of three filled protons and four hollow neutrons, in a **probability cloud** that is densest against the nucleus and thins out with no gap and no edge — not electrons on circular tracks. Leaders name the electron cloud, the nucleus, one proton and one neutron. One note: not to scale, the nucleus is about 1/100,000 of the atom's *width*. |
+| 2 | `atomic-structure/02-atomic-and-mass-number` | 640×304 | The Cl-35 notation: mass number 35 above atomic number 17. "mass number = protons + neutrons" above it and "atomic number = protons" below it, each joined to its number by a leader, and 35 − 17 = 18 neutrons underneath. |
+| 5 | `atomic-structure/05-energy-levels` | 640×436 | Sodium as a counting model: a neutral nucleus disc marked Na, three bands with visible edges holding 2, 8 and 1 electrons, the outer electron circled and labelled "outer level", then the focal `2, 8, 1` and "11 electrons", and the line "A way to count electrons, not a picture of an atom." No scale factor: see the script. |
+| 6 | `atomic-structure/06-ordered-by-atomic-number` | 640×256 | Tellurium and iodine as two table cells with an arrow for the table's order; "atomic number" and "relative atomic mass" named once, on tellurium's cell; "heavier, but first" and "lighter, but second" under the cells. |
 
 The four sections the split added — groups and periods, metals and non-metals,
 atomic size, and reactivity — carry **no diagram**. That is on purpose: the

@@ -137,7 +137,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Un átomo tiene un núcleo de protones y neutrones, con electrones alrededor. Los protones llevan carga positiva y los electrones una carga negativa igual, así que un átomo neutro tiene el mismo número de cada uno. Los neutrones no llevan carga. Casi toda la masa está en el núcleo, porque un electrón no pesa casi nada al lado de un protón.',
         imageAlt:
-          'Un núcleo de protones y neutrones en el centro, rodeado de una nube difusa que muestra dónde es probable que estén los electrones. Una nota avisa de que el núcleo está dibujado demasiado grande para poder verse siquiera.',
+          'Un átomo: un núcleo de tres protones (círculos rellenos) y cuatro neutrones (círculos huecos), rodeado de una nube electrónica muy densa junto al núcleo que se va aclarando hacia fuera, sin borde. Con tres protones y cuatro neutrones sería litio-7, pero el dibujo vale para cualquier átomo. Las etiquetas señalan la nube electrónica, el núcleo, un protón y un neutrón. Una nota dice que no está a escala: el núcleo mide cerca de 1/100 000 del diámetro del átomo.',
       },
       {
         heading: 'Número atómico y número másico',
@@ -145,14 +145,14 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
           'El número atómico es el número de protones, y es lo que hace que un átomo sea ese elemento. Todo átomo de cloro tiene 17 protones; cualquier cosa con 17 protones es cloro. El número másico es protones más neutrones. Los neutrones pueden variar sin que cambie el elemento.',
         exampleNames: ['Cloro-35', 'Cloro-37'],
         imageAlt:
-          'El símbolo del cloro-35 con el número másico 35 escrito encima del número atómico 17, y flechas que señalan: 17 protones, y 35 menos 17 da 18 neutrones.',
+          'El símbolo del cloro-35: el número másico 35 encima del número atómico 17, a la izquierda de Cl. Una línea une el 35 con «número másico = protones + neutrones» y otra une el 17 con «número atómico = protones». Debajo: 35 − 17 = 18 neutrones.',
       },
       {
         heading: 'Electrones, niveles de energía y la forma de la tabla',
         content:
           'Los electrones ocupan niveles de energía alrededor del núcleo. El primero admite hasta 2, el siguiente hasta 8, y otros 8 en los veinte primeros elementos. Puede que en clase oigas llamarlos capas: es lo mismo. Contar los electrones así se llama modelo de Bohr: es útil, y no es una foto de un átomo de verdad. Cuántos hay en el nivel exterior determina cómo reacciona un átomo. Dos elementos van en el mismo grupo cuando tienen el mismo número fuera. Por eso un grupo se comporta de forma parecida.',
         imageAlt:
-          'Un núcleo de sodio con 11 protones y 12 neutrones, rodeado de tres bandas difusas que contienen 2, 8 y 1 electrones, dibujados como marcas en ángulos irregulares y no como puntos sobre círculos. Al lado, la disposición 2, 8, 1 con el nivel externo al final. La propia figura dice que es una forma de contar electrones y no una imagen de un átomo, y que el núcleo está dibujado unas 100 000 veces demasiado grande.',
+          'El sodio, Na, dibujado como un modelo para contar electrones: un disco con Na para el núcleo, dentro de tres bandas de borde visible que contienen 2, 8 y 1 electrones en ángulos irregulares. El único electrón de la banda exterior está rodeado por un círculo y señalado como «nivel exterior». Debajo, la disposición 2, 8, 1 y el total, 11 electrones. Una nota dice que es una forma de contar electrones, no una imagen del átomo.',
       },
       {
         heading: 'Grupos y periodos',
@@ -179,7 +179,7 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Mendeléiev ordenó la tabla por masa, y algunos elementos quedaron en el sitio equivocado. En 1913 Henry Moseley midió la carga del núcleo y encontró el orden que funciona: el número atómico. El teluro es más pesado que el yodo, pero va antes, porque tiene un protón menos.',
         imageAlt:
-          'El teluro y el yodo uno al lado del otro. El teluro tiene mayor masa atómica relativa pero menor número atómico, y la tabla lo coloca primero.',
+          'Dos casillas de la tabla periódica, una al lado de la otra, con una flecha de la primera a la segunda que indica el orden en la tabla. Teluro: número atómico 52, masa atómica relativa 127,60, con «más pesado, pero va antes». Yodo: número atómico 53, masa atómica relativa 126,90, con «más ligero, pero va después». En la casilla del teluro, los dos números llevan las etiquetas número atómico y masa atómica relativa.',
       },
     ],
     tables: [

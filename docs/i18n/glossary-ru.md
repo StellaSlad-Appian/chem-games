@@ -518,6 +518,12 @@ the split.
 | synthetic element / made element | **искусственно полученный элемент** | Or *искусственный элемент* where the sentence needs it shorter. Not *синтетический*, which in Russian suggests a manufactured material. |
 | radiocarbon dating | **радиоуглеродное датирование** | *Датирование*, not *датировка*: the first is the method, the second is the resulting date. |
 | optically stimulated luminescence (OSL) | **оптически стимулированная люминесценция (ОСЛ)** | The established Russian term, and the abbreviation is Cyrillic — ОСЛ, not OSL — because Russian archaeology writes it that way. **Rated low** — a specialist dating method, rare in Russian school material, and the abbreviation in particular deserves a check. |
+| electron cloud (diagram label) | **электронное облако** | Added 2026-09-25 with the redrawn atom diagrams. The standard school term. |
+| not to scale (diagram caveat) | **Масштаб не соблюдён**, and the ratio as **в 100 000 раз меньше атома по диаметру** | Added 2026-09-25 with the redrawn atom diagrams. Localised, not translated: a Russian textbook writes a ratio as *в N раз меньше*, not as a fraction *1/100 000*, and *по диаметру* says what is compared (by volume the ratio is about 10⁻¹⁵). *Не в масштабе* is a calque. |
+| the counting-model caveat (05) | **Схема для подсчёта электронов, а не рисунок атома.** | Added 2026-09-25 with the redrawn atom diagrams. *Схема* is the word Russian textbooks use for exactly this kind of drawing (*схема строения атома*), so it says "model, not picture" without a second noun. |
+| heavier, but first / lighter, but second (06) | **тяжелее, но стоит первым** / **легче, но стоит вторым** | Added 2026-09-25 with the redrawn atom diagrams. *Стоять* for a place in the table. *Первым / вторым* agree with *теллур* and *иод*, not with the reader. |
+| atomic number in the diagrams | **атомный номер** | Added 2026-09-25 with the redrawn atom diagrams. The review brief suggested *порядковый номер*; the row above keeps *атомный номер* until both sheets change together, and a diagram label that disagreed with its own heading would be worse than either term. |
+| a cell of the periodic table | **клетка** (*клетка теллура*) | Added 2026-09-25 with the redrawn atom diagrams. |
 
 **Typography on this pair of sheets.** Two things recur and both are easy to
 get wrong inside an English-shaped file. Large round numbers take a
