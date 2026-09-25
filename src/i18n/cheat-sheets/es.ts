@@ -330,9 +330,9 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     summary: 'pH, dadores y aceptores de protones, fuerte o débil, y la neutralización.',
     keyTakeaways: [
       'Ácido: un dador de protones (H+). En agua forma iones hidronio, H3O+. pH < 7.',
-      'Base: un aceptor de protones. Las bases solubles (álcalis) liberan iones hidróxido, OH-, en agua. pH > 7.',
+      'Base: un aceptor de protones. Las bases solubles (álcalis) liberan iones hidróxido, OH−, en agua. pH > 7.',
       'Neutro: pH 7 a 25 °C; el agua pura y las disoluciones de sales como el NaCl.',
-      'Neutralización: ácido + base → sal + agua. La ecuación iónica es siempre H+ + OH- → H2O.',
+      'Neutralización: ácido + base → sal + agua. La ecuación iónica es siempre H+ + OH− → H2O.',
       'Cada escalón de la escala de pH es un factor 10 en la concentración de H+: a pH 2 la concentración de H+ es 100 veces la de pH 4.',
     ],
     formulaExampleNames: [

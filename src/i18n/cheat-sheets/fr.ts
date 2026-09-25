@@ -320,9 +320,9 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     summary: 'pH, donneurs et accepteurs de proton, fort ou faible, et la neutralisation.',
     keyTakeaways: [
       'Acide : un donneur de proton (H+). Dans l’eau, il forme des ions oxonium, H3O+. pH < 7.',
-      'Base : un accepteur de proton. Les bases solubles libèrent des ions hydroxyde, OH-, dans l’eau. pH > 7.',
+      'Base : un accepteur de proton. Les bases solubles libèrent des ions hydroxyde, OH−, dans l’eau. pH > 7.',
       'Neutre : pH 7 à 25 °C – l’eau pure, et les solutions de sels comme NaCl.',
-      'Neutralisation : acide + base → sel + eau. L’équation ionique est toujours H+ + OH- → H2O.',
+      'Neutralisation : acide + base → sel + eau. L’équation ionique est toujours H+ + OH− → H2O.',
       'Chaque graduation de l’échelle de pH correspond à un facteur 10 sur la concentration en H+ : à pH 2, la concentration en H+ est 100 fois plus grande qu’à pH 4.',
     ],
     formulaExampleNames: [

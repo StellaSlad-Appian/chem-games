@@ -6,8 +6,8 @@
     "acids-and-bases": [
       "H+",
       "H3O+",
-      "OH-",
-      "H+ + OH- → H2O",
+      "OH−",
+      "H+ + OH− → H2O",
       "H+",
       "H+",
       "HNO3",
@@ -72,6 +72,7 @@
       "N2O4",
       "H2SO4",
       "H2SO3",
+      "NH4+",
       "Fe2(SO4)3",
       "CaCl2"
     ],
@@ -121,8 +122,8 @@
     "acids-and-bases": [
       "H+",
       "H3O+",
-      "OH-",
-      "H+ + OH- → H2O",
+      "OH−",
+      "H+ + OH− → H2O",
       "H+",
       "H+",
       "HNO3",
@@ -189,6 +190,7 @@
       "H2SO3",
       "HNO3",
       "HNO2",
+      "NH4+",
       "Fe2(SO4)3",
       "CaCl2"
     ],
@@ -238,8 +240,8 @@
     "acids-and-bases": [
       "H+",
       "H3O+",
-      "OH-",
-      "H+ + OH- → H2O",
+      "OH−",
+      "H+ + OH− → H2O",
       "H+",
       "H+",
       "HNO3",
@@ -306,6 +308,7 @@
       "H2SO4",
       "NO2−",
       "HNO2",
+      "NH4+",
       "Fe2(SO4)3",
       "CaCl2"
     ],
@@ -355,8 +358,8 @@
     "acids-and-bases": [
       "H+",
       "H3O+",
-      "OH-",
-      "H+ + OH- → H2O",
+      "OH−",
+      "H+ + OH− → H2O",
       "H+",
       "H+",
       "HNO3",
@@ -421,6 +424,7 @@
       "N2O4",
       "H2SO4",
       "H2SO3",
+      "NH4+",
       "Fe2(SO4)3",
       "CaCl2"
     ],
@@ -470,8 +474,8 @@
     "acids-and-bases": [
       "H+",
       "H3O+",
-      "OH-",
-      "H+ + OH- → H2O",
+      "OH−",
+      "H+ + OH− → H2O",
       "H+",
       "H+",
       "HNO3",
@@ -536,6 +540,7 @@
       "N2O4",
       "H2SO4",
       "H2SO3",
+      "NH4+",
       "Fe2(SO4)3",
       "CaCl2"
     ],
@@ -585,8 +590,8 @@
     "acids-and-bases": [
       "H+",
       "H3O+",
-      "OH-",
-      "H+ + OH- → H2O",
+      "OH−",
+      "H+ + OH− → H2O",
       "H+",
       "H+",
       "HNO3",
@@ -652,6 +657,7 @@
       "H2S",
       "H2SO4",
       "H2SO3",
+      "NH4+",
       "Fe2(SO4)3",
       "CaCl2",
       "Fe2O3"

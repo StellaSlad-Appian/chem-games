@@ -492,9 +492,9 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     relatedGames: ['acid-classification', 'neutralise'],
     keyTakeaways: [
       'Acid: a proton (H+) donor. In water it produces hydronium ions, H3O+. pH < 7.',
-      'Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH-, in water. pH > 7.',
+      'Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH−, in water. pH > 7.',
       'Neutral: pH 7 at 25 °C — pure water, and solutions of salts like NaCl.',
-      'Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH- → H2O.',
+      'Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH− → H2O.',
       'Each step on the pH scale is a ×10 change in H+ concentration: pH 2 has 100× the H+ concentration of pH 4.',
     ],
     formulaExamples: [

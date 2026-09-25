@@ -305,9 +305,9 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     summary: 'pH-Wert, Protonendonatoren und -akzeptoren, stark gegen schwach, und die Neutralisation.',
     keyTakeaways: [
       'Säure: ein Protonendonator (gibt H+ ab). In Wasser entstehen Oxonium-Ionen, H3O+. pH < 7.',
-      'Base: ein Protonenakzeptor. Lösliche Basen (Laugen) geben in Wasser Hydroxid-Ionen, OH-, ab. pH > 7.',
+      'Base: ein Protonenakzeptor. Lösliche Basen (Laugen) geben in Wasser Hydroxid-Ionen, OH−, ab. pH > 7.',
       'Neutral: pH 7 bei 25 °C – reines Wasser und Lösungen von Salzen wie NaCl.',
-      'Neutralisation: Säure + Base → Salz + Wasser. Die Ionengleichung ist immer H+ + OH- → H2O.',
+      'Neutralisation: Säure + Base → Salz + Wasser. Die Ionengleichung ist immer H+ + OH− → H2O.',
       'Jede Stufe auf der pH-Skala bedeutet den Faktor 10 in der H+-Konzentration: Bei pH 2 ist die H+-Konzentration 100-mal so groß wie bei pH 4.',
     ],
     formulaExampleNames: [
