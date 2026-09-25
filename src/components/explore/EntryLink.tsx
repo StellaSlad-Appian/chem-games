@@ -77,7 +77,7 @@ export function MoleculeEntryLink({
 }) {
   return (
     <LocaleLink href={withOrigin(moleculeHref(molecule.id), from)} className={rowClass}>
-      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-blue-500/10 text-(--link)">
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-(--info-surface) text-(--link)">
         <FlaskConical className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
       <span className={nameClass}>{molecule.name}</span>
@@ -97,7 +97,7 @@ export function ScientistEntryLink({
 }) {
   return (
     <LocaleLink href={withOrigin(scientistHref(scientist.id), from)} className={rowClass}>
-      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-emerald-500/10 text-emerald-500">
+      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-(--hue-emerald)/10 text-(--hue-emerald)">
         <Microscope className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
       <span className={nameClass}>{scientist.name}</span>

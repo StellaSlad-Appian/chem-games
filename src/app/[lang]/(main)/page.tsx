@@ -84,8 +84,11 @@ export default async function Home(props: PageProps<'/[lang]'>) {
         Hero. Two columns from lg: the copy, and a cluster of periodic-table
         tiles that is pure decoration (aria-hidden) and so is dropped below lg
         rather than squeezed.
+
+        The wash is mixed from tokens, so it follows the theme: indigo and the
+        site blue at a few percent over whatever --background is.
       */}
-      <section className="border-b border-(--border) bg-[radial-gradient(ellipse_at_top_right,rgba(99,102,241,0.14),transparent_55%),linear-gradient(135deg,rgba(59,130,246,0.07),transparent_60%)] py-16 lg:py-24">
+      <section className="border-b border-(--border) bg-[radial-gradient(ellipse_at_top_right,color-mix(in_srgb,var(--hue-indigo)_14%,transparent),transparent_55%),linear-gradient(135deg,color-mix(in_srgb,var(--link)_7%,transparent),transparent_60%)] py-16 lg:py-24">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-4 md:px-8 lg:grid-cols-[minmax(0,1fr)_auto]">
           <div className="min-w-0">
             <p className="text-sm font-extrabold tracking-[0.18em] text-(--link) uppercase">
@@ -100,7 +103,7 @@ export default async function Home(props: PageProps<'/[lang]'>) {
             <div className="mt-9 flex flex-wrap gap-4">
               <LocaleLink
                 href="/games"
-                className="rounded-xl bg-(--action) px-7 py-4 text-sm font-extrabold tracking-wider text-white uppercase shadow-lg shadow-blue-600/25 transition hover:-translate-y-0.5 hover:bg-(--action-hover)"
+                className="rounded-xl bg-(--action) px-7 py-4 text-sm font-extrabold tracking-wider text-white uppercase shadow-lg shadow-(color:--action)/25 transition hover:-translate-y-0.5 hover:bg-(--action-hover)"
               >
                 {t.home.exploreGames}
               </LocaleLink>
@@ -344,9 +347,10 @@ const HERO_TILES = [
 const TILE_TONES = {
   plain: 'border-(--border) bg-(--surface) text-(--foreground) shadow-md',
   // White on --action is 5.17:1, and --action does not change with the theme.
-  blue: 'border-transparent bg-(--action) text-white shadow-xl shadow-blue-600/30',
-  // slate-900 on amber-400 is 10.4:1, in either theme.
-  amber: 'border-transparent bg-amber-400 text-slate-900 shadow-xl shadow-amber-500/30',
+  blue: 'border-transparent bg-(--action) text-white shadow-xl shadow-(color:--action)/30',
+  // --on-bright-fill on --accent-fill is 10.69:1; neither changes with the theme.
+  amber:
+    'border-transparent bg-(--accent-fill) text-(--on-bright-fill) shadow-xl shadow-(color:--accent-fill)/30',
 } as const;
 
 function ElementTiles({ locale }: { locale: string }) {

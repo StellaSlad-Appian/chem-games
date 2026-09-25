@@ -40,8 +40,8 @@ export default async function ProfilePage(props: PageProps<'/[lang]'>) {
   if (error || !data) {
     return (
       <main className="min-h-screen bg-(--background) p-8 text-(--foreground)">
-        <div className="mx-auto max-w-xl rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md">
-          <h1 className="text-xl font-black text-rose-500">{t.profile.missingTitle}</h1>
+        <div className="mx-auto max-w-xl rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md">
+          <h1 className="text-xl font-black text-(--danger)">{t.profile.missingTitle}</h1>
           <p className="mt-2 text-sm font-medium text-(--muted)">{t.profile.missingBody}</p>
           <LocaleLink
             href="/auth"
@@ -60,7 +60,7 @@ export default async function ProfilePage(props: PageProps<'/[lang]'>) {
     <main className="min-h-screen bg-(--background) px-4 py-12 text-(--foreground) md:px-8">
       <div className="mx-auto max-w-4xl space-y-6">
         {/* Header navigation bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--border)] pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-(--border) pb-4">
           <LocaleLink
             href="/"
             className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-(--muted) hover:text-(--link)"
@@ -76,9 +76,9 @@ export default async function ProfilePage(props: PageProps<'/[lang]'>) {
         </div>
 
         {/* Profile Card View */}
-        <div className="rounded-2xl border-2 border-[var(--border)] bg-[var(--surface)] p-6 shadow-md md:p-8">
-          <div className="mb-6 flex items-center gap-3 border-b border-[var(--border)] pb-4">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-(--link)">
+        <div className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
+          <div className="mb-6 flex items-center gap-3 border-b border-(--border) pb-4">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--info-surface) text-(--link)">
               <User className="h-5 w-5" aria-hidden="true" />
             </span>
             <div>

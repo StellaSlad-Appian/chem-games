@@ -200,7 +200,7 @@ export function NavPanel({
         createPortal(
           <div className="lg:hidden">
             <div
-              className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm"
+              className="fixed inset-0 z-50 bg-(--scrim) backdrop-blur-sm"
               onClick={close}
               aria-hidden="true"
             />
@@ -260,7 +260,7 @@ export function NavPanel({
                       onClick={close}
                       // min-h-11 is 44px: the target size docs/ACCESSIBILITY.md asks
                       // for, which the horizontal row cannot give on a phone.
-                      className="flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:bg-blue-500/10 hover:text-(--link) aria-[current=page]:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+                      className="flex min-h-11 items-center gap-3 rounded-xl px-4 py-3 text-sm font-black uppercase tracking-wider text-(--foreground) transition hover:bg-(--info-surface) hover:text-(--link) aria-[current=page]:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                     >
                       <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
                       {label}

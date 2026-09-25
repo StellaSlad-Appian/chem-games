@@ -38,7 +38,7 @@ export default async function MainLayout(props: LayoutProps<'/[lang]'>) {
       <footer className="border-t-2 border-(--border) bg-(--surface) py-8">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:px-6 sm:text-left">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 shrink-0 text-amber-400" aria-hidden="true" />
+            <Sparkles className="h-4 w-4 shrink-0 text-(--accent)" aria-hidden="true" />
             <p className="text-xs font-bold text-(--muted)">{t.footer.tagline}</p>
           </div>
           <div className="flex items-center gap-3 text-xs font-medium text-(--muted)">

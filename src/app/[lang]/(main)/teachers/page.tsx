@@ -180,7 +180,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             id="teachers-beta"
             className="flex items-center gap-2 text-2xl font-black text-(--foreground)"
           >
-            <Construction className="h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
+            <Construction className="h-5 w-5 shrink-0 text-(--accent)" aria-hidden="true" />
             {p.betaHeading}
           </h2>
           <p className="mt-3 max-w-[70ch] text-sm font-medium leading-relaxed text-(--muted)">

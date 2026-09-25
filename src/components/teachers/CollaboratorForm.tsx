@@ -107,7 +107,7 @@ const EMPTY: Record<TextField, string> = {
 // always and ≥ 44×44 on touch, and an input tall enough for a thumb is not
 // worse for a mouse, so this does not branch on `useInputMethod()`.
 const INPUT_CLASS =
-  'w-full min-h-11 rounded-xl border border-(--border) bg-(--background) px-3 py-2 text-sm text-(--foreground) outline-none transition focus-visible:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) aria-[invalid=true]:border-red-500';
+  'w-full min-h-11 rounded-xl border border-(--border-strong) bg-(--background) px-3 py-2 text-sm text-(--foreground) outline-none transition focus-visible:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) aria-[invalid=true]:border-(--danger)';
 
 export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) {
   const formId = useId();
@@ -183,7 +183,7 @@ export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) 
           tabIndex={-1}
           className="focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
         >
-          <p className="text-sm font-bold text-emerald-500">{copy.successTitle}</p>
+          <p className="text-sm font-bold text-(--success)">{copy.successTitle}</p>
           <p className="mt-2 text-sm font-medium leading-relaxed text-(--muted)">
             {copy.successBody}
           </p>
@@ -303,7 +303,7 @@ export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) 
         />
 
         {errorMessage && (
-          <p id={errorId} role="alert" className="text-sm font-bold text-red-500">
+          <p id={errorId} role="alert" className="text-sm font-bold text-(--danger)">
             {errorMessage}
           </p>
         )}

@@ -21,7 +21,7 @@ const FIELD_LABEL = 'mb-2 block text-xs font-black uppercase tracking-wider text
 // A focus ring as well as the border change, so focus is visible on its own
 // (docs/ACCESSIBILITY.md §4 rules out `outline-none` with nothing to replace it).
 const FIELD =
-  'w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-3 text-sm font-bold text-(--foreground) outline-none transition placeholder:font-medium placeholder:text-(--muted) hover:border-(--muted) focus:border-(--link) focus:ring-3 focus:ring-(--link)/25';
+  'w-full rounded-xl border border-(--border-strong) bg-(--background) px-3.5 py-3 text-sm font-bold text-(--foreground) outline-none transition placeholder:font-medium placeholder:text-(--muted) hover:border-(--muted) focus:border-(--link) focus:ring-3 focus:ring-(--link)/25';
 
 export function EditProfileForm({ initialData }: EditProfileFormProps) {
   const { t } = useI18n();
@@ -182,8 +182,8 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
           role="status"
           className={`rounded-xl border p-3 text-xs font-bold ${
             state.status === 'success'
-              ? 'border-emerald-500/20 bg-emerald-500/10 text-emerald-500'
-              : 'border-rose-500/20 bg-rose-500/10 text-rose-500'
+              ? 'border-(--success)/30 bg-(--success-surface) text-(--success)'
+              : 'border-(--danger)/30 bg-(--danger-surface) text-(--danger)'
           }`}
         >
           {state.message}
@@ -194,7 +194,7 @@ export function EditProfileForm({ initialData }: EditProfileFormProps) {
       <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
         <LocaleLink
           href="/profile"
-          className="flex items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:bg-[var(--background)]"
+          className="flex items-center justify-center rounded-xl border border-(--border) bg-(--surface) px-5 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) transition hover:bg-(--background)"
         >
           {t.common.cancel}
         </LocaleLink>

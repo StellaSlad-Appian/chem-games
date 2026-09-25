@@ -63,7 +63,7 @@ export function WeekRow({
 /** The marker on the row a reader is currently living in. */
 export function ThisWeekBadge({ label }: { label: string }) {
   return (
-    <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-[11px] font-black uppercase tracking-wider text-(--link)">
+    <span className="rounded-full bg-(--info-surface) px-2 py-0.5 text-[11px] font-black uppercase tracking-wider text-(--link)">
       {label}
     </span>
   );

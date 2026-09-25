@@ -34,7 +34,7 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
 
         {/* Icon & Title */}
         <div className="mt-4 flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-(--link) transition group-hover:bg-(--action) group-hover:text-white">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--info-surface) text-(--link) transition group-hover:bg-(--action) group-hover:text-white">
             <ChemIcon name={topic.iconName} className="h-5 w-5" />
           </div>
           <h3 className="hyphens-auto break-words text-xl font-black text-(--foreground) transition group-hover:text-(--link) sm:text-2xl">
@@ -68,7 +68,7 @@ export function CheatSheetCard({ topic }: { topic: CheatSheetTopic }) {
           <BookOpen className="h-4 w-4 shrink-0" aria-hidden="true" /> {t.cheatSheets.readReference}
         </span>
         <Sparkles
-          className="h-4 w-4 shrink-0 text-(--muted) transition group-hover:rotate-12 group-hover:text-amber-400"
+          className="h-4 w-4 shrink-0 text-(--muted) transition group-hover:rotate-12 group-hover:text-(--accent)"
           aria-hidden="true"
         />
       </div>

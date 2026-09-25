@@ -14,12 +14,12 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
   return (
     <section className="w-full">
       <div className="mb-5 flex items-center gap-2">
-        <Trophy className="h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
+        <Trophy className="h-5 w-5 shrink-0 text-(--accent)" aria-hidden="true" />
         <h2 className="text-3xl font-black">{t.leaderboards.myResults}</h2>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {scores.map((score) => (
-          <article key={score.gameId} className="game-card flex min-h-55 flex-col p-5 transition hover:-translate-y-1 hover:border-amber-400">
+          <article key={score.gameId} className="game-card flex min-h-55 flex-col p-5 transition hover:-translate-y-1 hover:border-(--accent)">
             <div className="flex items-start justify-between gap-3">
               <span className="text-3xl" aria-hidden="true">{score.icon}</span>
               {/*
@@ -29,7 +29,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
                 src/i18n/game-titles.ts and docs/i18n/README.md § Known gaps.
               */}
               <span
-                className="rounded-full px-2.5 py-1 text-xs font-black text-slate-950 uppercase tracking-wider"
+                className="rounded-full px-2.5 py-1 text-xs font-black text-(--on-bright-fill) uppercase tracking-wider"
                 style={{ backgroundColor: score.themeColor }}
               >
                 {score.conceptTitle ?? score.gameId.replace(/-/g, ' ')}
@@ -39,7 +39,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
               {gameTitle(t, score.gameId, score.gameTitle)}
             </h3>
             {score.highestScore !== null ? (
-              <div className="mt-auto flex items-end justify-between gap-2 border-t border-[var(--border)] pt-4">
+              <div className="mt-auto flex items-end justify-between gap-2 border-t border-(--border) pt-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-wide text-muted">
                     {t.leaderboards.highScore}
@@ -51,7 +51,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
                     <Medal className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                     {t.leaderboards.rank}
                   </p>
-                  <p className="text-xl font-black text-amber-500">
+                  <p className="text-xl font-black text-(--accent)">
                     {score.globalRank === null
                       ? t.leaderboards.unranked
                       : `#${score.globalRank}`}
@@ -59,7 +59,7 @@ export function PersonalScoreSummary({ scores }: PersonalScoreSummaryProps) {
                 </div>
               </div>
             ) : (
-              <div className="mt-auto rounded-xl border border-dashed border-[var(--border)] bg-[var(--surface-2)] p-3 text-sm">
+              <div className="mt-auto rounded-xl border border-dashed border-(--border) bg-(--surface-2) p-3 text-sm">
                 <p className="font-bold">{t.leaderboards.firstResultTitle}</p>
                 <p className="mt-1 text-muted">{t.leaderboards.firstResultBody}</p>
                 <LocaleLink

@@ -221,7 +221,7 @@ export default async function CheatSheetDetailPage(
         </div>
 
         <div className="mt-6 flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-500/10 text-(--link)">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-(--info-surface) text-(--link)">
             <ChemIcon name={sheet.iconName} className="h-8 w-8" aria-hidden="true" />
           </div>
           {/*
@@ -264,11 +264,11 @@ export default async function CheatSheetDetailPage(
       </header>
 
       <section className={panelClass}>
-        <PanelHeading icon={<Sparkles className="h-5 w-5 text-amber-400" aria-hidden="true" />}>{t.cheatSheets.keyConcepts}</PanelHeading>
+        <PanelHeading icon={<Sparkles className="h-5 w-5 text-(--accent)" aria-hidden="true" />}>{t.cheatSheets.keyConcepts}</PanelHeading>
         <ul className="space-y-3">
           {sheet.keyTakeaways.map((takeaway, index) => (
             <li key={index} className="flex items-start gap-3 text-sm font-semibold text-(--foreground) md:text-base">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-500" aria-hidden="true" />
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-(--success)" aria-hidden="true" />
               <span>{takeaway}</span>
             </li>
           ))}
@@ -379,11 +379,11 @@ export default async function CheatSheetDetailPage(
 
       {sheet.commonMistakes && sheet.commonMistakes.length > 0 && (
         <section className={panelClass}>
-          <PanelHeading icon={<AlertTriangle className="h-5 w-5 text-rose-500" aria-hidden="true" />}>{t.cheatSheets.watchOutFor}</PanelHeading>
+          <PanelHeading icon={<AlertTriangle className="h-5 w-5 text-(--danger)" aria-hidden="true" />}>{t.cheatSheets.watchOutFor}</PanelHeading>
           <ul className="space-y-3">
             {sheet.commonMistakes.map((mistake, index) => (
               <li key={index} className="flex items-start gap-3 text-sm text-(--foreground)">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-500" aria-hidden="true" />
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--danger)" aria-hidden="true" />
                 <span>{mistake}</span>
               </li>
             ))}

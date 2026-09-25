@@ -116,7 +116,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
     <div className="w-full max-w-md rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
       {/* Header */}
       <div className="mb-6 text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-(--link)">
+        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-(--link)/30 bg-(--info-surface) text-(--link)">
           <Atom className="h-6 w-6" aria-hidden="true" />
         </div>
         <h1 className="text-2xl font-black text-(--foreground)">
@@ -160,7 +160,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
+            className="mt-1.5 w-full rounded-xl border border-(--border-strong) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             placeholder={t.auth.emailPlaceholder}
           />
         </div>
@@ -180,7 +180,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
             autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="mt-1.5 w-full rounded-xl border border-(--border) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link)"
+            className="mt-1.5 w-full rounded-xl border border-(--border-strong) bg-(--background) px-3.5 py-2.5 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             placeholder={t.auth.passwordPlaceholder}
           />
         </div>
@@ -198,7 +198,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
       {visibleMessage && (
         <p
           role="status"
-          className="mt-4 flex gap-2 rounded-xl border border-blue-500/20 bg-blue-500/10 p-3 text-xs font-bold text-(--link)"
+          className="mt-4 flex gap-2 rounded-xl border border-(--link)/30 bg-(--info-surface) p-3 text-xs font-bold text-(--link)"
         >
           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
           {visibleMessage}
@@ -206,7 +206,7 @@ export default function AuthForm({ configured, initialError }: AuthFormProps) {
       )}
 
       {!configured && (
-        <p className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/10 p-3 text-xs font-bold text-amber-500">
+        <p className="mt-4 rounded-xl border border-(--accent)/30 bg-(--accent-surface) p-3 text-xs font-bold text-(--accent)">
           {t.auth.unconfiguredNotice}
         </p>
       )}

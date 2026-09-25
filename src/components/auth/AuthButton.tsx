@@ -47,7 +47,7 @@ export function AuthButton({ isAuthenticated }: { isAuthenticated: boolean }) {
       type="button"
       onClick={signOut}
       disabled={isPending}
-      className="whitespace-nowrap rounded-full border-2 border-(--border) bg-(--surface) px-5 py-2 text-sm font-bold text-(--foreground) transition hover:border-rose-500 hover:text-rose-500 disabled:opacity-60"
+      className="whitespace-nowrap rounded-full border-2 border-(--border) bg-(--surface) px-5 py-2 text-sm font-bold text-(--foreground) transition hover:border-(--danger) hover:text-(--danger) disabled:opacity-60"
     >
       {isPending ? t.nav.loggingOut : t.nav.logout}
     </button>

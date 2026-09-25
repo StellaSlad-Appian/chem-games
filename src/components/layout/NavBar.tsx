@@ -64,7 +64,7 @@ export function NavBar({ isAuthenticated }: NavBarProps) {
           accessible name still comes from `meta.siteName`.
         */}
         <LocaleLink href="/" className="flex shrink-0 items-center gap-3 text-xl font-extrabold">
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--action) text-white shadow-md shadow-blue-600/25">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--action) text-white shadow-md shadow-(color:--action)/25">
             <Beaker className="h-5 w-5" aria-hidden="true" />
           </span>
           <span className="sr-only sm:hidden">{t.meta.siteName}</span>

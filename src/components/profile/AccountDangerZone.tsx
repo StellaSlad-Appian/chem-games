@@ -49,12 +49,12 @@ export function AccountDangerZone() {
       {/* Delete block */}
       <form
         action={formAction}
-        className="flex flex-col gap-4 rounded-xl border-2 border-rose-500/40 bg-rose-500/5 p-4"
+        className="flex flex-col gap-4 rounded-xl border-2 border-(--danger)/40 bg-(--danger-surface) p-4"
       >
         <div className="flex items-start gap-3">
-          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-rose-500" aria-hidden="true" />
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-(--danger)" aria-hidden="true" />
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-rose-500">
+            <h3 className="text-xs font-black uppercase tracking-wider text-(--danger)">
               {t.profile.deleteHeading}
             </h3>
             <p className="mt-1 text-sm font-medium text-(--muted)">{t.profile.deleteBody}</p>
@@ -78,14 +78,14 @@ export function AccountDangerZone() {
             value={confirmation}
             onChange={(event) => setConfirmation(event.target.value)}
             placeholder={CONFIRMATION_WORD}
-            className="w-full rounded-xl border border-(--border) bg-(--surface) p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-rose-500"
+            className="w-full rounded-xl border border-(--border-strong) bg-(--surface) p-3 text-sm font-bold text-(--foreground) outline-none transition focus:border-(--danger) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--danger)"
           />
         </div>
 
         {state?.message && (
           <p
             role="alert"
-            className="rounded-xl border border-rose-500/20 bg-rose-500/10 p-3 text-xs font-bold text-rose-500"
+            className="rounded-xl border border-(--danger)/30 bg-(--surface) p-3 text-xs font-bold text-(--danger)"
           >
             {state.message}
           </p>
@@ -95,7 +95,7 @@ export function AccountDangerZone() {
           <button
             type="submit"
             disabled={!isConfirmed || isPending}
-            className="cursor-pointer rounded-xl bg-rose-600 px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-rose-500 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+            className="cursor-pointer rounded-xl bg-(--danger-action) px-6 py-3 text-xs font-black uppercase tracking-wider text-white shadow-md transition-all duration-150 hover:bg-(--danger-action-hover) active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isPending ? t.profile.deletePending : t.profile.deleteAction}
           </button>
