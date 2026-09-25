@@ -4,11 +4,11 @@
 one who teaches or studied chemistry. You only need your own language's section.
 
 **What this is:** every piece of cheat-sheet text that was written or changed during
-the cheat sheet review of 24–25 September 2026. That covers steps 1–3 (the example
-cards, and the science fixes on all 15 sheets) and steps 5–6 (the six redrawn
-diagrams on *Atoms & the Periodic Table* and *Isotopes & Radioactivity*: their
-labels, in a table at the top of each language, and their descriptions for screen
-readers). The new diagrams on other sheets will be added in a later update.
+the cheat sheet review of 24–25 September 2026. That covers the whole review: the example cards, the science fixes on all 15
+sheets, the owner's decisions (helium, tritium, the molar-volume row), and all 19
+diagrams (their labels, in a table at the top of each language, and their
+descriptions for screen readers). New short sections were added to *States of
+Matter*, *Acids & Bases* and *Naming Inorganic Compounds* to hold diagrams.
 
 The text was written by an AI agent and has **not been checked by a native
 speaker**. The agent was told to localise rather than translate: write each
@@ -89,6 +89,15 @@ mistakes.
 - **German:** *2, 8, 1* is kept, although some German textbooks write shells as
   letters (K2 L8 M1). Please check.
 
+**Diagrams added last (please check)**
+- **Italian:** the bonding diagram says *elettroni delocalizzati* (the glossary's
+  term), while the Italian prose on the same sheet says *elettroni liberi*. One of the
+  two should be chosen.
+- **German molar volume:** the stoichiometry table gives the Abitur values (24,5 L/mol
+  at 25 °C and 1013 hPa; 22,4 L/mol at 0 °C), not the Australian 24,8.
+- **Naming flowchart:** each language's example names follow its own naming rules
+  (German *Salzsäure*, Russian *оксид серы(IV)*, anion first in fr/es/it/ru).
+
 **Spanish**
 - "4.5 billion years" is *4500 millones de años*: Spanish *billón* means 10¹².
 - Same anion-first point as French.
@@ -114,7 +123,7 @@ mistakes on the formula-mass sheet.
 
 ---
 
-## German (de): 71 strings
+## German (de): 96 strings
 
 ### New or changed glossary decisions
 
@@ -124,6 +133,17 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-de.
 |---|---|---|
 | Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
 | Four-digit numbers | **No separator**: *5730 Jahre*. A no-break space groups from five digits on (*65 000*), which is how the sheets already write it. DIN 5008 allows either for four digits; unseparated matches the isotopes prose. |
+| universal indicator | **Universalindikator** | One word, as on the bottle in a German school lab. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **pH-Skala** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **Magensäure** (1), **Essig** (3), **reines Wasser** (7), **Natron** (8), **Backofenreiniger** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Natron*, not *Backpulver*: see *baking soda* below. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| particle (the particle model) | **Teilchen** (*Teilchenmodell*) | The school word; *Partikel* is the register of dust and physics papers. Added 2026-09-25 for the States of Matter diagrams. The new section is headed *Die Aggregatzustände im Teilchenmodell*, because *Teilchenmodell* is what German teaching calls this picture. |
+| melting / boiling (a heating curve's plateaus) | **Schmelzen / Sieden** | Nominalised verbs, as the sheet's table of phase changes already has them. *Sieden*, not *Kochen*, which is the kitchen word. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **Erwärmungskurve** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **zugeführte Energie** | The German physics phrasing, as in *zugeführte Wärme*. *Hinzugefügte Energie* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **linear, trigonal-planar, tetraedrisch, trigonal-pyramidal, gewinkelt** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). The terms German school books print, and the ones the sheet's VSEPR paragraph already used, so the drawing and the prose above it agree. *V-förmig* for bent is also seen and is not used. The compounds keep their hyphen (*trigonal-planar*); the diagram never breaks a line at it. Angles take the decimal comma and no space before the degree sign: *109,5°*, *104,5°*. |
+| bond angle | **Bindungswinkel** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **Keil / gestrichelter Keil** | Added 2026-09-25, for alt text. The drawing convention is the *Keilstrichformel*. |
+| lone-pair lobe (in a VSEPR drawing) | **Keule** | Added 2026-09-25, for alt text: *das freie Elektronenpaar ist als Keule gezeichnet*. The word German uses for an orbital's lobe. |
 | electron shell (the curriculum's word) | **Schale** / **Elektronenschale** | VC2S10U07 says "electron shells", so the sheet names *Schale* once as the word the reader's teacher will use and keeps *Energiestufe* as its own term. Do not swap one for the other halfway through a sheet. Since 2026-09-25 the sentence credits the word to the teacher alone (*Deine Lehrkraft sagt dazu vielleicht Schalen*); it no longer mentions the Lehrplan. |
 | valence electrons from the group number | **die letzte Ziffer der Gruppennummer** (*Cl steht in Gruppe 17: 7 Valenzelektronen*), einmal ergänzt um *das ist die Nummer der Hauptgruppe (VII. Hauptgruppe)* | Added 2026-09-25. The site numbers the groups 1–18, so the old sentence *die Hauptgruppennummer sagt dir, wie viele Valenzelektronen …* was only true in the I–VIII Hauptgruppen system German textbooks also use. The bonding and Lewis sheets now state the 1–18 rule and name the Hauptgruppe once, on the bonding sheet, as the bridge to the textbook. **Never write *Hauptgruppe 17*:** it mixes the two systems. The Lewis table's column is *Gruppe* for the same reason. |
 | beta decay | **Betazerfall** | Added 2026-09-25, for how reactors make neptunium and plutonium. Formed like *Betateilchen*; *β-Zerfall* is the same word in symbols and is fine in a formula context. |
@@ -139,8 +159,19 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-de.
 | stable / radioactive, of one isotope (03) | **stabil** / **radioaktiv** | Added 2026-09-25 with the redrawn isotope diagrams. Predicative, so uninflected. |
 | undecayed nuclei (07, vertical axis) | **noch nicht zerfallene Kerne** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity German physics plots in the decay law (*Anzahl der noch nicht zerfallenen Kerne N(t)*). Replaces "how much is left", which suggests the sample itself disappears. *Unzerfallene Kerne* is shorter and also used; *noch nicht* says they will. |
 | time in half-lives (07, horizontal axis) | **Zeit in Halbwertszeiten** | Added 2026-09-25 with the redrawn isotope diagrams. Localised, not translated: a German axis is labelled *Größe in Einheit*, as in *Zeit t in Halbwertszeiten*, rather than with the bare unit. |
+| cross-over method (charges → subscripts) | **Kreuzregel** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The name German textbooks give the method, and the one the sheet already used. |
+| ionic / molecular (the kind of compound, as a label) | **Ionenverbindung / molekularer Stoff** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Nouns, as the German summary of *Naming Inorganic Compounds* already names the three systems (*Ionenverbindungen, molekulare Stoffe, Säuren*). *Molekülverbindung* is also taught; *molekularer Stoff* is the sheet's word and fits the flowchart box. *Salz* was considered for the ionic box: right at this level, but the summary names the system *Ionenverbindungen*, and the box has to match the prose round it. |
 | significant figures | **gültige Ziffern** | Added 2026-09-25. The phrase German physics and chemistry lessons use for the rounding rule (*so viele gültige Ziffern wie die ungenaueste Angabe*). *Signifikante Stellen*, which the stoichiometry sheet used before, is understood but reads like a translation. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence on the functional-groups sheet now points to *eine IR-Tabelle*, and the polyatomic-ion table is headed *Die wichtigsten mehratomigen Ionen*. The *Tafelwerk* is the German equivalent for most data, but it was not named for IR ranges because not every Tafelwerk prints them. |
+| molar gas volume (V_m), reference conditions | **V_m = 24,5 L/mol bei 25 °C und 1013 hPa (bei 0 °C: 22,4 L/mol)**, table cell says **das Volumen eines Gases** (no "bei SLC") | Added 2026-09-25. English "SLC" (standard laboratory conditions, 25 °C / 100 kPa) is the Australian VCE convention and has no German equivalent, so it is dropped rather than translated. German Abitur formula sheets (NRW 2024, Baden-Württemberg 2025, "Festgelegte Bedingungen", p = 101 325 Pa) instead give **two** reference points: V_m = 22,414 L/mol at 273,15 K (0 °C) and 24,466 L/mol at 298,15 K (25 °C), rounded here to 22,4 and 24,5. `cheat-sheets.test.ts` carries a narrow, commented exception for exactly this cell, because the German number now legitimately differs from the English 24,8 L/mol at 100 kPa. |
+| a two-pan balance (the relative-mass picture) | **Balkenwaage**, its pans **Waagschalen**; level is **im Gleichgewicht** | *Die Waage steht gerade* is how the sheet's prose says it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **Stoffmengenverhältnis** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's word; on the mole map it reads *Stoffmengenverhältnis (Koeffizienten)*. |
+| number of particles (N) | **Teilchenzahl** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Pairs with *Teilchen* above. |
+| moles of reactant / product (mole-map boxes) | **Stoffmenge des Edukts / des Produkts** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). German says *Stoffmenge*, not "Mol von …", which is a calque. |
+| primary / secondary / tertiary alcohol | **primärer / sekundärer / tertiärer Alkohol** | Added 2026-09-25 with the reaction-map diagram. The adjective is declined (*primärer Alkohol*, *primäre Alkohole*), not the English "primary" left as is. |
+| catalyst | **Katalysator** | Added 2026-09-25. Written out on the reaction map (*H₃PO₄ als Katalysator*); the textbook abbreviation *Kat.* was not used. |
+| skeletal formula | **Skelettformel** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Strichformel* is also heard; *Skelettformel* is the textbook term. |
+| methyl (group), as a diagram label | **Methylgruppe** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The German worked example says *eine Methylgruppe*; the bare prefix *Methyl-* is only used inside a name. |
 
 ### Diagram labels
 
@@ -211,6 +242,159 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | percent2 | 25% | 25 % | |
 | percent3 | 12.5% | 12,5 % | |
 | percent4 | 6.25% | 6,25 % | |
+
+#### Diagram states-of-matter/01-particles-in-each-state
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| solid | solid | fest | |
+| liquid | liquid | flüssig | |
+| gas | gas | gasförmig | |
+
+#### Diagram states-of-matter/02-heating-curve
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| axisTemperature | temperature | Temperatur | |
+| axisEnergy | energy added | zugeführte Energie | |
+| degrees | {t} °C | {t} °C | |
+| melting | melting | Schmelzen | |
+| boiling | boiling | Sieden | |
+| solid | solid | fest | |
+| liquid | liquid | flüssig | |
+| gas | gas | gasförmig | |
+
+#### Diagram lewis-structures/01-lewis-structures
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| lonePair | lone pair | freies Elektronenpaar | |
+| sharedPair | shared pair | bindendes Elektronenpaar | |
+| water | H₂O | H₂O | |
+| ammonia | NH₃ | NH₃ | |
+| carbonDioxide | CO₂ | CO₂ | |
+| methane | CH₄ | CH₄ | |
+
+#### Diagram lewis-structures/02-vsepr-shapes
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| carbonDioxide | CO₂ | CO₂ | |
+| boronTrifluoride | BF₃ | BF₃ | |
+| methane | CH₄ | CH₄ | |
+| ammonia | NH₃ | NH₃ | |
+| water | H₂O | H₂O | |
+| linear | linear, 180° | linear, 180° | |
+| trigonalPlanar | trigonal planar, 120° | trigonal-planar, 120° | |
+| tetrahedral | tetrahedral, 109.5° | tetraedrisch, 109,5° | |
+| trigonalPyramidal | trigonal pyramidal, 107° | trigonal-pyramidal, 107° | |
+| bent | bent, 104.5° | gewinkelt, 104,5° | |
+
+#### Diagram functional-groups/01-reaction-map
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| alkene | alkene | Alken | |
+| haloalkane | haloalkane | Halogenalkan | |
+| primaryAlcohol | primary alcohol | primärer Alkohol | |
+| secondaryAlcohol | secondary alcohol | sekundärer Alkohol | |
+| aldehyde | aldehyde | Aldehyd | |
+| ketone | ketone | Keton | |
+| carboxylicAcid | carboxylic acid | Carbonsäure | |
+| ester | ester | Ester | |
+| hydration | H2O, H3PO4 catalyst | H2O, H3PO4 als Katalysator | |
+| addition | HX | HX | |
+| substitution | OH− (aq) | OH− (aq) | |
+| oxidation | Cr2O7 2−/H+ | Cr2O7 2−/H+ | |
+| esterification | alcohol, H2SO4 catalyst | Alkohol, H2SO4 als Katalysator | |
+
+#### Diagram relative-formula-mass/01-carbon-hydrogen-balance
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| carbonAtom | carbon atom | Kohlenstoffatom | |
+| hydrogenAtoms | hydrogen atoms | Wasserstoffatome | |
+| notToScale | Not to scale | Nicht maßstabsgetreu | |
+
+#### Diagram balancing-equations/01-particle-equation
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| reactants | reactants | Edukte | |
+| products | products | Produkte | |
+| hydrogen | 2H2 | 2H2 | |
+| oxygen | O2 | O2 | |
+| water | 2H2O | 2H2O | |
+
+#### Diagram chemical-bonds/01-bonding-models
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| ionic | ionic | Ionenbindung | |
+| covalent | covalent | Atombindung | |
+| metallic | metallic | Metallbindung | |
+| sharedPair | shared pair | bindendes Elektronenpaar | |
+| delocalised | delocalised electrons | frei bewegliche Elektronen | |
+
+#### Diagram acids-and-bases/01-ph-scale
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| stomachAcid | stomach acid | Magensäure | |
+| vinegar | vinegar | Essig | |
+| pureWater | pure water | reines Wasser | |
+| bakingSoda | baking soda | Natron | |
+| ovenCleaner | oven cleaner | Backofenreiniger | |
+
+#### Diagram chemical-formulas/01-cross-over
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| cation | cation | Kation | |
+| anion | anion | Anion | |
+| cationFormula | Al 3+ | Al 3+ | |
+| anionFormula | SO4 2− | SO4 2− | |
+| formula | Al2(SO4)3 | Al2(SO4)3 | |
+| positive | {count} × (+{charge}) = +{total} | {count} × (+{charge}) = +{total} | |
+| negative | {count} × (−{charge}) = −{total} | {count} × (−{charge}) = −{total} | |
+
+#### Diagram naming-compounds/01-which-system
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| metalNonMetal | metal + non-metal | Metall + Nichtmetall | |
+| twoNonMetals | two non-metals | zwei Nichtmetalle | |
+| hydrogenInWater | H first, in water | H vorn, in Wasser | |
+| ionic | ionic | Ionenverbindung | |
+| molecular | molecular | molekularer Stoff | |
+| acid | acid | Säure | |
+| ionicExample | sodium chloride | Natriumchlorid | |
+| molecularExample | sulfur dioxide | Schwefeldioxid | |
+| acidExample | hydrochloric acid | Salzsäure | |
+
+#### Diagram stoichiometry/01-mole-map
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| mass | mass | Masse | |
+| particles | particles | Teilchenzahl | |
+| gasVolume | gas volume | Gasvolumen | |
+| solution | solution | Lösung | |
+| fromMass | n = m/M | n = m/M | |
+| fromParticles | n = N/NA | n = N/NA | |
+| fromGasVolume | n = V/Vm | n = V/Vm | |
+| fromSolution | n = cV | n = cV | |
+| reactantMoles | moles of reactant | Stoffmenge des Edukts | |
+| moleRatio | mole ratio (coefficients) | Stoffmengenverhältnis (Koeffizienten) | |
+| productMoles | moles of product | Stoffmenge des Produkts | |
+
+#### Diagram organic-nomenclature/01-numbered-chain
+
+| Label | English | German | OK / comment |
+|---|---|---|---|
+| hydroxyl | OH | OH | |
+| methyl | methyl | Methylgruppe | |
+| name | {methylAt}-methylpentan-{hydroxylAt}-ol | {methylAt}-Methylpentan-{hydroxylAt}-ol | |
 
 ### Atoms & the Periodic Table
 
@@ -413,15 +597,31 @@ German, before:
 
 ### Isotopes & Radioactivity
 
-**Example card 1 (C-12): description**
+**Example card 1 (H-3): name**
 
 English:
 
-> the standard all other masses are measured against
+> Hydrogen-3 (tritium)
 
 German, new:
 
-> der Standard, an dem alle anderen Massen gemessen werden
+> Wasserstoff-3 (Tritium)
+
+German, before:
+
+> Kohlenstoff-12
+
+- [ ] OK   Comment:
+
+**Example card 1 (H-3): description**
+
+English:
+
+> radioactive: half-life about 12 years
+
+German, new:
+
+> radioaktiv: Halbwertszeit etwa 12 Jahre
 
 - [ ] OK   Comment:
 
@@ -489,11 +689,11 @@ German, new:
 
 English:
 
-> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put.
+> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Why an element's relative atomic mass, such as chlorine's 35.5, is not a whole number is on the Relative Atomic & Formula Mass sheet.
 
 German, new:
 
-> Die Ordnungszahl ist die Zahl der Protonen, und sie legt fest, welches Element es ist. Die Massenzahl ist Protonen plus Neutronen. Auf diesem Spickzettel geht es überall darum, dass sich die zweite Zahl ändert und die erste bleibt.
+> Die Ordnungszahl ist die Zahl der Protonen, und sie legt fest, welches Element es ist. Die Massenzahl ist Protonen plus Neutronen. Auf diesem Spickzettel geht es überall darum, dass sich die zweite Zahl ändert und die erste bleibt. Warum die relative Atommasse eines Elements, zum Beispiel 35,5 bei Chlor, keine ganze Zahl ist, steht im Spickzettel „Relative Atom- und Formelmasse“.
 
 German, before:
 
@@ -584,8 +784,72 @@ German, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “Particles in each state”**
+
+English:
+
+> Particles in each state
+
+German, new:
+
+> Die Aggregatzustände im Teilchenmodell
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Particles in each state”**
+
+English:
+
+> In a solid the particles touch in a regular pattern and vibrate in place. In a liquid they still touch, but they are jumbled and slide past one another; in a gas they are far apart and move freely in every direction. The particles are the same size in all three states: only their arrangement and the spaces between them change.
+
+German, new:
+
+> Im festen Zustand berühren sich die Teilchen in einer regelmäßigen Anordnung und schwingen an ihren Plätzen. Im flüssigen Zustand berühren sie sich noch, sind aber ungeordnet und gleiten aneinander vorbei; im gasförmigen Zustand sind sie weit voneinander entfernt und bewegen sich frei in alle Richtungen. Die Teilchen sind in allen drei Zuständen gleich groß – es ändern sich nur ihre Anordnung und die Abstände zwischen ihnen.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Particles in each state”**
+
+English:
+
+> Three boxes, one above another, with particles of the same size in each. Solid: particles touching in a regular block of rows and columns, resting on the floor of the box. Liquid: the same number of particles, still touching but jumbled, with small gaps, spread across the bottom of the box. Gas: five particles far apart across the whole box, each with two short marks behind it to show that it is moving.
+
+German, new:
+
+> Drei Kästen untereinander, in jedem gleich große Teilchen. Fest: Die Teilchen berühren sich und bilden einen regelmäßigen Block aus Reihen und Spalten, der auf dem Boden des Kastens liegt. Flüssig: gleich viele Teilchen, die sich noch berühren, aber ungeordnet und mit kleinen Lücken über den Boden des Kastens verteilt sind. Gasförmig: fünf Teilchen, weit voneinander entfernt im ganzen Kasten, jedes mit zwei kurzen Strichen dahinter, die zeigen, dass es sich bewegt.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Heating and cooling curves”**
+
+English:
+
+> A heating curve for water: temperature up the side and energy added along the bottom, with no numbers on the energy axis. The line climbs steeply through the solid, stays flat at 0 °C for melting, climbs less steeply through the liquid, stays flat at 100 °C for boiling, then climbs steeply again through the gas. The boiling plateau is drawn to scale, almost seven times as long as the melting plateau: about 2260 J against 334 J for each gram.
+
+German, new:
+
+> Eine Erwärmungskurve von Wasser: die Temperatur nach oben, die zugeführte Energie nach rechts, ohne Zahlen auf der Energieachse. Die Linie steigt beim festen Eis steil an, bleibt beim Schmelzen bei 0 °C waagerecht, steigt beim flüssigen Wasser weniger steil, bleibt beim Sieden bei 100 °C waagerecht und steigt beim gasförmigen Wasserdampf wieder steil an. Der waagerechte Abschnitt beim Sieden ist maßstabsgetreu, fast siebenmal so lang wie der beim Schmelzen: etwa 2260 J gegenüber 334 J pro Gramm.
+
+- [ ] OK   Comment:
+
 
 ### Acids & Bases
+
+**Key takeaway 2**
+
+English:
+
+> Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH−, in water. pH > 7.
+
+German, new:
+
+> Base: ein Protonenakzeptor. Lösliche Basen (Laugen) geben in Wasser Hydroxid-Ionen, OH−, ab. pH > 7.
+
+German, before:
+
+> Base: ein Protonenakzeptor. Lösliche Basen (Laugen) geben in Wasser Hydroxid-Ionen, OH-, ab. pH > 7.
+
+- [ ] OK   Comment:
 
 **Key takeaway 3**
 
@@ -600,6 +864,22 @@ German, new:
 German, before:
 
 > Neutral: pH 7 bei 25 °C – reines Wasser und die meisten Salze.
+
+- [ ] OK   Comment:
+
+**Key takeaway 4**
+
+English:
+
+> Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH− → H2O.
+
+German, new:
+
+> Neutralisation: Säure + Base → Salz + Wasser. Die Ionengleichung ist immer H+ + OH− → H2O.
+
+German, before:
+
+> Neutralisation: Säure + Base → Salz + Wasser. Die Ionengleichung ist immer H+ + OH- → H2O.
 
 - [ ] OK   Comment:
 
@@ -619,6 +899,42 @@ German, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “The pH scale”**
+
+English:
+
+> The pH scale
+
+German, new:
+
+> Die pH-Skala
+
+- [ ] OK   Comment:
+
+**Paragraph of section “The pH scale”**
+
+English:
+
+> pH says how acidic or alkaline a solution is. At 25 °C, below 7 is acidic, 7 is neutral and above 7 is alkaline, and most solutions you will meet lie between 0 and 14. Universal indicator turns a different colour at each pH: red at the acidic end, green at 7 and purple at the alkaline end.
+
+German, new:
+
+> Der pH-Wert gibt an, wie sauer oder basisch eine Lösung ist. Bei 25 °C ist eine Lösung unter pH 7 sauer, bei pH 7 neutral und über pH 7 basisch; fast alle Lösungen, die dir begegnen, liegen zwischen 0 und 14. Universalindikator färbt sich bei jedem pH-Wert anders: rot im sauren Bereich, grün bei 7 und violett im basischen Bereich.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The pH scale”**
+
+English:
+
+> The pH scale as a bar from 0 at the top to 14 at the bottom, each step in its universal-indicator colour with its number printed beside it: red at 0, orange at 1, yellow at 2 and 3, green from 4 to 8, blue-green at 9, blue at 10 and 11 and purple from 12 to 14. Five everyday solutions are marked at their pH: stomach acid at 1, vinegar at 3, pure water at 7, baking soda at 8 and oven cleaner at 13.
+
+German, new:
+
+> Die pH-Skala als Balken von 0 oben bis 14 unten, jede Stufe in ihrer Farbe des Universalindikators und mit ihrer Zahl daneben: Rot bei 0, Orange bei 1, Gelb bei 2 und 3, Grün von 4 bis 8, Blaugrün bei 9, Blau bei 10 und 11 und Violett von 12 bis 14. Fünf Stoffe aus dem Alltag sind bei ihrem pH-Wert markiert: Magensäure bei 1, Essig bei 3, reines Wasser bei 7, Natron bei 8 und Backofenreiniger bei 13.
+
+- [ ] OK   Comment:
+
 
 ### Balancing Chemical Equations
 
@@ -635,6 +951,18 @@ German, new:
 German, before:
 
 > Nicht ausgeglichen
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “A method that always works”**
+
+English:
+
+> The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.
+
+German, new:
+
+> Die Reaktion 2H₂ + O₂ → 2H₂O als Teilchenbild. Links die Edukte: zwei Wasserstoffmoleküle aus je zwei sich berührenden Atomen mit H, dazu ein Sauerstoffmolekül aus zwei Atomen mit O. Ein Pfeil zeigt auf die Produkte: zwei Wassermoleküle, je ein O-Atom mit zwei H-Atomen. Unter den Teilchen steht die Gleichung und darunter die Atombilanz beider Seiten: H 4 und 4, O 2 und 2.
 
 - [ ] OK   Comment:
 
@@ -664,11 +992,11 @@ German, before:
 
 English:
 
-> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons).
+> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons; helium, in group 18, has only 2).
 
 German, new:
 
-> Atome gehen Bindungen ein, um eine stabile, volle Außenschale zu erreichen (Edelgaskonfiguration). Bei den Hauptgruppenelementen sagt dir die letzte Ziffer der Gruppennummer, wie viele Valenzelektronen ein Atom hat (Cl steht in Gruppe 17: 7 Valenzelektronen). Das ist dieselbe Zahl wie die Nummer der Hauptgruppe (Cl: VII. Hauptgruppe).
+> Atome gehen Bindungen ein, um eine stabile, volle Außenschale zu erreichen (Edelgaskonfiguration). Bei den Hauptgruppenelementen sagt dir die letzte Ziffer der Gruppennummer, wie viele Valenzelektronen ein Atom hat (Cl steht in Gruppe 17: 7 Valenzelektronen; Helium steht in Gruppe 18, hat aber nur 2). Das ist dieselbe Zahl wie die Nummer der Hauptgruppe (Cl: VII. Hauptgruppe).
 
 German, before:
 
@@ -676,8 +1004,32 @@ German, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Why ionic compounds conduct only when molten or dissolved”**
+
+English:
+
+> Three boxes, one above another. Ionic: a grid of small positive ions and large negative ions, alternating, each marked + or −. Covalent: one hydrogen molecule, two atoms marked H whose circles overlap, with two electron dots in the overlap, labelled shared pair. Metallic: a grid of positive metal ions with as many small electron dots scattered between them, labelled delocalised electrons.
+
+German, new:
+
+> Drei Kästen untereinander. Ionenbindung: ein Gitter aus kleinen positiven und großen negativen Ionen, abwechselnd, jedes mit + oder − markiert. Atombindung: ein Wasserstoffmolekül aus zwei Atomen mit H, deren Kreise sich überlappen, mit zwei Elektronenpunkten in der Überlappung, beschriftet als bindendes Elektronenpaar. Metallbindung: ein Gitter aus positiven Metall-Ionen mit ebenso vielen kleinen Elektronenpunkten dazwischen, beschriftet als frei bewegliche Elektronen.
+
+- [ ] OK   Comment:
+
 
 ### Writing Ionic Formulas
+
+**Diagram description (alt text) in section “Worked example: aluminium sulfate”**
+
+English:
+
+> Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.
+
+German, new:
+
+> Aluminiumsulfat nach der Kreuzregel. Oben das Aluminium-Ion Al³⁺, beschriftet mit „Kation“, und das Sulfat-Ion SO₄²⁻, beschriftet mit „Anion“. Zwei sich kreuzende Pfeile tragen jede Ladungszahl nach unten, wo sie zum Index des anderen Ions wird: Die 3 von Al³⁺ wird zur 3 hinter dem eingeklammerten Sulfat, die 2 von SO₄²⁻ zur 2 hinter Al. Unten die Verhältnisformel Al₂(SO₄)₃ und die Probe: 2 × (+3) = +6 und 3 × (−2) = −6.
+
+- [ ] OK   Comment:
 
 **Paragraph of section “Common ion charges from the periodic table”**
 
@@ -779,6 +1131,45 @@ German, before:
 - [ ] OK   Comment:
 
 
+### Naming Inorganic Compounds
+
+**Heading of section “Which naming system?”**
+
+English:
+
+> Which naming system?
+
+German, new:
+
+> Welches Benennungssystem?
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Which naming system?”**
+
+English:
+
+> Look at what the compound is made of before you name it. A metal (or NH4+) with a non-metal is ionic: the cation, then the anion, with no prefixes. Two non-metals make a molecular compound, named with Greek prefixes — but if H comes first and it is dissolved in water, it is an acid, and acids have names of their own.
+
+German, new:
+
+> Schau zuerst, woraus die Verbindung besteht. Metall (oder NH4+) und Nichtmetall bilden eine Ionenverbindung: Kation und Anion werden zu einem Wort, ohne Zahlwörter – Natriumchlorid. Zwei Nichtmetalle bilden einen molekularen Stoff mit griechischen Zahlwörtern (Schwefeldioxid); steht aber H vorn und ist der Stoff in Wasser gelöst, ist er eine Säure, und Säuren heißen im Deutschen nach ihrem Säurerest oder tragen alte Namen wie Salzsäure.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Which naming system?”**
+
+English:
+
+> A flowchart for choosing a naming system. Metal + non-metal leads to ionic, for example sodium chloride. Two non-metals leads to molecular, for example sulfur dioxide. An arrow down from two non-metals leads to H first, in water, and from there to acid, for example hydrochloric acid.
+
+German, new:
+
+> Ein Flussdiagramm zur Wahl des Benennungssystems. Von „Metall + Nichtmetall“ führt ein Pfeil zu „Ionenverbindung“, Beispiel Natriumchlorid. Von „zwei Nichtmetalle“ führt ein Pfeil zu „molekularer Stoff“, Beispiel Schwefeldioxid. Von „zwei Nichtmetalle“ führt außerdem ein Pfeil nach unten zu „H vorn, in Wasser“ und von dort zu „Säure“, Beispiel Salzsäure.
+
+- [ ] OK   Comment:
+
+
 ### Relative Atomic & Formula Mass
 
 **Example card 1 (H2O): description**
@@ -838,6 +1229,18 @@ English:
 German, new:
 
 > 40 + 2 × (14 + 3 × 16) = 164
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “What "relative" actually means”**
+
+English:
+
+> A balance with two hanging pans, level. On the left pan is one carbon atom, a circle marked C. On the right pan are twelve hydrogen atoms, smaller circles marked H, piled in rows of five, four and three. Carbon is drawn bigger than hydrogen, but nowhere near twelve times the size. Labels under the pans say 1 carbon atom and 12 hydrogen atoms, and a note says the picture is not to scale.
+
+German, new:
+
+> Eine Waage mit zwei hängenden Waagschalen, im Gleichgewicht. Auf der linken Schale liegt ein Kohlenstoffatom, ein Kreis mit C. Auf der rechten Schale liegen zwölf Wasserstoffatome, kleinere Kreise mit H, in Reihen zu fünf, vier und drei gestapelt. Kohlenstoff ist größer gezeichnet als Wasserstoff, aber längst nicht zwölfmal so groß. Unter den Schalen steht „1 Kohlenstoffatom“ und „12 Wasserstoffatome“, und ein Hinweis sagt, dass das Bild nicht maßstabsgetreu ist.
 
 - [ ] OK   Comment:
 
@@ -1112,6 +1515,50 @@ German, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Worked example: mass → mass”**
+
+English:
+
+> The mole map. Four boxes down the left, mass, particles, gas volume and solution, are each joined to a tall box, moles of reactant, by a two-way arrow carrying its formula: n = m/M, n = N/N_A, n = V/V_m and n = cV. From moles of reactant, an arrow labelled mole ratio (coefficients) leads down to moles of product.
+
+German, new:
+
+> Eine Übersicht der Umrechnungen über die Stoffmenge. Links untereinander vier Kästen – Masse, Teilchenzahl, Gasvolumen und Lösung –, jeder durch einen Doppelpfeil mit seiner Formel mit einem hohen Kasten „Stoffmenge des Edukts“ verbunden: n = m/M, n = N/N_A, n = V/V_m und n = cV. Von der Stoffmenge des Edukts führt ein Pfeil, beschriftet mit „Stoffmengenverhältnis (Koeffizienten)“, nach unten zur Stoffmenge des Produkts.
+
+- [ ] OK   Comment:
+
+**Table “The conversion formulas”, row 4, column 2**
+
+English:
+
+> volume of a gas at SLC
+
+German, new:
+
+> das Volumen eines Gases
+
+German, before:
+
+> das Volumen eines Gases bei SLC
+
+- [ ] OK   Comment:
+
+**Table “The conversion formulas”, row 4, column 3**
+
+English:
+
+> V_m = 24.8 L/mol at 25 °C and 100 kPa
+
+German, new:
+
+> V_m = 24,5 L/mol bei 25 °C und 1013 hPa (bei 0 °C: 22,4 L/mol)
+
+German, before:
+
+> V_m = 24,8 L/mol bei 25 °C und 100 kPa
+
+- [ ] OK   Comment:
+
 **Common mistake 4**
 
 English:
@@ -1135,11 +1582,11 @@ German, before:
 
 English:
 
-> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17). Add one electron per negative charge, remove one per positive charge.
+> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17; helium, in group 18, has only 2). Add one electron per negative charge, remove one per positive charge.
 
 German, new:
 
-> Valenzelektronen = letzte Ziffer der Gruppennummer bei den Hauptgruppenelementen (H 1, C 4, N 5, O 6, Halogene 7 – Stickstoff steht in Gruppe 15, Chlor in Gruppe 17). Pro negativer Ladung kommt ein Elektron dazu, pro positiver Ladung fällt eins weg.
+> Valenzelektronen = letzte Ziffer der Gruppennummer bei den Hauptgruppenelementen (H 1, C 4, N 5, O 6, Halogene 7 – Stickstoff steht in Gruppe 15, Chlor in Gruppe 17; Helium steht in Gruppe 18, hat aber nur 2). Pro negativer Ladung kommt ein Elektron dazu, pro positiver Ladung fällt eins weg.
 
 German, before:
 
@@ -1163,6 +1610,18 @@ German, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Year 10 essentials”**
+
+English:
+
+> Lewis structures of four molecules, each with its formula underneath. Water, H₂O: H–O–H with two lone pairs on the oxygen, one above it and one below. Ammonia, NH₃: nitrogen with single bonds to three hydrogens and one lone pair. Carbon dioxide, CO₂: O=C=O, two double bonds, with two lone pairs on each oxygen and none on the carbon. Methane, CH₄: carbon with single bonds to four hydrogens and no lone pairs. Bonds are lines and lone pairs are pairs of dots. Labels point to one lone pair, on the oxygen in water, and to one shared pair, a bond in ammonia.
+
+German, new:
+
+> Lewis-Formeln von vier Molekülen, unter jedem seine Summenformel. Wasser, H₂O: H–O–H mit zwei freien Elektronenpaaren am Sauerstoff, eines darüber und eines darunter. Ammoniak, NH₃: Stickstoff mit Einfachbindungen zu drei Wasserstoffatomen und einem freien Elektronenpaar. Kohlenstoffdioxid, CO₂: O=C=O, zwei Doppelbindungen, mit zwei freien Elektronenpaaren an jedem Sauerstoff und keinem am Kohlenstoff. Methan, CH₄: Kohlenstoff mit Einfachbindungen zu vier Wasserstoffatomen und ohne freies Elektronenpaar. Bindungen sind Striche, freie Elektronenpaare je zwei Punkte. Beschriftet sind ein freies Elektronenpaar, am Sauerstoff des Wassers, und ein bindendes Elektronenpaar, eine Bindung im Ammoniak.
+
+- [ ] OK   Comment:
+
 **Example card 2 in section “Year 10 essentials”: name**
 
 English:
@@ -1176,6 +1635,18 @@ German, new:
 German, before:
 
 > Methan – Kohlenstoff teilt alle vier Einzelelektronen
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “From Lewis structure to shape (VSEPR)”**
+
+English:
+
+> The five VSEPR shapes, each with its formula, shape and bond angle underneath, drawn in 3D: a solid wedge is a bond coming out of the page and a hashed wedge a bond going behind it. CO₂ is linear, 180°. BF₃ is trigonal planar, 120°. CH₄ is tetrahedral, 109.5°. NH₃ is trigonal pyramidal, 107°, with its lone pair drawn as a lobe on the nitrogen. H₂O is bent, 104.5°, with two lone-pair lobes on the oxygen. NH₃ and H₂O are drawn like CH₄ with one, then two, of its bonds replaced by a lone pair. A small arc marks the angle between the two bonds that lie in the page.
+
+German, new:
+
+> Die fünf Molekülformen nach dem VSEPR-Modell, unter jeder ihre Formel, ihre Form und ihr Bindungswinkel, räumlich gezeichnet: Ein ausgefüllter Keil ist eine Bindung, die aus der Papierebene nach vorn zeigt, ein gestrichelter Keil eine, die nach hinten zeigt. CO₂ ist linear, 180°. BF₃ ist trigonal-planar, 120°. CH₄ ist tetraedrisch, 109,5°. NH₃ ist trigonal-pyramidal, 107°, sein freies Elektronenpaar ist als Keule am Stickstoff gezeichnet. H₂O ist gewinkelt, 104,5°, mit zwei solchen Keulen am Sauerstoff. NH₃ und H₂O sind wie CH₄ gezeichnet, nur dass eine und dann zwei Bindungen durch ein freies Elektronenpaar ersetzt sind. Ein kleiner Bogen markiert den Winkel zwischen den beiden Bindungen in der Papierebene.
 
 - [ ] OK   Comment:
 
@@ -1213,6 +1684,18 @@ German, before:
 
 
 ### Naming Organic Compounds
+
+**Diagram description (alt text) in section “Worked example”**
+
+English:
+
+> The skeletal structure of 3-methylpentan-2-ol: a zigzag chain of five carbons, numbered 1 to 5 from left to right, with OH at the end of a bond up from carbon 2 and a methyl group as a short line down from carbon 3, labelled methyl. Underneath, the name 3-methylpentan-2-ol.
+
+German, new:
+
+> Die Skelettformel von 3-Methylpentan-2-ol: eine Zickzackkette aus fünf Kohlenstoffatomen, von links nach rechts mit 1 bis 5 nummeriert. Am Kohlenstoff 2 zeigt eine Bindung nach oben zur OH-Gruppe, am Kohlenstoff 3 ein kurzer Strich nach unten zur Methylgruppe, beschriftet mit „Methylgruppe“. Darunter der Name 3-Methylpentan-2-ol.
+
+- [ ] OK   Comment:
 
 **Table “Suffix priority (highest first)”, row 3, column 1**
 
@@ -1269,6 +1752,34 @@ German, before:
 
 ### Functional Groups
 
+**Paragraph of section “The reaction pathway you must know”**
+
+English:
+
+> Alkene → (H₂O, H₃PO₄ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H₂SO₄ catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.
+
+German, new:
+
+> Alken → (H₂O, H₃PO₄ als Katalysator) → Alkohol. Alken → (HX) → Halogenalkan → (OH⁻(aq)) → Alkohol → (Cr₂O₇²⁻/H⁺) → Aldehyd → (weitere Oxidation) → Carbonsäure → (Alkohol, H₂SO₄ als Katalysator) → Ester. Primäre Alkohole werden zweimal oxidiert, sekundäre einmal zum Keton, tertiäre gar nicht.
+
+German, before:
+
+> Alken → (H2O, Katalysator H+) → Alkohol. Alken → (HX) → Halogenalkan → (OH−) → Alkohol → (Cr2O7 2−/H+) → Aldehyd → (weitere Oxidation) → Carbonsäure → (Alkohol, Katalysator H2SO4) → Ester. Primäre Alkohole werden zweimal oxidiert, sekundäre einmal zum Keton, tertiäre gar nicht.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The reaction pathway you must know”**
+
+English:
+
+> A reaction map, read from the top down. Down the left: an alkene gives a primary alcohol with H₂O and an H₃PO₄ catalyst; the primary alcohol gives an aldehyde with Cr₂O₇²⁻/H⁺, the aldehyde a carboxylic acid with Cr₂O₇²⁻/H⁺, and the carboxylic acid an ester with an alcohol and an H₂SO₄ catalyst. On the right: the alkene can instead take HX to give a haloalkane, which gives the same primary alcohol with OH⁻(aq); and beside the primary alcohol, a secondary alcohol oxidises to a ketone with Cr₂O₇²⁻/H⁺.
+
+German, new:
+
+> Eine Reaktionsübersicht, von oben nach unten zu lesen. Links untereinander: Aus einem Alken wird mit H₂O und H₃PO₄ als Katalysator ein primärer Alkohol, daraus mit Cr₂O₇²⁻/H⁺ ein Aldehyd, daraus mit Cr₂O₇²⁻/H⁺ eine Carbonsäure und daraus mit einem Alkohol und H₂SO₄ als Katalysator ein Ester. Rechts: Das Alken kann stattdessen mit HX zu einem Halogenalkan reagieren, das mit OH⁻(aq) denselben primären Alkohol ergibt; neben dem primären Alkohol wird ein sekundärer Alkohol mit Cr₂O₇²⁻/H⁺ zum Keton oxidiert.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Spotting groups in a spectrum”**
 
 English:
@@ -1304,7 +1815,7 @@ German, before:
 
 ---
 
-## French (fr): 73 strings
+## French (fr): 97 strings
 
 ### New or changed glossary decisions
 
@@ -1314,6 +1825,18 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-fr.
 |---|---|---|
 | Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
 | Four-digit numbers | **No separator**: *5730 ans*, while *65 000* keeps its space. The SI brochure lets a four-digit number stand unseparated, and it is what the isotopes prose already printed. **Rated medium**: many French textbooks write *5 730 ans*; if a native reviewer prefers that, change the prose and the example card together. |
+| universal indicator | **indicateur universel** | The one place *coloré* is dropped: *universel* already says which indicator. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **échelle de pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **suc gastrique** (1), **vinaigre** (3), **eau pure** (7), **bicarbonate** (8), **décapant four** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Suc gastrique*, not *acide gastrique*: it is what a French SVT and chemistry textbook calls it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| particle | **particule** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusion / ébullition** | As in the sheet's table of phase changes. A French textbook calls the flat stretches *paliers*. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **courbe de chauffage** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **énergie reçue** | French physique-chimie puts the energy on the system's side (*l’eau reçoit de l’énergie*). *Énergie ajoutée* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| the three states at particle scale | **compact et ordonné / compact et désordonné / dispersé et désordonné** | The triad French collège textbooks use for solid, liquid and gas *à l’échelle microscopique*. The new section uses it, and its heading uses *échelle microscopique*. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **linéaire, triangulaire plane, tétraédrique, pyramidale à base triangulaire, coudée** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). The adjectives agree with *géométrie* (feminine), as a lycée textbook writes them, and they are the ones the sheet's VSEPR paragraph already used. *Trigonale plane* and *pyramide trigonale* are also in circulation and are not used. Angles: *109,5°*, no space before the degree sign. |
+| bond angle | **angle de liaison** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **triangle plein / triangle hachuré** (*représentation de Cram*) | Added 2026-09-25, for alt text. French lycée books name the convention after Cram and call the wedges triangles; *coin* is a calque. |
+| lone-pair lobe (in a VSEPR drawing) | **lobe** | Added 2026-09-25, for alt text. |
 | electron shell (the curriculum's word) | **couche électronique** | VC2S10U07 says "electron shells", so the sheet names *couche* once as the word the reader's teacher uses, and keeps *niveau d'énergie* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Ton prof parle peut-être de couches*); it no longer mentions the programme. |
 | valence electrons from the group number | **le chiffre des unités du numéro du groupe** (*Cl est dans le groupe 17 : 7 électrons de valence*) | Added 2026-09-25. With groups numbered 1–18, *numéro du groupe = électrons de valence* is only true for groups 1 and 2, so the bonding and Lewis sheets state the last-digit rule. *Chiffre des unités* is plain school French for "last digit". **Numbered, it is always *groupe*, never *colonne*** (owner's decision, 2026-09-25): *groupe 17*, *le groupe 1*, and the Lewis table is headed *Électrons de valence par groupe*. *Colonne* stays only where a sentence explains what a group is (*un groupe est une colonne*). |
 | beta decay | **désintégration bêta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particule bêta*, with the circumflex. |
@@ -1329,8 +1852,18 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-fr.
 | time in half-lives (07, horizontal axis) | **temps, en demi-vies** | Added 2026-09-25 with the redrawn isotope diagrams. |
 | the decay curve (07 alt text) | **courbe de décroissance radioactive** | Added 2026-09-25 with the redrawn isotope diagrams. *Décroissance*, because here the curve itself is the subject — see the *désintégration* row. |
 | name order vs formula order | formula **cation first**, name **anion first**: *chlorure de sodium*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In French the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **méthode de la croix** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term (*Méthode de la croix* in the takeaways). |
 | significant figures | **chiffres significatifs** | Added 2026-09-25. The lycée rule is *autant de chiffres significatifs que la donnée la moins précise*, and the stoichiometry sheet now says that rather than a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *une table de données IR*, which is what a French exercise supplies, and the polyatomic-ion table is headed *Les principaux ions polyatomiques*. |
+| SLC (standard laboratory conditions) | **withheld — spell out "à 25 °C et 100 kPa"** | Added 2026-09-25. "SLC" is a VCE (Australian) abbreviation with no French equivalent, so the conversion-table cell now names the conditions instead of naming the abbreviation, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **balance à deux plateaux**; level is **en équilibre** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **rapport molaire** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **nombre d’entités** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The lycée term (*entités chimiques*), and the one the conversion table already uses; *nombre de particules* is understood but is not what the programme prints. |
+| moles of reactant / product (mole-map boxes) | **quantité de matière du réactif / du produit** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Built on the glossary's *quantité de matière*; "moles de réactif" is spoken but is not how a French textbook writes it. |
+| primary / secondary / tertiary alcohol | **alcool primaire / secondaire / tertiaire** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalyseur** | Added 2026-09-25. On the reaction map it comes before the formula: *catalyseur H₃PO₄*. |
+| skeletal formula | **formule topologique** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The lycée term; *formule squelettique* is a calque. |
+| methyl (group), as a diagram label | **méthyle** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). With the final *-e* as a noun (*un groupe méthyle*); *méthyl-* without it inside a name (*3-méthylpentan-2-ol*). |
 
 ### Diagram labels
 
@@ -1401,6 +1934,147 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | percent2 | 25% | 25 % | |
 | percent3 | 12.5% | 12,5 % | |
 | percent4 | 6.25% | 6,25 % | |
+
+#### Diagram states-of-matter/01-particles-in-each-state
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| solid | solid | solide | |
+| liquid | liquid | liquide | |
+| gas | gas | gaz | |
+
+#### Diagram states-of-matter/02-heating-curve
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| axisTemperature | temperature | température | |
+| axisEnergy | energy added | énergie reçue | |
+| degrees | {t} °C | {t} °C | |
+| melting | melting | fusion | |
+| boiling | boiling | ébullition | |
+| solid | solid | solide | |
+| liquid | liquid | liquide | |
+| gas | gas | gaz | |
+
+#### Diagram lewis-structures/01-lewis-structures
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| lonePair | lone pair | doublet non liant | |
+| sharedPair | shared pair | doublet liant | |
+| water | H₂O | H₂O | |
+| ammonia | NH₃ | NH₃ | |
+| carbonDioxide | CO₂ | CO₂ | |
+| methane | CH₄ | CH₄ | |
+
+#### Diagram lewis-structures/02-vsepr-shapes
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| carbonDioxide | CO₂ | CO₂ | |
+| boronTrifluoride | BF₃ | BF₃ | |
+| methane | CH₄ | CH₄ | |
+| ammonia | NH₃ | NH₃ | |
+| water | H₂O | H₂O | |
+| linear | linear, 180° | linéaire, 180° | |
+| trigonalPlanar | trigonal planar, 120° | triangulaire plane, 120° | |
+| tetrahedral | tetrahedral, 109.5° | tétraédrique, 109,5° | |
+| trigonalPyramidal | trigonal pyramidal, 107° | pyramidale à base triangulaire, 107° | |
+| bent | bent, 104.5° | coudée, 104,5° | |
+
+#### Diagram functional-groups/01-reaction-map
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| alkene | alkene | alcène | |
+| haloalkane | haloalkane | halogénoalcane | |
+| primaryAlcohol | primary alcohol | alcool primaire | |
+| secondaryAlcohol | secondary alcohol | alcool secondaire | |
+| aldehyde | aldehyde | aldéhyde | |
+| ketone | ketone | cétone | |
+| carboxylicAcid | carboxylic acid | acide carboxylique | |
+| ester | ester | ester | |
+| hydration | H2O, H3PO4 catalyst | H2O, catalyseur H3PO4 | |
+| addition | HX | HX | |
+| substitution | OH− (aq) | OH− (aq) | |
+| oxidation | Cr2O7 2−/H+ | Cr2O7 2−/H+ | |
+| esterification | alcohol, H2SO4 catalyst | alcool, catalyseur H2SO4 | |
+
+#### Diagram relative-formula-mass/01-carbon-hydrogen-balance
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| carbonAtom | carbon atom | atome de carbone | |
+| hydrogenAtoms | hydrogen atoms | atomes d’hydrogène | |
+| notToScale | Not to scale | Échelle non respectée | |
+
+#### Diagram balancing-equations/01-particle-equation
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| reactants | reactants | réactifs | |
+| products | products | produits | |
+| hydrogen | 2H2 | 2H2 | |
+| oxygen | O2 | O2 | |
+| water | 2H2O | 2H2O | |
+
+#### Diagram chemical-bonds/01-bonding-models
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| ionic | ionic | liaison ionique | |
+| covalent | covalent | liaison covalente | |
+| metallic | metallic | liaison métallique | |
+| sharedPair | shared pair | doublet liant | |
+| delocalised | delocalised electrons | électrons libres | |
+
+#### Diagram acids-and-bases/01-ph-scale
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| stomachAcid | stomach acid | suc gastrique | |
+| vinegar | vinegar | vinaigre | |
+| pureWater | pure water | eau pure | |
+| bakingSoda | baking soda | bicarbonate | |
+| ovenCleaner | oven cleaner | décapant four | |
+
+#### Diagram naming-compounds/01-which-system
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| metalNonMetal | metal + non-metal | métal + non-métal | |
+| twoNonMetals | two non-metals | deux non-métaux | |
+| hydrogenInWater | H first, in water | H en tête, dans l’eau | |
+| ionic | ionic | ionique | |
+| molecular | molecular | moléculaire | |
+| acid | acid | acide | |
+| ionicExample | sodium chloride | chlorure de sodium | |
+| molecularExample | sulfur dioxide | dioxyde de soufre | |
+| acidExample | hydrochloric acid | acide chlorhydrique | |
+
+#### Diagram stoichiometry/01-mole-map
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| mass | mass | masse | |
+| particles | particles | nombre d’entités | |
+| gasVolume | gas volume | volume de gaz | |
+| solution | solution | solution | |
+| fromMass | n = m/M | n = m/M | |
+| fromParticles | n = N/NA | n = N/NA | |
+| fromGasVolume | n = V/Vm | n = V/Vm | |
+| fromSolution | n = cV | n = cV | |
+| reactantMoles | moles of reactant | quantité de matière du réactif | |
+| moleRatio | mole ratio (coefficients) | rapport molaire (coefficients) | |
+| productMoles | moles of product | quantité de matière du produit | |
+
+#### Diagram organic-nomenclature/01-numbered-chain
+
+| Label | English | French | OK / comment |
+|---|---|---|---|
+| hydroxyl | OH | OH | |
+| methyl | methyl | méthyle | |
+| name | {methylAt}-methylpentan-{hydroxylAt}-ol | {methylAt}-méthylpentan-{hydroxylAt}-ol | |
 
 ### Atoms & the Periodic Table
 
@@ -1603,15 +2277,31 @@ French, before:
 
 ### Isotopes & Radioactivity
 
-**Example card 1 (C-12): description**
+**Example card 1 (H-3): name**
 
 English:
 
-> the standard all other masses are measured against
+> Hydrogen-3 (tritium)
 
 French, new:
 
-> l’étalon auquel on compare toutes les autres masses
+> Hydrogène 3 (tritium)
+
+French, before:
+
+> Carbone 12
+
+- [ ] OK   Comment:
+
+**Example card 1 (H-3): description**
+
+English:
+
+> radioactive: half-life about 12 years
+
+French, new:
+
+> radioactif : demi-vie d’environ 12 ans
 
 - [ ] OK   Comment:
 
@@ -1679,11 +2369,11 @@ French, new:
 
 English:
 
-> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put.
+> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Why an element's relative atomic mass, such as chlorine's 35.5, is not a whole number is on the Relative Atomic & Formula Mass sheet.
 
 French, new:
 
-> Le numéro atomique est le nombre de protons, et c’est lui qui fixe l’élément. Le nombre de masse, c’est les protons plus les neutrons. Toute cette antisèche parle du deuxième nombre qui change pendant que le premier reste en place.
+> Le numéro atomique est le nombre de protons, et c’est lui qui fixe l’élément. Le nombre de masse, c’est les protons plus les neutrons. Toute cette antisèche parle du deuxième nombre qui change pendant que le premier reste en place. Pourquoi la masse atomique relative d’un élément, comme le 35,5 du chlore, n’est pas un nombre entier, c’est expliqué dans l’antisèche « Masse atomique et masse formulaire relatives ».
 
 French, before:
 
@@ -1774,8 +2464,72 @@ French, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “Particles in each state”**
+
+English:
+
+> Particles in each state
+
+French, new:
+
+> Les trois états à l’échelle microscopique
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Particles in each state”**
+
+English:
+
+> In a solid the particles touch in a regular pattern and vibrate in place. In a liquid they still touch, but they are jumbled and slide past one another; in a gas they are far apart and move freely in every direction. The particles are the same size in all three states: only their arrangement and the spaces between them change.
+
+French, new:
+
+> Dans un solide, les particules se touchent et sont rangées de façon régulière : l’état solide est compact et ordonné, et les particules vibrent sur place. Dans un liquide, elles se touchent encore mais en désordre et glissent les unes sur les autres (compact et désordonné) ; dans un gaz, elles sont très éloignées les unes des autres et se déplacent librement dans toutes les directions (dispersé et désordonné). Les particules ont la même taille dans les trois états : seuls leur disposition et les espaces entre elles changent.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Particles in each state”**
+
+English:
+
+> Three boxes, one above another, with particles of the same size in each. Solid: particles touching in a regular block of rows and columns, resting on the floor of the box. Liquid: the same number of particles, still touching but jumbled, with small gaps, spread across the bottom of the box. Gas: five particles far apart across the whole box, each with two short marks behind it to show that it is moving.
+
+French, new:
+
+> Trois boîtes l’une au-dessus de l’autre, avec des particules de même taille dans chacune. Solide : les particules se touchent et forment un bloc régulier de rangées et de colonnes, posé au fond de la boîte. Liquide : le même nombre de particules, qui se touchent encore mais en désordre, avec de petits espaces, étalées au fond de la boîte. Gaz : cinq particules très éloignées les unes des autres dans toute la boîte, chacune avec deux petits traits derrière elle pour montrer qu’elle se déplace.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Heating and cooling curves”**
+
+English:
+
+> A heating curve for water: temperature up the side and energy added along the bottom, with no numbers on the energy axis. The line climbs steeply through the solid, stays flat at 0 °C for melting, climbs less steeply through the liquid, stays flat at 100 °C for boiling, then climbs steeply again through the gas. The boiling plateau is drawn to scale, almost seven times as long as the melting plateau: about 2260 J against 334 J for each gram.
+
+French, new:
+
+> Une courbe de chauffage de l’eau : la température en ordonnée, l’énergie reçue en abscisse, sans valeurs sur l’axe de l’énergie. La courbe monte fortement pour le solide, présente un palier à 0 °C pendant la fusion, monte moins fortement pour le liquide, présente un palier à 100 °C pendant l’ébullition, puis remonte fortement pour le gaz. Le palier d’ébullition est dessiné à l’échelle, presque sept fois plus long que celui de la fusion : environ 2 260 J contre 334 J par gramme.
+
+- [ ] OK   Comment:
+
 
 ### Acids & Bases
+
+**Key takeaway 2**
+
+English:
+
+> Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH−, in water. pH > 7.
+
+French, new:
+
+> Base : un accepteur de proton. Les bases solubles libèrent des ions hydroxyde, OH−, dans l’eau. pH > 7.
+
+French, before:
+
+> Base : un accepteur de proton. Les bases solubles libèrent des ions hydroxyde, OH-, dans l’eau. pH > 7.
+
+- [ ] OK   Comment:
 
 **Key takeaway 3**
 
@@ -1790,6 +2544,22 @@ French, new:
 French, before:
 
 > Neutre : pH 7 à 25 °C – l’eau pure et la plupart des sels.
+
+- [ ] OK   Comment:
+
+**Key takeaway 4**
+
+English:
+
+> Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH− → H2O.
+
+French, new:
+
+> Neutralisation : acide + base → sel + eau. L’équation ionique est toujours H+ + OH− → H2O.
+
+French, before:
+
+> Neutralisation : acide + base → sel + eau. L’équation ionique est toujours H+ + OH- → H2O.
 
 - [ ] OK   Comment:
 
@@ -1809,6 +2579,42 @@ French, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “The pH scale”**
+
+English:
+
+> The pH scale
+
+French, new:
+
+> L’échelle de pH
+
+- [ ] OK   Comment:
+
+**Paragraph of section “The pH scale”**
+
+English:
+
+> pH says how acidic or alkaline a solution is. At 25 °C, below 7 is acidic, 7 is neutral and above 7 is alkaline, and most solutions you will meet lie between 0 and 14. Universal indicator turns a different colour at each pH: red at the acidic end, green at 7 and purple at the alkaline end.
+
+French, new:
+
+> Le pH indique si une solution est acide, neutre ou basique. À 25 °C, une solution est acide en dessous de 7, neutre à 7 et basique au-dessus de 7 ; la plupart des solutions que tu rencontreras ont un pH compris entre 0 et 14. L’indicateur universel prend une couleur différente à chaque pH : rouge du côté acide, vert à 7 et violet du côté basique.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The pH scale”**
+
+English:
+
+> The pH scale as a bar from 0 at the top to 14 at the bottom, each step in its universal-indicator colour with its number printed beside it: red at 0, orange at 1, yellow at 2 and 3, green from 4 to 8, blue-green at 9, blue at 10 and 11 and purple from 12 to 14. Five everyday solutions are marked at their pH: stomach acid at 1, vinegar at 3, pure water at 7, baking soda at 8 and oven cleaner at 13.
+
+French, new:
+
+> L’échelle de pH sous forme de barre, de 0 en haut à 14 en bas, chaque graduation dans sa couleur d’indicateur universel, avec son nombre à côté : rouge à 0, orange à 1, jaune à 2 et 3, vert de 4 à 8, bleu-vert à 9, bleu à 10 et 11 et violet de 12 à 14. Cinq produits du quotidien sont placés à leur pH : le suc gastrique à 1, le vinaigre à 3, l’eau pure à 7, le bicarbonate à 8 et le décapant four à 13.
+
+- [ ] OK   Comment:
+
 
 ### Balancing Chemical Equations
 
@@ -1825,6 +2631,18 @@ French, new:
 French, before:
 
 > Non équilibrée
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “A method that always works”**
+
+English:
+
+> The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.
+
+French, new:
+
+> La réaction 2H₂ + O₂ → 2H₂O représentée par des particules. À gauche, les réactifs : deux molécules de dihydrogène, chacune formée de deux atomes marqués H qui se touchent, plus une molécule de dioxygène, deux atomes marqués O. Une flèche mène aux produits : deux molécules d’eau, chacune un atome O lié à deux atomes H. L’équation est écrite sous les particules et, en dessous, les atomes sont comptés de chaque côté : H 4 et 4, O 2 et 2.
 
 - [ ] OK   Comment:
 
@@ -1854,15 +2672,27 @@ French, before:
 
 English:
 
-> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons).
+> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons; helium, in group 18, has only 2).
 
 French, new:
 
-> Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro du groupe donne le nombre d’électrons de valence (Cl est dans le groupe 17 : 7 électrons de valence).
+> Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro du groupe donne le nombre d’électrons de valence (Cl est dans le groupe 17 : 7 électrons de valence ; l’hélium, dans le groupe 18, n’en a que 2).
 
 French, before:
 
 > Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le numéro de colonne donne le nombre d’électrons de valence.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Why ionic compounds conduct only when molten or dissolved”**
+
+English:
+
+> Three boxes, one above another. Ionic: a grid of small positive ions and large negative ions, alternating, each marked + or −. Covalent: one hydrogen molecule, two atoms marked H whose circles overlap, with two electron dots in the overlap, labelled shared pair. Metallic: a grid of positive metal ions with as many small electron dots scattered between them, labelled delocalised electrons.
+
+French, new:
+
+> Trois cadres, l’un sous l’autre. Liaison ionique : un réseau de petits ions positifs et de gros ions négatifs qui alternent, chacun marqué + ou −. Liaison covalente : une molécule de dihydrogène, deux atomes marqués H dont les cercles se chevauchent, avec deux points (les électrons) dans la zone commune, légendés doublet liant. Liaison métallique : un réseau d’ions métalliques positifs, avec autant de petits points (les électrons) dispersés entre eux, légendés électrons libres.
 
 - [ ] OK   Comment:
 
@@ -1882,6 +2712,18 @@ French, new:
 French, before:
 
 > Écris le cation (le métal ou NH4+) en premier dans la formule, puis l’anion.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Worked example: aluminium sulfate”**
+
+English:
+
+> Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.
+
+French, new:
+
+> Le sulfate d’aluminium par la méthode de la croix. En haut, l’ion aluminium Al³⁺, marqué « cation », et l’ion sulfate SO₄²⁻, marqué « anion ». Deux flèches qui se croisent font descendre chaque nombre de charges, qui devient l’indice de l’autre ion : le 3 de Al³⁺ devient le 3 après le sulfate entre parenthèses, et le 2 de SO₄²⁻ devient le 2 après Al. En bas, la formule statistique Al₂(SO₄)₃ et la vérification : 2 × (+3) = +6 et 3 × (−2) = −6.
 
 - [ ] OK   Comment:
 
@@ -1987,6 +2829,42 @@ French, before:
 
 ### Naming Inorganic Compounds
 
+**Heading of section “Which naming system?”**
+
+English:
+
+> Which naming system?
+
+French, new:
+
+> Quel système de nommage ?
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Which naming system?”**
+
+English:
+
+> Look at what the compound is made of before you name it. A metal (or NH4+) with a non-metal is ionic: the cation, then the anion, with no prefixes. Two non-metals make a molecular compound, named with Greek prefixes — but if H comes first and it is dissolved in water, it is an acid, and acids have names of their own.
+
+French, new:
+
+> Regarde d’abord de quoi le composé est fait. Un métal (ou NH4+) avec un non-métal donne un composé ionique : l’anion d’abord, puis « de » et le cation, sans préfixe – chlorure de sodium. Deux non-métaux donnent un composé moléculaire, nommé avec des préfixes grecs (dioxyde de soufre) ; mais si H vient en tête et que le composé est dissous dans l’eau, c’est un acide, nommé d’après son anion : acide chlorhydrique.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Which naming system?”**
+
+English:
+
+> A flowchart for choosing a naming system. Metal + non-metal leads to ionic, for example sodium chloride. Two non-metals leads to molecular, for example sulfur dioxide. An arrow down from two non-metals leads to H first, in water, and from there to acid, for example hydrochloric acid.
+
+French, new:
+
+> Un organigramme pour choisir le système de nommage. De « métal + non-métal », une flèche mène à « ionique », par exemple chlorure de sodium. De « deux non-métaux », une flèche mène à « moléculaire », par exemple dioxyde de soufre. De « deux non-métaux », une autre flèche descend vers « H en tête, dans l’eau », puis mène à « acide », par exemple acide chlorhydrique.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Working out a Roman numeral”**
 
 English:
@@ -1996,10 +2874,6 @@ English:
 French, new:
 
 > Pour Fe2(SO4)3 : le sulfate porte 2−, et il y en a trois, donc les anions totalisent −6. Les deux ions fer doivent totaliser +6, chacun est donc en +3 → sulfate de fer(III). Seuls les métaux qui ont plus d’une charge courante (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) ont besoin du chiffre ; le groupe 1, le groupe 2, Al, Zn et Ag n’en ont jamais besoin.
-
-French, before:
-
-> Pour Fe2(SO4)3 : le sulfate porte 2−, et il y en a trois, donc les anions totalisent −6. Les deux ions fer doivent totaliser +6, chacun est donc en +3 → sulfate de fer(III). Seuls les métaux qui ont plus d’une charge courante (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) ont besoin du chiffre ; la colonne 1, la colonne 2, Al, Zn et Ag n’en ont jamais besoin.
 
 - [ ] OK   Comment:
 
@@ -2063,6 +2937,18 @@ English:
 French, new:
 
 > 40 + 2 × (14 + 3 × 16) = 164
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “What "relative" actually means”**
+
+English:
+
+> A balance with two hanging pans, level. On the left pan is one carbon atom, a circle marked C. On the right pan are twelve hydrogen atoms, smaller circles marked H, piled in rows of five, four and three. Carbon is drawn bigger than hydrogen, but nowhere near twelve times the size. Labels under the pans say 1 carbon atom and 12 hydrogen atoms, and a note says the picture is not to scale.
+
+French, new:
+
+> Une balance à deux plateaux suspendus, en équilibre. Sur le plateau de gauche, un atome de carbone, un cercle marqué C. Sur celui de droite, douze atomes d’hydrogène, des cercles plus petits marqués H, empilés en rangées de cinq, quatre et trois. Le carbone est dessiné plus gros que l’hydrogène, mais loin d’être douze fois plus gros. Sous les plateaux, on lit « 1 atome de carbone » et « 12 atomes d’hydrogène », et une mention précise que l’échelle n’est pas respectée.
 
 - [ ] OK   Comment:
 
@@ -2337,6 +3223,34 @@ French, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Worked example: mass → mass”**
+
+English:
+
+> The mole map. Four boxes down the left, mass, particles, gas volume and solution, are each joined to a tall box, moles of reactant, by a two-way arrow carrying its formula: n = m/M, n = N/N_A, n = V/V_m and n = cV. From moles of reactant, an arrow labelled mole ratio (coefficients) leads down to moles of product.
+
+French, new:
+
+> La carte des conversions par la quantité de matière. À gauche, quatre cases l’une sous l’autre – masse, nombre d’entités, volume de gaz et solution – sont reliées chacune à une grande case, « quantité de matière du réactif », par une double flèche qui porte sa formule : n = m/M, n = N/N_A, n = V/V_m et n = cV. De la quantité de matière du réactif, une flèche marquée « rapport molaire (coefficients) » descend vers la quantité de matière du produit.
+
+- [ ] OK   Comment:
+
+**Table “The conversion formulas”, row 4, column 2**
+
+English:
+
+> volume of a gas at SLC
+
+French, new:
+
+> le volume d’un gaz à 25 °C et 100 kPa
+
+French, before:
+
+> le volume d’un gaz dans les conditions SLC
+
+- [ ] OK   Comment:
+
 **Common mistake 4**
 
 English:
@@ -2360,11 +3274,11 @@ French, before:
 
 English:
 
-> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17). Add one electron per negative charge, remove one per positive charge.
+> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17; helium, in group 18, has only 2). Add one electron per negative charge, remove one per positive charge.
 
 French, new:
 
-> Électrons de valence = chiffre des unités du numéro du groupe pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans le groupe 15, le chlore dans le groupe 17). Ajoute un électron par charge négative, enlève-en un par charge positive.
+> Électrons de valence = chiffre des unités du numéro du groupe pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans le groupe 15, le chlore dans le groupe 17 ; l’hélium, dans le groupe 18, n’en a que 2). Ajoute un électron par charge négative, enlève-en un par charge positive.
 
 French, before:
 
@@ -2388,6 +3302,18 @@ French, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Year 10 essentials”**
+
+English:
+
+> Lewis structures of four molecules, each with its formula underneath. Water, H₂O: H–O–H with two lone pairs on the oxygen, one above it and one below. Ammonia, NH₃: nitrogen with single bonds to three hydrogens and one lone pair. Carbon dioxide, CO₂: O=C=O, two double bonds, with two lone pairs on each oxygen and none on the carbon. Methane, CH₄: carbon with single bonds to four hydrogens and no lone pairs. Bonds are lines and lone pairs are pairs of dots. Labels point to one lone pair, on the oxygen in water, and to one shared pair, a bond in ammonia.
+
+French, new:
+
+> Les structures de Lewis de quatre molécules, chacune avec sa formule en dessous. Eau, H₂O : H–O–H avec deux doublets non liants sur l’oxygène, un au-dessus et un en dessous. Ammoniac, NH₃ : l’azote lié à trois hydrogènes par des liaisons simples, avec un doublet non liant. Dioxyde de carbone, CO₂ : O=C=O, deux liaisons doubles, avec deux doublets non liants sur chaque oxygène et aucun sur le carbone. Méthane, CH₄ : le carbone lié à quatre hydrogènes par des liaisons simples, sans doublet non liant. Les liaisons sont des traits et les doublets non liants des paires de points. Des étiquettes désignent un doublet non liant, sur l’oxygène de l’eau, et un doublet liant, une liaison de l’ammoniac.
+
+- [ ] OK   Comment:
+
 **Example card 2 in section “Year 10 essentials”: name**
 
 English:
@@ -2401,6 +3327,18 @@ French, new:
 French, before:
 
 > Méthane – le carbone partage ses quatre solitaires
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “From Lewis structure to shape (VSEPR)”**
+
+English:
+
+> The five VSEPR shapes, each with its formula, shape and bond angle underneath, drawn in 3D: a solid wedge is a bond coming out of the page and a hashed wedge a bond going behind it. CO₂ is linear, 180°. BF₃ is trigonal planar, 120°. CH₄ is tetrahedral, 109.5°. NH₃ is trigonal pyramidal, 107°, with its lone pair drawn as a lobe on the nitrogen. H₂O is bent, 104.5°, with two lone-pair lobes on the oxygen. NH₃ and H₂O are drawn like CH₄ with one, then two, of its bonds replaced by a lone pair. A small arc marks the angle between the two bonds that lie in the page.
+
+French, new:
+
+> Les cinq géométries VSEPR, chacune avec sa formule, sa géométrie et son angle de liaison en dessous, dessinées en représentation de Cram : un triangle plein est une liaison qui sort du plan vers l’avant, un triangle hachuré une liaison qui part vers l’arrière. CO₂ : linéaire, 180°. BF₃ : triangulaire plane, 120°. CH₄ : tétraédrique, 109,5°. NH₃ : pyramidale à base triangulaire, 107°, avec son doublet non liant dessiné comme un lobe sur l’azote. H₂O : coudée, 104,5°, avec deux lobes sur l’oxygène. NH₃ et H₂O sont dessinées comme CH₄, avec une puis deux de ses liaisons remplacées par un doublet non liant. Un petit arc marque l’angle entre les deux liaisons situées dans le plan de la page.
 
 - [ ] OK   Comment:
 
@@ -2438,6 +3376,18 @@ French, before:
 
 
 ### Naming Organic Compounds
+
+**Diagram description (alt text) in section “Worked example”**
+
+English:
+
+> The skeletal structure of 3-methylpentan-2-ol: a zigzag chain of five carbons, numbered 1 to 5 from left to right, with OH at the end of a bond up from carbon 2 and a methyl group as a short line down from carbon 3, labelled methyl. Underneath, the name 3-methylpentan-2-ol.
+
+French, new:
+
+> La formule topologique du 3-méthylpentan-2-ol : une chaîne en zigzag de cinq carbones, numérotés de 1 à 5 de gauche à droite. Sur le carbone 2, une liaison monte vers OH ; sur le carbone 3, un trait court descend : c’est le groupe méthyle, marqué « méthyle ». En dessous, le nom 3-méthylpentan-2-ol.
+
+- [ ] OK   Comment:
 
 **Table “Suffix priority (highest first)”, row 3, column 1**
 
@@ -2494,6 +3444,34 @@ French, before:
 
 ### Functional Groups
 
+**Paragraph of section “The reaction pathway you must know”**
+
+English:
+
+> Alkene → (H₂O, H₃PO₄ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H₂SO₄ catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.
+
+French, new:
+
+> Alcène → (H₂O, catalyseur H₃PO₄) → alcool. Alcène → (HX) → halogénoalcane → (OH⁻(aq)) → alcool → (Cr₂O₇²⁻/H⁺) → aldéhyde → (oxydation supplémentaire) → acide carboxylique → (alcool, catalyseur H₂SO₄) → ester. Les alcools primaires s’oxydent deux fois, les alcools secondaires une fois en cétone, les alcools tertiaires ne s’oxydent pas.
+
+French, before:
+
+> Alcène → (H2O, catalyseur H+) → alcool. Alcène → (HX) → halogénoalcane → (OH−) → alcool → (Cr2O7 2−/H+) → aldéhyde → (oxydation supplémentaire) → acide carboxylique → (alcool, catalyseur H2SO4) → ester. Les alcools primaires s’oxydent deux fois, les alcools secondaires une fois en cétone, les alcools tertiaires ne s’oxydent pas.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The reaction pathway you must know”**
+
+English:
+
+> A reaction map, read from the top down. Down the left: an alkene gives a primary alcohol with H₂O and an H₃PO₄ catalyst; the primary alcohol gives an aldehyde with Cr₂O₇²⁻/H⁺, the aldehyde a carboxylic acid with Cr₂O₇²⁻/H⁺, and the carboxylic acid an ester with an alcohol and an H₂SO₄ catalyst. On the right: the alkene can instead take HX to give a haloalkane, which gives the same primary alcohol with OH⁻(aq); and beside the primary alcohol, a secondary alcohol oxidises to a ketone with Cr₂O₇²⁻/H⁺.
+
+French, new:
+
+> Une carte des réactions, à lire de haut en bas. À gauche : un alcène donne un alcool primaire avec H₂O et le catalyseur H₃PO₄ ; l’alcool primaire donne un aldéhyde avec Cr₂O₇²⁻/H⁺, l’aldéhyde un acide carboxylique avec Cr₂O₇²⁻/H⁺, et l’acide carboxylique un ester avec un alcool et le catalyseur H₂SO₄. À droite : l’alcène peut aussi donner un halogénoalcane avec HX, qui donne le même alcool primaire avec OH⁻(aq) ; et à côté de l’alcool primaire, un alcool secondaire s’oxyde en cétone avec Cr₂O₇²⁻/H⁺.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Spotting groups in a spectrum”**
 
 English:
@@ -2529,7 +3507,7 @@ French, before:
 
 ---
 
-## Spanish (es): 69 strings
+## Spanish (es): 93 strings
 
 ### New or changed glossary decisions
 
@@ -2540,6 +3518,16 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-es.
 | Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
 | Four-digit numbers | **No separator**: *5730 años*. The RAE (*Ortografía*, 2010) writes four-digit numbers without the space; it starts at five digits (*65 000*). |
 | billion (10⁹) | **mil millones**, so 4.5 billion years is *4500 millones de años*. Never *billón*, which in Spanish is 10¹² — a thousand times too old for uranium-238. |
+| pH scale | **escala de pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **jugo gástrico** (1), **vinagre** (3), **agua pura** (7), **bicarbonato** (8), **limpiahornos** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Jugo gástrico* is the school term in Spain as well as in Latin America. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| particle | **partícula** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusión / ebullición** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **curva de calentamiento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **energía suministrada** | Spanish textbooks label this axis *calor suministrado*; *energía* keeps the sheet's word. *Energía añadida* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineal, triangular plana, tetraédrica, piramidal trigonal, angular** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometría*, as a Bachillerato textbook writes them, and the ones the sheet's RPECV paragraph already used. *Trigonal plana* is also seen. The model is **RPECV** in Spanish, never *VSEPR* in running text. Angles: *109,5°*. |
+| bond angle | **ángulo de enlace** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuña rellena / cuña rayada** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lóbulo** | Added 2026-09-25, for alt text. |
 | electron shell (the curriculum's word) | **capa electrónica** | VC2S10U07 says "electron shells", so the sheet names *capa* once as the word the reader's teacher uses, and keeps *nivel de energía* as its own term. Since 2026-09-25 the sentence is *Puede que en clase oigas llamarlos capas*: it credits the word to the classroom alone, no longer to the curriculum, and it avoids a gendered *tu profesor*. |
 | valence electrons from the group number | **la última cifra del número de grupo** (*el Cl está en el grupo 17: 7 electrones de valencia*) | Added 2026-09-25. Spanish textbooks number the groups 1–18, where *número de grupo = electrones de valencia* only holds for groups 1 and 2. The bonding and Lewis sheets now state the last-digit rule. |
 | beta decay | **desintegración beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *partícula beta*. |
@@ -2555,8 +3543,18 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-es.
 | undecayed nuclei (07, vertical axis) | **núcleos sin desintegrar** | Added 2026-09-25 with the redrawn isotope diagrams. The phrase Spanish physics uses for *N(t)* in the decay law. Replaces "how much is left", which suggests the sample disappears. |
 | time in half-lives (07, horizontal axis) | **tiempo, en periodos de semidesintegración** | Added 2026-09-25 with the redrawn isotope diagrams. Wraps onto two lines in the diagram, which leaves room for it; the term is not shortened to *semivida* to fit. |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro de sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Spanish the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **método del aspa** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
 | significant figures | **cifras significativas** | Added 2026-09-25. The rule is phrased *al mismo número de cifras significativas que el dato menos preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
+| CLE (condiciones estándar de laboratorio) | **withheld — spell out "a 25 °C y 100 kPa"** | Added 2026-09-25. "CLE" is a VCE (Australian) abbreviation with no Spanish equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **balanza de dos platillos**; level is **equilibrada** | *La balanza* as fixed above for the game's beam; the pans are *platillos*. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **relación molar** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **número de partículas** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **moles de reactivo / de producto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Moles de*, as the overlay says it (*convierte a moles*) and as a Spanish class does; *cantidad de sustancia del reactivo* would not fit the box and no student says it. |
+| primary / secondary / tertiary alcohol | **alcohol primario / secundario / terciario** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalizador** | Added 2026-09-25. On the reaction map: *H₃PO₄ como catalizador*. |
+| skeletal formula | **fórmula de esqueleto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Also *fórmula de líneas y ángulos* in some textbooks. **Rated medium.** |
+| methyl (group), as a diagram label | **metilo** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Metilo* as a noun (*un metilo*, *grupo metilo*); *metil-* inside a name (*3-metilpentan-2-ol*). |
 
 ### Diagram labels
 
@@ -2627,6 +3625,159 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | percent2 | 25% | 25 % | |
 | percent3 | 12.5% | 12,5 % | |
 | percent4 | 6.25% | 6,25 % | |
+
+#### Diagram states-of-matter/01-particles-in-each-state
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| solid | solid | sólido | |
+| liquid | liquid | líquido | |
+| gas | gas | gas | |
+
+#### Diagram states-of-matter/02-heating-curve
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| axisTemperature | temperature | temperatura | |
+| axisEnergy | energy added | energía suministrada | |
+| degrees | {t} °C | {t} °C | |
+| melting | melting | fusión | |
+| boiling | boiling | ebullición | |
+| solid | solid | sólido | |
+| liquid | liquid | líquido | |
+| gas | gas | gas | |
+
+#### Diagram lewis-structures/01-lewis-structures
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| lonePair | lone pair | par solitario | |
+| sharedPair | shared pair | par enlazante | |
+| water | H₂O | H₂O | |
+| ammonia | NH₃ | NH₃ | |
+| carbonDioxide | CO₂ | CO₂ | |
+| methane | CH₄ | CH₄ | |
+
+#### Diagram lewis-structures/02-vsepr-shapes
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| carbonDioxide | CO₂ | CO₂ | |
+| boronTrifluoride | BF₃ | BF₃ | |
+| methane | CH₄ | CH₄ | |
+| ammonia | NH₃ | NH₃ | |
+| water | H₂O | H₂O | |
+| linear | linear, 180° | lineal, 180° | |
+| trigonalPlanar | trigonal planar, 120° | triangular plana, 120° | |
+| tetrahedral | tetrahedral, 109.5° | tetraédrica, 109,5° | |
+| trigonalPyramidal | trigonal pyramidal, 107° | piramidal trigonal, 107° | |
+| bent | bent, 104.5° | angular, 104,5° | |
+
+#### Diagram functional-groups/01-reaction-map
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| alkene | alkene | alqueno | |
+| haloalkane | haloalkane | haloalcano | |
+| primaryAlcohol | primary alcohol | alcohol primario | |
+| secondaryAlcohol | secondary alcohol | alcohol secundario | |
+| aldehyde | aldehyde | aldehído | |
+| ketone | ketone | cetona | |
+| carboxylicAcid | carboxylic acid | ácido carboxílico | |
+| ester | ester | éster | |
+| hydration | H2O, H3PO4 catalyst | H2O, H3PO4 como catalizador | |
+| addition | HX | HX | |
+| substitution | OH− (aq) | OH− (aq) | |
+| oxidation | Cr2O7 2−/H+ | Cr2O7 2−/H+ | |
+| esterification | alcohol, H2SO4 catalyst | alcohol, H2SO4 como catalizador | |
+
+#### Diagram relative-formula-mass/01-carbon-hydrogen-balance
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| carbonAtom | carbon atom | átomo de carbono | |
+| hydrogenAtoms | hydrogen atoms | átomos de hidrógeno | |
+| notToScale | Not to scale | No está a escala | |
+
+#### Diagram balancing-equations/01-particle-equation
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| reactants | reactants | reactivos | |
+| products | products | productos | |
+| hydrogen | 2H2 | 2H2 | |
+| oxygen | O2 | O2 | |
+| water | 2H2O | 2H2O | |
+
+#### Diagram chemical-bonds/01-bonding-models
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| ionic | ionic | enlace iónico | |
+| covalent | covalent | enlace covalente | |
+| metallic | metallic | enlace metálico | |
+| sharedPair | shared pair | par enlazante | |
+| delocalised | delocalised electrons | electrones libres | |
+
+#### Diagram acids-and-bases/01-ph-scale
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| stomachAcid | stomach acid | jugo gástrico | |
+| vinegar | vinegar | vinagre | |
+| pureWater | pure water | agua pura | |
+| bakingSoda | baking soda | bicarbonato | |
+| ovenCleaner | oven cleaner | limpiahornos | |
+
+#### Diagram chemical-formulas/01-cross-over
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| cation | cation | catión | |
+| anion | anion | anión | |
+| cationFormula | Al 3+ | Al 3+ | |
+| anionFormula | SO4 2− | SO4 2− | |
+| formula | Al2(SO4)3 | Al2(SO4)3 | |
+| positive | {count} × (+{charge}) = +{total} | {count} × (+{charge}) = +{total} | |
+| negative | {count} × (−{charge}) = −{total} | {count} × (−{charge}) = −{total} | |
+
+#### Diagram naming-compounds/01-which-system
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| metalNonMetal | metal + non-metal | metal + no metal | |
+| twoNonMetals | two non-metals | dos no metales | |
+| hydrogenInWater | H first, in water | H delante, en agua | |
+| ionic | ionic | iónico | |
+| molecular | molecular | molecular | |
+| acid | acid | ácido | |
+| ionicExample | sodium chloride | cloruro de sodio | |
+| molecularExample | sulfur dioxide | dióxido de azufre | |
+| acidExample | hydrochloric acid | ácido clorhídrico | |
+
+#### Diagram stoichiometry/01-mole-map
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| mass | mass | masa | |
+| particles | particles | número de partículas | |
+| gasVolume | gas volume | volumen de gas | |
+| solution | solution | disolución | |
+| fromMass | n = m/M | n = m/M | |
+| fromParticles | n = N/NA | n = N/NA | |
+| fromGasVolume | n = V/Vm | n = V/Vm | |
+| fromSolution | n = cV | n = cV | |
+| reactantMoles | moles of reactant | moles de reactivo | |
+| moleRatio | mole ratio (coefficients) | relación molar (coeficientes) | |
+| productMoles | moles of product | moles de producto | |
+
+#### Diagram organic-nomenclature/01-numbered-chain
+
+| Label | English | Spanish | OK / comment |
+|---|---|---|---|
+| hydroxyl | OH | OH | |
+| methyl | methyl | metilo | |
+| name | {methylAt}-methylpentan-{hydroxylAt}-ol | {methylAt}-metilpentan-{hydroxylAt}-ol | |
 
 ### Atoms & the Periodic Table
 
@@ -2829,15 +3980,31 @@ Spanish, before:
 
 ### Isotopes & Radioactivity
 
-**Example card 1 (C-12): description**
+**Example card 1 (H-3): name**
 
 English:
 
-> the standard all other masses are measured against
+> Hydrogen-3 (tritium)
 
 Spanish, new:
 
-> el patrón con el que se comparan todas las demás masas
+> Hidrógeno-3 (tritio)
+
+Spanish, before:
+
+> Carbono-12
+
+- [ ] OK   Comment:
+
+**Example card 1 (H-3): description**
+
+English:
+
+> radioactive: half-life about 12 years
+
+Spanish, new:
+
+> radiactivo: periodo de semidesintegración de unos 12 años
 
 - [ ] OK   Comment:
 
@@ -2905,11 +4072,11 @@ Spanish, new:
 
 English:
 
-> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put.
+> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Why an element's relative atomic mass, such as chlorine's 35.5, is not a whole number is on the Relative Atomic & Formula Mass sheet.
 
 Spanish, new:
 
-> El número atómico es cuántos protones tiene un átomo, y es lo que fija de qué elemento se trata. El número másico es protones más neutrones. Toda esta chuleta va de que el segundo número cambia mientras el primero se queda quieto.
+> El número atómico es cuántos protones tiene un átomo, y es lo que fija de qué elemento se trata. El número másico es protones más neutrones. Toda esta chuleta va de que el segundo número cambia mientras el primero se queda quieto. Por qué la masa atómica relativa de un elemento, como el 35,5 del cloro, no es un número entero se explica en la chuleta «Masa atómica y masa fórmula relativas».
 
 Spanish, before:
 
@@ -3000,8 +4167,72 @@ Spanish, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “Particles in each state”**
+
+English:
+
+> Particles in each state
+
+Spanish, new:
+
+> Las partículas en cada estado
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Particles in each state”**
+
+English:
+
+> In a solid the particles touch in a regular pattern and vibrate in place. In a liquid they still touch, but they are jumbled and slide past one another; in a gas they are far apart and move freely in every direction. The particles are the same size in all three states: only their arrangement and the spaces between them change.
+
+Spanish, new:
+
+> En un sólido, las partículas están en contacto, ordenadas de forma regular, y vibran sin moverse de su sitio. En un líquido siguen en contacto, pero desordenadas, y se deslizan unas sobre otras; en un gas están muy separadas y se mueven libremente en todas direcciones. Las partículas tienen el mismo tamaño en los tres estados: solo cambian su colocación y los huecos entre ellas.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Particles in each state”**
+
+English:
+
+> Three boxes, one above another, with particles of the same size in each. Solid: particles touching in a regular block of rows and columns, resting on the floor of the box. Liquid: the same number of particles, still touching but jumbled, with small gaps, spread across the bottom of the box. Gas: five particles far apart across the whole box, each with two short marks behind it to show that it is moving.
+
+Spanish, new:
+
+> Tres cajas, una encima de otra, con partículas del mismo tamaño en cada una. Sólido: las partículas están en contacto y forman un bloque regular de filas y columnas, apoyado en el fondo de la caja. Líquido: el mismo número de partículas, todavía en contacto pero desordenadas, con pequeños huecos, repartidas por el fondo de la caja. Gas: cinco partículas muy separadas por toda la caja, cada una con dos trazos cortos detrás que indican que se mueve.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Heating and cooling curves”**
+
+English:
+
+> A heating curve for water: temperature up the side and energy added along the bottom, with no numbers on the energy axis. The line climbs steeply through the solid, stays flat at 0 °C for melting, climbs less steeply through the liquid, stays flat at 100 °C for boiling, then climbs steeply again through the gas. The boiling plateau is drawn to scale, almost seven times as long as the melting plateau: about 2260 J against 334 J for each gram.
+
+Spanish, new:
+
+> Una curva de calentamiento del agua: la temperatura en el eje vertical y la energía suministrada en el horizontal, sin números en el eje de la energía. La línea sube con mucha pendiente en el sólido, se mantiene horizontal a 0 °C durante la fusión, sube con menos pendiente en el líquido, se mantiene horizontal a 100 °C durante la ebullición y vuelve a subir con mucha pendiente en el gas. El tramo de la ebullición está dibujado a escala, casi siete veces más largo que el de la fusión: unos 2260 J frente a 334 J por gramo.
+
+- [ ] OK   Comment:
+
 
 ### Acids & Bases
+
+**Key takeaway 2**
+
+English:
+
+> Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH−, in water. pH > 7.
+
+Spanish, new:
+
+> Base: un aceptor de protones. Las bases solubles (álcalis) liberan iones hidróxido, OH−, en agua. pH > 7.
+
+Spanish, before:
+
+> Base: un aceptor de protones. Las bases solubles (álcalis) liberan iones hidróxido, OH-, en agua. pH > 7.
+
+- [ ] OK   Comment:
 
 **Key takeaway 3**
 
@@ -3016,6 +4247,22 @@ Spanish, new:
 Spanish, before:
 
 > Neutro: pH 7 a 25 °C; el agua pura y la mayoría de las sales.
+
+- [ ] OK   Comment:
+
+**Key takeaway 4**
+
+English:
+
+> Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH− → H2O.
+
+Spanish, new:
+
+> Neutralización: ácido + base → sal + agua. La ecuación iónica es siempre H+ + OH− → H2O.
+
+Spanish, before:
+
+> Neutralización: ácido + base → sal + agua. La ecuación iónica es siempre H+ + OH- → H2O.
 
 - [ ] OK   Comment:
 
@@ -3035,6 +4282,42 @@ Spanish, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “The pH scale”**
+
+English:
+
+> The pH scale
+
+Spanish, new:
+
+> La escala de pH
+
+- [ ] OK   Comment:
+
+**Paragraph of section “The pH scale”**
+
+English:
+
+> pH says how acidic or alkaline a solution is. At 25 °C, below 7 is acidic, 7 is neutral and above 7 is alkaline, and most solutions you will meet lie between 0 and 14. Universal indicator turns a different colour at each pH: red at the acidic end, green at 7 and purple at the alkaline end.
+
+Spanish, new:
+
+> El pH indica lo ácida o básica que es una disolución. A 25 °C, por debajo de 7 es ácida, a 7 es neutra y por encima de 7 es básica, y casi todas las disoluciones que vas a encontrar están entre 0 y 14. El indicador universal toma un color distinto en cada pH: rojo en el extremo ácido, verde a 7 y violeta en el extremo básico.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The pH scale”**
+
+English:
+
+> The pH scale as a bar from 0 at the top to 14 at the bottom, each step in its universal-indicator colour with its number printed beside it: red at 0, orange at 1, yellow at 2 and 3, green from 4 to 8, blue-green at 9, blue at 10 and 11 and purple from 12 to 14. Five everyday solutions are marked at their pH: stomach acid at 1, vinegar at 3, pure water at 7, baking soda at 8 and oven cleaner at 13.
+
+Spanish, new:
+
+> La escala de pH como una barra, con el 0 arriba y el 14 abajo, cada tramo del color del indicador universal y con su número al lado: rojo en 0, naranja en 1, amarillo en 2 y 3, verde de 4 a 8, verde azulado en 9, azul en 10 y 11 y violeta de 12 a 14. Cinco productos cotidianos están marcados en su pH: el jugo gástrico en 1, el vinagre en 3, el agua pura en 7, el bicarbonato en 8 y el limpiahornos en 13.
+
+- [ ] OK   Comment:
+
 
 ### Balancing Chemical Equations
 
@@ -3051,6 +4334,18 @@ Spanish, new:
 Spanish, before:
 
 > Sin ajustar
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “A method that always works”**
+
+English:
+
+> The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.
+
+Spanish, new:
+
+> La reacción 2H₂ + O₂ → 2H₂O dibujada con partículas. A la izquierda, los reactivos: dos moléculas de dihidrógeno, cada una con dos átomos marcados con H que se tocan, más una molécula de dioxígeno, dos átomos marcados con O. Una flecha lleva a los productos: dos moléculas de agua, cada una un átomo de O con dos átomos de H. Debajo de las partículas está la ecuación y, debajo de ella, el recuento de átomos de cada lado: H 4 y 4, O 2 y 2.
 
 - [ ] OK   Comment:
 
@@ -3080,15 +4375,27 @@ Spanish, before:
 
 English:
 
-> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons).
+> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons; helium, in group 18, has only 2).
 
 Spanish, new:
 
-> Los átomos se enlazan para conseguir una capa externa completa y estable (una configuración de gas noble). En un elemento representativo, la última cifra del número de grupo te dice cuántos electrones de valencia tiene (el Cl está en el grupo 17: 7 electrones de valencia).
+> Los átomos se enlazan para conseguir una capa externa completa y estable (una configuración de gas noble). En un elemento representativo, la última cifra del número de grupo te dice cuántos electrones de valencia tiene (el Cl está en el grupo 17: 7 electrones de valencia; el helio, en el grupo 18, solo tiene 2).
 
 Spanish, before:
 
 > Los átomos se enlazan para conseguir una capa externa completa y estable (una configuración de gas noble). El número del grupo te dice cuántos electrones de valencia tiene un elemento representativo.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Why ionic compounds conduct only when molten or dissolved”**
+
+English:
+
+> Three boxes, one above another. Ionic: a grid of small positive ions and large negative ions, alternating, each marked + or −. Covalent: one hydrogen molecule, two atoms marked H whose circles overlap, with two electron dots in the overlap, labelled shared pair. Metallic: a grid of positive metal ions with as many small electron dots scattered between them, labelled delocalised electrons.
+
+Spanish, new:
+
+> Tres recuadros, uno debajo de otro. Enlace iónico: una red de iones positivos pequeños e iones negativos grandes, alternados, cada uno marcado con + o −. Enlace covalente: una molécula de dihidrógeno, dos átomos marcados con H cuyos círculos se solapan, con dos puntos (los electrones) en la zona común, rotulados par enlazante. Enlace metálico: una red de iones metálicos positivos con otros tantos puntos (los electrones) repartidos entre ellos, rotulados electrones libres.
 
 - [ ] OK   Comment:
 
@@ -3108,6 +4415,18 @@ Spanish, new:
 Spanish, before:
 
 > Escribe primero el catión (el metal o NH4+) y después el anión.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Worked example: aluminium sulfate”**
+
+English:
+
+> Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.
+
+Spanish, new:
+
+> El sulfato de aluminio por el método del aspa. Arriba, el ion aluminio Al³⁺, rotulado «catión», y el ion sulfato SO₄²⁻, rotulado «anión». Dos flechas que se cruzan bajan cada número de carga, que pasa a ser el subíndice del otro ion: el 3 del Al³⁺ pasa a ser el 3 tras el sulfato entre paréntesis, y el 2 del SO₄²⁻, el 2 tras el Al. Abajo, la fórmula Al₂(SO₄)₃ y la comprobación: 2 × (+3) = +6 y 3 × (−2) = −6.
 
 - [ ] OK   Comment:
 
@@ -3195,6 +4514,45 @@ Spanish, before:
 - [ ] OK   Comment:
 
 
+### Naming Inorganic Compounds
+
+**Heading of section “Which naming system?”**
+
+English:
+
+> Which naming system?
+
+Spanish, new:
+
+> ¿Qué sistema de nomenclatura?
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Which naming system?”**
+
+English:
+
+> Look at what the compound is made of before you name it. A metal (or NH4+) with a non-metal is ionic: the cation, then the anion, with no prefixes. Two non-metals make a molecular compound, named with Greek prefixes — but if H comes first and it is dissolved in water, it is an acid, and acids have names of their own.
+
+Spanish, new:
+
+> Fíjate primero en de qué está hecho el compuesto. Un metal (o NH4+) con un no metal forma un compuesto iónico: primero el anión, luego «de» y el catión, sin prefijos (cloruro de sodio). Dos no metales forman un compuesto molecular, que se nombra con prefijos griegos (dióxido de azufre); pero si el H va delante y está disuelto en agua, es un ácido, y su nombre sale del anión: ácido clorhídrico.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Which naming system?”**
+
+English:
+
+> A flowchart for choosing a naming system. Metal + non-metal leads to ionic, for example sodium chloride. Two non-metals leads to molecular, for example sulfur dioxide. An arrow down from two non-metals leads to H first, in water, and from there to acid, for example hydrochloric acid.
+
+Spanish, new:
+
+> Un diagrama de flujo para elegir el sistema de nomenclatura. De «metal + no metal» sale una flecha a «iónico», por ejemplo cloruro de sodio. De «dos no metales» sale una flecha a «molecular», por ejemplo dióxido de azufre. De «dos no metales» baja además una flecha a «H delante, en agua», y de ahí a «ácido», por ejemplo ácido clorhídrico.
+
+- [ ] OK   Comment:
+
+
 ### Relative Atomic & Formula Mass
 
 **Example card 1 (H2O): description**
@@ -3254,6 +4612,18 @@ English:
 Spanish, new:
 
 > 40 + 2 × (14 + 3 × 16) = 164
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “What "relative" actually means”**
+
+English:
+
+> A balance with two hanging pans, level. On the left pan is one carbon atom, a circle marked C. On the right pan are twelve hydrogen atoms, smaller circles marked H, piled in rows of five, four and three. Carbon is drawn bigger than hydrogen, but nowhere near twelve times the size. Labels under the pans say 1 carbon atom and 12 hydrogen atoms, and a note says the picture is not to scale.
+
+Spanish, new:
+
+> Una balanza de dos platillos colgantes, equilibrada. En el platillo de la izquierda hay un átomo de carbono, un círculo marcado con C. En el de la derecha hay doce átomos de hidrógeno, círculos más pequeños marcados con H, apilados en filas de cinco, cuatro y tres. El carbono está dibujado más grande que el hidrógeno, pero ni de lejos doce veces más. Bajo los platillos pone «1 átomo de carbono» y «12 átomos de hidrógeno», y una nota avisa de que el dibujo no está a escala.
 
 - [ ] OK   Comment:
 
@@ -3528,6 +4898,34 @@ Spanish, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Worked example: mass → mass”**
+
+English:
+
+> The mole map. Four boxes down the left, mass, particles, gas volume and solution, are each joined to a tall box, moles of reactant, by a two-way arrow carrying its formula: n = m/M, n = N/N_A, n = V/V_m and n = cV. From moles of reactant, an arrow labelled mole ratio (coefficients) leads down to moles of product.
+
+Spanish, new:
+
+> El mapa del mol. A la izquierda, cuatro recuadros uno debajo de otro —masa, número de partículas, volumen de gas y disolución—, cada uno unido a un recuadro alto, «moles de reactivo», por una flecha doble con su fórmula: n = m/M, n = N/N_A, n = V/V_m y n = cV. De los moles de reactivo baja una flecha rotulada «relación molar (coeficientes)» hasta los moles de producto.
+
+- [ ] OK   Comment:
+
+**Table “The conversion formulas”, row 4, column 2**
+
+English:
+
+> volume of a gas at SLC
+
+Spanish, new:
+
+> el volumen de un gas a 25 °C y 100 kPa
+
+Spanish, before:
+
+> el volumen de un gas en CLE
+
+- [ ] OK   Comment:
+
 **Common mistake 4**
 
 English:
@@ -3551,11 +4949,11 @@ Spanish, before:
 
 English:
 
-> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17). Add one electron per negative charge, remove one per positive charge.
+> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17; helium, in group 18, has only 2). Add one electron per negative charge, remove one per positive charge.
 
 Spanish, new:
 
-> Electrones de valencia = última cifra del número de grupo para los elementos representativos (H 1, C 4, N 5, O 6, halógenos 7; el nitrógeno está en el grupo 15 y el cloro en el 17). Suma un electrón por cada carga negativa y quita uno por cada carga positiva.
+> Electrones de valencia = última cifra del número de grupo para los elementos representativos (H 1, C 4, N 5, O 6, halógenos 7; el nitrógeno está en el grupo 15 y el cloro en el 17; el helio, en el grupo 18, solo tiene 2). Suma un electrón por cada carga negativa y quita uno por cada carga positiva.
 
 Spanish, before:
 
@@ -3579,6 +4977,18 @@ Spanish, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Year 10 essentials”**
+
+English:
+
+> Lewis structures of four molecules, each with its formula underneath. Water, H₂O: H–O–H with two lone pairs on the oxygen, one above it and one below. Ammonia, NH₃: nitrogen with single bonds to three hydrogens and one lone pair. Carbon dioxide, CO₂: O=C=O, two double bonds, with two lone pairs on each oxygen and none on the carbon. Methane, CH₄: carbon with single bonds to four hydrogens and no lone pairs. Bonds are lines and lone pairs are pairs of dots. Labels point to one lone pair, on the oxygen in water, and to one shared pair, a bond in ammonia.
+
+Spanish, new:
+
+> Estructuras de Lewis de cuatro moléculas, cada una con su fórmula debajo. Agua, H₂O: H–O–H con dos pares solitarios en el oxígeno, uno encima y otro debajo. Amoniaco, NH₃: el nitrógeno unido a tres hidrógenos por enlaces simples, con un par solitario. Dióxido de carbono, CO₂: O=C=O, dos enlaces dobles, con dos pares solitarios en cada oxígeno y ninguno en el carbono. Metano, CH₄: el carbono unido a cuatro hidrógenos por enlaces simples, sin pares solitarios. Los enlaces son rayas y los pares solitarios, parejas de puntos. Unas etiquetas señalan un par solitario, en el oxígeno del agua, y un par enlazante, un enlace del amoniaco.
+
+- [ ] OK   Comment:
+
 **Example card 2 in section “Year 10 essentials”: name**
 
 English:
@@ -3595,8 +5005,32 @@ Spanish, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “From Lewis structure to shape (VSEPR)”**
+
+English:
+
+> The five VSEPR shapes, each with its formula, shape and bond angle underneath, drawn in 3D: a solid wedge is a bond coming out of the page and a hashed wedge a bond going behind it. CO₂ is linear, 180°. BF₃ is trigonal planar, 120°. CH₄ is tetrahedral, 109.5°. NH₃ is trigonal pyramidal, 107°, with its lone pair drawn as a lobe on the nitrogen. H₂O is bent, 104.5°, with two lone-pair lobes on the oxygen. NH₃ and H₂O are drawn like CH₄ with one, then two, of its bonds replaced by a lone pair. A small arc marks the angle between the two bonds that lie in the page.
+
+Spanish, new:
+
+> Las cinco geometrías RPECV, cada una con su fórmula, su geometría y su ángulo de enlace debajo, dibujadas en 3D: una cuña rellena es un enlace que sale del plano hacia delante y una cuña rayada, uno que va hacia atrás. CO₂: lineal, 180°. BF₃: triangular plana, 120°. CH₄: tetraédrica, 109,5°. NH₃: piramidal trigonal, 107°, con su par solitario dibujado como un lóbulo en el nitrógeno. H₂O: angular, 104,5°, con dos lóbulos en el oxígeno. El NH₃ y el H₂O se dibujan como el CH₄, con uno y luego dos de sus enlaces sustituidos por un par solitario. Un pequeño arco marca el ángulo entre los dos enlaces que están en el plano de la página.
+
+- [ ] OK   Comment:
+
 
 ### Naming Organic Compounds
+
+**Diagram description (alt text) in section “Worked example”**
+
+English:
+
+> The skeletal structure of 3-methylpentan-2-ol: a zigzag chain of five carbons, numbered 1 to 5 from left to right, with OH at the end of a bond up from carbon 2 and a methyl group as a short line down from carbon 3, labelled methyl. Underneath, the name 3-methylpentan-2-ol.
+
+Spanish, new:
+
+> La fórmula de esqueleto del 3-metilpentan-2-ol: una cadena en zigzag de cinco carbonos, numerados del 1 al 5 de izquierda a derecha. Del carbono 2 sale hacia arriba un enlace con el OH, y del carbono 3, hacia abajo, un trazo corto: el grupo metilo, rotulado «metilo». Debajo, el nombre 3-metilpentan-2-ol.
+
+- [ ] OK   Comment:
 
 **Table “Suffix priority (highest first)”, row 3, column 1**
 
@@ -3653,6 +5087,34 @@ Spanish, before:
 
 ### Functional Groups
 
+**Paragraph of section “The reaction pathway you must know”**
+
+English:
+
+> Alkene → (H₂O, H₃PO₄ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H₂SO₄ catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.
+
+Spanish, new:
+
+> Alqueno → (H₂O, H₃PO₄ como catalizador) → alcohol. Alqueno → (HX) → haloalcano → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehído → (más oxidación) → ácido carboxílico → (alcohol, H₂SO₄ como catalizador) → éster. Los alcoholes primarios se oxidan dos veces, los secundarios se oxidan una vez y dan cetonas, y los terciarios no se oxidan.
+
+Spanish, before:
+
+> Alqueno → (H2O, con H+ de catalizador) → alcohol. Alqueno → (HX) → haloalcano → (OH−) → alcohol → (Cr2O7 2−/H+) → aldehído → (más oxidación) → ácido carboxílico → (alcohol, con H2SO4 de catalizador) → éster. Los alcoholes primarios se oxidan dos veces, los secundarios se oxidan una vez y dan cetonas, y los terciarios no se oxidan.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The reaction pathway you must know”**
+
+English:
+
+> A reaction map, read from the top down. Down the left: an alkene gives a primary alcohol with H₂O and an H₃PO₄ catalyst; the primary alcohol gives an aldehyde with Cr₂O₇²⁻/H⁺, the aldehyde a carboxylic acid with Cr₂O₇²⁻/H⁺, and the carboxylic acid an ester with an alcohol and an H₂SO₄ catalyst. On the right: the alkene can instead take HX to give a haloalkane, which gives the same primary alcohol with OH⁻(aq); and beside the primary alcohol, a secondary alcohol oxidises to a ketone with Cr₂O₇²⁻/H⁺.
+
+Spanish, new:
+
+> Un mapa de reacciones que se lee de arriba abajo. A la izquierda: un alqueno da un alcohol primario con H₂O y H₃PO₄ como catalizador; el alcohol primario da un aldehído con Cr₂O₇²⁻/H⁺, el aldehído un ácido carboxílico con Cr₂O₇²⁻/H⁺, y el ácido carboxílico un éster con un alcohol y H₂SO₄ como catalizador. A la derecha: el alqueno también puede dar un haloalcano con HX, que con OH⁻(aq) da el mismo alcohol primario; y junto al alcohol primario, un alcohol secundario se oxida a cetona con Cr₂O₇²⁻/H⁺.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Spotting groups in a spectrum”**
 
 English:
@@ -3688,7 +5150,7 @@ Spanish, before:
 
 ---
 
-## Italian (it): 69 strings
+## Italian (it): 93 strings
 
 ### New or changed glossary decisions
 
@@ -3698,6 +5160,17 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-it.
 |---|---|---|
 | Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
 | Four-digit numbers | **No separator**: *5730 anni*. The SI space starts at five digits (*65 000*); a four-digit number may stand unseparated, and it is what the isotopes prose already printed. |
+| pH scale | **scala del pH** | With the article, as the sheet's own table heading has it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **succhi gastrici** (1), **aceto** (3), **acqua pura** (7), **bicarbonato** (8), **sgrassatore per forni** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Succhi gastrici* is plural, as Italian says it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| particle | **particella** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusione / ebollizione** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **curva di riscaldamento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **energia fornita** | Italian textbooks say *calore fornito*; *energia* keeps the sheet's word. *Energia aggiunta* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| gas, as a state name in a diagram | **gas** | Italian school books also call the state *aeriforme*. Kept *gas*, per the row above and the sheet's own prose, so the diagram and the paragraph agree. **Rated medium.** Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineare, trigonale planare, tetraedrica, piramidale trigonale, angolare** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometria*. **Bent is *angolare*, not *piegata***: both are in Italian textbooks, and *angolare* is the word the sheet's VSEPR paragraph already used directly above the drawing, so the two agree. Angles: *109,5°*. |
+| bond angle | **angolo di legame** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuneo pieno / cuneo tratteggiato** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lobo** | Added 2026-09-25, for alt text. |
 | electron shell (the curriculum's word) | **guscio elettronico** | VC2S10U07 says "electron shells", so the sheet names *guscio* once as the word the reader's teacher uses, and keeps *livello di energia* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Chi ti insegna può chiamarli gusci*); it no longer mentions the programma. |
 | valence electrons from the group number | **l’ultima cifra del numero del gruppo** (*il Cl è nel gruppo 17: 7 elettroni di valenza*) | Added 2026-09-25. The sheets number the groups 1–18, where *numero del gruppo = elettroni di valenza* only holds for groups 1 and 2. Some Italian textbooks still print the I–VIII A-group numbering, where the plain rule works; the last-digit rule is correct in both. **Rated medium**: a teacher using an older book may prefer to name the Roman numeral too. |
 | beta decay | **decadimento beta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particella beta*; *decadimento* is the school word, not *disintegrazione*. |
@@ -3713,8 +5186,18 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-it.
 | undecayed nuclei (07, vertical axis) | **nuclei non ancora decaduti** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Italian textbooks plot in the decay law, with *decadere* per the row above. Replaces "how much is left", which suggests the sample disappears. |
 | time in half-lives (07, horizontal axis) | **tempo, in tempi di dimezzamento** | Added 2026-09-25 with the redrawn isotope diagrams. |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro di sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Italian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **metodo dell’incrocio** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
 | significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
+| CSA (condizioni standard ambiente) | **withheld — spell out "a 25 °C e 100 kPa"** | Added 2026-09-25. "CSA" is a VCE (Australian) abbreviation with no Italian equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **bilancia a due piatti**; level is **in equilibrio** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **rapporto molare** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **numero di particelle** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **moli di reagente / di prodotto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Moli di*, as the overlay says it (*converti in moli*); *quantità di sostanza del reagente* is correct and too long for the box. |
+| primary / secondary / tertiary alcohol | **alcol primario / secondario / terziario** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalizzatore** | Added 2026-09-25. On the reaction map: *H₃PO₄ come catalizzatore*. |
+| skeletal formula | **formula scheletrica** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Formula topologica* is also used. **Rated medium.** |
+| methyl (group), as a diagram label | **metile** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Metile* as a noun; *metil-* inside a name. The alcohol suffix is **-olo** (*3-metilpentan-2-olo*), as the sheet already writes it. |
 
 ### Diagram labels
 
@@ -3785,6 +5268,159 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | percent2 | 25% | 25% | |
 | percent3 | 12.5% | 12,5% | |
 | percent4 | 6.25% | 6,25% | |
+
+#### Diagram states-of-matter/01-particles-in-each-state
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| solid | solid | solido | |
+| liquid | liquid | liquido | |
+| gas | gas | gas | |
+
+#### Diagram states-of-matter/02-heating-curve
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| axisTemperature | temperature | temperatura | |
+| axisEnergy | energy added | energia fornita | |
+| degrees | {t} °C | {t} °C | |
+| melting | melting | fusione | |
+| boiling | boiling | ebollizione | |
+| solid | solid | solido | |
+| liquid | liquid | liquido | |
+| gas | gas | gas | |
+
+#### Diagram lewis-structures/01-lewis-structures
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| lonePair | lone pair | doppietto solitario | |
+| sharedPair | shared pair | doppietto di legame | |
+| water | H₂O | H₂O | |
+| ammonia | NH₃ | NH₃ | |
+| carbonDioxide | CO₂ | CO₂ | |
+| methane | CH₄ | CH₄ | |
+
+#### Diagram lewis-structures/02-vsepr-shapes
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| carbonDioxide | CO₂ | CO₂ | |
+| boronTrifluoride | BF₃ | BF₃ | |
+| methane | CH₄ | CH₄ | |
+| ammonia | NH₃ | NH₃ | |
+| water | H₂O | H₂O | |
+| linear | linear, 180° | lineare, 180° | |
+| trigonalPlanar | trigonal planar, 120° | trigonale planare, 120° | |
+| tetrahedral | tetrahedral, 109.5° | tetraedrica, 109,5° | |
+| trigonalPyramidal | trigonal pyramidal, 107° | piramidale trigonale, 107° | |
+| bent | bent, 104.5° | angolare, 104,5° | |
+
+#### Diagram functional-groups/01-reaction-map
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| alkene | alkene | alchene | |
+| haloalkane | haloalkane | alogenuro alchilico | |
+| primaryAlcohol | primary alcohol | alcol primario | |
+| secondaryAlcohol | secondary alcohol | alcol secondario | |
+| aldehyde | aldehyde | aldeide | |
+| ketone | ketone | chetone | |
+| carboxylicAcid | carboxylic acid | acido carbossilico | |
+| ester | ester | estere | |
+| hydration | H2O, H3PO4 catalyst | H2O, H3PO4 come catalizzatore | |
+| addition | HX | HX | |
+| substitution | OH− (aq) | OH− (aq) | |
+| oxidation | Cr2O7 2−/H+ | Cr2O7 2−/H+ | |
+| esterification | alcohol, H2SO4 catalyst | alcol, H2SO4 come catalizzatore | |
+
+#### Diagram relative-formula-mass/01-carbon-hydrogen-balance
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| carbonAtom | carbon atom | atomo di carbonio | |
+| hydrogenAtoms | hydrogen atoms | atomi di idrogeno | |
+| notToScale | Not to scale | Non in scala | |
+
+#### Diagram balancing-equations/01-particle-equation
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| reactants | reactants | reagenti | |
+| products | products | prodotti | |
+| hydrogen | 2H2 | 2H2 | |
+| oxygen | O2 | O2 | |
+| water | 2H2O | 2H2O | |
+
+#### Diagram chemical-bonds/01-bonding-models
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| ionic | ionic | legame ionico | |
+| covalent | covalent | legame covalente | |
+| metallic | metallic | legame metallico | |
+| sharedPair | shared pair | doppietto di legame | |
+| delocalised | delocalised electrons | elettroni delocalizzati | |
+
+#### Diagram acids-and-bases/01-ph-scale
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| stomachAcid | stomach acid | succhi gastrici | |
+| vinegar | vinegar | aceto | |
+| pureWater | pure water | acqua pura | |
+| bakingSoda | baking soda | bicarbonato | |
+| ovenCleaner | oven cleaner | sgrassatore per forni | |
+
+#### Diagram chemical-formulas/01-cross-over
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| cation | cation | catione | |
+| anion | anion | anione | |
+| cationFormula | Al 3+ | Al 3+ | |
+| anionFormula | SO4 2− | SO4 2− | |
+| formula | Al2(SO4)3 | Al2(SO4)3 | |
+| positive | {count} × (+{charge}) = +{total} | {count} × (+{charge}) = +{total} | |
+| negative | {count} × (−{charge}) = −{total} | {count} × (−{charge}) = −{total} | |
+
+#### Diagram naming-compounds/01-which-system
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| metalNonMetal | metal + non-metal | metallo + non metallo | |
+| twoNonMetals | two non-metals | due non metalli | |
+| hydrogenInWater | H first, in water | H davanti, in acqua | |
+| ionic | ionic | ionico | |
+| molecular | molecular | molecolare | |
+| acid | acid | acido | |
+| ionicExample | sodium chloride | cloruro di sodio | |
+| molecularExample | sulfur dioxide | diossido di zolfo | |
+| acidExample | hydrochloric acid | acido cloridrico | |
+
+#### Diagram stoichiometry/01-mole-map
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| mass | mass | massa | |
+| particles | particles | numero di particelle | |
+| gasVolume | gas volume | volume di gas | |
+| solution | solution | soluzione | |
+| fromMass | n = m/M | n = m/M | |
+| fromParticles | n = N/NA | n = N/NA | |
+| fromGasVolume | n = V/Vm | n = V/Vm | |
+| fromSolution | n = cV | n = cV | |
+| reactantMoles | moles of reactant | moli di reagente | |
+| moleRatio | mole ratio (coefficients) | rapporto molare (coefficienti) | |
+| productMoles | moles of product | moli di prodotto | |
+
+#### Diagram organic-nomenclature/01-numbered-chain
+
+| Label | English | Italian | OK / comment |
+|---|---|---|---|
+| hydroxyl | OH | OH | |
+| methyl | methyl | metile | |
+| name | {methylAt}-methylpentan-{hydroxylAt}-ol | {methylAt}-metilpentan-{hydroxylAt}-olo | |
 
 ### Atoms & the Periodic Table
 
@@ -3987,15 +5623,31 @@ Italian, before:
 
 ### Isotopes & Radioactivity
 
-**Example card 1 (C-12): description**
+**Example card 1 (H-3): name**
 
 English:
 
-> the standard all other masses are measured against
+> Hydrogen-3 (tritium)
 
 Italian, new:
 
-> lo standard con cui si confrontano tutte le altre masse
+> Idrogeno-3 (trizio)
+
+Italian, before:
+
+> Carbonio-12
+
+- [ ] OK   Comment:
+
+**Example card 1 (H-3): description**
+
+English:
+
+> radioactive: half-life about 12 years
+
+Italian, new:
+
+> radioattivo: tempo di dimezzamento di circa 12 anni
 
 - [ ] OK   Comment:
 
@@ -4063,11 +5715,11 @@ Italian, new:
 
 English:
 
-> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put.
+> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Why an element's relative atomic mass, such as chlorine's 35.5, is not a whole number is on the Relative Atomic & Formula Mass sheet.
 
 Italian, new:
 
-> Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo.
+> Il numero atomico è quanti protoni ha un atomo, ed è ciò che fissa di quale elemento si tratta. Il numero di massa è protoni più neutroni. Tutto questo bigino parla del secondo numero che cambia mentre il primo resta fermo. Perché la massa atomica relativa di un elemento, per esempio il 35,5 del cloro, non è un numero intero lo spiega il bigino «Massa atomica e massa formula relative».
 
 Italian, before:
 
@@ -4158,8 +5810,72 @@ Italian, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “Particles in each state”**
+
+English:
+
+> Particles in each state
+
+Italian, new:
+
+> Le particelle nei tre stati
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Particles in each state”**
+
+English:
+
+> In a solid the particles touch in a regular pattern and vibrate in place. In a liquid they still touch, but they are jumbled and slide past one another; in a gas they are far apart and move freely in every direction. The particles are the same size in all three states: only their arrangement and the spaces between them change.
+
+Italian, new:
+
+> In un solido le particelle sono a contatto, disposte in modo regolare, e vibrano sul posto. In un liquido sono ancora a contatto, ma in disordine, e scivolano le une sulle altre; in un gas sono molto distanti fra loro e si muovono liberamente in tutte le direzioni. Le particelle hanno la stessa dimensione nei tre stati: cambiano solo la loro disposizione e gli spazi fra loro.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Particles in each state”**
+
+English:
+
+> Three boxes, one above another, with particles of the same size in each. Solid: particles touching in a regular block of rows and columns, resting on the floor of the box. Liquid: the same number of particles, still touching but jumbled, with small gaps, spread across the bottom of the box. Gas: five particles far apart across the whole box, each with two short marks behind it to show that it is moving.
+
+Italian, new:
+
+> Tre scatole una sopra l’altra, con particelle della stessa dimensione in ciascuna. Solido: le particelle sono a contatto e formano un blocco regolare di righe e colonne, appoggiato sul fondo della scatola. Liquido: lo stesso numero di particelle, ancora a contatto ma in disordine, con piccoli spazi, sparse sul fondo della scatola. Gas: cinque particelle molto distanti fra loro in tutta la scatola, ciascuna con due brevi trattini dietro per mostrare che si muove.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Heating and cooling curves”**
+
+English:
+
+> A heating curve for water: temperature up the side and energy added along the bottom, with no numbers on the energy axis. The line climbs steeply through the solid, stays flat at 0 °C for melting, climbs less steeply through the liquid, stays flat at 100 °C for boiling, then climbs steeply again through the gas. The boiling plateau is drawn to scale, almost seven times as long as the melting plateau: about 2260 J against 334 J for each gram.
+
+Italian, new:
+
+> Una curva di riscaldamento dell’acqua: la temperatura sull’asse verticale e l’energia fornita su quello orizzontale, senza numeri sull’asse dell’energia. La linea sale ripida nel solido, resta orizzontale a 0 °C durante la fusione, sale meno ripida nel liquido, resta orizzontale a 100 °C durante l’ebollizione e poi risale ripida nel gas. Il tratto dell’ebollizione è disegnato in scala, quasi sette volte più lungo di quello della fusione: circa 2260 J contro 334 J per grammo.
+
+- [ ] OK   Comment:
+
 
 ### Acids & Bases
+
+**Key takeaway 2**
+
+English:
+
+> Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH−, in water. pH > 7.
+
+Italian, new:
+
+> Base: un accettore di protoni. Le basi solubili (alcali) liberano ioni idrossido, OH−, in acqua. pH > 7.
+
+Italian, before:
+
+> Base: un accettore di protoni. Le basi solubili (alcali) liberano ioni idrossido, OH-, in acqua. pH > 7.
+
+- [ ] OK   Comment:
 
 **Key takeaway 3**
 
@@ -4174,6 +5890,22 @@ Italian, new:
 Italian, before:
 
 > Neutro: pH 7 a 25 °C; l’acqua pura e quasi tutti i sali.
+
+- [ ] OK   Comment:
+
+**Key takeaway 4**
+
+English:
+
+> Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH− → H2O.
+
+Italian, new:
+
+> Neutralizzazione: acido + base → sale + acqua. L’equazione ionica è sempre H+ + OH− → H2O.
+
+Italian, before:
+
+> Neutralizzazione: acido + base → sale + acqua. L’equazione ionica è sempre H+ + OH- → H2O.
 
 - [ ] OK   Comment:
 
@@ -4193,6 +5925,42 @@ Italian, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “The pH scale”**
+
+English:
+
+> The pH scale
+
+Italian, new:
+
+> La scala del pH
+
+- [ ] OK   Comment:
+
+**Paragraph of section “The pH scale”**
+
+English:
+
+> pH says how acidic or alkaline a solution is. At 25 °C, below 7 is acidic, 7 is neutral and above 7 is alkaline, and most solutions you will meet lie between 0 and 14. Universal indicator turns a different colour at each pH: red at the acidic end, green at 7 and purple at the alkaline end.
+
+Italian, new:
+
+> Il pH dice quanto una soluzione è acida o basica. A 25 °C sotto 7 è acida, a 7 è neutra e sopra 7 è basica, e quasi tutte le soluzioni che incontrerai stanno fra 0 e 14. L’indicatore universale assume un colore diverso a ogni pH: rosso dal lato acido, verde a 7 e viola dal lato basico.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The pH scale”**
+
+English:
+
+> The pH scale as a bar from 0 at the top to 14 at the bottom, each step in its universal-indicator colour with its number printed beside it: red at 0, orange at 1, yellow at 2 and 3, green from 4 to 8, blue-green at 9, blue at 10 and 11 and purple from 12 to 14. Five everyday solutions are marked at their pH: stomach acid at 1, vinegar at 3, pure water at 7, baking soda at 8 and oven cleaner at 13.
+
+Italian, new:
+
+> La scala del pH come una barra, con 0 in alto e 14 in basso, ogni gradino nel suo colore dell’indicatore universale e con il suo numero accanto: rosso a 0, arancione a 1, giallo a 2 e 3, verde da 4 a 8, verde-azzurro a 9, blu a 10 e 11 e viola da 12 a 14. Cinque prodotti di tutti i giorni sono segnati al loro pH: i succhi gastrici a 1, l’aceto a 3, l’acqua pura a 7, il bicarbonato a 8 e lo sgrassatore per forni a 13.
+
+- [ ] OK   Comment:
+
 
 ### Balancing Chemical Equations
 
@@ -4209,6 +5977,18 @@ Italian, new:
 Italian, before:
 
 > Non bilanciata
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “A method that always works”**
+
+English:
+
+> The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.
+
+Italian, new:
+
+> La reazione 2H₂ + O₂ → 2H₂O disegnata con le particelle. A sinistra i reagenti: due molecole di idrogeno, ognuna di due atomi con la H che si toccano, più una molecola di ossigeno, due atomi con la O. Una freccia porta ai prodotti: due molecole d’acqua, ognuna un atomo di O con due atomi di H. Sotto le particelle c’è l’equazione e, sotto ancora, il conteggio degli atomi dei due lati: H 4 e 4, O 2 e 2.
 
 - [ ] OK   Comment:
 
@@ -4238,15 +6018,27 @@ Italian, before:
 
 English:
 
-> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons).
+> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons; helium, in group 18, has only 2).
 
 Italian, new:
 
-> Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). In un elemento rappresentativo, l’ultima cifra del numero del gruppo ti dice quanti elettroni di valenza ha (il Cl è nel gruppo 17: 7 elettroni di valenza).
+> Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). In un elemento rappresentativo, l’ultima cifra del numero del gruppo ti dice quanti elettroni di valenza ha (il Cl è nel gruppo 17: 7 elettroni di valenza; l’elio, nel gruppo 18, ne ha solo 2).
 
 Italian, before:
 
 > Gli atomi si legano per raggiungere un guscio esterno completo e stabile (una configurazione da gas nobile). Il numero del gruppo ti dice quanti elettroni di valenza ha un elemento rappresentativo.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Why ionic compounds conduct only when molten or dissolved”**
+
+English:
+
+> Three boxes, one above another. Ionic: a grid of small positive ions and large negative ions, alternating, each marked + or −. Covalent: one hydrogen molecule, two atoms marked H whose circles overlap, with two electron dots in the overlap, labelled shared pair. Metallic: a grid of positive metal ions with as many small electron dots scattered between them, labelled delocalised electrons.
+
+Italian, new:
+
+> Tre riquadri, uno sotto l’altro. Legame ionico: un reticolo di piccoli ioni positivi e grandi ioni negativi alternati, ognuno segnato con + o −. Legame covalente: una molecola di idrogeno, due atomi con la H i cui cerchi si sovrappongono, con due puntini (gli elettroni) nella zona comune, indicati come doppietto di legame. Legame metallico: un reticolo di ioni metallici positivi con altrettanti puntini (gli elettroni) sparsi fra loro, indicati come elettroni delocalizzati.
 
 - [ ] OK   Comment:
 
@@ -4266,6 +6058,18 @@ Italian, new:
 Italian, before:
 
 > Nella formula scrivi prima il catione (il metallo o NH4+) e poi l’anione.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Worked example: aluminium sulfate”**
+
+English:
+
+> Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.
+
+Italian, new:
+
+> Il solfato di alluminio con il metodo dell’incrocio. In alto, lo ione alluminio Al³⁺, indicato come «catione», e lo ione solfato SO₄²⁻, indicato come «anione». Due frecce che si incrociano portano in basso ciascun numero di carica, che diventa il pedice dell’altro ione: il 3 di Al³⁺ diventa il 3 dopo il solfato tra parentesi, e il 2 di SO₄²⁻ il 2 dopo Al. In basso, la formula Al₂(SO₄)₃ e la verifica: 2 × (+3) = +6 e 3 × (−2) = −6.
 
 - [ ] OK   Comment:
 
@@ -4353,6 +6157,45 @@ Italian, before:
 - [ ] OK   Comment:
 
 
+### Naming Inorganic Compounds
+
+**Heading of section “Which naming system?”**
+
+English:
+
+> Which naming system?
+
+Italian, new:
+
+> Quale sistema di nomenclatura?
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Which naming system?”**
+
+English:
+
+> Look at what the compound is made of before you name it. A metal (or NH4+) with a non-metal is ionic: the cation, then the anion, with no prefixes. Two non-metals make a molecular compound, named with Greek prefixes — but if H comes first and it is dissolved in water, it is an acid, and acids have names of their own.
+
+Italian, new:
+
+> Guarda prima di che cosa è fatto il composto. Un metallo (o NH4+) con un non metallo forma un composto ionico: prima l’anione, poi «di» e il catione, senza prefissi (cloruro di sodio). Due non metalli formano un composto molecolare, che si nomina con i prefissi greci (diossido di zolfo); ma se l’H sta davanti e il composto è sciolto in acqua, è un acido, e il suo nome si ricava dall’anione: acido cloridrico.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Which naming system?”**
+
+English:
+
+> A flowchart for choosing a naming system. Metal + non-metal leads to ionic, for example sodium chloride. Two non-metals leads to molecular, for example sulfur dioxide. An arrow down from two non-metals leads to H first, in water, and from there to acid, for example hydrochloric acid.
+
+Italian, new:
+
+> Un diagramma di flusso per scegliere il sistema di nomenclatura. Da «metallo + non metallo» una freccia porta a «ionico», per esempio cloruro di sodio. Da «due non metalli» una freccia porta a «molecolare», per esempio diossido di zolfo. Da «due non metalli» scende anche una freccia verso «H davanti, in acqua», e da lì ad «acido», per esempio acido cloridrico.
+
+- [ ] OK   Comment:
+
+
 ### Relative Atomic & Formula Mass
 
 **Example card 1 (H2O): description**
@@ -4412,6 +6255,18 @@ English:
 Italian, new:
 
 > 40 + 2 × (14 + 3 × 16) = 164
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “What "relative" actually means”**
+
+English:
+
+> A balance with two hanging pans, level. On the left pan is one carbon atom, a circle marked C. On the right pan are twelve hydrogen atoms, smaller circles marked H, piled in rows of five, four and three. Carbon is drawn bigger than hydrogen, but nowhere near twelve times the size. Labels under the pans say 1 carbon atom and 12 hydrogen atoms, and a note says the picture is not to scale.
+
+Italian, new:
+
+> Una bilancia a due piatti appesi, in equilibrio. Sul piatto di sinistra c’è un atomo di carbonio, un cerchio con la C. Su quello di destra ci sono dodici atomi di idrogeno, cerchi più piccoli con la H, impilati in file da cinque, quattro e tre. Il carbonio è disegnato più grande dell’idrogeno, ma non certo dodici volte tanto. Sotto i piatti c’è scritto «1 atomo di carbonio» e «12 atomi di idrogeno», e una nota avverte che il disegno non è in scala.
 
 - [ ] OK   Comment:
 
@@ -4686,6 +6541,34 @@ Italian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Worked example: mass → mass”**
+
+English:
+
+> The mole map. Four boxes down the left, mass, particles, gas volume and solution, are each joined to a tall box, moles of reactant, by a two-way arrow carrying its formula: n = m/M, n = N/N_A, n = V/V_m and n = cV. From moles of reactant, an arrow labelled mole ratio (coefficients) leads down to moles of product.
+
+Italian, new:
+
+> La mappa della mole. A sinistra, quattro riquadri uno sotto l’altro – massa, numero di particelle, volume di gas e soluzione – sono collegati ciascuno a un riquadro alto, «moli di reagente», da una doppia freccia con la sua formula: n = m/M, n = N/N_A, n = V/V_m e n = cV. Dalle moli di reagente, una freccia con la scritta «rapporto molare (coefficienti)» scende alle moli di prodotto.
+
+- [ ] OK   Comment:
+
+**Table “The conversion formulas”, row 4, column 2**
+
+English:
+
+> volume of a gas at SLC
+
+Italian, new:
+
+> il volume di un gas a 25 °C e 100 kPa
+
+Italian, before:
+
+> il volume di un gas in CSA
+
+- [ ] OK   Comment:
+
 **Common mistake 4**
 
 English:
@@ -4709,11 +6592,11 @@ Italian, before:
 
 English:
 
-> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17). Add one electron per negative charge, remove one per positive charge.
+> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17; helium, in group 18, has only 2). Add one electron per negative charge, remove one per positive charge.
 
 Italian, new:
 
-> Elettroni di valenza = ultima cifra del numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7; l’azoto è nel gruppo 15 e il cloro nel 17). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.
+> Elettroni di valenza = ultima cifra del numero del gruppo per gli elementi rappresentativi (H 1, C 4, N 5, O 6, alogeni 7; l’azoto è nel gruppo 15 e il cloro nel 17; l’elio, nel gruppo 18, ne ha solo 2). Aggiungi un elettrone per ogni carica negativa e togline uno per ogni carica positiva.
 
 Italian, before:
 
@@ -4737,6 +6620,18 @@ Italian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Year 10 essentials”**
+
+English:
+
+> Lewis structures of four molecules, each with its formula underneath. Water, H₂O: H–O–H with two lone pairs on the oxygen, one above it and one below. Ammonia, NH₃: nitrogen with single bonds to three hydrogens and one lone pair. Carbon dioxide, CO₂: O=C=O, two double bonds, with two lone pairs on each oxygen and none on the carbon. Methane, CH₄: carbon with single bonds to four hydrogens and no lone pairs. Bonds are lines and lone pairs are pairs of dots. Labels point to one lone pair, on the oxygen in water, and to one shared pair, a bond in ammonia.
+
+Italian, new:
+
+> Le strutture di Lewis di quattro molecole, ognuna con la sua formula sotto. Acqua, H₂O: H–O–H con due doppietti solitari sull’ossigeno, uno sopra e uno sotto. Ammoniaca, NH₃: l’azoto legato a tre idrogeni con legami singoli, con un doppietto solitario. Diossido di carbonio, CO₂: O=C=O, due legami doppi, con due doppietti solitari su ogni ossigeno e nessuno sul carbonio. Metano, CH₄: il carbonio legato a quattro idrogeni con legami singoli, senza doppietti solitari. I legami sono linee e i doppietti solitari coppie di punti. Due etichette indicano un doppietto solitario, sull’ossigeno dell’acqua, e un doppietto di legame, un legame dell’ammoniaca.
+
+- [ ] OK   Comment:
+
 **Example card 2 in section “Year 10 essentials”: name**
 
 English:
@@ -4753,8 +6648,32 @@ Italian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “From Lewis structure to shape (VSEPR)”**
+
+English:
+
+> The five VSEPR shapes, each with its formula, shape and bond angle underneath, drawn in 3D: a solid wedge is a bond coming out of the page and a hashed wedge a bond going behind it. CO₂ is linear, 180°. BF₃ is trigonal planar, 120°. CH₄ is tetrahedral, 109.5°. NH₃ is trigonal pyramidal, 107°, with its lone pair drawn as a lobe on the nitrogen. H₂O is bent, 104.5°, with two lone-pair lobes on the oxygen. NH₃ and H₂O are drawn like CH₄ with one, then two, of its bonds replaced by a lone pair. A small arc marks the angle between the two bonds that lie in the page.
+
+Italian, new:
+
+> Le cinque geometrie VSEPR, ognuna con la sua formula, la geometria e l’angolo di legame sotto, disegnate in 3D: un cuneo pieno è un legame che esce dal piano verso chi guarda, un cuneo tratteggiato uno che va dietro. CO₂: lineare, 180°. BF₃: trigonale planare, 120°. CH₄: tetraedrica, 109,5°. NH₃: piramidale trigonale, 107°, con il suo doppietto solitario disegnato come un lobo sull’azoto. H₂O: angolare, 104,5°, con due lobi sull’ossigeno. NH₃ e H₂O sono disegnate come CH₄, con uno e poi due dei suoi legami sostituiti da un doppietto solitario. Un piccolo arco segna l’angolo fra i due legami che stanno nel piano della pagina.
+
+- [ ] OK   Comment:
+
 
 ### Naming Organic Compounds
+
+**Diagram description (alt text) in section “Worked example”**
+
+English:
+
+> The skeletal structure of 3-methylpentan-2-ol: a zigzag chain of five carbons, numbered 1 to 5 from left to right, with OH at the end of a bond up from carbon 2 and a methyl group as a short line down from carbon 3, labelled methyl. Underneath, the name 3-methylpentan-2-ol.
+
+Italian, new:
+
+> La formula scheletrica del 3-metilpentan-2-olo: una catena a zigzag di cinque carboni, numerati da 1 a 5 da sinistra a destra. Dal carbonio 2 sale un legame verso l’OH, dal carbonio 3 scende un breve tratto: il gruppo metile, indicato come «metile». Sotto, il nome 3-metilpentan-2-olo.
+
+- [ ] OK   Comment:
 
 **Table “Suffix priority (highest first)”, row 3, column 1**
 
@@ -4811,6 +6730,34 @@ Italian, before:
 
 ### Functional Groups
 
+**Paragraph of section “The reaction pathway you must know”**
+
+English:
+
+> Alkene → (H₂O, H₃PO₄ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H₂SO₄ catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.
+
+Italian, new:
+
+> Alchene → (H₂O, H₃PO₄ come catalizzatore) → alcol. Alchene → (HX) → alogenuro alchilico → (OH⁻(aq)) → alcol → (Cr₂O₇²⁻/H⁺) → aldeide → (altra ossidazione) → acido carbossilico → (alcol, H₂SO₄ come catalizzatore) → estere. Gli alcoli primari si ossidano due volte, i secondari si ossidano una volta e danno chetoni, e i terziari non si ossidano.
+
+Italian, before:
+
+> Alchene → (H2O, con H+ da catalizzatore) → alcol. Alchene → (HX) → alogenuro alchilico → (OH−) → alcol → (Cr2O7 2−/H+) → aldeide → (altra ossidazione) → acido carbossilico → (alcol, con H2SO4 da catalizzatore) → estere. Gli alcoli primari si ossidano due volte, i secondari si ossidano una volta e danno chetoni, e i terziari non si ossidano.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The reaction pathway you must know”**
+
+English:
+
+> A reaction map, read from the top down. Down the left: an alkene gives a primary alcohol with H₂O and an H₃PO₄ catalyst; the primary alcohol gives an aldehyde with Cr₂O₇²⁻/H⁺, the aldehyde a carboxylic acid with Cr₂O₇²⁻/H⁺, and the carboxylic acid an ester with an alcohol and an H₂SO₄ catalyst. On the right: the alkene can instead take HX to give a haloalkane, which gives the same primary alcohol with OH⁻(aq); and beside the primary alcohol, a secondary alcohol oxidises to a ketone with Cr₂O₇²⁻/H⁺.
+
+Italian, new:
+
+> Una mappa delle reazioni, da leggere dall’alto in basso. A sinistra: un alchene dà un alcol primario con H₂O e H₃PO₄ come catalizzatore; l’alcol primario dà un’aldeide con Cr₂O₇²⁻/H⁺, l’aldeide un acido carbossilico con Cr₂O₇²⁻/H⁺, e l’acido carbossilico un estere con un alcol e H₂SO₄ come catalizzatore. A destra: l’alchene può anche dare un alogenuro alchilico con HX, che con OH⁻(aq) dà lo stesso alcol primario; e accanto all’alcol primario, un alcol secondario si ossida a chetone con Cr₂O₇²⁻/H⁺.
+
+- [ ] OK   Comment:
+
 **Paragraph of section “Spotting groups in a spectrum”**
 
 English:
@@ -4846,7 +6793,7 @@ Italian, before:
 
 ---
 
-## Russian (ru): 68 strings
+## Russian (ru): 92 strings
 
 ### New or changed glossary decisions
 
@@ -4856,6 +6803,18 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-ru.
 |---|---|---|
 | Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
 | Four-digit numbers | **No separator**: *5730 лет*. Russian typesetting writes four-digit numbers solid and groups from five digits on (*65 000*). |
+| universal indicator | **универсальный индикатор** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **шкала pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **желудочный сок** (1), **уксус** (3), **чистая вода** (7), **пищевая сода** (8), **средство для духовок** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| particle | **частица** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **плавление / кипение** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **кривая нагревания** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **полученная энергия** | Russian school physics speaks of the heat a body *receives* (*количество теплоты, полученное телом*). *Добавленная энергия* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| solid / liquid / gas as nouns in prose | **твёрдое тело / жидкость / газ** | The textbook nouns, used in the section *Частицы в разных агрегатных состояниях*. The diagram labels keep the adjectives *твёрдое / жидкое / газообразное*, which match the sheet's takeaways. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **линейная форма, плоский треугольник, тетраэдр, тригональная пирамида, уголковая форма** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Russian names a shape by the figure (*молекула имеет форму тетраэдра*), and these are the words the sheet's paragraph already used. **Bent is *уголковая*, not *угловая***: both are in school books; the paragraph directly above the drawing says *уголковая*, so the drawing does too. The acronym VSEPR is not used on a Russian page (*теория отталкивания электронных пар* if it must be named). Angles: *109,5°*. |
+| bond angle | **валентный угол** | Added 2026-09-25. The school term; *угол связи* is a calque. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **сплошной клин / штрихованный клин** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **электронное облако** | Added 2026-09-25, for alt text: Russian school books draw a lone pair as an *облако*, the word the atom sheets already use for electrons. |
 | electron shell (the curriculum's word) | **электронная оболочка** | VC2S10U07 says "electron shells", so the sheet names *оболочка* once as the word the reader's teacher uses, and keeps *энергетический уровень* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Учитель может называть их электронными оболочками*); it no longer mentions the программа. |
 | valence electrons from the group number | **последняя цифра номера группы** (*Cl в группе 17 — 7 валентных электронов*), once with *в короткой таблице это VII группа* | Added 2026-09-25. Russian schools still teach from the short table (groups I–VIII with main and secondary subgroups), where the group number itself is the valence-electron count of a main-subgroup element. The site shows groups 1–18, so the bonding and Lewis sheets state the last-digit rule, and the bonding sheet names the short-table group once as the bridge to the textbook. *Главная подгруппа* is kept: it is the term a Russian student knows for main-group elements. |
 | beta decay | **бета-распад** | Added 2026-09-25, for how reactors make neptunium and plutonium. Hyphenated like *бета-частица*. |
@@ -4872,8 +6831,19 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-ru.
 | undecayed nuclei (07, vertical axis) | **нераспавшиеся ядра** | Added 2026-09-25 with the redrawn isotope diagrams. The quantity Russian physics plots in the decay law (*число нераспавшихся ядер N(t)*). Replaces "how much is left", which suggests the sample disappears. |
 | time in half-lives (07, horizontal axis) | **время в периодах полураспада** | Added 2026-09-25 with the redrawn isotope diagrams. Localised, not translated: a Russian axis says *величина в единицах*, as a German one does. |
 | name order vs formula order | formula **cation first**, name **anion first**: *хлорид натрия*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Russian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **перекрёстное правило** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
+| ionic / molecular (the kind of compound, as a label) | **ионное / молекулярное** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Neuter, agreeing with the implied *соединение*, exactly as the sheet's first takeaway writes them. |
 | significant figures | **значащие цифры** | Added 2026-09-25. The stoichiometry sheet phrases the rule as *столько значащих цифр, сколько их в наименее точном из данных значений*, not a fixed three. Russian school chemistry drills this less than the English-speaking systems do, but the term and the rule are the physics-class ones. **Rated medium.** |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet (the sheets had called it *справочник VCE*). The IR sentence now points to *таблицы ИК-спектроскопии*, and the polyatomic-ion table is headed *Основные многоатомные ионы*. |
+| standard laboratory conditions (SLC) | **withheld — spell out "при 25 °C и 100 кПа"** | Added 2026-09-25. The sheet used to say *при стандартных условиях*, which in Russian schools usually means 0 °C and 101,325 kPa — the wrong conditions for this VCE (Australian) value. Naming the actual conditions avoids both the untranslatable "SLC" and that false-friend phrase, keeping the English value (V_m = 24,8 л/моль). |
+| a two-pan balance (the relative-mass picture) | **рычажные весы**, their pans **чаши**; level is **в равновесии** | The diagram's alt text says *весы с двумя чашами*. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| mole ratio | **мольное соотношение** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
+| number of particles (N) | **число частиц** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **количество вещества реагента / продукта** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Built on the glossary's *количество вещества*; «моли реагента» is spoken, not written. |
+| primary / secondary / tertiary alcohol | **первичный / вторичный / третичный спирт** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **катализатор** | Added 2026-09-25. On the reaction map it comes before the formula: *катализатор H₃PO₄*. |
+| skeletal formula | **скелетная формула** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| methyl (group), as a diagram label | **метил** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The sheet's worked example says *метил на третьем*; *метильная группа* is used in the alt text. |
 
 ### Diagram labels
 
@@ -4944,6 +6914,159 @@ Text drawn inside the diagrams. Labels must stay short: they sit in a fixed spac
 | percent2 | 25% | 25 % | |
 | percent3 | 12.5% | 12,5 % | |
 | percent4 | 6.25% | 6,25 % | |
+
+#### Diagram states-of-matter/01-particles-in-each-state
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| solid | solid | твёрдое | |
+| liquid | liquid | жидкое | |
+| gas | gas | газообразное | |
+
+#### Diagram states-of-matter/02-heating-curve
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| axisTemperature | temperature | температура | |
+| axisEnergy | energy added | полученная энергия | |
+| degrees | {t} °C | {t} °C | |
+| melting | melting | плавление | |
+| boiling | boiling | кипение | |
+| solid | solid | твёрдое | |
+| liquid | liquid | жидкое | |
+| gas | gas | газообразное | |
+
+#### Diagram lewis-structures/01-lewis-structures
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| lonePair | lone pair | неподелённая электронная пара | |
+| sharedPair | shared pair | общая электронная пара | |
+| water | H₂O | H₂O | |
+| ammonia | NH₃ | NH₃ | |
+| carbonDioxide | CO₂ | CO₂ | |
+| methane | CH₄ | CH₄ | |
+
+#### Diagram lewis-structures/02-vsepr-shapes
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| carbonDioxide | CO₂ | CO₂ | |
+| boronTrifluoride | BF₃ | BF₃ | |
+| methane | CH₄ | CH₄ | |
+| ammonia | NH₃ | NH₃ | |
+| water | H₂O | H₂O | |
+| linear | linear, 180° | линейная форма, 180° | |
+| trigonalPlanar | trigonal planar, 120° | плоский треугольник, 120° | |
+| tetrahedral | tetrahedral, 109.5° | тетраэдр, 109,5° | |
+| trigonalPyramidal | trigonal pyramidal, 107° | тригональная пирамида, 107° | |
+| bent | bent, 104.5° | уголковая форма, 104,5° | |
+
+#### Diagram functional-groups/01-reaction-map
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| alkene | alkene | алкен | |
+| haloalkane | haloalkane | галогеналкан | |
+| primaryAlcohol | primary alcohol | первичный спирт | |
+| secondaryAlcohol | secondary alcohol | вторичный спирт | |
+| aldehyde | aldehyde | альдегид | |
+| ketone | ketone | кетон | |
+| carboxylicAcid | carboxylic acid | карбоновая кислота | |
+| ester | ester | сложный эфир | |
+| hydration | H2O, H3PO4 catalyst | H2O, катализатор H3PO4 | |
+| addition | HX | HX | |
+| substitution | OH− (aq) | OH− (aq) | |
+| oxidation | Cr2O7 2−/H+ | Cr2O7 2−/H+ | |
+| esterification | alcohol, H2SO4 catalyst | спирт, катализатор H2SO4 | |
+
+#### Diagram relative-formula-mass/01-carbon-hydrogen-balance
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| carbonAtom | carbon atom | атом углерода | |
+| hydrogenAtoms | hydrogen atoms | атомов водорода | |
+| notToScale | Not to scale | Масштаб не соблюдён | |
+
+#### Diagram balancing-equations/01-particle-equation
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| reactants | reactants | реагенты | |
+| products | products | продукты | |
+| hydrogen | 2H2 | 2H2 | |
+| oxygen | O2 | O2 | |
+| water | 2H2O | 2H2O | |
+
+#### Diagram chemical-bonds/01-bonding-models
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| ionic | ionic | ионная связь | |
+| covalent | covalent | ковалентная связь | |
+| metallic | metallic | металлическая связь | |
+| sharedPair | shared pair | общая электронная пара | |
+| delocalised | delocalised electrons | свободные электроны | |
+
+#### Diagram acids-and-bases/01-ph-scale
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| stomachAcid | stomach acid | желудочный сок | |
+| vinegar | vinegar | уксус | |
+| pureWater | pure water | чистая вода | |
+| bakingSoda | baking soda | пищевая сода | |
+| ovenCleaner | oven cleaner | средство для духовок | |
+
+#### Diagram chemical-formulas/01-cross-over
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| cation | cation | катион | |
+| anion | anion | анион | |
+| cationFormula | Al 3+ | Al 3+ | |
+| anionFormula | SO4 2− | SO4 2− | |
+| formula | Al2(SO4)3 | Al2(SO4)3 | |
+| positive | {count} × (+{charge}) = +{total} | {count} × (+{charge}) = +{total} | |
+| negative | {count} × (−{charge}) = −{total} | {count} × (−{charge}) = −{total} | |
+
+#### Diagram naming-compounds/01-which-system
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| metalNonMetal | metal + non-metal | металл + неметалл | |
+| twoNonMetals | two non-metals | два неметалла | |
+| hydrogenInWater | H first, in water | H впереди, в воде | |
+| ionic | ionic | ионное | |
+| molecular | molecular | молекулярное | |
+| acid | acid | кислота | |
+| ionicExample | sodium chloride | хлорид натрия | |
+| molecularExample | sulfur dioxide | оксид серы(IV) | |
+| acidExample | hydrochloric acid | соляная кислота | |
+
+#### Diagram stoichiometry/01-mole-map
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| mass | mass | масса | |
+| particles | particles | число частиц | |
+| gasVolume | gas volume | объём газа | |
+| solution | solution | раствор | |
+| fromMass | n = m/M | n = m/M | |
+| fromParticles | n = N/NA | n = N/NA | |
+| fromGasVolume | n = V/Vm | n = V/Vm | |
+| fromSolution | n = cV | n = cV | |
+| reactantMoles | moles of reactant | количество вещества реагента | |
+| moleRatio | mole ratio (coefficients) | мольное соотношение (коэффициенты) | |
+| productMoles | moles of product | количество вещества продукта | |
+
+#### Diagram organic-nomenclature/01-numbered-chain
+
+| Label | English | Russian | OK / comment |
+|---|---|---|---|
+| hydroxyl | OH | OH | |
+| methyl | methyl | метил | |
+| name | {methylAt}-methylpentan-{hydroxylAt}-ol | {methylAt}-метилпентан-{hydroxylAt}-ол | |
 
 ### Atoms & the Periodic Table
 
@@ -5146,15 +7269,31 @@ Russian, before:
 
 ### Isotopes & Radioactivity
 
-**Example card 1 (C-12): description**
+**Example card 1 (H-3): name**
 
 English:
 
-> the standard all other masses are measured against
+> Hydrogen-3 (tritium)
 
 Russian, new:
 
-> эталон, с которым сравнивают все остальные массы
+> Водород-3 (тритий)
+
+Russian, before:
+
+> Углерод-12
+
+- [ ] OK   Comment:
+
+**Example card 1 (H-3): description**
+
+English:
+
+> radioactive: half-life about 12 years
+
+Russian, new:
+
+> радиоактивен: период полураспада около 12 лет
 
 - [ ] OK   Comment:
 
@@ -5222,11 +7361,11 @@ Russian, new:
 
 English:
 
-> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put.
+> The atomic number is how many protons an atom has, and it fixes which element it is. The mass number is protons plus neutrons. Everything on this sheet is about the second number changing while the first stays put. Why an element's relative atomic mass, such as chlorine's 35.5, is not a whole number is on the Relative Atomic & Formula Mass sheet.
 
 Russian, new:
 
-> Атомный номер — это сколько у атома протонов, и именно он задаёт элемент. Массовое число — это протоны плюс нейтроны. Вся эта шпаргалка про то, как меняется второе число, пока первое остаётся на месте.
+> Атомный номер — это сколько у атома протонов, и именно он задаёт элемент. Массовое число — это протоны плюс нейтроны. Вся эта шпаргалка про то, как меняется второе число, пока первое остаётся на месте. Почему относительная атомная масса элемента, например 35,5 у хлора, не целое число, объясняется на шпаргалке «Относительная атомная и формульная масса».
 
 Russian, before:
 
@@ -5317,8 +7456,72 @@ Russian, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “Particles in each state”**
+
+English:
+
+> Particles in each state
+
+Russian, new:
+
+> Частицы в разных агрегатных состояниях
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Particles in each state”**
+
+English:
+
+> In a solid the particles touch in a regular pattern and vibrate in place. In a liquid they still touch, but they are jumbled and slide past one another; in a gas they are far apart and move freely in every direction. The particles are the same size in all three states: only their arrangement and the spaces between them change.
+
+Russian, new:
+
+> В твёрдом теле частицы касаются друг друга, расположены в правильном порядке и колеблются на своих местах. В жидкости они тоже касаются друг друга, но расположены беспорядочно и скользят друг относительно друга; в газе они далеко друг от друга и свободно движутся во всех направлениях. Размер частиц во всех трёх состояниях одинаков: меняются только их расположение и промежутки между ними.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Particles in each state”**
+
+English:
+
+> Three boxes, one above another, with particles of the same size in each. Solid: particles touching in a regular block of rows and columns, resting on the floor of the box. Liquid: the same number of particles, still touching but jumbled, with small gaps, spread across the bottom of the box. Gas: five particles far apart across the whole box, each with two short marks behind it to show that it is moving.
+
+Russian, new:
+
+> Три коробки одна над другой, в каждой частицы одного и того же размера. Твёрдое: частицы касаются друг друга и образуют правильный блок из рядов и столбцов, который лежит на дне коробки. Жидкое: столько же частиц, они тоже касаются друг друга, но расположены беспорядочно, с небольшими промежутками, по дну коробки. Газообразное: пять частиц далеко друг от друга по всей коробке, у каждой сзади два коротких штриха — знак того, что она движется.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Heating and cooling curves”**
+
+English:
+
+> A heating curve for water: temperature up the side and energy added along the bottom, with no numbers on the energy axis. The line climbs steeply through the solid, stays flat at 0 °C for melting, climbs less steeply through the liquid, stays flat at 100 °C for boiling, then climbs steeply again through the gas. The boiling plateau is drawn to scale, almost seven times as long as the melting plateau: about 2260 J against 334 J for each gram.
+
+Russian, new:
+
+> Кривая нагревания воды: по вертикали температура, по горизонтали полученная энергия, на оси энергии чисел нет. Линия круто поднимается для твёрдого вещества, идёт горизонтально при 0 °C во время плавления, поднимается менее круто для жидкости, идёт горизонтально при 100 °C во время кипения и снова круто поднимается для газа. Горизонтальный участок кипения нарисован в масштабе, он почти в семь раз длиннее участка плавления: около 2260 Дж против 334 Дж на грамм.
+
+- [ ] OK   Comment:
+
 
 ### Acids & Bases
+
+**Key takeaway 2**
+
+English:
+
+> Base: a proton acceptor. Soluble bases (alkalis) release hydroxide ions, OH−, in water. pH > 7.
+
+Russian, new:
+
+> Основание — акцептор протона. Растворимые основания (щёлочи) дают в воде гидроксид-ионы, OH−. pH больше 7.
+
+Russian, before:
+
+> Основание — акцептор протона. Растворимые основания (щёлочи) дают в воде гидроксид-ионы, OH-. pH больше 7.
+
+- [ ] OK   Comment:
 
 **Key takeaway 3**
 
@@ -5333,6 +7536,22 @@ Russian, new:
 Russian, before:
 
 > Нейтральная среда: pH 7 при 25 °C — чистая вода и большинство солей.
+
+- [ ] OK   Comment:
+
+**Key takeaway 4**
+
+English:
+
+> Neutralisation: acid + base → salt + water. The ionic equation is always H+ + OH− → H2O.
+
+Russian, new:
+
+> Нейтрализация: кислота + основание → соль + вода. Сокращённое ионное уравнение всегда H+ + OH− → H2O.
+
+Russian, before:
+
+> Нейтрализация: кислота + основание → соль + вода. Сокращённое ионное уравнение всегда H+ + OH- → H2O.
 
 - [ ] OK   Comment:
 
@@ -5352,6 +7571,42 @@ Russian, before:
 
 - [ ] OK   Comment:
 
+**Heading of section “The pH scale”**
+
+English:
+
+> The pH scale
+
+Russian, new:
+
+> Шкала pH
+
+- [ ] OK   Comment:
+
+**Paragraph of section “The pH scale”**
+
+English:
+
+> pH says how acidic or alkaline a solution is. At 25 °C, below 7 is acidic, 7 is neutral and above 7 is alkaline, and most solutions you will meet lie between 0 and 14. Universal indicator turns a different colour at each pH: red at the acidic end, green at 7 and purple at the alkaline end.
+
+Russian, new:
+
+> pH показывает, насколько раствор кислый или щелочной. При 25 °C раствор с pH меньше 7 кислый, с pH 7 — нейтральный, а с pH больше 7 — щелочной; почти все растворы, которые тебе встретятся, лежат между 0 и 14. Универсальный индикатор при каждом значении pH окрашивается по-своему: в красный цвет в кислой среде, в зелёный при pH 7 и в фиолетовый в щелочной.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The pH scale”**
+
+English:
+
+> The pH scale as a bar from 0 at the top to 14 at the bottom, each step in its universal-indicator colour with its number printed beside it: red at 0, orange at 1, yellow at 2 and 3, green from 4 to 8, blue-green at 9, blue at 10 and 11 and purple from 12 to 14. Five everyday solutions are marked at their pH: stomach acid at 1, vinegar at 3, pure water at 7, baking soda at 8 and oven cleaner at 13.
+
+Russian, new:
+
+> Шкала pH в виде полосы от 0 вверху до 14 внизу; каждая ступень окрашена в цвет универсального индикатора, рядом стоит её число: красный при 0, оранжевый при 1, жёлтый при 2 и 3, зелёный от 4 до 8, сине-зелёный при 9, синий при 10 и 11 и фиолетовый от 12 до 14. Пять привычных веществ отмечены при своём pH: желудочный сок при 1, уксус при 3, чистая вода при 7, пищевая сода при 8 и средство для духовок при 13.
+
+- [ ] OK   Comment:
+
 
 ### Balancing Chemical Equations
 
@@ -5368,6 +7623,18 @@ Russian, new:
 Russian, before:
 
 > Не уравнено
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “A method that always works”**
+
+English:
+
+> The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.
+
+Russian, new:
+
+> Реакция 2H₂ + O₂ → 2H₂O в виде частиц. Слева реагенты: две молекулы водорода, каждая из двух соприкасающихся атомов H, и одна молекула кислорода из двух атомов O. Стрелка ведёт к продуктам: двум молекулам воды, в каждой атом O и два атома H. Под частицами записано уравнение, а под ним — подсчёт атомов в обеих частях: H 4 и 4, O 2 и 2.
 
 - [ ] OK   Comment:
 
@@ -5397,15 +7664,27 @@ Russian, before:
 
 English:
 
-> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons).
+> Atoms bond to reach a stable, full outer shell (a noble-gas configuration). For a main-group element, the last digit of the group number tells you how many valence electrons it has (Cl is in group 17: 7 valence electrons; helium, in group 18, has only 2).
 
 Russian, new:
 
-> Атомы соединяются, чтобы получить устойчивый, заполненный внешний уровень — как у благородного газа. Последняя цифра номера группы говорит, сколько у элемента главной подгруппы валентных электронов (Cl в группе 17 — 7 валентных электронов; в короткой таблице это VII группа).
+> Атомы соединяются, чтобы получить устойчивый, заполненный внешний уровень — как у благородного газа. Последняя цифра номера группы говорит, сколько у элемента главной подгруппы валентных электронов (Cl в группе 17 — 7 валентных электронов; в короткой таблице это VII группа; у гелия в группе 18 их всего 2).
 
 Russian, before:
 
 > Атомы соединяются, чтобы получить устойчивый, заполненный внешний уровень — как у благородного газа. Номер группы говорит, сколько у элемента главной подгруппы валентных электронов.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Why ionic compounds conduct only when molten or dissolved”**
+
+English:
+
+> Three boxes, one above another. Ionic: a grid of small positive ions and large negative ions, alternating, each marked + or −. Covalent: one hydrogen molecule, two atoms marked H whose circles overlap, with two electron dots in the overlap, labelled shared pair. Metallic: a grid of positive metal ions with as many small electron dots scattered between them, labelled delocalised electrons.
+
+Russian, new:
+
+> Три рамки одна под другой. Ионная связь: решётка из чередующихся маленьких положительных и крупных отрицательных ионов, каждый со знаком + или −. Ковалентная связь: молекула водорода — два атома H, чьи круги перекрываются, и две точки (электроны) в области перекрывания с подписью «общая электронная пара». Металлическая связь: решётка положительных ионов металла и столько же точек (электронов) между ними с подписью «свободные электроны».
 
 - [ ] OK   Comment:
 
@@ -5425,6 +7704,18 @@ Russian, new:
 Russian, before:
 
 > Сначала пиши катион (металл или NH4+), потом анион.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Worked example: aluminium sulfate”**
+
+English:
+
+> Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.
+
+Russian, new:
+
+> Сульфат алюминия по перекрёстному правилу. Вверху ион алюминия Al³⁺ с подписью «катион» и сульфат-ион SO₄²⁻ с подписью «анион». Две перекрещивающиеся стрелки переносят каждое число заряда вниз, где оно становится индексом другого иона: 3 от Al³⁺ — индексом 3 после сульфата в скобках, 2 от SO₄²⁻ — индексом 2 после Al. Внизу формула Al₂(SO₄)₃ и проверка: 2 × (+3) = +6 и 3 × (−2) = −6.
 
 - [ ] OK   Comment:
 
@@ -5512,6 +7803,45 @@ Russian, before:
 - [ ] OK   Comment:
 
 
+### Naming Inorganic Compounds
+
+**Heading of section “Which naming system?”**
+
+English:
+
+> Which naming system?
+
+Russian, new:
+
+> Какая система названий?
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Which naming system?”**
+
+English:
+
+> Look at what the compound is made of before you name it. A metal (or NH4+) with a non-metal is ionic: the cation, then the anion, with no prefixes. Two non-metals make a molecular compound, named with Greek prefixes — but if H comes first and it is dissolved in water, it is an acid, and acids have names of their own.
+
+Russian, new:
+
+> Сначала посмотри, из чего состоит вещество. Металл (или NH4+) с неметаллом — ионное соединение: сначала анион, потом катион в родительном падеже, без приставок (хлорид натрия). Два неметалла — молекулярное соединение, и у оксида обычно указывают валентность римской цифрой (оксид серы(IV)); а если впереди стоит H и вещество растворено в воде, это кислота, и у неё своё название, например соляная кислота.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “Which naming system?”**
+
+English:
+
+> A flowchart for choosing a naming system. Metal + non-metal leads to ionic, for example sodium chloride. Two non-metals leads to molecular, for example sulfur dioxide. An arrow down from two non-metals leads to H first, in water, and from there to acid, for example hydrochloric acid.
+
+Russian, new:
+
+> Блок-схема выбора системы названий. От блока «металл + неметалл» стрелка ведёт к «ионное», пример — хлорид натрия. От блока «два неметалла» стрелка ведёт к «молекулярное», пример — оксид серы(IV). От того же блока «два неметалла» стрелка идёт вниз к «H впереди, в воде», а оттуда к «кислота», пример — соляная кислота.
+
+- [ ] OK   Comment:
+
+
 ### Relative Atomic & Formula Mass
 
 **Example card 1 (H2O): description**
@@ -5571,6 +7901,18 @@ English:
 Russian, new:
 
 > 40 + 2 × (14 + 3 × 16) = 164
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “What "relative" actually means”**
+
+English:
+
+> A balance with two hanging pans, level. On the left pan is one carbon atom, a circle marked C. On the right pan are twelve hydrogen atoms, smaller circles marked H, piled in rows of five, four and three. Carbon is drawn bigger than hydrogen, but nowhere near twelve times the size. Labels under the pans say 1 carbon atom and 12 hydrogen atoms, and a note says the picture is not to scale.
+
+Russian, new:
+
+> Весы с двумя подвешенными чашами в равновесии. На левой чаше — один атом углерода, кружок с буквой C. На правой — двенадцать атомов водорода, кружки поменьше с буквой H, сложенные рядами по пять, четыре и три. Углерод нарисован крупнее водорода, но далеко не в двенадцать раз. Под чашами подписано «1 атом углерода» и «12 атомов водорода», а пометка говорит, что масштаб не соблюдён.
 
 - [ ] OK   Comment:
 
@@ -5829,6 +8171,34 @@ Russian, new:
 
 ### The Mole & Stoichiometry
 
+**Diagram description (alt text) in section “Worked example: mass → mass”**
+
+English:
+
+> The mole map. Four boxes down the left, mass, particles, gas volume and solution, are each joined to a tall box, moles of reactant, by a two-way arrow carrying its formula: n = m/M, n = N/N_A, n = V/V_m and n = cV. From moles of reactant, an arrow labelled mole ratio (coefficients) leads down to moles of product.
+
+Russian, new:
+
+> Схема переходов через количество вещества. Слева друг под другом четыре блока — масса, число частиц, объём газа и раствор; каждый соединён с высоким блоком «количество вещества реагента» двусторонней стрелкой со своей формулой: n = m/M, n = N/N_A, n = V/V_m и n = cV. От количества вещества реагента вниз идёт стрелка с подписью «мольное соотношение (коэффициенты)» к количеству вещества продукта.
+
+- [ ] OK   Comment:
+
+**Table “The conversion formulas”, row 4, column 2**
+
+English:
+
+> volume of a gas at SLC
+
+Russian, new:
+
+> объём газа при 25 °C и 100 кПа
+
+Russian, before:
+
+> объём газа при стандартных условиях
+
+- [ ] OK   Comment:
+
 **Common mistake 4**
 
 English:
@@ -5852,11 +8222,11 @@ Russian, before:
 
 English:
 
-> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17). Add one electron per negative charge, remove one per positive charge.
+> Valence electrons = the last digit of the group number for main-group elements (H 1, C 4, N 5, O 6, halogens 7 — nitrogen is in group 15, chlorine in group 17; helium, in group 18, has only 2). Add one electron per negative charge, remove one per positive charge.
 
 Russian, new:
 
-> Число валентных электронов у элементов главных подгрупп равно последней цифре номера группы (H 1, C 4, N 5, O 6, галогены 7; азот стоит в группе 15, хлор — в группе 17). За каждый минус заряда прибавь электрон, за каждый плюс отними.
+> Число валентных электронов у элементов главных подгрупп равно последней цифре номера группы (H 1, C 4, N 5, O 6, галогены 7; азот стоит в группе 15, хлор — в группе 17; у гелия в группе 18 их всего 2). За каждый минус заряда прибавь электрон, за каждый плюс отними.
 
 Russian, before:
 
@@ -5880,6 +8250,18 @@ Russian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “Year 10 essentials”**
+
+English:
+
+> Lewis structures of four molecules, each with its formula underneath. Water, H₂O: H–O–H with two lone pairs on the oxygen, one above it and one below. Ammonia, NH₃: nitrogen with single bonds to three hydrogens and one lone pair. Carbon dioxide, CO₂: O=C=O, two double bonds, with two lone pairs on each oxygen and none on the carbon. Methane, CH₄: carbon with single bonds to four hydrogens and no lone pairs. Bonds are lines and lone pairs are pairs of dots. Labels point to one lone pair, on the oxygen in water, and to one shared pair, a bond in ammonia.
+
+Russian, new:
+
+> Формулы Льюиса четырёх молекул, под каждой её формула. Вода, H₂O: H–O–H, у кислорода две неподелённые электронные пары, одна сверху и одна снизу. Аммиак, NH₃: азот связан с тремя атомами водорода одинарными связями, у него одна неподелённая пара. Оксид углерода(IV), CO₂: O=C=O, две двойные связи, у каждого кислорода по две неподелённые пары, у углерода ни одной. Метан, CH₄: углерод связан с четырьмя атомами водорода одинарными связями, неподелённых пар нет. Связи — линии, неподелённые пары — пары точек. Подписи указывают на одну неподелённую пару у кислорода в воде и на одну общую электронную пару — связь в аммиаке.
+
+- [ ] OK   Comment:
+
 **Example card 2 in section “Year 10 essentials”: name**
 
 English:
@@ -5896,8 +8278,32 @@ Russian, before:
 
 - [ ] OK   Comment:
 
+**Diagram description (alt text) in section “From Lewis structure to shape (VSEPR)”**
+
+English:
+
+> The five VSEPR shapes, each with its formula, shape and bond angle underneath, drawn in 3D: a solid wedge is a bond coming out of the page and a hashed wedge a bond going behind it. CO₂ is linear, 180°. BF₃ is trigonal planar, 120°. CH₄ is tetrahedral, 109.5°. NH₃ is trigonal pyramidal, 107°, with its lone pair drawn as a lobe on the nitrogen. H₂O is bent, 104.5°, with two lone-pair lobes on the oxygen. NH₃ and H₂O are drawn like CH₄ with one, then two, of its bonds replaced by a lone pair. A small arc marks the angle between the two bonds that lie in the page.
+
+Russian, new:
+
+> Пять форм молекул, под каждой формула, форма и валентный угол; молекулы нарисованы объёмно: сплошной клин — связь, выходящая из плоскости к нам, штрихованный клин — связь, уходящая за плоскость. CO₂ — линейная форма, 180°. BF₃ — плоский треугольник, 120°. CH₄ — тетраэдр, 109,5°. NH₃ — тригональная пирамида, 107°, неподелённая пара у азота показана электронным облаком. H₂O — уголковая форма, 104,5°, у кислорода два таких облака. NH₃ и H₂O нарисованы как CH₄, у которого одну, а затем две связи заменила неподелённая пара. Маленькая дуга отмечает угол между двумя связями, лежащими в плоскости страницы.
+
+- [ ] OK   Comment:
+
 
 ### Naming Organic Compounds
+
+**Diagram description (alt text) in section “Worked example”**
+
+English:
+
+> The skeletal structure of 3-methylpentan-2-ol: a zigzag chain of five carbons, numbered 1 to 5 from left to right, with OH at the end of a bond up from carbon 2 and a methyl group as a short line down from carbon 3, labelled methyl. Underneath, the name 3-methylpentan-2-ol.
+
+Russian, new:
+
+> Скелетная формула 3-метилпентан-2-ола: зигзагообразная цепь из пяти атомов углерода, пронумерованных от 1 до 5 слева направо. От углерода 2 вверх идёт связь к OH, от углерода 3 вниз — короткая черта: это метильная группа с подписью «метил». Внизу название 3-метилпентан-2-ол.
+
+- [ ] OK   Comment:
 
 **Table “Suffix priority (highest first)”, row 3, column 1**
 
@@ -5953,6 +8359,34 @@ Russian, before:
 
 
 ### Functional Groups
+
+**Paragraph of section “The reaction pathway you must know”**
+
+English:
+
+> Alkene → (H₂O, H₃PO₄ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H₂SO₄ catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.
+
+Russian, new:
+
+> Алкен → (H₂O, катализатор H₃PO₄) → спирт. Алкен → (HX) → галогеналкан → (OH⁻(aq)) → спирт → (Cr₂O₇²⁻/H⁺) → альдегид → (дальнейшее окисление) → карбоновая кислота → (спирт, катализатор H₂SO₄) → сложный эфир. Первичные спирты окисляются дважды, вторичные — один раз до кетона, третичные не окисляются.
+
+Russian, before:
+
+> Алкен → (H2O, катализатор H+) → спирт. Алкен → (HX) → галогеналкан → (OH−) → спирт → (Cr2O7 2−/H+) → альдегид → (дальнейшее окисление) → карбоновая кислота → (спирт, катализатор H2SO4) → сложный эфир. Первичные спирты окисляются дважды, вторичные — один раз до кетона, третичные не окисляются.
+
+- [ ] OK   Comment:
+
+**Diagram description (alt text) in section “The reaction pathway you must know”**
+
+English:
+
+> A reaction map, read from the top down. Down the left: an alkene gives a primary alcohol with H₂O and an H₃PO₄ catalyst; the primary alcohol gives an aldehyde with Cr₂O₇²⁻/H⁺, the aldehyde a carboxylic acid with Cr₂O₇²⁻/H⁺, and the carboxylic acid an ester with an alcohol and an H₂SO₄ catalyst. On the right: the alkene can instead take HX to give a haloalkane, which gives the same primary alcohol with OH⁻(aq); and beside the primary alcohol, a secondary alcohol oxidises to a ketone with Cr₂O₇²⁻/H⁺.
+
+Russian, new:
+
+> Схема превращений, читается сверху вниз. Слева: алкен с H₂O (катализатор H₃PO₄) даёт первичный спирт, первичный спирт с Cr₂O₇²⁻/H⁺ — альдегид, альдегид с Cr₂O₇²⁻/H⁺ — карбоновую кислоту, а карбоновая кислота со спиртом (катализатор H₂SO₄) — сложный эфир. Справа: алкен может вместо этого присоединить HX и дать галогеналкан, который с OH⁻(aq) даёт тот же первичный спирт; а рядом с первичным спиртом вторичный спирт окисляется Cr₂O₇²⁻/H⁺ до кетона.
+
+- [ ] OK   Comment:
 
 **Paragraph of section “Spotting groups in a spectrum”**
 

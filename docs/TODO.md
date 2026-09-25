@@ -189,8 +189,9 @@ has been pushed:
 | 9 New diagram: Functional Groups reaction map | `cheatsheet/9-functional-groups-diagrams` | done, `4efa19b` |
 | E Easy fixes and the owner's four decisions (Sonnet) | `cheatsheet/e-easy-fixes` | done, `f453a74` |
 | — Merge 7, 8, 9 and E into one branch, one build, full Playwright suite | `cheatsheet/wave1-merge` | merged; typecheck, 1437 unit tests, diagram check and `next build` pass; full Playwright suite 367/369 (see the switcher item below) |
-| F Formulas in prose render with sub- and superscripts (`ChemText`) | `cheatsheet/f-chem-text` | running, parallel with 10a/10b (Opus). Found by the owner 2026-09-25: key concepts, paragraphs and common mistakes print "SO4 2−", "NH4+" as plain text on every sheet |
-| 10a/10b Eight smaller diagrams | `cheatsheet/10a-small-diagrams-a`, `cheatsheet/10b-small-diagrams-b` | running (Opus), from the merge; **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
+| F Formulas in prose render with sub- and superscripts (`ChemText`) | `cheatsheet/f-chem-text` | done, `a37f858`. Found by the owner 2026-09-25: key concepts, paragraphs and common mistakes print "SO4 2−", "NH4+" as plain text on every sheet |
+| **Final** All of the above, plus "OH−" in the acids prose | **`cheatsheet/final`** (`2a6e117`), worktree `chem-games-cs-merge` | **done.** 19 diagrams × 6 languages; typecheck, 2309 unit tests, diagram check and `next build` pass; full Playwright 422/425 (the 3 failures are the switcher race fixed on `fix/locale-cookie-prefetch`) |
+| 10a/10b Eight smaller diagrams | `cheatsheet/10a-small-diagrams-a`, `cheatsheet/10b-small-diagrams-b` | done, `9281baf` + `c083200` (10a) and `b42c39d` (10b); **no longer waits for the owner** (decided 2026-09-25). If time runs out, the owner runs them later with Sonnet from the prompts file |
 
 Owner to-dos from this work:
 
@@ -215,16 +216,16 @@ Owner to-dos from this work:
       passed once on `master` after failing twice on the review branch; run it a few
       times on both to tell a flake from a difference.
 
-- [ ] **Merge the chain** once the last branch you want is done. Only the tip
-      needs merging, because every branch contains the ones before it. Merge
+- [ ] **Merge `cheatsheet/final`**: it contains every step (1–9, E, F, 10a, 10b), so it
+      is the only cheat-sheet branch that needs merging. Merge
       `cheatsheet-review` as well: it holds the later changes to this list and the
       review, which the chain does not have. Run the full
       Playwright suite first (see [`TESTING.md`](./TESTING.md)).
 - [ ] **Native-speaker review of the new cheat-sheet text** in de, fr, es, it and ru.
       Send reviewers [`i18n/cheat-sheet-review-strings.md`](./i18n/cheat-sheet-review-strings.md):
       each language has its own section, with the English, the new text, the text
-      before, and a tick box. It covers steps 1–6 (350 strings and 180 diagram
-      labels) and gets extended after each later step.
+      before, and a tick box. It covers the whole review (471 strings and all 19
+      diagrams' labels).
 - [x] **Decided 2026-09-25 (4b), done in step E: remove the leftovers, point to the formula-mass sheet.**
       Being applied by step E. Was: **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**
       The section was removed on 2026-09-22, and its takeaway and mistakes were
