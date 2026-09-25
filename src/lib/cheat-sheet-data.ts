@@ -753,7 +753,6 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Worked example: aluminium sulfate',
         content: 'Al 3+ and SO4 2−. Cross over: Al gets subscript 2, sulfate gets subscript 3. Sulfate is polyatomic and repeated, so it needs brackets: Al2(SO4)3. Check: 2 × (+3) = +6 and 3 × (−2) = −6. Neutral.',
-        examples: [{ name: 'Aluminium sulfate', formula: 'Al2(SO4)3' }],
         image: {
           diagram: 'chemical-formulas/01-cross-over',
           alt: 'Aluminium sulfate by the cross-over method. At the top, the aluminium ion Al³⁺, labelled cation, and the sulfate ion SO₄²⁻, labelled anion. Two crossing arrows carry each charge number down to become the other ion’s subscript: the 3 of Al³⁺ becomes the 3 after the bracketed sulfate, and the 2 of SO₄²⁻ becomes the 2 after Al. At the bottom, the formula Al₂(SO₄)₃, and the check: 2 × (+3) = +6 and 3 × (−2) = −6.',
@@ -761,7 +760,19 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       },
       {
         heading: 'Common ion charges from the periodic table',
-        content: 'Group 1 → +1, Group 2 → +2, Al → +3, Group 17 → −1, Group 16 → −2, N and P → −3. Transition metals vary — the name will tell you. For polyatomic ions use the lookup table.',
+        content: 'Transition metals vary — the name will tell you. For polyatomic ions use the lookup table.',
+        table: {
+          heading: 'Common ion charges',
+          columns: ['Group / element', 'Charge'],
+          rows: [
+            ['Group 1', '+1'],
+            ['Group 2', '+2'],
+            ['Al', '+3'],
+            ['N and P', '−3'],
+            ['Group 16', '−2'],
+            ['Group 17', '−1'],
+          ],
+        },
       },
     ],
     commonMistakes: [

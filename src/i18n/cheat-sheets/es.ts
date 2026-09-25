@@ -552,14 +552,25 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'Ejemplo resuelto: sulfato de aluminio',
         content:
           'Al 3+ y SO4 2−. Cruza las cargas: el Al se lleva el subíndice 2 y el sulfato el subíndice 3. El sulfato es poliatómico y se repite, así que necesita paréntesis: Al2(SO4)3. Comprueba: 2 × (+3) = +6 y 3 × (−2) = −6. Neutro.',
-        exampleNames: ['Sulfato de aluminio'],
         imageAlt:
           'El sulfato de aluminio por el método del aspa. Arriba, el ion aluminio Al³⁺, rotulado «catión», y el ion sulfato SO₄²⁻, rotulado «anión». Dos flechas que se cruzan bajan cada número de carga, que pasa a ser el subíndice del otro ion: el 3 del Al³⁺ pasa a ser el 3 tras el sulfato entre paréntesis, y el 2 del SO₄²⁻, el 2 tras el Al. Abajo, la fórmula Al₂(SO₄)₃ y la comprobación: 2 × (+3) = +6 y 3 × (−2) = −6.',
       },
       {
         heading: 'Las cargas más comunes, leídas en la tabla periódica',
         content:
-          'Grupo 1 → +1, grupo 2 → +2, Al → +3, grupo 17 → −1, grupo 16 → −2, N y P → −3. Los metales de transición varían: te lo dirá el nombre. Para los iones poliatómicos, usa la tabla de consulta.',
+          'Los metales de transición varían: te lo dirá el nombre. Para los iones poliatómicos, usa la tabla de consulta.',
+        table: {
+          heading: 'Cargas iónicas comunes',
+          columns: ['Grupo / elemento', 'Carga'],
+          rows: [
+            ['Grupo 1', '+1'],
+            ['Grupo 2', '+2'],
+            ['Al', '+3'],
+            ['N y P', '−3'],
+            ['Grupo 16', '−2'],
+            ['Grupo 17', '−1'],
+          ],
+        },
       },
     ],
     commonMistakes: [
