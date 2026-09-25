@@ -226,9 +226,9 @@ function Section({
         <Icon className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
         {title}
       </h2>
-      {/* `max-w-[75ch]`: see the same comment on the For Teachers page's `Section`. */}
+      {/* `max-w-[75ch] lg:max-w-none`: see the same comment on the For Teachers page's `Section`. */}
       <div
-        className={`max-w-[75ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+        className={`max-w-[75ch] lg:max-w-none space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
       >
         {children}
       </div>

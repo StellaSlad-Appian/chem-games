@@ -392,14 +392,19 @@ function Section({
         {title}
       </h2>
       {/*
-        `max-w-[75ch]`: the container grew to `max-w-6xl` to match the home
-        page and cut down on scrolling, but line length for justified prose
-        should not grow with it — docs/TEACHERS_PAGE.md § 6's own guideline.
-        Only bites below `lg`, where this column has no sidebar next to it yet
-        to share the width with.
+        `max-w-[75ch] lg:max-w-none`: the container grew to `max-w-6xl` to
+        match the home page, but line length for justified prose should not
+        grow with it — docs/TEACHERS_PAGE.md § 6's own guideline. The cap only
+        applies below `lg`, where this column has no sidebar next to it yet
+        and would otherwise span the full width. At `lg` and up the sidebar
+        already narrows this column to well under 75ch on its own; capping it
+        *again* left a ~110px gap of unused space on the right of every card,
+        with nothing narrowing the left side to match — exactly the "text
+        shifted left, invisible border on the right" look, measured and
+        confirmed in the browser before this fix.
       */}
       <div
-        className={`max-w-[75ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+        className={`max-w-[75ch] lg:max-w-none space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
       >
         {children}
       </div>
