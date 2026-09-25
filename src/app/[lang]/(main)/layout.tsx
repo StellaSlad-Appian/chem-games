@@ -38,51 +38,51 @@ export default async function MainLayout(props: LayoutProps<'/[lang]'>) {
       */}
       <div className="flex-1">{props.children}</div>
 
-      <footer className="border-t-2 border-(--border) bg-(--surface) py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-center sm:flex-row sm:px-6 sm:text-left">
+      {/*
+        Three centred lines at every width — tagline, links, copyright — so
+        nothing sits in the bottom-right corner, where the site-wide feedback
+        button floats over the page. On a phone the centred copyright line is
+        wide enough to reach under that button, so the extra bottom padding
+        lifts it clear when the page is scrolled to the end.
+      */}
+      <footer className="border-t-2 border-(--border) bg-(--surface) pt-8 pb-20 sm:pb-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-3 px-4 text-center text-xs text-(--muted) sm:px-6">
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 shrink-0 text-amber-400" aria-hidden="true" />
-            <p className="text-xs font-bold text-(--muted)">{t.footer.tagline}</p>
+            <p className="font-bold">{t.footer.tagline}</p>
           </div>
           {/*
-            On a phone the copyright sits above the links rather than wrapping
-            into them, so no line starts with a stray separator.
+            The only site-wide entry points to /about, /privacy and /teachers.
+            Deliberately not in the NavBar: German labels already put the
+            horizontal nav at 1014px of content at 1280px (NavBar.tsx), and
+            these pages are for adults who will go looking rather than for the
+            students the nav serves.
           */}
-          <div className="flex flex-col items-center gap-x-3 gap-y-2 text-xs font-medium text-(--muted) sm:flex-row">
-            <p>{format(t.footer.copyright, { year: new Date().getFullYear() })}</p>
-            <span aria-hidden="true" className="hidden sm:inline">
-              &middot;
-            </span>
-            <div className="flex items-center gap-3">
-              <LocaleLink href="/privacy" className="font-bold transition hover:text-(--link)">
-                {t.footer.privacy}
-              </LocaleLink>
-              <span aria-hidden="true">&middot;</span>
-              {/*
-                The only site-wide entry points to /teachers and /about, the two
-                pages written for adults. Deliberately not in the NavBar: German
-                labels already put the horizontal nav at 1014px of content at
-                1280px (NavBar.tsx), and these pages are for adults who will go
-                looking rather than for the students the nav serves.
-              */}
-              <LocaleLink href="/teachers" className="font-bold transition hover:text-(--link)">
-                {t.footer.teachers}
-              </LocaleLink>
-              {/*
-                Only in a locale that has an About page — English, for now. The
-                label comes from the About catalogue, not the dictionary; see
-                src/i18n/about.ts for why.
-              */}
-              {about && (
-                <>
-                  <span aria-hidden="true">&middot;</span>
-                  <LocaleLink href="/about" className="font-bold transition hover:text-(--link)">
-                    {about.footerLabel}
-                  </LocaleLink>
-                </>
-              )}
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-medium">
+            {/*
+              Only in a locale that has an About page — English, for now. The
+              label comes from the About catalogue, not the dictionary; see
+              src/i18n/about.ts for why.
+            */}
+            {about && (
+              <>
+                <LocaleLink href="/about" className="font-bold transition hover:text-(--link)">
+                  {about.footerLabel}
+                </LocaleLink>
+                <span aria-hidden="true">&middot;</span>
+              </>
+            )}
+            <LocaleLink href="/privacy" className="font-bold transition hover:text-(--link)">
+              {t.footer.privacy}
+            </LocaleLink>
+            <span aria-hidden="true">&middot;</span>
+            <LocaleLink href="/teachers" className="font-bold transition hover:text-(--link)">
+              {t.footer.teachers}
+            </LocaleLink>
           </div>
+          <p className="font-medium">
+            {format(t.footer.copyright, { year: new Date().getFullYear() })}
+          </p>
         </div>
       </footer>
     </>

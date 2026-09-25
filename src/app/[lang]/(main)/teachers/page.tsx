@@ -46,6 +46,7 @@ import {
   ShieldCheck,
   Users,
 } from 'lucide-react';
+import { ADULT_PROSE, NOT_PROSE } from '@/components/layout/adult-prose';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { CollaboratorForm } from '@/components/teachers/CollaboratorForm';
 import { aboutCopy } from '@/i18n/about';
@@ -165,7 +166,7 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
           </div>
-          <p className="mt-2 max-w-[70ch] text-base text-(--muted)">{p.intro}</p>
+          <p className={`mt-2 text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
         </div>
 
         {/*
@@ -185,7 +186,9 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
             <Construction className="h-5 w-5 shrink-0 text-amber-500" aria-hidden="true" />
             {p.betaHeading}
           </h2>
-          <p className="mt-3 max-w-[70ch] text-sm font-medium leading-relaxed text-(--muted)">
+          <p
+            className={`mt-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+          >
             {p.betaBody}
           </p>
         </section>
@@ -287,32 +290,34 @@ export default async function TeachersPage(props: PageProps<'/[lang]/teachers'>)
               bundle. See docs/COLLABORATORS.md § 4 and
               src/i18n/teachers-boundary.test.ts.
             */}
-            <CollaboratorForm
-              contactEmail={CONTACT_EMAIL}
-              copy={{
-                heading: p.formHeading,
-                intro: p.formIntro,
-                use: p.formUse,
-                deletion: p.formDelete,
-                optional: p.formOptional,
-                emailLabel: p.formEmailLabel,
-                emailHelp: p.formEmailHelp,
-                nameLabel: p.formNameLabel,
-                schoolLabel: p.formSchoolLabel,
-                countryLabel: p.formCountryLabel,
-                yearLevelsLabel: p.formYearLevelsLabel,
-                yearLevelsHelp: p.formYearLevelsHelp,
-                subjectsLabel: p.formSubjectsLabel,
-                subjectsHelp: p.formSubjectsHelp,
-                messageLabel: p.formMessageLabel,
-                messageHelp: p.formMessageHelp,
-                submit: p.formSubmit,
-                submitting: p.formSubmitting,
-                successTitle: p.formSuccessTitle,
-                successBody: p.formSuccessBody,
-                genericError: p.formGenericError,
-              }}
-            />
+            <div className={NOT_PROSE}>
+              <CollaboratorForm
+                contactEmail={CONTACT_EMAIL}
+                copy={{
+                  heading: p.formHeading,
+                  intro: p.formIntro,
+                  use: p.formUse,
+                  deletion: p.formDelete,
+                  optional: p.formOptional,
+                  emailLabel: p.formEmailLabel,
+                  emailHelp: p.formEmailHelp,
+                  nameLabel: p.formNameLabel,
+                  schoolLabel: p.formSchoolLabel,
+                  countryLabel: p.formCountryLabel,
+                  yearLevelsLabel: p.formYearLevelsLabel,
+                  yearLevelsHelp: p.formYearLevelsHelp,
+                  subjectsLabel: p.formSubjectsLabel,
+                  subjectsHelp: p.formSubjectsHelp,
+                  messageLabel: p.formMessageLabel,
+                  messageHelp: p.formMessageHelp,
+                  submit: p.formSubmit,
+                  submitting: p.formSubmitting,
+                  successTitle: p.formSuccessTitle,
+                  successBody: p.formSuccessBody,
+                  genericError: p.formGenericError,
+                }}
+              />
+            </div>
           </Section>
 
           <Section icon={MessageSquarePlus} title={p.feedbackHeading}>
@@ -350,7 +355,9 @@ function Section({
         <Icon className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
         {title}
       </h2>
-      <div className="max-w-[70ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted)">
+      <div
+        className={`space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+      >
         {children}
       </div>
     </section>

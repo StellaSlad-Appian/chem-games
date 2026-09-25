@@ -25,9 +25,9 @@ import {
   HeartHandshake,
   Lightbulb,
   Scale,
-  Sparkles,
   Users,
 } from 'lucide-react';
+import { ADULT_PROSE } from '@/components/layout/adult-prose';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { aboutCopy } from '@/i18n/about';
 import { DEFAULT_LOCALE, isLocale } from '@/i18n/config';
@@ -89,13 +89,8 @@ export default async function AboutPage(props: PageProps<'/[lang]/about'>) {
         </LocaleLink>
 
         <div className="mt-6">
-          <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--action) text-white">
-              <Sparkles className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
-          </div>
-          <p className="mt-2 max-w-[70ch] text-base text-(--muted)">{p.intro}</p>
+          <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
+          <p className={`mt-2 text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
         </div>
 
         <article className="mt-6 flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
@@ -166,7 +161,7 @@ function Section({
   title,
   children,
 }: {
-  icon: typeof Sparkles;
+  icon: typeof Users;
   title: string;
   children: ReactNode;
 }) {
@@ -176,7 +171,9 @@ function Section({
         <Icon className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
         {title}
       </h2>
-      <div className="max-w-[70ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted)">
+      <div
+        className={`space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+      >
         {children}
       </div>
     </section>
