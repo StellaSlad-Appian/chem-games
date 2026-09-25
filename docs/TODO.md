@@ -203,6 +203,10 @@ Owner to-dos from this work:
       `LanguageSwitcher.tsx`, `src/proxy.ts` or the locale config, so it is probably
       not caused by this work; run the same two tests on `master`'s production build
       to confirm. The German equivalent passes.
+      **Checked on `master` (`eca2f05`, production build), 2026-09-25:** the Spanish test
+      fails there too, the same way, so it is not caused by this work. The French test
+      passed once on `master` after failing twice on the review branch; run it a few
+      times on both to tell a flake from a difference.
 
 - [ ] **Merge the chain** once the last branch you want is done. Only the tip
       needs merging, because every branch contains the ones before it. Merge
