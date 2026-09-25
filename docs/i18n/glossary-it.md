@@ -282,6 +282,11 @@ than failing silently on screen.
 | formal charge | **carica formale** | — |
 | electronegativity | **elettronegatività** | Final accent — fine in prose, but **never usable as a glossary match word** (see above). |
 | delocalised electrons | **elettroni delocalizzati** | The school phrasing for the "sea" in a metal is *mare di elettroni*; *elettroni liberi* is also used, **and that is the second reason *libero* could not be the game's word for a loner** — it already means something else, and something a student meets on the bonding sheet. |
+| particle | **particella** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusione / ebollizione** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **curva di riscaldamento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **energia fornita** | Italian textbooks say *calore fornito*; *energia* keeps the sheet's word. *Energia aggiunta* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| gas, as a state name in a diagram | **gas** | Italian school books also call the state *aeriforme*. Kept *gas*, per the row above and the sheet's own prose, so the diagram and the paragraph agree. **Rated medium.** Added 2026-09-25 for the States of Matter diagrams. |
 
 ### The “loner”: Italian's own two-tier pair, and the three words it could not use — historical, and why it is kept
 

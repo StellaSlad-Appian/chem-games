@@ -93,6 +93,10 @@ suite rather than failing silently on screen.
 | formal charge | **Formalladung** | — |
 | electronegativity | **Elektronegativität** | — |
 | delocalised electrons | **frei bewegliche Elektronen** | The literal *delokalisierte Elektronen* is correct but is upper-secondary register; the school phrasing is clearer at this level. |
+| particle (the particle model) | **Teilchen** (*Teilchenmodell*) | The school word; *Partikel* is the register of dust and physics papers. Added 2026-09-25 for the States of Matter diagrams. The new section is headed *Die Aggregatzustände im Teilchenmodell*, because *Teilchenmodell* is what German teaching calls this picture. |
+| melting / boiling (a heating curve's plateaus) | **Schmelzen / Sieden** | Nominalised verbs, as the sheet's table of phase changes already has them. *Sieden*, not *Kochen*, which is the kitchen word. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **Erwärmungskurve** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **zugeführte Energie** | The German physics phrasing, as in *zugeführte Wärme*. *Hinzugefügte Energie* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
 
 ## Atomic structure, the periodic table and radioactivity
 

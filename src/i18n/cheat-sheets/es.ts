@@ -285,6 +285,13 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'Las partículas en cada estado',
+        content:
+          'En un sólido, las partículas están en contacto, ordenadas de forma regular, y vibran sin moverse de su sitio. En un líquido siguen en contacto, pero desordenadas, y se deslizan unas sobre otras; en un gas están muy separadas y se mueven libremente en todas direcciones. Las partículas tienen el mismo tamaño en los tres estados: solo cambian su colocación y los huecos entre ellas.',
+        imageAlt:
+          'Tres cajas, una encima de otra, con partículas del mismo tamaño en cada una. Sólido: las partículas están en contacto y forman un bloque regular de filas y columnas, apoyado en el fondo de la caja. Líquido: el mismo número de partículas, todavía en contacto pero desordenadas, con pequeños huecos, repartidas por el fondo de la caja. Gas: cinco partículas muy separadas por toda la caja, cada una con dos trazos cortos detrás que indican que se mueve.',
+      },
+      {
         heading: 'Los símbolos de estado en las ecuaciones',
         content:
           'Cada especie de una ecuación química lleva un símbolo de estado: (s) sólido, (l) líquido, (g) gas, (aq) disuelto en agua. «Acuoso» no es un cuarto estado de la materia: quiere decir que hay un soluto disuelto en agua líquida.',
@@ -293,6 +300,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'Curvas de calentamiento y de enfriamiento',
         content:
           'En una curva de calentamiento, los tramos horizontales son los cambios de estado (fusión, ebullición). Los tramos que suben corresponden a un solo estado que se calienta. El tramo de la ebullición es más largo que el de la fusión, porque separar del todo las partículas cuesta más energía que solo aflojarlas.',
+        imageAlt:
+          'Una curva de calentamiento del agua: la temperatura en el eje vertical y la energía suministrada en el horizontal, sin números en el eje de la energía. La línea sube con mucha pendiente en el sólido, se mantiene horizontal a 0 °C durante la fusión, sube con menos pendiente en el líquido, se mantiene horizontal a 100 °C durante la ebullición y vuelve a subir con mucha pendiente en el gas. El tramo de la ebullición está dibujado a escala, casi siete veces más largo que el de la fusión: unos 2260 J frente a 334 J por gramo.',
       },
     ],
     tables: [

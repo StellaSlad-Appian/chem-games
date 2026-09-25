@@ -435,12 +435,25 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     ],
     sections: [
       {
+        heading: 'Particles in each state',
+        content:
+          'In a solid the particles touch in a regular pattern and vibrate in place. In a liquid they still touch, but they are jumbled and slide past one another; in a gas they are far apart and move freely in every direction. The particles are the same size in all three states: only their arrangement and the spaces between them change.',
+        image: {
+          diagram: 'states-of-matter/01-particles-in-each-state',
+          alt: 'Three boxes, one above another, with particles of the same size in each. Solid: particles touching in a regular block of rows and columns, resting on the floor of the box. Liquid: the same number of particles, still touching but jumbled, with small gaps, spread across the bottom of the box. Gas: five particles far apart across the whole box, each with two short marks behind it to show that it is moving.',
+        },
+      },
+      {
         heading: 'State symbols in equations',
         content: 'Every species in a chemical equation carries a state symbol: (s) solid, (l) liquid, (g) gas, (aq) dissolved in water. "Aqueous" is not a fourth state of matter — it means a solute dissolved in liquid water.',
       },
       {
         heading: 'Heating and cooling curves',
         content: 'On a heating curve the flat sections are phase changes (melting, boiling). The sloped sections are one state warming up. The flat section for boiling is longer than for melting because separating particles completely takes more energy than loosening them.',
+        image: {
+          diagram: 'states-of-matter/02-heating-curve',
+          alt: 'A heating curve for water: temperature up the side and energy added along the bottom, with no numbers on the energy axis. The line climbs steeply through the solid, stays flat at 0 °C for melting, climbs less steeply through the liquid, stays flat at 100 °C for boiling, then climbs steeply again through the gas. The boiling plateau is drawn to scale, almost seven times as long as the melting plateau: about 2260 J against 334 J for each gram.',
+        },
       },
     ],
     tables: [

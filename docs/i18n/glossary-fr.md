@@ -154,6 +154,11 @@ Two more consequences worth knowing:
 | formal charge | **charge formelle** | — |
 | electronegativity | **électronégativité** | — |
 | delocalised electrons | **électrons libres** | The literal *électrons délocalisés* is correct and is upper-secondary register; *électrons libres* is the school phrasing for the "sea" in a metal and is clearer at this level. |
+| particle | **particule** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusion / ébullition** | As in the sheet's table of phase changes. A French textbook calls the flat stretches *paliers*. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **courbe de chauffage** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **énergie reçue** | French physique-chimie puts the energy on the system's side (*l’eau reçoit de l’énergie*). *Énergie ajoutée* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| the three states at particle scale | **compact et ordonné / compact et désordonné / dispersé et désordonné** | The triad French collège textbooks use for solid, liquid and gas *à l’échelle microscopique*. The new section uses it, and its heading uses *échelle microscopique*. Added 2026-09-25 for the States of Matter diagrams. |
 
 ### The “loner”: French's own two-tier pair — historical, and why it is kept
 

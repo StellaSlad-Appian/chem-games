@@ -1451,6 +1451,277 @@ function drawHalfLife(pen: Pen): string[] {
   return parts;
 }
 
+// --- States of Matter (task 7) ---------------------------------------------
+
+/**
+ * The particles in `states-of-matter/01-particles-in-each-state`.
+ *
+ * **One radius for every particle in all three boxes.** "Particles expand when
+ * heated" is one of the sheet's common mistakes, and a gas drawn with bigger
+ * circles would teach it; there is one `radius`, and nothing else sets a
+ * particle's size. The solid and the liquid hold the **same number** of
+ * particles (`columns × rows`), because melting rearranges them and does not
+ * make or lose any; the gas box shows a small sample, `gas`, since a gas's
+ * particles are far apart.
+ */
+const PARTICLES = { radius: 8, solid: { columns: 9, rows: 4 }, gas: 5 } as const;
+
+/**
+ * Water, heated from ice to steam at atmospheric pressure, per gram, for
+ * `states-of-matter/02-heating-curve`.
+ *
+ * The two latent heats are the school values: 334 J/g to melt ice at 0 °C and
+ * 2260 J/g to boil water at 100 °C, a ratio of 6.8 to 1. The specific heat
+ * capacities are the school values too, in J/(g·K): ice 2.1, water 4.18,
+ * steam 2.0. (Ice's falls a little as it gets colder; at this size the
+ * difference is under two units of the drawing.)
+ *
+ * `from` and `to` are where the drawn curve starts and ends. They are not
+ * printed — the only numbers on the figure are 0 °C and 100 °C — and they are
+ * wide on purpose: see `drawHeatingCurve`.
+ */
+const WATER_HEATING = {
+  meltingPoint: 0,
+  boilingPoint: 100,
+  fusion: 334,
+  vaporisation: 2260,
+  heatCapacity: { ice: 2.1, water: 4.18, steam: 2.0 },
+  from: -80,
+  to: 180,
+} as const;
+
+/**
+ * Three boxes, one above another, each with its state's name on its left:
+ * a solid, a liquid and a gas, drawn with the same particle.
+ *
+ * **Rows, not three panels side by side.** Side by side, each box and its name
+ * had about 100 units, and the Russian «газообразное» needs 127: the layout
+ * would not survive Russian, or the phone rule. Stacked, the names share one
+ * column on the left, which a phone always shows.
+ *
+ * - **Solid:** a regular block, every particle touching its neighbours, resting
+ *   on the floor of its box but not filling it — a solid keeps its own shape.
+ * - **Liquid:** the same number of particles, still touching, but jumbled and
+ *   with gaps, lying across the bottom of the box. They are dropped one at a
+ *   time, left to right in layers with a random gap, and each comes to rest on
+ *   the first particle (or the floor) it meets — which is what makes them touch
+ *   without overlapping, and irregular without looking scattered.
+ * - **Gas:** a few particles, far apart, anywhere in the box, each with two
+ *   short marks trailing behind it for its motion, in a random direction.
+ *
+ * Every position comes from `seeded()`, so the drawing is irregular and still
+ * byte-stable.
+ */
+function drawParticlesInEachState(pen: Pen): string[] {
+  const { t, label } = pen;
+  const r = PARTICLES.radius;
+  /** The names' column. The Russian «газообразное» is about 127 units. */
+  const labelRoom = 128;
+  const boxX = 16 + labelRoom + 12;
+  // The box ends a margin short of `PHONE`, so the canvas is 360 units: 288
+  // CSS px, which a 375 px phone shows without panning.
+  const boxRight = PHONE - MARGIN - 1;
+  const boxWidth = boxRight - boxX;
+  const boxHeight = 100;
+  const rowGap = 16;
+  /** The inside of a box keeps this much clear of its outline. */
+  const pad = 4;
+  const count = PARTICLES.solid.columns * PARTICLES.solid.rows;
+  const parts: string[] = [];
+
+  const states = ['solid', 'liquid', 'gas'] as const;
+  states.forEach((state, index) => {
+    const boxY = 16 + index * (boxHeight + rowGap);
+    const floor = boxY + boxHeight - pad - r;
+    parts.push(
+      frame(boxX, boxY, boxWidth, boxHeight),
+      label(16, boxY + boxHeight / 2, t(state), { room: labelRoom, central: true }),
+    );
+
+    const centres: [number, number][] = [];
+    if (state === 'solid') {
+      const { columns, rows } = PARTICLES.solid;
+      const left = boxX + (boxWidth - columns * 2 * r) / 2 + r;
+      for (let row = 0; row < rows; row += 1) {
+        for (let column = 0; column < columns; column += 1) {
+          centres.push([left + column * 2 * r, floor - row * 2 * r]);
+        }
+      }
+    } else if (state === 'liquid') {
+      const random = seeded(0x5701);
+      const [left, right] = [boxX + pad + r + 2, boxRight - pad - r - 2];
+      const step = 0.5;
+      const free = (px: number, py: number) =>
+        py <= floor &&
+        px >= left &&
+        px <= right &&
+        centres.every(([qx, qy]) => (px - qx) ** 2 + (py - qy) ** 2 >= 4 * r * r - 1e-6);
+      // A particle falls until it lands, then rolls round the particle it
+      // landed on for a short, random distance and sticks: far enough to
+      // jumble the rows, not so far that they settle back into a lattice.
+      const settle = (x: number, roll: number): [number, number] => {
+        let [px, py] = [x, boxY + pad + r];
+        for (;;) {
+          if (free(px, py + step)) {
+            py += step;
+            continue;
+          }
+          const below = centres.find(([qx, qy]) => (px - qx) ** 2 + (py + step - qy) ** 2 < 4 * r * r);
+          if (!below || roll <= 0) return [px, py];
+          const side = below[0] < px ? 1 : -1;
+          const angle = Math.atan2(py - below[1], px - below[0]) + (side * step) / (2 * r);
+          const [nx, ny] = [below[0] + 2 * r * Math.cos(angle), below[1] + 2 * r * Math.sin(angle)];
+          if (ny <= py || !free(nx, ny)) return [px, py];
+          [px, py, roll] = [nx, ny, roll - step];
+        }
+      };
+      // Each particle is dropped at the lowest of a few random places, so the
+      // surface comes out roughly level, as a liquid's is, and not a heap.
+      while (centres.length < count) {
+        const tries = Array.from({ length: 6 }, () => settle(left + random() * (right - left), random() * 3 * r));
+        centres.push(tries.reduce((lowest, place) => (place[1] > lowest[1] ? place : lowest)));
+      }
+      const top = Math.min(...centres.map(([, y]) => y)) - r;
+      if (top < boxY + pad) throw new Error('01-particles: the liquid overflows its box.');
+    } else {
+      const random = seeded(0x5702);
+      /** Room round each gas particle for its motion marks. */
+      const clear = r + 14;
+      const apart = 46;
+      for (let tries = 0; centres.length < PARTICLES.gas; tries += 1) {
+        if (tries > 5000) throw new Error('01-particles: no room for the gas particles.');
+        const x = boxX + clear + random() * (boxWidth - 2 * clear);
+        const y = boxY + clear + random() * (boxHeight - 2 * clear);
+        if (centres.every(([qx, qy]) => Math.hypot(x - qx, y - qy) >= apart)) centres.push([x, y]);
+      }
+      for (const [x, y] of centres) {
+        const heading = random() * 2 * Math.PI;
+        const [cos, sin] = [Math.cos(heading), Math.sin(heading)];
+        for (const side of [-3.5, 3.5]) {
+          const [sx, sy] = [x - sin * side, y + cos * side];
+          parts.push(
+            `<path d="M ${n(sx - cos * (r + 3))} ${n(sy - sin * (r + 3))} L ${n(sx - cos * (r + 11))} ` +
+              `${n(sy - sin * (r + 11))}" ${paint('none', TOKEN.inkMuted)} stroke-width="2" ` +
+              'stroke-linecap="round" />',
+          );
+        }
+      }
+    }
+
+    // One radius for all three: the check that the picture cannot teach
+    // "particles expand when heated", made where the particles are drawn.
+    for (const [x, y] of centres) parts.push(dot(x, y, r, TOKEN.accent));
+  });
+
+  return parts;
+}
+
+/**
+ * The heating curve of water: temperature against **energy added**, not time,
+ * from ice to steam.
+ *
+ * **Every length along the energy axis is to scale**, computed from
+ * `WATER_HEATING`: the boiling plateau is 2260 / 334 = 6.8 times the melting
+ * plateau, and each sloped stretch is its heat capacity times its rise in
+ * temperature. Because both axes are to scale, the slopes show the warming
+ * rates too: ice and steam need about half the energy per degree that liquid
+ * water does, so they climb about twice as steeply. There are no numbers on
+ * the energy axis; the only numbers are the two plateaus' temperatures.
+ *
+ * **Why the curve starts at −80 °C and ends at 180 °C** (neither is printed).
+ * At the true scale, the 20 degrees of ice a textbook usually draws would be
+ * 3 units wide: a vertical line, which reads as "no energy needed". The ice and
+ * steam have to span 80 degrees each before their stretches are wide enough
+ * to read as slopes, and they are drawn that far rather than stretched.
+ *
+ * The labels sit where the curve is not: *melting* under its plateau and
+ * *solid* under that, beside the ice; *liquid* right of the water's slope;
+ * *boiling* above its plateau; *gas* left of the steam's slope, above
+ * *boiling*. Temperature is a heading over the axis, as on the half-life
+ * curve, and energy is named under the axis.
+ */
+function drawHeatingCurve(pen: Pen): string[] {
+  const { t, label } = pen;
+  const water = WATER_HEATING;
+  /** The tick values end 10 units left of the axis. The Russian `100 °C` is about 64. */
+  const originX = 92;
+  // The axis ends a margin short of `PHONE`, so the canvas is 360 units.
+  const axisEnd = PHONE - MARGIN - 2;
+  const curveEnd = axisEnd - 12;
+  const plotTop = 52;
+  const plotHeight = 236;
+  const baseline = plotTop + plotHeight;
+
+  const stretches = [
+    water.heatCapacity.ice * (water.meltingPoint - water.from),
+    water.fusion,
+    water.heatCapacity.water * (water.boilingPoint - water.meltingPoint),
+    water.vaporisation,
+    water.heatCapacity.steam * (water.to - water.boilingPoint),
+  ];
+  const total = stretches.reduce((sum, energy) => sum + energy, 0);
+  const x = (energy: number) => originX + ((curveEnd - originX) * energy) / total;
+  const y = (celsius: number) => baseline - (plotHeight * (celsius - water.from)) / (water.to - water.from);
+
+  const temperatures = [water.from, water.meltingPoint, water.meltingPoint, water.boilingPoint, water.boilingPoint, water.to];
+  let added = 0;
+  const corners = temperatures.map((celsius, index) => {
+    if (index > 0) added += stretches[index - 1];
+    return [x(added), y(celsius)] as const;
+  });
+  const [start, meltStart, meltEnd, boilStart, boilEnd, end] = corners;
+  if (meltEnd[0] - meltStart[0] < 20 || meltStart[0] - start[0] < 10 || end[0] - boilEnd[0] < 10) {
+    throw new Error('02-heating-curve: a stretch of the curve is too short to read.');
+  }
+  const [y0, y100] = [meltStart[1], boilStart[1]];
+
+  const parts: string[] = [
+    label(16, 24, t('axisTemperature'), { room: PHONE - 16 }),
+    `<path d="M ${originX} ${plotTop - 14} L ${originX} ${baseline} L ${axisEnd} ${baseline}" ` +
+      `${paint('none', TOKEN.ink)} stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />`,
+  ];
+
+  // The two temperatures, each with a dashed guide out to its plateau.
+  for (const [celsius, plateau] of [
+    [water.meltingPoint, meltStart],
+    [water.boilingPoint, boilStart],
+  ] as const) {
+    const level = y(celsius);
+    parts.push(
+      `<path d="M ${originX} ${n(level)} L ${n(plateau[0])} ${n(level)}" ${paint('none', TOKEN.inkMuted)} ` +
+        'stroke-width="2" stroke-dasharray="7 6" />',
+      `<path d="M ${originX - 6} ${n(level)} L ${originX} ${n(level)}" ${paint('none', TOKEN.ink)} ` +
+        'stroke-width="2.5" stroke-linecap="round" />',
+      label(originX - 10, level, t('degrees', { values: { t: celsius } }), {
+        room: originX - 10 - 16,
+        anchor: 'end',
+        central: true,
+      }),
+    );
+  }
+
+  parts.push(
+    `<polyline points="${corners.map(([px, py]) => `${n(px)},${n(py)}`).join(' ')}" ` +
+      `${paint('none', TOKEN.accent)} stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />`,
+  );
+
+  const waterMiddle = [(meltEnd[0] + boilStart[0]) / 2, (y0 + y100) / 2];
+  parts.push(
+    label(meltStart[0] + 6, y0 + 20, t('melting'), { room: PHONE - meltStart[0] - 6, central: true }),
+    label(meltStart[0] + 6, y0 + 52, t('solid'), { room: PHONE - meltStart[0] - 6, central: true }),
+    label(waterMiddle[0] + 14, waterMiddle[1], t('liquid'), { room: PHONE - waterMiddle[0] - 14, central: true }),
+    label(boilStart[0] + 14, y100 - 16, t('boiling'), { room: boilEnd[0] - boilStart[0] - 28, central: true }),
+    label(boilEnd[0] - 10, y100 - 52, t('gas'), {
+      room: boilEnd[0] - 10 - boilStart[0],
+      anchor: 'end',
+      central: true,
+    }),
+    label(originX, baseline + 28, t('axisEnergy'), { room: axisEnd - originX }),
+  );
+
+  return parts;
+}
+
 // --- The slots -------------------------------------------------------------
 
 /**
@@ -1472,6 +1743,8 @@ const SLOTS: Slot[] = (
     ['atomic-structure', '05-energy-levels', true, drawEnergyLevels],
     ['atomic-structure', '06-ordered-by-atomic-number', true, drawOrderedByAtomicNumber],
     ['isotopes-and-radioactivity', '07-decay-and-made-elements', true, drawHalfLife],
+    ['states-of-matter', '01-particles-in-each-state', true, drawParticlesInEachState],
+    ['states-of-matter', '02-heating-curve', true, drawHeatingCurve],
   ] as const
 ).map(([sheet, id, phone, draw]) => ({
   sheet,

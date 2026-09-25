@@ -260,6 +260,13 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'Die Aggregatzustände im Teilchenmodell',
+        content:
+          'Im festen Zustand berühren sich die Teilchen in einer regelmäßigen Anordnung und schwingen an ihren Plätzen. Im flüssigen Zustand berühren sie sich noch, sind aber ungeordnet und gleiten aneinander vorbei; im gasförmigen Zustand sind sie weit voneinander entfernt und bewegen sich frei in alle Richtungen. Die Teilchen sind in allen drei Zuständen gleich groß – es ändern sich nur ihre Anordnung und die Abstände zwischen ihnen.',
+        imageAlt:
+          'Drei Kästen untereinander, in jedem gleich große Teilchen. Fest: Die Teilchen berühren sich und bilden einen regelmäßigen Block aus Reihen und Spalten, der auf dem Boden des Kastens liegt. Flüssig: gleich viele Teilchen, die sich noch berühren, aber ungeordnet und mit kleinen Lücken über den Boden des Kastens verteilt sind. Gasförmig: fünf Teilchen, weit voneinander entfernt im ganzen Kasten, jedes mit zwei kurzen Strichen dahinter, die zeigen, dass es sich bewegt.',
+      },
+      {
         heading: 'Zustandssymbole in Gleichungen',
         content:
           'Jeder Stoff in einer chemischen Gleichung trägt ein Zustandssymbol: (s) fest, (l) flüssig, (g) gasförmig, (aq) in Wasser gelöst. „Wässrig“ ist kein vierter Aggregatzustand – es bedeutet, dass ein Stoff in flüssigem Wasser gelöst ist.',
@@ -268,6 +275,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         heading: 'Erwärmungs- und Abkühlkurven',
         content:
           'In einer Erwärmungskurve sind die waagerechten Abschnitte die Zustandsänderungen (Schmelzen, Sieden). Die ansteigenden Abschnitte zeigen einen Aggregatzustand, der sich erwärmt. Der waagerechte Abschnitt beim Sieden ist länger als beim Schmelzen, weil das vollständige Trennen der Teilchen mehr Energie braucht als das bloße Lockern.',
+        imageAlt:
+          'Eine Erwärmungskurve von Wasser: die Temperatur nach oben, die zugeführte Energie nach rechts, ohne Zahlen auf der Energieachse. Die Linie steigt beim festen Eis steil an, bleibt beim Schmelzen bei 0 °C waagerecht, steigt beim flüssigen Wasser weniger steil, bleibt beim Sieden bei 100 °C waagerecht und steigt beim gasförmigen Wasserdampf wieder steil an. Der waagerechte Abschnitt beim Sieden ist maßstabsgetreu, fast siebenmal so lang wie der beim Schmelzen: etwa 2260 J gegenüber 334 J pro Gramm.',
       },
     ],
     tables: [

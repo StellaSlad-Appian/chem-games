@@ -365,6 +365,11 @@ lists are long for a grammatical reason, not a technical one.
 | formal charge | **формальный заряд** | — |
 | electronegativity | **электроотрицательность** | Long (21 letters) but there is no alternative; it appears in prose only, never in a fixed-width control. |
 | delocalised electrons | **свободные электроны** | The school phrasing for the "sea" in a metal (*электронный газ* is the other). The literal *делокализованные электроны* is upper-secondary register. **And this is the second reason *свободный* could not be the game's word for a loner**: it already means something else, and something a student meets on the bonding sheet. |
+| particle | **частица** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **плавление / кипение** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **кривая нагревания** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **полученная энергия** | Russian school physics speaks of the heat a body *receives* (*количество теплоты, полученное телом*). *Добавленная энергия* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| solid / liquid / gas as nouns in prose | **твёрдое тело / жидкость / газ** | The textbook nouns, used in the section *Частицы в разных агрегатных состояниях*. The diagram labels keep the adjectives *твёрдое / жидкое / газообразное*, which match the sheet's takeaways. Added 2026-09-25 for the States of Matter diagrams. |
 
 ### The “loner”: Russian's own two-tier pair, and the four words it could not use — historical, and why it is kept
 

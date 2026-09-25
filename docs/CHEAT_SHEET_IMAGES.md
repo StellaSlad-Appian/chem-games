@@ -260,6 +260,16 @@ disagree with what a screen-reader user is told. If you change what a diagram
 shows, change the `alt` in `src/lib/cheat-sheet-data.ts` **and** the `imageAlt`
 in each of `src/i18n/cheat-sheets/{de,fr,es,it,ru}.ts`.
 
+## The slots on *States of Matter* — `states-of-matter`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `states-of-matter/01-particles-in-each-state` | 360×365 | Three boxes stacked, each named on its left: *solid*, a regular touching block resting on the floor of its box; *liquid*, the same number of particles, touching but jumbled, with gaps, across the bottom of the box; *gas*, five particles far apart, each with two short motion marks. **One particle radius in all three** (`PARTICLES.radius`), because "particles expand when heated" is one of the sheet's common mistakes. Under the new first section, *Particles in each state*. |
+| 2 | `states-of-matter/02-heating-curve` | 360×340 | Water's heating curve: temperature against **energy added** (not time), ice to steam. Plateaus labelled *melting* at 0 °C and *boiling* at 100 °C, the only two numbers; slopes labelled *solid*, *liquid* and *gas*. The energy axis is to scale and unnumbered: the boiling plateau is 2260 / 334 = 6.8 times the melting one, and ice and steam climb about twice as steeply as water. The curve runs from −80 °C to 180 °C (not printed) so that the ice and steam stretches are wide enough to read as slopes. Under *Heating and cooling curves*. |
+
+Both are drawn from `PARTICLES` and `WATER_HEATING` in the script; the reasoning
+is in the doc comments of `drawParticlesInEachState` and `drawHeatingCurve`.
+
 ---
 
 ## Adding a diagram to a sheet

@@ -288,6 +288,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'Le particelle nei tre stati',
+        content:
+          'In un solido le particelle sono a contatto, disposte in modo regolare, e vibrano sul posto. In un liquido sono ancora a contatto, ma in disordine, e scivolano le une sulle altre; in un gas sono molto distanti fra loro e si muovono liberamente in tutte le direzioni. Le particelle hanno la stessa dimensione nei tre stati: cambiano solo la loro disposizione e gli spazi fra loro.',
+        imageAlt:
+          'Tre scatole una sopra l’altra, con particelle della stessa dimensione in ciascuna. Solido: le particelle sono a contatto e formano un blocco regolare di righe e colonne, appoggiato sul fondo della scatola. Liquido: lo stesso numero di particelle, ancora a contatto ma in disordine, con piccoli spazi, sparse sul fondo della scatola. Gas: cinque particelle molto distanti fra loro in tutta la scatola, ciascuna con due brevi trattini dietro per mostrare che si muove.',
+      },
+      {
         heading: 'I simboli di stato nelle equazioni',
         content:
           'Ogni specie di un’equazione chimica porta un simbolo di stato: (s) solido, (l) liquido, (g) gas, (aq) sciolto in acqua. «Acquoso» non è un quarto stato della materia: vuol dire che c’è un soluto sciolto in acqua liquida.',
@@ -296,6 +303,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Curve di riscaldamento e di raffreddamento',
         content:
           'In una curva di riscaldamento, i tratti orizzontali sono i passaggi di stato (fusione, ebollizione). I tratti che salgono corrispondono a un solo stato che si scalda. Il tratto dell’ebollizione è più lungo di quello della fusione, perché separare del tutto le particelle costa più energia che limitarsi ad allentarle.',
+        imageAlt:
+          'Una curva di riscaldamento dell’acqua: la temperatura sull’asse verticale e l’energia fornita su quello orizzontale, senza numeri sull’asse dell’energia. La linea sale ripida nel solido, resta orizzontale a 0 °C durante la fusione, sale meno ripida nel liquido, resta orizzontale a 100 °C durante l’ebollizione e poi risale ripida nel gas. Il tratto dell’ebollizione è disegnato in scala, quasi sette volte più lungo di quello della fusione: circa 2260 J contro 334 J per grammo.',
       },
     ],
     tables: [

@@ -269,6 +269,10 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | formal charge | **carga formal** | — |
 | electronegativity | **electronegatividad** | — |
 | delocalised electrons | **electrones libres** | The literal *electrones deslocalizados* is correct and is upper-secondary register; *electrones libres* is the school phrasing for the "sea" in a metal. **And it is a second reason *libre* could not be the game's word for a loner** — *electrón libre* already means something else, and something a student meets on the bonding sheet. |
+| particle | **partícula** | Added 2026-09-25 for the States of Matter diagrams. |
+| melting / boiling (a heating curve's plateaus) | **fusión / ebullición** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
+| heating curve | **curva de calentamiento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
+| energy added (a graph's axis) | **energía suministrada** | Spanish textbooks label this axis *calor suministrado*; *energía* keeps the sheet's word. *Energía añadida* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
 
 ### The “loner”: Spanish's own two-tier pair, and the trap it had to avoid — historical, and why it is kept
 

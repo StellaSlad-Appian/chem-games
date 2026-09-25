@@ -275,6 +275,13 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'Les trois états à l’échelle microscopique',
+        content:
+          'Dans un solide, les particules se touchent et sont rangées de façon régulière : l’état solide est compact et ordonné, et les particules vibrent sur place. Dans un liquide, elles se touchent encore mais en désordre et glissent les unes sur les autres (compact et désordonné) ; dans un gaz, elles sont très éloignées les unes des autres et se déplacent librement dans toutes les directions (dispersé et désordonné). Les particules ont la même taille dans les trois états : seuls leur disposition et les espaces entre elles changent.',
+        imageAlt:
+          'Trois boîtes l’une au-dessus de l’autre, avec des particules de même taille dans chacune. Solide : les particules se touchent et forment un bloc régulier de rangées et de colonnes, posé au fond de la boîte. Liquide : le même nombre de particules, qui se touchent encore mais en désordre, avec de petits espaces, étalées au fond de la boîte. Gaz : cinq particules très éloignées les unes des autres dans toute la boîte, chacune avec deux petits traits derrière elle pour montrer qu’elle se déplace.',
+      },
+      {
         heading: 'Les symboles d’état dans les équations',
         content:
           'Chaque espèce d’une équation chimique porte un symbole d’état : (s) solide, (l) liquide, (g) gaz, (aq) dissous dans l’eau. « Aqueux » n’est pas un quatrième état de la matière : cela veut dire qu’un soluté est dissous dans l’eau liquide.',
@@ -283,6 +290,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         heading: 'Courbes de chauffage et de refroidissement',
         content:
           'Sur une courbe de chauffage, les paliers horizontaux sont les changements d’état (fusion, ébullition). Les portions qui montent correspondent à un seul état qui se réchauffe. Le palier de l’ébullition est plus long que celui de la fusion, parce que séparer complètement les particules demande plus d’énergie que simplement les desserrer.',
+        imageAlt:
+          'Une courbe de chauffage de l’eau : la température en ordonnée, l’énergie reçue en abscisse, sans valeurs sur l’axe de l’énergie. La courbe monte fortement pour le solide, présente un palier à 0 °C pendant la fusion, monte moins fortement pour le liquide, présente un palier à 100 °C pendant l’ébullition, puis remonte fortement pour le gaz. Le palier d’ébullition est dessiné à l’échelle, presque sept fois plus long que celui de la fusion : environ 2 260 J contre 334 J par gramme.',
       },
     ],
     tables: [
