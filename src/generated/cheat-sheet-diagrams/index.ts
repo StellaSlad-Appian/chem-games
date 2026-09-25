@@ -21,6 +21,7 @@ export const CHEAT_SHEET_DIAGRAMS = {
   'states-of-matter/02-heating-curve': { width: 360, height: 340 },
   'lewis-structures/01-lewis-structures': { width: 360, height: 415 },
   'lewis-structures/02-vsepr-shapes': { width: 360, height: 665 },
+  'functional-groups/01-reaction-map': { width: 360, height: 710 },
 } as const;
 
 export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;

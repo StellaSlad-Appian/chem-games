@@ -221,6 +221,8 @@ new with the split.
 | substituent | **Substituent** | — |
 | chain (carbon chain) | **Kette / Kohlenstoffkette** | — |
 | locant (position number) | **Nummer** / **Stellungsziffer** | Prose uses "Nummer" at this level. |
+| primary / secondary / tertiary alcohol | **primärer / sekundärer / tertiärer Alkohol** | Added 2026-09-25 with the reaction-map diagram. The adjective is declined (*primärer Alkohol*, *primäre Alkohole*), not the English "primary" left as is. |
+| catalyst | **Katalysator** | Added 2026-09-25. Written out on the reaction map (*H₃PO₄ als Katalysator*); the textbook abbreviation *Kat.* was not used. |
 
 ---
 

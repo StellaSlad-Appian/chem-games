@@ -957,7 +957,9 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
       {
         heading: 'Der Reaktionsweg, den du kennen musst',
         content:
-          'Alken → (H2O, Katalysator H+) → Alkohol. Alken → (HX) → Halogenalkan → (OH−) → Alkohol → (Cr2O7 2−/H+) → Aldehyd → (weitere Oxidation) → Carbonsäure → (Alkohol, Katalysator H2SO4) → Ester. Primäre Alkohole werden zweimal oxidiert, sekundäre einmal zum Keton, tertiäre gar nicht.',
+          'Alken → (H₂O, H₃PO₄ als Katalysator) → Alkohol. Alken → (HX) → Halogenalkan → (OH⁻(aq)) → Alkohol → (Cr₂O₇²⁻/H⁺) → Aldehyd → (weitere Oxidation) → Carbonsäure → (Alkohol, H₂SO₄ als Katalysator) → Ester. Primäre Alkohole werden zweimal oxidiert, sekundäre einmal zum Keton, tertiäre gar nicht.',
+        imageAlt:
+          'Eine Reaktionsübersicht, von oben nach unten zu lesen. Links untereinander: Aus einem Alken wird mit H₂O und H₃PO₄ als Katalysator ein primärer Alkohol, daraus mit Cr₂O₇²⁻/H⁺ ein Aldehyd, daraus mit Cr₂O₇²⁻/H⁺ eine Carbonsäure und daraus mit einem Alkohol und H₂SO₄ als Katalysator ein Ester. Rechts: Das Alken kann stattdessen mit HX zu einem Halogenalkan reagieren, das mit OH⁻(aq) denselben primären Alkohol ergibt; neben dem primären Alkohol wird ein sekundärer Alkohol mit Cr₂O₇²⁻/H⁺ zum Keton oxidiert.',
       },
       {
         heading: 'Gruppen im Spektrum erkennen',

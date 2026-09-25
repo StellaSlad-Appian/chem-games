@@ -223,6 +223,12 @@ The three sections the split added — the three kinds of radiation, the
 65,000-year dating section, and the medical and industrial applications —
 carry **no diagram** yet.
 
+## The slot on *Functional Groups* — `functional-groups`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `functional-groups/01-reaction-map` | 360×710 | The reaction pathway as a map, top to bottom. Down the left: alkene → primary alcohol (H₂O, H₃PO₄ catalyst) → aldehyde (Cr₂O₇²⁻/H⁺) → carboxylic acid (Cr₂O₇²⁻/H⁺) → ester (alcohol, H₂SO₄ catalyst). On the right: alkene → haloalkane (HX) → the same primary alcohol (OH⁻ (aq)), and secondary alcohol → ketone (Cr₂O₇²⁻/H⁺) beside the primary alcohol. Group names in boxes, reagents only on the arrows, with real sub- and superscripts (`formulaLabel` in the script). Tertiary alcohols are left to the prose. |
+
 ### One rule these diagrams must follow
 
 `docs/AGENT_INSTRUCTIONS.md` Part A names **"rigid solar-system orbits / solid

@@ -1201,7 +1201,11 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     sections: [
       {
         heading: 'The reaction pathway you must know',
-        content: 'Alkene → (H2O, H+ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH−) → alcohol → (Cr2O7 2−/H+) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H2SO4 catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.',
+        content: 'Alkene → (H₂O, H₃PO₄ catalyst) → alcohol. Alkene → (HX) → haloalkane → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehyde → (further oxidation) → carboxylic acid → (alcohol, H₂SO₄ catalyst) → ester. Primary alcohols oxidise twice, secondary alcohols oxidise once to ketones, tertiary alcohols do not oxidise.',
+        image: {
+          diagram: 'functional-groups/01-reaction-map',
+          alt: 'A reaction map, read from the top down. Down the left: an alkene gives a primary alcohol with H₂O and an H₃PO₄ catalyst; the primary alcohol gives an aldehyde with Cr₂O₇²⁻/H⁺, the aldehyde a carboxylic acid with Cr₂O₇²⁻/H⁺, and the carboxylic acid an ester with an alcohol and an H₂SO₄ catalyst. On the right: the alkene can instead take HX to give a haloalkane, which gives the same primary alcohol with OH⁻(aq); and beside the primary alcohol, a secondary alcohol oxidises to a ketone with Cr₂O₇²⁻/H⁺.',
+        },
       },
       {
         heading: 'Spotting groups in a spectrum',
