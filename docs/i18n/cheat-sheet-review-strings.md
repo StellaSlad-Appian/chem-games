@@ -60,10 +60,10 @@ mistakes.
   removed, because in English the cation is said first. In French the name
   starts with the anion (*chlorure de sodium*), so the point was moved into
   takeaway 2 instead.
-- **Please check:** the new valence-electron sentence says "colonne 17", while the
-  rest of the sheets write "groupe 17" (the glossary says the sheets always write
-  *groupe*). Is "colonne" what a French student would expect here, or should it be
-  "groupe"?
+- Numbered groups are always *groupe* ("groupe 17"), never *colonne*: the owner's
+  decision of 25 September 2026. *Colonne* stays only where a sentence explains that
+  a group is a column. This changed the ion-charge rule, the Roman-numeral sentence,
+  the Lewis sheet and its table heading ("Électrons de valence par groupe").
 
 **Spanish**
 - "4.5 billion years" is *4500 millones de años*: Spanish *billón* means 10¹².
@@ -1103,7 +1103,7 @@ German, before:
 
 ---
 
-## French (fr): 63 strings
+## French (fr): 67 strings
 
 ### New or changed glossary decisions
 
@@ -1114,7 +1114,7 @@ These are the word choices the text follows. They are in `docs/i18n/glossary-fr.
 | Multiplication in a worked sum | **×** (U+00D7) with a space either side: *2 × 1 + 16 = 18*. Never the letter x, which a student who has just met *x* as an unknown reads as algebra. Decided 2026-09-24, when the example cards started showing the formula-mass working. |
 | Four-digit numbers | **No separator**: *5730 ans*, while *65 000* keeps its space. The SI brochure lets a four-digit number stand unseparated, and it is what the isotopes prose already printed. **Rated medium**: many French textbooks write *5 730 ans*; if a native reviewer prefers that, change the prose and the example card together. |
 | electron shell (the curriculum's word) | **couche électronique** | VC2S10U07 says "electron shells", so the sheet names *couche* once as the word the reader's teacher uses, and keeps *niveau d'énergie* as its own term. Since 2026-09-25 the sentence credits the word to the teacher alone (*Ton prof parle peut-être de couches*); it no longer mentions the programme. |
-| valence electrons from the group number | **le chiffre des unités du numéro de colonne** (*Cl est dans la colonne 17 : 7 électrons de valence*) | Added 2026-09-25. With columns numbered 1–18, *numéro de colonne = électrons de valence* is only true for columns 1 and 2, and the bonding and Lewis sheets said exactly that. *Chiffre des unités* is plain school French for "last digit". The sheets keep *colonne* where they already used it; a French classroom says both. |
+| valence electrons from the group number | **le chiffre des unités du numéro du groupe** (*Cl est dans le groupe 17 : 7 électrons de valence*) | Added 2026-09-25. With groups numbered 1–18, *numéro du groupe = électrons de valence* is only true for groups 1 and 2, so the bonding and Lewis sheets state the last-digit rule. *Chiffre des unités* is plain school French for "last digit". **Numbered, it is always *groupe*, never *colonne*** (owner's decision, 2026-09-25): *groupe 17*, *le groupe 1*, and the Lewis table is headed *Électrons de valence par groupe*. *Colonne* stays only where a sentence explains what a group is (*un groupe est une colonne*). |
 | beta decay | **désintégration bêta** | Added 2026-09-25, for how reactors make neptunium and plutonium. Matches *particule bêta*, with the circumflex. |
 | shielding gamma ("reduces, never stops") | **atténuer**: *le plomb ou le béton épais l'atténuent fortement* | Added 2026-09-24. *Atténuation* is the word French physique-chimie uses for gamma passing through matter; alpha and beta keep *arrêter*. |
 | name order vs formula order | formula **cation first**, name **anion first**: *chlorure de sodium*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In French the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
@@ -1481,7 +1481,7 @@ English:
 
 French, new:
 
-> Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro de colonne donne le nombre d’électrons de valence (Cl est dans la colonne 17 : 7 électrons de valence).
+> Les atomes se lient pour atteindre une couche externe stable et complète (la configuration d’un gaz noble). Pour un élément d’un groupe principal, le chiffre des unités du numéro du groupe donne le nombre d’électrons de valence (Cl est dans le groupe 17 : 7 électrons de valence).
 
 French, before:
 
@@ -1505,6 +1505,22 @@ French, new:
 French, before:
 
 > Écris le cation (le métal ou NH4+) en premier dans la formule, puis l’anion.
+
+- [ ] OK   Comment:
+
+**Paragraph of section “Common ion charges from the periodic table”**
+
+English:
+
+> Group 1 → +1, Group 2 → +2, Al → +3, Group 17 → −1, Group 16 → −2, N and P → −3. Transition metals vary — the name will tell you. For polyatomic ions use the lookup table.
+
+French, new:
+
+> Groupe 1 → +1, groupe 2 → +2, Al → +3, groupe 17 → −1, groupe 16 → −2, N et P → −3. Les métaux de transition varient – le nom te le dit. Pour les ions polyatomiques, utilise le tableau de référence.
+
+French, before:
+
+> Colonne 1 → +1, colonne 2 → +2, Al → +3, colonne 17 → −1, colonne 16 → −2, N et P → −3. Les métaux de transition varient – le nom te le dit. Pour les ions polyatomiques, utilise le tableau de référence.
 
 - [ ] OK   Comment:
 
@@ -1588,6 +1604,25 @@ French, new:
 French, before:
 
 > Confondre la charge (−2) avec le nombre d’atomes d’oxygène – le sulfate a 4 O et une charge de 2−.
+
+- [ ] OK   Comment:
+
+
+### Naming Inorganic Compounds
+
+**Paragraph of section “Working out a Roman numeral”**
+
+English:
+
+> For Fe2(SO4)3: sulfate is 2−, and there are three, so the anions total −6. Two iron ions must total +6, so each is +3 → iron(III) sulfate. Only metals with more than one common charge (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) need the numeral; Group 1, Group 2, Al, Zn and Ag never do.
+
+French, new:
+
+> Pour Fe2(SO4)3 : le sulfate porte 2−, et il y en a trois, donc les anions totalisent −6. Les deux ions fer doivent totaliser +6, chacun est donc en +3 → sulfate de fer(III). Seuls les métaux qui ont plus d’une charge courante (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) ont besoin du chiffre ; le groupe 1, le groupe 2, Al, Zn et Ag n’en ont jamais besoin.
+
+French, before:
+
+> Pour Fe2(SO4)3 : le sulfate porte 2−, et il y en a trois, donc les anions totalisent −6. Les deux ions fer doivent totaliser +6, chacun est donc en +3 → sulfate de fer(III). Seuls les métaux qui ont plus d’une charge courante (Fe, Cu, Pb, Sn, Mn, Cr, Co, Ni) ont besoin du chiffre ; la colonne 1, la colonne 2, Al, Zn et Ag n’en ont jamais besoin.
 
 - [ ] OK   Comment:
 
@@ -1952,7 +1987,7 @@ English:
 
 French, new:
 
-> Électrons de valence = chiffre des unités du numéro de colonne pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans la colonne 15, le chlore dans la colonne 17). Ajoute un électron par charge négative, enlève-en un par charge positive.
+> Électrons de valence = chiffre des unités du numéro du groupe pour les éléments des groupes principaux (H 1, C 4, N 5, O 6, halogènes 7 – l’azote est dans le groupe 15, le chlore dans le groupe 17). Ajoute un électron par charge négative, enlève-en un par charge positive.
 
 French, before:
 
@@ -1968,7 +2003,7 @@ English:
 
 French, new:
 
-> Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un électron célibataire ; deux électrons célibataires venant de deux atomes différents forment un doublet partagé, c’est-à-dire une liaison (dessinée par un trait). Les doublets qui restent sur un seul atome sont des doublets non liants. Un atome est complet avec 8 points autour de lui (un octet) – l’hydrogène est complet à 2 (un duet). Partage deux fois entre les deux mêmes atomes pour une liaison double, trois fois pour une liaison triple. Le nombre d’électrons célibataires te dit combien de liaisons un atome forme : H 1, C 4, N 3, O 2, Cl 1. Le soufre se comporte comme l’oxygène et le phosphore comme l’azote, parce qu’ils sont dans les mêmes colonnes. Tout ce qui suit cette section (charge formelle, formes VSEPR, exceptions à l’octet) relève du lycée.
+> Chaque atome apporte ses électrons externes sous forme de points. Un point tout seul est un électron célibataire ; deux électrons célibataires venant de deux atomes différents forment un doublet partagé, c’est-à-dire une liaison (dessinée par un trait). Les doublets qui restent sur un seul atome sont des doublets non liants. Un atome est complet avec 8 points autour de lui (un octet) – l’hydrogène est complet à 2 (un duet). Partage deux fois entre les deux mêmes atomes pour une liaison double, trois fois pour une liaison triple. Le nombre d’électrons célibataires te dit combien de liaisons un atome forme : H 1, C 4, N 3, O 2, Cl 1. Le soufre se comporte comme l’oxygène et le phosphore comme l’azote, parce qu’ils sont dans les mêmes groupes. Tout ce qui suit cette section (charge formelle, formes VSEPR, exceptions à l’octet) relève du lycée.
 
 French, before:
 
@@ -1989,6 +2024,38 @@ French, new:
 French, before:
 
 > Méthane – le carbone partage ses quatre solitaires
+
+- [ ] OK   Comment:
+
+**Heading of table “Valence electrons by group”**
+
+English:
+
+> Valence electrons by group
+
+French, new:
+
+> Électrons de valence par groupe
+
+French, before:
+
+> Électrons de valence par colonne
+
+- [ ] OK   Comment:
+
+**Column 1 header of table “Valence electrons by group”**
+
+English:
+
+> Group
+
+French, new:
+
+> Groupe
+
+French, before:
+
+> Colonne
 
 - [ ] OK   Comment:
 

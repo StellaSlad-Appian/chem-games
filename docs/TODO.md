@@ -178,7 +178,7 @@ has been pushed:
 |---|---|---|
 | 1 Example cards show their descriptions | `cheatsheet/1-example-descriptions` | done, `a8f9cea` |
 | 2 Science fixes, atom sheets | `cheatsheet/2-atom-sheet-fixes` | done, `659d0fb` |
-| 3 Science fixes, other 13 sheets | `cheatsheet/3-other-sheet-fixes` | done, `533b228` + `685bdd0` |
+| 3 Science fixes, other 13 sheets | `cheatsheet/3-other-sheet-fixes` | done, `533b228` + `685bdd0` + `4727cb9` (French *groupe*, added after step 4 had branched: carry it into step 5) |
 | 4 Diagram display (inline SVG, lighter type, per language) | `cheatsheet/4-diagram-pipeline` | running |
 | 5–9 Redraw and new diagrams | — | not started |
 | 10a/10b Eight smaller diagrams | — | **on hold** until the owner has seen 7–9 |
@@ -193,7 +193,7 @@ Owner to-dos from this work:
 - [ ] **Native-speaker review of the new cheat-sheet text** in de, fr, es, it and ru.
       Send reviewers [`i18n/cheat-sheet-review-strings.md`](./i18n/cheat-sheet-review-strings.md):
       each language has its own section, with the English, the new text, the text
-      before, and a tick box. It covers steps 1–3 (316 strings) and gets extended
+      before, and a tick box. It covers steps 1–3 (320 strings) and gets extended
       after each later step, with the diagram labels from steps 5–9.
 - [ ] **Decide what happens to relative atomic mass on *Isotopes & Radioactivity*.**
       The section was removed on 2026-09-22, and its takeaway and mistakes were
