@@ -194,7 +194,14 @@ has been pushed:
 
 Owner to-dos from this work:
 
-- [ ] **Check two language-switcher e2e failures before merging to `master`.** On the
+- [ ] **Merge `fix/locale-cookie-prefetch` (`8f87a68`, cut from `master`).** Root cause of
+      the two switcher failures below: an in-flight prefetch of an old-language link
+      reached `src/proxy.ts` after the switch and set the cookie back. The proxy now
+      remembers a URL's language only on real page loads (`sec-fetch-dest: document`).
+      Verified on a production build: the four switcher tests passed 20/20, and
+      `e2e/i18n.spec.ts` 99/99. Independent of the cheat sheet branches.
+- [x] **Check two language-switcher e2e failures before merging to `master`.** Diagnosed
+      and fixed, see above. On the
       production build of `cheatsheet/wave1-merge` (`next start`), two tests in
       `e2e/i18n.spec.ts` fail twice in a row: *the switcher moves the reader to French
       and remembers it* (line 455) and *an unprefixed URL redirects and the switcher
