@@ -370,6 +370,10 @@ lists are long for a grammatical reason, not a technical one.
 | heating curve | **кривая нагревания** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
 | energy added (a graph's axis) | **полученная энергия** | Russian school physics speaks of the heat a body *receives* (*количество теплоты, полученное телом*). *Добавленная энергия* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
 | solid / liquid / gas as nouns in prose | **твёрдое тело / жидкость / газ** | The textbook nouns, used in the section *Частицы в разных агрегатных состояниях*. The diagram labels keep the adjectives *твёрдое / жидкое / газообразное*, which match the sheet's takeaways. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **линейная форма, плоский треугольник, тетраэдр, тригональная пирамида, уголковая форма** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Russian names a shape by the figure (*молекула имеет форму тетраэдра*), and these are the words the sheet's paragraph already used. **Bent is *уголковая*, not *угловая***: both are in school books; the paragraph directly above the drawing says *уголковая*, so the drawing does too. The acronym VSEPR is not used on a Russian page (*теория отталкивания электронных пар* if it must be named). Angles: *109,5°*. |
+| bond angle | **валентный угол** | Added 2026-09-25. The school term; *угол связи* is a calque. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **сплошной клин / штрихованный клин** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **электронное облако** | Added 2026-09-25, for alt text: Russian school books draw a lone pair as an *облако*, the word the atom sheets already use for electrons. |
 
 ### The “loner”: Russian's own two-tier pair, and the four words it could not use — historical, and why it is kept
 

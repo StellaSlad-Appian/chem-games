@@ -1722,6 +1722,580 @@ function drawHeatingCurve(pen: Pen): string[] {
   return parts;
 }
 
+// --- Lewis Structures (task 8) ---------------------------------------------
+//
+// Two slots on the `lewis-structures` sheet: four molecules as Lewis
+// structures (01), and the five VSEPR shapes with their angles (02). Every
+// structure is data first — atoms, bonds, lone pairs — and the checks below
+// run on that data before anything is drawn, so a drawing with one lone pair
+// too many or a missing electron fails the run rather than reaching a student.
+//
+// The conventions are Share to Fill's (`src/components/games/shared/AtomCanvas`),
+// so a student meets one way of drawing a molecule on the site: a bond is a
+// line, a double bond two parallel lines, and a lone pair is two filled dots
+// on one of the four sides of its atom — never on a side that already has a
+// bond. Two things differ, on purpose. The symbols stand on their own, without
+// the game's ring round each atom, which is the game's fill meter and not part
+// of a Lewis structure. And the dots are in the electron colour the atom sheets
+// use for electrons, where the game uses the text colour: on a sheet the
+// colour ties the dots to the word "electron", and position and shape still
+// carry the meaning on their own. The shared pair is not drawn as dots on the
+// line, as the game does while you build: the sheet says a bond is "drawn as a
+// line", and a finished structure in a textbook is.
+
+type LewisElement = 'H' | 'B' | 'C' | 'N' | 'O' | 'F';
+type LewisSide = 'top' | 'right' | 'bottom' | 'left';
+
+/**
+ * Valence electrons: the last digit of the group number (H 1, B 13, C 14,
+ * N 15, O 16, F 17), the rule the sheet's first takeaway states.
+ */
+const LEWIS_VALENCE: Record<LewisElement, number> = { H: 1, B: 3, C: 4, N: 5, O: 6, F: 7 };
+
+/**
+ * Electrons round a finished atom, bonding pairs included: 2 for hydrogen (a
+ * duet), 8 for the rest (an octet) — except boron, which the sheet's own
+ * "Exceptions to the octet" names: BF3 has 6.
+ */
+const LEWIS_FULL: Record<LewisElement, number> = { H: 2, B: 6, C: 8, N: 8, O: 8, F: 8 };
+
+interface LewisAtom {
+  element: LewisElement;
+  /** Where slot 01 puts it, in bond lengths from the central atom; right and down are positive. */
+  grid: readonly [number, number];
+  /** Its lone pairs, each by the side of the atom it is drawn on, as in Share to Fill. */
+  lonePairs: readonly LewisSide[];
+}
+
+interface LewisMolecule {
+  /** As printed, with subscript digits. Checked against the atoms. */
+  formula: string;
+  /** Total valence electrons, written out so that the count has something to disagree with. */
+  electrons: number;
+  /** The central atom first. */
+  atoms: readonly LewisAtom[];
+  /** `[atom, atom, order]`. */
+  bonds: readonly (readonly [number, number, 1 | 2])[];
+}
+
+const LEWIS_MOLECULES = {
+  H2O: {
+    formula: 'H₂O',
+    electrons: 8,
+    atoms: [
+      { element: 'O', grid: [0, 0], lonePairs: ['top', 'bottom'] },
+      { element: 'H', grid: [-1, 0], lonePairs: [] },
+      { element: 'H', grid: [1, 0], lonePairs: [] },
+    ],
+    bonds: [
+      [0, 1, 1],
+      [0, 2, 1],
+    ],
+  },
+  NH3: {
+    formula: 'NH₃',
+    electrons: 8,
+    atoms: [
+      { element: 'N', grid: [0, 0], lonePairs: ['top'] },
+      { element: 'H', grid: [-1, 0], lonePairs: [] },
+      { element: 'H', grid: [1, 0], lonePairs: [] },
+      { element: 'H', grid: [0, 1], lonePairs: [] },
+    ],
+    bonds: [
+      [0, 1, 1],
+      [0, 2, 1],
+      [0, 3, 1],
+    ],
+  },
+  CO2: {
+    formula: 'CO₂',
+    electrons: 16,
+    atoms: [
+      { element: 'C', grid: [0, 0], lonePairs: [] },
+      { element: 'O', grid: [-1, 0], lonePairs: ['top', 'bottom'] },
+      { element: 'O', grid: [1, 0], lonePairs: ['top', 'bottom'] },
+    ],
+    bonds: [
+      [0, 1, 2],
+      [0, 2, 2],
+    ],
+  },
+  CH4: {
+    formula: 'CH₄',
+    electrons: 8,
+    atoms: [
+      { element: 'C', grid: [0, 0], lonePairs: [] },
+      { element: 'H', grid: [0, -1], lonePairs: [] },
+      { element: 'H', grid: [1, 0], lonePairs: [] },
+      { element: 'H', grid: [0, 1], lonePairs: [] },
+      { element: 'H', grid: [-1, 0], lonePairs: [] },
+    ],
+    bonds: [
+      [0, 1, 1],
+      [0, 2, 1],
+      [0, 3, 1],
+      [0, 4, 1],
+    ],
+  },
+  // Only slot 02 draws BF3, and it draws no fluorine lone pairs (see there);
+  // they are here so that its 24 electrons add up.
+  BF3: {
+    formula: 'BF₃',
+    electrons: 24,
+    atoms: [
+      { element: 'B', grid: [0, 0], lonePairs: [] },
+      { element: 'F', grid: [0, -1], lonePairs: ['left', 'top', 'right'] },
+      { element: 'F', grid: [-1, 0], lonePairs: ['top', 'left', 'bottom'] },
+      { element: 'F', grid: [1, 0], lonePairs: ['top', 'right', 'bottom'] },
+    ],
+    bonds: [
+      [0, 1, 1],
+      [0, 2, 1],
+      [0, 3, 1],
+    ],
+  },
+} as const satisfies Record<string, LewisMolecule>;
+
+type LewisFormula = keyof typeof LEWIS_MOLECULES;
+
+const SUBSCRIPTS = '₀₁₂₃₄₅₆₇₈₉';
+
+/** The side of `from` that a bond to `to` leaves by, in slot 01's grid. */
+function lewisSide(from: LewisAtom, to: LewisAtom, where: string): LewisSide {
+  const [dx, dy] = [to.grid[0] - from.grid[0], to.grid[1] - from.grid[1]];
+  if (Math.abs(dx) + Math.abs(dy) !== 1) throw new Error(`${where}: a bond that is not one grid step long.`);
+  return dx > 0 ? 'right' : dx < 0 ? 'left' : dy < 0 ? 'top' : 'bottom';
+}
+
+/**
+ * Every Lewis structure the two slots draw, checked before anything is drawn:
+ *
+ * - the formula names exactly the atoms drawn;
+ * - the valence electrons of those atoms add up to the molecule's stated total
+ *   (CO2 16, H2O 8, NH3 8, CH4 8, BF3 24);
+ * - bonding pairs and lone pairs together use every one of those electrons,
+ *   no more and no fewer;
+ * - every atom ends with a duet (H), six (B) or an octet (the rest), counting
+ *   two electrons per bond order and two per lone pair;
+ * - no lone pair sits on a side that has a bond, and no two share a side.
+ *
+ * So O in H2O has 2 lone pairs, N in NH3 has 1, each O in CO2 has 2 and C in
+ * CO2 has none, because nothing else passes.
+ */
+function checkLewisMolecule(name: string, molecule: LewisMolecule): void {
+  const where = `LEWIS_MOLECULES.${name}`;
+  const wanted = new Map<string, number>();
+  for (const [, element, digits] of molecule.formula.matchAll(/([A-Z][a-z]?)([₀-₉]*)/g)) {
+    const count = digits ? Number([...digits].map((digit) => SUBSCRIPTS.indexOf(digit)).join('')) : 1;
+    wanted.set(element, (wanted.get(element) ?? 0) + count);
+  }
+  const drawn = new Map<string, number>();
+  for (const atom of molecule.atoms) drawn.set(atom.element, (drawn.get(atom.element) ?? 0) + 1);
+  if ([...wanted].some(([element, count]) => drawn.get(element) !== count) || wanted.size !== drawn.size) {
+    throw new Error(`${where}: the atoms are not ${molecule.formula}.`);
+  }
+
+  const valence = molecule.atoms.reduce((sum, atom) => sum + LEWIS_VALENCE[atom.element], 0);
+  if (valence !== molecule.electrons) {
+    throw new Error(`${where}: its atoms bring ${valence} valence electrons, not ${molecule.electrons}.`);
+  }
+  const bonding = 2 * molecule.bonds.reduce((sum, [, , order]) => sum + order, 0);
+  const lone = 2 * molecule.atoms.reduce((sum, atom) => sum + atom.lonePairs.length, 0);
+  if (bonding + lone !== molecule.electrons) {
+    throw new Error(
+      `${where}: ${bonding} electrons in bonds and ${lone} in lone pairs make ${bonding + lone}, ` +
+        `not the ${molecule.electrons} it has.`,
+    );
+  }
+
+  molecule.atoms.forEach((atom, index) => {
+    const here = `${where} atom ${index} (${atom.element})`;
+    const bonds = molecule.bonds.filter(([a, b]) => a === index || b === index);
+    const around = 2 * bonds.reduce((sum, [, , order]) => sum + order, 0) + 2 * atom.lonePairs.length;
+    if (around !== LEWIS_FULL[atom.element]) {
+      throw new Error(`${here}: ${around} electrons round it, not ${LEWIS_FULL[atom.element]}.`);
+    }
+    const bonded = bonds.map(([a, b]) => lewisSide(atom, molecule.atoms[a === index ? b : a], here));
+    const taken = [...bonded, ...atom.lonePairs];
+    if (new Set(taken).size !== taken.length) {
+      throw new Error(`${here}: two things on one side (${taken.join(', ')}).`);
+    }
+  });
+}
+
+for (const [name, molecule] of Object.entries(LEWIS_MOLECULES)) checkLewisMolecule(name, molecule);
+
+/** Slot 01's molecules, in reading order, with the string that prints each formula. */
+const LEWIS_DRAWN: readonly { formula: LewisFormula; key: string }[] = [
+  { formula: 'H2O', key: 'water' },
+  { formula: 'NH3', key: 'ammonia' },
+  { formula: 'CO2', key: 'carbonDioxide' },
+  { formula: 'CH4', key: 'methane' },
+];
+
+/**
+ * The five shapes, from the sheet's VSEPR paragraph: electron regions round
+ * the central atom (each bond counts once, whatever its order; each lone pair
+ * once), how many of them are lone pairs, the shape that makes and its bond
+ * angle.
+ *
+ * 180°, 120° and 109.5° are the geometry of 2, 3 and 4 regions. 107° and
+ * 104.5° are measured (NH3 106.7°, H2O 104.5°), and they are the figures
+ * school textbooks print: each lone pair squeezes the bonds a little closer,
+ * which the run checks by requiring the angle to fall as lone pairs replace
+ * bonds.
+ *
+ * `extra` are the bonds and lone pairs out of the page, as bearings in
+ * degrees (0 right, 90 up). The two in the page are always drawn symmetric
+ * about straight down, so the angle marked between them is the real angle.
+ */
+const VSEPR_SHAPES: readonly {
+  key: string;
+  formula: LewisFormula;
+  regions: number;
+  lonePairs: number;
+  angle: number;
+  extra: readonly { bearing: number; kind: 'plane' | 'wedge' | 'dash' | 'lobe' }[];
+}[] = [
+  { key: 'linear', formula: 'CO2', regions: 2, lonePairs: 0, angle: 180, extra: [] },
+  { key: 'trigonalPlanar', formula: 'BF3', regions: 3, lonePairs: 0, angle: 120, extra: [{ bearing: 90, kind: 'plane' }] },
+  {
+    key: 'tetrahedral',
+    formula: 'CH4',
+    regions: 4,
+    lonePairs: 0,
+    angle: 109.5,
+    extra: [
+      { bearing: 55, kind: 'wedge' },
+      { bearing: 125, kind: 'dash' },
+    ],
+  },
+  // NH3 and H2O are CH4 with one and then two bonds replaced by a lone pair,
+  // in the same places, so the three read as one family down the page.
+  {
+    key: 'trigonalPyramidal',
+    formula: 'NH3',
+    regions: 4,
+    lonePairs: 1,
+    angle: 107,
+    extra: [
+      { bearing: 55, kind: 'wedge' },
+      { bearing: 125, kind: 'lobe' },
+    ],
+  },
+  {
+    key: 'bent',
+    formula: 'H2O',
+    regions: 4,
+    lonePairs: 2,
+    angle: 104.5,
+    extra: [
+      { bearing: 55, kind: 'lobe' },
+      { bearing: 125, kind: 'lobe' },
+    ],
+  },
+];
+
+/** The string that prints each molecule's formula under its shape in slot 02. */
+const VSEPR_FORMULA_KEY: Record<LewisFormula, string> = {
+  CO2: 'carbonDioxide',
+  BF3: 'boronTrifluoride',
+  CH4: 'methane',
+  NH3: 'ammonia',
+  H2O: 'water',
+};
+
+/** The shape the sheet's paragraph gives for so many regions and so many lone pairs. */
+const VSEPR_RULE: Record<string, string> = {
+  '2/0': 'linear',
+  '3/0': 'trigonalPlanar',
+  '4/0': 'tetrahedral',
+  '4/1': 'trigonalPyramidal',
+  '4/2': 'bent',
+};
+const VSEPR_IDEAL: Record<number, number> = { 2: 180, 3: 120, 4: 109.5 };
+
+for (const shape of VSEPR_SHAPES) {
+  const where = `VSEPR_SHAPES.${shape.key}`;
+  const molecule: LewisMolecule = LEWIS_MOLECULES[shape.formula];
+  const neighbours = molecule.bonds.filter(([a, b]) => a === 0 || b === 0).length;
+  const lonePairs = molecule.atoms[0].lonePairs.length;
+  if (neighbours + lonePairs !== shape.regions || lonePairs !== shape.lonePairs) {
+    throw new Error(
+      `${where}: ${shape.formula}'s central atom has ${neighbours} bonds and ${lonePairs} lone pairs, ` +
+        `not ${shape.regions} regions with ${shape.lonePairs} lone pairs.`,
+    );
+  }
+  if (VSEPR_RULE[`${shape.regions}/${shape.lonePairs}`] !== shape.key) {
+    throw new Error(`${where}: ${shape.regions} regions with ${shape.lonePairs} lone pairs is not ${shape.key}.`);
+  }
+  const ideal = VSEPR_IDEAL[shape.regions];
+  if (shape.lonePairs === 0 ? shape.angle !== ideal : !(shape.angle < ideal)) {
+    throw new Error(`${where}: ${shape.angle}° does not fit ${shape.regions} regions (${ideal}° ideal).`);
+  }
+  const drawnBonds = 2 + shape.extra.filter((item) => item.kind !== 'lobe').length;
+  const drawnLobes = shape.extra.filter((item) => item.kind === 'lobe').length;
+  if (drawnBonds !== neighbours || drawnLobes !== lonePairs) {
+    throw new Error(`${where}: draws ${drawnBonds} bonds and ${drawnLobes} lobes for ${shape.formula}.`);
+  }
+}
+// Lone pairs push harder than bonds: the more of them, the smaller the angle.
+for (let index = 1; index < VSEPR_SHAPES.length; index += 1) {
+  const [before, after] = [VSEPR_SHAPES[index - 1], VSEPR_SHAPES[index]];
+  if (before.regions === after.regions && after.lonePairs > before.lonePairs && !(after.angle < before.angle)) {
+    throw new Error(`VSEPR_SHAPES: ${after.key} has more lone pairs than ${before.key} and no smaller an angle.`);
+  }
+}
+
+/** Every atom symbol in both slots: the one focal item, larger than a label. */
+const LEWIS_SYMBOL = { item: 'atom symbols', size: 26 };
+
+/** How far a bond line stops short of an atom's centre, clear of its symbol. */
+const LEWIS_CLEAR = 14;
+
+/** A bond of `order` lines between two points, each end stopping `LEWIS_CLEAR` short. */
+function lewisBond(x1: number, y1: number, x2: number, y2: number, order: number): string {
+  const length = Math.hypot(x2 - x1, y2 - y1);
+  const [ux, uy] = [(x2 - x1) / length, (y2 - y1) / length];
+  const offsets = order === 1 ? [0] : order === 2 ? [-4, 4] : [-7, 0, 7];
+  const d = offsets
+    .map((offset) => {
+      const [px, py] = [-uy * offset, ux * offset];
+      return (
+        `M ${n(x1 + ux * LEWIS_CLEAR + px)} ${n(y1 + uy * LEWIS_CLEAR + py)} ` +
+        `L ${n(x2 - ux * LEWIS_CLEAR + px)} ${n(y2 - uy * LEWIS_CLEAR + py)}`
+      );
+    })
+    .join(' ');
+  return `<path d="${d}" ${paint('none', TOKEN.ink)} stroke-width="3" stroke-linecap="round" />`;
+}
+
+/** A leader from `(x1, y1)` towards `(x2, y2)`, stopping `short` before it. */
+function lewisLeader(x1: number, y1: number, x2: number, y2: number, short: number): string {
+  const length = Math.hypot(x2 - x1, y2 - y1);
+  const keep = (length - short) / length;
+  return leader(x1, y1, x1 + (x2 - x1) * keep, y1 + (y2 - y1) * keep);
+}
+
+/** Checks that a label prints the molecule it stands under, in every locale. */
+function lewisFormulaIn(words: Words, formula: LewisFormula, where: string): Words {
+  if (!words.text.includes(LEWIS_MOLECULES[formula].formula)) {
+    throw new Error(`${where}: "${words.text}" does not print ${LEWIS_MOLECULES[formula].formula}.`);
+  }
+  return words;
+}
+
+// --- 01. Four Lewis structures ----------------------------------------------
+
+/**
+ * H2O, NH3, CO2 and CH4, two by two, each with its formula underneath.
+ *
+ * **Laid out on the four sides of each atom, as Share to Fill lays them out**:
+ * H–O–H in a row with O's two lone pairs above and below it, NH3 with its lone
+ * pair on top, O=C=O with two pairs on each O and none on C, and CH4 as a
+ * cross. A Lewis structure is a count, not a shape — the section below it,
+ * with slot 02, is where shape comes in — so the square grid is honest here.
+ *
+ * **Two words, each named once, with a leader to one of its kind:** the lone
+ * pair above water's oxygen, and a shared pair, one of ammonia's N–H lines,
+ * using the sheet's own term for it. They sit above the molecules, stacked and
+ * at opposite ends of the width, so that neither leader crosses the other's
+ * words in any language.
+ *
+ * Every dot, line and pair comes from `LEWIS_MOLECULES`, which the run checks
+ * above; the drawing cannot put a lone pair anywhere the data does not.
+ */
+function drawLewisStructures(pen: Pen): string[] {
+  const { t, symbol, label } = pen;
+  const bond = 56;
+  /** A lone pair's two dots: this far from the atom's centre, this far either side of its middle. */
+  const [orbit, halfGap, dotRadius] = [20, 5, 3.2];
+  const cells = [
+    [95, 118],
+    [265, 118],
+    [95, 298],
+    [265, 298],
+  ] as const;
+  const sideVector: Record<LewisSide, readonly [number, number]> = {
+    top: [0, -1],
+    right: [1, 0],
+    bottom: [0, 1],
+    left: [-1, 0],
+  };
+  const parts: string[] = [];
+
+  LEWIS_DRAWN.forEach(({ formula, key }, index) => {
+    const [cx, cy] = cells[index];
+    const molecule: LewisMolecule = LEWIS_MOLECULES[formula];
+    const place = (atom: LewisAtom): [number, number] => [cx + atom.grid[0] * bond, cy + atom.grid[1] * bond];
+    for (const [a, b, order] of molecule.bonds) {
+      const [x1, y1] = place(molecule.atoms[a]);
+      const [x2, y2] = place(molecule.atoms[b]);
+      parts.push(lewisBond(x1, y1, x2, y2, order));
+    }
+    for (const atom of molecule.atoms) {
+      const [x, y] = place(atom);
+      parts.push(label(x, y, symbol(atom.element), { room: 30, anchor: 'middle', central: true, focal: LEWIS_SYMBOL }));
+      for (const side of atom.lonePairs) {
+        const [vx, vy] = sideVector[side];
+        const [mx, my] = [x + vx * orbit, y + vy * orbit];
+        parts.push(
+          dot(mx - vy * halfGap, my + vx * halfGap, dotRadius, TOKEN.electron),
+          dot(mx + vy * halfGap, my - vx * halfGap, dotRadius, TOKEN.electron),
+        );
+      }
+    }
+    parts.push(
+      label(cx, cy + 92, lewisFormulaIn(t(key), formula, `${key} [${pen.locale}]`), { room: 150, anchor: 'middle' }),
+    );
+  });
+
+  // The lone pair: water's top one. The shared pair: ammonia's right-hand N–H.
+  const [waterX, waterY] = cells[0];
+  const [ammoniaX, ammoniaY] = cells[1];
+  /**
+   * The shared-pair label ends here, right-aligned, and may start no further
+   * left than 100 — where the lone pair's leader passes under it.
+   */
+  const sharedEnd = 344;
+  parts.push(
+    label(16, 24, t('lonePair'), { room: PHONE - 16, fill: TOKEN.electron }),
+    lewisLeader(40, 32, waterX, waterY - orbit, 8),
+    label(sharedEnd, 50, t('sharedPair'), { room: sharedEnd - 100, anchor: 'end' }),
+    lewisLeader(320, 58, ammoniaX + bond / 2, ammoniaY, 6),
+  );
+
+  return parts;
+}
+
+// --- 02. The five VSEPR shapes ----------------------------------------------
+
+/**
+ * Linear, trigonal planar, tetrahedral, trigonal pyramidal and bent, two to a
+ * row, each with one caption under it: its formula, and below that its shape
+ * and its angle. The formula has a line of its own, so every caption reads the
+ * same way whether or not its shape name has to wrap.
+ *
+ * **Drawn in 3D the way a textbook draws it.** A plain line is a bond in the
+ * page, a solid wedge one coming out of it, a hashed wedge one going behind.
+ * The two bonds in the page always open downwards, symmetric about straight
+ * down, and a thin arc between them marks the angle the label gives — which
+ * is the real angle, measured back from the drawn atoms in the run.
+ *
+ * **Lone pairs are lobes**, on NH3 and H2O's central atoms, each holding the
+ * two dots slot 01 draws for a lone pair, so it is recognisably the same
+ * thing, now taking up room. CH4, NH3 and H2O put their wedge, dash and lobes
+ * in the same two places, so the eye sees a bond become a lone pair, and then
+ * another. The lone pairs on CO2's oxygens and BF3's fluorines are not drawn:
+ * they do not decide the shape, and every shape figure leaves them out.
+ *
+ * **Two columns and three rows** keeps the canvas inside the width a 375 px
+ * phone shows, with every label under its molecule; the type is not shrunk.
+ */
+function drawVseprShapes(pen: Pen): string[] {
+  const { t, symbol, label } = pen;
+  const bond = 50;
+  const cells = [
+    [95, 92],
+    [265, 92],
+    [95, 310],
+    [265, 310],
+    [95, 528],
+  ] as const;
+  const arcRadius = 24;
+  const parts: string[] = [];
+
+  VSEPR_SHAPES.forEach((shape, index) => {
+    const [cx, cy] = cells[index];
+    const molecule: LewisMolecule = LEWIS_MOLECULES[shape.formula];
+    const where = `${shape.key} [${pen.locale}]`;
+    const bearings = [
+      { bearing: 270 - shape.angle / 2, kind: 'plane' as const },
+      { bearing: 270 + shape.angle / 2, kind: 'plane' as const },
+      ...shape.extra,
+    ];
+    const outer = molecule.bonds.filter(([a, b]) => a === 0 || b === 0);
+    const bonded = bearings.filter((item) => item.kind !== 'lobe');
+    const placed: [number, number][] = [];
+
+    bonded.forEach(({ bearing, kind }, slot) => {
+      const [a, b, order] = outer[slot];
+      const atom = molecule.atoms[a === 0 ? b : a];
+      const [x, y] = at(cx, cy, bearing, bond);
+      placed.push([x, y]);
+      if (kind === 'plane') {
+        parts.push(lewisBond(cx, cy, x, y, order));
+      } else {
+        const [dx, dy] = [(x - cx) / bond, (y - cy) / bond];
+        const [start, end] = [LEWIS_CLEAR, bond - LEWIS_CLEAR];
+        if (kind === 'wedge') {
+          const [tipX, tipY] = [cx + dx * start, cy + dy * start];
+          const [baseX, baseY] = [cx + dx * end, cy + dy * end];
+          parts.push(
+            `<path d="M ${n(tipX - dy)} ${n(tipY + dx)} L ${n(baseX - dy * 5.5)} ${n(baseY + dx * 5.5)} ` +
+              `L ${n(baseX + dy * 5.5)} ${n(baseY - dx * 5.5)} L ${n(tipX + dy)} ${n(tipY - dx)} Z" ${paint(TOKEN.ink)} />`,
+          );
+        } else {
+          const hashes = 6;
+          const d = Array.from({ length: hashes }, (_, k) => {
+            const along = start + ((end - start) * (k + 0.5)) / hashes;
+            const half = 1.2 + (4.3 * (k + 0.5)) / hashes;
+            const [mx, my] = [cx + dx * along, cy + dy * along];
+            return `M ${n(mx - dy * half)} ${n(my + dx * half)} L ${n(mx + dy * half)} ${n(my - dx * half)}`;
+          }).join(' ');
+          parts.push(`<path d="${d}" ${paint('none', TOKEN.ink)} stroke-width="2" />`);
+        }
+      }
+      parts.push(label(x, y, symbol(atom.element), { room: 30, anchor: 'middle', central: true, focal: LEWIS_SYMBOL }));
+    });
+
+    // The angle is measured back from where the two atoms in the page landed.
+    const [[ax, ay], [bx, by]] = placed;
+    const measured =
+      (Math.acos(((ax - cx) * (bx - cx) + (ay - cy) * (by - cy)) / (Math.hypot(ax - cx, ay - cy) * Math.hypot(bx - cx, by - cy))) *
+        180) /
+      Math.PI;
+    if (Math.abs(measured - shape.angle) > 0.5) {
+      throw new Error(`${where}: the atoms in the page are ${measured.toFixed(1)}° apart, not ${shape.angle}°.`);
+    }
+    const arc: string[] = [];
+    const steps = Math.ceil(shape.angle / 5);
+    for (let step = 0; step <= steps; step += 1) {
+      const [x, y] = at(cx, cy, 270 - shape.angle / 2 + (shape.angle * step) / steps, arcRadius);
+      arc.push(`${n(x)},${n(y)}`);
+    }
+    parts.push(`<polyline points="${arc.join(' ')}" ${paint('none', TOKEN.inkMuted)} stroke-width="1.5" />`);
+
+    // A lobe: a balloon from just outside the symbol, with the lone pair's two dots in it.
+    for (const { bearing } of bearings.filter((item) => item.kind === 'lobe')) {
+      const [dx, dy] = [Math.cos((bearing * Math.PI) / 180), -Math.sin((bearing * Math.PI) / 180)];
+      const [base, half, width] = [LEWIS_CLEAR, 17, 13];
+      const points = Array.from({ length: 40 }, (_, k) => {
+        const theta = (2 * Math.PI * k) / 40;
+        const along = base + half * (1 - Math.cos(theta));
+        const across = width * Math.sin(theta) * Math.sqrt((1 - Math.cos(theta)) / 2);
+        return `${n(cx + dx * along - dy * across)} ${n(cy + dy * along + dx * across)}`;
+      });
+      parts.push(
+        `<path d="M ${points.join(' L ')} Z" ${paint(TOKEN.electron, TOKEN.electron)} fill-opacity="0.14" ` +
+          'stroke-width="2" stroke-linejoin="round" />',
+      );
+      const [mx, my] = [cx + dx * (base + half * 1.2), cy + dy * (base + half * 1.2)];
+      parts.push(dot(mx - dy * 5, my + dx * 5, 3.2, TOKEN.electron), dot(mx + dy * 5, my - dx * 5, 3.2, TOKEN.electron));
+    }
+
+    parts.push(label(cx, cy, symbol(molecule.atoms[0].element), { room: 30, anchor: 'middle', central: true, focal: LEWIS_SYMBOL }));
+    // The caption: the formula, and under it the shape and its angle, on up to three lines.
+    const formulaKey = VSEPR_FORMULA_KEY[shape.formula];
+    parts.push(
+      label(cx, cy + 68, lewisFormulaIn(t(formulaKey), shape.formula, where), { room: 164, anchor: 'middle' }),
+      label(cx, cy + 91, t(shape.key, { numbers: [shape.angle] }), { room: 164, anchor: 'middle', lines: 3 }),
+    );
+  });
+
+  return parts;
+}
+
 // --- The slots -------------------------------------------------------------
 
 /**
@@ -1745,6 +2319,8 @@ const SLOTS: Slot[] = (
     ['isotopes-and-radioactivity', '07-decay-and-made-elements', true, drawHalfLife],
     ['states-of-matter', '01-particles-in-each-state', true, drawParticlesInEachState],
     ['states-of-matter', '02-heating-curve', true, drawHeatingCurve],
+    ['lewis-structures', '01-lewis-structures', true, drawLewisStructures],
+    ['lewis-structures', '02-vsepr-shapes', true, drawVseprShapes],
   ] as const
 ).map(([sheet, id, phone, draw]) => ({
   sheet,

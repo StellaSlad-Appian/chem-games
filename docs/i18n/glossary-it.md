@@ -287,6 +287,10 @@ than failing silently on screen.
 | heating curve | **curva di riscaldamento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
 | energy added (a graph's axis) | **energia fornita** | Italian textbooks say *calore fornito*; *energia* keeps the sheet's word. *Energia aggiunta* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
 | gas, as a state name in a diagram | **gas** | Italian school books also call the state *aeriforme*. Kept *gas*, per the row above and the sheet's own prose, so the diagram and the paragraph agree. **Rated medium.** Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineare, trigonale planare, tetraedrica, piramidale trigonale, angolare** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometria*. **Bent is *angolare*, not *piegata***: both are in Italian textbooks, and *angolare* is the word the sheet's VSEPR paragraph already used directly above the drawing, so the two agree. Angles: *109,5°*. |
+| bond angle | **angolo di legame** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuneo pieno / cuneo tratteggiato** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lobo** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: Italian's own two-tier pair, and the three words it could not use — historical, and why it is kept
 

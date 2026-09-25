@@ -273,6 +273,10 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | melting / boiling (a heating curve's plateaus) | **fusión / ebullición** | As in the sheet's table of phase changes. Added 2026-09-25 for the States of Matter diagrams. |
 | heating curve | **curva de calentamiento** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
 | energy added (a graph's axis) | **energía suministrada** | Spanish textbooks label this axis *calor suministrado*; *energía* keeps the sheet's word. *Energía añadida* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **lineal, triangular plana, tetraédrica, piramidal trigonal, angular** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). Feminine, agreeing with *geometría*, as a Bachillerato textbook writes them, and the ones the sheet's RPECV paragraph already used. *Trigonal plana* is also seen. The model is **RPECV** in Spanish, never *VSEPR* in running text. Angles: *109,5°*. |
+| bond angle | **ángulo de enlace** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **cuña rellena / cuña rayada** | Added 2026-09-25, for alt text. |
+| lone-pair lobe (in a VSEPR drawing) | **lóbulo** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: Spanish's own two-tier pair, and the trap it had to avoid — historical, and why it is kept
 

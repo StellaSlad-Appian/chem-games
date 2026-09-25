@@ -837,6 +837,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
           'Méthane – le carbone partage ses quatre électrons célibataires',
           'Dioxygène – deux doublets partagés font une liaison double',
         ],
+        imageAlt:
+          'Les structures de Lewis de quatre molécules, chacune avec sa formule en dessous. Eau, H₂O : H–O–H avec deux doublets non liants sur l’oxygène, un au-dessus et un en dessous. Ammoniac, NH₃ : l’azote lié à trois hydrogènes par des liaisons simples, avec un doublet non liant. Dioxyde de carbone, CO₂ : O=C=O, deux liaisons doubles, avec deux doublets non liants sur chaque oxygène et aucun sur le carbone. Méthane, CH₄ : le carbone lié à quatre hydrogènes par des liaisons simples, sans doublet non liant. Les liaisons sont des traits et les doublets non liants des paires de points. Des étiquettes désignent un doublet non liant, sur l’oxygène de l’eau, et un doublet liant, une liaison de l’ammoniac.',
       },
       {
         heading: 'Les cinq étapes',
@@ -847,6 +849,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         heading: 'De la structure de Lewis à la forme (VSEPR)',
         content:
           'Compte les zones électroniques autour de l’atome central (chaque liaison compte pour une, simple ou multiple ; chaque doublet non liant compte pour une). 4 zones → tétraédrique (109,5°) ; avec 1 doublet non liant → pyramidale à base triangulaire (NH3) ; avec 2 doublets non liants → coudée (H2O). 3 zones → triangulaire plane (120°). 2 zones → linéaire (180°).',
+        imageAlt:
+          'Les cinq géométries VSEPR, chacune avec sa formule, sa géométrie et son angle de liaison en dessous, dessinées en représentation de Cram : un triangle plein est une liaison qui sort du plan vers l’avant, un triangle hachuré une liaison qui part vers l’arrière. CO₂ : linéaire, 180°. BF₃ : triangulaire plane, 120°. CH₄ : tétraédrique, 109,5°. NH₃ : pyramidale à base triangulaire, 107°, avec son doublet non liant dessiné comme un lobe sur l’azote. H₂O : coudée, 104,5°, avec deux lobes sur l’oxygène. NH₃ et H₂O sont dessinées comme CH₄, avec une puis deux de ses liaisons remplacées par un doublet non liant. Un petit arc marque l’angle entre les deux liaisons situées dans le plan de la page.',
       },
       {
         heading: 'Les exceptions à la règle de l’octet',

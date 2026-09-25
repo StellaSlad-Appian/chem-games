@@ -159,6 +159,10 @@ Two more consequences worth knowing:
 | heating curve | **courbe de chauffage** | Matches the sheet's section heading. Added 2026-09-25 for the States of Matter diagrams. |
 | energy added (a graph's axis) | **énergie reçue** | French physique-chimie puts the energy on the system's side (*l’eau reçoit de l’énergie*). *Énergie ajoutée* is a calque. Added 2026-09-25 for the States of Matter diagrams. |
 | the three states at particle scale | **compact et ordonné / compact et désordonné / dispersé et désordonné** | The triad French collège textbooks use for solid, liquid and gas *à l’échelle microscopique*. The new section uses it, and its heading uses *échelle microscopique*. Added 2026-09-25 for the States of Matter diagrams. |
+| VSEPR shapes: linear, trigonal planar, tetrahedral, trigonal pyramidal, bent | **linéaire, triangulaire plane, tétraédrique, pyramidale à base triangulaire, coudée** | Added 2026-09-25 with the Lewis sheet's shape diagram (`lewis-structures/02-vsepr-shapes`). The adjectives agree with *géométrie* (feminine), as a lycée textbook writes them, and they are the ones the sheet's VSEPR paragraph already used. *Trigonale plane* and *pyramide trigonale* are also in circulation and are not used. Angles: *109,5°*, no space before the degree sign. |
+| bond angle | **angle de liaison** | Added 2026-09-25. |
+| wedge / hashed wedge (a bond towards / away from the viewer) | **triangle plein / triangle hachuré** (*représentation de Cram*) | Added 2026-09-25, for alt text. French lycée books name the convention after Cram and call the wedges triangles; *coin* is a calque. |
+| lone-pair lobe (in a VSEPR drawing) | **lobe** | Added 2026-09-25, for alt text. |
 
 ### The “loner”: French's own two-tier pair — historical, and why it is kept
 

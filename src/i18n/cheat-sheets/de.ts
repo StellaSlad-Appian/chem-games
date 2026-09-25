@@ -807,6 +807,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
           'Methan – Kohlenstoff teilt alle vier ungepaarten Elektronen',
           'Sauerstoff – zwei bindende Elektronenpaare ergeben eine Doppelbindung',
         ],
+        imageAlt:
+          'Lewis-Formeln von vier Molekülen, unter jedem seine Summenformel. Wasser, H₂O: H–O–H mit zwei freien Elektronenpaaren am Sauerstoff, eines darüber und eines darunter. Ammoniak, NH₃: Stickstoff mit Einfachbindungen zu drei Wasserstoffatomen und einem freien Elektronenpaar. Kohlenstoffdioxid, CO₂: O=C=O, zwei Doppelbindungen, mit zwei freien Elektronenpaaren an jedem Sauerstoff und keinem am Kohlenstoff. Methan, CH₄: Kohlenstoff mit Einfachbindungen zu vier Wasserstoffatomen und ohne freies Elektronenpaar. Bindungen sind Striche, freie Elektronenpaare je zwei Punkte. Beschriftet sind ein freies Elektronenpaar, am Sauerstoff des Wassers, und ein bindendes Elektronenpaar, eine Bindung im Ammoniak.',
       },
       {
         heading: 'Die fünf Schritte',
@@ -817,6 +819,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         heading: 'Von der Lewis-Formel zur Molekülform (VSEPR)',
         content:
           'Zähle die Elektronenbereiche um das Zentralatom (jede Bindung zählt einmal, egal ob einfach oder mehrfach; jedes freie Elektronenpaar zählt einmal). 4 Bereiche → tetraedrisch (109,5°); mit 1 freien Paar → trigonal-pyramidal (NH3); mit 2 freien Paaren → gewinkelt (H2O). 3 Bereiche → trigonal-planar (120°). 2 Bereiche → linear (180°).',
+        imageAlt:
+          'Die fünf Molekülformen nach dem VSEPR-Modell, unter jeder ihre Formel, ihre Form und ihr Bindungswinkel, räumlich gezeichnet: Ein ausgefüllter Keil ist eine Bindung, die aus der Papierebene nach vorn zeigt, ein gestrichelter Keil eine, die nach hinten zeigt. CO₂ ist linear, 180°. BF₃ ist trigonal-planar, 120°. CH₄ ist tetraedrisch, 109,5°. NH₃ ist trigonal-pyramidal, 107°, sein freies Elektronenpaar ist als Keule am Stickstoff gezeichnet. H₂O ist gewinkelt, 104,5°, mit zwei solchen Keulen am Sauerstoff. NH₃ und H₂O sind wie CH₄ gezeichnet, nur dass eine und dann zwei Bindungen durch ein freies Elektronenpaar ersetzt sind. Ein kleiner Bogen markiert den Winkel zwischen den beiden Bindungen in der Papierebene.',
       },
       {
         heading: 'Ausnahmen von der Oktettregel',

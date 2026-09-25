@@ -19,6 +19,8 @@ export const CHEAT_SHEET_DIAGRAMS = {
   'isotopes-and-radioactivity/07-decay-and-made-elements': { width: 360, height: 355 },
   'states-of-matter/01-particles-in-each-state': { width: 360, height: 365 },
   'states-of-matter/02-heating-curve': { width: 360, height: 340 },
+  'lewis-structures/01-lewis-structures': { width: 360, height: 415 },
+  'lewis-structures/02-vsepr-shapes': { width: 360, height: 665 },
 } as const;
 
 export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;
