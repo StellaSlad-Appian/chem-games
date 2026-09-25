@@ -38,7 +38,39 @@ export async function proxy(request: NextRequest) {
     // Already localized. Remember the locale so a later visit to an unprefixed
     // URL (a shared link, a bookmark to "/") lands in the same language. Only
     // written when it differs, to avoid a Set-Cookie on every single request.
-    if (request.cookies.get(LOCALE_COOKIE)?.value !== pathLocale) {
+    //
+    // Only do this for a real document navigation. Next's router prefetches
+    // every visible link (see node_modules/next/dist/docs/01-app/02-guides/
+    // prefetching.md), and those prefetches are ordinary GETs against the
+    // *previous* page's links — they don't reflect where the reader is now.
+    // If the reader switches language while a prefetch of an old-locale link
+    // is still in flight, that prefetch can land here after the switcher has
+    // already written the new locale, and re-stamp the cookie back to the
+    // stale locale (the exact race this comment is here to prevent).
+    //
+    // The obvious signal would be the `rsc` / `next-router-prefetch` /
+    // `next-router-state-tree` request headers Next's router sets on every
+    // prefetch, soft navigation, and server-action data request (see
+    // node_modules/next/dist/client/components/app-router-headers.js,
+    // FLIGHT_HEADERS). But Proxy never sees them: Next explicitly deletes
+    // every FLIGHT_HEADERS entry from the request before invoking Proxy
+    // ("Headers should only be stripped for middleware", see
+    // node_modules/next/dist/server/web/adapter.js) — confirmed by logging
+    // the headers Proxy actually receives against a production build, where
+    // `rsc` was already gone.
+    //
+    // `sec-fetch-dest` survives, because it's browser-standard fetch
+    // metadata, not a Next-defined header, so Next has no reason to strip
+    // it. Chrome and Firefox set it to `document` for an address-bar load, a
+    // link click's navigation, or this function's own redirect, and to
+    // `empty` for a `fetch()` call — which is what the router's prefetches
+    // and soft navigations are under the hood. It isn't sent by every
+    // client (very old browsers, non-browser clients), so a missing header
+    // falls back to the pre-fix behaviour of remembering the locale, rather
+    // than guessing wrong in either direction.
+    const secFetchDest = request.headers.get('sec-fetch-dest');
+    const isRouterRequest = secFetchDest !== null && secFetchDest !== 'document';
+    if (!isRouterRequest && request.cookies.get(LOCALE_COOKIE)?.value !== pathLocale) {
       sessionResponse.cookies.set(LOCALE_COOKIE, pathLocale, {
         path: '/',
         maxAge: LOCALE_COOKIE_MAX_AGE,

@@ -27,13 +27,20 @@ function sessionResponseWithRefreshedCookies() {
 
 function request(
   path: string,
-  init: { acceptLanguage?: string; cookies?: Record<string, string> } = {}
+  init: {
+    acceptLanguage?: string;
+    cookies?: Record<string, string>;
+    headers?: Record<string, string>;
+  } = {}
 ) {
   const headers = new Headers();
   if (init.acceptLanguage) headers.set('accept-language', init.acceptLanguage);
   const cookiePairs = Object.entries(init.cookies ?? {});
   if (cookiePairs.length > 0) {
     headers.set('cookie', cookiePairs.map(([k, v]) => `${k}=${v}`).join('; '));
+  }
+  for (const [key, value] of Object.entries(init.headers ?? {})) {
+    headers.set(key, value);
   }
   return new NextRequest(new URL(path, 'https://chemgames.test'), { headers });
 }
@@ -116,6 +123,62 @@ describe('proxy: locale routing', () => {
       request('/de/games', { cookies: { [LOCALE_COOKIE]: 'de' } })
     );
     expect(response.headers.get('set-cookie')).toBeNull();
+  });
+
+  it('does not remember a prefixed URL from an in-flight RSC prefetch', async () => {
+    // Simulates the trace: Next prefetched /en/auth before the reader switched
+    // to Spanish; the prefetch lands here after the switcher already wrote
+    // `es`. It must not stamp the cookie back to `en`.
+    //
+    // The `rsc` / `next-router-prefetch` headers Next's own router sets on a
+    // prefetch are asserted here too, for readability, but they are not what
+    // the proxy actually keys off: Next strips every FLIGHT_HEADERS entry
+    // (rsc, next-router-prefetch, next-router-state-tree, ...) before Proxy
+    // ever runs (node_modules/next/dist/server/web/adapter.js). The real
+    // signal is `sec-fetch-dest`, which browsers set to `empty` for the
+    // fetch() call underneath a prefetch or soft navigation, and to
+    // `document` only for an actual page load.
+    const response = await proxy(
+      request('/en/auth', {
+        cookies: { [LOCALE_COOKIE]: 'es' },
+        headers: { rsc: '1', 'next-router-prefetch': '1', 'sec-fetch-dest': 'empty' },
+      })
+    );
+    expect(response.headers.get('set-cookie')).toBeNull();
+  });
+
+  it('does not remember a prefixed URL from an RSC soft-navigation request', async () => {
+    const response = await proxy(
+      request('/en/auth', {
+        cookies: { [LOCALE_COOKIE]: 'es' },
+        headers: {
+          rsc: '1',
+          'next-router-state-tree': '%5B%22%22%5D',
+          'sec-fetch-dest': 'empty',
+        },
+      })
+    );
+    expect(response.headers.get('set-cookie')).toBeNull();
+  });
+
+  it('still remembers a prefixed URL from a real document navigation', async () => {
+    const response = await proxy(
+      request('/en/auth', {
+        cookies: { [LOCALE_COOKIE]: 'es' },
+        headers: { 'sec-fetch-dest': 'document' },
+      })
+    );
+    expect(cookieValue(response, LOCALE_COOKIE)).toBe('en');
+  });
+
+  it('still remembers a prefixed URL when sec-fetch-dest is absent', async () => {
+    // Older or non-browser clients that omit fetch metadata entirely. Falling
+    // back to the pre-fix behaviour here is deliberate: it never regresses
+    // those clients, it only stops misreading an in-flight prefetch.
+    const response = await proxy(
+      request('/en/auth', { cookies: { [LOCALE_COOKIE]: 'es' } })
+    );
+    expect(cookieValue(response, LOCALE_COOKIE)).toBe('en');
   });
 
   it('leaves the route handlers unprefixed', async () => {
