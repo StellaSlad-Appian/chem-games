@@ -80,7 +80,13 @@ export default async function AboutPage(props: PageProps<'/[lang]/about'>) {
 
   return (
     <main className="min-h-screen bg-(--background) px-4 py-8 text-(--foreground) md:px-8">
-      <div className="mx-auto max-w-3xl">
+      {/*
+        `max-w-6xl`, matching the home page — see the same comment on the For
+        Teachers page for why, and why line length is capped independently
+        with `max-w-[75ch]` on each block of prose rather than left to the
+        container.
+      */}
+      <div className="mx-auto max-w-6xl">
         <LocaleLink
           href="/"
           className="inline-flex min-h-6 items-center gap-2 py-1 text-sm font-bold text-(--muted) transition hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
@@ -90,67 +96,112 @@ export default async function AboutPage(props: PageProps<'/[lang]/about'>) {
 
         <div className="mt-6">
           <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
-          <p className={`mt-2 text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
+          <p className={`mt-2 max-w-[75ch] text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
         </div>
 
-        <article className="mt-6 flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8">
-          <Section icon={HeartHandshake} title={p.storyHeading}>
-            <p>{p.storyBody1}</p>
-            <p>{p.storyBody2}</p>
-            <p>{p.storyBody3}</p>
-          </Section>
+        {/*
+          Two columns from `lg` up, single column below it. The sidebar
+          renders first in source order and is pushed right with `lg:order-2`
+          — DOM order is reading order and tab order for every reader, not
+          only the one who can see it beside the story visually. Same layout
+          and the same reasoning as the For Teachers page's.
+        */}
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
+          <div className="flex flex-col gap-6 lg:order-2">
+            {/*
+              Both of these are a pointer, not content of their own — one
+              short paragraph each and a link to the page that actually
+              answers the question. Sidebar-sized by nature, not trimmed to
+              fit, unlike the For Teachers page's Collaborators card.
+            */}
+            <section
+              aria-labelledby="about-parents"
+              className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
+            >
+              <h2
+                id="about-parents"
+                className="flex items-center gap-2 text-2xl font-black text-(--foreground)"
+              >
+                <Users className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
+                {p.parentsHeading}
+              </h2>
+              <div
+                className={`mt-3 space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+              >
+                <p>{withPlaceholder(p.parentsBody1, 'link', privacyLink)}</p>
+                <p>{p.parentsBody2}</p>
+              </div>
+            </section>
 
-          <Section icon={Lightbulb} title={p.helpHeading}>
-            <p>{p.helpIntro}</p>
-            <ul className="space-y-3">
-              {p.principles.map((principle) => (
-                <li key={principle.title}>
-                  <strong className="font-bold text-(--foreground)">{principle.title}</strong>{' '}
-                  {principle.body}
-                </li>
-              ))}
-            </ul>
-          </Section>
+            <section
+              aria-labelledby="about-teachers"
+              className="rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md"
+            >
+              <h2
+                id="about-teachers"
+                className="flex items-center gap-2 text-2xl font-black text-(--foreground)"
+              >
+                <GraduationCap className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
+                {p.teachersHeading}
+              </h2>
+              <div
+                className={`mt-3 space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+              >
+                <p>{withPlaceholder(p.teachersBody, 'link', teachersLink)}</p>
+              </div>
+            </section>
+          </div>
 
-          <Section icon={Scale} title={p.limitsHeading}>
-            <p>{p.limitsBody1}</p>
-            <p>{p.limitsBody2}</p>
-            <p>{p.limitsBody3}</p>
-          </Section>
+          <article className="flex flex-col gap-6 rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-md md:p-8 lg:order-1">
+            <Section icon={HeartHandshake} title={p.storyHeading}>
+              <p>{p.storyBody1}</p>
+              <p>{p.storyBody2}</p>
+              <p>{p.storyBody3}</p>
+            </Section>
 
-          <Section icon={Users} title={p.parentsHeading}>
-            <p>{withPlaceholder(p.parentsBody1, 'link', privacyLink)}</p>
-            <p>{p.parentsBody2}</p>
-          </Section>
+            <Section icon={Lightbulb} title={p.helpHeading}>
+              <p>{p.helpIntro}</p>
+              <ul className="space-y-3">
+                {p.principles.map((principle) => (
+                  <li key={principle.title}>
+                    <strong className="font-bold text-(--foreground)">{principle.title}</strong>{' '}
+                    {principle.body}
+                  </li>
+                ))}
+              </ul>
+            </Section>
 
-          <Section icon={GraduationCap} title={p.teachersHeading}>
-            <p>{withPlaceholder(p.teachersBody, 'link', teachersLink)}</p>
-          </Section>
+            <Section icon={Scale} title={p.limitsHeading}>
+              <p>{p.limitsBody1}</p>
+              <p>{p.limitsBody2}</p>
+              <p>{p.limitsBody3}</p>
+            </Section>
 
-          <Section icon={BookOpen} title={p.sourcesHeading}>
-            <p>{p.sourcesIntro}</p>
-            <ol className="list-decimal space-y-3 pl-5">
-              {p.sources.map((source) => (
-                <li key={source.href}>
-                  <a
-                    href={source.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
-                  >
-                    {source.citation}
-                    <ExternalLink
-                      className="ml-1 inline h-3.5 w-3.5 shrink-0 align-[-2px]"
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">{t.common.opensInNewTab}</span>
-                  </a>
-                  <span className="mt-1 block">{source.note}</span>
-                </li>
-              ))}
-            </ol>
-          </Section>
-        </article>
+            <Section icon={BookOpen} title={p.sourcesHeading}>
+              <p>{p.sourcesIntro}</p>
+              <ol className="list-decimal space-y-3 pl-5">
+                {p.sources.map((source) => (
+                  <li key={source.href}>
+                    <a
+                      href={source.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-(--link) hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+                    >
+                      {source.citation}
+                      <ExternalLink
+                        className="ml-1 inline h-3.5 w-3.5 shrink-0 align-[-2px]"
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">{t.common.opensInNewTab}</span>
+                    </a>
+                    <span className="mt-1 block">{source.note}</span>
+                  </li>
+                ))}
+              </ol>
+            </Section>
+          </article>
+        </div>
       </div>
     </main>
   );
@@ -171,8 +222,9 @@ function Section({
         <Icon className="h-5 w-5 shrink-0 text-(--link)" aria-hidden="true" />
         {title}
       </h2>
+      {/* `max-w-[75ch]`: see the same comment on the For Teachers page's `Section`. */}
       <div
-        className={`space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+        className={`max-w-[75ch] space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
       >
         {children}
       </div>
