@@ -195,7 +195,7 @@ has been pushed:
 
 Owner to-dos from this work:
 
-- [ ] **Merge `fix/locale-cookie-prefetch` (`8f87a68`, cut from `master`).** Root cause of
+- [x] **Merged 2026-09-25 into local `master` (`7c75954`).** Was: **Merge `fix/locale-cookie-prefetch` (`8f87a68`, cut from `master`).** Root cause of
       the two switcher failures below: an in-flight prefetch of an old-language link
       reached `src/proxy.ts` after the switch and set the cookie back. The proxy now
       remembers a URL's language only on real page loads (`sec-fetch-dest: document`).
@@ -216,8 +216,11 @@ Owner to-dos from this work:
       passed once on `master` after failing twice on the review branch; run it a few
       times on both to tell a flake from a difference.
 
-- [ ] **Merge `cheatsheet/final`**: it contains every step (1–9, E, F, 10a, 10b), so it
-      is the only cheat-sheet branch that needs merging. Merge
+- [x] **Merged 2026-09-25 into local `master`** (`89350b6`, with `cheatsheet-review` in
+      `b75593e`), resolved against master's theme and Nunito work. On the merged `master`:
+      2557 unit tests, `next build`, and the full Playwright suite **453/453** pass, and
+      all 1392 diagram labels were measured in Nunito in six languages with none running
+      off its diagram. Not pushed. Merge
       `cheatsheet-review` as well: it holds the later changes to this list and the
       review, which the chain does not have. Run the full
       Playwright suite first (see [`TESTING.md`](./TESTING.md)).
