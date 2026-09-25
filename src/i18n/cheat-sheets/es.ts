@@ -526,6 +526,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           'Al 3+ y SO4 2−. Cruza las cargas: el Al se lleva el subíndice 2 y el sulfato el subíndice 3. El sulfato es poliatómico y se repite, así que necesita paréntesis: Al2(SO4)3. Comprueba: 2 × (+3) = +6 y 3 × (−2) = −6. Neutro.',
         exampleNames: ['Sulfato de aluminio'],
+        imageAlt:
+          'El sulfato de aluminio por el método del aspa. Arriba, el ion aluminio Al³⁺, rotulado «catión», y el ion sulfato SO₄²⁻, rotulado «anión». Dos flechas que se cruzan bajan cada número de carga, que pasa a ser el subíndice del otro ion: el 3 del Al³⁺ pasa a ser el 3 tras el sulfato entre paréntesis, y el 2 del SO₄²⁻, el 2 tras el Al. Abajo, la fórmula Al₂(SO₄)₃ y la comprobación: 2 × (+3) = +6 y 3 × (−2) = −6.',
       },
       {
         heading: 'Las cargas más comunes, leídas en la tabla periódica',
@@ -602,6 +604,13 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       'Ácido nitroso (ácido, a partir del nitrito)',
     ],
     sections: [
+      {
+        heading: '¿Qué sistema de nomenclatura?',
+        content:
+          'Fíjate primero en de qué está hecho el compuesto. Un metal (o NH4+) con un no metal forma un compuesto iónico: primero el anión, luego «de» y el catión, sin prefijos (cloruro de sodio). Dos no metales forman un compuesto molecular, que se nombra con prefijos griegos (dióxido de azufre); pero si el H va delante y está disuelto en agua, es un ácido, y su nombre sale del anión: ácido clorhídrico.',
+        imageAlt:
+          'Un diagrama de flujo para elegir el sistema de nomenclatura. De «metal + no metal» sale una flecha a «iónico», por ejemplo cloruro de sodio. De «dos no metales» sale una flecha a «molecular», por ejemplo dióxido de azufre. De «dos no metales» baja además una flecha a «H delante, en agua», y de ahí a «ácido», por ejemplo ácido clorhídrico.',
+      },
       {
         heading: 'Cómo se saca el número romano',
         content:
@@ -780,6 +789,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'Ejemplo resuelto: masa → masa',
         content:
           '¿Qué masa de agua se forma cuando arden del todo 8,0 g de hidrógeno? 2H2 + O2 → 2H2O. n(H2) = 8,0 ÷ 2,0 = 4,0 mol. La relación H2 : H2O es 2 : 2, así que n(H2O) = 4,0 mol. m(H2O) = 4,0 × 18,0 = 72 g.',
+        imageAlt:
+          'El mapa del mol. A la izquierda, cuatro recuadros uno debajo de otro —masa, número de partículas, volumen de gas y disolución—, cada uno unido a un recuadro alto, «moles de reactivo», por una flecha doble con su fórmula: n = m/M, n = N/N_A, n = V/V_m y n = cV. De los moles de reactivo baja una flecha rotulada «relación molar (coeficientes)» hasta los moles de producto.',
       },
       {
         heading: 'Ejemplo resuelto: reactivo limitante',
@@ -915,6 +926,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'Ejemplo resuelto',
         content:
           'Una cadena de 5 carbonos con un OH en el carbono 2 y un metilo en el carbono 3. Raíz: pent-. Sufijo: -ol con el localizador 2 (numerando desde el extremo más cercano al OH). Sustituyente: 3-metil. Nombre: 3-metilpentan-2-ol.',
+        imageAlt:
+          'La fórmula de esqueleto del 3-metilpentan-2-ol: una cadena en zigzag de cinco carbonos, numerados del 1 al 5 de izquierda a derecha. Del carbono 2 sale hacia arriba un enlace con el OH, y del carbono 3, hacia abajo, un trazo corto: el grupo metilo, rotulado «metilo». Debajo, el nombre 3-metilpentan-2-ol.',
       },
     ],
     commonMistakes: [

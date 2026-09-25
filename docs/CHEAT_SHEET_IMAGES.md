@@ -293,6 +293,44 @@ rule (regions and lone pairs → shape), that the angle falls as lone pairs
 replace bonds, and that the two atoms drawn in the page really are the stated
 angle apart.
 
+## The slot on *Writing Ionic Formulas* — `chemical-formulas`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `chemical-formulas/01-cross-over` | 280×315 | Under *Worked example: aluminium sulfate*: Al³⁺ (named *cation*) and SO₄²⁻ (named *anion*), two crossing arrows from each charge number down to the subscript it becomes, Al₂(SO₄)₃, and the check 2 × (+3) = +6, 3 × (−2) = −6. The ions and the formula are the focal item; each charge and its subscript share a colour (proton for the 3, electron for the 2), and the arrows carry the same link without colour. |
+
+Drawn from `CROSS_OVER` in the script, and the run fails unless the crossed
+charges balance (2 × 3 = 3 × 2), the two subscripts share no factor (so there
+is nothing to simplify), and the formula built from them is `Al2(SO4)3`, the
+section's example card.
+
+## The slot on *Naming Inorganic Compounds* — `naming-compounds`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `naming-compounds/01-which-system` | 360×295 | Under a new first section, *Which naming system?*: a three-row flowchart. *metal + non-metal* → *ionic*; *two non-metals* → *molecular*; and an arrow down from *two non-metals* to *H first, in water* → *acid*, because an acid is a compound of non-metals first. Each result has one example named in the locale's own system: sodium chloride, sulfur dioxide, hydrochloric acid in English; *Natriumchlorid*, *Schwefeldioxid*, *Salzsäure* in German; *хлорид натрия*, *оксид серы(IV)*, *соляная кислота* in Russian. |
+
+## The slot on *The Mole & Stoichiometry* — `stoichiometry`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `stoichiometry/01-mole-map` | 360×475 | Under *Worked example: mass → mass*: the mole map. Mass, particles, gas volume and solution down the left, each joined to one tall box, *moles of reactant*, by a two-way arrow with its formula on it (n = m/M, n = N/N_A, n = V/V_m, n = cV, with real subscripts). An arrow labelled *mole ratio (coefficients)* down to *moles of product*. Symbols only: no value of V_m, which differs on the German sheet. |
+
+The run checks that each formula starts `n = ` and uses its own row's
+symbols, so a formula cannot land on the wrong arrow in a translation.
+
+## The slot on *Naming Organic Compounds* — `organic-nomenclature`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `organic-nomenclature/01-numbered-chain` | 275×230 | Under *Worked example*: the skeletal structure of 3-methylpentan-2-ol, a five-carbon zigzag numbered 1–5 in muted ink, OH on a bond up from C2, the methyl as a bare line down from C3 with its word beside it (no leader, which would read as a bond). Underneath, the name in the locale's IUPAC form (3-Methylpentan-2-ol, 3-metilpentan-2-olo, 3-метилпентан-2-ол), bold: the focal item. |
+
+Drawn from `NUMBERED_CHAIN`, and the run fails unless the numbered chain is
+the longest chain in the skeleton, the OH gets the lower of its two possible
+numbers, the methyl is not on an end carbon, and every locale's name carries
+the root for five carbons; the two numbers in the name are filled from the
+same constants that place the OH and the methyl.
+
 ---
 
 ## Adding a diagram to a sheet

@@ -318,6 +318,7 @@ the split.
 | oxidation / reduction | **oxydation / réduction** | Note the **y**: *oxydation*, *oxydant*, but *oxygène* and *oxyde*. |
 | oxidising agent | **oxydant** | — |
 | name order vs formula order | formula **cation first**, name **anion first**: *chlorure de sodium*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In French the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **méthode de la croix** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term (*Méthode de la croix* in the takeaways). |
 
 ## The mole and stoichiometry
 
@@ -336,6 +337,9 @@ the split.
 | significant figures | **chiffres significatifs** | Added 2026-09-25. The lycée rule is *autant de chiffres significatifs que la donnée la moins précise*, and the stoichiometry sheet now says that rather than a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *une table de données IR*, which is what a French exercise supplies, and the polyatomic-ion table is headed *Les principaux ions polyatomiques*. |
 | SLC (standard laboratory conditions) | **withheld — spell out "à 25 °C et 100 kPa"** | Added 2026-09-25. "SLC" is a VCE (Australian) abbreviation with no French equivalent, so the conversion-table cell now names the conditions instead of naming the abbreviation, keeping the English value (V_m = 24,8 L/mol). |
+| mole ratio | **rapport molaire** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **nombre d’entités** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The lycée term (*entités chimiques*), and the one the conversion table already uses; *nombre de particules* is understood but is not what the programme prints. |
+| moles of reactant / product (mole-map boxes) | **quantité de matière du réactif / du produit** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Built on the glossary's *quantité de matière*; "moles de réactif" is spoken but is not how a French textbook writes it. |
 
 ## Organic chemistry
 
@@ -358,6 +362,8 @@ the split.
 | locant (position number) | **indice de position** / **numéro** | Prose uses *numéro* at this level. |
 | primary / secondary / tertiary alcohol | **alcool primaire / secondaire / tertiaire** | Added 2026-09-25 with the reaction-map diagram. |
 | catalyst | **catalyseur** | Added 2026-09-25. On the reaction map it comes before the formula: *catalyseur H₃PO₄*. |
+| skeletal formula | **formule topologique** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The lycée term; *formule squelettique* is a calque. |
+| methyl (group), as a diagram label | **méthyle** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). With the final *-e* as a noun (*un groupe méthyle*); *méthyl-* without it inside a name (*3-méthylpentan-2-ol*). |
 
 ---
 

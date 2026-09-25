@@ -577,6 +577,8 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | redox | **окислительно-восстановительная** | Thirty characters, and the badge is CSS-uppercased — the longest string in the file that sits in a fixed-width control, so it is the one to re-check on the rendered card at 360 px. *Редокс* exists in Russian (*редокс-реакция*) and would have been five characters, but it is laboratory jargon rather than school vocabulary, and the other seven badges are all the words a textbook prints. |
 | oxidising agent | **окислитель** | — |
 | name order vs formula order | formula **cation first**, name **anion first**: *хлорид натрия*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Russian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **перекрёстное правило** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
+| ionic / molecular (the kind of compound, as a label) | **ионное / молекулярное** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Neuter, agreeing with the implied *соединение*, exactly as the sheet's first takeaway writes them. |
 
 ## The mole and stoichiometry
 
@@ -595,6 +597,9 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | significant figures | **значащие цифры** | Added 2026-09-25. The stoichiometry sheet phrases the rule as *столько значащих цифр, сколько их в наименее точном из данных значений*, not a fixed three. Russian school chemistry drills this less than the English-speaking systems do, but the term and the rule are the physics-class ones. **Rated medium.** |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet (the sheets had called it *справочник VCE*). The IR sentence now points to *таблицы ИК-спектроскопии*, and the polyatomic-ion table is headed *Основные многоатомные ионы*. |
 | standard laboratory conditions (SLC) | **withheld — spell out "при 25 °C и 100 кПа"** | Added 2026-09-25. The sheet used to say *при стандартных условиях*, which in Russian schools usually means 0 °C and 101,325 kPa — the wrong conditions for this VCE (Australian) value. Naming the actual conditions avoids both the untranslatable "SLC" and that false-friend phrase, keeping the English value (V_m = 24,8 л/моль). |
+| mole ratio | **мольное соотношение** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
+| number of particles (N) | **число частиц** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **количество вещества реагента / продукта** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Built on the glossary's *количество вещества*; «моли реагента» is spoken, not written. |
 
 ## Organic chemistry
 
@@ -617,6 +622,8 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | locant (position number) | **номер** / **цифра положения** | Prose uses *номер* at this level. |
 | primary / secondary / tertiary alcohol | **первичный / вторичный / третичный спирт** | Added 2026-09-25 with the reaction-map diagram. |
 | catalyst | **катализатор** | Added 2026-09-25. On the reaction map it comes before the formula: *катализатор H₃PO₄*. |
+| skeletal formula | **скелетная формула** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| methyl (group), as a diagram label | **метил** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). The sheet's worked example says *метил на третьем*; *метильная группа* is used in the alt text. |
 
 ---
 

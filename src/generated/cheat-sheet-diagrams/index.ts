@@ -22,6 +22,10 @@ export const CHEAT_SHEET_DIAGRAMS = {
   'lewis-structures/01-lewis-structures': { width: 360, height: 415 },
   'lewis-structures/02-vsepr-shapes': { width: 360, height: 665 },
   'functional-groups/01-reaction-map': { width: 360, height: 710 },
+  'chemical-formulas/01-cross-over': { width: 280, height: 315 },
+  'naming-compounds/01-which-system': { width: 360, height: 295 },
+  'stoichiometry/01-mole-map': { width: 360, height: 475 },
+  'organic-nomenclature/01-numbered-chain': { width: 275, height: 230 },
 } as const;
 
 export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;

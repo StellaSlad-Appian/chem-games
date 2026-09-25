@@ -2565,6 +2565,535 @@ function drawReactionMap(pen: Pen): string[] {
   return parts;
 }
 
+// --- Small diagrams B (task 10b) ---
+//
+// Four small diagrams on four sheets: the cross-over for aluminium sulfate
+// (`chemical-formulas`), which naming system a compound takes
+// (`naming-compounds`), the mole map (`stoichiometry`), and the numbered chain
+// of 3-methylpentan-2-ol (`organic-nomenclature`). The chemistry each one
+// draws is data first, checked before anything is drawn, as the Lewis
+// structures are.
+
+/**
+ * Aluminium sulfate, for `chemical-formulas/01-cross-over`.
+ *
+ * Al³⁺ and SO₄²⁻: the size of each charge becomes the other ion's subscript,
+ * and the run checks the arithmetic the sheet's worked example does — the
+ * cations bring 2 × (+3) = +6, the anions 3 × (−2) = −6, so the compound is
+ * neutral — and that the ratio needs no simplifying (2 and 3 share no
+ * factor), so the crossed-over formula is already the lowest ratio. Sulfate
+ * is polyatomic and there are three of it, so it takes brackets. The formula
+ * built from these numbers must be the one the section's example card
+ * prints.
+ */
+const CROSS_OVER = {
+  cation: { symbol: 'Al', charge: 3 },
+  anion: { symbols: ['S', 'O'], oxygens: 4, charge: 2 },
+  formula: 'Al2(SO4)3',
+} as const;
+
+function greatestCommonDivisor(a: number, b: number): number {
+  return b === 0 ? a : greatestCommonDivisor(b, a % b);
+}
+
+const CROSS_OVER_COUNTS = { cations: CROSS_OVER.anion.charge, anions: CROSS_OVER.cation.charge };
+if (CROSS_OVER_COUNTS.cations * CROSS_OVER.cation.charge !== CROSS_OVER_COUNTS.anions * CROSS_OVER.anion.charge) {
+  throw new Error('CROSS_OVER: the charges do not balance, so the compound is not neutral.');
+}
+if (greatestCommonDivisor(CROSS_OVER_COUNTS.cations, CROSS_OVER_COUNTS.anions) !== 1) {
+  throw new Error('CROSS_OVER: the crossed-over subscripts simplify, and the figure does not show that step.');
+}
+{
+  const [first, second] = CROSS_OVER.anion.symbols;
+  const anion = `${first}${second}${CROSS_OVER.anion.oxygens}`;
+  const built = `${CROSS_OVER.cation.symbol}${CROSS_OVER_COUNTS.cations}(${anion})${CROSS_OVER_COUNTS.anions}`;
+  if (built !== CROSS_OVER.formula) {
+    throw new Error(`CROSS_OVER: the crossed-over charges give ${built}, not ${CROSS_OVER.formula}.`);
+  }
+}
+
+/** The ions and the formula in `01-cross-over`: the slot's one focal item. */
+const CROSS_OVER_FOCAL = { item: 'the formulae', size: 28 };
+
+/**
+ * How far along one line of text a run ends, in units: the script's estimate
+ * without its safety margin. It is only used to aim the arrows at a digit,
+ * and it overshoots the page's fonts by a few per cent, which moves an
+ * arrow's end by a unit or two.
+ */
+function crossOverAdvance(text: string, size: number): number {
+  return estimateWidth(text, size, { locale: 'en' }) / SAFETY;
+}
+
+interface CrossOverRun {
+  text: string;
+  /** 0 on the line, 1 a subscript, -1 a charge. */
+  shift: 0 | 1 | -1;
+}
+
+/** How far a charge's no-break space is pulled back, so `Al³⁺` has no gap. */
+const CROSS_OVER_PULL = BODY * 0.27;
+
+/**
+ * One formula as the site writes it — `Al 3+`, `SO4 2−`, `Al2(SO4)3`, a
+ * charge after a no-break space — split into runs: symbols and brackets on
+ * the line, a digit after them lowered, the charge raised.
+ */
+function crossOverRuns(text: string): CrossOverRun[] {
+  const [formula, charge] = text.split(NBSP);
+  const runs: CrossOverRun[] = [];
+  let afterSymbol = false;
+  for (const char of formula) {
+    const shift = /\d/.test(char) && afterSymbol ? 1 : 0;
+    const last = runs[runs.length - 1];
+    if (last && last.shift === shift) last.text += char;
+    else runs.push({ text: char, shift });
+    afterSymbol = /[A-Za-z()]/.test(char);
+  }
+  // The charge keeps its no-break space, so the text is still the string.
+  if (charge !== undefined) runs.push({ text: `${NBSP}${charge}`, shift: -1 });
+  return runs;
+}
+
+/**
+ * A formula at the focal size, with real subscripts and a real charge at the
+ * body size, as one `<text>` so the browser sets its letters side by side.
+ *
+ * `label()` places and measures it as usual (every digit at the focal size,
+ * so it overestimates, which is safe), and this redraws its content as
+ * `<tspan>`s, painting any run named in `fills`. Returns the markup and, for
+ * each run, where the middle of its first character lands, for the arrows.
+ */
+function crossOverFormula(
+  pen: Pen,
+  x: number,
+  y: number,
+  words: Words,
+  anchor: 'start' | 'middle' | 'end',
+  fills: Partial<Record<number, Token>> = {},
+): { markup: string; firsts: number[] } {
+  const big = CROSS_OVER_FOCAL.size;
+  const runs = crossOverRuns(words.text);
+  const visible = (run: CrossOverRun) => run.text.replace(NBSP, '');
+  const widths = runs.map((run) => crossOverAdvance(visible(run), run.shift === 0 ? big : BODY));
+  const total = widths.reduce((sum, width) => sum + width, 0);
+  let cursor = anchor === 'start' ? x : anchor === 'end' ? x - total : x - total / 2;
+  const firsts = runs.map((run, index) => {
+    const first = cursor + crossOverAdvance(visible(run)[0], run.shift === 0 ? big : BODY) / 2;
+    cursor += widths[index];
+    return first;
+  });
+
+  const drawn = pen.label(x, y, words, { room: 200, anchor, focal: CROSS_OVER_FOCAL });
+  const match = /^(<text [^>]*>)[^<]*<\/text>$/.exec(drawn);
+  if (!match) throw new Error(`${words.source}: label() drew something crossOverFormula() cannot read.`);
+  const offset = (shift: CrossOverRun['shift']) => (shift === 1 ? 6 : shift === -1 ? -13 : 0);
+  let current = 0;
+  const content = runs.map((run, index) => {
+    const dy = offset(run.shift) - current;
+    current = offset(run.shift);
+    const fill = fills[index];
+    const attributes = [
+      dy !== 0 ? `dy="${n(dy)}"` : '',
+      run.text.startsWith(NBSP) ? `dx="${n(-CROSS_OVER_PULL)}"` : '',
+      run.shift !== 0 ? `font-size="${BODY}"` : '',
+      fill ? paint(fill) : '',
+    ].filter(Boolean);
+    return attributes.length ? `<tspan ${attributes.join(' ')}>${esc(run.text)}</tspan>` : esc(run.text);
+  });
+  return { markup: `${match[1]}${content.join('')}</text>`, firsts };
+}
+
+/**
+ * The cross-over.
+ *
+ * **Top**, each ion named: Al³⁺ and SO₄²⁻, the symbols at the focal size and
+ * the charges as superscripts at the body size. **Bottom**, Al₂(SO₄)₃. Two
+ * arrows cross between them, from each charge number to the subscript it
+ * becomes. The cation's charge and the subscript it becomes are in the
+ * proton colour (it is a positive charge), the anion's in the electron
+ * colour; the arrows say the same thing without colour. Underneath, the two
+ * products that show it is neutral, which the prose also works through.
+ *
+ * Each formula is one string, written the way the site writes formulae for
+ * `MoleculeText`, and checked against `CROSS_OVER` in every locale.
+ */
+function drawCrossOver(pen: Pen): string[] {
+  const { t, label } = pen;
+  const { cation, anion } = CROSS_OVER;
+  const where = `chemical-formulas/01-cross-over [${pen.locale}]`;
+  const expect = (words: Words, wanted: string) => {
+    if (words.text !== wanted) throw new Error(`${where} ${words.source}: "${words.text}", not "${wanted}".`);
+    return words;
+  };
+  const anionFormula = `${anion.symbols.join('')}${anion.oxygens}`;
+
+  // Top: the two ions, the cation from the left and the anion to a right edge,
+  // so that the estimate's overshoot falls inside the drawing.
+  const top = 84;
+  const cationIon = crossOverFormula(
+    pen,
+    38,
+    top,
+    expect(t('cationFormula'), `${cation.symbol}${NBSP}${cation.charge}+`),
+    'start',
+    { 1: TOKEN.proton },
+  );
+  const anionIon = crossOverFormula(
+    pen,
+    262,
+    top,
+    expect(t('anionFormula'), `${anionFormula}${NBSP}${anion.charge}−`),
+    'end',
+    { 2: TOKEN.electron },
+  );
+  // Bottom: the formula they make. Runs: Al, 2, (SO, 4, ), 3.
+  const bottom = 214;
+  const compound = crossOverFormula(pen, 160, bottom, expect(t('formula'), CROSS_OVER.formula), 'middle', {
+    1: TOKEN.electron,
+    5: TOKEN.proton,
+  });
+
+  const [cationCharge, anionCharge] = [cationIon.firsts[1], anionIon.firsts[2]];
+  const [cationCount, anionCount] = [compound.firsts[1], compound.firsts[5]];
+  const [from, to] = [top + 12, bottom - 38];
+  const parts = [
+    label(cationIon.firsts[0] + 12, 32, t('cation'), { room: 120, anchor: 'middle' }),
+    label(anionIon.firsts[0] + 25, 32, t('anion'), { room: 120, anchor: 'middle' }),
+    cationIon.markup,
+    anionIon.markup,
+    compound.markup,
+    // The two arrows cross: each charge number down to the subscript it becomes.
+    arrow(cationCharge, from, anionCount, to),
+    arrow(anionCharge, from, cationCount, to),
+  ];
+
+  // And the check that it is neutral, one line per ion.
+  const middle = 160;
+  const { cations, anions } = CROSS_OVER_COUNTS;
+  parts.push(
+    label(middle, 262, t('positive', { values: { count: cations, charge: cation.charge, total: cations * cation.charge } }), {
+      room: 200,
+      anchor: 'middle',
+    }),
+    label(middle, 290, t('negative', { values: { count: anions, charge: anion.charge, total: anions * anion.charge } }), {
+      room: 200,
+      anchor: 'middle',
+    }),
+  );
+  return parts;
+}
+
+/**
+ * Which naming system a compound takes, for `naming-compounds/01-which-system`.
+ *
+ * The sheet's first takeaway as a flowchart: metal and non-metal → ionic; two
+ * non-metals → molecular; and, *under* two non-metals, H first and dissolved
+ * in water → acid. The acid hangs off the molecular row on purpose: HCl and
+ * H₂SO₄ are made of non-metals, and the flowchart should not suggest a third,
+ * separate kind of substance.
+ *
+ * **Each result carries one example name, in the locale's own naming
+ * system** — which is what the overlays adapt rather than translate. The
+ * examples show it: *sodium chloride*, *Natriumchlorid*, *chlorure de
+ * sodium*, *хлорид натрия*; *sulfur dioxide*, *оксид серы(IV)*; and German's
+ * *Salzsäure*, which no rule would produce. The kinds of compound are the
+ * words each overlay's own takeaway uses.
+ */
+function drawWhichNamingSystem(pen: Pen): string[] {
+  const { t, label, lineCount } = pen;
+  const condition = { x: 16, width: 116 };
+  const result = { x: 162, width: 180 };
+  const height = 64;
+  const rows = [
+    { top: 16, condition: 'metalNonMetal', kind: 'ionic', example: 'ionicExample' },
+    { top: 104, condition: 'twoNonMetals', kind: 'molecular', example: 'molecularExample' },
+    { top: 212, condition: 'hydrogenInWater', kind: 'acid', example: 'acidExample' },
+  ];
+  const parts: string[] = [];
+  for (const row of rows) {
+    const middle = row.top + height / 2;
+    const words = t(row.condition);
+    const room = condition.width - 10;
+    const count = lineCount(words, room);
+    parts.push(
+      frame(condition.x, row.top, condition.width, height),
+      label(condition.x + condition.width / 2, middle - ((count - 1) * LEADING) / 2, words, {
+        room,
+        anchor: 'middle',
+        central: true,
+        lines: 2,
+      }),
+      arrow(condition.x + condition.width + 4, middle, result.x - 4, middle),
+      frame(result.x, row.top, result.width, height),
+      label(result.x + 10, middle - 11, t(row.kind), { room: result.width - 14, central: true }),
+      label(result.x + 10, middle + 12, t(row.example), {
+        room: result.width - 14,
+        central: true,
+        fill: TOKEN.inkMuted,
+      }),
+    );
+  }
+  // An acid is a molecular compound first: the arrow down says "and if".
+  const [molecular, acid] = [rows[1], rows[2]];
+  const column = condition.x + condition.width / 2;
+  parts.push(arrow(column, molecular.top + height + 4, column, acid.top - 4));
+  return parts;
+}
+
+/**
+ * A two-way arrow: one line, a head at each end. For the mole map, where
+ * every conversion runs both ways.
+ */
+function moleMapArrow(x1: number, y1: number, x2: number, y2: number, head = 12): string {
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const [cos, sin] = [Math.cos(angle), Math.sin(angle)];
+  const wing = head * 0.5;
+  const [ax, ay] = [x1 + head * cos, y1 + head * sin];
+  const [bx, by] = [x2 - head * cos, y2 - head * sin];
+  const tip = (px: number, py: number, qx: number, qy: number) =>
+    `<path d="M ${n(px)} ${n(py)} L ${n(qx + wing * sin)} ${n(qy - wing * cos)} ` +
+    `L ${n(qx - wing * sin)} ${n(qy + wing * cos)} Z" ${paint(TOKEN.ink)} />`;
+  return (
+    `<path d="M ${n(ax)} ${n(ay)} L ${n(bx)} ${n(by)}" ${paint('none', TOKEN.ink)} ` +
+    'stroke-width="2.5" stroke-linecap="round" />' +
+    tip(x2, y2, bx, by) +
+    tip(x1, y1, ax, ay)
+  );
+}
+
+/**
+ * The symbols a mole-map formula sets as subscripts: N_A and V_m. In the
+ * strings they are written plainly, `NA` and `Vm`, so that the string is
+ * exactly the text the page shows; this lowers the second letter.
+ */
+const MOLE_MAP_SUBSCRIPTED = ['NA', 'Vm'];
+
+/**
+ * The formulae on the mole map's arrows, as `(quantity, formula)` string keys
+ * in the order the rows run, each checked to be `n = …` with the quantity's
+ * own symbol in it — so a formula cannot sit on the wrong arrow.
+ */
+const MOLE_MAP_ROWS = [
+  { box: 'mass', formula: 'fromMass', symbols: ['m', 'M'] },
+  { box: 'particles', formula: 'fromParticles', symbols: ['N', 'NA'] },
+  { box: 'gasVolume', formula: 'fromGasVolume', symbols: ['V', 'Vm'] },
+  { box: 'solution', formula: 'fromSolution', symbols: ['c', 'V'] },
+] as const;
+
+/** `pen.label()`, with `N_A` and `V_m` set with a real subscript. One line only. */
+function moleMapFormula(pen: Pen, x: number, y: number, words: Words, options: LabelOptions): string {
+  const drawn = pen.label(x, y, words, options);
+  const match = /^(<text [^>]*>)([^<]*)<\/text>$/.exec(drawn);
+  if (!match) throw new Error(`${words.source}: moleMapFormula() takes a one-line label.`);
+  const [, open, content] = match;
+  let out = content;
+  for (const pair of MOLE_MAP_SUBSCRIPTED) {
+    out = out.replace(
+      new RegExp(`${pair[0]}${pair[1]}$`),
+      `${pair[0]}<tspan dy="${FORMULA_SUB}" font-size="${FORMULA_SMALL}">${pair[1]}</tspan>`,
+    );
+  }
+  return `${open}${out}</text>`;
+}
+
+/**
+ * The mole map, for `stoichiometry/01-mole-map`, under the worked mass → mass
+ * example.
+ *
+ * **Down the left**, the four things a question gives you: mass, particles,
+ * gas volume, solution. Each has a two-way arrow to one tall box, the moles of
+ * reactant, and its formula on the arrow — n = m/M, n = N/N_A, n = V/V_m,
+ * n = cV — because every conversion runs both ways. **Down the right**, the
+ * one step that is not a conversion: the mole ratio from the equation's
+ * coefficients, from the moles of reactant to the moles of product. The same
+ * four arrows take the product's moles back out, which the paragraph and the
+ * worked example do; drawing them twice would double the figure to say it.
+ *
+ * Symbols only, no values: the molar volume is 24,8 L/mol at 100 kPa on most
+ * sheets and 24,5 L/mol at 1013 hPa on the German one, and the map is the
+ * same in both.
+ */
+function drawMoleMap(pen: Pen): string[] {
+  const { t, label, lineCount } = pen;
+  const box = { x: 16, width: 120, height: 56, pitch: 76 };
+  const hub = { x: 220, width: 122 };
+  const rowTop = (index: number) => 16 + index * box.pitch;
+  const hubBottom = rowTop(MOLE_MAP_ROWS.length - 1) + box.height;
+  const parts: string[] = [];
+
+  const centred = (x: number, top: number, height: number, key: string, room: number, lines: number) => {
+    const words = t(key);
+    const count = lineCount(words, room);
+    return label(x, top + height / 2 - ((count - 1) * LEADING) / 2, words, {
+      room,
+      anchor: 'middle',
+      central: true,
+      lines,
+    });
+  };
+
+  MOLE_MAP_ROWS.forEach((row, index) => {
+    const top = rowTop(index);
+    const middle = top + box.height / 2;
+    const formula = t(row.formula);
+    const [quantity, constant] = row.symbols;
+    if (!formula.text.startsWith('n = ') || !formula.text.includes(quantity) || !formula.text.includes(constant)) {
+      throw new Error(`stoichiometry/01-mole-map [${pen.locale}] ${row.formula}: "${formula.text}" is not n from ${quantity}.`);
+    }
+    const [from, to] = [box.x + box.width + 4, hub.x - 4];
+    parts.push(
+      frame(box.x, top, box.width, box.height),
+      centred(box.x + box.width / 2, top, box.height, row.box, box.width - 10, 2),
+      moleMapArrow(from, middle, to, middle),
+      moleMapFormula(pen, (from + to) / 2, middle - 14, formula, { room: to - from + 8, anchor: 'middle' }),
+    );
+  });
+
+  // The moles of reactant, as tall as the four rows that lead into it.
+  parts.push(
+    frame(hub.x, rowTop(0), hub.width, hubBottom - rowTop(0)),
+    centred(hub.x + hub.width / 2, rowTop(0), hubBottom - rowTop(0), 'reactantMoles', hub.width - 8, 4),
+  );
+
+  // The mole ratio, down to the moles of product.
+  const productTop = hubBottom + 72;
+  const productHeight = 84;
+  const spine = hub.x + hub.width / 2;
+  const ratio = t('moleRatio');
+  const ratioRoom = spine - 14 - 16;
+  const ratioLines = lineCount(ratio, ratioRoom);
+  parts.push(
+    arrow(spine, hubBottom + 4, spine, productTop - 4),
+    label(spine - 14, (hubBottom + productTop) / 2 - ((ratioLines - 1) * LEADING) / 2, ratio, {
+      room: ratioRoom,
+      anchor: 'end',
+      central: true,
+      lines: 2,
+    }),
+    frame(hub.x, productTop, hub.width, productHeight),
+    centred(hub.x + hub.width / 2, productTop, productHeight, 'productMoles', hub.width - 8, 3),
+  );
+  return parts;
+}
+
+/**
+ * 3-methylpentan-2-ol, for `organic-nomenclature/01-numbered-chain`.
+ *
+ * The main chain is five carbons; the OH is on C2 and the methyl on C3. The
+ * run checks what the worked example claims: the numbered chain is the
+ * longest chain in the skeleton (the branch through the methyl is only four),
+ * numbering from this end gives the OH the lower number (2, not 4), and the
+ * name printed in each language carries those two numbers and the root for
+ * five, filled from here.
+ */
+const NUMBERED_CHAIN: { readonly length: number; readonly hydroxylOn: number; readonly methylOn: number } = {
+  length: 5,
+  hydroxylOn: 2,
+  methylOn: 3,
+};
+
+{
+  const { length, hydroxylOn, methylOn } = NUMBERED_CHAIN;
+  // The carbon skeleton as a graph: chain carbons 1..length, and the methyl
+  // carbon, numbered length + 1, on its chain carbon.
+  const methyl = length + 1;
+  const neighbours = new Map<number, number[]>();
+  const bond = (a: number, b: number) => {
+    neighbours.set(a, [...(neighbours.get(a) ?? []), b]);
+    neighbours.set(b, [...(neighbours.get(b) ?? []), a]);
+  };
+  for (let carbon = 1; carbon < length; carbon += 1) bond(carbon, carbon + 1);
+  bond(methylOn, methyl);
+  const longestFrom = (carbon: number, seen: Set<number>): number =>
+    1 + Math.max(0, ...(neighbours.get(carbon) ?? []).filter((next) => !seen.has(next)).map((next) =>
+      longestFrom(next, new Set([...seen, next]))));
+  const longest = Math.max(...[...neighbours.keys()].map((carbon) => longestFrom(carbon, new Set([carbon]))));
+  if (longest !== length) {
+    throw new Error(`NUMBERED_CHAIN: the longest chain is ${longest} carbons, not the ${length} numbered.`);
+  }
+  if (hydroxylOn > length + 1 - hydroxylOn) {
+    throw new Error('NUMBERED_CHAIN: numbered from the wrong end; the OH should get the lower number.');
+  }
+  if (methylOn === 1 || methylOn === length) {
+    throw new Error('NUMBERED_CHAIN: a methyl on an end carbon only makes the chain longer.');
+  }
+}
+
+/**
+ * The skeletal structure, numbered.
+ *
+ * A zigzag of five vertices, each a carbon, with its number beside it in the
+ * muted ink so the numbers read as annotations and not as atoms. The OH
+ * stands at the end of a bond up from C2, written out as skeletal structures
+ * do. The methyl is the bare line down from C3 — a line end is a carbon — and
+ * its word sits beside it with no leader, because a leader here would be one
+ * more line that could be read as a bond. The name underneath is the focal
+ * item.
+ */
+function drawNumberedChain(pen: Pen): string[] {
+  const { t, whole, label } = pen;
+  const { length, hydroxylOn, methylOn } = NUMBERED_CHAIN;
+  const bondLength = 48;
+  const [dx, dy] = [bondLength * Math.cos(Math.PI / 6), bondLength * Math.sin(Math.PI / 6)];
+  const [startX, low] = [48, 112];
+  /** Odd carbons are the low vertices, even ones the high. */
+  const carbon = (index: number): [number, number] => [startX + (index - 1) * dx, index % 2 === 1 ? low : low - dy];
+  const bondPath = (points: [number, number][]) =>
+    `<path d="${points.map(([x, y], index) => `${index === 0 ? 'M' : 'L'} ${n(x)} ${n(y)}`).join(' ')}" ` +
+    `${paint('none', TOKEN.ink)} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />`;
+
+  const chain = Array.from({ length }, (_, index) => carbon(index + 1));
+  const [hx, hy] = carbon(hydroxylOn);
+  const [mx, my] = carbon(methylOn);
+  if (hy >= low || my < low) {
+    throw new Error('organic-nomenclature/01-numbered-chain: the OH must stand on a high vertex, the methyl hang from a low one.');
+  }
+  const hydroxylEnd = hy - bondLength;
+  const methylEnd = my + bondLength;
+
+  const parts: string[] = [
+    bondPath(chain),
+    bondPath([
+      [hx, hy],
+      [hx, hydroxylEnd + 12],
+    ]),
+    bondPath([
+      [mx, my],
+      [mx, methylEnd],
+    ]),
+    // The O of OH centred over its bond.
+    label(hx - 7, hydroxylEnd, t('hydroxyl'), { room: 40, central: true }),
+    label(mx + 10, methylEnd - 2, t('methyl'), { room: PHONE - 16 - (mx + 10), central: true }),
+  ];
+
+  // Each carbon's number: under it, except where the methyl hangs from C3,
+  // whose number goes above, in the crook of the chain.
+  chain.forEach(([x, y], index) => {
+    const number = index + 1;
+    const high = y < low;
+    const [nx, ny] =
+      number === 1 || number === length || high ? [x, y + 24] : [x, y - 24];
+    parts.push(label(nx, ny, whole(number), { room: 24, anchor: 'middle', central: true, fill: TOKEN.inkMuted }));
+  });
+
+  const name = t('name', { values: { methylAt: methylOn, hydroxylAt: hydroxylOn } });
+  if (!/pent|пент/i.test(name.text)) {
+    throw new Error(`organic-nomenclature/01-numbered-chain [${pen.locale}]: "${name.text}" has no root for five carbons.`);
+  }
+  const middle = (chain[0][0] + chain[length - 1][0]) / 2;
+  parts.push(
+    label(middle, methylEnd + 44, name, {
+      room: 2 * (middle - 16),
+      anchor: 'middle',
+      focal: { item: 'the name', size: BODY, bold: true },
+    }),
+  );
+  return parts;
+}
+
+// --- end of task 10b ---
+
 // --- The slots -------------------------------------------------------------
 
 /**
@@ -2591,6 +3120,10 @@ const SLOTS: Slot[] = (
     ['lewis-structures', '01-lewis-structures', true, drawLewisStructures],
     ['lewis-structures', '02-vsepr-shapes', true, drawVseprShapes],
     ['functional-groups', '01-reaction-map', true, drawReactionMap],
+    ['chemical-formulas', '01-cross-over', true, drawCrossOver],
+    ['naming-compounds', '01-which-system', true, drawWhichNamingSystem],
+    ['stoichiometry', '01-mole-map', true, drawMoleMap],
+    ['organic-nomenclature', '01-numbered-chain', true, drawNumberedChain],
   ] as const
 ).map(([sheet, id, phone, draw]) => ({
   sheet,

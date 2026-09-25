@@ -505,6 +505,7 @@ the split.
 | oxidation / reduction | **ossidazione / riduzione** | — |
 | oxidising agent | **ossidante** | — |
 | name order vs formula order | formula **cation first**, name **anion first**: *cloruro di sodio*, NaCl | Added 2026-09-25. The English common mistake "writing the anion first because it sounds first" was removed, since in English the cation is said first. In Italian the trap is real, but an overlay must keep the English list lengths, so the point lives in takeaway 2 of *Writing Ionic Formulas* instead. |
+| cross-over method (charges → subscripts) | **metodo dell’incrocio** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). Already the sheet's term. |
 
 ## The mole and stoichiometry
 
@@ -523,6 +524,9 @@ the split.
 | significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
 | CSA (condizioni standard ambiente) | **withheld — spell out "a 25 °C e 100 kPa"** | Added 2026-09-25. "CSA" is a VCE (Australian) abbreviation with no Italian equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
+| mole ratio | **rapporto molare** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| number of particles (N) | **numero di particelle** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). |
+| moles of reactant / product (mole-map boxes) | **moli di reagente / di prodotto** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Moli di*, as the overlay says it (*converti in moli*); *quantità di sostanza del reagente* is correct and too long for the box. |
 
 ## Organic chemistry
 
@@ -545,6 +549,8 @@ the split.
 | locant (position number) | **numero di posizione** / **numero** | Prose uses *numero* at this level. |
 | primary / secondary / tertiary alcohol | **alcol primario / secondario / terziario** | Added 2026-09-25 with the reaction-map diagram. |
 | catalyst | **catalizzatore** | Added 2026-09-25. On the reaction map: *H₃PO₄ come catalizzatore*. |
+| skeletal formula | **formula scheletrica** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Formula topologica* is also used. **Rated medium.** |
+| methyl (group), as a diagram label | **metile** | Added 2026-09-25 with the cheat-sheet diagrams (task 10b). *Metile* as a noun; *metil-* inside a name. The alcohol suffix is **-olo** (*3-metilpentan-2-olo*), as the sheet already writes it. |
 
 ---
 
