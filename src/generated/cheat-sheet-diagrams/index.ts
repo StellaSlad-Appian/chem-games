@@ -22,7 +22,7 @@ export const CHEAT_SHEET_DIAGRAMS = {
   'lewis-structures/01-lewis-structures': { width: 360, height: 415 },
   'lewis-structures/02-vsepr-shapes': { width: 360, height: 665 },
   'functional-groups/01-reaction-map': { width: 360, height: 710 },
-  'relative-formula-mass/01-carbon-hydrogen-balance': { width: 360, height: 320 },
+  'relative-formula-mass/01-carbon-hydrogen-balance': { width: 360, height: 345 },
   'balancing-equations/01-particle-equation': { width: 325, height: 270 },
   'chemical-bonds/01-bonding-models': { width: 360, height: 515 },
   'acids-and-bases/01-ph-scale': { width: 330, height: 410 },

@@ -664,39 +664,40 @@ export const DIAGRAM_STRINGS: Record<string, SlotStrings> = {
       esterification: 'спирт, катализатор H2SO4',
     },
   },
-  // One carbon atom balancing twelve hydrogen atoms. {count} is filled from
-  // the script's CARBON_HYDROGEN_BALANCE, so write the noun for that count:
-  // Russian «1 атом», «12 атомов». `notToScale` is each glossary's own
-  // diagram caveat, the one the atom diagrams already print.
+  // One carbon atom balancing twelve hydrogen atoms. The script prints the
+  // two counts, 1 and 12, large and on a line of their own; these are the
+  // words under them, so write the noun as it goes with that count:
+  // Russian «1 атом углерода», «12 атомов водорода». `notToScale` is each
+  // glossary's own diagram caveat, the one the atom diagrams already print.
   'relative-formula-mass/01-carbon-hydrogen-balance': {
     en: {
-      carbonAtom: '{count} carbon atom',
-      hydrogenAtoms: '{count} hydrogen atoms',
+      carbonAtom: 'carbon atom',
+      hydrogenAtoms: 'hydrogen atoms',
       notToScale: 'Not to scale',
     },
     de: {
-      carbonAtom: '{count} Kohlenstoffatom',
-      hydrogenAtoms: '{count} Wasserstoffatome',
+      carbonAtom: 'Kohlenstoffatom',
+      hydrogenAtoms: 'Wasserstoffatome',
       notToScale: 'Nicht maßstabsgetreu',
     },
     fr: {
-      carbonAtom: '{count} atome de carbone',
-      hydrogenAtoms: '{count} atomes d’hydrogène',
+      carbonAtom: 'atome de carbone',
+      hydrogenAtoms: 'atomes d’hydrogène',
       notToScale: 'Échelle non respectée',
     },
     es: {
-      carbonAtom: '{count} átomo de carbono',
-      hydrogenAtoms: '{count} átomos de hidrógeno',
+      carbonAtom: 'átomo de carbono',
+      hydrogenAtoms: 'átomos de hidrógeno',
       notToScale: 'No está a escala',
     },
     it: {
-      carbonAtom: '{count} atomo di carbonio',
-      hydrogenAtoms: '{count} atomi di idrogeno',
+      carbonAtom: 'atomo di carbonio',
+      hydrogenAtoms: 'atomi di idrogeno',
       notToScale: 'Non in scala',
     },
     ru: {
-      carbonAtom: '{count} атом углерода',
-      hydrogenAtoms: '{count} атомов водорода',
+      carbonAtom: 'атом углерода',
+      hydrogenAtoms: 'атомов водорода',
       notToScale: 'Масштаб не соблюдён',
     },
   },

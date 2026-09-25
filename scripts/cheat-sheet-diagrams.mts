@@ -2635,7 +2635,7 @@ const CARBON_HYDROGEN_BALANCE = {
  * it holds. The only other words are the not-to-scale caveat.
  */
 function drawCarbonHydrogenBalance(pen: Pen): string[] {
-  const { t, symbol, label } = pen;
+  const { t, symbol, whole, label } = pen;
   const { carbon, hydrogen, hydrogens, rows } = CARBON_HYDROGEN_BALANCE;
   const pivotX = 180;
   const beamY = 64;
@@ -2687,19 +2687,23 @@ function drawCarbonHydrogenBalance(pen: Pen): string[] {
   });
   if (drawn !== hydrogens) throw new Error(`01-carbon-hydrogen-balance: drew ${drawn} hydrogens, not ${hydrogens}.`);
 
-  // What each pan holds, under it, and the caveat under both. A count may be
-  // wider than its pan — the German «Kohlenstoffatom» is — and still stops
-  // short of the stand's foot on one side and the canvas edge on the other.
-  const countY = panY + 38;
+  // What each pan holds, under it: the count, the figure's one focal item,
+  // since 1 against 12 is the whole idea, and under it what is counted. The
+  // count has a line of its own on purpose. Run together, "12
+  // Wasserstoffatome" is wider than the room under a pan, and the wrap left
+  // the 12 alone on a line as if by accident. A noun may be wider than its
+  // pan — the German «Kohlenstoffatom» is — and still stops short of the
+  // canvas edge and of the other pan's words. The caveat goes under both.
+  const countY = panY + 44;
+  const nounY = countY + 26;
   const labelRoom = 2 * (leftX - 16);
+  const counts = { item: 'atom counts', size: 28, bold: true };
   parts.push(
-    label(leftX, countY, t('carbonAtom', { values: { count: 1 } }), { room: labelRoom, anchor: 'middle', lines: 2 }),
-    label(rightX, countY, t('hydrogenAtoms', { values: { count: hydrogens } }), {
-      room: labelRoom,
-      anchor: 'middle',
-      lines: 2,
-    }),
-    label(16, countY + LEADING + 40, t('notToScale'), { room: PHONE - 16 }),
+    label(leftX, countY, whole(1), { room: 60, anchor: 'middle', focal: counts }),
+    label(rightX, countY, whole(hydrogens), { room: 60, anchor: 'middle', focal: counts }),
+    label(leftX, nounY, t('carbonAtom'), { room: labelRoom, anchor: 'middle', lines: 2 }),
+    label(rightX, nounY, t('hydrogenAtoms'), { room: labelRoom, anchor: 'middle', lines: 2 }),
+    label(16, nounY + LEADING + 32, t('notToScale'), { room: PHONE - 16 }),
   );
 
   return parts;
