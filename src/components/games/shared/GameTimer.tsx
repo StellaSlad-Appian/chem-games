@@ -20,8 +20,8 @@ export default function GameTimer({ timeLeft }: GameTimerProps) {
         }`}
         style={{
           color: isUrgent
-            ? 'var(--game-error)'
-            : 'var(--game-highlight-border)',
+            ? 'var(--danger)'
+            : 'var(--foreground)',
         }}
       >
         {formatTime(timeLeft)}

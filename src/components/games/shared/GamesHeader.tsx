@@ -30,6 +30,26 @@ interface HeaderProps {
   customTaskDescription?: string;
 }
 
+/**
+ * The game's top bar — design A, "the site's own bar".
+ *
+ * It is the NavBar's language carried into the game: a white (--surface) bar
+ * with a soft --border edge and the card shadow, no inner boxes, labels in
+ * --muted micro-caps and the values in the role colours players learn —
+ * progress green (--success), score amber (--accent). The task in the middle
+ * is the visual centre: the subtitle as a blue eyebrow like the landing page's,
+ * the target picked out in --link. Exit is the NavBar's sign-out button: a
+ * quiet outline with red text, not a filled red block, because leaving is
+ * one click away all game and should not shout.
+ *
+ * It follows the site theme like every other bar (the per-game override
+ * still works: GameShell sets data-theme, and every colour here is a token).
+ *
+ * The three slots — progress, lives and timer | the task | hint, level and
+ * score, exit — and their order are unchanged, because players rely on the
+ * same controls being in the same place in every game (docs/ACCESSIBILITY.md
+ * §5).
+ */
 export default function GamesHeader({
   gameSubtitle,
   targetName,
@@ -54,45 +74,45 @@ export default function GamesHeader({
   const handleExit = onExit ?? (() => router.push(localizePath('/games', locale)));
 
   return (
-    <header className="w-full bg-slate-900/90 backdrop-blur-md border-2 border-slate-800 rounded-2xl px-6 py-4 md:px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-4 shadow-2xl z-40 select-none">
+    <header className="z-40 grid w-full grid-cols-1 items-center gap-3 rounded-2xl border border-(--border) bg-(--surface)/95 px-5 py-3 shadow-(--shadow-card) backdrop-blur-md select-none md:grid-cols-3 md:gap-4 md:px-6">
 
-      {/* LEFT SLOT: CONDITIONAL PROGRESS PANEL */}
-      <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">
-        <div className="bg-slate-950/60 px-4 py-2 rounded-xl border border-slate-800 text-left min-w-30">
-          <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-0.5">
+      {/* LEFT SLOT: PROGRESS, TIMER, LIVES */}
+      <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 md:justify-start">
+        <div className="min-w-30 text-left">
+          <span className="mb-0.5 block text-[10px] font-bold uppercase tracking-wider text-(--muted)">
             {t.games.shared.progress}
           </span>
-          <span className="text-sm font-black text-emerald-400">
+          <span className="text-sm font-black text-(--success)">
             {progressText}
           </span>
         </div>
 
         {showTimer && (
-          <div className="bg-slate-950/60 p-1 rounded-xl border border-slate-800 text-white font-bold h-11 flex items-center">
+          <div className="flex h-11 items-center">
             <GameTimer timeLeft={timeLeft} />
           </div>
         )}
 
         {showLives && (
-          <div className="bg-slate-950/60 px-3 rounded-xl border border-slate-400 h-11 flex items-center">
+          <div className="flex h-11 items-center">
             <GameLives lives={lives} maxLives={maxLives} />
           </div>
         )}
       </div>
 
-      {/* CENTER SLOT: HERO TASK DISPLAY */}
+      {/* CENTER SLOT: THE TASK */}
       {showCenterTask ? (
-        <div className="text-center bg-linear-to-r from-amber-500/10 via-amber-500/20 to-amber-500/10 border-2 border-amber-500/40 rounded-xl py-2 px-6 shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-          <span className="text-[10px] uppercase tracking-widest text-amber-400 font-black block mb-0.5">
+        <div className="min-w-0 text-center">
+          <span className="mb-0.5 block text-[10px] font-black uppercase tracking-widest text-(--link)">
             {gameSubtitle}
           </span>
-          <h1 className="text-xl md:text-2xl font-black text-white tracking-wide drop-shadow-md leading-snug">
+          <h1 className="text-xl leading-snug font-black tracking-tight break-words text-(--foreground) md:text-2xl">
             {customTaskDescription ? (
-              <span className="text-yellow-300">{customTaskDescription}</span>
+              <span>{customTaskDescription}</span>
             ) : (
               <>
                 {t.games.shared.find}{' '}
-                <span className="text-yellow-300 underline decoration-2 decoration-amber-400">
+                <span className="text-(--link) underline decoration-(--link)/40 decoration-2 underline-offset-4">
                   {targetName || t.common.loading}
                 </span>
               </>
@@ -103,22 +123,20 @@ export default function GamesHeader({
         <div className="hidden md:block" />
       )}
 
-      {/* RIGHT SLOT: GAME STATS & ACTIONS PANEL */}
-      <div className="flex flex-wrap items-center justify-center md:justify-end gap-4 md:gap-6">
+      {/* RIGHT SLOT: HINT, LEVEL & SCORE, EXIT */}
+      <div className="flex flex-wrap items-center justify-center gap-4 md:justify-end md:gap-5">
 
-        <div className="flex items-center gap-3">
-          {onTriggerHint && (
-            <button
-              type="button"
-              onClick={onTriggerHint}
-              className="p-2 text-amber-400/80 hover:text-amber-300 hover:bg-amber-400/10 active:scale-95 rounded-full transition-all flex items-center justify-center cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
-              title={t.games.shared.hintA11y}
-              aria-label={t.games.shared.hintA11y}
-            >
-              <Lightbulb className="w-6 h-6" aria-hidden="true" />
-            </button>
-          )}
-        </div>
+        {onTriggerHint && (
+          <button
+            type="button"
+            onClick={onTriggerHint}
+            className="flex cursor-pointer items-center justify-center rounded-full p-2 text-(--hint) transition-all select-none hover:bg-(--hint-surface) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            title={t.games.shared.hintA11y}
+            aria-label={t.games.shared.hintA11y}
+          >
+            <Lightbulb className="h-6 w-6" aria-hidden="true" />
+          </button>
+        )}
 
         {/* Pause, instructions, and settings are grouped in the shared game footer. */}
         <GameStats
@@ -128,16 +146,12 @@ export default function GamesHeader({
 
         <button
           onClick={handleExit}
-          className="bg-rose-600 hover:bg-rose-500 active:scale-95 text-white font-black text-xs px-3.5 py-2 rounded-xl transition-all shadow-md flex items-center gap-1.5 cursor-pointer select-none ml-2"
+          className="flex cursor-pointer items-center gap-1.5 rounded-xl border-2 border-(--border) bg-(--surface) px-3.5 py-2 text-xs font-black text-(--danger) transition-all select-none hover:border-(--danger) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           title={t.games.shared.exitA11y}
           aria-label={t.games.shared.exitA11y}
         >
-          <LogOut
-            className="w-4 h-4 text-white! stroke-[2.5]"
-            stroke="#ffffff"
-            aria-hidden="true"
-          />
-          <span className="text-white font-black">{t.games.shared.exit}</span>
+          <LogOut className="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+          <span>{t.games.shared.exit}</span>
         </button>
       </div>
     </header>

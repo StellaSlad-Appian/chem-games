@@ -14,7 +14,7 @@ export default function GameLives({ lives, maxLives }: GameLivesProps) {
     <div className="flex items-center gap-2">
       <span
         className="text-xs uppercase font-medium mr-2 whitespace-nowrap"
-        style={{ color: 'var(--game-highlight-border)' }}
+        style={{ color: 'var(--muted)' }}
       >
         {f(t.games.shared.lives, { lives, max: maxLives })}
       </span>
@@ -26,10 +26,11 @@ export default function GameLives({ lives, maxLives }: GameLivesProps) {
             key={i}
             className={`w-6 h-6 transition-all duration-300 ${
               isAlive
-                ? 'text-red-500 fill-red-500 scale-100'
+                ? 'text-(--danger) fill-(--danger) scale-100'
                 : 'fill-transparent scale-90'
             }`}
-            style={isAlive ? undefined : { color: 'var(--border)' }}
+            // A lost life is an outline in --muted: --border was 1.5:1 on white.
+            style={isAlive ? undefined : { color: 'var(--muted)' }}
           />
         );
       })}

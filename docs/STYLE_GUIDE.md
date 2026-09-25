@@ -119,7 +119,8 @@ new token pair here, not an ad-hoc Tailwind colour in a component.
 ### Game-state accents (from `GameOverlay.tsx`)
 
 `paused` → `--link`, `failed` → `--danger`, `victory` → `--success`, `levelUp` →
-`--accent`. The header's task panel uses `--accent`. Keep these; they're how players learn
+`--accent`. In the game header, progress is `--success`, the score `--accent` and the
+task's target `--link`. Keep these; they're how players learn
 state. Each state also has its own icon and badge text, so colour is never the only cue.
 
 ### Colour classes stored as data

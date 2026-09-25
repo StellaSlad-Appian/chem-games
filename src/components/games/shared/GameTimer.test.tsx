@@ -36,7 +36,7 @@ describe('GameLives', () => {
   it('fills only the remaining hearts', () => {
     const { container } = renderWithProviders(<GameLives lives={1} maxLives={3} />);
     const filled = Array.from(container.querySelectorAll('svg')).filter((svg) =>
-      svg.classList.contains('fill-red-500')
+      svg.classList.contains('fill-(--danger)')
     );
     expect(filled).toHaveLength(1);
   });

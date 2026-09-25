@@ -17,11 +17,11 @@ export default function GameStats({
     <div className="flex flex-wrap items-center justify-end gap-3">
       
       {/* SCORE & LEVEL DISPLAY */}
-      <div className="bg-slate-950/60 px-4 py-2 rounded-xl border border-slate-800 text-right min-w-30">
-        <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-0.5">
+      <div className="min-w-30 text-right">
+        <span className="mb-0.5 block text-[10px] font-bold uppercase tracking-wider text-(--muted)">
           {f(t.games.shared.levelValue, { level: level.toString().padStart(2, '0') })}
         </span>
-        <span className="text-sm font-black text-amber-400">
+        <span className="text-sm font-black text-(--accent)">
           {f(t.games.shared.scoreValue, { score })}
         </span>
       </div>
