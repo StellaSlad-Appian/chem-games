@@ -2,6 +2,7 @@
 
 import type { ChemIconName } from '@/components/ui/ChemIcon';
 import type { ReactionType } from './chemistry';
+import type { CheatSheetDiagramId } from '@/generated/cheat-sheet-diagrams';
 
 // Re-export ChemIconName so other modules can import it directly from general.ts
 export type { ChemIconName };
@@ -143,20 +144,37 @@ export interface FormulaExample {
 }
 
 /**
- * A diagram for one cheat-sheet section.
+ * A diagram for one cheat-sheet section: a generated one, drawn inline in the
+ * reader's language, or a hand-made file under `public/`.
  *
- * `src` is a path under `public/`, so it is a URL and never translated.
- * `width` and `height` are the file's intrinsic pixel size and exist to reserve
- * the space before the image loads — without them the text below jumps down as
- * each diagram arrives, which is the layout shift docs/ACCESSIBILITY.md treats
- * as a defect rather than a cosmetic issue.
+ * `alt` is prose, and in both cases it is the diagram's accessible name. The
+ * English lives here; every other locale overrides it through `imageAlt` in
+ * the overlay, because an alt text that stays English on a German page is the
+ * one part of an image a screen-reader user actually reads.
  *
- * `alt` is prose. The English lives here; every other locale overrides it
- * through `imageAlt` in the overlay, because an alt text that stays English on
- * a German page is the one part of an image a screen-reader user actually
- * reads.
+ * docs/CHEAT_SHEET_IMAGES.md has both routes.
  */
-export interface CheatSheetImage {
+export type CheatSheetImage = CheatSheetGeneratedDiagram | CheatSheetImageFile;
+
+/**
+ * A diagram drawn by scripts/cheat-sheet-diagrams.mts. `diagram` names the
+ * slot; its size and its per-locale markup are generated, so neither is
+ * repeated here.
+ */
+export interface CheatSheetGeneratedDiagram {
+  diagram: CheatSheetDiagramId;
+  alt: string;
+}
+
+/**
+ * A hand-made file in `public/cheat-sheets/<slug>/`, shown with a plain
+ * `<img>` and the same in every locale. `src` is a URL and never translated.
+ * `width` and `height` are the file's intrinsic pixel size and exist to reserve
+ * the space before it loads — without them the text below jumps down as it
+ * arrives, which is the layout shift docs/ACCESSIBILITY.md treats as a defect
+ * rather than a cosmetic issue.
+ */
+export interface CheatSheetImageFile {
   src: string;
   width: number;
   height: number;

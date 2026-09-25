@@ -169,6 +169,56 @@
     --chem-amphoteric-bg: #3b0764;
   }
 
+/* --- Cheat-sheet diagram tokens --------------------------------------------
+ *
+ * Every colour in a generated cheat-sheet diagram
+ * (scripts/cheat-sheet-diagrams.mts). The diagrams are inline SVG, so unlike
+ * an <img> they follow [data-theme], and each token can have a value that
+ * works in its own theme. That is what lets their labels be regular weight at
+ * the size of the prose: an <img> needed one colour for both themes, no grey
+ * reaches 4.5:1 on both, and so every glyph used to be bold large text.
+ *
+ * Measured against --diagram-bg, the surface the page draws a diagram on
+ * (--background: #09090b dark, #f8fafc light). Text tokens clear 4.5:1 (WCAG
+ * 1.4.3) and graphic tokens 3:1 (1.4.11), in both themes.
+ * src/lib/cheat-sheet-diagrams.test.ts re-measures every value here.
+ *
+ *                          dark                   light
+ *   ink        (text)      #a1a1aa zinc-400 7.76  #475569 slate-600 7.24
+ *   ink-muted  (text)      #8b8b94          5.89  #64748b slate-500 4.55
+ *   proton     (text)      #f87171 red-400  7.19  #dc2626 red-600   4.62
+ *   electron   (text)      #60a5fa blue-400 7.83  #2563eb blue-600  4.94
+ *   neutron    (graphic)   #a1a1aa zinc-400 7.76  #475569 slate-600 7.24
+ *   accent     (graphic)   #60a5fa blue-400 7.83  #2563eb blue-600  4.94
+ *
+ * ink is --muted, the colour of the paragraph above each diagram, so a label
+ * is never louder than the prose it illustrates. proton and electron carry
+ * text as well as shapes ("Nucleus", an atomic number, "Electrons"), so they
+ * are held to the text threshold, not the graphic one. The electron cloud's
+ * stipple and the soft bands are drawn at reduced opacity on purpose: they
+ * are a region, not a mark the reader has to find, and every electron that is
+ * there to be counted is drawn at full strength.
+ */
+  :root,
+  [data-theme='dark'] {
+    --diagram-bg: var(--background);
+    --diagram-ink: #a1a1aa;
+    --diagram-ink-muted: #8b8b94;
+    --diagram-proton: #f87171;
+    --diagram-neutron: #a1a1aa;
+    --diagram-electron: #60a5fa;
+    --diagram-accent: #60a5fa;
+  }
+
+  [data-theme='light'] {
+    --diagram-ink: #475569;
+    --diagram-ink-muted: #64748b;
+    --diagram-proton: #dc2626;
+    --diagram-neutron: #475569;
+    --diagram-electron: #2563eb;
+    --diagram-accent: #2563eb;
+  }
+
 /* --- Periodic-table tones -------------------------------------------------
  *
  * One tone per thing a view mode can say about a cell, in both themes. The

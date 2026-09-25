@@ -20,10 +20,16 @@ import {
   PeriodicTableWidget,
 } from '@/components/periodic-table/PeriodicTableWidget';
 import type {
+  CheatSheetImage,
   CheatSheetResource,
   CheatSheetTable,
   CheatSheetWidgetName,
 } from '@/core-engine/types/general';
+import {
+  getCheatSheetDiagrams,
+  type CheatSheetDiagram,
+  type CheatSheetDiagramId,
+} from '@/lib/cheat-sheet-diagrams';
 import { getCheatSheet, getGlobalTeacherResources } from '@/i18n/cheat-sheets';
 import { getDictionary, type Dictionary } from '@/i18n/dictionaries';
 import { gameTitle } from '@/i18n/game-titles';
@@ -151,6 +157,75 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
   );
 }
 
+/**
+ * A section's diagram, pinned at 512 CSS px.
+ *
+ * **The width.** It pans sideways inside its `PannableBox` when the column is
+ * narrower, exactly as the lookup tables above do, rather than shrinking with
+ * the column. Diagrams are 640 units wide and their labels are 17.5 units
+ * (scripts/cheat-sheet-diagrams.mts), which at 512 px is 14 CSS px — the size
+ * of the paragraph above. In the 236 px column a 320 px phone gives, the same
+ * text would draw at 6.5 CSS px, and nothing in the drawing can fix that: the
+ * limiter is the column. WCAG 1.4.10 exempts content that needs a
+ * two-dimensional layout from the no-sideways-scrolling rule, which is the
+ * exemption the tables rely on; the page itself still reflows at 320 px.
+ * `PannableBox` says the figure continues past the edge, and makes the box a
+ * tab stop while, and only while, it pans.
+ *
+ * **A generated diagram is inline SVG**, so that its colours are the
+ * `--diagram-*` tokens in globals.css and follow `[data-theme]` — which an
+ * `<img>` cannot — and so that its words are the reader's language. This
+ * component owns the `<svg>` element: its size, its surface, and its
+ * accessible name, which is the section's translated `alt`, so no English
+ * `<title>` in the drawing competes with it (`role="img"` makes the drawing
+ * one image to assistive technology, not a heap of loose words).
+ * `dangerouslySetInnerHTML` inserts markup that scripts/cheat-sheet-diagrams.mts
+ * generated at build time from strings in this repository — never user input —
+ * with every string XML-escaped; ids inside it carry the slot's name, so they
+ * are unique on the page.
+ *
+ * **A hand-made file is a plain `<img>`**, not next/image: there is nothing for
+ * the optimiser to do to an SVG, and next/image would add a config surface
+ * (remotePatterns, dangerouslyAllowSVG) for no gain. Its width/height are the
+ * file's intrinsic size, set so the paragraph below does not jump when it
+ * arrives. It cannot follow the theme, which docs/CHEAT_SHEET_IMAGES.md
+ * explains to whoever draws one.
+ */
+function SectionImage({
+  image,
+  diagrams,
+}: {
+  image: CheatSheetImage;
+  diagrams?: Record<CheatSheetDiagramId, CheatSheetDiagram>;
+}) {
+  const frame = 'h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--diagram-bg)';
+
+  if ('diagram' in image) {
+    const diagram = diagrams?.[image.diagram];
+    // Unreachable while the types hold: `diagram` is typed by the generated
+    // index, and every locale module is generated from the same slot list.
+    if (!diagram) throw new Error(`No generated diagram named ${image.diagram}.`);
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox={`0 0 ${diagram.width} ${diagram.height}`}
+        width={diagram.width}
+        height={diagram.height}
+        role="img"
+        aria-label={image.alt}
+        data-diagram={diagram.id}
+        className={`${frame} font-normal`}
+        dangerouslySetInnerHTML={{ __html: diagram.markup }}
+      />
+    );
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={image.src} alt={image.alt} width={image.width} height={image.height} className={frame} />
+  );
+}
+
 function ResourceList({
   heading,
   resources,
@@ -204,6 +279,10 @@ export default async function CheatSheetDetailPage(
     ...(sheet.resources ?? []).filter((r) => r.audience === 'teacher'),
     ...getGlobalTeacherResources(locale),
   ];
+  // Only a sheet that has a generated diagram loads the locale's drawings.
+  const diagrams = sheet.sections.some((section) => section.image && 'diagram' in section.image)
+    ? await getCheatSheetDiagrams(locale)
+    : undefined;
   const relatedGames = (sheet.relatedGames ?? [])
     .map((gameId) => {
       const link = GAME_LINKS[gameId];
@@ -326,57 +405,8 @@ export default async function CheatSheetDetailPage(
                 <h3 className="text-base font-black text-(--foreground)">{section.heading}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
                 {section.image && (
-                  /*
-                   * The diagram is pinned at 512px and pans sideways inside
-                   * this box when the column is narrower than that, exactly as
-                   * the lookup tables above do. It is not free to shrink with
-                   * the column, because below a certain width it stops being a
-                   * diagram and becomes a grey smudge:
-                   *
-                   * The files are 640 units wide, and the generator holds their
-                   * text to a 20-unit floor (scripts/cheat-sheet-diagrams.mts).
-                   * At the 512px cap that is 16 CSS px — the figure
-                   * docs/feature-briefs/atomic-structure-redesign.md §12.3
-                   * sizes the type against. In the 236px column a 320px phone
-                   * actually gave it, the same text drew at 7.4 CSS px, and no
-                   * change to the SVG could fix that: the limiter is the
-                   * column, not the file. Letting the image break out of the
-                   * section padding instead would have bought 320px — 10 CSS
-                   * px — which is not legible either.
-                   *
-                   * WCAG 1.4.10 exempts content that needs a two-dimensional
-                   * layout from the no-sideways-scrolling rule, which is the
-                   * same exemption the tables rely on. The page itself still
-                   * reflows at 320px; only this box scrolls.
-                   *
-                   * `PannableBox` is the box. It tells the reader the figure
-                   * continues past the edge — a 320px phone shows 236 of the
-                   * 512, and the right-hand side of that slice is sometimes
-                   * empty, so the clipping is not always visible in itself —
-                   * and it makes the box a tab stop while it pans. The lookup
-                   * tables above use the same component; an affordance here
-                   * and not there would read as an inconsistency.
-                   *
-                   * A plain <img>, not next/image. These are small static SVGs
-                   * served straight from public/ — there is nothing for the
-                   * optimiser to do to an SVG, and next/image would add a
-                   * config surface (remotePatterns, dangerouslyAllowSVG) for no
-                   * gain. width/height are the file's intrinsic size and are
-                   * set so the paragraph below does not jump when the diagram
-                   * arrives.
-                   *
-                   * Replacing a diagram is replacing the file at `src`; no code
-                   * changes. See docs/CHEAT_SHEET_IMAGES.md.
-                   */
                   <PannableBox className="mt-3 max-w-lg">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={section.image.src}
-                      alt={section.image.alt}
-                      width={section.image.width}
-                      height={section.image.height}
-                      className="h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--background)"
-                    />
+                    <SectionImage image={section.image} diagrams={diagrams} />
                   </PannableBox>
                 )}
                 {section.widget && <SectionWidget name={section.widget} locale={locale} />}

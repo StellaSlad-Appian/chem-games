@@ -12,8 +12,8 @@ import { useI18n } from '@/i18n/client';
  * Two things on the cheat-sheet detail page do this. The lookup tables hold a
  * `min-w-[28rem]` table, and have since they were written. The section
  * diagrams hold a 512px figure, since 2026-09-21, because the alternative was
- * 20-unit type drawing at 7.4 CSS px (docs/CHEAT_SHEET_IMAGES.md, *How wide
- * the page draws it*). Neither told the reader. At a 320px viewport the
+ * their 14px labels drawing at 6.5 CSS px (docs/CHEAT_SHEET_IMAGES.md, *How
+ * wide the page draws it*). Neither told the reader. At a 320px viewport the
  * visible slice is 236px of 512, so a student who does not swipe sees the left
  * 46% of every figure and believes it is the whole figure.
  *
@@ -92,10 +92,10 @@ export function PannableBox({
     measure();
 
     // Two things change the answer independently. The box resizes when the
-    // column does; the content resizes on its own when an SVG finishes
-    // decoding, which moves `scrollWidth` while the box stands still. Watching
-    // only the box would miss the first paint of every diagram — the case this
-    // component exists for.
+    // column does; the content can resize on its own — a hand-made diagram's
+    // `<img>` finishing its decode moves `scrollWidth` while the box stands
+    // still. Watching only the box would miss that first paint. (A generated
+    // diagram is inline SVG and is its full size from the first render.)
     const observer = new ResizeObserver(measure);
     observer.observe(box);
     for (const child of Array.from(box.children)) observer.observe(child);

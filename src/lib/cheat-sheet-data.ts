@@ -169,48 +169,30 @@ export const GAME_LINKS: Partial<Record<GameName, { title: string; href: string 
 // Cheat sheets
 // ---------------------------------------------------------------------------
 
-/**
- * Folder holding this sheet's diagrams, under `public/`.
- *
- * Every section below points at a file in here, and every one of those files is
- * **generated** by `scripts/cheat-sheet-diagrams.mts`:
+/*
+ * The diagrams on the two atom sheets are **generated**, by
+ * `scripts/cheat-sheet-diagrams.mts`, once per locale:
  *
  * ```
- * npm run cheat-sheets:diagrams              write the files
- * npm run cheat-sheets:diagrams -- --check   fail if a file on disk is stale
+ * npm run cheat-sheets:diagrams              write the modules
+ * npm run cheat-sheets:diagrams -- --check   fail if a module on disk is stale
  * ```
  *
- * So changing a diagram is changing that script's drawing function and
- * re-running it — not editing the SVG, which the next run overwrites. The
- * `--check` mode is what stops a hand-edit surviving unnoticed.
+ * A section names its slot with `image.diagram` — `<sheet slug>/<slot>` — and
+ * the page draws that slot inline, in the reader's language, with the section's
+ * `alt` as its accessible name. Changing a diagram is changing the script's
+ * drawing function, or its words in `scripts/cheat-sheet-diagram-strings.mts`,
+ * and re-running it; never the generated output, which the next run overwrites.
  *
- * Note this is not how a *new* sheet's diagrams have to work: the page shows
- * whatever is at the filename, so dropping a file in still works elsewhere.
- * These seven are generated because they have to hold one measured palette
- * across both themes and keep their numbers agreeing with the prose.
+ * Slot 7 keeps its name, `07-decay-and-made-elements`, although it is now the
+ * decay curve alone: the synthetic elements that were its other half moved to
+ * the periodic table widget's *natural or made* view mode, and the name is the
+ * key the data, the strings and the page share.
  *
- * docs/CHEAT_SHEET_IMAGES.md lists every slot and its size, and the script's
- * own header carries the reasoning.
+ * A hand-made file still works on any sheet: `image: { src, width, height, alt }`
+ * shows whatever is at `src` under `public/`. docs/CHEAT_SHEET_IMAGES.md has
+ * both routes, every slot and its size.
  */
-const ATOMIC_STRUCTURE_DIAGRAMS = '/cheat-sheets/atomic-structure/';
-
-/**
- * The same arrangement for the Year 10 sheet the atomic-structure sheet split
- * into. Three of the original seven diagrams teach isotopes, the weighted
- * average and decay, so they moved with the prose rather than being served to
- * the new sheet out of the old sheet's folder. One folder per slug is what
- * docs/CHEAT_SHEET_IMAGES.md documents.
- *
- * The redesign brief wanted slot 7 renamed to `07-half-life.svg` and its
- * synthetic-element half split into a second file. Neither happened, and
- * neither should: the filename is the contract the images doc is built on, and
- * the synthetic elements moved to the periodic table widget's *natural or made*
- * view mode rather than to another diagram. `07-decay-and-made-elements.svg` is
- * now the decay curve alone, under the Half-life section. The note under "The
- * slots on Isotopes & Radioactivity" in docs/CHEAT_SHEET_IMAGES.md is the
- * current version of this.
- */
-const ISOTOPE_DIAGRAMS = '/cheat-sheets/isotopes-and-radioactivity/';
 
 export const CHEAT_SHEETS: CheatSheetTopic[] = [
   {
@@ -242,9 +224,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         content:
           'An atom has a nucleus of protons and neutrons, with electrons around it. Protons carry a positive charge and electrons an equal negative one, so a neutral atom has the same number of each. Neutrons carry no charge. Nearly all the mass is in the nucleus, because an electron weighs almost nothing next to a proton.',
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}01-inside-an-atom.svg`,
-          width: 640,
-          height: 360,
+          diagram: 'atomic-structure/01-inside-an-atom',
           alt: 'A nucleus of protons and neutrons at the centre, with a fuzzy cloud around it showing where electrons are likely to be. A note says the nucleus is drawn far too large to be seen at all.',
         },
       },
@@ -257,9 +237,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
           { name: 'Chlorine-37', formula: 'Cl-37' },
         ],
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}02-atomic-and-mass-number.svg`,
-          width: 640,
-          height: 320,
+          diagram: 'atomic-structure/02-atomic-and-mass-number',
           alt: 'The symbol for chlorine-35 with the mass number 35 written above the atomic number 17, and arrows labelling each: 17 protons, and 35 minus 17 giving 18 neutrons.',
         },
       },
@@ -268,9 +246,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         content:
           'Electrons occupy energy levels around the nucleus. The first holds up to 2, the next up to 8, then 8 again for the first twenty elements. Your teacher may call these shells; it means the same thing. Counting electrons this way is called the Bohr model: it is useful, and it is not a picture of a real atom. The number in the outer level sets how an atom reacts. Elements are placed in the same group when they have the same outer count, which is why a group behaves alike.',
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}05-energy-levels.svg`,
-          width: 640,
-          height: 300,
+          diagram: 'atomic-structure/05-energy-levels',
           alt: 'A sodium nucleus of 11 protons and 12 neutrons, surrounded by three soft bands holding 2, 8 and 1 electrons as marks at irregular angles rather than dots on circles. Beside it, the arrangement 2, 8, 1 with the outer level last. The diagram says it is a way to count electrons, not a picture of an atom, and that the nucleus is drawn about 100,000 times too big.',
         },
         /*
@@ -313,9 +289,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         content:
           'Mendeleev arranged the table by mass, and a few elements came out in the wrong place. In 1913 Henry Moseley measured the charge on the nucleus and found the order that works: atomic number. Tellurium is heavier than iodine but comes before it, because it has one proton fewer.',
         image: {
-          src: `${ATOMIC_STRUCTURE_DIAGRAMS}06-ordered-by-atomic-number.svg`,
-          width: 640,
-          height: 300,
+          diagram: 'atomic-structure/06-ordered-by-atomic-number',
           alt: 'Tellurium and iodine side by side. Tellurium has the larger relative atomic mass but the smaller atomic number, and the table places it first.',
         },
       },
@@ -389,9 +363,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         content:
           'Isotopes are atoms of one element with different numbers of neutrons. Chemistry is done by electrons, and isotopes have the same number of those, so they react identically. What differs is mass, and sometimes stability: some isotopes are radioactive and some are not.',
         image: {
-          src: `${ISOTOPE_DIAGRAMS}03-isotopes-of-hydrogen.svg`,
-          width: 640,
-          height: 280,
+          diagram: 'isotopes-and-radioactivity/03-isotopes-of-hydrogen',
           alt: 'Three hydrogen atoms side by side: one proton, one proton and one neutron, and one proton and two neutrons. All three have a single electron.',
         },
       },
@@ -405,9 +377,7 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         content:
           'Half-life is the time it takes for half of a sample to decay. After one half-life half is left, after two a quarter, and after three an eighth. The number is fixed for each isotope, and heating it or reacting it does not change it. Carbon-14 has a half-life of about 5730 years. Uranium-238 has one of about 4.5 billion years, which is why there is still uranium in the ground.',
         image: {
-          src: `${ISOTOPE_DIAGRAMS}07-decay-and-made-elements.svg`,
-          width: 640,
-          height: 320,
+          diagram: 'isotopes-and-radioactivity/07-decay-and-made-elements',
           alt: 'A decay curve falling from 100 per cent to 50, 25 and 12.5 per cent at one, two and three half-lives, with a dashed line down to the axis at each. After three half-lives an eighth is left. One half-life is 5730 years for carbon-14 and about 4.5 billion years for uranium-238.',
         },
       },

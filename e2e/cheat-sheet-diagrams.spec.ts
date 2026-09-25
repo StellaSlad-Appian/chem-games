@@ -6,15 +6,13 @@
 // the page still reflows at 320.**
 //
 // The two are in tension, which is the whole reason this file exists. The
-// files are 640 units wide and their text is held to a 20-unit floor by
-// `scripts/cheat-sheet-diagrams.mts`, so 512 px is what turns that floor into
-// 16 CSS px — the size
-// `docs/feature-briefs/atomic-structure-redesign.md` §12.3 reasons about. The
-// image used to be `w-full max-w-lg`, which gave it whatever the column had:
-// 512 on a desktop and 236 on a 320 px phone, where the same text drew at 7.4
-// CSS px. Pinning the width fixes the type and makes the image wider than its
-// column, so the check that the *page* does not scroll sideways has to come
-// with it — otherwise the cure is an accessibility regression.
+// diagrams are 640 units wide and `scripts/cheat-sheet-diagrams.mts` sets their
+// labels at 17.5 units, so 512 px is what makes a label 14 CSS px — the size of
+// the paragraph above it. Left to shrink with the column, a 320 px phone would
+// give the diagram 236 px and the same label 6.5 CSS px. Pinning the width
+// fixes the type and makes the diagram wider than its column, so the check
+// that the *page* does not scroll sideways has to come with it — otherwise the
+// cure is an accessibility regression.
 //
 // `docs/ACCESSIBILITY.md` requires 320 px (1.4.10), not 360. The 375 is an
 // iPhone, which is what most of these readers actually hold.
@@ -34,6 +32,12 @@
 // user pays for on every table on the page — so `nothing carries a tab stop on
 // a desktop layout` is not a formality.
 //
+// **Three: a generated diagram is inline SVG in the reader's language and
+// theme.** Its words come from `scripts/cheat-sheet-diagram-strings.mts`, so
+// the German page is checked against that table's German entries rather than
+// against a literal, and its colours are `--diagram-*` custom properties that
+// have to change when the theme does — the thing an `<img>` could not do.
+//
 // **The overhang check skips anything inside a clipping box on purpose.** The
 // diagram's own `getBoundingClientRect()` reports all 512 px, hanging well
 // past a 320 px viewport, and it is supposed to: it sits in an
@@ -47,9 +51,16 @@ import { CHEAT_SHEETS } from '../src/lib/cheat-sheet-data';
 import { en } from '../src/i18n/dictionaries/en';
 import { de } from '../src/i18n/dictionaries/de';
 import { path, waitForHydration } from './helpers';
+import { DIAGRAM_STRINGS } from '../scripts/cheat-sheet-diagram-strings.mts';
 
-/** `max-w-lg` / `min-w-lg`, the width the 20-unit text floor is sized for. */
+/** `max-w-lg` / `min-w-lg`: the width at which a 17.5-unit label is 14 CSS px. */
 const DRAWN_WIDTH = 512;
+
+/**
+ * A section diagram: a generated one, drawn inline, or a hand-made file shown
+ * with `<img>`. The page renders both through the same `SectionImage`.
+ */
+const DIAGRAM = 'svg[data-diagram], img[src^="/cheat-sheets/"]';
 
 const SHEETS_WITH_DIAGRAMS = CHEAT_SHEETS.filter((sheet) =>
   sheet.sections.some((section) => section.image)
@@ -63,18 +74,18 @@ type Diagram = {
 };
 
 const diagrams = (page: Page): Promise<Diagram[]> =>
-  page.evaluate(() =>
-    Array.from(document.querySelectorAll<HTMLImageElement>('img[src^="/cheat-sheets/"]')).map(
-      (img) => {
-        const box = img.parentElement!;
+  page.evaluate(
+    (selector) =>
+      Array.from(document.querySelectorAll<Element>(selector)).map((figure) => {
+        const box = figure.parentElement!;
         return {
-          file: img.getAttribute('src')!.split('/').pop()!,
-          imgWidth: Math.round(img.getBoundingClientRect().width),
+          file: figure.getAttribute('data-diagram') ?? figure.getAttribute('src')!,
+          imgWidth: Math.round(figure.getBoundingClientRect().width),
           boxClientWidth: box.clientWidth,
           boxScrollWidth: box.scrollWidth,
         };
-      }
-    )
+      }),
+    DIAGRAM
   );
 
 /**
@@ -122,24 +133,24 @@ type PanBox = {
 };
 
 const panBoxes = (page: Page): Promise<PanBox[]> =>
-  page.evaluate(() =>
-    Array.from(
-      document.querySelectorAll<HTMLElement>(
-        'table[class*="min-w-"], img[src^="/cheat-sheets/"]'
-      )
-    ).map((content) => {
-      const box = content.parentElement!;
-      const hint = box.parentElement!.querySelector('p[aria-hidden="true"]');
-      return {
-        kind: content.tagName === 'TABLE' ? ('table' as const) : ('diagram' as const),
-        pans: box.scrollWidth - box.clientWidth > 1,
-        tabIndex: box.getAttribute('tabindex'),
-        role: box.getAttribute('role'),
-        label: box.getAttribute('aria-label'),
-        hint: hint?.textContent?.trim() ?? null,
-        hintOpacity: hint ? getComputedStyle(hint).opacity : null,
-      };
-    })
+  page.evaluate(
+    (diagram) =>
+      Array.from(document.querySelectorAll<Element>(`table[class*="min-w-"], ${diagram}`)).map(
+        (content) => {
+          const box = content.parentElement!;
+          const hint = box.parentElement!.querySelector('p[aria-hidden="true"]');
+          return {
+            kind: content.tagName === 'TABLE' ? ('table' as const) : ('diagram' as const),
+            pans: box.scrollWidth - box.clientWidth > 1,
+            tabIndex: box.getAttribute('tabindex'),
+            role: box.getAttribute('role'),
+            label: box.getAttribute('aria-label'),
+            hint: hint?.textContent?.trim() ?? null,
+            hintOpacity: hint ? getComputedStyle(hint).opacity : null,
+          };
+        }
+      ),
+    DIAGRAM
   );
 
 /**
@@ -223,11 +234,13 @@ test.describe('cheat-sheet pan affordance', () => {
     await settledPanBoxes(page, (await panBoxes(page)).length);
 
     const scrollFirstDiagram = (to: 'end' | 'start') =>
-      page.evaluate((target) => {
-        const box = document.querySelector<HTMLImageElement>('img[src^="/cheat-sheets/"]')!
-          .parentElement!;
-        box.scrollLeft = target === 'end' ? box.scrollWidth : 0;
-      }, to);
+      page.evaluate(
+        ({ target, diagram }) => {
+          const box = document.querySelector(diagram)!.parentElement!;
+          box.scrollLeft = target === 'end' ? box.scrollWidth : 0;
+        },
+        { target: to, diagram: DIAGRAM }
+      );
 
     const firstDiagram = async () =>
       (await panBoxes(page)).find((box) => box.kind === 'diagram')!;
@@ -322,4 +335,118 @@ test.describe('cheat-sheet diagrams', () => {
       }
     });
   }
+});
+
+/** A `{name}` placeholder is filled with a whole number by the script. */
+const asPattern = (entry: string) =>
+  new RegExp(`^${entry.replace(/[.*+?^$()|[\]\\]/g, '\\$&').replace(/\{\w+\}/g, '\\d+')}$`);
+
+type Rgb = [number, number, number];
+
+const parseRgb = (css: string): Rgb => {
+  const match = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(css);
+  if (!match) throw new Error(`not an rgb() colour: ${css}`);
+  return [Number(match[1]), Number(match[2]), Number(match[3])];
+};
+
+const contrast = (a: Rgb, b: Rgb): number => {
+  const luminance = (rgb: Rgb) => {
+    const [r, g, b] = rgb.map((v) => {
+      const c = v / 255;
+      return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  };
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x);
+  return (light + 0.05) / (dark + 0.05);
+};
+
+test.describe('generated diagrams: language and theme', () => {
+  const GENERATED = CHEAT_SHEETS.filter((sheet) =>
+    sheet.sections.some((section) => section.image && 'diagram' in section.image)
+  ).map((sheet) => sheet.slug);
+
+  test('there are generated diagrams to check', () => {
+    expect(GENERATED.length).toBeGreaterThan(0);
+  });
+
+  for (const slug of GENERATED) {
+    test(`${slug}: /de draws every diagram from its German strings`, async ({ page }) => {
+      // Until the German labels are written the German entries equal the
+      // English ones, so this compares with the strings table and not with a
+      // literal: the claim is that the page draws the `de` entry, whatever
+      // it currently says.
+      await page.goto(path(`/cheat-sheets/${slug}`, 'de'));
+
+      const found = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('svg[data-diagram]')).map((svg) => ({
+          id: svg.getAttribute('data-diagram')!,
+          label: svg.getAttribute('aria-label'),
+          role: svg.getAttribute('role'),
+          texts: Array.from(svg.querySelectorAll('text')).map((text) => text.textContent ?? ''),
+        }))
+      );
+      expect(found.length).toBeGreaterThan(0);
+
+      const sheet = CHEAT_SHEETS.find((candidate) => candidate.slug === slug)!;
+      for (const diagram of found) {
+        const table = DIAGRAM_STRINGS[diagram.id];
+        expect(table, `no strings table for ${diagram.id}`).toBeDefined();
+        for (const [key, entry] of Object.entries(table.de)) {
+          expect(
+            diagram.texts.some((text) => asPattern(entry).test(text)),
+            `${diagram.id} does not draw de.${key} ("${entry}")`
+          ).toBe(true);
+        }
+
+        // The accessible name is the section's translated alt, not anything
+        // English inside the drawing.
+        expect(diagram.role).toBe('img');
+        const section = sheet.sections.find(
+          (candidate) =>
+            candidate.image && 'diagram' in candidate.image && candidate.image.diagram === diagram.id
+        )!;
+        expect(diagram.label).toBeTruthy();
+        expect(diagram.label, `${diagram.id} is named in English on /de`).not.toBe(section.image!.alt);
+      }
+
+      // Ids inside inline SVG share the page's id space.
+      const ids = await page.evaluate(() =>
+        Array.from(document.querySelectorAll('[id]')).map((element) => element.id)
+      );
+      expect(ids.length, 'an id on this page is used twice').toBe(new Set(ids).size);
+    });
+  }
+
+  test('a diagram follows the theme toggle', async ({ page }) => {
+    await page.addInitScript(() => window.localStorage.setItem('chem-games-theme', 'light'));
+    await page.goto(path(`/cheat-sheets/${GENERATED[0]}`));
+    await expect.poll(() => page.evaluate(() => document.documentElement.dataset.theme)).toBe('light');
+
+    const colours = () =>
+      page.evaluate(() => {
+        const svg = document.querySelector('svg[data-diagram]')!;
+        return {
+          background: getComputedStyle(svg).backgroundColor,
+          text: Array.from(svg.querySelectorAll('text')).map((text) => getComputedStyle(text).fill),
+        };
+      });
+
+    const light = await colours();
+    // What the settings toggle does: flip the attribute in place, no reload.
+    await page.evaluate(() => {
+      document.documentElement.dataset.theme = 'dark';
+    });
+    const dark = await colours();
+
+    expect(dark.background).not.toBe(light.background);
+    expect(dark.text[0]).not.toBe(light.text[0]);
+    // Every label clears normal-text contrast in both themes, which is what
+    // lets it be regular weight at 14 px.
+    for (const { background, text } of [light, dark]) {
+      for (const fill of new Set(text)) {
+        expect(contrast(parseRgb(fill), parseRgb(background)), `${fill} on ${background}`).toBeGreaterThanOrEqual(4.5);
+      }
+    }
+  });
 });

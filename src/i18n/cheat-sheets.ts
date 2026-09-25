@@ -222,8 +222,9 @@ function localizeSheet(sheet: CheatSheetTopic, overlay: CheatSheetOverlay): Chea
             sectionOverlay.exampleDescriptions?.[exampleIndex]
           ),
         })),
-        // The image itself is structure — same file, same size, every locale.
-        // Only the alt text is prose.
+        // The image itself is structure — the same slot or file in every
+        // locale. Only the alt text is prose here; the words inside a
+        // generated diagram are localised by scripts/cheat-sheet-diagrams.mts.
         image: section.image
           ? { ...section.image, alt: sectionOverlay.imageAlt ?? section.image.alt }
           : undefined,
