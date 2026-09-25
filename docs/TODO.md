@@ -183,7 +183,8 @@ has been pushed:
 | 3 Science fixes, other 13 sheets | `cheatsheet/3-other-sheet-fixes` | done, `533b228` + `685bdd0` + `4727cb9` (French *groupe*, added after step 4 had branched: carry it into step 5) |
 | 4 Diagram display (inline SVG, lighter type, per language) | `cheatsheet/4-diagram-pipeline` | done, `03c165d` |
 | 5 Redraw diagrams 01, 02, 05, 06 | `cheatsheet/5-atom-diagrams` (includes the French *groupe* commit) | done, `f857013` |
-| 6–9 Redraw isotope diagrams, new diagrams | — | not started |
+| 6 Diagram boxes sized to their drawings; redraw diagrams 03, 07 | `cheatsheet/6-isotope-diagrams` | running |
+| 7–9 New diagrams | — | not started |
 | 10a/10b Eight smaller diagrams | — | **on hold** until the owner has seen 7–9 |
 
 Owner to-dos from this work:
