@@ -333,6 +333,13 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'L’échelle de pH',
+        content:
+          'Le pH indique si une solution est acide, neutre ou basique. À 25 °C, une solution est acide en dessous de 7, neutre à 7 et basique au-dessus de 7 ; la plupart des solutions que tu rencontreras ont un pH compris entre 0 et 14. L’indicateur universel prend une couleur différente à chaque pH : rouge du côté acide, vert à 7 et violet du côté basique.',
+        imageAlt:
+          'L’échelle de pH sous forme de barre, de 0 en haut à 14 en bas, chaque graduation dans sa couleur d’indicateur universel, avec son nombre à côté : rouge à 0, orange à 1, jaune à 2 et 3, vert de 4 à 8, bleu-vert à 9, bleu à 10 et 11 et violet de 12 à 14. Cinq produits du quotidien sont placés à leur pH : le suc gastrique à 1, le vinaigre à 3, l’eau pure à 7, le bicarbonate à 8 et le décapant four à 13.',
+      },
+      {
         heading: 'Fort et faible, ce n’est pas la même chose que concentré et dilué',
         content:
           'Les acides forts s’ionisent totalement dans l’eau (HCl, HNO3, H2SO4). Les acides faibles ne s’ionisent que partiellement (CH3COOH, H2CO3). « Concentré » et « dilué » disent quelle quantité d’acide est dissoute, pas quelle proportion s’ionise : il existe des acides forts dilués et des acides faibles concentrés.',
@@ -387,6 +394,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         content:
           '1. Écris la formule correcte de chaque réactif et de chaque produit. 2. Compte les atomes de chaque élément de chaque côté. 3. Commence par l’élément qui apparaît dans le moins de formules. 4. Ne change que les coefficients. 5. Si tu obtiens une fraction (par exemple 7/2 O2), multiplie tout par 2. 6. Recompte chaque élément. 7. Ajoute les symboles d’état.',
         exampleNames: ['Combustion du propane'],
+        imageAlt:
+          'La réaction 2H₂ + O₂ → 2H₂O représentée par des particules. À gauche, les réactifs : deux molécules de dihydrogène, chacune formée de deux atomes marqués H qui se touchent, plus une molécule de dioxygène, deux atomes marqués O. Une flèche mène aux produits : deux molécules d’eau, chacune un atome O lié à deux atomes H. L’équation est écrite sous les particules et, en dessous, les atomes sont comptés de chaque côté : H 4 et 4, O 2 et 2.',
       },
     ],
     commonMistakes: [
@@ -469,6 +478,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         heading: 'Pourquoi les composés ioniques ne conduisent que fondus ou dissous',
         content:
           'Dans le réseau solide, les ions sont bloqués sur place : aucune particule chargée ne peut se déplacer. La fusion ou la dissolution libère les ions, et le liquide conduit. Les métaux conduisent dans tous les états, parce que leurs électrons libres sont toujours mobiles.',
+        imageAlt:
+          'Trois cadres, l’un sous l’autre. Liaison ionique : un réseau de petits ions positifs et de gros ions négatifs qui alternent, chacun marqué + ou −. Liaison covalente : une molécule de dihydrogène, deux atomes marqués H dont les cercles se chevauchent, avec deux points (les électrons) dans la zone commune, légendés doublet liant. Liaison métallique : un réseau d’ions métalliques positifs, avec autant de petits points (les électrons) dispersés entre eux, légendés électrons libres.',
       },
     ],
     tables: [
@@ -677,6 +688,8 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
         heading: 'Ce que « relative » veut dire',
         content:
           'Les atomes sont bien trop légers pour être pesés un par un : les chimistes les comparent. Pose un atome de carbone sur un plateau et des atomes d’hydrogène sur l’autre — il en faut 12 pour que la balance soit à l’équilibre. Toute l’idée est là : le carbone est 12 fois plus lourd que l’hydrogène, donc on dit que sa masse atomique relative vaut 12. Le nombre répond à la question « combien d’hydrogènes ? », et c’est pour cela qu’il n’a pas d’unité : c’est une comparaison, pas une mesure. En toute rigueur, l’étalon est le carbone 12, pas l’hydrogène : chaque masse atomique relative compare un atome à un douzième d’un atome de carbone 12. L’hydrogène tombe sur presque exactement 1, et c’est pour cela que l’image de la balance fonctionne.',
+        imageAlt:
+          'Une balance à deux plateaux suspendus, en équilibre. Sur le plateau de gauche, un atome de carbone, un cercle marqué C. Sur celui de droite, douze atomes d’hydrogène, des cercles plus petits marqués H, empilés en rangées de cinq, quatre et trois. Le carbone est dessiné plus gros que l’hydrogène, mais loin d’être douze fois plus gros. Sous les plateaux, on lit « 1 atome de carbone » et « 12 atomes d’hydrogène », et une mention précise que l’échelle n’est pas respectée.',
       },
       {
         heading: 'Additionner les atomes',

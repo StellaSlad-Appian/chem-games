@@ -64,6 +64,14 @@ const THRESHOLD: Record<string, number> = {
   '--diagram-accent': 3,
 };
 
+/**
+ * The universal-indicator colours on the pH scale: the one place a diagram's
+ * colour is fixed rather than themed, so they are held to a different rule.
+ * They carry no text and need not clear 3:1 themselves; a step that does not,
+ * against either background, must be outlined in `--diagram-ink`, which does.
+ */
+const INDICATOR = /^--diagram-ph-\d+$/;
+
 const markupByLocale = Object.fromEntries(
   await Promise.all(
     LOCALES.map(async (locale) => [locale, await getCheatSheetDiagrams(locale)] as const)
@@ -80,7 +88,7 @@ describe('diagram colour tokens', () => {
 
   it('uses only tokens this test holds to a threshold', () => {
     expect(used.size).toBeGreaterThan(0);
-    expect([...used].filter((token) => !(token in THRESHOLD))).toEqual([]);
+    expect([...used].filter((token) => !(token in THRESHOLD) && !INDICATOR.test(token))).toEqual([]);
   });
 
   for (const theme of ['light', 'dark'] as const) {
@@ -99,6 +107,35 @@ describe('diagram colour tokens', () => {
       }
     });
   }
+});
+
+describe('universal-indicator colours', () => {
+  const steps = Array.from({ length: 15 }, (_, pH) => `--diagram-ph-${pH}`);
+  const dark = themeProperties('dark');
+  const light = themeProperties('light');
+
+  it('are fixed: one value per pH, set once and not overridden by the light theme', () => {
+    for (const token of steps) {
+      expect(dark.get(token), `${token} is not set`).toMatch(/^#[0-9a-f]{6}$/i);
+      expect(light.has(token), `${token} is overridden in the light theme`).toBe(false);
+    }
+  });
+
+  it.each(LOCALES)('outlines every step under 3:1 against either background in %s', (locale) => {
+    const effectiveLight = new Map([...dark, ...light]);
+    const backgrounds = [resolve(dark, dark.get('--diagram-bg')!), resolve(effectiveLight, effectiveLight.get('--diagram-bg')!)];
+    const markup = markupByLocale[locale]['acids-and-bases/01-ph-scale'].markup;
+    const drawn = new Set<string>();
+    for (const [element, token] of markup.matchAll(/<rect [^>]*style="fill:var\((--diagram-ph-\d+)\)[^"]*"[^>]*>/g)) {
+      drawn.add(token);
+      const colour = dark.get(token)!;
+      if (backgrounds.some((background) => contrast(colour, background) < 3)) {
+        expect(element, `${token} ${colour} is under 3:1 and not outlined`).toMatch(/stroke:var\(--diagram-ink\)/);
+        expect(Number(/stroke-width="([\d.]+)"/.exec(element)?.[1] ?? 0)).toBeGreaterThanOrEqual(1);
+      }
+    }
+    expect([...drawn].sort()).toEqual([...steps].sort());
+  });
 });
 
 describe('generated diagrams', () => {

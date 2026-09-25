@@ -505,6 +505,15 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
     ],
     sections: [
       {
+        heading: 'The pH scale',
+        content:
+          'pH says how acidic or alkaline a solution is. At 25 °C, below 7 is acidic, 7 is neutral and above 7 is alkaline, and most solutions you will meet lie between 0 and 14. Universal indicator turns a different colour at each pH: red at the acidic end, green at 7 and purple at the alkaline end.',
+        image: {
+          diagram: 'acids-and-bases/01-ph-scale',
+          alt: 'The pH scale as a bar from 0 at the top to 14 at the bottom, each step in its universal-indicator colour with its number printed beside it: red at 0, orange at 1, yellow at 2 and 3, green from 4 to 8, blue-green at 9, blue at 10 and 11 and purple from 12 to 14. Five everyday solutions are marked at their pH: stomach acid at 1, vinegar at 3, pure water at 7, baking soda at 8 and oven cleaner at 13.',
+        },
+      },
+      {
         heading: 'Strong vs weak is not the same as concentrated vs dilute',
         content: 'Strong acids ionise completely in water (HCl, HNO3, H2SO4). Weak acids only partly ionise (CH3COOH, H2CO3). "Concentrated" and "dilute" describe how much acid is dissolved, not how much of it ionises — you can have a dilute strong acid or a concentrated weak acid.',
         examples: [
@@ -575,6 +584,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         examples: [
           { name: 'Combustion of propane', formula: 'C3H8 (g) + 5O2 (g) -> 3CO2 (g) + 4H2O (l)' },
         ],
+        image: {
+          diagram: 'balancing-equations/01-particle-equation',
+          alt: 'The reaction 2H₂ + O₂ → 2H₂O drawn as particles. On the left, the reactants: two hydrogen molecules, each two touching atoms marked H, plus one oxygen molecule, two touching atoms marked O. An arrow points to the products: two water molecules, each an O atom with two H atoms. The equation is written under the particles, and under that the atoms are counted on each side: H 4 and 4, O 2 and 2.',
+        },
       },
     ],
     commonMistakes: [
@@ -665,6 +678,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
       {
         heading: 'Why ionic compounds conduct only when molten or dissolved',
         content: 'In the solid lattice the ions are locked in place, so no charged particles can move. Melting or dissolving frees the ions, and the liquid conducts. Metals conduct in all states because their delocalised electrons are always free to move.',
+        image: {
+          diagram: 'chemical-bonds/01-bonding-models',
+          alt: 'Three boxes, one above another. Ionic: a grid of small positive ions and large negative ions, alternating, each marked + or −. Covalent: one hydrogen molecule, two atoms marked H whose circles overlap, with two electron dots in the overlap, labelled shared pair. Metallic: a grid of positive metal ions with as many small electron dots scattered between them, labelled delocalised electrons.',
+        },
       },
     ],
     tables: [
@@ -869,6 +886,10 @@ export const CHEAT_SHEETS: CheatSheetTopic[] = [
         heading: 'What "relative" actually means',
         content:
           'Atoms are far too light to weigh one at a time, so chemists compare them instead. Put one carbon atom on one pan of a balance and hydrogen atoms on the other: it takes 12 hydrogens to make it level. That is the whole idea — carbon is 12 times as heavy as hydrogen, so we say its relative atomic mass is 12. The number answers "how many hydrogens?", which is why it has no unit: it is a comparison, not a measurement. Strictly, the standard is carbon-12, not hydrogen: every Ar compares an atom against one twelfth of a carbon-12 atom. Hydrogen lands on almost exactly 1, which is why the balance picture works.',
+        image: {
+          diagram: 'relative-formula-mass/01-carbon-hydrogen-balance',
+          alt: 'A balance with two hanging pans, level. On the left pan is one carbon atom, a circle marked C. On the right pan are twelve hydrogen atoms, smaller circles marked H, piled in rows of five, four and three. Carbon is drawn bigger than hydrogen, but nowhere near twelve times the size. Labels under the pans say 1 carbon atom and 12 hydrogen atoms, and a note says the picture is not to scale.',
+        },
       },
       {
         heading: 'Adding the atoms up',

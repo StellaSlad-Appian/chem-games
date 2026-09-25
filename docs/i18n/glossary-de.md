@@ -57,6 +57,9 @@ suite rather than failing silently on screen.
 | strong / weak acid | **starke / schwache Säure** | — |
 | concentrated / dilute | **konzentriert / verdünnt** | — |
 | salt | **Salz** | — |
+| universal indicator | **Universalindikator** | One word, as on the bottle in a German school lab. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **pH-Skala** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **Magensäure** (1), **Essig** (3), **reines Wasser** (7), **Natron** (8), **Backofenreiniger** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Natron*, not *Backpulver*: see *baking soda* below. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -202,6 +205,7 @@ new with the split.
 | significant figures | **gültige Ziffern** | Added 2026-09-25. The phrase German physics and chemistry lessons use for the rounding rule (*so viele gültige Ziffern wie die ungenaueste Angabe*). *Signifikante Stellen*, which the stoichiometry sheet used before, is understood but reads like a translation. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence on the functional-groups sheet now points to *eine IR-Tabelle*, and the polyatomic-ion table is headed *Die wichtigsten mehratomigen Ionen*. The *Tafelwerk* is the German equivalent for most data, but it was not named for IR ranges because not every Tafelwerk prints them. |
 | molar gas volume (V_m), reference conditions | **V_m = 24,5 L/mol bei 25 °C und 1013 hPa (bei 0 °C: 22,4 L/mol)**, table cell says **das Volumen eines Gases** (no "bei SLC") | Added 2026-09-25. English "SLC" (standard laboratory conditions, 25 °C / 100 kPa) is the Australian VCE convention and has no German equivalent, so it is dropped rather than translated. German Abitur formula sheets (NRW 2024, Baden-Württemberg 2025, "Festgelegte Bedingungen", p = 101 325 Pa) instead give **two** reference points: V_m = 22,414 L/mol at 273,15 K (0 °C) and 24,466 L/mol at 298,15 K (25 °C), rounded here to 22,4 and 24,5. `cheat-sheets.test.ts` carries a narrow, commented exception for exactly this cell, because the German number now legitimately differs from the English 24,8 L/mol at 100 kPa. |
+| a two-pan balance (the relative-mass picture) | **Balkenwaage**, its pans **Waagschalen**; level is **im Gleichgewicht** | *Die Waage steht gerade* is how the sheet's prose says it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Organic chemistry
 

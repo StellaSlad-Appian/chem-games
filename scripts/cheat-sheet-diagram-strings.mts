@@ -664,4 +664,182 @@ export const DIAGRAM_STRINGS: Record<string, SlotStrings> = {
       esterification: 'спирт, катализатор H2SO4',
     },
   },
+  // One carbon atom balancing twelve hydrogen atoms. {count} is filled from
+  // the script's CARBON_HYDROGEN_BALANCE, so write the noun for that count:
+  // Russian «1 атом», «12 атомов». `notToScale` is each glossary's own
+  // diagram caveat, the one the atom diagrams already print.
+  'relative-formula-mass/01-carbon-hydrogen-balance': {
+    en: {
+      carbonAtom: '{count} carbon atom',
+      hydrogenAtoms: '{count} hydrogen atoms',
+      notToScale: 'Not to scale',
+    },
+    de: {
+      carbonAtom: '{count} Kohlenstoffatom',
+      hydrogenAtoms: '{count} Wasserstoffatome',
+      notToScale: 'Nicht maßstabsgetreu',
+    },
+    fr: {
+      carbonAtom: '{count} atome de carbone',
+      hydrogenAtoms: '{count} atomes d’hydrogène',
+      notToScale: 'Échelle non respectée',
+    },
+    es: {
+      carbonAtom: '{count} átomo de carbono',
+      hydrogenAtoms: '{count} átomos de hidrógeno',
+      notToScale: 'No está a escala',
+    },
+    it: {
+      carbonAtom: '{count} atomo di carbonio',
+      hydrogenAtoms: '{count} atomi di idrogeno',
+      notToScale: 'Non in scala',
+    },
+    ru: {
+      carbonAtom: '{count} атом углерода',
+      hydrogenAtoms: '{count} атомов водорода',
+      notToScale: 'Масштаб не соблюдён',
+    },
+  },
+  // 2H2 + O2 → 2H2O. The three formulas are the same in every language and
+  // are written as MoleculeText writes them, plain digits; the script sets
+  // the subscripts and checks each against the equation it counts atoms from.
+  'balancing-equations/01-particle-equation': {
+    en: {
+      reactants: 'reactants',
+      products: 'products',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    de: {
+      reactants: 'Edukte',
+      products: 'Produkte',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    fr: {
+      reactants: 'réactifs',
+      products: 'produits',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    es: {
+      reactants: 'reactivos',
+      products: 'productos',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    it: {
+      reactants: 'reagenti',
+      products: 'prodotti',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+    ru: {
+      reactants: 'реагенты',
+      products: 'продукты',
+      hydrogen: '2H2',
+      oxygen: 'O2',
+      water: '2H2O',
+    },
+  },
+  // The three bonding models. The names are each country's school name for
+  // the bond, as the sheet's own takeaways give them; English heads the
+  // three with the bare adjective, as its table does.
+  'chemical-bonds/01-bonding-models': {
+    en: {
+      ionic: 'ionic',
+      covalent: 'covalent',
+      metallic: 'metallic',
+      sharedPair: 'shared pair',
+      delocalised: 'delocalised electrons',
+    },
+    de: {
+      ionic: 'Ionenbindung',
+      covalent: 'Atombindung',
+      metallic: 'Metallbindung',
+      sharedPair: 'bindendes Elektronenpaar',
+      delocalised: 'frei bewegliche Elektronen',
+    },
+    fr: {
+      ionic: 'liaison ionique',
+      covalent: 'liaison covalente',
+      metallic: 'liaison métallique',
+      sharedPair: 'doublet liant',
+      delocalised: 'électrons libres',
+    },
+    es: {
+      ionic: 'enlace iónico',
+      covalent: 'enlace covalente',
+      metallic: 'enlace metálico',
+      sharedPair: 'par enlazante',
+      delocalised: 'electrones libres',
+    },
+    it: {
+      ionic: 'legame ionico',
+      covalent: 'legame covalente',
+      metallic: 'legame metallico',
+      sharedPair: 'doppietto di legame',
+      delocalised: 'elettroni delocalizzati',
+    },
+    ru: {
+      ionic: 'ионная связь',
+      covalent: 'ковалентная связь',
+      metallic: 'металлическая связь',
+      sharedPair: 'общая электронная пара',
+      delocalised: 'свободные электроны',
+    },
+  },
+  // Five everyday examples beside the pH they sit at. The pH numbers are
+  // drawn by the script; these are only the names, in the words each
+  // overlay's own pH table already uses.
+  'acids-and-bases/01-ph-scale': {
+    en: {
+      stomachAcid: 'stomach acid',
+      vinegar: 'vinegar',
+      pureWater: 'pure water',
+      bakingSoda: 'baking soda',
+      ovenCleaner: 'oven cleaner',
+    },
+    de: {
+      stomachAcid: 'Magensäure',
+      vinegar: 'Essig',
+      pureWater: 'reines Wasser',
+      bakingSoda: 'Natron',
+      ovenCleaner: 'Backofenreiniger',
+    },
+    fr: {
+      stomachAcid: 'suc gastrique',
+      vinegar: 'vinaigre',
+      pureWater: 'eau pure',
+      bakingSoda: 'bicarbonate',
+      ovenCleaner: 'décapant four',
+    },
+    es: {
+      stomachAcid: 'jugo gástrico',
+      vinegar: 'vinagre',
+      pureWater: 'agua pura',
+      bakingSoda: 'bicarbonato',
+      ovenCleaner: 'limpiahornos',
+    },
+    it: {
+      stomachAcid: 'succhi gastrici',
+      vinegar: 'aceto',
+      pureWater: 'acqua pura',
+      bakingSoda: 'bicarbonato',
+      ovenCleaner: 'sgrassatore per forni',
+    },
+    ru: {
+      stomachAcid: 'желудочный сок',
+      vinegar: 'уксус',
+      pureWater: 'чистая вода',
+      bakingSoda: 'пищевая сода',
+      ovenCleaner: 'средство для духовок',
+    },
+  },
+  // end of task 10a strings
 };

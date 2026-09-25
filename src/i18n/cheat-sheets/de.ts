@@ -318,6 +318,13 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'Die pH-Skala',
+        content:
+          'Der pH-Wert gibt an, wie sauer oder basisch eine Lösung ist. Bei 25 °C ist eine Lösung unter pH 7 sauer, bei pH 7 neutral und über pH 7 basisch; fast alle Lösungen, die dir begegnen, liegen zwischen 0 und 14. Universalindikator färbt sich bei jedem pH-Wert anders: rot im sauren Bereich, grün bei 7 und violett im basischen Bereich.',
+        imageAlt:
+          'Die pH-Skala als Balken von 0 oben bis 14 unten, jede Stufe in ihrer Farbe des Universalindikators und mit ihrer Zahl daneben: Rot bei 0, Orange bei 1, Gelb bei 2 und 3, Grün von 4 bis 8, Blaugrün bei 9, Blau bei 10 und 11 und Violett von 12 bis 14. Fünf Stoffe aus dem Alltag sind bei ihrem pH-Wert markiert: Magensäure bei 1, Essig bei 3, reines Wasser bei 7, Natron bei 8 und Backofenreiniger bei 13.',
+      },
+      {
         heading: 'Stark und schwach ist nicht dasselbe wie konzentriert und verdünnt',
         content:
           'Starke Säuren sind in Wasser vollständig protolysiert (HCl, HNO3, H2SO4). Schwache Säuren nur teilweise (CH3COOH, H2CO3). „Konzentriert“ und „verdünnt“ sagen, wie viel Säure gelöst ist, nicht wie viel davon protolysiert – es gibt verdünnte starke Säuren und konzentrierte schwache Säuren.',
@@ -372,6 +379,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         content:
           '1. Schreib für jedes Edukt und jedes Produkt die richtige Formel auf. 2. Zähle für jedes Element die Atome auf beiden Seiten. 3. Fang mit dem Element an, das in den wenigsten Formeln vorkommt. 4. Ändere nur die Koeffizienten. 5. Wenn ein Bruch herauskommt (z. B. 7/2 O2), multipliziere alles mit 2. 6. Zähle jedes Element noch einmal nach. 7. Ergänze die Zustandssymbole.',
         exampleNames: ['Verbrennung von Propan'],
+        imageAlt:
+          'Die Reaktion 2H₂ + O₂ → 2H₂O als Teilchenbild. Links die Edukte: zwei Wasserstoffmoleküle aus je zwei sich berührenden Atomen mit H, dazu ein Sauerstoffmolekül aus zwei Atomen mit O. Ein Pfeil zeigt auf die Produkte: zwei Wassermoleküle, je ein O-Atom mit zwei H-Atomen. Unter den Teilchen steht die Gleichung und darunter die Atombilanz beider Seiten: H 4 und 4, O 2 und 2.',
       },
     ],
     commonMistakes: [
@@ -450,6 +459,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         heading: 'Warum Ionenverbindungen erst geschmolzen oder gelöst leiten',
         content:
           'Im festen Gitter sitzen die Ionen fest an ihrem Platz, also kann sich kein geladenes Teilchen bewegen. Beim Schmelzen oder Lösen werden die Ionen frei, und die Flüssigkeit leitet. Metalle leiten in jedem Aggregatzustand, weil ihre frei beweglichen Elektronen immer beweglich sind.',
+        imageAlt:
+          'Drei Kästen untereinander. Ionenbindung: ein Gitter aus kleinen positiven und großen negativen Ionen, abwechselnd, jedes mit + oder − markiert. Atombindung: ein Wasserstoffmolekül aus zwei Atomen mit H, deren Kreise sich überlappen, mit zwei Elektronenpunkten in der Überlappung, beschriftet als bindendes Elektronenpaar. Metallbindung: ein Gitter aus positiven Metall-Ionen mit ebenso vielen kleinen Elektronenpunkten dazwischen, beschriftet als frei bewegliche Elektronen.',
       },
     ],
     tables: [
@@ -652,6 +663,8 @@ export const CHEAT_SHEET_OVERLAY_DE: CheatSheetOverlaySet = {
         heading: 'Was „relativ“ wirklich heißt',
         content:
           'Atome sind viel zu leicht, um sie einzeln zu wiegen, also vergleichen Chemikerinnen und Chemiker sie. Leg ein Kohlenstoffatom auf die eine Waagschale und Wasserstoffatome auf die andere: Es braucht 12 Wasserstoffatome, bis die Waage gerade steht. Das ist die ganze Idee – Kohlenstoff ist 12-mal so schwer wie Wasserstoff, also sagen wir, seine relative Atommasse ist 12. Die Zahl beantwortet die Frage „wie viele Wasserstoffatome?“, und genau deshalb hat sie keine Einheit: Sie ist ein Vergleich, keine Messung. Genau genommen ist der Standard Kohlenstoff-12, nicht Wasserstoff: Jede relative Atommasse vergleicht ein Atom mit einem Zwölftel eines Kohlenstoff-12-Atoms. Wasserstoff kommt dabei auf fast genau 1, und deshalb geht das Bild mit der Waage auf.',
+        imageAlt:
+          'Eine Waage mit zwei hängenden Waagschalen, im Gleichgewicht. Auf der linken Schale liegt ein Kohlenstoffatom, ein Kreis mit C. Auf der rechten Schale liegen zwölf Wasserstoffatome, kleinere Kreise mit H, in Reihen zu fünf, vier und drei gestapelt. Kohlenstoff ist größer gezeichnet als Wasserstoff, aber längst nicht zwölfmal so groß. Unter den Schalen steht „1 Kohlenstoffatom“ und „12 Wasserstoffatome“, und ein Hinweis sagt, dass das Bild nicht maßstabsgetreu ist.',
       },
       {
         heading: 'Die Atome zusammenzählen',
