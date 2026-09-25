@@ -65,7 +65,7 @@ export function FeedbackWidget() {
 
       {/* Slide-Up Drawer */}
       {isOpen && (
-        <div className="fixed bottom-16 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-2xl border-2 border-(--game-panel-border) bg-(--game-panel) p-5 shadow-2xl select-none">
+        <div className="fixed bottom-16 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-2xl border-2 border-(--border) bg-(--surface) p-5 shadow-2xl select-none">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-(--border) pb-3">
             <h3 className="flex items-center gap-2 text-base font-black text-(--foreground)">
@@ -75,7 +75,7 @@ export function FeedbackWidget() {
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label={t.feedback.closeA11y}
-              className="rounded-lg p-1 text-muted hover:bg-(--surface-2) hover:text-(--foreground)"
+              className="cursor-pointer rounded-xl p-2 text-(--muted) transition-colors hover:bg-(--surface-2) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -84,7 +84,7 @@ export function FeedbackWidget() {
           {submitted ? (
             <div className="py-8 text-center">
               <span className="inline-block text-3xl">🎉</span>
-              <p className="mt-2 text-sm font-bold text-emerald-500">{t.feedback.sentTitle}</p>
+              <p className="mt-2 text-sm font-bold text-(--success)">{t.feedback.sentTitle}</p>
               <p className="text-xs text-muted">{t.feedback.sentBody}</p>
             </div>
           ) : (
@@ -126,7 +126,7 @@ export function FeedbackWidget() {
                 rows={3}
                 required
                 maxLength={FEEDBACK_MESSAGE_MAX_LENGTH}
-                className="w-full resize-none rounded-xl border border-(--border) bg-(--background) p-3 text-xs text-(--foreground) outline-none focus:border-(--link) focus:ring-1 focus:ring-(--link)"
+                className="w-full resize-none rounded-xl border border-(--border-strong) bg-(--background) p-3 text-xs text-(--foreground) outline-none focus:border-(--link) focus:ring-1 focus:ring-(--link)"
               />
 
               {/*
@@ -146,7 +146,7 @@ export function FeedbackWidget() {
               />
 
               {errorMessage && (
-                <p className="text-xs font-bold text-red-500">{errorMessage}</p>
+                <p className="text-xs font-bold text-(--danger)">{errorMessage}</p>
               )}
 
               {/* Submit Button */}

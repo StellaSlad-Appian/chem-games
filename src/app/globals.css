@@ -123,15 +123,10 @@
     --game-panel-text: #fde68a;       /* 8.28:1 on --game-highlight-surface */
     --game-panel-muted: #e0cf94;      /* 4.90:1 there, after the 80% opacity it is drawn at */
 
-    /* Legacy modal and game-background tokens, being retired (see the commits
-       that follow on this branch). */
+    /* The .game-shell gradient — painted over by GameShell, so being retired
+       in a later commit on this branch. */
     --game-bg-start: #0f172a;
     --game-bg-end: #020617;
-    --game-panel: #111827;
-    --game-panel-border: #1f2937;
-    --game-modal-header: rgb(30 41 59 / 0.55);
-    --game-modal-row: rgb(2 6 23 / 0.4);
-    --game-modal-control: #334155;
 
     --shadow-card: 0 4px 24px 0 rgb(0 0 0 / 0.4);
     --shadow-lg: 0 8px 40px 0 rgb(0 0 0 / 0.6);
@@ -187,11 +182,6 @@
 
     --game-bg-start: #e0f2fe;
     --game-bg-end: #f8fafc;
-    --game-panel: #ffffff;
-    --game-panel-border: #94a3b8;
-    --game-modal-header: rgb(226 232 240 / 0.75);
-    --game-modal-row: rgb(241 245 249 / 0.9);
-    --game-modal-control: #cbd5e1;
 
     --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
     --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);
@@ -251,11 +241,6 @@
 
       --game-bg-start: #e0f2fe;
       --game-bg-end: #f8fafc;
-      --game-panel: #ffffff;
-      --game-panel-border: #94a3b8;
-      --game-modal-header: rgb(226 232 240 / 0.75);
-      --game-modal-row: rgb(241 245 249 / 0.9);
-      --game-modal-control: #cbd5e1;
 
       --shadow-card: 0 4px 24px 0 rgb(15 23 42 / 0.1);
       --shadow-lg: 0 8px 40px 0 rgb(15 23 42 / 0.16);

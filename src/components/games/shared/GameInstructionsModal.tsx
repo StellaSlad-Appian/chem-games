@@ -25,9 +25,10 @@ interface GameInstructionsModalProps {
 }
 
 /**
- * The "How to Play" modal. Uses the panel tokens so it reads correctly in
- * both themes (the previous hardcoded slate panel hid token-coloured text in
- * light theme). Escape closes it, like the settings modal.
+ * The "How to Play" modal, in the shared modal look (docs/STYLE_GUIDE.md §4):
+ * --surface panel, --border edge, a header row with the close button, and the
+ * site's primary --action button to dismiss. Escape closes it, like the
+ * settings modal.
  */
 export default function GameInstructionsModal({
   isOpen,
@@ -52,16 +53,16 @@ export default function GameInstructionsModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/80 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-(--scrim) p-4 backdrop-blur-sm">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         /* max-w-3xl, not max-w-lg: at 512px the instructions were 40 lines of
            scrolling on a laptop. The prose still caps its own line length. */
-        className="my-auto w-full max-w-3xl max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border-2 border-(--game-panel-border) bg-(--game-panel) p-6 shadow-2xl"
+        className="my-auto w-full max-w-3xl max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border-2 border-(--border) bg-(--surface) p-6 shadow-2xl"
       >
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between gap-3 border-b border-(--border) pb-4">
           {/* German instruction titles ("Spielanleitung: Reaktions-Balancer")
               are much longer than the English ones, so the wide letter-spacing
               only applies from sm up and the heading may wrap. */}
@@ -75,9 +76,9 @@ export default function GameInstructionsModal({
             type="button"
             onClick={onClose}
             aria-label={t.games.shared.closeInstructionsA11y}
-            className="shrink-0 cursor-pointer rounded-xl p-1 text-(--muted) transition-colors hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="shrink-0 cursor-pointer rounded-xl p-2 text-(--muted) transition-colors hover:bg-(--surface-2) hover:text-(--foreground) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
-            <X className="h-6 w-6" aria-hidden="true" />
+            <X className="h-5 w-5" strokeWidth={3} aria-hidden="true" />
           </button>
         </div>
         {/* One or the other, never both: rendering both and hiding one with
@@ -86,7 +87,7 @@ export default function GameInstructionsModal({
         <button
           type="button"
           onClick={onClose}
-          className="mt-8 w-full cursor-pointer rounded-lg bg-emerald-600 py-3 font-bold text-white transition-colors hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+          className="mt-8 w-full cursor-pointer rounded-xl bg-(--action) py-3 text-sm font-black text-white shadow-md transition-colors hover:bg-(--action-hover) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
         >
           {t.games.shared.gotIt}
         </button>

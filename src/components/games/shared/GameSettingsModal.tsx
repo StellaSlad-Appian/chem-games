@@ -91,7 +91,7 @@ export default function GameSettingsModal({
       <div
         className={
           isModal
-            ? "fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm"
+            ? "fixed inset-0 z-50 bg-(--scrim) backdrop-blur-sm"
             : "fixed inset-0 z-40"
         }
         onClick={onClose}
@@ -108,22 +108,22 @@ export default function GameSettingsModal({
       >
         {/* Shell Container */}
         <div
-          className={`relative pointer-events-auto rounded-3xl border-2 border-[var(--game-panel-border)] bg-[var(--game-panel)] shadow-2xl animate-in fade-in zoom-in-95 duration-200 ${
+          className={`relative pointer-events-auto rounded-2xl border-2 border-(--border) bg-(--surface) shadow-2xl animate-in fade-in zoom-in-95 duration-200 ${
             isModal
               ? "my-auto w-full max-w-lg max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-h-[calc(100dvh-3rem)]"
               : "w-full max-h-[80vh] overflow-y-auto"
           }`}
         >
           {/* Header */}
-          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--game-panel-border)] bg-[var(--game-modal-header)] px-6 py-4 backdrop-blur">
-            <h2 className="flex items-center gap-2 text-xl font-black tracking-wide text-[var(--foreground)]">
+          <div className="sticky top-0 z-10 flex items-center justify-between border-b border-(--border) bg-(--surface)/95 px-6 py-4 backdrop-blur">
+            <h2 className="flex items-center gap-2 text-xl font-black tracking-wide text-(--foreground)">
               ⚙️ {isModal ? t.settings.gameTitle : t.settings.globalTitle}
             </h2>
 
             <button
               onClick={onClose}
               aria-label={t.settings.closeA11y}
-              className="shrink-0 rounded-xl bg-[var(--game-modal-control)] p-2 text-[var(--muted)] transition-colors hover:brightness-90 hover:text-[var(--foreground)] active:scale-95"
+              className="shrink-0 cursor-pointer rounded-xl p-2 text-(--muted) transition-colors hover:bg-(--surface-2) hover:text-(--foreground) active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
             >
               <X className="h-5 w-5" strokeWidth={3} />
             </button>
@@ -135,7 +135,7 @@ export default function GameSettingsModal({
               
               {/* APPEARANCE SECTION */}
               <section className="flex flex-col gap-4">
-                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-(--muted)">
                   <Sun className="h-4 w-4" aria-hidden="true" />
                   {t.settings.appearance}
                 </h3>
@@ -158,7 +158,7 @@ export default function GameSettingsModal({
                   includeDevice
                 />
                 {gameId && (
-                  <p className="text-xs leading-relaxed text-[var(--muted)]">
+                  <p className="text-xs leading-relaxed text-(--muted)">
                     {t.settings.overrideHelp}
                   </p>
                 )}
@@ -186,11 +186,11 @@ export default function GameSettingsModal({
               */}
               {!isModal && isAuthenticated !== undefined && (
                 <section className="flex flex-col gap-4">
-                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-(--muted)">
                     <User className="h-4 w-4" aria-hidden="true" />
                     {t.settings.account}
                   </h3>
-                  <div className="flex flex-col overflow-hidden rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)]">
+                  <div className="flex flex-col overflow-hidden rounded-2xl border border-(--border) bg-(--surface-2)">
                     {(isAuthenticated
                       ? [
                           { href: '/profile', label: t.nav.profile },
@@ -205,7 +205,7 @@ export default function GameSettingsModal({
                         // still open leaves it sitting over the destination.
                         onClick={onClose}
                         // min-h-11 is the 44px target docs/ACCESSIBILITY.md asks for.
-                        className="flex min-h-11 items-center border-b border-[var(--game-panel-border)] px-6 py-3 text-sm font-semibold text-[var(--foreground)] transition last:border-b-0 hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+                        className="flex min-h-11 items-center border-b border-(--border) px-6 py-3 text-sm font-semibold text-(--foreground) transition last:border-b-0 hover:text-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
                       >
                         {link.label}
                       </LocaleLink>
@@ -217,11 +217,11 @@ export default function GameSettingsModal({
               {/* SUPPORT SECTION (games that opt in) */}
               {gameId && supportMode && (
                 <section className="flex flex-col gap-4">
-                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                  <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-(--muted)">
                     <LifeBuoy className="h-4 w-4" aria-hidden="true" />
                     {t.settings.support}
                   </h3>
-                  <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-1">
+                  <div className="rounded-2xl border border-(--border) bg-(--surface-2) px-6 py-1">
                     <SwitchRow
                       label={supportMode.label}
                       description={supportMode.description}
@@ -234,13 +234,13 @@ export default function GameSettingsModal({
 
               {/* AUDIO SECTION */}
               <section className="flex flex-col gap-4">
-                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[var(--muted)]">
+                <h3 className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-(--muted)">
                   <Volume2 className="h-4 w-4" aria-hidden="true" />
                   {t.settings.audio}
                 </h3>
 
                 {/* Toggle Row */}
-                <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-1">
+                <div className="rounded-2xl border border-(--border) bg-(--surface-2) px-6 py-1">
                   <SwitchRow
                     label={t.settings.soundEffects}
                     checked={isSoundEnabled}
@@ -249,12 +249,12 @@ export default function GameSettingsModal({
                 </div>
 
                 {/* Volume Row */}
-                <div className="flex items-center gap-4 rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] px-6 py-4">
+                <div className="flex items-center gap-4 rounded-2xl border border-(--border) bg-(--surface-2) px-6 py-4">
                   <div className="shrink-0">
                     {isMuted || volume === 0 ? (
-                      <VolumeX className="h-5 w-5 text-[var(--muted)]" />
+                      <VolumeX className="h-5 w-5 text-(--muted)" />
                     ) : (
-                      <Volume2 className="h-5 w-5 text-emerald-400" />
+                      <Volume2 className="h-5 w-5 text-(--success)" />
                     )}
                   </div>
 
@@ -266,10 +266,10 @@ export default function GameSettingsModal({
                     value={isMuted ? 0 : volume}
                     onChange={(e) => setVolume(parseFloat(e.target.value))}
                     aria-label={t.settings.volumeA11y}
-                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-[var(--game-modal-control)] accent-emerald-500"
+                    className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-(--border) accent-(--link)"
                   />
 
-                  <span className="w-10 shrink-0 text-right text-xs font-bold text-[var(--muted)]">
+                  <span className="w-10 shrink-0 text-right text-xs font-bold text-(--muted)">
                     {formatPercent(locale, isMuted ? 0 : Math.round(volume * 100))}
                   </span>
                 </div>
@@ -292,5 +292,5 @@ function ThemeSelector({ t, label, value, onChange, includeGlobal = false, inclu
     { value: 'light', label: t.settings.light, icon: Sun },
   ];
 
-  return <div className="rounded-2xl border border-[var(--game-panel-border)] bg-[var(--game-modal-row)] p-4"><p className="mb-3 text-sm font-semibold text-[var(--foreground)]">{label}</p><div className="flex flex-wrap gap-2">{choices.map((choice) => { const Icon = choice.icon; const selected = value === choice.value; return <button key={choice.value} type="button" onClick={() => onChange(choice.value)} className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-bold transition ${selected ? 'border-(--link) bg-(--action) text-white' : 'border-[var(--game-panel-border)] bg-[var(--surface)] text-[var(--foreground)] hover:brightness-95'}`}>{Icon && <Icon className="h-4 w-4" />}{choice.label}</button>; })}</div></div>;
+  return <div className="rounded-2xl border border-(--border) bg-(--surface-2) p-4"><p className="mb-3 text-sm font-semibold text-(--foreground)">{label}</p><div className="flex flex-wrap gap-2">{choices.map((choice) => { const Icon = choice.icon; const selected = value === choice.value; return <button key={choice.value} type="button" onClick={() => onChange(choice.value)} className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-bold transition ${selected ? 'border-(--link) bg-(--action) text-white' : 'border-(--border) bg-(--surface) text-(--foreground) hover:border-(--link)'}`}>{Icon && <Icon className="h-4 w-4" />}{choice.label}</button>; })}</div></div>;
 }

@@ -66,11 +66,15 @@ interface GameOverlayProps {
   extraActions?: { label: string; onClick: () => void }[];
 }
 
+// The state colours players learn — blue paused, red failed, green victory,
+// amber level-up — as the text-safe role tokens, so the badge above the title
+// clears 4.5:1 in both themes (rose-500 and emerald-500 on white did not).
+// Each state also has its own icon and badge text, so colour is never alone.
 const STATE_STYLES: Record<Exclude<GameState, 'playing'>, { accent: string }> = {
   paused: { accent: 'text-(--link)' },
-  failed: { accent: 'text-rose-500' },
-  victory: { accent: 'text-emerald-500' },
-  levelUp: { accent: 'text-amber-500' },
+  failed: { accent: 'text-(--danger)' },
+  victory: { accent: 'text-(--success)' },
+  levelUp: { accent: 'text-(--accent)' },
 };
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -183,7 +187,7 @@ export default function GameOverlay({
       : t.games.overlay.keyHintRetry;
 
   return (
-    <div className="fixed inset-0 z-100 grid place-items-center overflow-y-auto bg-slate-950/80 p-4 backdrop-blur-md sm:p-6">
+    <div className="fixed inset-0 z-100 grid place-items-center overflow-y-auto bg-(--scrim) p-4 backdrop-blur-md sm:p-6">
       <div
         ref={dialogRef}
         role="dialog"
@@ -191,9 +195,9 @@ export default function GameOverlay({
         aria-labelledby="game-overlay-title"
         aria-describedby="game-overlay-description"
         onKeyDown={handleTabKey}
-        className="w-full max-w-md rounded-2xl border-2 border-(--border) bg-(--surface) p-6 text-center shadow-xl md:p-8"
+        className="w-full max-w-md rounded-2xl border-2 border-(--border) bg-(--surface) p-6 text-center shadow-2xl md:p-8"
       >
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-(--border) bg-(--background)">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-(--border) bg-(--surface-2)">
           {gameState === 'paused' && <Pause className={`h-7 w-7 ${stateStyle.accent}`} aria-hidden="true" />}
           {gameState === 'failed' && <FlaskConical className={`h-7 w-7 ${stateStyle.accent}`} aria-hidden="true" />}
           {gameState === 'victory' && <Trophy className={`h-7 w-7 ${stateStyle.accent}`} aria-hidden="true" />}
@@ -219,7 +223,7 @@ export default function GameOverlay({
         </p>
 
         {gameState === 'paused' && (
-          <div className="my-6 grid grid-cols-3 gap-2 rounded-xl border border-(--border) bg-(--background) p-3 text-left">
+          <div className="my-6 grid grid-cols-3 gap-2 rounded-xl border border-(--border) bg-(--surface-2) p-3 text-left">
             <OverlayStat label={t.games.overlay.statLevel} value={`${currentLevel} / ${maxLevel}`} />
             <OverlayStat label={t.games.overlay.statScore} value={score.toLocaleString(formattingLocale(locale))} />
             <OverlayStat
@@ -230,7 +234,7 @@ export default function GameOverlay({
         )}
 
         {(gameState === 'failed' || gameState === 'victory') && (
-          <div className="my-6 rounded-xl border border-(--border) bg-(--background) p-4 text-center">
+          <div className="my-6 rounded-xl border border-(--border) bg-(--surface-2) p-4 text-center">
             <p className="text-xs font-bold text-(--muted) uppercase tracking-wider">
               {f(t.games.overlay.levelOfMax, {
                 level: currentLevel,
@@ -245,7 +249,7 @@ export default function GameOverlay({
         )}
 
         {gameState === 'levelUp' && (
-          <div className="my-6 rounded-xl border border-(--border) bg-(--background) p-4 text-center">
+          <div className="my-6 rounded-xl border border-(--border) bg-(--surface-2) p-4 text-center">
             <LevelProgress currentLevel={currentLevel} maxLevel={maxLevel} />
             <p className="mt-3 text-xs font-bold text-(--muted)">
               {f(t.games.overlay.levelUpProgress, {
@@ -276,7 +280,7 @@ export default function GameOverlay({
             key={action.label}
             type="button"
             onClick={action.onClick}
-            className="mt-2 w-full cursor-pointer rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
+            className="mt-2 w-full cursor-pointer rounded-xl border border-(--border) bg-(--surface) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
           >
             {action.label}
           </button>
@@ -290,7 +294,7 @@ export default function GameOverlay({
 
 function OverlayStat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="min-w-0 rounded-lg bg-[var(--surface)] p-2">
+    <div className="min-w-0 rounded-lg bg-(--surface) p-2">
       <span className="block text-[10px] font-bold uppercase tracking-wider text-(--muted)">{label}</span>
       <span className="mt-0.5 block truncate text-sm font-black text-(--foreground)" title={value}>{value}</span>
     </div>
@@ -327,7 +331,7 @@ function ActionButtons({
 
       <LocaleLink
         href="/games"
-        className="flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--background) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+        className="flex items-center justify-center gap-2 rounded-xl border border-(--border) bg-(--surface) px-4 py-3 text-xs font-black uppercase tracking-wider text-(--foreground) shadow-sm transition hover:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link)"
       >
         <LogOut className="h-4 w-4 shrink-0" aria-hidden="true" /> {quitLabel}
       </LocaleLink>

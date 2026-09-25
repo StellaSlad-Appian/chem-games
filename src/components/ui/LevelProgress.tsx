@@ -21,7 +21,7 @@ export function LevelProgress({ currentLevel, maxLevel }: LevelProgressProps) {
           key={i}
           className="h-2 w-8 rounded-full transition-all duration-300"
           style={{
-            background: i < currentLevel ? '#3b82f6' : 'var(--border)',
+            background: i < currentLevel ? 'var(--link)' : 'var(--border)',
           }}
         />
       ))}
