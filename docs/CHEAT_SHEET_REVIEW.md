@@ -347,6 +347,32 @@ and big. The type size is a symptom of the loading method.
 
 ---
 
+## Found during the work (added 2026-09-25)
+
+The owner's open to-dos from this review, and the state of each branch, are kept in
+[`TODO.md`](./TODO.md) § Cheat sheet review. That list is the one to keep current.
+
+Found by the agent that fixed the two atom sheets. Two of them were passed
+to the next agent. These two are for later:
+
+- **P2, Isotopes & Radioactivity:** the Carbon-12 example card ("the standard
+  all other masses are measured against") is true, but the sheet no longer
+  explains what it means. The same goes for the sheet's `curriculumRef` and its
+  PhET link ("Isotopes and Atomic Mass"). All three refer to relative atomic
+  mass, which the sheet stopped teaching on 2026-09-22. Replace or remove them
+  once the owner decides whether that section comes back.
+- **P2, page layout (all sheets):** on a 375 px phone, German titles break in
+  the middle of a word ("Periodensys|tem", "Radioaktivit|ät"). Fix it with
+  proper hyphenation (`hyphens: auto` with the page's `lang` set) or a smaller
+  title size on phones. This was there before the review; it is not a
+  regression.
+
+- **P1, page (all sheets, found by the owner 2026-09-25):** formulas in prose are not
+  formatted. Key concepts, section paragraphs and common mistakes are printed as plain
+  strings, so "SO4 2−", "NH4+" and "HCO3−" appear exactly as typed. `MoleculeText` is
+  only used for single-formula fields, and it only knows the ASCII "-" as a charge sign,
+  not the "−" the prose uses. Planned as step F: a `ChemText` component for prose.
+
 ## Suggested order of work
 
 1. The page bug: render `description` on both kinds of example card, and fix the
