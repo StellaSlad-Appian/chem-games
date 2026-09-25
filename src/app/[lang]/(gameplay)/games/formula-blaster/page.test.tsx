@@ -140,7 +140,7 @@ describe('Formula Blaster page (game flow)', () => {
 
     expect(screen.getByRole('dialog', { name: 'Research Complete' })).toBeInTheDocument();
     expect(recordGameSessionMock).toHaveBeenCalledTimes(1);
-    const recorded = recordGameSessionMock.mock.calls[0][0] as { score: number };
+    const [[recorded]] = recordGameSessionMock.mock.calls as unknown as Array<[{ score: number }]>;
     expect(recorded.score).toBeGreaterThan(hitPoints);
     expect(recorded.score).toBeLessThanOrEqual(hitPoints + maxBonus);
     expect(screen.getByText(`Score ${recorded.score}`)).toBeInTheDocument();

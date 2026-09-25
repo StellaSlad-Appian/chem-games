@@ -13,14 +13,15 @@
 // bond energy, nuclear processes) are left out: the cohort that took them is in
 // Year 12 now and no current Year 11 student meets them. See `outsideRange`.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at } from '../placement';
 
 const cch = { track: 'cch' } as const;
 const elective = { track: 'dgb-elective' } as const;
 
-export const MX: CountryCurriculum = {
+export const MX: JurisdictionCurriculum = {
   code: 'MX',
+  country: 'MX',
   name: 'Mexico',
   basis: 'SEP Plan de Estudio 2022 (NEM), Fase 6 programme; MCCEMS Modelo Educativo 2025 (Acuerdo 21/08/25) with DGB CNEyT programmes; CCH-UNAM as contrast.',
   researchedOn: '2026-09-24',
@@ -33,6 +34,7 @@ export const MX: CountryCurriculum = {
     { year: 10, localLabel: '1º de bachillerato', localLabelEn: 'bachillerato, semesters 1–2', typicalAgeAtStart: 15, stage: 'Educación Media Superior', delivery: 'integrated-science', note: 'CNEyT I (chemistry-heavy) and CNEyT II (energy).' },
     { year: 11, localLabel: '2º de bachillerato', localLabelEn: 'bachillerato, semesters 3–4', typicalAgeAtStart: 16, stage: 'Educación Media Superior', delivery: 'integrated-science', note: 'CNEyT IV "El poder de la química" is the main chemistry course.' },
     { year: 12, localLabel: '3º de bachillerato', localLabelEn: 'bachillerato, semesters 5–6', typicalAgeAtStart: 17, stage: 'Educación Media Superior', delivery: 'optional', note: 'Core is physics and biology; chemistry only as an elective.' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'Bachillerato ends after Year 12.' },
   ],
   tracks: {
     cch: 'Colegio de Ciencias y Humanidades (UNAM): separate Química I–II in Year 10',

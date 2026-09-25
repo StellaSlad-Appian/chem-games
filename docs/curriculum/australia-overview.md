@@ -11,14 +11,14 @@ relying on a single cell.
 
 | Jurisdiction | Document | Senior course in force in 2026 |
 |---|---|---|
-| National (Years 7–10) | [`australian-curriculum-v9-science-7-10.md`](./australian-curriculum-v9-science-7-10.md) | – |
-| Victoria | [`australia-victoria.md`](./australia-victoria.md) | VCE Chemistry Study Design (Units 1–2 from 2023, Units 3–4 from 2024) |
-| New South Wales | [`australia-nsw.md`](./australia-nsw.md) | Chemistry Stage 6 Syllabus (2017); replaced from 2028 |
-| Queensland | [`australia-queensland.md`](./australia-queensland.md) | Chemistry 2025 v1.3 (Units 3–4 first examined 2026) |
-| Western Australia | [`australia-wa.md`](./australia-wa.md) | Chemistry ATAR Year 11 (new, from 2026) and Year 12 (2024) |
-| South Australia and Northern Territory | [`australia-sa-nt.md`](./australia-sa-nt.md) | SACE Stage 1 and Stage 2 Chemistry (content unchanged in the 2025 reissue) |
-| Tasmania | [`australia-tas.md`](./australia-tas.md) | TASC Chemistry Level 4 (CHM415115), plus Physical Sciences Level 3 |
-| Australian Capital Territory | [`australia-act.md`](./australia-act.md) | BSSS Chemistry (T), built on the ACARA senior Chemistry course |
+| National (Years 7–10) | [`countries/australia-curriculum-v9-7-10.md`](./countries/australia-curriculum-v9-7-10.md) | – |
+| Victoria | [`countries/australia-victoria.md`](./countries/australia-victoria.md) | VCE Chemistry Study Design (Units 1–2 from 2023, Units 3–4 from 2024) |
+| New South Wales | [`countries/australia-nsw.md`](./countries/australia-nsw.md) | Chemistry Stage 6 Syllabus (2017); replaced from 2028 |
+| Queensland | [`countries/australia-queensland.md`](./countries/australia-queensland.md) | Chemistry 2025 v1.3 (Units 3–4 first examined 2026) |
+| Western Australia | [`countries/australia-wa.md`](./countries/australia-wa.md) | Chemistry ATAR Year 11 (new, from 2026) and Year 12 (2024) |
+| South Australia and Northern Territory | [`countries/australia-sa-nt.md`](./countries/australia-sa-nt.md) | SACE Stage 1 and Stage 2 Chemistry (content unchanged in the 2025 reissue) |
+| Tasmania | [`countries/australia-tas.md`](./countries/australia-tas.md) | TASC Chemistry Level 4 (CHM415115), plus Physical Sciences Level 3 |
+| Australian Capital Territory | [`countries/australia-act.md`](./countries/australia-act.md) | BSSS Chemistry (T), built on the ACARA senior Chemistry course |
 
 Skill ids (O/K/T/G) are the framework's (see [`germany-sek2-overview.md`](./germany-sek2-overview.md) §3).
 Extra organic and energetics skills are numbered **locally** in each state document; §4 below
@@ -190,6 +190,9 @@ E/Z notation, Fehling's solution, Schiff's reagent and 2,4-DNP.
 
 ## 4. Shared numbering for the extra skills
 
+> Superseded for data purposes by the crosswalk in [`ALIGNMENT.md`](./ALIGNMENT.md) §2.2, which maps
+> these ids onto canonical concepts. The state records are `src/core-engine/data/curriculum/countries/au-*.ts`.
+
 Each state document numbered its extras from O11 and T11 in its own order. For the framework's
 `skills.ts`, use this shared list. The state documents' local ids map by topic name.
 
@@ -255,7 +258,7 @@ Each state document numbered its extras from O11 and T11 in its own order. For t
 | G2 Isomer Hunt | Strong. Add cis/trans rounds for VIC, QLD, WA. |
 | G3 Boiling Point Ladder | Strong everywhere (O5 is universal core). |
 | G4 Reagent Bench | Good, with the **Australian test set**: bromine water, acidified dichromate/permanganate, carbonate, pH; Tollens only for SA/NT. Hide Fehling, Schiff and DNPH on Australian profiles. |
-| G5 Synthesis Router | Strong (VIC, NSW, QLD, WA, TAS, ACT). Needs per-state edge sets: the VCE findings in [`australia-victoria.md`](./australia-victoria.md) §8 (amide formation, dehydration and Markovnikov out; transesterification in) differ from Queensland (Markovnikov and elimination in) and SA/NT (no substitution). |
+| G5 Synthesis Router | Strong (VIC, NSW, QLD, WA, TAS, ACT). Needs per-state edge sets: the VCE findings in [`countries/australia-victoria.md`](./countries/australia-victoria.md) §8 (amide formation, dehydration and Markovnikov out; transesterification in) differ from Queensland (Markovnikov and elimination in) and SA/NT (no substitution). |
 | G6 Energy Hill | Strong everywhere (K4, T7 universal). |
 | G7 Collision Lab | Strong everywhere. The Maxwell–Boltzmann view must be profile-controlled (on for QLD, TAS, VIC; off elsewhere). |
 | G8 Hess Puzzle | **Weak in Australia**: NSW until 2028 and Tasmania only. Treat it as a German-first game. |
@@ -269,7 +272,7 @@ Each state document numbered its extras from O11 and T11 in its own order. For t
    [`../game-briefs/functional-groups.md`](../game-briefs/functional-groups.md) is better
    supported by Australian curricula than several framework games are. Consider adding it to the
    catalogue as an Australia-led game.
-4. **Existing VCE briefs need corrections.** They are listed in [`australia-victoria.md`](./australia-victoria.md) §8:
+4. **Existing VCE briefs need corrections.** They are listed in [`countries/australia-victoria.md`](./countries/australia-victoria.md) §8:
    - Synthesis Router: the open questions are answered; add transesterification.
    - Stoichiometry: moles are Unit 1, not Unit 2.
    - Reaction Balancer: the curriculum "quote" is not the real wording.

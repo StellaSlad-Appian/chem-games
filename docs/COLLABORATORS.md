@@ -104,15 +104,19 @@ policy it replaced let anyone with the anon key insert anything.
 
 ## 4. The form
 
-- [ ] **MUST** A client component, mounted by the For Teachers page in the
-      collaborators section.
+- [ ] **MUST** A client component, mounted on its own page at
+      `/[lang]/teachers/collaborate` — **not** on the For Teachers page itself. It
+      moved there (docs/TEACHERS_PAGE.md's own layout notes explain why: it is the
+      heaviest thing on that page, and left in place it made a two-column layout there
+      unworkable) with a short pitch and a link left behind on the main page.
 - [ ] **MUST** **Its copy is passed in as props from the Server Component**, which
       reads it from `teachersCopy(locale)`. The catalogue in `src/i18n/teachers/` is
       server-only and importing it from a client component would put the whole page's
       prose into the client bundle — undoing
       `docs/i18n/README.md` § "The dictionary is a budget". This is the one rule most
       likely to be broken by accident, so a test should assert the catalogue is not
-      reachable from a `'use client'` module.
+      reachable from a `'use client'` module. That gate scans the whole `src` tree, so
+      it needed no change when the mounting page did.
 - [ ] **MUST** Work without an account, and pre-fill nothing from one.
 - [ ] **MUST** Labelled inputs (`<label for>`, not placeholder-as-label), a visible
       focus ring, targets ≥ 24×24 CSS px and ≥ 44×44 on touch, and errors associated
@@ -147,7 +151,8 @@ policy it replaced let anyone with the anon key insert anything.
       blank-to-null.
 - [ ] **MUST** A form component test: renders, validates, submits, shows the success
       and error states, honeypot present and hidden from assistive technology.
-- [ ] **MUST** The page test covers the section rendering in two locales.
+- [ ] **MUST** `/teachers/collaborate`'s own page test covers the form rendering in two
+      locales.
 - [ ] **MUST** An e2e that fills and submits the form against the running app.
 - [ ] **MUST** A test that the server-only catalogue is not imported from any
       `'use client'` module (see §4).

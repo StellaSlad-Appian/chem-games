@@ -16,6 +16,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import { ADULT_PROSE } from '@/components/layout/adult-prose';
 import { LocaleLink } from '@/components/layout/LocaleLink';
 import { DEFAULT_LOCALE, formattingLocale, isLocale, type Locale } from '@/i18n/config';
 import { getDictionary } from '@/i18n/dictionaries';
@@ -112,7 +113,13 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
 
   return (
     <main className="min-h-screen bg-(--background) px-4 py-8 text-(--foreground) md:px-8">
-      <div className="mx-auto max-w-3xl">
+      {/*
+        `max-w-6xl`, matching the home page — see the same comment on the For
+        Teachers page for why, and why line length is capped independently
+        with `max-w-[75ch]` on each block of prose rather than left to the
+        container.
+      */}
+      <div className="mx-auto max-w-6xl">
         <LocaleLink
           href="/"
           className="inline-flex items-center gap-2 text-sm font-bold text-(--muted) transition hover:text-(--link)"
@@ -122,115 +129,164 @@ export default async function PrivacyPage(props: PageProps<'/[lang]'>) {
 
         <div className="mt-6">
           <div className="flex items-center gap-2">
-            <span className="icon-tile bg-(--info-surface) text-(--link)">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-(--action) text-white">
               <ShieldCheck className="h-5 w-5" aria-hidden="true" />
             </span>
             <h1 className="text-4xl font-black md:text-5xl">{p.heading}</h1>
           </div>
-          <p className="mt-2 text-base text-(--muted)">{p.intro}</p>
+          <p className={`mt-2 max-w-[75ch] text-base text-(--muted) ${ADULT_PROSE}`}>{p.intro}</p>
         </div>
 
-        <article className="mt-8 flex flex-col gap-6 game-card p-6 md:p-8">
-          <Section title={p.whoWeAreHeading}>
-            <p>{withPlaceholder(p.whoWeAreBody, 'email', contact)}</p>
-            <p>{format(p.effectiveDate, { date: formatEffectiveDate(locale) })}</p>
-          </Section>
+        {/*
+          Two columns from `lg` up, single column below it. The sidebar
+          renders first in source order and is pushed right with `lg:order-2`
+          — DOM order is reading order and tab order for every reader, not
+          only the one who can see it beside the main column visually. Same
+          layout and the same reasoning as the For Teachers page's.
 
-          <Section title={p.collectHeading}>
-            <ul className="list-disc space-y-2 pl-5">
-              <li>
-                <Term>{p.collectAccountLabel}</Term> {p.collectAccountBody}
-              </li>
-              <li>
-                <Term>{p.collectProfileLabel}</Term>{' '}
-                {withPlaceholder(p.collectProfileBody, 'link', profileEditLink)}
-              </li>
-              <li>
-                <Term>{p.collectGameplayLabel}</Term> {p.collectGameplayBody}
-              </li>
-              <li>
-                <Term>{p.collectFeedbackLabel}</Term> {p.collectFeedbackBody}
-              </li>
-              <li>
-                <Term>{p.collectCollaboratorLabel}</Term> {p.collectCollaboratorBody}
-              </li>
-            </ul>
-          </Section>
+          What's in the sidebar is the short, "what do I do right now"
+          material — who to contact, and the plain list of actions a reader
+          can take — not the substance of the policy. Children's privacy stays
+          in the main column deliberately even though it is short-ish: it is
+          the single most load-bearing section on this page, not a pointer.
 
-          {/*
-            The collaborator list gets its own section rather than a bullet in
-            the list above, because it is the only personal data on this site
-            that names a person directly — everything else is pseudonymous by
-            construction. docs/COLLABORATORS.md § 0 requires it to state what
-            is collected, why, the lawful basis, the retention and a deletion
-            route that works without an account, and this is where all five
-            live.
-          */}
-          <Section title={p.collaboratorsHeading}>
-            <p>{p.collaboratorsWhy}</p>
-            <p>{p.collaboratorsBasis}</p>
-            <p>{p.collaboratorsUse}</p>
-            <p>{p.collaboratorsRetention}</p>
-            <p>{withPlaceholder(p.collaboratorsDelete, 'email', contact)}</p>
-          </Section>
+          `lg:sticky lg:top-20`: the sidebar is much shorter than the main
+          column, and a grid track reserves its width for the whole row
+          height regardless, so without this its three cards would end a
+          screen or two down and leave an empty gutter for the rest of the
+          policy.
+        */}
+        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px] lg:items-start">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-20 lg:order-2">
+            <section
+              aria-labelledby="privacy-who"
+              className="game-card p-6"
+            >
+              <h2 id="privacy-who" className="text-2xl font-black text-(--foreground)">
+                {p.whoWeAreHeading}
+              </h2>
+              <div
+                className={`mt-3 space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+              >
+                <p>{withPlaceholder(p.whoWeAreBody, 'email', contact)}</p>
+                <p>{format(p.effectiveDate, { date: formatEffectiveDate(locale) })}</p>
+              </div>
+            </section>
 
-          <Section title={p.publicHeading}>
-            <p>{p.publicBody1}</p>
-            <p>{withPlaceholder(p.publicBody2, 'link', profileEditLink)}</p>
-          </Section>
+            <section
+              aria-labelledby="privacy-choices"
+              className="game-card p-6"
+            >
+              <h2 id="privacy-choices" className="text-2xl font-black text-(--foreground)">
+                {p.choicesHeading}
+              </h2>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm font-medium leading-relaxed text-(--muted)">
+                <li>{withPlaceholder(p.choicesEdit, 'link', profileEditLink)}</li>
+                <li>{p.choicesDownload}</li>
+                <li>{p.choicesDelete}</li>
+                <li>{withPlaceholder(p.choicesEmail, 'email', contact)}</li>
+              </ul>
+            </section>
 
-          <Section title={p.cookiesHeading}>
-            <p>{p.cookiesBody1}</p>
-            <p>{p.cookiesBody2}</p>
-            <p>{p.cookiesBody3}</p>
-            <p>{p.cookiesBody4}</p>
-          </Section>
+            <section
+              aria-labelledby="privacy-changes"
+              className="game-card p-6"
+            >
+              <h2 id="privacy-changes" className="text-2xl font-black text-(--foreground)">
+                {p.changesHeading}
+              </h2>
+              <div
+                className={`mt-3 space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+              >
+                <p>{p.changesBody}</p>
+              </div>
+            </section>
+          </div>
 
-          <Section title={p.processorsHeading}>
-            <ul className="list-disc space-y-2 pl-5">
-              <li>
-                <Term>{p.processorSupabaseLabel}</Term> {p.processorSupabaseBody}
-              </li>
-              <li>
-                <Term>{p.processorResendLabel}</Term> {p.processorResendBody}
-              </li>
-              <li>
-                <Term>{p.processorGoogleLabel}</Term> {p.processorGoogleBody}
-              </li>
-              <li>{p.processorHosting}</li>
-            </ul>
-            <p>{p.processorsTransport}</p>
-          </Section>
+          <article className="flex flex-col gap-6 game-card p-6 md:p-8 lg:order-1">
+            <Section title={p.collectHeading}>
+              <ul className="list-disc space-y-2 pl-5">
+                <li>
+                  <Term>{p.collectAccountLabel}</Term> {p.collectAccountBody}
+                </li>
+                <li>
+                  <Term>{p.collectProfileLabel}</Term>{' '}
+                  {withPlaceholder(p.collectProfileBody, 'link', profileEditLink)}
+                </li>
+                <li>
+                  <Term>{p.collectGameplayLabel}</Term> {p.collectGameplayBody}
+                </li>
+                <li>
+                  <Term>{p.collectFeedbackLabel}</Term> {p.collectFeedbackBody}
+                </li>
+                <li>
+                  <Term>{p.collectCollaboratorLabel}</Term> {p.collectCollaboratorBody}
+                </li>
+              </ul>
+            </Section>
 
-          <Section title={p.retentionHeading}>
-            <p>{p.retentionBody1}</p>
-            <p>{p.retentionBody2}</p>
-          </Section>
+            {/*
+              The collaborator list gets its own section rather than a bullet
+              in the list above, because it is the only personal data on this
+              site that names a person directly — everything else is
+              pseudonymous by construction. docs/COLLABORATORS.md § 0 requires
+              it to state what is collected, why, the lawful basis, the
+              retention and a deletion route that works without an account,
+              and this is where all five live.
+            */}
+            <Section title={p.collaboratorsHeading}>
+              <p>{p.collaboratorsWhy}</p>
+              <p>{p.collaboratorsBasis}</p>
+              <p>{p.collaboratorsUse}</p>
+              <p>{p.collaboratorsRetention}</p>
+              <p>{withPlaceholder(p.collaboratorsDelete, 'email', contact)}</p>
+            </Section>
 
-          <Section title={p.choicesHeading}>
-            <ul className="list-disc space-y-2 pl-5">
-              <li>{withPlaceholder(p.choicesEdit, 'link', profileEditLink)}</li>
-              <li>{p.choicesDownload}</li>
-              <li>{p.choicesDelete}</li>
-              <li>{withPlaceholder(p.choicesEmail, 'email', contact)}</li>
-            </ul>
-          </Section>
+            <Section title={p.publicHeading}>
+              <p>{p.publicBody1}</p>
+              <p>{withPlaceholder(p.publicBody2, 'link', profileEditLink)}</p>
+            </Section>
 
-          <Section title={p.childrenHeading}>
-            <p>{p.childrenBody1}</p>
-            <p>{withPlaceholder(p.childrenBody2, 'link', profileEditLink)}</p>
-            <p>{withPlaceholder(p.childrenBody3, 'email', contact)}</p>
-          </Section>
+            <Section title={p.cookiesHeading}>
+              <p>{p.cookiesBody1}</p>
+              <p>{p.cookiesBody2}</p>
+              <p>{p.cookiesBody3}</p>
+              <p>{p.cookiesBody4}</p>
+            </Section>
 
-          <Section title={p.legalHeading}>
-            <p>{p.legalBody1}</p>
-            <p>{withPlaceholder(p.legalBody2, 'link', oaicLink)}</p>
-          </Section>
+            <Section title={p.processorsHeading}>
+              <ul className="list-disc space-y-2 pl-5">
+                <li>
+                  <Term>{p.processorSupabaseLabel}</Term> {p.processorSupabaseBody}
+                </li>
+                <li>
+                  <Term>{p.processorResendLabel}</Term> {p.processorResendBody}
+                </li>
+                <li>
+                  <Term>{p.processorGoogleLabel}</Term> {p.processorGoogleBody}
+                </li>
+                <li>{p.processorHosting}</li>
+              </ul>
+              <p>{p.processorsTransport}</p>
+            </Section>
 
-          <Section title={p.changesHeading}>
-            <p>{p.changesBody}</p>
-          </Section>
-        </article>
+            <Section title={p.retentionHeading}>
+              <p>{p.retentionBody1}</p>
+              <p>{p.retentionBody2}</p>
+            </Section>
+
+            <Section title={p.childrenHeading}>
+              <p>{p.childrenBody1}</p>
+              <p>{withPlaceholder(p.childrenBody2, 'link', profileEditLink)}</p>
+              <p>{withPlaceholder(p.childrenBody3, 'email', contact)}</p>
+            </Section>
+
+            <Section title={p.legalHeading}>
+              <p>{p.legalBody1}</p>
+              <p>{withPlaceholder(p.legalBody2, 'link', oaicLink)}</p>
+            </Section>
+          </article>
+        </div>
       </div>
     </main>
   );
@@ -252,7 +308,12 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="space-y-3 border-b border-(--border) pb-6 last:border-b-0 last:pb-0">
       <h2 className="text-2xl font-black text-(--foreground)">{title}</h2>
-      <div className="space-y-3 text-sm font-medium leading-relaxed text-(--muted)">{children}</div>
+      {/* `max-w-[75ch] lg:max-w-none`: see the same comment on the For Teachers page's `Section`. */}
+      <div
+        className={`max-w-[75ch] lg:max-w-none space-y-3 text-sm font-medium leading-relaxed text-(--muted) ${ADULT_PROSE}`}
+      >
+        {children}
+      </div>
     </section>
   );
 }

@@ -100,7 +100,7 @@ export const ru = {
     cheatSheets: 'Шпаргалки',
     // Imperative, like the other nav labels, and short: this sits in the
     // horizontal row, where Cyrillic sets wider at the same point size.
-    explore: 'Открывай',
+    explore: 'Мир открытий',
     // Deliberately shorter than a faithful rendering of the English
     // "Log in / Register", the same trade German, French, Spanish and Italian
     // all make: the pair is the widest single thing in the header, and Russian
@@ -131,6 +131,7 @@ export const ru = {
     heading: 'Учи химию в игре.',
     intro:
       'Ставь опыты, следи за личными рекордами, запоминай формулы и сравнивай свои результаты с чужими.',
+    heroHook: 'Бесплатно. Без регистрации. Просто открой игру и начни.',
     exploreGames: 'Выбрать игру',
     viewLeaderboards: 'Смотреть таблицу лидеров',
     profileLinkAuthenticated: 'Открыть профиль',
@@ -543,7 +544,7 @@ export const ru = {
   },
 
   explore: {
-    heading: 'Открывай',
+    heading: 'Мир открытий',
     intro: 'Одно вещество и один химик — каждый понедельник новые.',
     /*
      * {date} is formatted by Intl and dropped in after a dash, so it governs
@@ -555,7 +556,7 @@ export const ru = {
     moleculeHeading: 'Вещество недели',
     scientistHeading: 'Химик недели',
     /*
-     * Подразделы «Открывай»: по одному слову на вкладку, а не полные
+     * Подразделы «Мир открытий»: по одному слову на вкладку, а не полные
      * заголовки разделов — см. комментарий в en.ts.
      *
      * «Химик» — то же слово, что и в `scientistHeading`, и оно здесь
@@ -564,7 +565,7 @@ export const ru = {
      * «Химик» как название профессии описывает и женщин тоже. Ровно тот же
      * выбор, что уже сделан строкой выше.
      */
-    tabsA11y: 'Разделы «Открывай»',
+    tabsA11y: 'Разделы «Мир открытий»',
     tabMolecule: 'Вещество',
     tabScientist: 'Химик',
     tabArchive: 'Архив',
@@ -628,10 +629,10 @@ export const ru = {
      */
     recentHeading: 'Прошлые недели',
     archiveCta: 'Посмотреть все материалы',
-    archiveHeading: 'Архив раздела «Открывай»',
+    archiveHeading: 'Архив раздела «Мир открытий»',
     archiveIntro: 'Все вещества и химики из ротации — сначала самые свежие.',
     archiveThisWeek: 'Эта неделя',
-    backToExplore: 'Назад к разделу «Открывай»',
+    backToExplore: 'Назад к разделу «Мир открытий»',
     backToArchive: 'Назад к архиву',
     sameWeekHeading: 'Из той же недели',
     /* No full stop after a date — see `sourcesNote` above. */

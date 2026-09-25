@@ -1,8 +1,8 @@
 # New South Wales chemistry curriculum (NESA): Science 7–10 and Stage 6 Chemistry (HSC), organic chemistry, kinetics, energetics, equilibrium
 
 **Purpose:** the reference curriculum for the organic chemistry and energetics games planned in
-[`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md). The Australian states and
-territories are compared in [`australia-overview.md`](./australia-overview.md).
+[`../ORGANIC_GAMES_FRAMEWORK.md`](../../ORGANIC_GAMES_FRAMEWORK.md). The Australian states and
+territories are compared in [`australia-overview.md`](../australia-overview.md).
 **Research date:** 24 Sept 2026 (desk research by an agent, from primary sources).
 **Review status:** not yet checked by a teacher who teaches in NSW.
 
@@ -438,6 +438,10 @@ reactions*, *Energy changes*.
 ---
 
 ## 3. Where each topic sits
+
+> The skill ids in this table are the framework's research labels. The data record is
+> `src/core-engine/data/curriculum/countries/au-nsw.ts`, built from this table through the
+> crosswalk in [`../ALIGNMENT.md`](../ALIGNMENT.md) §2.
 
 Status refers to the **2017 syllabus (in force in 2026)**. Changes in the 2025 syllabus (from 2028) are in
 the notes. "M" = module; "S5" = Stage 5 (Years 9–10).

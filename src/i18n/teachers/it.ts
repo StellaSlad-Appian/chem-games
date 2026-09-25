@@ -54,8 +54,16 @@ export const it = {
     'Bilanciare un’equazione un coefficiente alla volta, con il conteggio degli atomi dei due lati sempre in vista.',
   gameLewis:
     'Accoppiare gli elettroni spaiati in legami e doppietti solitari per costruire una struttura di Lewis.',
+  sheetsHeading: 'Bigini',
   sheetsIntro:
-    'Dodici bigini raccolgono il materiale di consultazione su cui i giochi si appoggiano. Ognuno sta in una pagina, si legge bene dal proiettore e si può stampare:',
+    'Quindici bigini raccolgono il materiale di consultazione su cui i giochi si appoggiano. Ognuno sta in una pagina, si legge bene dal proiettore e si può stampare:',
+
+  exploreHeading: 'Esplora',
+  exploreBody1:
+    'Ogni lunedì una nuova molecola e una nuova persona della chimica, spiegate in poche sezioni brevi: dove si incontra nella vita di tutti i giorni, come funziona e perché la persona dietro di essa è stata importante.',
+  exploreBody2:
+    'Passata la sua settimana, ogni scheda mantiene un link permanente, e l’archivio le conserva tutte — così una lezione può rimandare a una molecola o a una persona di mesi fa con la stessa facilità di quella di questa settimana. La settimana in corso è sulla pagina {link}.',
+  exploreLinkLabel: 'Esplora',
 
   languagesHeading: 'Lingue',
   languagesBody1:
@@ -85,6 +93,8 @@ export const it = {
     '{balancer} e {lewis} sono i due giochi costruiti fin dall’inizio per la tastiera e collaudati così. Se in classe c’è chi lavora da tastiera, cominci da lì.',
 
   collaborateHeading: 'Chi insegna e collabora',
+  collaborateHero:
+    'Aiuti a dare forma a ciò che verrà. In cambio, la versione 1.0 e la 2.0 sono gratuite.',
   collaborateWhat:
     'Cerco alcune persone che insegnano e vogliono aiutare a dare forma a questo progetto. Vuol dire una di due cose, o entrambe: raccontarmi com’è andato davvero un gioco con una classe – che cosa ha confuso chi studia, quale formulazione non ha funzionato, che cosa era troppo facile – e proporre giochi che mancano e che varrebbe la pena costruire.',
   collaborateCommitment:
@@ -93,6 +103,13 @@ export const it = {
     'In cambio, chi collabora riceve l’accesso gratuito alla versione 1.0 e alla versione 2.0 dei giochi non appena quelle versioni esisteranno.',
   collaborateFreeNow:
     'Perché sia chiaro quanto vale: in questo momento tutto il sito è gratuito e resterà tale per tutta la beta. L’offerta riguarda le versioni a pagamento che verranno dopo, non qualcosa che oggi si starebbe pagando.',
+  collaborateCta: 'Per proporsi, compili il modulo nella pagina {link}.',
+  collaborateCtaLinkLabel: 'di iscrizione',
+
+  collaborateMetaTitle: 'Iscriversi fra chi collabora | Per chi insegna | Games in Chemistry',
+  collaborateMetaDescription:
+    'Dia un parere sui giochi o ne proponga di nuovi, e riceva in cambio l’accesso gratuito alla versione 1.0 e alla versione 2.0.',
+  backToTeachers: 'Torna a «Per chi insegna»',
   collaborateHow:
     'Per proporsi, compili il modulo qui sotto. L’indirizzo e-mail è l’unica cosa di cui ho davvero bisogno; il resto serve a farmi sapere qualcosa della sua classe prima di risponderle, e può saltarlo tutto.',
   collaborateReply:

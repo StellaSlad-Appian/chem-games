@@ -8,14 +8,15 @@
 // middle-school band is outside the map; items only placed in Grade 6 by Texas
 // are listed in `outsideRange`.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at, typical } from '../placement';
 
 const ap = { track: 'ap' } as const;
 const tx = { track: 'tx' } as const;
 
-export const US: CountryCurriculum = {
+export const US: JurisdictionCurriculum = {
   code: 'US',
+  country: 'US',
   name: 'United States',
   basis: 'NGSS (2013) performance expectations and Appendix K course models; typical course sequence; AP Chemistry CED (Fall 2024); Texas TEKS as the main non-NGSS contrast.',
   researchedOn: '2026-09-24',
@@ -28,6 +29,7 @@ export const US: CountryCurriculum = {
     { year: 10, localLabel: 'Grade 10', localLabelEn: 'Grade 10 (sophomore)', typicalAgeAtStart: 15, stage: 'High school', delivery: 'optional', note: 'Chemistry course for college-prep / honors students (typical).' },
     { year: 11, localLabel: 'Grade 11', localLabelEn: 'Grade 11 (junior)', typicalAgeAtStart: 16, stage: 'High school', delivery: 'optional', note: 'Chemistry for many; AP Chemistry for accelerated students.' },
     { year: 12, localLabel: 'Grade 12', localLabelEn: 'Grade 12 (senior)', typicalAgeAtStart: 17, stage: 'High school', delivery: 'optional', note: 'AP / IB / second-year chemistry; many take none.' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'School ends after Grade 12.' },
   ],
   tracks: {
     ap: 'AP Chemistry (College Board), usually Grade 11 or 12',

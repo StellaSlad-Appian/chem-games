@@ -97,8 +97,9 @@ export default async function ExploreTabsLayout(props: LayoutProps<'/[lang]/expl
               Under a tab strip it is wayfinding — the reader already knows
               where they are — and at its old size it competed with an entry
               name of nearly the same size 150px below it. `min-w-0` /
-              `break-words` because "Entdecken" and «Открывай» are one
-              unbreakable word each and this is a flex item.
+              `break-words` because "Entdecken" is one unbreakable word and
+              this is a flex item; «Мир открытий» has its own space to wrap
+              on, but the classes stay for German and any narrower viewport.
             */}
             <h1 className="min-w-0 text-3xl font-black break-words">{t.explore.heading}</h1>
           </div>

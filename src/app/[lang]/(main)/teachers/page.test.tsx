@@ -11,7 +11,7 @@
 // client component and reads `useI18n()` — that is also what makes the locale
 // prefix in the asserted hrefs real rather than hard-coded.
 
-import { render, screen, within } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import type { ReactElement } from 'react';
 import TeachersPage, { generateMetadata } from './page';
@@ -23,6 +23,7 @@ import type { Dictionary } from '@/i18n/dictionaries/en';
 import { LOCALES, type Locale } from '@/i18n/config';
 import { en as enTeachers } from '@/i18n/teachers/en';
 import { de as deTeachers } from '@/i18n/teachers/de';
+import { en as enAbout } from '@/i18n/about/en';
 
 const SUPPORT_URL = 'https://example.test/support-chemgames';
 
@@ -58,6 +59,8 @@ describe('For Teachers page', () => {
       t.betaHeading,
       t.whatHeading,
       t.onSiteHeading,
+      t.sheetsHeading,
+      t.exploreHeading,
       t.languagesHeading,
       t.privacyHeading,
       t.accessibilityHeading,
@@ -117,12 +120,11 @@ describe('For Teachers page', () => {
     expect(screen.getByText(enTeachers.collaborateFreeNow)).toBeInTheDocument();
   });
 
-  describe('the collaborator sign-up form', () => {
-    // The route used to be the feedback button, and this page used to say so.
-    // It is a form now (docs/COLLABORATORS.md), so what is asserted here is
-    // that the form is really mounted, that its copy came from the catalogue
-    // through props, and that the page did not keep the old instruction.
-    it('is mounted inside the collaborators section', async () => {
+  describe('the collaborators teaser', () => {
+    // The form itself moved to its own page (docs/COLLABORATORS.md § 4); what
+    // stays here is asserted not to include it, plus the link onward. The
+    // form's own coverage lives in teachers/collaborate/page.test.tsx now.
+    it('pitches collaborating and links to the sign-up page, without embedding the form', async () => {
       await renderPage('en');
 
       const section = screen
@@ -130,62 +132,27 @@ describe('For Teachers page', () => {
         .closest('section');
       expect(section).not.toBeNull();
 
-      const form = within(section as HTMLElement).getByRole('heading', {
-        level: 3,
-        name: enTeachers.formHeading,
-      });
-      expect(form).toBeInTheDocument();
-      expect(within(section as HTMLElement).getByLabelText(/email address/i)).toBeInTheDocument();
-    });
-
-    it('renders the catalogue copy, which the client component never imports', async () => {
-      await renderPage('en');
-
-      // Every one of these is a prop the Server Component passed down. If the
-      // form ever imported the catalogue itself these would still pass, which
-      // is why src/i18n/teachers-boundary.test.ts exists as well.
-      expect(screen.getByText(enTeachers.formIntro)).toBeInTheDocument();
-      expect(screen.getByText(enTeachers.formUse)).toBeInTheDocument();
+      expect(within(section as HTMLElement).queryByRole('form')).toBeNull();
+      expect(within(section as HTMLElement).queryByLabelText(/email address/i)).toBeNull();
       expect(
-        screen.getByRole('button', { name: new RegExp(enTeachers.formSubmit, 'i') })
-      ).toBeInTheDocument();
-      expect(screen.getByLabelText(new RegExp(enTeachers.formYearLevelsLabel, 'i'))).toBeInTheDocument();
-    });
-
-    it('offers a deletion route that needs no account', async () => {
-      await renderPage('en');
-      // docs/COLLABORATORS.md § 0: on the form, not only in the privacy page.
-      const mailto = screen
-        .getAllByRole('link')
-        .find((anchor) => anchor.getAttribute('href')?.startsWith('mailto:'));
-      expect(mailto).toBeDefined();
-      expect(enTeachers.formDelete).toContain('{email}');
-    });
-
-    it('no longer tells a teacher to use the feedback button instead', async () => {
-      await renderPage('en');
-      expect(
-        screen.queryByText(new RegExp(`“${en.feedback.categoryFeature}” category`))
-      ).toBeNull();
-    });
-
-    it('renders in German too, with German labels', async () => {
-      await renderPage('de', de);
-
-      expect(
-        screen.getByRole('heading', { level: 3, name: deTeachers.formHeading })
-      ).toBeInTheDocument();
-      expect(
-        screen.getByLabelText(new RegExp(deTeachers.formEmailLabel, 'i'))
-      ).toBeInTheDocument();
-      expect(screen.getByText(deTeachers.formUse)).toBeInTheDocument();
-      expect(screen.queryByText(enTeachers.formUse)).toBeNull();
+        within(section as HTMLElement).getByRole('link', {
+          name: new RegExp(enTeachers.collaborateCtaLinkLabel, 'i'),
+        })
+      ).toHaveAttribute('href', '/en/teachers/collaborate');
     });
   });
 
   it('links to /privacy under the active locale', async () => {
     await renderPage('en');
     expect(link(enTeachers.privacyLinkLabel)).toHaveAttribute('href', '/en/privacy');
+  });
+
+  it('links to /explore under the active locale', async () => {
+    await renderPage('en');
+    expect(link(new RegExp(enTeachers.exploreLinkLabel, 'i'))).toHaveAttribute(
+      'href',
+      '/en/explore'
+    );
   });
 
   it('links to each shipped game, and to no game that has no page', async () => {
@@ -225,6 +192,17 @@ describe('For Teachers page', () => {
     for (const sheet of sheets) {
       expect(link(sheet.title)).toHaveAttribute('href', `/en/cheat-sheets/${sheet.slug}`);
     }
+  });
+
+  it('points to the About page in English, and not in a locale that has none', async () => {
+    await renderPage('en');
+    expect(link(enAbout.teachersPagePointerLinkLabel)).toHaveAttribute('href', '/en/about');
+    cleanup();
+
+    // About is English-only for now; /de/about is a 404, so no link to it.
+    await renderPage('de', de);
+    const hrefs = screen.getAllByRole('link').map((anchor) => anchor.getAttribute('href'));
+    expect(hrefs).not.toContain('/de/about');
   });
 
   it('renders in German, with German links', async () => {
@@ -272,9 +250,9 @@ describe('For Teachers page', () => {
       );
 
       // No payment form is ever embedded: the support link leaves the site
-      // and nothing on this page collects a card. The collaborator sign-up
-      // *is* a form, so this is scoped to the support section rather than to
-      // the document, which is what it always meant.
+      // and nothing on this page collects a card. Scoped to the support
+      // section rather than the whole document, which now holds no form
+      // either way — the collaborator sign-up moved to its own page.
       expect(within(section as HTMLElement).queryByRole('form')).toBeNull();
       expect((section as HTMLElement).querySelector('input')).toBeNull();
     });

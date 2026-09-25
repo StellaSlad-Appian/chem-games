@@ -75,6 +75,13 @@ export interface CollaboratorFormProps {
   copy: CollaboratorFormCopy;
   /** Where a deletion request goes. Stated on the form, not only in the policy. */
   contactEmail: string;
+  /**
+   * The form's own heading is a level below whatever section wraps it: `h3`
+   * under the For Teachers page's `Section` (an `h2`), `h2` on its own
+   * `/teachers/collaborate` page, where the page's `h1` is the only thing
+   * above it. Defaults to 3, the original and still most common case.
+   */
+  headingLevel?: 2 | 3;
 }
 
 /** The text fields, in tab order. `email` is handled separately: it is the only required one. */
@@ -109,7 +116,8 @@ const EMPTY: Record<TextField, string> = {
 const INPUT_CLASS =
   'w-full min-h-11 rounded-xl border border-(--border-strong) bg-(--surface) px-3 py-2 text-sm text-(--foreground) outline-none transition focus-visible:border-(--link) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--link) aria-[invalid=true]:border-(--danger)';
 
-export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) {
+export function CollaboratorForm({ copy, contactEmail, headingLevel = 3 }: CollaboratorFormProps) {
+  const Heading = headingLevel === 2 ? 'h2' : 'h3';
   const formId = useId();
   const [values, setValues] = useState<Record<TextField, string>>(EMPTY);
   // Honeypot: people never see or fill this field, bots do.
@@ -174,9 +182,9 @@ export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) 
         aria-labelledby={headingId}
         className="rounded-xl border border-(--border) bg-(--surface-2) p-5"
       >
-        <h3 id={headingId} className="sr-only">
+        <Heading id={headingId} className="sr-only">
           {copy.heading}
-        </h3>
+        </Heading>
         <div
           ref={successRef}
           role="status"
@@ -197,13 +205,13 @@ export function CollaboratorForm({ copy, contactEmail }: CollaboratorFormProps) 
       aria-labelledby={headingId}
       className="rounded-xl border border-(--border) bg-(--surface-2) p-5"
     >
-      <h3
+      <Heading
         id={headingId}
         className="flex items-center gap-2 text-lg font-black text-(--foreground)"
       >
         <Users className="h-4 w-4 shrink-0 text-(--link)" aria-hidden="true" />
         {copy.heading}
-      </h3>
+      </Heading>
 
       <p className="mt-2 text-sm font-medium leading-relaxed text-(--muted)">{copy.intro}</p>
       <p className="mt-2 text-sm font-medium leading-relaxed text-(--muted)">{copy.use}</p>

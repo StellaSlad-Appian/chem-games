@@ -58,8 +58,16 @@ export const en = {
     'Balancing an equation one coefficient at a time, with the atom count on each side visible as you work.',
   gameLewis:
     'Pairing unpaired electrons into bonds and lone pairs to build a Lewis structure.',
+  sheetsHeading: 'Cheat sheets',
   sheetsIntro:
-    'Twelve cheat sheets carry the reference material the games lean on. Each is a single page, readable on a projector and printable:',
+    'Fifteen cheat sheets carry the reference material the games lean on. Each is a single page, readable on a projector and printable:',
+
+  exploreHeading: 'Explore',
+  exploreBody1:
+    'A new molecule and a new chemist every Monday, each explained in a few short sections: where it turns up in daily life, how it works, and why the person behind it mattered.',
+  exploreBody2:
+    'Once a week has passed, its entry keeps a permanent link, and the archive holds every one of them — so a lesson can point at a molecule or scientist from months ago as easily as this week’s. See {link} for the current week.',
+  exploreLinkLabel: 'the Explore page',
 
   languagesHeading: 'Languages',
   languagesBody1:
@@ -89,6 +97,13 @@ export const en = {
     '{balancer} and {lewis} are the two that were built keyboard-first and tested that way. If a student in your class works from the keyboard, start there.',
 
   collaborateHeading: 'Teacher collaborators',
+  // The big, bold pull-quote printed as its own section wherever this pitch
+  // appears — the sidebar teaser and the /teachers/collaborate page — set in
+  // a much larger size than the small print around it. Two short sentences,
+  // deliberately: the ask, then the concrete reward, both already stated in
+  // full below (collaborateWhat, collaborateThanks). This is the one line a
+  // skimming reader should walk away with even if they read nothing else.
+  collaborateHero: 'Help shape what we build next. Get version 1.0 and 2.0 free for it.',
   collaborateWhat:
     'I am looking for a few teachers to help shape this. That means either or both of two things: telling me how a game actually went with a class — what confused students, which wording misfired, what was too easy — and suggesting games worth building that are not here yet.',
   collaborateCommitment:
@@ -97,6 +112,16 @@ export const en = {
     'In return, collaborators get free access to version 1.0 and version 2.0 of the games once those versions exist.',
   collaborateFreeNow:
     'To be clear about what that is worth: everything on the site is free right now and stays free for the whole beta. The offer is about the paid versions that come after it, not about anything you would be paying for today.',
+  collaborateCta: 'To put your hand up, fill in the form on {link}.',
+  collaborateCtaLinkLabel: 'the sign-up page',
+
+  // The collaborator sign-up's own page, /teachers/collaborate. Read by that
+  // page's `generateMetadata` and its back link — the same per-page-catalogue
+  // pattern src/i18n/about/en.ts uses for its own metadata.
+  collaborateMetaTitle: 'Sign up as a collaborator | For Teachers | Games in Chemistry',
+  collaborateMetaDescription:
+    'Give feedback on the games or suggest new ones, and get free access to version 1.0 and version 2.0 in return.',
+  backToTeachers: 'Back to For Teachers',
   collaborateHow:
     'To put your hand up, fill in the form below. The email address is the only thing I actually need; everything else is there so that I know something about your class before I write back, and you can skip all of it.',
   collaborateReply:

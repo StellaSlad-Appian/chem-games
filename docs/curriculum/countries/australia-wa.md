@@ -1,8 +1,8 @@
 # Western Australia (SCSA) Chemistry: ATAR and General courses, Years 11–12, plus Years 7–10 science
 
 **Purpose:** the reference curriculum for the organic chemistry and energetics games planned in
-[`../ORGANIC_GAMES_FRAMEWORK.md`](../ORGANIC_GAMES_FRAMEWORK.md), for Western Australia. The other
-Australian states and territories are compared in [`australia-overview.md`](./australia-overview.md).
+[`../ORGANIC_GAMES_FRAMEWORK.md`](../../ORGANIC_GAMES_FRAMEWORK.md), for Western Australia. The other
+Australian states and territories are compared in [`australia-overview.md`](../australia-overview.md).
 **Research date:** 24 Sept 2026 (desk research by an agent, from primary sources).
 **Review status:** not yet checked by a teacher who teaches in Western Australia.
 
@@ -361,6 +361,10 @@ Quoted text is verbatim from the 2024 syllabuses; everything else is paraphrase.
 ---
 
 ## 3. Where each topic sits
+
+> The skill ids in this table are the framework's research labels. The data record is
+> `src/core-engine/data/curriculum/countries/au-wa.ts`, built from this table through the
+> crosswalk in [`../ALIGNMENT.md`](../ALIGNMENT.md) §2.
 
 Units 1–2 are Year 11 and school-assessed; Units 3–4 are Year 12, school-assessed and in the WACE exam.
 

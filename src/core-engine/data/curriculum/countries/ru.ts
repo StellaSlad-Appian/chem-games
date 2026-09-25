@@ -8,13 +8,14 @@
 // Upper secondary runs organic chemistry (10 класс) before general chemistry
 // (11 класс), which is why orbitals, pH and Le Chatelier sit after organic.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at } from '../placement';
 
 const adv = { track: 'advanced' } as const;
 
-export const RU: CountryCurriculum = {
+export const RU: JurisdictionCurriculum = {
   code: 'RU',
+  country: 'RU',
   name: 'Russia',
   basis: 'ФГОС ООО (2021) / СОО; ФОП 2023; Федеральные рабочие программы по химии, 2025 editions (базовый and углублённый); ФИПИ ОГЭ/ЕГЭ 2027 specifications.',
   researchedOn: '2026-09-24',
@@ -27,6 +28,7 @@ export const RU: CountryCurriculum = {
     { year: 10, localLabel: '10 класс', localLabelEn: '10 klass', typicalAgeAtStart: 16, stage: 'Среднее общее (upper secondary)', delivery: 'separate', note: 'Mainly organic; 1 h (basic) or 3 h (advanced).' },
     { year: 11, localLabel: '11 класс', localLabelEn: '11 klass (ЕГЭ)', typicalAgeAtStart: 17, stage: 'Среднее общее', delivery: 'separate', note: 'General and inorganic chemistry.' },
     { year: 12, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 18, stage: 'none', delivery: 'no-such-year', note: 'General schooling ends after 11 класс.' },
+    { year: 13, localLabel: '—', localLabelEn: 'does not exist', typicalAgeAtStart: 19, stage: 'none', delivery: 'no-such-year', note: 'General schooling ends after 11 класс.' },
   ],
   tracks: {
     advanced: 'Углублённый уровень (advanced level; science and technology profiles)',

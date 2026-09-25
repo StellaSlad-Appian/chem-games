@@ -9,7 +9,7 @@
 // the report says so. The GCSE split that matters most is not by year but by
 // tier: the mole is Higher tier only.
 
-import type { CountryCurriculum } from '../../../types/curriculum';
+import type { JurisdictionCurriculum } from '../../../types/curriculum';
 import { at, typical } from '../placement';
 
 const higher = { track: 'higher' } as const;
@@ -17,8 +17,9 @@ const separate = { track: 'separate' } as const;
 const separateHigher = { track: 'separate-higher' } as const;
 const aLevel = { track: 'a-level' } as const;
 
-export const GB: CountryCurriculum = {
+export const GB: JurisdictionCurriculum = {
   code: 'GB',
+  country: 'GB',
   name: 'United Kingdom (England)',
   basis: 'National Curriculum KS3/KS4 science (2013/2014); DfE GCSE (2015) and A level (2014) subject content; AQA 8462 / 7405 for typical placement.',
   researchedOn: '2026-09-24',
@@ -31,6 +32,7 @@ export const GB: CountryCurriculum = {
     { year: 10, localLabel: 'Year 10', localLabelEn: 'Year 10 (GCSE year 1)', typicalAgeAtStart: 14, stage: 'Key Stage 4', delivery: 'integrated-science', note: 'Combined Science (~66%) or separate GCSE Chemistry (~23%).' },
     { year: 11, localLabel: 'Year 11', localLabelEn: 'Year 11 (GCSE exams)', typicalAgeAtStart: 15, stage: 'Key Stage 4', delivery: 'integrated-science', note: 'As Year 10; terminal exams in May–June.' },
     { year: 12, localLabel: 'Year 12', localLabelEn: 'Year 12 / Lower Sixth', typicalAgeAtStart: 16, stage: 'Sixth form (KS5)', delivery: 'optional', note: 'A level Chemistry, linear over Years 12–13.' },
+    { year: 13, localLabel: 'Year 13', localLabelEn: 'Year 13 / Upper Sixth', typicalAgeAtStart: 17, stage: 'Sixth form (KS5)', delivery: 'optional', note: 'A level Chemistry, second year. Its content is still listed in outsideRange, not yet placed.' },
   ],
   tracks: {
     higher: 'GCSE Higher tier (Combined or separate)',
@@ -127,7 +129,7 @@ export const GB: CountryCurriculum = {
     'homologous-series': [at(11, 'develop', typical), at(12, 'extend', aLevel)],
     'functional-groups': [at(11, 'develop', separate), at(12, 'extend', aLevel)],
     'oxygen-organics': [at(11, 'develop', separate)],
-    stereoisomerism: [at(12, 'extend', { ...aLevel, note: 'E/Z isomerism' })],
+    'geometric-isomerism': [at(12, 'extend', { ...aLevel, note: 'E/Z isomerism' })],
     'organic-reaction-types': [at(12, 'extend', aLevel)],
     'reaction-mechanisms': [at(12, 'extend', aLevel)],
     'polymers-intro': [at(11, 'develop', separate)],
