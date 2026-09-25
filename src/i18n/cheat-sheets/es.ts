@@ -343,6 +343,13 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'La escala de pH',
+        content:
+          'El pH indica lo ácida o básica que es una disolución. A 25 °C, por debajo de 7 es ácida, a 7 es neutra y por encima de 7 es básica, y casi todas las disoluciones que vas a encontrar están entre 0 y 14. El indicador universal toma un color distinto en cada pH: rojo en el extremo ácido, verde a 7 y violeta en el extremo básico.',
+        imageAlt:
+          'La escala de pH como una barra, con el 0 arriba y el 14 abajo, cada tramo del color del indicador universal y con su número al lado: rojo en 0, naranja en 1, amarillo en 2 y 3, verde de 4 a 8, verde azulado en 9, azul en 10 y 11 y violeta de 12 a 14. Cinco productos cotidianos están marcados en su pH: el jugo gástrico en 1, el vinagre en 3, el agua pura en 7, el bicarbonato en 8 y el limpiahornos en 13.',
+      },
+      {
         heading: 'Fuerte y débil no es lo mismo que concentrado y diluido',
         content:
           'Los ácidos fuertes se ionizan del todo en agua (HCl, HNO3, H2SO4). Los ácidos débiles solo se ionizan en parte (CH3COOH, H2CO3). «Concentrado» y «diluido» dicen cuánto ácido hay disuelto, no qué proporción se ioniza: existen ácidos fuertes diluidos y ácidos débiles concentrados.',
@@ -397,6 +404,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         content:
           '1. Escribe la fórmula correcta de cada reactivo y de cada producto. 2. Cuenta los átomos de cada elemento a cada lado. 3. Empieza por el elemento que aparece en menos fórmulas. 4. Cambia solo los coeficientes. 5. Si te sale una fracción (por ejemplo 7/2 O2), multiplica todo por 2. 6. Vuelve a contar cada elemento. 7. Añade los símbolos de estado.',
         exampleNames: ['Combustión del propano'],
+        imageAlt:
+          'La reacción 2H₂ + O₂ → 2H₂O dibujada con partículas. A la izquierda, los reactivos: dos moléculas de dihidrógeno, cada una con dos átomos marcados con H que se tocan, más una molécula de dioxígeno, dos átomos marcados con O. Una flecha lleva a los productos: dos moléculas de agua, cada una un átomo de O con dos átomos de H. Debajo de las partículas está la ecuación y, debajo de ella, el recuento de átomos de cada lado: H 4 y 4, O 2 y 2.',
       },
     ],
     commonMistakes: [
@@ -475,6 +484,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'Por qué los compuestos iónicos solo conducen fundidos o disueltos',
         content:
           'En la red sólida los iones están fijos en su sitio, así que no hay partículas cargadas que puedan moverse. Al fundir o al disolver, los iones quedan libres y el líquido conduce. Los metales conducen en todos los estados porque sus electrones libres siempre pueden moverse.',
+        imageAlt:
+          'Tres recuadros, uno debajo de otro. Enlace iónico: una red de iones positivos pequeños e iones negativos grandes, alternados, cada uno marcado con + o −. Enlace covalente: una molécula de dihidrógeno, dos átomos marcados con H cuyos círculos se solapan, con dos puntos (los electrones) en la zona común, rotulados par enlazante. Enlace metálico: una red de iones metálicos positivos con otros tantos puntos (los electrones) repartidos entre ellos, rotulados electrones libres.',
       },
     ],
     tables: [
@@ -671,6 +682,8 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
         heading: 'Qué quiere decir «relativa»',
         content:
           'Los átomos son demasiado ligeros para pesarlos de uno en uno, así que la química los compara. Pon un átomo de carbono en un platillo y átomos de hidrógeno en el otro: hacen falta 12 hidrógenos para que quede equilibrada. Esa es toda la idea: el carbono pesa 12 veces lo que el hidrógeno, así que decimos que su masa atómica relativa es 12. El número responde a «¿cuántos hidrógenos?», y por eso no tiene unidad: es una comparación, no una medida. En rigor, el patrón es el carbono-12, no el hidrógeno: cada masa atómica relativa compara un átomo con la doceava parte de un átomo de carbono-12. El hidrógeno sale casi exactamente 1, y por eso la imagen de la balanza funciona.',
+        imageAlt:
+          'Una balanza de dos platillos colgantes, equilibrada. En el platillo de la izquierda hay un átomo de carbono, un círculo marcado con C. En el de la derecha hay doce átomos de hidrógeno, círculos más pequeños marcados con H, apilados en filas de cinco, cuatro y tres. El carbono está dibujado más grande que el hidrógeno, pero ni de lejos doce veces más. Bajo los platillos pone «1 átomo de carbono» y «12 átomos de hidrógeno», y una nota avisa de que el dibujo no está a escala.',
       },
       {
         heading: 'Sumar los átomos',

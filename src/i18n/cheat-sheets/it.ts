@@ -346,6 +346,13 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
     ],
     sections: [
       {
+        heading: 'La scala del pH',
+        content:
+          'Il pH dice quanto una soluzione è acida o basica. A 25 °C sotto 7 è acida, a 7 è neutra e sopra 7 è basica, e quasi tutte le soluzioni che incontrerai stanno fra 0 e 14. L’indicatore universale assume un colore diverso a ogni pH: rosso dal lato acido, verde a 7 e viola dal lato basico.',
+        imageAlt:
+          'La scala del pH come una barra, con 0 in alto e 14 in basso, ogni gradino nel suo colore dell’indicatore universale e con il suo numero accanto: rosso a 0, arancione a 1, giallo a 2 e 3, verde da 4 a 8, verde-azzurro a 9, blu a 10 e 11 e viola da 12 a 14. Cinque prodotti di tutti i giorni sono segnati al loro pH: i succhi gastrici a 1, l’aceto a 3, l’acqua pura a 7, il bicarbonato a 8 e lo sgrassatore per forni a 13.',
+      },
+      {
         heading: 'Forte e debole non è lo stesso che concentrato e diluito',
         content:
           'Gli acidi forti si ionizzano del tutto in acqua (HCl, HNO3, H2SO4). Gli acidi deboli si ionizzano solo in parte (CH3COOH, H2CO3). «Concentrato» e «diluito» dicono quanto acido c’è sciolto, non quale parte si ionizza: esistono acidi forti diluiti e acidi deboli concentrati.',
@@ -400,6 +407,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         content:
           '1. Scrivi la formula corretta di ogni reagente e di ogni prodotto. 2. Conta gli atomi di ogni elemento per lato. 3. Comincia dall’elemento che compare in meno formule. 4. Cambia solo i coefficienti. 5. Se ti viene una frazione (per esempio 7/2 O2), moltiplica tutto per 2. 6. Ricontrolla ogni elemento. 7. Aggiungi i simboli di stato.',
         exampleNames: ['Combustione del propano'],
+        imageAlt:
+          'La reazione 2H₂ + O₂ → 2H₂O disegnata con le particelle. A sinistra i reagenti: due molecole di idrogeno, ognuna di due atomi con la H che si toccano, più una molecola di ossigeno, due atomi con la O. Una freccia porta ai prodotti: due molecole d’acqua, ognuna un atomo di O con due atomi di H. Sotto le particelle c’è l’equazione e, sotto ancora, il conteggio degli atomi dei due lati: H 4 e 4, O 2 e 2.',
       },
     ],
     commonMistakes: [
@@ -478,6 +487,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Perché i composti ionici conducono solo fusi o sciolti',
         content:
           'Nel reticolo solido gli ioni sono fermi al loro posto, quindi non ci sono particelle cariche che possano muoversi. Fondendo o sciogliendosi, gli ioni si liberano e il liquido conduce. I metalli conducono in tutti gli stati perché i loro elettroni liberi possono sempre muoversi.',
+        imageAlt:
+          'Tre riquadri, uno sotto l’altro. Legame ionico: un reticolo di piccoli ioni positivi e grandi ioni negativi alternati, ognuno segnato con + o −. Legame covalente: una molecola di idrogeno, due atomi con la H i cui cerchi si sovrappongono, con due puntini (gli elettroni) nella zona comune, indicati come doppietto di legame. Legame metallico: un reticolo di ioni metallici positivi con altrettanti puntini (gli elettroni) sparsi fra loro, indicati come elettroni delocalizzati.',
       },
     ],
     tables: [
@@ -680,6 +691,8 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
         heading: 'Che cosa vuol dire «relativa»',
         content:
           'Gli atomi sono troppo leggeri per pesarli uno alla volta, così i chimici li confrontano. Metti un atomo di carbonio su un piatto e atomi di idrogeno sull’altro: ne servono 12 perché la bilancia sia in equilibrio. L’idea è tutta qui: il carbonio pesa 12 volte l’idrogeno, quindi diciamo che la sua massa atomica relativa è 12. Il numero risponde alla domanda «quanti idrogeni?», ed è per questo che non ha unità: è un confronto, non una misura. A rigore lo standard è il carbonio-12, non l’idrogeno: ogni massa atomica relativa confronta un atomo con un dodicesimo di un atomo di carbonio-12. L’idrogeno viene quasi esattamente 1, ed è per questo che l’immagine della bilancia funziona.',
+        imageAlt:
+          'Una bilancia a due piatti appesi, in equilibrio. Sul piatto di sinistra c’è un atomo di carbonio, un cerchio con la C. Su quello di destra ci sono dodici atomi di idrogeno, cerchi più piccoli con la H, impilati in file da cinque, quattro e tre. Il carbonio è disegnato più grande dell’idrogeno, ma non certo dodici volte tanto. Sotto i piatti c’è scritto «1 atomo di carbonio» e «12 atomi di idrogeno», e una nota avverte che il disegno non è in scala.',
       },
       {
         heading: 'Sommare gli atomi',

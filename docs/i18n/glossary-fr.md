@@ -118,6 +118,9 @@ Two more consequences worth knowing:
 | strong / weak acid | **acide fort / acide faible** | — |
 | concentrated / dilute | **concentré / dilué** | — |
 | salt | **sel** | — |
+| universal indicator | **indicateur universel** | The one place *coloré* is dropped: *universel* already says which indicator. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **échelle de pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **suc gastrique** (1), **vinaigre** (3), **eau pure** (7), **bicarbonate** (8), **décapant four** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Suc gastrique*, not *acide gastrique*: it is what a French SVT and chemistry textbook calls it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -336,6 +339,7 @@ the split.
 | significant figures | **chiffres significatifs** | Added 2026-09-25. The lycée rule is *autant de chiffres significatifs que la donnée la moins précise*, and the stoichiometry sheet now says that rather than a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *une table de données IR*, which is what a French exercise supplies, and the polyatomic-ion table is headed *Les principaux ions polyatomiques*. |
 | SLC (standard laboratory conditions) | **withheld — spell out "à 25 °C et 100 kPa"** | Added 2026-09-25. "SLC" is a VCE (Australian) abbreviation with no French equivalent, so the conversion-table cell now names the conditions instead of naming the abbreviation, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **balance à deux plateaux**; level is **en équilibre** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Organic chemistry
 

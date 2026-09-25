@@ -327,6 +327,9 @@ lists are long for a grammatical reason, not a technical one.
 | concentrated / dilute | **концентрированный / разбавленный** | — |
 | salt | **соль** | — |
 | solution | **раствор** | — |
+| universal indicator | **универсальный индикатор** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| pH scale | **шкала pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **желудочный сок** (1), **уксус** (3), **чистая вода** (7), **пищевая сода** (8), **средство для духовок** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -595,6 +598,7 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | significant figures | **значащие цифры** | Added 2026-09-25. The stoichiometry sheet phrases the rule as *столько значащих цифр, сколько их в наименее точном из данных значений*, not a fixed three. Russian school chemistry drills this less than the English-speaking systems do, but the term and the rule are the physics-class ones. **Rated medium.** |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet (the sheets had called it *справочник VCE*). The IR sentence now points to *таблицы ИК-спектроскопии*, and the polyatomic-ion table is headed *Основные многоатомные ионы*. |
 | standard laboratory conditions (SLC) | **withheld — spell out "при 25 °C и 100 кПа"** | Added 2026-09-25. The sheet used to say *при стандартных условиях*, which in Russian schools usually means 0 °C and 101,325 kPa — the wrong conditions for this VCE (Australian) value. Naming the actual conditions avoids both the untranslatable "SLC" and that false-friend phrase, keeping the English value (V_m = 24,8 л/моль). |
+| a two-pan balance (the relative-mass picture) | **рычажные весы**, their pans **чаши**; level is **в равновесии** | The diagram's alt text says *весы с двумя чашами*. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Organic chemistry
 

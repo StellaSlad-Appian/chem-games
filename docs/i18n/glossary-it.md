@@ -247,6 +247,8 @@ than failing silently on screen.
 | concentrated / dilute | **concentrato / diluito** | — |
 | salt | **sale** | Plural *sali*. |
 | ion | **ione** | *Ione*, plural *ioni*; *catione* / *anione*. Italian keeps the final *-e* where Spanish drops it, so none of the RAE accent question arises. |
+| pH scale | **scala del pH** | With the article, as the sheet's own table heading has it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **succhi gastrici** (1), **aceto** (3), **acqua pura** (7), **bicarbonato** (8), **sgrassatore per forni** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Succhi gastrici* is plural, as Italian says it. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -523,6 +525,7 @@ the split.
 | significant figures | **cifre significative** | Added 2026-09-25. The rule is phrased *allo stesso numero di cifre significative del dato meno preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabella IR*, and the polyatomic-ion table is headed *Gli ioni poliatomici più comuni*. |
 | CSA (condizioni standard ambiente) | **withheld — spell out "a 25 °C e 100 kPa"** | Added 2026-09-25. "CSA" is a VCE (Australian) abbreviation with no Italian equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **bilancia a due piatti**; level is **in equilibrio** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Organic chemistry
 

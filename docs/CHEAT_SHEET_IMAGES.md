@@ -71,6 +71,7 @@ themes, so no label needs to be bold or large to be legible:
 | `--diagram-electron` | an electron, its band, its label (text) | `#60a5fa` 7.83:1 | `#2563eb` 4.94:1 |
 | `--diagram-neutron` | a neutron's outline (graphic) | `#a1a1aa` 7.76:1 | `#475569` 7.24:1 |
 | `--diagram-accent` | a plotted line (graphic) | `#60a5fa` 7.83:1 | `#2563eb` 4.94:1 |
+| `--diagram-ph-0` … `--diagram-ph-14` | the universal-indicator colours on the pH scale (graphic, **fixed**) | one value each, set once for both themes | the same |
 
 `--diagram-ink` is the prose's own `--muted`, so a label is never louder than
 the paragraph it illustrates. `src/lib/cheat-sheet-diagrams.test.ts` re-measures
@@ -79,6 +80,17 @@ a browser that the colours change with the theme and still clear 4.5:1.
 
 Adding a colour is adding a token to both theme blocks in `globals.css`, with
 its measured ratios, to `TOKEN` in the script, and to `THRESHOLD` in that test.
+
+**The indicator colours are the one exception**, and the only fixed colours in
+any diagram: an indicator's colour is a fact about the indicator, so each is
+set once and the light theme does not override it. They carry no text, and
+most cannot clear 3:1 on both backgrounds (the yellows fail on light, the
+violets on dark; `globals.css` lists every ratio). So every step of the bar is
+outlined in `--diagram-ink` and has its pH printed beside it, and the scale
+reads without its colours, in either theme and for a red-green colour-blind
+reader. They are `INDICATOR` in the script, not `TOKEN`, and
+`cheat-sheet-diagrams.test.ts` holds them to that rule instead of a threshold:
+set once, and any step under 3:1 on either background outlined.
 
 ---
 
@@ -292,6 +304,30 @@ pair sits on a bonded side. Slot 2 also checks each shape against the sheet's
 rule (regions and lone pairs → shape), that the angle falls as lone pairs
 replace bonds, and that the two atoms drawn in the page really are the stated
 angle apart.
+
+## The slot on *Relative Atomic & Formula Mass* — `relative-formula-mass`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `relative-formula-mass/01-carbon-hydrogen-balance` | 360×345 | Under *What "relative" actually means*: a two-pan balance, level, with one carbon atom (a ring marked C) on the left pan and twelve hydrogen atoms (smaller rings marked H, in rows of 5, 4 and 3) on the right. Under each pan its count, **1** and **12**, the focal item, and under that *carbon atom* / *hydrogen atoms* (the noun in the form that goes with its count); under both, the glossary's *not to scale*. The count has a line of its own because, run together, the German *12 Wasserstoffatome* is wider than the room under a pan. Carbon's radius is 2.1 × hydrogen's (their covalent radii), so about 4.4 times the area — larger, and nowhere near 12 ×, because size is not mass. The run checks that 12 × 1.008 is within 1% of 12.011, that the class-table masses (H 1, C 12) balance exactly, and that carbon is drawn at under half of 12 times hydrogen's area. |
+
+## The slot on *Balancing Chemical Equations* — `balancing-equations`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `balancing-equations/01-particle-equation` | 325×270 | Under *A method that always works*: 2H₂ + O₂ → 2H₂O as particles — two H₂ stacked, a plus, one O₂, an arrow, two H₂O stacked — each atom a ring with its symbol, O larger and tinted. *Reactants* and *products* over the two sides, the equation under the particles with real subscripts, and under that the tally: H 4 \| 4, O 2 \| 2, a rule under the arrow. The run reads the atoms out of each formula, fails unless every element balances, prints the counts it computed, and checks that the particles drawn are those counts. |
+
+## The slot on *Chemical Bonds & Structure* — `chemical-bonds`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `chemical-bonds/01-bonding-models` | 360×515 | Under *Why ionic compounds conduct only when molten or dissolved*: three boxes stacked, named on their left with each country's school name for the bond. *Ionic*: a 6 × 5 checkerboard of small cations (a drawn +) and large anions (a drawn −), in the Na⁺ : Cl⁻ radius ratio, 15 of each. *Covalent*: one H₂ molecule, its atoms overlapping, the two electrons of the *shared pair* in the overlap, named with a leader. *Metallic*: 16 cations (1+) in a grid and 16 electrons scattered between them, *delocalised electrons*, named with a leader along the channel between two rows. The run checks the lattice is neutral and the sea holds one electron per unit of cation charge. |
+
+## The slot on *Acids & Bases* — `acids-and-bases`
+
+| # | Key | Size | What it should show |
+|---|---|---|---|
+| 1 | `acids-and-bases/01-ph-scale` | 330×410 | Under the new first section, *The pH scale*: a vertical bar, pH 0 at the top to 14 at the bottom, one block per whole pH in the universal-indicator colours (`INDICATOR`, above), each outlined in ink with its number printed to its left. Five examples level with their pH, with a short tick: stomach acid 1, vinegar 3, pure water 7, baking soda 8, oven cleaner 13. The run reads the sheet's *pH scale landmarks* table and fails unless each example is named in a row whose range includes its pH, and unless pure water is 7. |
 
 ---
 

@@ -2565,6 +2565,636 @@ function drawReactionMap(pen: Pen): string[] {
   return parts;
 }
 
+// --- Small diagrams A (task 10a) ---
+//
+// One small diagram on each of four sheets that had none: a carbon atom
+// balancing twelve hydrogens (relative-formula-mass/01), 2H2 + O2 → 2H2O as
+// particles with its atom counts (balancing-equations/01), the three bonding
+// models (chemical-bonds/01), and the pH scale in universal-indicator colours
+// (acids-and-bases/01). Each is drawn from a constant below, and each constant
+// is checked before anything is drawn.
+
+/**
+ * One carbon atom against twelve hydrogen atoms, for
+ * `relative-formula-mass/01-carbon-hydrogen-balance`.
+ *
+ * The relative masses are the standard atomic weights (C 12.011, H 1.008;
+ * `src/core-engine/data/elements.ts` has the same), and the run checks that
+ * twelve hydrogens really do come out level with one carbon: 12 × 1.008 is
+ * within 1% of 12.011, and 12.011 / 1.008 rounds to 12. With the class-table
+ * values the sheet uses, H 1 and C 12, the two pans are exactly equal.
+ *
+ * **Carbon is drawn larger than hydrogen, and nowhere near twelve times the
+ * area.** The radii are in the ratio of the two atoms' covalent radii as a
+ * school table gives them (C 77 pm, H 37 pm: about 2.1), so carbon has about
+ * 4.4 times hydrogen's area, not 12. An atom's size says nothing about its
+ * mass — a picture whose areas balanced would teach exactly that — and the
+ * run fails if carbon is drawn at half of 12 times the area or more. The
+ * drawing still says "not to scale", because nothing in it is: the atoms are
+ * a hundred million times the size of the balance.
+ */
+const CARBON_HYDROGEN_BALANCE = {
+  carbon: { symbol: 'C', relativeMass: 12.011, classMass: 12, radius: 23 },
+  hydrogen: { symbol: 'H', relativeMass: 1.008, classMass: 1, radius: 11 },
+  hydrogens: 12,
+  /** The hydrogens' pile on their pan, bottom row first. */
+  rows: [5, 4, 3],
+} as const;
+{
+  const { carbon, hydrogen, hydrogens, rows } = CARBON_HYDROGEN_BALANCE;
+  if (Math.round(carbon.relativeMass / hydrogen.relativeMass) !== hydrogens) {
+    throw new Error('CARBON_HYDROGEN_BALANCE: carbon is not about twelve times as heavy as hydrogen.');
+  }
+  if (Math.abs(hydrogens * hydrogen.relativeMass - carbon.relativeMass) / carbon.relativeMass > 0.01) {
+    throw new Error('CARBON_HYDROGEN_BALANCE: the twelve hydrogens are more than 1% off one carbon.');
+  }
+  if (hydrogens * hydrogen.classMass !== carbon.classMass) {
+    throw new Error('CARBON_HYDROGEN_BALANCE: with the class-table masses the pans are not level.');
+  }
+  if (rows.reduce((sum, count) => sum + count, 0) !== hydrogens) {
+    throw new Error('CARBON_HYDROGEN_BALANCE: the pile does not hold twelve hydrogens.');
+  }
+  const areaRatio = (carbon.radius / hydrogen.radius) ** 2;
+  if (!(areaRatio > 1 && areaRatio < hydrogens / 2)) {
+    throw new Error(
+      `CARBON_HYDROGEN_BALANCE: carbon is drawn at ${areaRatio.toFixed(1)} times hydrogen's area. It must be ` +
+        'larger, and nowhere near 12 times, or the picture says an atom\'s size is its mass.',
+    );
+  }
+}
+
+/**
+ * The balance, level, with one carbon atom on the left pan and twelve
+ * hydrogen atoms piled on the right.
+ *
+ * A two-pan balance hanging its pans from the ends of the beam, on one stand:
+ * the picture the section's paragraph describes. The beam is drawn level
+ * because the run has checked, above, that the two pans weigh the same; the
+ * stand is between the pans, and each pan's strings clear the atoms on it.
+ * Each atom is a ring with its symbol in it; under each pan, how many atoms
+ * it holds. The only other words are the not-to-scale caveat.
+ */
+function drawCarbonHydrogenBalance(pen: Pen): string[] {
+  const { t, symbol, whole, label } = pen;
+  const { carbon, hydrogen, hydrogens, rows } = CARBON_HYDROGEN_BALANCE;
+  const pivotX = 180;
+  const beamY = 64;
+  const arm = 86;
+  /** The top of each pan, where the atoms rest. */
+  const panY = 196;
+  const panHalf = 68;
+  const footY = 212;
+  const [leftX, rightX] = [pivotX - arm, pivotX + arm];
+  const parts: string[] = [];
+
+  // The stand and its fulcrum, then the beam across it.
+  parts.push(
+    `<path d="M ${pivotX} ${beamY} L ${pivotX - 11} ${beamY + 18} L ${pivotX + 11} ${beamY + 18} Z" ${paint(TOKEN.ink)} />`,
+    `<path d="M ${pivotX} ${beamY + 18} L ${pivotX} ${footY} M ${pivotX - 14} ${footY} L ${pivotX + 14} ${footY}" ` +
+      `${paint('none', TOKEN.ink)} stroke-width="3" stroke-linecap="round" />`,
+    `<path d="M ${leftX} ${beamY} L ${rightX} ${beamY}" ${paint('none', TOKEN.ink)} stroke-width="4" stroke-linecap="round" />`,
+  );
+
+  // Each pan hangs from its end of the beam on two strings.
+  for (const x of [leftX, rightX]) {
+    parts.push(
+      `<path d="M ${x - panHalf + 2} ${panY} L ${x} ${beamY} L ${x + panHalf - 2} ${panY}" ` +
+        `${paint('none', TOKEN.inkMuted)} stroke-width="1.5" stroke-linejoin="round" />`,
+      `<path d="M ${x - panHalf} ${panY} L ${x + panHalf} ${panY} L ${x + panHalf - 12} ${panY + 12} ` +
+        `L ${x - panHalf + 12} ${panY + 12} Z" ${paint('none', TOKEN.ink)} stroke-width="2.5" stroke-linejoin="round" />`,
+    );
+  }
+
+  // One carbon atom, resting on the left pan.
+  const carbonY = panY - 1.5 - carbon.radius;
+  parts.push(
+    ring(leftX, carbonY, carbon.radius, TOKEN.ink, 2.5),
+    label(leftX, carbonY, symbol(carbon.symbol), { room: 2 * carbon.radius - 4, anchor: 'middle', central: true }),
+  );
+
+  // Twelve hydrogen atoms, piled in touching rows on the right pan.
+  let drawn = 0;
+  rows.forEach((count, row) => {
+    const y = panY - 1.5 - hydrogen.radius - row * hydrogen.radius * Math.sqrt(3);
+    for (let index = 0; index < count; index += 1) {
+      const x = rightX + (index - (count - 1) / 2) * 2 * hydrogen.radius;
+      parts.push(
+        ring(x, y, hydrogen.radius, TOKEN.ink, 2),
+        label(x, y, symbol(hydrogen.symbol), { room: 2 * hydrogen.radius - 2, anchor: 'middle', central: true }),
+      );
+      drawn += 1;
+    }
+  });
+  if (drawn !== hydrogens) throw new Error(`01-carbon-hydrogen-balance: drew ${drawn} hydrogens, not ${hydrogens}.`);
+
+  // What each pan holds, under it: the count, the figure's one focal item,
+  // since 1 against 12 is the whole idea, and under it what is counted. The
+  // count has a line of its own on purpose. Run together, "12
+  // Wasserstoffatome" is wider than the room under a pan, and the wrap left
+  // the 12 alone on a line as if by accident. A noun may be wider than its
+  // pan — the German «Kohlenstoffatom» is — and still stops short of the
+  // canvas edge and of the other pan's words. The caveat goes under both.
+  const countY = panY + 44;
+  const nounY = countY + 26;
+  const labelRoom = 2 * (leftX - 16);
+  const counts = { item: 'atom counts', size: 28, bold: true };
+  parts.push(
+    label(leftX, countY, whole(1), { room: 60, anchor: 'middle', focal: counts }),
+    label(rightX, countY, whole(hydrogens), { room: 60, anchor: 'middle', focal: counts }),
+    label(leftX, nounY, t('carbonAtom'), { room: labelRoom, anchor: 'middle', lines: 2 }),
+    label(rightX, nounY, t('hydrogenAtoms'), { room: labelRoom, anchor: 'middle', lines: 2 }),
+    label(16, nounY + LEADING + 32, t('notToScale'), { room: PHONE - 16 }),
+  );
+
+  return parts;
+}
+
+/**
+ * 2H2 + O2 → 2H2O, for `balancing-equations/01-particle-equation`.
+ *
+ * Each species is its coefficient and its formula; the run reads the atoms
+ * out of each formula, multiplies by the coefficient, and fails unless every
+ * element has the same count on both sides. The counts printed under the
+ * drawing are those computed numbers, and the particles drawn are those
+ * formulas that many times — so the picture, the formula line and the tally
+ * cannot disagree with one another or with the chemistry.
+ */
+const WATER_FORMATION = {
+  reactants: [
+    { key: 'hydrogen', coefficient: 2, formula: 'H2' },
+    { key: 'oxygen', coefficient: 1, formula: 'O2' },
+  ],
+  products: [{ key: 'water', coefficient: 2, formula: 'H2O' }],
+} as const;
+
+/** Every element in a simple formula (no brackets, no charge) and how many of it. */
+function atomsInFormula(formula: string): Map<string, number> {
+  if (!/^(?:[A-Z][a-z]?\d*)+$/.test(formula)) throw new Error(`${formula}: not a formula this script can count.`);
+  const atoms = new Map<string, number>();
+  for (const [, element, count] of formula.matchAll(/([A-Z][a-z]?)(\d*)/g)) {
+    atoms.set(element, (atoms.get(element) ?? 0) + (count ? Number(count) : 1));
+  }
+  return atoms;
+}
+
+/** The atoms on one side of an equation, element by element. */
+function atomsOnSide(side: readonly { coefficient: number; formula: string }[]): Map<string, number> {
+  const total = new Map<string, number>();
+  for (const { coefficient, formula } of side) {
+    for (const [element, count] of atomsInFormula(formula)) {
+      total.set(element, (total.get(element) ?? 0) + coefficient * count);
+    }
+  }
+  return total;
+}
+
+{
+  const left = atomsOnSide(WATER_FORMATION.reactants);
+  const right = atomsOnSide(WATER_FORMATION.products);
+  for (const element of new Set([...left.keys(), ...right.keys()])) {
+    if (left.get(element) !== right.get(element)) {
+      throw new Error(
+        `WATER_FORMATION: ${element} is ${left.get(element) ?? 0} on the left and ${right.get(element) ?? 0} ` +
+          'on the right. The equation does not balance.',
+      );
+    }
+  }
+}
+
+/**
+ * How each molecule is drawn: its atoms, as element and offset from the
+ * molecule's centre. Touching, not overlapping, so each atom reads as one. The
+ * water's two hydrogens are 104.5° apart, as they are.
+ */
+const PARTICLE_RADIUS: Record<string, number> = { H: 11, O: 14 };
+const PARTICLE_SHAPES: Record<string, readonly (readonly [string, number, number])[]> = {
+  H2: [
+    ['H', -PARTICLE_RADIUS.H, 0],
+    ['H', PARTICLE_RADIUS.H, 0],
+  ],
+  O2: [
+    ['O', -PARTICLE_RADIUS.O, 0],
+    ['O', PARTICLE_RADIUS.O, 0],
+  ],
+  H2O: [
+    ['O', 0, 0],
+    ...[270 - 104.5 / 2, 270 + 104.5 / 2].map((bearing) => {
+      const [x, y] = at(0, 0, bearing, PARTICLE_RADIUS.O + PARTICLE_RADIUS.H);
+      return ['H', x, y] as const;
+    }),
+  ],
+};
+for (const [formula, shape] of Object.entries(PARTICLE_SHAPES)) {
+  const drawn = new Map<string, number>();
+  for (const [element] of shape) drawn.set(element, (drawn.get(element) ?? 0) + 1);
+  const expected = atomsInFormula(formula);
+  if (drawn.size !== expected.size || [...expected].some(([element, count]) => drawn.get(element) !== count)) {
+    throw new Error(`PARTICLE_SHAPES: ${formula} is not drawn with the atoms its formula has.`);
+  }
+}
+
+/**
+ * `pen.label()` for a formula with a coefficient in front, `2H2O`, with its
+ * subscripts lowered and set small as `formulaLabel()` sets them. (That one
+ * reads a term that starts with a digit as a word, which is right for a
+ * reagent and wrong here.) The words must be exactly the formula it is given,
+ * so a string that drifts from the equation fails the run.
+ */
+function coefficientFormulaLabel(
+  pen: Pen,
+  x: number,
+  y: number,
+  words: Words,
+  species: { coefficient: number; formula: string },
+  options: LabelOptions,
+): string {
+  const expected = `${species.coefficient === 1 ? '' : species.coefficient}${species.formula}`;
+  if (words.text !== expected) {
+    throw new Error(`${words.source} [${pen.locale}]: "${words.text}" should be ${expected}, as in the equation.`);
+  }
+  const drawn = pen.label(x, y, words, options);
+  const match = /^(<text [^>]*>)([^<]*)<\/text>$/.exec(drawn);
+  if (!match) throw new Error(`${words.source}: label() drew something coefficientFormulaLabel() cannot read.`);
+  const runs: { text: string; lowered: boolean }[] = [];
+  let afterSymbol = false;
+  for (const char of words.text) {
+    const lowered = /\d/.test(char) && afterSymbol;
+    if (!/\d/.test(char)) afterSymbol = true;
+    const last = runs[runs.length - 1];
+    if (last && last.lowered === lowered) last.text += char;
+    else runs.push({ text: char, lowered });
+  }
+  let current = 0;
+  const content = runs.map(({ text, lowered }) => {
+    const target = lowered ? FORMULA_SUB : 0;
+    const dy = target - current;
+    current = target;
+    const attributes = [dy !== 0 ? `dy="${n(dy)}"` : '', lowered ? `font-size="${FORMULA_SMALL}"` : ''].filter(Boolean);
+    return attributes.length ? `<tspan ${attributes.join(' ')}>${esc(text)}</tspan>` : esc(text);
+  });
+  return `${match[1]}${content.join('')}</text>`;
+}
+
+/** A plus sign drawn as two strokes, for an equation or an ion's charge. */
+function plusSign(x: number, y: number, half: number, stroke: Token, width = 2.5): string {
+  return (
+    `<path d="M ${n(x - half)} ${n(y)} L ${n(x + half)} ${n(y)} M ${n(x)} ${n(y - half)} L ${n(x)} ${n(y + half)}" ` +
+    `${paint('none', stroke)} stroke-width="${width}" stroke-linecap="round" />`
+  );
+}
+
+/** A minus sign drawn as one stroke, for an anion's charge. */
+function minusSign(x: number, y: number, half: number, stroke: Token, width = 2): string {
+  return (
+    `<path d="M ${n(x - half)} ${n(y)} L ${n(x + half)} ${n(y)}" ${paint('none', stroke)} ` +
+    `stroke-width="${width}" stroke-linecap="round" />`
+  );
+}
+
+/**
+ * The reactants and the products as particles, the equation under them, and
+ * under that the atoms counted on each side.
+ *
+ * **Every atom is a ring with its symbol in it**, hydrogen smaller than
+ * oxygen (11 and 14 units, about their van der Waals radii), and oxygen
+ * tinted in the proton red that is its colour in every molecular model; the
+ * size and the symbol carry the difference, so the tint is never needed. The
+ * coefficient is *how many molecules are drawn*, stacked: two H₂, one O₂, two
+ * H₂O. That is the point of the picture — a coefficient makes more of the
+ * molecule, and a subscript is part of it.
+ *
+ * **The tally is the check made visible**: each element's symbol, its count
+ * on the left, a rule under the arrow, its count on the right. "Reactants" and
+ * "products" head the two sides, in each glossary's word for them.
+ */
+function drawParticleEquation(pen: Pen): string[] {
+  const { t, symbol, whole, label } = pen;
+  const middleY = 96;
+  const formulaY = 176;
+  /** The centre of each species' column, left to right, and of each side. */
+  const columns = { hydrogen: 44, oxygen: 136, water: 264 };
+  const sides = { reactants: 90, products: 264 };
+  const plusX = 88;
+  const [arrowFrom, arrowTo] = [178, 218];
+  const dividerX = (arrowFrom + arrowTo) / 2;
+  /** How far apart two copies of one molecule are stacked. */
+  const stack: Record<string, number> = { H2: 40, O2: 40, H2O: 48 };
+  const parts: string[] = [];
+
+  parts.push(
+    label(sides.reactants, 24, t('reactants'), { room: 150, anchor: 'middle' }),
+    label(sides.products, 24, t('products'), { room: 2 * (PHONE - 16 - sides.products), anchor: 'middle' }),
+  );
+
+  const drawnAtoms = { reactants: new Map<string, number>(), products: new Map<string, number>() };
+  const species = [
+    ...WATER_FORMATION.reactants.map((item) => ({ ...item, side: 'reactants' as const })),
+    ...WATER_FORMATION.products.map((item) => ({ ...item, side: 'products' as const })),
+  ];
+  for (const item of species) {
+    const x = columns[item.key];
+    for (let copy = 0; copy < item.coefficient; copy += 1) {
+      const y = middleY + (copy - (item.coefficient - 1) / 2) * stack[item.formula];
+      for (const [element, dx, dy] of PARTICLE_SHAPES[item.formula]) {
+        const radius = PARTICLE_RADIUS[element];
+        parts.push(
+          element === 'O'
+            ? `<circle cx="${n(x + dx)}" cy="${n(y + dy)}" r="${radius}" ${paint(TOKEN.proton, TOKEN.proton)} ` +
+                'fill-opacity="0.15" stroke-width="2.5" />'
+            : ring(x + dx, y + dy, radius, TOKEN.ink, 2),
+          label(x + dx, y + dy, symbol(element), { room: 2 * radius - 2, anchor: 'middle', central: true }),
+        );
+        const tally = drawnAtoms[item.side];
+        tally.set(element, (tally.get(element) ?? 0) + 1);
+      }
+    }
+    parts.push(coefficientFormulaLabel(pen, x, formulaY, t(item.key), item, { room: 84, anchor: 'middle' }));
+  }
+
+  // The plus and the arrow, once among the particles and once in the equation.
+  for (const y of [middleY, formulaY - 6]) {
+    parts.push(plusSign(plusX, y, 7, TOKEN.ink), arrow(arrowFrom, y, arrowTo, y));
+  }
+
+  // The tally: what the run counted from the equation, which must also be
+  // what was drawn.
+  const counted = { reactants: atomsOnSide(WATER_FORMATION.reactants), products: atomsOnSide(WATER_FORMATION.products) };
+  const elements = [...counted.reactants.keys()];
+  const tallyTop = 206;
+  const rowStep = 30;
+  elements.forEach((element, row) => {
+    const y = tallyTop + row * rowStep;
+    for (const side of ['reactants', 'products'] as const) {
+      if (drawnAtoms[side].get(element) !== counted[side].get(element)) {
+        throw new Error(`01-particle-equation: the ${side} show a different number of ${element} than the equation.`);
+      }
+    }
+    parts.push(
+      label(16, y, symbol(element), { room: 30, central: true }),
+      label(sides.reactants, y, whole(counted.reactants.get(element)!), { room: 40, anchor: 'middle', central: true }),
+      label(sides.products, y, whole(counted.products.get(element)!), { room: 40, anchor: 'middle', central: true }),
+    );
+  });
+  parts.push(
+    `<path d="M ${dividerX} ${tallyTop - 16} L ${dividerX} ${tallyTop + (elements.length - 1) * rowStep + 16}" ` +
+      `${paint('none', TOKEN.ink)} stroke-width="2" stroke-linecap="round" />`,
+  );
+
+  return parts;
+}
+
+/**
+ * The three bonding models, for `chemical-bonds/01-bonding-models`.
+ *
+ * The ionic lattice is sodium chloride's pattern: a checkerboard of small
+ * cations and large anions, in the ratio of Na⁺ to Cl⁻ (102 pm and 181 pm,
+ * about 0.56), and as many of one as of the other, which the run checks — the
+ * lattice is neutral, as NaCl is. The metal is a 1+ metal like sodium: one
+ * delocalised electron per cation, so the run checks there are exactly as many
+ * electrons in the sea as cations in the lattice.
+ */
+const BONDING_MODELS = {
+  ionic: { columns: 6, rows: 5, pitch: 24, cationRadius: 7, anionRadius: 12.5, radiusRatio: 102 / 181 },
+  metallic: { columns: 4, rows: 4, pitch: 34, cationRadius: 12, charge: 1 },
+} as const;
+{
+  const { ionic, metallic } = BONDING_MODELS;
+  const sites = ionic.columns * ionic.rows;
+  if (sites % 2 !== 0) throw new Error('BONDING_MODELS: an odd number of ions cannot be half cations, half anions.');
+  if (Math.abs(ionic.cationRadius / ionic.anionRadius - ionic.radiusRatio) > 0.05) {
+    throw new Error('BONDING_MODELS: the ions are not drawn in the ratio of Na+ to Cl-.');
+  }
+  if (ionic.cationRadius + ionic.anionRadius >= ionic.pitch) {
+    throw new Error('BONDING_MODELS: neighbouring ions overlap.');
+  }
+  if (2 * metallic.cationRadius >= metallic.pitch) throw new Error('BONDING_MODELS: neighbouring cations overlap.');
+}
+
+/**
+ * Three boxes, one above another, each named on its left: an ionic lattice, a
+ * molecule held by a shared pair, and metal cations in a sea of electrons.
+ *
+ * **Rows, not three panels side by side,** for the same reason as the states
+ * of matter: stacked, the names share a column a phone always shows, and a
+ * Russian «металлическая связь» can take two lines of it.
+ *
+ * - **Ionic:** alternating cations (small, red, a drawn +) and anions (large,
+ *   blue, a drawn −), touching nothing, locked in a grid. Size and the sign
+ *   carry the charge, so it survives any colour vision.
+ * - **Covalent:** one H₂ molecule, its two atoms overlapping, and the two
+ *   electrons of the shared pair in the overlap, named with a leader.
+ * - **Metallic:** 1+ cations in a grid, and between them as many electrons,
+ *   scattered, named with a leader to one of them.
+ *
+ * The two leaders come in level from the name column: to the covalent pair
+ * through the point where the two atoms' outlines cross, and to the metal's
+ * electron along the channel between two rows of cations, so neither crosses
+ * anything on its way.
+ */
+function drawBondingModels(pen: Pen): string[] {
+  const { t, symbol, label } = pen;
+  const boxX = 184;
+  const boxRight = PHONE - MARGIN - 1;
+  const boxWidth = boxRight - boxX;
+  const boxHeight = 150;
+  const rowGap = 16;
+  /** The names end here, right-aligned against their boxes. */
+  const nameEnd = boxX - 12;
+  const nameRoom = nameEnd - 16;
+  /** Where a leader leaves the name column, and the height of the thing it names. */
+  const leaderStart = boxX - 6;
+  const pointerDrop = 80;
+  const parts: string[] = [];
+
+  (['ionic', 'covalent', 'metallic'] as const).forEach((model, index) => {
+    const boxY = 16 + index * (boxHeight + rowGap);
+    const pointerY = boxY + pointerDrop;
+    parts.push(frame(boxX, boxY, boxWidth, boxHeight), label(nameEnd, boxY + 26, t(model), { room: nameRoom, anchor: 'end', lines: 2 }));
+
+    if (model === 'ionic') {
+      const { columns, rows, pitch, cationRadius, anionRadius } = BONDING_MODELS.ionic;
+      const left = boxX + (boxWidth - columns * pitch) / 2 + pitch / 2;
+      const top = boxY + (boxHeight - rows * pitch) / 2 + pitch / 2;
+      let [cations, anions] = [0, 0];
+      for (let row = 0; row < rows; row += 1) {
+        for (let column = 0; column < columns; column += 1) {
+          const [x, y] = [left + column * pitch, top + row * pitch];
+          if ((row + column) % 2 === 0) {
+            parts.push(ring(x, y, cationRadius, TOKEN.proton, 2), plusSign(x, y, 3.5, TOKEN.proton, 2));
+            cations += 1;
+          } else {
+            parts.push(ring(x, y, anionRadius, TOKEN.electron, 2), minusSign(x, y, 5.5, TOKEN.electron));
+            anions += 1;
+          }
+        }
+      }
+      if (cations !== anions) throw new Error(`01-bonding-models: ${cations} cations and ${anions} anions; the lattice is not neutral.`);
+    } else if (model === 'covalent') {
+      // One H2: two atoms whose outlines cross, the shared pair where they overlap.
+      const radius = 20;
+      const apart = 30;
+      const cx = boxX + 70;
+      const tip = Math.sqrt(radius ** 2 - (apart / 2) ** 2);
+      for (const side of [-1, 1]) {
+        parts.push(
+          ring(cx, pointerY + (side * apart) / 2, radius, TOKEN.ink, 2),
+          label(cx, pointerY + side * (apart / 2 + 6), symbol('H'), { room: 24, anchor: 'middle', central: true }),
+        );
+      }
+      parts.push(
+        dot(cx - 5, pointerY, 3.2, TOKEN.electron),
+        dot(cx + 5, pointerY, 3.2, TOKEN.electron),
+        label(nameEnd, pointerY, t('sharedPair'), { room: nameRoom, anchor: 'end', central: true, lines: 3, fill: TOKEN.electron }),
+        leader(leaderStart, pointerY, cx - tip + 2, pointerY),
+      );
+    } else {
+      const { columns, rows, pitch, cationRadius, charge } = BONDING_MODELS.metallic;
+      const left = boxX + (boxWidth - columns * pitch) / 2 + pitch / 2;
+      // The rows sit so that the leader's height runs along the channel
+      // between the second and third.
+      const top = pointerY - pitch / 2 - pitch;
+      const cations: [number, number][] = [];
+      for (let row = 0; row < rows; row += 1) {
+        for (let column = 0; column < columns; column += 1) cations.push([left + column * pitch, top + row * pitch]);
+      }
+      if (top - cationRadius < boxY + 4 || top + (rows - 1) * pitch + cationRadius > boxY + boxHeight - 4) {
+        throw new Error('01-bonding-models: the metal lattice does not fit its box.');
+      }
+      // The named electron sits in the channel, between the first two columns.
+      const named: [number, number] = [left + pitch / 2, pointerY];
+      const electrons: [number, number][] = [named];
+      const random = seeded(0x10a3);
+      for (let tries = 0; electrons.length < cations.length * charge; tries += 1) {
+        if (tries > 20000) throw new Error('01-bonding-models: no room for the delocalised electrons.');
+        const x = boxX + 9 + random() * (boxWidth - 18);
+        const y = boxY + 9 + random() * (boxHeight - 18);
+        const clearOfCations = cations.every(([cx, cy]) => Math.hypot(x - cx, y - cy) >= cationRadius + 7);
+        const clearOfElectrons = electrons.every(([ex, ey]) => Math.hypot(x - ex, y - ey) >= 16);
+        const clearOfLeader = !(x < named[0] + 8 && Math.abs(y - pointerY) < 9);
+        if (clearOfCations && clearOfElectrons && clearOfLeader) electrons.push([x, y]);
+      }
+      if (electrons.length !== cations.length * charge) {
+        throw new Error('01-bonding-models: the sea does not hold one electron per unit of cation charge.');
+      }
+      for (const [x, y] of cations) parts.push(ring(x, y, cationRadius, TOKEN.proton, 2), plusSign(x, y, 5, TOKEN.proton, 2));
+      for (const [x, y] of electrons) parts.push(dot(x, y, 3.2, TOKEN.electron));
+      parts.push(
+        label(nameEnd, pointerY, t('delocalised'), { room: nameRoom, anchor: 'end', central: true, lines: 3, fill: TOKEN.electron }),
+        leader(leaderStart, pointerY, named[0] - 7, pointerY),
+      );
+    }
+  });
+
+  return parts;
+}
+
+/**
+ * The pH scale, for `acids-and-bases/01-ph-scale`: fifteen steps, 0 to 14,
+ * in universal-indicator colours, and five everyday solutions at their pH.
+ *
+ * Each example's pH is checked against the sheet's own *pH scale landmarks*
+ * table in `src/lib/cheat-sheet-data.ts`, which the run reads: the example
+ * must be named in a row whose pH range includes it, so the bar and the table
+ * under it cannot disagree. The pH values are typical ones — stomach acid
+ * about 1, vinegar about 3, sodium hydrogencarbonate (baking soda) solution
+ * about 8, a sodium hydroxide oven cleaner about 13 — and pure water is 7 at
+ * 25 °C, which the run insists on.
+ */
+const PH_SCALE = {
+  lowest: 0,
+  highest: 14,
+  examples: [
+    { key: 'stomachAcid', pH: 1, tableWord: 'Stomach acid' },
+    { key: 'vinegar', pH: 3, tableWord: 'Vinegar' },
+    { key: 'pureWater', pH: 7, tableWord: 'Pure water' },
+    { key: 'bakingSoda', pH: 8, tableWord: 'Baking soda' },
+    { key: 'ovenCleaner', pH: 13, tableWord: 'Oven cleaner' },
+  ],
+} as const;
+
+/**
+ * The universal-indicator colours, one per whole pH, as `--diagram-ph-0` to
+ * `--diagram-ph-14` in `src/app/globals.css`. **The one place a diagram's
+ * colour is fixed**: an indicator's colour is a fact about the indicator, so
+ * it is the same in both themes. None of them carries text, and none has to
+ * clear a contrast ratio on its own: every step is outlined in `ink`, which
+ * does, and its pH is printed beside it, so the scale reads without its
+ * colours — for a red-green colour-blind reader, or in either theme.
+ * `src/lib/cheat-sheet-diagrams.test.ts` measures each colour against both
+ * backgrounds and fails if one under 3:1 is drawn without that outline.
+ */
+const INDICATOR = Array.from(
+  { length: PH_SCALE.highest - PH_SCALE.lowest + 1 },
+  (_, step) => `var(--diagram-ph-${PH_SCALE.lowest + step})`,
+);
+{
+  const source = readFileSync(join(root, 'src', 'lib', 'cheat-sheet-data.ts'), 'utf8');
+  const start = source.indexOf("heading: 'pH scale landmarks'");
+  if (start < 0) throw new Error('PH_SCALE: the acids sheet has no "pH scale landmarks" table to check against.');
+  const table = source.slice(start, source.indexOf('commonMistakes', start));
+  const rows = [...table.matchAll(/\['(\d+)(?:–(\d+))?', '([^']+)'/g)];
+  for (const { key, pH, tableWord } of PH_SCALE.examples) {
+    const row = rows.find(([, , , examples]) => examples.toLowerCase().includes(tableWord.toLowerCase()));
+    if (!row) throw new Error(`PH_SCALE: ${key} is not in the sheet's pH table.`);
+    const [low, high] = [Number(row[1]), Number(row[2] ?? row[1])];
+    if (pH < low || pH > high) throw new Error(`PH_SCALE: ${key} is drawn at pH ${pH}, but the table puts it at ${low}–${high}.`);
+    if (pH < PH_SCALE.lowest || pH > PH_SCALE.highest) throw new Error(`PH_SCALE: ${key} is off the scale.`);
+  }
+  if (PH_SCALE.examples.find(({ key }) => key === 'pureWater')?.pH !== 7) {
+    throw new Error('PH_SCALE: pure water is neutral, pH 7 at 25 °C.');
+  }
+}
+
+/**
+ * A vertical bar, pH 0 at the top, each step a block of its indicator colour
+ * with its number printed to its left; each example to the right, level with
+ * its pH, with a short tick from the bar.
+ *
+ * **Vertical, because the examples are words.** Across the page each pH step
+ * would have about 22 units, the labels would have to be staggered above and
+ * below the bar to fit, and pure water and baking soda — one step apart —
+ * would still collide in German. Down the page every label has a line of its
+ * own and the width of the drawing to the right of the bar, and the whole
+ * figure is 360 units wide.
+ */
+function drawPhScale(pen: Pen): string[] {
+  const { t, whole, label } = pen;
+  const numbersEnd = 46;
+  const barX = 56;
+  const barWidth = 36;
+  const top = 18;
+  /** One pH step. More than a label's height, so neighbouring examples never touch. */
+  const step = 25;
+  const labelX = barX + barWidth + 18;
+  const parts: string[] = [];
+  const steps = PH_SCALE.highest - PH_SCALE.lowest + 1;
+
+  for (let index = 0; index < steps; index += 1) {
+    const y = top + index * step;
+    parts.push(
+      `<rect x="${barX}" y="${n(y)}" width="${barWidth}" height="${step}" ` +
+        `style="fill:${INDICATOR[index]};stroke:${TOKEN.ink}" stroke-width="1.5" />`,
+      label(numbersEnd, y + step / 2, whole(PH_SCALE.lowest + index), { room: 30, anchor: 'end', central: true }),
+    );
+  }
+  parts.push(
+    `<rect x="${barX}" y="${top}" width="${barWidth}" height="${steps * step}" ${paint('none', TOKEN.ink)} stroke-width="2" />`,
+  );
+
+  for (const { key, pH } of PH_SCALE.examples) {
+    const y = top + (pH - PH_SCALE.lowest + 0.5) * step;
+    parts.push(
+      `<path d="M ${barX + barWidth + 2} ${n(y)} L ${labelX - 6} ${n(y)}" ${paint('none', TOKEN.ink)} ` +
+        'stroke-width="2" stroke-linecap="round" />',
+      label(labelX, y, t(key), { room: PHONE - 16 - labelX, central: true }),
+    );
+  }
+
+  return parts;
+}
+
+// --- end of task 10a ---
+
 // --- The slots -------------------------------------------------------------
 
 /**
@@ -2591,6 +3221,10 @@ const SLOTS: Slot[] = (
     ['lewis-structures', '01-lewis-structures', true, drawLewisStructures],
     ['lewis-structures', '02-vsepr-shapes', true, drawVseprShapes],
     ['functional-groups', '01-reaction-map', true, drawReactionMap],
+    ['relative-formula-mass', '01-carbon-hydrogen-balance', true, drawCarbonHydrogenBalance],
+    ['balancing-equations', '01-particle-equation', true, drawParticleEquation],
+    ['chemical-bonds', '01-bonding-models', true, drawBondingModels],
+    ['acids-and-bases', '01-ph-scale', true, drawPhScale],
   ] as const
 ).map(([sheet, id, phone, draw]) => ({
   sheet,
@@ -2668,7 +3302,7 @@ const FORBIDDEN: { pattern: RegExp; why: string }[] = [
   { pattern: /<title|<desc/i, why: "the page names the drawing, in the reader's language" },
 ];
 
-const KNOWN_TOKENS = new Set<string>(Object.values(TOKEN));
+const KNOWN_TOKENS = new Set<string>([...Object.values(TOKEN), ...INDICATOR]);
 
 function assertClean(slot: Slot, locale: Locale, markup: string, size: Size): void {
   const where = `${slot.key} [${locale}]`;

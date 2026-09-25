@@ -234,6 +234,8 @@ a match word anyway — it begins with a non-ASCII letter. But if anyone ever
 | concentrated / dilute | **concentrado / diluido** | — |
 | salt | **sal** | — |
 | ion | **ion** | Without an accent. The RAE now prints *ion* (a monosyllable); *ión* is the older spelling and still widespread. Consistency matters more than either choice here, so: *ion*, everywhere, including *catión* and *anión*, which **do** carry their accent because they are stressed on the last syllable. |
+| pH scale | **escala de pH** | Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
+| the pH scale's everyday examples (diagram labels) | **jugo gástrico** (1), **vinagre** (3), **agua pura** (7), **bicarbonato** (8), **limpiahornos** (13) | The words the sheet's own pH table uses, each at the same pH band as the English. *Jugo gástrico* is the school term in Spain as well as in Latin America. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Substances and structure
 
@@ -471,6 +473,7 @@ the split.
 | significant figures | **cifras significativas** | Added 2026-09-25. The rule is phrased *al mismo número de cifras significativas que el dato menos preciso*, not a fixed three. |
 | the VCE data book | **withheld** | Added 2026-09-25. It is one Australian exam's booklet. The IR sentence now points to *una tabla de IR*, and the polyatomic-ion table is headed *Los iones poliatómicos más habituales*. |
 | CLE (condiciones estándar de laboratorio) | **withheld — spell out "a 25 °C y 100 kPa"** | Added 2026-09-25. "CLE" is a VCE (Australian) abbreviation with no Spanish equivalent, so the conversion-table cell now names the conditions instead, keeping the English value (V_m = 24,8 L/mol). |
+| a two-pan balance (the relative-mass picture) | **balanza de dos platillos**; level is **equilibrada** | *La balanza* as fixed above for the game's beam; the pans are *platillos*. Added 2026-09-25 with the small cheat-sheet diagrams (task 10a). |
 
 ## Organic chemistry
 
