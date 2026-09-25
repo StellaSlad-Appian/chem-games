@@ -1451,6 +1451,275 @@ function drawHalfLife(pen: Pen): string[] {
   return parts;
 }
 
+// --- Functional Groups (task 9) ---
+
+/**
+ * Real subscripts and superscripts in a label, for a reagent's formula.
+ *
+ * A formula in the strings table is written the way the rest of the site
+ * writes one for `MoleculeText`: plain digits (`H2SO4`), a charge at the end
+ * of its formula (`OH−`, `H+`), and a charge that has digits after a space
+ * (`Cr2O7 2−`). In these strings that space is a **no-break space**, so the
+ * charge can never be wrapped onto a line of its own. The strings stay exactly
+ * what the page's `textContent` is, which is what the e2e spec matches.
+ *
+ * `label()` places, measures and wraps the label as usual — it measures every
+ * digit at full size, so a label it passes fits with its small digits too —
+ * and this redraws its content: each digit after an element symbol or a
+ * bracket becomes a lowered `<tspan>`, and each charge a raised one, both at
+ * `FORMULA_SMALL`. The shifts are `dy`, not `baseline-shift`, which Firefox
+ * ignores in SVG. A word is left alone: only a whole term that parses as a
+ * formula (`H3PO4`, `OH−`; not `Katalysator`, `(aq)` or `alcool`) is touched,
+ * and one with no digit or charge (`HX`) comes out unchanged.
+ */
+const FORMULA_SMALL = 12.5;
+const FORMULA_SUB = 4.5;
+const FORMULA_SUP = -7;
+/** How far the no-break space before a digit charge is pulled back, so `O₇²⁻` has no gap. */
+const FORMULA_CHARGE_PULL = FORMULA_SMALL * 0.27;
+
+const FORMULA_TERM = /^(?:(?:[A-Z][a-z]?|[()])\d*)+[+−-]?$/;
+const DIGIT_CHARGE = /^\d+[+−-]$/;
+
+interface FormulaRun {
+  text: string;
+  /** 0 on the line, 1 lowered, -1 raised. */
+  shift: 0 | 1 | -1;
+  /** Starts with the no-break space that joins a digit charge to its formula. */
+  pulled?: boolean;
+}
+
+function formulaRuns(line: string): FormulaRun[] {
+  const runs: FormulaRun[] = [];
+  const push = (text: string, shift: FormulaRun['shift'], pulled = false) => {
+    const last = runs[runs.length - 1];
+    if (last && last.shift === shift && !pulled) last.text += text;
+    else runs.push({ text, shift, pulled });
+  };
+  const tokens = line.split(/([  /,])/).filter((token) => token !== '');
+  let previousWasFormula = false;
+  tokens.forEach((token, index) => {
+    if (token === NBSP && previousWasFormula && DIGIT_CHARGE.test(tokens[index + 1] ?? '')) {
+      push(`${NBSP}${tokens[index + 1]}`, -1, true);
+      tokens[index + 1] = '';
+      return;
+    }
+    if (token === '') return;
+    if (/[A-Z]/.test(token) && FORMULA_TERM.test(token)) {
+      let afterSymbol = false;
+      for (const char of token) {
+        if (/\d/.test(char) && afterSymbol) push(char, 1);
+        else if (/[+−-]/.test(char)) push(char === '-' ? '−' : char, -1);
+        else {
+          push(char, 0);
+          afterSymbol = /[A-Za-z()]/.test(char);
+        }
+      }
+      previousWasFormula = true;
+      return;
+    }
+    push(token, 0);
+    previousWasFormula = false;
+  });
+  return runs;
+}
+
+function unescapeXml(value: string): string {
+  return value.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+}
+
+/** `pen.label()`, with the formulae in its words set with real sub- and superscripts. */
+function formulaLabel(pen: Pen, x: number, y: number, words: Words, options: LabelOptions): string {
+  const drawn = pen.label(x, y, words, options);
+  const match = /^(<text [^>]*>)([\s\S]*)<\/text>$/.exec(drawn);
+  if (!match) throw new Error(`${words.source}: label() drew something formulaLabel() cannot read.`);
+  const [, open, content] = match;
+  const lines = content.startsWith('<tspan')
+    ? [...content.matchAll(/<tspan x="([^"]+)" dy="([^"]+)">([^<]*)<\/tspan>/g)].map(([, lineX, , text]) => ({
+        x: lineX,
+        text: unescapeXml(text),
+      }))
+    : [{ x: null, text: unescapeXml(content) }];
+
+  const offset = (shift: FormulaRun['shift']) => (shift === 1 ? FORMULA_SUB : shift === -1 ? FORMULA_SUP : 0);
+  /** Where the pen is, below the current line's baseline. */
+  let current = 0;
+  const out: string[] = [];
+  lines.forEach((line, index) => {
+    formulaRuns(line.text).forEach((run, runIndex) => {
+      const target = offset(run.shift);
+      const lineStart = index > 0 && runIndex === 0;
+      const dy = (lineStart ? LEADING : 0) + target - current;
+      current = target;
+      const attributes = [
+        lineStart ? `x="${line.x}"` : '',
+        dy !== 0 ? `dy="${n(dy)}"` : '',
+        run.pulled ? `dx="${n(-FORMULA_CHARGE_PULL)}"` : '',
+        run.shift !== 0 ? `font-size="${FORMULA_SMALL}"` : '',
+      ].filter(Boolean);
+      out.push(attributes.length ? `<tspan ${attributes.join(' ')}>${esc(run.text)}</tspan>` : esc(run.text));
+    });
+  });
+  return `${open}${out.join('')}</text>`;
+}
+
+/**
+ * An arrow along a path of straight segments, for a route that turns a corner.
+ * The head is `arrow()`'s, on the last segment.
+ */
+function elbowArrow(points: readonly (readonly [number, number])[], head = 12): string {
+  const [x1, y1] = points[points.length - 2];
+  const [x2, y2] = points[points.length - 1];
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  const [cos, sin] = [Math.cos(angle), Math.sin(angle)];
+  const [bx, by] = [x2 - head * cos, y2 - head * sin];
+  const wing = head * 0.5;
+  const line = [...points.slice(0, -1), [bx, by] as const]
+    .map(([px, py], index) => `${index === 0 ? 'M' : 'L'} ${n(px)} ${n(py)}`)
+    .join(' ');
+  return (
+    `<path d="${line}" ${paint('none', TOKEN.ink)} stroke-width="2.5" stroke-linecap="round" ` +
+    'stroke-linejoin="round" />' +
+    `<path d="M ${n(x2)} ${n(y2)} L ${n(bx + wing * sin)} ${n(by - wing * cos)} ` +
+    `L ${n(bx - wing * sin)} ${n(by + wing * cos)} Z" ${paint(TOKEN.ink)} />`
+  );
+}
+
+/**
+ * The reaction pathway, as a map: the groups in boxes, the reagents on the
+ * arrows, and nothing else.
+ *
+ * **Top to bottom, down the left.** The spine is the one route a student must
+ * know end to end — alkene, primary alcohol, aldehyde, carboxylic acid, ester
+ * — in a column of boxes on the left, each arrow's reagent to the right of it.
+ * A phone shows that column first, and it is the whole of the pathway. The
+ * right-hand column holds what branches off it: the haloalkane, the detour an
+ * alkene can take to the same alcohol, and the secondary alcohol beside the
+ * primary one, whose one oxidation stops at a ketone.
+ *
+ * **Reagents only, and as a VCE student writes them.** H₂O with an H₃PO₄
+ * catalyst for hydration (the steam-and-phosphoric-acid process; the prose
+ * above says the same), HX, OH⁻(aq), acidified dichromate on every oxidation
+ * arrow, and an alcohol with a concentrated H₂SO₄ catalyst for
+ * esterification. Every formula has real sub- and superscripts
+ * (`formulaLabel`). Heat and reflux are left to the prose.
+ *
+ * **Tertiary alcohols are left to the prose**, which says they do not
+ * oxidise. A crossed-out stub needs a box, an arrow, a cross and a phrase, and
+ * the only room for it is beside the esterification arrow, whose label then
+ * has to wrap onto three lines in German and Russian.
+ *
+ * **The arrows into the primary alcohol are the school simplification**:
+ * ethene gives ethanol and chloroethane gives ethanol. A longer alkene is
+ * hydrated mostly to a secondary alcohol; the alt text does not claim
+ * otherwise, and the sheet's level does not need it.
+ *
+ * The group names are the labels, so the ~6-label cap does not apply to the
+ * boxes. No focal item: every box is as important as the next.
+ */
+function drawReactionMap(pen: Pen): string[] {
+  const { t, label, lineCount } = pen;
+  const boxHeight = 56;
+  const left = { x: 16, width: 160 };
+  const right = { x: 192, width: 150 };
+  /** The spine's arrows run down here, with their reagents just right of them. */
+  const spine = 44;
+  const reagentX = spine + 12;
+  /** The side column's arrow, and its reagent. */
+  const side = right.x + 18;
+  const sideReagentX = side + 12;
+  const rows = { alkene: 16, haloalkane: 150, alcohol: 290, carbonyl: 398, acid: 506, ester: 634 };
+  const gap = 4;
+
+  const parts: string[] = [];
+
+  const box = (column: { x: number; width: number }, top: number, key: string) => {
+    const words = t(key);
+    const room = column.width - 16;
+    const count = lineCount(words, room);
+    parts.push(
+      frame(column.x, top, column.width, boxHeight),
+      label(column.x + column.width / 2, top + boxHeight / 2 - ((count - 1) * LEADING) / 2, words, {
+        room,
+        anchor: 'middle',
+        central: true,
+        lines: 2,
+      }),
+    );
+  };
+
+  /** A reagent beside a vertical arrow, centred on the arrow's middle. */
+  const reagent = (x: number, top: number, bottom: number, key: string, room: number, lines = 1) => {
+    const words = t(key);
+    const count = lineCount(words, room);
+    const middle = (top + bottom) / 2 - ((count - 1) * LEADING) / 2;
+    parts.push(formulaLabel(pen, x, middle, words, { room, central: true, lines }));
+  };
+
+  const bottom = (top: number) => top + boxHeight;
+
+  // The spine: alkene, primary alcohol, aldehyde, carboxylic acid, ester.
+  box(left, rows.alkene, 'alkene');
+  box(left, rows.alcohol, 'primaryAlcohol');
+  box(left, rows.carbonyl, 'aldehyde');
+  box(left, rows.acid, 'carboxylicAcid');
+  box(left, rows.ester, 'ester');
+
+  // Hydration: the long arrow straight down, its reagent in the band under
+  // the alkene, which nothing else crosses. The elbow to the haloalkane turns
+  // down right of it, so the band runs from the arrow to the elbow.
+  const elbowX = 296;
+  parts.push(arrow(spine, bottom(rows.alkene) + gap, spine, rows.alcohol - gap));
+  reagent(reagentX, bottom(rows.alkene) + 8, rows.haloalkane - 8, 'hydration', elbowX - 12 - reagentX, 2);
+
+  // The detour: along and down to the haloalkane, then back to the alcohol.
+  const alkeneMiddle = rows.alkene + boxHeight / 2;
+  box(right, rows.haloalkane, 'haloalkane');
+  parts.push(
+    elbowArrow([
+      [left.x + left.width + gap, alkeneMiddle],
+      [elbowX, alkeneMiddle],
+      [elbowX, rows.haloalkane - gap],
+    ]),
+  );
+  const elbowMiddle = (left.x + left.width + elbowX) / 2;
+  parts.push(
+    formulaLabel(pen, elbowMiddle, alkeneMiddle - 12, t('addition'), {
+      room: elbowX - left.x - left.width - 16,
+      anchor: 'middle',
+    }),
+  );
+  const [fromX, fromY] = [right.x + 20, bottom(rows.haloalkane) + gap];
+  const [toX, toY] = [left.x + left.width - 20, rows.alcohol - gap];
+  parts.push(arrow(fromX, fromY, toX, toY));
+  parts.push(
+    formulaLabel(pen, (fromX + toX) / 2 + 18, (fromY + toY) / 2, t('substitution'), {
+      room: PHONE - 16 - ((fromX + toX) / 2 + 18),
+      central: true,
+    }),
+  );
+
+  // Oxidation, twice down the spine and once down the side.
+  for (const [from, to] of [
+    [rows.alcohol, rows.carbonyl],
+    [rows.carbonyl, rows.acid],
+  ] as const) {
+    parts.push(arrow(spine, bottom(from) + gap, spine, to - gap));
+    reagent(reagentX, bottom(from), to, 'oxidation', right.x - 6 - reagentX);
+  }
+  box(right, rows.alcohol, 'secondaryAlcohol');
+  box(right, rows.carbonyl, 'ketone');
+  parts.push(arrow(side, bottom(rows.alcohol) + gap, side, rows.carbonyl - gap));
+  reagent(sideReagentX, bottom(rows.alcohol), rows.carbonyl, 'oxidation', PHONE - 16 - sideReagentX);
+
+  // Esterification: the right-hand column is empty here, so the reagent has
+  // the width of the drawing.
+  parts.push(arrow(spine, bottom(rows.acid) + gap, spine, rows.ester - gap));
+  reagent(reagentX, bottom(rows.acid), rows.ester, 'esterification', PHONE - 16 - reagentX, 2);
+
+  return parts;
+}
+
 // --- The slots -------------------------------------------------------------
 
 /**
@@ -1472,6 +1741,7 @@ const SLOTS: Slot[] = (
     ['atomic-structure', '05-energy-levels', true, drawEnergyLevels],
     ['atomic-structure', '06-ordered-by-atomic-number', true, drawOrderedByAtomicNumber],
     ['isotopes-and-radioactivity', '07-decay-and-made-elements', true, drawHalfLife],
+    ['functional-groups', '01-reaction-map', true, drawReactionMap],
   ] as const
 ).map(([sheet, id, phone, draw]) => ({
   sheet,

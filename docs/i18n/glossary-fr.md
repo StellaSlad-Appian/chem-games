@@ -346,6 +346,8 @@ the split.
 | substituent | **substituant** | Note the **a**: *substituant*, not "substituent". |
 | chain (carbon chain) | **chaîne / chaîne carbonée** | With the circumflex. |
 | locant (position number) | **indice de position** / **numéro** | Prose uses *numéro* at this level. |
+| primary / secondary / tertiary alcohol | **alcool primaire / secondaire / tertiaire** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalyseur** | Added 2026-09-25. On the reaction map it comes before the formula: *catalyseur H₃PO₄*. |
 
 ---
 

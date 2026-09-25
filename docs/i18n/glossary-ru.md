@@ -605,6 +605,8 @@ the symbol in a formula stays Latin, exactly as `C-14` and `Rn-222` do in the
 | substituent | **заместитель** | — |
 | chain (carbon chain) | **цепь / углеродная цепь** | — |
 | locant (position number) | **номер** / **цифра положения** | Prose uses *номер* at this level. |
+| primary / secondary / tertiary alcohol | **первичный / вторичный / третичный спирт** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **катализатор** | Added 2026-09-25. On the reaction map it comes before the formula: *катализатор H₃PO₄*. |
 
 ---
 

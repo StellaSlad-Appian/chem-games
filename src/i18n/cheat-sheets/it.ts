@@ -973,7 +973,9 @@ export const CHEAT_SHEET_OVERLAY_IT: CheatSheetOverlaySet = {
       {
         heading: 'Il percorso di reazione da sapere',
         content:
-          'Alchene → (H2O, con H+ da catalizzatore) → alcol. Alchene → (HX) → alogenuro alchilico → (OH−) → alcol → (Cr2O7 2−/H+) → aldeide → (altra ossidazione) → acido carbossilico → (alcol, con H2SO4 da catalizzatore) → estere. Gli alcoli primari si ossidano due volte, i secondari si ossidano una volta e danno chetoni, e i terziari non si ossidano.',
+          'Alchene → (H₂O, H₃PO₄ come catalizzatore) → alcol. Alchene → (HX) → alogenuro alchilico → (OH⁻(aq)) → alcol → (Cr₂O₇²⁻/H⁺) → aldeide → (altra ossidazione) → acido carbossilico → (alcol, H₂SO₄ come catalizzatore) → estere. Gli alcoli primari si ossidano due volte, i secondari si ossidano una volta e danno chetoni, e i terziari non si ossidano.',
+        imageAlt:
+          'Una mappa delle reazioni, da leggere dall’alto in basso. A sinistra: un alchene dà un alcol primario con H₂O e H₃PO₄ come catalizzatore; l’alcol primario dà un’aldeide con Cr₂O₇²⁻/H⁺, l’aldeide un acido carbossilico con Cr₂O₇²⁻/H⁺, e l’acido carbossilico un estere con un alcol e H₂SO₄ come catalizzatore. A destra: l’alchene può anche dare un alogenuro alchilico con HX, che con OH⁻(aq) dà lo stesso alcol primario; e accanto all’alcol primario, un alcol secondario si ossida a chetone con Cr₂O₇²⁻/H⁺.',
       },
       {
         heading: 'Riconoscere un gruppo in uno spettro',

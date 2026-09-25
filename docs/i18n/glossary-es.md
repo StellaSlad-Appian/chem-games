@@ -482,6 +482,8 @@ the split.
 | substituent | **sustituyente** | Note: *sustituyente*, not "substituyente". |
 | chain (carbon chain) | **cadena / cadena carbonada** | — |
 | locant (position number) | **localizador** / **número** | Prose uses *número* at this level. |
+| primary / secondary / tertiary alcohol | **alcohol primario / secundario / terciario** | Added 2026-09-25 with the reaction-map diagram. |
+| catalyst | **catalizador** | Added 2026-09-25. On the reaction map: *H₃PO₄ como catalizador*. |
 
 ---
 

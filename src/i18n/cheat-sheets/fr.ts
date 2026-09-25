@@ -1000,7 +1000,9 @@ export const CHEAT_SHEET_OVERLAY_FR: CheatSheetOverlaySet = {
       {
         heading: 'Le chemin de réaction à connaître',
         content:
-          'Alcène → (H2O, catalyseur H+) → alcool. Alcène → (HX) → halogénoalcane → (OH−) → alcool → (Cr2O7 2−/H+) → aldéhyde → (oxydation supplémentaire) → acide carboxylique → (alcool, catalyseur H2SO4) → ester. Les alcools primaires s’oxydent deux fois, les alcools secondaires une fois en cétone, les alcools tertiaires ne s’oxydent pas.',
+          'Alcène → (H₂O, catalyseur H₃PO₄) → alcool. Alcène → (HX) → halogénoalcane → (OH⁻(aq)) → alcool → (Cr₂O₇²⁻/H⁺) → aldéhyde → (oxydation supplémentaire) → acide carboxylique → (alcool, catalyseur H₂SO₄) → ester. Les alcools primaires s’oxydent deux fois, les alcools secondaires une fois en cétone, les alcools tertiaires ne s’oxydent pas.',
+        imageAlt:
+          'Une carte des réactions, à lire de haut en bas. À gauche : un alcène donne un alcool primaire avec H₂O et le catalyseur H₃PO₄ ; l’alcool primaire donne un aldéhyde avec Cr₂O₇²⁻/H⁺, l’aldéhyde un acide carboxylique avec Cr₂O₇²⁻/H⁺, et l’acide carboxylique un ester avec un alcool et le catalyseur H₂SO₄. À droite : l’alcène peut aussi donner un halogénoalcane avec HX, qui donne le même alcool primaire avec OH⁻(aq) ; et à côté de l’alcool primaire, un alcool secondaire s’oxyde en cétone avec Cr₂O₇²⁻/H⁺.',
       },
       {
         heading: 'Repérer les groupes sur un spectre',

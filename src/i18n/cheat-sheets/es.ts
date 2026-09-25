@@ -964,7 +964,9 @@ export const CHEAT_SHEET_OVERLAY_ES: CheatSheetOverlaySet = {
       {
         heading: 'El camino de reacción que hay que saberse',
         content:
-          'Alqueno → (H2O, con H+ de catalizador) → alcohol. Alqueno → (HX) → haloalcano → (OH−) → alcohol → (Cr2O7 2−/H+) → aldehído → (más oxidación) → ácido carboxílico → (alcohol, con H2SO4 de catalizador) → éster. Los alcoholes primarios se oxidan dos veces, los secundarios se oxidan una vez y dan cetonas, y los terciarios no se oxidan.',
+          'Alqueno → (H₂O, H₃PO₄ como catalizador) → alcohol. Alqueno → (HX) → haloalcano → (OH⁻(aq)) → alcohol → (Cr₂O₇²⁻/H⁺) → aldehído → (más oxidación) → ácido carboxílico → (alcohol, H₂SO₄ como catalizador) → éster. Los alcoholes primarios se oxidan dos veces, los secundarios se oxidan una vez y dan cetonas, y los terciarios no se oxidan.',
+        imageAlt:
+          'Un mapa de reacciones que se lee de arriba abajo. A la izquierda: un alqueno da un alcohol primario con H₂O y H₃PO₄ como catalizador; el alcohol primario da un aldehído con Cr₂O₇²⁻/H⁺, el aldehído un ácido carboxílico con Cr₂O₇²⁻/H⁺, y el ácido carboxílico un éster con un alcohol y H₂SO₄ como catalizador. A la derecha: el alqueno también puede dar un haloalcano con HX, que con OH⁻(aq) da el mismo alcohol primario; y junto al alcohol primario, un alcohol secundario se oxida a cetona con Cr₂O₇²⁻/H⁺.',
       },
       {
         heading: 'Reconocer un grupo en un espectro',

@@ -17,6 +17,7 @@ export const CHEAT_SHEET_DIAGRAMS = {
   'atomic-structure/05-energy-levels': { width: 335, height: 450 },
   'atomic-structure/06-ordered-by-atomic-number': { width: 360, height: 265 },
   'isotopes-and-radioactivity/07-decay-and-made-elements': { width: 360, height: 355 },
+  'functional-groups/01-reaction-map': { width: 360, height: 710 },
 } as const;
 
 export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;
