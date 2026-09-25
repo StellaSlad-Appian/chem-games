@@ -14,11 +14,13 @@
 
 import {
   CHEAT_SHEET_DIAGRAMS,
+  CSS_PX_PER_UNIT,
   type CheatSheetDiagramId,
 } from '@/generated/cheat-sheet-diagrams';
 import type { Locale } from '@/i18n/config';
 
 export type { CheatSheetDiagramId };
+export { CSS_PX_PER_UNIT };
 
 type DiagramMarkup = Record<CheatSheetDiagramId, string>;
 
@@ -33,7 +35,10 @@ const loaders: Record<Locale, () => Promise<DiagramMarkup>> = {
 
 export interface CheatSheetDiagram {
   id: CheatSheetDiagramId;
-  /** In drawing units; the page draws a 640-unit diagram 512 CSS px wide. */
+  /**
+   * In drawing units, measured from what the diagram draws. The page draws
+   * every diagram at `CSS_PX_PER_UNIT`, so this is also the size of its box.
+   */
   width: number;
   height: number;
   /**

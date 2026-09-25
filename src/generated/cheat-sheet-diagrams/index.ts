@@ -2,17 +2,21 @@
 // scripts/cheat-sheet-diagram-strings.mts. Do not edit by hand: the next run
 // overwrites it. Change the script or the strings instead.
 //
-// Every generated cheat-sheet diagram and its size in drawing units. The page
-// draws a 640-unit diagram 512 CSS px wide. The markup is per locale, in the
-// sibling modules, loaded by src/lib/cheat-sheet-diagrams.ts.
+// Every generated cheat-sheet diagram and its size in drawing units, measured
+// from what it draws. The page draws every diagram at CSS_PX_PER_UNIT, so this
+// size is also the size of its box. The markup is per locale, in the sibling
+// modules, loaded by src/lib/cheat-sheet-diagrams.ts.
+
+/** CSS px per drawing unit, on every diagram: a 17.5-unit label is 14 CSS px. */
+export const CSS_PX_PER_UNIT = 0.8;
 
 export const CHEAT_SHEET_DIAGRAMS = {
-  'atomic-structure/01-inside-an-atom': { width: 640, height: 404 },
-  'atomic-structure/02-atomic-and-mass-number': { width: 640, height: 304 },
-  'isotopes-and-radioactivity/03-isotopes-of-hydrogen': { width: 640, height: 280 },
-  'atomic-structure/05-energy-levels': { width: 640, height: 436 },
-  'atomic-structure/06-ordered-by-atomic-number': { width: 640, height: 256 },
-  'isotopes-and-radioactivity/07-decay-and-made-elements': { width: 640, height: 320 },
+  'atomic-structure/01-inside-an-atom': { width: 400, height: 415 },
+  'atomic-structure/02-atomic-and-mass-number': { width: 355, height: 310 },
+  'isotopes-and-radioactivity/03-isotopes-of-hydrogen': { width: 605, height: 295 },
+  'atomic-structure/05-energy-levels': { width: 335, height: 450 },
+  'atomic-structure/06-ordered-by-atomic-number': { width: 360, height: 265 },
+  'isotopes-and-radioactivity/07-decay-and-made-elements': { width: 635, height: 335 },
 } as const;
 
 export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;

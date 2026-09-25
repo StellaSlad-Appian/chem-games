@@ -26,6 +26,7 @@ import type {
   CheatSheetWidgetName,
 } from '@/core-engine/types/general';
 import {
+  CSS_PX_PER_UNIT,
   getCheatSheetDiagrams,
   type CheatSheetDiagram,
   type CheatSheetDiagramId,
@@ -158,19 +159,25 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
 }
 
 /**
- * A section's diagram, pinned at 512 CSS px.
+ * A section's diagram, drawn at a fixed scale.
  *
- * **The width.** It pans sideways inside its `PannableBox` when the column is
- * narrower, exactly as the lookup tables above do, rather than shrinking with
- * the column. Diagrams are 640 units wide and their labels are 17.5 units
- * (scripts/cheat-sheet-diagrams.mts), which at 512 px is 14 CSS px — the size
- * of the paragraph above. In the 236 px column a 320 px phone gives, the same
- * text would draw at 6.5 CSS px, and nothing in the drawing can fix that: the
+ * **The size.** A generated diagram is drawn at `CSS_PX_PER_UNIT` (0.8 CSS px
+ * per unit) on every screen, so its 17.5-unit labels are 14 CSS px — the size
+ * of the paragraph above. Its canvas is measured from what it draws
+ * (scripts/cheat-sheet-diagrams.mts), so the box, which is the `<svg>`'s own
+ * border and background, hugs the drawing and sits at the left of the column.
+ * `box-content` keeps the 1 px border outside that size, so the scale is exact.
+ *
+ * It pans sideways inside its `PannableBox` when the column is narrower than
+ * the drawing, exactly as the lookup tables above do, rather than shrinking:
+ * shrunk into the 236 px column a 320 px phone gives, a 400-unit drawing's
+ * labels would be 10 CSS px, and nothing in the drawing can fix that — the
  * limiter is the column. WCAG 1.4.10 exempts content that needs a
  * two-dimensional layout from the no-sideways-scrolling rule, which is the
  * exemption the tables rely on; the page itself still reflows at 320 px.
  * `PannableBox` says the figure continues past the edge, and makes the box a
- * tab stop while, and only while, it pans.
+ * tab stop while, and only while, it pans — so a drawing that fits the column
+ * has neither.
  *
  * **A generated diagram is inline SVG**, so that its colours are the
  * `--diagram-*` tokens in globals.css and follow `[data-theme]` — which an
@@ -188,9 +195,13 @@ function LookupTable({ table }: { table: CheatSheetTable }) {
  * the optimiser to do to an SVG, and next/image would add a config surface
  * (remotePatterns, dangerouslyAllowSVG) for no gain. Its width/height are the
  * file's intrinsic size, set so the paragraph below does not jump when it
- * arrives. It cannot follow the theme, which docs/CHEAT_SHEET_IMAGES.md
- * explains to whoever draws one.
+ * arrives, and it is pinned at 512 CSS px, as every diagram was before the
+ * generated ones were measured. It cannot follow the theme, which
+ * docs/CHEAT_SHEET_IMAGES.md explains to whoever draws one.
  */
+/** Drawing units to CSS px. Rounded, because 0.8 is not exact in binary. */
+const toCssPx = (units: number) => Math.round(units * CSS_PX_PER_UNIT * 100) / 100;
+
 function SectionImage({
   image,
   diagrams,
@@ -198,7 +209,7 @@ function SectionImage({
   image: CheatSheetImage;
   diagrams?: Record<CheatSheetDiagramId, CheatSheetDiagram>;
 }) {
-  const frame = 'h-auto w-full min-w-lg max-w-lg rounded-2xl border border-(--border) bg-(--diagram-bg)';
+  const surface = 'rounded-2xl border border-(--border) bg-(--diagram-bg)';
 
   if ('diagram' in image) {
     const diagram = diagrams?.[image.diagram];
@@ -209,12 +220,12 @@ function SectionImage({
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox={`0 0 ${diagram.width} ${diagram.height}`}
-        width={diagram.width}
-        height={diagram.height}
+        width={toCssPx(diagram.width)}
+        height={toCssPx(diagram.height)}
         role="img"
         aria-label={image.alt}
         data-diagram={diagram.id}
-        className={`${frame} font-normal`}
+        className={`${surface} box-content font-normal`}
         dangerouslySetInnerHTML={{ __html: diagram.markup }}
       />
     );
@@ -222,7 +233,13 @@ function SectionImage({
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={image.src} alt={image.alt} width={image.width} height={image.height} className={frame} />
+    <img
+      src={image.src}
+      alt={image.alt}
+      width={image.width}
+      height={image.height}
+      className={`${surface} h-auto w-full min-w-lg max-w-lg`}
+    />
   );
 }
 
@@ -405,7 +422,7 @@ export default async function CheatSheetDetailPage(
                 <h3 className="text-base font-black text-(--foreground)">{section.heading}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-(--muted)">{section.content}</p>
                 {section.image && (
-                  <PannableBox className="mt-3 max-w-lg">
+                  <PannableBox className="mt-3">
                     <SectionImage image={section.image} diagrams={diagrams} />
                   </PannableBox>
                 )}

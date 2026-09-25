@@ -55,11 +55,18 @@
 // because it is generated here, at build time, from strings in this repository
 // and never from user input — and every string still goes through `esc()`.
 //
-// ## Type, and the rules this script enforces
+// ## Size, type, and the rules this script enforces
 //
-// The page draws a 640-unit-wide drawing into a 512 CSS px box, so every unit
-// is 0.8 CSS px. `label()` is the only way text gets into a drawing, and it
-// enforces:
+// **The scale is fixed and the size is measured.** The page draws every unit
+// at 0.8 CSS px (`PX_PER_UNIT`), on every diagram and every screen. No slot
+// declares its size: `measureSize` takes the canvas from what the slot draws,
+// in every locale — each label where `label()` put it, each shape read back
+// from the markup — plus a 16-unit margin, and the page's box is that canvas
+// at 0.8. So a drawing 340 units wide gets a 272 px box, not a 512 px box with
+// its right half empty, and a label that grows in translation grows the box
+// with it rather than falling off it.
+//
+// `label()` is the only way text gets into a drawing, and it enforces:
 //
 // 1. **Labels are `BODY` units, weight 400: 14 CSS px, the size of the prose.**
 //    A label has no size option, so it cannot drift.
@@ -68,9 +75,10 @@
 //    and a drawing that names two different items fails. It may never be
 //    smaller than `BODY`.
 // 3. **Every label declares its room**, the width in units it is given, and
-//    fails the run if its estimated width is wider — in *any* locale — or if it
-//    runs off the canvas. The estimate is per character (see `advance()`), and
-//    each run prints the tightest label in each slot. A label may be allowed
+//    fails the run if its estimated width is wider — in *any* locale — or if
+//    it starts left of or above the canvas. The estimate is per character
+//    (see `advance()`), and each run prints the tightest label in each slot,
+//    and the size and widest item of each canvas. A label may be allowed
 //    more than one line (`lines`); it then wraps in its room, and fails if a
 //    language needs more lines than the drawing left space for.
 // 4. **A label's text comes from the strings table, a whole number, or an
@@ -80,7 +88,9 @@
 //    sans-serif. The monospace a worked sum and two masses were once set in is
 //    gone.
 // 6. **In a `phone` slot, every label ends left of `PHONE`**, the part of the
-//    drawing a phone shows before it is swiped, in every locale.
+//    drawing a phone shows before it is swiped, in every locale. The four
+//    atom slots are. A canvas no wider than 363 units (291 CSS px, the
+//    column of a 375 px phone) does not pan there at all.
 //
 // ## The rules that shape every drawing here
 //
@@ -234,27 +244,54 @@ const SCALE = 100000;
 // --- Type ------------------------------------------------------------------
 
 /**
- * The size of every label, in the 640-wide coordinate space.
+ * How many CSS px the page draws one unit at, on every diagram and every
+ * screen. Written into the generated index, where the page reads it, so the
+ * two cannot disagree.
  *
- * The page draws a 640-wide diagram 512 CSS px wide, so 17.5 units is 14 CSS
- * px — `text-sm`, the size of the paragraph directly above the diagram — and
- * it is drawn at weight 400 like that paragraph. The contrast that used to
- * need bold large text now comes from the per-theme `--diagram-*` colours.
+ * The scale is fixed and the width is not: each slot's canvas is as wide as
+ * what it draws (see `measureSize`), and the page draws it `width × 0.8` CSS
+ * px wide, so a small drawing gets a small box rather than a 512 px box with
+ * its right half empty.
+ */
+const PX_PER_UNIT = 0.8;
+
+/**
+ * The size of every label, in drawing units.
+ *
+ * At `PX_PER_UNIT` that is 14 CSS px — `text-sm`, the size of the paragraph
+ * directly above the diagram — and it is drawn at weight 400 like that
+ * paragraph. The contrast that used to need bold large text now comes from
+ * the per-theme `--diagram-*` colours.
  */
 const BODY = 17.5;
 
 /**
  * The right-hand edge of what a phone shows before the reader swipes, in units.
  *
- * The page draws every diagram 512 CSS px wide and pans it sideways inside the
- * column on a narrow screen (`docs/CHEAT_SHEET_IMAGES.md`, *How wide the page
- * draws it*). On a 375 px phone the column is 291 px, which is 364 units; on a
- * 320 px phone it is 236 px, or 295. In a slot marked `phone`, every label
- * must end left of this line in every locale, and the run fails if one does
- * not: a figure whose labels are all off to the right is, on a phone, a
- * picture with no labels.
+ * A diagram wider than the column pans sideways inside it rather than
+ * shrinking (`docs/CHEAT_SHEET_IMAGES.md`, *How wide the page draws it*). On a
+ * 375 px phone the column is 291 px, which is 364 units; on a 320 px phone it
+ * is 236 px, or 295. In a slot marked `phone`, every label must end left of
+ * this line in every locale, and the run fails if one does not: a figure whose
+ * labels are all off to the right is, on a phone, a picture with no labels.
  */
 const PHONE = 360;
+
+/**
+ * The empty border every canvas keeps round what it draws, in units: the
+ * drawings all start 16 units in from the left, so the right and the bottom
+ * get the same.
+ */
+const MARGIN = 16;
+
+/**
+ * A label's em box above and below its baseline, as a share of its size —
+ * the box a browser's `getBBox()` gives a line of text, and so the part of
+ * the canvas a label needs. Measured in the page on 2026-09-25: DM Sans is
+ * 1.075 and 0.25, Manrope 1.0625 and 0.30, and a `central` label is 0.66 and
+ * 0.68 either side. These round the larger of each up.
+ */
+const EM_BOX = { ascent: 1.08, descent: 0.31, central: 0.69 };
 
 /**
  * The space between two lines of one wrapped label, in units. 1.3 × `BODY`,
@@ -538,6 +575,15 @@ interface Fit {
   room: number;
 }
 
+/** A rectangle in drawing units, and what drew it, for error messages. */
+interface Extent {
+  source: string;
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+}
+
 interface Pen {
   locale: Locale;
   /** A string from this slot's table, with `{name}` filled and numbers checked. */
@@ -568,7 +614,7 @@ function localeFreeWhole(value: number, where: string): string {
   return String(value);
 }
 
-function createPen(slot: Slot, locale: Locale, fits: Fit[], focalItems: Set<string>): Pen {
+function createPen(slot: Slot, locale: Locale, fits: Fit[], inked: Extent[], focalItems: Set<string>): Pen {
   const table = DIAGRAM_STRINGS[slot.key];
   const strings = table[locale];
   const english = table.en;
@@ -640,7 +686,7 @@ function createPen(slot: Slot, locale: Locale, fits: Fit[], focalItems: Set<stri
             'shortening a word.',
         );
       }
-      for (const line of lines) {
+      lines.forEach((line, index) => {
         const width = measure(line);
         fits.push({ source: `${locale} ${words.source}`, width, room });
         if (width > room) {
@@ -649,14 +695,37 @@ function createPen(slot: Slot, locale: Locale, fits: Fit[], focalItems: Set<stri
               `has ${room}. Re-flow or move it — docs/i18n/README.md §3a — before shortening a word.`,
           );
         }
-        if (!rotate) {
-          const left = anchor === 'middle' ? x - width / 2 : anchor === 'end' ? x - width : x;
-          if (left < 0 || left + width > slot.width) {
-            throw new Error(
-              `${where(words.source)}: "${line.trimEnd()}" runs off the ${slot.width}-wide canvas ` +
-                `(about ${Math.round(left)} to ${Math.round(left + width)}).`,
-            );
+        // Where the line's glyph box lands, which is what sizes the canvas
+        // (see `measureSize`). Vertically it is the font's whole em box, as a
+        // browser's getBBox() reports it, not just the letters.
+        const baseline = y + index * LEADING;
+        const [above, below] = central ? [EM_BOX.central, EM_BOX.central] : [EM_BOX.ascent, EM_BOX.descent];
+        if (rotate) {
+          // A quarter turn anticlockwise, for an axis label: the line runs
+          // up the page from its anchor, and its em box lies across it.
+          if (rotate !== 90 || lines.length > 1) {
+            throw new Error(`${where(words.source)}: only a one-line label turned 90° is supported.`);
           }
+          const start = anchor === 'middle' ? y + width / 2 : anchor === 'end' ? y + width : y;
+          inked.push({
+            source: `${locale} ${words.source}`,
+            left: x - above * size,
+            right: x + below * size,
+            top: start - width,
+            bottom: start,
+          });
+          if (slot.phone && x + below * size > PHONE) {
+            throw new Error(`${where(words.source)}: an axis label right of the ${PHONE} units a phone shows.`);
+          }
+        } else {
+          const left = anchor === 'middle' ? x - width / 2 : anchor === 'end' ? x - width : x;
+          inked.push({
+            source: `${locale} ${words.source}`,
+            left,
+            right: left + width,
+            top: baseline - above * size,
+            bottom: baseline + below * size,
+          });
           if (slot.phone && left + width > PHONE) {
             throw new Error(
               `${where(words.source)}: "${line.trimEnd()}" ends at about ${Math.round(left + width)}, ` +
@@ -665,7 +734,7 @@ function createPen(slot: Slot, locale: Locale, fits: Fit[], focalItems: Set<stri
             );
           }
         }
-      }
+      });
 
       const attributes = [
         `x="${n(x)}"`,
@@ -803,8 +872,6 @@ interface Slot {
   sheet: string;
   /** `<sheet>/<id>`: the key in the strings table, the data and the output. */
   key: string;
-  width: number;
-  height: number;
   /** Every label must end left of `PHONE`. */
   phone: boolean;
   draw: (pen: Pen) => string[];
@@ -1185,7 +1252,13 @@ function drawOrderedByAtomicNumber(pen: Pen): string[] {
   const cellWidth = 136;
   const cellHeight = 112;
   const top = 80;
-  const lefts = [16, 200];
+  /**
+   * Iodine's cell is centred at 264. The German rank label under it is about
+   * 158 units wide, so the drawing ends at 343, and at 360 with its margin:
+   * 288 CSS px, inside the 291 px column of a 375 px phone, so it does not
+   * pan there. Four units further right and it would, by a pixel.
+   */
+  const lefts = [16, 196];
   /** Inside a cell, less an 8-unit margin each side. */
   const inCell = cellWidth - 16;
   /** Where each cell's two numbers sit: left and right along the top. */
@@ -1334,21 +1407,20 @@ function drawHalfLife(pen: Pen): string[] {
  */
 const SLOTS: Slot[] = (
   [
-    // The four on Atoms & the Periodic Table were redrawn to keep every label
-    // on the left, so they are held to `PHONE`. 03 and 07 are not, yet.
-    ['atomic-structure', '01-inside-an-atom', 640, 404, true, drawInsideAnAtom],
-    ['atomic-structure', '02-atomic-and-mass-number', 640, 304, true, drawAtomicAndMassNumber],
-    ['isotopes-and-radioactivity', '03-isotopes-of-hydrogen', 640, 280, false, drawIsotopesOfHydrogen],
-    ['atomic-structure', '05-energy-levels', 640, 436, true, drawEnergyLevels],
-    ['atomic-structure', '06-ordered-by-atomic-number', 640, 256, true, drawOrderedByAtomicNumber],
-    ['isotopes-and-radioactivity', '07-decay-and-made-elements', 640, 320, false, drawHalfLife],
+    // The four on Atoms & the Periodic Table keep every label on the left, so
+    // they are held to `PHONE`. 03 and 07 are not, yet. None declares a size:
+    // `measureSize` takes it from the drawing.
+    ['atomic-structure', '01-inside-an-atom', true, drawInsideAnAtom],
+    ['atomic-structure', '02-atomic-and-mass-number', true, drawAtomicAndMassNumber],
+    ['isotopes-and-radioactivity', '03-isotopes-of-hydrogen', false, drawIsotopesOfHydrogen],
+    ['atomic-structure', '05-energy-levels', true, drawEnergyLevels],
+    ['atomic-structure', '06-ordered-by-atomic-number', true, drawOrderedByAtomicNumber],
+    ['isotopes-and-radioactivity', '07-decay-and-made-elements', false, drawHalfLife],
   ] as const
-).map(([sheet, id, width, height, phone, draw]) => ({
+).map(([sheet, id, phone, draw]) => ({
   sheet,
   id,
   key: `${sheet}/${id}`,
-  width,
-  height,
   phone,
   draw,
 }));
@@ -1370,7 +1442,7 @@ const SLOTS: Slot[] = (
  */
 const NOT_YET_WRITTEN: Record<string, string> = {
   'atomic-structure/08-reading-a-table-cell':
-    '640×300. One large cell — 17, Cl, Chlorine, 35.45 — with ' +
+    'One large cell — 17, Cl, Chlorine, 35.45 — with ' +
     'four leader lines out to labels: atomic number is 17 protons and is what ' +
     'makes it chlorine; symbol; name; relative atomic mass, an average over the ' +
     'isotopes, not a mass number and not a whole number. Along the bottom: mass ' +
@@ -1380,13 +1452,13 @@ const NOT_YET_WRITTEN: Record<string, string> = {
     'the point of the figure, ' +
     'and it needs a sentence on the sheet before it ships.',
   'atomic-structure/09-isotope-or-ion':
-    '640×340. Two columns. ISOTOPE: Cl-35 to Cl-37, neutrons ' +
+    'Two columns. ISOTOPE: Cl-35 to Cl-37, neutrons ' +
     'change, protons stay 17, electrons stay 17, still chlorine and still reacts ' +
     'the same. ION: Cl to Cl−, electrons change, protons stay 17, neutrons stay ' +
     'the same, still chlorine but now charged. Centred on the divider: protons ' +
     'never change, and changing them makes it a different element.',
   'atomic-structure/10-why-groups-form-ions':
-    '640×340. Two rows. Sodium 2, 8, 1 loses 1 to give 2, 8 and ' +
+    'Two rows. Sodium 2, 8, 1 loses 1 to give 2, 8 and ' +
     'Na+; group 1 loses 1 to make 1+. Chlorine 2, 8, 7 gains 1 to give 2, 8, 8 ' +
     'and Cl−; group 17 gains 1 to make 1−. A bottom line: group 18 already has a ' +
     'full outer level, so it does neither. Same band treatment as slot 05, and ' +
@@ -1423,7 +1495,7 @@ const FORBIDDEN: { pattern: RegExp; why: string }[] = [
 
 const KNOWN_TOKENS = new Set<string>(Object.values(TOKEN));
 
-function assertClean(slot: Slot, locale: Locale, markup: string): void {
+function assertClean(slot: Slot, locale: Locale, markup: string, size: Size): void {
   const where = `${slot.key} [${locale}]`;
   for (const { pattern, why } of FORBIDDEN) {
     if (pattern.test(markup)) throw new Error(`${where}: matches ${pattern} — ${why}.`);
@@ -1442,11 +1514,102 @@ function assertClean(slot: Slot, locale: Locale, markup: string): void {
   }
   // A rect the size of the canvas would be a baked background, which is a
   // light sticker on the dark theme; the page gives the drawing its surface.
-  if (new RegExp(`<rect x="0" y="0" width="${slot.width}" height="${slot.height}"`).test(markup)) {
+  if (new RegExp(`<rect x="0" y="0" width="${size.width}" height="${size.height}"`).test(markup)) {
     throw new Error(`${where}: draws a rect over the whole canvas; the background stays transparent.`);
   }
   const bytes = Buffer.byteLength(markup, 'utf8');
   if (bytes > MAX_BYTES) throw new Error(`${where}: ${bytes} bytes, over the ${MAX_BYTES} ceiling.`);
+}
+
+interface Size {
+  width: number;
+  height: number;
+}
+
+/** The attributes of one element, by name. */
+function attributesOf(element: string): Map<string, string> {
+  return new Map([...element.matchAll(/([\w-]+)="([^"]*)"/g)].map(([, name, value]) => [name, value]));
+}
+
+/**
+ * Where every shape in a drawing lands, read back from its markup.
+ *
+ * Labels are measured by `label()` as it places them, because only it knows
+ * how wide their words are; everything else is read here, so a new shape
+ * cannot be left out of the size by forgetting to report it. The drawings use
+ * five elements and paths of straight lines only (`M`, `L`, `Z`); anything
+ * else fails the run rather than being silently left out. A stroke reaches
+ * half its width past the geometry.
+ */
+function shapeExtents(markup: string, source: string): Extent[] {
+  const extents: Extent[] = [];
+  const withoutText = markup.replace(/<text\b[\s\S]*?<\/text>/g, '');
+  for (const [element, tag] of withoutText.matchAll(/<(\w+)\b[^>]*>/g)) {
+    const a = attributesOf(element);
+    const number = (name: string) => Number(a.get(name) ?? 0);
+    const half = a.has('stroke-width') ? number('stroke-width') / 2 : 0;
+    const box = (points: number[][], pad: number) => {
+      const xs = points.map(([x]) => x);
+      const ys = points.map(([, y]) => y);
+      extents.push({
+        source: `${source} <${tag}>`,
+        left: Math.min(...xs) - pad,
+        right: Math.max(...xs) + pad,
+        top: Math.min(...ys) - pad,
+        bottom: Math.max(...ys) + pad,
+      });
+    };
+    const pairs = (list: string) => {
+      const values = list.match(/-?\d+(?:\.\d+)?/g)!.map(Number);
+      return Array.from({ length: values.length / 2 }, (_, i) => [values[2 * i], values[2 * i + 1]]);
+    };
+    if (tag === 'g') continue;
+    if (tag === 'circle') {
+      const [cx, cy, r] = [number('cx'), number('cy'), number('r')];
+      box([[cx - r, cy - r], [cx + r, cy + r]], a.get('style')?.includes('stroke:') ? half : 0);
+    } else if (tag === 'rect') {
+      const [x, y] = [number('x'), number('y')];
+      box([[x, y], [x + number('width'), y + number('height')]], half);
+    } else if (tag === 'path') {
+      const d = a.get('d')!;
+      if (/[^MLZ\d\s.-]/.test(d)) throw new Error(`${source}: a path with more than M, L and Z: "${d}".`);
+      box(pairs(d), half);
+    } else if (tag === 'polyline') {
+      box(pairs(a.get('points')!), half);
+    } else {
+      throw new Error(`${source}: <${tag}> is not a shape this script knows the size of.`);
+    }
+  }
+  return extents;
+}
+
+/**
+ * The canvas a slot needs: everything it draws in every locale, plus `MARGIN`.
+ *
+ * This is what makes the box hug the drawing. The page draws each slot at a
+ * fixed `PX_PER_UNIT`, so the canvas size is the box size; a canvas declared
+ * by hand would drift from its drawing the first time a label moved or a
+ * translation grew. It is one size per slot, the largest any locale needs, so
+ * the six languages share one layout and one box. Rounded up to a multiple of
+ * 5 units so that the box is a whole number of CSS px.
+ *
+ * Nothing may start left of or above the canvas — a drawing is placed, not
+ * cropped, and the 16-unit left margin is each drawing's own.
+ */
+function measureSize(slot: Slot, extents: Extent[]): Size {
+  for (const extent of extents) {
+    if (extent.left < 0 || extent.top < 0) {
+      throw new Error(
+        `${slot.key} ${extent.source}: starts at (${Math.round(extent.left)}, ${Math.round(extent.top)}), ` +
+          'outside the canvas. Move it right or down.',
+      );
+    }
+  }
+  const up = (value: number) => Math.ceil((value + MARGIN) / 5) * 5;
+  return {
+    width: up(Math.max(...extents.map((extent) => extent.right))),
+    height: up(Math.max(...extents.map((extent) => extent.bottom))),
+  };
 }
 
 /**
@@ -1457,10 +1620,11 @@ function assertClean(slot: Slot, locale: Locale, markup: string): void {
  * `Math.random`, an id from a counter — from quietly making the whole set churn
  * on every regeneration.
  */
-function drawStable(slot: Slot, locale: Locale, fits: Fit[]): string {
-  const draw = (record: Fit[]) => slot.draw(createPen(slot, locale, record, new Set())).join('\n');
-  const first = draw(fits);
-  if (draw([]) !== first) {
+function drawStable(slot: Slot, locale: Locale, fits: Fit[], inked: Extent[]): string {
+  const draw = (record: Fit[], ink: Extent[]) =>
+    slot.draw(createPen(slot, locale, record, ink, new Set())).join('\n');
+  const first = draw(fits, inked);
+  if (draw([], []) !== first) {
     throw new Error(
       `${slot.key} [${locale}]: drawn twice in one run, it came out differently. Something ` +
         'in the drawing is not deterministic, and every regeneration will churn.',
@@ -1512,10 +1676,10 @@ function assertStringsComplete(): void {
  * The tokens mean nothing to the renderer, so this proves the markup parses,
  * not what it looks like — screenshots of the page do that.
  */
-async function assertRenders(slot: Slot, locale: Locale, markup: string): Promise<void> {
+async function assertRenders(slot: Slot, locale: Locale, markup: string, size: Size): Promise<void> {
   const svg =
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${slot.width} ${slot.height}" ` +
-    `width="${slot.width}" height="${slot.height}">${markup}</svg>`;
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size.width} ${size.height}" ` +
+    `width="${size.width}" height="${size.height}">${markup}</svg>`;
   try {
     await sharp(Buffer.from(svg)).png().toBuffer();
   } catch (error) {
@@ -1566,15 +1730,19 @@ function localeModule(locale: Locale, markup: Map<string, string>): string {
   );
 }
 
-function indexModule(): string {
-  const entries = SLOTS.map(
-    (slot) => `  '${slot.key}': { width: ${slot.width}, height: ${slot.height} },`,
-  );
+function indexModule(sizes: Map<string, Size>): string {
+  const entries = SLOTS.map((slot) => {
+    const { width, height } = sizes.get(slot.key)!;
+    return `  '${slot.key}': { width: ${width}, height: ${height} },`;
+  });
   return (
     `${BANNER}//\n` +
-    '// Every generated cheat-sheet diagram and its size in drawing units. The page\n' +
-    '// draws a 640-unit diagram 512 CSS px wide. The markup is per locale, in the\n' +
-    '// sibling modules, loaded by src/lib/cheat-sheet-diagrams.ts.\n\n' +
+    '// Every generated cheat-sheet diagram and its size in drawing units, measured\n' +
+    '// from what it draws. The page draws every diagram at CSS_PX_PER_UNIT, so this\n' +
+    '// size is also the size of its box. The markup is per locale, in the sibling\n' +
+    '// modules, loaded by src/lib/cheat-sheet-diagrams.ts.\n\n' +
+    '/** CSS px per drawing unit, on every diagram: a 17.5-unit label is 14 CSS px. */\n' +
+    `export const CSS_PX_PER_UNIT = ${PX_PER_UNIT};\n\n` +
     `export const CHEAT_SHEET_DIAGRAMS = {\n${entries.join('\n')}\n} as const;\n\n` +
     'export type CheatSheetDiagramId = keyof typeof CHEAT_SHEET_DIAGRAMS;\n'
   );
@@ -1587,24 +1755,34 @@ const checkOnly = process.argv.includes('--check');
 assertStringsComplete();
 
 const perLocale = new Map<Locale, Map<string, string>>(LOCALES.map((locale) => [locale, new Map()]));
+const sizes = new Map<string, Size>();
 for (const slot of SLOTS) {
   const fits: Fit[] = [];
+  const extents: Extent[] = [];
   let bytes = 0;
   for (const locale of LOCALES) {
-    const markup = drawStable(slot, locale, fits);
-    assertClean(slot, locale, markup);
-    await assertRenders(slot, locale, markup);
+    const markup = drawStable(slot, locale, fits, extents);
+    extents.push(...shapeExtents(markup, `[${locale}]`));
     perLocale.get(locale)!.set(slot.key, markup);
     bytes = Math.max(bytes, Buffer.byteLength(markup, 'utf8'));
   }
+  const size = measureSize(slot, extents);
+  sizes.set(slot.key, size);
+  for (const locale of LOCALES) {
+    const markup = perLocale.get(locale)!.get(slot.key)!;
+    assertClean(slot, locale, markup, size);
+    await assertRenders(slot, locale, markup, size);
+  }
+  const widest = extents.reduce((most, extent) => (extent.right > most.right ? extent : most));
   const tightest = fits.reduce((worst, fit) => (fit.width / fit.room > worst.width / worst.room ? fit : worst));
   console.log(
-    `  ${slot.key}  ${slot.width}×${slot.height}  ${(bytes / 1024).toFixed(1)} KB  ` +
+    `  ${slot.key}  ${size.width}×${size.height} (${n(size.width * PX_PER_UNIT)}×${n(size.height * PX_PER_UNIT)} px, ` +
+      `widest: ${widest.source})  ${(bytes / 1024).toFixed(1)} KB  ` +
       `tightest label ${Math.round((100 * tightest.width) / tightest.room)}% of its room (${tightest.source})`,
   );
 }
 
-const outputs = new Map<string, string>([['index.ts', indexModule()]]);
+const outputs = new Map<string, string>([['index.ts', indexModule(sizes)]]);
 for (const locale of LOCALES) outputs.set(`${locale}.ts`, localeModule(locale, perLocale.get(locale)!));
 
 const stale: string[] = [];

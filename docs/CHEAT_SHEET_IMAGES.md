@@ -53,10 +53,10 @@ are custom properties that change with `[data-theme]`, and its text is set in
 the page's own font (DM Sans, or Manrope on a Russian page).
 
 That is what allows the type scale. **Labels are 17.5 units at weight 400**,
-which at the 512 px the page draws a 640-unit diagram is **14 CSS px regular —
-the size and weight of the paragraph above it**. One **focal item** per diagram
-may be larger and bold: the Cl symbol and its two numbers, `2, 8, 1`, the Te
-and I symbols. Nothing else may.
+which at the 0.8 CSS px per unit the page draws every diagram at is **14 CSS
+px regular — the size and weight of the paragraph above it**. One **focal
+item** per diagram may be larger and bold: the Cl symbol and its two numbers,
+`2, 8, 1`, the Te and I symbols. Nothing else may.
 
 The colours are these tokens in `src/app/globals.css`, each with a value per
 theme, measured against `--diagram-bg` (the page background: `#f8fafc` light,
@@ -118,36 +118,51 @@ second, English name to disagree with it.
 
 ## How wide the page draws it
 
-**Always 512 CSS px, at every screen size.** A 640-unit diagram is therefore
-always drawn at 0.8×, and its 17.5-unit labels always land at 14 CSS px. A
-diagram that is legible on the desktop layout is legible everywhere.
+**At a fixed scale, not a fixed width: 0.8 CSS px per unit, on every screen.**
+Every 17.5-unit label therefore lands at 14 CSS px, and a diagram that is
+legible on the desktop layout is legible everywhere. The scale is
+`CSS_PX_PER_UNIT` in the generated index, written by the script, so the page and
+the script cannot disagree about it.
 
-It pans rather than shrinking because the column is the limiter. On a 320 px
-phone the column is **236 px** — the page gutter and the panel padding take 84
-between them — and at 236 the same label would draw at **6.5 CSS px**. Nothing
-that can be done to a drawing fixes that.
+**The size is measured, not declared.** No slot says how big it is. The script
+takes each canvas from what the slot draws, in all six languages — every label
+where it was placed, every shape read back from the markup — adds a 16-unit
+margin on the right and at the bottom (the drawings keep 16 on the left
+themselves), and rounds up to a multiple of 5 units so the box is a whole
+number of CSS px. The page draws the `<svg>` at that size × 0.8, and the
+`<svg>`'s own border and background are the box, so the box ends where the
+drawing does and sits at the left of the column. It is one size per slot, the
+largest any language needs, so all six share one layout. A label that grows in
+translation grows the box; nothing is hand-guessed that could drift.
+`e2e/cheat-sheet-diagrams.spec.ts` checks the same thing in a browser, in every
+locale, against the real glyphs: nothing is cut off, and the widest language
+reaches the right-hand edge less the margin.
 
-So below the `sm` breakpoint the diagram keeps its 512 px and **pans sideways
-inside its own box**, exactly as the lookup tables on the same page do. A phone
-reader sees 236 px of the diagram at a time and swipes for the rest. WCAG 1.4.10
-exempts content that needs a two-dimensional layout from the
-no-sideways-scrolling rule, which is the exemption the tables already rely on;
-the page itself still reflows at 320 px with no horizontal scrollbar.
+A diagram wider than the column pans rather than shrinking, because the column
+is the limiter. On a 320 px phone the column is **236 px** — the page gutter
+and the panel padding take 84 between them — and a 400-unit drawing shrunk to
+fit would put its labels at **10 CSS px**. Nothing that can be done to a
+drawing fixes that. So it keeps its scale and **pans sideways inside its own
+box**, exactly as the lookup tables on the same page do. WCAG 1.4.10 exempts
+content that needs a two-dimensional layout from the no-sideways-scrolling
+rule, which is the exemption the tables already rely on; the page itself still
+reflows at 320 px with no horizontal scrollbar.
 
-Two things follow for anyone drawing one of these:
+Three things follow for anyone drawing one of these:
 
-- **Put nothing load-bearing in the right-hand third alone.** A phone shows the
-  left 236 px first, and a reader who does not swipe sees only that. A diagram
-  that reads left-to-right, or whose right-hand side repeats a pattern the left
-  has already established, survives this; one whose conclusion is bottom-right
-  does not.
-- **The script enforces the left-hand rule on the four atom diagrams.** A slot
-  marked `phone` fails the run if any label, in any language, ends right of
-  `PHONE` (360 units, what a 375 px phone shows before a swipe). The drawing
-  is still 640 units wide, so on a desktop these four sit in the left of
-  their box; that is the price of every label being readable on a phone.
-- **The 640-unit width is a ceiling, not a target.** A diagram that says what it
-  has to say in 520 units, with the remainder as margin, needs less swiping.
+- **Put nothing load-bearing in the right-hand side alone.** A phone shows the
+  left of the drawing first, and a reader who does not swipe sees only that. A
+  diagram that reads left-to-right, or whose right-hand side repeats a pattern
+  the left has already established, survives this; one whose conclusion is
+  bottom-right does not.
+- **The script enforces the left-hand rule.** A slot marked `phone` fails the
+  run if any label, in any language, ends right of `PHONE` (360 units, what a
+  375 px phone shows before a swipe).
+- **Narrow is better than wide.** A canvas of 363 units or less (291 CSS px,
+  the column on a 375 px phone) does not pan there at all, and `PannableBox`
+  then shows no hint and adds no tab stop. The script prints each canvas's size
+  and its widest item on every run, so a drawing a few units over is easy to
+  pull back in.
 
 Both the diagram and the lookup tables carry a **visible "scroll me"
 affordance**: a line of text under the box reading *Scroll sideways to see the
@@ -158,7 +173,7 @@ the box a keyboard tab stop while, and only while, it actually pans.
 
 **The affordance does not excuse the rule above it.** A hint tells a reader
 there is more; it does not make them swipe, and it does nothing for the reader
-who swipes once and stops. The left 236 px still has to carry the diagram.
+who swipes once and stops. The left of the drawing still has to carry it.
 
 ---
 
@@ -172,10 +187,10 @@ deliberately not closed up: the numbers are names, not positions.
 
 | # | Key | Size | What it should show |
 |---|---|---|---|
-| 1 | `atomic-structure/01-inside-an-atom` | 640×404 | A nucleus of three filled protons and four hollow neutrons, in a **probability cloud** that is densest against the nucleus and thins out with no gap and no edge — not electrons on circular tracks. Leaders name the electron cloud, the nucleus, one proton and one neutron. One note: not to scale, the nucleus is about 1/100,000 of the atom's *width*. |
-| 2 | `atomic-structure/02-atomic-and-mass-number` | 640×304 | The Cl-35 notation: mass number 35 above atomic number 17. "mass number = protons + neutrons" above it and "atomic number = protons" below it, each joined to its number by a leader, and 35 − 17 = 18 neutrons underneath. |
-| 5 | `atomic-structure/05-energy-levels` | 640×436 | Sodium as a counting model: a neutral nucleus disc marked Na, three bands with visible edges holding 2, 8 and 1 electrons, the outer electron circled and labelled "outer level", then the focal `2, 8, 1` and "11 electrons", and the line "A way to count electrons, not a picture of an atom." No scale factor: see the script. |
-| 6 | `atomic-structure/06-ordered-by-atomic-number` | 640×256 | Tellurium and iodine as two table cells with an arrow for the table's order; "atomic number" and "relative atomic mass" named once, on tellurium's cell; "heavier, but first" and "lighter, but second" under the cells. |
+| 1 | `atomic-structure/01-inside-an-atom` | 400×415 | A nucleus of three filled protons and four hollow neutrons, in a **probability cloud** that is densest against the nucleus and thins out with no gap and no edge — not electrons on circular tracks. Leaders name the electron cloud, the nucleus, one proton and one neutron. One note: not to scale, the nucleus is about 1/100,000 of the atom's *width*. |
+| 2 | `atomic-structure/02-atomic-and-mass-number` | 355×310 | The Cl-35 notation: mass number 35 above atomic number 17. "mass number = protons + neutrons" above it and "atomic number = protons" below it, each joined to its number by a leader, and 35 − 17 = 18 neutrons underneath. |
+| 5 | `atomic-structure/05-energy-levels` | 335×450 | Sodium as a counting model: a neutral nucleus disc marked Na, three bands with visible edges holding 2, 8 and 1 electrons, the outer electron circled and labelled "outer level", then the focal `2, 8, 1` and "11 electrons", and the line "A way to count electrons, not a picture of an atom." No scale factor: see the script. |
+| 6 | `atomic-structure/06-ordered-by-atomic-number` | 360×265 | Tellurium and iodine as two table cells with an arrow for the table's order; "atomic number" and "relative atomic mass" named once, on tellurium's cell; "heavier, but first" and "lighter, but second" under the cells. |
 
 The four sections the split added — groups and periods, metals and non-metals,
 atomic size, and reactivity — carry **no diagram**. That is on purpose: the
@@ -186,8 +201,8 @@ here would be a slot nobody should fill.
 
 | # | Key | Size | What it should show |
 |---|---|---|---|
-| 3 | `isotopes-and-radioactivity/03-isotopes-of-hydrogen` | 640×280 | Three hydrogen atoms: 1 proton; 1 proton + 1 neutron; 1 proton + 2 neutrons. One electron on each. |
-| 7 | `isotopes-and-radioactivity/07-decay-and-made-elements` | 640×320 | A half-life curve halving at each step, with 100%, 50%, 25% and 12.5% marked, and carbon-14 and uranium-238 named underneath. |
+| 3 | `isotopes-and-radioactivity/03-isotopes-of-hydrogen` | 605×295 | Three hydrogen atoms: 1 proton; 1 proton + 1 neutron; 1 proton + 2 neutrons. One electron on each. |
+| 7 | `isotopes-and-radioactivity/07-decay-and-made-elements` | 635×335 | A half-life curve halving at each step, with 100%, 50%, 25% and 12.5% marked, and carbon-14 and uranium-238 named underneath. |
 
 **Slot 7 sits under the *Half-life* section, and is now the curve alone.** The
 synthetic elements that were the other half of it have moved to the periodic
@@ -251,8 +266,10 @@ in each of `src/i18n/cheat-sheets/{de,fr,es,it,ru}.ts`.
 ### Generated (preferred)
 
 1. In `scripts/cheat-sheet-diagrams.mts`, write a drawing function and add the
-   slot to `SLOTS` as `[<sheet slug>, <NN-name>, width, height, draw]`. Number a
-   new sheet's slots from 01.
+   slot to `SLOTS` as `[<sheet slug>, <NN-name>, phone, draw]`. Number a new
+   sheet's slots from 01. There is no size to give: the script measures the
+   canvas from the drawing. Start the drawing 16 units in from the left and
+   the top, and keep every label left of `PHONE`.
 2. In `scripts/cheat-sheet-diagram-strings.mts`, add a table under
    `'<sheet slug>/<NN-name>'` with every key in all six locales.
 3. Run `npm run cheat-sheets:diagrams`, and commit the strings, the script and
